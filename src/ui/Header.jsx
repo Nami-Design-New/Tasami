@@ -51,31 +51,31 @@ export default function Header() {
           </li>
 
           <li onClick={handleCloseMenu}>
-            <NavLink to="/">Home</NavLink>
+            <NavLink to="/">الرئيسية</NavLink>
           </li>
 
           <li onClick={handleCloseMenu}>
-            <NavLink to="/how-it-works">How It Works</NavLink>
+            <NavLink to="/how-it-works">كيف تعمل المنصه</NavLink>
           </li>
 
           <li onClick={handleCloseMenu}>
-            <NavLink to="/fleet">Fleet</NavLink>
+            <NavLink to="/fleet">عن تسامي</NavLink>
           </li>
 
           <li onClick={handleCloseMenu}>
-            <NavLink to="/services">Services</NavLink>
+            <NavLink to="/services">الخدمات</NavLink>
           </li>
 
           <li onClick={handleCloseMenu}>
-            <NavLink to="/memberships">Memberships types</NavLink>
+            <NavLink to="/memberships">الاسئله الشائعه</NavLink>
           </li>
 
           <li onClick={handleCloseMenu} className="hide-lg">
-            <NavLink to="/login">Login</NavLink>
+            <NavLink to="/login">تسجيل </NavLink>
           </li>
 
           <li onClick={handleCloseMenu} className="hide-lg">
-            <NavLink to="/register">Register</NavLink>
+            <NavLink to="/register">انشاء حساب</NavLink>
           </li>
 
           <button className="close" onClick={handleCloseMenu}>
@@ -84,9 +84,9 @@ export default function Header() {
         </ul>
 
         <div className="actions">
-          <Link to="/login">Login</Link>
+          <Link to="/login"> تسجيل الدخول </Link>
           <Link to="/register" className="button">
-            Register
+            انشاء حساب
           </Link>
         </div>
 

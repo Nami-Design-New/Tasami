@@ -6,6 +6,7 @@ import LoginPage from "../routes/auth/LoginPage";
 import RegisterPage from "../routes/auth/RegisterPage";
 import DashBoardHome from "../routes/dash-board/DashBoardHome";
 import PageNotFound from "../routes/PageNotFound";
+import Home from "../routes/website/Home";
 
 export const router = createBrowserRouter([
   {
@@ -20,7 +21,7 @@ export const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <p>home</p>,
+        element: <Home />,
       },
     ],
   },

@@ -5,7 +5,6 @@ import LanguageDropDown from "./LanguageDropDown";
 export default function NavBar({ collapsed, setCollapsed }) {
   const [profileDropDown, setProfileDropDown] = useState(false);
   const [isNotificationOpen, setIsNotificationOpen] = useState(false);
-  const [isSettingsOpen, setIsSettingsOpen] = useState(false);
   const [isLangOpen, setIsLangOpen] = useState(false);
   const role = "partner";
   const toggleSidebar = () => setCollapsed(!collapsed);

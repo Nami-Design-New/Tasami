@@ -626,7 +626,7 @@ input[type=email] {
   gap: 32px;
 }
 .landing_header nav .logo img {
-  height: 52px;
+  height: 45px;
 }
 .landing_header nav .nav_links {
   display: flex;
@@ -746,8 +746,16 @@ input[type=email] {
   margin-inline-start: auto;
 }
 .landing_header nav .actions .button {
+  border: none;
+  background: none;
+  outline: none;
   padding: 12px 32px;
-  color: #fff !important;
+  font-size: 14px;
+  font-weight: 500;
+  color: white !important;
+  background: rgb(33, 75, 146);
+  border-radius: 12px;
+  transition: 0.3s ease-in-out;
 }
 .landing_header nav .actions a {
   color: #0d0d0d;
@@ -1717,6 +1725,128 @@ input[type=email] {
 }
 .grid-container .main_wrap .router_wrapper .bg_white_card .form_ui .member_card .ReactFlagsSelect-module_selectBtn__19wW7 {
   background: #fff !important;
+}
+
+.hero_section {
+  width: 100%;
+  min-height: 100dvh;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow-x: hidden;
+}
+.hero_section img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.hero_section::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1;
+}
+.hero_section .hero_content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  color: white;
+  max-width: 800px;
+  padding: 0 1rem;
+}
+.hero_section .hero_content h1 {
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  margin-bottom: 1.5rem;
+}
+.hero_section .hero_content p {
+  font-size: clamp(1rem, 2vw, 1.2rem);
+  margin-bottom: 2rem;
+  line-height: 1.6;
+}
+.hero_section .hero_content .hero_buttons {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.hero_section .hero_content .hero_buttons .btn {
+  padding: 0.8rem 2rem;
+  border-radius: 12px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.hero_section .hero_content .hero_buttons .btn.primary {
+  background-color: rgb(33, 75, 146);
+  border: none;
+  color: #fff;
+}
+.hero_section .hero_content .hero_buttons .btn.primary:hover {
+  background-color: rgba(33, 75, 146, 0.8);
+}
+.hero_section .hero_content .hero_buttons .btn.secondary {
+  background-color: transparent;
+  border: 2px solid #fff;
+  color: #fff;
+}
+.hero_section .hero_content .hero_buttons .btn.secondary:hover {
+  background-color: #fff;
+  color: #0d0d0d;
+}
+
+.about_section {
+  padding: 60px 0;
+}
+.about_section .content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 16px;
+}
+.about_section .content .title {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.about_section .content .title h6 {
+  color: rgb(33, 75, 146);
+  margin: 0;
+  font-size: 28px;
+  font-weight: 400;
+}
+.about_section .content .title img {
+  animation: rotate 4s linear infinite;
+}
+.about_section .content h3 {
+  color: #0d0d0d;
+  font-size: 42px;
+}
+@media screen and (max-width: 576px) {
+  .about_section .content h3 {
+    font-size: 32px;
+  }
+}
+.about_section .content p {
+  color: #777777;
+}
+.about_section .img {
+  aspect-ratio: 5/4;
+  width: 100%;
+}
+.about_section .img img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
 }
 
 body {

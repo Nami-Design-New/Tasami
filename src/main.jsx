@@ -6,7 +6,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 import App from "./App";
 import "bootstrap/dist/css/bootstrap.min.css";
-// import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
+import "aos/dist/aos.css";
 import "./assets/styles/all.min.css";
 import "./assets/styles/style.css";
 
