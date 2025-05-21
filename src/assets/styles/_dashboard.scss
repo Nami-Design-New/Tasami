@@ -1,0 +1,1038 @@
+// Dashboard Layout Mixins
+@mixin labtop-layout {
+  @media (max-width: 992px) {
+    @content;
+  }
+}
+
+@mixin tablet-layout {
+  @media (max-width: 768px) {
+    @content;
+  }
+}
+
+@mixin small-mobile {
+  @media screen and (max-width: 576px) {
+    @content;
+  }
+}
+
+// Common UI Components
+@mixin card-container {
+  background: $white;
+  border-radius: 24px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+// Hide scrollbar but keep functionality
+@mixin hide-scrollbar {
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+// Main Grid Container
+.grid-container {
+  display: grid;
+  grid-template-areas:
+    "sidebar nav"
+    "sidebar main";
+  grid-template-columns: 300px 1fr;
+  grid-template-rows: 80px 1fr;
+  transition: $transition;
+
+  &.collapsed {
+    grid-template-columns: 80px 1fr;
+  }
+
+  @include labtop-layout {
+    display: flex;
+    flex-direction: column;
+  }
+
+  // Sidebar Component
+  .side_bar {
+    grid-area: sidebar;
+    display: flex;
+    flex-direction: column;
+    align-self: start;
+    align-items: center;
+    gap: 24px;
+    position: sticky;
+    top: 0;
+    background: $white;
+    height: 100vh;
+    overflow: hidden;
+    padding: 24px 16px 0 16px;
+    transition: $transition;
+    width: 80px;
+
+    @include labtop-layout {
+      position: fixed;
+      top: 80px;
+      width: 300px;
+      right: -300px;
+    }
+
+    // Logo
+    .logo_wrapper {
+      width: 100%;
+      img {
+        object-fit: contain;
+        height: 43px;
+      }
+      @include labtop-layout {
+        display: none;
+      }
+    }
+
+    // Navigation Menu
+    .navigation_menu {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      overflow-y: scroll;
+      @include hide-scrollbar;
+
+      h6 {
+        color: $dark;
+        margin-bottom: 0px;
+      }
+
+      // Navigation Items
+      .nav_item {
+        width: 100%;
+        a {
+          border-radius: 16px;
+          padding: 8px;
+          gap: 6px;
+          width: 100%;
+          color: $dark;
+          display: flex;
+          align-items: center;
+          white-space: nowrap;
+          transition: $transition;
+
+          .icon {
+            min-width: 36px;
+            height: 36px;
+            @include centerFlex();
+            border-radius: 12px;
+            img {
+              height: 20px;
+            }
+          }
+
+          &:hover,
+          &.active {
+            background: $main10;
+            span {
+              color: $main;
+            }
+          }
+        }
+      }
+
+      // Accordion Navigation
+      .accordion {
+        .accordion-item {
+          border: 0 !important;
+          overflow: hidden;
+
+          .accordion-header {
+            .accordion-button {
+              border-radius: 16px;
+              padding: 8px;
+              background: transparent;
+              gap: 6px;
+              width: 100%;
+              color: $dark;
+              display: flex;
+              align-items: center;
+              white-space: nowrap;
+              transition: $transition;
+              box-shadow: none;
+
+              .icon {
+                height: 36px;
+                min-width: 36px;
+                @include centerFlex();
+                border-radius: 12px;
+                img {
+                  height: 20px;
+                }
+              }
+
+              &::after {
+                content: "\f107";
+                font-family: "Font Awesome 6 pro";
+                background-image: none;
+                display: flex;
+                justify-content: flex-end;
+                transition: var(--bs-accordion-btn-icon-transition);
+                transform: none !important;
+                margin-left: 0;
+                margin-right: auto;
+              }
+            }
+          }
+
+          .accordion-body {
+            padding: 0 40px 0 40px;
+            height: 0;
+            overflow: hidden;
+
+            .sub_navigation_menu {
+              display: flex;
+              flex-direction: column;
+              gap: 4px;
+
+              span {
+                color: $dark;
+                font-size: 14px;
+              }
+
+              .sub_nav_item {
+                a {
+                  display: flex;
+                  align-items: center;
+                  gap: 8px;
+                  padding: 4px 10px;
+                  border-radius: 8px;
+                  white-space: nowrap;
+
+                  span {
+                    color: $dark;
+                    font-size: 14px;
+                  }
+
+                  img {
+                    filter: grayscale(1);
+                  }
+
+                  &:hover,
+                  &.active {
+                    background: $main10;
+                    img {
+                      filter: grayscale(0);
+                    }
+                    span {
+                      color: $main;
+                    }
+                  }
+
+                  &.disabled {
+                    pointer-events: none;
+                    opacity: 0.5;
+                  }
+                }
+              }
+            }
+          }
+        }
+
+        &.en {
+          .accordion-item {
+            .accordion-header {
+              .accordion-button {
+                &::after {
+                  margin-right: 0;
+                  margin-left: auto;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+
+    // Sidebar States
+    &.hoverExpand {
+      width: 300px;
+      position: fixed;
+      right: 0;
+      top: 0;
+      z-index: 100;
+      box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+
+      &.en {
+        left: 0;
+      }
+
+      @include labtop-layout {
+        .logo_wrapper {
+          display: none;
+        }
+      }
+
+      .accordion .accordion-item .accordion-body {
+        height: auto;
+      }
+
+      @media screen and (max-width: 992px) {
+        transition: none !important;
+        left: -300px;
+      }
+    }
+
+    &.expanded {
+      width: 300px;
+      box-shadow: none;
+
+      .accordion .accordion-item .accordion-body {
+        height: auto;
+      }
+    }
+
+    @include labtop-layout {
+      &.expanded {
+        right: 0;
+      }
+    }
+  }
+
+  // Navbar Component
+  .navbar {
+    grid-area: nav;
+    align-items: center;
+    padding: 1rem;
+    width: 100%;
+    background: $white;
+    display: flex;
+    height: 80px;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 1rem;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+
+    // Menu Toggler
+    .menuToggler {
+      width: 26px;
+      height: 18px;
+      @include clearInput();
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+
+      span {
+        transition: $transition;
+        width: 100%;
+        height: 2px;
+        display: block;
+        background-color: $main;
+        background: $main;
+
+        &:nth-child(1) {
+          width: 60%;
+        }
+
+        &:nth-child(3) {
+          width: 60%;
+        }
+      }
+
+      &.expand {
+        span {
+          background: $dark;
+
+          &:nth-child(1) {
+            width: 100%;
+          }
+
+          &:nth-child(3) {
+            width: 100%;
+          }
+        }
+      }
+    }
+
+    // Navigation Links
+    .links {
+      flex: 1;
+
+      ul {
+        display: flex;
+        height: 100%;
+
+        li {
+          height: 100%;
+          @include centerFlex();
+          padding: 0 12px;
+          height: 48px;
+
+          a {
+            color: $dark;
+            font-weight: 500;
+            transition: 0.2s;
+            white-space: nowrap;
+
+            &.active {
+              color: $main;
+            }
+
+            &:hover {
+              color: $main;
+            }
+          }
+
+          @include tablet-layout {
+            display: none;
+            &:first-child {
+              display: flex;
+            }
+          }
+        }
+      }
+    }
+
+    // Settings Area
+    .settings {
+      flex: 1;
+      position: relative;
+      display: flex;
+      justify-content: end;
+
+      ul {
+        height: 100%;
+        display: flex;
+        gap: 12px;
+
+        li {
+          position: relative;
+          @include centerFlex();
+
+          .btn {
+            background: $inputStroke;
+            @include centerFlex();
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+
+            img {
+              height: 20px;
+            }
+
+            @include tablet-layout {
+              width: 42px;
+              height: 42px;
+
+              img {
+                height: 16px;
+              }
+            }
+          }
+
+          &.notification {
+            position: relative;
+
+            a {
+              background: $main10;
+            }
+          }
+
+          .number {
+            top: 4px;
+            right: 5px;
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: #006980;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            border-radius: 50%;
+          }
+
+          .dropdownButton {
+            height: 48px;
+            border: 1px solid $inputStroke;
+            background: $white;
+            border-radius: 24px;
+            display: flex;
+            cursor: pointer;
+
+            @include tablet-layout {
+              border: none;
+              margin-right: 12px;
+            }
+
+            .avatar {
+              width: 48px;
+              height: 48px;
+              border-radius: 50%;
+              border: 1px solid $inputStroke;
+              overflow: hidden;
+              border-left: 0;
+
+              img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+              }
+            }
+
+            .name {
+              @include centerFlex();
+              padding: 0 18px 0 12px;
+
+              @include tablet-layout {
+                display: none;
+              }
+
+              h6 {
+                color: $dark;
+                margin: 0;
+                display: flex;
+                gap: 4px;
+
+                i {
+                  transform: translateY(2px);
+                  transition: $transition;
+                }
+
+                &.animate {
+                  i {
+                    transform: translateY(2px) rotate(90deg);
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+
+      // Profile Dropdown
+      .profile_dropdown {
+        position: absolute;
+        box-shadow: 0px 2px 15px -3px #00000012;
+        top: 100%;
+        z-index: 9;
+        width: 320px;
+        border-radius: 24px;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        background: $white;
+        height: 0;
+        overflow: hidden;
+        padding: 16px;
+        height: fit-content;
+        top: 58px;
+
+        @include tablet-layout {
+          right: 8px;
+        }
+
+        .account_owner {
+          gap: 12px;
+          @include centerFlex();
+          flex-direction: column;
+          position: relative;
+
+          .avatar {
+            overflow: hidden;
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            border: 1px solid $inputStroke;
+
+            .edit {
+              width: 25px;
+              height: 25px;
+              border-radius: 12px;
+              border: 1px solid $inputStroke;
+              @include centerFlex();
+              position: absolute;
+              background: $white;
+              right: 102px;
+              bottom: 56px;
+
+              img {
+                height: 12px !important;
+                object-fit: contain;
+              }
+            }
+
+            img {
+              width: 100%;
+              height: 100%;
+              object-fit: cover;
+            }
+          }
+        }
+
+        .account_welcoming {
+          width: 100%;
+
+          h6 {
+            color: $dark;
+            margin: 0;
+            text-align: center;
+          }
+
+          span {
+            color: $gray;
+            width: 100%;
+            display: block;
+            text-align: center;
+          }
+        }
+
+        .manage_invite {
+          display: flex;
+          flex-direction: column;
+          gap: 4px;
+
+          .link {
+            display: flex;
+            align-items: center;
+            padding: 4px 8px;
+            gap: 8px;
+
+            a,
+            h6 {
+              font-weight: 600;
+              font-size: 14px;
+              color: $dark;
+              cursor: pointer;
+            }
+
+            img {
+              height: 20px;
+            }
+          }
+        }
+
+        .select_frame {
+          background: $main10;
+          padding: 8px;
+          border-radius: 16px;
+          display: flex;
+          gap: 8px;
+          flex-direction: column;
+
+          .accounts {
+            padding: 12px;
+            border-radius: 12px;
+            padding: 12px;
+            background: $white;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+
+            .acc {
+              display: flex;
+              gap: 12px;
+
+              .avatar {
+                width: 52px;
+                height: 52px;
+                border-radius: 50%;
+                border: 1px solid $inputStroke;
+                overflow: hidden;
+
+                img {
+                  width: 100%;
+                  height: 100%;
+                  object-fit: cover;
+                  object-position: center;
+                }
+              }
+
+              .type_mail {
+                display: flex;
+                justify-content: center;
+                flex-direction: column;
+
+                h6 {
+                  color: $dark;
+                  font-size: 16px;
+                  margin: 0;
+                  font-weight: 600;
+                }
+
+                span {
+                  color: $gray;
+                }
+              }
+            }
+          }
+        }
+      }
+
+      // Modals
+      .modals {
+        position: absolute;
+        box-shadow: 0px 2px 15px -3px #00000012;
+        top: 100%;
+        z-index: 9;
+        border-radius: 24px;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        right: 0;
+        background: $white;
+        overflow: hidden;
+        padding: 16px;
+        transform-origin: top;
+        top: 58px;
+
+        .header {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          font-weight: 500;
+          font-size: 16px;
+          color: $dark;
+
+          p {
+            margin: 0;
+          }
+
+          a {
+            font-size: 14px;
+            font-weight: 400;
+            color: $main;
+            border: none;
+            background: none !important;
+            height: unset !important;
+          }
+        }
+
+        .body {
+          display: flex;
+          flex-direction: column;
+          gap: 4px;
+        }
+      }
+
+      .settings-gear {
+        position: relative;
+      }
+
+      .settings-modal {
+        width: 150px;
+      }
+
+      // Notification Modal
+      .notification-modal {
+        width: 320px;
+
+        .body {
+          max-height: calc(70px * 4);
+          overflow: scroll;
+          @include hide-scrollbar;
+        }
+
+        .notification-card {
+          display: flex;
+          align-items: start;
+          gap: 8px;
+          padding: 8px 4px;
+          transition: background-color 0.3s;
+          cursor: pointer;
+
+          &:hover {
+            p {
+              color: $dark !important;
+            }
+          }
+
+          .image {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            overflow: hidden;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            img {
+              width: 100%;
+              height: 100%;
+              object-fit: cover;
+            }
+          }
+
+          .content {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+
+            h3 {
+              font-weight: 400;
+              font-size: 14px;
+              color: $dark;
+              margin: 0;
+            }
+
+            p {
+              font-weight: 400;
+              font-size: 12px;
+              color: $text;
+              margin: 0;
+              transition: color 0.3s;
+            }
+          }
+        }
+      }
+
+      // Radio Buttons
+      .radio {
+        display: flex;
+        align-items: center;
+        width: 100%;
+        gap: 10px;
+        padding: 8px 12px;
+        cursor: pointer;
+
+        label {
+          cursor: pointer;
+          flex: 1;
+        }
+
+        input[type="radio"] {
+          appearance: none;
+          -webkit-appearance: none;
+          width: 16px;
+          height: 16px;
+          border: 2px solid $main10;
+          border-radius: 50%;
+          outline: none;
+          cursor: pointer;
+          position: relative;
+          &:checked::before {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: $main;
+          }
+        }
+      }
+    }
+  }
+
+  // Main Content Area
+  .main_wrap {
+    grid-area: main;
+    transition: $transition;
+    height: calc(100vh - 80px);
+    padding: 0 1rem;
+    overflow-y: auto;
+    direction: inherit;
+    background: #fff;
+
+    // Router Wrapper
+    .router_wrapper {
+      min-height: calc(100vh - 180px);
+      background: $dashboardBg;
+      border-radius: 24px;
+      padding: 32px 24px;
+      display: flex;
+      flex-direction: column;
+
+      // Page Header
+      .page_header {
+        h1 {
+          color: $JumbotronHead;
+          font-size: 32px;
+          font-weight: 500;
+          margin: 0;
+        }
+
+        h5 {
+          font-size: 16px;
+          color: $JumbotronHead;
+
+          a {
+            color: $main;
+          }
+
+          small {
+            font-size: 12px;
+          }
+        }
+      }
+
+      // Inner Card
+      .inner_card {
+        @include card-container;
+        @include small-mobile {
+          padding: 24px 8px;
+        }
+        .card_header {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          @include small-mobile {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 16px;
+          }
+
+          h3 {
+            color: $dark;
+            font-size: 20px;
+            margin: 0;
+          }
+
+          .buttons {
+            display: flex;
+            gap: 12px;
+          }
+        }
+      }
+
+      // Route Path
+      .route_path {
+        font-weight: 500;
+        display: flex;
+        gap: 8px;
+
+        a {
+          font-size: 16px;
+          color: $main;
+
+          &.disabled {
+            color: $JumbotronHead;
+            cursor: default;
+          }
+        }
+
+        span {
+          font-weight: 400;
+        }
+
+        small {
+          font-size: 12px;
+        }
+      }
+
+      // Section Main Content
+      .section-main-content {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      // Flex Header
+      .flex-header {
+        display: flex;
+        width: 100%;
+        align-items: flex-end;
+        justify-content: space-between;
+        padding: 0 8px;
+
+        .utility-buttons {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+
+          a,
+          button {
+            color: $dark;
+            display: flex;
+            align-items: center;
+            font-size: 16px;
+            font-weight: 500;
+            gap: 10px;
+            padding: 12px;
+
+            img {
+              height: 20px;
+            }
+          }
+
+          @include small-mobile {
+            gap: 0;
+            padding: 8px;
+
+            a,
+            button {
+              font-size: 16px;
+              gap: 4px;
+
+              img {
+                height: 18px;
+              }
+            }
+          }
+        }
+      }
+
+      // Background White Card
+      .bg_white_card {
+        padding: 16px;
+        background: $white;
+        border-radius: 24px;
+
+        @include small-mobile {
+          padding: 16px 8px;
+        }
+
+        .form_ui {
+          .form_title {
+            font-weight: 500;
+            color: $inputHint;
+            font-size: 16px;
+          }
+
+          .member_card {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            padding: 16px;
+            background: $inputBG;
+            border-radius: 12px;
+
+            .card_header {
+              font-size: 14px;
+              font-weight: 500;
+              color: $main;
+              margin: 0;
+            }
+
+            .card_row {
+              display: flex;
+              align-items: center;
+              gap: 8px;
+
+              div {
+                width: 100%;
+              }
+            }
+
+            input,
+            .flag-select button {
+              background-color: $white !important;
+              border-radius: 12px;
+            }
+
+            label {
+              font-weight: 500;
+            }
+
+            .ReactFlagsSelect-module_selectBtn__19wW7 {
+              background: $white !important;
+            }
+          }
+        }
+      }
+    }
+  }
+}

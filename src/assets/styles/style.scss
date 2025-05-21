@@ -1,1 +1,17 @@
-@import "./config"
+@import "./config";
+@import "./header";
+@import "./dashboard";
+body {
+  direction: rtl;
+  font-family: "Zain", serif;
+  background-color: var(--white);
+
+  main {
+    min-height: calc(100vh - 72.8px);
+  }
+
+  &.en {
+    direction: ltr;
+    font-family: "Open Sans", sans-serif;
+  }
+}

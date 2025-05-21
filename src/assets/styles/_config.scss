@@ -39,8 +39,40 @@
   box-sizing: border-box;
   scroll-behavior: smooth;
   -webkit-tap-highlight-color: transparent;
+  /* Firefox */
+  scrollbar-width: thin;
+  scrollbar-color: #989898 #fff;
 }
 
+$main: rgb(33, 75, 146);
+$main10: rgb(33, 75, 146, 0.1);
+$main25: rgb(33, 75, 146, 0.25);
+$main08: rgb(33, 75, 146, 0.08);
+$mainLight: rgba(33, 75, 146, 0.8);
+$dashboardBg: #f8f8f8;
+$second: rgb(95, 202, 250);
+$second25: rgb(95, 202, 250, 0.25);
+$second5: rgb(95, 202, 250, 0.05);
+$dark: #0d0d0d;
+$border: #dddddd;
+$inputBG: #f8f8f8;
+$inputHint: #aaaaaa;
+$gray: #777777;
+$grayLight: #777777cc;
+$lightGray: #eeeeee;
+$text: #666b88;
+$white: #fff;
+$third25: #fff5e2;
+$JumbotronHead: #4f4f4f;
+$inputStroke: #f2f2f2;
+$success: #34b53a;
+$successLight: #34b53acc;
+$danger: #ff3a29;
+$dangerLight: #dc3545cc;
+$borderRadius: 12px;
+$transition: 0.3s ease-in-out;
+
+/* WebKit-based browsers (Chrome, Safari, Edge Chromium) */
 ::-webkit-scrollbar {
   width: 4px;
 }
@@ -78,15 +110,28 @@ button {
   color: #000;
 }
 
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+  padding: 0;
+}
+
 input[type="number"] {
-  &::-webkit-outer-spin-button {
-    display: none;
-  }
+  // Chrome, Safari, Edge
+  &::-webkit-outer-spin-button,
   &::-webkit-inner-spin-button {
-    display: none;
+    -webkit-appearance: none;
+    margin: 0;
   }
-  appearance: textfield;
+
+  // Firefox
   -moz-appearance: textfield;
+  appearance: textfield;
 }
 
 .form-switch {
