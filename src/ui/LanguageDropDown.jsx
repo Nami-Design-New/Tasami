@@ -4,7 +4,7 @@ import i18next from "i18next";
 import { useEffect, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import { setLanguage } from "../redux/slices/languageSlice";
-import RadioInput from "./form/RadioInput";
+import RadioInput from "./forms/RadioInput";
 
 export default function LanguageDropDown({ isOpen, setIsOpen }) {
   const dispatch = useDispatch();

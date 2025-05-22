@@ -1,12 +1,13 @@
 import { useState } from "react";
 import { Link, NavLink } from "react-router";
+import { useSelector } from "react-redux";
 import LanguageDropDown from "./LanguageDropDown";
 
 export default function NavBar({ collapsed, setCollapsed }) {
   const [profileDropDown, setProfileDropDown] = useState(false);
   const [isNotificationOpen, setIsNotificationOpen] = useState(false);
   const [isLangOpen, setIsLangOpen] = useState(false);
-  const role = "partner";
+  const role = useSelector((state) => state.authRole.role);
   const toggleSidebar = () => setCollapsed(!collapsed);
   return (
     <nav className="navbar">
@@ -21,7 +22,7 @@ export default function NavBar({ collapsed, setCollapsed }) {
 
       <div className="links">
         <ul>
-          {role !== "partner" && (
+          {(typeof role === 'string' ? role !== "partner" : role?.en !== "partner") && (
             <>
               <li>
                 <NavLink to="" end>

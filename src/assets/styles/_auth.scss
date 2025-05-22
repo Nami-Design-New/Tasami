@@ -1,0 +1,355 @@
+.auth_section {
+  width: 100%;
+  height: 100dvh;
+  display: flex;
+  background: #fff;
+  .image_wrapper {
+    flex: 1;
+    background-size: cover;
+    transition: $transition;
+    background-position: center left;
+    @media (max-width: 768px) {
+      display: none;
+    }
+  }
+  .form_wrapper {
+    flex: 2;
+
+    .form_container {
+      overflow-y: scroll;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 3rem 0;
+      gap: 16px;
+      margin: 0 auto;
+      height: 100%;
+      width: calc(100% - 8rem);
+      scrollbar-width: none;
+      @media (max-width: 576px) {
+        padding: 2rem 0;
+      }
+      &::-webkit-scrollbar {
+        display: none;
+      }
+      scrollbar-width: none;
+      @media (max-width: 576px) {
+        width: calc(100% - 2rem);
+      }
+      @media (max-width: 768px) {
+        width: calc(100% - 2rem);
+      }
+      .form-header {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        flex-direction: column;
+        gap: 16px;
+        .logo {
+          display: flex;
+          align-items: end;
+          gap: 12px;
+          img {
+            height: 60px;
+            object-fit: contain;
+          }
+          h1 {
+            color: $main;
+            margin: 0;
+            font-weight: 400;
+            font-size: 32px;
+          }
+          span {
+            height: 50px;
+            width: 2px;
+            background: $main25;
+            display: block;
+            position: relative;
+            &::after,
+            &::before {
+              content: "";
+              position: absolute;
+              width: 4px;
+              height: 4px;
+              background: $main25;
+              top: -3px;
+              left: -1.1px;
+              border-radius: 50%;
+            }
+            &::before {
+              bottom: -3px;
+              top: initial;
+            }
+          }
+        }
+        h6 {
+          color: $dark;
+          padding-inline-start: 16px;
+          a {
+            color: $main;
+          }
+        }
+      }
+      .form {
+        width: 100%;
+        flex: 1 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        .head {
+          color: $dark;
+          font-size: 32px;
+          font-weight: 500;
+          margin-bottom: 0;
+          img {
+            height: 40px;
+          }
+        }
+        .sub-head {
+          font-size: 18px;
+          font-weight: 400;
+          color: $gray;
+          margin-bottom: 12px;
+          span {
+            color: $main;
+            font-weight: bold;
+          }
+        }
+        .selection-grid {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 12px;
+          margin-top: 24px;
+          .select {
+            height: 70px;
+            min-width: calc(50% - 6px);
+            flex: 1;
+            @include clearInput();
+            background: $inputBG;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            color: $dark;
+            transition: $transition;
+            &.active {
+              background: $main;
+              color: $white;
+            }
+          }
+        }
+        .next {
+          @include clearInput();
+          @include centerFlex();
+          width: 100%;
+          height: 60px;
+          background: $main;
+          color: $white;
+          border-radius: 12px;
+          margin-top: 24px;
+        }
+        .tabs {
+          width: 100%;
+          border-bottom: 2px solid $inputStroke;
+          gap: 0;
+          button {
+            @include clearInput();
+            padding: 4px 12px;
+            position: relative;
+            font-size: 16px;
+            font-weight: 500;
+            transition: $transition;
+            color: $dark;
+            &::after {
+              content: "";
+              position: absolute;
+              bottom: -2px;
+              width: 0;
+              left: 50%;
+              transform: translateX(-50%);
+              height: 2px;
+              background: $main;
+              transition: $transition;
+            }
+            &.active {
+              color: $main;
+              &::after {
+                width: 100%;
+              }
+            }
+          }
+        }
+        form {
+          padding: 16px 0;
+          display: flex;
+          flex-direction: column;
+          gap: 16px;
+          input {
+            height: 54px;
+            border: 1px solid $inputStroke;
+            background: $inputBG;
+            padding: 12px 16px;
+            border-radius: 8px;
+            outline: none;
+            color: $dark;
+            &::placeholder {
+              color: $inputHint;
+            }
+          }
+          a {
+            color: $main;
+            align-self: flex-end;
+            color: $main;
+          }
+          .resend {
+            @include space-between();
+            h6 {
+              color: $main;
+            }
+          }
+        }
+      }
+    }
+  }
+  .buttons {
+    display: flex;
+    gap: 12px;
+  }
+  .back {
+    @include clearInput();
+    width: 100%;
+    height: 54px;
+    border: 1px solid $dark;
+    color: $dark;
+    border-radius: 12px;
+    width: 70px;
+    font-size: 18px;
+    transition: $transition;
+    &:hover {
+      color: $main;
+      border-color: $main;
+    }
+  }
+}
+
+.reset_section {
+  padding: 60px;
+  min-height: 100dvh;
+  background: $white;
+  @include space-between();
+  flex-direction: column;
+  @media (max-width: 576px) {
+    padding: 32px 24px;
+  }
+  .header {
+    display: flex;
+    width: 100%;
+    .logo {
+      height: 60px;
+      img {
+        height: 60px;
+      }
+    }
+  }
+  .reset-container {
+    display: flex;
+    padding: 80px 0;
+    width: min(100%, 700px);
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    h1 {
+      color: $dark;
+      font-size: 32px;
+      @media (max-width: 576px) {
+        font-size: 28px;
+      }
+    }
+    p {
+      color: $gray;
+
+      text-align: center;
+      span {
+        color: $main;
+        font-weight: bold;
+      }
+      @media (max-width: 576px) {
+        font-size: 14px;
+      }
+    }
+    .reset-form {
+      padding: 24px 0;
+      width: 100%;
+      .tabs {
+        width: 100%;
+        border-bottom: 2px solid $inputStroke;
+        button {
+          @include clearInput();
+          padding: 0 12px;
+          position: relative;
+          font-size: 16px;
+          font-weight: 500;
+          transition: $transition;
+          color: $dark;
+          &::after {
+            content: "";
+            position: absolute;
+            bottom: -2px;
+            width: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            height: 2px;
+            background: $main;
+            transition: $transition;
+          }
+          &.active {
+            color: $main;
+            &::after {
+              width: 100%;
+            }
+          }
+        }
+      }
+      form {
+        padding: 16px 0;
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+
+        a {
+          color: $main;
+          align-self: flex-end;
+          color: $main;
+        }
+      }
+      .buttons {
+        display: flex;
+        gap: 12px;
+        margin-top: 8px;
+      }
+
+      .back {
+        @include clearInput();
+        @include centerFlex();
+        width: 100%;
+        height: 54px;
+        border: 1px solid $dark;
+        color: $dark;
+        border-radius: 12px;
+        width: 70px;
+        font-size: 18px;
+        transition: $transition;
+        &:hover {
+          color: $main;
+          border-color: $main;
+        }
+      }
+      .resend {
+        padding: 12px 0;
+        @include space-between();
+        h6 {
+          color: $main;
+        }
+      }
+    }
+  }
+}

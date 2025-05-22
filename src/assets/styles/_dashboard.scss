@@ -1036,3 +1036,39 @@
     }
   }
 }
+
+.dashboard--home {
+  .dashboard--home__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
+    margin-bottom: 24px;
+    .welcome {
+      h3 {
+        font-size: 18px;
+        margin-bottom: 8px;
+      }
+      p {
+        font-size: 16px;
+        color: $text;
+      }
+    }
+    .actions {
+      .btn-light {
+        background: $white;
+        color: $main;
+        border: 1px solid $main;
+      }
+      .btn-icon {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+      }
+    }
+  }
+}
+
+.card__users{
+  
+}
