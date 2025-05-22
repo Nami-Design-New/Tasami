@@ -6,6 +6,7 @@ import LoginPage from "../routes/auth/LoginPage";
 import RegisterPage from "../routes/auth/RegisterPage";
 import DashBoardHome from "../routes/dash-board/DashBoardHome";
 import PageNotFound from "../routes/PageNotFound";
+import ResetPassword from "../routes/auth/ResetPassword";
 
 export const router = createBrowserRouter([
   {
@@ -15,6 +16,7 @@ export const router = createBrowserRouter([
       { path: "/register", element: <RegisterPage /> },
     ],
   },
+  { path: "/reset-password", element: <ResetPassword /> },
   {
     element: <WebsiteLayout />,
     children: [

@@ -1,6 +1,8 @@
 @import "./config";
 @import "./header";
 @import "./dashboard";
+@import "./auth";
+@import "./form_ui";
 body {
   direction: rtl;
   font-family: "Zain", serif;
@@ -15,3 +17,5 @@ body {
     font-family: "Open Sans", sans-serif;
   }
 }
+
+

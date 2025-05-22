@@ -44,13 +44,13 @@
   scrollbar-color: #989898 #fff;
 }
 
-$main: rgb(33, 75, 146);
+$main: #214b92;
 $main10: rgb(33, 75, 146, 0.1);
 $main25: rgb(33, 75, 146, 0.25);
 $main08: rgb(33, 75, 146, 0.08);
 $mainLight: rgba(33, 75, 146, 0.8);
-$dashboardBg: #f8f8f8;
-$second: rgb(95, 202, 250);
+$dashboardBg: #f0f1f7;
+$second: #5fcafa;
 $second25: rgb(95, 202, 250, 0.25);
 $second5: rgb(95, 202, 250, 0.05);
 $dark: #0d0d0d;
@@ -234,6 +234,9 @@ input[type="number"] {
   justify-content: center;
 }
 
+.invalid-feedback {
+  display: block;
+}
 // Select customization
 
 .css-t3ipsp-control {
@@ -501,10 +504,6 @@ input[type="number"] {
       color: var(--gray);
     }
   }
-}
-
-input[type="email"] {
-  direction: ltr !important;
 }
 
 .stars_rate {
