@@ -3307,7 +3307,6 @@ body {
   direction: rtl;
   font-family: "Dubai, sans-serif";
   background-color: var(--white);
-  overflow: hidden;
 }
 body main {
   min-height: calc(100vh - 72.8px);
