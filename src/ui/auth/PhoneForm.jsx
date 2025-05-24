@@ -1,14 +1,14 @@
-import React from "react";
-import { Link } from "react-router";
-import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import InputField from "../forms/InputField";
-import BackButton from "../forms/BackButton";
-import SubmitButton from "../forms/SubmitButton";
-import PasswordField from "../forms/PasswordField";
+import { useForm } from "react-hook-form";
+import { Link, useNavigate } from "react-router";
 import { phoneSchema } from "../../validations/phoneSchema";
+import BackButton from "../forms/BackButton";
+import InputField from "../forms/InputField";
+import PasswordField from "../forms/PasswordField";
+import SubmitButton from "../forms/SubmitButton";
+import { useSelector } from "react-redux";
 
-const PhoneForm = ({ setShowLoginForm, SetShowOtpForm }) => {
+const PhoneForm = ({ setShowLoginForm }) => {
   const {
     register,
     handleSubmit,
@@ -16,6 +16,8 @@ const PhoneForm = ({ setShowLoginForm, SetShowOtpForm }) => {
   } = useForm({
     resolver: yupResolver(phoneSchema),
   });
+  const navigate = useNavigate();
+  const role = useSelector((state) => state.authRole.role);
 
   const handleBackButtonClick = (e) => {
     e.preventDefault();
@@ -24,14 +26,17 @@ const PhoneForm = ({ setShowLoginForm, SetShowOtpForm }) => {
 
   const onSubmit = (data) => {
     console.log(data);
-    // Handle login logic here
-    // If successful, you can call SetShowOtpForm(true) if needed
+    if (role === "admin") {
+      navigate("/dashboard");
+    } else if (role === "user") {
+      navigate("/");
+    }
   };
 
   return (
     <form className="form_ui" onSubmit={handleSubmit(onSubmit)}>
       <InputField
-        type="tel"
+        type="text"
         placeholder="مثال: +455 567888 555"
         {...register("phone")}
         error={errors.phone?.message}

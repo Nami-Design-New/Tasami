@@ -4,19 +4,18 @@
 @import "./landing";
 @import "./auth";
 @import "./form_ui";
+@import "./fonts";
 body {
   direction: rtl;
-  font-family: "Zain", serif;
+  font-family: "Dubai, sans-serif";
   background-color: var(--white);
-
+  overflow: hidden;
   main {
     min-height: calc(100vh - 72.8px);
   }
 
   &.en {
     direction: ltr;
-    font-family: "Open Sans", sans-serif;
+    font-family: "Roboto", sans-serif;
   }
 }
-
-

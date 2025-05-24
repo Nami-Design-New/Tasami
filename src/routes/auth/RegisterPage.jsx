@@ -1,24 +1,25 @@
-import { useState, useEffect } from "react";
-import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import OtpForm from "../../ui/auth/OtpForm";
 import BackButton from "../../ui/forms/BackButton";
 import DatePicker from "../../ui/forms/DatePicker";
 import InputField from "../../ui/forms/InputField";
-import SelectField from "../../ui/forms/SelectField";
-import SubmitButton from "../../ui/forms/SubmitButton";
 import PasswordField from "../../ui/forms/PasswordField";
 import PhoneField from "../../ui/forms/PhoneField";
-import { personalInfoSchema, accountInfoSchema } from "../../validations/registerSchema";
-import OtpContainer from "../../ui/forms/OtpContainer";
+import SelectField from "../../ui/forms/SelectField";
+import SubmitButton from "../../ui/forms/SubmitButton";
+import {
+  accountInfoSchema,
+  personalInfoSchema,
+} from "../../validations/registerSchema";
 
 const RegisterPage = () => {
   // Form state management
   const [step, setStep] = useState(1);
+
   const [showOtpForm, setShowOtpForm] = useState(false);
-  const [otpCode, setOtpCode] = useState("");
   const [loading, setLoading] = useState(false);
-  const [timer, setTimer] = useState(60);
-  const [resendDisabled, setResendDisabled] = useState(true);
 
   // Step 1: Personal Information Form
   const personalInfoForm = useForm({
@@ -34,7 +35,12 @@ const RegisterPage = () => {
 
   // Get the current form based on step
   const currentForm = step === 1 ? personalInfoForm : accountInfoForm;
-  const { register, handleSubmit, formState: { errors } } = currentForm;
+  const {
+    watch,
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = currentForm;
 
   // Handle form submission for each step
   const onSubmitStep1 = (data) => {
@@ -52,18 +58,6 @@ const RegisterPage = () => {
     }, 1000);
   };
 
-  // Handle OTP verification
-  const handleOtpSubmit = (e) => {
-    e.preventDefault();
-    setLoading(true);
-    // Simulate API call for OTP verification
-    setTimeout(() => {
-      setLoading(false);
-      // Navigate to success page or dashboard
-      console.log("Registration successful with OTP:", otpCode);
-    }, 1000);
-  };
-
   // Handle back button
   const handleBack = () => {
     if (step === 2) {
@@ -73,33 +67,13 @@ const RegisterPage = () => {
     }
   };
 
-  // Handle resend OTP
-  const handleResendOtp = () => {
-    if (!resendDisabled) {
-      setTimer(60);
-      setResendDisabled(true);
-      // Simulate API call to resend OTP
-      console.log("Resending OTP...");
-    }
-  };
-
-  // Timer effect for OTP resend
-  useEffect(() => {
-    let interval;
-    if (showOtpForm && timer > 0) {
-      interval = setInterval(() => {
-        setTimer((prevTimer) => prevTimer - 1);
-      }, 1000);
-    } else if (timer === 0) {
-      setResendDisabled(false);
-    }
-    return () => clearInterval(interval);
-  }, [showOtpForm, timer]);
-
   return (
-    <div className="form_wrapper register">
+    <div className="form_wrapper  register">
       {!showOtpForm ? (
-        <form className="form_ui mt-3" onSubmit={handleSubmit(step === 1 ? onSubmitStep1 : onSubmitStep2)}>
+        <form
+          className="form_ui mt-3"
+          onSubmit={handleSubmit(step === 1 ? onSubmitStep1 : onSubmitStep2)}
+        >
           {step === 1 && (
             <div className="row">
               <div className="col-12 col-lg-6 p-2">
@@ -253,37 +227,11 @@ const RegisterPage = () => {
           )}
         </form>
       ) : (
-        <form onSubmit={handleOtpSubmit} className="reset-form">
-          <h3 className="text-center mb-4">أدخل رمز التحقق</h3>
-          <p className="text-center mb-4">تم إرسال رمز التحقق إلى هاتفك</p>
-          
-          <OtpContainer setCode={setOtpCode} length={4} />
-          
-          <div className="resend">
-            <h6
-              onClick={handleResendOtp}
-              style={{
-                cursor: "pointer",
-                pointerEvents: resendDisabled ? "none" : "auto",
-              }}
-            >
-              إعادة إرسال الرمز
-            </h6>
-            <p>
-              <span>
-                {Math.floor(timer / 60)
-                  .toString()
-                  .padStart(2, "0")}
-              </span>{" "}
-              : <span>{(timer % 60).toString().padStart(2, "0")}</span>
-            </p>
-          </div>
-
-          <div className="buttons">
-            <BackButton onClick={handleBack} />
-            <SubmitButton loading={loading} text="تأكيد" />
-          </div>
-        </form>
+        <OtpForm
+          email={watch("email")}
+          setShowOtpForm={setShowOtpForm}
+          showOtpForm={showOtpForm}
+        />
       )}
     </div>
   );

@@ -4,19 +4,12 @@ export const authRole = createSlice({
   name: "authRole",
 
   initialState: {
-    role: { en: "user", ar: "مستخدم" },
+    role: "user",
   },
 
   reducers: {
     setRole: (state, action) => {
-      // Handle both string and object payloads for backward compatibility
-      if (typeof action.payload === 'string') {
-        // If string is passed, try to find matching role
-        state.role = action.payload;
-      } else if (action.payload && typeof action.payload === 'object') {
-        // If object with en/ar properties is passed
-        state.role = action.payload;
-      }
+      state.role = action.payload;
     },
   },
 });

@@ -20,7 +20,7 @@ const AuthLayout = () => {
           <div className="form-header">
             <div className="logo">
               <Link to="/">
-                <img src="/images/logo.png" alt="logo" />
+                <img src="/images/logo.svg" alt="logo" />
               </Link>
               <span />
               <h1>{getHeadingText()}</h1>

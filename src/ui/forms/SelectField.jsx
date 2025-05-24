@@ -3,6 +3,8 @@ import { Form } from "react-bootstrap";
 
 const SelectField = React.forwardRef(
   ({ label, hint, options, error, ...props }, ref) => {
+    console.log(error);
+
     return (
       <div className="input-field">
         {label && (

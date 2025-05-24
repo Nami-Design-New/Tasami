@@ -1,13 +1,13 @@
 import { useState } from "react";
-import { Link, NavLink } from "react-router";
-import { useSelector } from "react-redux";
+import { Link } from "react-router";
 import LanguageDropDown from "./LanguageDropDown";
+import NotificationMenu from "./NotificationMenu";
+import ProfileMenu from "./ProfileMenu";
 
 export default function NavBar({ collapsed, setCollapsed }) {
   const [profileDropDown, setProfileDropDown] = useState(false);
   const [isNotificationOpen, setIsNotificationOpen] = useState(false);
   const [isLangOpen, setIsLangOpen] = useState(false);
-  const role = useSelector((state) => state.authRole.role);
   const toggleSidebar = () => setCollapsed(!collapsed);
   return (
     <nav className="navbar">
@@ -20,9 +20,11 @@ export default function NavBar({ collapsed, setCollapsed }) {
         <span />
       </button>
 
-      <div className="links">
+      {/* <div className="links">
         <ul>
-          {(typeof role === 'string' ? role !== "partner" : role?.en !== "partner") && (
+          {(typeof role === "string"
+            ? role !== "partner"
+            : role?.en !== "partner") && (
             <>
               <li>
                 <NavLink to="" end>
@@ -43,7 +45,7 @@ export default function NavBar({ collapsed, setCollapsed }) {
             </>
           )}
         </ul>
-      </div>
+      </div> */}
       <div className="settings">
         <ul>
           <li className="settings-gear">
@@ -66,10 +68,10 @@ export default function NavBar({ collapsed, setCollapsed }) {
               <i className="fa-light fa-bell"></i>
               <span className="number">3</span>
             </div>
-            {/* <NotificationMenu
+            <NotificationMenu
               setIsOpen={setIsNotificationOpen}
               isOpen={isNotificationOpen}
-            /> */}
+            />
           </li>
 
           <li className="profile">
@@ -82,18 +84,18 @@ export default function NavBar({ collapsed, setCollapsed }) {
               </div>
               <div className="name">
                 <h6 className={profileDropDown ? "animate" : ""}>
-                  <i className="fa-regular fa-angle-right" />
+                  محمود عباس
+                  <i className="fa-regular fa-angle-left" />
                 </h6>
               </div>
             </div>
           </li>
         </ul>
 
-        {/* <ProfileMenu
-          organization={organization}
+        <ProfileMenu
           profileDropDown={profileDropDown}
           setProfileDropDown={setProfileDropDown}
-        /> */}
+        />
       </div>
     </nav>
   );

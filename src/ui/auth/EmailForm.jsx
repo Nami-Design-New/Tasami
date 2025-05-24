@@ -1,4 +1,4 @@
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import BackButton from "../forms/BackButton";
 import InputField from "../forms/InputField";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -6,15 +6,19 @@ import SubmitButton from "../forms/SubmitButton";
 import PasswordField from "../forms/PasswordField";
 import { useForm } from "react-hook-form";
 import { loginSchema } from "../../validations/loginschema";
+import { useSelector } from "react-redux";
 
-const EmailForm = ({ setShowLoginForm, SetShowOtpForm }) => {
+const EmailForm = ({ setShowLoginForm }) => {
   const {
     register,
     handleSubmit,
-    formState: { errors, isSubmitting },
+    formState: { errors },
   } = useForm({
     resolver: yupResolver(loginSchema),
   });
+  const navigate = useNavigate();
+  const role = useSelector((state) => state.authRole.role);
+
   const handleBackButtonClick = (e) => {
     e.preventDefault();
     setShowLoginForm(false);
@@ -24,6 +28,12 @@ const EmailForm = ({ setShowLoginForm, SetShowOtpForm }) => {
       className="form_ui"
       onSubmit={handleSubmit((data) => {
         console.log(data);
+
+        if (role === "admin") {
+          navigate("/dashboard");
+        } else if (role === "user") {
+          navigate("/");
+        }
       })}
     >
       <InputField
@@ -43,7 +53,7 @@ const EmailForm = ({ setShowLoginForm, SetShowOtpForm }) => {
 
       <div className="buttons">
         <BackButton onClick={handleBackButtonClick} />
-        <SubmitButton text="تسجيل" loading={isSubmitting} />
+        <SubmitButton text="تسجيل" />
       </div>
     </form>
   );

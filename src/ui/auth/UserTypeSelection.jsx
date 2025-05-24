@@ -1,25 +1,11 @@
 import { useDispatch, useSelector } from "react-redux";
 import { setRole } from "../../redux/slices/authRole";
 
-const ROLES = [
-  { en: "admin", ar: "موظف" },
-  { en: "user", ar: "مستخدم" },
-];
+const ROLES = ["admin", "user"];
 
 export default function UserTypeSelection({ setShowLoginForm }) {
   const role = useSelector((state) => state.authRole.role);
-  const lang = useSelector((state) => state.language.lang);
   const dispatch = useDispatch();
-
-  // Helper function to check if a role is active
-  const isRoleActive = (roleObj) => {
-    if (typeof role === 'string') {
-      return role === roleObj.en || role === roleObj.ar;
-    } else if (role && typeof role === 'object') {
-      return role.en === roleObj.en;
-    }
-    return false;
-  };
 
   return (
     <div className="form">
@@ -28,13 +14,13 @@ export default function UserTypeSelection({ setShowLoginForm }) {
       </h2>
       <p className="sub-head">من فضلك اختر دور المستخدم</p>
       <div className="selection-grid">
-        {ROLES.map((roleObj) => (
+        {ROLES.map((r) => (
           <button
-            key={roleObj.en}
-            className={`select ${isRoleActive(roleObj) ? "active" : ""}`}
-            onClick={() => dispatch(setRole(roleObj))}
+            key={r}
+            className={`select ${r === role ? "active" : ""}`}
+            onClick={() => dispatch(setRole(r))}
           >
-            {lang === "en" ? roleObj.en : roleObj.ar}
+            {r}
           </button>
         ))}
       </div>

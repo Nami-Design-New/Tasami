@@ -25,7 +25,7 @@ export default function ResetPassword() {
     <section className="reset_section">
       <div className="header">
         <Link to="/" className="logo">
-          <img src="/images/logo.png" alt="logo" />
+          <img src="/images/logo.svg" alt="logo" />
         </Link>
       </div>
       <div className="reset-container">

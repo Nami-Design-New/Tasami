@@ -1,6 +1,8 @@
+// components/DonutChart.js
 import ReactApexChart from "react-apexcharts";
+import ChartCard from "./ChartCard";
 
-const DonutChart = () => {
+const UsersChart = () => {
   const series = [45, 55];
 
   const options = {
@@ -24,12 +26,8 @@ const DonutChart = () => {
       {
         breakpoint: 480,
         options: {
-          chart: {
-            width: 300,
-          },
-          legend: {
-            position: "bottom",
-          },
+          chart: { width: 200 },
+          legend: { position: "bottom" },
         },
       },
     ],
@@ -39,11 +37,7 @@ const DonutChart = () => {
           size: "80%",
           labels: {
             show: true,
-            name: {
-              show: true,
-              fontSize: "16px",
-              offsetY: -10,
-            },
+            name: { show: true, fontSize: "16px", offsetY: -10 },
             value: {
               show: true,
               fontSize: "20px",
@@ -52,12 +46,11 @@ const DonutChart = () => {
             },
             total: {
               show: true,
-              label: "Total",
+              label: "الكلي",
               fontSize: "16px",
               fontWeight: 500,
-              formatter: function (w) {
-                return w.globals.seriesTotals.reduce((a, b) => a + b, 0);
-              },
+              formatter: (w) =>
+                w.globals.seriesTotals.reduce((a, b) => a + b, 0),
             },
           },
         },
@@ -66,16 +59,15 @@ const DonutChart = () => {
   };
 
   return (
-    <div className="card__users">
-      <h3 className=""> عدد المستخدمين </h3>
+    <ChartCard title={"عدد المستخدمين"}>
       <ReactApexChart
         options={options}
         series={series}
         type="donut"
         width="100%"
       />
-    </div>
+    </ChartCard>
   );
 };
 
-export default DonutChart;
+export default UsersChart;

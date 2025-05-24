@@ -5,7 +5,6 @@ import { useSelector } from "react-redux";
 const PasswordField = React.forwardRef(({ label, error, ...props }, ref) => {
   const [showPass, setShowPass] = useState(false);
   const lang = useSelector((state) => state.language.lang);
-  console.log(error);
 
   const handleInputType = (e) => {
     e.preventDefault();

@@ -3,20 +3,9 @@ import { useSelector } from "react-redux";
 import EmailForm from "./EmailForm";
 import PhoneForm from "./PhoneForm";
 
-const LoginForm = ({ setShowLoginForm, SetShowOtpForm }) => {
+const LoginForm = ({ setShowLoginForm }) => {
   const [formType, setFormType] = useState("email");
   const role = useSelector((state) => state.authRole.role);
-  const lang = useSelector((state) => state.language.lang);
-
-  // Get the appropriate role text based on current language
-  const getRoleText = () => {
-    if (typeof role === "string") {
-      return role; // For backward compatibility
-    } else if (role && typeof role === "object") {
-      return lang === "en" ? role.en : role.ar;
-    }
-    return "";
-  };
 
   return (
     <div className="form">
@@ -25,7 +14,7 @@ const LoginForm = ({ setShowLoginForm, SetShowOtpForm }) => {
       </h2>
       <p className="sub-head">
         الرجاء إدخال عنوان البريد الإلكتروني أو رقم الهاتف المسجل لدينا كـ{" "}
-        <span>{getRoleText()}</span>.
+        <span>{role}</span>.
       </p>
 
       <div className="tabs">
@@ -44,17 +33,11 @@ const LoginForm = ({ setShowLoginForm, SetShowOtpForm }) => {
       </div>
 
       {formType === "email" && (
-        <EmailForm
-          setShowLoginForm={setShowLoginForm}
-          SetShowOtpForm={SetShowOtpForm}
-        />
+        <EmailForm setShowLoginForm={setShowLoginForm} />
       )}
 
       {formType === "phone" && (
-        <PhoneForm
-          setShowLoginForm={setShowLoginForm}
-          SetShowOtpForm={SetShowOtpForm}
-        />
+        <PhoneForm setShowLoginForm={setShowLoginForm} />
       )}
     </div>
   );

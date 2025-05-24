@@ -41,8 +41,8 @@ export default function SideBar({ hoverExpand, setHoverExpand, collapsed }) {
           <img
             src={`${
               collapsed === true && hoverExpand === false
-                ? "/images/Fav.svg"
-                : "/images/Logo.svg"
+                ? "/images/fav.svg"
+                : "/images/logo.svg"
             }`}
             alt={`  ${
               collapsed === true && hoverExpand === false ? "fav" : "logo"
