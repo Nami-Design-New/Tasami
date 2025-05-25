@@ -1,5 +1,5 @@
 import { ProgressBar } from "react-bootstrap";
-import ChartCard from "./ChartCard";
+import ChartCard from "../cards/ChartCard";
 
 const TaskStatus = () => {
   const data = {

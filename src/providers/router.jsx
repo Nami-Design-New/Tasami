@@ -4,10 +4,11 @@ import DashBoardLayout from "../layout/DashboradLayout";
 import WebsiteLayout from "../layout/WebsiteLayout";
 import LoginPage from "../routes/auth/LoginPage";
 import RegisterPage from "../routes/auth/RegisterPage";
-import DashBoardHome from "../routes/dash-board/DashBoardHome";
+import DashBoardHome from "../routes/dash-board/DashboardHome";
 import PageNotFound from "../routes/PageNotFound";
 import ResetPassword from "../routes/auth/ResetPassword";
 import Home from "../routes/website/Home";
+import Notifications from "../routes/dash-board/Notifications";
 
 export const router = createBrowserRouter([
   {
@@ -34,6 +35,10 @@ export const router = createBrowserRouter([
       {
         index: true,
         element: <DashBoardHome />,
+      },
+      {
+        path: "notifications",
+        element: <Notifications />,
       },
     ],
   },

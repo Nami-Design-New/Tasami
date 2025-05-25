@@ -1,16 +1,16 @@
 // components/DonutChart.js
 import ReactApexChart from "react-apexcharts";
-import ChartCard from "./ChartCard";
+import ChartCard from "../cards/ChartCard";
 
-const UsersChart = () => {
-  const series = [45, 55];
+const EmployersChart = () => {
+  const series = [20, 55, 150];
 
   const options = {
-    labels: ["عدد المستفيدين", "عدد المساعدين"],
+    labels: ["عدد التنفيذيين", "عدد المشرفين", "عدد الموظفين "],
     chart: {
       type: "donut",
     },
-    colors: ["#214b92", "#5fcafa"],
+    colors: ["#214b92", "#5fcafa", "#5f4aff"],
     legend: {
       position: "bottom",
       fontSize: "14px",
@@ -59,15 +59,18 @@ const UsersChart = () => {
   };
 
   return (
-    <ChartCard title={"عدد المستخدمين"}>
-      <ReactApexChart
-        options={options}
-        series={series}
-        type="donut"
-        width="100%"
-      />
+    <ChartCard title={"عدد الموظفين"}>
+      <div className="d-flex align-items-center justify-content-center">
+        <ReactApexChart
+          options={options}
+          series={series}
+          type="donut"
+          width={300} // 👈 Controls full chart width
+          height={300} // 👈 Controls full chart height
+        />
+      </div>
     </ChartCard>
   );
 };
 
-export default UsersChart;
+export default EmployersChart;

@@ -441,7 +441,7 @@
             position: absolute;
             width: 20px;
             height: 20px;
-            background: #006980;
+            background: #214b92;
             color: #fff;
             display: flex;
             align-items: center;
@@ -848,6 +848,8 @@
     overflow-y: auto;
     direction: inherit;
     background: #fff;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
 
     // Router Wrapper
     .router_wrapper {
@@ -919,6 +921,7 @@
         font-weight: 500;
         display: flex;
         gap: 8px;
+        margin-top: 10px;
 
         a {
           font-size: 16px;
@@ -1237,10 +1240,9 @@
   border-radius: 0.5rem;
   border: 0;
   position: relative;
-  margin-block-end: 1.5rem;
   width: 100%;
   gap: 10px;
-
+  height: 100%;
   .left {
     display: flex;
     align-items: start;
@@ -1405,52 +1407,118 @@
     font-size: 12px;
     padding: 10px 16px;
   }
-  .popover {
-    min-width: 200px;
-    overflow: hidden;
-    .popover-header {
-      font-size: 12px;
-      padding: 12px;
-      background-color: $white;
-      border: none;
-    }
-    .popover-body {
-      padding: 0 !important;
-      .status-container {
+}
+.popover {
+  min-width: 200px;
+  overflow: hidden;
+  .popover-header {
+    font-size: 12px;
+    padding: 12px;
+    background-color: $white;
+    border: none;
+  }
+  .popover-body {
+    padding: 0 !important;
+    .status-container {
+      display: flex;
+      align-items: start;
+      flex-direction: column;
+      overflow: hidden;
+      button {
+        padding: 6px 10px;
+        width: 100%;
+        text-align: start;
+        padding: 12px;
         display: flex;
-        align-items: start;
-        flex-direction: column;
-        overflow: hidden;
-        button {
-          padding: 6px 10px;
-          width: 100%;
-          text-align: start;
-          padding: 12px;
-          display: flex;
-          align-items: center;
-          font-weight: 500;
-          gap: 12px;
-          font-size: 12px;
-          .color-icon {
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            &.active {
-              background-color: #28a745;
-            }
-            &.inactive {
-              background-color: #dc3545;
-            }
+        align-items: center;
+        font-weight: 500;
+        gap: 12px;
+        font-size: 12px;
+        .color-icon {
+          width: 10px;
+          height: 10px;
+          border-radius: 50%;
+          &.active {
+            background-color: #28a745;
           }
-          &:hover {
-            background-color: $inputBG;
+          &.inactive {
+            background-color: #dc3545;
           }
-          &.selected {
-            background-color: $inputBG;
-            font-weight: 600;
-          }
+        }
+        &:hover {
+          background-color: $inputBG;
+        }
+        &.selected {
+          background-color: $inputBG;
+          font-weight: 600;
         }
       }
     }
   }
+}
+
+.quick__actions--list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.action__button {
+  padding: 20px;
+  min-width: 150px;
+  border: 1px solid $border;
+  border-radius: $borderRadius;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 10px;
+  box-shadow: 0 0 3px 0px rgba(0, 0, 0, 0.04);
+  transition: $transition;
+  &:hover {
+    transform: translateY(-3px);
+  }
+  img {
+    width: 35px;
+    aspect-ratio: 1/1;
+  }
+  span {
+    font-size: 16px;
+    font-weight: 700;
+  }
+}
+
+.table--wrapper {
+  margin-top: 30px;
+}
+
+/* styles.css or inside a CSS module */
+
+.table-container {
+  direction: rtl;
+  padding: 1rem;
+  background-color: #f9f9f9;
+}
+
+.dataTables_wrapper .dataTables_filter label {
+  float: left !important;
+  text-align: right !important;
+}
+
+.dataTables_wrapper .dataTables_length,
+.dataTables_wrapper .dataTables_info,
+.dataTables_wrapper .dataTables_paginate {
+  text-align: right !important;
+  direction: rtl;
+}
+
+.table th,
+.table td {
+  vertical-align: middle;
+  text-align: center;
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+  background-color: #f2f2f2;
 }

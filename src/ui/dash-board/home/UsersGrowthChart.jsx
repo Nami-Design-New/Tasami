@@ -1,5 +1,5 @@
 import ReactApexChart from "react-apexcharts";
-import ChartCard from "./ChartCard";
+import ChartCard from "../cards/ChartCard";
 
 const UserGrowthChart = () => {
   const series = [

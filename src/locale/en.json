@@ -1,3 +1,7 @@
 {
-    "hello": "Hello"
+  "hello": "Hello",
+  "pageHeaders": {
+    "Notifications": "Notifications",
+    "Dashboard": "Dashboard"
+  }
 }

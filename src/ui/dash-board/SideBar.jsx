@@ -54,7 +54,7 @@ export default function SideBar({ hoverExpand, setHoverExpand, collapsed }) {
       {/* navigation menu */}
       <ul className="navigation_menu">
         <li className="nav_item mb-2">
-          <NavLink to="" end>
+          <NavLink to="/dashboard" end>
             <div className="icon">
               <img src="/sys-icons/Dashboard.svg" alt="dashboard" />
             </div>
@@ -62,7 +62,7 @@ export default function SideBar({ hoverExpand, setHoverExpand, collapsed }) {
           </NavLink>
         </li>
         <li className="nav_item mb-2">
-          <NavLink to="" end>
+          <NavLink to="notifications" end>
             <div className="icon">
               <img src="/sys-icons/notification.svg" alt="notifications" />
             </div>
@@ -70,9 +70,9 @@ export default function SideBar({ hoverExpand, setHoverExpand, collapsed }) {
           </NavLink>
         </li>
         <li className="nav_item mb-2">
-          <NavLink to="" end>
+          <NavLink to="emplotment-info" end>
             <div className="icon">
-              <img src="/sys-icons/notification.svg" alt="notifications" />
+              <img src="/icons/employment-info.svg" alt="notifications" />
             </div>
             <h6> البيانات التوظيفيه </h6>
           </NavLink>

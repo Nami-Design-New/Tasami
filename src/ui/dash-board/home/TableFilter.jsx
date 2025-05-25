@@ -1,5 +1,5 @@
 import { OverlayTrigger, Popover } from "react-bootstrap";
-import InputField from "../../ui/forms/InputField";
+import InputField from "../../forms/InputField";
 
 const STATUS = ["نشط", "موقوف"];
 
@@ -92,7 +92,6 @@ const TableFilter = ({
           <i className="fa-regular fa-filter"></i>
         </button>
       </OverlayTrigger>
-      
     </div>
   );
 };

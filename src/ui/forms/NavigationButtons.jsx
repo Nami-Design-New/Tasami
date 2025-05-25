@@ -26,7 +26,7 @@ export default function NavigationButtons({
           onClick={onNext}
           className="button next-button"
           style={{
-            backgroundColor: "#006980",
+            backgroundColor: "#214b92",
             color: "#fff",
           }}
         >

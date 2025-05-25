@@ -316,7 +316,6 @@ const PremiumClientsTable = () => {
                         ? "#fff"
                         : "#214b92",
 
-                
                     fontWeight:
                       table.getState().pagination.pageIndex === i
                         ? "bold"

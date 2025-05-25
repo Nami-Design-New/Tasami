@@ -1,3 +1,7 @@
 {
-    "hello": "مرحبا"
+  "hello": "مرحبا",
+  "pageHeaders": {
+    "Notifications": " التنبيهات ",
+    "Dashboard": " لوحة التحكم "
+  }
 }

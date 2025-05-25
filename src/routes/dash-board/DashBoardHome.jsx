@@ -1,10 +1,11 @@
-import EmployersChart from "./EmployersChart";
-import RevenueAnalyticsCard from "./RevenueAnalyticsCard ";
-import StatCard from "./StatCard";
-import TaskStatus from "./TaskStatus";
-import UserGrowthChart from "./UsersGrowthChart";
-import UsersTable from "./UsersTable";
-
+import RevenueAnalyticsCard from "../../ui/dash-board/cards/RevenueAnalyticsCard ";
+import EmployersChart from "../../ui/dash-board/home/EmployersChart";
+import StatCard from "../../ui/dash-board/cards/StatCard";
+import TaskStatus from "../../ui/dash-board/home/TaskStatus";
+import UserGrowthChart from "../../ui/dash-board/home/UsersGrowthChart";
+import UsersTable from "../../ui/dash-board/home/UsersTable";
+import ChartCard from "../../ui/dash-board/cards/ChartCard";
+// import ChartCard from "..";
 export default function DashBoardHome() {
   return (
     <section className="dashboard--home">
@@ -26,7 +27,7 @@ export default function DashBoardHome() {
         </div>
       </div>
       <div className="row">
-        <div className="col-12  col-md-6 col-xxl-3">
+        <div className="col-12  col-lg-6 col-xxl-3 p-2  ">
           <StatCard
             icon={<i className="fa-solid fa-handshake"></i>}
             title="عدد طلبات المساعد"
@@ -37,7 +38,7 @@ export default function DashBoardHome() {
             color="#805AD5"
           />
         </div>
-        <div className="col-12 col-md-6 col-xxl-3">
+        <div className="col-12 col-lg-6  col-xxl-3 p-2 ">
           {" "}
           <StatCard
             icon={<i className="fa-light fa-users"></i>}
@@ -49,7 +50,7 @@ export default function DashBoardHome() {
             color="#23B7E5"
           />
         </div>
-        <div className="col-12 col-md-6 col-xxl-3">
+        <div className="col-12 col-lg-6 col-xxl-3 p-2">
           {" "}
           <StatCard
             icon={<i className="fa-light fa-users"></i>}
@@ -61,7 +62,7 @@ export default function DashBoardHome() {
             color="#F5B849"
           />
         </div>
-        <div className="col-12 col-md-6 col-xxl-3">
+        <div className="col-12 col-lg-6 col-xxl-3 p-2">
           {" "}
           <StatCard
             icon={<i className="fa-solid fa-users-medical"></i>}
@@ -72,6 +73,26 @@ export default function DashBoardHome() {
             chartData={[12, 20, 18, 25, 22, 30, 28]}
             color="#26BF94"
           />
+        </div>
+        <div className="col-12 pt-2">
+          <ChartCard title={" اجراءات عاجله  "}>
+            <div className="quick__actions--list">
+              <button className="action__button">
+                <img src="./icons/add-user.svg" /> <span> انشاء موظف </span>{" "}
+              </button>
+              <button className="action__button">
+                <img src="./icons/permisson_icon.svg" />{" "}
+                <span> انشاء صلاحيه </span>{" "}
+              </button>
+              <button className="action__button">
+                <img src="./icons/delete-user.svg" /> <span> ايقاف موظف </span>{" "}
+              </button>
+              <button className="action__button">
+                <img src="./icons/add-fileds.svg" />{" "}
+                <span> اضافه مجال جديد </span>{" "}
+              </button>
+            </div>
+          </ChartCard>
         </div>
       </div>
       <div className="row">
@@ -96,93 +117,6 @@ export default function DashBoardHome() {
           <UsersTable />
         </div>
       </div>
-
-      {/* <div className="row">
-        <div className="col-xxl-9 col-xl-12 p-0">
-          <div className="row">
-            <div className="col-xl-4 ">
-              <div className="row">
-                <div className="col-xl-12 p-0">
-                  <DonutChart />
-                </div>
-                <div className="p-0 col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                  <TaskStatus />
-                </div>
-              </div>
-            </div>
-            <div className="col-xl-8 ">
-              <div className="row">
-                <div className="p-0 col-xxl-6 col-lg-6 col-md-6">
-                  <StatCard
-                    icon={<i className="fa-solid fa-handshake"></i>}
-                    title="عدد طلبات المساعد"
-                    value="1,02,890"
-                    percentage="40"
-                    timeframe="هذا الشهر"
-                    chartData={[12, 20, 18, 25, 22, 30, 28]}
-                    color="#805AD5"
-                  />
-                </div>
-                <div className="p-0 col-xxl-6 col-lg-6 col-md-6">
-                  {" "}
-                  <StatCard
-                    icon={<i className="fa-light fa-users"></i>}
-                    title=" عدد البرامج "
-                    value="1,02,890"
-                    percentage="32"
-                    timeframe="هذا الشهر"
-                    chartData={[12, 20, 18, 25, 50, 30, 28]}
-                    color="#23B7E5"
-                  />
-                </div>
-                <div className="p-0 col-xxl-6 col-lg-6 col-md-6">
-                  {" "}
-                  <StatCard
-                    icon={<i className="fa-light fa-users"></i>}
-                    title="عدد  الحسابات الاساسيه"
-                    value="1,02,890"
-                    percentage="19"
-                    timeframe="هذا الشهر"
-                    chartData={[12, 20, 18, 25, 22, 30, 28]}
-                    color="#F5B849"
-                  />
-                </div>
-                <div className="p-0 col-xxl-6 col-lg-6 col-md-6">
-                  {" "}
-                  <StatCard
-                    icon={<i className="fa-solid fa-users-medical"></i>}
-                    title=" عدد الحسابات المميزه "
-                    value="1,02,890"
-                    percentage="-12"
-                    timeframe="هذا الشهر"
-                    chartData={[12, 20, 18, 25, 22, 30, 28]}
-                    color="#26BF94"
-                  />
-                </div>
-              </div>
-              <div className="col-xl-12">
-                <RevenueAnalyticsCard />
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="col-xxl-3 col-xl-12 p-0">
-          <div className="row">
-            <div className="col-xxl-12 col-xl-12">
-              <div className="row">
-                <div className="col-xl-12 col-xl-6">
-                  {" "}
-                  <EmployersChart />
-                </div>
-                <div className="col-xl-12 col-xl-6">
-                  <UserGrowthChart />
-                </div>
-                <div className="col-xl-12 col-xl-6">1</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div> */}
     </section>
   );
 }
