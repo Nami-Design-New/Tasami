@@ -7,9 +7,7 @@ const Notifications = () => {
     <section>
       <PageHeader name="التنبيهات" />
       <div className="table--wrapper">
-        <ChartCard title={"التنبيهات"}>
-          <NotificationTable />
-        </ChartCard>
+        <NotificationTable />
       </div>
     </section>
   );

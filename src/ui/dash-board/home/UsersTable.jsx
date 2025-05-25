@@ -214,6 +214,29 @@ const PremiumClientsTable = () => {
           setGlobalFilter={setGlobalFilter}
           columnFilters={columnFilters}
           setColumnFilters={setColumnFilters}
+          activeFilters={["status", "accountType"]} // Customize which filters to show
+          filterOptions={{
+            status: {
+              id: "status",
+              label: { ar: "فرز بواسطه الحاله:", en: "Filter by Status:" },
+              options: ["نشط", "موقوف"],
+              getIcon: (option) => ({
+                className: `color-icon ${
+                  option === "نشط" ? "active" : "inactive"
+                }`,
+              }),
+            },
+            accountType: {
+              id: "accountType",
+              label: {
+                ar: "فرز بواسطه نوع الحساب:",
+                en: "Filter by Account Type:",
+              },
+              options: ["ملهم", "ماهر", "جدير"],
+            },
+          }}
+          filterButtonText={isRTL ? "فرز" : "Filter"}
+          searchPlaceholder={isRTL ? "بحث في المستخدمين" : "Search users"}
         />
       </div>
       <div className="card__body  ">
