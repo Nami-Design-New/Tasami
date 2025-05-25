@@ -1,7 +1,7 @@
-import { OverlayTrigger, Popover } from "react-bootstrap";
-import InputField from "../../forms/InputField";
-import { useSelector } from "react-redux";
 import { useEffect, useRef } from "react";
+import { OverlayTrigger, Popover } from "react-bootstrap";
+import { useSelector } from "react-redux";
+import InputField from "../../forms/InputField";
 
 const DEFAULT_STATUS = ["نشط", "موقوف"];
 
