@@ -2,6 +2,13 @@
   "hello": "Hello",
   "pageHeaders": {
     "Notifications": "Notifications",
-    "Dashboard": "Dashboard"
+    "Dashboard": "Dashboard",
+    "Tasks": " Tasks ",
+    "Executive Tasks": "Executive Tasks",
+    "Supervisory Tasks": "Supervisory Tasks",
+    "Customer Service Tasks": "Customer Service Tasks",
+    "User Accounts": "User Accounts",
+    "Subscribers And Teams": "Subscribers & Teams",
+    "Subscribers": "Subscribers"
   }
 }

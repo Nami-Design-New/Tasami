@@ -30,18 +30,19 @@ const NotificationTable = () => {
   const isRTL = lang === "ar";
   const [columnFilters, setColumnFilters] = useState([]);
   const [globalFilter, setGlobalFilter] = useState("");
+
   const data = useMemo(
     () => [
       {
         id: 1,
-        operation: "إرسال",
+        operation: "البلاغات",
         subject: "طلب خدمة",
         model: "نموذج A",
         program: "برنامج الدعم",
         account: "123456",
         date: "2025-05-25",
         time: "10:30",
-        action: "عرض",
+        action: "اضف الي المهام",
       },
       {
         id: 2,
@@ -52,7 +53,7 @@ const NotificationTable = () => {
         account: "654321",
         date: "2025-05-24",
         time: "09:15",
-        action: "تحقق",
+        action: "اضف الي المهام",
       },
       {
         id: 3,
@@ -63,7 +64,7 @@ const NotificationTable = () => {
         account: "112233",
         date: "2025-05-23",
         time: "11:00",
-        action: "تعديل",
+        action: "مضافه",
       },
       {
         id: 4,
@@ -74,7 +75,7 @@ const NotificationTable = () => {
         account: "998877",
         date: "2025-05-22",
         time: "13:45",
-        action: "مراجعة",
+        action: "مضافه",
       },
       {
         id: 5,
@@ -85,7 +86,7 @@ const NotificationTable = () => {
         account: "445566",
         date: "2025-05-21",
         time: "14:30",
-        action: "إغلاق",
+        action: "اضف الي المهام",
       },
       {
         id: 6,
@@ -96,7 +97,7 @@ const NotificationTable = () => {
         account: "223344",
         date: "2025-05-20",
         time: "16:00",
-        action: "تحديث",
+        action: "مضاقه",
       },
       {
         id: 7,
@@ -107,7 +108,7 @@ const NotificationTable = () => {
         account: "556677",
         date: "2025-05-19",
         time: "08:30",
-        action: "إصدار",
+        action: "مضافه",
       },
       {
         id: 8,
@@ -118,7 +119,7 @@ const NotificationTable = () => {
         account: "778899",
         date: "2025-05-18",
         time: "10:00",
-        action: "تسجيل",
+        action: "اضف الي المهام",
       },
       {
         id: 9,
@@ -129,7 +130,7 @@ const NotificationTable = () => {
         account: "334455",
         date: "2025-05-17",
         time: "15:20",
-        action: "رد",
+        action: "اضف الي المهام",
       },
       {
         id: 10,
@@ -140,7 +141,7 @@ const NotificationTable = () => {
         account: "667788",
         date: "2025-05-16",
         time: "11:45",
-        action: "تزويد",
+        action: "اضف الي المهام",
       },
       {
         id: 11,
@@ -151,7 +152,7 @@ const NotificationTable = () => {
         account: "889900",
         date: "2025-05-15",
         time: "12:10",
-        action: "فحص",
+        action: "اضف الي المهام",
       },
       {
         id: 12,
@@ -162,7 +163,7 @@ const NotificationTable = () => {
         account: "111222",
         date: "2025-05-14",
         time: "17:25",
-        action: "إلغاء",
+        action: "اضف الي المهام",
       },
       {
         id: 13,
@@ -173,7 +174,7 @@ const NotificationTable = () => {
         account: "333444",
         date: "2025-05-13",
         time: "09:40",
-        action: "مراجعة",
+        action: "اضف الي المهام",
       },
       {
         id: 14,
@@ -184,7 +185,7 @@ const NotificationTable = () => {
         account: "555666",
         date: "2025-05-12",
         time: "10:50",
-        action: "تحليل",
+        action: "اضف الي المهام",
       },
       {
         id: 15,
@@ -195,18 +196,18 @@ const NotificationTable = () => {
         account: "777888",
         date: "2025-05-11",
         time: "13:00",
-        action: "دراسة",
+        action: "اضف الي المهام",
       },
       {
         id: 16,
-        operation: "استلام",
-        subject: "طلب تمديد",
+        operation: "تقييم",
+        subject: " تقييم الخدمه ",
         model: "نموذج P",
         program: "إدارة العقود",
         account: "999000",
         date: "2025-05-10",
         time: "14:10",
-        action: "موافقة",
+        action: "معاينة",
       },
     ],
     []
@@ -249,7 +250,15 @@ const NotificationTable = () => {
         header: isRTL ? " الإجراء " : "Action",
         cell: (info) => (
           <div>
-            <button className="btn btn--primary">{info.getValue()}</button>
+            <button className="actions__butons--notifications">
+              {info.getValue() === "معاينة" ? (
+                <i className="fa-solid fa-eye"></i>
+              ) : info.getValue() === "مضافه" ? (
+                <span className="added-to__tasks"> مضافه </span>
+              ) : (
+                <i className="fa-solid fa-plus"></i>
+              )}
+            </button>
           </div>
         ),
       }),
@@ -277,6 +286,7 @@ const NotificationTable = () => {
       },
     },
   });
+
   return (
     <div className="card__custom">
       <div className="header d-flex justify-content-between">
@@ -288,7 +298,7 @@ const NotificationTable = () => {
           setGlobalFilter={setGlobalFilter}
           columnFilters={columnFilters}
           setColumnFilters={setColumnFilters}
-          activeFilters={["operation", "action"]} // Customize which filters to show
+          activeFilters={["operation", "action"]}
           filterOptions={{
             operation: {
               id: "operation",

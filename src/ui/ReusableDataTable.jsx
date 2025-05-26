@@ -1,0 +1,157 @@
+import {
+  useReactTable,
+  getCoreRowModel,
+  getFilteredRowModel,
+  getSortedRowModel,
+  getPaginationRowModel,
+  flexRender,
+} from "@tanstack/react-table";
+import { useState } from "react";
+import TableFilter from "./dash-board/home/TableFilter";
+import TablePagentaion from "./TablePagentaion";
+
+const ReusableDataTable = ({
+  title = "Table",
+  data = [],
+  columns = [],
+  filterOptions = {},
+  activeFilters = [],
+  initialPageSize = 5,
+  lang = "en",
+}) => {
+  const isRTL = lang === "ar";
+  const [globalFilter, setGlobalFilter] = useState("");
+  const [columnFilters, setColumnFilters] = useState([]);
+
+  const customGlobalFilterFn = (row, columnId, filterValue) => {
+    const { ...rest } = row.original;
+    return Object.values(rest).some((val) =>
+      String(val).toLowerCase().includes(filterValue.toLowerCase())
+    );
+  };
+
+  const table = useReactTable({
+    data,
+    columns,
+    state: {
+      globalFilter,
+      columnFilters,
+    },
+    globalFilterFn: customGlobalFilterFn,
+    getCoreRowModel: getCoreRowModel(),
+    getFilteredRowModel: getFilteredRowModel(),
+    getSortedRowModel: getSortedRowModel(),
+    getPaginationRowModel: getPaginationRowModel(),
+    columnResizeMode: "onChange",
+    initialState: {
+      pagination: {
+        pageSize: initialPageSize,
+      },
+    },
+  });
+
+  return (
+    <div className="card__custom">
+      <div className="header d-flex justify-content-between">
+        <h3 className="header__title">{title}</h3>
+        <TableFilter
+          globalFilter={globalFilter}
+          setGlobalFilter={setGlobalFilter}
+          columnFilters={columnFilters}
+          setColumnFilters={setColumnFilters}
+          activeFilters={activeFilters}
+          filterOptions={filterOptions}
+          filterButtonText={isRTL ? "فرز" : "Filter"}
+          searchPlaceholder={isRTL ? "بحث" : "Search"}
+        />
+      </div>
+      <div className="card__body">
+        <div
+          className="table-container table-responsive border"
+          dir={isRTL ? "rtl" : "ltr"}
+        >
+          <table
+            width={table.getTotalSize()}
+            className="custom-table table table-bordered text-center align-middle mb-0"
+          >
+            <thead className="table-light">
+              {table.getHeaderGroups().map((headerGroup) => (
+                <tr key={headerGroup.id}>
+                  {headerGroup.headers.map((header) => (
+                    <th key={header.id} width={header.getSize()}>
+                      {header.column.columnDef.header}
+                      <div
+                        className={`resizer ${
+                          header.column.getIsResizing() ? "isResizing" : ""
+                        } ${isRTL ? "ar" : "en"}`}
+                        onMouseDown={header.getResizeHandler()}
+                        onTouchStart={header.getResizeHandler()}
+                      ></div>
+                    </th>
+                  ))}
+                </tr>
+              ))}
+            </thead>
+            <tbody>
+              {table.getRowModel().rows.map((row) => (
+                <tr key={row.id}>
+                  {row.getVisibleCells().map((cell) => (
+                    <td key={cell.id} width={cell.column.getSize()}>
+                      {flexRender(
+                        cell.column.columnDef.cell,
+                        cell.getContext()
+                      )}
+                    </td>
+                  ))}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div className="card--footer">
+        {/* <div className="pagination-container d-flex justify-content-between">
+          <div className="pagination-buttons">
+            <button
+              onClick={() => table.previousPage()}
+              disabled={!table.getCanPreviousPage()}
+            >
+              {isRTL ? "السابق" : "Previous"}
+            </button>
+            <div className="page-numbers d-flex gap-2">
+              {Array.from({ length: table.getPageCount() }, (_, i) => (
+                <button
+                  key={i}
+                  onClick={() => table.setPageIndex(i)}
+                  className={`page-number ${
+                    table.getState().pagination.pageIndex === i ? "active" : ""
+                  }`}
+                >
+                  {i + 1}
+                </button>
+              ))}
+            </div>
+            <button
+              onClick={() => table.nextPage()}
+              disabled={!table.getCanNextPage()}
+            >
+              {isRTL ? "التالي" : "Next"}
+            </button>
+          </div>
+          <div className="pagination-info">
+            {isRTL
+              ? `صفحة ${
+                  table.getState().pagination.pageIndex + 1
+                } من ${table.getPageCount()}`
+              : `Page ${
+                  table.getState().pagination.pageIndex + 1
+                } of ${table.getPageCount()}`}
+          </div>
+        </div> */}
+        <TablePagentaion table={table} />
+      </div>
+    </div>
+  );
+};
+
+export default ReusableDataTable;

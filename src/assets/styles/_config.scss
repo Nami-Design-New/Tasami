@@ -32,6 +32,33 @@
   }
 }
 
+// Responsive Layout Mixins
+@mixin labtop-layout {
+  @media (max-width: 992px) {
+    @content;
+  }
+}
+
+@mixin tablet-layout {
+  @media (max-width: 768px) {
+    @content;
+  }
+}
+
+@mixin small-mobile {
+  @media screen and (max-width: 576px) {
+    @content;
+  }
+}
+
+// Hide scrollbar but keep functionality
+@mixin hide-scrollbar {
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
 * {
   padding: 0;
   margin: 0;
@@ -237,18 +264,18 @@ input[type="number"] {
 .invalid-feedback {
   display: block;
 }
-// Select customization
 
+// Select customization
 .css-t3ipsp-control {
-  border-color: var(--light-gray) !important;
+  border-color: $grayLight !important;
   box-shadow: none !important;
   &:hover {
-    background-color: var(--white) !important;
+    background-color: $white !important;
   }
 }
 
 .css-13cymwt-control {
-  border-color: var(--light-gray) !important;
+  border-color: $grayLight !important;
 }
 
 .select__indicator-separator {

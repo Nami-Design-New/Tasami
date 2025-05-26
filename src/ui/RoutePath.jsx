@@ -15,7 +15,6 @@ export default function RoutePath({ currentName, hint, removeLast }) {
     <div className="route_path">
       {filteredRoutes.map((route, i) => {
         const isLast = i === filteredRoutes.length - 1;
-        console.log(route.name);
         return (
           <Fragment key={route.name}>
             <Link className={isLast ? "pe-none disabled" : ""} to={route.to}>

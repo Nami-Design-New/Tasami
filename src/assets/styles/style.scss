@@ -1,10 +1,13 @@
 @import "./config";
-@import "./header";
+@import "./fonts";
+@import "./cards";
+@import "./form_ui";
 @import "./dashboard";
 @import "./landing";
 @import "./auth";
-@import "./form_ui";
-@import "./fonts";
+@import "./header";
+@import "./tables";
+@import "./tasks";
 body {
   direction: rtl;
   font-family: "Dubai";

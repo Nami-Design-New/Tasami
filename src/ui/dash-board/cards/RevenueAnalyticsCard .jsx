@@ -1,29 +1,7 @@
 import ReactApexChart from "react-apexcharts";
 import ChartCard from "./ChartCard";
 
-const RevenueAnalyticsCard = () => {
-  const series = [
-    {
-      name: "الاشتراكات",
-      type: "area",
-      data: [200, 400, 300, 500, 300, 500, 600, 700, 300, 200, 150, 400],
-    },
-    {
-      name: "عائد باقة 6 أشهر",
-      type: "line",
-      data: [
-        1200, 1000, 1700, 2000, 1500, 3000, 2300, 2500, 2400, 2600, 2700, 2800,
-      ],
-    },
-    {
-      name: "عائد باقة 12 شهر",
-      type: "line",
-      data: [
-        900, 2200, 2500, 7000, 3000, 4000, 1000, 3500, 3700, 3900, 4100, 4300,
-      ],
-    },
-  ];
-
+const LineAnalyticsChart = ({ series, title, categories }) => {
   const options = {
     chart: {
       height: 350,
@@ -47,20 +25,7 @@ const RevenueAnalyticsCard = () => {
       enabled: false,
     },
     xaxis: {
-      categories: [
-        "Jan",
-        "Feb",
-        "Mar",
-        "Apr",
-        "May",
-        "Jun",
-        "Jul",
-        "Aug",
-        "Sep",
-        "Oct",
-        "Nov",
-        "Dec",
-      ],
+      categories,
     },
     legend: {
       position: "top",
@@ -73,7 +38,7 @@ const RevenueAnalyticsCard = () => {
     },
   };
   return (
-    <ChartCard title="تحليلات الإيرادات">
+    <ChartCard title={title}>
       <p className="subtitle">العائد من الاشتراكات </p>
       <ReactApexChart
         options={options}
@@ -85,4 +50,4 @@ const RevenueAnalyticsCard = () => {
   );
 };
 
-export default RevenueAnalyticsCard;
+export default LineAnalyticsChart;

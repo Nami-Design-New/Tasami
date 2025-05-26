@@ -1,9 +1,10 @@
 import { Accordion } from "react-bootstrap";
 import { useSelector } from "react-redux";
-import { NavLink } from "react-router";
+import { NavLink, useNavigate } from "react-router";
 
 export default function SidebarNavigation({ handleLinkClick }) {
   const lang = useSelector((state) => state.language.lang);
+  const navigate = useNavigate();
   return (
     <>
       <Accordion className={lang === "en" && "en"}>
@@ -17,26 +18,29 @@ export default function SidebarNavigation({ handleLinkClick }) {
               />
             </div>
             <div className="d-flex flex-column">
-              <h6>المهام</h6>
+              <h6 onClick={() => navigate("tasks")}>المهام</h6>
             </div>
           </Accordion.Header>
           {/* sub menu */}
           <Accordion.Body>
             <ul className="sub_navigation_menu">
               <li className="sub_nav_item">
-                <NavLink to="fleets" onClick={handleLinkClick}>
+                <NavLink to="tasks/executive-tasks" onClick={handleLinkClick}>
                   <img src="/sys-icons/subArrow.svg" alt="arrow" />
                   <span>المهام التنفيذيه </span>
                 </NavLink>
               </li>
               <li className="sub_nav_item">
-                <NavLink to="addons" onClick={handleLinkClick}>
+                <NavLink to="tasks/supervisory-tasks" onClick={handleLinkClick}>
                   <img src="/sys-icons/subArrow.svg" alt="arrow" />
                   <span>المهام الاشرافيه</span>
                 </NavLink>
               </li>
               <li className="sub_nav_item">
-                <NavLink to="activities" onClick={handleLinkClick}>
+                <NavLink
+                  to="tasks/customer-service-tasks"
+                  onClick={handleLinkClick}
+                >
                   <img src="/sys-icons/subArrow.svg" alt="arrow" />
                   <span>مهام خدمه العملاء</span>
                 </NavLink>
@@ -61,49 +65,29 @@ export default function SidebarNavigation({ handleLinkClick }) {
           <Accordion.Body>
             <ul className="sub_navigation_menu">
               <li className="sub_nav_item">
-                <Accordion>
-                  <Accordion.Item eventKey="1-1">
-                    <Accordion.Header>
-                      <img src="/sys-icons/subArrow.svg" alt="arrow" />
-                      <span>المشتركون</span>
-                    </Accordion.Header>
-                    <Accordion.Body>
-                      <li className="sub_nav_item">
-                        <NavLink to="affiliate" onClick={handleLinkClick}>
-                          <img src="/sys-icons/subArrow.svg" alt="arrow" />
-                          <span> الحسابات </span>
-                        </NavLink>
-                      </li>
-                      <li className="sub_nav_item">
-                        <NavLink to="compigens" onClick={handleLinkClick}>
-                          <img src="/sys-icons/subArrow.svg" alt="arrow" />
-                          <span> البرامج </span>
-                        </NavLink>
-                      </li>
-                      <li className="sub_nav_item">
-                        <NavLink to="compigens" onClick={handleLinkClick}>
-                          <img src="/sys-icons/subArrow.svg" alt="arrow" />
-                          <span> الخدمات </span>
-                        </NavLink>
-                      </li>
-                      <li className="sub_nav_item">
-                        <NavLink to="compigens" onClick={handleLinkClick}>
-                          <img src="/sys-icons/subArrow.svg" alt="arrow" />
-                          <span> السير الذاتيه </span>
-                        </NavLink>
-                      </li>
-                    </Accordion.Body>
-                  </Accordion.Item>
-                </Accordion>
+                <NavLink
+                  to="subscribers-and-teams/subscribers/user-accounts"
+                  onClick={handleLinkClick}
+                >
+                  <img src="/sys-icons/subArrow.svg" alt="arrow" />
+                  <span>المشتركون</span>
+                </NavLink>
               </li>
               <li className="sub_nav_item">
-                <NavLink to="affiliate" onClick={handleLinkClick}>
+                <NavLink
+                  to="subscribers-and-teams/teams"
+                  onClick={handleLinkClick}
+                >
                   <img src="/sys-icons/subArrow.svg" alt="arrow" />
                   <span>فرق العمل </span>
                 </NavLink>
               </li>
+
               <li className="sub_nav_item">
-                <NavLink to="compigens" onClick={handleLinkClick}>
+                <NavLink
+                  to="subscribers-and-teams/add-employer"
+                  onClick={handleLinkClick}
+                >
                   <img src="/sys-icons/subArrow.svg" alt="arrow" />
                   <span>انشاء موظف</span>
                 </NavLink>

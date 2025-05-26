@@ -10,6 +10,7 @@ import {
 import { useMemo, useState } from "react";
 import { useSelector } from "react-redux";
 import TableFilter from "./TableFilter";
+import TablePagentaion from "../../TablePagentaion";
 
 const columnHelper = createColumnHelper();
 
@@ -297,81 +298,7 @@ const PremiumClientsTable = () => {
         </div>
       </div>
       <div className="card--footer">
-        <div
-          className="pagination-container"
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-            width: "100%",
-          }}
-        >
-          <div className="pagination-buttons">
-            <button
-              onClick={() => table.previousPage()}
-              disabled={!table.getCanPreviousPage()}
-              className="prev"
-              style={{
-                cursor: !table.getCanPreviousPage() ? "not-allowed" : "pointer",
-              }}
-            >
-              السابق
-            </button>
-
-            <div
-              className="page-numbers"
-              style={{ display: "flex", gap: "5px" }}
-            >
-              {Array.from({ length: table.getPageCount() }, (_, i) => (
-                <button
-                  key={i}
-                  onClick={() => table.setPageIndex(i)}
-                  className={`page-number ${
-                    table.getState().pagination.pageIndex === i ? "active" : ""
-                  }`}
-                  style={{
-                    backgroundColor:
-                      table.getState().pagination.pageIndex === i
-                        ? "#214b92"
-                        : "transparent",
-                    color:
-                      table.getState().pagination.pageIndex === i
-                        ? "#fff"
-                        : "#214b92",
-
-                    fontWeight:
-                      table.getState().pagination.pageIndex === i
-                        ? "bold"
-                        : "normal",
-                  }}
-                >
-                  {i + 1}
-                </button>
-              ))}
-            </div>
-
-            <button
-              onClick={() => table.nextPage()}
-              disabled={!table.getCanNextPage()}
-              className="next"
-              style={{
-                padding: "5px 12px",
-                borderRadius: "4px",
-                border: "1px solid var(--main-color)",
-                backgroundColor: "transparent",
-                cursor: !table.getCanNextPage() ? "not-allowed" : "pointer",
-                opacity: !table.getCanNextPage() ? 0.5 : 1,
-              }}
-            >
-              التالي
-            </button>
-          </div>
-
-          <div className="pagination-info" style={{ fontWeight: "bold" }}>
-            صفحة {table.getState().pagination.pageIndex + 1} من{" "}
-            {table.getPageCount()}
-          </div>
-        </div>
+        <TablePagentaion table={table} />
       </div>
     </div>
   );

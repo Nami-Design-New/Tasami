@@ -1,0 +1,180 @@
+.user-table {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.table-container {
+  border-radius: 1rem;
+  .custom-table {
+    border-radius: 1rem;
+    border: 1px solid #e6ebf1;
+    overflow: hidden;
+    tr {
+      white-space: nowrap;
+      min-width: 150px;
+    }
+    tr:last-child {
+      &:first-child {
+        border-bottom-left-radius: 1rem;
+      }
+      &:last-child {
+        border-bottom-right-radius: 1rem;
+      }
+    }
+    th {
+      min-height: 150px;
+      position: relative;
+      white-space: nowrap;
+      &:hover > .resizer {
+        opacity: 1;
+      }
+      i {
+        margin: 0 8px;
+        cursor: pointer;
+      }
+      .resizer {
+        position: absolute;
+        top: 0;
+        right: 0;
+        &.ar {
+          right: auto;
+          left: 0;
+        }
+        opacity: 0;
+        height: 100%;
+        width: 5px;
+        background-color: $second;
+        cursor: col-resize;
+        user-select: "none";
+        touch-action: "none";
+        border-radius: 6px;
+        &.isResizing {
+          background-color: $main;
+          opacity: 1;
+        }
+      }
+    }
+  }
+}
+
+.table-filter {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  .filter-button {
+    height: auto;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 12px;
+    padding: 10px 16px;
+  }
+  .filter-button__second {
+    background-color: $second;
+  }
+}
+.popover {
+  min-width: 200px;
+  overflow: hidden;
+  .popover-header {
+    font-size: 12px;
+    padding: 12px;
+    background-color: $white;
+    border: none;
+  }
+  .popover-body {
+    padding: 0 !important;
+    .status-container {
+      display: flex;
+      align-items: start;
+      flex-direction: column;
+      overflow: hidden;
+      button {
+        padding: 6px 10px;
+        width: 100%;
+        text-align: start;
+        padding: 12px;
+        display: flex;
+        align-items: center;
+        font-weight: 500;
+        gap: 12px;
+        font-size: 12px;
+        .color-icon {
+          width: 10px;
+          height: 10px;
+          border-radius: 50%;
+          &.active {
+            background-color: #28a745;
+          }
+          &.inactive {
+            background-color: #dc3545;
+          }
+        }
+        &:hover {
+          background-color: $inputBG;
+        }
+        &.selected {
+          background-color: $inputBG;
+          font-weight: 600;
+        }
+      }
+    }
+  }
+}
+.pagination-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  .pagination-buttons {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-weight: 500;
+    .next {
+      color: $main;
+      cursor: pointer;
+    }
+    .prev {
+      color: $text;
+      cursor: pointer;
+    }
+    .page-numbers {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      .page-number {
+        width: 32px;
+        height: 32px;
+        @include centerFlex();
+        border-radius: 6px;
+        border: 1px solid $main;
+        cursor: pointer;
+        transition: $transition;
+        &:hover {
+          background-color: $main;
+          color: $white;
+        }
+        &.active {
+          background-color: $main;
+          color: $white;
+        }
+      }
+    }
+  }
+  .pagination-info {
+  }
+}
+.added-to__tasks {
+  font-size: 12px;
+  color: $text;
+}
+.actions__butons--notifications {
+  i {
+    color: $main;
+    &.fa-eye {
+      color: $second;
+    }
+  }
+}

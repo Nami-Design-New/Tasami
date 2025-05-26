@@ -2,6 +2,13 @@
   "hello": "مرحبا",
   "pageHeaders": {
     "Notifications": " التنبيهات ",
-    "Dashboard": " لوحة التحكم "
+    "Dashboard": " لوحة التحكم ",
+    "Tasks": " المهام ",
+    "Executive Tasks": " المهام التنفيذيه ",
+    "Supervisory Tasks": " المهام الاشرافيه ",
+    "Customer Service Tasks": "مهام خدمة العملاء",
+    "User Accounts": "حسابات المستخدمين",
+    "Subscribers And Teams": "المشتركين والفرق",
+    "Subscribers": "المشتركين"
   }
 }

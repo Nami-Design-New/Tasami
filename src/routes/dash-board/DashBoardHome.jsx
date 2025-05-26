@@ -5,7 +5,100 @@ import TaskStatus from "../../ui/dash-board/home/TaskStatus";
 import UserGrowthChart from "../../ui/dash-board/home/UsersGrowthChart";
 import UsersTable from "../../ui/dash-board/home/UsersTable";
 import ChartCard from "../../ui/dash-board/cards/ChartCard";
+import DounutCharts from "../../ui/dash-board/home/EmployersChart";
+import LineAnalyticsChart from "../../ui/dash-board/cards/RevenueAnalyticsCard ";
 // import ChartCard from "..";
+
+const series = [
+  {
+    name: "الاشتراكات",
+    type: "area",
+    data: [200, 400, 300, 500, 300, 500, 600, 700, 300, 200, 150, 400],
+  },
+  {
+    name: "عائد باقة 6 أشهر",
+    type: "line",
+    data: [
+      1200, 1000, 1700, 2000, 1500, 3000, 2300, 2500, 2400, 2600, 2700, 2800,
+    ],
+  },
+  {
+    name: "عائد باقة 12 شهر",
+    type: "line",
+    data: [
+      900, 2200, 2500, 7000, 3000, 4000, 1000, 3500, 3700, 3900, 4100, 4300,
+    ],
+  },
+];
+const categories = [
+  "Jan",
+  "Feb",
+  "Mar",
+  "Apr",
+  "May",
+  "Jun",
+  "Jul",
+  "Aug",
+  "Sep",
+  "Oct",
+  "Nov",
+  "Dec",
+];
+
+const employersSeries = [20, 55, 150];
+
+const employersOptions = {
+  labels: ["عدد التنفيذيين", "عدد المشرفين", "عدد الموظفين "],
+  chart: {
+    type: "donut",
+  },
+  colors: ["#214b92", "#5fcafa", "#5f4aff"],
+  legend: {
+    position: "bottom",
+    fontSize: "14px",
+  },
+  dataLabels: {
+    style: {
+      fontSize: "14px",
+      fontWeight: "400",
+      colors: ["#000"],
+    },
+  },
+  responsive: [
+    {
+      breakpoint: 480,
+      options: {
+        chart: { width: 200 },
+        legend: { position: "bottom" },
+      },
+    },
+  ],
+  plotOptions: {
+    pie: {
+      donut: {
+        size: "80%",
+        labels: {
+          show: true,
+          name: { show: true, fontSize: "16px", offsetY: -10 },
+          value: {
+            show: true,
+            fontSize: "20px",
+            fontWeight: 600,
+            offsetY: 10,
+          },
+          total: {
+            show: true,
+            label: "الكلي",
+            fontSize: "16px",
+            fontWeight: 500,
+            formatter: (w) => w.globals.seriesTotals.reduce((a, b) => a + b, 0),
+          },
+        },
+      },
+    },
+  },
+};
+
 export default function DashBoardHome() {
   return (
     <section className="dashboard--home">
@@ -77,17 +170,17 @@ export default function DashBoardHome() {
         <div className="col-12 pt-2">
           <ChartCard title={" اجراءات عاجله  "}>
             <div className="quick__actions--list">
-              <button className="action__button">
+              <button className="quick--action__button">
                 <img src="./icons/add-user.svg" /> <span> انشاء موظف </span>{" "}
               </button>
-              <button className="action__button">
+              <button className="quick--action__button">
                 <img src="./icons/permisson_icon.svg" />{" "}
                 <span> انشاء صلاحيه </span>{" "}
               </button>
-              <button className="action__button">
+              <button className="quick--action__button">
                 <img src="./icons/delete-user.svg" /> <span> ايقاف موظف </span>{" "}
               </button>
-              <button className="action__button">
+              <button className="quick--action__button">
                 <img src="./icons/add-fileds.svg" />{" "}
                 <span> اضافه مجال جديد </span>{" "}
               </button>
@@ -102,11 +195,19 @@ export default function DashBoardHome() {
           </div>
 
           <div className="col p-0">
-            <EmployersChart />
+            <DounutCharts
+              series={employersSeries}
+              options={employersOptions}
+              title={"عدد الموظفين"}
+            />
           </div>
         </div>
         <div className="col-12 col-xl-8">
-          <RevenueAnalyticsCard />
+          <LineAnalyticsChart
+            series={series}
+            title={"تحليلات الإيرادات"}
+            categories={categories}
+          />
         </div>
       </div>
       <div className="row">
