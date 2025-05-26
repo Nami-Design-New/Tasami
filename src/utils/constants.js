@@ -25,3 +25,16 @@ export const SUB_TABS = [
   { id: 3, label: "الخدمات", to: "subscribers/services" },
   { id: 4, label: "السير الذاتيه", to: "subscribers/resuems" },
 ];
+
+
+
+export const STATUS_AR = ["مكتمل", "قيد التنفيذ", "غير مضاف"];
+export const STATUS_EN = ["Completed", "Pending", "Not Added"];
+
+
+export const USERS_CATEGORIES  =  [
+  "متسفيد",
+  " (ملهم) مقدم برامج",
+  "(خبير) مقدم برامج",
+  " (جدير)  مقدم برامج",
+];

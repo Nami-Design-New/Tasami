@@ -110,44 +110,6 @@ const ReusableDataTable = ({
         </div>
       </div>
       <div className="card--footer">
-        {/* <div className="pagination-container d-flex justify-content-between">
-          <div className="pagination-buttons">
-            <button
-              onClick={() => table.previousPage()}
-              disabled={!table.getCanPreviousPage()}
-            >
-              {isRTL ? "السابق" : "Previous"}
-            </button>
-            <div className="page-numbers d-flex gap-2">
-              {Array.from({ length: table.getPageCount() }, (_, i) => (
-                <button
-                  key={i}
-                  onClick={() => table.setPageIndex(i)}
-                  className={`page-number ${
-                    table.getState().pagination.pageIndex === i ? "active" : ""
-                  }`}
-                >
-                  {i + 1}
-                </button>
-              ))}
-            </div>
-            <button
-              onClick={() => table.nextPage()}
-              disabled={!table.getCanNextPage()}
-            >
-              {isRTL ? "التالي" : "Next"}
-            </button>
-          </div>
-          <div className="pagination-info">
-            {isRTL
-              ? `صفحة ${
-                  table.getState().pagination.pageIndex + 1
-                } من ${table.getPageCount()}`
-              : `Page ${
-                  table.getState().pagination.pageIndex + 1
-                } of ${table.getPageCount()}`}
-          </div>
-        </div> */}
         <TablePagentaion table={table} />
       </div>
     </div>

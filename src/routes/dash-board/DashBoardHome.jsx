@@ -1,13 +1,10 @@
-import RevenueAnalyticsCard from "../../ui/dash-board/cards/RevenueAnalyticsCard ";
-import EmployersChart from "../../ui/dash-board/home/EmployersChart";
-import StatCard from "../../ui/dash-board/cards/StatCard";
-import TaskStatus from "../../ui/dash-board/home/TaskStatus";
-import UserGrowthChart from "../../ui/dash-board/home/UsersGrowthChart";
-import UsersTable from "../../ui/dash-board/home/UsersTable";
 import ChartCard from "../../ui/dash-board/cards/ChartCard";
-import DounutCharts from "../../ui/dash-board/home/EmployersChart";
 import LineAnalyticsChart from "../../ui/dash-board/cards/RevenueAnalyticsCard ";
-// import ChartCard from "..";
+import StatCard from "../../ui/dash-board/cards/StatCard";
+import ColumnChart from "../../ui/dash-board/home/ColumnChart";
+import DounutCharts from "../../ui/dash-board/home/EmployersChart";
+import TaskStatus from "../../ui/dash-board/home/TaskStatus";
+import UsersTable from "../../ui/dash-board/home/UsersTable";
 
 const series = [
   {
@@ -46,7 +43,6 @@ const categories = [
 ];
 
 const employersSeries = [20, 55, 150];
-
 const employersOptions = {
   labels: ["عدد التنفيذيين", "عدد المشرفين", "عدد الموظفين "],
   chart: {
@@ -95,6 +91,52 @@ const employersOptions = {
           },
         },
       },
+    },
+  },
+};
+
+const userGrowthSeries = [
+  {
+    name: "المستخدمين",
+    data: [300, 500, 800, 1200, 1100, 1600, 2000, 2300, 2500, 2800, 3100, 3500],
+  },
+];
+const userGrowthCategories = [
+  "Jan",
+  "Feb",
+  "Mar",
+  "Apr",
+  "May",
+  "Jun",
+  "Jul",
+  "Aug",
+  "Sep",
+  "Oct",
+  "Nov",
+  "Dec",
+];
+const userGrowthOptions = {
+  chart: {
+    type: "bar",
+    height: 350,
+    toolbar: { show: true },
+  },
+  plotOptions: {
+    bar: {
+      borderRadius: 4,
+      columnWidth: "10%",
+      endingShape: "rounded",
+    },
+  },
+  dataLabels: { enabled: false },
+  xaxis: {
+    categories: userGrowthCategories,
+  },
+  yaxis: {},
+  colors: ["#6366f1"],
+  tooltip: {
+    y: {
+      formatter: (val) => `${val} مستخدم`,
     },
   },
 };
@@ -212,7 +254,7 @@ export default function DashBoardHome() {
       </div>
       <div className="row">
         <div className="col-12">
-          <UserGrowthChart />
+          <ColumnChart series={userGrowthSeries} options={userGrowthOptions} />
         </div>
         <div className="col-12">
           <UsersTable />
