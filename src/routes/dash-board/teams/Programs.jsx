@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import { useMemo } from "react";
 import ColumnChart from "../../../ui/dash-board/home/ColumnChart";
 import ReusableDataTable from "../../../ui/ReusableDataTable";
 import { createColumnHelper } from "@tanstack/react-table";
@@ -26,9 +26,11 @@ const usersOptions = {
   plotOptions: {
     bar: {
       horizontal: false,
-      columnWidth: "18%", // More space between bars
+      columnWidth: "12%",
       barHeight: "100%",
       endingShape: "rounded",
+      borderRadius: 5,
+      borderRadiusApplication: "end",
       distributed: false,
     },
   },
@@ -413,7 +415,11 @@ const Programs = () => {
     <section className="mt-5">
       <div className="row">
         <div className="col-12">
-          <ColumnChart series={usersSeries} options={usersOptions} />
+          <ColumnChart
+            series={usersSeries}
+            options={usersOptions}
+            title={"البرامج"}
+          />
         </div>
         <div className="col-12">
           <ReusableDataTable

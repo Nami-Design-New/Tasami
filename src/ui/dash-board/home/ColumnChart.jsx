@@ -1,9 +1,9 @@
 import ReactApexChart from "react-apexcharts";
 import ChartCard from "../cards/ChartCard";
 
-const ColumnChart = ({ series, options }) => {
+const ColumnChart = ({ series, options, title }) => {
   return (
-    <ChartCard title={"نمو المستخدمين"}>
+    <ChartCard title={title}>
       <div className="user-growth-chart">
         <ReactApexChart
           options={options}
