@@ -3,8 +3,6 @@ import { Form } from "react-bootstrap";
 
 const SelectField = React.forwardRef(
   ({ label, hint, options, error, ...props }, ref) => {
-    console.log(error);
-
     return (
       <div className="input-field">
         {label && (
@@ -14,7 +12,7 @@ const SelectField = React.forwardRef(
         )}
 
         <Form.Select ref={ref} isInvalid={!!error} {...props}>
-          <option value="" disabled>
+          <option value="" disabled selected hidden>
             Select
           </option>
           {options?.map((option, index) => (

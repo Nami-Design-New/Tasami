@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { Outlet, useLocation } from "react-router";
-import Footer from "../ui/Footer";
 import NavBar from "../ui/NavBar";
 import SideBar from "../ui/dash-board/SideBar";
+import DashBoardFooter from "../ui/dash-board/DashBoardFooter";
 
 export default function DashBoardLayout() {
   const location = useLocation();
@@ -29,7 +29,7 @@ export default function DashBoardLayout() {
           <div className="router_wrapper">
             <Outlet />
           </div>
-          <Footer />
+          <DashBoardFooter />
         </main>
       </section>
     </>

@@ -85,7 +85,7 @@ export default function SidebarNavigation({ handleLinkClick }) {
 
               <li className="sub_nav_item">
                 <NavLink
-                  to="subscribers-and-teams/add-employer"
+                  to="subscribers-and-teams/create-employer"
                   onClick={handleLinkClick}
                 >
                   <img src="/sys-icons/subArrow.svg" alt="arrow" />

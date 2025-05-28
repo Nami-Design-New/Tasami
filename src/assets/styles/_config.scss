@@ -80,6 +80,7 @@ $dashboardBg: #f8f8f8;
 $second: #5fcafa;
 $second25: rgb(95, 202, 250, 0.25);
 $second5: rgb(95, 202, 250, 0.05);
+$button: #8c137e;
 $dark: #0d0d0d;
 $border: #dddddd;
 $inputBG: #f8f8f8;
@@ -266,7 +267,7 @@ input[type="number"] {
 }
 
 .button--add {
-  background-color: #8c137e !important;
+  background-color: $button !important;
 }
 
 // Select customization
@@ -669,4 +670,56 @@ input[type="number"] {
 
 .rmdp-week-day {
   width: 52px !important;
+}
+
+// tab component
+
+.tab-list {
+  display: flex;
+  align-items: start;
+  justify-content: start;
+  cursor: pointer;
+  gap: 8px;
+  flex-direction: column;
+  background-color: $white;
+  padding: 16px;
+  border-radius: $borderRadius;
+  overflow: hidden;
+  position: sticky;
+  top: 20px;
+  .tab-item {
+    width: 100%;
+    .btn__tab-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 16px;
+      border-radius: $borderRadius;
+      color: $main;
+      width: 100%;
+      padding: 10px 16px;
+      transition: $transition;
+      background-color: $white;
+      &.active {
+        background-color: $dashboardBg;
+        color: $main;
+      }
+      &:hover {
+        background-color: $dashboardBg;
+      }
+    }
+  }
+}
+
+// form-wrapper
+.form__wrapper--custom {
+  padding: 16px;
+  border-radius: $borderRadius;
+  background-color: $white;
+  margin-bottom: 16px;
+  .form__header {
+    font-size: 20px;
+    font-weight: 500;
+    margin-bottom: 16px;
+  }
 }

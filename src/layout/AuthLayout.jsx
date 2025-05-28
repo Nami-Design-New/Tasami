@@ -44,7 +44,7 @@ const AuthLayout = () => {
       <div
         className="image_wrapper"
         style={{
-          backgroundImage: "url(/images/regiester-image.jpeg)",
+          backgroundImage: "url(/images/regiester-image.jpg)",
           backgroundPosition: "50% 72%",
         }}
       />

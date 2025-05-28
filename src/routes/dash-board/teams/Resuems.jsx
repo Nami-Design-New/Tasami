@@ -2,7 +2,7 @@ import { useMemo } from "react";
 import ReusableDataTable from "../../../ui/ReusableDataTable";
 import { createColumnHelper } from "@tanstack/react-table";
 import { Link } from "react-router";
-import ColumnChart from "../../../ui/dash-board/home/ColumnChart";
+import ColumnChart from "../../../ui/dash-board/charts/ColumnChart";
 const columnHelper = createColumnHelper();
 
 const usersSeries = [

@@ -823,6 +823,9 @@
     background: #fff;
     scrollbar-width: none;
     -ms-overflow-style: none;
+    @include tablet-layout {
+      padding: 0 0.5rem;
+    }
 
     // Router Wrapper
     .router_wrapper {
@@ -840,6 +843,9 @@
       // Page Header
       .page_header {
         margin-bottom: 30px;
+        @include tablet-layout {
+          padding: 0 0.5rem;
+        }
         h1 {
           color: $JumbotronHead;
           font-size: 32px;
@@ -1065,6 +1071,49 @@
         flex-direction: column;
         justify-content: start;
         align-items: start;
+      }
+    }
+  }
+}
+
+footer {
+  height: 100px;
+  background: $white;
+  display: flex;
+  align-items: center;
+  @media (max-width: 576px) {
+    height: auto;
+    padding: 24px 8px;
+  }
+  .inner_footer {
+    height: 52px;
+    background: $inputBG;
+    border-radius: 40px;
+    padding: 16px 24px;
+    width: 100%;
+    @include space-between();
+    h6 {
+      margin: 0;
+      color: $dark;
+      a {
+        color: $main;
+        font-weight: 700;
+      }
+    }
+    @media (max-width: 576px) {
+      height: auto;
+      flex-direction: column-reverse;
+    }
+  }
+  .links {
+    display: flex;
+    gap: 12px;
+    a {
+      color: $dark;
+      font-weight: 400;
+      transition: $transition;
+      &:hover {
+        color: $main;
       }
     }
   }

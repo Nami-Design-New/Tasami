@@ -29,10 +29,7 @@ export default function AboutSection() {
           </div>
           <div className="col-lg-6 col-12 p-2">
             <div className="img" data-aos="zoom-in-up">
-              <img
-                src="/images/male-coworkers-office-with-lunch.jpg"
-                alt="about"
-              />
+              <img src="/images/regiester-image.jpg" alt="about" />
             </div>
           </div>
         </div>

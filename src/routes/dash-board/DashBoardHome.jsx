@@ -1,11 +1,12 @@
 import ChartCard from "../../ui/dash-board/cards/ChartCard";
-import LineAnalyticsChart from "../../ui/dash-board/cards/RevenueAnalyticsCard ";
+import LineAnalyticsChart from "../../ui/dash-board/charts/LineAnalyticsChart";
 import StatCard from "../../ui/dash-board/cards/StatCard";
-import ColumnChart from "../../ui/dash-board/home/ColumnChart";
-import DounutCharts from "../../ui/dash-board/home/EmployersChart";
+import ColumnChart from "../../ui/dash-board/charts/ColumnChart";
+import DounutCharts from "../../ui/dash-board/charts/DounutCharts";
 import TaskStatus from "../../ui/dash-board/home/TaskStatus";
 import UsersTable from "../../ui/dash-board/home/UsersTable";
 
+// Line chart
 const series = [
   {
     name: "الاشتراكات",
@@ -41,7 +42,43 @@ const categories = [
   "Nov",
   "Dec",
 ];
+const revnueAnalyticsOptions = {
+  chart: {
+    height: 350,
+    type: "line",
+    toolbar: { show: true },
+  },
+  stroke: {
+    width: [0, 2, 3],
+    curve: "smooth",
+    dashArray: [0, 5, 0],
+  },
+  fill: {
+    type: ["solid", "solid", "solid"],
+    opacity: [0.2, 1, 1],
+  },
+  markers: {
+    size: 0,
+  },
+  colors: ["#e2e8f0", "#0ea5e9", "#8b5cf6"],
+  dataLabels: {
+    enabled: false,
+  },
+  xaxis: {
+    categories,
+  },
+  legend: {
+    position: "top",
+    horizontalAlign: "left",
+    markers: { radius: 12 },
+  },
+  tooltip: {
+    shared: true,
+    intersect: false,
+  },
+};
 
+// Dounut Charts
 const employersSeries = [20, 55, 150];
 const employersOptions = {
   labels: ["عدد التنفيذيين", "عدد المشرفين", "عدد الموظفين "],
@@ -248,7 +285,7 @@ export default function DashBoardHome() {
           <LineAnalyticsChart
             series={series}
             title={"تحليلات الإيرادات"}
-            categories={categories}
+            options={revnueAnalyticsOptions}
           />
         </div>
       </div>

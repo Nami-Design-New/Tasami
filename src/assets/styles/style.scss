@@ -8,13 +8,14 @@
 @import "./header";
 @import "./tables";
 @import "./tasks";
+@import "./create_employer";
 body {
   direction: rtl;
   font-family: "Dubai";
   background-color: var(--white);
   // overflow: hidden;
   main {
-    min-height: calc(100vh - 72.8px);
+    min-height: calc(100vh - 80px);
   }
 
   &.en {

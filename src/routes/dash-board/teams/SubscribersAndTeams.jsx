@@ -5,22 +5,26 @@ import PageHeader from "../../../ui/PageHeader";
 
 const SubscribersAndTeams = () => {
   const location = useLocation();
-  const currentLocation = location.pathname.split("/")[3];
+  const locations = location.pathname.split("/");
+  const currentLocation = locations[locations.length - 1];
 
   return (
-    <section>
-      <div className="d-flex align-items-center justify-content-between">
-        <PageHeader />
-        <Link className="button button--add" to={"create-employer"}>
-          {" "}
-          انشاء موظف{" "}
-        </Link>
-      </div>
-      {currentLocation === "teams" ? null : <NavigationTabs tabs={SUB_TABS} />}
-      <div>
-        <Outlet />
-      </div>
-    </section>
+      <section>
+        <div className="d-flex align-items-center justify-content-between">
+          <PageHeader />
+          {currentLocation === "create-employer" ? null : (
+            <Link className="button button--add" to={"create-employer"}>
+              انشاء موظف
+            </Link>
+          )}
+        </div>
+        {currentLocation === "user-accounts" && (
+          <NavigationTabs tabs={SUB_TABS} />
+        )}
+        <div>
+          <Outlet />
+        </div>
+      </section>
   );
 };
 

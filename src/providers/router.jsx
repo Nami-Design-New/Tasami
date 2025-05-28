@@ -20,6 +20,7 @@ import UserAccounts from "../routes/dash-board/teams/UserAccounts";
 import Programs from "../routes/dash-board/teams/Programs";
 import Services from "../routes/dash-board/teams/services";
 import Resuems from "../routes/dash-board/teams/Resuems";
+import CreateEmployer from "../routes/dash-board/CreateEmployer";
 
 export const router = createBrowserRouter([
   {
@@ -103,6 +104,10 @@ export const router = createBrowserRouter([
           {
             path: "teams",
             element: <Teams />,
+          },
+          {
+            path: "create-employer",
+            element: <CreateEmployer />,
           },
         ],
       },

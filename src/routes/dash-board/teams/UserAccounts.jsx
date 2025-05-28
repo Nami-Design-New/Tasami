@@ -1,10 +1,12 @@
 import { createColumnHelper } from "@tanstack/react-table";
 import { useMemo } from "react";
-import LineAnalyticsChart from "../../../ui/dash-board/cards/RevenueAnalyticsCard ";
-import DounutCharts from "../../../ui/dash-board/home/EmployersChart";
+import LineAnalyticsChart from "../../../ui/dash-board/charts/LineAnalyticsChart";
+import DounutCharts from "../../../ui/dash-board/charts/DounutCharts";
 import ReusableDataTable from "../../../ui/ReusableDataTable";
 import { USERS_CATEGORIES } from "../../../utils/constants";
 import { Link } from "react-router";
+
+// Line Chart
 const series = [
   {
     name: "العدد الكلي",
@@ -22,9 +24,44 @@ const series = [
     data: [350, 70, 28, 20],
   },
 ];
+const UseresAccountsOptions = {
+  chart: {
+    height: 350,
+    type: "line",
+    toolbar: { show: true },
+  },
+  stroke: {
+    width: [0, 2, 3],
+    curve: "smooth",
+    dashArray: [0, 5, 0],
+  },
+  fill: {
+    type: ["solid", "solid", "solid"],
+    opacity: [0.2, 1, 1],
+  },
+  markers: {
+    size: 0,
+  },
+  colors: ["#e2e8f0", "#0ea5e9", "#8b5cf6"],
+  dataLabels: {
+    enabled: false,
+  },
+  xaxis: {
+    USERS_CATEGORIES,
+  },
+  legend: {
+    position: "top",
+    horizontalAlign: "left",
+    markers: { radius: 12 },
+  },
+  tooltip: {
+    shared: true,
+    intersect: false,
+  },
+};
 
+// Dounut Chart
 const SuspendedAccountSeries = [50, 30, 22, 10];
-
 const options = {
   labels: USERS_CATEGORIES,
   chart: {
@@ -439,8 +476,8 @@ const UserAccounts = () => {
         <div className="col-12 col-lg-8">
           <LineAnalyticsChart
             series={series}
+            options={UseresAccountsOptions}
             title="تحلايلات المستخدمين"
-            categories={USERS_CATEGORIES}
           />
         </div>
         <div className="col-12">

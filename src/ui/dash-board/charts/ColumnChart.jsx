@@ -1,7 +1,7 @@
 import ReactApexChart from "react-apexcharts";
 import ChartCard from "../cards/ChartCard";
 
-const ColumnChart = ({ series, options, title }) => {
+const ColumnChart = ({ series, options, title, height = 350 }) => {
   return (
     <ChartCard title={title}>
       <div className="user-growth-chart">
@@ -9,7 +9,7 @@ const ColumnChart = ({ series, options, title }) => {
           options={options}
           series={series}
           type="bar"
-          height={350}
+          height={height}
         />
       </div>
     </ChartCard>

@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import ColumnChart from "../../../ui/dash-board/home/ColumnChart";
+import ColumnChart from "../../../ui/dash-board/charts/ColumnChart";
 import ReusableDataTable from "../../../ui/ReusableDataTable";
 import { createColumnHelper } from "@tanstack/react-table";
 import { Link } from "react-router";

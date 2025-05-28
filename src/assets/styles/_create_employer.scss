@@ -1,0 +1,8 @@
+.form__action--buttons {
+  display: flex;
+  align-items: center;
+  button {
+    min-width: 120px;
+    width: fit-content;
+  }
+}
