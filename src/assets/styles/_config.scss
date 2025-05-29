@@ -16,6 +16,12 @@
   left: 50%;
   transform: translate(-50%, -50%);
 }
+@mixin sectionWrapper {
+  padding: 16px;
+  border-radius: $borderRadius;
+  background-color: $white;
+  margin-bottom: 16px;
+}
 
 @mixin clearInput {
   border: none;
@@ -713,10 +719,7 @@ input[type="number"] {
 
 // form-wrapper
 .form__wrapper--custom {
-  padding: 16px;
-  border-radius: $borderRadius;
-  background-color: $white;
-  margin-bottom: 16px;
+  @include sectionWrapper();
   .form__header {
     font-size: 20px;
     font-weight: 500;

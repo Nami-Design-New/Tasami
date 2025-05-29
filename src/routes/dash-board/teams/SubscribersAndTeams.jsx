@@ -9,22 +9,23 @@ const SubscribersAndTeams = () => {
   const currentLocation = locations[locations.length - 1];
 
   return (
-      <section>
-        <div className="d-flex align-items-center justify-content-between">
-          <PageHeader />
-          {currentLocation === "create-employer" ? null : (
-            <Link className="button button--add" to={"create-employer"}>
-              انشاء موظف
-            </Link>
-          )}
-        </div>
-        {currentLocation === "user-accounts" && (
-          <NavigationTabs tabs={SUB_TABS} />
+    <section>
+      <div className="d-flex align-items-center justify-content-between">
+        <PageHeader />
+        {currentLocation === "create-employer" ? null : (
+          <Link className="button button--add" to={"create-employer"}>
+            انشاء موظف
+          </Link>
         )}
-        <div>
-          <Outlet />
-        </div>
-      </section>
+      </div>
+      {(currentLocation === "user-accounts" ||
+        currentLocation === "programs" ||
+        currentLocation === "services" ||
+        currentLocation === "resuems") && <NavigationTabs tabs={SUB_TABS} />}
+      <div>
+        <Outlet />
+      </div>
+    </section>
   );
 };
 

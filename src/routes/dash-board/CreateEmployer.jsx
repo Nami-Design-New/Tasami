@@ -1,6 +1,8 @@
 import { useState } from "react";
 import Tabs from "../../ui/Tabs";
 import EmployerDataForm from "../../ui/dash-board/create-employer/EmployerDataForm";
+import PermissionBoard from "../../ui/dash-board/create-employer/PermissionBoard";
+import WorkGroups from "./teams/WorkGroups";
 
 const tabs = [
   {
@@ -29,15 +31,17 @@ const CreateEmployer = () => {
   return (
     <section>
       <div className="row g-3">
-        <div className="col-12 col-md-4 position-sticky">
+        <div className="col-12 col-md-3 position-sticky">
           <Tabs
             tabs={tabs}
             activeTab={activeTab}
             onTabChange={handleTabClick}
           />
         </div>
-        <div className="col-12 col-md-8 ">
+        <div className="col-12 col-md-9 ">
           {activeTab === 1 && <EmployerDataForm />}
+          {activeTab === 2 && <PermissionBoard />}
+          {activeTab === 3 && <WorkGroups />}
         </div>
       </div>
     </section>
