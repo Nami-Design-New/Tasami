@@ -2,7 +2,7 @@ import React from "react";
 import { Form } from "react-bootstrap";
 
 const SelectField = React.forwardRef(
-  ({ label, hint, options, error, ...props }, ref) => {
+  ({ label, hint, options, error, disableFiledValue, ...props }, ref) => {
     return (
       <div className="input-field">
         {label && (
@@ -13,7 +13,7 @@ const SelectField = React.forwardRef(
 
         <Form.Select ref={ref} isInvalid={!!error} {...props}>
           <option value="" disabled selected hidden>
-            Select
+            {disableFiledValue || " Select"}
           </option>
           {options?.map((option, index) => (
             <option key={index} value={option.value}>

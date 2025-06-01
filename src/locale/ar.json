@@ -3,6 +3,7 @@
   "pageHeaders": {
     "Notifications": " التنبيهات ",
     "Dashboard": " لوحة التحكم ",
+    "DashBoard": " لوحة التحكم ",
     "Tasks": " المهام ",
     "Executive Tasks": " المهام التنفيذيه ",
     "Supervisory Tasks": " المهام الاشرافيه ",
@@ -14,6 +15,11 @@
     "Services": "الخدمات",
     "Resuems": "السير الذاتيه",
     "Teams": "فرق العمل",
-    "Create Employer": " انشاء موظف "
+    "Create Employer": " انشاء موظف ",
+    "List Management": "اداره القوائم",
+    "Working Groups": "مجموعات العمل",
+    "Operating Sectors": "قطاعات التشغيل",
+    "Fields And Specializations": "المجالات و التخصصات",
+    "Employee Profile": "البيانات التوظيفيه"
   }
 }

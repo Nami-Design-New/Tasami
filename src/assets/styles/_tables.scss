@@ -1,5 +1,4 @@
 .user-table {
-  display: flex;
   align-items: center;
   gap: 10px;
 }
@@ -62,12 +61,10 @@
 }
 
 .table-filter {
-  display: flex;
   align-items: center;
   gap: 10px;
   .filter-button {
     height: auto;
-    display: flex;
     align-items: center;
     gap: 4px;
     font-size: 12px;
@@ -89,7 +86,6 @@
   .popover-body {
     padding: 0 !important;
     .status-container {
-      display: flex;
       align-items: start;
       flex-direction: column;
       overflow: hidden;
@@ -98,7 +94,6 @@
         width: 100%;
         text-align: start;
         padding: 12px;
-        display: flex;
         align-items: center;
         font-weight: 500;
         gap: 12px;
@@ -144,7 +139,6 @@
       cursor: pointer;
     }
     .page-numbers {
-      display: flex;
       align-items: center;
       gap: 10px;
       .page-number {
@@ -179,5 +173,22 @@
     &.fa-eye {
       color: $second;
     }
+  }
+}
+.table__actions {
+  @include centerFlex();
+  gap: 12px;
+  font-size: 12px;
+  &--details {
+    color: $second;
+    cursor: pointer;
+  }
+  &--edit {
+    color: $eidtAction;
+    cursor: pointer;
+  }
+  &--delete {
+    color: $dangerLight;
+    cursor: pointer;
   }
 }

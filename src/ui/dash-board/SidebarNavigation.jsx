@@ -1,10 +1,9 @@
 import { Accordion } from "react-bootstrap";
 import { useSelector } from "react-redux";
-import { NavLink, useNavigate } from "react-router";
+import { NavLink } from "react-router";
 
-export default function SidebarNavigation({ handleLinkClick }) {
+export default function SidebarNavigation() {
   const lang = useSelector((state) => state.language.lang);
-  const navigate = useNavigate();
   return (
     <>
       <Accordion className={lang === "en" && "en"}>
@@ -18,29 +17,26 @@ export default function SidebarNavigation({ handleLinkClick }) {
               />
             </div>
             <div className="d-flex flex-column">
-              <h6 onClick={() => navigate("tasks")}>المهام</h6>
+              <h6>المهام</h6>
             </div>
           </Accordion.Header>
           {/* sub menu */}
           <Accordion.Body>
             <ul className="sub_navigation_menu">
               <li className="sub_nav_item">
-                <NavLink to="tasks/executive-tasks" onClick={handleLinkClick}>
+                <NavLink to="tasks/executive-tasks">
                   <img src="/sys-icons/subArrow.svg" alt="arrow" />
                   <span>المهام التنفيذيه </span>
                 </NavLink>
               </li>
               <li className="sub_nav_item">
-                <NavLink to="tasks/supervisory-tasks" onClick={handleLinkClick}>
+                <NavLink to="tasks/supervisory-tasks">
                   <img src="/sys-icons/subArrow.svg" alt="arrow" />
                   <span>المهام الاشرافيه</span>
                 </NavLink>
               </li>
               <li className="sub_nav_item">
-                <NavLink
-                  to="tasks/customer-service-tasks"
-                  onClick={handleLinkClick}
-                >
+                <NavLink to="tasks/customer-service-tasks">
                   <img src="/sys-icons/subArrow.svg" alt="arrow" />
                   <span>مهام خدمه العملاء</span>
                 </NavLink>
@@ -65,29 +61,20 @@ export default function SidebarNavigation({ handleLinkClick }) {
           <Accordion.Body>
             <ul className="sub_navigation_menu">
               <li className="sub_nav_item">
-                <NavLink
-                  to="subscribers-and-teams/subscribers/user-accounts"
-                  onClick={handleLinkClick}
-                >
+                <NavLink to="subscribers-and-teams/subscribers/user-accounts">
                   <img src="/sys-icons/subArrow.svg" alt="arrow" />
                   <span>المشتركون</span>
                 </NavLink>
               </li>
               <li className="sub_nav_item">
-                <NavLink
-                  to="subscribers-and-teams/teams"
-                  onClick={handleLinkClick}
-                >
+                <NavLink to="subscribers-and-teams/teams">
                   <img src="/sys-icons/subArrow.svg" alt="arrow" />
                   <span>فرق العمل </span>
                 </NavLink>
               </li>
 
               <li className="sub_nav_item">
-                <NavLink
-                  to="subscribers-and-teams/create-employer"
-                  onClick={handleLinkClick}
-                >
+                <NavLink to="subscribers-and-teams/create-employer">
                   <img src="/sys-icons/subArrow.svg" alt="arrow" />
                   <span>انشاء موظف</span>
                 </NavLink>
@@ -105,36 +92,36 @@ export default function SidebarNavigation({ handleLinkClick }) {
               <h6> تقارير الاداء </h6>
             </div>
           </Accordion.Header>
-          {/* sub menu */}
+          {/* Performance reports */}
           <Accordion.Body>
             <ul className="sub_navigation_menu">
               <li className="sub_nav_item">
-                <NavLink to="reports" onClick={handleLinkClick}>
+                <NavLink to="reports">
                   <img src="/sys-icons/subArrow.svg" alt="arrow" />
                   <span> الاشتراكات </span>
                 </NavLink>
               </li>
               <li className="sub_nav_item">
-                <NavLink to="clients" onClick={handleLinkClick}>
+                <NavLink to="clients">
                   <img src="/sys-icons/subArrow.svg" alt="arrow" />
                   <span> البرامج والخدمات </span>
                 </NavLink>
               </li>
 
               <li className="sub_nav_item">
-                <NavLink to="clients" onClick={handleLinkClick}>
+                <NavLink to="clients">
                   <img src="/sys-icons/subArrow.svg" alt="arrow" />
                   <span> خدمات العملاء </span>
                 </NavLink>
               </li>
               <li className="sub_nav_item">
-                <NavLink to="clients" onClick={handleLinkClick}>
+                <NavLink to="clients">
                   <img src="/sys-icons/subArrow.svg" alt="arrow" />
                   <span> العمليات </span>
                 </NavLink>
               </li>
               <li className="sub_nav_item">
-                <NavLink to="clients" onClick={handleLinkClick}>
+                <NavLink to="clients">
                   <img src="/sys-icons/subArrow.svg" alt="arrow" />
                   <span> المبيعات </span>
                 </NavLink>
@@ -142,7 +129,7 @@ export default function SidebarNavigation({ handleLinkClick }) {
             </ul>
           </Accordion.Body>
         </Accordion.Item>
-        {/* Guest Details &  Reviews */}
+        {/* List Managment */}
         <Accordion.Item eventKey="3">
           <Accordion.Header>
             <div className="icon">
@@ -156,19 +143,19 @@ export default function SidebarNavigation({ handleLinkClick }) {
           <Accordion.Body>
             <ul className="sub_navigation_menu">
               <li className="sub_nav_item">
-                <NavLink to="guests" onClick={handleLinkClick}>
+                <NavLink to="list-management/working-groups">
                   <img src="/sys-icons/subArrow.svg" alt="arrow" />
                   <span>مجموعات العمل</span>
                 </NavLink>
               </li>
               <li className="sub_nav_item">
-                <NavLink to="complaint" onClick={handleLinkClick}>
+                <NavLink to="list-management/operating-sectors">
                   <img src="/sys-icons/subArrow.svg" alt="arrow" />
                   <span> قطاعات التشغيل </span>
                 </NavLink>
               </li>
               <li className="sub_nav_item">
-                <NavLink to="rating" onClick={handleLinkClick}>
+                <NavLink to="list-management/fields-and-specializations">
                   <img src="/sys-icons/subArrow.svg" alt="arrow" />
                   <span> المجالات والتخصصات </span>
                 </NavLink>

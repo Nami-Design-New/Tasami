@@ -5,6 +5,8 @@ export default function SubmitButton({
   fileLoading,
   event = undefined,
 }) {
+  console.log(className);
+
   return (
     <button
       onClick={event ? event : undefined}

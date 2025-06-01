@@ -102,6 +102,7 @@ $inputStroke: #f2f2f2;
 $success: #34b53a;
 $successLight: #34b53acc;
 $danger: #ff3a29;
+$eidtAction: #6c757d;
 $dangerLight: #dc3545cc;
 $borderRadius: 12px;
 $transition: 0.3s ease-in-out;
@@ -118,6 +119,21 @@ $transition: 0.3s ease-in-out;
 ::-webkit-scrollbar-thumb {
   background: #989898;
   border-radius: 30px;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(50, 205, 50, 0.7);
+  }
+  70% {
+    transform: scale(1);
+    box-shadow: 0 0 0 8px rgba(50, 205, 50, 0);
+  }
+  100% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(50, 205, 50, 0);
+  }
 }
 
 button,
@@ -209,7 +225,7 @@ input[type="number"] {
     align-items: center;
     gap: 8px;
     &:active {
-      background: var(--white);
+      background: $white;
     }
     i {
       width: 18px;
@@ -223,49 +239,6 @@ input[type="number"] {
 
 .dropdown-toggle::after {
   display: none;
-}
-
-.modal-header {
-  border-bottom: 0;
-  .btn-close {
-    padding: 0 !important;
-    background: none !important;
-    box-shadow: none !important;
-    margin-inline-end: 0 !important;
-    margin-inline-start: auto !important;
-    width: 28px;
-    height: 28px;
-    border-radius: 50%;
-    position: relative;
-    opacity: 1;
-    &::before {
-      @include centerAbsolute();
-      font-family: "Font Awesome 6 Pro";
-      content: "\f00d";
-      font-size: 14px;
-      color: var(--main);
-    }
-    &:hover {
-      background: var(--close-hover) !important;
-    }
-  }
-  h6 {
-    color: var(--main);
-    margin-bottom: 0;
-  }
-}
-
-.modal-content {
-  background: var(--white);
-  border-radius: 24px;
-  overflow: hidden;
-}
-
-.modal .modal-xl {
-  max-width: unset;
-  width: min(100% - 24px, 1140px);
-  margin: 20px auto;
-  justify-content: center;
 }
 
 .invalid-feedback {
@@ -442,7 +415,7 @@ input[type="number"] {
       font-size: 16px;
     }
     &:hover {
-      color: var(--white);
+      color: $white;
       border-color: var(--main);
       background-color: var(--main);
     }
@@ -523,7 +496,7 @@ input[type="number"] {
         border-radius: 8px;
         direction: ltr !important;
       }
-      background: var(--white);
+      background: $white;
       span {
         display: none;
       }
@@ -576,11 +549,11 @@ input[type="number"] {
   box-shadow: none;
   border-radius: 0;
   padding: 8px;
-  background: var(--white);
+  background: $white;
 }
 
 .rmdp-wrapper {
-  background: var(--white) !important;
+  background: $white !important;
 }
 
 .rmdp-day {
@@ -648,10 +621,10 @@ input[type="number"] {
 .rmdp-range {
   background: var(--main) !important;
   box-shadow: none !important;
-  color: var(--white) !important;
+  color: $white !important;
   &.rmdp-today span {
     background: var(--main) !important;
-    color: var(--white) !important;
+    color: $white !important;
   }
 }
 

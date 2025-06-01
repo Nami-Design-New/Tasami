@@ -4,7 +4,7 @@ import DashBoardLayout from "../layout/DashboradLayout";
 import WebsiteLayout from "../layout/WebsiteLayout";
 import LoginPage from "../routes/auth/LoginPage";
 import RegisterPage from "../routes/auth/RegisterPage";
-import DashBoardHome from "../routes/dash-board/DashboardHome";
+import DashboardHome from "../routes/dash-board/DashboardHome";
 import PageNotFound from "../routes/PageNotFound";
 import ResetPassword from "../routes/auth/ResetPassword";
 import Home from "../routes/website/Home";
@@ -21,6 +21,11 @@ import Programs from "../routes/dash-board/teams/Programs";
 import Services from "../routes/dash-board/teams/services";
 import Resuems from "../routes/dash-board/teams/Resuems";
 import CreateEmployer from "../routes/dash-board/CreateEmployer";
+import ListManagement from "../routes/dash-board/list-management/ListManagement";
+import WorkingGroups from "../routes/dash-board/list-management/WorkingGroups";
+import OperatingSectors from "../routes/dash-board/list-management/OperatingSectors";
+import FieldsAndSpecializations from "../routes/dash-board/list-management/FieldsAndSpecializations";
+import EmployeeProfile from "../routes/dash-board/EmployeeProfile";
 
 export const router = createBrowserRouter([
   {
@@ -46,8 +51,9 @@ export const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <DashBoardHome />,
+        element: <DashboardHome />,
       },
+
       {
         path: "notifications",
         element: <Notifications />,
@@ -73,6 +79,10 @@ export const router = createBrowserRouter([
             element: <CustomerServiseTasks />,
           },
         ],
+      },
+      {
+        path: "employee-profile",
+        element: <EmployeeProfile />,
       },
       {
         path: "subscribers-and-teams",
@@ -108,6 +118,28 @@ export const router = createBrowserRouter([
           {
             path: "create-employer",
             element: <CreateEmployer />,
+          },
+        ],
+      },
+      {
+        path: "list-management",
+        element: <ListManagement />,
+        children: [
+          {
+            index: true,
+            element: <WorkingGroups />,
+          },
+          {
+            path: "working-groups",
+            element: <WorkingGroups />,
+          },
+          {
+            path: "operating-sectors",
+            element: <OperatingSectors />,
+          },
+          {
+            path: "fields-and-specializations",
+            element: <FieldsAndSpecializations />,
           },
         ],
       },

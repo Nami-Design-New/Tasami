@@ -80,6 +80,18 @@ const ReusableDataTable = ({
                   {headerGroup.headers.map((header) => (
                     <th key={header.id} width={header.getSize()}>
                       {header.column.columnDef.header}
+                      {header.column.getCanSort() && (
+                        <i
+                          className="fa-solid fa-arrow-up-short-wide"
+                          onClick={header.column.getToggleSortingHandler()}
+                        ></i>
+                      )}
+                      {
+                        {
+                          asc: "تصاعديا",
+                          desc: "تنازليا",
+                        }[header.column.getIsSorted()]
+                      }
                       <div
                         className={`resizer ${
                           header.column.getIsResizing() ? "isResizing" : ""

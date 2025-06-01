@@ -2,17 +2,18 @@
 @import "./fonts";
 @import "./cards";
 @import "./form_ui";
-@import "./dashboard";
 @import "./landing";
 @import "./auth";
 @import "./header";
 @import "./tables";
 @import "./tasks";
 @import "./create_employer";
+@import "./dashboard";
+@import "./modals";
 body {
   direction: rtl;
   font-family: "Dubai";
-  background-color: var(--white);
+  background-color: $white;
   // overflow: hidden;
   main {
     min-height: calc(100vh - 80px);

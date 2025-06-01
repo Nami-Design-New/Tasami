@@ -3,6 +3,7 @@
   "pageHeaders": {
     "Notifications": "Notifications",
     "Dashboard": "Dashboard",
+    "DashBoard": "Dashboard",
     "Tasks": " Tasks ",
     "Executive Tasks": "Executive Tasks",
     "Supervisory Tasks": "Supervisory Tasks",
@@ -14,6 +15,11 @@
     "Services": "Services",
     "Resuems": "Resuems",
     "Teams": "Teams",
-    "Create Employer": "Create Employer"
+    "Create Employer": "Create Employer",
+    "List Management": "List Management",
+    "Working Groups": "Working Groups",
+    "Operating Sectors": "Operating Sectors",
+    "Fields And Specializations": "Fields And Specializations",
+    "Employee Profile": "Employment data"
   }
 }

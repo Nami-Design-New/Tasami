@@ -70,7 +70,7 @@ export default function SideBar({ hoverExpand, setHoverExpand, collapsed }) {
           </NavLink>
         </li>
         <li className="nav_item mb-2">
-          <NavLink to="emplotment-info" end>
+          <NavLink to="employee-profile" end>
             <div className="icon">
               <img src="/icons/employment-info.svg" alt="notifications" />
             </div>

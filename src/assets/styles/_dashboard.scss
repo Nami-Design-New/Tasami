@@ -43,6 +43,7 @@
     padding: 24px 16px 0 16px;
     transition: $transition;
     width: 80px;
+    z-index: 100;
 
     @include labtop-layout {
       position: fixed;
