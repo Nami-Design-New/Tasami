@@ -31,12 +31,12 @@ const UserProfileCard = () => {
         </div>
       </div>
 
-      <div className="profile-card__footer">
+      {/* <div className="profile-card__footer">
         <button className="profile-card__button">
           <i className="fa-solid fa-pen-to-square"></i>
           <span> تحديث البيانات </span>
         </button>
-      </div>
+      </div> */}
     </div>
   );
 };

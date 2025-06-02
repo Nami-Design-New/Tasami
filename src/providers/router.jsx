@@ -26,6 +26,8 @@ import WorkingGroups from "../routes/dash-board/list-management/WorkingGroups";
 import OperatingSectors from "../routes/dash-board/list-management/OperatingSectors";
 import FieldsAndSpecializations from "../routes/dash-board/list-management/FieldsAndSpecializations";
 import EmployeeProfile from "../routes/dash-board/EmployeeProfile";
+import ModelComponent from "../routes/dash-board/ModelComponent";
+import ActionsLogModel from "../routes/dash-board/ActionsLogModel";
 
 export const router = createBrowserRouter([
   {
@@ -57,6 +59,14 @@ export const router = createBrowserRouter([
       {
         path: "notifications",
         element: <Notifications />,
+      },
+      {
+        path: "model/:id",
+        element: <ModelComponent />,
+      },
+      {
+        path: "actions-log",
+        element: <ActionsLogModel />,
       },
       {
         path: "tasks",

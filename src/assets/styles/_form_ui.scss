@@ -31,6 +31,7 @@
       input {
         border-right: 0 !important;
         border-radius: 12px 0 0 12px !important;
+
         &.ar {
           border-left: 0 !important;
           border-radius: 0 12px 12px 0 !important;
@@ -103,6 +104,10 @@
       background: $inputBG;
       padding: 12px 16px;
       box-shadow: none !important;
+      &:disabled {
+        background-color: $lightGray;
+        cursor: not-allowed;
+      }
     }
     textarea {
       height: 152px;

@@ -296,7 +296,7 @@ const ExecutiveTasks = () => {
         header: "النموذج",
         cell: (info) => (
           <Link
-            to={`/model/${info.getValue()}`}
+            to={`/dashboard/model/${info.getValue()}`}
             className="model-link"
             style={{ textDecoration: "underline" }}
           >

@@ -1,4 +1,5 @@
-const Tabs = ({ tabs, activeTab, onTabChange }) => {
+const Tabs = ({ tabs = [], activeTab, onTabChange }) => {
+
   return (
     <ul className="tab-list">
       {tabs.map((tab) => (

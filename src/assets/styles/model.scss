@@ -1,0 +1,291 @@
+@import "./config";
+
+// ================================
+// ModelComponent - Main Container
+// ================================
+.model {
+  max-width: 1400px;
+  @media (min-width: 1400px) {
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+// =======================
+// Header Section
+// =======================
+
+.model__header {
+  @include centerFlex();
+  h2 {
+    padding: 1rem 1.5rem;
+    background-color: $main;
+    font-size: 1.25rem;
+    font-weight: 500;
+    color: $white;
+    width: 100%;
+    text-align: center;
+    border-radius: $borderRadius;
+    margin-bottom: 1rem;
+  }
+}
+
+// =======================
+// Employee Data Section
+// =======================
+
+.model__employee-data {
+  .list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 1rem;
+  }
+}
+
+// =======================
+// Model Info Section
+// =======================
+
+.model__info {
+  border-radius: $borderRadius;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  background-color: $white;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+// =======================
+// Reusable Data Item
+// =======================
+
+.data-item {
+  flex: 1 1 200px;
+
+  &__label {
+    font-weight: 500;
+    font-size: 16px;
+    margin-bottom: 0.375rem;
+    color: $dark;
+  }
+
+  &__value {
+    color: $text;
+    font-weight: 600;
+  }
+}
+
+// =======================
+// Details Section
+// =======================
+
+.model__details {
+  margin-bottom: 1rem;
+  &--text-container {
+    border: 1px solid $border;
+    border-radius: $borderRadius;
+    padding: 1rem;
+
+    .model__details-description {
+      margin-top: 1rem;
+
+      h3 {
+        font-weight: 500;
+        font-size: 1.25rem;
+        margin-bottom: 0.5rem;
+      }
+
+      p {
+        color: $text;
+        font-weight: 600;
+      }
+    }
+  }
+}
+
+// =======================
+// Attachments Section
+// =======================
+
+.attachments {
+  margin-top: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid $border;
+  border-radius: $borderRadius;
+  overflow: hidden;
+  //   padding: 1rem;
+  h4 {
+    font-size: 1.25rem;
+    margin-bottom: 0.75rem;
+    padding: 1rem;
+    border-bottom: 1px solid $border;
+    background-color: #f9fafb;
+  }
+
+  &__list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    border-bottom: 1px solid $border;
+    padding: 0 1rem 1rem;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  &__item {
+    background-color: $second5;
+    padding: 0.75rem;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    width: 50%;
+    gap: 0.5rem;
+  }
+
+  &__icon {
+    width: 16px;
+    height: 16px;
+    background-color: #ccc;
+    display: inline-block;
+    border-radius: 50%;
+  }
+
+  &__name {
+    font-size: 0.9rem;
+  }
+
+  &__add {
+    margin: 1rem;
+    // background-color: ;
+    color: $main;
+    padding: 1rem;
+    border: none;
+    border-radius: $borderRadius;
+    cursor: pointer;
+    border: 1px dashed $main;
+
+    i {
+      margin-left: 0.5rem;
+    }
+  }
+}
+
+// =======================
+// Notes Section
+// =======================
+
+.model__notes {
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.note-item {
+  &__label {
+    display: flex;
+    justify-content: space-between;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+    a {
+      text-decoration: underline;
+      font-weight: 500;
+      color: $second;
+    }
+  }
+
+  &__textarea {
+    width: 100%;
+    height: 80px;
+    resize: vertical;
+    padding: 0.5rem;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+}
+
+// =======================
+// Actions Section
+// =======================
+
+.model__actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  &-option {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+
+    input[type="radio"] {
+      accent-color: $main;
+    }
+
+    label {
+      font-weight: 500;
+      font-size: 14px;
+      cursor: pointer;
+    }
+  }
+}
+
+// Extra Options (Checkbox)
+
+.model__extra-options {
+  margin-top: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+
+  input[type="checkbox"] {
+    accent-color: $main;
+  }
+  label {
+    font-weight: 500;
+    font-size: 14px;
+    cursor: pointer;
+  }
+}
+
+// =======================
+// Submission Buttons Section
+// =======================
+
+.model__submit {
+  margin-top: 2.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+
+  &-log {
+    color: $second;
+    cursor: pointer;
+    transition: $transition;
+
+    &:hover {
+      color: $secondHover;
+    }
+  }
+
+  &-buttons {
+    display: flex;
+    gap: 1rem;
+
+    button {
+      padding: 0.6rem 1.2rem;
+      border: none;
+      font-weight: bold;
+      cursor: pointer;
+      white-space: nowrap;
+
+      color: white;
+    }
+  }
+}

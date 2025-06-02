@@ -39,7 +39,7 @@ const EmployerDataForm = () => {
               value={new Date().toISOString().split("T")[0]}
             />
           </div>
-          <div className="col-12 col-md-6 p-2 ">
+          {/* <div className="col-12 col-md-6 p-2 ">
             <SelectField
               label="مجموعة العمل "
               options={[
@@ -48,7 +48,7 @@ const EmployerDataForm = () => {
                 { value: 3, name: "3" },
               ]}
             />
-          </div>{" "}
+          </div>{" "} */}
           <div className="col-12 col-md-6 p-2 ">
             <SelectField
               label="الاقليم"
@@ -104,6 +104,9 @@ const EmployerDataForm = () => {
             <InputField label="تاريخ الميلاد" type="date" />
           </div>
           <div className="col-12 col-md-6 p-2 ">
+            <InputField label="البريد الالكتروني" type="email" />
+          </div>
+          {/* <div className="col-12 col-md-6 p-2 ">
             <SelectField
               label="مجموعة العمل "
               options={[
@@ -112,7 +115,7 @@ const EmployerDataForm = () => {
                 { value: 3, name: "3" },
               ]}
             />
-          </div>{" "}
+          </div>{" "} */}
           <div className="col-12 col-md-6 p-2 ">
             <SelectField
               label="الجنس"
