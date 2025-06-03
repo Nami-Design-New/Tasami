@@ -107,7 +107,7 @@ const WorkingGroups = () => {
         cell: (info) => (
           <Link
             to={`/group-details/${info.getValue()}`}
-            className="model-link"
+            className="link-styls"
             style={{ textDecoration: "underline" }}
           >
             {info.getValue()}

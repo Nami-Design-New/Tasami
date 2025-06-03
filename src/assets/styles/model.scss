@@ -5,6 +5,7 @@
 // ================================
 .model {
   max-width: 1400px;
+  width: 100%;
   @media (min-width: 1400px) {
     margin-left: auto;
     margin-right: auto;
@@ -295,4 +296,9 @@
       color: white;
     }
   }
+}
+
+.custom-badge {
+  background-color: var(--badge-color) !important;
+  color: var(--text-color) !important;
 }

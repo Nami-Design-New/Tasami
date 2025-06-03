@@ -326,7 +326,7 @@ const Programs = () => {
         cell: (info) => (
           <Link
             to={`/model/${info.getValue()}`}
-            className="model-link"
+            className="link-styls"
             style={{ textDecoration: "underline" }}
           >
             {info.getValue()}

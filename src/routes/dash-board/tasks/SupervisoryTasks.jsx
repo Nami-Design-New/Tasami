@@ -11,6 +11,7 @@ import { useMemo, useState } from "react";
 import { useSelector } from "react-redux";
 import TableFilter from "../../../ui/dash-board/home/TableFilter";
 import { Link } from "react-router";
+import { Badge } from "react-bootstrap";
 
 const columnHelper = createColumnHelper();
 
@@ -345,7 +346,7 @@ const SupervisoryTasks = () => {
         cell: (info) => (
           <Link
             to={`/model/${info.getValue()}`}
-            className="model-link"
+            className="link-styls"
             style={{ textDecoration: "underline" }}
           >
             {info.getValue()}
@@ -358,7 +359,7 @@ const SupervisoryTasks = () => {
         cell: (info) => (
           <Link
             to={`/program/${info.getValue()}`}
-            className="model-link"
+            className="link-styls"
             style={{ textDecoration: "underline" }}
           >
             {info.getValue()}
@@ -370,7 +371,7 @@ const SupervisoryTasks = () => {
         cell: (info) => (
           <Link
             to={`/userAccount/${info.getValue()}`}
-            className="model-link"
+            className="link-styls"
             style={{ textDecoration: "underline" }}
           >
             {info.getValue()}
@@ -382,7 +383,7 @@ const SupervisoryTasks = () => {
         cell: (info) => (
           <Link
             to={`/group/${info.getValue()}`}
-            className="model-link"
+            className="link-styls"
             style={{ textDecoration: "underline" }}
           >
             {info.getValue()}
@@ -407,7 +408,7 @@ const SupervisoryTasks = () => {
         cell: (info) => (
           <Link
             to={`/employerAccount/${info.getValue()}`}
-            className="model-link"
+            className="link-styls"
             style={{ textDecoration: "underline" }}
           >
             {info.getValue()}
@@ -417,22 +418,35 @@ const SupervisoryTasks = () => {
       columnHelper.accessor("status", {
         header: " الحالة ",
         cell: (info) => {
-          const statusStyle = {
-            padding: "4px 8px",
-            borderRadius: "4px",
-            display: "inline-block",
-            fontWeight: "bold",
-            color: "white",
-            backgroundColor:
-              info.getValue() === "مكتمل"
-                ? "#28a745"
-                : info.getValue() === "قيد التنفيذ"
-                ? "#007bff"
-                : info.getValue() === "غير مضاف"
-                ? "#ffc107"
-                : "#6c757d",
-          };
-          return <span style={statusStyle}>{info.getValue()}</span>;
+          let badgeColor;
+          switch (info.getValue()) {
+            case "مكتمل":
+              badgeColor = "#28a745";
+              break;
+            case "قيد التنفيذ":
+              badgeColor = "#007bff";
+              break;
+            case "غير مضاف":
+              badgeColor = "#ffc107";
+              break;
+            default:
+              badgeColor = "#E5E7EB";
+              break;
+          }
+
+          return (
+            <Badge
+              pill
+              className="custom-badge"
+              style={{
+                "--badge-color": badgeColor,
+                "--text-color": "#fff",
+                fontWeight: "500",
+              }}
+            >
+              {info.getValue()}
+            </Badge>
+          );
         },
       }),
       columnHelper.accessor("completionDate", {
