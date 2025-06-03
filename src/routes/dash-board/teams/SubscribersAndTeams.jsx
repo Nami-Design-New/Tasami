@@ -5,16 +5,23 @@ import PageHeader from "../../../ui/PageHeader";
 import { SUB_TABS } from "../../../utils/constants";
 
 const SubscribersAndTeams = () => {
-  const currentLocation = useGetCurrentRoute();
+  const { currentLocation, locations } = useGetCurrentRoute();
 
+  console.log(currentLocation, locations);
+  const isEmployeeDetails = locations.includes("employee-details");
   return (
     <section>
       <div className="d-flex align-items-center justify-content-between">
-        <PageHeader />
-        {currentLocation === "create-employer" ? (
+        <PageHeader
+          removeLast={isEmployeeDetails === true}
+          name={isEmployeeDetails === true ? " تفاصيل الموظف" : null}
+        />
+        {currentLocation === "create-employee" ? (
           <button className="button button--add"> تنشيط الحساب </button>
+        ) : isEmployeeDetails ? (
+          <button className="button button--add"> ايقاف الحساب </button>
         ) : (
-          <Link className="button button--add" to={"create-employer"}>
+          <Link className="button button--add" to={"create-employee"}>
             انشاء موظف
           </Link>
         )}

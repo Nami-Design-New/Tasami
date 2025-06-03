@@ -1,7 +1,5 @@
-// import { ProgressBar } from "react-bootstrap";
-
+import TeamCard from "../../../ui/dash-board/cards/TeamCard";
 import SubmitButton from "../../../ui/forms/SubmitButton";
-import TeamCard from "./TeamCard";
 const gradientClasses = ["blue", "indigo", "green"];
 const TeamsSection = () => {
   const teams = [

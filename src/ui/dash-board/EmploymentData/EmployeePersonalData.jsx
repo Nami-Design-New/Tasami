@@ -3,15 +3,27 @@ import FormWrapper from "../../forms/FormWrapper";
 import InputField from "../../forms/InputField";
 import SelectField from "../../forms/SelectField";
 import SubmitButton from "../../forms/SubmitButton";
-import MapLocationField from "../create-employer/MapLocationField";
+import MapLocationField from "../create-employee/MapLocationField";
 import MapModal from "../../modals/MapModal";
 import FileUploader from "../../forms/FileUPloader";
+import ProfileImageUploader from "../../ProfileImageUploader";
 
 const EmployeePersonalData = () => {
   const defaultBirthday = "2000-01-01";
   const today = new Date().toISOString().split("T")[0];
   const [showMapModal, setShowMapModal] = useState(false);
+  const [image, setImage] = useState(
+    "https://randomuser.me/api/portraits/women/44.jpg"
+  );
   const [files, setFiles] = useState([]);
+
+  const handleUpload = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const imageUrl = URL.createObjectURL(file);
+      setImage(imageUrl);
+    }
+  };
 
   const handleFilesChange = (updatedFiles) => {
     setFiles(updatedFiles);
@@ -21,28 +33,7 @@ const EmployeePersonalData = () => {
       <form className="form_ui personal-data__form">
         <div className="row g-2">
           <div className="col-12">
-            <div className="profile-image">
-              <div className="profile-image__wrapper">
-                <img
-                  src="https://randomuser.me/api/portraits/women/44.jpg"
-                  alt="Profile"
-                  className="profile-image__img"
-                />
-                <label
-                  htmlFor="imageUpload"
-                  className="profile-image__upload-btn"
-                >
-                  <i className="fa-solid fa-edit"></i>
-                </label>
-                <input
-                  type="file"
-                  id="imageUpload"
-                  accept="image/*"
-                  className="profile-image__input"
-                  // onChange={handleUpload}
-                />
-              </div>
-            </div>
+            <ProfileImageUploader imageUrl={image} onChange={handleUpload} />
           </div>
           <div className="col-12 col-md-6">
             <InputField label="الاسم الاول" value="محمود" />

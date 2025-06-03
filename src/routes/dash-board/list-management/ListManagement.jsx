@@ -7,7 +7,7 @@ import OperatingSectorsModal from "../../../ui/modals/OperatingSectorsModal";
 import FiledsAndSpecialzationsModal from "../../../ui/modals/FiledsAndSpecialzationsModal";
 
 const ListManagement = () => {
-  const currentLocation = useGetCurrentRoute();
+  const { currentLocation } = useGetCurrentRoute();
   const [showModal, setShowModal] = useState(false);
   const [showAddSectorModal, setAddSectorShowModal] = useState(false);
   const [showAddFiledsModal, setShowAddFiledsModal] = useState(false);

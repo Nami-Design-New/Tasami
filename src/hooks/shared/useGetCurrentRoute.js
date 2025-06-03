@@ -4,7 +4,7 @@ const useGetCurrentRoute = () => {
   const location = useLocation();
   const locations = location.pathname.split("/");
   const currentLocation = locations[locations.length - 1];
-  return currentLocation;
+  return { currentLocation, locations };
 };
 
 export default useGetCurrentRoute;

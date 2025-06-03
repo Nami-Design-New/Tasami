@@ -1,5 +1,5 @@
-import ProgressStats from "./ProgressStats";
-import TeamInfoItem from "./TeamInfoItem";
+import ProgressStats from "../teams/ProgressStats";
+import TeamInfoItem from "../teams/TeamInfoItem";
 
 const TeamCard = ({ team, gradientClass }) => {
   return (

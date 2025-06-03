@@ -111,6 +111,11 @@ input[type=number]::-webkit-outer-spin-button, input[type=number]::-webkit-inner
   color: #5fcafa;
 }
 
+.custom-badge {
+  background-color: var(--badge-color) !important;
+  color: var(--text-color) !important;
+}
+
 .form-switch {
   display: flex;
   align-items: center;
@@ -642,18 +647,18 @@ input[type=number]::-webkit-outer-spin-button, input[type=number]::-webkit-inner
   top: 30px;
 }
 
-.personal-data__form .profile-image {
+.profile-image {
   margin-bottom: 0.5rem;
   display: flex;
   align-items: center;
   justify-content: center;
 }
-.personal-data__form .profile-image__wrapper {
+.profile-image__wrapper {
   position: relative;
   width: 150px;
   height: 150px;
 }
-.personal-data__form .profile-image__img {
+.profile-image__img {
   width: 100%;
   height: 100%;
   -o-object-fit: cover;
@@ -661,7 +666,7 @@ input[type=number]::-webkit-outer-spin-button, input[type=number]::-webkit-inner
   border-radius: 50%;
   display: block;
 }
-.personal-data__form .profile-image__upload-btn {
+.profile-image__upload-btn {
   position: absolute;
   bottom: 10px;
   left: 0;
@@ -675,15 +680,16 @@ input[type=number]::-webkit-outer-spin-button, input[type=number]::-webkit-inner
   align-items: center;
   justify-content: center;
 }
-.personal-data__form .profile-image__input {
+.profile-image__input {
   display: none;
 }
-.personal-data__form .personal-data__button {
+
+.personal-data__button {
   display: flex;
   align-items: center;
   justify-content: end;
 }
-.personal-data__form .personal-data__button .btn-width {
+.personal-data__button .btn-width {
   width: -moz-fit-content;
   width: fit-content;
   padding: 12px 22px;
@@ -708,4 +714,14 @@ input[type=number]::-webkit-outer-spin-button, input[type=number]::-webkit-inner
 }
 .permission-list__label {
   flex: 1;
+}
+
+.employee__data h6 {
+  font-size: "18px";
+  margin-bottom: 6px;
+}
+.employee__data p {
+  font-size: "16px";
+  font-weight: bold;
+  color: #666b88;
 }/*# sourceMappingURL=profile.css.map */

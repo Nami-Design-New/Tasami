@@ -68,7 +68,7 @@ const ReusableDataTable = ({
       <div className="card__body">
         <div
           className="table-container table-responsive border"
-          dir={isRTL ? "rtl" : "ltr"}
+          // dir={isRTL ? "rtl" : "ltr"}
         >
           <table
             width={table.getTotalSize()}

@@ -111,6 +111,11 @@ input[type=number]::-webkit-outer-spin-button, input[type=number]::-webkit-inner
   color: #5fcafa;
 }
 
+.custom-badge {
+  background-color: var(--badge-color) !important;
+  color: var(--text-color) !important;
+}
+
 .form-switch {
   display: flex;
   align-items: center;
@@ -652,6 +657,7 @@ input[type=number]::-webkit-outer-spin-button, input[type=number]::-webkit-inner
   display: flex;
   align-items: center;
   justify-content: center;
+  width: 100%;
 }
 .model__header h2 {
   padding: 1rem 1.5rem;
@@ -871,9 +877,4 @@ input[type=number]::-webkit-outer-spin-button, input[type=number]::-webkit-inner
   cursor: pointer;
   white-space: nowrap;
   color: white;
-}
-
-.custom-badge {
-  background-color: var(--badge-color) !important;
-  color: var(--text-color) !important;
 }/*# sourceMappingURL=model.css.map */

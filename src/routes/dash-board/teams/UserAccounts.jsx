@@ -5,6 +5,7 @@ import DounutCharts from "../../../ui/dash-board/charts/DounutCharts";
 import ReusableDataTable from "../../../ui/ReusableDataTable";
 import { USERS_CATEGORIES } from "../../../utils/constants";
 import { Link } from "react-router";
+import { Badge } from "react-bootstrap";
 
 // Line Chart
 const series = [
@@ -427,20 +428,35 @@ const UserAccounts = () => {
       columnHelper.accessor("status", {
         header: " الحاله ",
         cell: (info) => {
-          const statusStyle = {
-            backgroundColor:
-              info.getValue() === "نشط"
-                ? "#28a745"
-                : info.getValue() === "غير نشطة"
-                ? "#007bff"
-                : info.getValue() === "موقوفه"
-                ? "##dc3545"
-                : "#6c757d",
-          };
+          let badgeColor;
+          console.log(info.getValue());
+
+          switch (info.getValue()) {
+            case "نشط":
+              badgeColor = "#28a745";
+              break;
+            case "غير نشطة":
+              badgeColor = "#007bff";
+              break;
+            case "موقوفة":
+              badgeColor = "#dc3545";
+              break;
+            default:
+              badgeColor = "#6c757d";
+              break;
+          }
           return (
-            <span className="badge" style={statusStyle}>
+            <Badge
+              pill
+              className="custom-badge"
+              style={{
+                "--badge-color": badgeColor,
+                "--text-color": "#fff",
+                fontWeight: "400",
+              }}
+            >
               {info.getValue()}
-            </span>
+            </Badge>
           );
         },
       }),

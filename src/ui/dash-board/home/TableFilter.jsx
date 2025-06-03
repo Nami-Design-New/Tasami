@@ -52,7 +52,7 @@ const TableFilter = ({
   const buttonText = filterButtonText || defaultFilterText;
   const searchText = searchPlaceholder || defaultSearchPlaceholder;
 
-  console.log("Current column filters:", columnFilters);
+  // console.log("Current column filters:", columnFilters);
 
   useEffect(() => {
     function handleClickOutside(event) {

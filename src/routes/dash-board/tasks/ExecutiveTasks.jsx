@@ -322,7 +322,7 @@ const ExecutiveTasks = () => {
         header: "حساب المستخدم ",
         cell: (info) => (
           <Link
-            to={`/userAccount/${info.getValue()}`}
+            to={`/dashboard/user-details/${info.getValue()}`}
             className="link-styls"
             style={{ textDecoration: "underline" }}
           >
@@ -334,7 +334,7 @@ const ExecutiveTasks = () => {
         header: "المجموعه",
         cell: (info) => (
           <Link
-            to={`/group/${info.getValue()}`}
+            to={`/dashboard/woking-group/${info.getValue()}`}
             className="link-styls"
             style={{ textDecoration: "underline" }}
           >

@@ -15,11 +15,12 @@
     "Services": "Services",
     "Resuems": "Resuems",
     "Teams": "Teams",
-    "Create Employer": "Create Employer",
+    "Create Employee": "Create Employee",
     "List Management": "List Management",
     "Working Groups": "Working Groups",
     "Operating Sectors": "Operating Sectors",
     "Fields And Specializations": "Fields And Specializations",
-    "Employee Profile": "Employment data"
+    "Profile": "Employment data",
+    "Employee Details": "Employee Details"
   }
 }

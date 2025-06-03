@@ -4,12 +4,22 @@ import FormWrapper from "../../forms/FormWrapper";
 import InputField from "../../forms/InputField";
 import SelectField from "../../forms/SelectField";
 import SubmitButton from "../../forms/SubmitButton";
+import ProfileImageUploader from "../../ProfileImageUploader";
 
 const EmployerDataForm = () => {
   const [files, setFiles] = useState([]);
-
+  const [image, setImage] = useState(
+    "https://randomuser.me/api/portraits/women/44.jpg"
+  );
   const handleFilesChange = (updatedFiles) => {
     setFiles(updatedFiles);
+  };
+  const handleUpload = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const imageUrl = URL.createObjectURL(file);
+      setImage(imageUrl);
+    }
   };
   return (
     <form className="form_ui">
@@ -83,6 +93,7 @@ const EmployerDataForm = () => {
       </FormWrapper>
       <FormWrapper title={"البيانات الشخصيه"}>
         <div className="row">
+          <ProfileImageUploader imageUrl={image} onChange={handleUpload} />
           <div className="col-12 col-md-6 p-2 ">
             <InputField
               label="الاسم الاول"

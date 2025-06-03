@@ -1,12 +1,14 @@
-import LineAnalyticsChart from "../../../ui/dash-board/charts/LineAnalyticsChart";
-import ColumnChart from "../../../ui/dash-board/charts/ColumnChart";
-import DounutCharts from "../../../ui/dash-board/charts/DounutCharts";
-import RadarChart from "../../../ui/dash-board/charts/RadarChart";
-import ReusableDataTable from "../../../ui/ReusableDataTable";
 import { createColumnHelper } from "@tanstack/react-table";
-import { Link } from "react-router";
 import { useMemo } from "react";
+import ReusableDataTable from "../../ui/ReusableDataTable";
+
 import { Badge } from "react-bootstrap";
+import { Link, useParams } from "react-router";
+import ColumnChart from "../../ui/dash-board/charts/ColumnChart";
+import DounutCharts from "../../ui/dash-board/charts/DounutCharts";
+import LineAnalyticsChart from "../../ui/dash-board/charts/LineAnalyticsChart";
+import RadarChart from "../../ui/dash-board/charts/RadarChart";
+import Header from "../../ui/ModelComponent/Header";
 
 // Dounut Charts
 const usersCountSeries = [50, 30, 22];
@@ -191,8 +193,8 @@ const revnueAnalyticsOptions = {
 };
 
 const columnHelper = createColumnHelper();
-
-const Teams = () => {
+const WokingGroupDetails = () => {
+  const { id } = useParams();
   const data = useMemo(
     () => [
       {
@@ -210,7 +212,6 @@ const Teams = () => {
         status: "موقوفة",
         accountStatusDate: "20-Apr-2020",
         time: "08:55 am",
-        workGroup: "GIN-1211321",
       },
       {
         name: "محمد",
@@ -227,7 +228,6 @@ const Teams = () => {
         status: "غير نشطة",
         accountStatusDate: "20-Apr-2020",
         time: "08:55 am",
-        workGroup: "GIN-1211321",
       },
       {
         name: "علي",
@@ -244,7 +244,198 @@ const Teams = () => {
         status: "نشط",
         accountStatusDate: "20-Apr-2020",
         time: "08:55 am",
-        workGroup: "GIN-1211321",
+      },
+      {
+        name: "سلمان",
+        accountNumber: "U-020522-00215d",
+        accountType: "مستفيد",
+        date: "25-Apr-2020",
+        gender: "ذكر",
+        nationality: "السعودية",
+        city: "الرياض-004",
+        region: "014-المنطقة الوسطى",
+        location: "المملكة العربية السعودية",
+        subscriptionEntity: "الاشتراك",
+        subscriptionEnd: "25-Apr-2020",
+        status: "موقوفة",
+        accountStatusDate: "20-Apr-2020",
+        time: "08:55 am",
+      },
+      {
+        name: "أحمد",
+        accountNumber: "U-020522-00215e",
+        accountType: "ملهم",
+        date: "25-Apr-2020",
+        gender: "ذكر",
+        nationality: "السعودية",
+        city: "الرياض-005",
+        region: "014-المنطقة الوسطى",
+        location: "المملكة العربية السعودية",
+        subscriptionEntity: "الاشتراك",
+        subscriptionEnd: "25-Apr-2020",
+        status: "غير نشطة",
+        accountStatusDate: "20-Apr-2020",
+        time: "08:55 am",
+      },
+      {
+        name: "فهد",
+        accountNumber: "U-020522-00215f",
+        accountType: "خبير",
+        date: "25-Apr-2020",
+        gender: "ذكر",
+        nationality: "السعودية",
+        city: "الرياض-006",
+        region: "014-المنطقة الوسطى",
+        location: "المملكة العربية السعودية",
+        subscriptionEntity: "الاشتراك",
+        subscriptionEnd: "25-Apr-2020",
+        status: "نشط",
+        accountStatusDate: "20-Apr-2020",
+        time: "08:55 am",
+      },
+      {
+        name: "ماجد",
+        accountNumber: "U-020522-00215g",
+        accountType: "مستفيد",
+        date: "25-Apr-2020",
+        gender: "ذكر",
+        nationality: "السعودية",
+        city: "الرياض-007",
+        region: "014-المنطقة الوسطى",
+        location: "المملكة العربية السعودية",
+        subscriptionEntity: "الاشتراك",
+        subscriptionEnd: "25-Apr-2020",
+        status: "موقوفة",
+        accountStatusDate: "20-Apr-2020",
+        time: "08:55 am",
+      },
+      {
+        name: "ياسر",
+        accountNumber: "U-020522-00215h",
+        accountType: "جدير",
+        date: "25-Apr-2020",
+        gender: "ذكر",
+        nationality: "السعودية",
+        city: "الرياض-008",
+        region: "014-المنطقة الوسطى",
+        location: "المملكة العربية السعودية",
+        subscriptionEntity: "الاشتراك",
+        subscriptionEnd: "25-Apr-2020",
+        status: "غير نشطة",
+        accountStatusDate: "20-Apr-2020",
+        time: "08:55 am",
+      },
+      {
+        name: "سعد",
+        accountNumber: "U-020522-00215i",
+        accountType: "ملهم",
+        date: "25-Apr-2020",
+        gender: "ذكر",
+        nationality: "السعودية",
+        city: "الرياض-009",
+        region: "014-المنطقة الوسطى",
+        location: "المملكة العربية السعودية",
+        subscriptionEntity: "الاشتراك",
+        subscriptionEnd: "25-Apr-2020",
+        status: "نشط",
+        accountStatusDate: "20-Apr-2020",
+        time: "08:55 am",
+      },
+      {
+        name: "بدر",
+        accountNumber: "U-020522-00215j",
+        accountType: "خبير",
+        date: "25-Apr-2020",
+        gender: "ذكر",
+        nationality: "السعودية",
+        city: "الرياض-010",
+        region: "014-المنطقة الوسطى",
+        location: "المملكة العربية السعودية",
+        subscriptionEntity: "الاشتراك",
+        subscriptionEnd: "25-Apr-2020",
+        status: "موقوفة",
+        accountStatusDate: "20-Apr-2020",
+        time: "08:55 am",
+      },
+      {
+        name: "راشد",
+        accountNumber: "U-020522-00215k",
+        accountType: "مستفيد",
+        date: "25-Apr-2020",
+        gender: "ذكر",
+        nationality: "السعودية",
+        city: "الرياض-011",
+        region: "014-المنطقة الوسطى",
+        location: "المملكة العربية السعودية",
+        subscriptionEntity: "الاشتراك",
+        subscriptionEnd: "25-Apr-2020",
+        status: "غير نشطة",
+        accountStatusDate: "20-Apr-2020",
+        time: "08:55 am",
+      },
+      {
+        name: "جاسم",
+        accountNumber: "U-020522-00215l",
+        accountType: "جدير",
+        date: "25-Apr-2020",
+        gender: "ذكر",
+        nationality: "السعودية",
+        city: "الرياض-012",
+        region: "014-المنطقة الوسطى",
+        location: "المملكة العربية السعودية",
+        subscriptionEntity: "الاشتراك",
+        subscriptionEnd: "25-Apr-2020",
+        status: "نشط",
+        accountStatusDate: "20-Apr-2020",
+        time: "08:55 am",
+      },
+      {
+        name: "تركي",
+        accountNumber: "U-020522-00215m",
+        accountType: "خبير",
+        date: "25-Apr-2020",
+        gender: "ذكر",
+        nationality: "السعودية",
+        city: "الرياض-013",
+        region: "014-المنطقة الوسطى",
+        location: "المملكة العربية السعودية",
+        subscriptionEntity: "الاشتراك",
+        subscriptionEnd: "25-Apr-2020",
+        status: "موقوفة",
+        accountStatusDate: "20-Apr-2020",
+        time: "08:55 am",
+      },
+      {
+        name: "أنس",
+        accountNumber: "U-020522-00215n",
+        accountType: "ملهم",
+        date: "25-Apr-2020",
+        gender: "ذكر",
+        nationality: "السعودية",
+        city: "الرياض-014",
+        region: "014-المنطقة الوسطى",
+        location: "المملكة العربية السعودية",
+        subscriptionEntity: "الاشتراك",
+        subscriptionEnd: "25-Apr-2020",
+        status: "نشط",
+        accountStatusDate: "20-Apr-2020",
+        time: "08:55 am",
+      },
+      {
+        name: "مازن",
+        accountNumber: "U-020522-00215o",
+        accountType: "مستفيد",
+        date: "25-Apr-2020",
+        gender: "ذكر",
+        nationality: "السعودية",
+        city: "الرياض-015",
+        region: "014-المنطقة الوسطى",
+        location: "المملكة العربية السعودية",
+        subscriptionEntity: "الاشتراك",
+        subscriptionEnd: "25-Apr-2020",
+        status: "غير نشطة",
+        accountStatusDate: "20-Apr-2020",
+        time: "08:55 am",
       },
     ],
     []
@@ -263,8 +454,9 @@ const Teams = () => {
 
         cell: (info) => (
           <Link
-            to={`/dashboard/woking-group/${info.getValue()}`}
+            to={`/model/${info.getValue()}`}
             className="link-styls"
+            style={{ textDecoration: "underline" }}
           >
             {info.getValue()}
           </Link>
@@ -288,17 +480,6 @@ const Teams = () => {
         header: "الجنسيه",
         cell: (info) => info.getValue(),
         enableSorting: false,
-      }),
-      columnHelper.accessor("workGroup", {
-        header: "مجموعه العمل",
-        cell: (info) => (
-          <Link
-            to={`/dashboard/woking-group/${info.getValue()}`}
-            className="link-styls"
-          >
-            {info.getValue()}
-          </Link>
-        ),
       }),
       columnHelper.accessor("region", {
         header: " الاقليم ",
@@ -374,9 +555,11 @@ const Teams = () => {
     ],
     []
   );
-
   return (
-    <section className="mt-5">
+    <section className="">
+      <div className="d-flex align-items-center w-100 px-2 justify-content-between">
+        <Header title={`تفاصيل فريق العمل رقم ${id} `} />
+      </div>
       <div className="row">
         <div className="col-12 col-md-3 ">
           <DounutCharts
@@ -416,7 +599,7 @@ const Teams = () => {
             data={data}
             columns={columns}
             initialPageSize={8}
-            title="حسابات فريق العمل"
+            title={`حسابات فريق العمل رقم ${id}`}
           />
         </div>
       </div>
@@ -424,4 +607,4 @@ const Teams = () => {
   );
 };
 
-export default Teams;
+export default WokingGroupDetails;

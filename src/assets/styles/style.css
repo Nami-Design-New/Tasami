@@ -111,6 +111,11 @@ input[type=number]::-webkit-outer-spin-button, input[type=number]::-webkit-inner
   color: #5fcafa;
 }
 
+.custom-badge {
+  background-color: var(--badge-color) !important;
+  color: var(--text-color) !important;
+}
+
 .form-switch {
   display: flex;
   align-items: center;

@@ -204,7 +204,10 @@ input[type="number"] {
   text-decoration: underline;
   color: $second;
 }
-
+.custom-badge {
+  background-color: var(--badge-color) !important;
+  color: var(--text-color) !important;
+}
 .form-switch {
   display: flex;
   align-items: center;

@@ -18,6 +18,7 @@
 
 .model__header {
   @include centerFlex();
+  width: 100%;
   h2 {
     padding: 1rem 1.5rem;
     background-color: $main;
@@ -298,7 +299,4 @@
   }
 }
 
-.custom-badge {
-  background-color: var(--badge-color) !important;
-  color: var(--text-color) !important;
-}
+

@@ -3,6 +3,7 @@ import StatisticsCard from "../../../ui/dash-board/cards/StatisticsCard";
 import ReusableDataTable from "../../../ui/ReusableDataTable";
 import { createColumnHelper } from "@tanstack/react-table";
 import { Link } from "react-router";
+import { Badge } from "react-bootstrap";
 const statsData = [
   {
     icon: "fa-users",
@@ -46,244 +47,30 @@ const Services = () => {
   const data = useMemo(
     () => [
       {
-        name: "صالح",
-        accountNumber: "U-020522-00215a",
-        accountType: "خبير",
+        serviceNumber: "PRG-001",
         date: "25-Apr-2020",
-        gender: "ذكر",
-        nationality: "السعودية",
-        city: "الرياض-001",
-        region: "014-المنطقة الوسطى",
-        location: "المملكة العربية السعودية",
-        subscriptionEntity: "الاشتراك",
-        subscriptionEnd: "25-Apr-2020",
-        status: "موقوفة",
-        accountStatusDate: "20-Apr-2020",
-        time: "08:55 am",
+        status: "منجزه",
+        accountNumber: "U-020522-00215a",
+        accountType: "مستفيد",
+        IdNumber: "ID-123456",
+        field: "الهندسة",
+        Specialization: "مدني",
+        offers: 4,
+        numbrOfUseres: 120,
+        rate: 4.5,
       },
       {
-        name: "محمد",
+        serviceNumber: "PRG-002",
+        date: "25-Apr-2020",
+        status: "محذوف",
         accountNumber: "U-020522-00215b",
         accountType: "جدير",
-        date: "25-Apr-2020",
-        gender: "ذكر",
-        nationality: "السعودية",
-        city: "الرياض-002",
-        region: "014-المنطقة الوسطى",
-        location: "المملكة العربية السعودية",
-        subscriptionEntity: "الاشتراك",
-        subscriptionEnd: "25-Apr-2020",
-        status: "غير نشطة",
-        accountStatusDate: "20-Apr-2020",
-        time: "08:55 am",
-      },
-      {
-        name: "علي",
-        accountNumber: "U-020522-00215c",
-        accountType: "ملهم",
-        date: "25-Apr-2020",
-        gender: "ذكر",
-        nationality: "السعودية",
-        city: "الرياض-003",
-        region: "014-المنطقة الوسطى",
-        location: "المملكة العربية السعودية",
-        subscriptionEntity: "الاشتراك",
-        subscriptionEnd: "25-Apr-2020",
-        status: "نشط",
-        accountStatusDate: "20-Apr-2020",
-        time: "08:55 am",
-      },
-      {
-        name: "سلمان",
-        accountNumber: "U-020522-00215d",
-        accountType: "مستفيد",
-        date: "25-Apr-2020",
-        gender: "ذكر",
-        nationality: "السعودية",
-        city: "الرياض-004",
-        region: "014-المنطقة الوسطى",
-        location: "المملكة العربية السعودية",
-        subscriptionEntity: "الاشتراك",
-        subscriptionEnd: "25-Apr-2020",
-        status: "موقوفة",
-        accountStatusDate: "20-Apr-2020",
-        time: "08:55 am",
-      },
-      {
-        name: "أحمد",
-        accountNumber: "U-020522-00215e",
-        accountType: "ملهم",
-        date: "25-Apr-2020",
-        gender: "ذكر",
-        nationality: "السعودية",
-        city: "الرياض-005",
-        region: "014-المنطقة الوسطى",
-        location: "المملكة العربية السعودية",
-        subscriptionEntity: "الاشتراك",
-        subscriptionEnd: "25-Apr-2020",
-        status: "غير نشطة",
-        accountStatusDate: "20-Apr-2020",
-        time: "08:55 am",
-      },
-      {
-        name: "فهد",
-        accountNumber: "U-020522-00215f",
-        accountType: "خبير",
-        date: "25-Apr-2020",
-        gender: "ذكر",
-        nationality: "السعودية",
-        city: "الرياض-006",
-        region: "014-المنطقة الوسطى",
-        location: "المملكة العربية السعودية",
-        subscriptionEntity: "الاشتراك",
-        subscriptionEnd: "25-Apr-2020",
-        status: "نشط",
-        accountStatusDate: "20-Apr-2020",
-        time: "08:55 am",
-      },
-      {
-        name: "ماجد",
-        accountNumber: "U-020522-00215g",
-        accountType: "مستفيد",
-        date: "25-Apr-2020",
-        gender: "ذكر",
-        nationality: "السعودية",
-        city: "الرياض-007",
-        region: "014-المنطقة الوسطى",
-        location: "المملكة العربية السعودية",
-        subscriptionEntity: "الاشتراك",
-        subscriptionEnd: "25-Apr-2020",
-        status: "موقوفة",
-        accountStatusDate: "20-Apr-2020",
-        time: "08:55 am",
-      },
-      {
-        name: "ياسر",
-        accountNumber: "U-020522-00215h",
-        accountType: "جدير",
-        date: "25-Apr-2020",
-        gender: "ذكر",
-        nationality: "السعودية",
-        city: "الرياض-008",
-        region: "014-المنطقة الوسطى",
-        location: "المملكة العربية السعودية",
-        subscriptionEntity: "الاشتراك",
-        subscriptionEnd: "25-Apr-2020",
-        status: "غير نشطة",
-        accountStatusDate: "20-Apr-2020",
-        time: "08:55 am",
-      },
-      {
-        name: "سعد",
-        accountNumber: "U-020522-00215i",
-        accountType: "ملهم",
-        date: "25-Apr-2020",
-        gender: "ذكر",
-        nationality: "السعودية",
-        city: "الرياض-009",
-        region: "014-المنطقة الوسطى",
-        location: "المملكة العربية السعودية",
-        subscriptionEntity: "الاشتراك",
-        subscriptionEnd: "25-Apr-2020",
-        status: "نشط",
-        accountStatusDate: "20-Apr-2020",
-        time: "08:55 am",
-      },
-      {
-        name: "بدر",
-        accountNumber: "U-020522-00215j",
-        accountType: "خبير",
-        date: "25-Apr-2020",
-        gender: "ذكر",
-        nationality: "السعودية",
-        city: "الرياض-010",
-        region: "014-المنطقة الوسطى",
-        location: "المملكة العربية السعودية",
-        subscriptionEntity: "الاشتراك",
-        subscriptionEnd: "25-Apr-2020",
-        status: "موقوفة",
-        accountStatusDate: "20-Apr-2020",
-        time: "08:55 am",
-      },
-      {
-        name: "راشد",
-        accountNumber: "U-020522-00215k",
-        accountType: "مستفيد",
-        date: "25-Apr-2020",
-        gender: "ذكر",
-        nationality: "السعودية",
-        city: "الرياض-011",
-        region: "014-المنطقة الوسطى",
-        location: "المملكة العربية السعودية",
-        subscriptionEntity: "الاشتراك",
-        subscriptionEnd: "25-Apr-2020",
-        status: "غير نشطة",
-        accountStatusDate: "20-Apr-2020",
-        time: "08:55 am",
-      },
-      {
-        name: "جاسم",
-        accountNumber: "U-020522-00215l",
-        accountType: "جدير",
-        date: "25-Apr-2020",
-        gender: "ذكر",
-        nationality: "السعودية",
-        city: "الرياض-012",
-        region: "014-المنطقة الوسطى",
-        location: "المملكة العربية السعودية",
-        subscriptionEntity: "الاشتراك",
-        subscriptionEnd: "25-Apr-2020",
-        status: "نشط",
-        accountStatusDate: "20-Apr-2020",
-        time: "08:55 am",
-      },
-      {
-        name: "تركي",
-        accountNumber: "U-020522-00215m",
-        accountType: "خبير",
-        date: "25-Apr-2020",
-        gender: "ذكر",
-        nationality: "السعودية",
-        city: "الرياض-013",
-        region: "014-المنطقة الوسطى",
-        location: "المملكة العربية السعودية",
-        subscriptionEntity: "الاشتراك",
-        subscriptionEnd: "25-Apr-2020",
-        status: "موقوفة",
-        accountStatusDate: "20-Apr-2020",
-        time: "08:55 am",
-      },
-      {
-        name: "أنس",
-        accountNumber: "U-020522-00215n",
-        accountType: "ملهم",
-        date: "25-Apr-2020",
-        gender: "ذكر",
-        nationality: "السعودية",
-        city: "الرياض-014",
-        region: "014-المنطقة الوسطى",
-        location: "المملكة العربية السعودية",
-        subscriptionEntity: "الاشتراك",
-        subscriptionEnd: "25-Apr-2020",
-        status: "نشط",
-        accountStatusDate: "20-Apr-2020",
-        time: "08:55 am",
-      },
-      {
-        name: "مازن",
-        accountNumber: "U-020522-00215o",
-        accountType: "مستفيد",
-        date: "25-Apr-2020",
-        gender: "ذكر",
-        nationality: "السعودية",
-        city: "الرياض-015",
-        region: "014-المنطقة الوسطى",
-        location: "المملكة العربية السعودية",
-        subscriptionEntity: "الاشتراك",
-        subscriptionEnd: "25-Apr-2020",
-        status: "غير نشطة",
-        accountStatusDate: "20-Apr-2020",
-        time: "08:55 am",
+        IdNumber: "ID-123457",
+        field: "المالية",
+        Specialization: "محاسبة",
+        offers: 4,
+        numbrOfUseres: 45,
+        rate: 4.2,
       },
     ],
     []
@@ -291,20 +78,24 @@ const Services = () => {
 
   const columns = useMemo(
     () => [
-      columnHelper.accessor("name", {
-        header: "الاسم",
-        cell: (info) => info.getValue(),
+      columnHelper.accessor("serviceNumber", {
+        header: "رقم الخدمه",
+        cell: (info) => (
+          <Link to={`/model/${info.getValue()}`} className="link-styls">
+            {info.getValue()}
+          </Link>
+        ),
         enableSorting: false,
+      }),
+      columnHelper.accessor("date", {
+        header: " التاريخ ",
+        cell: (info) => info.getValue(),
       }),
 
       columnHelper.accessor("accountNumber", {
         header: "رقم الحساب",
         cell: (info) => (
-          <Link
-            to={`/model/${info.getValue()}`}
-            className="link-styls"
-            style={{ textDecoration: "underline" }}
-          >
+          <Link to={`/model/${info.getValue()}`} className="link-styls">
             {info.getValue()}
           </Link>
         ),
@@ -315,74 +106,72 @@ const Services = () => {
         cell: (info) => info.getValue(),
         enableSorting: false,
       }),
-      columnHelper.accessor("date", {
-        header: " التاريخ ",
-        cell: (info) => info.getValue(),
-      }),
-      columnHelper.accessor("gender", {
-        header: "الجنس",
-        cell: (info) => info.getValue(),
-      }),
-      columnHelper.accessor("nationality", {
-        header: "الجنسيه",
+      columnHelper.accessor("offers", {
+        header: " العروض المقدمه",
         cell: (info) => info.getValue(),
         enableSorting: false,
       }),
-      columnHelper.accessor("region", {
-        header: " الاقليم ",
-        cell: (info) => info.getValue(),
-      }),
-      columnHelper.accessor("location", {
-        header: " القطاع ",
-        cell: (info) => info.getValue(),
-      }),
-      columnHelper.accessor("city", {
-        header: " المدينه ",
-        cell: (info) => info.getValue(),
-      }),
-      columnHelper.accessor("subscriptionEntity", {
-        header: "   بدء الاشتراك ",
-        cell: (info) => info.getValue(),
-      }),
-      columnHelper.accessor("subscriptionEnd", {
-        header: " انتهاء الاشتراك ",
-        cell: (info) => info.getValue(),
-      }),
-
       columnHelper.accessor("status", {
-        header: " الحاله ",
+        header: " المرحله ",
         cell: (info) => {
-          const statusStyle = {
-            backgroundColor:
-              info.getValue() === "نشط"
-                ? "#28a745"
-                : info.getValue() === "غير نشطة"
-                ? "#007bff"
-                : info.getValue() === "موقوفه"
-                ? "##dc3545"
-                : "#6c757d",
-          };
+          let badgeColor;
+          switch (info.getValue()) {
+            case "منجزه":
+              badgeColor = "#28a745";
+              break;
+            case "بانتظار التنفيذ":
+              badgeColor = "#ffc107  ";
+              break;
+            case "قيد التنفيذ":
+              badgeColor = "#007bff";
+              break;
+            case "محذوف":
+              badgeColor = "#dc3545";
+              break;
+            default:
+              badgeColor = "#6c757d";
+              break;
+          }
           return (
-            <span className="badge" style={statusStyle}>
+            <Badge
+              pill
+              className="custom-badge"
+              style={{
+                "--badge-color": badgeColor,
+                "--text-color": "#fff",
+                fontWeight: "400",
+              }}
+            >
               {info.getValue()}
-            </span>
+            </Badge>
           );
         },
       }),
 
-      columnHelper.accessor("accountStatusDate", {
-        header: " تاريخ حاله الحساب  ",
+      columnHelper.accessor("IdNumber", {
+        header: "الرقم التعريفي",
+        cell: (info) => (
+          <Link to={`/model/${info.getValue()}`} className="link-styls">
+            {info.getValue()}
+          </Link>
+        ),
+      }),
+      columnHelper.accessor("field", {
+        header: "المجال",
         cell: (info) => info.getValue(),
       }),
-      columnHelper.accessor("time", {
-        header: " وقت حاله الحساب ",
-        cell: (info) => {
-          return (
-            <div>
-              {info.getValue() === null ? "لا يوجد تقييم" : info.getValue()}
-            </div>
-          );
-        },
+      columnHelper.accessor("Specialization", {
+        header: " التخصص ",
+        cell: (info) => info.getValue(),
+      }),
+
+      columnHelper.accessor("numbrOfUseres", {
+        header: "عدد المستفيدين",
+        cell: (info) => info.getValue(),
+      }),
+      columnHelper.accessor("rate", {
+        header: "التقييم",
+        cell: (info) => info.getValue(),
       }),
     ],
     []

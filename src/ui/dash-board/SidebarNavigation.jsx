@@ -54,27 +54,27 @@ export default function SidebarNavigation() {
               />
             </div>
             <div className="d-flex flex-column">
-              <h6> المشتركون و فرق العمل </h6>
+              <h6> المشتركون و فريق العمل </h6>
             </div>
           </Accordion.Header>
           {/* sub menu */}
           <Accordion.Body>
             <ul className="sub_navigation_menu">
               <li className="sub_nav_item">
-                <NavLink to="subscribers-and-teams/subscribers/user-accounts">
+                <NavLink to="user-accounts">
                   <img src="/sys-icons/subArrow.svg" alt="arrow" />
                   <span>المشتركون</span>
                 </NavLink>
               </li>
               <li className="sub_nav_item">
-                <NavLink to="subscribers-and-teams/teams">
+                <NavLink to="teams">
                   <img src="/sys-icons/subArrow.svg" alt="arrow" />
                   <span>فرق العمل </span>
                 </NavLink>
               </li>
 
               <li className="sub_nav_item">
-                <NavLink to="subscribers-and-teams/create-employer">
+                <NavLink to="create-employee">
                   <img src="/sys-icons/subArrow.svg" alt="arrow" />
                   <span>انشاء موظف</span>
                 </NavLink>

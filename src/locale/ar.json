@@ -15,11 +15,12 @@
     "Services": "الخدمات",
     "Resuems": "السير الذاتيه",
     "Teams": "فرق العمل",
-    "Create Employer": " انشاء موظف ",
+    "Create Employee": " انشاء موظف ",
     "List Management": "اداره القوائم",
     "Working Groups": "مجموعات العمل",
     "Operating Sectors": "قطاعات التشغيل",
     "Fields And Specializations": "المجالات و التخصصات",
-    "Employee Profile": "البيانات التوظيفيه"
+    "Profile": "البيانات التوظيفيه",
+    "Employee Details": "تفاصيل الموظف"
   }
 }

@@ -106,7 +106,7 @@ const WorkingGroups = () => {
         header: "رقم المجموعه",
         cell: (info) => (
           <Link
-            to={`/group-details/${info.getValue()}`}
+            to={`/dashboard/woking-group/${info.getValue()}`}
             className="link-styls"
             style={{ textDecoration: "underline" }}
           >

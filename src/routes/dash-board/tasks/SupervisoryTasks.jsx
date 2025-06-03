@@ -345,7 +345,7 @@ const SupervisoryTasks = () => {
         header: "النموذج",
         cell: (info) => (
           <Link
-            to={`/model/${info.getValue()}`}
+            to={`/dashboard/model/${info.getValue()}`}
             className="link-styls"
             style={{ textDecoration: "underline" }}
           >
@@ -358,7 +358,7 @@ const SupervisoryTasks = () => {
         header: " البرامج ",
         cell: (info) => (
           <Link
-            to={`/program/${info.getValue()}`}
+            to={`/program-details/${info.getValue()}`}
             className="link-styls"
             style={{ textDecoration: "underline" }}
           >
@@ -370,9 +370,8 @@ const SupervisoryTasks = () => {
         header: "حساب المستخدم ",
         cell: (info) => (
           <Link
-            to={`/userAccount/${info.getValue()}`}
+            to={`/dashboard/user-details/${info.getValue()}`}
             className="link-styls"
-            style={{ textDecoration: "underline" }}
           >
             {info.getValue()}
           </Link>
@@ -382,9 +381,8 @@ const SupervisoryTasks = () => {
         header: "المجموعه",
         cell: (info) => (
           <Link
-            to={`/group/${info.getValue()}`}
+            to={`/dashboard/woking-group/${info.getValue()}`}
             className="link-styls"
-            style={{ textDecoration: "underline" }}
           >
             {info.getValue()}
           </Link>
@@ -407,9 +405,8 @@ const SupervisoryTasks = () => {
         header: "حساب الموظف ",
         cell: (info) => (
           <Link
-            to={`/employerAccount/${info.getValue()}`}
+            to={`/dashboard/employee-details/${info.getValue()}`}
             className="link-styls"
-            style={{ textDecoration: "underline" }}
           >
             {info.getValue()}
           </Link>
