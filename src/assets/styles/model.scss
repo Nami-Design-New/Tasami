@@ -144,8 +144,15 @@
     align-items: center;
     width: 50%;
     gap: 0.5rem;
+    position: relative;
   }
-
+  &__remove {
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform: translate(-50%, -50%);
+    color: $danger;
+  }
   &__icon {
     width: 16px;
     height: 16px;

@@ -744,6 +744,14 @@ input[type=number]::-webkit-outer-spin-button, input[type=number]::-webkit-inner
   align-items: center;
   width: 50%;
   gap: 0.5rem;
+  position: relative;
+}
+.attachments__remove {
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: translate(-50%, -50%);
+  color: #ff3a29;
 }
 .attachments__icon {
   width: 16px;
