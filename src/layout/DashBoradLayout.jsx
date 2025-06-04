@@ -1,20 +1,17 @@
-import { useEffect, useState } from "react";
-import { Outlet, useLocation } from "react-router";
-import NavBar from "../ui/NavBar";
-import SideBar from "../ui/dash-board/SideBar";
+import { useState } from "react";
+import { Outlet } from "react-router";
 import DashBoardFooter from "../ui/dash-board/DashBoardFooter";
+import SideBar from "../ui/dash-board/SideBar";
+import NavBar from "../ui/NavBar";
+import ScrollToTop from "../ui/ScrollToTop";
 
 export default function DashBoardLayout() {
-  const location = useLocation();
   const [hoverExpand, setHoverExpand] = useState(false);
   const [collapsed, setCollapsed] = useState(true);
 
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, [location]);
-
   return (
     <>
+      <ScrollToTop />
       <section
         className={`grid-container ${collapsed ? "collapsed" : "expanded"}`}
       >

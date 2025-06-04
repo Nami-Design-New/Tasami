@@ -28,6 +28,8 @@ import UserAccounts from "../routes/dash-board/teams/UserAccounts";
 import WokingGroupDetails from "../routes/dash-board/WokingGroupDetails";
 import PageNotFound from "../routes/PageNotFound";
 import Home from "../routes/website/Home";
+import UserProfile from "../routes/dash-board/UserProfile";
+import ChatPage from "../routes/ChatPage";
 
 export const router = createBrowserRouter([
   {
@@ -56,6 +58,10 @@ export const router = createBrowserRouter([
         element: <DashboardHome />,
       },
       {
+        path: "chats",
+        element: <ChatPage />,
+      },
+      {
         path: "notifications",
         element: <Notifications />,
       },
@@ -70,6 +76,10 @@ export const router = createBrowserRouter([
       {
         path: "woking-group/:id",
         element: <WokingGroupDetails />,
+      },
+      {
+        path: "user-details/:id",
+        element: <UserProfile />,
       },
       {
         path: "tasks",

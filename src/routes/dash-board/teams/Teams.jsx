@@ -263,7 +263,7 @@ const Teams = () => {
 
         cell: (info) => (
           <Link
-            to={`/dashboard/woking-group/${info.getValue()}`}
+            to={`/dashboard/user-details/${info.getValue()}`}
             className="link-styls"
           >
             {info.getValue()}

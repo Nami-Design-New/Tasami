@@ -20,32 +20,6 @@ export default function NavBar({ collapsed, setCollapsed }) {
         <span />
       </button>
 
-      {/* <div className="links">
-        <ul>
-          {(typeof role === "string"
-            ? role !== "partner"
-            : role?.en !== "partner") && (
-            <>
-              <li>
-                <NavLink to="" end>
-                  Dashboard
-                </NavLink>
-              </li>
-              <li>
-                <NavLink to="live-tracker">live tracker</NavLink>
-              </li>
-              <li>
-                <NavLink to="nssm">NSSM</NavLink>
-              </li>
-              <li>
-                <NavLink to="bookings-scheduling">
-                  Bookings & scheduling
-                </NavLink>
-              </li>
-            </>
-          )}
-        </ul>
-      </div> */}
       <div className="settings">
         <ul>
           <li className="settings-gear">
@@ -56,7 +30,7 @@ export default function NavBar({ collapsed, setCollapsed }) {
           </li>
 
           <li className="settings-gear">
-            <Link className="btn" to="/chats">
+            <Link className="btn" to="/dashboard/chats">
               <i className="fa-light fa-comments"></i>
             </Link>
           </li>

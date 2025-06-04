@@ -377,7 +377,7 @@ const UserAccounts = () => {
 
         cell: (info) => (
           <Link
-            to={`/model/${info.getValue()}`}
+            to={`/dashboard/user-details/${info.getValue()}`}
             className="link-styls"
             style={{ textDecoration: "underline" }}
           >

@@ -179,6 +179,7 @@ input[type=number]::-webkit-outer-spin-button, input[type=number]::-webkit-inner
 
 .button--add {
   background-color: #8c137e !important;
+  border-radius: 12px;
 }
 
 .css-t3ipsp-control {
@@ -724,4 +725,114 @@ input[type=number]::-webkit-outer-spin-button, input[type=number]::-webkit-inner
   font-size: "16px";
   font-weight: bold;
   color: #666b88;
+}
+
+.user-dashboard__card {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  padding: 1rem;
+  margin-bottom: 0.5rem;
+}
+.user-dashboard__card-title {
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+  padding-bottom: 1.2rem;
+  border-bottom: 1px solid #dddddd;
+  font-weight: bold;
+  color: #666b88;
+}
+.user-dashboard__card-content p {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  padding: 1rem 0;
+}
+.user-dashboard__card-content p span:first-child {
+  font-weight: bold;
+  color: #666b88;
+  min-width: 110px;
+}
+.user-dashboard__card-content.border--bottom p:not(:last-child) {
+  border-bottom: 1px solid #f1f3f3;
+}
+.user-dashboard__card-status {
+  background-color: #dbeafe;
+  width: 100%;
+  padding: 0.5rem 1rem;
+  border-radius: 12px;
+  text-align: center;
+}
+.user-dashboard__card-type {
+  background-color: #dcfce7;
+  width: 100%;
+  padding: 0.5rem 1rem;
+  border-radius: 12px;
+  text-align: center;
+}
+.user-dashboard__profile {
+  text-align: center;
+  background: #fff;
+  padding: 1.5rem;
+  border-radius: 1rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  margin-bottom: 0.5rem;
+}
+.user-dashboard__avatar {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto 1rem;
+  background: #f0f0f0;
+  border-radius: 50%;
+}
+.user-dashboard__avatar img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+  border-radius: 50%;
+}
+.user-dashboard__resume {
+  font-size: 1rem;
+  display: block;
+  margin-top: 0.5rem;
+  color: #3f51b5;
+  margin-bottom: 1.5rem;
+}
+.user-dashboard__button {
+  display: block;
+  width: 100%;
+  padding: 0.75rem;
+  border: none;
+  border-radius: 12px;
+  margin-bottom: 0.5rem;
+  cursor: pointer;
+  color: white;
+  transition: background-color 0.3s ease;
+}
+.user-dashboard__button--secondary {
+  background-color: #6c757d;
+}
+.user-dashboard__text--danger {
+  color: #e53935;
+  font-weight: bold;
+}
+.user-dashboard__rating-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 0;
+  margin-bottom: 1px solid #dddddd;
+}
+.user-dashboard__rating-stars {
+  font-weight: bold;
+  color: #facc17;
+  display: flex;
+  align-items: center;
+  gap: 0.2rem;
+}
+.user-dashboard__rating-label {
+  color: #666b88;
+  font-weight: bold;
 }/*# sourceMappingURL=profile.css.map */

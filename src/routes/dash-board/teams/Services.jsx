@@ -95,7 +95,10 @@ const Services = () => {
       columnHelper.accessor("accountNumber", {
         header: "رقم الحساب",
         cell: (info) => (
-          <Link to={`/model/${info.getValue()}`} className="link-styls">
+          <Link
+            to={`/dashboard/user-details/${info.getValue()}`}
+            className="link-styls"
+          >
             {info.getValue()}
           </Link>
         ),

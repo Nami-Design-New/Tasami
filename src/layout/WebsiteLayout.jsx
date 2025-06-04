@@ -4,6 +4,7 @@ import Footer from "../ui/Footer";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import { useEffect } from "react";
+import ScrollToTop from "../ui/ScrollToTop";
 const WebsiteLayout = () => {
   useEffect(() => {
     const sections = document.querySelectorAll("section");
@@ -24,6 +25,7 @@ const WebsiteLayout = () => {
   }, []);
   return (
     <section>
+      <ScrollToTop />
       <Header />
       <Outlet />
       <Footer />
