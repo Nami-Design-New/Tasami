@@ -1,5 +1,5 @@
 import { Link, Outlet } from "react-router";
-import useGetCurrentRoute from "../../../hooks/shared/useGEtCurrentRoute";
+import useGetCurrentRoute from "../../../hooks/shared/useGetCurrentRoute";
 import NavigationTabs from "../../../ui/NavigationTabs";
 import PageHeader from "../../../ui/PageHeader";
 import { SUB_TABS } from "../../../utils/constants";
