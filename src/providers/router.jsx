@@ -2,7 +2,6 @@ import { createBrowserRouter } from "react-router";
 import DashboardLayout from "../layout/MainDashboardLayout";
 import AuthLayout from "../layout/AuthLayout";
 import WebsiteLayout from "../layout/WebsiteLayout";
-import DashboardHome from "../routes/dash-board/MainDashboardHome";
 import LoginPage from "../routes/auth/LoginPage";
 import RegisterPage from "../routes/auth/RegisterPage";
 import ResetPassword from "../routes/auth/ResetPassword";
@@ -21,7 +20,7 @@ import SupervisoryTasks from "../routes/dash-board/tasks/SupervisoryTasks";
 import Tasks from "../routes/dash-board/tasks/Tasks";
 import Programs from "../routes/dash-board/teams/Programs";
 import Resuems from "../routes/dash-board/teams/Resuems";
-import Services from "../routes/dash-board/teams/services";
+import Services from "../routes/dash-board/teams/MyServices";
 import SubscribersAndTeams from "../routes/dash-board/teams/SubscribersAndTeams";
 import Teams from "../routes/dash-board/teams/Teams";
 import UserAccounts from "../routes/dash-board/teams/UserAccounts";
@@ -30,6 +29,7 @@ import PageNotFound from "../routes/PageNotFound";
 import Home from "../routes/website/Home";
 import UserProfile from "../routes/dash-board/UserProfile";
 import ChatPage from "../routes/ChatPage";
+import DashboardHome from "../routes/dash-board/MainDashboardHome";
 
 export const router = createBrowserRouter([
   {
