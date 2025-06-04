@@ -178,7 +178,7 @@ const userGrowthOptions = {
   },
 };
 
-export default function DashBoardHome() {
+export default function DashboardHome() {
   return (
     <section className="dashboard--home">
       <div className="dashboard--home__header">
