@@ -1,4 +1,5 @@
 import { createBrowserRouter } from "react-router";
+import DashboardLayout from "../layout/MainDashboardLayout";
 import AuthLayout from "../layout/AuthLayout";
 import WebsiteLayout from "../layout/WebsiteLayout";
 import LoginPage from "../routes/auth/LoginPage";
@@ -29,7 +30,6 @@ import PageNotFound from "../routes/PageNotFound";
 import Home from "../routes/website/Home";
 import UserProfile from "../routes/dash-board/UserProfile";
 import ChatPage from "../routes/ChatPage";
-import DashboardLayout from "../layout/DashBoardLayout";
 
 export const router = createBrowserRouter([
   {
