@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Outlet } from "react-router";
-import useGetCurrentRoute from "../../../hooks/shared/useGEtCurrentRoute";
+import useGetCurrentRoute from "../../../hooks/shared/useGetCurrentRoute";
 import PageHeader from "../../../ui/PageHeader";
 import EditWorkGroupModal from "../../../ui/modals/EditWorkGroupModal";
 import OperatingSectorsModal from "../../../ui/modals/OperatingSectorsModal";
