@@ -72,7 +72,7 @@ export default function SideBar({ hoverExpand, setHoverExpand, collapsed }) {
         <li className="nav_item mb-2">
           <NavLink to="profile" end>
             <div className="icon">
-              <img src="/icons/employment-info.svg" alt="notifications" />
+              <img src="/icons/data-icon.svg" alt="emploment data Icon" />
             </div>
             <h6> البيانات التوظيفيه </h6>
           </NavLink>
