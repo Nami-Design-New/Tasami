@@ -28,7 +28,9 @@ export const SUB_TABS = [
 
 export const STATUS_AR = ["مكتمل", "قيد التنفيذ", "غير مضاف"];
 export const STATUS_EN = ["Completed", "Pending", "Not Added"];
-
+export const ROLE_REDIRECTS = {
+  dashboard: "/dashboard",
+};
 export const USERS_CATEGORIES = [
   "متسفيد",
   " (ملهم) مقدم برامج",

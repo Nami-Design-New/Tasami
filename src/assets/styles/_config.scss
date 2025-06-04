@@ -224,6 +224,38 @@ input[type="number"] {
   }
 }
 
+.error-page {
+  background-color: #f8f9fa;
+  height: 100vh;
+
+  .container {
+    padding: 20px;
+    height: 100%;
+    @include centerFlex();
+    flex-direction: column;
+  }
+
+  img {
+    height: 240px;
+  }
+
+  .error-title {
+    font-size: 42px;
+    color: $dark;
+    margin-bottom: 10px;
+    text-align: center;
+  }
+
+  .error-description {
+    font-size: 14px;
+    color: $gray;
+    margin-bottom: 24px;
+  }
+
+  .button {
+    padding: 12px 52px;
+  }
+}
 .dropdown-menu {
   border: 0 !important;
   box-shadow: 0 0 16px 0 rgba(0, 0, 0, 0.1);
