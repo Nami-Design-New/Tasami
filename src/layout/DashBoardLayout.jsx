@@ -5,7 +5,7 @@ import SideBar from "../ui/dash-board/SideBar";
 import NavBar from "../ui/NavBar";
 import ScrollToTop from "../ui/ScrollToTop";
 
-export default function DashBoardLayout() {
+export default function DashboardLayout() {
   const [hoverExpand, setHoverExpand] = useState(false);
   const [collapsed, setCollapsed] = useState(true);
 

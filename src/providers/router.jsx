@@ -1,6 +1,5 @@
 import { createBrowserRouter } from "react-router";
 import AuthLayout from "../layout/AuthLayout";
-import DashBoardLayout from "../layout/DashboradLayout";
 import WebsiteLayout from "../layout/WebsiteLayout";
 import LoginPage from "../routes/auth/LoginPage";
 import RegisterPage from "../routes/auth/RegisterPage";
@@ -30,6 +29,7 @@ import PageNotFound from "../routes/PageNotFound";
 import Home from "../routes/website/Home";
 import UserProfile from "../routes/dash-board/UserProfile";
 import ChatPage from "../routes/ChatPage";
+import DashboardLayout from "../layout/DashBoardLayout";
 
 export const router = createBrowserRouter([
   {
@@ -51,7 +51,7 @@ export const router = createBrowserRouter([
   },
   {
     path: "/dashboard",
-    element: <DashBoardLayout />,
+    element: <DashboardLayout />,
     children: [
       {
         index: true,
