@@ -28,7 +28,7 @@ const series = [
 const UseresAccountsOptions = {
   chart: {
     height: 350,
-    type: "line",
+
     toolbar: { show: true },
   },
   stroke: {
@@ -429,7 +429,6 @@ const UserAccounts = () => {
         header: " الحاله ",
         cell: (info) => {
           let badgeColor;
-          console.log(info.getValue());
 
           switch (info.getValue()) {
             case "نشط":

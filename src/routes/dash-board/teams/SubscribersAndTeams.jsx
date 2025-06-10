@@ -7,7 +7,6 @@ import { SUB_TABS } from "../../../utils/constants";
 const SubscribersAndTeams = () => {
   const { currentLocation, locations } = useGetCurrentRoute();
 
-  console.log(currentLocation, locations);
   const isEmployeeDetails = locations.includes("employee-details");
   return (
     <section>

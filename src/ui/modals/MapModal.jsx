@@ -27,31 +27,30 @@ const MapModal = ({
   });
   const [searchInput, setSearchInput] = useState("");
   const searchBox = useRef(null);
-  console.log(target);
 
-//   useEffect(() => {
-//     if (showLocationFirst) {
-//       if (target && formData?.[target]?.lat && formData?.[target]?.lng) {
-//         const position = {
-//           lat: Number(formData[target].lat),
-//           lng: Number(formData[target].lng),
-//         };
-//         if (isFinite(position.lat) && isFinite(position.lng)) {
-//           setMarkerPosition(position);
-//           reverseGeocodeMarkerPosition(position);
-//         }
-//       } else if (formData?.lat && formData?.lng) {
-//         const position = {
-//           lat: Number(formData.lat),
-//           lng: Number(formData.lng),
-//         };
-//         if (isFinite(position.lat) && isFinite(position.lng)) {
-//           setMarkerPosition(position);
-//           reverseGeocodeMarkerPosition(position);
-//         }
-//       }
-//     }
-//   }, [formData, target, showLocationFirst]);
+  //   useEffect(() => {
+  //     if (showLocationFirst) {
+  //       if (target && formData?.[target]?.lat && formData?.[target]?.lng) {
+  //         const position = {
+  //           lat: Number(formData[target].lat),
+  //           lng: Number(formData[target].lng),
+  //         };
+  //         if (isFinite(position.lat) && isFinite(position.lng)) {
+  //           setMarkerPosition(position);
+  //           reverseGeocodeMarkerPosition(position);
+  //         }
+  //       } else if (formData?.lat && formData?.lng) {
+  //         const position = {
+  //           lat: Number(formData.lat),
+  //           lng: Number(formData.lng),
+  //         };
+  //         if (isFinite(position.lat) && isFinite(position.lng)) {
+  //           setMarkerPosition(position);
+  //           reverseGeocodeMarkerPosition(position);
+  //         }
+  //       }
+  //     }
+  //   }, [formData, target, showLocationFirst]);
 
   const handleMarkerDragEnd = (coord) => {
     setMarkerPosition(coord);
@@ -80,7 +79,7 @@ const MapModal = ({
       if (status === "OK") {
         if (results[0]) {
           setSearchInput(results[0].formatted_address);
-        //   setSearchedPlace(results[0].formatted_address);
+          //   setSearchedPlace(results[0].formatted_address);
         } else {
           console.error("No results found");
         }
@@ -115,7 +114,7 @@ const MapModal = ({
         });
       }
       setSearchInput(selectedPlace.name);
-    //   setSearchedPlace(selectedPlace.name);
+      //   setSearchedPlace(selectedPlace.name);
     }
   };
 

@@ -161,7 +161,6 @@ const deactiveUsersSeries = [
 ];
 const revnueAnalyticsOptions = {
   chart: {
-    type: "area",
     toolbar: { show: false },
   },
   stroke: {
@@ -592,6 +591,7 @@ const WokingGroupDetails = () => {
             series={deactiveUsersSeries}
             options={revnueAnalyticsOptions}
             height={"250px"}
+            type="area"
           />
         </div>
         <div className="col-12">

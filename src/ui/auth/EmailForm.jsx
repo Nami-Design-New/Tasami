@@ -27,8 +27,6 @@ const EmailForm = ({ setShowLoginForm }) => {
     <form
       className="form_ui"
       onSubmit={handleSubmit((data) => {
-        console.log(data);
-
         if (role === "admin") {
           navigate("/dashboard");
         } else if (role === "user") {

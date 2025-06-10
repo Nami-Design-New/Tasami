@@ -5,6 +5,7 @@ import ColumnChart from "../../ui/dash-board/charts/ColumnChart";
 import DounutCharts from "../../ui/dash-board/charts/DounutCharts";
 import TaskStatus from "../../ui/dash-board/home/TaskStatus";
 import UsersTable from "../../ui/dash-board/home/UsersTable";
+import { Link } from "react-router";
 
 // Line chart
 const series = [
@@ -45,7 +46,7 @@ const categories = [
 const revnueAnalyticsOptions = {
   chart: {
     height: 350,
-    type: "line",
+
     toolbar: { show: true },
   },
   stroke: {
@@ -249,20 +250,26 @@ export default function DashboardHome() {
         <div className="col-12 pt-2">
           <ChartCard title={" اجراءات عاجله  "}>
             <div className="quick__actions--list">
-              <button className="quick--action__button">
+              <Link
+                to="/dashboard/create-employee"
+                className="quick--action__button"
+              >
                 <img src="./icons/add-user.svg" /> <span> انشاء موظف </span>{" "}
-              </button>
-              <button className="quick--action__button">
+              </Link>
+              <Link className="quick--action__button">
                 <img src="./icons/permisson_icon.svg" />{" "}
                 <span> انشاء صلاحيه </span>{" "}
-              </button>
-              <button className="quick--action__button">
+              </Link>
+              <Link className="quick--action__button">
                 <img src="./icons/delete-user.svg" /> <span> ايقاف موظف </span>{" "}
-              </button>
-              <button className="quick--action__button">
+              </Link>
+              <Link
+                to="/dashboard/list-management/fields-and-specializations"
+                className="quick--action__button"
+              >
                 <img src="./icons/add-fileds.svg" />{" "}
                 <span> اضافه مجال جديد </span>{" "}
-              </button>
+              </Link>
             </div>
           </ChartCard>
         </div>
@@ -286,6 +293,7 @@ export default function DashboardHome() {
             series={series}
             title={"تحليلات الإيرادات"}
             options={revnueAnalyticsOptions}
+            type="line"
           />
         </div>
       </div>

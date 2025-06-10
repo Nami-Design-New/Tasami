@@ -19,7 +19,6 @@ const InputField = React.forwardRef(({ label, hint, error, ...props }, ref) => {
   );
 });
 
-// ✅ Add display name
 InputField.displayName = "InputField";
 
 export default InputField;

@@ -159,7 +159,6 @@ const deactiveUsersSeries = [
 ];
 const revnueAnalyticsOptions = {
   chart: {
-    type: "area",
     toolbar: { show: false },
   },
   stroke: {
@@ -325,7 +324,6 @@ const Teams = () => {
         header: " الحاله ",
         cell: (info) => {
           let badgeColor;
-          console.log(info.getValue());
 
           switch (info.getValue()) {
             case "نشط":
@@ -408,6 +406,7 @@ const Teams = () => {
             title={"الحسابات غير النشطه"}
             series={deactiveUsersSeries}
             options={revnueAnalyticsOptions}
+            type="area"
             height={"250px"}
           />
         </div>
