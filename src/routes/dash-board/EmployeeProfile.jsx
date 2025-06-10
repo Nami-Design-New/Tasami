@@ -21,10 +21,6 @@ const tabs = [
     id: 3,
     title: "الصلاحيات",
   },
-  // {
-  //   id: 4,
-  //   title: "المرفقات",
-  // },
 ];
 
 const EmployeeProfile = () => {

@@ -96,20 +96,19 @@ h6 {
   padding: 0;
 }
 
-input[type="number"] {
+input[type=number] {
   -moz-appearance: textfield;
   -webkit-appearance: textfield;
-  appearance: textfield;
+          appearance: textfield;
 }
-input[type="number"]::-webkit-outer-spin-button,
-input[type="number"]::-webkit-inner-spin-button {
+input[type=number]::-webkit-outer-spin-button, input[type=number]::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
 
 .link-styls {
   text-decoration: underline;
-  color: #5fcafa;
+  color: #214b92;
 }
 
 .custom-badge {
@@ -448,8 +447,7 @@ input[type="number"]::-webkit-inner-spin-button {
 .react-tel-input .selected-flag .arrow.up {
   border-bottom-color: var(--main);
 }
-.react-tel-input .selected-flag:hover,
-.react-tel-input .selected-flag:focus {
+.react-tel-input .selected-flag:hover, .react-tel-input .selected-flag:focus {
   background: var(--input-bg);
 }
 .react-tel-input .country-list {
@@ -801,7 +799,7 @@ input[type="number"]::-webkit-inner-spin-button {
   height: 40px;
   border-radius: 50%;
   -o-object-fit: cover;
-  object-fit: cover;
+     object-fit: cover;
 }
 .chat-item__info {
   display: flex;
@@ -928,7 +926,7 @@ input[type="number"]::-webkit-inner-spin-button {
   height: 36px;
   border-radius: 50%;
   -o-object-fit: cover;
-  object-fit: cover;
+     object-fit: cover;
 }
 .message__content {
   max-width: 75%;
@@ -951,4 +949,4 @@ input[type="number"]::-webkit-inner-spin-button {
 }
 .message--self .message__time {
   text-align: left;
-} /*# sourceMappingURL=chats.css.map */
+}/*# sourceMappingURL=chats.css.map */

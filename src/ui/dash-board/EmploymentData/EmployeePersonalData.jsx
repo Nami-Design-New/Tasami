@@ -1,17 +1,18 @@
 import { useState } from "react";
+import FileUploader from "../../forms/FileUPloader";
 import FormWrapper from "../../forms/FormWrapper";
 import InputField from "../../forms/InputField";
 import SelectField from "../../forms/SelectField";
-import SubmitButton from "../../forms/SubmitButton";
-import MapLocationField from "../create-employee/MapLocationField";
 import MapModal from "../../modals/MapModal";
-import FileUploader from "../../forms/FileUPloader";
+import UpdateDataModal from "../../modals/UpdateDataModal";
 import ProfileImageUploader from "../../ProfileImageUploader";
+import MapLocationField from "../create-employee/MapLocationField";
 
 const EmployeePersonalData = () => {
   const defaultBirthday = "2000-01-01";
   const today = new Date().toISOString().split("T")[0];
   const [showMapModal, setShowMapModal] = useState(false);
+  const [showUpdateDataModal, setShowUpdateDataModal] = useState(false);
   const [image, setImage] = useState(
     "https://randomuser.me/api/portraits/women/44.jpg"
   );
@@ -95,7 +96,13 @@ const EmployeePersonalData = () => {
             label=" اضف المرفقات "
           />
           <div className="personal-data__button ">
-            <SubmitButton text="تعديل" className={"btn-width"} />
+            <button
+              type="button"
+              onClick={() => setShowUpdateDataModal(true)}
+              className="log btn-width"
+            >
+              طلب تحديث بيانات
+            </button>
           </div>
         </div>
       </form>
@@ -113,6 +120,11 @@ const EmployeePersonalData = () => {
         //   if (data.lng)
         //     register("lng").onChange({ target: { value: data.lng } });
         // }}
+      />
+      <UpdateDataModal
+        title="طلب تحديث البيانات"
+        setShowModal={setShowUpdateDataModal}
+        showModal={showUpdateDataModal}
       />
     </FormWrapper>
   );

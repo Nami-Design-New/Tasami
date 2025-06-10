@@ -452,11 +452,7 @@ const WokingGroupDetails = () => {
         header: "رقم الحساب",
 
         cell: (info) => (
-          <Link
-            to={`/model/${info.getValue()}`}
-            className="link-styls"
-            style={{ textDecoration: "underline" }}
-          >
+          <Link to={`/model/${info.getValue()}`} className="link-styls">
             {info.getValue()}
           </Link>
         ),
@@ -505,7 +501,6 @@ const WokingGroupDetails = () => {
         header: " الحاله ",
         cell: (info) => {
           let badgeColor;
-          console.log(info.getValue());
 
           switch (info.getValue()) {
             case "نشط":

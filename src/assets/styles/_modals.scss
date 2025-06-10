@@ -84,3 +84,57 @@
     }
   }
 }
+
+.suspend-modal {
+  &__description {
+    font-size: 1rem;
+    margin-bottom: 1.5rem;
+    color: #444;
+    text-align: center;
+  }
+
+  &__group {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+
+    label {
+      font-weight: 600;
+      color: $text;
+      cursor: pointer;
+    }
+    input[type="radio"] {
+      accent-color: $main;
+      cursor: pointer;
+    }
+  }
+
+  &__button--cancel {
+    @include clearInput();
+    height: 44px;
+    width: 100%;
+    color: $dark;
+    background: none;
+    border: 1px solid $dark;
+    outline: none;
+    width: 100%;
+    border-radius: 12px;
+    &:hover {
+      background: none;
+    }
+  }
+
+  &__button--confirm {
+    background: $main;
+    height: 44px;
+    &:hover {
+      background: $main;
+    }
+    &.red {
+      background: $danger;
+      &:hover {
+        background: $dangerLight;
+      }
+    }
+  }
+}

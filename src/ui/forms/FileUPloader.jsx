@@ -39,7 +39,7 @@ const FileUploader = ({
       <label htmlFor="info-htmlFor-customer">
         {label && (
           <section className="d-flex justify-content-between align-items-center">
-            <span className="mb-2"> {label} </span>
+            <span> {label} </span>
           </section>
         )}
         {hint && <small>{hint}</small>}

@@ -108,7 +108,7 @@ input[type=number]::-webkit-outer-spin-button, input[type=number]::-webkit-inner
 
 .link-styls {
   text-decoration: underline;
-  color: #5fcafa;
+  color: #214b92;
 }
 
 .custom-badge {
@@ -3064,6 +3064,15 @@ input[type=number]::-webkit-outer-spin-button, input[type=number]::-webkit-inner
   background: linear-gradient(90deg, #17a64b, #3fc066);
 }
 
+.data-summary {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: start;
+  text-align: left !important;
+  gap: 0.5rem;
+}
+
 .grid-container {
   display: grid;
   grid-template-areas: "sidebar nav" "sidebar main";
@@ -4204,5 +4213,55 @@ footer .links a:hover {
   background: #ff3a29;
 }
 .confirmation_modal .confirm.red:hover {
+  background: rgba(220, 53, 69, 0.8);
+}
+
+.suspend-modal__description {
+  font-size: 1rem;
+  margin-bottom: 1.5rem;
+  color: #444;
+  text-align: center;
+}
+.suspend-modal__group {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.suspend-modal__group label {
+  font-weight: 600;
+  color: #666b88;
+  cursor: pointer;
+}
+.suspend-modal__group input[type=radio] {
+  accent-color: #214b92;
+  cursor: pointer;
+}
+.suspend-modal__button--cancel {
+  border: none;
+  background: none;
+  outline: none;
+  height: 44px;
+  width: 100%;
+  color: #0d0d0d;
+  background: none;
+  border: 1px solid #0d0d0d;
+  outline: none;
+  width: 100%;
+  border-radius: 12px;
+}
+.suspend-modal__button--cancel:hover {
+  background: none;
+}
+.suspend-modal__button--confirm {
+  background: #214b92;
+  height: 44px;
+}
+.suspend-modal__button--confirm:hover {
+  background: #214b92;
+}
+.suspend-modal__button--confirm.red {
+  background: #ff3a29;
+}
+.suspend-modal__button--confirm.red:hover {
   background: rgba(220, 53, 69, 0.8);
 }/*# sourceMappingURL=style.css.map */

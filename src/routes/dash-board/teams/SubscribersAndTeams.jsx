@@ -3,10 +3,12 @@ import useGetCurrentRoute from "../../../hooks/shared/useGetCurrentRoute";
 import NavigationTabs from "../../../ui/NavigationTabs";
 import PageHeader from "../../../ui/PageHeader";
 import { SUB_TABS } from "../../../utils/constants";
+import { useState } from "react";
+import SuspensionModel from "../../../ui/modals/SuspensionModel";
 
 const SubscribersAndTeams = () => {
   const { currentLocation, locations } = useGetCurrentRoute();
-
+  const [openSuspensionModel, setOpenSuspensionModel] = useState(false);
   const isEmployeeDetails = locations.includes("employee-details");
   return (
     <section>
@@ -18,7 +20,13 @@ const SubscribersAndTeams = () => {
         {currentLocation === "create-employee" ? (
           <button className="button button--add"> تنشيط الحساب </button>
         ) : isEmployeeDetails ? (
-          <button className="button button--add"> ايقاف الحساب </button>
+          <button
+            onClick={() => setOpenSuspensionModel(true)}
+            className="button button--add"
+          >
+            {" "}
+            ايقاف الحساب{" "}
+          </button>
         ) : (
           <Link className="button button--add" to={"create-employee"}>
             انشاء موظف
@@ -32,6 +40,10 @@ const SubscribersAndTeams = () => {
       <div>
         <Outlet />
       </div>
+      <SuspensionModel
+        showModal={openSuspensionModel}
+        setShowModal={setOpenSuspensionModel}
+      />
     </section>
   );
 };

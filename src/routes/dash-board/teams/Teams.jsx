@@ -196,54 +196,46 @@ const Teams = () => {
     () => [
       {
         name: "صالح",
-        accountNumber: "U-020522-00215a",
-        accountType: "خبير",
-        date: "25-Apr-2020",
+        accountNumber: "S-020522-00215a",
+        accountType: "مشرف",
         gender: "ذكر",
         nationality: "السعودية",
         city: "الرياض-001",
         region: "014-المنطقة الوسطى",
         location: "المملكة العربية السعودية",
-        subscriptionEntity: "الاشتراك",
-        subscriptionEnd: "25-Apr-2020",
         status: "موقوفة",
         accountStatusDate: "20-Apr-2020",
         time: "08:55 am",
-        workGroup: "GIN-1211321",
       },
       {
         name: "محمد",
-        accountNumber: "U-020522-00215b",
-        accountType: "جدير",
-        date: "25-Apr-2020",
+        accountNumber: "E-020522-00215b",
+        accountType: "خدمه عملاء",
+
         gender: "ذكر",
         nationality: "السعودية",
         city: "الرياض-002",
         region: "014-المنطقة الوسطى",
         location: "المملكة العربية السعودية",
-        subscriptionEntity: "الاشتراك",
-        subscriptionEnd: "25-Apr-2020",
+
         status: "غير نشطة",
         accountStatusDate: "20-Apr-2020",
         time: "08:55 am",
-        workGroup: "GIN-1211321",
       },
       {
         name: "علي",
-        accountNumber: "U-020522-00215c",
-        accountType: "ملهم",
-        date: "25-Apr-2020",
+        accountNumber: "E-020522-00215c",
+        accountType: "خدمه عملاء",
+
         gender: "ذكر",
         nationality: "السعودية",
         city: "الرياض-003",
         region: "014-المنطقة الوسطى",
         location: "المملكة العربية السعودية",
-        subscriptionEntity: "الاشتراك",
-        subscriptionEnd: "25-Apr-2020",
+
         status: "نشط",
         accountStatusDate: "20-Apr-2020",
         time: "08:55 am",
-        workGroup: "GIN-1211321",
       },
     ],
     []
@@ -262,7 +254,7 @@ const Teams = () => {
 
         cell: (info) => (
           <Link
-            to={`/dashboard/user-details/${info.getValue()}`}
+            to={`/dashboard/employee-details/${info.getValue()}`}
             className="link-styls"
           >
             {info.getValue()}
@@ -275,30 +267,17 @@ const Teams = () => {
         cell: (info) => info.getValue(),
         enableSorting: false,
       }),
-      columnHelper.accessor("date", {
-        header: " التاريخ ",
-        cell: (info) => info.getValue(),
-      }),
       columnHelper.accessor("gender", {
         header: "الجنس",
         cell: (info) => info.getValue(),
       }),
+
       columnHelper.accessor("nationality", {
         header: "الجنسيه",
         cell: (info) => info.getValue(),
         enableSorting: false,
       }),
-      columnHelper.accessor("workGroup", {
-        header: "مجموعه العمل",
-        cell: (info) => (
-          <Link
-            to={`/dashboard/woking-group/${info.getValue()}`}
-            className="link-styls"
-          >
-            {info.getValue()}
-          </Link>
-        ),
-      }),
+
       columnHelper.accessor("region", {
         header: " الاقليم ",
         cell: (info) => info.getValue(),
@@ -309,14 +288,6 @@ const Teams = () => {
       }),
       columnHelper.accessor("city", {
         header: " المدينه ",
-        cell: (info) => info.getValue(),
-      }),
-      columnHelper.accessor("subscriptionEntity", {
-        header: "   بدء الاشتراك ",
-        cell: (info) => info.getValue(),
-      }),
-      columnHelper.accessor("subscriptionEnd", {
-        header: " انتهاء الاشتراك ",
         cell: (info) => info.getValue(),
       }),
 

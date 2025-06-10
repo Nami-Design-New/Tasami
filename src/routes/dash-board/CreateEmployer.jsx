@@ -3,11 +3,13 @@ import Tabs from "../../ui/Tabs";
 import EmployerDataForm from "../../ui/dash-board/create-employee/EmployerDataForm";
 import PermissionBoard from "../../ui/dash-board/create-employee/PermissionBoard";
 import WorkGroups from "./teams/WorkGroups";
-import { useParams } from "react-router";
+import { useParams, useSearchParams } from "react-router";
 import PerformanceIndicators from "../../ui/dash-board/create-employee/PerformanceIndicators";
+import DataUpdateRequest from "../../ui/dash-board/create-employee/DataUpdateRequest";
 
 const CreateEmployee = () => {
   const { id } = useParams();
+  const [searchParams, setSearchParams] = useSearchParams();
   const isEditMode = !!id;
 
   const tabs = useMemo(() => {
@@ -27,6 +29,11 @@ const CreateEmployee = () => {
         icon: <i className="fa-regular fa-users"></i>,
         title: "المجموعات التابعه",
       },
+      {
+        id: 5,
+        icon: <i className="fa-regular fa-calendar-lines-pen"></i>,
+        title: "طلبات تحديت البيانات",
+      },
     ];
 
     if (isEditMode) {
@@ -39,15 +46,23 @@ const CreateEmployee = () => {
 
     return baseTabs;
   }, [isEditMode]);
-  const [activeTab, setActiveTab] = useState(tabs[0].id);
+
+  const [activeTab, setActiveTab] = useState(() => {
+    const tabParam = searchParams.get("tab");
+    return tabParam ? parseInt(tabParam) : tabs[0].id;
+  });
+
   const handleTabClick = (tabId) => {
     setActiveTab(tabId);
+    setSearchParams({ tab: tabId.toString()});
   };
+
   useEffect(() => {
     if (id) {
       // fetch user data by ID and populate forms if needed
     }
   }, [id]);
+
   return (
     <section>
       <div className="row g-3">
@@ -63,6 +78,7 @@ const CreateEmployee = () => {
           {activeTab === 2 && <PermissionBoard />}
           {activeTab === 3 && <WorkGroups />}
           {activeTab === 4 && <PerformanceIndicators />}
+          {activeTab === 5 && <DataUpdateRequest />}
         </div>
       </div>
     </section>

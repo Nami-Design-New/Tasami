@@ -30,6 +30,7 @@ import Home from "../routes/website/Home";
 import UserProfile from "../routes/dash-board/UserProfile";
 import ChatPage from "../routes/ChatPage";
 import DashboardHome from "../routes/dash-board/MainDashboardHome";
+import DataUpdateRequestDetails from "../routes/dash-board/DataUpdateRequestDetails";
 
 export const router = createBrowserRouter([
   {
@@ -140,6 +141,10 @@ export const router = createBrowserRouter([
             element: <CreateEmployee />,
           },
         ],
+      },
+      {
+        path: "requests/:id",
+        element: <DataUpdateRequestDetails />,
       },
       {
         path: "list-management",
