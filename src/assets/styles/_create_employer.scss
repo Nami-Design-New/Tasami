@@ -308,3 +308,52 @@
 
   gap: 0.5rem;
 }
+
+.new-value {
+  color: #1aa44d;
+  font-weight: 600;
+  background-color: #f0fdf4;
+  padding: 0.5rem 1rem;
+  border-radius: 12px;
+}
+
+.data-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  h6 {
+    font-weight: bold;
+    color: $dark;
+  }
+  p {
+    color: $text;
+    font-size: 1rem;
+  }
+  .req-status {
+    display: inline-block;
+    padding: 0.25rem 0.5rem;
+    border-radius: 50px;
+    font-size: 0.875rem;
+    &.pending {
+      background-color: #fff3cd;
+      color: #856404;
+    }
+    &.approved {
+      background-color: #d4edda;
+      color: #155724;
+    }
+    &.rejected {
+      background-color: #f8d7da;
+      color: #721c24;
+    }
+  }
+}
+@include pulse(pulse-red, #721c24);
+.notification__indicator {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: #c41728;
+  animation: pulse-red 1.6s infinite;
+  margin-right: auto;
+}

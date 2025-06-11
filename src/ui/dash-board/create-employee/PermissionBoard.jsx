@@ -102,7 +102,7 @@ const permessions = [
 
 const PermissionBoard = () => {
   return (
-    <div className="permission ">
+    <div className="permission">
       <div className="permission__search">
         <h3> الصلاحيات </h3>
         <input type="text" placeholder="البحث عن صلاحية أو مهمة..." />

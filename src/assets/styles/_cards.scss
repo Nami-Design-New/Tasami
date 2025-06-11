@@ -273,6 +273,7 @@
     right: 15px;
     transform: translateY(50%);
   }
+  @include pulse(pulse-green, #32cd32);
   &__status {
     width: 10px;
     height: 10px;
@@ -282,7 +283,7 @@
     bottom: -25px;
     right: 85px;
     transform: translateY(50%);
-    animation: pulse 1.6s infinite;
+    animation: pulse-green 1.6s infinite;
   }
   &__body {
     padding: 16px;

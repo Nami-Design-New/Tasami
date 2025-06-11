@@ -45,20 +45,6 @@ body.en {
   border-radius: 30px;
 }
 
-@keyframes pulse {
-  0% {
-    transform: scale(0.95);
-    box-shadow: 0 0 0 0 rgba(50, 205, 50, 0.7);
-  }
-  70% {
-    transform: scale(1);
-    box-shadow: 0 0 0 8px rgba(50, 205, 50, 0);
-  }
-  100% {
-    transform: scale(0.95);
-    box-shadow: 0 0 0 0 rgba(50, 205, 50, 0);
-  }
-}
 button,
 input,
 select,
@@ -936,6 +922,20 @@ input[type=number]::-webkit-outer-spin-button, input[type=number]::-webkit-inner
   right: 15px;
   transform: translateY(50%);
 }
+@keyframes pulse-green {
+  0% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(50, 205, 50, 0.7);
+  }
+  70% {
+    transform: scale(1);
+    box-shadow: 0 0 0 8px rgba(50, 205, 50, 0);
+  }
+  100% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(50, 205, 50, 0);
+  }
+}
 .profile-card__status {
   width: 10px;
   height: 10px;
@@ -945,7 +945,7 @@ input[type=number]::-webkit-outer-spin-button, input[type=number]::-webkit-inner
   bottom: -25px;
   right: 85px;
   transform: translateY(50%);
-  animation: pulse 1.6s infinite;
+  animation: pulse-green 1.6s infinite;
 }
 .profile-card__body {
   padding: 16px;
@@ -3071,6 +3071,69 @@ input[type=number]::-webkit-outer-spin-button, input[type=number]::-webkit-inner
   justify-content: start;
   text-align: left !important;
   gap: 0.5rem;
+}
+
+.new-value {
+  color: #1aa44d;
+  font-weight: 600;
+  background-color: #f0fdf4;
+  padding: 0.5rem 1rem;
+  border-radius: 12px;
+}
+
+.data-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.data-item h6 {
+  font-weight: bold;
+  color: #0d0d0d;
+}
+.data-item p {
+  color: #666b88;
+  font-size: 1rem;
+}
+.data-item .req-status {
+  display: inline-block;
+  padding: 0.25rem 0.5rem;
+  border-radius: 50px;
+  font-size: 0.875rem;
+}
+.data-item .req-status.pending {
+  background-color: #fff3cd;
+  color: #856404;
+}
+.data-item .req-status.approved {
+  background-color: #d4edda;
+  color: #155724;
+}
+.data-item .req-status.rejected {
+  background-color: #f8d7da;
+  color: #721c24;
+}
+
+@keyframes pulse-red {
+  0% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(114, 28, 36, 0.7);
+  }
+  70% {
+    transform: scale(1);
+    box-shadow: 0 0 0 8px rgba(114, 28, 36, 0);
+  }
+  100% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(114, 28, 36, 0);
+  }
+}
+.notification__indicator {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: #c41728;
+  animation: pulse-red 1.6s infinite;
+  margin-right: auto;
 }
 
 .grid-container {

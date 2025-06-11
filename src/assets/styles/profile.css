@@ -45,20 +45,6 @@ body.en {
   border-radius: 30px;
 }
 
-@keyframes pulse {
-  0% {
-    transform: scale(0.95);
-    box-shadow: 0 0 0 0 rgba(50, 205, 50, 0.7);
-  }
-  70% {
-    transform: scale(1);
-    box-shadow: 0 0 0 8px rgba(50, 205, 50, 0);
-  }
-  100% {
-    transform: scale(0.95);
-    box-shadow: 0 0 0 0 rgba(50, 205, 50, 0);
-  }
-}
 button,
 input,
 select,

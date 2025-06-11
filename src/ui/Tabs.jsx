@@ -1,5 +1,4 @@
 const Tabs = ({ tabs = [], activeTab, onTabChange }) => {
-
   return (
     <ul className="tab-list">
       {tabs.map((tab) => (
@@ -10,6 +9,9 @@ const Tabs = ({ tabs = [], activeTab, onTabChange }) => {
           >
             {tab.icon}
             {tab.title}
+            {tab.notificationIndicator && (
+              <span className="notification__indicator"></span>
+            )}
           </button>
         </li>
       ))}
