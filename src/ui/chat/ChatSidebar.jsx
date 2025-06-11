@@ -1,10 +1,10 @@
 import ChatList from "./ChatList";
 
-const ChatSidebar = ({ isOpen, onClose }) => {
+const ChatSidebar = ({ isOpen, onClose, onChatSelect, activeChat }) => {
   return (
     <aside className={`chat-sidebar ${isOpen ? "chat-sidebar--open" : ""}`}>
       <div className="chat-sidebar__header">
-        <img/>
+        <img />
         <h3></h3>
       </div>
       <div className="chat-sidebar__search">
@@ -12,7 +12,7 @@ const ChatSidebar = ({ isOpen, onClose }) => {
       </div>
       <div className="chat-sidebar__section">
         <h4 className="chat-sidebar__section-title">المحادثات</h4>
-        <ChatList />
+        <ChatList onChatSelect={onChatSelect} activeChat={activeChat} />
       </div>
       <button className="chat-sidebar__close" onClick={onClose}>
         ×

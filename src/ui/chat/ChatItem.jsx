@@ -1,6 +1,11 @@
-const ChatItem = ({ name, message, time, avatar }) => {
+const ChatItem = ({ chat, onChatSelect, activeChat }) => {
+  const { name, message, time, avatar } = chat;
   return (
-    <li className="chat-item">
+    <li
+      key={chat.id}
+      className={`chat-item ${activeChat?.id === chat.id ? "active" : ""}`}
+      onClick={() => onChatSelect(chat)}
+    >
       <img className="chat-item__avatar" src={avatar} alt={name} />
       <div className="chat-item__info">
         <div className="d-flex align-items-center  justify-content-between">

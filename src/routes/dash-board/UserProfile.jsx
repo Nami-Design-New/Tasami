@@ -3,8 +3,11 @@ import "../../assets/styles/profile.css";
 import InfoCard from "../../ui/dash-board/cards/InfoCard";
 import PageHeader from "../../ui/PageHeader";
 import Rating from "../../ui/dash-board/cards/Rating";
+import SuspensionModel from "../../ui/modals/SuspensionModel";
+import { useState } from "react";
 
 const UserProfile = () => {
+  const [openSuspensionModel, setOpenSuspensionModel] = useState(false);
   return (
     <div className="user-dashboard">
       <PageHeader removeLast={true} name={"بيانات المستخدم"} />
@@ -21,7 +24,10 @@ const UserProfile = () => {
             >
               تواصل مع المستخدم
             </Link>
-            <button className="user-dashboard__button  button--add">
+            <button
+              onClick={() => setOpenSuspensionModel(true)}
+              className="user-dashboard__button  button--add"
+            >
               طلب إيقاف الحساب
             </button>
             <button className="user-dashboard__button  user-dashboard__button--secondary">
@@ -144,6 +150,10 @@ const UserProfile = () => {
           </InfoCard>
         </div>
       </div>
+      <SuspensionModel
+        showModal={openSuspensionModel}
+        setShowModal={setOpenSuspensionModel}
+      />
     </div>
   );
 };

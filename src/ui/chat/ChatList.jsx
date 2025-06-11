@@ -17,11 +17,16 @@ const chats = [
   },
 ];
 
-const ChatList = () => {
+const ChatList = ({ onChatSelect, activeChat }) => {
   return (
     <ul className="chat-list">
       {chats.map((chat) => (
-        <ChatItem key={chat.id} {...chat} />
+        <ChatItem
+          key={chat.id}
+          chat={chat}
+          onChatSelect={onChatSelect}
+          activeChat={activeChat}
+        />
       ))}
     </ul>
   );

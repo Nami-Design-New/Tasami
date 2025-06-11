@@ -4,17 +4,26 @@ import "../assets/styles/chats.css";
 import { useState } from "react";
 const ChatPage = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [activeChat, setActiveChat] = useState(null);
+
+  const handleChatSelect = (chat) => {
+    setActiveChat(chat);
+    setSidebarOpen(false);
+  };
 
   return (
     <div className="chat-page">
-      <button
-        className="chat-page__toggle"
-        onClick={() => setSidebarOpen(!sidebarOpen)}
-      >
-        ☰
-      </button>
-      <ChatSidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
-      <ChatWindow />
+      <ChatSidebar
+        isOpen={sidebarOpen}
+        onClose={() => setSidebarOpen(false)}
+        onChatSelect={handleChatSelect}
+        activeChat={activeChat}
+      />
+      <ChatWindow
+        isOpen={sidebarOpen}
+        setIsOpen={setSidebarOpen}
+        activeChat={activeChat}
+      />
     </div>
   );
 };
