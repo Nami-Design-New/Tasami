@@ -254,14 +254,17 @@ export default function DashboardHome() {
                 to="/dashboard/create-employee"
                 className="quick--action__button"
               >
-                <img src="./icons/add-user.svg" /> <span> انشاء موظف </span>{" "}
+                <img src="./icons/add-user.svg" /> <span> انشاء موظف </span>
+              </Link>
+              <Link
+                to={"/dashboard/list-management/working-groups"}
+                className="quick--action__button"
+              >
+                <img src="./icons/permisson_icon.svg" />
+                <span> انشاء مجموعه </span>
               </Link>
               <Link className="quick--action__button">
-                <img src="./icons/permisson_icon.svg" />{" "}
-                <span> انشاء صلاحيه </span>{" "}
-              </Link>
-              <Link className="quick--action__button">
-                <img src="./icons/delete-user.svg" /> <span> ايقاف موظف </span>{" "}
+                <img src="./icons/delete-user.svg" /> <span> ايقاف موظف </span>
               </Link>
               <Link
                 to="/dashboard/list-management/fields-and-specializations"
