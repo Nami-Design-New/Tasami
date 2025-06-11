@@ -1,7 +1,6 @@
 import Message from "./Message";
 
 const ChatWindow = ({ isOpen, setIsOpen, activeChat }) => {
-  const { name } = activeChat;
   return (
     <div className="chat-window">
       <header className="chat-window__header">
@@ -18,7 +17,7 @@ const ChatWindow = ({ isOpen, setIsOpen, activeChat }) => {
           </button>
           <img src="https://avatar.iran.liara.run/public/1" />
           <div>
-            <h4 className="chat-window__name">{name}</h4>
+            <h4 className="chat-window__name">{activeChat?.name}</h4>
             <span className="chat-window__role">نشط الان</span>
           </div>
         </div>
