@@ -96,32 +96,32 @@ export default function SidebarNavigation() {
           <Accordion.Body>
             <ul className="sub_navigation_menu">
               <li className="sub_nav_item">
-                <NavLink to="reports">
+                <NavLink to="reports/subscribres">
                   <img src="/sys-icons/subArrow.svg" alt="arrow" />
                   <span> الاشتراكات </span>
                 </NavLink>
               </li>
               <li className="sub_nav_item">
-                <NavLink to="clients">
+                <NavLink to="reports/prorams-and-services">
                   <img src="/sys-icons/subArrow.svg" alt="arrow" />
                   <span> البرامج والخدمات </span>
                 </NavLink>
               </li>
 
               <li className="sub_nav_item">
-                <NavLink to="clients">
+                <NavLink to="reports/customer-service">
                   <img src="/sys-icons/subArrow.svg" alt="arrow" />
                   <span> خدمات العملاء </span>
                 </NavLink>
               </li>
               <li className="sub_nav_item">
-                <NavLink to="clients">
+                <NavLink to="reports/operations">
                   <img src="/sys-icons/subArrow.svg" alt="arrow" />
                   <span> العمليات </span>
                 </NavLink>
               </li>
               <li className="sub_nav_item">
-                <NavLink to="clients">
+                <NavLink to="reports/sales">
                   <img src="/sys-icons/subArrow.svg" alt="arrow" />
                   <span> المبيعات </span>
                 </NavLink>

@@ -1,36 +1,38 @@
 import { createBrowserRouter } from "react-router";
-import DashboardLayout from "../layout/MainDashboardLayout";
 import AuthLayout from "../layout/AuthLayout";
+import DashboardLayout from "../layout/MainDashboardLayout";
 import WebsiteLayout from "../layout/WebsiteLayout";
 import LoginPage from "../routes/auth/LoginPage";
 import RegisterPage from "../routes/auth/RegisterPage";
 import ResetPassword from "../routes/auth/ResetPassword";
+import ChatPage from "../routes/ChatPage";
 import ActionsLogModel from "../routes/dash-board/ActionsLogModel";
 import CreateEmployee from "../routes/dash-board/CreateEmployer";
+import DataUpdateRequestDetails from "../routes/dash-board/DataUpdateRequestDetails";
 import EmployeeProfile from "../routes/dash-board/EmployeeProfile";
 import FieldsAndSpecializations from "../routes/dash-board/list-management/FieldsAndSpecializations";
 import ListManagement from "../routes/dash-board/list-management/ListManagement";
 import OperatingSectors from "../routes/dash-board/list-management/OperatingSectors";
 import WorkingGroups from "../routes/dash-board/list-management/WorkingGroups";
+import DashboardHome from "../routes/dash-board/MainDashboardHome";
 import ModelComponent from "../routes/dash-board/ModelComponent";
 import Notifications from "../routes/dash-board/Notifications";
+import ActiveTab from "../routes/dash-board/reports/ActiveTab";
+import Reports from "../routes/dash-board/reports/Reports";
 import CustomerServiseTasks from "../routes/dash-board/tasks/CustomerServiseTasks";
 import ExecutiveTasks from "../routes/dash-board/tasks/ExecutiveTasks";
 import SupervisoryTasks from "../routes/dash-board/tasks/SupervisoryTasks";
 import Tasks from "../routes/dash-board/tasks/Tasks";
+import Services from "../routes/dash-board/teams/MyServices";
 import Programs from "../routes/dash-board/teams/Programs";
 import Resuems from "../routes/dash-board/teams/Resuems";
-import Services from "../routes/dash-board/teams/MyServices";
 import SubscribersAndTeams from "../routes/dash-board/teams/SubscribersAndTeams";
 import Teams from "../routes/dash-board/teams/Teams";
 import UserAccounts from "../routes/dash-board/teams/UserAccounts";
+import UserProfile from "../routes/dash-board/UserProfile";
 import WokingGroupDetails from "../routes/dash-board/WokingGroupDetails";
 import PageNotFound from "../routes/PageNotFound";
 import Home from "../routes/website/Home";
-import UserProfile from "../routes/dash-board/UserProfile";
-import ChatPage from "../routes/ChatPage";
-import DashboardHome from "../routes/dash-board/MainDashboardHome";
-import DataUpdateRequestDetails from "../routes/dash-board/DataUpdateRequestDetails";
 
 export const router = createBrowserRouter([
   {
@@ -165,6 +167,36 @@ export const router = createBrowserRouter([
           {
             path: "fields-and-specializations",
             element: <FieldsAndSpecializations />,
+          },
+        ],
+      },
+      {
+        path: "reports",
+        element: <Reports />,
+        children: [
+          {
+            index: true,
+            element: <ActiveTab />,
+          },
+          {
+            path: "subscribres",
+            element: <ActiveTab />,
+          },
+          {
+            path: "prorams-and-services",
+            element: <ActiveTab />,
+          },
+          {
+            path: "customer-service",
+            element: <ActiveTab />,
+          },
+          {
+            path: "operations",
+            element: <ActiveTab />,
+          },
+          {
+            path: "sales",
+            element: <ActiveTab />,
           },
         ],
       },

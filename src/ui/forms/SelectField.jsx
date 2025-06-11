@@ -12,7 +12,7 @@ const SelectField = React.forwardRef(
         )}
 
         <Form.Select ref={ref} isInvalid={!!error} {...props}>
-          <option value="" disabled selected hidden>
+          <option value={null} selected>
             {disableFiledValue || " Select"}
           </option>
           {options?.map((option, index) => (

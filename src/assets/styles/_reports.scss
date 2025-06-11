@@ -1,0 +1,98 @@
+@mixin perfomanceSectionCard {
+  background-color: $white;
+  padding: 1rem;
+  border-radius: $borderRadius;
+  gap: 0.5rem;
+  h3 {
+    font-size: 1.2rem;
+    color: $main;
+    font-weight: 600;
+  }
+}
+
+.performance-filter {
+  @include perfomanceSectionCard;
+
+  &__footer {
+    margin-top: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    justify-content: end;
+  }
+  &__button {
+    width: 150px;
+  }
+}
+
+.performance-metrics {
+  margin-top: 1rem;
+  .metrics-list {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+}
+
+.metrics-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+
+  .metrics-input {
+    accent-color: $main;
+    cursor: pointer;
+  }
+  .metrics-label {
+    font-size: 0.9rem;
+    color: $text;
+    cursor: pointer;
+  }
+}
+
+.performance-report {
+  background-color: $white;
+  padding: 1rem;
+  border-radius: $borderRadius;
+  margin-top: 1rem;
+  &__header {
+    font-size: 1.5rem;
+    color: $main;
+    font-weight: 600;
+  }
+}
+.performance-no-report-data {
+  background-color: $white;
+  padding: 1rem;
+  border-radius: $borderRadius;
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 400px;
+  gap: 1rem;
+  &__icon {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background-color: $lightGray;
+    @include centerFlex();
+    i {
+      font-size: 2rem;
+    }
+  }
+  h6 {
+    font-size: 1.2rem;
+    color: $dark;
+    font-weight: 600;
+  }
+  p {
+    font-size: 0.9rem;
+    color: $text;
+    text-align: center;
+  }
+}
