@@ -24,8 +24,8 @@ const EmployerDataForm = () => {
   return (
     <form className="form_ui">
       <FormWrapper title={" البيانات التوظيفيه "}>
-        <div className="row">
-          <div className="col-12 col-md-6 p-2  ">
+        <div className="row g-2">
+          <div className="col-12 col-md-6 col-xxl-4">
             <SelectField
               label="الوصف"
               options={[
@@ -35,31 +35,22 @@ const EmployerDataForm = () => {
               ]}
             />
           </div>
-          <div className="col-12 col-md-6 p-2 ">
+          <div className="col-12 col-md-6 col-xxl-4 ">
             <InputField
               label=" رقم الحساب "
               type="text"
               placeholder="EX: D-140123-00001"
             />
           </div>
-          <div className="col-12 col-md-6 p-2 ">
+          <div className="col-12 col-md-6 col-xxl-4 ">
             <InputField
               label="التاريخ"
               type="date"
               value={new Date().toISOString().split("T")[0]}
             />
           </div>
-          {/* <div className="col-12 col-md-6 p-2 ">
-            <SelectField
-              label="مجموعة العمل "
-              options={[
-                { value: 1, name: "1" },
-                { value: 2, name: "2" },
-                { value: 3, name: "3" },
-              ]}
-            />
-          </div>{" "} */}
-          <div className="col-12 col-md-6 p-2 ">
+
+          <div className="col-12 col-md-6 col-xxl-4 ">
             <SelectField
               label="الاقليم"
               options={[
@@ -69,7 +60,7 @@ const EmployerDataForm = () => {
               ]}
             />
           </div>
-          <div className="col-12 col-md-6 p-2 ">
+          <div className="col-12 col-md-6 col-xxl-4 ">
             <SelectField
               label="القطاع"
               options={[
@@ -79,7 +70,7 @@ const EmployerDataForm = () => {
               ]}
             />
           </div>
-          <div className="col-12 col-md-6 p-2 ">
+          <div className="col-12 col-md-6 col-xxl-4 ">
             <SelectField
               label="المدينة"
               options={[
@@ -92,42 +83,33 @@ const EmployerDataForm = () => {
         </div>
       </FormWrapper>
       <FormWrapper title={"البيانات الشخصيه"}>
-        <div className="row">
+        <div className="row g-2">
           <ProfileImageUploader imageUrl={image} onChange={handleUpload} />
-          <div className="col-12 col-md-6 p-2 ">
+          <div className="col-12 col-md-6 col-xxl-4 ">
             <InputField
               label="الاسم الاول"
               type="text"
               placeholder="مثال: محمود"
             />
           </div>
-          <div className="col-12 col-md-6 p-2 ">
+          <div className="col-12 col-md-6 col-xxl-4 ">
             <InputField label="اسم الاب" type="text" placeholder="مثال: عباس" />
           </div>
-          <div className="col-12 col-md-6 p-2 ">
+          <div className="col-12 col-md-6 col-xxl-4 ">
             <InputField
               label="اسم العائله"
               type="text"
               placeholder="مثال: عباس"
             />
           </div>
-          <div className="col-12 col-md-6 p-2 ">
+          <div className="col-12 col-md-6 col-xxl-4 ">
             <InputField label="تاريخ الميلاد" type="date" />
           </div>
-          <div className="col-12 col-md-6 p-2 ">
+          <div className="col-12 col-md-6 col-xxl-4 ">
             <InputField label="البريد الالكتروني" type="email" />
           </div>
-          {/* <div className="col-12 col-md-6 p-2 ">
-            <SelectField
-              label="مجموعة العمل "
-              options={[
-                { value: 1, name: "1" },
-                { value: 2, name: "2" },
-                { value: 3, name: "3" },
-              ]}
-            />
-          </div>{" "} */}
-          <div className="col-12 col-md-6 p-2 ">
+
+          <div className="col-12 col-md-6 col-xxl-4   ">
             <SelectField
               label="الجنس"
               options={[
@@ -136,7 +118,7 @@ const EmployerDataForm = () => {
               ]}
             />
           </div>
-          <div className="col-12 col-md-6 p-2 ">
+          <div className="col-12 col-md-6 col-xxl-4   ">
             <SelectField
               label="بلد الاقامه"
               options={[
@@ -146,7 +128,7 @@ const EmployerDataForm = () => {
               ]}
             />
           </div>
-          <div className="col-12 col-md-6 p-2 ">
+          <div className="col-12 col-md-6 col-xxl-4   ">
             <SelectField
               label="مدينه الاقامه"
               options={[
@@ -156,7 +138,7 @@ const EmployerDataForm = () => {
               ]}
             />
           </div>
-          <div className="col-12 col-md-6 p-2 ">
+          <div className="col-12 col-md-6 col-xxl-4   ">
             <SelectField
               label="الجنسيه"
               options={[

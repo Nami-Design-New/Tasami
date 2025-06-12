@@ -223,6 +223,7 @@ const Programs = () => {
         <div className="col-12">
           <ReusableDataTable
             title="البرامج"
+            filter={false}
             data={data}
             columns={columns}
             lang="ar"

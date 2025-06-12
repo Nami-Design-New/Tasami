@@ -266,6 +266,15 @@
       color: $white;
       padding: 0.6rem 1rem;
       border-radius: 8px;
+      @include tablet-layout() {
+        display: block;
+        background-color: $white;
+        padding: 0;
+        color: $main;
+        span {
+          display: none;
+        }
+      }
     }
   }
 }

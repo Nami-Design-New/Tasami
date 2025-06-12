@@ -246,6 +246,7 @@ const Resuems = () => {
         </div>
         <div className="col-12">
           <ReusableDataTable
+            filter={false}
             data={data}
             columns={columns}
             title={"السير الذاتيه"}

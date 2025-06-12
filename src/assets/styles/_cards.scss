@@ -21,6 +21,9 @@
       font-size: 22px;
       font-weight: 500;
       text-transform: capitalize;
+      @include small-mobile() {
+        font-size: 18px;
+      }
       &::before {
         content: "";
         position: absolute;
@@ -35,6 +38,9 @@
   }
   .card__body {
     padding: 1rem 1.25rem;
+    @include tablet-layout() {
+      padding: 0.5rem;
+    }
   }
   .card--footer {
     padding: 1rem 1.25rem;
@@ -161,8 +167,9 @@
     flex: 1;
     .details-container {
       display: flex;
-      align-items: center;
+      align-items: start;
       justify-content: space-between;
+      flex: 1;
       .details {
         .title {
           font-size: 16px;
@@ -182,7 +189,7 @@
     .change {
       display: flex;
       align-items: center;
-      justify-content: space-between;
+      justify-content: end;
       .percent {
         font-size: 14px;
         color: #e6533c;
@@ -312,7 +319,7 @@
     flex-direction: column;
     gap: 8px;
     align-items: start;
-    margin-left: 20px;
+    // margin-left: 20px;
     font-size: 13px;
     color: $text;
 

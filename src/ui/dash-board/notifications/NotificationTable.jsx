@@ -298,18 +298,18 @@ const NotificationTable = () => {
           setGlobalFilter={setGlobalFilter}
           columnFilters={columnFilters}
           setColumnFilters={setColumnFilters}
-          activeFilters={["operation", "action"]}
+          activeFilters={["operation"]}
           filterOptions={{
             operation: {
               id: "operation",
               label: { ar: "فرز بواسطه العملية:", en: "Filter by Operation:" },
               options: ["إرسال", "استلام"],
             },
-            action: {
-              id: "action",
-              label: { ar: "فرز بواسطه الإجراء:", en: "Filter by Action:" },
-              options: ["عرض", "تحقق", "تعديل", "مراجعة", "إغلاق"],
-            },
+            // action: {
+            //   id: "action",
+            //   label: { ar: "فرز بواسطه الإجراء:", en: "Filter by Action:" },
+            //   options: ["عرض", "تحقق", "تعديل", "مراجعة", "إغلاق"],
+            // },
           }}
           filterButtonText={isRTL ? "فرز" : "Filter"}
           searchPlaceholder={

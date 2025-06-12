@@ -1,38 +1,12 @@
-import {
-  createColumnHelper,
-  flexRender,
-  getCoreRowModel,
-  getFilteredRowModel,
-  getPaginationRowModel,
-  getSortedRowModel,
-  useReactTable,
-} from "@tanstack/react-table";
-import { useMemo, useState } from "react";
-import { useSelector } from "react-redux";
-import TableFilter from "../../../ui/dash-board/home/TableFilter";
-import { Link } from "react-router";
+import { createColumnHelper } from "@tanstack/react-table";
+import { useMemo } from "react";
 import { Badge } from "react-bootstrap";
+import { Link } from "react-router";
+import ReusableDataTable from "../../../ui/ReusableDataTable";
 
 const columnHelper = createColumnHelper();
 
-const customGlobalFilterFn = (row, columnId, filterValue) => {
-  const { ...rest } = row.original;
-  console.log(
-    Object.values(rest).some((val) => {
-      console.log(val);
-      return String(val).toLowerCase().includes(filterValue.toLowerCase());
-    })
-  );
-
-  return Object.values(rest).some((val) =>
-    String(val).toLowerCase().includes(filterValue.toLowerCase())
-  );
-};
 const CustomerServiseTasks = () => {
-  const lang = useSelector((state) => state.language.lang);
-  const isRTL = lang === "ar";
-  const [globalFilter, setGlobalFilter] = useState("");
-
   const data = useMemo(
     () => [
       {
@@ -451,178 +425,15 @@ const CustomerServiseTasks = () => {
     ],
     []
   );
-  const table = useReactTable({
-    data,
-    columns,
-    state: {
-      globalFilter,
-    },
-    globalFilterF: customGlobalFilterFn,
-    getFilteredRowModel: getFilteredRowModel(),
-    getCoreRowModel: getCoreRowModel(),
-    getSortedRowModel: getSortedRowModel(),
-    getPaginationRowModel: getPaginationRowModel(),
-    //onColumnFiltersChange: setColumnFilters,
-    columnResizeMode: "onChange",
-    initialState: {
-      pagination: {
-        pageSize: 8,
-      },
-    },
-  });
+
   return (
-    <div className="cutomer_service">
-      <div className="card__custom">
-        <div className="header d-flex justify-content-between">
-          <h3 className="header__title">مهام خدمه العملاء</h3>
-          <TableFilter
-            filter={false}
-            globalFilter={globalFilter}
-            setGlobalFilter={setGlobalFilter}
-            filterButtonText={isRTL ? "فرز" : "Filter"}
-            searchPlaceholder={"بحث في المهام"}
-          />
-        </div>
-        <div className="card__body  ">
-          <div
-            className="table-container table-responsive border "
-            dir={isRTL ? "rtl" : "ltr"}
-          >
-            <table
-              width={table.getTotalSize()}
-              className="custom-table table table-bordered  text-center align-middle mb-0"
-            >
-              <thead className="table-light">
-                {table.getHeaderGroups().map((headerGroup) => (
-                  <tr key={headerGroup.id}>
-                    {headerGroup.headers.map((header) => (
-                      <th key={header.id} width={header.getSize()}>
-                        {header.column.columnDef.header}
-                        {header.column.getCanSort() && (
-                          <i
-                            className="fa-solid fa-arrow-up-short-wide"
-                            onClick={header.column.getToggleSortingHandler()}
-                          ></i>
-                        )}
-                        {
-                          {
-                            asc: "تصاعديا",
-                            desc: "تنازليا",
-                          }[header.column.getIsSorted()]
-                        }
-
-                        <div
-                          className={`resizer ${
-                            header.column.getIsResizing() ? "isResizing" : ""
-                          } ${isRTL ? "ar" : "en"} `}
-                          onMouseDown={header.getResizeHandler()}
-                          onTouchStart={header.getResizeHandler()}
-                        ></div>
-                      </th>
-                    ))}
-                  </tr>
-                ))}
-              </thead>
-              <tbody>
-                {table.getRowModel().rows.map((row) => (
-                  <tr key={row.id}>
-                    {row.getVisibleCells().map((cell) => (
-                      <td key={cell.id} width={cell.column.getSize()}>
-                        {flexRender(
-                          cell.column.columnDef.cell,
-                          cell.getContext()
-                        )}
-                      </td>
-                    ))}
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </div>
-        <div className="card--footer">
-          <div
-            className="pagination-container"
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
-              width: "100%",
-            }}
-          >
-            <div className="pagination-buttons">
-              <button
-                onClick={() => table.previousPage()}
-                disabled={!table.getCanPreviousPage()}
-                className="prev"
-                style={{
-                  cursor: !table.getCanPreviousPage()
-                    ? "not-allowed"
-                    : "pointer",
-                }}
-              >
-                السابق
-              </button>
-
-              <div
-                className="page-numbers"
-                style={{ display: "flex", gap: "5px" }}
-              >
-                {Array.from({ length: table.getPageCount() }, (_, i) => (
-                  <button
-                    key={i}
-                    onClick={() => table.setPageIndex(i)}
-                    className={`page-number ${
-                      table.getState().pagination.pageIndex === i
-                        ? "active"
-                        : ""
-                    }`}
-                    style={{
-                      backgroundColor:
-                        table.getState().pagination.pageIndex === i
-                          ? "#214b92"
-                          : "transparent",
-                      color:
-                        table.getState().pagination.pageIndex === i
-                          ? "#fff"
-                          : "#214b92",
-
-                      fontWeight:
-                        table.getState().pagination.pageIndex === i
-                          ? "bold"
-                          : "normal",
-                    }}
-                  >
-                    {i + 1}
-                  </button>
-                ))}
-              </div>
-
-              <button
-                onClick={() => table.nextPage()}
-                disabled={!table.getCanNextPage()}
-                className="next"
-                style={{
-                  padding: "5px 12px",
-                  borderRadius: "4px",
-                  border: "1px solid var(--main-color)",
-                  backgroundColor: "transparent",
-                  cursor: !table.getCanNextPage() ? "not-allowed" : "pointer",
-                  opacity: !table.getCanNextPage() ? 0.5 : 1,
-                }}
-              >
-                التالي
-              </button>
-            </div>
-
-            <div className="pagination-info" style={{ fontWeight: "bold" }}>
-              صفحة {table.getState().pagination.pageIndex + 1} من{" "}
-              {table.getPageCount()}
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+    <ReusableDataTable
+      columns={columns}
+      data={data}
+      title="مهام خدمه العملاء"
+      filter={false}
+      searchPlaceholder="بحث في المهام"
+    />
   );
 };
 

@@ -15,8 +15,7 @@ const ListManagement = () => {
   return (
     <>
       <section>
-        {" "}
-        <div className="d-flex align-items-center justify-content-between">
+        <div className="p-2 d-flex align-items-center justify-content-between">
           <PageHeader />
           {currentLocation === "working-groups" && (
             <button

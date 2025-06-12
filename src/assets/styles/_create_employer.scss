@@ -18,6 +18,9 @@
     h3 {
       font-size: 22px;
       color: $text;
+      @include tablet-layout() {
+        font-size: 18px;
+      }
     }
     input {
       width: 50%;
@@ -136,9 +139,13 @@
     display: flex;
     align-items: end;
     justify-content: space-between;
+    white-space: nowrap;
     h3 {
       font-size: 22px;
       color: $text;
+      @include tablet-layout() {
+        font-size: 18px;
+      }
     }
     input {
       width: 50%;
@@ -151,16 +158,16 @@
   &__list {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 0.5rem;
+    gap: 1rem;
     margin-bottom: 1rem;
   }
 
   &__card {
     background: #fff;
     border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
     width: 100%;
-    max-width: 420px;
+    // max-width: 420px;
     // Header Gradient per card
     &--blue .teams__card-header {
       background: linear-gradient(135deg, #0386c9, #1a95db);
@@ -209,6 +216,7 @@
       background-color: rgba(255, 255, 255, 0.1);
       padding: 6px;
       border-radius: 20px;
+      white-space: nowrap;
     }
 
     &-location {

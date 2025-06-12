@@ -506,13 +506,14 @@
   @include clearInput();
   @include centerFlex();
   gap: 8px;
-  padding: 12px 32px;
+  padding: 12px 20px;
   font-size: 14px;
   font-weight: 500;
   color: $white;
   background: $main;
   border-radius: 12px;
   transition: $transition;
+  white-space: nowrap;
   &:hover {
     background: $mainLight;
   }

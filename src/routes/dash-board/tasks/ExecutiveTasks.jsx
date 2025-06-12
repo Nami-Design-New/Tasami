@@ -1,39 +1,12 @@
-import TableFilter from "../../../ui/dash-board/home/TableFilter";
-import {
-  createColumnHelper,
-  flexRender,
-  getCoreRowModel,
-  getFilteredRowModel,
-  getPaginationRowModel,
-  getSortedRowModel,
-  useReactTable,
-} from "@tanstack/react-table";
-import { useMemo, useState } from "react";
-import { useSelector } from "react-redux";
-import { Link } from "react-router";
-import TablePagentaion from "../../../ui/TablePagentaion";
+import { createColumnHelper } from "@tanstack/react-table";
+import { useMemo } from "react";
 import { Badge } from "react-bootstrap";
+import { Link } from "react-router";
+import ReusableDataTable from "../../../ui/ReusableDataTable";
 
 const columnHelper = createColumnHelper();
 
-const customGlobalFilterFn = (row, columnId, filterValue) => {
-  const { ...rest } = row.original;
-  console.log(
-    Object.values(rest).some((val) => {
-      console.log(val);
-      return String(val).toLowerCase().includes(filterValue.toLowerCase());
-    })
-  );
-
-  return Object.values(rest).some((val) =>
-    String(val).toLowerCase().includes(filterValue.toLowerCase())
-  );
-};
 const ExecutiveTasks = () => {
-  const lang = useSelector((state) => state.language.lang);
-  const isRTL = lang === "ar";
-  const [globalFilter, setGlobalFilter] = useState("");
-
   const data = useMemo(
     () => [
       {
@@ -406,100 +379,15 @@ const ExecutiveTasks = () => {
     ],
     []
   );
-  const table = useReactTable({
-    data,
-    columns,
-    state: {
-      globalFilter,
-    },
-    globalFilterF: customGlobalFilterFn,
-    getFilteredRowModel: getFilteredRowModel(),
-    getCoreRowModel: getCoreRowModel(),
-    getSortedRowModel: getSortedRowModel(),
-    getPaginationRowModel: getPaginationRowModel(),
-    //onColumnFiltersChange: setColumnFilters,
-    columnResizeMode: "onChange",
-    initialState: {
-      pagination: {
-        pageSize: 8,
-      },
-    },
-  });
-  return (
-    <div className="cutomer_service">
-      <div className="card__custom">
-        <div className="header d-flex justify-content-between">
-          <h3 className="header__title"> المهام التنفيذيه </h3>
-          <TableFilter
-            filter={false}
-            globalFilter={globalFilter}
-            setGlobalFilter={setGlobalFilter}
-            filterButtonText={isRTL ? "فرز" : "Filter"}
-            searchPlaceholder={"بحث في المهام"}
-          />
-        </div>
-        <div className="card__body  ">
-          <div
-            className="table-container table-responsive border "
-            dir={isRTL ? "rtl" : "ltr"}
-          >
-            <table
-              width={table.getTotalSize()}
-              className="custom-table table table-bordered  text-center align-middle mb-0"
-            >
-              <thead className="table-light">
-                {table.getHeaderGroups().map((headerGroup) => (
-                  <tr key={headerGroup.id}>
-                    {headerGroup.headers.map((header) => (
-                      <th key={header.id} width={header.getSize()}>
-                        {header.column.columnDef.header}
-                        {header.column.getCanSort() && (
-                          <i
-                            className="fa-solid fa-arrow-up-short-wide"
-                            onClick={header.column.getToggleSortingHandler()}
-                          ></i>
-                        )}
-                        {
-                          {
-                            asc: "تصاعديا",
-                            desc: "تنازليا",
-                          }[header.column.getIsSorted()]
-                        }
 
-                        <div
-                          className={`resizer ${
-                            header.column.getIsResizing() ? "isResizing" : ""
-                          } ${isRTL ? "ar" : "en"} `}
-                          onMouseDown={header.getResizeHandler()}
-                          onTouchStart={header.getResizeHandler()}
-                        ></div>
-                      </th>
-                    ))}
-                  </tr>
-                ))}
-              </thead>
-              <tbody>
-                {table.getRowModel().rows.map((row) => (
-                  <tr key={row.id}>
-                    {row.getVisibleCells().map((cell) => (
-                      <td key={cell.id} width={cell.column.getSize()}>
-                        {flexRender(
-                          cell.column.columnDef.cell,
-                          cell.getContext()
-                        )}
-                      </td>
-                    ))}
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </div>
-        <div className="card--footer">
-          <TablePagentaion table={table} />
-        </div>
-      </div>
-    </div>
+  return (
+    <ReusableDataTable
+      title="المهام التنفيذيه"
+      columns={columns}
+      data={data}
+      filter={false}
+      searchPlaceholder={"بحث في المهام"}
+    />
   );
 };
 

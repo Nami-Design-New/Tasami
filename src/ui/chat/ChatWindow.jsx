@@ -64,7 +64,7 @@ const ChatWindow = ({ isOpen, setIsOpen, activeChat }) => {
         </button>
         <button className="chat-window__footer--send">
           <i className="fa-solid fa-paper-plane"></i>
-          <span>إرسال</span>
+          <span >إرسال</span>
         </button>
       </footer>
     </div>

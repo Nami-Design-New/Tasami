@@ -32,7 +32,7 @@ const EmployeeProfile = () => {
   return (
     <section className="employee__profile">
       <PageHeader />
-      <div className="row">
+      <div className="row g-3">
         <div className="col-12 col-md-3">
           <div className="right-side">
             <UserProfileCard />

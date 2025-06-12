@@ -21,6 +21,9 @@
   border-radius: $borderRadius;
   background-color: $white;
   margin-bottom: 16px;
+  @include labtop-layout() {
+    padding: 8px;
+  }
 }
 
 @mixin clearInput {
@@ -255,7 +258,7 @@ input[type="number"] {
   }
 
   .button {
-    padding: 12px 52px;
+    padding: 12px 50px;
   }
 }
 .dropdown-menu {
@@ -753,8 +756,11 @@ input[type="number"] {
 .form__wrapper--custom {
   @include sectionWrapper();
   .form__header {
-    font-size: 20px;
+    font-size: 22px;
     font-weight: 500;
     margin-bottom: 16px;
+    @include tablet-layout() {
+      font-size: 18px;
+    }
   }
 }

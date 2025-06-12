@@ -190,6 +190,7 @@ const WorkingGroups = () => {
         columns={columns}
         lang="ar"
         initialPageSize={10}
+        filter={false}
       />
       <EditWorkGroupModal setShowModal={setShowModal} showModal={showModal} />
       <ConfirmDeleteModal

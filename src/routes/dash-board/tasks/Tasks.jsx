@@ -6,7 +6,7 @@ const Tasks = () => {
     <section>
       <PageHeader />
       <div className="row">
-        <div className="col-12 mt-5 ">
+        <div className="col-12 p-2 p-md-0">
           <Outlet />
         </div>
       </div>

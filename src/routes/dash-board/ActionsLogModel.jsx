@@ -78,7 +78,7 @@ const ActionsLogModel = () => {
       }),
       columnHelper.accessor("accountNumber", {
         header: " رقم الحساب ",
-        cell: (info) => <Link className="link-styls" >{info.getValue()}</Link>,
+        cell: (info) => <Link className="link-styls">{info.getValue()}</Link>,
       }),
       columnHelper.accessor("action", {
         header: "الاجراء",
@@ -127,6 +127,7 @@ const ActionsLogModel = () => {
       <ModelInfo />
       <ReusableDataTable
         title=" سجل الافادات "
+        filter={false}
         data={data}
         columns={columns}
         lang="ar"

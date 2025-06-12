@@ -82,7 +82,7 @@ const activeAccountsoptions = {
   plotOptions: {
     bar: {
       horizontal: false,
-      columnWidth: "20%",
+      columnWidth: "5%",
       barHeight: "100%",
       borderRadius: 5,
       borderRadiusApplication: "around",
@@ -345,9 +345,9 @@ const Teams = () => {
   );
 
   return (
-    <section className="mt-5">
+    <section>
       <div className="row">
-        <div className="col-12 col-md-3 ">
+        <div className="col-12 col-lg-6 col-lg-4 ">
           <DounutCharts
             title={"عدد الموظفين"}
             series={usersCountSeries}
@@ -356,15 +356,7 @@ const Teams = () => {
             height={250}
           />
         </div>
-        <div className="col-12 col-md-6">
-          <ColumnChart
-            title={" عدد الحسابات النشطه "}
-            series={activeAccountsSeries}
-            options={activeAccountsoptions}
-            height={235}
-          />
-        </div>
-        <div className="col-12 col-md-3">
+        <div className=" col-12 col-lg-6 col-lg-4">
           <RadarChart
             title={"الحسابات الموقوفه"}
             series={SuspendedUsersSeries}
@@ -372,7 +364,15 @@ const Teams = () => {
             height={235}
           />
         </div>
-        <div className="col-12">
+        <div className="col-12 col-md-12 col-xxl-6  ">
+          <ColumnChart
+            title={" عدد الحسابات النشطه "}
+            series={activeAccountsSeries}
+            options={activeAccountsoptions}
+            height={250}
+          />
+        </div>
+        <div className="col-12 col-xxl-6">
           <LineAnalyticsChart
             title={"الحسابات غير النشطه"}
             series={deactiveUsersSeries}
@@ -381,9 +381,10 @@ const Teams = () => {
             height={"250px"}
           />
         </div>
-        <div className="col-12">
+        <div className="col-12 ">
           <ReusableDataTable
             data={data}
+            filter={false}
             columns={columns}
             initialPageSize={8}
             title="حسابات فريق العمل"

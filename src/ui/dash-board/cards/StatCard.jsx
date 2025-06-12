@@ -54,10 +54,6 @@ const StatCard = ({
           />
         </div>
         <div className="change">
-          <Link className="link" to="#">
-            عرض الكل
-            <i className="fa-solid fa-left-long"></i>
-          </Link>
           <div>
             <span className={`percent  ${percentage > 0 ? "plus" : ""} `}>
               {percentage > 0 ? (

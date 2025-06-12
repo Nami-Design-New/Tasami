@@ -18,8 +18,6 @@ import DashboardHome from "../routes/dash-board/MainDashboardHome";
 import ModelComponent from "../routes/dash-board/ModelComponent";
 import Notifications from "../routes/dash-board/Notifications";
 import ActiveTab from "../routes/dash-board/reports/ActiveTab";
-import Reports from "../routes/dash-board/reports/Reports";
-import CustomerServiseTasks from "../routes/dash-board/tasks/CustomerServiseTasks";
 import ExecutiveTasks from "../routes/dash-board/tasks/ExecutiveTasks";
 import SupervisoryTasks from "../routes/dash-board/tasks/SupervisoryTasks";
 import Tasks from "../routes/dash-board/tasks/Tasks";
@@ -33,6 +31,8 @@ import UserProfile from "../routes/dash-board/UserProfile";
 import WokingGroupDetails from "../routes/dash-board/WokingGroupDetails";
 import PageNotFound from "../routes/PageNotFound";
 import Home from "../routes/website/Home";
+import CustomerServiseTasks from "../routes/dash-board/tasks/CustomerServiseTasks";
+import Reports from "../routes/dash-board/reports/Reports";
 
 export const router = createBrowserRouter([
   {

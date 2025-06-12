@@ -188,6 +188,7 @@ const Services = () => {
         <div className="col-12">
           <ReusableDataTable
             title="الخدمات"
+            filter={false}
             data={data}
             columns={columns}
             lang="ar"

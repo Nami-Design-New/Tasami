@@ -550,55 +550,57 @@ const WokingGroupDetails = () => {
     []
   );
   return (
-    <section className="">
-      <div className="d-flex align-items-center w-100 px-2 justify-content-between">
-        <Header title={`تفاصيل فريق العمل رقم ${id} `} />
-      </div>
-      <div className="row">
-        <div className="col-12 col-md-3 ">
-          <DounutCharts
-            title={"عدد الموظفين"}
-            series={usersCountSeries}
-            options={usersCountoptions}
-            width={250}
-            height={250}
-          />
+    <>
+      <section className="">
+        <div className="d-flex align-items-center w-100 px-2 justify-content-between">
+          <Header title={`تفاصيل فريق العمل رقم ${id} `} />
         </div>
-        <div className="col-12 col-md-6">
-          <ColumnChart
-            title={" عدد الحسابات النشطه "}
-            series={activeAccountsSeries}
-            options={activeAccountsoptions}
-            height={235}
-          />
+        <div className="row">
+          <div className="col-12 col-md-3 ">
+            <DounutCharts
+              title={"عدد الموظفين"}
+              series={usersCountSeries}
+              options={usersCountoptions}
+              width={250}
+              height={250}
+            />
+          </div>
+          <div className="col-12 col-md-6">
+            <ColumnChart
+              title={" عدد الحسابات النشطه "}
+              series={activeAccountsSeries}
+              options={activeAccountsoptions}
+              height={235}
+            />
+          </div>
+          <div className="col-12 col-md-3">
+            <RadarChart
+              title={"الحسابات الموقوفه"}
+              series={SuspendedUsersSeries}
+              options={SuspendedUsersOptions}
+              height={235}
+            />
+          </div>
+          <div className="col-12">
+            <LineAnalyticsChart
+              title={"الحسابات غير النشطه"}
+              series={deactiveUsersSeries}
+              options={revnueAnalyticsOptions}
+              height={"250px"}
+              type="area"
+            />
+          </div>
+          <div className="col-12">
+            <ReusableDataTable
+              data={data}
+              columns={columns}
+              initialPageSize={8}
+              title={`حسابات فريق العمل رقم ${id}`}
+            />
+          </div>
         </div>
-        <div className="col-12 col-md-3">
-          <RadarChart
-            title={"الحسابات الموقوفه"}
-            series={SuspendedUsersSeries}
-            options={SuspendedUsersOptions}
-            height={235}
-          />
-        </div>
-        <div className="col-12">
-          <LineAnalyticsChart
-            title={"الحسابات غير النشطه"}
-            series={deactiveUsersSeries}
-            options={revnueAnalyticsOptions}
-            height={"250px"}
-            type="area"
-          />
-        </div>
-        <div className="col-12">
-          <ReusableDataTable
-            data={data}
-            columns={columns}
-            initialPageSize={8}
-            title={`حسابات فريق العمل رقم ${id}`}
-          />
-        </div>
-      </div>
-    </section>
+      </section>
+    </>
   );
 };
 

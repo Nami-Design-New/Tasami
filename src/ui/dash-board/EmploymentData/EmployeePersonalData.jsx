@@ -36,16 +36,16 @@ const EmployeePersonalData = () => {
           <div className="col-12">
             <ProfileImageUploader imageUrl={image} onChange={handleUpload} />
           </div>
-          <div className="col-12 col-md-6">
+          <div className="col-12 col-md-6 col-xxl-4">
             <InputField label="الاسم الاول" value="محمود" />
           </div>
-          <div className="col-12 col-md-6">
+          <div className="col-12 col-md-6 col-xxl-4">
             <InputField label="اسم الاب" value="عباس" />
           </div>
-          <div className="col-12 col-md-6">
+          <div className="col-12 col-md-6 col-xxl-4">
             <InputField label="اسم العائله" value="عباس" />
           </div>
-          <div className="col-12 col-md-6">
+          <div className="col-12 col-md-6 col-xxl-4">
             <InputField
               type="date"
               label="تاريخ الميلاد"
@@ -53,7 +53,7 @@ const EmployeePersonalData = () => {
               max={today}
             />
           </div>
-          <div className="col-12 col-md-6">
+          <div className="col-12 col-md-6 col-xxl-4">
             <SelectField
               label="الجنس"
               options={[
@@ -63,22 +63,22 @@ const EmployeePersonalData = () => {
               value="ذكر"
             />
           </div>
-          <div className="col-12 col-md-6">
+          <div className="col-12 col-md-6 col-xxl-4">
             <InputField type="text" label=" بلد الاقامه " />
           </div>
-          <div className="col-12 col-md-6">
+          <div className="col-12 col-md-6 col-xxl-4">
             <InputField type="text" label=" المدينه  " />
           </div>
-          <div className="col-12 col-md-6">
+          <div className="col-12 col-md-6 col-xxl-4">
             <InputField type="text" label=" الجنسيه " />
           </div>
-          <div className="col-12 col-md-6">
+          <div className="col-12 col-md-6 col-xxl-4">
             <InputField type="text" label=" رقم الهويه او الجواز " />
           </div>
-          <div className="col-12 col-md-6">
+          <div className="col-12 col-md-6 col-xxl-4">
             <InputField type="text" label=" البريد الالكتروني الشخصي" />
           </div>
-          <div className="col-12 col-md-6">
+          <div className="col-12 col-md-6 col-xxl-4">
             <MapLocationField
               htmlFor="companyLocationOnMap"
               label="العنوان "
@@ -87,7 +87,7 @@ const EmployeePersonalData = () => {
               setShowModal={setShowMapModal}
             />
           </div>
-          <div className="col-12 col-md-6">
+          <div className="col-12 col-md-6 col-xxl-4">
             <InputField type="text" label=" العنوان الوطني " />
           </div>
           <FileUploader

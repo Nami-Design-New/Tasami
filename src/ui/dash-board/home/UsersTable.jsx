@@ -195,7 +195,6 @@ const PremiumClientsTable = () => {
     getCoreRowModel: getCoreRowModel(),
     getSortedRowModel: getSortedRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
-    //onColumnFiltersChange: setColumnFilters,
     columnResizeMode: "onChange",
     initialState: {
       pagination: {
@@ -242,8 +241,8 @@ const PremiumClientsTable = () => {
       </div>
       <div className="card__body  ">
         <div
-          className="table-container table-responsive border "
-          dir={isRTL ? "rtl" : "ltr"}
+          className="table-container table-responsive border"
+          // dir={isRTL ? "rtl" : "ltr"}
         >
           <table
             width={table.getTotalSize()}

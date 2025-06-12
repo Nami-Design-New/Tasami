@@ -12,7 +12,7 @@ const SubscribersAndTeams = () => {
   const isEmployeeDetails = locations.includes("employee-details");
   return (
     <section>
-      <div className="d-flex align-items-center justify-content-between">
+      <div className="p-2 d-flex align-items-center justify-content-between">
         <PageHeader
           removeLast={isEmployeeDetails === true}
           name={isEmployeeDetails === true ? " تفاصيل الموظف" : null}

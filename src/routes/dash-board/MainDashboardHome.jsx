@@ -92,10 +92,12 @@ const employersOptions = {
     fontSize: "14px",
   },
   dataLabels: {
+    enabled: true,
+    position: "inside",
     style: {
       fontSize: "14px",
       fontWeight: "400",
-      colors: ["#000"],
+      colors: ["#fff"],
     },
   },
   responsive: [
@@ -189,7 +191,6 @@ export default function DashboardHome() {
         </div>
         <div className="actions">
           <button className="button btn-icon">
-            {" "}
             <i className="fa-light fa-filter"></i>
             <span>التصفية</span>
           </button>
@@ -214,7 +215,7 @@ export default function DashboardHome() {
         <div className="col-12 col-lg-6  col-xxl-3 p-2 ">
           {" "}
           <StatCard
-            icon={<i className="fa-light fa-users"></i>}
+            icon={<i className="fa-solid fa-notebook"></i>}
             title=" عدد البرامج "
             value="1,02,890"
             percentage="32"
@@ -226,7 +227,7 @@ export default function DashboardHome() {
         <div className="col-12 col-lg-6 col-xxl-3 p-2">
           {" "}
           <StatCard
-            icon={<i className="fa-light fa-users"></i>}
+            icon={<i className="fa-solid fa-users"></i>}
             title="عدد  الحسابات الاساسيه"
             value="1,02,890"
             percentage="19"
@@ -270,8 +271,8 @@ export default function DashboardHome() {
                 to="/dashboard/list-management/fields-and-specializations"
                 className="quick--action__button"
               >
-                <img src="./icons/add-fileds.svg" />{" "}
-                <span> اضافه مجال جديد </span>{" "}
+                <img src="./icons/add-fileds.svg" />
+                <span> اضافه مجال جديد </span>
               </Link>
             </div>
           </ChartCard>
@@ -288,6 +289,7 @@ export default function DashboardHome() {
               series={employersSeries}
               options={employersOptions}
               title={"عدد الموظفين"}
+              height={200}
             />
           </div>
         </div>
@@ -297,12 +299,17 @@ export default function DashboardHome() {
             title={"تحليلات الإيرادات"}
             options={revnueAnalyticsOptions}
             type="line"
+            height={480}
           />
         </div>
       </div>
       <div className="row">
         <div className="col-12">
-          <ColumnChart series={userGrowthSeries} options={userGrowthOptions} />
+          <ColumnChart
+            series={userGrowthSeries}
+            options={userGrowthOptions}
+            title={"نمو المستخدمين"}
+          />
         </div>
         <div className="col-12">
           <UsersTable />

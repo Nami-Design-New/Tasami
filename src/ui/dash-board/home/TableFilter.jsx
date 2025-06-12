@@ -3,8 +3,6 @@ import { OverlayTrigger, Popover } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import InputField from "../../forms/InputField";
 
-const DEFAULT_STATUS = ["نشط", "موقوف"];
-
 const TableFilter = ({
   filter = true,
   search = true,
@@ -12,32 +10,8 @@ const TableFilter = ({
   setGlobalFilter,
   columnFilters,
   setColumnFilters,
-  filterOptions = {
-    status: {
-      id: "status",
-      label: { ar: "فرز بواسطه الحاله :", en: "Filter by Status:" },
-      options: DEFAULT_STATUS,
-      getIcon: (option) => ({
-        className: `color-icon ${option === "نشط" ? "active" : "inactive"}`,
-      }),
-    },
-    operation: {
-      id: "operation",
-      label: { ar: "فرز بواسطه العملية :", en: "Filter by Operation:" },
-      options: ["إرسال", "استلام"],
-    },
-    model: {
-      id: "model",
-      label: { ar: "فرز بواسطه النموذج :", en: "Filter by Model:" },
-      options: ["نموذج A", "نموذج B", "نموذج C", "نموذج D", "نموذج E"],
-    },
-    action: {
-      id: "action",
-      label: { ar: "فرز بواسطه الإجراء :", en: "Filter by Action:" },
-      options: ["عرض", "تحقق", "تعديل", "مراجعة", "إغلاق"],
-    },
-  },
-  activeFilters = ["status"],
+  filterOptions = {},
+  activeFilters = [],
   filterButtonText,
   searchPlaceholder,
 }) => {
@@ -81,105 +55,111 @@ const TableFilter = ({
   }, [activeFilters, filterOptions]);
 
   return (
-    <div className="table-filter d-flex align-items-center gap-2">
+    <div className="table-filter ">
       {search === true && (
         <InputField
+          className="search-input"
           type="text"
           placeholder={searchText}
           value={globalFilter ?? ""}
           onChange={(e) => setGlobalFilter(e.target.value)}
         />
       )}
-      {filter === true &&
-        activeFilters.map((filterType) => {
-          const filterConfig = filterOptions[filterType];
-          if (!filterConfig) return null;
-          return (
-            <OverlayTrigger
-              key={filterConfig.id}
-              trigger="click"
-              placement="bottom"
-              rootClose={true}
-              onToggle={(nextShow) => {
-                popoverRefs.current[filterConfig.id] = nextShow;
-              }}
-              overlay={
-                <Popover id={`popover-${filterConfig.id}`}>
-                  <Popover.Header as="h3">
-                    {filterConfig.label[lang] || filterConfig.label.ar}
-                  </Popover.Header>
-                  <Popover.Body>
-                    <div className="status-container">
-                      {filterConfig.options.map((option, index) => (
-                        <button
-                          key={index}
-                          className={`${
-                            columnFilters.some(
-                              (filter) =>
-                                filter.id === filterConfig.id &&
-                                filter.value === option
-                            )
-                              ? "selected"
-                              : ""
-                          }`}
-                          onClick={() =>
-                            setColumnFilters((prev) => {
-                              const existingFilter = prev.find(
-                                (filter) => filter.id === filterConfig.id
-                              );
-
-                              if (!existingFilter) {
-                                return [
-                                  ...prev,
-                                  {
-                                    id: filterConfig.id,
-                                    value: option,
-                                  },
-                                ];
-                              }
-
-                              if (existingFilter.value === option) {
-                                return prev.filter(
-                                  (filter) => filter.id !== filterConfig.id
+      {filter === true && (
+        <div className="filter-buttons">
+          {activeFilters.map((filterType) => {
+            const filterConfig = filterOptions[filterType];
+            if (!filterConfig) return null;
+            return (
+              <OverlayTrigger
+                key={filterConfig.id}
+                trigger="click"
+                placement="bottom"
+                rootClose={true}
+                onToggle={(nextShow) => {
+                  popoverRefs.current[filterConfig.id] = nextShow;
+                }}
+                overlay={
+                  <Popover id={`popover-${filterConfig.id}`}>
+                    <Popover.Header as="h3">
+                      {filterConfig.label[lang] || filterConfig.label.ar}
+                    </Popover.Header>
+                    <Popover.Body>
+                      <div className="status-container">
+                        {filterConfig.options.map((option, index) => (
+                          <button
+                            key={index}
+                            className={`${
+                              columnFilters.some(
+                                (filter) =>
+                                  filter.id === filterConfig.id &&
+                                  filter.value === option
+                              )
+                                ? "selected"
+                                : ""
+                            }`}
+                            onClick={() =>
+                              setColumnFilters((prev) => {
+                                const existingFilter = prev.find(
+                                  (filter) => filter.id === filterConfig.id
                                 );
-                              }
 
-                              return prev.map((filter) => {
-                                if (filter.id === filterConfig.id) {
-                                  return { ...filter, value: option };
+                                if (!existingFilter) {
+                                  return [
+                                    ...prev,
+                                    {
+                                      id: filterConfig.id,
+                                      value: option,
+                                    },
+                                  ];
                                 }
-                                return filter;
-                              });
-                            })
-                          }
-                        >
-                          {filterConfig.getIcon ? (
-                            <div
-                              className={filterConfig.getIcon(option).className}
-                            ></div>
-                          ) : null}
-                          {option}
-                        </button>
-                      ))}
-                    </div>
-                  </Popover.Body>
-                </Popover>
-              }
-            >
-              <button
-                className="button filter-button"
-                id={`dropdown-${filterConfig.id}`}
+
+                                if (existingFilter.value === option) {
+                                  return prev.filter(
+                                    (filter) => filter.id !== filterConfig.id
+                                  );
+                                }
+
+                                return prev.map((filter) => {
+                                  if (filter.id === filterConfig.id) {
+                                    return { ...filter, value: option };
+                                  }
+                                  return filter;
+                                });
+                              })
+                            }
+                          >
+                            {filterConfig.getIcon ? (
+                              <div
+                                className={
+                                  filterConfig.getIcon(option).className
+                                }
+                              ></div>
+                            ) : null}
+                            {option}
+                          </button>
+                        ))}
+                      </div>
+                    </Popover.Body>
+                  </Popover>
+                }
               >
-                <span>
-                  {isRTL
-                    ? filterConfig.label.ar.split(":")[0]
-                    : filterConfig.label.en.split(":")[0]}
-                </span>
-                <i className="fa-regular fa-filter"></i>
-              </button>
-            </OverlayTrigger>
-          );
-        })}
+                <button
+                  className="button filter-button"
+                  id={`dropdown-${filterConfig.id}`}
+                >
+                  <span>
+                    {isRTL
+                      ? filterConfig.label.ar.split(":")[0]
+                      : filterConfig.label.en.split(":")[0]}
+                  </span>
+                  <i className="fa-regular fa-filter"></i>
+                </button>
+              </OverlayTrigger>
+            );
+          })}
+        </div>
+      )}
     </div>
   );
 };

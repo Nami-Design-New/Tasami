@@ -493,11 +493,13 @@ const UserAccounts = () => {
             series={series}
             options={UseresAccountsOptions}
             title="تحلايلات المستخدمين"
+            height={285}
           />
         </div>
         <div className="col-12">
           <ReusableDataTable
             title="الحسابات"
+            filter={false}
             data={data}
             columns={columns}
             lang="ar"

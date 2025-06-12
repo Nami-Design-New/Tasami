@@ -12,11 +12,14 @@ import TablePagentaion from "./TablePagentaion";
 
 const ReusableDataTable = ({
   title = "Table",
+  filter = true,
+  search = true,
   data = [],
   columns = [],
   filterOptions = {},
   activeFilters = [],
   initialPageSize = 5,
+  searchPlaceholder = "Search",
   lang = "en",
 }) => {
   const isRTL = lang === "ar";
@@ -33,6 +36,7 @@ const ReusableDataTable = ({
   const table = useReactTable({
     data,
     columns,
+
     state: {
       globalFilter,
       columnFilters,
@@ -62,7 +66,9 @@ const ReusableDataTable = ({
           activeFilters={activeFilters}
           filterOptions={filterOptions}
           filterButtonText={isRTL ? "فرز" : "Filter"}
-          searchPlaceholder={isRTL ? "بحث" : "Search"}
+          searchPlaceholder={searchPlaceholder}
+          filter={filter}
+          search={search}
         />
       </div>
       <div className="card__body">

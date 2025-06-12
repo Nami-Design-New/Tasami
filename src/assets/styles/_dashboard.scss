@@ -844,30 +844,78 @@
       // Page Header
       .page_header {
         margin-bottom: 30px;
-        @include tablet-layout {
-          padding: 0 0.5rem;
-        }
         h1 {
           color: $JumbotronHead;
-          font-size: 32px;
+          font-size: 28px;
           font-weight: 500;
           margin: 0;
+          white-space: nowrap;
         }
 
         h5 {
           font-size: 16px;
           color: $JumbotronHead;
+          white-space: nowrap;
 
           a {
             color: $main;
+            white-space: nowrap;
           }
 
           small {
             font-size: 12px;
           }
         }
+        @include tablet-layout {
+          margin-bottom: 20px;
+          padding: 0 0.5rem;
+          h1 {
+            font-size: 22px;
+          }
+          h5 {
+            font-size: 14px;
+          }
+        }
+        @include small-mobile {
+          padding: 0 0.5rem;
+          margin-bottom: 10px;
+          h1 {
+            font-size: 22px;
+          }
+          h5 {
+            font-size: 14px;
+          }
+        }
       }
+      .route_path {
+        font-weight: 500;
+        display: flex;
+        gap: 8px;
+        margin-top: 10px;
+        flex-wrap: wrap;
 
+        a {
+          font-size: 16px;
+          color: $main;
+          white-space: nowrap;
+          @include tablet-layout {
+            font-size: 14px;
+          }
+
+          &.disabled {
+            color: $JumbotronHead;
+            cursor: default;
+          }
+        }
+
+        span {
+          font-weight: 400;
+        }
+
+        small {
+          font-size: 12px;
+        }
+      }
       .inner_card {
         @include card-container;
         @include small-mobile {
@@ -893,31 +941,6 @@
             display: flex;
             gap: 12px;
           }
-        }
-      }
-
-      .route_path {
-        font-weight: 500;
-        display: flex;
-        gap: 8px;
-        margin-top: 10px;
-
-        a {
-          font-size: 16px;
-          color: $main;
-
-          &.disabled {
-            color: $JumbotronHead;
-            cursor: default;
-          }
-        }
-
-        span {
-          font-weight: 400;
-        }
-
-        small {
-          font-size: 12px;
         }
       }
 
@@ -1057,6 +1080,7 @@
     }
     .actions {
       padding: 0 16px;
+      width: 100%;
       .btn-light {
         background: $white;
         color: $main;
@@ -1069,9 +1093,8 @@
         gap: 10px;
       }
       @include tablet-layout {
-        flex-direction: column;
         justify-content: start;
-        align-items: start;
+        align-items: center;
       }
     }
   }
@@ -1122,15 +1145,13 @@ footer {
 
 .quick__actions--list {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-  align-items: center;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
   gap: 10px;
-  flex-wrap: wrap;
 }
 
 .quick--action__button {
   padding: 20px;
-  min-width: 150px;
+  // min-width: 95px;
   border: 1px solid $border;
   border-radius: $borderRadius;
   display: flex;
@@ -1149,5 +1170,6 @@ footer {
   span {
     font-size: 16px;
     font-weight: 700;
+    white-space: nowrap;
   }
 }

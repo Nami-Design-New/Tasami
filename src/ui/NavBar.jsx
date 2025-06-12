@@ -54,7 +54,7 @@ export default function NavBar({ collapsed, setCollapsed }) {
               onClick={() => setProfileDropDown(!profileDropDown)}
             >
               <div className="avatar">
-                <img src={"/images/fav.svg"} alt="avatar" />
+                <img src={"/images/my-fav.svg"} alt="avatar" />
               </div>
               <div className="name">
                 <h6 className={profileDropDown ? "animate" : ""}>

@@ -109,6 +109,7 @@ const OperatingSectors = () => {
         title="قطاعات التشغيل"
         data={data}
         columns={columns}
+        filter={false}
         lang="ar"
         initialPageSize={10}
       />

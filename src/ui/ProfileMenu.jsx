@@ -44,7 +44,7 @@ export default function ProfileMenu({ profileDropDown, setProfileDropDown }) {
       {/* authed user */}
       <div className="account_owner">
         <div className="avatar">
-          <img src={"/images/fav.svg"} alt="avatar" />
+          <img src={"/images/my-fav.svg"} alt="avatar" />
           <Link className="edit" to="manage-account">
             <img src="/sys-icons/editIcon.svg" alt="edit" />
           </Link>
