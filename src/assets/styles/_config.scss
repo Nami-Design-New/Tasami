@@ -489,8 +489,8 @@ input[type="number"] {
   position: relative;
   display: flex;
   flex-direction: row-reverse;
-  border: 1px solid var(--input-stroke);
-  background: var(--input-bg);
+  border: 1px solid $inputStroke;
+  background: $inputBG;
   height: 52px;
   border-radius: 12px;
   direction: ltr;
@@ -499,7 +499,7 @@ input[type="number"] {
     height: 100%;
     color: var(--main);
     font-size: 14px;
-    background: var(--input-bg);
+    background: $inputBG;
     padding: 8px;
     border-radius: 12px;
     direction: ltr;
@@ -513,11 +513,11 @@ input[type="number"] {
     border-radius: 12px 0 0 12px;
     min-width: 52px;
     &.open {
-      background: var(--input-bg);
+      background: $inputBG;
       border-radius: 12px;
       .selected-flag {
         border-radius: 12px;
-        background: var(--input-bg);
+        background: $inputBG;
       }
     }
   }
@@ -536,7 +536,7 @@ input[type="number"] {
     }
     &:hover,
     &:focus {
-      background: var(--input-bg);
+      background: $inputBG;
     }
   }
 
@@ -567,10 +567,10 @@ input[type="number"] {
       color: var(--main);
       padding: 8px 10px;
       &:hover {
-        background: var(--input-bg);
+        background: $inputBG;
       }
       &.highlight {
-        background: var(--input-bg);
+        background: $inputBG;
       }
     }
     .dial-code {

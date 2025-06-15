@@ -386,8 +386,8 @@ input[type=number]::-webkit-outer-spin-button, input[type=number]::-webkit-inner
   position: relative;
   display: flex;
   flex-direction: row-reverse;
-  border: 1px solid var(--input-stroke);
-  background: var(--input-bg);
+  border: 1px solid #f2f2f2;
+  background: #f8f8f8;
   height: 52px;
   border-radius: 12px;
   direction: ltr;
@@ -397,7 +397,7 @@ input[type=number]::-webkit-outer-spin-button, input[type=number]::-webkit-inner
   height: 100%;
   color: var(--main);
   font-size: 14px;
-  background: var(--input-bg);
+  background: #f8f8f8;
   padding: 8px;
   border-radius: 12px;
   direction: ltr;
@@ -411,12 +411,12 @@ input[type=number]::-webkit-outer-spin-button, input[type=number]::-webkit-inner
   min-width: 52px;
 }
 .react-tel-input .flag-dropdown.open {
-  background: var(--input-bg);
+  background: #f8f8f8;
   border-radius: 12px;
 }
 .react-tel-input .flag-dropdown.open .selected-flag {
   border-radius: 12px;
-  background: var(--input-bg);
+  background: #f8f8f8;
 }
 .react-tel-input .selected-flag {
   background: transparent;
@@ -434,7 +434,7 @@ input[type=number]::-webkit-outer-spin-button, input[type=number]::-webkit-inner
   border-bottom-color: var(--main);
 }
 .react-tel-input .selected-flag:hover, .react-tel-input .selected-flag:focus {
-  background: var(--input-bg);
+  background: #f8f8f8;
 }
 .react-tel-input .country-list {
   width: 100%;
@@ -465,10 +465,10 @@ input[type=number]::-webkit-outer-spin-button, input[type=number]::-webkit-inner
   padding: 8px 10px;
 }
 .react-tel-input .country-list .country:hover {
-  background: var(--input-bg);
+  background: #f8f8f8;
 }
 .react-tel-input .country-list .country.highlight {
-  background: var(--input-bg);
+  background: #f8f8f8;
 }
 .react-tel-input .country-list .dial-code {
   color: var(--gray);
