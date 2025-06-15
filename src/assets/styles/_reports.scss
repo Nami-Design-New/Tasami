@@ -58,10 +58,50 @@
   padding: 1rem;
   border-radius: $borderRadius;
   margin-top: 1rem;
+  &__header--container {
+    margin-bottom: 1rem;
+  }
   &__header {
     font-size: 1.5rem;
     color: $main;
     font-weight: 600;
+    margin-bottom: 0.25rem;
+  }
+  .metrics-header {
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+  }
+  .metrics-container {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    .metric-card {
+      flex: 0 1 18%;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      min-width: 240px;
+      background-color: #fff;
+      border-radius: 12px;
+      padding: 20px 24px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+      transition: box-shadow 0.2s ease;
+
+      &:hover {
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      }
+      .metric-title {
+        font-size: 0.9rem;
+        color: #6b7280;
+      }
+
+      .metric-value {
+        font-size: 1.75rem;
+        font-weight: 700;
+        color: #111827; // gray-900
+        margin: 0;
+      }
+    }
   }
 }
 .performance-no-report-data {

@@ -12,8 +12,8 @@ const SelectField = React.forwardRef(
         )}
 
         <Form.Select ref={ref} isInvalid={!!error} {...props}>
-          <option value={null} selected>
-            {disableFiledValue || " Select"}
+          <option value={""} selected>
+            {disableFiledValue || "Select"}
           </option>
           {options?.map((option, index) => (
             <option key={index} value={option.value}>

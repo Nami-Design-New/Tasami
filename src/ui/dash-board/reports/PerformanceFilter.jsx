@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react";
+import { useEffect, useCallback } from "react";
+import { useSearchParams } from "react-router";
 import SelectField from "../../forms/SelectField";
 import InputField from "../../forms/InputField";
 import MetricsList from "./MetricsList";
@@ -9,16 +10,24 @@ import { Controller, useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { setFilters } from "../../../redux/slices/performanceFilter";
 
-const metricsList = [
-  { id: 1, name: "المشتركين الجدد" },
-  { id: 2, name: "المشتركين النشطين" },
-  { id: 3, name: "المشتركين الغير نشطين" },
-  { id: 4, name: "المشتركين الملغيين" },
-  { id: 5, name: "معدل النمو الشهري" },
-  { id: 6, name: "معدل الاحتفاظ بالمشتركين" },
-];
 const PerformanceFilter = ({ metrics }) => {
   const dispatch = useDispatch();
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  // Get initial values from URL params
+  const getInitialValues = () => {
+    return {
+      region: searchParams.get("region") || "",
+      country: searchParams.get("country") || "",
+      city: searchParams.get("city") || "",
+      fromDate: searchParams.get("fromDate") || "",
+      toDate: searchParams.get("toDate") || "",
+      metrics: searchParams.get("metrics")
+        ? searchParams.get("metrics").split(",").map(Number)
+        : [],
+      showSubData: searchParams.get("showSubData") === "true",
+    };
+  };
   const {
     control,
     handleSubmit,
@@ -28,27 +37,58 @@ const PerformanceFilter = ({ metrics }) => {
     formState: { errors },
   } = useForm({
     resolver: yupResolver(performanceFilterSchema),
-    defaultValues: {
-      region: "",
-      country: "",
-      city: "",
-      fromDate: "",
-      toDate: "",
-      metrics: [],
-      showSubData: false,
-    },
+    defaultValues: getInitialValues(),
+    mode: "onChange",
   });
+
+  const updateSearchParams = useCallback(
+    (key, value) => {
+      const params = new URLSearchParams(searchParams);
+      if (value && (Array.isArray(value) ? value.length > 0 : true)) {
+        params.set(
+          key,
+          Array.isArray(value) ? value.join(",") : value.toString()
+        );
+      } else {
+        params.delete(key);
+      }
+      setSearchParams(params);
+    },
+    [searchParams, setSearchParams]
+  );
   const region = watch("region");
   const country = watch("country");
   const city = watch("city");
 
   const showSubDataCheckbox = (region && !country) || (country && !city);
 
-  // Update sub options (e.g., from database)
+  // Update sub options (e.g., from database)  // Watch for form field changes
+  const fromDate = watch("fromDate");
+  const toDate = watch("toDate");
+  const showSubData = watch("showSubData");
+
   useEffect(() => {
-    // TODO: load countries based on region
-    // TODO: load cities based on country
-  }, [region, country]);
+    updateSearchParams("region", region);
+  }, [region, updateSearchParams]);
+
+  useEffect(() => {
+    updateSearchParams("country", country);
+  }, [country, updateSearchParams]);
+
+  useEffect(() => {
+    updateSearchParams("city", city);
+  }, [city, updateSearchParams]);
+
+  useEffect(() => {
+    updateSearchParams("fromDate", fromDate);
+  }, [fromDate, updateSearchParams]);
+
+  useEffect(() => {
+    updateSearchParams("toDate", toDate);
+  }, [toDate, updateSearchParams]);
+  useEffect(() => {
+    updateSearchParams("showSubData", showSubData);
+  }, [showSubData, updateSearchParams]);
 
   const handleMetricToggle = (id) => {
     const selected = watch("metrics") || [];
@@ -57,9 +97,23 @@ const PerformanceFilter = ({ metrics }) => {
       ? selected.filter((i) => i !== id)
       : [...selected, id];
     setValue("metrics", newSelection);
+    updateSearchParams("metrics", newSelection);
   };
-
   const onSubmit = async (formData) => {
+    // Update URL with form data
+    const params = new URLSearchParams();
+    Object.entries(formData).forEach(([key, value]) => {
+      if (value) {
+        if (Array.isArray(value)) {
+          params.set(key, value.join(","));
+        } else {
+          params.set(key, value.toString());
+        }
+      }
+    });
+    setSearchParams(params);
+
+    // Update Redux state
     dispatch(setFilters(formData));
 
     // const response = await fetchFilteredReportData(formData);
@@ -82,8 +136,9 @@ const PerformanceFilter = ({ metrics }) => {
                   error={errors.region?.message}
                   options={[
                     { value: "الشرق الأوسط", name: "الشرق الأوسط" },
-                    { value: "آسيا", name: "آسيا" },
+                    { value: "11111آسيا", name: "آسيا" },
                   ]}
+                  disableFiledValue={"اختر اقليم"}
                 />
               )}
             />
@@ -101,6 +156,7 @@ const PerformanceFilter = ({ metrics }) => {
                     { value: "السعودية", name: "السعودية" },
                     { value: "مصر", name: "مصر" },
                   ]}
+                  disableFiledValue={"اختر دوله"}
                 />
               )}
             />
@@ -114,6 +170,7 @@ const PerformanceFilter = ({ metrics }) => {
                   {...field}
                   label="المدينة"
                   error={errors.city?.message}
+                  disableFiledValue={"اختر مدينه"}
                   options={[
                     { value: "الرياض", name: "الرياض" },
                     { value: "الدمام", name: "الدمام" },

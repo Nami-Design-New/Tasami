@@ -37,17 +37,20 @@ export default function SideBar({ hoverExpand, setHoverExpand, collapsed }) {
       }}
     >
       <div className="logo_wrapper">
-        <span>
+        <span className="logo_container">
           <img
-            src={`${
-              collapsed === true && hoverExpand === false
-                ? "/images/my-fav.svg"
-                : "/images/logo.svg"
-            }`}
-            alt={`  ${
-              collapsed === true && hoverExpand === false ? "fav" : "logo"
-            }`}
+            src="/images/my-fav.svg"
+            alt="fav"
+            className="logo_img fav_logo"
           />
+
+          <div
+            className={`logo_name ${
+              collapsed && !hoverExpand ? "hidden" : "visible"
+            }`}
+          >
+            تسامي
+          </div>
         </span>
       </div>
 

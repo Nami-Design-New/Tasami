@@ -29,14 +29,48 @@ const ActiveTab = () => {
 
   return (
     <div className="performance-report">
-      <h2 className=" performance-report__header ">
-        نتائج التقرير - {t(`pageHeaders.${routeKey}`)}
-      </h2>
-      <ul>
-        {filteredData.map((item) => (
-          <li key={item.id}>{item.name}</li>
-        ))}
-      </ul>
+      <div className=" performance-report__header--container ">
+        <h2 className=" performance-report__header ">
+          نتائج التقرير - {t(`pageHeaders.${routeKey}`)}
+        </h2>
+        <p>   مقاييس ورؤى تفصيلية في الفتره من 2023 الي 2024. </p>
+      </div>
+
+      {/* {filteredData.map((item) => ( */}
+      <h3 className="metrics-header"> السعوديه </h3>
+      <div className="metrics-container">
+        <div className="metric-card">
+          <p className="metric-title">عدد المشتركين الاجمالي</p>
+          <h2 className="metric-value">1200</h2>
+        </div>
+
+        <div className="metric-card">
+          <p className="metric-title">عدد مقدمي الخدمات و البرامج الاجمالي</p>
+          <h2 className="metric-value">560</h2>
+        </div>
+
+        <div className="metric-card">
+          <p className="metric-title">
+            نسبه مقدمي الخدمات و البرامج الي المشتركين
+          </p>
+          <h2 className="metric-value">87%</h2>
+        </div>
+        <div className="metric-card">
+          <p className="metric-title">
+            نسبه مقدمي الخدمات و البرامج الي المشتركين
+          </p>
+          <h2 className="metric-value">87%</h2>
+        </div>
+        <div className="metric-card">
+          <p className="metric-title">عدد المستفيدين</p>
+          <h2 className="metric-value">500</h2>
+        </div>
+        <div className="metric-card">
+          <p className="metric-title"> نسبه المستفيدين الي اجمالي المشتركين </p>
+          <h2 className="metric-value">87%</h2>
+        </div>
+      </div>
+      {/* ))} */}
     </div>
   );
 };
