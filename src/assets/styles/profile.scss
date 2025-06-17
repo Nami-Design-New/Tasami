@@ -72,6 +72,11 @@
 
   &__label {
     flex: 1;
+    &.group {
+      color: $main;
+      text-decoration: underline;
+      cursor: pointer;
+    }
   }
 }
 .employee__data {

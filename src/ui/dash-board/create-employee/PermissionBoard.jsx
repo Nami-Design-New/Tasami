@@ -118,12 +118,12 @@ const PermissionBoard = () => {
             />
           ))}
         </div>
-        <div className="form__action--buttons d-flex gap-3">
+        {/* <div className="form__action--buttons d-flex gap-3">
           <button type="button" className=" log  button--add save-button">
             حفظ و اغلاق
           </button>
           <SubmitButton className={"submit-button"} text={"حفظ"} />
-        </div>
+        </div> */}
       </form>
     </div>
   );

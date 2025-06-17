@@ -1,80 +1,49 @@
-import LineAnalyticsChart from "../../../ui/dash-board/charts/LineAnalyticsChart";
-import ColumnChart from "../../../ui/dash-board/charts/ColumnChart";
-import DounutCharts from "../../../ui/dash-board/charts/DounutCharts";
-import RadarChart from "../../../ui/dash-board/charts/RadarChart";
-import ReusableDataTable from "../../../ui/ReusableDataTable";
 import { createColumnHelper } from "@tanstack/react-table";
-import { Link } from "react-router";
 import { useMemo } from "react";
 import { Badge } from "react-bootstrap";
-
-// Dounut Charts
-const usersCountSeries = [50, 30, 22];
-const usersCountoptions = {
-  labels: ["التنفيذيين", "المشرفين", " موظفين خدمه العملاء"],
-  chart: {
-    type: "donut",
-  },
-  colors: ["#214b92", "#5fcafa", "#ff4a5f"],
-  legend: {
-    position: "bottom",
-    fontSize: "14px",
-  },
-  dataLabels: {
-    style: {
-      fontSize: "14px",
-      fontWeight: "400",
-      colors: ["#000"],
-    },
-  },
-  responsive: [
-    {
-      breakpoint: 480,
-      options: {
-        chart: { width: 200 },
-        legend: { position: "bottom" },
-      },
-    },
-  ],
-  plotOptions: {
-    pie: {
-      donut: {
-        size: "80%",
-        labels: {
-          show: true,
-          name: { show: true, fontSize: "16px", offsetY: -10 },
-          value: {
-            show: true,
-            fontSize: "20px",
-            fontWeight: 600,
-            offsetY: 10,
-          },
-          total: {
-            show: true,
-            label: "الكلي",
-            fontSize: "16px",
-            fontWeight: 500,
-            formatter: (w) => w.globals.seriesTotals.reduce((a, b) => a + b, 0),
-          },
-        },
-      },
-    },
-  },
-};
+import { Link } from "react-router";
+import ColumnChart from "../../../ui/dash-board/charts/ColumnChart";
+import ReusableDataTable from "../../../ui/ReusableDataTable";
 
 // Column Chart
-const activeAccountsSeries = [
+const excutives = [
   {
-    name: "الحسابات النشطه",
-    data: [10, 20, 30],
+    name: "التنفيذيين",
+    data: [112, 40, 20, 30, 12],
   },
 ];
-const usersCategories = ["التنفيذيين", "المشرفين", " موظفين خدمه العملاء"];
+
+const leaders = [
+  {
+    name: "القاده",
+    data: [112, 40, 20, 30, 12],
+  },
+];
+const manager = [
+  {
+    name: "المدراء",
+    data: [112, 40, 20, 30, 12],
+  },
+];
+const supervisors = [
+  {
+    name: "المشرفين",
+    data: [112, 40, 20, 30, 12],
+  },
+];
+const customerService = [
+  {
+    name: "خدمه العملاء",
+    data: [112, 40, 20, 30, 12],
+  },
+];
+const usersCategories = ["الاجمالي", "نشط", "غير نشط", "موقوف", "ملغي"];
 const activeAccountsoptions = {
   chart: {
     type: "bar",
     height: 250,
     toolbar: { show: true },
+    distributed: true,
   },
   grid: {
     show: false,
@@ -82,11 +51,11 @@ const activeAccountsoptions = {
   plotOptions: {
     bar: {
       horizontal: false,
-      columnWidth: "5%",
+      columnWidth: "20%",
       barHeight: "100%",
       borderRadius: 5,
       borderRadiusApplication: "around",
-      distributed: false,
+      distributed: true,
     },
   },
   dataLabels: {
@@ -107,7 +76,7 @@ const activeAccountsoptions = {
       },
     },
   },
-  colors: ["#214b92", "#5fcafa", "#ff4a5f"],
+  colors: ["#8c137e", "#007BFF", "#FFC107", "#28A745", "#DC3545"],
   tooltip: {
     y: {
       formatter: (val) => `${val} حساب`,
@@ -119,76 +88,6 @@ const activeAccountsoptions = {
   },
 };
 
-// Radar Chart
-const SuspendedUsersOptions = {
-  chart: {
-    type: "radar",
-  },
-
-  xaxis: {
-    categories: usersCategories,
-  },
-  yaxis: {
-    show: false,
-  },
-  stroke: {
-    width: 3,
-  },
-  fill: {
-    opacity: 0.3,
-    color: "#D9534F",
-  },
-  markers: {
-    size: 4,
-  },
-};
-const SuspendedUsersSeries = [
-  {
-    name: "الحسابات الموقوفه",
-    data: [80, 90, 70],
-  },
-];
-
-// Line Analytics Chart
-const deactiveUsersSeries = [
-  {
-    name: " غير نشط",
-    type: "area",
-    data: [350, 70, 28, 20],
-  },
-];
-const revnueAnalyticsOptions = {
-  chart: {
-    toolbar: { show: false },
-  },
-  stroke: {
-    curve: "smooth",
-    width: 2,
-  },
-  fill: {
-    type: "gradient",
-    gradient: {
-      shadeIntensity: 1,
-      opacityFrom: 0.4,
-      gradientToColors: ["#ff4a5f"],
-      opacityTo: 0,
-      stops: [0, 90, 100],
-    },
-    colors: ["#ff4a5f"],
-  },
-  xaxis: {
-    categories: usersCategories,
-  },
-  grid: {
-    show: true,
-    borderColor: "#e0e0e0",
-  },
-  tooltip: {
-    enabled: true,
-  },
-  colors: ["#ff4a5f"],
-};
-
 const columnHelper = createColumnHelper();
 
 const Teams = () => {
@@ -196,6 +95,7 @@ const Teams = () => {
     () => [
       {
         name: "صالح",
+        lastname: "محمود",
         accountNumber: "S-020522-00215a",
         accountType: "مشرف",
         gender: "ذكر",
@@ -209,8 +109,10 @@ const Teams = () => {
       },
       {
         name: "محمد",
+        lastname: "محمود",
+
         accountNumber: "E-020522-00215b",
-        accountType: "خدمه عملاء",
+        accountType: "موظف",
 
         gender: "ذكر",
         nationality: "السعودية",
@@ -218,14 +120,16 @@ const Teams = () => {
         region: "014-المنطقة الوسطى",
         location: "المملكة العربية السعودية",
 
-        status: "غير نشطة",
+        status: "غير نشط",
         accountStatusDate: "20-Apr-2020",
         time: "08:55 am",
       },
       {
         name: "علي",
+        lastname: "محمود",
+
         accountNumber: "E-020522-00215c",
-        accountType: "خدمه عملاء",
+        accountType: "موظف",
 
         gender: "ذكر",
         nationality: "السعودية",
@@ -248,9 +152,14 @@ const Teams = () => {
         cell: (info) => info.getValue(),
         enableSorting: false,
       }),
+      columnHelper.accessor("lastname", {
+        header: "اسم العائله",
+        cell: (info) => info.getValue(),
+        enableSorting: false,
+      }),
 
       columnHelper.accessor("accountNumber", {
-        header: "رقم الحساب",
+        header: "الحساب",
 
         cell: (info) => (
           <Link
@@ -263,13 +172,9 @@ const Teams = () => {
         enableSorting: false,
       }),
       columnHelper.accessor("accountType", {
-        header: "نوع الحساب",
+        header: "المستوي الوظيفي",
         cell: (info) => info.getValue(),
         enableSorting: false,
-      }),
-      columnHelper.accessor("gender", {
-        header: "الجنس",
-        cell: (info) => info.getValue(),
       }),
 
       columnHelper.accessor("nationality", {
@@ -300,7 +205,7 @@ const Teams = () => {
             case "نشط":
               badgeColor = "#28a745";
               break;
-            case "غير نشطة":
+            case "غير نشط":
               badgeColor = "#007bff";
               break;
             case "موقوفة":
@@ -347,37 +252,43 @@ const Teams = () => {
   return (
     <section>
       <div className="row">
-        <div className="col-12 col-lg-6 col-lg-4 ">
-          <DounutCharts
-            title={"عدد الموظفين"}
-            series={usersCountSeries}
-            options={usersCountoptions}
-            width={250}
-            height={250}
-          />
-        </div>
-        <div className=" col-12 col-lg-6 col-lg-4">
-          <RadarChart
-            title={"الحسابات الموقوفه"}
-            series={SuspendedUsersSeries}
-            options={SuspendedUsersOptions}
-            height={235}
-          />
-        </div>
-        <div className="col-12 col-md-12 col-xxl-6  ">
+        <div className="col-12 col-lg-6 col-xxl-4 ">
           <ColumnChart
-            title={" عدد الحسابات النشطه "}
-            series={activeAccountsSeries}
+            title={"التنفيذين"}
+            series={excutives}
             options={activeAccountsoptions}
             height={250}
           />
         </div>
+        <div className=" col-12 col-lg-6  col-xxl-4">
+          <ColumnChart
+            title={"القاده"}
+            series={leaders}
+            options={activeAccountsoptions}
+            height={"250px"}
+          />
+        </div>
+        <div className="col-12 col-lg-6 col-xxl-4 ">
+          <ColumnChart
+            title={" المدراء "}
+            series={manager}
+            options={activeAccountsoptions}
+            height={"250px"}
+          />
+        </div>
+        <div className="col-12 col-lg-6">
+          <ColumnChart
+            title={"المشرفين"}
+            series={supervisors}
+            options={activeAccountsoptions}
+            height={"250px"}
+          />
+        </div>
         <div className="col-12 col-xxl-6">
-          <LineAnalyticsChart
-            title={"الحسابات غير النشطه"}
-            series={deactiveUsersSeries}
-            options={revnueAnalyticsOptions}
-            type="area"
+          <ColumnChart
+            title={"خدمه العملاء"}
+            series={customerService}
+            options={activeAccountsoptions}
             height={"250px"}
           />
         </div>

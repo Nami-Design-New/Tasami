@@ -26,7 +26,7 @@
     }
     th {
       min-height: 150px;
-      position: relative;
+      // position: relative;
       white-space: nowrap;
       &:hover > .resizer {
         opacity: 1;
@@ -207,6 +207,53 @@
   }
   &--delete {
     color: $dangerLight;
+    cursor: pointer;
+  }
+}
+
+.popup__filter {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  min-width: 300px;
+  z-index: 10;
+  background: #fff;
+  border: 1px solid #ccc;
+  padding: 10px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  top: 24px;
+
+  margin-top: 1rem;
+
+  &.rtl {
+    left: auto;
+    right: 0;
+  }
+  .popup__filter--wrapper {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 1rem;
+    input,
+    select {
+      width: 100%;
+      margin-bottom: 8px;
+    }
+    .sort-controls {
+      display: flex;
+      justify-content: space-between;
+    }
+  }
+
+  .close-btn {
+    position: absolute;
+    top: 4px;
+    left: 0;
+    background: transparent;
+    border: none;
+    font-size: 16px;
+    color: $gray;
     cursor: pointer;
   }
 }

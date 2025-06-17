@@ -52,7 +52,7 @@ const UserProfile = () => {
           <InfoCard title="البيانات الشخصية">
             <p>
               <span>الاسم:</span>
-              <span> ملهمه </span>
+              <span> اساسيه </span>
             </p>
             <p>
               <span>تاريخ الميلاد :</span>
@@ -78,7 +78,7 @@ const UserProfile = () => {
           <InfoCard title="بيانات الاشتراك">
             <p>
               <span>نوع الحساب:</span>{" "}
-              <span className="user-dashboard__card-type">جدير</span>
+              <span className="user-dashboard__card-type">رواد</span>
             </p>
             <p>
               <span>رقم الحساب:</span> <span>U-010222-000001</span>

@@ -17,17 +17,7 @@ const SubscribersAndTeams = () => {
           removeLast={isEmployeeDetails === true}
           name={isEmployeeDetails === true ? " تفاصيل الموظف" : null}
         />
-        {currentLocation === "create-employee" ? (
-          <button className="button button--add"> تنشيط الحساب </button>
-        ) : isEmployeeDetails ? (
-          <button
-            onClick={() => setOpenSuspensionModel(true)}
-            className="button button--add"
-          >
-            {" "}
-            ايقاف الحساب{" "}
-          </button>
-        ) : (
+        {currentLocation === "teams" && (
           <Link className="button button--add" to={"create-employee"}>
             انشاء موظف
           </Link>
@@ -36,6 +26,8 @@ const SubscribersAndTeams = () => {
       {(currentLocation === "user-accounts" ||
         currentLocation === "programs" ||
         currentLocation === "services" ||
+        currentLocation === "communities" ||
+        currentLocation === "personal-goals" ||
         currentLocation === "resuems") && <NavigationTabs tabs={SUB_TABS} />}
       <div>
         <Outlet />

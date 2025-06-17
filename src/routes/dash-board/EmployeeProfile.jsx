@@ -7,6 +7,7 @@ import PageHeader from "../../ui/PageHeader";
 import TabsHorizontal from "../../ui/TabsHorizontal";
 import EmployeePersonalData from "../../ui/dash-board/EmploymentData/EmployeePersonalData";
 import EmployeePermessions from "../../ui/dash-board/EmploymentData/EmployeePermessions";
+import WorkingGroups from "../../ui/dash-board/EmploymentData/WorkingGroups";
 
 const tabs = [
   {
@@ -15,11 +16,15 @@ const tabs = [
   },
   {
     id: 2,
-    title: "بيانات الحساب الشخصيه",
+    title: "البيانات الشخصيه",
   },
   {
     id: 3,
     title: "الصلاحيات",
+  },
+  {
+    id: 4,
+    title: " المجموعات المشتركه ",
   },
 ];
 
@@ -48,6 +53,7 @@ const EmployeeProfile = () => {
           {activeTab === 1 && <EmployeeData />}
           {activeTab === 2 && <EmployeePersonalData />}
           {activeTab === 3 && <EmployeePermessions />}
+          {activeTab === 4 && <WorkingGroups />}
         </div>
       </div>
     </section>

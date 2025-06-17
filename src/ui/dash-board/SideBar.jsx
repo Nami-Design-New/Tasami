@@ -73,11 +73,22 @@ export default function SideBar({ hoverExpand, setHoverExpand, collapsed }) {
           </NavLink>
         </li>
         <li className="nav_item mb-2">
+          <NavLink to="tasks" end>
+            <div className="icon">
+              <img
+                src="/sys-icons/manage-listing.svg"
+                alt="Manage-Listings-icon"
+              />
+            </div>
+            <h6> المهام </h6>
+          </NavLink>
+        </li>
+        <li className="nav_item mb-2">
           <NavLink to="profile" end>
             <div className="icon">
               <img src="/icons/data-icon.svg" alt="emploment data Icon" />
             </div>
-            <h6> البيانات التوظيفيه </h6>
+            <h6> البيانات الوظيفيه </h6>
           </NavLink>
         </li>
         <SidebarNavigation />

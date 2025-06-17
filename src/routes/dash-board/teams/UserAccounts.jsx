@@ -1,117 +1,70 @@
 import { createColumnHelper } from "@tanstack/react-table";
 import { useMemo } from "react";
-import LineAnalyticsChart from "../../../ui/dash-board/charts/LineAnalyticsChart";
-import DounutCharts from "../../../ui/dash-board/charts/DounutCharts";
-import ReusableDataTable from "../../../ui/ReusableDataTable";
-import { USERS_CATEGORIES } from "../../../utils/constants";
-import { Link } from "react-router";
 import { Badge } from "react-bootstrap";
+import { Link } from "react-router";
+import ColumnChart from "../../../ui/dash-board/charts/ColumnChart";
+import ReusableDataTable from "../../../ui/ReusableDataTable";
 
-// Line Chart
+// column Chart
+
 const series = [
-  {
-    name: "العدد الكلي",
-    type: "area",
-    data: [5400, 400, 200, 150],
-  },
-  {
-    name: " نشط ",
-    type: "line",
-    data: [5000, 300, 150, 120],
-  },
-  {
-    name: " غير نشط",
-    type: "line",
-    data: [350, 70, 28, 20],
-  },
+  { name: "عدد الحسابات", data: ["5000", "1000", "800", "500"] },
+  { name: "الحسابات النشطه", data: ["3000", "800", "700", "400"] },
+  { name: " الحسابات الغير نشطه ", data: ["1200", "150", "80", "60"] },
+  { name: "الحسابات الموقوفه", data: ["800", "50", "20", "40"] },
 ];
+
+const usersCategories = [
+  "مستفيد",
+  "(اساسي) مقدم برامج",
+  "(متميز) مقدم برامج",
+  "(رواد  ) مقدم برامج",
+];
+
 const UseresAccountsOptions = {
   chart: {
+    type: "bar",
     height: 350,
-
     toolbar: { show: true },
   },
-  stroke: {
-    width: [0, 2, 3],
-    curve: "smooth",
-    dashArray: [0, 5, 0],
+  plotOptions: {
+    bar: {
+      horizontal: false,
+      columnWidth: "12%",
+      barHeight: "100%",
+      endingShape: "rounded",
+      borderRadius: 5,
+      borderRadiusApplication: "end",
+      distributed: false,
+    },
   },
-  fill: {
-    type: ["solid", "solid", "solid"],
-    opacity: [0.2, 1, 1],
-  },
-  markers: {
-    size: 0,
-  },
-  colors: ["#e2e8f0", "#0ea5e9", "#8b5cf6"],
   dataLabels: {
     enabled: false,
   },
   xaxis: {
-    USERS_CATEGORIES,
+    categories: usersCategories,
+    labels: {
+      style: {
+        fontSize: "14px",
+      },
+    },
+  },
+  yaxis: {
+    labels: {
+      style: {
+        fontSize: "12px",
+      },
+    },
+  },
+  colors: ["#8c137e", "#28A745", "#007BFF", "#DC3545"],
+  tooltip: {
+    y: {
+      formatter: (val) => `${val} برامج`,
+    },
   },
   legend: {
     position: "top",
-    horizontalAlign: "left",
-    markers: { radius: 12 },
-  },
-  tooltip: {
-    shared: true,
-    intersect: false,
-  },
-};
-
-// Dounut Chart
-const SuspendedAccountSeries = [50, 30, 22, 10];
-const options = {
-  labels: USERS_CATEGORIES,
-  chart: {
-    type: "donut",
-  },
-  colors: ["#214b92", "#5fcafa", "#5f4aff", "#ff4a5f"],
-  legend: {
-    position: "bottom",
-    fontSize: "14px",
-  },
-  dataLabels: {
-    style: {
-      fontSize: "14px",
-      fontWeight: "400",
-      colors: ["#000"],
-    },
-  },
-  responsive: [
-    {
-      breakpoint: 480,
-      options: {
-        chart: { width: 200 },
-        legend: { position: "bottom" },
-      },
-    },
-  ],
-  plotOptions: {
-    pie: {
-      donut: {
-        size: "80%",
-        labels: {
-          show: true,
-          name: { show: true, fontSize: "16px", offsetY: -10 },
-          value: {
-            show: true,
-            fontSize: "20px",
-            fontWeight: 600,
-            offsetY: 10,
-          },
-          total: {
-            show: true,
-            label: "الكلي",
-            fontSize: "16px",
-            fontWeight: 500,
-            formatter: (w) => w.globals.seriesTotals.reduce((a, b) => a + b, 0),
-          },
-        },
-      },
-    },
+    horizontalAlign: "center",
   },
 };
 
@@ -123,14 +76,14 @@ const UserAccounts = () => {
       {
         name: "صالح",
         accountNumber: "U-020522-00215a",
-        accountType: "خبير",
+        accountType: "رواد",
         date: "25-Apr-2020",
         gender: "ذكر",
         nationality: "السعودية",
         city: "الرياض-001",
         region: "014-المنطقة الوسطى",
         location: "المملكة العربية السعودية",
-        subscriptionEntity: "الاشتراك",
+        subscriptionEntity: "25-oct-2019",
         subscriptionEnd: "25-Apr-2020",
         status: "موقوفة",
         accountStatusDate: "20-Apr-2020",
@@ -139,14 +92,14 @@ const UserAccounts = () => {
       {
         name: "محمد",
         accountNumber: "U-020522-00215b",
-        accountType: "جدير",
+        accountType: "رواد",
         date: "25-Apr-2020",
         gender: "ذكر",
         nationality: "السعودية",
         city: "الرياض-002",
         region: "014-المنطقة الوسطى",
         location: "المملكة العربية السعودية",
-        subscriptionEntity: "الاشتراك",
+        subscriptionEntity: "25-oct-2019",
         subscriptionEnd: "25-Apr-2020",
         status: "غير نشطة",
         accountStatusDate: "20-Apr-2020",
@@ -155,14 +108,14 @@ const UserAccounts = () => {
       {
         name: "علي",
         accountNumber: "U-020522-00215c",
-        accountType: "ملهم",
+        accountType: "اساسي",
         date: "25-Apr-2020",
         gender: "ذكر",
         nationality: "السعودية",
         city: "الرياض-003",
         region: "014-المنطقة الوسطى",
         location: "المملكة العربية السعودية",
-        subscriptionEntity: "الاشتراك",
+        subscriptionEntity: "25-oct-2019",
         subscriptionEnd: "25-Apr-2020",
         status: "نشط",
         accountStatusDate: "20-Apr-2020",
@@ -178,7 +131,7 @@ const UserAccounts = () => {
         city: "الرياض-004",
         region: "014-المنطقة الوسطى",
         location: "المملكة العربية السعودية",
-        subscriptionEntity: "الاشتراك",
+        subscriptionEntity: "25-oct-2019",
         subscriptionEnd: "25-Apr-2020",
         status: "موقوفة",
         accountStatusDate: "20-Apr-2020",
@@ -187,14 +140,14 @@ const UserAccounts = () => {
       {
         name: "أحمد",
         accountNumber: "U-020522-00215e",
-        accountType: "ملهم",
+        accountType: "اساسي",
         date: "25-Apr-2020",
         gender: "ذكر",
         nationality: "السعودية",
         city: "الرياض-005",
         region: "014-المنطقة الوسطى",
         location: "المملكة العربية السعودية",
-        subscriptionEntity: "الاشتراك",
+        subscriptionEntity: "25-oct-2019",
         subscriptionEnd: "25-Apr-2020",
         status: "غير نشطة",
         accountStatusDate: "20-Apr-2020",
@@ -203,14 +156,14 @@ const UserAccounts = () => {
       {
         name: "فهد",
         accountNumber: "U-020522-00215f",
-        accountType: "خبير",
+        accountType: "متميز",
         date: "25-Apr-2020",
         gender: "ذكر",
         nationality: "السعودية",
         city: "الرياض-006",
         region: "014-المنطقة الوسطى",
         location: "المملكة العربية السعودية",
-        subscriptionEntity: "الاشتراك",
+        subscriptionEntity: "25-oct-2019",
         subscriptionEnd: "25-Apr-2020",
         status: "نشط",
         accountStatusDate: "20-Apr-2020",
@@ -226,7 +179,7 @@ const UserAccounts = () => {
         city: "الرياض-007",
         region: "014-المنطقة الوسطى",
         location: "المملكة العربية السعودية",
-        subscriptionEntity: "الاشتراك",
+        subscriptionEntity: "25-oct-2019",
         subscriptionEnd: "25-Apr-2020",
         status: "موقوفة",
         accountStatusDate: "20-Apr-2020",
@@ -235,14 +188,14 @@ const UserAccounts = () => {
       {
         name: "ياسر",
         accountNumber: "U-020522-00215h",
-        accountType: "جدير",
+        accountType: "رواد",
         date: "25-Apr-2020",
         gender: "ذكر",
         nationality: "السعودية",
         city: "الرياض-008",
         region: "014-المنطقة الوسطى",
         location: "المملكة العربية السعودية",
-        subscriptionEntity: "الاشتراك",
+        subscriptionEntity: "25-oct-2019",
         subscriptionEnd: "25-Apr-2020",
         status: "غير نشطة",
         accountStatusDate: "20-Apr-2020",
@@ -251,14 +204,14 @@ const UserAccounts = () => {
       {
         name: "سعد",
         accountNumber: "U-020522-00215i",
-        accountType: "ملهم",
+        accountType: "اساسي",
         date: "25-Apr-2020",
         gender: "ذكر",
         nationality: "السعودية",
         city: "الرياض-009",
         region: "014-المنطقة الوسطى",
         location: "المملكة العربية السعودية",
-        subscriptionEntity: "الاشتراك",
+        subscriptionEntity: "25-oct-2019",
         subscriptionEnd: "25-Apr-2020",
         status: "نشط",
         accountStatusDate: "20-Apr-2020",
@@ -267,14 +220,14 @@ const UserAccounts = () => {
       {
         name: "بدر",
         accountNumber: "U-020522-00215j",
-        accountType: "خبير",
+        accountType: "متميز",
         date: "25-Apr-2020",
         gender: "ذكر",
         nationality: "السعودية",
         city: "الرياض-010",
         region: "014-المنطقة الوسطى",
         location: "المملكة العربية السعودية",
-        subscriptionEntity: "الاشتراك",
+        subscriptionEntity: "25-oct-2019",
         subscriptionEnd: "25-Apr-2020",
         status: "موقوفة",
         accountStatusDate: "20-Apr-2020",
@@ -290,7 +243,7 @@ const UserAccounts = () => {
         city: "الرياض-011",
         region: "014-المنطقة الوسطى",
         location: "المملكة العربية السعودية",
-        subscriptionEntity: "الاشتراك",
+        subscriptionEntity: "25-oct-2019",
         subscriptionEnd: "25-Apr-2020",
         status: "غير نشطة",
         accountStatusDate: "20-Apr-2020",
@@ -299,14 +252,14 @@ const UserAccounts = () => {
       {
         name: "جاسم",
         accountNumber: "U-020522-00215l",
-        accountType: "جدير",
+        accountType: "رواد",
         date: "25-Apr-2020",
         gender: "ذكر",
         nationality: "السعودية",
         city: "الرياض-012",
         region: "014-المنطقة الوسطى",
         location: "المملكة العربية السعودية",
-        subscriptionEntity: "الاشتراك",
+        subscriptionEntity: "25-oct-2019",
         subscriptionEnd: "25-Apr-2020",
         status: "نشط",
         accountStatusDate: "20-Apr-2020",
@@ -315,14 +268,14 @@ const UserAccounts = () => {
       {
         name: "تركي",
         accountNumber: "U-020522-00215m",
-        accountType: "خبير",
+        accountType: "متميز",
         date: "25-Apr-2020",
         gender: "ذكر",
         nationality: "السعودية",
         city: "الرياض-013",
         region: "014-المنطقة الوسطى",
         location: "المملكة العربية السعودية",
-        subscriptionEntity: "الاشتراك",
+        subscriptionEntity: "25-oct-2019",
         subscriptionEnd: "25-Apr-2020",
         status: "موقوفة",
         accountStatusDate: "20-Apr-2020",
@@ -331,14 +284,14 @@ const UserAccounts = () => {
       {
         name: "أنس",
         accountNumber: "U-020522-00215n",
-        accountType: "ملهم",
+        accountType: "اساسي",
         date: "25-Apr-2020",
         gender: "ذكر",
         nationality: "السعودية",
         city: "الرياض-014",
         region: "014-المنطقة الوسطى",
         location: "المملكة العربية السعودية",
-        subscriptionEntity: "الاشتراك",
+        subscriptionEntity: "25-oct-2019",
         subscriptionEnd: "25-Apr-2020",
         status: "نشط",
         accountStatusDate: "20-Apr-2020",
@@ -354,7 +307,7 @@ const UserAccounts = () => {
         city: "الرياض-015",
         region: "014-المنطقة الوسطى",
         location: "المملكة العربية السعودية",
-        subscriptionEntity: "الاشتراك",
+        subscriptionEntity: "25-oct-2019",
         subscriptionEnd: "25-Apr-2020",
         status: "غير نشطة",
         accountStatusDate: "20-Apr-2020",
@@ -417,11 +370,11 @@ const UserAccounts = () => {
         cell: (info) => info.getValue(),
       }),
       columnHelper.accessor("subscriptionEntity", {
-        header: "   بدء الاشتراك ",
+        header: "   بدء 25-oct-2019 ",
         cell: (info) => info.getValue(),
       }),
       columnHelper.accessor("subscriptionEnd", {
-        header: " انتهاء الاشتراك ",
+        header: " انتهاء 25-oct-2019 ",
         cell: (info) => info.getValue(),
       }),
 
@@ -482,17 +435,17 @@ const UserAccounts = () => {
     <section className="mt-5">
       <div className="row">
         <div className="col-12 col-lg-4">
-          <DounutCharts
+          {/* <DounutCharts
             series={SuspendedAccountSeries}
             options={options}
-            title={"  الحسابات الموقوفة  "}
-          />
+            title={"الحسابات"}
+          /> */}
         </div>
-        <div className="col-12 col-lg-8">
-          <LineAnalyticsChart
+        <div className="col-12 ">
+          <ColumnChart
             series={series}
             options={UseresAccountsOptions}
-            title="تحلايلات المستخدمين"
+            title="تحليلات المستخدمين"
             height={285}
           />
         </div>

@@ -199,7 +199,7 @@ const WokingGroupDetails = () => {
       {
         name: "صالح",
         accountNumber: "U-020522-00215a",
-        accountType: "خبير",
+        accountType: "متميز",
         date: "25-Apr-2020",
         gender: "ذكر",
         nationality: "السعودية",
@@ -215,7 +215,7 @@ const WokingGroupDetails = () => {
       {
         name: "محمد",
         accountNumber: "U-020522-00215b",
-        accountType: "جدير",
+        accountType: "رواد",
         date: "25-Apr-2020",
         gender: "ذكر",
         nationality: "السعودية",
@@ -231,7 +231,7 @@ const WokingGroupDetails = () => {
       {
         name: "علي",
         accountNumber: "U-020522-00215c",
-        accountType: "ملهم",
+        accountType: "اساسي",
         date: "25-Apr-2020",
         gender: "ذكر",
         nationality: "السعودية",
@@ -263,7 +263,7 @@ const WokingGroupDetails = () => {
       {
         name: "أحمد",
         accountNumber: "U-020522-00215e",
-        accountType: "ملهم",
+        accountType: "اساسي",
         date: "25-Apr-2020",
         gender: "ذكر",
         nationality: "السعودية",
@@ -279,7 +279,7 @@ const WokingGroupDetails = () => {
       {
         name: "فهد",
         accountNumber: "U-020522-00215f",
-        accountType: "خبير",
+        accountType: "متميز",
         date: "25-Apr-2020",
         gender: "ذكر",
         nationality: "السعودية",
@@ -311,7 +311,7 @@ const WokingGroupDetails = () => {
       {
         name: "ياسر",
         accountNumber: "U-020522-00215h",
-        accountType: "جدير",
+        accountType: "رواد",
         date: "25-Apr-2020",
         gender: "ذكر",
         nationality: "السعودية",
@@ -327,7 +327,7 @@ const WokingGroupDetails = () => {
       {
         name: "سعد",
         accountNumber: "U-020522-00215i",
-        accountType: "ملهم",
+        accountType: "اساسي",
         date: "25-Apr-2020",
         gender: "ذكر",
         nationality: "السعودية",
@@ -343,7 +343,7 @@ const WokingGroupDetails = () => {
       {
         name: "بدر",
         accountNumber: "U-020522-00215j",
-        accountType: "خبير",
+        accountType: "متميز",
         date: "25-Apr-2020",
         gender: "ذكر",
         nationality: "السعودية",
@@ -375,7 +375,7 @@ const WokingGroupDetails = () => {
       {
         name: "جاسم",
         accountNumber: "U-020522-00215l",
-        accountType: "جدير",
+        accountType: "رواد",
         date: "25-Apr-2020",
         gender: "ذكر",
         nationality: "السعودية",
@@ -391,7 +391,7 @@ const WokingGroupDetails = () => {
       {
         name: "تركي",
         accountNumber: "U-020522-00215m",
-        accountType: "خبير",
+        accountType: "متميز",
         date: "25-Apr-2020",
         gender: "ذكر",
         nationality: "السعودية",
@@ -407,7 +407,7 @@ const WokingGroupDetails = () => {
       {
         name: "أنس",
         accountNumber: "U-020522-00215n",
-        accountType: "ملهم",
+        accountType: "اساسي",
         date: "25-Apr-2020",
         gender: "ذكر",
         nationality: "السعودية",

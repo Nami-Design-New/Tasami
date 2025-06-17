@@ -7,43 +7,8 @@ export default function SidebarNavigation() {
   return (
     <>
       <Accordion className={lang === "en" && "en"}>
-        {/* manage listings */}
-        <Accordion.Item eventKey="0">
-          <Accordion.Header>
-            <div className="icon">
-              <img
-                src="/sys-icons/manage-listing.svg"
-                alt="Manage-Listings-icon"
-              />
-            </div>
-            <div className="d-flex flex-column">
-              <h6>المهام</h6>
-            </div>
-          </Accordion.Header>
-          {/* sub menu */}
-          <Accordion.Body>
-            <ul className="sub_navigation_menu">
-              <li className="sub_nav_item">
-                <NavLink to="tasks/executive-tasks">
-                  <img src="/sys-icons/subArrow.svg" alt="arrow" />
-                  <span>المهام التنفيذيه </span>
-                </NavLink>
-              </li>
-              <li className="sub_nav_item">
-                <NavLink to="tasks/supervisory-tasks">
-                  <img src="/sys-icons/subArrow.svg" alt="arrow" />
-                  <span>المهام الاشرافيه</span>
-                </NavLink>
-              </li>
-              <li className="sub_nav_item">
-                <NavLink to="tasks/customer-service-tasks">
-                  <img src="/sys-icons/subArrow.svg" alt="arrow" />
-                  <span>مهام خدمه العملاء</span>
-                </NavLink>
-              </li>
-            </ul>
-          </Accordion.Body>
-        </Accordion.Item>
+    
+
         {/* markiting */}
         <Accordion.Item eventKey="1">
           <Accordion.Header>
@@ -73,12 +38,12 @@ export default function SidebarNavigation() {
                 </NavLink>
               </li>
 
-              <li className="sub_nav_item">
+              {/* <li className="sub_nav_item">
                 <NavLink to="create-employee">
                   <img src="/sys-icons/subArrow.svg" alt="arrow" />
                   <span>انشاء موظف</span>
                 </NavLink>
-              </li>
+              </li> */}
             </ul>
           </Accordion.Body>
         </Accordion.Item>

@@ -1,47 +1,49 @@
 import { useMemo } from "react";
-import StatisticsCard from "../../../ui/dash-board/cards/StatisticsCard";
 import ReusableDataTable from "../../../ui/ReusableDataTable";
 import { createColumnHelper } from "@tanstack/react-table";
 import { Link } from "react-router";
 import { Badge } from "react-bootstrap";
-const statsData = [
+import ColumnChart from "../../../ui/dash-board/charts/ColumnChart";
+
+const userGrowthSeries = [
   {
-    icon: "fa-users",
-    value: "5000",
-    label: "المستفيدين",
-    color: "#06b6d4",
-    bgColor: "#ecfeff",
-  },
-  {
-    icon: "fa-chart-pie",
-    value: "4400",
-    label: "الخدمات المطلوبه",
-    color: "#6366f1",
-    bgColor: "#eef2ff",
-  },
-  {
-    icon: "fa-shopping-cart",
-    value: "1.423k",
-    label: "العروض المقدمه",
-    color: "#5fcafa;",
-    bgColor: "#fff1f2",
-  },
-  {
-    icon: " fa-handshake-angle",
-    value: "$9745",
-    label: "المنجزة",
-    color: "#22c55e",
-    bgColor: "#f0fdf4",
-  },
-  {
-    icon: "fa-trash",
-    value: "$9745",
-    label: "المحزوفة",
-    color: "#f43f5e",
-    bgColor: "#f0fdf4",
+    name: "المستخدمين",
+    data: [4000, 600, 1000, 2000, 400],
   },
 ];
-
+const userGrowthCategories = [
+  "طلبات المساعده",
+  "بانتظار التنفيذ",
+  "قيد التنفيذ",
+  "مكتمله",
+  "محذوفه",
+];
+const userGrowthOptions = {
+  chart: {
+    type: "bar",
+    height: 350,
+    toolbar: { show: true },
+  },
+  plotOptions: {
+    bar: {
+      borderRadius: 4,
+      columnWidth: "10%",
+      endingShape: "rounded",
+      distributed: true,
+    },
+  },
+  dataLabels: { enabled: false },
+  xaxis: {
+    categories: userGrowthCategories,
+  },
+  yaxis: {},
+  colors: ["#8c137e", "#007BFF", "#FFC107", "#28A745", "#DC3545"],
+  tooltip: {
+    y: {
+      formatter: (val) => `${val} مستخدم`,
+    },
+  },
+};
 const columnHelper = createColumnHelper();
 const Services = () => {
   const data = useMemo(
@@ -49,10 +51,13 @@ const Services = () => {
       {
         serviceNumber: "PRG-001",
         date: "25-Apr-2020",
-        status: "منجزه",
+        status: "مكتمل",
         accountNumber: "U-020522-00215a",
         accountType: "مستفيد",
         IdNumber: "ID-123456",
+        region: "014-الشرق الاوسط ",
+        location: "المملكة العربية السعودية",
+        city: "الرياض-001",
         field: "الهندسة",
         Specialization: "مدني",
         offers: 4,
@@ -64,8 +69,11 @@ const Services = () => {
         date: "25-Apr-2020",
         status: "محذوف",
         accountNumber: "U-020522-00215b",
-        accountType: "جدير",
+        accountType: "رواد",
         IdNumber: "ID-123457",
+        region: "014-الشرق الاوسط ",
+        location: "المملكة العربية السعودية",
+        city: "الرياض-001",
         field: "المالية",
         Specialization: "محاسبة",
         offers: 4,
@@ -79,7 +87,7 @@ const Services = () => {
   const columns = useMemo(
     () => [
       columnHelper.accessor("serviceNumber", {
-        header: "رقم الخدمه",
+        header: "الخدمه",
         cell: (info) => (
           <Link to={`/model/${info.getValue()}`} className="link-styls">
             {info.getValue()}
@@ -119,7 +127,7 @@ const Services = () => {
         cell: (info) => {
           let badgeColor;
           switch (info.getValue()) {
-            case "منجزه":
+            case "مكتمل":
               badgeColor = "#28a745";
               break;
             case "بانتظار التنفيذ":
@@ -152,12 +160,25 @@ const Services = () => {
       }),
 
       columnHelper.accessor("IdNumber", {
-        header: "الرقم التعريفي",
-        cell: (info) => (
-          <Link to={`/model/${info.getValue()}`} className="link-styls">
-            {info.getValue()}
-          </Link>
-        ),
+        header: "رقم التعريف",
+        cell: (info) => info.getValue(),
+        // cell: (info) => (
+        //   <Link to={`/model/${info.getValue()}`} className="link-styls">
+        //     {info.getValue()}
+        //   </Link>
+        // ),
+      }),
+      columnHelper.accessor("region", {
+        header: "الاقليم",
+        cell: (info) => info.getValue(),
+      }),
+      columnHelper.accessor("location", {
+        header: "القطاع",
+        cell: (info) => info.getValue(),
+      }),
+      columnHelper.accessor("city", {
+        header: "المدينه",
+        cell: (info) => info.getValue(),
       }),
       columnHelper.accessor("field", {
         header: "المجال",
@@ -169,7 +190,7 @@ const Services = () => {
       }),
 
       columnHelper.accessor("numbrOfUseres", {
-        header: "عدد المستفيدين",
+        header: "القيمه",
         cell: (info) => info.getValue(),
       }),
       columnHelper.accessor("rate", {
@@ -183,7 +204,11 @@ const Services = () => {
     <section className="mt-5">
       <div className="row">
         <div className="col-12">
-          <StatisticsCard data={statsData} updated="1 month ago" />
+          <ColumnChart
+            series={userGrowthSeries}
+            options={userGrowthOptions}
+            title={"طلبات المساعده"}
+          />
         </div>
         <div className="col-12">
           <ReusableDataTable

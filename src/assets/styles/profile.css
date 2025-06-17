@@ -621,8 +621,6 @@ input[type=number]::-webkit-outer-spin-button, input[type=number]::-webkit-inner
   padding: 16px;
   border-radius: 12px;
   overflow: hidden;
-  position: sticky;
-  top: 20px;
 }
 .tab-list .tab-item {
   width: 100%;
@@ -741,6 +739,11 @@ input[type=number]::-webkit-outer-spin-button, input[type=number]::-webkit-inner
 }
 .permission-list__label {
   flex: 1;
+}
+.permission-list__label.group {
+  color: #214b92;
+  text-decoration: underline;
+  cursor: pointer;
 }
 
 .employee__data--item {

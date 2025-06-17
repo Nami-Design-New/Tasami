@@ -15,12 +15,12 @@
     "Services": "الخدمات",
     "Resuems": "السير الذاتيه",
     "Teams": "فرق العمل",
-    "Create Employee": " انشاء موظف ",
+    "Create Employee": "انشاء حساب موظف جديد",
     "List Management": "اداره القوائم",
     "Working Groups": "مجموعات العمل",
     "Operating Sectors": "قطاعات التشغيل",
     "Fields And Specializations": "المجالات و التخصصات",
-    "Profile": "البيانات التوظيفيه",
+    "Profile": "البيانات الوظيفيه",
     "Employee Details": "تفاصيل الموظف",
     "User Details": "بيانات المستخدم",
     "Requests": "الطلبات",
@@ -31,6 +31,8 @@
     "Operations": "العمليات",
     "Sales": "المبيعات",
     "Customer-service": "خدمة العملاء",
-    "Prorams-and-services": "البرامج والخدمات"
+    "Prorams-and-services": "البرامج والخدمات",
+    "Personal Goals": " الاهداف الشخصيه ",
+    "Communities": "المجتمعات "
   }
 }

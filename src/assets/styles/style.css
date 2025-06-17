@@ -621,8 +621,6 @@ input[type=number]::-webkit-outer-spin-button, input[type=number]::-webkit-inner
   padding: 16px;
   border-radius: 12px;
   overflow: hidden;
-  position: sticky;
-  top: 20px;
 }
 .tab-list .tab-item {
   width: 100%;
@@ -2561,7 +2559,6 @@ input[type=number]::-webkit-outer-spin-button, input[type=number]::-webkit-inner
 }
 .table-container .custom-table th {
   min-height: 150px;
-  position: relative;
   white-space: nowrap;
 }
 .table-container .custom-table th:hover > .resizer {
@@ -2749,6 +2746,50 @@ input[type=number]::-webkit-outer-spin-button, input[type=number]::-webkit-inner
 }
 .table__actions--delete {
   color: rgba(220, 53, 69, 0.8);
+  cursor: pointer;
+}
+
+.popup__filter {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  min-width: 300px;
+  z-index: 10;
+  background: #fff;
+  border: 1px solid #ccc;
+  padding: 10px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  top: 24px;
+  margin-top: 1rem;
+}
+.popup__filter.rtl {
+  left: auto;
+  right: 0;
+}
+.popup__filter .popup__filter--wrapper {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+.popup__filter .popup__filter--wrapper input,
+.popup__filter .popup__filter--wrapper select {
+  width: 100%;
+  margin-bottom: 8px;
+}
+.popup__filter .popup__filter--wrapper .sort-controls {
+  display: flex;
+  justify-content: space-between;
+}
+.popup__filter .close-btn {
+  position: absolute;
+  top: 4px;
+  left: 0;
+  background: transparent;
+  border: none;
+  font-size: 16px;
+  color: #777777;
   cursor: pointer;
 }
 
@@ -3196,6 +3237,36 @@ input[type=number]::-webkit-outer-spin-button, input[type=number]::-webkit-inner
   background-color: #c41728;
   animation: pulse-red 1.6s infinite;
   margin-right: auto;
+}
+
+.side-tabs-wrapper {
+  position: sticky;
+  top: 20px;
+}
+.side-tabs-wrapper .completion-card {
+  background-color: #e6f4ea;
+  color: #333;
+  border-radius: 12px;
+  padding: 1.5rem;
+  width: 100%;
+  margin-top: 1rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+.side-tabs-wrapper .completion-card .completion-card__title {
+  font-size: 0.9rem;
+  color: #666;
+  margin-bottom: 0.5rem;
+  text-align: center;
+}
+.side-tabs-wrapper .completion-card .completion-card__value {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #28a745;
+  text-align: center;
+}
+.side-tabs-wrapper .completion-card .completion-card__value sup {
+  font-size: 1.2rem;
+  vertical-align: super;
 }
 
 .grid-container {
@@ -3666,14 +3737,19 @@ input[type=number]::-webkit-outer-spin-button, input[type=number]::-webkit-inner
   flex-direction: column;
   position: relative;
 }
-.grid-container .navbar .settings .profile_dropdown .account_owner .avatar {
+.grid-container .navbar .settings .profile_dropdown .account_owner .avatar--wrapper {
+  position: relative;
+  width: 80px;
+  height: 80px;
+}
+.grid-container .navbar .settings .profile_dropdown .account_owner .avatar--wrapper .avatar {
   overflow: hidden;
   width: 80px;
   height: 80px;
   border-radius: 50%;
   border: 1px solid #f2f2f2;
 }
-.grid-container .navbar .settings .profile_dropdown .account_owner .avatar .edit {
+.grid-container .navbar .settings .profile_dropdown .account_owner .avatar--wrapper .avatar .edit {
   width: 25px;
   height: 25px;
   border-radius: 12px;
@@ -3683,15 +3759,15 @@ input[type=number]::-webkit-outer-spin-button, input[type=number]::-webkit-inner
   justify-content: center;
   position: absolute;
   background: #fff;
-  right: 102px;
-  bottom: 56px;
+  right: 0;
+  bottom: 0;
 }
-.grid-container .navbar .settings .profile_dropdown .account_owner .avatar .edit img {
+.grid-container .navbar .settings .profile_dropdown .account_owner .avatar--wrapper .avatar .edit img {
   height: 12px !important;
   -o-object-fit: contain;
      object-fit: contain;
 }
-.grid-container .navbar .settings .profile_dropdown .account_owner .avatar img {
+.grid-container .navbar .settings .profile_dropdown .account_owner .avatar--wrapper .avatar img {
   width: 100%;
   height: 100%;
   -o-object-fit: cover;

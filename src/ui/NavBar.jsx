@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router";
 import LanguageDropDown from "./LanguageDropDown";
-import NotificationMenu from "./NotificationMenu";
 import ProfileMenu from "./ProfileMenu";
 
 export default function NavBar({ collapsed, setCollapsed }) {
@@ -34,7 +33,7 @@ export default function NavBar({ collapsed, setCollapsed }) {
               <i className="fa-light fa-comments"></i>
             </Link>
           </li>
-          <li className="notification">
+          {/* <li className="notification">
             <div
               className="btn"
               onClick={() => setIsNotificationOpen(!isNotificationOpen)}
@@ -46,7 +45,7 @@ export default function NavBar({ collapsed, setCollapsed }) {
               setIsOpen={setIsNotificationOpen}
               isOpen={isNotificationOpen}
             />
-          </li>
+          </li> */}
 
           <li className="profile">
             <div

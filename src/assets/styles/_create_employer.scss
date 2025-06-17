@@ -365,3 +365,36 @@
   animation: pulse-red 1.6s infinite;
   margin-right: auto;
 }
+
+.side-tabs-wrapper {
+  position: sticky;
+  top: 20px;
+  .completion-card {
+    background-color: #e6f4ea;
+    color: #333;
+    border-radius: $borderRadius;
+    padding: 1.5rem;
+    width: 100%;
+    margin-top: 1rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+
+    .completion-card__title {
+      font-size: 0.9rem;
+      color: #666;
+      margin-bottom: 0.5rem;
+      text-align: center;
+    }
+
+    .completion-card__value {
+      font-size: 2.5rem;
+      font-weight: bold;
+      color: #28a745;
+      text-align: center;
+
+      sup {
+        font-size: 1.2rem;
+        vertical-align: super;
+      }
+    }
+  }
+}

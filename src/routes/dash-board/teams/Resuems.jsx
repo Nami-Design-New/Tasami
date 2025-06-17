@@ -7,31 +7,29 @@ import { Badge } from "react-bootstrap";
 const columnHelper = createColumnHelper();
 
 const usersSeries = [
-  { name: "الحسابات", data: ["450", "211", "108", "120", "30"] },
-  { name: " السير الذاتيه", data: ["320", "200", "150", "110", "50"] },
-  { name: "الخبرات ", data: ["150", "80", "60", "90", "20"] },
-  { name: " دورات تاهيليه", data: ["40", "50", "20", "80", "35"] },
-  { name: "شهادات اكاديميه ", data: ["40", "50", "20", "125", "40"] },
-  { name: " دراسات عليا ", data: ["40", "50", "20", "125", "40"] },
+  { name: "المتابعون", data: ["450", "211", "108"] },
+  { name: " الاعضاء", data: ["320", "200", "111"] },
+  { name: "الوثائق ", data: ["150", "80", "60"] },
+  { name: "الخبرات", data: ["40", "50", "20"] },
+  { name: "عدد الحسابات ", data: ["40", "50", "20"] },
 ];
 
 const usersCategories = [
-  "(ملهم) مقدم برامج",
-  "(خبير) مقدم برامج",
-  "(جدير) مقدم برامج",
+  "(اساسي) مقدم برامج",
+  "(متميز) مقدم برامج",
+  "(رواد) مقدم برامج",
 ];
 
 const usersOptions = {
   chart: {
     type: "bar",
-    stacked: true,
     height: 350,
     toolbar: { show: true },
   },
   plotOptions: {
     bar: {
       horizontal: false,
-      columnWidth: "10%",
+      columnWidth: "20%",
       barHeight: "100%",
       endingShape: "rounded",
       borderRadius: 5,
@@ -72,61 +70,76 @@ const Resuems = () => {
         lastName: "محمد",
         gender: "ذكر",
         accountNumber: "U-020522-00215a",
-        accountType: "خبير",
+        accountType: "متميز",
         date: "25-Apr-2020",
+        helpPoints: "6",
         status: "غير نشط",
         nationality: "السعودية",
         region: "014-المنطقة الوسطى",
         location: "المملكة العربية السعودية",
         city: "الرياض-001",
         experiences: "10 ",
-        qualification: "شهادة اكاديميه",
-        workGroup: "GIN-1211321",
+        followers: "12",
+        members: "10",
+        docs: "4",
+        action: "معاينه",
       },
       {
         name: "محمد",
         lastName: "احمد",
         gender: "ذكر",
         accountNumber: "U-020522-00215b",
-        accountType: "جدير",
+        accountType: "رواد",
         date: "25-Apr-2020",
+        helpPoints: "6",
         status: "نشط",
         nationality: "السعودية",
         region: "014-المنطقة الوسطى",
         location: "المملكة العربية السعودية",
         city: "الرياض-002",
         experiences: "10 ",
-        qualification: "شهادة اكاديميه",
+        followers: "12",
+        members: "10",
+        docs: "4",
+        action: "معاينه",
       },
       {
         name: "علي",
         lastName: "كامل",
         gender: "ذكر",
         accountNumber: "U-020522-00215c",
-        accountType: "ملهم",
+        accountType: "اساسي",
         date: "25-Apr-2020",
+        helpPoints: "6",
         status: "محذوف",
         nationality: "السعودية",
         region: "014-المنطقة الوسطى",
         location: "المملكة العربية السعودية",
         city: "الرياض-003",
         experiences: "10 ",
-        qualification: "شهادة اكاديميه",
+        followers: "12",
+        members: "10",
+        docs: "4",
+        action: "معاينه",
       },
       {
         name: "علي",
         lastName: "كامل",
         gender: "ذكر",
         accountNumber: "U-020522-00215c",
-        accountType: "ملهم",
+        accountType: "اساسي",
         date: "25-Apr-2020",
+        helpPoints: "6",
         status: "موقوف",
         nationality: "السعودية",
         region: "014-المنطقة الوسطى",
         location: "المملكة العربية السعودية",
         city: "الرياض-003",
         experiences: "10 ",
-        qualification: "شهادة اكاديميه",
+        followers: "12",
+        members: "10",
+        docs: "4",
+        action: "معاينه",
       },
     ],
     []
@@ -167,6 +180,10 @@ const Resuems = () => {
       }),
       columnHelper.accessor("date", {
         header: " التاريخ ",
+        cell: (info) => info.getValue(),
+      }),
+      columnHelper.accessor("helpPoints", {
+        header: " نقاط المساعده ",
         cell: (info) => info.getValue(),
       }),
       columnHelper.accessor("status", {
@@ -221,14 +238,28 @@ const Resuems = () => {
         header: " المدينه ",
         cell: (info) => info.getValue(),
       }),
+      columnHelper.accessor("members", {
+        header: " الاعضاء ",
+        cell: (info) => info.getValue(),
+      }),
+      columnHelper.accessor("followers", {
+        header: " المتابعون ",
+        cell: (info) => info.getValue(),
+      }),
+
       columnHelper.accessor("experiences", {
         header: " الخبرات ",
         cell: (info) => info.getValue(),
       }),
-
-      columnHelper.accessor("qualification", {
-        header: " التأهيل  ",
+      columnHelper.accessor("docs", {
+        header: " الوثائق ",
         cell: (info) => info.getValue(),
+      }),
+      columnHelper.accessor("action", {
+        header: " معاينه ",
+        cell: (info) => (
+          <Link className="log px-2  py-1">{info.getValue()}</Link>
+        ),
       }),
     ],
     []

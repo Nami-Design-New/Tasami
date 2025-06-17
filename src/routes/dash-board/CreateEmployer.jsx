@@ -1,5 +1,6 @@
 import { useMemo, useState } from "react";
 import { useParams, useSearchParams } from "react-router";
+import PageHeader from "../../ui/PageHeader";
 import Tabs from "../../ui/Tabs";
 import DataUpdateRequest from "../../ui/dash-board/create-employee/DataUpdateRequest";
 import EmployerDataForm from "../../ui/dash-board/create-employee/EmployerDataForm";
@@ -26,7 +27,7 @@ const CreateEmployee = () => {
     {
       id: 3,
       icon: <i className="fa-regular fa-users"></i>,
-      title: "المجموعات التابعه",
+      title: "المجموعات المشتركه",
     },
     {
       id: 4,
@@ -70,12 +71,54 @@ const CreateEmployee = () => {
   return (
     <section>
       <div className="row g-3">
-        <div className="col-12 col-md-3 position-sticky">
-          <Tabs
-            tabs={tabs}
-            activeTab={activeTab}
-            onTabChange={handleTabClick}
-          />
+        <PageHeader
+          removeLast={isEditMode === true}
+          name={isEditMode === true ? " تفاصيل حساب الموظف" : null}
+        />
+        <div className="col-12 col-md-3 ">
+          <div className="side-tabs-wrapper">
+            <Tabs
+              tabs={tabs}
+              activeTab={activeTab}
+              onTabChange={handleTabClick}
+            />
+            {!isEditMode && (
+              <div className="completion-card">
+                <div className="completion-card__title">
+                  نسبة إكمال بيانات حساب الموظف:
+                </div>
+                <div className="completion-card__value">
+                  <sup>%</sup>55
+                </div>
+              </div>
+            )}
+            <div className="submit-actions">
+              <button type="button" className=" log mt-3  save-button">
+                حفظ
+              </button>
+              <button
+                type="button"
+                className=" log mt-3 button--add save-button"
+              >
+                اغلاق
+              </button>
+              {isEditMode ? (
+                <button
+                  type="button"
+                  className=" log mt-3 button--add save-button"
+                >
+                  ايقاف الحساب
+                </button>
+              ) : (
+                <button
+                  type="button"
+                  className=" log mt-3 button--add save-button"
+                >
+                  تنشيط الحساب
+                </button>
+              )}
+            </div>
+          </div>
         </div>
         <div className="col-12 col-md-9">
           {tabComponents[activeTab] || (

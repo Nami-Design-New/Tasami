@@ -36,12 +36,33 @@ const EmployeeData = () => {
           </div>
           <div className="col-12 col-md-6 col-xxl-4  ">
             <div className="employee__data--item">
-              <h6> تاريخ التعيين :</h6>
-              <p>12-jan-22</p>
+              <h6> الاقليم :</h6>
+              <p>الشرق الوسط </p>
             </div>
           </div>
           <div className="col-12 col-md-6 col-xxl-4  ">
             <div className="employee__data--item">
+              <h6> القطاع :</h6>
+              <p>السعوديه</p>
+            </div>
+          </div>
+          <div className="col-12 col-md-6 col-xxl-4  ">
+            <div className="employee__data--item">
+              <h6> المدينه :</h6>
+              <p>الرياض</p>
+            </div>
+          </div>
+          <div className="col-12 col-md-6 col-xxl-4  ">
+            <div className="employee__data--item">
+              <h6> تاريخ التعيين :</h6>
+              <p>12-jan-22</p>
+            </div>
+          </div>
+
+          <div className="col-12 col-md-6 col-xxl-4  ">
+            <div className="employee__data--item">
+              {/* حاله الحساب تظهر فقط للرئيس المباشر تحت ادارته فقط  */}
+              {/* الحساب الموقوف لا يمكن تسجيل الدخول اليه */}
               <h6> حاله الحساب :</h6>
               <p>نشط</p>
             </div>

@@ -18,10 +18,11 @@ import DashboardHome from "../routes/dash-board/MainDashboardHome";
 import ModelComponent from "../routes/dash-board/ModelComponent";
 import Notifications from "../routes/dash-board/Notifications";
 import ActiveTab from "../routes/dash-board/reports/ActiveTab";
-import ExecutiveTasks from "../routes/dash-board/tasks/ExecutiveTasks";
-import SupervisoryTasks from "../routes/dash-board/tasks/SupervisoryTasks";
+import Reports from "../routes/dash-board/reports/Reports";
 import Tasks from "../routes/dash-board/tasks/Tasks";
+import Communities from "../routes/dash-board/teams/Communities";
 import Services from "../routes/dash-board/teams/MyServices";
+import PersonalGoals from "../routes/dash-board/teams/PersonalGoals";
 import Programs from "../routes/dash-board/teams/Programs";
 import Resuems from "../routes/dash-board/teams/Resuems";
 import SubscribersAndTeams from "../routes/dash-board/teams/SubscribersAndTeams";
@@ -31,8 +32,6 @@ import UserProfile from "../routes/dash-board/UserProfile";
 import WokingGroupDetails from "../routes/dash-board/WokingGroupDetails";
 import PageNotFound from "../routes/PageNotFound";
 import Home from "../routes/website/Home";
-import CustomerServiseTasks from "../routes/dash-board/tasks/CustomerServiseTasks";
-import Reports from "../routes/dash-board/reports/Reports";
 
 export const router = createBrowserRouter([
   {
@@ -87,24 +86,6 @@ export const router = createBrowserRouter([
       {
         path: "tasks",
         element: <Tasks />,
-        children: [
-          {
-            index: true,
-            element: <ExecutiveTasks />,
-          },
-          {
-            path: "executive-tasks",
-            element: <ExecutiveTasks />,
-          },
-          {
-            path: "supervisory-tasks",
-            element: <SupervisoryTasks />,
-          },
-          {
-            path: "customer-service-tasks",
-            element: <CustomerServiseTasks />,
-          },
-        ],
       },
       {
         path: "profile",
@@ -126,6 +107,14 @@ export const router = createBrowserRouter([
             element: <Services />,
           },
           {
+            path: "personal-goals",
+            element: <PersonalGoals />,
+          },
+          {
+            path: "communities",
+            element: <Communities />,
+          },
+          {
             path: "resuems",
             element: <Resuems />,
           },
@@ -134,15 +123,15 @@ export const router = createBrowserRouter([
             path: "teams",
             element: <Teams />,
           },
-          {
-            path: "create-employee",
-            element: <CreateEmployee />,
-          },
-          {
-            path: "employee-details/:id",
-            element: <CreateEmployee />,
-          },
         ],
+      },
+      {
+        path: "create-employee",
+        element: <CreateEmployee />,
+      },
+      {
+        path: "employee-details/:id",
+        element: <CreateEmployee />,
       },
       {
         path: "requests/:id",

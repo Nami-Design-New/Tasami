@@ -534,35 +534,39 @@
           @include centerFlex();
           flex-direction: column;
           position: relative;
-
-          .avatar {
-            overflow: hidden;
+          .avatar--wrapper {
+            position: relative;
             width: 80px;
             height: 80px;
-            border-radius: 50%;
-            border: 1px solid $inputStroke;
-
-            .edit {
-              width: 25px;
-              height: 25px;
-              border-radius: 12px;
+            .avatar {
+              overflow: hidden;
+              width: 80px;
+              height: 80px;
+              border-radius: 50%;
               border: 1px solid $inputStroke;
-              @include centerFlex();
-              position: absolute;
-              background: $white;
-              right: 102px;
-              bottom: 56px;
+
+              .edit {
+                width: 25px;
+                height: 25px;
+                border-radius: 12px;
+                border: 1px solid $inputStroke;
+                @include centerFlex();
+                position: absolute;
+                background: $white;
+                right: 0;
+                bottom: 0;
+
+                img {
+                  height: 12px !important;
+                  object-fit: contain;
+                }
+              }
 
               img {
-                height: 12px !important;
-                object-fit: contain;
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
               }
-            }
-
-            img {
-              width: 100%;
-              height: 100%;
-              object-fit: cover;
             }
           }
         }

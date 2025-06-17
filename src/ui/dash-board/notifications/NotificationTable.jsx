@@ -1,35 +1,12 @@
-import {
-  createColumnHelper,
-  flexRender,
-  getCoreRowModel,
-  getFilteredRowModel,
-  getPaginationRowModel,
-  getSortedRowModel,
-  useReactTable,
-} from "@tanstack/react-table";
-import { useMemo, useState } from "react";
+import { createColumnHelper } from "@tanstack/react-table";
+import { useMemo } from "react";
 import { useSelector } from "react-redux";
-import TableFilter from "../home/TableFilter";
+import ReusableDataTable from "../../ReusableDataTable";
 const columnHelper = createColumnHelper();
 
-const customGlobalFilterFn = (row, columnId, filterValue) => {
-  const { ...rest } = row.original;
-  console.log(
-    Object.values(rest).some((val) => {
-      console.log(val);
-      return String(val).toLowerCase().includes(filterValue.toLowerCase());
-    })
-  );
-
-  return Object.values(rest).some((val) =>
-    String(val).toLowerCase().includes(filterValue.toLowerCase())
-  );
-};
 const NotificationTable = () => {
   const lang = useSelector((state) => state.language.lang);
   const isRTL = lang === "ar";
-  const [columnFilters, setColumnFilters] = useState([]);
-  const [globalFilter, setGlobalFilter] = useState("");
 
   const data = useMemo(
     () => [
@@ -43,6 +20,8 @@ const NotificationTable = () => {
         date: "2025-05-25",
         time: "10:30",
         action: "اضف الي المهام",
+        IdNumber: "ID001",
+        group: "مجموعة A",
       },
       {
         id: 2,
@@ -54,6 +33,8 @@ const NotificationTable = () => {
         date: "2025-05-24",
         time: "09:15",
         action: "اضف الي المهام",
+        IdNumber: "ID002",
+        group: "مجموعة B",
       },
       {
         id: 3,
@@ -65,6 +46,8 @@ const NotificationTable = () => {
         date: "2025-05-23",
         time: "11:00",
         action: "مضافه",
+        IdNumber: "ID003",
+        group: "مجموعة A",
       },
       {
         id: 4,
@@ -76,6 +59,8 @@ const NotificationTable = () => {
         date: "2025-05-22",
         time: "13:45",
         action: "مضافه",
+        IdNumber: "ID004",
+        group: "مجموعة B",
       },
       {
         id: 5,
@@ -87,6 +72,8 @@ const NotificationTable = () => {
         date: "2025-05-21",
         time: "14:30",
         action: "اضف الي المهام",
+        IdNumber: "ID005",
+        group: "مجموعة A",
       },
       {
         id: 6,
@@ -98,6 +85,8 @@ const NotificationTable = () => {
         date: "2025-05-20",
         time: "16:00",
         action: "مضاقه",
+        IdNumber: "ID006",
+        group: "مجموعة C",
       },
       {
         id: 7,
@@ -109,6 +98,8 @@ const NotificationTable = () => {
         date: "2025-05-19",
         time: "08:30",
         action: "مضافه",
+        IdNumber: "ID007",
+        group: "مجموعة C",
       },
       {
         id: 8,
@@ -120,6 +111,8 @@ const NotificationTable = () => {
         date: "2025-05-18",
         time: "10:00",
         action: "اضف الي المهام",
+        IdNumber: "ID008",
+        group: "مجموعة B",
       },
       {
         id: 9,
@@ -131,6 +124,8 @@ const NotificationTable = () => {
         date: "2025-05-17",
         time: "15:20",
         action: "اضف الي المهام",
+        IdNumber: "ID009",
+        group: "مجموعة A",
       },
       {
         id: 10,
@@ -142,6 +137,8 @@ const NotificationTable = () => {
         date: "2025-05-16",
         time: "11:45",
         action: "اضف الي المهام",
+        IdNumber: "ID010",
+        group: "مجموعة C",
       },
       {
         id: 11,
@@ -153,6 +150,8 @@ const NotificationTable = () => {
         date: "2025-05-15",
         time: "12:10",
         action: "اضف الي المهام",
+        IdNumber: "ID011",
+        group: "مجموعة C",
       },
       {
         id: 12,
@@ -164,6 +163,8 @@ const NotificationTable = () => {
         date: "2025-05-14",
         time: "17:25",
         action: "اضف الي المهام",
+        IdNumber: "ID012",
+        group: "مجموعة B",
       },
       {
         id: 13,
@@ -175,6 +176,8 @@ const NotificationTable = () => {
         date: "2025-05-13",
         time: "09:40",
         action: "اضف الي المهام",
+        IdNumber: "ID013",
+        group: "مجموعة A",
       },
       {
         id: 14,
@@ -186,6 +189,8 @@ const NotificationTable = () => {
         date: "2025-05-12",
         time: "10:50",
         action: "اضف الي المهام",
+        IdNumber: "ID014",
+        group: "مجموعة C",
       },
       {
         id: 15,
@@ -197,6 +202,8 @@ const NotificationTable = () => {
         date: "2025-05-11",
         time: "13:00",
         action: "اضف الي المهام",
+        IdNumber: "ID015",
+        group: "مجموعة A",
       },
       {
         id: 16,
@@ -208,6 +215,8 @@ const NotificationTable = () => {
         date: "2025-05-10",
         time: "14:10",
         action: "معاينة",
+        IdNumber: "ID016",
+        group: "مجموعة B",
       },
     ],
     []
@@ -218,36 +227,78 @@ const NotificationTable = () => {
       columnHelper.accessor("operation", {
         header: isRTL ? "العملية" : "Operation",
         cell: (info) => info.getValue(),
-        enableSorting: false,
+        enableSorting: true,
+        meta: {
+          filterType: "select",
+          filterOptions: ["إرسال", "استلام", "البلاغات", "تقييم"],
+        },
       }),
       columnHelper.accessor("subject", {
         header: isRTL ? "الموضوع" : "Subject",
         cell: (info) => info.getValue(),
         enableSorting: false,
+        meta: {
+          filterType: "text",
+        },
       }),
       columnHelper.accessor("model", {
         header: isRTL ? "النموذج" : "Model",
         cell: (info) => info.getValue(),
         enableSorting: false,
+        meta: {
+          filterType: "text",
+        },
       }),
       columnHelper.accessor("program", {
-        header: isRTL ? " البرامج " : "Programs",
+        header: isRTL ? "الخدمه" : "Programs",
         cell: (info) => info.getValue(),
+        enableSorting: true,
+        meta: {
+          filterType: "text",
+        },
       }),
       columnHelper.accessor("account", {
-        header: isRTL ? " الحساب " : "Account",
+        header: isRTL ? "الحساب" : "Account",
         cell: (info) => info.getValue(),
+        enableSorting: false,
+        meta: {
+          filterType: "text",
+        },
       }),
       columnHelper.accessor("date", {
-        header: isRTL ? " التاريخ " : "Date",
+        header: isRTL ? "التاريخ" : "Date",
         cell: (info) => info.getValue(),
+        enableSorting: true,
+        meta: {
+          filterType: "date",
+        },
       }),
       columnHelper.accessor("time", {
-        header: isRTL ? " الوقت " : "Time",
+        header: isRTL ? "الوقت" : "Time",
         cell: (info) => info.getValue(),
+        enableSorting: false,
+        meta: {
+          filterType: "text", // could also be time-picker later
+        },
+      }),
+      columnHelper.accessor("IdNumber", {
+        header: isRTL ? "رمز التعريف" : "ID Number",
+        cell: (info) => info.getValue(),
+        enableSorting: false,
+        meta: {
+          filterType: "text",
+        },
+      }),
+      columnHelper.accessor("group", {
+        header: isRTL ? "المجموعة" : "Group",
+        cell: (info) => info.getValue(),
+        enableSorting: false,
+        meta: {
+          filterType: "text",
+        },
       }),
       columnHelper.accessor("action", {
-        header: isRTL ? " الإجراء " : "Action",
+        header: isRTL ? "الإجراء" : "Action",
         cell: (info) => (
           <div>
             <button className="actions__butons--notifications">
@@ -261,197 +312,227 @@ const NotificationTable = () => {
             </button>
           </div>
         ),
+        enableSorting: false,
+        meta: {
+          filterType: "select",
+          filterOptions: ["معاينة", "اضف الي المهام", "مضافه", "مضاقه"],
+        },
       }),
     ],
     [isRTL]
   );
 
-  const table = useReactTable({
-    data,
-    columns,
-    state: {
-      globalFilter,
-      columnFilters,
-    },
-    globalFilterF: customGlobalFilterFn,
-    getFilteredRowModel: getFilteredRowModel(),
-    getCoreRowModel: getCoreRowModel(),
-    getSortedRowModel: getSortedRowModel(),
-    getPaginationRowModel: getPaginationRowModel(),
-    //onColumnFiltersChange: setColumnFilters,
-    columnResizeMode: "onChange",
-    initialState: {
-      pagination: {
-        pageSize: 8,
-      },
-    },
-  });
-
   return (
-    <div className="card__custom">
-      <div className="header d-flex justify-content-between">
-        <h3 className="header__title">
-          {isRTL ? " التنبيهات " : "  Notifications "}
-        </h3>
-        <TableFilter
-          globalFilter={globalFilter}
-          setGlobalFilter={setGlobalFilter}
-          columnFilters={columnFilters}
-          setColumnFilters={setColumnFilters}
-          activeFilters={["operation"]}
-          filterOptions={{
-            operation: {
-              id: "operation",
-              label: { ar: "فرز بواسطه العملية:", en: "Filter by Operation:" },
-              options: ["إرسال", "استلام"],
-            },
-            // action: {
-            //   id: "action",
-            //   label: { ar: "فرز بواسطه الإجراء:", en: "Filter by Action:" },
-            //   options: ["عرض", "تحقق", "تعديل", "مراجعة", "إغلاق"],
-            // },
-          }}
-          filterButtonText={isRTL ? "فرز" : "Filter"}
-          searchPlaceholder={
-            isRTL ? "بحث في التنبيهات" : "Search notifications"
-          }
-        />
-      </div>
-      <div className="card__body  ">
-        <div
-          className="table-container table-responsive border "
-          dir={isRTL ? "rtl" : "ltr"}
-        >
-          <table
-            width={table.getTotalSize()}
-            className="custom-table table table-bordered  text-center align-middle mb-0"
-          >
-            <thead className="table-light">
-              {table.getHeaderGroups().map((headerGroup) => (
-                <tr key={headerGroup.id}>
-                  {headerGroup.headers.map((header) => (
-                    <th key={header.id} width={header.getSize()}>
-                      {header.column.columnDef.header}
-                      {header.column.getCanSort() && (
-                        <i
-                          className="fa-solid fa-arrow-up-short-wide"
-                          onClick={header.column.getToggleSortingHandler()}
-                        ></i>
-                      )}
-                      {
-                        {
-                          asc: "تصاعديا",
-                          desc: "تنازليا",
-                        }[header.column.getIsSorted()]
-                      }
+    // <div className="card__custom">
+    //   <div className="header d-flex justify-content-between">
+    //     <h3 className="header__title">
+    //       {isRTL ? " التنبيهات " : "  Notifications "}
+    //     </h3>
+    //     <TableFilter
+    //       globalFilter={globalFilter}
+    //       setGlobalFilter={setGlobalFilter}
+    //       columnFilters={columnFilters}
+    //       setColumnFilters={setColumnFilters}
+    //       activeFilters={["operation"]}
+    //       filterOptions={{
+    //         operation: {
+    //           id: "operation",
+    //           label: { ar: "فرز بواسطه العملية:", en: "Filter by Operation:" },
+    //           options: ["إرسال", "استلام"],
+    //         },
+    //       }}
+    //       filterButtonText={isRTL ? "فرز" : "Filter"}
+    //       searchPlaceholder={
+    //         isRTL ? "بحث في التنبيهات" : "Search notifications"
+    //       }
+    //     />
+    //   </div>
+    //   <div className="card__body  ">
+    //     <div
+    //       className="table-container table-responsive border "
+    //       dir={isRTL ? "rtl" : "ltr"}
+    //     >
+    //       <table
+    //         width={table.getTotalSize()}
+    //         className="custom-table table table-bordered  text-center align-middle mb-0"
+    //       >
+    //         <thead className="table-light">
+    //           {table.getHeaderGroups().map((headerGroup) => (
+    //             <tr key={headerGroup.id}>
+    //               {headerGroup.headers.map((header) => (
+    //                 // <th key={header.id} width={header.getSize()}>
+    //                 //   <button>
+    //                 //     <i className="fa-regular fa-ellipsis-vertical"></i>
+    //                 //   </button>
+    //                 //   {header.column.columnDef.header}
 
-                      <div
-                        className={`resizer ${
-                          header.column.getIsResizing() ? "isResizing" : ""
-                        } ${isRTL ? "ar" : "en"} `}
-                        onMouseDown={header.getResizeHandler()}
-                        onTouchStart={header.getResizeHandler()}
-                      ></div>
-                    </th>
-                  ))}
-                </tr>
-              ))}
-            </thead>
-            <tbody>
-              {table.getRowModel().rows.map((row) => (
-                <tr key={row.id}>
-                  {row.getVisibleCells().map((cell) => (
-                    <td key={cell.id} width={cell.column.getSize()}>
-                      {flexRender(
-                        cell.column.columnDef.cell,
-                        cell.getContext()
-                      )}
-                    </td>
-                  ))}
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </div>
-      <div className="card--footer">
-        <div
-          className="pagination-container"
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-            width: "100%",
-          }}
-        >
-          <div className="pagination-buttons">
-            <button
-              onClick={() => table.previousPage()}
-              disabled={!table.getCanPreviousPage()}
-              className="prev"
-              style={{
-                cursor: !table.getCanPreviousPage() ? "not-allowed" : "pointer",
-              }}
-            >
-              السابق
-            </button>
+    //                 //   {header.column.getCanSort() && (
+    //                 //     <i
+    //                 //       className="fa-solid fa-arrow-up-short-wide"
+    //                 //       onClick={header.column.getToggleSortingHandler()}
+    //                 //     ></i>
+    //                 //   )}
+    //                 //   {
+    //                 //     {
+    //                 //       asc: "تصاعديا",
+    //                 //       desc: "تنازليا",
+    //                 //     }[header.column.getIsSorted()]
+    //                 //   }
 
-            <div
-              className="page-numbers"
-              style={{ display: "flex", gap: "5px" }}
-            >
-              {Array.from({ length: table.getPageCount() }, (_, i) => (
-                <button
-                  key={i}
-                  onClick={() => table.setPageIndex(i)}
-                  className={`page-number ${
-                    table.getState().pagination.pageIndex === i ? "active" : ""
-                  }`}
-                  style={{
-                    backgroundColor:
-                      table.getState().pagination.pageIndex === i
-                        ? "#214b92"
-                        : "transparent",
-                    color:
-                      table.getState().pagination.pageIndex === i
-                        ? "#fff"
-                        : "#214b92",
+    //                 //   <div
+    //                 //     className={`resizer ${
+    //                 //       header.column.getIsResizing() ? "isResizing" : ""
+    //                 //     } ${isRTL ? "ar" : "en"} `}
+    //                 //     onMouseDown={header.getResizeHandler()}
+    //                 //     onTouchStart={header.getResizeHandler()}
+    //                 //   ></div>
+    //                 // </th>
+    //                 <th key={header.id} width={header.getSize()}>
+    //                   <div onClick={() => setActiveFilterPopup(header.id)}>
+    //                     {header.column.columnDef.header}
+    //                     <i className="fa-solid fa-chevron-down"></i>
+    //                   </div>
 
-                    fontWeight:
-                      table.getState().pagination.pageIndex === i
-                        ? "bold"
-                        : "normal",
-                  }}
-                >
-                  {i + 1}
-                </button>
-              ))}
-            </div>
+    //                   {activeFilterPopup === header.id && (
+    //                     <ColumnFilterPopup
+    //                       onClose={() => setActiveFilterPopup(null)}
+    //                       filterType={
+    //                         ["operation", "action"].includes(header.column.id)
+    //                           ? "select"
+    //                           : "text"
+    //                       }
+    //                       filterValue={columnFilterValues[header.column.id]}
+    //                       setFilterValue={(val) => {
+    //                         setColumnFilterValues((prev) => ({
+    //                           ...prev,
+    //                           [header.column.id]: val,
+    //                         }));
+    //                         table
+    //                           .getColumn(header.column.id)
+    //                           ?.setFilterValue(val);
+    //                       }}
+    //                       sortDirection={header.column.getIsSorted()}
+    //                       onSortChange={(dir) =>
+    //                         header.column.toggleSorting(dir === "desc")
+    //                       }
+    //                       isRTL={isRTL}
+    //                       options={
+    //                         header.column.id === "operation"
+    //                           ? ["إرسال", "استلام", "تقييم"]
+    //                           : header.column.id === "action"
+    //                           ? ["معاينة", "مضافه", "اضف الي المهام"]
+    //                           : []
+    //                       }
+    //                     />
+    //                   )}
+    //                 </th>
+    //               ))}
+    //             </tr>
+    //           ))}
+    //         </thead>
+    //         <tbody>
+    //           {table.getRowModel().rows.map((row) => (
+    //             <tr key={row.id}>
+    //               {row.getVisibleCells().map((cell) => (
+    //                 <td key={cell.id} width={cell.column.getSize()}>
+    //                   {flexRender(
+    //                     cell.column.columnDef.cell,
+    //                     cell.getContext()
+    //                   )}
+    //                 </td>
+    //               ))}
+    //             </tr>
+    //           ))}
+    //         </tbody>
+    //       </table>
+    //     </div>
+    //   </div>
+    //   <div className="card--footer">
+    //     <div
+    //       className="pagination-container"
+    //       style={{
+    //         display: "flex",
+    //         justifyContent: "space-between",
+    //         alignItems: "center",
+    //         width: "100%",
+    //       }}
+    //     >
+    //       <div className="pagination-buttons">
+    //         <button
+    //           onClick={() => table.previousPage()}
+    //           disabled={!table.getCanPreviousPage()}
+    //           className="prev"
+    //           style={{
+    //             cursor: !table.getCanPreviousPage() ? "not-allowed" : "pointer",
+    //           }}
+    //         >
+    //           السابق
+    //         </button>
 
-            <button
-              onClick={() => table.nextPage()}
-              disabled={!table.getCanNextPage()}
-              className="next"
-              style={{
-                padding: "5px 12px",
-                borderRadius: "4px",
-                border: "1px solid var(--main-color)",
-                backgroundColor: "transparent",
-                cursor: !table.getCanNextPage() ? "not-allowed" : "pointer",
-                opacity: !table.getCanNextPage() ? 0.5 : 1,
-              }}
-            >
-              التالي
-            </button>
-          </div>
+    //         <div
+    //           className="page-numbers"
+    //           style={{ display: "flex", gap: "5px" }}
+    //         >
+    //           {Array.from({ length: table.getPageCount() }, (_, i) => (
+    //             <button
+    //               key={i}
+    //               onClick={() => table.setPageIndex(i)}
+    //               className={`page-number ${
+    //                 table.getState().pagination.pageIndex === i ? "active" : ""
+    //               }`}
+    //               style={{
+    //                 backgroundColor:
+    //                   table.getState().pagination.pageIndex === i
+    //                     ? "#214b92"
+    //                     : "transparent",
+    //                 color:
+    //                   table.getState().pagination.pageIndex === i
+    //                     ? "#fff"
+    //                     : "#214b92",
 
-          <div className="pagination-info" style={{ fontWeight: "bold" }}>
-            صفحة {table.getState().pagination.pageIndex + 1} من{" "}
-            {table.getPageCount()}
-          </div>
-        </div>
-      </div>
-    </div>
+    //                 fontWeight:
+    //                   table.getState().pagination.pageIndex === i
+    //                     ? "bold"
+    //                     : "normal",
+    //               }}
+    //             >
+    //               {i + 1}
+    //             </button>
+    //           ))}
+    //         </div>
+
+    //         <button
+    //           onClick={() => table.nextPage()}
+    //           disabled={!table.getCanNextPage()}
+    //           className="next"
+    //           style={{
+    //             padding: "5px 12px",
+    //             borderRadius: "4px",
+    //             border: "1px solid var(--main-color)",
+    //             backgroundColor: "transparent",
+    //             cursor: !table.getCanNextPage() ? "not-allowed" : "pointer",
+    //             opacity: !table.getCanNextPage() ? 0.5 : 1,
+    //           }}
+    //         >
+    //           التالي
+    //         </button>
+    //       </div>
+
+    //       <div className="pagination-info" style={{ fontWeight: "bold" }}>
+    //         صفحة {table.getState().pagination.pageIndex + 1} من{" "}
+    //         {table.getPageCount()}
+    //       </div>
+    //     </div>
+    //   </div>
+    // </div>
+    <ReusableDataTable
+      filter={false}
+      title="التنبيهات"
+      columns={columns}
+      data={data}
+      searchPlaceholder=" البحث في قائمه التنبيهات"
+      initialPageSize={10}
+    />
   );
 };
 

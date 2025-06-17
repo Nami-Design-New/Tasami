@@ -23,15 +23,17 @@ const EmployerDataForm = () => {
   };
   return (
     <form className="form_ui">
-      <FormWrapper title={" البيانات التوظيفيه "}>
+      <FormWrapper title={" البيانات الوظيفيه "}>
         <div className="row g-2">
           <div className="col-12 col-md-6 col-xxl-4">
             <SelectField
-              label="الوصف"
+              label="المستوي الوظيفي"
               options={[
                 { value: 1, name: "تنفيذي" },
-                { value: 2, name: "مشرف" },
-                { value: 3, name: "موظف خدمه العملاء" },
+                { value: 2, name: "قائد" },
+                { value: 3, name: "مدير" },
+                { value: 4, name: "مشرف" },
+                { value: 5, name: "موظف خدمه العملاء" },
               ]}
             />
           </div>
@@ -41,6 +43,9 @@ const EmployerDataForm = () => {
               type="text"
               placeholder="EX: D-140123-00001"
             />
+          </div>
+          <div className="col-12 col-md-6 col-xxl-4 ">
+            <InputField label=" المسمي الوظيفي " type="text" placeholder="" />
           </div>
           <div className="col-12 col-md-6 col-xxl-4 ">
             <InputField
@@ -157,12 +162,12 @@ const EmployerDataForm = () => {
           </div>
         </div>
       </FormWrapper>
-      <div className="form__action--buttons d-flex gap-3">
+      {/* <div className="form__action--buttons d-flex gap-3">
         <button type="button" className=" log  button--add save-button">
           حفظ و اغلاق
         </button>
         <SubmitButton className={"submit-button"} text={"حفظ"} />
-      </div>
+      </div> */}
     </form>
   );
 };

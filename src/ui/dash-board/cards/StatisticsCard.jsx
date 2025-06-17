@@ -1,8 +1,10 @@
 import ChartCard from "./ChartCard";
 
-const StatisticsCard = ({ data = [], updated }) => {
+
+
+const StatisticsCard = ({ data = [], updated, title }) => {
   return (
-    <ChartCard title={"الاحصائيات"}>
+    <ChartCard title={title || "الاحصائيات"}>
       <div className="row">
         {data &&
           data.map((item, index) => (

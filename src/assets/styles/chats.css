@@ -621,8 +621,6 @@ input[type=number]::-webkit-outer-spin-button, input[type=number]::-webkit-inner
   padding: 16px;
   border-radius: 12px;
   overflow: hidden;
-  position: sticky;
-  top: 20px;
 }
 .tab-list .tab-item {
   width: 100%;
