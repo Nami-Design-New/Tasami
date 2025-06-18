@@ -667,6 +667,10 @@ input[type=number]::-webkit-outer-spin-button, input[type=number]::-webkit-inner
   }
 }
 
+.apexcharts-canvas * {
+  font-family: "Dubai";
+}
+
 .model {
   max-width: 1400px;
   padding: 0 8px;

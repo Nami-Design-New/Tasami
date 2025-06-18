@@ -97,17 +97,36 @@
 }
 
 .user-dashboard {
+  .personal__data {
+    p {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 2rem;
+      padding: 1rem 0;
+      span:first-child {
+        font-weight: bold;
+        color: #666b88;
+        white-space: nowrap;
+      }
+    }
+  }
   &__card {
     background: $white;
     border-radius: $borderRadius;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
     padding: 1rem;
     margin-bottom: 0.5rem;
+    &-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+      border-bottom: 1px solid $border;
+      padding-bottom: 1.2rem;
+    }
     &-title {
       font-size: 1.2rem;
-      margin-bottom: 1rem;
-      padding-bottom: 1.2rem;
-      border-bottom: 1px solid $border;
       font-weight: bold;
       color: $text;
     }

@@ -1,7 +1,5 @@
 import ChartCard from "./ChartCard";
 
-
-
 const StatisticsCard = ({ data = [], updated, title }) => {
   return (
     <ChartCard title={title || "الاحصائيات"}>

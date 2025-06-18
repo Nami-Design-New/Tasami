@@ -667,6 +667,10 @@ input[type=number]::-webkit-outer-spin-button, input[type=number]::-webkit-inner
   }
 }
 
+.apexcharts-canvas * {
+  font-family: "Dubai";
+}
+
 .right-side {
   position: sticky;
   top: 30px;
@@ -761,6 +765,18 @@ input[type=number]::-webkit-outer-spin-button, input[type=number]::-webkit-inner
   color: #666b88;
 }
 
+.user-dashboard .personal__data p {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  padding: 1rem 0;
+}
+.user-dashboard .personal__data p span:first-child {
+  font-weight: bold;
+  color: #666b88;
+  white-space: nowrap;
+}
 .user-dashboard__card {
   background: #fff;
   border-radius: 12px;
@@ -768,11 +784,16 @@ input[type=number]::-webkit-outer-spin-button, input[type=number]::-webkit-inner
   padding: 1rem;
   margin-bottom: 0.5rem;
 }
+.user-dashboard__card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  border-bottom: 1px solid #dddddd;
+  padding-bottom: 1.2rem;
+}
 .user-dashboard__card-title {
   font-size: 1.2rem;
-  margin-bottom: 1rem;
-  padding-bottom: 1.2rem;
-  border-bottom: 1px solid #dddddd;
   font-weight: bold;
   color: #666b88;
 }

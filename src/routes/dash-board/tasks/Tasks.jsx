@@ -52,9 +52,7 @@ const Tasks = () => {
     <section>
       <PageHeader />
       <div className="row">
-        <FormWrapper title="  ">
-          <StatisticsCard data={statsData} title={"مؤشرات عامه للمهام "} />
-        </FormWrapper>
+        <StatisticsCard data={statsData} title={"مؤشرات عامه للمهام "} />
         <div className="col-12 p-2 p-md-0">
           <SupervisoryTasks />
         </div>

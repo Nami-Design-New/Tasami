@@ -138,3 +138,51 @@
     }
   }
 }
+
+.working-group-modal {
+  .calssification_tabs {
+    width: 100%;
+    display: flex;
+    height: 54px;
+    border-radius: 12px;
+    background: $white;
+    border: 1px solid $inputStroke;
+    position: relative;
+    isolation: isolate;
+    .activeTab {
+      transition: 0.25s ease-in-out;
+      position: absolute;
+      border: 0;
+      content: "";
+      top: 0;
+      transform: translateX(0);
+      height: 100%;
+      color: $white;
+      width: calc(100% / 2);
+      z-index: -1;
+      background: $main;
+      border-radius: 12px;
+      &.administrative {
+        transform: translateX(-100%);
+      }
+    }
+    .tab {
+      width: 100%;
+      @include centerFlex();
+      cursor: pointer;
+
+      h6 {
+        margin: 0;
+        font-size: 16px;
+        font-weight: 400;
+        color: $dark;
+        transition: $transition;
+      }
+      &.active {
+        h6 {
+          color: $white;
+        }
+      }
+    }
+  }
+}

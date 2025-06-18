@@ -4,8 +4,54 @@ import ReusableDataTable from "../../../ui/ReusableDataTable";
 import { Link } from "react-router";
 import EditWorkGroupModal from "../../../ui/modals/EditWorkGroupModal";
 import ConfirmDeleteModal from "../../../ui/modals/ConfirmationDeleteModal";
+import StatisticsCard from "../../../ui/dash-board/cards/StatisticsCard";
 
 const columnHelper = createColumnHelper();
+
+const statsData = [
+  {
+    label: "المجموعات",
+    value: 25,
+    icon: "fa-users", // Font Awesome icon
+    color: "#ffffff", // Icon color
+    bgColor: "#007bff", // Background color
+  },
+  {
+    label: "التنفيذيون",
+    value: 10,
+    icon: "fa-user-tie",
+    color: "#ffffff",
+    bgColor: "#28a745",
+  },
+  {
+    label: "القاده",
+    value: 15,
+    icon: "fa-chess-king",
+    color: "#ffffff",
+    bgColor: "#ffc107",
+  },
+  {
+    label: "المدراء",
+    value: 20,
+    icon: "fa-briefcase",
+    color: "#ffffff",
+    bgColor: "#17a2b8",
+  },
+  {
+    label: "المشرفين",
+    value: 18,
+    icon: "fa-user-check",
+    color: "#ffffff",
+    bgColor: "#6f42c1",
+  },
+  {
+    label: "الموظفين",
+    value: 50,
+    icon: "fa-id-badge",
+    color: "#ffffff",
+    bgColor: "#dc3545",
+  },
+];
 
 const WorkingGroups = () => {
   const [showModal, setShowModal] = useState(false);
@@ -14,86 +60,90 @@ const WorkingGroups = () => {
     () => [
       {
         groupNumber: "GN-000001",
+        groupClassifications: "تشغيليه",
         region: "014-المنطقة الوسطى",
         location: "المملكة العربية السعودية",
         city: "الرياض-001",
         createDate: "25-Apr-2020",
         employeeCount: "50",
         supervisorsCount: "7",
-        completedTasks: "70",
-        completedTasksPercentage: "80%",
-        uncompletedTasks: "20",
-        uncompletedTasksPercentage: "22%",
+        excutives: "3",
+        leaders: "4",
+        managers: "20",
         actions: "",
       },
       {
         groupNumber: "GN-000001",
+        groupClassifications: "تشغيليه",
         region: "014-المنطقة الوسطى",
         location: "المملكة العربية السعودية",
         city: "الرياض-001",
         createDate: "25-Apr-2020",
-        employeeCount: "50",
+        excutives: "3",
+        leaders: "4",
+        managers: "20",
         supervisorsCount: "7",
-        completedTasks: "70",
-        completedTasksPercentage: "80%",
-        uncompletedTasks: "20",
-        uncompletedTasksPercentage: "22%",
+        employeeCount: "50",
         actions: "",
       },
       {
         groupNumber: "GN-000001",
+        groupClassifications: "إدارية",
         region: "014-المنطقة الوسطى",
         location: "المملكة العربية السعودية",
         city: "الرياض-001",
         createDate: "25-Apr-2020",
         employeeCount: "50",
         supervisorsCount: "7",
-        completedTasks: "70",
-        completedTasksPercentage: "80%",
-        uncompletedTasks: "20",
-        uncompletedTasksPercentage: "22%",
+        excutives: "3",
+        leaders: "4",
+        managers: "20",
         actions: "",
       },
       {
         groupNumber: "GN-000001",
+        groupClassifications: "تشغيليه",
         region: "014-المنطقة الوسطى",
         location: "المملكة العربية السعودية",
         city: "الرياض-001",
         createDate: "25-Apr-2020",
         employeeCount: "50",
         supervisorsCount: "7",
-        completedTasks: "70",
-        completedTasksPercentage: "80%",
-        uncompletedTasks: "20",
-        uncompletedTasksPercentage: "22%",
+        excutives: "3",
+        leaders: "4",
+        managers: "20",
         actions: "",
       },
       {
         groupNumber: "GN-000001",
+        groupClassifications: "إدارية",
+
         region: "014-المنطقة الوسطى",
         location: "المملكة العربية السعودية",
         city: "الرياض-001",
         createDate: "25-Apr-2020",
         employeeCount: "50",
         supervisorsCount: "7",
-        completedTasks: "70",
-        completedTasksPercentage: "80%",
-        uncompletedTasks: "20",
-        uncompletedTasksPercentage: "22%",
+        excutives: "3",
+        leaders: "4",
+        managers: "20",
+
         actions: "",
       },
       {
         groupNumber: "GN-000001",
+        groupClassifications: "إدارية",
+
         region: "014-المنطقة الوسطى",
         location: "المملكة العربية السعودية",
         city: "الرياض-001",
         createDate: "25-Apr-2020",
         employeeCount: "50",
         supervisorsCount: "7",
-        completedTasks: "70",
-        completedTasksPercentage: "80%",
-        uncompletedTasks: "20",
-        uncompletedTasksPercentage: "22%",
+        excutives: "3",
+        leaders: "4",
+        managers: "20",
+
         actions: "",
       },
     ],
@@ -115,6 +165,10 @@ const WorkingGroups = () => {
         ),
         enableSorting: false,
       }),
+      columnHelper.accessor("groupClassifications", {
+        header: " تصنيف المجموعه ",
+        cell: (info) => info.getValue(),
+      }),
       columnHelper.accessor("region", {
         header: " الاقليم ",
         cell: (info) => info.getValue(),
@@ -131,30 +185,26 @@ const WorkingGroups = () => {
         header: "تاريخ الانشاء",
         cell: (info) => info.getValue(),
       }),
-      columnHelper.accessor("employeeCount", {
-        header: "عدد الموظفين",
+      columnHelper.accessor("excutives", {
+        header: "عدد التنفيذين",
+        cell: (info) => info.getValue(),
+      }),
+      columnHelper.accessor("leaders", {
+        header: "عدد القادة",
+        cell: (info) => info.getValue(),
+      }),
+
+      columnHelper.accessor("managers", {
+        header: "عدد المدراء",
         cell: (info) => info.getValue(),
       }),
       columnHelper.accessor("supervisorsCount", {
         header: "عدد المشرفين",
         cell: (info) => info.getValue(),
       }),
-      columnHelper.accessor("completedTasks", {
-        header: " المهام المنجزة ",
-        cell: (info) => info.getValue(),
-      }),
 
-      columnHelper.accessor("completedTasksPercentage", {
-        header: " نسبه المهام المنجزة ",
-        cell: (info) => info.getValue(),
-      }),
-      columnHelper.accessor("uncompletedTasks", {
-        header: "المهام غير المنجزة ",
-        cell: (info) => info.getValue(),
-      }),
-
-      columnHelper.accessor("uncompletedTasksPercentage", {
-        header: " نسبه المهام غير المنجزة ",
+      columnHelper.accessor("employeeCount", {
+        header: "عدد الموظفين",
         cell: (info) => info.getValue(),
       }),
       columnHelper.accessor("actions", {
@@ -184,6 +234,8 @@ const WorkingGroups = () => {
 
   return (
     <section>
+      <StatisticsCard data={statsData} title={"احصائيات مجموعات العمل"} />
+
       <ReusableDataTable
         title="مجموعات العمل"
         data={data}
@@ -191,6 +243,7 @@ const WorkingGroups = () => {
         lang="ar"
         initialPageSize={10}
         filter={false}
+        searchPlaceholder="البحث في مجموعات العمل ..."
       />
       <EditWorkGroupModal setShowModal={setShowModal} showModal={showModal} />
       <ConfirmDeleteModal

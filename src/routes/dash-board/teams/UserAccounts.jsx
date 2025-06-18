@@ -370,11 +370,11 @@ const UserAccounts = () => {
         cell: (info) => info.getValue(),
       }),
       columnHelper.accessor("subscriptionEntity", {
-        header: "   بدء 25-oct-2019 ",
+        header: " بدء الاشتراك",
         cell: (info) => info.getValue(),
       }),
       columnHelper.accessor("subscriptionEnd", {
-        header: " انتهاء 25-oct-2019 ",
+        header: " انتهاء الاشتراك",
         cell: (info) => info.getValue(),
       }),
 

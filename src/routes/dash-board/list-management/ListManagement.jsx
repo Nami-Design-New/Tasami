@@ -5,12 +5,14 @@ import PageHeader from "../../../ui/PageHeader";
 import EditWorkGroupModal from "../../../ui/modals/EditWorkGroupModal";
 import OperatingSectorsModal from "../../../ui/modals/OperatingSectorsModal";
 import FiledsAndSpecialzationsModal from "../../../ui/modals/FiledsAndSpecialzationsModal";
+import SubjectModal from "../../../ui/modals/SubjectModal";
 
 const ListManagement = () => {
   const { currentLocation } = useGetCurrentRoute();
   const [showModal, setShowModal] = useState(false);
   const [showAddSectorModal, setAddSectorShowModal] = useState(false);
   const [showAddFiledsModal, setShowAddFiledsModal] = useState(false);
+  const [showSubjectModal, setShowSubjectModal] = useState(false);
 
   return (
     <>
@@ -22,8 +24,8 @@ const ListManagement = () => {
               className="button button--add"
               onClick={() => setShowModal(true)}
             >
-              <i className="fa-solid fa-plus"></i>
-              <span> اضف مجموعه </span>
+              {/* <i className="fa-solid fa-plus"></i> */}
+              <span> مجموعه جديده </span>
             </button>
           )}
           {currentLocation === "operating-sectors" && (
@@ -32,7 +34,7 @@ const ListManagement = () => {
               onClick={() => setAddSectorShowModal(true)}
             >
               <i className="fa-solid fa-plus"></i>
-              <span> اضف قطاع </span>
+              <span> قطاع جديد</span>
             </button>
           )}
           {currentLocation === "fields-and-specializations" && (
@@ -40,8 +42,15 @@ const ListManagement = () => {
               className="button button--add"
               onClick={() => setShowAddFiledsModal(true)}
             >
-              <i className="fa-solid fa-plus"></i>
-              <span> اضف مجال جديد </span>
+              <span> مجال جديد </span>
+            </button>
+          )}
+          {currentLocation === "administrative-systems" && (
+            <button
+              className="button button--add"
+              onClick={() => setShowSubjectModal(true)}
+            >
+              <span> موضوع جديد </span>
             </button>
           )}
         </div>
@@ -59,6 +68,10 @@ const ListManagement = () => {
       <FiledsAndSpecialzationsModal
         setShowModal={setShowAddFiledsModal}
         showModal={showAddFiledsModal}
+      />
+      <SubjectModal
+        showModal={showSubjectModal}
+        setShowModal={setShowSubjectModal}
       />
     </>
   );

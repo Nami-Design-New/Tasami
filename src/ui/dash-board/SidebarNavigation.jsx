@@ -7,8 +7,6 @@ export default function SidebarNavigation() {
   return (
     <>
       <Accordion className={lang === "en" && "en"}>
-    
-
         {/* markiting */}
         <Accordion.Item eventKey="1">
           <Accordion.Header>
@@ -107,6 +105,13 @@ export default function SidebarNavigation() {
           {/* sub menu */}
           <Accordion.Body>
             <ul className="sub_navigation_menu">
+              {" "}
+              <li className="sub_nav_item">
+                <NavLink to="list-management/operating-sectors">
+                  <img src="/sys-icons/subArrow.svg" alt="arrow" />
+                  <span> مناطق التشغيل </span>
+                </NavLink>
+              </li>
               <li className="sub_nav_item">
                 <NavLink to="list-management/working-groups">
                   <img src="/sys-icons/subArrow.svg" alt="arrow" />
@@ -114,15 +119,15 @@ export default function SidebarNavigation() {
                 </NavLink>
               </li>
               <li className="sub_nav_item">
-                <NavLink to="list-management/operating-sectors">
-                  <img src="/sys-icons/subArrow.svg" alt="arrow" />
-                  <span> قطاعات التشغيل </span>
-                </NavLink>
-              </li>
-              <li className="sub_nav_item">
                 <NavLink to="list-management/fields-and-specializations">
                   <img src="/sys-icons/subArrow.svg" alt="arrow" />
                   <span> المجالات والتخصصات </span>
+                </NavLink>
+              </li>
+              <li className="sub_nav_item">
+                <NavLink to="list-management/administrative-systems">
+                  <img src="/sys-icons/subArrow.svg" alt="arrow" />
+                  <span> الانظمه الاداريه </span>
                 </NavLink>
               </li>
             </ul>

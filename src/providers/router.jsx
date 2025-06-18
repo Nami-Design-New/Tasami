@@ -32,6 +32,7 @@ import UserProfile from "../routes/dash-board/UserProfile";
 import WokingGroupDetails from "../routes/dash-board/WokingGroupDetails";
 import PageNotFound from "../routes/PageNotFound";
 import Home from "../routes/website/Home";
+import AdministrativeSystems from "../routes/dash-board/list-management/AdministrativeSystems";
 
 export const router = createBrowserRouter([
   {
@@ -156,6 +157,10 @@ export const router = createBrowserRouter([
           {
             path: "fields-and-specializations",
             element: <FieldsAndSpecializations />,
+          },
+          {
+            path: "administrative-systems",
+            element: <AdministrativeSystems />,
           },
         ],
       },

@@ -84,3 +84,5 @@ export const tasksStatus = [
     color: "",
   },
 ];
+
+export const WORKING_GROPUS_CALSSIFICATIONS = ["operational", "administrative"];

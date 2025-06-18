@@ -98,13 +98,13 @@ const ReusableDataTable = ({
                           desc: "تنازليا",
                         }[header.column.getIsSorted()]
                       }
-                      <div
+                      {/* <div
                         className={`resizer ${
                           header.column.getIsResizing() ? "isResizing" : ""
                         } ${isRTL ? "ar" : "en"}`}
                         onMouseDown={header.getResizeHandler()}
                         onTouchStart={header.getResizeHandler()}
-                      ></div>
+                      ></div> */}
                     </th>
                   ))}
                 </tr>

@@ -12,7 +12,7 @@ const OperatingSectorsModal = ({ showModal, setShowModal }) => {
       centered
     >
       <Modal.Header closeButton>
-        <h6> تعديل القطاع </h6>
+        <h6> قطاع جديد </h6>
       </Modal.Header>
       <Modal.Body>
         <form className="form_ui ">
@@ -27,10 +27,10 @@ const OperatingSectorsModal = ({ showModal, setShowModal }) => {
               <InputField label="القطاع" placeholder="ادخل اسم القطاع" />
             </div>
             <div className="col-12 col-md-6">
-              <InputField label="القطاع رقم" placeholder="ادخل رقم القطاع" />
+              <InputField label="رقم القطاع " placeholder="ادخل رقم القطاع" />
             </div>
             <div className="col-12 col-md-6">
-              <InputField label="رقم المدينة" placeholder="ادخل رقم المدينة" />
+              <InputField label="اسم المدينة" placeholder="ادخل رقم المدينة" />
             </div>
             <div className="col-12 col-md-6">
               <InputField label="رقم المدينة" placeholder="ادخل رقم المدينة" />

@@ -1,51 +1,38 @@
 import { createColumnHelper } from "@tanstack/react-table";
 import { useMemo, useState } from "react";
-import StatisticsCard from "../../../ui/dash-board/cards/StatisticsCard";
 import ConfirmDeleteModal from "../../../ui/modals/ConfirmationDeleteModal";
-import FiledsAndSpecialzationsModal from "../../../ui/modals/FiledsAndSpecialzationsModal";
+import SubjectModal from "../../../ui/modals/SubjectModal";
 import ReusableDataTable from "../../../ui/ReusableDataTable";
-const statsData = [
-  {
-    label: "المجالات",
-    value: 12, // example value
-    icon: "fa-layer-group", // suitable Font Awesome icon
-    color: "#ffffff",
-    bgColor: "#20c997", // teal
-  },
-  {
-    label: "التخصصات",
-    value: 30, // example value
-    icon: "fa-book-open", // suitable Font Awesome icon
-    color: "#ffffff",
-    bgColor: "#fd7e14", // orange
-  },
-];
 
 const columnHelper = createColumnHelper();
-const FieldsAndSpecializations = () => {
+const AdministrativeSystems = () => {
   const [showModal, setShowModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const data = useMemo(
     () => [
       {
-        fields: "الانترنت و البرامج",
-        specializations: "المواقع",
-
+        administrativeSystem: "داخلي",
+        subjects: "انشاء حساب",
         actions: "",
       },
       {
-        fields: "الانترنت و البرامج",
-        specializations: "تطبيقات الاجهزه الذكيه",
+        administrativeSystem: "خارجي",
+        subjects: "استفسار",
         actions: "",
       },
       {
-        fields: "الحاسب الالي",
-        specializations: " استخدام الحاسب الالي ",
+        administrativeSystem: "خارجي",
+        subjects: "   ابلاغ عن مخالفة ",
         actions: "",
       },
       {
-        fields: "الحاسب الالي",
-        specializations: " تجميع الحاسبات ",
+        administrativeSystem: "داخلي",
+        subjects: "استفسار",
+        actions: "",
+      },
+      {
+        administrativeSystem: "داخلي",
+        subjects: "   ابلاغ عن مخالفة ",
         actions: "",
       },
     ],
@@ -54,14 +41,14 @@ const FieldsAndSpecializations = () => {
 
   const columns = useMemo(
     () => [
-      columnHelper.accessor("fields", {
-        header: " المجالات  ",
+      columnHelper.accessor("administrativeSystem", {
+        header: " النظام الاداري  ",
         cell: (info) => info.getValue(),
 
         enableSorting: false,
       }),
-      columnHelper.accessor("specializations", {
-        header: " التخصصات ",
+      columnHelper.accessor("subjects", {
+        header: " المواضيع ",
         cell: (info) => info.getValue(),
       }),
 
@@ -91,10 +78,8 @@ const FieldsAndSpecializations = () => {
   );
   return (
     <section>
-      {" "}
-      <StatisticsCard data={statsData} title={"احصائيات مجموعات العمل"} />
       <ReusableDataTable
-        title=" المجالات و التخصصات  "
+        title="  الانظمه الادارية  "
         data={data}
         columns={columns}
         lang="ar"
@@ -102,9 +87,10 @@ const FieldsAndSpecializations = () => {
         searchPlaceholder=""
         filter={false}
       />
-      <FiledsAndSpecialzationsModal
+      <SubjectModal
         showModal={showModal}
         setShowModal={setShowModal}
+        isEdit={true}
       />
       <ConfirmDeleteModal
         setShowDeleteModal={setShowDeleteModal}
@@ -114,4 +100,4 @@ const FieldsAndSpecializations = () => {
   );
 };
 
-export default FieldsAndSpecializations;
+export default AdministrativeSystems;

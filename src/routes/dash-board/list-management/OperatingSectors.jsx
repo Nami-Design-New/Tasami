@@ -3,8 +3,46 @@ import { useMemo, useState } from "react";
 import ConfirmDeleteModal from "../../../ui/modals/ConfirmationDeleteModal";
 import OperatingSectorsModal from "../../../ui/modals/OperatingSectorsModal";
 import ReusableDataTable from "../../../ui/ReusableDataTable";
+import StatisticsCard from "../../../ui/dash-board/cards/StatisticsCard";
 
 const columnHelper = createColumnHelper();
+const statsData = [
+  {
+    label: "الأقاليم",
+    value: 7, // Example number of regions
+    icon: "fa-map", // Font Awesome icon for regions
+    color: "#ffffff",
+    bgColor: "#6c757d", // gray
+  },
+  {
+    label: "القطاعات",
+    value: 9, // Example number of sectors
+    icon: "fa-industry", // Font Awesome icon for sectors
+    color: "#ffffff",
+    bgColor: "#17a2b8", // cyan
+  },
+  {
+    label: "المدن",
+    value: 15, // Example number of cities
+    icon: "fa-city", // Font Awesome icon for cities
+    color: "#ffffff",
+    bgColor: "#007bff", // blue
+  },
+  {
+    label: "المستخدمون",
+    value: 120, // Example user count
+    icon: "fa-user", // Font Awesome icon for users
+    color: "#ffffff",
+    bgColor: "#28a745", // green
+  },
+  {
+    label: "الموظفون",
+    value: 85, // Example employee count
+    icon: "fa-users-cog", // Font Awesome icon for employees
+    color: "#ffffff",
+    bgColor: "#ffc107", // yellow
+  },
+];
 
 const OperatingSectors = () => {
   const [showModal, setShowModal] = useState(false);
@@ -105,6 +143,7 @@ const OperatingSectors = () => {
 
   return (
     <section>
+      <StatisticsCard data={statsData} title="إحصائيات قطاعات التشغيل" />
       <ReusableDataTable
         title="قطاعات التشغيل"
         data={data}
@@ -112,6 +151,7 @@ const OperatingSectors = () => {
         filter={false}
         lang="ar"
         initialPageSize={10}
+        searchPlaceholder=""
       />
       <OperatingSectorsModal
         setShowModal={setShowModal}
