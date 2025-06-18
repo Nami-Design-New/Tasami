@@ -7,17 +7,17 @@ import ReusableDataTable from "../../../ui/ReusableDataTable";
 const statsData = [
   {
     label: "المجالات",
-    value: 12, // example value
-    icon: "fa-layer-group", // suitable Font Awesome icon
+    value: 12,
+    icon: "fa-layer-group",
     color: "#ffffff",
-    bgColor: "#20c997", // teal
+    bgColor: "#20c997",
   },
   {
     label: "التخصصات",
-    value: 30, // example value
-    icon: "fa-book-open", // suitable Font Awesome icon
+    value: 30,
+    icon: "fa-book-open",
     color: "#ffffff",
-    bgColor: "#fd7e14", // orange
+    bgColor: "#fd7e14",
   },
 ];
 

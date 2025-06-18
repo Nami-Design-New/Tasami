@@ -94,10 +94,6 @@ const UserProfile = () => {
           />
           {activeTab === 1 && <Beneficiary />}
           {activeTab === 2 && <AssistantPresenter />}
-    
-
-     
-    
         </div>
       </div>
       <SuspensionModel

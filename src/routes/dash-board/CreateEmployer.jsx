@@ -92,16 +92,21 @@ const CreateEmployee = () => {
                 </div>
               </div>
             )}
+
             <div className="submit-actions">
-              <button type="button" className=" log mt-3  save-button">
-                حفظ
-              </button>
-              <button
-                type="button"
-                className=" log mt-3 button--add save-button"
-              >
-                اغلاق
-              </button>
+              {!isEditMode && (
+                <>
+                  <button type="button" className=" log mt-3  save-button">
+                    حفظ
+                  </button>
+                  <button
+                    type="button"
+                    className=" log mt-3 button--add save-button"
+                  >
+                    اغلاق
+                  </button>
+                </>
+              )}
               {isEditMode ? (
                 <button
                   type="button"
