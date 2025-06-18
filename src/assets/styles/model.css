@@ -756,68 +756,34 @@ input[type=number]::-webkit-outer-spin-button, input[type=number]::-webkit-inner
   font-weight: 600;
 }
 
-.attachments {
-  margin-top: 1.5rem;
-  display: flex;
-  flex-direction: column;
-  border: 1px solid #dddddd;
+.attachments-container {
+  padding: 16px;
   border-radius: 12px;
-  overflow: hidden;
+  max-width: 100%;
+  margin-top: 1rem;
+  border: 1px solid #dddddd;
 }
-.attachments h4 {
-  font-size: 1.25rem;
-  margin-bottom: 0.75rem;
-  padding: 1rem;
-  border-bottom: 1px solid #dddddd;
-  background-color: #f9fafb;
+.attachments-container .attachments-title {
+  margin-bottom: 16px;
+  font-size: 18px;
+  font-weight: bold;
 }
-.attachments__list {
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  border-bottom: 1px solid #dddddd;
-  padding: 0 1rem 1rem;
-  gap: 1rem;
-  flex-wrap: wrap;
+
+.add-btn-container {
+  text-align: center;
+  margin-top: 1rem;
 }
-.attachments__item {
-  background-color: rgba(95, 202, 250, 0.05);
-  padding: 0.75rem;
-  border-radius: 6px;
-  display: flex;
-  align-items: center;
-  width: 50%;
-  gap: 0.5rem;
-  position: relative;
-}
-.attachments__remove {
-  position: absolute;
-  top: 0;
-  left: 0;
-  transform: translate(-50%, -50%);
-  color: #ff3a29;
-}
-.attachments__icon {
-  width: 16px;
-  height: 16px;
-  background-color: #ccc;
-  display: inline-block;
-  border-radius: 50%;
-}
-.attachments__name {
-  font-size: 0.9rem;
-}
-.attachments__add {
-  margin: 1rem;
+.add-btn-container .add-attachment-btn {
   color: #214b92;
   padding: 1rem;
+  width: 100%;
   border: none;
   border-radius: 12px;
   cursor: pointer;
   border: 1px dashed #214b92;
 }
-.attachments__add i {
-  margin-left: 0.5rem;
+.add-btn-container .add-attachment-btn i {
+  margin-left: 8px;
 }
 
 .model__notes {

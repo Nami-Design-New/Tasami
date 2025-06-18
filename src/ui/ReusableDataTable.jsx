@@ -14,6 +14,7 @@ const ReusableDataTable = ({
   title = "Table",
   filter = true,
   search = true,
+  header = true,
   data = [],
   columns = [],
   filterOptions = {},
@@ -56,26 +57,25 @@ const ReusableDataTable = ({
 
   return (
     <div className="card__custom">
-      <div className="header d-flex justify-content-between">
-        <h3 className="header__title">{title}</h3>
-        <TableFilter
-          globalFilter={globalFilter}
-          setGlobalFilter={setGlobalFilter}
-          columnFilters={columnFilters}
-          setColumnFilters={setColumnFilters}
-          activeFilters={activeFilters}
-          filterOptions={filterOptions}
-          filterButtonText={isRTL ? "فرز" : "Filter"}
-          searchPlaceholder={searchPlaceholder}
-          filter={filter}
-          search={search}
-        />
-      </div>
+      {header && (
+        <div className="header d-flex justify-content-between">
+          <h3 className="header__title">{title}</h3>
+          <TableFilter
+            globalFilter={globalFilter}
+            setGlobalFilter={setGlobalFilter}
+            columnFilters={columnFilters}
+            setColumnFilters={setColumnFilters}
+            activeFilters={activeFilters}
+            filterOptions={filterOptions}
+            filterButtonText={isRTL ? "فرز" : "Filter"}
+            searchPlaceholder={searchPlaceholder}
+            filter={filter}
+            search={search}
+          />
+        </div>
+      )}
       <div className="card__body">
-        <div
-          className="table-container table-responsive border"
-          // dir={isRTL ? "rtl" : "ltr"}
-        >
+        <div className="table-container table-responsive border">
           <table
             width={table.getTotalSize()}
             className="custom-table table table-bordered text-center align-middle mb-0"

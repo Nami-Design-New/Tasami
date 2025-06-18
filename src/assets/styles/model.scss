@@ -115,73 +115,33 @@
 // Attachments Section
 // =======================
 
-.attachments {
-  margin-top: 1.5rem;
-  display: flex;
-  flex-direction: column;
-  border: 1px solid $border;
+.attachments-container {
+  padding: 16px;
   border-radius: $borderRadius;
-  overflow: hidden;
-  //   padding: 1rem;
-  h4 {
-    font-size: 1.25rem;
-    margin-bottom: 0.75rem;
-    padding: 1rem;
-    border-bottom: 1px solid $border;
-    background-color: #f9fafb;
-  }
+  max-width: 100%;
+  margin-top: 1rem;
+  border: 1px solid $border;
 
-  &__list {
-    list-style: none;
-    display: flex;
-    flex-direction: column;
-    border-bottom: 1px solid $border;
-    padding: 0 1rem 1rem;
-    gap: 1rem;
-    flex-wrap: wrap;
+  .attachments-title {
+    margin-bottom: 16px;
+    font-size: 18px;
+    font-weight: bold;
   }
-
-  &__item {
-    background-color: $second5;
-    padding: 0.75rem;
-    border-radius: 6px;
-    display: flex;
-    align-items: center;
-    width: 50%;
-    gap: 0.5rem;
-    position: relative;
-  }
-  &__remove {
-    position: absolute;
-    top: 0;
-    left: 0;
-    transform: translate(-50%, -50%);
-    color: $danger;
-  }
-  &__icon {
-    width: 16px;
-    height: 16px;
-    background-color: #ccc;
-    display: inline-block;
-    border-radius: 50%;
-  }
-
-  &__name {
-    font-size: 0.9rem;
-  }
-
-  &__add {
-    margin: 1rem;
-    // background-color: ;
+}
+.add-btn-container {
+  text-align: center;
+  margin-top: 1rem;
+  .add-attachment-btn {
     color: $main;
     padding: 1rem;
+    width: 100%;
     border: none;
     border-radius: $borderRadius;
     cursor: pointer;
     border: 1px dashed $main;
 
     i {
-      margin-left: 0.5rem;
+      margin-left: 8px;
     }
   }
 }

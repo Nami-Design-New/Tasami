@@ -2565,35 +2565,9 @@ input[type=number]::-webkit-outer-spin-button, input[type=number]::-webkit-inner
   min-height: 150px;
   white-space: nowrap;
 }
-.table-container .custom-table th:hover > .resizer {
-  opacity: 1;
-}
 .table-container .custom-table th i {
   margin: 0 8px;
   cursor: pointer;
-}
-.table-container .custom-table th .resizer {
-  position: absolute;
-  top: 0;
-  right: 0;
-  opacity: 0;
-  height: 100%;
-  width: 5px;
-  background-color: #5fcafa;
-  cursor: col-resize;
-  -webkit-user-select: "none";
-     -moz-user-select: "none";
-          user-select: "none";
-  touch-action: "none";
-  border-radius: 6px;
-}
-.table-container .custom-table th .resizer.ar {
-  right: auto;
-  left: 0;
-}
-.table-container .custom-table th .resizer.isResizing {
-  background-color: #214b92;
-  opacity: 1;
 }
 
 .table-filter {
