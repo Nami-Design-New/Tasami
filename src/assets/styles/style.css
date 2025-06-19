@@ -682,6 +682,32 @@ input[type=number]::-webkit-outer-spin-button, input[type=number]::-webkit-inner
   font-family: "Dubai";
 }
 
+.tab-radio-group {
+  display: flex;
+  border: 1px solid #f2f2f2;
+  border-radius: 12px;
+  overflow: hidden;
+  background-color: #f8f8f8;
+  padding: 0;
+}
+.tab-radio-group input[type=radio] {
+  display: none;
+}
+.tab-radio-group label {
+  flex: 1;
+  text-align: center;
+  padding: 10px 15px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  border-radius: 12px;
+  position: relative;
+}
+.tab-radio-group input[type=radio]:checked + label {
+  background-color: #214b92;
+  color: #fff;
+  z-index: 1;
+}
+
 @font-face {
   font-family: "Dubai";
   src: url("../webfonts/Dubai-Regular.ttf") format("truetype");
@@ -4575,15 +4601,109 @@ footer .links a:hover {
   width: 150px;
 }
 
+.form-check {
+  margin: 0;
+  font-size: 0.75rem;
+}
+.form-check .form-check-label {
+  margin: 0;
+  width: 100%;
+  cursor: pointer !important;
+}
+.form-check .form-check-input {
+  cursor: pointer !important;
+}
+.form-check .form-check-input:checked {
+  background-color: #214b92 !important;
+}
+.form-check .form-check-input:focus {
+  box-shadow: none !important;
+}
+
 .performance-metrics {
   margin-top: 1rem;
 }
-.performance-metrics .metrics-list {
+.performance-metrics .metrics-accordion {
+  margin-top: 0.5rem;
+}
+.performance-metrics .metrics-accordion .accordion-item {
+  border: none;
+  margin-bottom: 10px;
+  border-radius: 8px;
+  overflow: hidden;
+}
+.performance-metrics .metrics-accordion .accordion-header {
+  border: none;
+}
+.performance-metrics .metrics-accordion .accordion-header button {
+  width: 100%;
   display: flex;
   align-items: center;
-  flex-wrap: wrap;
-  gap: 1rem;
-  margin-top: 1rem;
+  justify-content: space-between;
+  font-size: 0.75rem;
+  padding: 12px 16px;
+  background-color: #fff;
+  color: #0d0d0d;
+  border: none;
+  box-shadow: none;
+  outline: none;
+  border-radius: none;
+  position: relative;
+}
+.performance-metrics .metrics-accordion .accordion-header button:focus {
+  box-shadow: none;
+}
+.performance-metrics .metrics-accordion .accordion-header button::after {
+  content: "";
+  font-size: 1.2rem;
+  background-image: none;
+  display: none;
+}
+.performance-metrics .metrics-accordion .accordion-header button .icon-toggle {
+  position: absolute;
+  left: 16px;
+  top: 50%;
+  width: 16px;
+  height: 16px;
+  transform: translateY(-50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.performance-metrics .metrics-accordion .accordion-header button .icon-toggle span {
+  position: absolute;
+  background-color: #0d0d0d;
+  transition: all 0.3s ease;
+}
+.performance-metrics .metrics-accordion .accordion-header button .icon-toggle .horizontal {
+  width: 12px;
+  height: 2px;
+}
+.performance-metrics .metrics-accordion .accordion-header button .icon-toggle .vertical {
+  width: 2px;
+  height: 12px;
+}
+.performance-metrics .metrics-accordion .accordion-header button[aria-expanded=true] .icon-toggle .vertical {
+  opacity: 0;
+  transform: scaleY(0);
+}
+.performance-metrics .metrics-accordion .accordion-body {
+  padding: 12px 16px;
+  background-color: #fff;
+  border-top: 1px solid #eee;
+}
+.performance-metrics .metrics-accordion .accordion-body .metrics-item {
+  display: flex;
+  align-items: center;
+  padding: 6px 0;
+}
+.performance-metrics .metrics-accordion .accordion-body .metrics-item input {
+  margin-left: 10px;
+  accent-color: #214b92 !important;
+}
+.performance-metrics .metrics-accordion .accordion-body .metrics-item label {
+  margin: 0;
+  font-size: 0.8rem;
 }
 
 .metrics-item {
@@ -4627,7 +4747,7 @@ footer .links a:hover {
   flex-wrap: wrap;
 }
 .performance-report .metrics-container .metric-card {
-  flex: 0 1 18%;
+  flex: 1;
   display: flex;
   flex-direction: column;
   gap: 0.5rem;

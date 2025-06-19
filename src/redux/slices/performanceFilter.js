@@ -36,10 +36,22 @@ const initialState = {
   filters: null,
   filteredData: mockFilteredData,
   metrics: [
-    { id: 1, name: "  عدد المشتركين الاجمالي " },
-    { id: 2, name: "  عدد  مقدمي الخدمات و البرامج الاجمالي  " },
-    { id: 3, name: "نسبه  مقدمي الخدمات و البرامج  الي المشتركين" },
-    { id: 4, name: "عدد المستفيدين" },
+    {
+      id: "users",
+      name: "عدد المستخدمين الاجمالي",
+      children: [
+        { id: 1, name: "الحسابات النشطة" },
+        { id: 2, name: "الحسابات غير النشطة" },
+      ],
+    },
+    {
+      id: "storage",
+      name: "المساحة الكلية",
+      children: [
+        { id: 3, name: "المستخدمة" },
+        { id: 4, name: "المتبقية" },
+      ],
+    },
   ],
 };
 

@@ -27,6 +27,13 @@ export const SUB_TABS = [
   { id: 4, label: " المجتمعات ", to: "communities" },
   { id: 5, label: "السير الذاتيه", to: "resuems" },
 ];
+export const REPORT_TABS = [
+  { id: 1, label: "المستخدمون", to: "/dashboard/reports/users" },
+  { id: 2, label: "الخدمات", to: "/dashboard/reports/services" },
+  { id: 3, label: "العقود", to: "/dashboard/reports/contracts" },
+  { id: 4, label: "المجتمعات", to: "/dashboard/reports/communities" },
+  { id: 4, label: "المبيعات", to: "/dashboard/reports/sales" },
+];
 
 export const STATUS_AR = ["مكتمل", "قيد التنفيذ", "غير مضاف"];
 export const STATUS_EN = ["Completed", "Pending", "Not Added"];

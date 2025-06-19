@@ -91,6 +91,14 @@ export default function SideBar({ hoverExpand, setHoverExpand, collapsed }) {
             <h6> البيانات الوظيفيه </h6>
           </NavLink>
         </li>
+        <li className="nav_item mb-2">
+          <NavLink to="reports/users" end>
+            <div className="icon">
+              <img src="/sys-icons/Reports.svg" alt="Analytics" />
+            </div>
+            <h6> تقارير الاداء </h6>
+          </NavLink>
+        </li>
         <SidebarNavigation />
       </ul>
     </aside>

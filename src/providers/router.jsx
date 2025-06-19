@@ -173,19 +173,19 @@ export const router = createBrowserRouter([
             element: <ActiveTab />,
           },
           {
-            path: "subscribres",
+            path: "users",
             element: <ActiveTab />,
           },
           {
-            path: "prorams-and-services",
+            path: "services",
             element: <ActiveTab />,
           },
           {
-            path: "customer-service",
+            path: "contracts",
             element: <ActiveTab />,
           },
           {
-            path: "operations",
+            path: "communities",
             element: <ActiveTab />,
           },
           {
