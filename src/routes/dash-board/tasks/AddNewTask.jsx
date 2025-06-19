@@ -74,7 +74,12 @@ const AddNewTask = ({ showModal, setShowModal }) => {
           </div>
           <div className="col-12 py-2 ">
             <div className="d-flex align-items-center justify-content-end gap-2">
-              <button className="button button--cancel" onClick={handleClose}>
+              <button
+                type="button
+              "
+                className="button button--cancel"
+                onClick={handleClose}
+              >
                 الغاء
               </button>
               <SubmitButton text="تنفيذ" className="button" />
