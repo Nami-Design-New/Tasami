@@ -70,10 +70,7 @@ const UserProfile = () => {
             </div>
             {/* <Link className="user-dashboard__resume "> السيره الذاتية </Link> */}
           </div>
-          <Link
-            to={`/dashboard/chats`}
-            className="user-dashboard__button button"
-          >
+          <Link to={`/dashboard/chats`} className="user-dashboard__button ">
             تواصل مع المستخدم
           </Link>
           <button

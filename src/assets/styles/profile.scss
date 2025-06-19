@@ -198,14 +198,17 @@
   }
 
   &__button {
-    display: block;
+    @include clearInput();
+    @include centerFlex();
     width: 100%;
-    padding: 0.75rem;
+    padding: 12px 20px;
     border: none;
     border-radius: $borderRadius;
     margin-bottom: 0.5rem;
+    width: 100%;
     cursor: pointer;
-    color: white;
+    color: $white;
+    background-color: $main;
     transition: background-color 0.3s ease;
 
     &--secondary {
