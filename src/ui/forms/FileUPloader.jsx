@@ -54,7 +54,7 @@ const FileUploader = ({
               style={{ display: "none" }}
             />
             <section className="icon" style={{ cursor: "pointer" }}>
-              <img src="/images/imageUpload.png" alt="Upload Icon" />
+              <img src="/images/imageUpload.svg" alt="Upload Icon" />
             </section>
           </label>
         </div>
@@ -66,8 +66,9 @@ const FileUploader = ({
                   src={
                     file?.type?.startsWith("image/")
                       ? URL.createObjectURL(file)
-                      : "/images/doc.svg"
+                      : "/images/docs.svg"
                   }
+                  className={file?.type?.startsWith("image/") ? "" : "icon"}
                   alt="icon"
                 />
                 <button

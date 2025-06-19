@@ -12,12 +12,14 @@ export default function SubmitButton({
       disabled={loading || fileLoading}
       className={`log ${className || ""}`}
     >
-      {fileLoading ? "Wait File Uploading" : text}{" "}
-      <i
-        className={
-          loading || fileLoading ? "fa-regular fa-circle-notch fa-spin" : ""
-        }
-      />
+      {fileLoading ? "Wait File Uploading" : text}
+      {loading && (
+        <i
+          className={
+            loading || fileLoading ? "fa-regular fa-circle-notch fa-spin" : ""
+          }
+        />
+      )}
     </button>
   );
 }

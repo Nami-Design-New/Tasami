@@ -222,10 +222,14 @@ input[type="number"] {
   gap: 32px;
   label {
     margin: 0;
+    font-size: 14px;
   }
   input {
     margin-left: 0 !important;
     float: unset !important;
+    &:checked {
+      background-color: $main;
+    }
   }
 }
 
@@ -259,6 +263,7 @@ input[type="number"] {
 
   .button {
     padding: 12px 50px;
+    width: fit-content !important;
   }
 }
 .dropdown-menu {
@@ -308,6 +313,10 @@ input[type="number"] {
 
 .button--add {
   background-color: $button !important;
+  border-radius: $borderRadius;
+}
+.button--cancel {
+  background-color: $danger !important;
   border-radius: $borderRadius;
 }
 

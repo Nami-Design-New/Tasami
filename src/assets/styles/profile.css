@@ -112,10 +112,14 @@ input[type=number]::-webkit-outer-spin-button, input[type=number]::-webkit-inner
 }
 .form-switch label {
   margin: 0;
+  font-size: 14px;
 }
 .form-switch input {
   margin-left: 0 !important;
   float: unset !important;
+}
+.form-switch input:checked {
+  background-color: #214b92;
 }
 
 .error-page {
@@ -146,6 +150,8 @@ input[type=number]::-webkit-outer-spin-button, input[type=number]::-webkit-inner
 }
 .error-page .button {
   padding: 12px 50px;
+  width: -moz-fit-content !important;
+  width: fit-content !important;
 }
 
 .dropdown-menu {
@@ -195,6 +201,11 @@ input[type=number]::-webkit-outer-spin-button, input[type=number]::-webkit-inner
 
 .button--add {
   background-color: #8c137e !important;
+  border-radius: 12px;
+}
+
+.button--cancel {
+  background-color: #ff3a29 !important;
   border-radius: 12px;
 }
 

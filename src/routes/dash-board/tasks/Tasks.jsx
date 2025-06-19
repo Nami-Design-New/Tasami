@@ -1,6 +1,8 @@
+import { useState } from "react";
 import StatisticsCard from "../../../ui/dash-board/cards/StatisticsCard";
 import PageHeader from "../../../ui/PageHeader";
 import SupervisoryTasks from "./SupervisoryTasks";
+import AddNewTask from "./AddNewTask";
 const statsData = [
   {
     label: "المهام",
@@ -47,16 +49,28 @@ const statsData = [
 ];
 
 const Tasks = () => {
+  const [showModal, setShowModal] = useState(false);
   return (
-    <section>
-      <PageHeader />
-      <div className="row">
-        <StatisticsCard data={statsData} title={"مؤشرات عامه للمهام "} />
-        <div className="col-12 p-2 p-md-0">
-          <SupervisoryTasks />
+    <>
+      <section>
+        <div className="p-2 d-flex align-items-center justify-content-between">
+          <PageHeader />
+          <button
+            className="button button--add"
+            onClick={() => setShowModal(true)}
+          >
+            <i className="fa-solid fa-plus"></i> <span> نموذج عمل جديد </span>
+          </button>
         </div>
-      </div>
-    </section>
+        <div className="row">
+          <StatisticsCard data={statsData} title={"مؤشرات عامه للمهام "} />
+          <div className="col-12 p-2 p-md-0">
+            <SupervisoryTasks />
+          </div>
+        </div>
+      </section>
+      <AddNewTask showModal={showModal} setShowModal={setShowModal} />
+    </>
   );
 };
 
