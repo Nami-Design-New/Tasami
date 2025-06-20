@@ -1,9 +1,9 @@
 import ProgressStats from "../teams/ProgressStats";
 import TeamInfoItem from "../teams/TeamInfoItem";
 
-const TeamCard = ({ team, gradientClass }) => {
+const TeamCard = ({ team }) => {
   return (
-    <div className={`teams__card teams__card--${gradientClass}`}>
+    <div className="teams__card teams__card--main">
       <div className="teams__card-header">
         <div className="teams__card-header-info">
           <h4 className="teams__card-id">{team.id}</h4>
@@ -28,7 +28,7 @@ const TeamCard = ({ team, gradientClass }) => {
 
             <div className="teams__progress-bar">
               <div
-                className={`teams__progress-fill teams__progress-fill--${gradientClass}`}
+                className="teams__progress-fill"
                 style={{ width: `${team.progress.percent}%` }}
               />
             </div>
@@ -41,11 +41,8 @@ const TeamCard = ({ team, gradientClass }) => {
       </div>
 
       <div className="teams__card-footer">
-        <button
-          className={`teams__card-add-btn teams__card-add-btn--${gradientClass}`}
-        >
-          <i className="fa-solid fa-plus"></i>
-          <span> اضافه </span>
+        <button className={`teams__card-add-btn teams__card-add-btn--main`}>
+          حذف
         </button>
       </div>
     </div>

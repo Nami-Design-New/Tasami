@@ -24,7 +24,9 @@ const ReusableDataTable = ({
   lang = "en",
 }) => {
   const isRTL = lang === "ar";
+
   const [globalFilter, setGlobalFilter] = useState("");
+  
   const [columnFilters, setColumnFilters] = useState([]);
 
   const customGlobalFilterFn = (row, columnId, filterValue) => {
@@ -37,7 +39,6 @@ const ReusableDataTable = ({
   const table = useReactTable({
     data,
     columns,
-
     state: {
       globalFilter,
       columnFilters,

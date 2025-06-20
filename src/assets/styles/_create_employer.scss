@@ -140,13 +140,7 @@
     align-items: end;
     justify-content: space-between;
     white-space: nowrap;
-    h3 {
-      font-size: 22px;
-      color: $text;
-      @include tablet-layout() {
-        font-size: 18px;
-      }
-    }
+
     input {
       width: 50%;
       padding: 0.5rem;
@@ -154,7 +148,13 @@
       border-radius: 8px;
     }
   }
-
+  .teams__title {
+    font-size: 22px;
+    color: $text;
+    @include tablet-layout() {
+      font-size: 18px;
+    }
+  }
   &__list {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -163,39 +163,27 @@
   }
 
   &__card {
-    background: #fff;
-    border-radius: 12px;
+    background: $white;
+    border-radius: $borderRadius;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
     width: 100%;
-    // max-width: 420px;
-    // Header Gradient per card
-    &--blue .teams__card-header {
-      background: linear-gradient(135deg, #0386c9, #1a95db);
-    }
-    &--indigo .teams__card-header {
-      background: linear-gradient(135deg, #2665eb, #4b7cf1);
-    }
-    &--green .teams__card-header {
-      background: linear-gradient(135deg, #17a64b, #3fc066);
-    }
 
-    // Add Button Gradient
-    &--blue .teams__card-add-btn {
-      background: #0386c9;
-    }
-    &--indigo .teams__card-add-btn {
-      background: #2665eb;
-    }
-    &--green .teams__card-add-btn {
-      background: #17a64b;
+    &--main {
+      .teams__card-header {
+        background: linear-gradient(135deg, $main, #3c6fd0);
+        color: $white;
+      }
+
+      .teams__card-add-btn {
+        background: $main;
+      }
     }
 
     &-header {
       display: flex;
       align-items: start;
       justify-content: space-between;
-      background: linear-gradient(90deg, #4facfe 0%, #00f2fe 100%);
-      color: #fff;
+      color: &white;
       padding: 1rem;
       border-radius: 10px 10px 0 0;
       margin-bottom: 1rem;
@@ -251,20 +239,19 @@
 
     &-footer {
       display: flex;
-      justify-content: flex-end;
+      justify-content: space-between;
       margin-top: 1rem;
       padding: 0 1rem 1rem;
     }
 
     &-add-btn {
-      background: linear-gradient(90deg, #4facfe 0%, hsl(183, 100%, 50%) 100%);
       color: white;
       border: none;
       padding: 0.5rem 1rem;
       border-radius: 6px;
       display: flex;
       align-items: center;
-      gap: 0.5rem;
+      justify-content: center;
       cursor: pointer;
     }
   }
@@ -283,26 +270,17 @@
       margin: 0.25rem 0;
     }
   }
-  &__progress-bar {
+  .teams__progress-bar {
     height: 10px;
     width: 100%;
     background: #e0e0e0;
     border-radius: 6px;
     overflow: hidden;
     margin: 0.5rem 0;
-  }
-  &__progress-fill {
-    height: 100%;
-    transition: width 0.3s ease;
-
-    &--blue {
-      background: linear-gradient(90deg, #0386c9, #1a95db);
-    }
-    &--indigo {
-      background: linear-gradient(90deg, #2665eb, #4b7cf1);
-    }
-    &--green {
-      background: linear-gradient(90deg, #17a64b, #3fc066);
+    .teams__progress-fill {
+      height: 100%;
+      transition: width 0.3s ease;
+      background-color: $main;
     }
   }
 }

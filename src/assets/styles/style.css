@@ -3040,20 +3040,20 @@ input[type=number]::-webkit-outer-spin-button, input[type=number]::-webkit-inner
   justify-content: space-between;
   white-space: nowrap;
 }
-.teams__header h3 {
-  font-size: 22px;
-  color: #666b88;
-}
-@media (max-width: 768px) {
-  .teams__header h3 {
-    font-size: 18px;
-  }
-}
 .teams__header input {
   width: 50%;
   padding: 0.5rem;
   border: 1px solid #ddd;
   border-radius: 8px;
+}
+.teams .teams__title {
+  font-size: 22px;
+  color: #666b88;
+}
+@media (max-width: 768px) {
+  .teams .teams__title {
+    font-size: 18px;
+  }
 }
 .teams__list {
   display: grid;
@@ -3067,30 +3067,18 @@ input[type=number]::-webkit-outer-spin-button, input[type=number]::-webkit-inner
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
   width: 100%;
 }
-.teams__card--blue .teams__card-header {
-  background: linear-gradient(135deg, #0386c9, #1a95db);
+.teams__card--main .teams__card-header {
+  background: linear-gradient(135deg, #214b92, #3c6fd0);
+  color: #fff;
 }
-.teams__card--indigo .teams__card-header {
-  background: linear-gradient(135deg, #2665eb, #4b7cf1);
-}
-.teams__card--green .teams__card-header {
-  background: linear-gradient(135deg, #17a64b, #3fc066);
-}
-.teams__card--blue .teams__card-add-btn {
-  background: #0386c9;
-}
-.teams__card--indigo .teams__card-add-btn {
-  background: #2665eb;
-}
-.teams__card--green .teams__card-add-btn {
-  background: #17a64b;
+.teams__card--main .teams__card-add-btn {
+  background: #214b92;
 }
 .teams__card-header {
   display: flex;
   align-items: start;
   justify-content: space-between;
-  background: linear-gradient(90deg, #4facfe 0%, #00f2fe 100%);
-  color: #fff;
+  color: .teams__card-header white;
   padding: 1rem;
   border-radius: 10px 10px 0 0;
   margin-bottom: 1rem;
@@ -3137,19 +3125,18 @@ input[type=number]::-webkit-outer-spin-button, input[type=number]::-webkit-inner
 }
 .teams__card-footer {
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
   margin-top: 1rem;
   padding: 0 1rem 1rem;
 }
 .teams__card-add-btn {
-  background: linear-gradient(90deg, #4facfe 0%, hsl(183, 100%, 50%) 100%);
   color: white;
   border: none;
   padding: 0.5rem 1rem;
   border-radius: 6px;
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  justify-content: center;
   cursor: pointer;
 }
 .teams__progress-data {
@@ -3162,7 +3149,7 @@ input[type=number]::-webkit-outer-spin-button, input[type=number]::-webkit-inner
   font-size: 12px;
   margin: 0.25rem 0;
 }
-.teams__progress-bar {
+.teams .teams__progress-bar {
   height: 10px;
   width: 100%;
   background: #e0e0e0;
@@ -3170,18 +3157,10 @@ input[type=number]::-webkit-outer-spin-button, input[type=number]::-webkit-inner
   overflow: hidden;
   margin: 0.5rem 0;
 }
-.teams__progress-fill {
+.teams .teams__progress-bar .teams__progress-fill {
   height: 100%;
   transition: width 0.3s ease;
-}
-.teams__progress-fill--blue {
-  background: linear-gradient(90deg, #0386c9, #1a95db);
-}
-.teams__progress-fill--indigo {
-  background: linear-gradient(90deg, #2665eb, #4b7cf1);
-}
-.teams__progress-fill--green {
-  background: linear-gradient(90deg, #17a64b, #3fc066);
+  background-color: #214b92;
 }
 
 .data-summary {
