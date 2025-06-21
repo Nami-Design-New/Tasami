@@ -2,7 +2,7 @@ import { createColumnHelper } from "@tanstack/react-table";
 import { useMemo, useState } from "react";
 import { Badge } from "react-bootstrap";
 import { Link } from "react-router";
-import ReusableDataTable from "../ReusableDataTable";
+import ReusableDataTable from "../table/ReusableDataTable";
 import FormWrapper from "../forms/FormWrapper";
 import AddActionModal from "./AddActionModal";
 const columnHelper = createColumnHelper();

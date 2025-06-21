@@ -2,7 +2,7 @@ import { useMemo } from "react";
 import EmployeeData from "../../ui/ModelComponent/EmployeeData";
 import Header from "../../ui/ModelComponent/Header";
 import ModelInfo from "../../ui/ModelComponent/ModelInfo";
-import ReusableDataTable from "../../ui/ReusableDataTable";
+import ReusableDataTable from "../../ui/table/ReusableDataTable";
 import { createColumnHelper } from "@tanstack/react-table";
 import { Badge } from "react-bootstrap";
 import { Link } from "react-router";

@@ -3,7 +3,7 @@ import { useMemo } from "react";
 import { Badge } from "react-bootstrap";
 import { Link } from "react-router";
 import ColumnChart from "../../../ui/dash-board/charts/ColumnChart";
-import ReusableDataTable from "../../../ui/ReusableDataTable";
+import ReusableDataTable from "../../../ui/table/ReusableDataTable";
 
 // Column Chart
 const excutives = [

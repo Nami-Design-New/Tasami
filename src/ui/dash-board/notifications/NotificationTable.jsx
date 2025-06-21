@@ -1,7 +1,7 @@
 import { createColumnHelper } from "@tanstack/react-table";
 import { useMemo } from "react";
 import { useSelector } from "react-redux";
-import ReusableDataTable from "../../ReusableDataTable";
+import ReusableDataTable from "../../table/ReusableDataTable";
 const columnHelper = createColumnHelper();
 
 const NotificationTable = () => {

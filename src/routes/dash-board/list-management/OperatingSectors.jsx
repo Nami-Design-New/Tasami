@@ -2,7 +2,7 @@ import { createColumnHelper } from "@tanstack/react-table";
 import { useMemo, useState } from "react";
 import ConfirmDeleteModal from "../../../ui/modals/ConfirmationDeleteModal";
 import OperatingSectorsModal from "../../../ui/modals/OperatingSectorsModal";
-import ReusableDataTable from "../../../ui/ReusableDataTable";
+import ReusableDataTable from "../../../ui/table/ReusableDataTable";
 import StatisticsCard from "../../../ui/dash-board/cards/StatisticsCard";
 import ChartCard from "../../../ui/dash-board/cards/ChartCard";
 

@@ -233,3 +233,38 @@
     cursor: pointer;
   }
 }
+
+.custom-dropdown {
+  .dropdown-toggle {
+    background-color: transparent;
+    outline: none;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    i {
+      color: $main;
+    }
+  }
+  .btn-check:checked + .btn,
+  .btn.active,
+  .btn.show,
+  .btn:first-child:active,
+  :not(.btn-check) + .btn:active {
+    background-color: transparent;
+  }
+  &__items {
+    max-height: 250px;
+    overflow-y: auto;
+
+    /* For Webkit (Chrome, Safari) */
+    &::-webkit-scrollbar {
+      width: 0px;
+      background: transparent; // optional
+    }
+
+    /* For Firefox */
+    scrollbar-width: none; /* hides scrollbar */
+    -ms-overflow-style: none; /* IE 10+ */
+  }
+}

@@ -1,8 +1,11 @@
 import { useEffect, useRef } from "react";
-import { OverlayTrigger, Popover } from "react-bootstrap";
+import { Dropdown, OverlayTrigger, Popover } from "react-bootstrap";
 import { useSelector } from "react-redux";
-import InputField from "../../forms/InputField";
-
+import InputField from "../forms/InputField";
+import Select from "react-select";
+import SelectField from "../forms/SelectField";
+import { Form } from "react-router";
+import TableColumnVisibility from "./TableColumnVisibility";
 const TableFilter = ({
   filter = true,
   search = true,
@@ -14,6 +17,7 @@ const TableFilter = ({
   activeFilters = [],
   filterButtonText,
   searchPlaceholder,
+  table,
 }) => {
   const lang = useSelector((state) => state.language.lang);
   const isRTL = lang === "ar";
@@ -56,6 +60,7 @@ const TableFilter = ({
 
   return (
     <div className="table-filter ">
+      <TableColumnVisibility table={table} />
       {search === true && (
         <InputField
           className="search-input"

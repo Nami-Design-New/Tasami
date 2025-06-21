@@ -2,7 +2,7 @@ import { createColumnHelper } from "@tanstack/react-table";
 import { useMemo, useState } from "react";
 import ConfirmDeleteModal from "../../../ui/modals/ConfirmationDeleteModal";
 import SubjectModal from "../../../ui/modals/SubjectModal";
-import ReusableDataTable from "../../../ui/ReusableDataTable";
+import ReusableDataTable from "../../../ui/table/ReusableDataTable";
 
 const columnHelper = createColumnHelper();
 const AdministrativeSystems = () => {

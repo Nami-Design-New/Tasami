@@ -1,6 +1,6 @@
 import { createColumnHelper } from "@tanstack/react-table";
 import { useMemo, useState } from "react";
-import ReusableDataTable from "../../../ui/ReusableDataTable";
+import ReusableDataTable from "../../../ui/table/ReusableDataTable";
 import { Link } from "react-router";
 import EditWorkGroupModal from "../../../ui/modals/EditWorkGroupModal";
 import ConfirmDeleteModal from "../../../ui/modals/ConfirmationDeleteModal";

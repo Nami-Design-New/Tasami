@@ -1,6 +1,6 @@
 import { createColumnHelper } from "@tanstack/react-table";
 import TeamCard from "../../../ui/dash-board/cards/TeamCard";
-import ReusableDataTable from "../../../ui/ReusableDataTable";
+import ReusableDataTable from "../../../ui/table/ReusableDataTable";
 import { useMemo } from "react";
 import { Link } from "react-router";
 // const gradientClasses = ["blue", "indigo", "green"];

@@ -2,7 +2,7 @@ import { createColumnHelper } from "@tanstack/react-table";
 import { useMemo } from "react";
 import FormWrapper from "../../ui/forms/FormWrapper";
 import PageHeader from "../../ui/PageHeader";
-import ReusableDataTable from "../../ui/ReusableDataTable";
+import ReusableDataTable from "../../ui/table/ReusableDataTable";
 
 const columnHelper = createColumnHelper();
 

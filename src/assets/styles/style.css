@@ -2985,6 +2985,37 @@ input[type=number]::-webkit-outer-spin-button, input[type=number]::-webkit-inner
   cursor: pointer;
 }
 
+.custom-dropdown .dropdown-toggle {
+  background-color: transparent;
+  outline: none;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.custom-dropdown .dropdown-toggle i {
+  color: #214b92;
+}
+.custom-dropdown .btn-check:checked + .btn,
+.custom-dropdown .btn.active,
+.custom-dropdown .btn.show,
+.custom-dropdown .btn:first-child:active,
+.custom-dropdown :not(.btn-check) + .btn:active {
+  background-color: transparent;
+}
+.custom-dropdown__items {
+  max-height: 250px;
+  overflow-y: auto;
+  /* For Webkit (Chrome, Safari) */
+  /* For Firefox */
+  scrollbar-width: none; /* hides scrollbar */
+  -ms-overflow-style: none; /* IE 10+ */
+}
+.custom-dropdown__items::-webkit-scrollbar {
+  width: 0px;
+  background: transparent;
+}
+
 .inner_navigation_side_bar {
   width: 100%;
   border-radius: 24px;

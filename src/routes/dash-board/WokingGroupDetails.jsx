@@ -1,6 +1,6 @@
 import { createColumnHelper } from "@tanstack/react-table";
 import { useMemo } from "react";
-import ReusableDataTable from "../../ui/ReusableDataTable";
+import ReusableDataTable from "../../ui/table/ReusableDataTable";
 
 import { Badge } from "react-bootstrap";
 import { Link, useParams } from "react-router";

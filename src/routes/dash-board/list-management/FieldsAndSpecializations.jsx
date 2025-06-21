@@ -3,7 +3,7 @@ import { useMemo, useState } from "react";
 import StatisticsCard from "../../../ui/dash-board/cards/StatisticsCard";
 import ConfirmDeleteModal from "../../../ui/modals/ConfirmationDeleteModal";
 import FiledsAndSpecialzationsModal from "../../../ui/modals/FiledsAndSpecialzationsModal";
-import ReusableDataTable from "../../../ui/ReusableDataTable";
+import ReusableDataTable from "../../../ui/table/ReusableDataTable";
 import ChartCard from "../../../ui/dash-board/cards/ChartCard";
 const statsData = [
   {

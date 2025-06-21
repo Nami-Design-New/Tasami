@@ -2,7 +2,7 @@ import { createColumnHelper } from "@tanstack/react-table";
 import { useMemo } from "react";
 import { Modal } from "react-bootstrap";
 import { Link } from "react-router";
-import ReusableDataTable from "../../ReusableDataTable";
+import ReusableDataTable from "../../table/ReusableDataTable";
 import CustomButton from "../../CustomButton";
 
 const columnHelper = createColumnHelper();

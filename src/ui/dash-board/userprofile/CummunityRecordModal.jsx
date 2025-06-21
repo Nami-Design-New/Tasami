@@ -1,5 +1,5 @@
 import { Modal } from "react-bootstrap";
-import ReusableDataTable from "../../ReusableDataTable";
+import ReusableDataTable from "../../table/ReusableDataTable";
 import { useMemo, useState } from "react";
 import { createColumnHelper } from "@tanstack/react-table";
 import ConfirmDeleteModal from "../../modals/ConfirmationDeleteModal";

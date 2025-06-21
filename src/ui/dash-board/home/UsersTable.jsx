@@ -9,8 +9,8 @@ import {
 } from "@tanstack/react-table";
 import { useMemo, useState } from "react";
 import { useSelector } from "react-redux";
-import TableFilter from "./TableFilter";
 import TablePagentaion from "../../TablePagentaion";
+import TableFilter from "../../table/TableFilter";
 
 const columnHelper = createColumnHelper();
 

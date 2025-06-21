@@ -6,9 +6,10 @@ import {
   getPaginationRowModel,
   flexRender,
 } from "@tanstack/react-table";
-import { useState } from "react";
-import TableFilter from "./dash-board/home/TableFilter";
-import TablePagentaion from "./TablePagentaion";
+import { useMemo, useState } from "react";
+import TableFilter from "./TableFilter";
+import TablePagentaion from "../TablePagentaion";
+import { Dropdown, Form } from "react-bootstrap";
 
 const ReusableDataTable = ({
   title = "Table",
@@ -26,8 +27,25 @@ const ReusableDataTable = ({
   const isRTL = lang === "ar";
 
   const [globalFilter, setGlobalFilter] = useState("");
-  
   const [columnFilters, setColumnFilters] = useState([]);
+  const columnIds = useMemo(
+    () =>
+      columns.map((column) => {
+        return column.header;
+      }),
+    [columns]
+  );
+
+  const columnInitialVisibility = useMemo(() => {
+    return columnIds.reduce((acc, id) => {
+      acc[id] = true;
+      return acc;
+    }, {});
+  }, [columnIds]);
+
+  const [columnVisibility, setColumnVisibility] = useState(
+    columnInitialVisibility
+  );
 
   const customGlobalFilterFn = (row, columnId, filterValue) => {
     const { ...rest } = row.original;
@@ -42,6 +60,7 @@ const ReusableDataTable = ({
     state: {
       globalFilter,
       columnFilters,
+      columnVisibility,
     },
     globalFilterFn: customGlobalFilterFn,
     getCoreRowModel: getCoreRowModel(),
@@ -49,6 +68,7 @@ const ReusableDataTable = ({
     getSortedRowModel: getSortedRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
     columnResizeMode: "onChange",
+    onColumnVisibilityChange: setColumnVisibility,
     initialState: {
       pagination: {
         pageSize: initialPageSize,
@@ -62,6 +82,8 @@ const ReusableDataTable = ({
         <div className="header d-flex justify-content-between">
           <h3 className="header__title">{title}</h3>
           <TableFilter
+            table={table}
+            setColumnVisibility={setColumnVisibility}
             globalFilter={globalFilter}
             setGlobalFilter={setGlobalFilter}
             columnFilters={columnFilters}
