@@ -5,6 +5,7 @@ import * as yup from "yup";
 import SelectField from "../forms/SelectField";
 import SubmitButton from "../forms/SubmitButton";
 import TextField from "../forms/TextField";
+import TabRadioGroup from "../TabRadioGroup";
 
 const schema = yup.object().shape({
   actionType: yup.string().required("نوع الاجراء مطلوب"),
@@ -56,30 +57,17 @@ const AddActionModal = ({ showModal, setShowModal }) => {
           <div className="row">
             <div className="col-12 py-2">
               <h6 className="action-lable"> نوع الاجراء </h6>
-              <div className="tab-radio-group">
-                <input
-                  type="radio"
-                  id="complete"
-                  value="complete"
-                  {...register("actionType")}
-                />
-                <label htmlFor="complete">اكمال</label>
-                <input
-                  type="radio"
-                  id="redirect"
-                  value="redirect"
-                  {...register("actionType")}
-                />
-                <label htmlFor="redirect">توجيه</label>
 
-                <input
-                  type="radio"
-                  id="return"
-                  value="return"
-                  {...register("actionType")}
-                />
-                <label htmlFor="return">ارجاع</label>
-              </div>
+              <TabRadioGroup
+                name="actionType"
+                register={register}
+                options={[
+                  { label: "اكمال", value: "complete" },
+                  { label: "توجيه", value: "redirect" },
+                  { label: "ارجاع", value: "return" },
+                ]}
+              />
+
               {errors.actionType && (
                 <span className="text-danger">{errors.actionType.message}</span>
               )}

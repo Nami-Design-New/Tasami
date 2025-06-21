@@ -1,17 +1,17 @@
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useState } from "react";
 import { Controller, FormProvider, useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { useSearchParams } from "react-router";
 import { setFilters } from "../../../redux/slices/performanceFilter";
 import { performanceFilterSchema } from "../../../validations/performanceFilterSchema";
 
-import InputField from "../../forms/InputField";
-import SelectField from "../../forms/SelectField";
-import SubmitButton from "../../forms/SubmitButton";
-import MetricsAccordion from "./MetricsList";
 import { Form } from "react-bootstrap";
 import CustomButton from "../../CustomButton";
+import InputField from "../../forms/InputField";
+import SelectField from "../../forms/SelectField";
+import TabRadioGroup from "../../TabRadioGroup";
+import MetricsAccordion from "./MetricsList";
 
 const regionOptions = [
   { value: "الشرق الأوسط", name: "الشرق الأوسط" },
@@ -164,22 +164,17 @@ const PerformanceFilter = ({ metrics }) => {
           <div className="performance-metrics">
             <h3> المجالات و التخصصات</h3>
             <div className="mt-3">
-              <div className="tab-radio-group">
-                <input
-                  type="radio"
-                  id="fileds"
-                  value="fileds"
-                  {...register("fields")}
-                />
-                <label htmlFor="fileds">التفصيل بالمجالات</label>
-                <input
-                  type="radio"
-                  id="specializations"
-                  value="specializations"
-                  {...register("fields")}
-                />
-                <label htmlFor="specializations"> التفصيل بالتخصصات </label>
-              </div>
+              <TabRadioGroup
+                name="fields"
+                register={register}
+                options={[
+                  { label: "التفصيل بالمجالات", value: "fileds" },
+                  {
+                    label: "التفصيل بالتخصصات",
+                    value: "specializations",
+                  },
+                ]}
+              />
             </div>
           </div>
           <div className="performance-metrics">
@@ -191,7 +186,7 @@ const PerformanceFilter = ({ metrics }) => {
           </div>
 
           <div className="performance-filter__footer">
-            <CustomButton size="large" >معاينة التقرير</CustomButton>
+            <CustomButton size="large">معاينة التقرير</CustomButton>
           </div>
         </form>
       </FormProvider>

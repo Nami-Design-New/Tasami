@@ -3,6 +3,7 @@ import { useMemo } from "react";
 import { Modal } from "react-bootstrap";
 import { Link } from "react-router";
 import ReusableDataTable from "../../ReusableDataTable";
+import CustomButton from "../../CustomButton";
 
 const columnHelper = createColumnHelper();
 
@@ -51,8 +52,13 @@ const ContractRecordModal = ({ showModal, setShowModal, title }) => {
         header: " الاجراء ",
         cell: () => (
           <div className="table__actions">
-            <button className="button button--add"> ايقاف </button>
-            <button className=" button "> تنشيط </button>
+            <CustomButton size="small" color="primary">
+              تنشيط
+            </CustomButton>
+            <CustomButton size="small" color="secondary">
+              ايقاف
+            </CustomButton>
+
             {/* <i className="fa-solid fa-trash  table__actions--delete"></i> */}
           </div>
         ),

@@ -1,11 +1,13 @@
+import CustomButton from "../../CustomButton";
+
 const InfoCard = ({ title, withBorder, link, event, children }) => (
   <div className="user-dashboard__card">
     <div className="user-dashboard__card-header">
       <h3 className="user-dashboard__card-title">{title}</h3>
       {link && (
-        <button onClick={event} className="button button--add">
+        <CustomButton onClick={event} color="secondary">
           {link}
-        </button>
+        </CustomButton>
       )}
     </div>
     <div

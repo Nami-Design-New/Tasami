@@ -2,6 +2,7 @@ import { Modal } from "react-bootstrap";
 import InputField from "../forms/InputField";
 import SubmitButton from "../forms/SubmitButton";
 import SelectField from "../forms/SelectField";
+import CustomButton from "../CustomButton";
 
 const SubjectModal = ({ showModal, setShowModal, isEdit = false }) => {
   return (
@@ -30,8 +31,8 @@ const SubjectModal = ({ showModal, setShowModal, isEdit = false }) => {
             <div className="col-12 col-md-6">
               <InputField label=" الموضوع " />
             </div>
-            <div className="col-12 ">
-              <SubmitButton text=" تاكيد و اضافه " />
+            <div className=" d-flex justify-content-end  ">
+              <CustomButton>اضافه</CustomButton>
             </div>
           </div>
         </form>

@@ -1,6 +1,6 @@
 import { Modal } from "react-bootstrap";
+import CustomButton from "../CustomButton";
 import InputField from "../forms/InputField";
-import SubmitButton from "../forms/SubmitButton";
 
 const OperatingSectorsModal = ({ showModal, setShowModal }) => {
   return (
@@ -36,8 +36,8 @@ const OperatingSectorsModal = ({ showModal, setShowModal }) => {
               <InputField label="رقم المدينة" placeholder="ادخل رقم المدينة" />
             </div>
 
-            <div className="col-12 ">
-              <SubmitButton text="تعديل" />
+            <div className="d-flex justify-content-end ">
+              <CustomButton>إضافة</CustomButton>
             </div>
           </div>
         </form>

@@ -9,6 +9,7 @@ import SubmitButton from "../forms/SubmitButton";
 import TextField from "../forms/TextField";
 import { DevTool } from "@hookform/devtools";
 import { Link } from "react-router";
+import CustomButton from "../CustomButton";
 
 const schema = yup.object().shape({
   duration: yup.boolean(),
@@ -184,17 +185,18 @@ const SuspensionModel = ({ showModal, setShowModal }) => {
             />
           </div>
 
-          <div className="col-12 mt-3 d-flex align-items-center gap-2">
-            <button
-              className="suspend-modal__button--cancel"
+          <div className="col-12 mt-3 d-flex align-items-center  justify-content-end gap-2">
+            <CustomButton
+              size="meduim"
+              type="button"
+              color="danger"
               onClick={() => setShowModal(false)}
             >
               الغاء
-            </button>
-            <SubmitButton
-              text={"ارسال"}
-              className="suspend-modal__button--confirm"
-            />
+            </CustomButton>
+            <CustomButton size="meduim" color="primary">
+              تأكيد
+            </CustomButton>
           </div>
           <DevTool control={control} />
         </form>

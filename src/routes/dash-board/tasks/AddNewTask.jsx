@@ -5,6 +5,7 @@ import SelectField from "../../../ui/forms/SelectField";
 import FileUploader from "../../../ui/forms/FileUPloader";
 import SubmitButton from "../../../ui/forms/SubmitButton";
 import { useState } from "react";
+import CustomButton from "../../../ui/CustomButton";
 
 const AddNewTask = ({ showModal, setShowModal }) => {
   const [files, setFiles] = useState([]);
@@ -71,16 +72,18 @@ const AddNewTask = ({ showModal, setShowModal }) => {
             </div>
           </div>
           <div className="col-12 py-2 ">
-            <div className="d-flex align-items-center justify-content-end gap-2">
-              <button
-                type="button
-              "
-                className="button button--cancel"
-                onClick={handleClose}
+            <div className="col-12 mt-3 d-flex align-items-center  justify-content-end gap-2">
+              <CustomButton
+                size="meduim"
+                type="button"
+                color="danger"
+                onClick={() => setShowModal(false)}
               >
                 الغاء
-              </button>
-              <SubmitButton text="تنفيذ" className="button" />
+              </CustomButton>
+              <CustomButton size="meduim" color="primary">
+                تأكيد
+              </CustomButton>
             </div>
           </div>
         </form>

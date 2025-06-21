@@ -662,32 +662,6 @@ input[type=number]::-webkit-outer-spin-button, input[type=number]::-webkit-inner
   font-family: "Dubai";
 }
 
-.tab-radio-group {
-  display: flex;
-  border: 1px solid #f2f2f2;
-  border-radius: 12px;
-  overflow: hidden;
-  background-color: #f8f8f8;
-  padding: 0;
-}
-.tab-radio-group input[type=radio] {
-  display: none;
-}
-.tab-radio-group label {
-  flex: 1;
-  text-align: center;
-  padding: 10px 15px;
-  cursor: pointer;
-  transition: background-color 0.3s ease, color 0.3s ease;
-  border-radius: 12px;
-  position: relative;
-}
-.tab-radio-group input[type=radio]:checked + label {
-  background-color: #214b92;
-  color: #fff;
-  z-index: 1;
-}
-
 .custom-btn, .custom-link {
   display: inline-flex;
   align-items: center;
@@ -703,10 +677,12 @@ input[type=number]::-webkit-outer-spin-button, input[type=number]::-webkit-inner
 .custom-btn--small {
   font-size: 0.75rem;
   padding: 0.35rem 0.8rem;
+  border-radius: 6px;
 }
 .custom-btn--medium {
   font-size: 0.875rem;
   padding: 0.5rem 1.25rem;
+  border-radius: 9px;
 }
 .custom-btn--large {
   font-size: 1rem;
@@ -875,6 +851,37 @@ input[type=number]::-webkit-outer-spin-button, input[type=number]::-webkit-inner
 .custom-link .link__icon {
   display: inline-flex;
   align-items: center;
+}
+
+.tab-radio-group {
+  display: flex;
+  border: 1px solid #f2f2f2;
+  border-radius: 12px;
+  overflow: hidden;
+  background-color: #f8f8f8;
+  padding: 0;
+}
+.tab-radio-group input[type=radio] {
+  display: none;
+}
+.tab-radio-group .tab-radio-item {
+  flex: 1;
+  height: 100%;
+}
+.tab-radio-group .tab-radio-item label {
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  padding: 10px 15px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  border-radius: 12px;
+  position: relative;
+}
+.tab-radio-group .tab-radio-item input[type=radio]:checked + label {
+  background-color: #214b92;
+  color: #fff;
+  z-index: 1;
 }
 
 @font-face {

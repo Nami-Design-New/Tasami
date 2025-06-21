@@ -19,11 +19,13 @@ $color-warning: #ffc107;
   &--small {
     font-size: 0.75rem;
     padding: 0.35rem 0.8rem;
+    border-radius: calc($borderRadius * 0.5);
   }
 
   &--medium {
     font-size: 0.875rem;
     padding: 0.5rem 1.25rem;
+    border-radius: calc($borderRadius * 0.75);
   }
 
   &--large {
@@ -223,5 +225,38 @@ $color-warning: #ffc107;
   .link__icon {
     display: inline-flex;
     align-items: center;
+  }
+}
+
+.tab-radio-group {
+  display: flex;
+  border: 1px solid $inputStroke;
+  border-radius: $borderRadius;
+  overflow: hidden;
+  background-color: $inputBG;
+  padding: 0;
+  input[type="radio"] {
+    display: none;
+  }
+
+  .tab-radio-item {
+    flex: 1;
+    height: 100%;
+    label {
+      width: 100%;
+      height: 100%;
+      text-align: center;
+      padding: 10px 15px;
+      cursor: pointer;
+      transition: background-color 0.3s ease, color 0.3s ease;
+      border-radius: $borderRadius;
+      position: relative;
+    }
+
+    input[type="radio"]:checked + label {
+      background-color: $color-primary;
+      color: $white;
+      z-index: 1;
+    }
   }
 }

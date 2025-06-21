@@ -12,8 +12,6 @@ const ModelComponent = () => {
       <ModelInfo />
       <Details />
       <Notes />
-      {/* <Actions /> */}
-      {/* <SubmitButtons /> */}
     </section>
   );
 };
