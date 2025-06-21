@@ -122,14 +122,16 @@ const PerformanceFilter = ({ metrics }) => {
             </div>
 
             {showSubDataCheckbox && (
-              <div className="metrics-item col-12 ">
-                <Form.Check
-                  type="switch"
-                  id="showSubData"
-                  label="عرض البيانات الفرعيه"
-                  {...register("showSubData")}
-                  style={{ width: "100%" }}
-                />
+              <div className=" col-12  ">
+                <div className="">
+                  <Form.Check
+                    type="switch"
+                    id="showSubData"
+                    label="عرض البيانات الفرعيه"
+                    {...register("showSubData")}
+                    style={{ width: "100%" }}
+                  />
+                </div>
               </div>
             )}
 

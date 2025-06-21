@@ -26,11 +26,31 @@
     width: 150px;
   }
 }
+.form-switch {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  direction: ltr; // default
 
+  &.rtl {
+    direction: rtl;
+
+    .form-check-input {
+      margin-left: 0;
+      margin-right: 0.5rem;
+    }
+
+    .form-check-label {
+      text-align: right;
+    }
+  }
+}
 .form-check {
-  margin: 0;
-  font-size: 1rem;
-  .form-check-label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  direction: ltr;
+ .form-check-label {
     margin: 0;
     width: 100%;
     font-size: 1rem;
@@ -45,6 +65,19 @@
       box-shadow: none !important;
     }
   }
+  &.rtl {
+    direction: rtl;
+
+    .form-check-input {
+      margin-left: 0;
+      margin-right: 0.5rem;
+    }
+
+    .form-check-label {
+      text-align: right;
+    }
+  }
+ 
 }
 .performance-metrics {
   margin-top: 1rem;
@@ -170,7 +203,7 @@
   border-radius: $borderRadius;
   margin-top: 1rem;
   &__header--container {
-    margin-bottom: 1rem;
+    margin-bottom: 1rem; 
   }
   &__header {
     font-size: 1.5rem;

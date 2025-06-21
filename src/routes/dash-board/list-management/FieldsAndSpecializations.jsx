@@ -4,6 +4,7 @@ import StatisticsCard from "../../../ui/dash-board/cards/StatisticsCard";
 import ConfirmDeleteModal from "../../../ui/modals/ConfirmationDeleteModal";
 import FiledsAndSpecialzationsModal from "../../../ui/modals/FiledsAndSpecialzationsModal";
 import ReusableDataTable from "../../../ui/ReusableDataTable";
+import ChartCard from "../../../ui/dash-board/cards/ChartCard";
 const statsData = [
   {
     label: "المجالات",
@@ -91,8 +92,18 @@ const FieldsAndSpecializations = () => {
   );
   return (
     <section>
-      {" "}
-      <StatisticsCard data={statsData} title={"احصائيات مجموعات العمل"} />
+      <ChartCard title={"احصائيات  المجالات والتخصصات"}>
+        <div className="row">
+          {statsData.map((item, index) => (
+            <div
+              className="col-12 col-sm-6  col-md-4 col-lg-3 col-xxl-2 p-2"
+              key={index}
+            >
+              <StatisticsCard item={item} />
+            </div>
+          ))}
+        </div>
+      </ChartCard>
       <ReusableDataTable
         title=" المجالات و التخصصات  "
         data={data}

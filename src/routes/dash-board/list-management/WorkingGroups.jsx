@@ -5,6 +5,7 @@ import { Link } from "react-router";
 import EditWorkGroupModal from "../../../ui/modals/EditWorkGroupModal";
 import ConfirmDeleteModal from "../../../ui/modals/ConfirmationDeleteModal";
 import StatisticsCard from "../../../ui/dash-board/cards/StatisticsCard";
+import ChartCard from "../../../ui/dash-board/cards/ChartCard";
 
 const columnHelper = createColumnHelper();
 
@@ -234,8 +235,19 @@ const WorkingGroups = () => {
 
   return (
     <section>
-      <StatisticsCard data={statsData} title={"احصائيات مجموعات العمل"} />
-
+      {" "}
+      <ChartCard title={"احصائيات مجموعات العمل"}>
+        <div className="row">
+          {statsData.map((item, index) => (
+            <div
+              className="col-12 col-sm-6  col-md-4 col-lg-3 col-xxl-2 p-2"
+              key={index}
+            >
+              <StatisticsCard item={item} />
+            </div>
+          ))}
+        </div>
+      </ChartCard>
       <ReusableDataTable
         title="مجموعات العمل"
         data={data}

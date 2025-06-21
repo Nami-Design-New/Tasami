@@ -4,6 +4,7 @@ import PageHeader from "../../../ui/PageHeader";
 import SupervisoryTasks from "./SupervisoryTasks";
 import AddNewTask from "./AddNewTask";
 import CustomButton from "../../../ui/CustomButton";
+import ChartCard from "../../../ui/dash-board/cards/ChartCard";
 const statsData = [
   {
     label: "المهام",
@@ -66,7 +67,18 @@ const Tasks = () => {
           </CustomButton>
         </div>
         <div className="row">
-          <StatisticsCard data={statsData} title={"مؤشرات عامه للمهام "} />
+          <ChartCard title={"مؤشرات عامه للمهام "}>
+            <div className="row">
+              {statsData.map((item, index) => (
+                <div
+                  className="col-12 col-sm-6  col-md-4 col-lg-3 col-xxl-2 p-2"
+                  key={index}
+                >
+                  <StatisticsCard item={item} />
+                </div>
+              ))}
+            </div>
+          </ChartCard>
           <div className="col-12 p-2 p-md-0">
             <SupervisoryTasks />
           </div>

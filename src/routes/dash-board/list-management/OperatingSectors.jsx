@@ -4,6 +4,7 @@ import ConfirmDeleteModal from "../../../ui/modals/ConfirmationDeleteModal";
 import OperatingSectorsModal from "../../../ui/modals/OperatingSectorsModal";
 import ReusableDataTable from "../../../ui/ReusableDataTable";
 import StatisticsCard from "../../../ui/dash-board/cards/StatisticsCard";
+import ChartCard from "../../../ui/dash-board/cards/ChartCard";
 
 const columnHelper = createColumnHelper();
 const statsData = [
@@ -143,7 +144,18 @@ const OperatingSectors = () => {
 
   return (
     <section>
-      <StatisticsCard data={statsData} title="إحصائيات قطاعات التشغيل" />
+      <ChartCard title="إحصائيات قطاعات التشغيل">
+        <div className="row">
+          {statsData.map((item, index) => (
+            <div
+              className="col-12 col-sm-6  col-md-4 col-lg-3 col-xxl-2 p-2"
+              key={index}
+            >
+              <StatisticsCard item={item} />
+            </div>
+          ))}
+        </div>
+      </ChartCard>
       <ReusableDataTable
         title="قطاعات التشغيل"
         data={data}

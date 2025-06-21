@@ -225,13 +225,13 @@
   display: flex;
   align-items: center;
   gap: 12px;
-  min-width: 140px;
+  // min-width: 140px;
   border: 1px solid $border;
   padding: 12px 22px;
   border-radius: 12px;
 
   .icon {
-    width: 40px;
+    min-width: 40px;
     height: 40px;
     border-radius: 8px;
     display: flex;
