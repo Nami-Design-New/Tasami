@@ -7,6 +7,7 @@ import MapModal from "../../modals/MapModal";
 import UpdateDataModal from "../../modals/UpdateDataModal";
 import ProfileImageUploader from "../../ProfileImageUploader";
 import MapLocationField from "../create-employee/MapLocationField";
+import CustomButton from "../../CustomButton";
 
 const EmployeePersonalData = () => {
   const defaultBirthday = "2000-01-01";
@@ -102,13 +103,14 @@ const EmployeePersonalData = () => {
             label=" اضف المرفقات "
           />
           <div className="personal-data__button ">
-            <button
+            <CustomButton
               type="button"
+              size="large"
               onClick={() => setShowUpdateDataModal(true)}
-              className="log btn-width"
             >
+              {" "}
               طلب تحديث بيانات
-            </button>
+            </CustomButton>
           </div>
         </div>
       </form>

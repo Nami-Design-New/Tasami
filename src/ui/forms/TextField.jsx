@@ -1,6 +1,7 @@
+import React from "react";
 import { Form } from "react-bootstrap";
 
-export default function TextField({ label, hint, ...props }) {
+const TextField = React.forwardRef(({ label, hint, ...props }, ref) => {
   return (
     <div className="input-field">
       {label && (
@@ -8,7 +9,11 @@ export default function TextField({ label, hint, ...props }) {
           {label} {hint}
         </label>
       )}
-      <Form.Control as={"textarea"} {...props} />
+      <Form.Control as={"textarea"} ref={ref} {...props} />
     </div>
   );
-}
+});
+
+TextField.displayName = "TextField";
+
+export default TextField;

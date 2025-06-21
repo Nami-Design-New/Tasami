@@ -83,7 +83,7 @@ const DataUpdateRequest = () => {
         cell: (info) => (
           <Link
             to={`/dashboard/requests/${info.row.original.id}`}
-            className="link-styls"
+            className="link-styles"
           >
             عرض التفاصيل
           </Link>

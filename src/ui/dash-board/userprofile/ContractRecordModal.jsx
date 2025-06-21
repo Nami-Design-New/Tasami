@@ -38,7 +38,7 @@ const ContractRecordModal = ({ showModal, setShowModal, title }) => {
     () => [
       columnHelper.accessor("referenceNumber", {
         header: " الرقم المرجعي  ",
-        cell: (info) => <Link className="link-styls">{info.getValue()}</Link>,
+        cell: (info) => <Link className="link-styles">{info.getValue()}</Link>,
         enableSorting: false,
       }),
       columnHelper.accessor("creationDate", {

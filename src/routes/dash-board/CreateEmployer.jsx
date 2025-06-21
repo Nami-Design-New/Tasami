@@ -7,10 +7,15 @@ import EmployerDataForm from "../../ui/dash-board/create-employee/EmployerDataFo
 import PerformanceIndicators from "../../ui/dash-board/create-employee/PerformanceIndicators";
 import PermissionBoard from "../../ui/dash-board/create-employee/PermissionBoard";
 import WorkGroups from "./teams/WorkGroups";
+import AddNewTask from "./tasks/AddNewTask";
+import SuspensionModel from "../../ui/modals/SuspensionModel";
+import CustomButton from "../../ui/CustomButton";
 
 const CreateEmployee = () => {
   const { id } = useParams();
   const [searchParams, setSearchParams] = useSearchParams();
+  const [openSuspensionModel, setOpenSuspensionModel] = useState(false);
+  const [showTaskModal, setShowTaskModal] = useState(false);
   const isEditMode = !!id;
 
   const allTabs = [
@@ -96,31 +101,38 @@ const CreateEmployee = () => {
             <div className="submit-actions">
               {!isEditMode && (
                 <>
-                  <button type="button" className=" log mt-3  save-button">
+                  {" "}
+                  <CustomButton color="primary" size="large" fullWidth>
                     حفظ
-                  </button>
-                  <button
-                    type="button"
-                    className=" log mt-3 button--add save-button"
-                  >
+                  </CustomButton>
+                  <CustomButton color="secondary" size="large" fullWidth>
                     اغلاق
-                  </button>
+                  </CustomButton>
                 </>
               )}
               {isEditMode ? (
-                <button
-                  type="button"
-                  className=" log mt-3 button--add save-button"
-                >
-                  ايقاف الحساب
-                </button>
+                <>
+                  <CustomButton
+                    color="primary"
+                    size="large"
+                    fullWidth
+                    onClick={() => setShowTaskModal(true)}
+                  >
+                    طلب ايقاف الحساب
+                  </CustomButton>
+                  <CustomButton
+                    color="secondary"
+                    size="large"
+                    fullWidth
+                    onClick={() => setOpenSuspensionModel(true)}
+                  >
+                    ايقاف الحساب
+                  </CustomButton>
+                </>
               ) : (
-                <button
-                  type="button"
-                  className=" log mt-3 button--add save-button"
-                >
+                <CustomButton color="secondary" size="large" fullWidth>
                   تنشيط الحساب
-                </button>
+                </CustomButton>
               )}
             </div>
           </div>
@@ -130,7 +142,12 @@ const CreateEmployee = () => {
             <div> المحتوى غير متوفر لهذا التبويب</div>
           )}
         </div>
-      </div>
+      </div>{" "}
+      <AddNewTask showModal={showTaskModal} setShowModal={setShowTaskModal} />{" "}
+      <SuspensionModel
+        showModal={openSuspensionModel}
+        setShowModal={setOpenSuspensionModel}
+      />{" "}
     </section>
   );
 };

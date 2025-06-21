@@ -80,7 +80,7 @@ const Notes = () => {
       }),
       columnHelper.accessor("accountNumber", {
         header: " رقم الحساب ",
-        cell: (info) => <Link className="link-styls">{info.getValue()}</Link>,
+        cell: (info) => <Link className="link-styles">{info.getValue()}</Link>,
         enableSorting: false,
       }),
       columnHelper.accessor("action", {

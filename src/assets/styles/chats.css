@@ -92,7 +92,7 @@ input[type=number]::-webkit-outer-spin-button, input[type=number]::-webkit-inner
   margin: 0;
 }
 
-.link-styls {
+.link-styles {
   text-decoration: underline;
   color: #214b92;
 }
@@ -100,26 +100,6 @@ input[type=number]::-webkit-outer-spin-button, input[type=number]::-webkit-inner
 .custom-badge {
   background-color: var(--badge-color) !important;
   color: var(--text-color) !important;
-}
-
-.form-switch {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-direction: row-reverse;
-  padding: 0;
-  gap: 32px;
-}
-.form-switch label {
-  margin: 0;
-  font-size: 14px;
-}
-.form-switch input {
-  margin-left: 0 !important;
-  float: unset !important;
-}
-.form-switch input:checked {
-  background-color: #214b92;
 }
 
 .error-page {

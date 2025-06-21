@@ -1,5 +1,6 @@
 import { useState } from "react";
 import PasswordChangeModal from "../../modals/PasswordChangeModal";
+import CustomButton from "../../CustomButton";
 
 const QuickActionsCard = () => {
   const [showChangePasswordModal, setShowChangePasswordModal] = useState(false);
@@ -8,15 +9,16 @@ const QuickActionsCard = () => {
       <h4 className="quick-actions__title"> اجراءت سريعه </h4>
       <ul className="quick-actions__list">
         <li className="quick-actions__item">
-          <button onClick={() => setShowChangePasswordModal(true)}>
-            <i className="fa-solid fa-key"></i>
-            <span> تغيير كلمه المرور </span>
-          </button>
+          <CustomButton
+            size="large"
+            fullWidth
+            icon={<i className="fa-solid fa-key"></i>}
+            onClick={() => setShowChangePasswordModal(true)}
+          >
+            تغيير كلمه المرور
+          </CustomButton>
         </li>
-        {/* <li className="quick-actions__item">
-          <i className="fa-solid fa-file-export"></i>
-          <span> تصدير بيانات الملف الشخصي </span>
-        </li> */}
+
         <PasswordChangeModal
           showModal={showChangePasswordModal}
           setShowModal={setShowChangePasswordModal}

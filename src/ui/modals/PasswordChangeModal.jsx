@@ -1,5 +1,7 @@
 import { Modal } from "react-bootstrap";
 import InputField from "../forms/InputField";
+import SubmitButton from "../forms/SubmitButton";
+import CustomButton from "../CustomButton";
 
 const PasswordChangeModal = ({ showModal, setShowModal }) => {
   return (
@@ -37,6 +39,9 @@ const PasswordChangeModal = ({ showModal, setShowModal }) => {
                 // placeholder="تاكيد كلمه المرور"
               />
             </div>
+            <CustomButton size="large" fullWidth>
+              تأكيد
+            </CustomButton>
           </div>
         </form>
       </Modal.Body>

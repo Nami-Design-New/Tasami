@@ -1,0 +1,227 @@
+$color-primary: #214b92;
+$color-secondary: #8c137e;
+$color-danger: #ff3a29;
+$color-success: #28a745;
+$color-warning: #ffc107;
+
+.custom-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-weight: 500;
+  border: none;
+  border-radius: $borderRadius;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  padding: 0.5rem 1.25rem;
+
+  &--small {
+    font-size: 0.75rem;
+    padding: 0.35rem 0.8rem;
+  }
+
+  &--medium {
+    font-size: 0.875rem;
+    padding: 0.5rem 1.25rem;
+  }
+
+  &--large {
+    font-size: 1rem;
+    padding: 0.75rem 1.5rem;
+  }
+
+  &--full {
+    width: 100%;
+  }
+
+  &--loading {
+    opacity: 0.85;
+    pointer-events: none;
+  }
+
+  &--primary {
+    background-color: $color-primary;
+    color: $white;
+    &:hover {
+      background-color: darken($color-primary, 10%);
+    }
+  }
+
+  &--secondary {
+    background-color: $color-secondary;
+    color: $white;
+    &:hover {
+      background-color: darken($color-secondary, 10%);
+    }
+  }
+
+  &--danger {
+    background-color: $color-danger;
+    color: $white;
+    &:hover {
+      background-color: darken($color-danger, 10%);
+    }
+  }
+
+  &--success {
+    background-color: $color-danger;
+    color: $white;
+    &:hover {
+      background-color: darken($color-danger, 10%);
+    }
+  }
+
+  &--warning {
+    background-color: $color-warning;
+    color: $dark;
+    &:hover {
+      background-color: darken($color-warning, 10%);
+    }
+  }
+
+  .btn__spinner {
+    font-size: 1rem;
+  }
+}
+
+.custom-link {
+  @extend .custom-btn; // Reuse button base styles (optional if using mixins instead)
+
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-weight: 500;
+  border-radius: $borderRadius;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  padding: 0.5rem 1.25rem;
+
+  &--small {
+    font-size: 0.75rem;
+    padding: 0.35rem 0.8rem;
+  }
+
+  &--medium {
+    font-size: 0.875rem;
+    padding: 0.5rem 1.25rem;
+  }
+
+  &--large {
+    font-size: 1rem;
+    padding: 0.75rem 1.5rem;
+  }
+
+  &--full {
+    width: 100%;
+  }
+
+  &--loading {
+    opacity: 0.85;
+    pointer-events: none;
+  }
+
+  &--disabled {
+    opacity: 0.5;
+    pointer-events: none;
+  }
+
+  // Solid Variants
+  &--primary {
+    background-color: $color-primary;
+    color: $white;
+    &:hover {
+      background-color: darken($color-primary, 10%);
+    }
+  }
+
+  &--secondary {
+    background-color: $color-secondary;
+    color: $white;
+    &:hover {
+      background-color: darken($color-secondary, 10%);
+    }
+  }
+
+  &--danger {
+    background-color: $color-danger;
+    color: $white;
+    &:hover {
+      background-color: darken($color-danger, 10%);
+    }
+  }
+
+  &--success {
+    background-color: $color-success;
+    color: $white;
+    &:hover {
+      background-color: darken($color-success, 10%);
+    }
+  }
+
+  &--warning {
+    background-color: $color-warning;
+    color: $dark;
+    &:hover {
+      background-color: darken($color-warning, 10%);
+    }
+  }
+
+  // Outlined Type
+  &--outlined {
+    background-color: transparent;
+    border: 1px solid currentColor;
+
+    &.custom-link--primary {
+      color: $color-primary;
+      border-color: $color-primary;
+      &:hover {
+        color: $white;
+        background-color: $color-primary;
+      }
+    }
+
+    &.custom-link--secondary {
+      color: $color-secondary;
+      border-color: $color-secondary;
+      &:hover {
+        color: $white;
+        background-color: $color-secondary;
+      }
+    }
+
+    &.custom-link--danger {
+      color: $color-danger;
+      border-color: $color-danger;
+      &:hover {
+        color: $white;
+        background-color: $color-danger;
+      }
+    }
+
+    &.custom-link--success {
+      color: $color-success;
+      border-color: $color-success;
+      &:hover {
+        color: $white;
+        background-color: $color-success;
+      }
+    }
+
+    &.custom-link--warning {
+      color: $color-warning;
+      border-color: $color-warning;
+      &:hover {
+        color: $white;
+        background-color: $color-warning;
+      }
+    }
+  }
+
+  .link__icon {
+    display: inline-flex;
+    align-items: center;
+  }
+}

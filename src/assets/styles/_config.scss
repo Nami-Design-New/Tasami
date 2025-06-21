@@ -205,7 +205,7 @@ input[type="number"] {
   appearance: textfield;
 }
 
-.link-styls {
+.link-styles {
   text-decoration: underline;
   color: $main;
 }
@@ -213,25 +213,25 @@ input[type="number"] {
   background-color: var(--badge-color) !important;
   color: var(--text-color) !important;
 }
-.form-switch {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-direction: row-reverse;
-  padding: 0;
-  gap: 32px;
-  label {
-    margin: 0;
-    font-size: 14px;
-  }
-  input {
-    margin-left: 0 !important;
-    float: unset !important;
-    &:checked {
-      background-color: $main;
-    }
-  }
-}
+// .form-switch {
+//   display: flex;
+//   align-items: center;
+//   justify-content: space-between;
+//   flex-direction: row-reverse;
+//   padding: 0;
+//   gap: 32px;
+//   label {
+//     margin: 0;
+//     font-size: 14px;
+//   }
+//   input {
+//     margin-left: 0 !important;
+//     float: unset !important;
+//     &:checked {
+//       background-color: $main;
+//     }
+//   }
+// }
 
 .error-page {
   background-color: #f8f9fa;

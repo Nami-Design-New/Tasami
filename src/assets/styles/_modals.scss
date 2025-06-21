@@ -86,13 +86,34 @@
 }
 
 .suspend-modal {
-  &__description {
-    font-size: 1rem;
-    margin-bottom: 1.5rem;
-    color: #444;
-    text-align: center;
+  h2 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: $dark;
+    margin-bottom: 1rem;
   }
-
+  .request__creator-info-list {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 2rem;
+    .request__creator-info-item {
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+      h3 {
+        font-size: 1rem;
+        font-weight: 600;
+        color: $text;
+      }
+      p {
+        font-size: 1rem;
+        color: $dark;
+      }
+    }
+  }
   &__group {
     display: flex;
     align-items: center;

@@ -157,8 +157,8 @@ const TeamsSection = () => {
         header: "رقم المجموعه",
         cell: (info) => (
           <Link
-            to={`/dashboard/woking-group/${info.getValue()}`}
-            className="link-styls"
+            to={`/dashboard/working-group/${info.getValue()}`}
+            className="link-styles"
             style={{ textDecoration: "underline" }}
           >
             {info.getValue()}

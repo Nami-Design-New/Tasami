@@ -1,6 +1,7 @@
 import { Modal } from "react-bootstrap";
 import TextField from "../forms/TextField";
 import SubmitButton from "../forms/SubmitButton";
+import CustomButton from "../CustomButton";
 
 const UpdateDataModal = ({ showModal, setShowModal }) => {
   return (
@@ -20,7 +21,11 @@ const UpdateDataModal = ({ showModal, setShowModal }) => {
             حال الموافقة سيتم تحديث بياناتك في النظام
           </p>
           <TextField label={"سبب التحديث"} />
-          <SubmitButton text="ارسال الطلب" className={"mt-3"} />
+          <div className="mt-3">
+            <CustomButton fullWidth size="large">
+              ارسال الطلب
+            </CustomButton>
+          </div>
         </form>
       </Modal.Body>
     </Modal>

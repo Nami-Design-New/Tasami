@@ -3,6 +3,7 @@ import StatisticsCard from "../../../ui/dash-board/cards/StatisticsCard";
 import PageHeader from "../../../ui/PageHeader";
 import SupervisoryTasks from "./SupervisoryTasks";
 import AddNewTask from "./AddNewTask";
+import CustomButton from "../../../ui/CustomButton";
 const statsData = [
   {
     label: "المهام",
@@ -54,13 +55,15 @@ const Tasks = () => {
     <>
       <section>
         <div className="p-2 d-flex align-items-center justify-content-between">
-          <PageHeader />
-          <button
-            className="button button--add"
+          <PageHeader />{" "}
+          <CustomButton
+            size="large"
+            color="secondary"
+            icon={<i className="fa-solid fa-plus"></i>}
             onClick={() => setShowModal(true)}
           >
-            <i className="fa-solid fa-plus"></i> <span> نموذج عمل جديد </span>
-          </button>
+            نموذج عمل جديد{" "}
+          </CustomButton>
         </div>
         <div className="row">
           <StatisticsCard data={statsData} title={"مؤشرات عامه للمهام "} />

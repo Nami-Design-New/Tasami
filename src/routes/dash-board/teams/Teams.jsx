@@ -164,7 +164,7 @@ const Teams = () => {
         cell: (info) => (
           <Link
             to={`/dashboard/employee-details/${info.getValue()}`}
-            className="link-styls"
+            className="link-styles"
           >
             {info.getValue()}
           </Link>

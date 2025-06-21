@@ -103,7 +103,6 @@ import AttachmentsModal from "./AttachmentsModal";
 
 const Attachments = () => {
   const [showModal, setShowModal] = useState(false);
-  const [pendingFile, setPendingFile] = useState(null);
   const [titleInput, setTitleInput] = useState("");
   const [attachments, setAttachments] = useState([
     {
@@ -121,14 +120,11 @@ const Attachments = () => {
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];
-    if (!file) return;
-    setPendingFile(file);
-    setTitleInput("");
-    setShowModal(true);
-  };
+    console.log("---- file-------");
+    console.log(file);
 
-  const handleSave = () => {
-    if (!titleInput.trim()) return;
+    if (!file) return;
+
     const now = new Date();
     const newAttachment = {
       id: Date.now(),
@@ -136,12 +132,14 @@ const Attachments = () => {
       time: now.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
       name: "سلطان م",
       account: "E-2202023-000125",
-      title: titleInput.trim(),
-      filename: pendingFile.name,
+      filename: file.name,
     };
     setAttachments((prev) => [...prev, newAttachment]);
-    setShowModal(false);
-    setPendingFile(null);
+    console.log(" added succussfully!");
+  };
+
+  const handleSave = () => {
+    // if (!titleInput.trim()) return;
   };
 
   return (
@@ -156,7 +154,7 @@ const Attachments = () => {
                 <th>الوقت</th>
                 <th>الاسم</th>
                 <th>رقم الحساب</th>
-                <th>العنوان</th>
+                {/* <th>العنوان</th> */}
                 <th>الملف المرفق</th>
               </tr>
             </thead>
@@ -167,15 +165,18 @@ const Attachments = () => {
                   <td>{item.time}</td>
                   <td>{item.name}</td>
                   <td>
-                    <Link to="#" className="account-link">
+                    <Link
+                      to={`/dashboard/employee-details/${item.account}`}
+                      className="link-styles"
+                    >
                       {item.account}
                     </Link>
                   </td>
-                  <td>{item.title}</td>
+                  {/* <td>{item.title}</td> */}
                   <td>
-                    <Link to="#" className="file-link">
-                      {item.filename}
-                    </Link>
+                    {/* <Link to="/dashboard/emplo" className="file-link"> */}
+                    {item.filename}
+                    {/* </Link> */}
                   </td>
                 </tr>
               ))}

@@ -89,7 +89,7 @@ const PersonalGoals = () => {
       columnHelper.accessor("serviceNumber", {
         header: "الخدمه",
         cell: (info) => (
-          <Link to={`/model/${info.getValue()}`} className="link-styls">
+          <Link to={`/model/${info.getValue()}`} className="link-styles">
             {info.getValue()}
           </Link>
         ),
@@ -105,7 +105,7 @@ const PersonalGoals = () => {
         cell: (info) => (
           <Link
             to={`/dashboard/user-details/${info.getValue()}`}
-            className="link-styls"
+            className="link-styles"
           >
             {info.getValue()}
           </Link>
@@ -163,7 +163,7 @@ const PersonalGoals = () => {
         header: "رقم التعريف",
         cell: (info) => info.getValue(),
         // cell: (info) => (
-        //   <Link to={`/model/${info.getValue()}`} className="link-styls">
+        //   <Link to={`/model/${info.getValue()}`} className="link-styles">
         //     {info.getValue()}
         //   </Link>
         // ),

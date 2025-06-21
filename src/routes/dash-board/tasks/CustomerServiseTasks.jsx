@@ -303,7 +303,7 @@ const CustomerServiseTasks = () => {
         cell: (info) => (
           <Link
             to={`/dashboard/model/${info.getValue()}`}
-            className="link-styls"
+            className="link-styles"
             style={{ textDecoration: "underline" }}
           >
             {info.getValue()}
@@ -316,7 +316,7 @@ const CustomerServiseTasks = () => {
         cell: (info) => (
           <Link
             to={`/program-details/${info.getValue()}`}
-            className="link-styls"
+            className="link-styles"
           >
             {info.getValue()}
           </Link>
@@ -327,7 +327,7 @@ const CustomerServiseTasks = () => {
         cell: (info) => (
           <Link
             to={`/dashboard/user-details/${info.getValue()}`}
-            className="link-styls"
+            className="link-styles"
             style={{ textDecoration: "underline" }}
           >
             {info.getValue()}
@@ -338,8 +338,8 @@ const CustomerServiseTasks = () => {
         header: "المجموعه",
         cell: (info) => (
           <Link
-            to={`/dashboard/woking-group/${info.getValue()}`}
-            className="link-styls"
+            to={`/dashboard/working-group/${info.getValue()}`}
+            className="link-styles"
           >
             {info.getValue()}
           </Link>
@@ -363,7 +363,7 @@ const CustomerServiseTasks = () => {
         cell: (info) => (
           <Link
             to={`/dashboard/employee-details/${info.getValue()}`}
-            className="link-styls"
+            className="link-styles"
             style={{ textDecoration: "underline" }}
           >
             {info.getValue()}

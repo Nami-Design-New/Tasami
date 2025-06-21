@@ -1,6 +1,6 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useEffect, useState } from "react";
-import { Modal } from "react-bootstrap";
+import { Form, Modal } from "react-bootstrap";
 import { Controller, useForm } from "react-hook-form";
 import * as yup from "yup";
 import FileUploader from "../forms/FileUPloader";
@@ -8,36 +8,40 @@ import InputField from "../forms/InputField";
 import SubmitButton from "../forms/SubmitButton";
 import TextField from "../forms/TextField";
 import { DevTool } from "@hookform/devtools";
+import { Link } from "react-router";
 
 const schema = yup.object().shape({
-  accountNumber: yup.string().required("الرجاء اختيار رقم الحساب"),
-  groupNumber: yup.string().required("الرجاء اختيار رقم المجموعة"),
-  referenceNumber: yup.string().required("الرجاء اختيار الرقم المرجعي"),
-  isIndefinite: yup
-    .boolean()
-    .transform((val, originalValue) =>
-      originalValue === "true" ? true : originalValue === "false" ? false : val
-    )
-    .required("يرجى تحديد ما إذا كانت الفترة غير محددة"),
-  startDate: yup.date().required("الرجاء تحديد تاريخ البدء"),
-  endDate: yup
-    .date()
-    .nullable()
-    .transform((curr, orig) => (orig === "" ? null : curr))
-    .when("isIndefinite", {
-      is: true,
-      then: (schema) => schema.nullable().notRequired(),
-      otherwise: (schema) =>
-        schema
-          .required("الرجاء تحديد تاريخ الانتهاء")
-          .typeError("الرجاء تحديد تاريخ صحيح"),
-    }),
-  files: yup
-    .array()
-    .min(1, "يرجى إرفاق ملف واحد على الأقل")
-    .max(5, "يمكنك تحميل حتى 5 ملفات فقط"),
-  notes: yup.string().max(500, "يجب ألا تتجاوز الملاحظات 500 حرف"),
+  duration: yup.boolean(),
+  startDate: yup.date().when("duration", {
+    is: true,
+    then: (schema) => schema.required("الرجاء تحديد تاريخ البدء"),
+    otherwise: (schema) => schema.notRequired(),
+  }),
+  endDate: yup.date().when("duration", {
+    is: true,
+    then: (schema) =>
+      schema
+        .required("الرجاء تحديد تاريخ الانتهاء")
+        .typeError("الرجاء تحديد تاريخ صحيح")
+        .test(
+          "is-after-start",
+          "تاريخ الانتهاء يجب أن يكون بعد تاريخ البدء",
+          function (value) {
+            const { startDate } = this.parent;
+            return (
+              !startDate || !value || new Date(value) > new Date(startDate)
+            );
+          }
+        ),
+    otherwise: (schema) => schema.notRequired(),
+    files: yup
+      .array()
+      .min(1, "يرجى إرفاق ملف واحد على الأقل")
+      .max(5, "يمكنك تحميل حتى 5 ملفات فقط"),
+    notes: yup.string().max(500, "يجب ألا تتجاوز الملاحظات 500 حرف"),
+  }),
 });
+
 const SuspensionModel = ({ showModal, setShowModal }) => {
   const [files, setFiles] = useState([]);
 
@@ -51,23 +55,22 @@ const SuspensionModel = ({ showModal, setShowModal }) => {
   } = useForm({
     resolver: yupResolver(schema),
     defaultValues: {
-      accountNumber: "",
-      groupNumber: "",
-      referenceNumber: "",
       startDate: "",
       endDate: "",
-      isIndefinite: true,
+      duration: true,
       notes: "",
       files: [],
     },
   });
+  console.log(errors);
 
-  const isIndefinite = watch("isIndefinite");
+  const duration = watch("duration");
   useEffect(() => {
-    if (isIndefinite === true) {
+    if (duration === true) {
       setValue("endDate", null);
+      setValue("startDate", null);
     }
-  }, [isIndefinite, setValue]);
+  }, [duration, setValue]);
   const onSubmit = (data) => {
     console.log(data);
   };
@@ -82,95 +85,76 @@ const SuspensionModel = ({ showModal, setShowModal }) => {
       className="suspend-modal"
     >
       <Modal.Header closeButton>
-        <h6>طلب ايقاف الحساب </h6>
+        <h6> ايقاف الحساب </h6>
       </Modal.Header>
       <Modal.Body>
+        <h2> معلومات منشىء الطلب </h2>
+        <div className="request__creator-info-list">
+          <div className="request__creator-info-item">
+            <h3> رقم حساب منشئ الطلب : </h3>
+            <p>
+              <Link
+                to={`/dashboard/employee-details/E-11111-22222`}
+                className="link-styles"
+              >
+                E-11111-22222
+              </Link>
+            </p>
+          </div>
+          <div className="request__creator-info-item">
+            <h3> رقم مجموعه الاعمال :</h3>
+            <p>
+              {" "}
+              <Link
+                to={`/dashboard/working-group/GIN-11111`}
+                className="link-styles"
+              >
+                GIN-11111{" "}
+              </Link>
+            </p>
+          </div>
+          <div className="request__creator-info-item">
+            <h3> الرقم المرجعي :</h3>
+            <p>
+              {" "}
+              <Link to={`/dashboard/model/EU-11111`} className="link-styles">
+                EU-11111
+              </Link>
+            </p>
+          </div>
+        </div>
         <form className="form_ui" onSubmit={handleSubmit(onSubmit)}>
           <div className="row g-2">
-            <div className="col-12 col-md-6">
-              <InputField
-                label="رقم حساب مشترك الطلب"
-                {...register("accountNumber")}
-                error={errors.accountNumber?.message}
-              />
-            </div>
-            <div className="col-12 col-md-6">
-              <InputField
-                label="رقم مجموعة أعمال"
-                {...register("groupNumber")}
-                error={errors.groupNumber?.message}
-              />
-            </div>
-            <div className="col-12">
-              <InputField
-                label="الرقم المرجعي"
-                {...register("referenceNumber")}
-                error={errors.referenceNumber?.message}
-              />
-            </div>
-            <div className="d-flex align-items-center gap-5">
-              {/* <div className="suspend-modal__group">
-                <input
-                  type="radio"
-                  id="indefinite"
-                  {...register("isIndefinite")}
-                  checked={isIndefinite === true}
-                  value={isIndefinite}
-                  onChange={() => setValue("isIndefinite", true)}
-                />
-                <label htmlFor="indefinite">غير محدد</label>
-              </div>
-
-              <div className="suspend-modal__group">
-                <input
-                  type="radio"
-                  id="definite"
-                  {...register("isIndefinite")}
-                  value={isIndefinite}
-                  checked={isIndefinite === false}
-                  onChange={() => setValue("isIndefinite", false)}
-                />
-                <label htmlFor="definite">محدد بوقت</label>
-              </div>
-            </div> */}
-              <div className="suspend-modal__group">
-                <input
-                  type="radio"
-                  id="indefinite"
-                  value="true"
-                  {...register("isIndefinite")}
-                />
-                <label htmlFor="indefinite">غير محدد</label>
-              </div>
-
-              <div className="suspend-modal__group">
-                <input
-                  type="radio"
-                  id="definite"
-                  value="false"
-                  {...register("isIndefinite")}
-                />
-                <label htmlFor="definite">محدد بوقت</label>
-              </div>
-
-              {errors.isIndefinite && (
-                <p className="text-danger mt-1">
-                  {errors.isIndefinite.message}
-                </p>
-              )}
-            </div>
-            <div className="col-md-6">
-              <InputField type="date" label=" من " {...register("startDate")} />
-            </div>
-            <div className="col-md-6">
-              <InputField
-                type="date"
-                label=" الي "
-                {...register("endDate")}
-                disabled={isIndefinite}
-              />
-            </div>
-
+            <Form.Check
+              type="switch"
+              label="مدة محددة"
+              size="lg"
+              id="duration-check"
+              style={{ direction: "rtl" }}
+              reverse={true}
+              {...register("duration")}
+            />
+            {duration && (
+              <>
+                <div className="col-md-6">
+                  <InputField
+                    type="date"
+                    label=" من "
+                    {...register("startDate")}
+                    error={errors.startDate?.message}
+                  />
+                </div>
+                <div className="col-md-6">
+                  <InputField
+                    type="date"
+                    label=" الي "
+                    {...register("endDate")}
+                    error={errors.endDate?.message}
+                    // disabled={isIndefinite}
+                  />
+                </div>{" "}
+              </>
+            )}
             <TextField
               label="ملاحظات"
               {...register("notes")}
@@ -209,7 +193,7 @@ const SuspensionModel = ({ showModal, setShowModal }) => {
             </button>
             <SubmitButton
               text={"ارسال"}
-              className="suspend-modal__button--confirm red "
+              className="suspend-modal__button--confirm"
             />
           </div>
           <DevTool control={control} />

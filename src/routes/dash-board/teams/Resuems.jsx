@@ -1,9 +1,10 @@
 import { useMemo } from "react";
 import ReusableDataTable from "../../../ui/ReusableDataTable";
 import { createColumnHelper } from "@tanstack/react-table";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import ColumnChart from "../../../ui/dash-board/charts/ColumnChart";
 import { Badge } from "react-bootstrap";
+import CustomButton from "../../../ui/CustomButton";
 const columnHelper = createColumnHelper();
 
 const usersSeries = [
@@ -55,7 +56,7 @@ const usersOptions = {
       },
     },
   },
-  colors: ["#214b92", "#22C55E", "#F97316", "#EF4444", " #3B82F6", "#5fcafa"],
+  colors: ["#214b92", "#22C55E", "#F97316", "#EF4444", " #3B82F6"],
 
   legend: {
     position: "top",
@@ -63,6 +64,7 @@ const usersOptions = {
   },
 };
 const Resuems = () => {
+  const navigate = useNavigate();
   const data = useMemo(
     () => [
       {
@@ -166,7 +168,7 @@ const Resuems = () => {
         cell: (info) => (
           <Link
             to={`/dashboard/user-details/${info.getValue()}`}
-            className="link-styls"
+            className="link-styles"
           >
             {info.getValue()}
           </Link>
@@ -283,6 +285,14 @@ const Resuems = () => {
             title={"السير الذاتيه"}
             initialPageSize={10}
           />
+        </div>
+        <div className="d-flex align-items-center gap-3 ">
+          <CustomButton onClick={() => navigate("experiences")} size="large">
+            الخبرات
+          </CustomButton>
+          <CustomButton onClick={() => navigate("documents")} size="large">
+            الوثائق
+          </CustomButton>
         </div>
       </div>
     </section>

@@ -61,9 +61,7 @@ const AddNewTask = ({ showModal, setShowModal }) => {
             <div className="col-12 py-2">
               <TextField label="الوصف" placeholder="اضف وصف الطلب" />
             </div>
-            <div className="col-12 col-md-6 py-2">
-              <InputField label="عنوان المرفق" />
-            </div>
+
             <div>
               <FileUploader
                 files={files}

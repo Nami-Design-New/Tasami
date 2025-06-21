@@ -452,7 +452,7 @@ const WokingGroupDetails = () => {
         header: "رقم الحساب",
 
         cell: (info) => (
-          <Link to={`/model/${info.getValue()}`} className="link-styls">
+          <Link to={`/model/${info.getValue()}`} className="link-styles">
             {info.getValue()}
           </Link>
         ),

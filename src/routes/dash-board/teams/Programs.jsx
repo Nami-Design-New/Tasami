@@ -109,7 +109,7 @@ const Programs = () => {
       columnHelper.accessor("programNumber", {
         header: "الخدمه",
         cell: (info) => (
-          <Link to={`/model/${info.getValue()}`} className="link-styls">
+          <Link to={`/model/${info.getValue()}`} className="link-styles">
             {info.getValue()}
           </Link>
         ),
@@ -157,7 +157,7 @@ const Programs = () => {
         cell: (info) => (
           <Link
             to={`/dashboard/user-details/${info.getValue()}`}
-            className="link-styls"
+            className="link-styles"
           >
             {info.getValue()}
           </Link>
@@ -173,7 +173,7 @@ const Programs = () => {
       columnHelper.accessor("IdNumber", {
         header: "رقم التعريف",
         // cell: (info) => (
-        //   <Link to={`/model/${info.getValue()}`} className="link-styls">
+        //   <Link to={`/model/${info.getValue()}`} className="link-styles">
         //     {info.getValue()}
         //   </Link>
         // ),

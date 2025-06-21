@@ -6,6 +6,7 @@ import DounutCharts from "../../ui/dash-board/charts/DounutCharts";
 import TaskStatus from "../../ui/dash-board/home/TaskStatus";
 import UsersTable from "../../ui/dash-board/home/UsersTable";
 import { Link } from "react-router";
+import CustomButton from "../../ui/CustomButton";
 
 // Line chart
 const series = [
@@ -80,20 +81,20 @@ const revnueAnalyticsOptions = {
 };
 
 // Dounut Charts
-const employersSeries = [20, 55, 150];
+const employersSeries = [20, 30, 40, 100, 400];
 const employersOptions = {
-  labels: ["عدد التنفيذيين", "عدد المشرفين", "عدد الموظفين "],
+  labels: ["التنفيذيين", "القادة", "المدراء", "المشرفين", "الموظفين"],
   chart: {
     type: "donut",
   },
-  colors: ["#214b92", "#5fcafa", "#5f4aff"],
+  colors: ["#214b92", "#8c137e", "#007d7e", "#f0ad4e", "#adb5bd"],
   legend: {
     position: "bottom",
     fontSize: "14px",
   },
   dataLabels: {
     enabled: true,
-    position: "inside",
+    position: "outside",
     style: {
       fontSize: "14px",
       fontWeight: "400",
@@ -120,7 +121,7 @@ const employersOptions = {
             show: true,
             fontSize: "20px",
             fontWeight: 600,
-            offsetY: 10,
+            // offsetY: 10,
           },
           total: {
             show: true,
@@ -189,16 +190,14 @@ export default function DashboardHome() {
           <h3>مرحبًا بك مرة أخرى، محمود عباس !</h3>
           <p>قم بتتبع نشاط المبيعات لديك، والعملاء المحتملين والصفقات هنا.</p>
         </div>
-        <div className="actions">
-          <button className="button btn-icon">
-            <i className="fa-light fa-filter"></i>
-            <span>التصفية</span>
-          </button>
-          <button className="button btn-light btn-icon">
-            <i className="fa-light fa-upload"></i>
-            <span>تصدير</span>
-          </button>
-        </div>
+        {/* <div className="actions">
+          <CustomButton
+            size="large"
+            icon={<i className="fa-light fa-filter"></i>}
+          >
+            التصفية
+          </CustomButton>
+        </div> */}
       </div>
       <div className="row">
         <div className="col-12  col-lg-6 col-xxl-3 p-2  ">
@@ -216,7 +215,7 @@ export default function DashboardHome() {
           {" "}
           <StatCard
             icon={<i className="fa-solid fa-notebook"></i>}
-            title=" عدد البرامج "
+            title=" عدد عروض المساعدة "
             value="1,02,890"
             percentage="32"
             timeframe="هذا الشهر"
@@ -289,7 +288,7 @@ export default function DashboardHome() {
               series={employersSeries}
               options={employersOptions}
               title={"عدد الموظفين"}
-              height={200}
+              height={300}
             />
           </div>
         </div>
@@ -299,7 +298,7 @@ export default function DashboardHome() {
             title={"تحليلات الإيرادات"}
             options={revnueAnalyticsOptions}
             type="line"
-            height={480}
+            height={580}
           />
         </div>
       </div>

@@ -4,6 +4,7 @@ import SubmitButton from "../forms/SubmitButton";
 import SelectField from "../forms/SelectField";
 import { useState } from "react";
 import { WORKING_GROPUS_CALSSIFICATIONS } from "../../utils/constants";
+import CustomButton from "../CustomButton";
 
 const EditWorkGroupModal = ({ showModal, setShowModal }) => {
   const [groupCalssification, setGroupClassification] = useState(
@@ -56,9 +57,9 @@ const EditWorkGroupModal = ({ showModal, setShowModal }) => {
                 </div>
               </div>
             </div>
-            <div className="col-12 col-md-6">
+            {/* <div className="col-12 col-md-6">
               <InputField label="رقم المجموعه" value="GIN-0000001" />
-            </div>
+            </div> */}
             <div className="col-12 col-md-6 ">
               <SelectField
                 label="الاقليم"
@@ -90,7 +91,11 @@ const EditWorkGroupModal = ({ showModal, setShowModal }) => {
               />
             </div>
             <div className="col-12 ">
-              <SubmitButton text="تاكيد و حفظ" />
+              {" "}
+              <CustomButton size="large" color="primary">
+                {" "}
+                تاكيد و حفظ{" "}
+              </CustomButton>
             </div>
           </div>
         </form>

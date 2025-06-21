@@ -11,6 +11,7 @@ import SelectField from "../../forms/SelectField";
 import SubmitButton from "../../forms/SubmitButton";
 import MetricsAccordion from "./MetricsList";
 import { Form } from "react-bootstrap";
+import CustomButton from "../../CustomButton";
 
 const regionOptions = [
   { value: "الشرق الأوسط", name: "الشرق الأوسط" },
@@ -190,10 +191,7 @@ const PerformanceFilter = ({ metrics }) => {
           </div>
 
           <div className="performance-filter__footer">
-            <SubmitButton
-              className="performance-filter__button"
-              text="معاينة التقرير"
-            />
+            <CustomButton size="large" >معاينة التقرير</CustomButton>
           </div>
         </form>
       </FormProvider>

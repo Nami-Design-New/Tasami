@@ -271,7 +271,7 @@ const ExecutiveTasks = () => {
         cell: (info) => (
           <Link
             to={`/dashboard/model/${info.getValue()}`}
-            className="link-styls"
+            className="link-styles"
             style={{ textDecoration: "underline" }}
           >
             {info.getValue()}
@@ -284,7 +284,7 @@ const ExecutiveTasks = () => {
         cell: (info) => (
           <Link
             to={`/program/${info.getValue()}`}
-            className="link-styls"
+            className="link-styles"
             style={{ textDecoration: "underline" }}
           >
             {info.getValue()}
@@ -296,7 +296,7 @@ const ExecutiveTasks = () => {
         cell: (info) => (
           <Link
             to={`/dashboard/user-details/${info.getValue()}`}
-            className="link-styls"
+            className="link-styles"
             style={{ textDecoration: "underline" }}
           >
             {info.getValue()}
@@ -307,8 +307,8 @@ const ExecutiveTasks = () => {
         header: "المجموعه",
         cell: (info) => (
           <Link
-            to={`/dashboard/woking-group/${info.getValue()}`}
-            className="link-styls"
+            to={`/dashboard/working-group/${info.getValue()}`}
+            className="link-styles"
             style={{ textDecoration: "underline" }}
           >
             {info.getValue()}

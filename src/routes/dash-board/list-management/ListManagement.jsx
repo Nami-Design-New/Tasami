@@ -6,6 +6,7 @@ import EditWorkGroupModal from "../../../ui/modals/EditWorkGroupModal";
 import OperatingSectorsModal from "../../../ui/modals/OperatingSectorsModal";
 import FiledsAndSpecialzationsModal from "../../../ui/modals/FiledsAndSpecialzationsModal";
 import SubjectModal from "../../../ui/modals/SubjectModal";
+import CustomButton from "../../../ui/CustomButton";
 
 const ListManagement = () => {
   const { currentLocation } = useGetCurrentRoute();
@@ -20,38 +21,40 @@ const ListManagement = () => {
         <div className="p-2 d-flex align-items-center justify-content-between">
           <PageHeader />
           {currentLocation === "working-groups" && (
-            <button
-              className="button button--add"
+            <CustomButton
+              icon={<i className="fa-solid fa-plus"></i>}
+              color="secondary"
               onClick={() => setShowModal(true)}
             >
-              {/* <i className="fa-solid fa-plus"></i> */}
-              <span> مجموعه جديده </span>
-            </button>
+              مجموعه جديده
+            </CustomButton>
           )}
           {currentLocation === "operating-sectors" && (
-            <button
-              className="button button--add"
+            <CustomButton
+              icon={<i className="fa-solid fa-plus"></i>}
+              color="secondary"
               onClick={() => setAddSectorShowModal(true)}
             >
-              <i className="fa-solid fa-plus"></i>
-              <span> قطاع جديد</span>
-            </button>
+              قطاع جديد
+            </CustomButton>
           )}
           {currentLocation === "fields-and-specializations" && (
-            <button
-              className="button button--add"
+            <CustomButton
+              icon={<i className="fa-solid fa-plus"></i>}
+              color="secondary"
               onClick={() => setShowAddFiledsModal(true)}
             >
-              <span> مجال جديد </span>
-            </button>
+              مجال جديد
+            </CustomButton>
           )}
           {currentLocation === "administrative-systems" && (
-            <button
-              className="button button--add"
+            <CustomButton
+              icon={<i className="fa-solid fa-plus"></i>}
+              color="secondary"
               onClick={() => setShowSubjectModal(true)}
             >
-              <span> موضوع جديد </span>
-            </button>
+              موضوع جديد
+            </CustomButton>
           )}
         </div>
         <div className="row">

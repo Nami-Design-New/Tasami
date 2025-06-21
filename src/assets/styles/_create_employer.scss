@@ -239,7 +239,7 @@
 
     &-footer {
       display: flex;
-      justify-content: space-between;
+      justify-content: flex-end;
       margin-top: 1rem;
       padding: 0 1rem 1rem;
     }
@@ -374,5 +374,11 @@
         vertical-align: super;
       }
     }
+  }
+  .submit-actions {
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
   }
 }

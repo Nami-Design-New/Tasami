@@ -32,7 +32,7 @@ export default function SidebarNavigation() {
               <li className="sub_nav_item">
                 <NavLink to="teams">
                   <img src="/sys-icons/subArrow.svg" alt="arrow" />
-                  <span>فرق العمل </span>
+                  <span>فريق العمل </span>
                 </NavLink>
               </li>
 

@@ -1,13 +1,14 @@
+import { useState } from "react";
 import { Link } from "react-router";
 import "../../assets/styles/profile.css";
-import InfoCard from "../../ui/dash-board/cards/InfoCard";
 import PageHeader from "../../ui/PageHeader";
-import Rating from "../../ui/dash-board/cards/Rating";
-import SuspensionModel from "../../ui/modals/SuspensionModel";
-import { useState } from "react";
 import TabsHorizontal from "../../ui/TabsHorizontal";
-import Beneficiary from "../../ui/dash-board/userprofile/Beneficiary";
 import AssistantPresenter from "../../ui/dash-board/userprofile/AssistantPresenter";
+import Beneficiary from "../../ui/dash-board/userprofile/Beneficiary";
+import SuspensionModel from "../../ui/modals/SuspensionModel";
+import AddNewTask from "./tasks/AddNewTask";
+import CustomLink from "../../ui/CustomLink";
+import CustomButton from "../../ui/CustomButton";
 const tabs = [
   {
     id: 1,
@@ -20,6 +21,7 @@ const tabs = [
 ];
 const UserProfile = () => {
   const [openSuspensionModel, setOpenSuspensionModel] = useState(false);
+  const [showTaskModal, setShowTaskModal] = useState(false);
   const [activeTab, setActiveTab] = useState(tabs[0].id);
 
   const handleTabClick = (tabId) => {
@@ -70,18 +72,27 @@ const UserProfile = () => {
             </div>
             {/* <Link className="user-dashboard__resume "> السيره الذاتية </Link> */}
           </div>
-          <Link to={`/dashboard/chats`} className="user-dashboard__button ">
-            تواصل مع المستخدم
-          </Link>
-          <button
-            onClick={() => setOpenSuspensionModel(true)}
-            className="user-dashboard__button  button--add"
-          >
-            طلب إيقاف الحساب
-          </button>
-          <button className="user-dashboard__button  user-dashboard__button--secondary">
-            إيقاف الحساب
-          </button>{" "}
+          <div className="d-flex flex-column gap-2 mt-3">
+            <CustomLink to={`/dashboard/chats`} size="large" fullWidth>
+              تواصل مع المستخدم
+            </CustomLink>
+            <CustomButton
+              size="large"
+              color="secondary"
+              fullWidth
+              onClick={() => setShowTaskModal(true)}
+            >
+              طلب إيقاف الحساب
+            </CustomButton>
+            <CustomButton
+              size="large"
+              color="secondary"
+              fullWidth
+              onClick={() => setOpenSuspensionModel(true)}
+            >
+              إيقاف الحساب
+            </CustomButton>{" "}
+          </div>
         </div>
         <div className="col-12 col-lg-9 p-1 ">
           <TabsHorizontal
@@ -96,7 +107,8 @@ const UserProfile = () => {
       <SuspensionModel
         showModal={openSuspensionModel}
         setShowModal={setOpenSuspensionModel}
-      />
+      />{" "}
+      <AddNewTask showModal={showTaskModal} setShowModal={setShowTaskModal} />
     </div>
   );
 };

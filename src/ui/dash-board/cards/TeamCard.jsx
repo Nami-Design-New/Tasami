@@ -1,3 +1,4 @@
+import CustomButton from "../../CustomButton";
 import ProgressStats from "../teams/ProgressStats";
 import TeamInfoItem from "../teams/TeamInfoItem";
 
@@ -41,9 +42,7 @@ const TeamCard = ({ team }) => {
       </div>
 
       <div className="teams__card-footer">
-        <button className={`teams__card-add-btn teams__card-add-btn--main`}>
-          حذف
-        </button>
+        <CustomButton size="small">حذف</CustomButton>
       </div>
     </div>
   );

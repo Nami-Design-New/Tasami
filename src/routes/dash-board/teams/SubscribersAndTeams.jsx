@@ -1,10 +1,11 @@
-import { Link, Outlet } from "react-router";
+import { useState } from "react";
+import { Outlet } from "react-router";
 import useGetCurrentRoute from "../../../hooks/shared/useGetCurrentRoute";
+import CustomLink from "../../../ui/CustomLink";
+import SuspensionModel from "../../../ui/modals/SuspensionModel";
 import NavigationTabs from "../../../ui/NavigationTabs";
 import PageHeader from "../../../ui/PageHeader";
 import { SUB_TABS } from "../../../utils/constants";
-import { useState } from "react";
-import SuspensionModel from "../../../ui/modals/SuspensionModel";
 
 const SubscribersAndTeams = () => {
   const { currentLocation, locations } = useGetCurrentRoute();
@@ -18,9 +19,11 @@ const SubscribersAndTeams = () => {
           name={isEmployeeDetails === true ? " تفاصيل الموظف" : null}
         />
         {currentLocation === "teams" && (
-          <Link className="button button--add" to={"create-employee"}>
+          <CustomLink type="outlined" color="secondary" to={"create-employee"}>
+            {/* <Link className="button button--add" > */}
             انشاء موظف
-          </Link>
+            {/* </Link> */}
+          </CustomLink>
         )}
       </div>
       {(currentLocation === "user-accounts" ||

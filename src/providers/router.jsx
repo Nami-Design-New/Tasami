@@ -9,7 +9,10 @@ import ChatPage from "../routes/ChatPage";
 import ActionsLogModel from "../routes/dash-board/ActionsLogModel";
 import CreateEmployee from "../routes/dash-board/CreateEmployer";
 import DataUpdateRequestDetails from "../routes/dash-board/DataUpdateRequestDetails";
+import Documents from "../routes/dash-board/Documents";
 import EmployeeProfile from "../routes/dash-board/EmployeeProfile";
+import Experiences from "../routes/dash-board/Experiences";
+import AdministrativeSystems from "../routes/dash-board/list-management/AdministrativeSystems";
 import FieldsAndSpecializations from "../routes/dash-board/list-management/FieldsAndSpecializations";
 import ListManagement from "../routes/dash-board/list-management/ListManagement";
 import OperatingSectors from "../routes/dash-board/list-management/OperatingSectors";
@@ -32,7 +35,6 @@ import UserProfile from "../routes/dash-board/UserProfile";
 import WokingGroupDetails from "../routes/dash-board/WokingGroupDetails";
 import PageNotFound from "../routes/PageNotFound";
 import Home from "../routes/website/Home";
-import AdministrativeSystems from "../routes/dash-board/list-management/AdministrativeSystems";
 
 export const router = createBrowserRouter([
   {
@@ -77,7 +79,7 @@ export const router = createBrowserRouter([
         element: <ActionsLogModel />,
       },
       {
-        path: "woking-group/:id",
+        path: "working-group/:id",
         element: <WokingGroupDetails />,
       },
       {
@@ -117,7 +119,11 @@ export const router = createBrowserRouter([
           },
           {
             path: "resuems",
-            element: <Resuems />,
+            children: [
+              { index: true, element: <Resuems /> },
+              { path: "experiences", element: <Experiences /> },
+              { path: "documents", element: <Documents /> },
+            ],
           },
 
           {

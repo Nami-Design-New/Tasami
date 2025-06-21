@@ -14,9 +14,11 @@
   @include perfomanceSectionCard;
 
   &__footer {
-    margin-top: 1rem;
+    margin-top: 2rem;
     display: flex;
     align-items: center;
+    border-top: 1px solid $border;
+    padding-top: 1rem;
     gap: 1rem;
     justify-content: end;
   }
@@ -27,10 +29,11 @@
 
 .form-check {
   margin: 0;
-  font-size: 0.75rem;
+  font-size: 1rem;
   .form-check-label {
     margin: 0;
     width: 100%;
+    font-size: 1rem;
     cursor: pointer !important;
   }
   .form-check-input {
