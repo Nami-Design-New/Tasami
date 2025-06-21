@@ -2,7 +2,7 @@ export default function HeroSection() {
   return (
     <section className="hero_section">
       <img
-        src="/images/brainstorming-with-coworkers-office.jpg"
+        src="/images/brainstorming-with-coworkers-office.webp"
         alt="hero section image"
       />{" "}
       <div className="hero_content">

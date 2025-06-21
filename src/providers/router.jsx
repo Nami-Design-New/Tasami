@@ -35,6 +35,7 @@ import UserProfile from "../routes/dash-board/UserProfile";
 import WokingGroupDetails from "../routes/dash-board/WokingGroupDetails";
 import PageNotFound from "../routes/PageNotFound";
 import Home from "../routes/website/Home";
+import LoginForm from "../ui/auth/LoginForm";
 
 export const router = createBrowserRouter([
   {
@@ -55,6 +56,11 @@ export const router = createBrowserRouter([
     ],
   },
   {
+    path: "/dashboard/login",
+    element: <AuthLayout />,
+    children: [{ index: true, element: <LoginForm /> }],
+  },
+  {
     path: "/dashboard",
     element: <DashboardLayout />,
     children: [
@@ -62,6 +68,7 @@ export const router = createBrowserRouter([
         index: true,
         element: <DashboardHome />,
       },
+
       {
         path: "chats",
         element: <ChatPage />,

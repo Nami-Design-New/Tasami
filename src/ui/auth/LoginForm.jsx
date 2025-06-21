@@ -13,8 +13,7 @@ const LoginForm = ({ setShowLoginForm }) => {
         ! مرحبا بعودتك <img src="/sys-icons/waving-hand.svg" alt="hand-wave" />
       </h2>
       <p className="sub-head">
-        الرجاء إدخال عنوان البريد الإلكتروني أو رقم الهاتف المسجل لدينا كـ{" "}
-        <span>{role}</span>.
+        الرجاء إدخال عنوان البريد الإلكتروني أو رقم الهاتف المسجل لدينا{" "}
       </p>
 
       <div className="tabs">

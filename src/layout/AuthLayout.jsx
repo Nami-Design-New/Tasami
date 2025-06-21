@@ -3,7 +3,6 @@ import { Link, Outlet, useLocation } from "react-router";
 const AuthLayout = () => {
   const location = useLocation();
 
-  // Determine heading text based on current path
   const getHeadingText = () => {
     if (location.pathname === "/login") {
       return "تسجيل الدخول";
@@ -25,17 +24,19 @@ const AuthLayout = () => {
               <span />
               <h1>{getHeadingText()}</h1>
             </div>
-            {location.pathname === "/login" ? (
+            {location.pathname === "/login" && (
               <h6>
                 <span> ليس لديك حساب ؟ </span>
                 <Link to={"/register"}> انشاء حساب </Link>
               </h6>
-            ) : (
+            )}{" "}
+            {location.pathname === "/register" && (
               <h6>
                 <span> لديك حساب بالفعل ؟ </span>
                 <Link to={"/login"}> تسجيل الدخول </Link>
               </h6>
             )}
+            {location.pathname.includes("dashboard") && <></>}{" "}
           </div>
 
           <Outlet />
@@ -44,7 +45,7 @@ const AuthLayout = () => {
       <div
         className="image_wrapper"
         style={{
-          backgroundImage: "url(/images/regiester-image.jpg)",
+          backgroundImage: "url(/images/regiester-image.webp)",
           backgroundPosition: "50% 72%",
         }}
       />
