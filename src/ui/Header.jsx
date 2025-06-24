@@ -33,7 +33,7 @@ export default function Header() {
 
   return (
     <header className="landing_header" ref={header}>
-      <nav>
+      <nav className="container">
         <Link to="/" className="logo">
           <img src="/images/logo.svg" alt="" />
         </Link>
@@ -59,7 +59,7 @@ export default function Header() {
           </li>
 
           <li onClick={handleCloseMenu}>
-            <NavLink to="/fleet">عن تسامي</NavLink>
+            <NavLink to="/about">عن تسامي</NavLink>
           </li>
 
           <li onClick={handleCloseMenu}>
@@ -67,7 +67,7 @@ export default function Header() {
           </li>
 
           <li onClick={handleCloseMenu}>
-            <NavLink to="/memberships">الاسئله الشائعه</NavLink>
+            <NavLink to="/faqs">الاسئله الشائعه</NavLink>
           </li>
 
           <li onClick={handleCloseMenu} className="hide-lg">

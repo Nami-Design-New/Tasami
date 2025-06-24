@@ -35,7 +35,13 @@ import UserProfile from "../routes/dash-board/UserProfile";
 import WokingGroupDetails from "../routes/dash-board/WokingGroupDetails";
 import PageNotFound from "../routes/PageNotFound";
 import Home from "../routes/website/Home";
+import PersonalGoal from "../routes/website/PersonalGoals";
 import LoginForm from "../ui/auth/LoginForm";
+import PersonalOffers from "../routes/website/Offers";
+import PersonalHelper from "../routes/website/PersonalHelper";
+import About from "../routes/website/About";
+import FAQsSection from "../routes/website/Faqs";
+import HowItWorks from "../routes/website/HowItWorks";
 
 export const router = createBrowserRouter([
   {
@@ -53,6 +59,31 @@ export const router = createBrowserRouter([
         path: "/",
         element: <Home />,
       },
+       {
+        path: "Personal-goals",
+        element: <PersonalGoal />,
+      },
+       {
+        path: "offers",
+        element: <PersonalOffers />,
+      },
+       {
+        path: "personal-helpers",
+        element: <PersonalHelper />,
+      },
+      {
+        path: "about",
+        element: <About />,
+      },
+       {
+        path: "faqs",
+        element: <FAQsSection />,
+      },
+ {
+        path: "how-it-works",
+        element: <HowItWorks />,
+      },
+      
     ],
   },
   {
@@ -101,6 +132,7 @@ export const router = createBrowserRouter([
         path: "profile",
         element: <EmployeeProfile />,
       },
+      
       {
         element: <SubscribersAndTeams />,
         children: [

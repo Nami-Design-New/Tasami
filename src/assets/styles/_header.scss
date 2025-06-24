@@ -3,12 +3,13 @@
   backdrop-filter: blur(20px);
   padding: 16px 42px;
   position: fixed;
-  background: #ffffff80;
+  // background: #ffffff80;
+  background-color: #fff;
   top: 0;
   left: 0;
   z-index: 999;
   transition: $transition;
-
+box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
   &.animate {
     background: $white;
     background: $white;
