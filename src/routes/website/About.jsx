@@ -79,46 +79,6 @@ export default function AboutSection() {
     </section>
 
 
-
-{/* <section className="why-section">
-  <div className="container">
-    <motion.div
-      className="section-head"
-      initial={{ opacity: 0, y: 50 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.8 }}
-    >
-      <span className="sub-title">لماذا تختارنا؟</span>
-      <h2 className="main-title">لماذا <span>تسامي</span>؟</h2>
-      <p className="desc">
-        "تسامي" أكثر من مجرد منصة — إنها مجتمع داعم وأداة قوية لتحقيق أهدافك.
-      </p>
-    </motion.div>
-
-    <div className="grid">
-      {whyItems.map((item, index) => (
-        <motion.div
-          className="item"
-          key={item.id}
-          initial={{ opacity: 0, x: index % 2 === 0 ? 200 : -200 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.9, delay: index * 0.2 }}
-        >
-          <div className={`text ${index % 2 === 0 ? "text-right" : "text-left"}`}>
-            <h3>{item.title}</h3>
-            <p>{item.description}</p>
-          </div>
-          <div
-            className="circle-image"
-            style={{ backgroundImage: `url(${item.image})` }}
-          ></div>
-        </motion.div>
-      ))}
-    </div>
-  </div>
-</section> */}
 <section className="why-section">
   <div className="container">
     <motion.div

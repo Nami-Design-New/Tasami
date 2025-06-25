@@ -2,26 +2,18 @@ import { useEffect, useState, useRef } from "react";
 import { Link, NavLink } from "react-router";
 
 export default function Header() {
-  const header = useRef(null);
-  const menuRef = useRef(null);
+  const headerRef = useRef(null);
   const [showMenu, setShowMenu] = useState(false);
   const [closing, setClosing] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 0) {
-        header.current.classList.add("animate");
-      } else {
-        header.current.classList.remove("animate");
-      }
+      if (window.scrollY > 50) headerRef.current.classList.add("scrolled");
+      else headerRef.current.classList.remove("scrolled");
     };
-
     window.addEventListener("scroll", handleScroll);
-
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   const handleCloseMenu = () => {
     setClosing(true);
@@ -32,70 +24,50 @@ export default function Header() {
   };
 
   return (
-    <header className="landing_header" ref={header}>
+    <header className="main-header" ref={headerRef}>
       <nav className="container">
         <Link to="/" className="logo">
-          <img src="/images/logo.svg" alt="" />
+          <img src="/images/logo.svg" alt="logo" />
         </Link>
 
-        <ul
-          className={`nav_links ${showMenu ? "active" : ""} ${
-            closing ? "closing" : ""
-          }`}
-          ref={menuRef}
-        >
-          <li onClick={handleCloseMenu} className="logo">
-            <Link to="/">
-              <img src="/images/logo.svg" alt="logo" />
-            </Link>
-          </li>
-
-          <li onClick={handleCloseMenu}>
-            <NavLink to="/">الرئيسية</NavLink>
-          </li>
-
-          <li onClick={handleCloseMenu}>
-            <NavLink to="/how-it-works">كيف تعمل المنصه</NavLink>
-          </li>
-
-          <li onClick={handleCloseMenu}>
-            <NavLink to="/about">عن تسامي</NavLink>
-          </li>
-
-          <li onClick={handleCloseMenu}>
-            <NavLink to="/services">الخدمات</NavLink>
-          </li>
-
-          <li onClick={handleCloseMenu}>
-            <NavLink to="/faqs">الاسئله الشائعه</NavLink>
-          </li>
-
-          <li onClick={handleCloseMenu} className="hide-lg">
-            <NavLink to="/login">تسجيل </NavLink>
-          </li>
-
-          <li onClick={handleCloseMenu} className="hide-lg">
-            <NavLink to="/register">انشاء حساب</NavLink>
-          </li>
-
-          <button className="close" onClick={handleCloseMenu}>
+        <ul className={`nav-links ${showMenu ? "active" : ""} ${closing ? "closing" : ""}`}>
+          <button className="close-btn" onClick={handleCloseMenu}>
             <i className="fa-light fa-xmark"></i>
           </button>
+          {["/", "/how-it-works", "/about", "/services", "/contact"].map((path, index) => (
+            <li key={index} onClick={handleCloseMenu}>
+              <NavLink to={path}>{getLinkText(path)}</NavLink>
+            </li>
+          ))}
+          <li className="mobile-only" onClick={handleCloseMenu}>
+            <NavLink to="/login">تسجيل الدخول</NavLink>
+          </li>
+          <li className="mobile-only" onClick={handleCloseMenu}>
+            <NavLink to="/register">إنشاء حساب</NavLink>
+          </li>
         </ul>
 
-        <div className="actions">
-          <Link to="/login"> تسجيل الدخول </Link>
-          <Link to="/register" className="button">
-            انشاء حساب
-          </Link>
-        </div>
+      <div className="actions">
+  <Link to="/login" className="auth-btn login-btn">تسجيل الدخول</Link>
+  <Link to="/register" className="auth-btn register-btn">إنشاء حساب</Link>
+</div>
 
-        <div className="toggeler" onClick={() => setShowMenu(true)}>
-          <span></span>
-          <span></span>
-          <span></span>
+
+        <div className="menu-toggler" onClick={() => setShowMenu(true)}>
+          <span></span><span></span><span></span>
         </div>
       </nav>
     </header>
   );
+
+  function getLinkText(path) {
+    switch (path) {
+      case "/": return "الرئيسية";
+      case "/how-it-works": return "كيف تعمل المنصة";
+      case "/about": return "عن تسامي";
+      case "/services": return "الخدمات";
+      case "/contact": return "اتصل بنا";
+      default: return "";
+    }
+  }
 }

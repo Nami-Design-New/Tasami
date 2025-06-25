@@ -42,6 +42,7 @@ import PersonalHelper from "../routes/website/PersonalHelper";
 import About from "../routes/website/About";
 import FAQsSection from "../routes/website/Faqs";
 import HowItWorks from "../routes/website/HowItWorks";
+import Contact from "../routes/website/contact";
 
 export const router = createBrowserRouter([
   {
@@ -59,15 +60,15 @@ export const router = createBrowserRouter([
         path: "/",
         element: <Home />,
       },
-       {
+      {
         path: "Personal-goals",
         element: <PersonalGoal />,
       },
-       {
+      {
         path: "offers",
         element: <PersonalOffers />,
       },
-       {
+      {
         path: "personal-helpers",
         element: <PersonalHelper />,
       },
@@ -75,15 +76,18 @@ export const router = createBrowserRouter([
         path: "about",
         element: <About />,
       },
-       {
+      {
         path: "faqs",
         element: <FAQsSection />,
       },
- {
+      {
         path: "how-it-works",
         element: <HowItWorks />,
       },
-      
+      {
+        path: "contact",
+        element: <Contact />,
+      },
     ],
   },
   {
@@ -132,7 +136,7 @@ export const router = createBrowserRouter([
         path: "profile",
         element: <EmployeeProfile />,
       },
-      
+
       {
         element: <SubscribersAndTeams />,
         children: [
