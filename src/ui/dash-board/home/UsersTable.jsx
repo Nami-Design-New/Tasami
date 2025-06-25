@@ -8,8 +8,7 @@ const columnHelper = createColumnHelper();
 const PremiumClientsTable = () => {
   const lang = useSelector((state) => state.language.lang);
   const isRTL = lang === "ar";
-  // const [columnFilters, setColumnFilters] = useState([]);
-  // const [globalFilter, setGlobalFilter] = useState("");
+
   const data = useMemo(
     () => [
       {
@@ -160,137 +159,7 @@ const PremiumClientsTable = () => {
     [isRTL]
   );
 
-  // const customGlobalFilterFn = (row, columnId, filterValue) => {
-  //   const { id, avatar, status, ...rest } = row.original;
-  //   console.log(
-  //     Object.values(rest).some((val) => {
-  //       console.log(val);
-  //       return String(val).toLowerCase().includes(filterValue.toLowerCase());
-  //     })
-  //   );
-
-  //   return Object.values(rest).some((val) =>
-  //     String(val).toLowerCase().includes(filterValue.toLowerCase())
-  //   );
-  // };
-
-  // const table = useReactTable({
-  //   data,
-  //   columns,
-  //   state: {
-  //     globalFilter,
-  //     columnFilters,
-  //   },
-  //   globalFilterFn: customGlobalFilterFn,
-  //   getFilteredRowModel: getFilteredRowModel(),
-  //   getCoreRowModel: getCoreRowModel(),
-  //   getSortedRowModel: getSortedRowModel(),
-  //   getPaginationRowModel: getPaginationRowModel(),
-  //   columnResizeMode: "onChange",
-  //   initialState: {
-  //     pagination: {
-  //       pageSize: 5,
-  //     },
-  //   },
-  // });
-
   return (
-    // <div className="card__custom">
-    //   <div className="header d-flex justify-content-between">
-    //     <h3 className="header__title">
-    //       {isRTL ? "عدد المستخدمين المميزين" : "Premium Clients"}
-    //     </h3>
-    //     <TableFilter
-    //       globalFilter={globalFilter}
-    //       setGlobalFilter={setGlobalFilter}
-    //       columnFilters={columnFilters}
-    //       setColumnFilters={setColumnFilters}
-    //       activeFilters={["status", "accountType"]} // Customize which filters to show
-    //       filterOptions={{
-    //         status: {
-    //           id: "status",
-    //           label: { ar: "فرز بواسطه الحاله:", en: "Filter by Status:" },
-    //           options: ["نشط", "موقوف"],
-    //           getIcon: (option) => ({
-    //             className: `color-icon ${
-    //               option === "نشط" ? "active" : "inactive"
-    //             }`,
-    //           }),
-    //         },
-    //         accountType: {
-    //           id: "accountType",
-    //           label: {
-    //             ar: "فرز بواسطه نوع الحساب:",
-    //             en: "Filter by Account Type:",
-    //           },
-    //           options: ["اساسي", "اساسي", "رواد"],
-    //         },
-    //       }}
-    //       filterButtonText={isRTL ? "فرز" : "Filter"}
-    //       searchPlaceholder={isRTL ? "بحث في المستخدمين" : "Search users"}
-    //     />
-    //   </div>
-    //   <div className="card__body  ">
-    //     <div
-    //       className="table-container table-responsive border"
-    //       // dir={isRTL ? "rtl" : "ltr"}
-    //     >
-    //       <table
-    //         width={table.getTotalSize()}
-    //         className="custom-table table table-bordered  text-center align-middle mb-0"
-    //       >
-    //         <thead className="table-light">
-    //           {table.getHeaderGroups().map((headerGroup) => (
-    //             <tr key={headerGroup.id}>
-    //               {headerGroup.headers.map((header) => (
-    //                 <th key={header.id} width={header.getSize()}>
-    //                   {header.column.columnDef.header}
-    //                   {header.column.getCanSort() && (
-    //                     <i
-    //                       className="fa-solid fa-arrow-up-short-wide"
-    //                       onClick={header.column.getToggleSortingHandler()}
-    //                     ></i>
-    //                   )}
-    //                   {
-    //                     {
-    //                       asc: "تصاعديا",
-    //                       desc: "تنازليا",
-    //                     }[header.column.getIsSorted()]
-    //                   }
-
-    //                   <div
-    //                     className={`resizer ${
-    //                       header.column.getIsResizing() ? "isResizing" : ""
-    //                     } ${isRTL ? "ar" : "en"} `}
-    //                     onMouseDown={header.getResizeHandler()}
-    //                     onTouchStart={header.getResizeHandler()}
-    //                   ></div>
-    //                 </th>
-    //               ))}
-    //             </tr>
-    //           ))}
-    //         </thead>
-    //         <tbody>
-    //           {table.getRowModel().rows.map((row) => (
-    //             <tr key={row.id}>
-    //               {row.getVisibleCells().map((cell) => (
-    //                 <td key={cell.id} width={cell.column.getSize()}>
-    //                   {flexRender(
-    //                     cell.column.columnDef.cell,
-    //                     cell.getContext()
-    //                   )}
-    //                 </td>
-    //               ))}
-    //             </tr>
-    //           ))}
-    //         </tbody>
-    //       </table>
-    //     </div>
-    //   </div>
-    //   <div className="card--footer">
-    //     <TablePagentaion table={table} />
-    //   </div>
-    // </div>
     <ReusableDataTable
       title="عدد المستخدمين المميزين"
       data={data}
