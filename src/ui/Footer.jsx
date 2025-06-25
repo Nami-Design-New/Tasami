@@ -27,7 +27,6 @@ export default function Footer() {
           <div className="col-lg-2 col-md-6 col-12 p-2">
             <h4 className="title">روابط سريعة</h4>
             <ul className="links_list">
-              <li><Link to="/about">من نحن</Link></li>
               <li><Link to="/faqs">الأسئلة الشائعة</Link></li>
               <li><Link to="/contact">اتصل بنا</Link></li>
               <li><Link to="/terms-conditions">الشروط والأحكام</Link></li>
@@ -39,7 +38,7 @@ export default function Footer() {
             <h4 className="title">خدماتنا</h4>
             <ul className="links_list">
               <li><Link to="/how-it-works">كيف تعمل المنصة؟</Link></li>
-               <li><Link to="/repacking"> عن تسامي</Link></li>
+               <li><Link to="/about"> عن تسامي</Link></li>
               <li><Link to="/package-consolidation">تجميع المشاريع</Link></li>
               <li><Link to="/shipping-calculator"> الخدمات</Link></li>
             </ul>
