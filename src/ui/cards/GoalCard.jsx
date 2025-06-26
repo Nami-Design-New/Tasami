@@ -1,6 +1,8 @@
-const GoalCard = ({ name, title, country, date, type, offers, image, status }) => {
+import { Link } from "react-router";
+
+const GoalCard = ({ id, name, title, country, date, type, offers, image, status }) => {
   return (
-    <div className="goal-card">
+    <Link to={`/goal/${id}`} className="goal-card text-decoration-none text-dark">
       <div className="image-wrapper">
         <img src={image} alt={name} className="avatar" />
         {status && <span className="status-dot"></span>}
@@ -15,9 +17,8 @@ const GoalCard = ({ name, title, country, date, type, offers, image, status }) =
           <span><i className="fa-light fa-layer-group"></i> {offers} عرض مقدم</span>
         </div>
       </div>
-    </div>
+    </Link>
   );
 };
-
 
 export default GoalCard;

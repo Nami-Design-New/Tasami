@@ -47,6 +47,7 @@ import Terms from "../routes/website/terms";
 import Privacy from "../routes/website/privacy";
 import NewGoal from "../routes/website/NewGoal";
 import NewHelpOffer from "../routes/website/NewHelpOffer";
+import GoalDetails from "../routes/website/GoalDetails";
 
 export const router = createBrowserRouter([
   {
@@ -92,11 +93,11 @@ export const router = createBrowserRouter([
         path: "contact",
         element: <Contact />,
       },
-       {
+      {
         path: "terms-conditions",
         element: <Terms />,
       },
-       {
+      {
         path: "privacy-policy",
         element: <Privacy />,
       },
@@ -104,11 +105,15 @@ export const router = createBrowserRouter([
         path: "new-goal",
         element: <NewGoal />,
       },
-  {
+      {
+        path: "goal/:id",
+        element: <GoalDetails />
+      },
+      {
         path: "new-help",
         element: <NewHelpOffer />,
       },
-      
+
     ],
   },
   {
