@@ -1388,7 +1388,7 @@ input[type=number]::-webkit-outer-spin-button, input[type=number]::-webkit-inner
 .form_ui .input-field label {
   color: #0d0d0d;
   font-weight: 500;
-  font-size: 14px;
+  font-size: 16px;
 }
 .form_ui .input-field label span {
   font-size: 12px;
@@ -1521,25 +1521,42 @@ input[type=number]::-webkit-outer-spin-button, input[type=number]::-webkit-inner
 .form_ui .check_field {
   width: 100%;
   padding: 12px 16px;
-  border: 1px dashed #aaaaaa;
   border-radius: 12px;
 }
-.form_ui .check_field .form-check {
-  width: 100%;
+.form_ui .check_field .field-label {
+  color: #0d0d0d;
+  font-weight: 500;
+  font-size: 16px;
+}
+.form_ui .check_field .buttons-group {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-direction: row-reverse;
-  padding-left: 0 !important;
+  gap: 8px;
 }
-.form_ui .check_field .form-check input {
-  cursor: pointer;
-  box-shadow: none !important;
-}
-.form_ui .check_field .form-check label {
+.form_ui .check_field .buttons-group .toggle-btn {
   width: 100%;
+  height: 54px;
   display: block;
+  outline: none;
+  border: 1px solid #f2f2f2;
+  border-radius: 12px;
+  background: #f8f8f8;
+  padding: 12px 16px;
+  box-shadow: none !important;
+  flex: 1;
   cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+.form_ui .check_field .buttons-group .toggle-btn.active {
+  background: #5fcafa;
+  color: #fff;
+}
+.form_ui .check_field .buttons-group .toggle-btn:hover {
+  background: #90dafc;
+}
+.form_ui .check_field .invalid-feedback {
+  margin-top: 8px;
+  color: #e74c3c;
+  font-size: 0.85rem;
 }
 .form_ui .time-units {
   display: flex;
@@ -1987,6 +2004,13 @@ input[type=number]::-webkit-outer-spin-button, input[type=number]::-webkit-inner
   padding: 4px;
 }
 
+.hint {
+  font-size: 0.8rem;
+  color: #bdbbbb;
+  margin-inline-start: 4px;
+  font-weight: 500;
+}
+
 .hero-section {
   padding: 30px 0;
   margin-top: 70px;
@@ -2051,7 +2075,7 @@ input[type=number]::-webkit-outer-spin-button, input[type=number]::-webkit-inner
 .why-section .container,
 .about-section .container,
 .steps-section .container,
-.aim-section .container {
+.aim-section .container, .terms .container, .privacy .container {
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 20px;
@@ -2059,14 +2083,14 @@ input[type=number]::-webkit-outer-spin-button, input[type=number]::-webkit-inner
 .why-section .section-head,
 .about-section .section-head,
 .steps-section .section-head,
-.aim-section .section-head {
+.aim-section .section-head, .terms .section-head, .privacy .section-head {
   text-align: center;
   margin-bottom: 50px;
 }
 .why-section .section-head .sub-title,
 .about-section .section-head .sub-title,
 .steps-section .section-head .sub-title,
-.aim-section .section-head .sub-title {
+.aim-section .section-head .sub-title, .terms .section-head .sub-title, .privacy .section-head .sub-title {
   display: inline-block;
   color: #214b92;
   font-size: 18px;
@@ -2076,7 +2100,7 @@ input[type=number]::-webkit-outer-spin-button, input[type=number]::-webkit-inner
 .why-section .section-head .main-title,
 .about-section .section-head .main-title,
 .steps-section .section-head .main-title,
-.aim-section .section-head .main-title {
+.aim-section .section-head .main-title, .terms .section-head .main-title, .privacy .section-head .main-title {
   font-size: 38px;
   color: #0d0d0d;
   margin-bottom: 16px;
@@ -2084,14 +2108,14 @@ input[type=number]::-webkit-outer-spin-button, input[type=number]::-webkit-inner
 .why-section .section-head .main-title span,
 .about-section .section-head .main-title span,
 .steps-section .section-head .main-title span,
-.aim-section .section-head .main-title span {
+.aim-section .section-head .main-title span, .terms .section-head .main-title span, .privacy .section-head .main-title span {
   color: #214b92;
   font-weight: 600;
 }
 .why-section .section-head .desc,
 .about-section .section-head .desc,
 .steps-section .section-head .desc,
-.aim-section .section-head .desc {
+.aim-section .section-head .desc, .terms .section-head .desc, .privacy .section-head .desc {
   max-width: 600px;
   margin: 0 auto;
   color: #666b88;
@@ -2539,13 +2563,14 @@ input[type=number]::-webkit-outer-spin-button, input[type=number]::-webkit-inner
   font-size: 1rem;
   transition: 0.3s;
 }
+@media (max-width: 768px) {
+  .section-header .page-header .back-btn {
+    width: 30px;
+    height: 30px;
+  }
+}
 .section-header .page-header .back-btn:hover {
   background: #ddd;
-}
-@media (max-width: 768px) {
-  .section-header .page-header {
-    margin: 0 1rem 1rem;
-  }
 }
 .section-header .filters {
   display: flex;
@@ -5970,4 +5995,48 @@ footer .links a:hover {
   font-size: 0.9rem;
   color: #666b88;
   text-align: center;
+}
+
+.terms .terms-content h3 {
+  font-weight: bold;
+  color: #214b92;
+  border-bottom: 2px solid #eee;
+  padding-bottom: 0.25rem;
+  margin-bottom: 0.5rem;
+  font-size: 1.25rem;
+}
+.terms .terms-content p {
+  color: #444;
+  line-height: 1.7;
+  font-size: 1rem;
+  margin-bottom: 1rem;
+}
+.terms .terms-content p a {
+  color: #214b92;
+  text-decoration: underline;
+}
+.terms .terms-content p a:hover {
+  color: #183668;
+}
+
+.privacy .privacy-content h3 {
+  font-weight: bold;
+  color: #214b92;
+  border-bottom: 2px solid #eee;
+  padding-bottom: 0.25rem;
+  margin-bottom: 0.5rem;
+  font-size: 1.25rem;
+}
+.privacy .privacy-content p {
+  color: #444;
+  line-height: 1.7;
+  font-size: 1rem;
+  margin-bottom: 1rem;
+}
+.privacy .privacy-content p a {
+  color: #214b92;
+  text-decoration: underline;
+}
+.privacy .privacy-content p a:hover {
+  color: #183668;
 }/*# sourceMappingURL=style.css.map */

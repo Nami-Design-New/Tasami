@@ -14,6 +14,7 @@ export default function SectionHeader({
 }) {
   return (
     <section className="section-header">
+      {/* <div className="container"> */}
       <div className="page-header">
         {showBack && (
           <Link to="/" className="back-btn">
@@ -23,19 +24,21 @@ export default function SectionHeader({
         <h1>{title}</h1>
       </div>
 
-      <div className="filters">
-        <div className="filter-row">
-          <input
-            type="text"
-            placeholder={placeholder}
-            value={searchValue}
-            onChange={(e) => onSearchChange && onSearchChange(e.target.value)}
-          />
-          <button>
-            <i className="fa-regular fa-filter-circle-xmark"></i>
-          </button>
+      {onSearchChange && (
+        <div className="filters">
+          <div className="filter-row">
+            <input
+              type="text"
+              placeholder={placeholder}
+              value={searchValue}
+              onChange={(e) => onSearchChange(e.target.value)}
+            />
+            <button>
+              <i className="fa-regular fa-filter-circle-xmark"></i>
+            </button>
+          </div>
         </div>
-      </div>
+      )}
 
       {tabs.length > 0 && (
         <div className="tags-row">
@@ -51,9 +54,12 @@ export default function SectionHeader({
         </div>
       )}
 
-      <div className="total">
-        <strong>{resultCount}</strong> {title}
-      </div>
+      {typeof resultCount !== "undefined" && (
+        <div className="total">
+          <strong>{resultCount}</strong> {title}
+        </div>
+      )}
+      {/* </div> */}
     </section>
   );
 }

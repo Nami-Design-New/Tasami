@@ -1,12 +1,11 @@
-import React, { useState } from "react";
+// src/pages/PersonalGoals.js
+import React from "react";
 import GoalCard from "../../ui/cards/GoalCard";
-import { Link } from "react-router";
 import SectionHeader from "../../ui/website/home/SectionHeader";
-export default function PersonalGoals() {
-  const [activeTab, setActiveTab] = useState("الكل");
+import useFilteredList from "../../hooks/useFilteredList";
 
+export default function PersonalGoals() {
   const goals = [
-    
     {
       id: 1,
       name: "أحمد العلي",
@@ -18,7 +17,7 @@ export default function PersonalGoals() {
       image: "/images/profile2.png",
       status: true,
     },
-     {
+    {
       id: 2,
       name: "سلطان حسن",
       title: "إنشاء متجر الكتروني لبيع مستلزمات الطباعة ثلاثية الأبعاد",
@@ -75,35 +74,30 @@ export default function PersonalGoals() {
     },
   ];
 
-  const types = [...new Set(goals.map((goal) => goal.type))];
-
-  const tabs = ["الكل", ...types];
-
-  const filteredGoals =
-    activeTab === "الكل"
-      ? goals
-      : goals.filter((goal) => goal.type === activeTab);
+  const { activeTab, setActiveTab, searchValue, setSearchValue, tabs, filteredItems } =
+    useFilteredList(goals, "type", ["title", "name"]);
 
   return (
-    <div className="personal-goals container page">
-   <SectionHeader
-  title="الأهداف الشخصية"
-  tabs={tabs}
-  activeTab={activeTab}
-  onTabChange={setActiveTab}
-  resultCount={filteredGoals.length}
-/>
+    <section className="personal-goals page">
+      <div className="container">
+      <SectionHeader
+        title="الأهداف الشخصية"
+        tabs={tabs}
+        activeTab={activeTab}
+        onTabChange={setActiveTab}
+        resultCount={filteredItems.length}
+        searchValue={searchValue}
+        onSearchChange={setSearchValue}
+      />
 
       <div className="row g-3">
-        {filteredGoals.map((goal) => (
-            <div className="col-12 col-md-6 col-lg-4">
-          <GoalCard key={goal.id} {...goal} />
-             </div>
-
+        {filteredItems.map((goal) => (
+          <div className="col-12 col-md-6 col-lg-4" key={goal.id}>
+            <GoalCard {...goal} />
+          </div>
         ))}
       </div>
-
-      
-    </div>
+      </div>
+    </section>
   );
 }

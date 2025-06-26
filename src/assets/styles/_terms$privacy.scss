@@ -1,0 +1,58 @@
+.terms{
+  .terms-content {
+    
+    h3 {
+      font-weight: bold;
+      color: $main;
+      border-bottom: 2px solid #eee;
+      padding-bottom: 0.25rem;
+      margin-bottom: 0.5rem;
+      font-size: 1.25rem;
+    }
+
+    p {
+      color: #444;
+      line-height: 1.7;
+      font-size: 1rem;
+      margin-bottom: 1rem;
+
+      a {
+        color: $main;
+        text-decoration: underline;
+
+        &:hover {
+          color: darken($main, 10%);
+        }
+      }
+    }
+  }
+}
+.privacy{
+
+  .privacy-content {
+    h3 {
+      font-weight: bold;
+      color: $main;
+      border-bottom: 2px solid #eee;
+      padding-bottom: 0.25rem;
+      margin-bottom: 0.5rem;
+      font-size: 1.25rem;
+    }
+
+    p {
+      color: #444;
+      line-height: 1.7;
+      font-size: 1rem;
+      margin-bottom: 1rem;
+
+      a {
+        color: $main;
+        text-decoration: underline;
+
+        &:hover {
+          color: darken($main, 10%);
+        }
+      }
+    }
+  }
+}

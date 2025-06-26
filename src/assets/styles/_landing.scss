@@ -70,7 +70,7 @@
 .why-section,
 .about-section,
 .steps-section,
-.aim-section {
+.aim-section ,.terms,.privacy{
   .container {
     max-width: 1200px;
     margin: 0 auto;
@@ -192,7 +192,6 @@
 
   .row {
 
-    // استهداف عناصر العمود داخل الـ row
     >div:nth-child(1) .circle-image {
       clip-path: polygon(0 100%, 0 0, 100% 100%);
     }
@@ -209,7 +208,6 @@
       clip-path: polygon(100% 0, 0 0, 100% 100%);
     }
 
-    // قلب اتجاه النص والصورة للعنصر الثاني والرابع
     >div:nth-child(2) .item,
     >div:nth-child(4) .item {
       flex-direction: row-reverse;
@@ -626,14 +624,12 @@
       color: #333;
       font-size: 1rem;
       transition: 0.3s;
-
+ @media (max-width: 768px) {
+ width: 30px;
+      height: 30px;    }
       &:hover {
         background: #ddd;
       }
-    }
-
-    @media (max-width: 768px) {
-      margin: 0 1rem 1rem;
     }
   }
 

@@ -7,7 +7,7 @@ const SelectField = React.forwardRef(
       <div className="input-field">
         {label && (
           <label htmlFor={props?.id}>
-            {label} {hint && <span className="hint">{hint}</span>}
+            {label}
           </label>
         )}
 
@@ -21,7 +21,7 @@ const SelectField = React.forwardRef(
             </option>
           ))}
         </Form.Select>
-
+ {hint && <span className="hint">{hint}</span>}
         {error && (
           <Form.Control.Feedback type="invalid">{error}</Form.Control.Feedback>
         )}

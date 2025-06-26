@@ -43,6 +43,10 @@ import About from "../routes/website/About";
 import FAQsSection from "../routes/website/Faqs";
 import HowItWorks from "../routes/website/HowItWorks";
 import Contact from "../routes/website/contact";
+import Terms from "../routes/website/terms";
+import Privacy from "../routes/website/privacy";
+import NewGoal from "../routes/website/NewGoal";
+import NewHelpOffer from "../routes/website/NewHelpOffer";
 
 export const router = createBrowserRouter([
   {
@@ -88,6 +92,23 @@ export const router = createBrowserRouter([
         path: "contact",
         element: <Contact />,
       },
+       {
+        path: "terms-conditions",
+        element: <Terms />,
+      },
+       {
+        path: "privacy-policy",
+        element: <Privacy />,
+      },
+      {
+        path: "new-goal",
+        element: <NewGoal />,
+      },
+  {
+        path: "new-help",
+        element: <NewHelpOffer />,
+      },
+      
     ],
   },
   {
