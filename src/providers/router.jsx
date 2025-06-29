@@ -48,6 +48,8 @@ import Privacy from "../routes/website/privacy";
 import NewGoal from "../routes/website/NewGoal";
 import NewHelpOffer from "../routes/website/NewHelpOffer";
 import GoalDetails from "../routes/website/GoalDetails";
+import OfferDetails from "../routes/website/OfferDetails";
+import HelpersDetails from "../routes/website/HelpersDetails";
 
 export const router = createBrowserRouter([
   {
@@ -112,6 +114,14 @@ export const router = createBrowserRouter([
       {
         path: "new-help",
         element: <NewHelpOffer />,
+      },
+       {
+        path: "offer/:id",
+        element: <OfferDetails />
+      },
+       {
+        path: "helper/:id",
+        element: <HelpersDetails />
       },
 
     ],

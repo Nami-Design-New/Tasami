@@ -1,6 +1,4 @@
-import React from "react";
 import { Link } from "react-router";
-
 export default function SectionHeader({
   title,
   tabs = [],
@@ -11,10 +9,10 @@ export default function SectionHeader({
   onSearchChange,
   searchValue = "",
   showBack = true,
+  onFilterClick, 
 }) {
   return (
     <section className="section-header">
-      {/* <div className="container"> */}
       <div className="page-header">
         {showBack && (
           <Link to="/" className="back-btn">
@@ -33,7 +31,7 @@ export default function SectionHeader({
               value={searchValue}
               onChange={(e) => onSearchChange(e.target.value)}
             />
-            <button>
+            <button type="button" onClick={onFilterClick}>
               <i className="fa-regular fa-filter-circle-xmark"></i>
             </button>
           </div>
@@ -59,7 +57,6 @@ export default function SectionHeader({
           <strong>{resultCount}</strong> {title}
         </div>
       )}
-      {/* </div> */}
     </section>
   );
 }

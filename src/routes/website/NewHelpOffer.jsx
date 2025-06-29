@@ -22,13 +22,11 @@ const NewHelpOffer = () => {
     };
 
     return (
-        <div className="form_wrapper new-help-offer page mx-3">
+        <div className="form_wrapper new-help-offer page container">
             <SectionHeader title="إضافة عرض مساعدة جديد" />
 
             <form className="form_ui mt-3" onSubmit={handleSubmit(onSubmit)}>
                 <div className="row">
-
-
                     <div className="col-12 col-lg-6 p-2">
                         <SelectField
                             label="المجال"

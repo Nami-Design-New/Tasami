@@ -2342,6 +2342,7 @@ input[type=number]::-webkit-outer-spin-button, input[type=number]::-webkit-inner
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+  min-height: 100%;
 }
 .offer-card .image-wrapper {
   position: relative;
@@ -2373,12 +2374,12 @@ input[type=number]::-webkit-outer-spin-button, input[type=number]::-webkit-inner
 }
 
 .helper-card {
-  background: #f2f2f2;
+  background: #eef9fe;
   border-radius: 1rem;
   padding: 1rem;
   padding-right: 70px;
   position: relative;
-  min-height: 100px;
+  min-height: 100%;
 }
 .helper-card .image-wrapper {
   position: absolute;
@@ -2437,7 +2438,7 @@ input[type=number]::-webkit-outer-spin-button, input[type=number]::-webkit-inner
 .info .meta {
   display: flex;
   flex-wrap: wrap;
-  gap: 1rem;
+  justify-content: space-between;
   font-size: 0.9rem;
   color: #777;
   margin-top: 0.5rem;
@@ -6049,18 +6050,24 @@ footer .links a:hover {
   color: #183668;
 }
 
-.goal-details-section .header {
+.goal-details-section .header,
+.offer-details-section .header,
+.helper-details-section .header {
   display: flex;
   justify-content: space-between;
   position: relative;
 }
-.goal-details-section .header .options-menu {
+.goal-details-section .header .options-menu,
+.offer-details-section .header .options-menu,
+.helper-details-section .header .options-menu {
   cursor: pointer;
   font-size: 1.2rem;
   color: #777;
   z-index: 10;
 }
-.goal-details-section .header .options-menu .options-list {
+.goal-details-section .header .options-menu .options-list,
+.offer-details-section .header .options-menu .options-list,
+.helper-details-section .header .options-menu .options-list {
   position: absolute;
   left: 0px;
   background: #fff;
@@ -6070,7 +6077,9 @@ footer .links a:hover {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
   z-index: 100;
 }
-.goal-details-section .header .options-menu .options-list button {
+.goal-details-section .header .options-menu .options-list button,
+.offer-details-section .header .options-menu .options-list button,
+.helper-details-section .header .options-menu .options-list button {
   display: block;
   width: 100%;
   padding: 0.5rem 0.75rem;
@@ -6081,28 +6090,38 @@ footer .links a:hover {
   text-align: right;
   cursor: pointer;
 }
-.goal-details-section .header .options-menu .options-list button:hover {
+.goal-details-section .header .options-menu .options-list button:hover,
+.offer-details-section .header .options-menu .options-list button:hover,
+.helper-details-section .header .options-menu .options-list button:hover {
   background: rgba(33, 75, 146, 0.1);
 }
-.goal-details-section .goal-details-card .top-info {
+.goal-details-section .goal-details-card .top-info,
+.offer-details-section .goal-details-card .top-info,
+.helper-details-section .goal-details-card .top-info {
   display: flex;
   align-items: center;
+  height: -moz-min-content;
+  height: min-content;
   gap: 0.75rem;
-  margin-bottom: 1rem;
+  margin-top: 1rem;
   background: #fff;
   border-radius: 12px;
   padding: 1.5rem;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
   position: relative;
 }
-.goal-details-section .goal-details-card .top-info .avatar {
+.goal-details-section .goal-details-card .top-info .avatar,
+.offer-details-section .goal-details-card .top-info .avatar,
+.helper-details-section .goal-details-card .top-info .avatar {
   width: 120px;
   height: 120px;
   border-radius: 15px;
   -o-object-fit: cover;
      object-fit: cover;
 }
-.goal-details-section .goal-details-card .top-info .status-dot {
+.goal-details-section .goal-details-card .top-info .status-dot,
+.offer-details-section .goal-details-card .top-info .status-dot,
+.helper-details-section .goal-details-card .top-info .status-dot {
   width: 12px;
   height: 12px;
   background: #00FF44;
@@ -6113,82 +6132,116 @@ footer .links a:hover {
   left: 10px;
   border: 2px solid #fff;
 }
-.goal-details-section .goal-details-card .top-info .details {
+.goal-details-section .goal-details-card .top-info .details,
+.offer-details-section .goal-details-card .top-info .details,
+.helper-details-section .goal-details-card .top-info .details {
   flex: 1;
 }
-.goal-details-section .goal-details-card .top-info .details h5 {
+.goal-details-section .goal-details-card .top-info .details h5,
+.offer-details-section .goal-details-card .top-info .details h5,
+.helper-details-section .goal-details-card .top-info .details h5 {
   padding-bottom: 0.5rem;
   font-size: 1.05rem;
   font-weight: 600;
   color: #333;
 }
-.goal-details-section .goal-details-card .top-info .details .rating {
+.goal-details-section .goal-details-card .top-info .details .rating,
+.offer-details-section .goal-details-card .top-info .details .rating,
+.helper-details-section .goal-details-card .top-info .details .rating {
   font-size: 0.85rem;
   color: #f7941d;
   padding-bottom: 0.5rem;
 }
-.goal-details-section .goal-details-card .top-info .details .rating i {
+.goal-details-section .goal-details-card .top-info .details .rating i,
+.offer-details-section .goal-details-card .top-info .details .rating i,
+.helper-details-section .goal-details-card .top-info .details .rating i {
   margin-inline-start: 4px;
 }
-.goal-details-section .goal-details-card .top-info .details .rating span {
+.goal-details-section .goal-details-card .top-info .details .rating span,
+.offer-details-section .goal-details-card .top-info .details .rating span,
+.helper-details-section .goal-details-card .top-info .details .rating span {
   color: #555;
   margin-inline-start: 6px;
 }
-.goal-details-section .goal-details-card .top-info .details .info {
+.goal-details-section .goal-details-card .top-info .details .info,
+.offer-details-section .goal-details-card .top-info .details .info,
+.helper-details-section .goal-details-card .top-info .details .info {
   display: flex;
   gap: 2rem;
 }
-.goal-details-section .goal-details-card .top-info .details .info i {
+.goal-details-section .goal-details-card .top-info .details .info i,
+.offer-details-section .goal-details-card .top-info .details .info i,
+.helper-details-section .goal-details-card .top-info .details .info i {
   color: #214b92;
   margin-inline-end: 5px;
 }
 .goal-details-section .goal-details-card .top-info .details .info .country,
-.goal-details-section .goal-details-card .top-info .details .info .offers {
+.goal-details-section .goal-details-card .top-info .details .info .offers,
+.offer-details-section .goal-details-card .top-info .details .info .country,
+.offer-details-section .goal-details-card .top-info .details .info .offers,
+.helper-details-section .goal-details-card .top-info .details .info .country,
+.helper-details-section .goal-details-card .top-info .details .info .offers {
   font-size: 1rem;
   color: #666;
   margin-top: 0.25rem;
 }
-.goal-details-section .goal-details-card h6 {
+.goal-details-section .goal-details-card h6,
+.offer-details-section .goal-details-card h6,
+.helper-details-section .goal-details-card h6 {
   color: #214b92;
   font-size: 1.1rem;
   margin: 2rem 0 0.4rem;
   font-weight: 600;
 }
-.goal-details-section .goal-details-card .desc {
+.goal-details-section .goal-details-card .desc,
+.offer-details-section .goal-details-card .desc,
+.helper-details-section .goal-details-card .desc {
   color: #444;
   line-height: 1.8;
   font-size: 0.95rem;
   margin-bottom: 1.2rem;
 }
-.goal-details-section .goal-details-card .info-grid {
+.goal-details-section .goal-details-card .info-grid,
+.offer-details-section .goal-details-card .info-grid,
+.helper-details-section .goal-details-card .info-grid {
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
   margin: 2rem 0;
 }
-.goal-details-section .goal-details-card .info-grid .info-box {
+.goal-details-section .goal-details-card .info-grid .info-box,
+.offer-details-section .goal-details-card .info-grid .info-box,
+.helper-details-section .goal-details-card .info-grid .info-box {
   background: #f5f9ff;
   border: 1px solid #cfe3ff;
   border-radius: 8px;
   padding: 0.6rem;
   text-align: center;
 }
-.goal-details-section .goal-details-card .info-grid .info-box .value {
-  font-size: 0.9rem;
-  color: #333;
-  font-weight: 600;
-}
-.goal-details-section .goal-details-card .info-grid .info-box .label {
+.goal-details-section .goal-details-card .info-grid .info-box .value,
+.offer-details-section .goal-details-card .info-grid .info-box .value,
+.helper-details-section .goal-details-card .info-grid .info-box .value {
   font-size: 0.8rem;
   color: #777;
   margin-top: 0.3rem;
 }
-.goal-details-section .goal-details-card .assist-methods {
+.goal-details-section .goal-details-card .info-grid .info-box .label,
+.offer-details-section .goal-details-card .info-grid .info-box .label,
+.helper-details-section .goal-details-card .info-grid .info-box .label {
+  font-size: 0.9rem;
+  color: #333;
+  font-weight: 600;
+}
+.goal-details-section .goal-details-card .assist-methods,
+.offer-details-section .goal-details-card .assist-methods,
+.helper-details-section .goal-details-card .assist-methods {
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
 }
-.goal-details-section .goal-details-card .assist-methods .assist-method {
+.goal-details-section .goal-details-card .assist-methods .assist-method,
+.offer-details-section .goal-details-card .assist-methods .assist-method,
+.helper-details-section .goal-details-card .assist-methods .assist-method {
   background: #F3F3F3;
   padding: 0.6rem 0.75rem;
   border-radius: 10px;
@@ -6196,28 +6249,163 @@ footer .links a:hover {
   text-align: center;
 }
 @media (max-width: 576px) {
-  .goal-details-section .goal-details-card {
+  .goal-details-section .goal-details-card,
+  .offer-details-section .goal-details-card,
+  .helper-details-section .goal-details-card {
     padding: 1rem;
   }
-  .goal-details-section .goal-details-card .top-info {
+  .goal-details-section .goal-details-card .top-info,
+  .offer-details-section .goal-details-card .top-info,
+  .helper-details-section .goal-details-card .top-info {
     flex-direction: column;
     align-items: center;
     text-align: center;
   }
-  .goal-details-section .goal-details-card .top-info .avatar {
+  .goal-details-section .goal-details-card .top-info .avatar,
+  .offer-details-section .goal-details-card .top-info .avatar,
+  .helper-details-section .goal-details-card .top-info .avatar {
     width: 60px;
     height: 60px;
   }
-  .goal-details-section .goal-details-card .top-info .details h5 {
+  .goal-details-section .goal-details-card .top-info .details h5,
+  .offer-details-section .goal-details-card .top-info .details h5,
+  .helper-details-section .goal-details-card .top-info .details h5 {
     font-size: 1rem;
   }
-  .goal-details-section .goal-details-card .top-info .details .rating {
+  .goal-details-section .goal-details-card .top-info .details .rating,
+  .offer-details-section .goal-details-card .top-info .details .rating,
+  .helper-details-section .goal-details-card .top-info .details .rating {
     font-size: 0.8rem;
   }
-  .goal-details-section .goal-details-card .top-info .details .country {
+  .goal-details-section .goal-details-card .top-info .details .country,
+  .offer-details-section .goal-details-card .top-info .details .country,
+  .helper-details-section .goal-details-card .top-info .details .country {
     font-size: 0.8rem;
   }
-  .goal-details-section .goal-details-card .info-grid .info-box {
+  .goal-details-section .goal-details-card .info-grid .info-box,
+  .offer-details-section .goal-details-card .info-grid .info-box,
+  .helper-details-section .goal-details-card .info-grid .info-box {
     flex: 1 1 100%;
   }
+}
+.goal-details-section .goal-details-card .stats,
+.offer-details-section .goal-details-card .stats,
+.helper-details-section .goal-details-card .stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  margin-top: 20px;
+}
+@media (max-width: 768px) {
+  .goal-details-section .goal-details-card .stats,
+  .offer-details-section .goal-details-card .stats,
+  .helper-details-section .goal-details-card .stats {
+    flex-direction: column;
+  }
+}
+.goal-details-section .goal-details-card .stats .stats-box,
+.offer-details-section .goal-details-card .stats .stats-box,
+.helper-details-section .goal-details-card .stats .stats-box {
+  flex: 1 1 48%;
+  background: #f9f9f9;
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+@media (max-width: 576px) {
+  .goal-details-section .goal-details-card .stats .stats-box,
+  .offer-details-section .goal-details-card .stats .stats-box,
+  .helper-details-section .goal-details-card .stats .stats-box {
+    flex: 1 1 100%;
+  }
+}
+.goal-details-section .goal-details-card .stats .beneficiaries,
+.offer-details-section .goal-details-card .stats .beneficiaries,
+.helper-details-section .goal-details-card .stats .beneficiaries {
+  font-size: 16px;
+  font-weight: 600;
+  color: #333;
+  flex: 1 1 48%;
+  background: #f9f9f9;
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.goal-details-section .goal-details-card .stats .beneficiaries div,
+.offer-details-section .goal-details-card .stats .beneficiaries div,
+.helper-details-section .goal-details-card .stats .beneficiaries div {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 8px;
+}
+.goal-details-section .goal-details-card .stats .beneficiaries div i,
+.offer-details-section .goal-details-card .stats .beneficiaries div i,
+.helper-details-section .goal-details-card .stats .beneficiaries div i {
+  color: #214b92;
+  font-size: 14px;
+}
+.goal-details-section .goal-details-card .stats .stats-box .rating,
+.offer-details-section .goal-details-card .stats .stats-box .rating,
+.helper-details-section .goal-details-card .stats .stats-box .rating {
+  font-size: 16px;
+  font-weight: 600;
+  color: #333;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.goal-details-section .goal-details-card .stats .stats-box .rating div,
+.offer-details-section .goal-details-card .stats .stats-box .rating div,
+.helper-details-section .goal-details-card .stats .stats-box .rating div {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.goal-details-section .goal-details-card .stats .stats-box .rating div i,
+.offer-details-section .goal-details-card .stats .stats-box .rating div i,
+.helper-details-section .goal-details-card .stats .stats-box .rating div i {
+  color: #f7941d;
+  font-size: 18px;
+}
+.goal-details-section .goal-details-card .stats .stats-box .rating div span,
+.offer-details-section .goal-details-card .stats .stats-box .rating div span,
+.helper-details-section .goal-details-card .stats .stats-box .rating div span {
+  color: #f7941d;
+  font-size: 18px;
+  font-weight: bold;
+}
+.goal-details-section .goal-details-card .stats .stats-box .rates-list,
+.offer-details-section .goal-details-card .stats .stats-box .rates-list,
+.helper-details-section .goal-details-card .stats .stats-box .rates-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.goal-details-section .goal-details-card .stats .stats-box .rates-list li,
+.offer-details-section .goal-details-card .stats .stats-box .rates-list li,
+.helper-details-section .goal-details-card .stats .stats-box .rates-list li {
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 8px 14px;
+  font-size: 14px;
+  color: #333;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.goal-details-section .goal-details-card .stats .stats-box .rates-list li strong,
+.offer-details-section .goal-details-card .stats .stats-box .rates-list li strong,
+.helper-details-section .goal-details-card .stats .stats-box .rates-list li strong {
+  color: #555;
 }/*# sourceMappingURL=style.css.map */

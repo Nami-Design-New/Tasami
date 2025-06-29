@@ -110,9 +110,8 @@ export default function GoalDetails() {
                         )}
                     </div>
                 </div>
-                <div className="goal-details-card mt-3">
-
-                    <div className="top-info">
+                <div className="goal-details-card mt-3 row ">
+                    <div className="top-info col-lg-4 col-12">
                         <div style={{ position: "relative" }}>
                             <img src={goal.image} alt={goal.name} className="avatar" />
                             {goal.status && <span className="status-dot"></span>}
@@ -134,39 +133,35 @@ export default function GoalDetails() {
                                 </div>
                             </div>
                         </div>
-
-
-                     
-
                     </div>
 
-                    <h6>الهدف</h6>
-                    <p className="desc">{goal.description}</p>
-
-                    <div className="info-grid">
-                        <div className="info-box">
-                            <div className="value">{goal.type}</div>
-                            <div className="label">المجال والتخصص</div>
-                        </div>
-                        <div className="info-box">
-                            <div className="value">{goal.duration}</div>
-                            <div className="label">مدة تحقيق الهدف</div>
-                        </div>
-                        <div className="info-box">
-                            <div className="value">{goal.date}</div>
-                            <div className="label">تاريخ البدء</div>
+                    <div className="col-lg-8 col-12">
+                        <h6>الهدف</h6>
+                        <p className="desc ">{goal.description}</p>
+                        <div className="info-grid ">
+                            <div className="info-box">
+                                <div className="label">المجال والتخصص</div>
+                                <div className="value">{goal.type}</div>
+                            </div>
+                            <div className="info-box">
+                                <div className="label">مدة تحقيق الهدف</div>
+                                <div className="value">{goal.duration}</div>
+                            </div>
+                            <div className="info-box">
+                                <div className="label">تاريخ البدء</div>
+                                <div className="value">{goal.date}</div>
+                            </div>
                         </div>
                     </div>
-
                     <h6>آليات المساعدة المعتمدة</h6>
-                    <div className="assist-methods">
+                    <div className="assist-methods ">
                         {goal.assistMethods.map((method, index) => (
                             <div className="assist-method" key={index}>{method}</div>
                         ))}
                     </div>
                 </div>
                 <HelpModal showModal={showHelpModal} setShowModal={setShowHelpModal} />
-<ReportModal showModal={showReportModal} setShowModal={setShowReportModal} />
+                <ReportModal showModal={showReportModal} setShowModal={setShowReportModal} />
 
             </div>
         </section>

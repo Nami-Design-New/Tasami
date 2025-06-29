@@ -65,7 +65,6 @@ export default function Header() {
       case "/": return "الرئيسية";
       case "/how-it-works": return "كيف تعمل المنصة";
       case "/about": return "عن تسامي";
-      case "/services": return "الخدمات";
       case "/contact": return "اتصل بنا";
       default: return "";
     }

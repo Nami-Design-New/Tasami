@@ -1,8 +1,8 @@
-import React from "react";
+import { Link } from "react-router";
 
-export default function OfferCard({ offer }) {
+const OfferCard = ({ offer }) => {
   return (
-    <div className="offer-card">
+    <Link to={`/offer/${offer.id}`} className="offer-card text-decoration-none text-dark">
       <div className="image-wrapper">
         <img src={offer.image} alt={offer.name} className="avatar" />
         {offer.status && <span className="status-dot"></span>}
@@ -13,7 +13,7 @@ export default function OfferCard({ offer }) {
         <div className="info-header">
           <h3>{offer.name}</h3>
           <span className="rating">
-            <i className="fa-solid fa-star"></i> {offer.rating}
+            <i className="fa-solid fa-star text-warning"></i> {offer.rating}
           </span>
         </div>
 
@@ -30,13 +30,15 @@ export default function OfferCard({ offer }) {
 
         <div className="prices">
           <span>
-            <img src="/icons/Groups.svg" alt="icon" /> {offer.price1} <img src="/icons/ryal.svg" alt="ryal" />
+            <img src="/icons/Groups.svg" alt="icon" /> {offer.price1} <img src="/icons/ryal.svg" alt="ريال" />
           </span>
           <span>
-            <img src="/icons/Group.svg" alt="icon" /> {offer.price2}<img src="/icons/ryal.svg" alt="ryal" />
+            <img src="/icons/Group.svg" alt="icon" /> {offer.price2} <img src="/icons/ryal.svg" alt="ريال" />
           </span>
         </div>
       </div>
-    </div>
+    </Link>
   );
-}
+};
+
+export default OfferCard;

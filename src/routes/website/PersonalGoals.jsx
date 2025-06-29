@@ -1,10 +1,11 @@
-// src/pages/PersonalGoals.js
 import React from "react";
+import { useState } from "react";
 import GoalCard from "../../ui/cards/GoalCard";
 import SectionHeader from "../../ui/website/home/SectionHeader";
 import useFilteredList from "../../hooks/useFilteredList";
-
+import FilteredModal from "../../ui/modals/FilteredModal";
 export default function PersonalGoals() {
+  const [showFilterModal, setShowFilterModal] = useState(false);
   const goals = [
     {
       id: 1,
@@ -77,27 +78,79 @@ export default function PersonalGoals() {
   const { activeTab, setActiveTab, searchValue, setSearchValue, tabs, filteredItems } =
     useFilteredList(goals, "type", ["title", "name"]);
 
+  const filters = [
+    {
+      label: "جنسية المستفيد", placeholder: "اختر جنسية المستفيد", options: [
+        { value: "sa", name: "السعودية" },
+        { value: "eg", name: "مصر" },
+        { value: "ae", name: "الإمارات" },
+      ]
+    },
+    {
+      label: "المدينة", placeholder: "اختر المدينة", options: [
+        { value: "riyadh", name: "الرياض" },
+        { value: "jeddah", name: "جدة" },
+        { value: "cairo", name: "القاهرة" },
+      ]
+    },
+    {
+      label: "المجال", placeholder: "اختر المجال", options: [
+        { value: "trade", name: "تجارة" },
+        { value: "tech", name: "تقنية" },
+        { value: "health", name: "صحة" },
+      ]
+    },
+    {
+      label: "التخصص", placeholder: "اختر التخصص", options: [
+        { value: "coding", name: "برمجة" },
+        { value: "design", name: "تصميم" },
+        { value: "medicine", name: "طب" },
+      ]
+    },
+    {
+      label: "جنس المستفيد", placeholder: "اختر جنس المستفيد", options: [
+        { value: "male", name: "ذكر" },
+        { value: "female", name: "أنثى" },
+      ]
+    },
+  ];
+
+
   return (
     <section className="personal-goals page">
       <div className="container">
-      <SectionHeader
-        title="الأهداف الشخصية"
-        tabs={tabs}
-        activeTab={activeTab}
-        onTabChange={setActiveTab}
-        resultCount={filteredItems.length}
-        searchValue={searchValue}
-        onSearchChange={setSearchValue}
-      />
-
-      <div className="row g-3">
-        {filteredItems.map((goal) => (
-          <div className="col-12 col-md-6 col-lg-4" key={goal.id}>
-            <GoalCard {...goal} />
+        <div className="row">
+          <div className="col-lg-4 col-12">
+            <SectionHeader
+              title="الأهداف الشخصية"
+              tabs={tabs}
+              activeTab={activeTab}
+              onTabChange={setActiveTab}
+              resultCount={filteredItems.length}
+              searchValue={searchValue}
+              onSearchChange={setSearchValue}
+              onFilterClick={() => setShowFilterModal(true)}
+            />
           </div>
-        ))}
+
+          <div className="row g-3 col-lg-8 col-12 mt-4" >
+            {filteredItems.map((goal) => (
+              <div className="col-12 col-md-6 col-lg-4" key={goal.id}>
+                <GoalCard {...goal} />
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
-      </div>
+
+      <FilteredModal
+        show={showFilterModal}
+        onHide={() => setShowFilterModal(false)}
+        filters={filters}
+        showValueRange={true}
+        showAgeRange={true}
+        showRating={true}
+      />
     </section>
   );
 }

@@ -23,7 +23,7 @@ const NewGoal = () => {
     };
 
     return (
-        <div className="form_wrapper new-goal page mx-3">
+        <div className="form_wrapper new-goal page container">
             <SectionHeader title="هدف جديد" />
             <form className="form_ui mt-3" onSubmit={handleSubmit(onSubmit)}>
                 <div className="row">

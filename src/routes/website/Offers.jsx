@@ -2,7 +2,11 @@ import React, { useState } from "react";
 import SectionHeader from "../../ui/website/home/SectionHeader";
 import OfferCard from "../../ui/cards/OfferCard";
 import useFilteredList from "../../hooks/useFilteredList";
+import FilteredModal from "../../ui/modals/FilteredModal";
+
 export default function PersonalOffers() {
+    const [showFilterModal, setShowFilterModal] = useState(false);
+  
   const offers = [
     {
       id: 1,
@@ -57,9 +61,43 @@ export default function PersonalOffers() {
   const { activeTab, setActiveTab, searchValue, setSearchValue, tabs, filteredItems } =
     useFilteredList(offers, "type", ["title", "name"]);
 
+const filters = [
+  { label: "جنسية المساعد الشخصي", placeholder: "اختر", options: [
+      { value: "sa", name: "السعودية" },
+      { value: "eg", name: "مصر" },
+      { value: "ae", name: "الإمارات" },
+    ]
+  },
+  { label: "مدينة المساعد الشخصي", placeholder: "اختر", options: [
+      { value: "riyadh", name: "الرياض" },
+      { value: "jeddah", name: "جدة" },
+      { value: "cairo", name: "القاهرة" },
+    ]
+  },
+  { label: "المجال", placeholder: "اختر المجال", options: [
+      { value: "trade", name: "تجارة" },
+      { value: "tech", name: "تقنية" },
+      { value: "health", name: "صحة" },
+    ]
+  },
+  { label: "التخصص", placeholder: "اختر التخصص", options: [
+      { value: "coding", name: "برمجة" },
+      { value: "design", name: "تصميم" },
+      { value: "medicine", name: "طب" },
+    ]
+  },
+  { label: "جنس المساعد الشخصي", placeholder: "اختر", options: [
+      { value: "male", name: "ذكر" },
+      { value: "female", name: "أنثى" },
+    ]
+  },
+];
+
   return (
     <section className="personal-offers  page">
         <div className="container">
+           <div className="row">
+          <div className="col-lg-4 col-12">
       <SectionHeader
         title="عروض المساعدة"
         tabs={tabs}
@@ -68,9 +106,10 @@ export default function PersonalOffers() {
         resultCount={filteredItems.length}
         searchValue={searchValue}
         onSearchChange={setSearchValue}
+        onFilterClick={() => setShowFilterModal(true)} 
       />
-
-      <div className="row g-3">
+</div>
+          <div className="row g-3 col-lg-8 col-12 mt-4" >
         {filteredItems.map((offer) => (
           <div className="col-12 col-md-6 col-lg-4" key={offer.id}>
             <OfferCard offer={offer} />
@@ -78,6 +117,19 @@ export default function PersonalOffers() {
         ))}
       </div>
       </div>
+       </div>
+
+<FilteredModal
+  show={showFilterModal}
+  onHide={() => setShowFilterModal(false)}
+  filters={filters}
+  showValue={true}
+  showAge={true}
+  showRating={false}
+  showDate={true}
+  showMethod={true}
+/>
+   
     </section>
   );
 }
