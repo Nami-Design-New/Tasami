@@ -1,8 +1,10 @@
 import { useParams } from "react-router";
 import { useState } from "react";
 import SectionHeader from "../../ui/website/home/SectionHeader";
-import HelpModal from "../../ui/modals/HelpModal";
-import ReportModal from "../../ui/modals/ReportModal";
+
+import HelperContractsChart from "../../ui/website/home/HelperContractsChart";
+import { Link } from "react-router";
+import CustomButton from "../../ui/CustomButton";
 
 export default function HelpersDetails() {
     const { id } = useParams();
@@ -10,62 +12,104 @@ export default function HelpersDetails() {
     const [showHelpModal, setShowHelpModal] = useState(false);
     const [showReportModal, setShowReportModal] = useState(false);
 
-    const toggleMenu = () => setMenuOpen(!menuOpen);
-    const closeModals = () => {
-        setShowHelpModal(false);
-        setShowReportModal(false);
-    };
- const helpers = [
-  {
-    id: 1,
-    name: "انس تركي",
-    country: "السعودية",
-    rating: 4.4,
-    type: "ريادي",
-    members: 40,
-    price: 248,
-    image: "/images/p2.png",
-    status: true,
-    description: "أنا أنس تركي، مستشار ريادة أعمال بخبرة تمتد لأكثر من 12 عامًا في تأسيس وإدارة المشاريع الناشئة. ساعدت في إطلاق عشرات المبادرات الريادية في المنطقة وأسعى لتمكين رواد الأعمال من تحقيق أهدافهم عبر خطط نمو مبتكرة ومستدامة."
-  },
-  {
-    id: 2,
-    name: "مها صالح",
-    country: "الإمارات",
-    rating: 4.7,
-    type: "تقنية",
-    members: 35,
-    price: 212,
-    image: "/images/p1.png",
-    status: true,
-    description: "مها صالح، متخصصة في تطوير الحلول التقنية والذكاء الاصطناعي. أمتلك خبرة واسعة في تصميم التطبيقات الذكية وتقديم استشارات تقنية للمنشآت الصغيرة والمتوسطة. أؤمن بأهمية التكنولوجيا في تعزيز كفاءة الأعمال وتحقيق نمو مستدام."
-  },
-  {
-    id: 3,
-    name: "انس تركي",
-    country: "السعودية",
-    rating: 4.4,
-    type: "ريادي",
-    members: 40,
-    price: 228,
-    image: "/images/p2.png",
-    status: true,
-    description: "مستشار تطوير أعمال بخبرة في بناء خطط النمو وتحليل الأسواق الناشئة. أعمل مع أصحاب المشاريع على تحسين أدائهم التشغيلي وزيادة فرصهم الاستثمارية في السوق السعودي والخليجي."
-  },
-  {
-    id: 4,
-    name: "مها صالح",
-    country: "الإمارات",
-    rating: 4.7,
-    type: "تقنية",
-    members: 35,
-    price: 292,
-    image: "/images/p1.png",
-    status: true,
-    description: "مطور نظم معلومات بخبرة تتجاوز 8 سنوات في بناء تطبيقات إدارة الأعمال والحلول التقنية المتكاملة. أساعد المؤسسات على التحول الرقمي ورفع كفاءتها التشغيلية من خلال أحدث التقنيات."
-  }
-];
-const helper = helpers.find((g) => g.id === Number(id));
+
+    const helpers = [
+        {
+            id: 1,
+            name: "انس تركي",
+            country: "السعودية",
+            rating: 4.4,
+            type: "ريادي",
+            members: 40,
+            price: 248,
+            image: "/images/p2.png",
+            status: true,
+            description: "تطوير تطبيق جوال متكامل لمراقبة الصحة الشخصية، يهدف إلى تمكين المستخدمين من تتبع مؤشرات صحتهم بشكل يومي. سيوفر التطبيق ميزات مثل تسجيل النشاط البدني، مراقبة النظام الغذائي، وتحليل البيانات الصحية لتقديم نصائح مخصصة. كما سيتضمن التطبيق واجهة مستخدم سهلة الاستخدام، مع إمكانية الوصول إلى معلومات صحية موثوقة، مما يساعد المستخدمين على اتخاذ قرارات أفضل بشأن صحتهم.",
+            contracts: { total: 14, active: 3, completed: 11 },
+            permits: {
+                categories: ["التسويق", "تكنولوجيا", "مبتكر", "تحليل البيانات", "ريادة الأعمال"],
+                experiences: ["تسويق", "تكنولوجيا", "مبتكر", "تحليل البيانات", "ريادة الأعمال"],
+                expernum: "10 سنوات",
+                qualify: "(دراسات عليا)ماجستير",
+                type: "وثيقة عمل حر",
+                issuer: "وزارة الموارد البشرية",
+                documentNumber: "وثيقة عمل حر",
+                expiryDate: "5 مايو 2025"
+            }
+        },
+
+        {
+            id: 2,
+            name: "انس تركي",
+            country: "السعودية",
+            rating: 4.4,
+            type: "ريادي",
+            members: 40,
+            price: 248,
+            image: "/images/p2.png",
+            status: true,
+            description: "تطوير تطبيق جوال متكامل لمراقبة الصحة الشخصية، يهدف إلى تمكين المستخدمين من تتبع مؤشرات صحتهم بشكل يومي. سيوفر التطبيق ميزات مثل تسجيل النشاط البدني، مراقبة النظام الغذائي، وتحليل البيانات الصحية لتقديم نصائح مخصصة. كما سيتضمن التطبيق واجهة مستخدم سهلة الاستخدام، مع إمكانية الوصول إلى معلومات صحية موثوقة، مما يساعد المستخدمين على اتخاذ قرارات أفضل بشأن صحتهم.",
+            contracts: { total: 14, active: 3, completed: 11 },
+            permits: {
+                categories: ["التسويق", "تكنولوجيا", "مبتكر", "تحليل البيانات", "ريادة الأعمال"],
+                experiences: ["تسويق", "تكنولوجيا", "مبتكر", "تحليل البيانات", "ريادة الأعمال"],
+                expernum: "7 سنوات",
+                type: "وثيقة عمل حر",
+                qualify: "(دراسات عليا)ماجستير",
+                issuer: "وزارة الموارد البشرية",
+                documentNumber: "وثيقة عمل حر",
+                expiryDate: "5 مايو 2025"
+            }
+        },
+        {
+            id: 3,
+            name: "انس تركي",
+            country: "السعودية",
+            rating: 4.4,
+            type: "ريادي",
+            members: 40,
+            price: 248,
+            image: "/images/p2.png",
+            status: true,
+            description: "تطوير تطبيق جوال متكامل لمراقبة الصحة الشخصية، يهدف إلى تمكين المستخدمين من تتبع مؤشرات صحتهم بشكل يومي. سيوفر التطبيق ميزات مثل تسجيل النشاط البدني، مراقبة النظام الغذائي، وتحليل البيانات الصحية لتقديم نصائح مخصصة. كما سيتضمن التطبيق واجهة مستخدم سهلة الاستخدام، مع إمكانية الوصول إلى معلومات صحية موثوقة، مما يساعد المستخدمين على اتخاذ قرارات أفضل بشأن صحتهم.",
+            contracts: { total: 14, active: 3, completed: 11 },
+            permits: {
+                categories: ["التسويق", "تكنولوجيا", "مبتكر", "تحليل البيانات", "ريادة الأعمال"],
+                experiences: ["تسويق", "تكنولوجيا", "مبتكر", "تحليل البيانات", "ريادة الأعمال"],
+                expernum: "12 سنوات",
+                type: "وثيقة عمل حر",
+                qualify: "(دراسات عليا)ماجستير",
+                issuer: "وزارة الموارد البشرية",
+                documentNumber: "وثيقة عمل حر",
+                expiryDate: "5 مايو 2025"
+            }
+        },
+        {
+            id: 4,
+            name: "انس تركي",
+            country: "السعودية",
+            rating: 4.4,
+            type: "ريادي",
+            members: 40,
+            price: 248,
+            image: "/images/p2.png",
+            status: true,
+            description: "تطوير تطبيق جوال متكامل لمراقبة الصحة الشخصية، يهدف إلى تمكين المستخدمين من تتبع مؤشرات صحتهم بشكل يومي. سيوفر التطبيق ميزات مثل تسجيل النشاط البدني، مراقبة النظام الغذائي، وتحليل البيانات الصحية لتقديم نصائح مخصصة. كما سيتضمن التطبيق واجهة مستخدم سهلة الاستخدام، مع إمكانية الوصول إلى معلومات صحية موثوقة، مما يساعد المستخدمين على اتخاذ قرارات أفضل بشأن صحتهم.",
+            contracts: { total: 14, active: 3, completed: 11 },
+            permits: {
+                categories: ["التسويق", "تكنولوجيا", "مبتكر", "تحليل البيانات", "ريادة الأعمال"],
+                experiences: ["تسويق", "تكنولوجيا", "مبتكر", "تحليل البيانات", "ريادة الأعمال"],
+                expernum: "2 سنوات",
+                type: "وثيقة عمل حر",
+                qualify: "(دراسات عليا)ماجستير",
+                issuer: "وزارة الموارد البشرية",
+                documentNumber: "وثيقة عمل حر",
+                expiryDate: "5 مايو 2025"
+            }
+        }];
+
+    const helper = helpers.find((g) => g.id === Number(id));
+
     if (!helper) {
         return (
             <section className="page helper-details-section mx-3">
@@ -81,55 +125,93 @@ const helper = helpers.find((g) => g.id === Number(id));
             <div className="container">
                 <div className="header">
                     <SectionHeader />
-                    <div className="options-menu">
-                        <i className="fas fa-ellipsis-v" onClick={toggleMenu}></i>
-                        {menuOpen && (
-                            <div className="options-list">
-                                <button onClick={() => { setShowHelpModal(true); setMenuOpen(false); }}>
-                                    تقديم مساعدة
-                                </button>
-                                <button onClick={() => { setShowReportModal(true); setMenuOpen(false); }}>
-                                    إبلاغ عن مخالفة
-                                </button>
-                            </div>
-                        )}
-                    </div>
+                    <Link to="/personal-community">
+                        <CustomButton color="primary">
+                            مجتمع المساعد الشخصي
+                        </CustomButton>
+                    </Link>
                 </div>
-                <div className="goal-details-card mt-3 row ">
-                    <div className="top-info col-lg-4 col-12">
+                <div className="goal-details-card mt-3 row">
+                    <div className="top-info col-lg-3 col-12">
                         <div style={{ position: "relative" }}>
                             <img src={helper.image} alt={helper.name} className="avatar" />
                             {helper.status && <span className="status-dot"></span>}
                         </div>
-
                         <div className="details">
                             <h5>{helper.name}</h5>
                             <div className="rating">
-                                4.4 <i className="fas fa-star"></i>
-                                <span>(453)</span>
+                                {helper.rating} <i className="fas fa-star"></i>
                             </div>
                             <div className="info">
                                 <div className="country">
-                                    <i className="fas fa-map-marker-alt"></i>
-                                    {helper.country}
+                                    <i className="fas fa-map-marker-alt"></i> {helper.country}
                                 </div>
-                            
                             </div>
                         </div>
                     </div>
 
-                    <div className="col-lg-8 col-12">
-                        <h6>الهدف</h6>
+                    <div className="col-lg-9 col-12">
+                        <h6>نبذة</h6>
                         <p className="desc">{helper.description}</p>
-                        
                     </div>
-                  
+
+                    <div className="row sub-info mt-5">
+                        <div className="permits-box col-lg-6 col-12">
+                            <h6>التصاريح</h6>
+                            <div className="assist-methods  mb-3">
+                                {helper.permits.categories.map((cat, index) => (
+                                    <span key={index} className="assist-method">{cat}</span>
+                                ))}
+                            </div>
+                        </div>
+                        <div className="info-grid col-lg-6 col-12">
+                            <div className="info-box">
+                                <div className="label">نوع التصريح</div>
+                                <div className="value">{helper.permits.type}</div>
+                            </div>
+                            <div className="info-box">
+                                <div className="label">جهة الاصدار</div>
+                                <div className="value">{helper.permits.issuer}</div>
+                            </div>
+                            <div className="info-box">
+                                <div className="label">رقم الوثيقة</div>
+                                <div className="value">{helper.permits.documentNumber}</div>
+                            </div>
+                            <div className="info-box">
+                                <div className="label">تاريخ الصلاحية</div>
+                                <div className="value">{helper.permits.expiryDate}</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="row sub-info">
+                        <div className="permits-box col-lg-6 col-12">
+                            <h6>الخبرات العملية</h6>
+                            <div className="assist-methods  mb-3">
+                                {helper.permits.experiences.map((ex, index) => (
+                                    <span key={index} className="assist-method">{ex}</span>
+                                ))}
+                            </div>
+                        </div>
+                        <div className="info-grid col-lg-6 col-12">
+                            <div className="info-box">
+                                <div className="label">عدد سنوات الخبره</div>
+                                <div className="value">{helper.permits.expernum}</div>
+                            </div>
+                            <div className="info-box">
+                                <div className="label">المؤهلات</div>
+                                <div className="value">{helper.permits.qualify}</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="row">
+                        <div className="col-lg-2 col-12 ">
+                            <HelperContractsChart contracts={helper.contracts} />
+                        </div>
+
+                    </div>
                 </div>
-                <HelpModal showModal={showHelpModal} setShowModal={setShowHelpModal} />
-                <ReportModal showModal={showReportModal} setShowModal={setShowReportModal} />
 
             </div>
         </section>
-
     );
 }

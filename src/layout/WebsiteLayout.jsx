@@ -5,6 +5,8 @@ import AOS from "aos";
 import "aos/dist/aos.css";
 import { useEffect } from "react";
 import ScrollToTop from "../ui/ScrollToTop";
+import ResponsiveNav from "../layout/ResponsiveNav";
+
 const WebsiteLayout = () => {
   useEffect(() => {
     const sections = document.querySelectorAll("section");
@@ -29,6 +31,7 @@ const WebsiteLayout = () => {
       <Header />
       <Outlet />
       <Footer />
+      <ResponsiveNav />
     </section>
   );
 };

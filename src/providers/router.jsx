@@ -50,6 +50,12 @@ import NewHelpOffer from "../routes/website/NewHelpOffer";
 import GoalDetails from "../routes/website/GoalDetails";
 import OfferDetails from "../routes/website/OfferDetails";
 import HelpersDetails from "../routes/website/HelpersDetails";
+import MyWorks from "../routes/website/MyWorks";
+import Consultations from "../routes/website/Consultations";
+import PersonalCommunity from "../routes/website/PersonalCommunity";
+import Encounters from "../routes/website/Encounters";
+import Posts from "../routes/website/Posts";
+import Views from "../routes/website/Views";
 
 export const router = createBrowserRouter([
   {
@@ -116,6 +122,10 @@ export const router = createBrowserRouter([
         element: <NewHelpOffer />,
       },
        {
+        path: "my-works",
+        element: <MyWorks />,
+      },     
+       {
         path: "offer/:id",
         element: <OfferDetails />
       },
@@ -123,6 +133,34 @@ export const router = createBrowserRouter([
         path: "helper/:id",
         element: <HelpersDetails />
       },
+
+ {
+  path: "personal-community",
+  element: <PersonalCommunity />, 
+  children: [
+    {
+      path: "",
+      element: <Consultations/>, 
+    },
+    {
+      path: "consultations",
+      element: <Consultations />,
+    },
+    {
+      path: "Encounters",
+      element: <Encounters />,
+    },
+    {
+      path: "posts",
+      element: <Posts />,
+    },
+    {
+      path: "views",
+      element: <Views />,
+    },
+  ],
+}
+
 
     ],
   },

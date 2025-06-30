@@ -11,18 +11,32 @@
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
 
   &.scrolled {
-    background: white;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+    background: #fff;
   }
 
   nav {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    position: relative;
 
     .logo img {
       height: 48px;
+    }
+
+    .layer {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.4);
+      z-index: 10;
+      opacity: 0;
+      visibility: hidden;
       transition: 0.3s;
+
+      &.open {
+        opacity: 1;
+        visibility: visible;
+      }
     }
 
     .nav-links {
@@ -30,22 +44,23 @@
       display: flex;
       gap: 1.5rem;
       align-items: center;
+      transition: 0.3s;
 
       li a {
         color: #333;
-        padding: 0.5rem 0;
-        position: relative;
-        text-decoration: none;
         font-weight: 500;
+        text-decoration: none;
         transition: color 0.3s;
 
         &:hover {
-          color:$main;
+          color: $main;
         }
       }
+
       .close-btn {
         display: none;
       }
+
       .mobile-only {
         display: none;
       }
@@ -55,27 +70,28 @@
         top: 0;
         left: -100%;
         flex-direction: column;
-        background: white;
-        width: 80%;
-        height: 100%;
-        padding: 2rem 1rem;
+        background: #fff;
+        width: 50%;
+        height: 100vh;
+        align-items: flex-start;
+        padding: 2rem 1.5rem;
         gap: 1rem;
-        transition: left 0.3s;
-        box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+        transition: 0.3s;
+        z-index: 20;
 
-        &.active {
+        &.open {
           left: 0;
         }
 
         .close-btn {
+          display: block;
           position: absolute;
           top: 1rem;
-          right: 1rem;
-          font-size: 1.5rem;
-          border: none;
+          left: 1rem;
+          font-size: 24px;
           background: none;
+          border: none;
           cursor: pointer;
-          display: block;
         }
 
         .mobile-only {
@@ -89,30 +105,27 @@
       gap: 1rem;
 
       .auth-btn {
-        padding: 0.5rem 1.5rem;
-        font-size: 0.95rem;
+        padding: 0.5rem 1.2rem;
+        font-size: 0.9rem;
         font-weight: 500;
-        border-radius: 15px;
-        cursor: pointer;
-        text-decoration: none;
+        border-radius: 20px;
         border: 1px solid transparent;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
-        transition: background 0.3s, color 0.3s, border-color 0.3s, box-shadow 0.3s;
+        text-decoration: none;
+        transition: 0.3s;
       }
 
       .login-btn {
-        background: transparent;
-        border-color:$main;
-        color:$main;
+        border-color: $main;
+        color: $main;
 
         &:hover {
-          background:$main;
+          background: $main;
           color: #fff;
         }
       }
 
       .register-btn {
-        background:$main;
+        background: $main;
         color: #fff;
 
         &:hover {
@@ -125,20 +138,71 @@
       }
     }
 
-    .menu-toggler {
+    .toggle_menu {
       display: none;
-      flex-direction: column;
-      gap: 6px;
+      font-size: 22px;
+      color: #333;
       cursor: pointer;
 
-      span {
-        width: 24px;
-        height: 2px;
-        background: #333;
+      &:hover {
+        color: $main;
       }
 
       @media (max-width: 992px) {
-        display: flex;
+        display: block;
+      }
+    }
+  }
+}
+
+
+.small_menu {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  z-index: 99;
+  background: $white;
+  align-items: center;
+  // box-shadow: $shadow;
+  display: none;
+
+  @media screen and (max-width: 991px) {
+    display: flex;
+  }
+
+  .menu_item {
+    @include centerFlex();
+    flex-direction: column;
+    flex: 1;
+    padding: 12px;
+    gap: 8px;
+    font-size: 14px;
+    text-decoration: none;
+
+    i {
+      font-size: 16px;
+      color: $gray;
+    }
+img{
+  height: 20px;
+}
+
+    &.active i {
+      color: $main;
+    }
+
+    .center {
+      width: 42px;
+      height: 42px;
+      background: $main;
+      font-size: 24px;
+      color: $white;
+      @include centerFlex();
+      border-radius: 50%;
+
+      i {
+        color: $white;
       }
     }
   }

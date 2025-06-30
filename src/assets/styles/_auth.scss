@@ -6,6 +6,7 @@
   .image_wrapper {
     flex: 1;
     background-size: cover;
+    
     transition: $transition;
     background-position: center left;
     @media (max-width: 768px) {
@@ -19,7 +20,7 @@
       overflow-y: scroll;
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
+      // justify-content: space-between;
       padding: 3rem 0;
       gap: 16px;
       margin: 0 auto;
@@ -95,7 +96,7 @@
         flex: 1 1;
         display: flex;
         flex-direction: column;
-        justify-content: flex-end;
+        margin-top: 4rem;
         .head {
           color: $dark;
           font-size: 32px;

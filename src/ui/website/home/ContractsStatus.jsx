@@ -33,17 +33,17 @@ export default function ContractsStatus() {
     <section className="contracts-status container">
           <div className="slider-header">
         <div className="text">
-         <h2>عقودي</h2>
-          <p>راجع وتتبع عقودك بسهولة</p>
+         <h2>اعمالي</h2>
+          <p>راجع وتتبع اعمالك بسهولة</p>
         </div>
-         <Link to="/contracts" className="view-all">عرض الكل</Link>
+         <Link to="/my-works" className="view-all">عرض الكل</Link>
       </div>
      
       <div className="content">
         <div className="chart-wrapper">
           <Doughnut data={data} options={options} />
           <div className="center-label">
-            <p>عقودي</p>
+            <p>الاعمال</p>
             <h3>{totalContracts}</h3>
           </div>
         </div>

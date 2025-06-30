@@ -121,6 +121,7 @@
             font-size: 1.1rem;
             margin: 2rem 0 0.4rem;
             font-weight: 600;
+            margin-bottom: 10px;
         }
 
         .desc {
@@ -158,20 +159,79 @@
                 }
             }
         }
-
+.sub-info{
+      background: #F3F3F3;
+                padding: 0.6rem 0.75rem;
+                border-radius: 10px;
+                margin-bottom: 20px;
+}
         .assist-methods {
             display: flex;
             flex-wrap: wrap;
             gap: 0.5rem;
 
             .assist-method {
-                background: #F3F3F3;
+                background: #ffffff;
                 padding: 0.6rem 0.75rem;
                 border-radius: 10px;
                 font-size: 0.9rem;
                 text-align: center;
             }
         }
+.contracts-summary-chart {
+  text-align: center;
+  margin-top: 10px ;
+
+  .chart-wrapper {
+    position: relative;
+    width: 160px;
+    margin: auto;
+
+    canvas {
+      width: 100% !important;
+      height: auto !important;
+    }
+
+    .center-number {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 26px;
+      font-weight: 700;
+      color: #333;
+    }
+    .centered{
+        font-size: 15px;
+        font-size: 400;
+    }
+  }
+
+  .contracts-summary {
+    font-size: 14px;
+    margin-top: 10px;
+
+    div {
+      margin: 4px 0;
+
+      .dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        display: inline-block;
+        margin-left: 6px;
+      }
+
+      .completed {
+        background: #20407c;
+      }
+
+      .active {
+        background: #63c5f9;
+      }
+    }
+  }
+}
 
         @media (max-width: 576px) {
             padding: 1rem;
@@ -315,3 +375,6 @@
 
     }
 }
+
+
+

@@ -1,10 +1,10 @@
 import { useEffect, useState, useRef } from "react";
-import { Link, NavLink } from "react-router";
+import { Link, NavLink, useNavigate } from "react-router";
 
 export default function Header() {
   const headerRef = useRef(null);
-  const [showMenu, setShowMenu] = useState(false);
-  const [closing, setClosing] = useState(false);
+  const [openMenu, setOpenMenu] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -15,13 +15,24 @@ export default function Header() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const handleCloseMenu = () => {
-    setClosing(true);
-    setTimeout(() => {
-      setShowMenu(false);
-      setClosing(false);
-    }, 300);
-  };
+  useEffect(() => {
+    const handleOutsideClick = (e) => {
+      const menu = document.querySelector(".nav-links");
+      const toggler = document.querySelector(".toggle_menu");
+      if (
+        openMenu &&
+        !menu.contains(e.target) &&
+        !toggler.contains(e.target) &&
+        !e.target.closest(".nav-links a")
+      ) {
+        setOpenMenu(false);
+      }
+    };
+    window.addEventListener("click", handleOutsideClick);
+    return () => window.removeEventListener("click", handleOutsideClick);
+  }, [openMenu]);
+
+  const handleToggleMenu = () => setOpenMenu(!openMenu);
 
   return (
     <header className="main-header" ref={headerRef}>
@@ -30,32 +41,30 @@ export default function Header() {
           <img src="/images/logo.svg" alt="logo" />
         </Link>
 
-        <ul className={`nav-links ${showMenu ? "active" : ""} ${closing ? "closing" : ""}`}>
-          <button className="close-btn" onClick={handleCloseMenu}>
-            <i className="fa-light fa-xmark"></i>
-          </button>
-          {["/", "/how-it-works", "/about", "/services", "/contact"].map((path, index) => (
-            <li key={index} onClick={handleCloseMenu}>
+        <div className={`layer ${openMenu ? "open" : ""}`}></div>
+
+        <ul className={`nav-links ${openMenu ? "open" : ""}`}>
+          {["/", "/how-it-works", "/about", "/services", "/contact"].map((path, i) => (
+            <li key={i} onClick={() => setOpenMenu(false)}>
               <NavLink to={path}>{getLinkText(path)}</NavLink>
             </li>
           ))}
-          <li className="mobile-only" onClick={handleCloseMenu}>
+          <li className="mobile-only">
             <NavLink to="/login">تسجيل الدخول</NavLink>
           </li>
-          <li className="mobile-only" onClick={handleCloseMenu}>
+          <li className="mobile-only">
             <NavLink to="/register">إنشاء حساب</NavLink>
           </li>
         </ul>
 
-      <div className="actions">
-  <Link to="/login" className="auth-btn login-btn">تسجيل الدخول</Link>
-  <Link to="/register" className="auth-btn register-btn">إنشاء حساب</Link>
-</div>
-
-
-        <div className="menu-toggler" onClick={() => setShowMenu(true)}>
-          <span></span><span></span><span></span>
+        <div className="actions">
+          <Link to="/login" className="auth-btn login-btn">تسجيل الدخول</Link>
+          <Link to="/register" className="auth-btn register-btn">إنشاء حساب</Link>
         </div>
+
+        <button className="toggle_menu" onClick={handleToggleMenu}>
+          <i className="fa-light fa-bars"></i>
+        </button>
       </nav>
     </header>
   );
