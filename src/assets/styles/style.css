@@ -6897,4 +6897,85 @@ footer .links a:hover {
 .encounter-modal .meta i {
   margin-left: 5px;
   color: #214b92;
+}
+
+.views-section .video-box iframe {
+  width: 100%;
+  height: 350px;
+  border-radius: 12px;
+  border: none;
+  margin-bottom: 15px;
+}
+.views-section h5 {
+  margin: 1rem 0px;
+  font-size: 1.3rem;
+  font-weight: bold;
+}
+.views-section .desc {
+  font-size: 0.95rem;
+  color: #555;
+  margin-bottom: 15px;
+}
+.views-section .icons-row {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+.views-section .icons-row span {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.9rem;
+  color: #333;
+}
+.views-section .icons-row span .icon-circle {
+  background: #f1f1f1;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #214b92;
+  font-size: 1rem;
+}
+.views-section .comments-list {
+  margin-top: 20px;
+}
+.views-section .comments-list .comment-card {
+  background: #fff;
+  border-radius: 10px;
+  padding: 14px;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.05);
+  height: 100%;
+}
+.views-section .comments-list .comment-card .title {
+  font-weight: 600;
+  margin-bottom: 6px;
+  font-size: 0.95rem;
+}
+.views-section .comments-list .comment-card .desc {
+  font-size: 0.9rem;
+  color: #555;
+  margin-bottom: 6px;
+}
+.views-section .comments-list .comment-card .date {
+  font-size: 0.8rem;
+  color: #888;
+}
+.views-section .add-comment-btn {
+  background: #214b92;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 18px;
+  font-size: 0.9rem;
+  margin: 20px;
+  cursor: pointer;
+}
+.views-section .add-comment-btn i {
+  margin-left: 6px;
+}
+.views-section .add-comment-btn:hover {
+  background: #193a71;
 }/*# sourceMappingURL=style.css.map */

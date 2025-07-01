@@ -125,7 +125,7 @@ export default function HelpersDetails() {
             <div className="container">
                 <div className="header">
                     <SectionHeader />
-                    <Link to="/personal-community">
+                    <Link to="/personal-community/consultations">
                         <CustomButton color="primary">
                             مجتمع المساعد الشخصي
                         </CustomButton>

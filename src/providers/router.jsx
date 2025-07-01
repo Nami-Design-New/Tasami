@@ -138,10 +138,7 @@ export const router = createBrowserRouter([
   path: "personal-community",
   element: <PersonalCommunity />, 
   children: [
-    {
-      path: "",
-      element: <Consultations/>, 
-    },
+  
     {
       path: "consultations",
       element: <Consultations />,
