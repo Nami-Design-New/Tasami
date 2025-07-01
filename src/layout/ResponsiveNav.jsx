@@ -6,7 +6,7 @@ function ResponsiveNav() {
 
   return (
     <div className="small_menu">
-      <NavLink to="/about" className="menu_item">
+      <NavLink to="/" className="menu_item">
         <img src="/icons/navlogo.svg" alt="fav" />
         <span>الانطلاق</span>
       </NavLink>
@@ -19,7 +19,7 @@ function ResponsiveNav() {
         <i className="fa-solid fa-file-lines"></i>
         <span>أعمالي </span>
       </NavLink>
-      <NavLink to="/profile" className="menu_item">
+      <NavLink to="/my-profile" className="menu_item">
         <i className="fa-regular fa-user"></i>
         <span>حسابي </span>
       </NavLink>

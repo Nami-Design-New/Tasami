@@ -1,4 +1,5 @@
 @charset "UTF-8";
+@import "./profile.css";
 @keyframes rotate {
   0% {
     transform: rotate(0deg);
@@ -3019,17 +3020,6 @@ input[type=number]::-webkit-outer-spin-button, input[type=number]::-webkit-inner
   background: #214b92;
   color: #fff;
   box-shadow: 0 0 8px rgba(33, 75, 146, 0.3);
-}
-.contact-page .contact-form-wrapper .submit-btn {
-  background: #214b92;
-  border: none;
-  border-radius: 6px;
-  padding: 0.75rem;
-  color: #fff;
-  transition: background 0.3s;
-}
-.contact-page .contact-form-wrapper .submit-btn:hover {
-  background: #1c407d;
 }
 
 .auth_section {
@@ -6596,11 +6586,6 @@ footer .links a:hover {
   margin: 0;
   font-size: 0.85rem;
   color: #666;
-}
-.myworks .tab-content .work-card .user-info .rate {
-  margin-right: auto;
-  font-size: 0.85rem;
-  color: #ff9800;
 }
 .myworks .tab-content .work-card .title {
   font-weight: 600;

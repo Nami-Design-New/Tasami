@@ -8,7 +8,6 @@ export default function WorkCard({ work }) {
             <h4>{work.user.name}</h4>
             <p>{work.country}</p>
           </div>
-          <span className="rate">{work.user.rate} ⭐</span>
         </div>
       )}
 

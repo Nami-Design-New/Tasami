@@ -1145,18 +1145,7 @@
       }
     }
 
-    .submit-btn {
-      background: $main;
-      border: none;
-      border-radius: 6px;
-      padding: 0.75rem;
-      color: #fff;
-      transition: background 0.3s;
-
-      &:hover {
-        background: darken($main, 5%);
-      }
-    }
+  
   }
   
 }

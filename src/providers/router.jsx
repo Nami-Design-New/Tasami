@@ -56,6 +56,7 @@ import PersonalCommunity from "../routes/website/PersonalCommunity";
 import Encounters from "../routes/website/Encounters";
 import Posts from "../routes/website/Posts";
 import Views from "../routes/website/Views";
+import Profile from "../routes/website/Profile";
 
 export const router = createBrowserRouter([
   {
@@ -133,7 +134,10 @@ export const router = createBrowserRouter([
         path: "helper/:id",
         element: <HelpersDetails />
       },
-
+       {
+        path: "my-profile",
+        element: <Profile />,
+      },     
  {
   path: "personal-community",
   element: <PersonalCommunity />, 
