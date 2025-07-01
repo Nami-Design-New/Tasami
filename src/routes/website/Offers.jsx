@@ -97,7 +97,7 @@ const filters = [
     <section className="personal-offers  page">
         <div className="container">
            <div className="row">
-          <div className="col-lg-4 col-12">
+          <div className="col-lg-3 col-12">
       <SectionHeader
         title="عروض المساعدة"
         tabs={tabs}
@@ -109,7 +109,7 @@ const filters = [
         onFilterClick={() => setShowFilterModal(true)} 
       />
 </div>
-          <div className="row g-3 col-lg-8 col-12 mt-4" >
+          <div className="row g-3 col-lg-9 col-12 mt-4" >
         {filteredItems.map((offer) => (
           <div className="col-12 col-md-6 col-lg-4" key={offer.id}>
             <OfferCard offer={offer} />

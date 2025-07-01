@@ -1,5 +1,6 @@
 import { useEffect, useState, useRef } from "react";
 import { Link, NavLink, useNavigate } from "react-router";
+import UserDropDown from "./website/UserDropDown";
 
 export default function Header() {
   const headerRef = useRef(null);
@@ -59,7 +60,8 @@ export default function Header() {
 
         <div className="actions">
           <Link to="/login" className="auth-btn login-btn">تسجيل الدخول</Link>
-          <Link to="/register" className="auth-btn register-btn">إنشاء حساب</Link>
+         <UserDropDown />
+
         </div>
 
         <button className="toggle_menu" onClick={handleToggleMenu}>

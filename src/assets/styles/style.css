@@ -1,5 +1,4 @@
 @charset "UTF-8";
-@import "./profile.css";
 @keyframes rotate {
   0% {
     transform: rotate(0deg);
@@ -2020,6 +2019,59 @@ input[type=number]::-webkit-outer-spin-button, input[type=number]::-webkit-inner
   font-weight: 500;
 }
 
+.gender_select {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  gap: 6px;
+}
+.gender_select label {
+  font-size: 14px;
+}
+.gender_select .gender_card {
+  display: flex;
+  gap: 8px;
+  background-color: #fff;
+  color: black;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  outline: none;
+  border: 1px solid #f2f2f2;
+  background: #f8f8f8;
+  padding: 0 20px;
+  height: 52px;
+  transition: 0.3s;
+  cursor: pointer;
+  font-weight: 400 !important;
+  font-size: 14px;
+  width: 100%;
+}
+.gender_select .gender_card img {
+  height: 30px;
+  width: 30px;
+  -o-object-fit: contain;
+     object-fit: contain;
+}
+.gender_select .gender_card:hover {
+  background-color: rgba(33, 75, 146, 0.1);
+}
+.gender_select .gender_card.active {
+  border: 1px solid #214b92;
+  background-color: rgba(33, 75, 146, 0.1);
+}
+.gender_select > div {
+  display: flex;
+  gap: 8px;
+}
+.gender_select input {
+  visibility: hidden;
+  display: none;
+}
+.gender_select label {
+  font-weight: 500;
+}
+
 .hero-section {
   padding: 30px 0;
   margin-top: 70px;
@@ -3525,12 +3577,17 @@ input[type=number]::-webkit-outer-spin-button, input[type=number]::-webkit-inner
   background: #214b92;
   color: #fff;
 }
-.main-header nav .actions .register-btn {
-  background: #214b92;
-  color: #fff;
+.main-header nav .actions .user_dropdown {
+  border-radius: 120px;
+  padding: 8px 20px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  background-color: #214b92;
 }
-.main-header nav .actions .register-btn:hover {
-  background: #2a60bc;
+.main-header nav .actions .user_dropdown i {
+  font-size: 12px;
 }
 @media (max-width: 992px) {
   .main-header nav .actions {
@@ -3550,6 +3607,30 @@ input[type=number]::-webkit-outer-spin-button, input[type=number]::-webkit-inner
   .main-header nav .toggle_menu {
     display: block;
   }
+}
+
+.custom-dropdown-menu {
+  border-radius: 16px;
+  padding: 10px;
+  min-width: 220px;
+  background-color: white;
+}
+.custom-dropdown-menu .dropdown-item {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  padding: 8px 0px;
+}
+.custom-dropdown-menu .dropdown-item i {
+  font-size: 14px;
+  margin: 0 10px;
+  color: #777777;
+}
+.custom-dropdown-menu .dropdown-item:hover {
+  background-color: #f8f9fa;
+}
+.custom-dropdown-menu .dropdown-item:active {
+  color: black;
 }
 
 .small_menu {
@@ -6984,4 +7065,70 @@ footer .links a:hover {
 }
 .add-comment-btn:hover {
   background: #183668;
+}
+
+.notifications-page .notifications-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-top: 20px;
+}
+.notifications-page .notifications-list .notification-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #f3f2f2;
+  padding: 10px 0;
+}
+.notifications-page .notifications-list .notification-card .notification-icon {
+  width: 50px;
+  height: 50px;
+  border-radius: 8px;
+  overflow: hidden;
+}
+.notifications-page .notifications-list .notification-card .notification-icon img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+.notifications-page .notifications-list .notification-card .notification-content {
+  flex: 1;
+  padding: 0 15px;
+}
+.notifications-page .notifications-list .notification-card .notification-content h6 {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #222;
+}
+.notifications-page .notifications-list .notification-card .notification-content p {
+  margin: 5px 0 0;
+  font-size: 0.9rem;
+  color: #555;
+}
+.notifications-page .notifications-list .notification-card .notification-date {
+  font-size: 0.8rem;
+  color: #999;
+  white-space: nowrap;
+}
+
+.wallet-page .wallet-balance {
+  background: #f9f9f9;
+  border: 1px solid #eee;
+}
+.wallet-page .wallet-balance .balance-amount {
+  color: #003399;
+  font-weight: bold;
+}
+.wallet-page .wallet-balance .balance-amount img {
+  height: 30px;
+}
+.wallet-page .transaction-card {
+  border: 1px solid #ddd;
+  transition: all 0.3s;
+}
+.wallet-page .transaction-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06);
 }/*# sourceMappingURL=style.css.map */

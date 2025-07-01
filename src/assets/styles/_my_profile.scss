@@ -1,0 +1,77 @@
+.notifications-page {
+  .notifications-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 20px;
+
+    .notification-card {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid #f3f2f2;
+      padding: 10px 0;
+
+      .notification-icon {
+        width: 50px;
+        height: 50px;
+        border-radius: 8px;
+        overflow: hidden;
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+      }
+
+      .notification-content {
+        flex: 1;
+        padding: 0 15px;
+
+        h6 {
+          margin: 0;
+          font-size: 1rem;
+          font-weight: 700;
+          color: #222;
+        }
+
+        p {
+          margin: 5px 0 0;
+          font-size: 0.9rem;
+          color: #555;
+        }
+      }
+
+      .notification-date {
+        font-size: 0.8rem;
+        color: #999;
+        white-space: nowrap;
+      }
+    }
+  }
+}
+///
+.wallet-page {
+  .wallet-balance {
+    background: #f9f9f9;
+    border: 1px solid #eee;
+
+    .balance-amount {
+      color: #003399;
+      font-weight: bold;
+      img{
+        height: 30px;
+      }
+    }
+  }
+
+  .transaction-card {
+    border: 1px solid #ddd;
+    transition: all 0.3s;
+
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06);
+    }
+  }
+}

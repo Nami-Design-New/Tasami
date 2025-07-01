@@ -120,7 +120,7 @@ export default function PersonalGoals() {
     <section className="personal-goals page">
       <div className="container">
         <div className="row">
-          <div className="col-lg-4 col-12">
+          <div className="col-lg-3 col-12">
             <SectionHeader
               title="الأهداف الشخصية"
               tabs={tabs}
@@ -133,7 +133,7 @@ export default function PersonalGoals() {
             />
           </div>
 
-          <div className="row g-3 col-lg-8 col-12 mt-4" >
+          <div className="row g-3 col-lg-9 col-12 mt-4" >
             {filteredItems.map((goal) => (
               <div className="col-12 col-md-6 col-lg-4" key={goal.id}>
                 <GoalCard {...goal} />

@@ -57,7 +57,9 @@ import Encounters from "../routes/website/Encounters";
 import Posts from "../routes/website/Posts";
 import Views from "../routes/website/Views";
 import Profile from "../routes/website/Profile";
-
+import MyNotifications from "../routes/website/MyNotifications";
+import EditProfile from "../routes/website/EditProfile";
+import MyWallet from "../routes/website/MyWallet";
 export const router = createBrowserRouter([
   {
     element: <AuthLayout />,
@@ -113,6 +115,19 @@ export const router = createBrowserRouter([
       {
         path: "new-goal",
         element: <NewGoal />,
+      },
+      {
+        path: "my-notifications",
+        element: <MyNotifications />,
+      },
+      {
+        path: "edit-profile",
+        element: <EditProfile />,
+      },
+
+       {
+        path: "my-wallet",
+        element: <MyWallet />,
       },
       {
         path: "goal/:id",

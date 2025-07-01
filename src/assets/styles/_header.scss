@@ -124,12 +124,17 @@
         }
       }
 
-      .register-btn {
-        background: $main;
-        color: #fff;
+      .user_dropdown {
+        border-radius: 120px;
+        padding: 8px 20px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        background-color: $main;
 
-        &:hover {
-          background: lighten($main, 10%);
+        i {
+          font-size: 12px;
         }
       }
 
@@ -137,6 +142,7 @@
         display: none;
       }
     }
+
 
     .toggle_menu {
       display: none;
@@ -155,6 +161,33 @@
   }
 }
 
+.custom-dropdown-menu {
+  border-radius: 16px;
+  padding: 10px;
+  min-width: 220px;
+  background-color: white;
+
+  .dropdown-item {
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    padding: 8px 0px;
+
+    i {
+      font-size: 14px;
+      margin: 0 10px;
+      color: $gray;
+    }
+
+    &:hover {
+      background-color: #f8f9fa;
+    }
+
+    &:active {
+      color: black;
+    }
+  }
+}
 
 .small_menu {
   position: fixed;
@@ -184,9 +217,10 @@
       font-size: 16px;
       color: $gray;
     }
-img{
-  height: 20px;
-}
+
+    img {
+      height: 20px;
+    }
 
     &.active i {
       color: $main;

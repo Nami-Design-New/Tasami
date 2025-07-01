@@ -107,7 +107,7 @@ export default function PersonalHelper() {
     <section className="personal-helpers page">
       <div className="container">
         <div className="row">
-          <div className="col-lg-4 col-12">
+          <div className="col-lg-3 col-12">
             <SectionHeader
               title="المساعدون الشخصيون"
               tabs={tabs}
@@ -119,7 +119,7 @@ export default function PersonalHelper() {
               onFilterClick={() => setShowFilterModal(true)}
             />
           </div>
-          <div className="row g-5 col-lg-8 col-12 mt-4" >
+          <div className="row g-5 col-lg-9 col-12 mt-4" >
             {filteredItems.map((helper) => (
               <div className="col-12 col-md-6 col-lg-5" key={helper.id}>
                 <HelperCard helper={helper} />

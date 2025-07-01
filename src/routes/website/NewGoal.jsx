@@ -6,6 +6,7 @@ import SubmitButton from "../../ui/forms/SubmitButton";
 import TextField from "../../ui/forms/TextField";
 import SectionHeader from "../../ui/website/home/SectionHeader";
 import CheckField from "../../ui/forms/CheckField";
+import GenderSelect from "../../ui/forms/GenderSelect copy";
 
 const NewGoal = () => {
     const {
@@ -90,17 +91,8 @@ const NewGoal = () => {
                         />
 
                         {needHelp === true && (
-                            <div className="col-12 col-lg-6 p-2">
-                                <SelectField
-                                    label="جنس المساعد الشخصي"
-                                    id="assistantGender"
-                                    options={[
-                                        { value: "male", name: "ذكر" },
-                                        { value: "female", name: "أنثى" }
-                                    ]}
-                                    {...register("assistantGender")}
-                                    error={errors.assistantGender?.message}
-                                />
+                            <div className="col-12 col-lg-12 p-2">
+                                 <GenderSelect /> 
                             </div>
                         )}
                     </div>
