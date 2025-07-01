@@ -158,9 +158,9 @@ export default function HelpersDetails() {
                     <div className="row sub-info mt-5">
                         <div className="permits-box col-lg-6 col-12">
                             <h6>التصاريح</h6>
-                            <div className="assist-methods  mb-3">
+                            <div className="assist-methods mb-3">
                                 {helper.permits.categories.map((cat, index) => (
-                                    <span key={index} className="assist-method">{cat}</span>
+                                    <span key={index} className="assist-method bg">{cat}</span>
                                 ))}
                             </div>
                         </div>
@@ -188,7 +188,7 @@ export default function HelpersDetails() {
                             <h6>الخبرات العملية</h6>
                             <div className="assist-methods  mb-3">
                                 {helper.permits.experiences.map((ex, index) => (
-                                    <span key={index} className="assist-method">{ex}</span>
+                                    <span key={index} className="assist-method bg">{ex}</span>
                                 ))}
                             </div>
                         </div>

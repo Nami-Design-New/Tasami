@@ -6308,11 +6308,16 @@ footer .links a:hover {
 .goal-details-section .goal-details-card .assist-methods .assist-method,
 .offer-details-section .goal-details-card .assist-methods .assist-method,
 .helper-details-section .goal-details-card .assist-methods .assist-method {
-  background: #ffffff;
+  background: #f3f1f1;
   padding: 0.6rem 0.75rem;
   border-radius: 10px;
   font-size: 0.9rem;
   text-align: center;
+}
+.goal-details-section .goal-details-card .assist-methods .bg,
+.offer-details-section .goal-details-card .assist-methods .bg,
+.helper-details-section .goal-details-card .assist-methods .bg {
+  background: #ffffff;
 }
 .goal-details-section .goal-details-card .contracts-summary-chart,
 .offer-details-section .goal-details-card .contracts-summary-chart,
@@ -6943,7 +6948,7 @@ footer .links a:hover {
   margin-top: 20px;
 }
 .views-section .comments-list .comment-card {
-  background: #fff;
+  background: #f9f9f9;
   border-radius: 10px;
   padding: 14px;
   box-shadow: 0 0 8px rgba(0, 0, 0, 0.05);
@@ -6978,4 +6983,20 @@ footer .links a:hover {
 }
 .views-section .add-comment-btn:hover {
   background: #193a71;
+}
+
+.add-comment-btn {
+  background: #214b92;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 16px;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+.add-comment-btn i {
+  margin-left: 6px;
+}
+.add-comment-btn:hover {
+  background: #183668;
 }/*# sourceMappingURL=style.css.map */

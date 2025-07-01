@@ -1,7 +1,9 @@
 import React from "react";
 import CustomButton from "../../ui/CustomButton";
-
+import { useState } from "react";
+import AddCommentModal from "../../ui/modals/AdddCommentModal";
 export default function Views() {
+  const [showCommentModal, setShowCommentModal] = useState(false);
   const comments = [
     {
       id: 1,
@@ -84,8 +86,8 @@ export default function Views() {
     </div>
   ))}
 </div>
-
- <CustomButton className="add-comment-btn" >
+<AddCommentModal showModal={showCommentModal} setShowModal={setShowCommentModal} />
+ <CustomButton className="add-comment-btn" onClick={() => setShowCommentModal(true)} >
         <i className="fa-light fa-plus"></i> أضف تعليق
  </CustomButton>
     
