@@ -2481,20 +2481,25 @@ input[type=number]::-webkit-outer-spin-button, input[type=number]::-webkit-inner
 }
 
 .helper-card {
+  display: block;
+  padding-right: 40px;
+}
+.helper-card .content-wrapper {
   background-color: rgba(95, 202, 250, 0.0784313725);
   border-radius: 1rem;
   padding: 16px 40px 16px 16px;
   position: relative;
   min-height: 100%;
+  display: block;
 }
-.helper-card .image-wrapper {
+.helper-card .content-wrapper .image-wrapper {
   position: absolute;
   top: 50%;
   right: -40px;
   transform: translateY(-50%);
   z-index: 1;
 }
-.helper-card .image-wrapper .avatar {
+.helper-card .content-wrapper .image-wrapper .avatar {
   width: 80px;
   height: 80px;
   border-radius: 50%;
@@ -2503,7 +2508,7 @@ input[type=number]::-webkit-outer-spin-button, input[type=number]::-webkit-inner
      object-fit: cover;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
-.helper-card .image-wrapper .status-dot {
+.helper-card .content-wrapper .image-wrapper .status-dot {
   position: absolute;
   bottom: 6px;
   left: 6px;
@@ -2513,39 +2518,39 @@ input[type=number]::-webkit-outer-spin-button, input[type=number]::-webkit-inner
   border: 2px solid white;
   border-radius: 50%;
 }
-.helper-card .info {
+.helper-card .content-wrapper .info {
   display: flex;
   flex-direction: column;
   margin: 0 8px;
   gap: 10px;
 }
-.helper-card .info .info-header {
+.helper-card .content-wrapper .info .info-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
-.helper-card .info .info-header h3 {
+.helper-card .content-wrapper .info .info-header h3 {
   font-size: 1rem;
   font-weight: 600;
 }
-.helper-card .info .info-header .rating img {
+.helper-card .content-wrapper .info .info-header .rating img {
   width: 16px;
   height: 16px;
 }
-.helper-card .info .info-header .rating span {
+.helper-card .content-wrapper .info .info-header .rating span {
   font-size: 16px;
   font-weight: 600;
 }
-.helper-card .info .meta img {
+.helper-card .content-wrapper .info .meta img {
   width: 16px;
   height: 16px;
 }
-.helper-card .info .meta span {
+.helper-card .content-wrapper .info .meta span {
   font-size: 16px;
   font-weight: 500;
   margin: 0 4px;
 }
-.helper-card .meta {
+.helper-card .content-wrapper .meta {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -6662,6 +6667,41 @@ footer .links a:hover {
 .contract-status__card-count {
   font-size: 1.25rem;
   font-weight: 700;
+}
+
+.gender-goal-filter {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.gender-goal-filter p {
+  font-weight: bold;
+}
+.gender-goal-filter .filter-options {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.gender-goal-filter .filter-options label {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  min-width: 96px;
+  border: 1px solid #13AEF3;
+  color: #13AEF3;
+  border-radius: 12px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: all 0.2s ease;
+}
+.gender-goal-filter .filter-options label input[type=radio] {
+  display: none;
+}
+input[type=radio]:checked + .gender-goal-filter .filter-options label, .gender-goal-filter .filter-options label:has(input[type=radio]:checked) {
+  background-color: #13AEF3;
+  color: #fff;
+  border-color: #13AEF3;
 }
 
 .myworks .tab-nav {

@@ -1,5 +1,3 @@
-import React from "react";
-
 const whyItems = [
   {
     id: 1,
@@ -53,8 +51,8 @@ export default function AboutSection() {
 
         <div className="main-info">
           <p>
-            <strong>تسامي</strong> هو موقع وتطبيق مختص بالوساطة في طلب وعرض خدمات
-            المساعدة الشخصية لتحقيق الأهداف في أكثر من{" "}
+            <strong>تسامي</strong> هو موقع وتطبيق مختص بالوساطة في طلب وعرض
+            خدمات المساعدة الشخصية لتحقيق الأهداف في أكثر من{" "}
             <strong>300 </strong>مجال وتخصص. والتعاقد عليها بين طرفين ضمن قوالب
             عمل عقود اجتماعية، وذات موضوعات بمقابل مادي.
           </p>
@@ -73,7 +71,8 @@ export default function AboutSection() {
               لماذا <span>تسامي</span>؟
             </h2>
             <p className="desc">
-              "تسامي" أكثر من مجرد منصة — إنها مجتمع داعم وأداة قوية لتحقيق أهدافك.
+              "تسامي" أكثر من مجرد منصة — إنها مجتمع داعم وأداة قوية لتحقيق
+              أهدافك.
             </p>
           </div>
 
@@ -82,7 +81,9 @@ export default function AboutSection() {
               <div className="col-12 col-md-6" key={item.id}>
                 <div className="item d-flex h-100">
                   <div
-                    className={`text ${index % 2 === 0 ? "text-right" : "text-left"}`}
+                    className={`text ${
+                      index % 2 === 0 ? "text-right" : "text-left"
+                    }`}
                   >
                     <h3>{item.title}</h3>
                     <p>{item.description}</p>

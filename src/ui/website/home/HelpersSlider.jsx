@@ -62,11 +62,15 @@ export default function HelpersSlider() {
 
       <Swiper
         slidesPerView={1}
-        spaceBetween={48}
-        breakpoints={{ 768: { slidesPerView: 2 }, 1024: { slidesPerView: 4 } }}
-        loop
-        autoplay={{ delay: 3000, disableOnInteraction: false }}
-        modules={[Autoplay]}
+        spaceBetween={8}
+        breakpoints={{
+          768: { slidesPerView: 2 },
+          992: { slidesPerView: 3 },
+          1200: { slidesPerView: 4 },
+        }}
+        // loop
+        // autoplay={{ delay: 3000, disableOnInteraction: false }}
+        // modules={[Autoplay]}
       >
         {helpers.map((helper) => (
           <SwiperSlide key={helper.id}>

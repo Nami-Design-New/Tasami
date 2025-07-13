@@ -75,46 +75,71 @@ export default function PersonalGoals() {
     },
   ];
 
-  const { activeTab, setActiveTab, searchValue, setSearchValue, tabs, filteredItems } =
-    useFilteredList(goals, "type", ["title", "name"]);
+  const {
+    activeTab,
+    setActiveTab,
+    searchValue,
+    setSearchValue,
+    tabs,
+    filteredItems,
+  } = useFilteredList(goals, "type", ["title", "name"]);
 
   const filters = [
     {
-      label: "جنسية المستفيد", placeholder: "اختر جنسية المستفيد", options: [
-        { value: "sa", name: "السعودية" },
-        { value: "eg", name: "مصر" },
-        { value: "ae", name: "الإمارات" },
-      ]
+      label: "الدوله",
+      placeholder: "اختر المدينة",
+      options: [
+        { value: "riyadh", name: "السعودية" },
+        { value: "jeddah", name: "مصر " },
+        { value: "cairo", name: "القاهرة" },
+      ],
     },
     {
-      label: "المدينة", placeholder: "اختر المدينة", options: [
+      label: "المدينه",
+      placeholder: "اختر المدينة",
+      options: [
         { value: "riyadh", name: "الرياض" },
         { value: "jeddah", name: "جدة" },
         { value: "cairo", name: "القاهرة" },
-      ]
+      ],
     },
     {
-      label: "المجال", placeholder: "اختر المجال", options: [
+      label: "جنسية المساعد الشخصي",
+      placeholder: "اختر جنسية المساعد الشخصي",
+      options: [
+        { value: "sa", name: "السعودية" },
+        { value: "eg", name: "مصر" },
+        { value: "ae", name: "الإمارات" },
+      ],
+    },
+
+    {
+      label: "المجال",
+      placeholder: "اختر المجال",
+      options: [
         { value: "trade", name: "تجارة" },
         { value: "tech", name: "تقنية" },
         { value: "health", name: "صحة" },
-      ]
+      ],
     },
     {
-      label: "التخصص", placeholder: "اختر التخصص", options: [
+      label: "التخصص",
+      placeholder: "اختر التخصص",
+      options: [
         { value: "coding", name: "برمجة" },
         { value: "design", name: "تصميم" },
         { value: "medicine", name: "طب" },
-      ]
+      ],
     },
     {
-      label: "جنس المستفيد", placeholder: "اختر جنس المستفيد", options: [
+      label: "جنس المستفيد",
+      placeholder: "اختر جنس المستفيد",
+      options: [
         { value: "male", name: "ذكر" },
         { value: "female", name: "أنثى" },
-      ]
+      ],
     },
   ];
-
 
   return (
     <section className="personal-goals page">
@@ -133,7 +158,7 @@ export default function PersonalGoals() {
             />
           </div>
 
-          <div className="row g-3 col-lg-9 col-12 mt-4" >
+          <div className="row g-3 col-lg-9 col-12 mt-4">
             {filteredItems.map((goal) => (
               <div className="col-12 col-md-6 col-lg-4" key={goal.id}>
                 <GoalCard {...goal} />

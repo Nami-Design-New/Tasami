@@ -32,9 +32,11 @@ export default function Contact() {
           <div className="col-12 col-md-6">
             <div className="contact-form-wrapper">
               <h3 className="title">اتصل بنا</h3>
-              <p className="desc">يمكنك التواصل معنا مباشرة من خلال ملء النموذج التالي:</p>
+              <p className="desc">
+                يمكنك التواصل معنا مباشرة من خلال ملء النموذج التالي:
+              </p>
 
-              <form>
+              <form className="form_ui">
                 <div className="mb-3">
                   <label className="form-label">الموضوع</label>
                   <div className="options">
@@ -52,7 +54,10 @@ export default function Contact() {
                 </div>
 
                 <div className="mb-3">
-                  <InputField label="عنوان الرسالة" placeholder="اكتب هنا ..." />
+                  <InputField
+                    label="عنوان الرسالة"
+                    placeholder="اكتب هنا ..."
+                  />
                 </div>
 
                 <div className="mb-3">
@@ -60,7 +65,11 @@ export default function Contact() {
                 </div>
 
                 <div className="mb-3">
-                  <InputField label="البريد الإلكتروني" placeholder="name@example.com" type="email" />
+                  <InputField
+                    label="البريد الإلكتروني"
+                    placeholder="name@example.com"
+                    type="email"
+                  />
                 </div>
 
                 <div className="mb-3">
@@ -72,7 +81,7 @@ export default function Contact() {
                   />
                 </div>
 
-                  <SubmitButton text="إرسال" />
+                <SubmitButton text="إرسال" />
               </form>
             </div>
           </div>
@@ -82,7 +91,11 @@ export default function Contact() {
                 title="Location"
                 width="100%"
                 height="100%"
-                style={{ borderRadius: "16px", minHeight: "600px", marginTop: "2rem" }}
+                style={{
+                  borderRadius: "16px",
+                  minHeight: "600px",
+                  marginTop: "2rem",
+                }}
                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3151.835434509375!2d144.9537363153156!3d-37.81627974202197!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6ad642af0f11fd6b%3A0xf577e5f51dfb4c9b!2sFederation%20Square!5e0!3m2!1sen!2sus!4v1633039339142!5m2!1sen!2sus"
                 allowFullScreen=""
                 loading="lazy"

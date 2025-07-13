@@ -394,3 +394,68 @@
     font-weight: 700;
   }
 }
+
+// .gender-goal-filter {
+//   display: flex;
+//   flex-direction: column;
+//   gap: 8px;
+//   .filter-options {
+//     display: flex;
+//     align-items: center;
+//     gap: 8px;
+//     label {
+//       @include centerFlex();
+//       padding: 1rem;
+//       min-width: 96px;
+//       border: 1px solid $secondColorDark;
+//       border-radius: 12px;
+//       input {
+//         appearance: none;
+//       }
+//       input[type="radio"]:checked + &,
+//       &:has(input[type="radio"]:checked) {
+//         background-color: $secondColorDark;
+//         color: $white;
+//         border-color: $secondColorDark;
+//         font-weight: bold;
+//       }
+//     }
+//   }
+// }
+.gender-goal-filter {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  p {
+    font-weight: bold;
+  }
+
+  .filter-options {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    label {
+      @include centerFlex();
+      padding: 1rem;
+      min-width: 96px;
+      border: 1px solid $secondColorDark;
+      color: $secondColorDark;
+      border-radius: 12px;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: all 0.2s ease;
+
+      input[type="radio"] {
+        display: none;
+      }
+
+      input[type="radio"]:checked + &,
+      &:has(input[type="radio"]:checked) {
+        background-color: $secondColorDark;
+        color: $white;
+        border-color: $secondColorDark;
+      }
+    }
+  }
+}

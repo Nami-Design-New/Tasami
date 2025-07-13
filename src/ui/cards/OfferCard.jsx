@@ -19,7 +19,7 @@ const OfferCard = ({ offer }) => {
             <i className="fa-solid fa-star text-warning"></i> {offer.rating}
           </span>
         </div>
-        <p className="title ellipsis " style={{ width: "240px" }}>
+        <p className="title ellipsis " style={{ maxWidth: "240px" }}>
           {offer.title}
         </p>
       </div>

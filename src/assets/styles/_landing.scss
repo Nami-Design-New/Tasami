@@ -419,82 +419,87 @@
     }
   }
 }
-
 .helper-card {
-  background-color: $secondColor08;
-  border-radius: 1rem;
-  padding: 16px 40px 16px 16px;
-  position: relative;
-  min-height: 100%;
+  display: block;
+  padding-right: 40px;
 
-  .image-wrapper {
-    position: absolute;
-    top: 50%;
-    right: -40px;
-    transform: translateY(-50%);
-    z-index: 1;
+  .content-wrapper {
+    background-color: $secondColor08;
+    border-radius: 1rem;
+    padding: 16px 40px 16px 16px;
+    position: relative;
+    min-height: 100%;
+    display: block;
 
-    .avatar {
-      width: 80px;
-      height: 80px;
-      border-radius: 50%;
-      border: 5px solid $white;
-      object-fit: cover;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    }
-
-    .status-dot {
+    .image-wrapper {
       position: absolute;
-      bottom: 6px;
-      left: 6px;
-      width: 16px;
-      height: 16px;
-      background: $online;
-      border: 2px solid white;
-      border-radius: 50%;
-    }
-  }
-  .info {
-    display: flex;
-    flex-direction: column;
-    margin: 0 8px;
-    gap: 10px;
-    .info-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
+      top: 50%;
+      right: -40px;
+      transform: translateY(-50%);
+      z-index: 1;
 
-      h3 {
-        font-size: 1rem;
-        font-weight: 600;
+      .avatar {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        border: 5px solid $white;
+        object-fit: cover;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
       }
-      .rating {
+
+      .status-dot {
+        position: absolute;
+        bottom: 6px;
+        left: 6px;
+        width: 16px;
+        height: 16px;
+        background: $online;
+        border: 2px solid white;
+        border-radius: 50%;
+      }
+    }
+    .info {
+      display: flex;
+      flex-direction: column;
+      margin: 0 8px;
+      gap: 10px;
+      .info-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        h3 {
+          font-size: 1rem;
+          font-weight: 600;
+        }
+        .rating {
+          img {
+            width: 16px;
+            height: 16px;
+          }
+          span {
+            font-size: 16px;
+            font-weight: 600;
+          }
+        }
+      }
+      .meta {
         img {
           width: 16px;
           height: 16px;
         }
         span {
           font-size: 16px;
-          font-weight: 600;
+          font-weight: 500;
+          margin: 0 4px;
         }
       }
     }
     .meta {
-      img {
-        width: 16px;
-        height: 16px;
-      }
-      span {
-        font-size: 16px;
-        font-weight: 500;
-        margin: 0 4px;
-      }
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
     }
-  }
-  .meta {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
   }
 }
 

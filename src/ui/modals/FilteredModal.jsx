@@ -1,8 +1,8 @@
 import { Modal } from "react-bootstrap";
 import SelectField from "../forms/SelectField";
 import SubmitButton from "../forms/SubmitButton";
-import RangeSlider from 'react-range-slider-input';
-import 'react-range-slider-input/dist/style.css';
+import RangeSlider from "react-range-slider-input";
+import "react-range-slider-input/dist/style.css";
 import { useState } from "react";
 import InputField from "../forms/InputField";
 import DatePicker from "../forms/DatePicker";
@@ -40,7 +40,7 @@ const FilteredModal = ({
                 />
               </div>
             ))}
-              {showRating && (
+            {/* {showRating && (
               <div className="col-lg-6 mb-3">
                 <label className="mb-2 fw-medium">التقييم</label>
                 <div className="d-flex flex-wrap gap-2">
@@ -56,75 +56,109 @@ const FilteredModal = ({
                   ))}
                 </div>
               </div>
-            )}
+            )} */}
+
+            <div className="gender-goal-filter">
+              <p>تفضيل هوية المساعد الشخصي</p>
+
+              <div className="filter-options">
+                <label>
+                  الكل
+                  <input type="radio" name="gender" value="all" />
+                </label>
+                <label>
+                  ذكر
+                  <input type="radio" name="gender" value="male" />
+                </label>
+                <label>
+                  أنثى
+                  <input type="radio" name="gender" value="female" />
+                </label>
+              </div>
+            </div>
             <div className="col-12 col-lg-6 mt-4">
-              {showDate && (
-                <DatePicker />
-              )}
+              <DatePicker />
             </div>
             <div className="row">
-            {showValueRange && (
-              <div className="col-12 col-lg-6 mb-4">
-                <label className="mb-2 fw-medium">القيمة</label>
-                <RangeSlider
-                  min={100}
-                  max={30000}
-                  value={valueRange}
-                  onInput={setValueRange}
-                />
-                <div className="d-flex justify-content-between mt-2">
-                  <small>{valueRange[0]} <img src="/icons/ryal.svg" alt="ريال" /></small>
-                  <small>{valueRange[1]} <img src="/icons/ryal.svg" alt="ريال" /></small>
-                </div>
-                <div className="col-12 col-lg-12 p-2">
-                  <div className="row">
-                    <div className="col-6 p-1">
-                      <InputField label="الحد الأدني" placeholder="ريال" />
-                    </div>
-                    <div className="col-6 p-1">
-                      <InputField label="الحد الأقصي" placeholder="ريال" />
+              {/* {showValueRange && (
+                <div className="col-12 col-lg-6 mb-4">
+                  <label className="mb-2 fw-medium">القيمة</label>
+                  <RangeSlider
+                    min={100}
+                    max={30000}
+                    value={valueRange}
+                    onInput={setValueRange}
+                  />
+                  <div className="d-flex justify-content-between mt-2">
+                    <small>
+                      {valueRange[0]} <img src="/icons/ryal.svg" alt="ريال" />
+                    </small>
+                    <small>
+                      {valueRange[1]} <img src="/icons/ryal.svg" alt="ريال" />
+                    </small>
+                  </div>
+                  <div className="col-12 col-lg-12 p-2">
+                    <div className="row">
+                      <div className="col-6 p-1">
+                        <InputField label="الحد الأدني" placeholder="ريال" />
+                      </div>
+                      <div className="col-6 p-1">
+                        <InputField label="الحد الأقصي" placeholder="ريال" />
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            )}
+              )} */}
 
-            {showAgeRange && (
-              <div className="col-12 col-lg-6 mb-4">
-                <label className="mb-2 fw-medium">الفئات العمرية المستهدفة</label>
-                <RangeSlider
-                  min={18}
-                  max={100}
-                  value={ageRange}
-                  onInput={setAgeRange}
-                />
-                <div className="d-flex justify-content-between mt-2">
-                  <small>{ageRange[0]} عام</small>
-                  <small>{ageRange[1]} عام</small>
-                </div>
-                <div className="col-12 col-lg-12 p-2">
-                  <div className="row">
-                    <div className="col-6 p-1">
-                      <InputField label="من" placeholder="عام" />
-                    </div>
-                    <div className="col-6 p-1">
-                      <InputField label="إلى" placeholder="عام" />
+              {showAgeRange && (
+                <div className="col-12 col-lg-6 mb-4">
+                  <label className="mb-2 fw-medium">
+                    الفئات العمرية المستهدفة
+                  </label>
+                  <RangeSlider
+                    min={18}
+                    max={100}
+                    value={ageRange}
+                    onInput={setAgeRange}
+                  />
+                  <div className="d-flex justify-content-between mt-2">
+                    <small>{ageRange[0]} عام</small>
+                    <small>{ageRange[1]} عام</small>
+                  </div>
+                  <div className="col-12 col-lg-12 p-2">
+                    <div className="row">
+                      <div className="col-6 p-1">
+                        <InputField label="من" placeholder="عام" />
+                      </div>
+                      <div className="col-6 p-1">
+                        <InputField label="إلى" placeholder="عام" />
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            )}
-</div>
+              )}
+            </div>
             {showMethod && (
               <div className="col-12 mb-3">
-                <label className="mb-2 fw-medium">آليات المساعدة المناسبة</label>
+                <label className="mb-2 fw-medium">
+                  آليات المساعدة المناسبة
+                </label>
                 <div className="d-flex flex-wrap gap-2">
-                  {["الكل", "التراسل النصي والصوتي", "الالتقاء الشخصي", "الاتصال المرئي والمسموع"].map((option) => (
+                  {[
+                    "الكل",
+                    "التراسل النصي والصوتي",
+                    "الالتقاء الشخصي",
+                    "الاتصال المرئي والمسموع",
+                  ].map((option) => (
                     <button
                       type="button"
                       key={option}
                       onClick={() => setAssistMethod(option)}
-                      className={`btn ${assistMethod === option ? "btn-secondary" : "btn-outline-secondary"}`}
+                      className={`btn ${
+                        assistMethod === option
+                          ? "btn-secondary"
+                          : "btn-outline-secondary"
+                      }`}
                     >
                       {option}
                     </button>
@@ -132,12 +166,15 @@ const FilteredModal = ({
                 </div>
               </div>
             )}
-
           </div>
 
           <div className="d-flex gap-2 mt-3">
             <SubmitButton text="تطبيق التصفية" />
-            <button type="button" className="btn btn-secondary" onClick={onHide}>
+            <button
+              type="button"
+              className="btn btn-secondary"
+              onClick={onHide}
+            >
               إلغاء
             </button>
           </div>

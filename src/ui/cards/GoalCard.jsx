@@ -13,7 +13,7 @@ const GoalCard = ({ id, name, title, type, offers, image, status }) => {
         </div>
         <div className="info">
           <h2>{name}</h2>
-          <p className="ellipsis" style={{ width: "240px" }}>
+          <p className="ellipsis" style={{ maxWidth: "240px" }}>
             {title}
           </p>
         </div>

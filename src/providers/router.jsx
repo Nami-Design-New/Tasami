@@ -77,7 +77,7 @@ export const router = createBrowserRouter([
         element: <Home />,
       },
       {
-        path: "Personal-goals",
+        path: "personal-goals",
         element: <PersonalGoal />,
       },
       {
@@ -125,59 +125,56 @@ export const router = createBrowserRouter([
         element: <EditProfile />,
       },
 
-       {
+      {
         path: "my-wallet",
         element: <MyWallet />,
       },
       {
         path: "goal/:id",
-        element: <GoalDetails />
+        element: <GoalDetails />,
       },
       {
         path: "new-help",
         element: <NewHelpOffer />,
       },
-       {
+      {
         path: "my-works",
         element: <MyWorks />,
-      },     
-       {
+      },
+      {
         path: "offer/:id",
-        element: <OfferDetails />
+        element: <OfferDetails />,
       },
-       {
+      {
         path: "helper/:id",
-        element: <HelpersDetails />
+        element: <HelpersDetails />,
       },
-       {
+      {
         path: "my-profile",
         element: <Profile />,
-      },     
- {
-  path: "personal-community",
-  element: <PersonalCommunity />, 
-  children: [
-  
-    {
-      path: "consultations",
-      element: <Consultations />,
-    },
-    {
-      path: "Encounters",
-      element: <Encounters />,
-    },
-    {
-      path: "posts",
-      element: <Posts />,
-    },
-    {
-      path: "views",
-      element: <Views />,
-    },
-  ],
-}
-
-
+      },
+      {
+        path: "personal-community",
+        element: <PersonalCommunity />,
+        children: [
+          {
+            path: "consultations",
+            element: <Consultations />,
+          },
+          {
+            path: "Encounters",
+            element: <Encounters />,
+          },
+          {
+            path: "posts",
+            element: <Posts />,
+          },
+          {
+            path: "views",
+            element: <Views />,
+          },
+        ],
+      },
     ],
   },
   {

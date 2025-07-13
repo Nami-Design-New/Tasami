@@ -1,8 +1,7 @@
-import { Autoplay, EffectFade } from "swiper/modules";
-import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/effect-fade";
-import React from "react";
+import { Autoplay, EffectFade } from "swiper/modules";
+import { Swiper, SwiperSlide } from "swiper/react";
 
 export default function Hero() {
   const slides = [
@@ -26,30 +25,28 @@ export default function Hero() {
   return (
     <div className="hero-section">
       <div className="container">
-
-   
-      <Swiper
-        slidesPerView={1}
-        effect="fade"
-        speed={2000}
-        loop
-        centeredSlides
-        className="hero_slider"
-        modules={[Autoplay, EffectFade]}
-        autoplay={{
-          delay: 4000,
-          disableOnInteraction: false,
-        }}
-      >
-        {slides.map((slide) => (
-          <SwiperSlide key={slide.id}>
-            <div className="img">
-              <img src={slide.image} alt={slide.title} />      
-</div>
-          </SwiperSlide>
-        ))}
-      </Swiper>
+        <Swiper
+          slidesPerView={1}
+          effect="fade"
+          speed={2000}
+          loop
+          centeredSlides
+          className="hero_slider"
+          modules={[Autoplay, EffectFade]}
+          autoplay={{
+            delay: 4000,
+            disableOnInteraction: false,
+          }}
+        >
+          {slides.map((slide) => (
+            <SwiperSlide key={slide.id}>
+              <div className="img">
+                <img src={slide.image} alt={slide.title} />
+              </div>
+            </SwiperSlide>
+          ))}
+        </Swiper>
+      </div>
     </div>
-       </div>
   );
 }
