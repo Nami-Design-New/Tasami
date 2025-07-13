@@ -1,9 +1,8 @@
-import React from "react";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Autoplay } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/autoplay";
-import OfferCard from "../../cards/OfferCard"; 
+import { Autoplay } from "swiper/modules";
+import { Swiper, SwiperSlide } from "swiper/react";
+import OfferCard from "../../cards/OfferCard";
 
 const offers = [
   {
@@ -22,14 +21,15 @@ const offers = [
     id: 2,
     name: "فاطمة الجهني",
     rating: 4.5,
-    title: "تطوير تطبيقات الهاتف الذكي لتسهيل التسوق للأسر المنتجة", 
+    title: "تطوير تطبيقات الهاتف الذكي لتسهيل التسوق للأسر المنتجة",
     country: "الإمارات",
     type: "مبتكرة - تكنولوجيا المعلومات",
     price1: 2500,
     price2: 2000,
     image: "/images/p1.png",
     status: true,
-  } ,{
+  },
+  {
     id: 3,
     name: "علي الزهراني",
     rating: 4.8,
@@ -45,7 +45,7 @@ const offers = [
     id: 4,
     name: "فاطمة الجهني",
     rating: 4.5,
-    title: "تطوير تطبيقات الهاتف الذكي لتسهيل التسوق للأسر المنتجة", 
+    title: "تطوير تطبيقات الهاتف الذكي لتسهيل التسوق للأسر المنتجة",
     country: "الإمارات",
     type: "مبتكرة - تكنولوجيا المعلومات",
     price1: 2500,
@@ -55,7 +55,6 @@ const offers = [
   },
 ];
 
-
 export default function OffersSlider() {
   return (
     <section className="offers-slider container">
@@ -64,7 +63,9 @@ export default function OffersSlider() {
           <h2>عروض المساعدة</h2>
           <p>جميع المساعدات التي يقدمها المساعدون</p>
         </div>
-        <a href="/offers" className="view-all">عرض الكل</a>
+        <a href="/offers" className="view-all">
+          عرض الكل
+        </a>
       </div>
 
       <Swiper

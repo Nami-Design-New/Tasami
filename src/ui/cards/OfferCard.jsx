@@ -2,7 +2,10 @@ import { Link } from "react-router";
 
 const OfferCard = ({ offer }) => {
   return (
-    <Link to={`/offer/${offer.id}`} className="offer-card text-decoration-none text-dark">
+    <Link
+      to={`/offer/${offer.id}`}
+      className="offer-card text-decoration-none text-dark"
+    >
       <div className="image-wrapper">
         <img src={offer.image} alt={offer.name} className="avatar" />
         {offer.status && <span className="status-dot"></span>}
@@ -16,24 +19,20 @@ const OfferCard = ({ offer }) => {
             <i className="fa-solid fa-star text-warning"></i> {offer.rating}
           </span>
         </div>
+        <p className="title ellipsis " style={{ width: "240px" }}>
+          {offer.title}
+        </p>
+      </div>
 
-        <p className="title">{offer.title}</p>
+      <div className="data">
+        <span className="item">
+          <img src="/icons/title.svg"></img> {offer.type}
+        </span>
 
-        <div className="meta">
-          <span className="country">
-            <i className="fa-regular fa-flag"></i> {offer.country}
-          </span>
-          <span className="type">
-            <i className="fa-solid fa-tags"></i> {offer.type}
-          </span>
-        </div>
-
-        <div className="prices">
+        <div className="item">
+          <img src="/icons/cash.svg" alt="icon" />
           <span>
-            <img src="/icons/Groups.svg" alt="icon" /> {offer.price1} <img src="/icons/ryal.svg" alt="ريال" />
-          </span>
-          <span>
-            <img src="/icons/Group.svg" alt="icon" /> {offer.price2} <img src="/icons/ryal.svg" alt="ريال" />
+            {offer.price2} <img src="/icons/ryal.svg" alt="ريال" />
           </span>
         </div>
       </div>

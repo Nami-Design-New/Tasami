@@ -134,6 +134,12 @@ input[type=number]::-webkit-outer-spin-button, input[type=number]::-webkit-inner
   width: fit-content !important;
 }
 
+.ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 .dropdown-menu {
   border: 0 !important;
   box-shadow: 0 0 16px 0 rgba(0, 0, 0, 0.1);

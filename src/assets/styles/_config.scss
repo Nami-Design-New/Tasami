@@ -90,6 +90,8 @@ $second: #5fcafa;
 $secondHover: #32b3e6;
 $second25: rgb(95, 202, 250, 0.25);
 $second5: rgb(95, 202, 250, 0.05);
+$secondColor12: #5fcafa1f;
+$secondColor08: #5FCAFA14;
 $button: #8c137e;
 $dark: #0d0d0d;
 $border: #dddddd;
@@ -103,6 +105,8 @@ $white: #fff;
 $third25: #fff5e2;
 $JumbotronHead: #4f4f4f;
 $inputStroke: #f2f2f2;
+$InputStroke: #0d0d0d18;
+
 $success: #34b53a;
 $successLight: #34b53acc;
 $danger: #ff3a29;
@@ -110,7 +114,7 @@ $eidtAction: #6c757d;
 $dangerLight: #dc3545cc;
 $borderRadius: 12px;
 $transition: 0.3s ease-in-out;
-$online: #00FF44;
+$online: #00ff44;
 body {
   direction: rtl;
   font-family: "Dubai";
@@ -266,6 +270,12 @@ input[type="number"] {
     width: fit-content !important;
   }
 }
+.ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 .dropdown-menu {
   border: 0 !important;
   box-shadow: 0 0 16px 0 rgba(0, 0, 0, 0.1);

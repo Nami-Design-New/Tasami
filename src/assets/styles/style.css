@@ -135,6 +135,12 @@ input[type=number]::-webkit-outer-spin-button, input[type=number]::-webkit-inner
   width: fit-content !important;
 }
 
+.ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 .dropdown-menu {
   border: 0 !important;
   box-shadow: 0 0 16px 0 rgba(0, 0, 0, 0.1);
@@ -2136,7 +2142,9 @@ input[type=number]::-webkit-outer-spin-button, input[type=number]::-webkit-inner
 .why-section .container,
 .about-section .container,
 .steps-section .container,
-.aim-section .container, .terms .container, .privacy .container {
+.aim-section .container,
+.terms .container,
+.privacy .container {
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 20px;
@@ -2144,14 +2152,18 @@ input[type=number]::-webkit-outer-spin-button, input[type=number]::-webkit-inner
 .why-section .section-head,
 .about-section .section-head,
 .steps-section .section-head,
-.aim-section .section-head, .terms .section-head, .privacy .section-head {
+.aim-section .section-head,
+.terms .section-head,
+.privacy .section-head {
   text-align: center;
   margin-bottom: 50px;
 }
 .why-section .section-head .sub-title,
 .about-section .section-head .sub-title,
 .steps-section .section-head .sub-title,
-.aim-section .section-head .sub-title, .terms .section-head .sub-title, .privacy .section-head .sub-title {
+.aim-section .section-head .sub-title,
+.terms .section-head .sub-title,
+.privacy .section-head .sub-title {
   display: inline-block;
   color: #214b92;
   font-size: 18px;
@@ -2161,7 +2173,9 @@ input[type=number]::-webkit-outer-spin-button, input[type=number]::-webkit-inner
 .why-section .section-head .main-title,
 .about-section .section-head .main-title,
 .steps-section .section-head .main-title,
-.aim-section .section-head .main-title, .terms .section-head .main-title, .privacy .section-head .main-title {
+.aim-section .section-head .main-title,
+.terms .section-head .main-title,
+.privacy .section-head .main-title {
   font-size: 38px;
   color: #0d0d0d;
   margin-bottom: 16px;
@@ -2169,14 +2183,18 @@ input[type=number]::-webkit-outer-spin-button, input[type=number]::-webkit-inner
 .why-section .section-head .main-title span,
 .about-section .section-head .main-title span,
 .steps-section .section-head .main-title span,
-.aim-section .section-head .main-title span, .terms .section-head .main-title span, .privacy .section-head .main-title span {
+.aim-section .section-head .main-title span,
+.terms .section-head .main-title span,
+.privacy .section-head .main-title span {
   color: #214b92;
   font-weight: 600;
 }
 .why-section .section-head .desc,
 .about-section .section-head .desc,
 .steps-section .section-head .desc,
-.aim-section .section-head .desc, .terms .section-head .desc, .privacy .section-head .desc {
+.aim-section .section-head .desc,
+.terms .section-head .desc,
+.privacy .section-head .desc {
   max-width: 600px;
   margin: 0 auto;
   color: #666b88;
@@ -2322,12 +2340,12 @@ input[type=number]::-webkit-outer-spin-button, input[type=number]::-webkit-inner
 
 .goal-card {
   border: 1px solid #f2f2f2;
-  padding: 1.2rem;
-  border-radius: 1rem;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  display: flex;
-  gap: 1rem;
+  padding: 4px;
+  border-radius: 12px;
+  display: block;
+  width: 100%;
   min-height: 100%;
+  background-color: rgba(95, 202, 250, 0.1215686275);
 }
 .goal-card .image-wrapper {
   position: relative;
@@ -2337,7 +2355,7 @@ input[type=number]::-webkit-outer-spin-button, input[type=number]::-webkit-inner
 .goal-card .image-wrapper .avatar {
   width: 100%;
   height: 100%;
-  border-radius: 50%;
+  border-radius: 10px;
   -o-object-fit: cover;
      object-fit: cover;
 }
@@ -2347,12 +2365,13 @@ input[type=number]::-webkit-outer-spin-button, input[type=number]::-webkit-inner
   right: 0;
   width: 12px;
   height: 12px;
-  background: #00FF44;
+  background: #00ff44;
   border: 2px solid white;
   border-radius: 50%;
 }
 .goal-card .info {
   flex: 1;
+  padding: 8px 0;
 }
 .goal-card .info h2 {
   font-size: 1.1rem;
@@ -2368,30 +2387,32 @@ input[type=number]::-webkit-outer-spin-button, input[type=number]::-webkit-inner
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
-.goal-card .info .meta {
+.goal-card .meta {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
   font-size: 1rem;
   color: #777;
 }
-.goal-card .info .meta span {
+.goal-card .meta span {
   display: flex;
   align-items: center;
   gap: 0.35rem;
+  flex: 1;
   padding: 0.25rem 0;
+  font-size: 16px;
+  color: #0d0d0d;
+  font-weight: bold;
 }
-.goal-card .info .meta span i {
-  font-size: 15px;
-  color: #214b92;
+.goal-card .meta span img {
+  width: 16px;
+  height: 16px;
 }
 
 .offer-card {
-  background: #fff;
-  border: 1px solid #eee;
-  padding: 1rem;
-  border-radius: 1rem;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  background-color: rgba(95, 202, 250, 0.1215686275);
+  padding: 4px 4px 8px;
+  border-radius: 12px;
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
@@ -2399,11 +2420,13 @@ input[type=number]::-webkit-outer-spin-button, input[type=number]::-webkit-inner
 }
 .offer-card .image-wrapper {
   position: relative;
+  border-radius: 10px;
+  overflow: hidden;
 }
 .offer-card .image-wrapper .avatar {
   width: 100%;
   height: 200px;
-  border-radius: 0.5rem;
+  border-radius: 10px;
   -o-object-fit: cover;
      object-fit: cover;
 }
@@ -2413,7 +2436,7 @@ input[type=number]::-webkit-outer-spin-button, input[type=number]::-webkit-inner
   left: 8px;
   width: 14px;
   height: 14px;
-  background: #00FF44;
+  background: #00ff44;
   border: 1px solid #fff;
   border-radius: 50%;
 }
@@ -2425,25 +2448,55 @@ input[type=number]::-webkit-outer-spin-button, input[type=number]::-webkit-inner
   font-size: 1.2rem;
   cursor: pointer;
 }
+.offer-card .info {
+  padding: 0 0.5rem;
+  display: flex;
+  flex-direction: column;
+}
+.offer-card .info .info-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+.offer-card .info .info-header h3 {
+  font-weight: 600;
+  font-size: 16px;
+  color: #0d0d0d;
+}
+.offer-card .data {
+  padding: 0 0.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.offer-card .data .item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.offer-card .data .item img {
+  width: 16px;
+  height: 16px;
+}
 
 .helper-card {
-  background: #eef9fe;
+  background-color: rgba(95, 202, 250, 0.0784313725);
   border-radius: 1rem;
-  padding: 1rem;
-  padding-right: 70px;
+  padding: 16px 40px 16px 16px;
   position: relative;
   min-height: 100%;
 }
 .helper-card .image-wrapper {
   position: absolute;
   top: 50%;
-  right: -30px;
+  right: -40px;
   transform: translateY(-50%);
   z-index: 1;
 }
 .helper-card .image-wrapper .avatar {
-  width: 90px;
-  height: 90px;
+  width: 80px;
+  height: 80px;
   border-radius: 50%;
   border: 5px solid #fff;
   -o-object-fit: cover;
@@ -2456,69 +2509,46 @@ input[type=number]::-webkit-outer-spin-button, input[type=number]::-webkit-inner
   left: 6px;
   width: 16px;
   height: 16px;
-  background: #00FF44;
+  background: #00ff44;
   border: 2px solid white;
   border-radius: 50%;
 }
-
-.info .info-header {
+.helper-card .info {
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
+  margin: 0 8px;
+  gap: 10px;
+}
+.helper-card .info .info-header {
+  display: flex;
   align-items: center;
-  margin: 0.5rem 0;
+  justify-content: space-between;
 }
-.info .info-header h3 {
-  font-size: 1.1rem;
-  margin: 0;
-}
-.info .info-header .rating {
+.helper-card .info .info-header h3 {
   font-size: 1rem;
-  font-weight: 500;
-}
-.info .info-header .rating i {
-  margin-right: 0.2rem;
-  color: #ffb400;
-}
-.info .title {
-  font-size: 0.85rem;
-  color: #555;
-  display: -webkit-box;
-  -webkit-line-clamp: 1;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  margin-bottom: 0.5rem;
-}
-.info .meta {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  font-size: 0.9rem;
-  color: #777;
-  margin-top: 0.5rem;
-}
-.info .meta span {
-  display: flex;
-  align-items: center;
-  gap: 0.3rem;
-}
-.info .meta span i {
-  color: #214b92;
-}
-.info .prices {
-  margin-top: 0.6rem;
-  display: flex;
-  justify-content: space-between;
-  font-size: 1.1rem;
-  color: #0d0d0d;
   font-weight: 600;
 }
-.info .prices span {
+.helper-card .info .info-header .rating img {
+  width: 16px;
+  height: 16px;
+}
+.helper-card .info .info-header .rating span {
+  font-size: 16px;
+  font-weight: 600;
+}
+.helper-card .info .meta img {
+  width: 16px;
+  height: 16px;
+}
+.helper-card .info .meta span {
+  font-size: 16px;
+  font-weight: 500;
+  margin: 0 4px;
+}
+.helper-card .meta {
   display: flex;
   align-items: center;
-  gap: 0.3rem;
-}
-.info .prices span img {
-  height: 22px;
+  justify-content: space-between;
 }
 
 .offers-slider,
@@ -6252,7 +6282,7 @@ footer .links a:hover {
 .helper-details-section .goal-details-card .top-info .status-dot {
   width: 12px;
   height: 12px;
-  background: #00FF44;
+  background: #00ff44;
   border-radius: 50%;
   display: inline-block;
   position: absolute;
@@ -6364,7 +6394,7 @@ footer .links a:hover {
 .goal-details-section .goal-details-card .sub-info,
 .offer-details-section .goal-details-card .sub-info,
 .helper-details-section .goal-details-card .sub-info {
-  background: #F3F3F3;
+  background: #f3f3f3;
   padding: 0.6rem 0.75rem;
   border-radius: 10px;
   margin-bottom: 20px;
@@ -6616,6 +6646,22 @@ footer .links a:hover {
 .offer-details-section .goal-details-card .stats .stats-box .rates-list li strong,
 .helper-details-section .goal-details-card .stats .stats-box .rates-list li strong {
   color: #555;
+}
+
+.contract-status__card {
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  border: 1px solid rgba(13, 13, 13, 0.0941176471);
+}
+.contract-status__card-title {
+  font-size: 14px;
+  font-weight: 400;
+  margin-bottom: 0.5rem;
+  color: #5fcafa;
+}
+.contract-status__card-count {
+  font-size: 1.25rem;
+  font-weight: 700;
 }
 
 .myworks .tab-nav {

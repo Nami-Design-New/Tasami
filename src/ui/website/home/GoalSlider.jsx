@@ -1,8 +1,7 @@
-import React from "react";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Autoplay } from "swiper/modules";
-import "swiper/css";
 import { Link } from "react-router";
+import "swiper/css";
+import { Autoplay } from "swiper/modules";
+import { Swiper, SwiperSlide } from "swiper/react";
 import GoalCard from "../../cards/GoalCard";
 
 export default function GoalSlider() {
@@ -11,9 +10,8 @@ export default function GoalSlider() {
       id: 1,
       name: "سلطان حسن",
       title: "إنشاء متجر لبيع مستلزمات الطباعة ثلاثية الأبعاد في السعودية.",
-      country: "السعودية",
       date: "16 فبراير 2025",
-      type: "ريادي - تجارة إلكترونية",
+      type: "ريادي",
       offers: 12,
       image: "/images/profile1.png",
       status: true,
@@ -21,10 +19,10 @@ export default function GoalSlider() {
     {
       id: 2,
       name: "علياء السالم",
-      title: "تطوير تطبيق لتسهيل الوصول إلى الخدمات الصحية في الإمارات للمواطنين والمقيمين.",
-      country: "الإمارات",
+      title:
+        "تطوير تطبيق لتسهيل الوصول إلى الخدمات الصحية في الإمارات للمواطنين والمقيمين.",
       date: "10 مارس 2025",
-      type: "تقنية - تطبيقات موبايل",
+      type: "تقنية",
       offers: 8,
       image: "/images/profile2.png",
       status: false,
@@ -33,9 +31,8 @@ export default function GoalSlider() {
       id: 3,
       name: "محمد العلي",
       title: "إنشاء منصة تعليمية لتعليم البرمجة للأطفال في العالم العربي.",
-      country: "مصر",
       date: "5 أبريل 2025",
-      type: "تعليم - تقنية",
+      type: "تعليم",
       offers: 15,
       image: "/images/profile2.png",
       status: true,
@@ -44,24 +41,23 @@ export default function GoalSlider() {
       id: 4,
       name: "سارة القحطاني",
       title: "تطوير موقع إلكتروني لبيع المنتجات اليدوية والحرفية في الكويت.",
-      country: "الكويت",
       date: "20 مايو 2025",
-      type: "ريادي - تجارة إلكترونية",
+      type: "ريادي",
       offers: 10,
       image: "/images/profile1.png",
       status: false,
-    }
+    },
   ];
   return (
     <div className="goal-slider container">
       <div className="slider-header">
         <div className="text">
           <h2>الأهداف الشخصية</h2>
-          <p>
-            استعرض جميع الأهداف المنشورة على المنصة
-          </p>
+          <p>استعرض جميع الأهداف المنشورة على المنصة</p>
         </div>
-        <Link to="/Personal-goals" className="view-all">عرض الكل</Link>
+        <Link to="/Personal-goals" className="view-all">
+          عرض الكل
+        </Link>
       </div>
 
       <Swiper
