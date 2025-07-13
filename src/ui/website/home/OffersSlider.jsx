@@ -71,7 +71,7 @@ export default function OffersSlider() {
       <Swiper
         slidesPerView={1}
         spaceBetween={16}
-        breakpoints={{ 768: { slidesPerView: 2 }, 1024: { slidesPerView: 3 } }}
+        breakpoints={{ 768: { slidesPerView: 2 }, 1024: { slidesPerView: 4 } }}
         loop
         autoplay={{ delay: 3000, disableOnInteraction: false }}
         modules={[Autoplay]}
