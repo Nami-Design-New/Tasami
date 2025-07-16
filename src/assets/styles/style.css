@@ -709,6 +709,13 @@ input[type=number]::-webkit-outer-spin-button, input[type=number]::-webkit-inner
 .custom-btn--primary:hover {
   background-color: #183668;
 }
+.custom-btn--primary08 {
+  background-color: rgba(2, 72, 150, 0.0784313725);
+  color: #0d0d0d;
+}
+.custom-btn--primary08:hover {
+  background-color: rgba(1, 48, 100, 0.0784313725);
+}
 .custom-btn--secondary {
   background-color: #8c137e;
   color: #fff;
@@ -3142,7 +3149,7 @@ input[type=number]::-webkit-outer-spin-button, input[type=number]::-webkit-inner
   }
 }
 .auth_section .form_wrapper {
-  flex: 2;
+  flex: 1;
 }
 .auth_section .form_wrapper .form_container {
   overflow-y: scroll;
@@ -3192,7 +3199,7 @@ input[type=number]::-webkit-outer-spin-button, input[type=number]::-webkit-inner
      object-fit: contain;
 }
 .auth_section .form_wrapper .form_container .form-header .logo h1 {
-  color: #214b92;
+  color: #5fcafa;
   margin: 0;
   font-weight: 400;
   font-size: 32px;
@@ -3220,23 +3227,21 @@ input[type=number]::-webkit-outer-spin-button, input[type=number]::-webkit-inner
 }
 .auth_section .form_wrapper .form_container .form-header h6 {
   color: #0d0d0d;
-  padding-inline-start: 16px;
 }
 .auth_section .form_wrapper .form_container .form-header h6 a {
-  color: #214b92;
+  color: #5fcafa;
 }
 .auth_section .form_wrapper .form_container .form {
   width: 100%;
   flex: 1 1;
   display: flex;
   flex-direction: column;
-  margin-top: 4rem;
 }
 .auth_section .form_wrapper .form_container .form .head {
-  color: #0d0d0d;
+  color: #5fcafa;
   font-size: 32px;
   font-weight: 500;
-  margin-bottom: 0;
+  margin-bottom: 1.5rem;
 }
 .auth_section .form_wrapper .form_container .form .head img {
   height: 40px;
@@ -3364,9 +3369,11 @@ input[type=number]::-webkit-outer-spin-button, input[type=number]::-webkit-inner
   border: none;
   background: none;
   outline: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 100%;
-  height: 54px;
-  border: 1px solid #0d0d0d;
+  border: 1px solid #5fcafa;
   color: #0d0d0d;
   border-radius: 12px;
   width: 70px;
@@ -3512,6 +3519,76 @@ input[type=number]::-webkit-outer-spin-button, input[type=number]::-webkit-inner
 }
 .reset_section .reset-container .reset-form .resend h6 {
   color: #214b92;
+}
+
+.register .text-header {
+  margin-bottom: 24px;
+  color: #777777;
+  font-size: 14px;
+  font-family: 400;
+}
+.register .register-form label {
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+.register .register-form .terms-text {
+  margin: 1.5rem 0;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  color: #777777;
+  font-weight: 700;
+}
+.register .register-form .terms-text a {
+  color: #5fcafa;
+}
+
+.seperator {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 12px;
+}
+.seperator::before {
+  content: "";
+  position: absolute;
+  height: 1px;
+  width: 48%;
+  right: 0;
+  background-color: rgba(13, 13, 13, 0.0941176471);
+}
+.seperator::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  height: 1px;
+  width: 48%;
+  background-color: rgba(13, 13, 13, 0.0941176471);
+}
+
+.social-login-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.social-login-buttons button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 16px 20px;
+  border: 1px solid #5fcafa;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.react-tel-input .flag .arrow {
+  display: none;
+}
+.react-tel-input .form-control:focus {
+  box-shadow: none;
 }
 
 .main-header {
@@ -6686,8 +6763,8 @@ footer .links a:hover {
   justify-content: center;
   padding: 1rem;
   min-width: 96px;
-  border: 1px solid #13AEF3;
-  color: #13AEF3;
+  border: 1px solid #13aef3;
+  color: #13aef3;
   border-radius: 12px;
   cursor: pointer;
   font-size: 1rem;
@@ -6697,9 +6774,9 @@ footer .links a:hover {
   display: none;
 }
 input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label:has(input[type=radio]:checked) {
-  background-color: #13AEF3;
+  background-color: #13aef3;
   color: #fff;
-  border-color: #13AEF3;
+  border-color: #13aef3;
 }
 
 .myworks .tab-nav {

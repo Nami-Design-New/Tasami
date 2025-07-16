@@ -1,4 +1,5 @@
 $color-primary: #214b92;
+$color-primary08: #02489614;
 $color-secondary: #8c137e;
 $color-danger: #ff3a29;
 $color-success: #28a745;
@@ -47,6 +48,14 @@ $color-warning: #ffc107;
     color: $white;
     &:hover {
       background-color: darken($color-primary, 10%);
+    }
+  }
+
+  &--primary08 {
+    background-color: $color-primary08;
+    color: $dark;
+    &:hover {
+      background-color: darken($color-primary08, 10%);
     }
   }
 

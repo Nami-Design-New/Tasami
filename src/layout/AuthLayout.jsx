@@ -7,7 +7,7 @@ const AuthLayout = () => {
     if (location.pathname === "/login") {
       return "تسجيل الدخول";
     } else if (location.pathname === "/register") {
-      return "إنشاء حساب";
+      return "إنشاء حساب جديد";
     }
     return "تسجيل الدخول";
   };
@@ -36,7 +36,7 @@ const AuthLayout = () => {
                 <Link to={"/login"}> تسجيل الدخول </Link>
               </h6>
             )}
-            {location.pathname.includes("dashboard") && <></>}{" "}
+            {location.pathname.includes("dashboard") && <></>}
           </div>
 
           <Outlet />

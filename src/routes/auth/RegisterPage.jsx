@@ -13,10 +13,15 @@ import {
   accountInfoSchema,
   personalInfoSchema,
 } from "../../validations/registerSchema";
+import PhoneInput from "react-phone-input-2";
+import { Link, useNavigate } from "react-router";
+import CustomButton from "../../ui/CustomButton";
 
 const RegisterPage = () => {
+  const navigate = useNavigate();
   // Form state management
   const [step, setStep] = useState(1);
+  const [phone, setPhone] = useState("");
 
   const [showOtpForm, setShowOtpForm] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -43,6 +48,7 @@ const RegisterPage = () => {
   } = currentForm;
 
   // Handle form submission for each step
+
   const onSubmitStep1 = (data) => {
     console.log("Step 1 data:", data);
     setStep(2);
@@ -69,12 +75,43 @@ const RegisterPage = () => {
 
   return (
     <div className="form_wrapper  register">
-      {!showOtpForm ? (
-        <form
-          className="form_ui mt-3"
-          onSubmit={handleSubmit(step === 1 ? onSubmitStep1 : onSubmitStep2)}
-        >
-          {step === 1 && (
+      <p className="text-header">
+        {" "}
+        اشترك في منصة “تسامي” كمستفيد بخطوات بسيطة ...
+      </p>
+
+      <form
+        className="form_ui register-form "
+        onSubmit={handleSubmit(step === 1 ? onSubmitStep1 : onSubmitStep2)}
+      >
+        <label>رقم الجوال</label>
+        <PhoneInput
+          country={"sa"}
+          value={phone}
+          onChange={setPhone}
+          enableSearch={true}
+          preferredCountries={["us", "gb", "fr", "de"]}
+          placeholder="05XX XXXX XXX"
+          inputProps={{
+            name: "phone",
+            required: true,
+            autoFocus: true,
+          }}
+        />
+        <p className="terms-text">
+          <span>بمواصلتك، فإنك توافق على</span>
+          <span>
+            <Link>سياسة الخصوصية</Link> و <Link>الشروط والأحكام</Link>
+          </span>
+        </p>
+        <div className="buttons">
+          <CustomButton fullWidth size="large">
+            إرسال
+          </CustomButton>
+          <BackButton onClick={() => navigate(-1)} />
+        </div>
+
+        {/* {step === 1 && (
             <div className="row">
               <div className="col-12 col-lg-6 p-2">
                 <InputField
@@ -224,15 +261,28 @@ const RegisterPage = () => {
                 </div>
               </div>
             </div>
-          )}
-        </form>
-      ) : (
-        <OtpForm
-          email={watch("email")}
-          setShowOtpForm={setShowOtpForm}
-          showOtpForm={showOtpForm}
-        />
-      )}
+          )} */}
+      </form>
+      <div className="seperator"> أو </div>
+      <div className="social-login-buttons">
+        <button>
+          <img
+            src="/icons/google-icon.svg
+          "
+          />
+          <span>المتابعة باستخدام Google</span>
+        </button>
+        <button>
+          <img src="/icons/apple-icon.svg" />
+          <span> المتابعة باستخدام Apple </span>
+        </button>
+      </div>
+      {/* 
+      <OtpForm
+        email={watch("email")}
+        setShowOtpForm={setShowOtpForm}
+        showOtpForm={showOtpForm}
+      /> */}
     </div>
   );
 };

@@ -7,6 +7,7 @@ import InputField from "../forms/InputField";
 import PasswordField from "../forms/PasswordField";
 import SubmitButton from "../forms/SubmitButton";
 import { useSelector } from "react-redux";
+import CustomButton from "../CustomButton";
 
 const PhoneForm = ({ setShowLoginForm }) => {
   const {
@@ -50,8 +51,9 @@ const PhoneForm = ({ setShowLoginForm }) => {
       <Link to={"/reset-password"}> نسيت كلمه المرور ؟ </Link>
 
       <div className="buttons">
-        <BackButton onClick={handleBackButtonClick} />
-        <SubmitButton text="تسجيل" loading={isSubmitting} />
+        <CustomButton fullWidth size="large" type="submit">
+          دخول
+        </CustomButton>
       </div>
     </form>
   );
