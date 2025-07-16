@@ -1,10 +1,9 @@
 import { useForm } from "react-hook-form";
+import CheckField from "../../ui/forms/CheckField";
+import DatePicker from "../../ui/forms/DatePicker";
 import InputField from "../../ui/forms/InputField";
 import SelectField from "../../ui/forms/SelectField";
-import DatePicker from "../../ui/forms/DatePicker";
 import SubmitButton from "../../ui/forms/SubmitButton";
-import SectionHeader from "../../ui/website/home/SectionHeader";
-import CheckField from "../../ui/forms/CheckField";
 
 const NewHelpOffer = () => {
     const {
@@ -23,7 +22,7 @@ const NewHelpOffer = () => {
 
     return (
         <div className="form_wrapper new-help-offer page container">
-            <SectionHeader title="إضافة عرض مساعدة جديد" />
+            {/* <SectionHeader title="إضافة عرض مساعدة جديد" /> */}
 
             <form className="form_ui mt-3" onSubmit={handleSubmit(onSubmit)}>
                 <div className="row">

@@ -1,25 +1,13 @@
-import { Modal } from "react-bootstrap";
-import SelectField from "../forms/SelectField";
-import SubmitButton from "../forms/SubmitButton";
-import RangeSlider from "react-range-slider-input";
-import "react-range-slider-input/dist/style.css";
 import { useState } from "react";
-import InputField from "../forms/InputField";
-import DatePicker from "../forms/DatePicker";
+import { Modal } from "react-bootstrap";
+import "react-range-slider-input/dist/style.css";
+import CustomButton from "../../CustomButton";
+import SelectField from "../../forms/SelectField";
 
-const FilteredModal = ({
-  show,
-  onHide,
-  filters = [],
-  showValueRange = false,
-  showAgeRange = false,
-  showRating = false,
-  showDate = false,
-  showMethod = false,
-}) => {
-  const [valueRange, setValueRange] = useState([100, 30000]);
-  const [ageRange, setAgeRange] = useState([18, 65]);
-  const [rating, setRating] = useState("");
+const GoalFilterModal = ({ show, onHide }) => {
+  // const [valueRange, setValueRange] = useState([100, 30000]);
+  // const [ageRange, setAgeRange] = useState([18, 65]);
+  // const [rating, setRating] = useState("");
   const [assistMethod, setAssistMethod] = useState("");
 
   return (
@@ -31,7 +19,7 @@ const FilteredModal = ({
       <Modal.Body>
         <form className="form_ui">
           <div className="row">
-            {filters.map((filter, index) => (
+            {/* {filters.map((filter, index) => (
               <div key={index} className="col-12 col-md-6 mb-3">
                 <SelectField
                   label={filter.label}
@@ -39,7 +27,7 @@ const FilteredModal = ({
                   options={filter.options}
                 />
               </div>
-            ))}
+            ))} */}
             {/* {showRating && (
               <div className="col-lg-6 mb-3">
                 <label className="mb-2 fw-medium">التقييم</label>
@@ -57,6 +45,46 @@ const FilteredModal = ({
                 </div>
               </div>
             )} */}
+            <div className="col-12 col-lg-6 p-2">
+              <SelectField
+                label="المدينه"
+                options={[
+                  { value: "riyadh", name: "رياض" },
+                  { value: "jeddah", name: "جدة " },
+                  { value: "cairo", name: "القاهرة" },
+                ]}
+              />
+            </div>
+            <div className="col-12 col-lg-6 p-2">
+              <SelectField
+                label="جنسيه المستفيد"
+                options={[
+                  { value: "sa", name: "السعودية" },
+                  { value: "eg", name: "مصر" },
+                  { value: "ae", name: "الإمارات" },
+                ]}
+              />
+            </div>
+            <div className="col-12 col-lg-6 p-2">
+              <SelectField
+                label="المجال"
+                options={[
+                  { value: "trade", name: "تجارة" },
+                  { value: "tech", name: "تقنية" },
+                  { value: "health", name: "صحة" },
+                ]}
+              />
+            </div>
+            <div className="col-12 col-lg-6 p-2">
+              <SelectField
+                label="التخصص"
+                options={[
+                  { value: "coding", name: "برمجة" },
+                  { value: "design", name: "تصميم" },
+                  { value: "medicine", name: "طب" },
+                ]}
+              />
+            </div>
 
             <div className="gender-goal-filter">
               <p>تفضيل هوية المساعد الشخصي</p>
@@ -76,9 +104,7 @@ const FilteredModal = ({
                 </label>
               </div>
             </div>
-            <div className="col-12 col-lg-6 mt-4">
-              <DatePicker />
-            </div>
+
             <div className="row">
               {/* {showValueRange && (
                 <div className="col-12 col-lg-6 mb-4">
@@ -110,7 +136,7 @@ const FilteredModal = ({
                 </div>
               )} */}
 
-              {showAgeRange && (
+              {/* {showAgeRange && (
                 <div className="col-12 col-lg-6 mb-4">
                   <label className="mb-2 fw-medium">
                     الفئات العمرية المستهدفة
@@ -136,9 +162,9 @@ const FilteredModal = ({
                     </div>
                   </div>
                 </div>
-              )}
+              )} */}
             </div>
-            {showMethod && (
+            {/* {showMethod && (
               <div className="col-12 mb-3">
                 <label className="mb-2 fw-medium">
                   آليات المساعدة المناسبة
@@ -165,18 +191,19 @@ const FilteredModal = ({
                   ))}
                 </div>
               </div>
-            )}
+            )} */}
           </div>
 
-          <div className="d-flex gap-2 mt-3">
-            <SubmitButton text="تطبيق التصفية" />
-            <button
-              type="button"
-              className="btn btn-secondary"
+          <div className="d-flex justify-content-end  gap-2 mt-3">
+            <CustomButton size="large">التصفيه</CustomButton>
+            <CustomButton
               onClick={onHide}
+              type="button"
+              size="large"
+              color="secondary"
             >
               إلغاء
-            </button>
+            </CustomButton>
           </div>
         </form>
       </Modal.Body>
@@ -184,4 +211,4 @@ const FilteredModal = ({
   );
 };
 
-export default FilteredModal;
+export default GoalFilterModal;

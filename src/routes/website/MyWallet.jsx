@@ -1,5 +1,5 @@
-import SectionHeader from "../../ui/website/home/SectionHeader";
 import SubmitButton from "../../ui/forms/SubmitButton";
+import SidebarFilter from "../../ui/website/home/SidebarFilter";
 
 export default function MyWallet() {
   const balance = 2500;
@@ -30,7 +30,7 @@ export default function MyWallet() {
   return (
     <div className="page wallet-page">
       <div className="container">
-        <SectionHeader title="محفظتي" />
+        <SidebarFilter title="محفظتي" />
 
         <div className="wallet-balance text-center p-4 rounded shadow-sm mb-4">
           <div className="d-flex justify-content-center align-items-center gap-2 mb-3">
@@ -38,7 +38,9 @@ export default function MyWallet() {
             <h5 className="mb-0">رصيدك الحالي</h5>
           </div>
 
-          <h2 className="balance-amount mb-3">{balance} <img src="/icons/ryal.svg" alt="" /></h2>
+          <h2 className="balance-amount mb-3">
+            {balance} <img src="/icons/ryal.svg" alt="" />
+          </h2>
 
           <div className="d-flex justify-content-center gap-3 ">
             <SubmitButton text="إعادة شحن" className="btn-primary" />
@@ -60,7 +62,9 @@ export default function MyWallet() {
               }`}
             >
               <div className="d-flex justify-content-between align-items-center">
-                <strong>{item.amount} <img src="/icons/ryal.svg" alt="" /></strong>
+                <strong>
+                  {item.amount} <img src="/icons/ryal.svg" alt="" />
+                </strong>
                 <small>{item.id}</small>
               </div>
               <div className="d-flex justify-content-between align-items-center mt-2">

@@ -893,8 +893,23 @@ input[type=number]::-webkit-outer-spin-button, input[type=number]::-webkit-inner
 
 @font-face {
   font-family: "Dubai";
+  src: url("../webfonts/Dubai-Light.ttf") format("truetype");
+  font-weight: 300;
+}
+@font-face {
+  font-family: "Dubai";
   src: url("../webfonts/Dubai-Regular.ttf") format("truetype");
   font-weight: 400;
+}
+@font-face {
+  font-family: "Dubai";
+  src: url("../webfonts/Dubai-Meduim.ttf") format("truetype");
+  font-weight: 500;
+}
+@font-face {
+  font-family: "Dubai";
+  src: url("../webfonts/Dubai-Bold.ttf") format("truetype");
+  font-weight: 700;
 }
 .card__custom {
   box-shadow: none;
@@ -2342,9 +2357,9 @@ input[type=number]::-webkit-outer-spin-button, input[type=number]::-webkit-inner
   border: 1px solid #f2f2f2;
   padding: 4px;
   border-radius: 12px;
-  display: block;
-  width: 100%;
-  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
   background-color: rgba(95, 202, 250, 0.1215686275);
 }
 .goal-card .image-wrapper {
@@ -2379,7 +2394,7 @@ input[type=number]::-webkit-outer-spin-button, input[type=number]::-webkit-inner
   margin-bottom: 0.25rem;
 }
 .goal-card .info p {
-  font-size: 0.9rem;
+  font-size: 0.8rem;
   color: #555;
   margin-bottom: 0.5rem;
   display: -webkit-box;
@@ -6262,7 +6277,6 @@ footer .links a:hover {
 .offer-details-section .goal-details-card .top-info,
 .helper-details-section .goal-details-card .top-info {
   display: flex;
-  align-items: center;
   height: -moz-min-content;
   height: min-content;
   gap: 0.75rem;
@@ -6271,34 +6285,22 @@ footer .links a:hover {
   border-radius: 12px;
   padding: 1.5rem;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
-  position: relative;
 }
 .goal-details-section .goal-details-card .top-info .avatar,
 .offer-details-section .goal-details-card .top-info .avatar,
 .helper-details-section .goal-details-card .top-info .avatar {
   width: 120px;
   height: 120px;
-  border-radius: 15px;
+  border-radius: 50%;
   -o-object-fit: cover;
      object-fit: cover;
-}
-.goal-details-section .goal-details-card .top-info .status-dot,
-.offer-details-section .goal-details-card .top-info .status-dot,
-.helper-details-section .goal-details-card .top-info .status-dot {
-  width: 12px;
-  height: 12px;
-  background: #00ff44;
-  border-radius: 50%;
-  display: inline-block;
-  position: absolute;
-  bottom: 10px;
-  left: 10px;
-  border: 2px solid #fff;
 }
 .goal-details-section .goal-details-card .top-info .details,
 .offer-details-section .goal-details-card .top-info .details,
 .helper-details-section .goal-details-card .top-info .details {
   flex: 1;
+  display: flex;
+  flex-direction: column;
 }
 .goal-details-section .goal-details-card .top-info .details h5,
 .offer-details-section .goal-details-card .top-info .details h5,
@@ -6311,14 +6313,8 @@ footer .links a:hover {
 .goal-details-section .goal-details-card .top-info .details .rating,
 .offer-details-section .goal-details-card .top-info .details .rating,
 .helper-details-section .goal-details-card .top-info .details .rating {
-  font-size: 0.85rem;
-  color: #f7941d;
-  padding-bottom: 0.5rem;
-}
-.goal-details-section .goal-details-card .top-info .details .rating i,
-.offer-details-section .goal-details-card .top-info .details .rating i,
-.helper-details-section .goal-details-card .top-info .details .rating i {
-  margin-inline-start: 4px;
+  display: flex;
+  align-items: center;
 }
 .goal-details-section .goal-details-card .top-info .details .rating span,
 .offer-details-section .goal-details-card .top-info .details .rating span,
@@ -6681,8 +6677,10 @@ footer .links a:hover {
   display: flex;
   align-items: center;
   gap: 8px;
+  flex: 1;
+  width: 100%;
 }
-.gender-goal-filter .filter-options label {
+.gender-goal-filter label {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -6695,10 +6693,10 @@ footer .links a:hover {
   font-size: 1rem;
   transition: all 0.2s ease;
 }
-.gender-goal-filter .filter-options label input[type=radio] {
+.gender-goal-filter label input[type=radio] {
   display: none;
 }
-input[type=radio]:checked + .gender-goal-filter .filter-options label, .gender-goal-filter .filter-options label:has(input[type=radio]:checked) {
+input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label:has(input[type=radio]:checked) {
   background-color: #13AEF3;
   color: #fff;
   border-color: #13AEF3;

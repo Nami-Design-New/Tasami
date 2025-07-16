@@ -1,9 +1,9 @@
-import React from "react";
 import { useState } from "react";
-import GoalCard from "../../ui/cards/GoalCard";
-import SectionHeader from "../../ui/website/home/SectionHeader";
+import { Link } from "react-router";
 import useFilteredList from "../../hooks/useFilteredList";
-import FilteredModal from "../../ui/modals/FilteredModal";
+import GoalCard from "../../ui/cards/GoalCard";
+import GoalFilterModal from "../../ui/website/gaols/GoalFilterModal";
+import SidebarFilter from "../../ui/website/home/SidebarFilter";
 export default function PersonalGoals() {
   const [showFilterModal, setShowFilterModal] = useState(false);
   const goals = [
@@ -145,9 +145,23 @@ export default function PersonalGoals() {
     <section className="personal-goals page">
       <div className="container">
         <div className="row">
-          <div className="col-lg-3 col-12">
-            <SectionHeader
-              title="الأهداف الشخصية"
+          <div className="col-lg-3 col-12 p-2">
+            <div className="section-header">
+              <div className="page-header">
+                {
+                  <Link to="/" className="back-btn">
+                    <i className="fa-solid fa-angle-right"></i>
+                  </Link>
+                }
+                <h1>{"الأهداف الشخصية"}</h1>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="row">
+          <div className="col-12 col-lg-3 p-2">
+            <SidebarFilter
               tabs={tabs}
               activeTab={activeTab}
               onTabChange={setActiveTab}
@@ -157,24 +171,21 @@ export default function PersonalGoals() {
               onFilterClick={() => setShowFilterModal(true)}
             />
           </div>
-
-          <div className="row g-3 col-lg-9 col-12 mt-4">
-            {filteredItems.map((goal) => (
-              <div className="col-12 col-md-6 col-lg-4" key={goal.id}>
-                <GoalCard {...goal} />
-              </div>
-            ))}
+          <div className="col-12 col-lg-9 p-2">
+            <div className="row">
+              {filteredItems.map((goal) => (
+                <div className="col-12 col-md-6 col-xl-4 p-2" key={goal.id}>
+                  <GoalCard {...goal} showfav={true} />
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </div>
 
-      <FilteredModal
+      <GoalFilterModal
         show={showFilterModal}
         onHide={() => setShowFilterModal(false)}
-        filters={filters}
-        showValueRange={true}
-        showAgeRange={true}
-        showRating={true}
       />
     </section>
   );

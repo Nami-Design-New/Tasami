@@ -1,10 +1,9 @@
-import { useParams } from "react-router";
 import { useState } from "react";
-import SectionHeader from "../../ui/website/home/SectionHeader";
+import { useParams } from "react-router";
 
-import HelperContractsChart from "../../ui/website/home/HelperContractsChart";
 import { Link } from "react-router";
 import CustomButton from "../../ui/CustomButton";
+import HelperContractsChart from "../../ui/website/home/HelperContractsChart";
 
 export default function HelpersDetails() {
     const { id } = useParams();
@@ -124,7 +123,7 @@ export default function HelpersDetails() {
         <section className="page helper-details-section mx-3">
             <div className="container">
                 <div className="header">
-                    <SectionHeader />
+                    {/* <SectionHeader /> */}
                     <Link to="/personal-community/consultations">
                         <CustomButton color="primary">
                             مجتمع المساعد الشخصي

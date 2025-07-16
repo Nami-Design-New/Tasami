@@ -1,42 +1,29 @@
-import { Link } from "react-router";
-export default function SectionHeader({
-  title,
+import InputField from "../../forms/InputField";
+export default function SidebarFilter({
   tabs = [],
   activeTab,
   onTabChange,
   resultCount,
   placeholder = "ابحث هنا",
-  onSearchChange,
   searchValue = "",
-  showBack = true,
-  onFilterClick, 
+  onFilterClick,
 }) {
   return (
     <section className="section-header">
-      <div className="page-header">
-        {showBack && (
-          <Link to="/" className="back-btn">
-            <i className="fa-solid fa-angle-right"></i>
-          </Link>
-        )}
-        <h1>{title}</h1>
-      </div>
-
-      {onSearchChange && (
+      {
         <div className="filters">
           <div className="filter-row">
-            <input
+            <InputField
               type="text"
               placeholder={placeholder}
               value={searchValue}
-              onChange={(e) => onSearchChange(e.target.value)}
             />
             <button type="button" onClick={onFilterClick}>
-              <i className="fa-regular fa-filter-circle-xmark"></i>
+              <img src="icons/filter-icon.svg" />
             </button>
           </div>
         </div>
-      )}
+      }
 
       {tabs.length > 0 && (
         <div className="tags-row">
@@ -54,7 +41,7 @@ export default function SectionHeader({
 
       {typeof resultCount !== "undefined" && (
         <div className="total">
-          <strong>{resultCount}</strong> {title}
+          <strong>{resultCount}</strong> الأهداف الشخصية
         </div>
       )}
     </section>

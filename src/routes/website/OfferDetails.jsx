@@ -1,9 +1,7 @@
-import { useParams } from "react-router";
 import { useState } from "react";
-import SectionHeader from "../../ui/website/home/SectionHeader";
-import HelpModal from "../../ui/modals/HelpModal";
-import ReportModal from "../../ui/modals/ReportModal";
+import { useParams } from "react-router";
 import ContractReq from "../../ui/modals/ContractReqModal";
+import ReportModal from "../../ui/modals/ReportModal";
 
 export default function OfferDetails() {
     const { id } = useParams();
@@ -172,7 +170,7 @@ export default function OfferDetails() {
         <section className="page offer-details-section mx-3">
             <div className="container">
                 <div className="header">
-                    <SectionHeader title="تفاصيل العرض" />
+                    {/* <SectionHeader title="تفاصيل العرض" /> */}
                     <div className="options-menu">
                         <i className="fas fa-ellipsis-v" onClick={toggleMenu}></i>
                         {menuOpen && (

@@ -1,6 +1,3 @@
-import React from "react";
-import SectionHeader from "../../ui/website/home/SectionHeader";
-
 export default function MyNotifications() {
   const notifications = [
     {
@@ -22,7 +19,7 @@ export default function MyNotifications() {
   return (
     <div className="page notifications-page">
       <div className="container">
-        <SectionHeader title="الإشعارات" />
+        {/* <SectionHeader title="الإشعارات" /> */}
         <div className="notifications-list">
           {notifications.map((item) => (
             <div className="notification-card" key={item.id}>
