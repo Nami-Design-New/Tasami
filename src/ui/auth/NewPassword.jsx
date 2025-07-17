@@ -1,10 +1,11 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { Link, useNavigate } from "react-router";
+import { useNavigate } from "react-router";
 import * as yup from "yup";
+import CustomButton from "../CustomButton";
+import BackButton from "../forms/BackButton";
 import PasswordField from "../forms/PasswordField";
-import SubmitButton from "../forms/SubmitButton";
 
 // Password validation schema
 const newPasswordSchema = yup.object().shape({
@@ -24,22 +25,25 @@ const newPasswordSchema = yup.object().shape({
     .oneOf([yup.ref("password")], "Passwords must match"),
 });
 
-const NewPassword = ({ code }) => {
+const NewPassword = ({ code, setResetPasswordStep }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [resetSuccess, setResetSuccess] = useState(false);
   const navigate = useNavigate();
-  // Get user data from sessionStorage
-  const email = sessionStorage.getItem("resetEmail");
-  const phone = sessionStorage.getItem("resetPhone");
 
+  // Get user data from sessionStorage
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm({
-    resolver: yupResolver(newPasswordSchema),
+    // resolver: yupResolver(newPasswordSchema),
     mode: "onChange",
   });
+
+  const handleBackButtonClick = (e) => {
+    e.preventDefault();
+    setResetPasswordStep("s1");
+  };
 
   const onSubmit = async (data) => {
     console.log(data);
@@ -65,28 +69,28 @@ const NewPassword = ({ code }) => {
     <div className="reset-form">
       <form className="form_ui" onSubmit={handleSubmit(onSubmit)}>
         <PasswordField
+          label="كلمة المرور"
           name="password"
           id="new_password"
           type="password"
-          placeholder="كلمة المرور الجديدة"
           error={errors.password?.message}
           {...register("password")}
         />
 
         <PasswordField
+          label="تأكيد كلمة المرور"
           name="confirmPassword"
           id="confirm_password"
           type="password"
-          placeholder="تأكيد كلمة المرور"
           error={errors.confirmPassword?.message}
           {...register("confirmPassword")}
         />
 
         <div className="buttons">
-          <Link to="/login" className="back">
-            <i className="fa-light fa-arrow-left" />
-          </Link>
-          <SubmitButton loading={isSubmitting} text="إعادة تعيين كلمة المرور" />
+          <BackButton onClick={handleBackButtonClick} />
+          <CustomButton fullWidth size="large">
+            تأكيد
+          </CustomButton>
         </div>
       </form>
     </div>

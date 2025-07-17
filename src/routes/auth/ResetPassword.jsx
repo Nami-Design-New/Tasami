@@ -15,11 +15,11 @@ export default function ResetPassword() {
     subTitle =
       "يرجى إدخال البريد الإلكتروني أو رقم الهاتف المسجل لدينا لتلقي رمز التحقق.";
   } else if (resetPasswordStep === "s2") {
-    title = "ادحل كود التحقق";
+    title = "ادخل كود التحقق";
     subTitle = "الرجاء إدخال رمز التحقق المرسل إليك";
   } else {
-    title = "تحديث كلمة المرور الخاصة بك..!";
-    subTitle = "إنشاء كلمة مرور جديدة قوية وسهلة التذكر.";
+    title = " كلمة المرور الجديدة";
+    subTitle = "أدخل كلمة المرور الجديدة المكونة من 8 خانات ...";
   }
   return (
     <section className="reset_section">
@@ -42,7 +42,12 @@ export default function ResetPassword() {
           />
         )}
 
-        {resetPasswordStep === "s3" && <NewPassword code={code} />}
+        {resetPasswordStep === "s3" && (
+          <NewPassword
+            code={code}
+            setResetPasswordStep={setResetPasswordStep}
+          />
+        )}
       </div>
     </section>
   );

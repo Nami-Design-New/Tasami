@@ -7,7 +7,7 @@ import CustomButton from "../CustomButton";
 import InputField from "../forms/InputField";
 import PasswordField from "../forms/PasswordField";
 
-const EmailForm = ({ setShowLoginForm }) => {
+const EmailForm = () => {
   const {
     register,
     handleSubmit,
@@ -18,21 +18,16 @@ const EmailForm = ({ setShowLoginForm }) => {
   const navigate = useNavigate();
   const role = useSelector((state) => state.authRole.role);
 
-  const handleBackButtonClick = (e) => {
-    e.preventDefault();
-    setShowLoginForm(false);
+  const onSubmit = (data) => {
+    if (role === "admin") {
+      navigate("/dashboard");
+    } else if (role === "user") {
+      navigate("/");
+    }
   };
+
   return (
-    <form
-      className="form_ui"
-      onSubmit={handleSubmit((data) => {
-        if (role === "admin") {
-          navigate("/dashboard");
-        } else if (role === "user") {
-          navigate("/");
-        }
-      })}
-    >
+    <form className="form_ui" onSubmit={handleSubmit(onSubmit)}>
       <InputField
         id="email"
         placeholder="مثال: mail@mail.com"
