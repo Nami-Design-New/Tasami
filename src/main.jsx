@@ -6,6 +6,7 @@ import { store } from "./redux/store";
 
 import "aos/dist/aos.css";
 import "bootstrap/dist/css/bootstrap.min.css";
+import "react-phone-input-2/lib/style.css";
 import App from "./App";
 import "./assets/styles/all.min.css";
 import "./assets/styles/style.css";

@@ -1,28 +1,22 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
+import { useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router";
 import { phoneSchema } from "../../validations/phoneSchema";
-import BackButton from "../forms/BackButton";
+import CustomButton from "../CustomButton";
 import InputField from "../forms/InputField";
 import PasswordField from "../forms/PasswordField";
-import SubmitButton from "../forms/SubmitButton";
-import { useSelector } from "react-redux";
 
-const PhoneForm = ({ setShowLoginForm }) => {
+const PhoneForm = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors, isSubmitting },
+    formState: { errors },
   } = useForm({
     resolver: yupResolver(phoneSchema),
   });
   const navigate = useNavigate();
   const role = useSelector((state) => state.authRole.role);
-
-  const handleBackButtonClick = (e) => {
-    e.preventDefault();
-    setShowLoginForm(false);
-  };
 
   const onSubmit = (data) => {
     console.log(data);
@@ -50,8 +44,9 @@ const PhoneForm = ({ setShowLoginForm }) => {
       <Link to={"/reset-password"}> نسيت كلمه المرور ؟ </Link>
 
       <div className="buttons">
-        <BackButton onClick={handleBackButtonClick} />
-        <SubmitButton text="تسجيل" loading={isSubmitting} />
+        <CustomButton fullWidth size="large" type="submit">
+          دخول
+        </CustomButton>
       </div>
     </form>
   );

@@ -1,9 +1,12 @@
 import { useEffect, useState } from "react";
 import OtpContainer from "../../forms/OtpContainer";
 import SubmitButton from "../../forms/SubmitButton";
+import BackButton from "../../forms/BackButton";
+import CustomButton from "../../CustomButton";
 
 export default function OtpForm({ setResetPasswordStep, setCode }) {
   const [loading, setLoading] = useState(false);
+
   const [timer, setTimer] = useState(60);
   const [resendDisabled, setResendDisabled] = useState(true);
 
@@ -37,7 +40,7 @@ export default function OtpForm({ setResetPasswordStep, setCode }) {
             pointerEvents: resendDisabled ? "none" : "auto",
           }}
         >
-          اعد ارسال الكود
+          اعادة ارسال الرمز
         </h6>
         <p>
           <span>
@@ -50,10 +53,10 @@ export default function OtpForm({ setResetPasswordStep, setCode }) {
       </div>
 
       <div className="buttons">
-        <button className="back" onClick={handleBackButtonClick}>
-          <i className="fa-light fa-arrow-left" />
-        </button>
-        <SubmitButton loading={loading} text="تاكيد" />
+        <BackButton onClick={handleBackButtonClick} />
+        <CustomButton fullWidth size="large">
+          تاكيد
+        </CustomButton>
       </div>
     </form>
   );

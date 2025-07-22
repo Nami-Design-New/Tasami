@@ -6,6 +6,10 @@
     display: flex;
     flex-direction: column;
     gap: 4px;
+    // label {
+    //   font-size: 1rem;
+    //   font-weight: 700;
+    // }
     .main-elements {
       width: 100%;
       display: flex;
@@ -15,7 +19,6 @@
         font-size: 16px;
         font-weight: 500;
       }
-
     }
     .pass-group {
       display: flex;
@@ -96,8 +99,7 @@
     }
     input,
     select,
-    textarea
-   {
+    textarea {
       width: 100%;
       height: 54px;
       display: block;
@@ -117,7 +119,7 @@
     }
     label {
       color: $dark;
-      font-weight: 500;
+      font-weight: 700;
       font-size: 16px;
       span {
         font-size: 12px;
@@ -242,82 +244,81 @@
   .simiLabel {
     color: $dark;
   }
-.check_field {
-  width: 100%;
-  padding: 12px 16px;
-  border-radius: 12px;
+  .check_field {
+    width: 100%;
+    padding: 12px 16px;
+    border-radius: 12px;
 
-  .field-label {
-    color: $dark;
+    .field-label {
+      color: $dark;
       font-weight: 500;
       font-size: 16px;
-   
-  }
+    }
 
-  .buttons-group {
-    display: flex;
-    gap: 8px;
+    .buttons-group {
+      display: flex;
+      gap: 8px;
 
-    .toggle-btn {
-       width: 100%;
-      height: 54px;
-      display: block;
-      outline: none;
-      border: 1px solid $inputStroke;
-      border-radius: 12px;
-      background: $inputBG;
-      padding: 12px 16px;
-      box-shadow: none !important;
+      .toggle-btn {
+        width: 100%;
+        height: 54px;
+        display: block;
+        outline: none;
+        border: 1px solid $inputStroke;
+        border-radius: 12px;
+        background: $inputBG;
+        padding: 12px 16px;
+        box-shadow: none !important;
 
-      flex: 1;
-      cursor: pointer;
-      transition: background 0.2s, color 0.2s;
+        flex: 1;
+        cursor: pointer;
+        transition: background 0.2s, color 0.2s;
 
-      &.active {
-        background: $second; 
-        color: #fff;
-      }
+        &.active {
+          background: $second;
+          color: #fff;
+        }
 
-      &:hover {
-        background: lighten($second, 10%); 
+        &:hover {
+          background: lighten($second, 10%);
+        }
       }
     }
-  }
 
-  .invalid-feedback {
-    margin-top: 8px;
-    color: #e74c3c;
-    font-size: 0.85rem;
+    .invalid-feedback {
+      margin-top: 8px;
+      color: #e74c3c;
+      font-size: 0.85rem;
+    }
   }
-}
- .radio{
+  .radio {
+    display: flex;
+    align-items: center;
+    gap: 3px;
+    label {
       display: flex;
       align-items: center;
-      gap: 3px;
-      label {
-        display: flex;
-        align-items: center;
-        padding: 10px;
-        cursor: pointer;
-        font-weight: 500;
-        color: $dark;
-        input {
-          display: none;
-          appearance: none;
-          &:checked + span {
-            background: $main;
-            color: $white;
-            border-color: $main;
-          }
-        }
-        span {
-          padding: 8px 24px;
-          border-radius: 12px;
-          white-space: nowrap;
-          border: 1px solid $inputStroke;
+      padding: 10px;
+      cursor: pointer;
+      font-weight: 500;
+      color: $dark;
+      input {
+        display: none;
+        appearance: none;
+        &:checked + span {
+          background: $main;
+          color: $white;
+          border-color: $main;
         }
       }
+      span {
+        padding: 8px 24px;
+        border-radius: 12px;
+        white-space: nowrap;
+        border: 1px solid $inputStroke;
+      }
     }
+  }
   .time-units {
     display: flex;
     gap: 8px;
@@ -547,7 +548,8 @@
   }
 }
 
-.log ,.cancle{
+.log,
+.cancle {
   @include clearInput();
   width: 100%;
   background: $main;
@@ -559,10 +561,11 @@
     padding: 0 42px;
   }
 }
-.cancle{
+.cancle {
   background-color: transparent;
-border: 1px solid $gray;
-color:$gray;}
+  border: 1px solid $gray;
+  color: $gray;
+}
 .button {
   @include clearInput();
   @include centerFlex();
@@ -730,16 +733,14 @@ color:$gray;}
     padding: 4px;
   }
 }
- .hint {
-      font-size: 0.8rem;
-      color: #bdbbbb;
-      margin-inline-start: 4px;
-      font-weight: 500;
-  }
+.hint {
+  font-size: 0.8rem;
+  color: #bdbbbb;
+  margin-inline-start: 4px;
+  font-weight: 500;
+}
 
-
-
-   .gender_select {
+.gender_select {
   display: flex;
   width: 100%;
   flex-direction: column;

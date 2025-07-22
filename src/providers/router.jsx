@@ -60,12 +60,16 @@ import Profile from "../routes/website/Profile";
 import MyNotifications from "../routes/website/MyNotifications";
 import EditProfile from "../routes/website/EditProfile";
 import MyWallet from "../routes/website/MyWallet";
+import OtpConfirmationPage from "../routes/auth/OtpConfirmationPage";
+import RegisterInfo from "../routes/auth/RegisterInfo";
 export const router = createBrowserRouter([
   {
     element: <AuthLayout />,
     children: [
       { path: "/login", element: <LoginPage /> },
       { path: "/register", element: <RegisterPage /> },
+      { path: "/confirm-otp", element: <OtpConfirmationPage /> },
+      { path: "/register-info", element: <RegisterInfo /> },
     ],
   },
   { path: "/reset-password", element: <ResetPassword /> },
