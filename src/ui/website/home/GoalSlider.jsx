@@ -53,7 +53,7 @@ export default function GoalSlider() {
       <div className="slider-header">
         <div className="text">
           <h2>الأهداف الشخصية</h2>
-          <p>استعرض جميع الأهداف المنشورة على المنصة</p>
+          <p>أحدث طلبات المساعدة لتحقيق أهداف جديدة</p>
         </div>
         <Link to="/Personal-goals" className="view-all">
           عرض الكل

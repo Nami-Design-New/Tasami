@@ -3,7 +3,6 @@ export default function SidebarFilter({
   tabs = [],
   activeTab,
   onTabChange,
-  resultCount,
   placeholder = "ابحث هنا",
   searchValue = "",
   onFilterClick,
@@ -39,11 +38,7 @@ export default function SidebarFilter({
         </div>
       )}
 
-      {typeof resultCount !== "undefined" && (
-        <div className="total">
-          <strong>{resultCount}</strong> الأهداف الشخصية
-        </div>
-      )}
+  
     </section>
   );
 }

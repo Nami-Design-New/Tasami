@@ -29,7 +29,11 @@ const AuthLayout = () => {
   const step = searchParmas.get("step");
 
   return (
-    <section className="auth_section">
+     <section className="auth_section ">
+       <div className="container">
+        <div className="row">
+
+          <div className="col-lg-6 col-12 p-2 d-flex flex-column">
       <div className="form_wrapper">
         <div className="form_container">
           <div className="form-header">
@@ -40,37 +44,22 @@ const AuthLayout = () => {
               <span />
               <h1>{getHeadingText(route, step)}</h1>
             </div>
-            {location.pathname === "/login" && (
-              <h6>
-                <span> ليس لديك حساب ؟ </span>
-                <Link to={"/register"}> انشاء حساب </Link>
-              </h6>
-            )}{" "}
-            {location.pathname === "/register" && (
-              <h6>
-                <span> لديك حساب بالفعل ؟ </span>
-                <Link to={"/login"}> تسجيل الدخول </Link>
-              </h6>
-            )}
-            {location.pathname === "/confirm-otp" && (
-              <h6>
-                <span> لم تستلم الرمز؟ </span>
-                <Link to={"/register"}> تعديل الرقم </Link>
-              </h6>
-            )}
+          
+           
             {location.pathname.includes("dashboard") && <></>}
           </div>
 
           <Outlet />
         </div>
       </div>
-      <div
-        className="image_wrapper"
-        style={{
-          backgroundImage: "url(/images/regiester-image.webp)",
-          backgroundPosition: "50% 72%",
-        }}
-      />
+      </div>
+      <div className="col-lg-6 col-12 p-2 d-lg-block d-none">
+            <div className="img">
+              <img src="/images/regiester-image.webp" alt="auth" />
+            </div>
+          </div>
+
+      </div></div>
     </section>
   );
 };

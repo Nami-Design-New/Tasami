@@ -38,7 +38,7 @@ const RegisterPage = () => {
         <p className="terms-text">
           <span>بمواصلتك، فإنك توافق على</span>
           <span>
-            <Link>سياسة الخصوصية</Link> و <Link>الشروط والأحكام</Link>
+            <Link to={"/privacy-policy"}>سياسة الخصوصية</Link> و <Link to={"/terms-conditions"}>الشروط والأحكام</Link>
           </span>
         </p>
         <div className="buttons">
@@ -47,6 +47,14 @@ const RegisterPage = () => {
             إرسال
           </CustomButton>
         </div>
+        <div className="account-link mt-4">
+          {location.pathname === "/register" && (
+              <h6>
+                <span> لديك حساب بالفعل ؟ </span>
+                <Link to={"/login"}> تسجيل الدخول </Link>
+              </h6>
+            )}
+            </div>
       </form>
       <div className="seperator"> أو </div>
       <div className="social-login-buttons">

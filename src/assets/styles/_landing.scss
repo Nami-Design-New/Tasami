@@ -1,6 +1,5 @@
 .hero-section {
   padding: 30px 0;
-  margin-top: 70px;
 
   .hero_slider {
     width: 100%;
@@ -162,7 +161,7 @@
 
 .about-section {
   position: relative;
-  padding: 120px 0 20px 0;
+  padding: 40px 0;
   text-align: center;
   // background: #F2F2F2;
   background: #f9f9f9;
@@ -312,7 +311,9 @@
       font-weight: bold;
       margin-bottom: 0.25rem;
     }
-
+    i {
+      color: #97a6aa;
+    }
     p {
       font-size: 0.8rem;
       color: #555;
@@ -686,6 +687,7 @@
     h1 {
       font-size: 1.5rem;
       font-weight: bold;
+      color: $second;
     }
 
     .back-btn {
@@ -721,17 +723,16 @@
       gap: 0.7rem;
       flex: 1;
       flex-wrap: nowrap;
-
       button {
         border: none;
-        padding: 0.5rem;
+        padding: 0.9rem;
         border-radius: 0.5rem;
         cursor: pointer;
-        border: 1px solid black;
+        background-color: $main08;
         flex-shrink: 0;
 
         i {
-          font-size: 22px;
+          font-size: 24px;
           margin-top: 3px;
         }
       }
@@ -776,21 +777,23 @@
     padding: 1rem 0rem;
 
     .tag {
-      background: #eee;
+border: 1px solid $second;
       padding: 0.4rem 0.9rem;
       border-radius: 20px;
       font-size: 0.9rem;
       white-space: nowrap;
       cursor: pointer;
       transition: 0.3s;
+      color: $second;
 
       &:hover {
-        background: #ddd;
+        background: $second;
+        color: $white;
       }
 
       &.active {
-        background: #20407c;
-        color: #fff;
+        background: $second;
+        color: $white;
       }
     }
 
@@ -810,7 +813,7 @@
 }
 
 .page {
-  padding: 120px 0;
+  padding: 70px 0;
 }
 
 .faqs-section {
@@ -924,7 +927,7 @@
 }
 
 .steps-section {
-  padding: 120px 0 40px 0;
+  padding: 40px 0;
   position: relative;
   text-align: center;
   background: #fafafa;

@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useParams } from "react-router";
 import HelpModal from "../../ui/modals/HelpModal";
 import ReportModal from "../../ui/modals/ReportModal";
+import InquiryModal from "../../ui/modals/inquiryModal";
 import SectionHeader from "../../ui/website/SectionHeader";
 // import SectionHeader from "../../ui/website/home/SectionHeader";
 
@@ -10,11 +11,14 @@ export default function GoalDetails() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [showHelpModal, setShowHelpModal] = useState(false);
   const [showReportModal, setShowReportModal] = useState(false);
+  const [showInquiryModal, setShowInquiryModal] = useState(false);
 
   const toggleMenu = () => setMenuOpen(!menuOpen);
   const closeModals = () => {
     setShowHelpModal(false);
     setShowReportModal(false);
+    setShowCommentModal(false);
+
   };
   const goals = [
     {
@@ -23,12 +27,13 @@ export default function GoalDetails() {
       title: "إنشاء متجر لبيع مستلزمات الطباعة ثلاثية الأبعاد في السعودية.",
       country: "السعودية",
       date: "16 فبراير 2025",
-      type: "ريادي - تجارة إلكترونية",
+      type: "ريادي ",
+      section: " تجارة إلكترونية",
       offers: 12,
       image: "/images/profile1.png",
       status: true,
       description:
-        "الهدف من هذا المشروع هو إنشاء متجر متخصص لبيع مستلزمات الطباعة ثلاثية الأبعاد وتقديم خدمات متميزة للمستخدمين. يشمل ذلك ميزة شحن سريع، دعم فني على مدار الساعة، وعروض تنافسية تساعد العملاء على بدء مشاريعهم الإبداعية.",
+        "تطوير تطبيق جوال متكامل لمراقبة الصحة الشخصية، يهدف إلى تمكين المستخدمين من تتبع مؤشرات صحتهم بشكل يومي. سيوفر التطبيق ميزات مثل تسجيل النشاط البدني، مراقبة النظام الغذائي، وتحليل البيانات الصحية لتقديم نصائح مخصصة. كما سيتضمن التطبيق واجهة مستخدم سهلة الاستخدام، مع إمكانية الوصول إلى معلومات صحية موثوقة، مما يساعد المستخدمين على اتخاذ قرارات أفضل بشأن صحتهم.",
       duration: "6 شهور",
       assistMethods: [
         "الالتقاء الشخصي",
@@ -43,12 +48,13 @@ export default function GoalDetails() {
         "تطوير تطبيق لتسهيل الوصول إلى الخدمات الصحية في الإمارات للمواطنين والمقيمين.",
       country: "الإمارات",
       date: "10 مارس 2025",
-      type: "تقنية - تطبيقات موبايل",
+      type: "تقنية ",
+      section: " تطبيقات موبايل",
       offers: 8,
       image: "/images/profile2.png",
       status: false,
       description:
-        "تطبيق يسهل الوصول إلى الخدمات الصحية ويتيح للمستخدمين حجز المواعيد الطبية واستشارة المختصين والحصول على إشعارات مواعيد المتابعة والعلاجات الدورية.",
+        "تطوير تطبيق جوال متكامل لمراقبة الصحة الشخصية، يهدف إلى تمكين المستخدمين من تتبع مؤشرات صحتهم بشكل يومي. سيوفر التطبيق ميزات مثل تسجيل النشاط البدني، مراقبة النظام الغذائي، وتحليل البيانات الصحية لتقديم نصائح مخصصة. كما سيتضمن التطبيق واجهة مستخدم سهلة الاستخدام، مع إمكانية الوصول إلى معلومات صحية موثوقة، مما يساعد المستخدمين على اتخاذ قرارات أفضل بشأن صحتهم.",
       duration: "4 شهور",
       assistMethods: [
         "الالتقاء الشخصي",
@@ -62,12 +68,13 @@ export default function GoalDetails() {
       title: "إنشاء منصة تعليمية لتعليم البرمجة للأطفال في العالم العربي.",
       country: "مصر",
       date: "5 أبريل 2025",
-      type: "تعليم - تقنية",
+      type: "تقنية",
+      section: " تعليم",
       offers: 15,
       image: "/images/profile2.png",
       status: true,
       description:
-        "منصة تقدم محتوى متميزًا لتعليم الأطفال لغات البرمجة بأسلوب ممتع وبسيط من خلال دروس تفاعلية ومشاريع عملية تساعد على تنمية مهارات التفكير الإبداعي.",
+        "تطوير تطبيق جوال متكامل لمراقبة الصحة الشخصية، يهدف إلى تمكين المستخدمين من تتبع مؤشرات صحتهم بشكل يومي. سيوفر التطبيق ميزات مثل تسجيل النشاط البدني، مراقبة النظام الغذائي، وتحليل البيانات الصحية لتقديم نصائح مخصصة. كما سيتضمن التطبيق واجهة مستخدم سهلة الاستخدام، مع إمكانية الوصول إلى معلومات صحية موثوقة، مما يساعد المستخدمين على اتخاذ قرارات أفضل بشأن صحتهم.",
       duration: "8 شهور",
       assistMethods: [
         "الالتقاء الشخصي",
@@ -81,12 +88,13 @@ export default function GoalDetails() {
       title: "تطوير موقع إلكتروني لبيع المنتجات اليدوية والحرفية في الكويت.",
       country: "الكويت",
       date: "20 مايو 2025",
-      type: "ريادي - تجارة إلكترونية",
+      type: "ريادي",
+      section: " تجارة إلكترونية",
       offers: 10,
       image: "/images/profile1.png",
       status: false,
       description:
-        "موقع متخصص لبيع المنتجات اليدوية والحرف التقليدية، مع ميزة تخصيص المنتجات وطرق دفع آمنة لتسهيل التسوق الإلكتروني.",
+        "تطوير تطبيق جوال متكامل لمراقبة الصحة الشخصية، يهدف إلى تمكين المستخدمين من تتبع مؤشرات صحتهم بشكل يومي. سيوفر التطبيق ميزات مثل تسجيل النشاط البدني، مراقبة النظام الغذائي، وتحليل البيانات الصحية لتقديم نصائح مخصصة. كما سيتضمن التطبيق واجهة مستخدم سهلة الاستخدام، مع إمكانية الوصول إلى معلومات صحية موثوقة، مما يساعد المستخدمين على اتخاذ قرارات أفضل بشأن صحتهم.",
       duration: "5 شهور",
       assistMethods: [
         "الالتقاء الشخصي",
@@ -123,13 +131,22 @@ export default function GoalDetails() {
                     setMenuOpen(false);
                   }}
                 >
-                  تقديم مساعدة
+                  تقديم عرض مساعدة
+                </button>
+                  <button
+                  onClick={() => {
+                    setShowInquiryModal(true);
+                    setMenuOpen(false);
+                  }}
+                >
+                   استفسار
                 </button>
                 <button
                   onClick={() => {
                     setShowReportModal(true);
                     setMenuOpen(false);
                   }}
+                  className="text-danger"
                 >
                   إبلاغ عن مخالفة
                 </button>
@@ -145,28 +162,27 @@ export default function GoalDetails() {
             </div>
 
             <div className="details">
-              <div className="d-flex flex-1  justify-content-between ">
-                <h5>{goal.name}</h5>
+              <div className="d-flex flex-1 justify-content-between ">
+                <div className="personal-info">
+                  <h5>{goal.name}</h5>
+                  <div className="country">
+                    <img src="/icons/flag.svg" />
+                    {goal.country}
+                  </div>
+                </div>
                 <div className="rating">
                   <img src="/icons/hz-bars.svg" />
                   <span>11</span>
                 </div>
               </div>
             </div>
-            {/* <div className="info">
-              <div className="country">
-                <i className="fas fa-map-marker-alt"></i>
-                {goal.country}
-              </div>
-              <div className="offers">
-                <i className="fa-light fa-layer-group"></i> {goal.offers} عرض
-                مقدم
-              </div>
-            </div> */}
           </div>
 
-          <div className="col-lg-8 col-12">
-            <h6>الهدف</h6>
+          <div className="col-lg-8 col-12 ">
+            <div className="hed">
+              <img src="/icons/triangle.svg" />
+              <h6>الهدف</h6>
+            </div>
             <p className="desc ">{goal.description}</p>
             <div className="info-grid ">
               <div className="info-box">
@@ -174,28 +190,37 @@ export default function GoalDetails() {
                 <div className="value">{goal.type}</div>
               </div>
               <div className="info-box">
-                <div className="label">مدة تحقيق الهدف</div>
+                <div className="label"> التخصص</div>
+                <div className="value">{goal.section}</div>
+              </div>
+              <div className="info-box">
+                <div className="label">المدة المتوقعة لتحقيق الهدف</div>
                 <div className="value">{goal.duration}</div>
               </div>
               <div className="info-box">
                 <div className="label">تاريخ البدء</div>
                 <div className="value">{goal.date}</div>
               </div>
+              <div className="info-box w-100">
+                <div className="label">آليات المساعدة المعتمدة</div>
+                {goal.assistMethods.map((method, index) => (
+                  <div className="value" key={index}>
+                    <img src="/icons/check.svg" /> {method}
+                  </div>
+                ))}{" "}
+              </div>
             </div>
           </div>
-          <h6>آليات المساعدة المعتمدة</h6>
-          <div className="assist-methods ">
-            {goal.assistMethods.map((method, index) => (
-              <div className="assist-method" key={index}>
-                {method}
-              </div>
-            ))}
-          </div>
+
         </div>
         <HelpModal showModal={showHelpModal} setShowModal={setShowHelpModal} />
         <ReportModal
           showModal={showReportModal}
           setShowModal={setShowReportModal}
+        />
+         <InquiryModal
+          showModal={showInquiryModal}
+          setShowModal={setShowInquiryModal}
         />
       </div>
     </section>

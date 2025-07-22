@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { Modal } from "react-bootstrap";
 import "react-range-slider-input/dist/style.css";
-import CustomButton from "../../CustomButton";
+// import CustomButton from "../../CustomButton";
 import SelectField from "../../forms/SelectField";
+import SubmitButton from "../../forms/SubmitButton";
 
 const GoalFilterModal = ({ show, onHide }) => {
   // const [valueRange, setValueRange] = useState([100, 30000]);
@@ -194,16 +195,19 @@ const GoalFilterModal = ({ show, onHide }) => {
             )} */}
           </div>
 
-          <div className="d-flex justify-content-end  gap-2 mt-3">
-            <CustomButton size="large">التصفيه</CustomButton>
-            <CustomButton
-              onClick={onHide}
-              type="button"
-              size="large"
-              color="secondary"
-            >
-              إلغاء
-            </CustomButton>
+          <div className="col-12 my-3 d-flex gap-1">
+            <div className="col-6">
+              <SubmitButton text="تصفية" />
+            </div>
+            <div className="col-6">
+              <button
+                type="button"
+                className="cancle"
+                onClick={() => onHide(false)}
+              >
+                إلغاء
+              </button>
+            </div>
           </div>
         </form>
       </Modal.Body>

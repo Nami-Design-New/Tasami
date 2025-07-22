@@ -22,32 +22,38 @@ export default function ResetPassword() {
     subTitle = "أدخل كلمة المرور الجديدة المكونة من 8 خانات ...";
   }
   return (
-    <section className="reset_section">
-      <div className="header">
-        <Link to="/" className="logo">
-          <img src="/images/logo.svg" alt="logo" />
-        </Link>
-      </div>
-      <div className="reset-container">
-        <h1>{title}</h1>
-        <p>{subTitle}</p>
-        {resetPasswordStep === "s1" && (
-          <ResetForm setResetPasswordStep={setResetPasswordStep} />
-        )}
+    <section className="auth_section ">
+      <div className="container">
+        <div className="row">
+          <div className="col-lg-6 col-12 p-2 d-flex flex-column">
+              <div className="reset-container">
+                <h1>{title}</h1>
+                <p>{subTitle}</p>
+                {resetPasswordStep === "s1" && (
+                  <ResetForm setResetPasswordStep={setResetPasswordStep} />
+                )}
 
-        {resetPasswordStep === "s2" && (
-          <OtpForm
-            setResetPasswordStep={setResetPasswordStep}
-            setCode={setCode}
-          />
-        )}
+                {resetPasswordStep === "s2" && (
+                  <OtpForm
+                    setResetPasswordStep={setResetPasswordStep}
+                    setCode={setCode}
+                  />
+                )}
 
-        {resetPasswordStep === "s3" && (
-          <NewPassword
-            code={code}
-            setResetPasswordStep={setResetPasswordStep}
-          />
-        )}
+                {resetPasswordStep === "s3" && (
+                  <NewPassword
+                    code={code}
+                    setResetPasswordStep={setResetPasswordStep}
+                  />
+                )}
+              </div>
+          </div>
+          <div className="col-lg-6 col-12 p-2 d-lg-block d-none">
+            <div className="img">
+              <img src="/images/regiester-image.webp" alt="auth" />
+            </div>
+          </div>
+        </div>
       </div>
     </section>
   );

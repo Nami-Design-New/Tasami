@@ -165,14 +165,17 @@ export default function PersonalGoals() {
               tabs={tabs}
               activeTab={activeTab}
               onTabChange={setActiveTab}
-              resultCount={filteredItems.length}
               searchValue={searchValue}
               onSearchChange={setSearchValue}
               onFilterClick={() => setShowFilterModal(true)}
             />
           </div>
+
           <div className="col-12 col-lg-9 p-2">
             <div className="row">
+              <div className="result-count">
+                <strong>{filteredItems.length}</strong> الأهداف الشخصية
+              </div>
               {filteredItems.map((goal) => (
                 <div className="col-12 col-md-6 col-xl-4 p-2" key={goal.id}>
                   <GoalCard {...goal} showfav={true} />

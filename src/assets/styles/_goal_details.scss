@@ -41,6 +41,7 @@
     }
   }
   .goal-details-card {
+   
     .top-info {
       display: flex;
       height: min-content;
@@ -50,6 +51,7 @@
       border-radius: 12px;
       padding: 1.5rem;
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+      background-color: $secondColor12;
 
       .avatar {
         width: 120px;
@@ -62,20 +64,32 @@
         flex: 1;
         display: flex;
         flex-direction: column;
-
-        h5 {
-          padding-bottom: 0.5rem;
-          font-size: 1.05rem;
-          font-weight: 600;
-          color: #333;
+        justify-content: center;
+        .personal-info {
+          display: flex;
+          flex-direction: column;
+          h5 {
+            padding-bottom: 0.5rem;
+            font-size: 1.05rem;
+            font-weight: 600;
+            color: #333;
+          }
+          .country{
+            display: flex;
+            gap: 8px;
+            i{
+              font-size: 24px;
+            }
+          }
         }
-
         .rating {
           display: flex;
           align-items: center;
           span {
-            color: #555;
+            color: $dark;
             margin-inline-start: 6px;
+            font-weight: 600;
+            margin-top: 4px;
           }
         }
 
@@ -97,15 +111,22 @@
         }
       }
     }
+.hed{
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 1rem 0;
 
-    h6 {
-      color: $main;
-      font-size: 1.1rem;
-      margin: 2rem 0 0.4rem;
-      font-weight: 600;
-      margin-bottom: 10px;
+    img {
+      width: 20px;
+      height: 20px;
     }
-
+ h6 {
+      color: $dark;
+      font-size: 1.3rem;
+      font-weight: 600;
+    }
+}
     .desc {
       color: #444;
       line-height: 1.8;
@@ -116,25 +137,24 @@
     .info-grid {
       display: flex;
       flex-wrap: wrap;
-      gap: 0.5rem;
+      gap: 1rem;
       margin: 2rem 0;
 
       .info-box {
-        background: #f5f9ff;
-        border: 1px solid #cfe3ff;
+        border: 1px solid #ddd;
         border-radius: 8px;
         padding: 0.6rem;
-        text-align: center;
 
         .value {
-          font-size: 0.8rem;
-          color: #777;
-          margin-top: 0.3rem;
+          font-size: 1rem;
+          color: $dark;
+          margin-top: 0.5rem;
+          font-weight: 600;
         }
 
         .label {
           font-size: 0.9rem;
-          color: #333;
+          color: $second;
           font-weight: 600;
         }
       }

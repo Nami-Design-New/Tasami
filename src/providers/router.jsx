@@ -63,7 +63,11 @@ import MyWallet from "../routes/website/MyWallet";
 import OtpConfirmationPage from "../routes/auth/OtpConfirmationPage";
 import RegisterInfo from "../routes/auth/RegisterInfo";
 export const router = createBrowserRouter([
+
   {
+    element: <WebsiteLayout />,
+    children: [
+        {
     element: <AuthLayout />,
     children: [
       { path: "/login", element: <LoginPage /> },
@@ -73,9 +77,6 @@ export const router = createBrowserRouter([
     ],
   },
   { path: "/reset-password", element: <ResetPassword /> },
-  {
-    element: <WebsiteLayout />,
-    children: [
       {
         path: "/",
         element: <Home />,

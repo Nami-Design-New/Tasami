@@ -1,6 +1,6 @@
 import { Modal } from "react-bootstrap";
-import TextField from "../../ui/forms/TextField";
-import SubmitButton from "../../ui/forms/SubmitButton";
+import TextField from "../forms/TextField";
+import SubmitButton from "../forms/SubmitButton";
 
 const AddCommentModal = ({ showModal, setShowModal }) => {
   const handleSubmit = (e) => {

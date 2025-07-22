@@ -136,6 +136,9 @@ export default function PersonalOffers() {
           </div>
           <div className="col-12 col-lg-9 ">
             <div className="row">
+                <div className="result-count">
+                <strong>{filters.length}</strong>  عروض مساعدة
+              </div>
               {filteredItems.map((offer) => (
                 <div className="col-12 col-md-6 col-lg-4 p-2" key={offer.id}>
                   <OfferCard offer={offer} />

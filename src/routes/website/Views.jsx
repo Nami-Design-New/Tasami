@@ -1,7 +1,7 @@
 import React from "react";
 import CustomButton from "../../ui/CustomButton";
 import { useState } from "react";
-import AddCommentModal from "../../ui/modals/AdddCommentModal";
+import AddCommentModal from "../../ui/modals/AddCommentModal";
 export default function Views() {
   const [showCommentModal, setShowCommentModal] = useState(false);
   const comments = [

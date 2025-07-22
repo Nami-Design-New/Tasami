@@ -27,11 +27,15 @@ const WebsiteLayout = () => {
   }, []);
   return (
     <section>
-      <ScrollToTop />
-      <Header />
-      <Outlet />
+        <>
+     <ScrollToTop />
+      <Header  />
+      <main>
+        <Outlet />
+      </main>
       <Footer />
       <ResponsiveNav />
+    </>
     </section>
   );
 };

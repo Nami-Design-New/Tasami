@@ -3,6 +3,7 @@ import { useNavigate } from "react-router";
 import CustomButton from "../../ui/CustomButton";
 import BackButton from "../../ui/forms/BackButton";
 import OtpContainer from "../../ui/forms/OtpContainer";
+import { Link } from "react-router";
 
 export default function OtpConfirmationPage() {
   const [loading, setLoading] = useState(false);
@@ -31,6 +32,11 @@ export default function OtpConfirmationPage() {
       <p className="otp-page-des">
         <span>فضلاً أدخل رمز التحقق الذي تم ارساله إلى الرقم ...</span>
         <span> +96605123456789 </span>
+         {location.pathname === "/confirm-otp" && (
+              <h6>
+                <Link to={"/register"}> تعديل الرقم </Link>
+              </h6>
+            )}
       </p>
       <form onSubmit={handleSubmit} className="reset-form">
         <OtpContainer setCode={setCode} length={4} />
