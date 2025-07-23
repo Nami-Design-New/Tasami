@@ -18,7 +18,7 @@ export default function GoalDetails() {
     setShowHelpModal(false);
     setShowReportModal(false);
     setShowCommentModal(false);
-
+setShowInquiryModal(false)
   };
   const goals = [
     {

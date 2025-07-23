@@ -186,10 +186,21 @@ export default function PersonalGoals() {
         </div>
       </div>
 
-      <GoalFilterModal
+      {/* <GoalFilterModal
         show={showFilterModal}
         onHide={() => setShowFilterModal(false)}
-      />
+
+      /> */}
+
+<GoalFilterModal
+  show={showFilterModal}
+  onHide={() => setShowFilterModal(false)}
+  showValueRange={true}
+  showAgeRange={true}
+ 
+/>
+
+
     </section>
   );
 }

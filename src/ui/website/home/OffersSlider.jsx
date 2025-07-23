@@ -12,8 +12,7 @@ const offers = [
     title: "إطلاق مبادرة لتمكين النساء في التجارة الإلكترونية",
     country: "البحرين",
     type: "مؤسس - تمكين المرأة",
-    price1: 2200,
-    price2: 1700,
+    price: 2200,
     image: "/images/p2.png",
     status: true,
   },
@@ -24,8 +23,7 @@ const offers = [
     title: "تطوير تطبيقات الهاتف الذكي لتسهيل التسوق للأسر المنتجة",
     country: "الإمارات",
     type: "مبتكرة - تكنولوجيا المعلومات",
-    price1: 2500,
-    price2: 2000,
+    price: 2500,
     image: "/images/p1.png",
     status: true,
   },
@@ -36,8 +34,7 @@ const offers = [
     title: "إطلاق مبادرة لتمكين النساء في التجارة الإلكترونية",
     country: "البحرين",
     type: "مؤسس - تمكين المرأة",
-    price1: 2200,
-    price2: 1700,
+    price: 2200,
     image: "/images/p2.png",
     status: true,
   },
@@ -48,9 +45,19 @@ const offers = [
     title: "تطوير تطبيقات الهاتف الذكي لتسهيل التسوق للأسر المنتجة",
     country: "الإمارات",
     type: "مبتكرة - تكنولوجيا المعلومات",
-    price1: 2500,
-    price2: 2000,
+    price: 2500,
     image: "/images/p1.png",
+    status: true,
+  },
+   {
+    id: 5,
+    name: "علي الزهراني",
+    rating: 4.8,
+    title: "إطلاق مبادرة لتمكين النساء في التجارة الإلكترونية",
+    country: "البحرين",
+    type: "مؤسس - تمكين المرأة",
+    price: 2200,
+    image: "/images/p2.png",
     status: true,
   },
 ];
@@ -83,7 +90,7 @@ export default function OffersSlider() {
       >
         {offers.map((offer) => (
           <SwiperSlide key={offer.id}>
-            <OfferCard offer={offer} /> {/* ← استخدام الكومبوننت */}
+            <OfferCard offer={offer} /> 
           </SwiperSlide>
         ))}
       </Swiper>

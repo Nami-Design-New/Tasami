@@ -41,7 +41,6 @@
     }
   }
   .goal-details-card {
-   
     .top-info {
       display: flex;
       height: min-content;
@@ -74,10 +73,10 @@
             font-weight: 600;
             color: #333;
           }
-          .country{
+          .country {
             display: flex;
             gap: 8px;
-            i{
+            i {
               font-size: 24px;
             }
           }
@@ -111,22 +110,22 @@
         }
       }
     }
-.hed{
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  margin: 1rem 0;
+    .hed {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin: 1rem 0;
 
-    img {
-      width: 20px;
-      height: 20px;
+      img {
+        width: 20px;
+        height: 20px;
+      }
+      h6 {
+        color: $dark;
+        font-size: 1.3rem;
+        font-weight: 600;
+      }
     }
- h6 {
-      color: $dark;
-      font-size: 1.3rem;
-      font-weight: 600;
-    }
-}
     .desc {
       color: #444;
       line-height: 1.8;
@@ -135,30 +134,65 @@
     }
 
     .info-grid {
+      border-radius: 16px;
       display: flex;
       flex-wrap: wrap;
       gap: 1rem;
-      margin: 2rem 0;
 
       .info-box {
-        border: 1px solid #ddd;
-        border-radius: 8px;
-        padding: 0.6rem;
+        border: 1px solid #e0e0e0;
+        border-radius: 12px;
+        padding: 1rem;
+height: min-content;
+        .label {
+          font-size: 0.9rem;
+          font-weight: 600;
+          color: $second;
+          margin-bottom: 0.25rem;
+        }
 
         .value {
           font-size: 1rem;
+          font-weight: 600;
           color: $dark;
-          margin-top: 0.5rem;
-          font-weight: 600;
-        }
+          display: flex;
+          align-items: center;
+          gap: 6px;
 
-        .label {
-          font-size: 0.9rem;
-          color: $second;
-          font-weight: 600;
+          img {
+            width: 18px;
+            height: 18px;
+          }
+        }
+        .flex {
+        display: flex;
+        justify-content: space-between;
+         .bold {
+       font-weight: bold;
+       img{
+        height: 20px;
+        margin: 0 10px;
+       }
+      }
+      }
+    
+      }
+       
+      .info-box.w-50 {
+        flex: 1 1 100%;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .offer-info {
+        flex-direction: column;
+
+        .info-box {
+          flex: 1 1 100%;
         }
       }
     }
+
     .sub-info {
       background: #f3f3f3;
       padding: 0.6rem 0.75rem;
@@ -279,100 +313,6 @@
 
       @media (max-width: 768px) {
         flex-direction: column;
-      }
-
-      .stats-box {
-        flex: 1 1 48%;
-        background: #f9f9f9;
-        border: 1px solid #e0e0e0;
-        border-radius: 12px;
-        padding: 20px;
-        display: flex;
-        flex-direction: column;
-        gap: 12px;
-
-        @media (max-width: 576px) {
-          flex: 1 1 100%;
-        }
-      }
-
-      .beneficiaries {
-        font-size: 16px;
-        font-weight: 600;
-        color: #333;
-        flex: 1 1 48%;
-        background: #f9f9f9;
-        border: 1px solid #e0e0e0;
-        border-radius: 12px;
-        padding: 20px;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-
-        div {
-          display: flex;
-          align-items: center;
-          gap: 6px;
-          margin-top: 8px;
-
-          i {
-            color: $main;
-            font-size: 14px;
-          }
-        }
-      }
-
-      .stats-box {
-        .rating {
-          font-size: 16px;
-          font-weight: 600;
-          color: #333;
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-
-          div {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-
-            i {
-              color: #f7941d;
-              font-size: 18px;
-            }
-
-            span {
-              color: #f7941d;
-              font-size: 18px;
-              font-weight: bold;
-            }
-          }
-        }
-
-        .rates-list {
-          list-style: none;
-          padding: 0;
-          margin: 0;
-          display: flex;
-          flex-wrap: wrap;
-          gap: 10px;
-
-          li {
-            background: #fff;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            padding: 8px 14px;
-            font-size: 14px;
-            color: #333;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-
-            strong {
-              color: #555;
-            }
-          }
-        }
       }
     }
   }

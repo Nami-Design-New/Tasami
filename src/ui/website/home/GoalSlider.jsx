@@ -73,7 +73,7 @@ export default function GoalSlider() {
       >
         {goals.map((goal) => (
           <SwiperSlide key={goal.id}>
-            <GoalCard {...goal} />
+            <GoalCard {...goal} showfav={true}/>
           </SwiperSlide>
         ))}
       </Swiper>

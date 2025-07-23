@@ -669,6 +669,11 @@ input[type=number]::-webkit-outer-spin-button, input[type=number]::-webkit-inner
   font-family: "Dubai";
 }
 
+@media (max-width: 992px) {
+  main {
+    margin-top: 60px;
+  }
+}
 .custom-btn, .custom-link {
   display: inline-flex;
   align-items: center;
@@ -1548,43 +1553,40 @@ input[type=number]::-webkit-outer-spin-button, input[type=number]::-webkit-inner
 }
 .form_ui .check_field {
   width: 100%;
-  padding: 12px 16px;
-  border-radius: 12px;
 }
 .form_ui .check_field .field-label {
+  display: block;
+  margin-bottom: 8px;
   color: #0d0d0d;
   font-weight: 500;
   font-size: 16px;
 }
-.form_ui .check_field .buttons-group {
+.form_ui .check_field .yes-no-toggle {
   display: flex;
-  gap: 8px;
-}
-.form_ui .check_field .buttons-group .toggle-btn {
-  width: 100%;
-  height: 54px;
-  display: block;
-  outline: none;
-  border: 1px solid #f2f2f2;
+  background: #f9f9f9;
+  border: 1px solid #ddd;
   border-radius: 12px;
-  background: #f8f8f8;
-  padding: 12px 16px;
-  box-shadow: none !important;
-  flex: 1;
-  cursor: pointer;
-  transition: background 0.2s, color 0.2s;
+  overflow: hidden;
 }
-.form_ui .check_field .buttons-group .toggle-btn.active {
+.form_ui .check_field .yes-no-toggle .toggle-btn {
+  flex: 1;
+  padding: 12px 16px;
+  border: none;
+  background: transparent;
+  color: #000;
+  font-size: 14px;
+  font-weight: 500;
+  height: 54px;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+.form_ui .check_field .yes-no-toggle .toggle-btn.active {
   background: #5fcafa;
   color: #fff;
+  border-radius: 12px;
 }
-.form_ui .check_field .buttons-group .toggle-btn:hover {
-  background: rgb(144.4545454545, 218.3818181818, 251.5454545455);
-}
-.form_ui .check_field .invalid-feedback {
-  margin-top: 8px;
-  color: #e74c3c;
-  font-size: 0.85rem;
+.form_ui .check_field .yes-no-toggle .toggle-btn:not(.active):hover {
+  background: #eee;
 }
 .form_ui .radio {
   display: flex;
@@ -2102,6 +2104,45 @@ input[type=number]::-webkit-outer-spin-button, input[type=number]::-webkit-inner
   font-weight: 500;
 }
 
+.select-filter {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.select-filter p {
+  font-weight: bold;
+}
+.select-filter .filter-options {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+  flex-wrap: wrap;
+  width: 100%;
+}
+.select-filter label {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  min-width: 96px;
+  border: 1px solid #13aef3;
+  color: #13aef3;
+  border-radius: 12px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: all 0.2s ease;
+  position: relative;
+}
+.select-filter label input[type=checkbox] {
+  display: none;
+}
+.select-filter label:has(input[type=checkbox]:checked) {
+  background-color: #13aef3;
+  color: #fff;
+  border-color: #13aef3;
+}
+
 .hero-section {
   padding: 30px 0;
 }
@@ -2142,6 +2183,7 @@ input[type=number]::-webkit-outer-spin-button, input[type=number]::-webkit-inner
 .goals-help-section .personal-goal {
   background-color: #214b92;
   color: #fff;
+  font-weight: 700;
 }
 .goals-help-section .personal-goal:hover {
   background-color: rgb(23.5977653631, 53.6312849162, 104.4022346369);
@@ -2152,6 +2194,7 @@ input[type=number]::-webkit-outer-spin-button, input[type=number]::-webkit-inner
 .goals-help-section .offer-help {
   background-color: #5fcafa;
   color: #0d0d0d;
+  font-weight: 700;
 }
 .goals-help-section .offer-help:hover {
   background-color: rgb(45.5454545455, 185.6181818182, 248.4545454545);
@@ -2497,6 +2540,20 @@ input[type=number]::-webkit-outer-spin-button, input[type=number]::-webkit-inner
   width: 16px;
   height: 16px;
 }
+.offer-card .data .price {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.offer-card .data .price i {
+  color: #777;
+  font-size: 20px;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+.offer-card .data .price i.active {
+  color: #214b92;
+}
 
 .helper-card {
   display: block;
@@ -2780,7 +2837,7 @@ input[type=number]::-webkit-outer-spin-button, input[type=number]::-webkit-inner
 }
 
 .page {
-  padding: 70px 0;
+  padding: 60px 0;
 }
 
 .faqs-section {
@@ -3705,6 +3762,11 @@ button.back:hover {
   transition: 0.3s;
   z-index: 999;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+}
+@media (max-width: 992px) {
+  .main-header {
+    position: fixed;
+  }
 }
 .main-header.scrolled {
   background: #fff;
@@ -6576,32 +6638,77 @@ footer .links a:hover {
 .goal-details-section .goal-details-card .info-grid,
 .offer-details-section .goal-details-card .info-grid,
 .helper-details-section .goal-details-card .info-grid {
+  border-radius: 16px;
   display: flex;
   flex-wrap: wrap;
   gap: 1rem;
-  margin: 2rem 0;
 }
 .goal-details-section .goal-details-card .info-grid .info-box,
 .offer-details-section .goal-details-card .info-grid .info-box,
 .helper-details-section .goal-details-card .info-grid .info-box {
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  padding: 0.6rem;
-}
-.goal-details-section .goal-details-card .info-grid .info-box .value,
-.offer-details-section .goal-details-card .info-grid .info-box .value,
-.helper-details-section .goal-details-card .info-grid .info-box .value {
-  font-size: 1rem;
-  color: #0d0d0d;
-  margin-top: 0.5rem;
-  font-weight: 600;
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  padding: 1rem;
+  height: -moz-min-content;
+  height: min-content;
 }
 .goal-details-section .goal-details-card .info-grid .info-box .label,
 .offer-details-section .goal-details-card .info-grid .info-box .label,
 .helper-details-section .goal-details-card .info-grid .info-box .label {
   font-size: 0.9rem;
-  color: #5fcafa;
   font-weight: 600;
+  color: #5fcafa;
+  margin-bottom: 0.25rem;
+}
+.goal-details-section .goal-details-card .info-grid .info-box .value,
+.offer-details-section .goal-details-card .info-grid .info-box .value,
+.helper-details-section .goal-details-card .info-grid .info-box .value {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #0d0d0d;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.goal-details-section .goal-details-card .info-grid .info-box .value img,
+.offer-details-section .goal-details-card .info-grid .info-box .value img,
+.helper-details-section .goal-details-card .info-grid .info-box .value img {
+  width: 18px;
+  height: 18px;
+}
+.goal-details-section .goal-details-card .info-grid .info-box .flex,
+.offer-details-section .goal-details-card .info-grid .info-box .flex,
+.helper-details-section .goal-details-card .info-grid .info-box .flex {
+  display: flex;
+  justify-content: space-between;
+}
+.goal-details-section .goal-details-card .info-grid .info-box .flex .bold,
+.offer-details-section .goal-details-card .info-grid .info-box .flex .bold,
+.helper-details-section .goal-details-card .info-grid .info-box .flex .bold {
+  font-weight: bold;
+}
+.goal-details-section .goal-details-card .info-grid .info-box .flex .bold img,
+.offer-details-section .goal-details-card .info-grid .info-box .flex .bold img,
+.helper-details-section .goal-details-card .info-grid .info-box .flex .bold img {
+  height: 20px;
+  margin: 0 10px;
+}
+.goal-details-section .goal-details-card .info-grid .info-box.w-50,
+.offer-details-section .goal-details-card .info-grid .info-box.w-50,
+.helper-details-section .goal-details-card .info-grid .info-box.w-50 {
+  flex: 1 1 100%;
+}
+@media (max-width: 768px) {
+  .goal-details-section .goal-details-card .offer-info,
+  .offer-details-section .goal-details-card .offer-info,
+  .helper-details-section .goal-details-card .offer-info {
+    flex-direction: column;
+  }
+  .goal-details-section .goal-details-card .offer-info .info-box,
+  .offer-details-section .goal-details-card .offer-info .info-box,
+  .helper-details-section .goal-details-card .offer-info .info-box {
+    flex: 1 1 100%;
+  }
 }
 .goal-details-section .goal-details-card .sub-info,
 .offer-details-section .goal-details-card .sub-info,
@@ -6752,112 +6859,6 @@ footer .links a:hover {
   .helper-details-section .goal-details-card .stats {
     flex-direction: column;
   }
-}
-.goal-details-section .goal-details-card .stats .stats-box,
-.offer-details-section .goal-details-card .stats .stats-box,
-.helper-details-section .goal-details-card .stats .stats-box {
-  flex: 1 1 48%;
-  background: #f9f9f9;
-  border: 1px solid #e0e0e0;
-  border-radius: 12px;
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-@media (max-width: 576px) {
-  .goal-details-section .goal-details-card .stats .stats-box,
-  .offer-details-section .goal-details-card .stats .stats-box,
-  .helper-details-section .goal-details-card .stats .stats-box {
-    flex: 1 1 100%;
-  }
-}
-.goal-details-section .goal-details-card .stats .beneficiaries,
-.offer-details-section .goal-details-card .stats .beneficiaries,
-.helper-details-section .goal-details-card .stats .beneficiaries {
-  font-size: 16px;
-  font-weight: 600;
-  color: #333;
-  flex: 1 1 48%;
-  background: #f9f9f9;
-  border: 1px solid #e0e0e0;
-  border-radius: 12px;
-  padding: 20px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-.goal-details-section .goal-details-card .stats .beneficiaries div,
-.offer-details-section .goal-details-card .stats .beneficiaries div,
-.helper-details-section .goal-details-card .stats .beneficiaries div {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  margin-top: 8px;
-}
-.goal-details-section .goal-details-card .stats .beneficiaries div i,
-.offer-details-section .goal-details-card .stats .beneficiaries div i,
-.helper-details-section .goal-details-card .stats .beneficiaries div i {
-  color: #214b92;
-  font-size: 14px;
-}
-.goal-details-section .goal-details-card .stats .stats-box .rating,
-.offer-details-section .goal-details-card .stats .stats-box .rating,
-.helper-details-section .goal-details-card .stats .stats-box .rating {
-  font-size: 16px;
-  font-weight: 600;
-  color: #333;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-.goal-details-section .goal-details-card .stats .stats-box .rating div,
-.offer-details-section .goal-details-card .stats .stats-box .rating div,
-.helper-details-section .goal-details-card .stats .stats-box .rating div {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-.goal-details-section .goal-details-card .stats .stats-box .rating div i,
-.offer-details-section .goal-details-card .stats .stats-box .rating div i,
-.helper-details-section .goal-details-card .stats .stats-box .rating div i {
-  color: #f7941d;
-  font-size: 18px;
-}
-.goal-details-section .goal-details-card .stats .stats-box .rating div span,
-.offer-details-section .goal-details-card .stats .stats-box .rating div span,
-.helper-details-section .goal-details-card .stats .stats-box .rating div span {
-  color: #f7941d;
-  font-size: 18px;
-  font-weight: bold;
-}
-.goal-details-section .goal-details-card .stats .stats-box .rates-list,
-.offer-details-section .goal-details-card .stats .stats-box .rates-list,
-.helper-details-section .goal-details-card .stats .stats-box .rates-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-}
-.goal-details-section .goal-details-card .stats .stats-box .rates-list li,
-.offer-details-section .goal-details-card .stats .stats-box .rates-list li,
-.helper-details-section .goal-details-card .stats .stats-box .rates-list li {
-  background: #fff;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  padding: 8px 14px;
-  font-size: 14px;
-  color: #333;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-.goal-details-section .goal-details-card .stats .stats-box .rates-list li strong,
-.offer-details-section .goal-details-card .stats .stats-box .rates-list li strong,
-.helper-details-section .goal-details-card .stats .stats-box .rates-list li strong {
-  color: #555;
 }
 
 .contract-status__card {

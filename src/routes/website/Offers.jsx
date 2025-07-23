@@ -57,6 +57,18 @@ export default function PersonalOffers() {
       image: "/images/p1.png",
       status: true,
     },
+   {
+      id: 5,
+      name: "علي الزهراني",
+      rating: 4.8,
+      title: "إطلاق مبادرة لتمكين النساء في التجارة الإلكترونية",
+      country: "البحرين",
+      type: "مؤسس - تمكين المرأة",
+      price1: 2200,
+      price2: 1700,
+      image: "/images/p2.png",
+      status: true,
+    },
   ];
 
   const {
@@ -137,7 +149,7 @@ export default function PersonalOffers() {
           <div className="col-12 col-lg-9 ">
             <div className="row">
                 <div className="result-count">
-                <strong>{filters.length}</strong>  عروض مساعدة
+                <strong>{filters.length}</strong> عروض مساعدة
               </div>
               {filteredItems.map((offer) => (
                 <div className="col-12 col-md-6 col-lg-4 p-2" key={offer.id}>

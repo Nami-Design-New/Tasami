@@ -668,6 +668,11 @@ input[type=number]::-webkit-outer-spin-button, input[type=number]::-webkit-inner
   font-family: "Dubai";
 }
 
+@media (max-width: 992px) {
+  main {
+    margin-top: 60px;
+  }
+}
 .chat-page {
   display: flex;
   height: 100%;

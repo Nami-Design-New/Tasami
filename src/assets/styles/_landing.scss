@@ -41,6 +41,7 @@
   .personal-goal {
     background-color: $main;
     color: $white;
+    font-weight: 700;
 
     &:hover {
       background-color: darken($main, 10%);
@@ -54,6 +55,7 @@
   .offer-help {
     background-color: $second;
     color: $dark;
+    font-weight: 700;
 
     &:hover {
       background-color: darken($second, 10%);
@@ -418,6 +420,21 @@
         height: 16px;
       }
     }
+    .price {
+  @include space-between;
+
+  i {
+    color: #777;
+    font-size: 20px;
+    cursor: pointer;
+    transition: color 0.3s ease;
+
+    &.active {
+      color: $main; 
+    }
+  }
+}
+
   }
 }
 .helper-card {
@@ -777,7 +794,7 @@
     padding: 1rem 0rem;
 
     .tag {
-border: 1px solid $second;
+      border: 1px solid $second;
       padding: 0.4rem 0.9rem;
       border-radius: 20px;
       font-size: 0.9rem;
@@ -813,7 +830,7 @@ border: 1px solid $second;
 }
 
 .page {
-  padding: 70px 0;
+  padding: 60px 0;
 }
 
 .faqs-section {

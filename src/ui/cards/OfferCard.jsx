@@ -1,6 +1,12 @@
 import { Link } from "react-router";
+import { useState } from "react";
 
 const OfferCard = ({ offer }) => {
+   const [bookmarked, setBookmarked] = useState(false);
+
+  const toggleBookmark = () => {
+    setBookmarked(prev => !prev);
+  };
   return (
     <Link
       to={`/offer/${offer.id}`}
@@ -9,7 +15,6 @@ const OfferCard = ({ offer }) => {
       <div className="image-wrapper">
         <img src={offer.image} alt={offer.name} className="avatar" />
         {offer.status && <span className="status-dot"></span>}
-        <i className="fa-regular fa-heart favorite"></i>
       </div>
 
       <div className="info">
@@ -25,16 +30,26 @@ const OfferCard = ({ offer }) => {
       </div>
 
       <div className="data">
-        <span className="item">
+        <span className="item mx-2">
           <img src="/icons/title.svg"></img> {offer.type}
         </span>
 
-        <div className="item">
-          <img src="/icons/cash.svg" alt="icon" />
-          <span>
-            {offer.price2} <img src="/icons/ryal.svg" alt="ريال" />
-          </span>
-        </div>
+       <div className="item price">
+  <span>
+    <img src="/icons/cash.svg" alt="icon" className="mx-2" />
+    {offer.price} <img src="/icons/ryal.svg" alt="ريال" />
+  </span>
+  <div
+    onClick={(e) => {
+      e.preventDefault(); 
+      e.stopPropagation();
+      toggleBookmark();
+    }}
+  >
+    <i className={`fa-solid fa-bookmark ${bookmarked ? "active" : ""}`}></i>
+  </div>
+</div>
+
       </div>
     </Link>
   );

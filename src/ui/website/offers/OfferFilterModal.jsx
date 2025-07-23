@@ -1,9 +1,10 @@
 import { useState } from "react";
 import { Modal } from "react-bootstrap";
 import "react-range-slider-input/dist/style.css";
-import CustomButton from "../../CustomButton";
+// import CustomButton from "../../CustomButton";
 import SelectField from "../../forms/SelectField";
 import InputField from "../../forms/InputField";
+import SubmitButton from "../../forms/SubmitButton";
 
 export default function OfferFilterModal({ show, onHide }) {
   // const [valueRange, setValueRange] = useState([100, 30000]);
@@ -58,7 +59,7 @@ export default function OfferFilterModal({ show, onHide }) {
             </div>
             <div className="col-12 col-lg-6 p-2">
               <SelectField
-                label="جنسيه المستفيد"
+                label="جنسيه المساعد الشخصي"
                 options={[
                   { value: "sa", name: "السعودية" },
                   { value: "eg", name: "مصر" },
@@ -105,7 +106,7 @@ export default function OfferFilterModal({ show, onHide }) {
                 </div>
               </div>
             </div>
-            <div className="col-12  p-2">
+            <div className="col-12 col-lg-6 p-2">
               <div className="gender-goal-filter">
                 <p>تاريخ بدء المساعده</p>
                 <div className="filter-options">
@@ -126,35 +127,35 @@ export default function OfferFilterModal({ show, onHide }) {
               </div>
             </div>
             <div className="col-12  p-2">
-              <div className="gender-goal-filter ">
-                <p>آليات المساعده المناسبة</p>
-                <div className="row">
-                  <div className="col-12 col-md-6 p-2">
-                    <label>
-                      الكل
-                      <input type="radio" name="gender" value="all" />
+               <div className="select-filter p-2">
+                  <p>اليات المساعدة المناسبة</p>
+                  <div className="filter-options">
+                     <label>
+                       الكل
+                      <input type="checkbox" name="support" value="in_person" />
                     </label>
-                  </div>
-                  <div className="col-12 col-md-6 p-2">
-                    <label>
-                      التواصل النصي و الصوتي
-                      <input type="radio" name="gender" value="male" />
-                    </label>
-                  </div>
-                  <div className="col-12 col-md-6 p-2">
                     <label>
                       الالتقاء الشخصي
-                      <input type="radio" name="gender" value="female" />
+                      <input type="checkbox" name="support" value="in_person" />
                     </label>
-                  </div>
-                  <div className="col-12 col-md-6 p-2">
+                       <label>
+                      الاتصال المرئي والمسموع
+                      <input
+                        type="checkbox"
+                        name="support"
+                        value="video_audio"
+                      />
+                    </label>
                     <label>
-                      الاتصال المرئي و المسموع
-                      <input type="radio" name="gender" value="female" />
+                      التراسل النصي والصوتي
+                      <input
+                        type="checkbox"
+                        name="support"
+                        value="text_voice"
+                      />
                     </label>
                   </div>
                 </div>
-              </div>
             </div>
             <div className="row">
               {/* {showValueRange && (
@@ -245,17 +246,16 @@ export default function OfferFilterModal({ show, onHide }) {
             )} */}
           </div>
 
-          <div className="d-flex justify-content-end  gap-2 mt-3">
-            <CustomButton size="large">التصفيه</CustomButton>
-            <CustomButton
-              onClick={onHide}
-              type="button"
-              size="large"
-              color="secondary"
-            >
-              إلغاء
-            </CustomButton>
-          </div>
+          <div className="col-12 my-3 d-flex gap-1">
+                     <div className="col-6">
+                       <SubmitButton text="تصفية" />
+                     </div>
+                     <div className="col-6">
+                       <button type="button" className="cancle" onClick={onHide}>
+                         إلغاء
+                       </button>
+                     </div>
+                   </div>
         </form>
       </Modal.Body>
     </Modal>
