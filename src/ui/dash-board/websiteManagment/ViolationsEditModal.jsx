@@ -1,6 +1,6 @@
 import { Modal } from "react-bootstrap";
-import InputField from "../../../ui/forms/InputField";
-import CustomButton from "../../../ui/CustomButton";
+import InputField from "../../forms/InputField";
+import CustomButton from "../../CustomButton";
 
 export default function ViolationsEditModal({
   showModal,

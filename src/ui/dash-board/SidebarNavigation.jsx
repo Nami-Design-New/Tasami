@@ -108,9 +108,9 @@ export default function SidebarNavigation() {
                 </NavLink>
               </li>
               <li className="sub_nav_item">
-                <NavLink to="list-management/working-groups">
+                <NavLink to="social-links-managment">
                   <img src="/sys-icons/subArrow.svg" alt="arrow" />
-                  <span>مجموعات العمل</span>
+                  <span> روابط وسائل التواصل </span>
                 </NavLink>
               </li>
               <li className="sub_nav_item">

@@ -62,7 +62,8 @@ import EditProfile from "../routes/website/EditProfile";
 import MyWallet from "../routes/website/MyWallet";
 import OtpConfirmationPage from "../routes/auth/OtpConfirmationPage";
 import RegisterInfo from "../routes/auth/RegisterInfo";
-import ViolationsManagment from "../ui/dash-board/websiteManagment/ViolationsManagment";
+import ViolationsManagment from "../routes/dash-board/websiteManagment/ViolationsManagment";
+import SocialLinksManage from "../routes/dash-board/websiteManagment/SocialLinksManage";
 export const router = createBrowserRouter([
   {
     element: <WebsiteLayout />,
@@ -340,8 +341,8 @@ export const router = createBrowserRouter([
         element: <ViolationsManagment />,
       },
       {
-        path: "violations-management",
-        element: <ViolationsManagment />,
+        path: "social-links-managment",
+        element: <SocialLinksManage />,
       },
     ],
   },

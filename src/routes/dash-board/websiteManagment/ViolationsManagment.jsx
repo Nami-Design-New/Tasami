@@ -1,13 +1,13 @@
-import { useMemo, useState } from "react";
-import PageHeader from "../../PageHeader";
-import ReusableDataTable from "../../table/ReusableDataTable";
 import { createColumnHelper } from "@tanstack/react-table";
-import { Link } from "react-router";
-import ViolationsEditModal from "../../../routes/dash-board/websiteManagment/ViolationsEditModal";
-import CustomButton from "../../CustomButton";
+import { useMemo, useState } from "react";
+import ViolationsEditModal from "../../../ui/dash-board/websiteManagment/ViolationsEditModal";
+import CustomButton from "../../../ui/CustomButton";
+import PageHeader from "../../../ui/PageHeader";
+import ReusableDataTable from "../../../ui/table/ReusableDataTable";
+import ConfirmDeleteModal from "../../../ui/modals/ConfirmationDeleteModal";
 
+const columnHelper = createColumnHelper();
 export default function ViolationsManagment() {
-  const columnHelper = createColumnHelper();
   const [showModal, setShowModal] = useState();
   const [isEdit, setIsEdit] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState();
@@ -96,6 +96,10 @@ export default function ViolationsManagment() {
         setShowModal={setShowModal}
         isEdit={isEdit}
         setIsEdit={setIsEdit}
+      />
+      <ConfirmDeleteModal
+        showDeleteModal={showDeleteModal}
+        setShowDeleteModal={setShowDeleteModal}
       />
     </section>
   );
