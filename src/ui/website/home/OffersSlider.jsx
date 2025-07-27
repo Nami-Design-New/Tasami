@@ -3,6 +3,7 @@ import "swiper/css/autoplay";
 import { Autoplay } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import OfferCard from "../../cards/OfferCard";
+import { Link } from "react-router";
 
 const offers = [
   {
@@ -49,7 +50,7 @@ const offers = [
     image: "/images/p1.png",
     status: true,
   },
-   {
+  {
     id: 5,
     name: "علي الزهراني",
     rating: 4.8,
@@ -70,9 +71,9 @@ export default function OffersSlider() {
           <h2>عروض المساعدة</h2>
           <p>جميع المساعدات التي يقدمها المساعدون</p>
         </div>
-        <a href="/offers" className="view-all">
+        <Link to="/offers" className="view-all">
           عرض الكل
-        </a>
+        </Link>
       </div>
 
       <Swiper
@@ -90,7 +91,7 @@ export default function OffersSlider() {
       >
         {offers.map((offer) => (
           <SwiperSlide key={offer.id}>
-            <OfferCard offer={offer} /> 
+            <OfferCard offer={offer} />
           </SwiperSlide>
         ))}
       </Swiper>

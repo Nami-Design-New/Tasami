@@ -62,21 +62,21 @@ import EditProfile from "../routes/website/EditProfile";
 import MyWallet from "../routes/website/MyWallet";
 import OtpConfirmationPage from "../routes/auth/OtpConfirmationPage";
 import RegisterInfo from "../routes/auth/RegisterInfo";
+import ViolationsManagment from "../routes/dash-board/websiteManagment/ViolationsManagment";
 export const router = createBrowserRouter([
-
   {
     element: <WebsiteLayout />,
     children: [
-        {
-    element: <AuthLayout />,
-    children: [
-      { path: "/login", element: <LoginPage /> },
-      { path: "/register", element: <RegisterPage /> },
-      { path: "/confirm-otp", element: <OtpConfirmationPage /> },
-      { path: "/register-info", element: <RegisterInfo /> },
-    ],
-  },
-  { path: "/reset-password", element: <ResetPassword /> },
+      {
+        element: <AuthLayout />,
+        children: [
+          { path: "/login", element: <LoginPage /> },
+          { path: "/register", element: <RegisterPage /> },
+          { path: "/confirm-otp", element: <OtpConfirmationPage /> },
+          { path: "/register-info", element: <RegisterInfo /> },
+        ],
+      },
+      { path: "/reset-password", element: <ResetPassword /> },
       {
         path: "/",
         element: <Home />,
@@ -334,6 +334,10 @@ export const router = createBrowserRouter([
             element: <ActiveTab />,
           },
         ],
+      },
+      {
+        path: "violations-management",
+        element: <ViolationsManagment />,
       },
     ],
   },
