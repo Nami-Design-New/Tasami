@@ -3,22 +3,26 @@ import { useParams } from "react-router";
 import ContractReq from "../../ui/modals/ContractReqModal";
 import ReportModal from "../../ui/modals/ReportModal";
 import InquiryModal from "../../ui/modals/inquiryModal";
+import ReviewsModal from "../../ui/modals/ReviewsModal";
 import SectionHeader from "../../ui/website/SectionHeader";
 import CustomButton from "../../ui/CustomButton";
-
+import OptionsMenu from "../../ui/website/OptionsMenu";
+import TopInfo from "../../ui/website/offers/TopInfo";
+import OfferInfoGrid from "../../ui/website/offers/OfferInfoGrid";
 export default function OfferDetails() {
   const { id } = useParams();
   const [menuOpen, setMenuOpen] = useState(false);
   const [showHelpModal, setShowHelpModal] = useState(false);
   const [showReportModal, setShowReportModal] = useState(false);
   const [showInquiryModal, setShowInquiryModal] = useState(false);
+  const [showReviewsModal, setShowReviewsModal] = useState(false);
 
   const toggleMenu = () => setMenuOpen(!menuOpen);
   const closeModals = () => {
     setShowHelpModal(false);
     setShowReportModal(false);
-    setShowInquiryModal(false)
-
+    setShowInquiryModal(false);
+    setShowReviewsModal(false);
   };
 
   const offers = [
@@ -48,8 +52,7 @@ export default function OfferDetails() {
         { label: "الالتزام بالوقت", value: 4.7 },
         { label: "حسن التعامل", value: 4.3 },
       ],
-      Previousbeneficiaries:"18"
-
+      Previousbeneficiaries: "18",
     },
     {
       id: 2,
@@ -77,8 +80,7 @@ export default function OfferDetails() {
         { label: "الالتزام بالوقت", value: 4.7 },
         { label: "حسن التعامل", value: 4.3 },
       ],
-            Previousbeneficiaries:"22"
-
+      Previousbeneficiaries: "22",
     },
     {
       id: 4,
@@ -106,8 +108,7 @@ export default function OfferDetails() {
         { label: "الالتزام بالوقت", value: 4.7 },
         { label: "حسن التعامل", value: 4.3 },
       ],
-       Previousbeneficiaries:"33"
-
+      Previousbeneficiaries: "33",
     },
 
     {
@@ -136,7 +137,7 @@ export default function OfferDetails() {
         { label: "الالتزام بالوقت", value: 4.7 },
         { label: "حسن التعامل", value: 4.3 },
       ],
-      Previousbeneficiaries:"12"
+      Previousbeneficiaries: "12",
     },
     {
       id: 5,
@@ -164,8 +165,7 @@ export default function OfferDetails() {
         { label: "الالتزام بالوقت", value: 4.7 },
         { label: "حسن التعامل", value: 4.3 },
       ],
-      Previousbeneficiaries:"5"
-
+      Previousbeneficiaries: "5",
     },
   ];
 
@@ -182,127 +182,42 @@ export default function OfferDetails() {
   }
 
   return (
-    <section className="page offer-details-section mx-3">
+    <section className="page offer-details-section ">
       <div className="container">
         <div className="header">
           <SectionHeader title="تفاصيل العرض" />
-          <div className="options-menu">
-            <i className="fas fa-ellipsis-v" onClick={toggleMenu}></i>
-            {menuOpen && (
-              <div className="options-list">
-                
-                 <button
-                  onClick={() => {
-                    setShowHelpModal(true);
-                    setMenuOpen(false);
-                  }}
-                >
-                  إرسال طلب تعاقد
-                </button>
-                  <button
-                  onClick={() => {
-                    setShowInquiryModal(true);
-                    setMenuOpen(false);
-                  }}
-                >
-                   استفسار
-                </button>
-                <button
-                  onClick={() => {
-                    setShowReportModal(true);
-                    setMenuOpen(false);
-                  }}
-                 className="text-danger"
-                >
-                  إبلاغ عن مخالفة
-                </button>
-              </div>
-            )}
-          </div>
+          <OptionsMenu
+            setShowInquiryModal={setShowInquiryModal}
+            setShowReportModal={setShowReportModal}
+          />
         </div>
-
         <div className="goal-details-card mt-3 row">
-
-          <div className="top-info col-lg-4 col-12">
-            
-            <div style={{ position: "relative" }}>
-              <img src={offer.image} alt={offer.name} className="avatar" />
-              {offer.status && <span className="status-dot"></span>}
-            </div>
-
-            <div className="details">
-              <div className="d-flex flex-1 justify-content-between ">
-                <div className="personal-info">
-                  <h5>{offer.name}</h5>
-                  <div className="country">
-                    <img src="/icons/flag.svg" />
-                    {offer.country}
-                  </div>
-                </div>
-                <div className="rating">
-                  <img src="/icons/hz-bars.svg" />
-                  <span>11</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
+          <TopInfo offer={offer} />
           <div className="col-lg-8 col-12 ">
             <div className="hed">
               <img src="/icons/triangle.svg" />
               <h6>المساعدة</h6>
             </div>
             <p className="desc">{offer.title}</p>
-            <div className="info-grid">
-              <div className="info-box">
-                <div className="label">المجال </div>
-                <div className="value">{offer.type}</div>
-              </div>
-              <div className="info-box">
-                <div className="label"> التخصص</div>
-                <div className="value">{offer.section}</div>
-              </div>
-              <div className="info-box">
-                <div className="label"> قيمة المساعدة</div>
-                <div className="value">
-                  {offer.price} <img src="/icons/ryal.svg" alt="ريال" />
-                </div>
-              </div>
-              <div className="info-box">
-                <div className="label">تفضيل هوية المستفيد</div>
-                <div className="value">{offer.identity} </div>
-              </div>
-              <div className="info-box">
-                <div className="label">الفئة العمرية للمستفيد</div>
-                <div className="value">{offer.ageCategory} </div>
-              </div>
-              <div className="info-box w-50">
-                <div className="label">بنود إضافية للمجموعة</div>
-                <div className="value">{offer.extraTerms}</div>
-              </div>
-              <div className="info-box w-50">
-                <div className="label">آليات المساعدة المعتمدة</div>
-                {offer.assistMethods.map((method, index) => (
-                  <div className="value" key={index}>
-                    <img src="/icons/check.svg" /> {method}
-                  </div>
-                ))}
-              </div>
-            </div>
-             <div className="hed">
+            <OfferInfoGrid
+              offer={offer}
+              onShowHelpModal={() => setShowHelpModal(true)}
+              onShowReviewsModal={() => setShowReviewsModal(true)}
+            />
+            <div className="hed">
               <h6>تقييمات سابقة</h6>
             </div>
             <div className="info-grid">
-                <div className="info-box w-100">
+              <div className="info-box w-100">
                 <div className="flex">
                   <div className="label">مستفيدون سابقون </div>
                   <div className="bold">
                     <img src="/icons/Groups.svg" alt="icon" />
-                     <span>{offer.Previousbeneficiaries}</span>
+                    <span>{offer.Previousbeneficiaries}</span>
                   </div>
                 </div>
               </div>
-             <div className="info-box w-100">
+              <div className="info-box w-100">
                 <div className="flex">
                   <div className="label">التقييم الاجمالي</div>
                   <div>
@@ -319,16 +234,17 @@ export default function OfferDetails() {
                         <span> {rate.value}</span>
                       </div>
                     </li>
-                    
                   ))}
                 </ul>
-
               </div>
-            <CustomButton>عرض التقييمات </CustomButton>
-              </div>
+              <CustomButton onClick={() => setShowHelpModal(true)}>
+                إرسال طلب تعاقد
+              </CustomButton>
+              <CustomButton onClick={() => setShowReviewsModal(true)}>
+                عرض التقييمات
+              </CustomButton>
+            </div>
           </div>
-                     
-
         </div>
 
         <ContractReq
@@ -339,9 +255,45 @@ export default function OfferDetails() {
           showModal={showReportModal}
           setShowModal={setShowReportModal}
         />
-          <InquiryModal
+        <InquiryModal
           showModal={showInquiryModal}
           setShowModal={setShowInquiryModal}
+        />
+        <ReviewsModal
+          showModal={showReviewsModal}
+          setShowModal={setShowReviewsModal}
+          reviews={[
+            {
+              name: "عماد مجيدي",
+              stars: 5,
+              time: "منذ 16 يوم و9 ساعات",
+              comment: "الخدمة مميزة جدا",
+            },
+            {
+              name: "محمد خالد",
+              stars: 4,
+              time: "منذ 10 أيام و5 ساعات",
+              comment: "سعيد بالتعامل مع الاستاذ يوسف العتيبي",
+            },
+            {
+              name: "نورا مصطفى",
+              stars: 2,
+              time: "منذ يومين و6 ساعات",
+              comment: "جودة واداء اكثر من رائع",
+            },
+            {
+              name: "حسن صلاح",
+              stars: 3,
+              time: "منذ 3 أيام و7 ساعات",
+              comment: "الخدمة مميزة جدا",
+            },
+            {
+              name: "علي أحمد",
+              stars: 5,
+              time: "منذ 10 ساعات",
+              comment: "سعيد بالتعامل مع الاستاذ يوسف العتيبي",
+            },
+          ]}
         />
       </div>
     </section>

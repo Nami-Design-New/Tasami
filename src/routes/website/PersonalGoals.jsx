@@ -4,6 +4,7 @@ import useFilteredList from "../../hooks/useFilteredList";
 import GoalCard from "../../ui/cards/GoalCard";
 import GoalFilterModal from "../../ui/website/gaols/GoalFilterModal";
 import SidebarFilter from "../../ui/website/home/SidebarFilter";
+import SectionHeader from "../../ui/website/SectionHeader";
 export default function PersonalGoals() {
   const [showFilterModal, setShowFilterModal] = useState(false);
   const goals = [
@@ -146,16 +147,16 @@ export default function PersonalGoals() {
       <div className="container">
         <div className="row">
           <div className="col-lg-3 col-12 p-2">
-            <div className="section-header">
-              <div className="page-header">
-                {
-                  <Link to="/" className="back-btn">
-                    <i className="fa-solid fa-angle-right"></i>
-                  </Link>
-                }
-                <h1>{"الأهداف الشخصية"}</h1>
-              </div>
-            </div>
+            <SectionHeader
+              title="الأهداف الشخصية"
+              tabs={tabs}
+              activeTab={activeTab}
+              onTabChange={setActiveTab}
+              resultCount={filteredItems.length}
+              searchValue={searchValue}
+              onSearchChange={setSearchValue}
+              onFilterClick={() => setShowFilterModal(true)}
+            />
           </div>
         </div>
 
@@ -192,15 +193,12 @@ export default function PersonalGoals() {
 
       /> */}
 
-<GoalFilterModal
-  show={showFilterModal}
-  onHide={() => setShowFilterModal(false)}
-  showValueRange={true}
-  showAgeRange={true}
- 
-/>
-
-
+      <GoalFilterModal
+        show={showFilterModal}
+        onHide={() => setShowFilterModal(false)}
+        showValueRange={true}
+        showAgeRange={true}
+      />
     </section>
   );
 }

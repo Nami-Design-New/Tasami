@@ -4,7 +4,10 @@ import HelpModal from "../../ui/modals/HelpModal";
 import ReportModal from "../../ui/modals/ReportModal";
 import InquiryModal from "../../ui/modals/inquiryModal";
 import SectionHeader from "../../ui/website/SectionHeader";
-// import SectionHeader from "../../ui/website/home/SectionHeader";
+import CustomButton from "../../ui/CustomButton";
+import OptionsMenu from "../../ui/website/OptionsMenu";
+import TopInfo from "../../ui/website/gaols/TopInfo";
+import GoalInfoGrid from "../../ui/website/gaols/GoalInfoGrid";
 
 export default function GoalDetails() {
   const { id } = useParams();
@@ -18,7 +21,7 @@ export default function GoalDetails() {
     setShowHelpModal(false);
     setShowReportModal(false);
     setShowCommentModal(false);
-setShowInquiryModal(false)
+    setShowInquiryModal(false);
   };
   const goals = [
     {
@@ -119,106 +122,37 @@ setShowInquiryModal(false)
     <section className="page goal-details-section mx-3">
       <div className="container">
         <div className="header">
-          <SectionHeader title="تفاصيل الهدف" />
-
-          <div className="options-menu">
-            <i className="fas fa-ellipsis-v" onClick={toggleMenu}></i>
-            {menuOpen && (
-              <div className="options-list">
-                <button
-                  onClick={() => {
-                    setShowHelpModal(true);
-                    setMenuOpen(false);
-                  }}
-                >
-                  تقديم عرض مساعدة
-                </button>
-                  <button
-                  onClick={() => {
-                    setShowInquiryModal(true);
-                    setMenuOpen(false);
-                  }}
-                >
-                   استفسار
-                </button>
-                <button
-                  onClick={() => {
-                    setShowReportModal(true);
-                    setMenuOpen(false);
-                  }}
-                  className="text-danger"
-                >
-                  إبلاغ عن مخالفة
-                </button>
-              </div>
-            )}
-          </div>
+          <SectionHeader title="تفاصيل العرض" />
+          <OptionsMenu
+            setShowInquiryModal={setShowInquiryModal}
+            setShowReportModal={setShowReportModal}
+          />
         </div>
 
         <div className="goal-details-card mt-3 row ">
-          <div className="top-info col-lg-4 col-12">
-            <div style={{ position: "relative" }}>
-              <img src={goal.image} alt={goal.name} className="avatar" />
-            </div>
-
-            <div className="details">
-              <div className="d-flex flex-1 justify-content-between ">
-                <div className="personal-info">
-                  <h5>{goal.name}</h5>
-                  <div className="country">
-                    <img src="/icons/flag.svg" />
-                    {goal.country}
-                  </div>
-                </div>
-                <div className="rating">
-                  <img src="/icons/hz-bars.svg" />
-                  <span>11</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
+          <TopInfo goal={goal} />
           <div className="col-lg-8 col-12 ">
             <div className="hed">
               <img src="/icons/triangle.svg" />
               <h6>الهدف</h6>
             </div>
             <p className="desc ">{goal.description}</p>
-            <div className="info-grid ">
-              <div className="info-box">
-                <div className="label">المجال والتخصص</div>
-                <div className="value">{goal.type}</div>
-              </div>
-              <div className="info-box">
-                <div className="label"> التخصص</div>
-                <div className="value">{goal.section}</div>
-              </div>
-              <div className="info-box">
-                <div className="label">المدة المتوقعة لتحقيق الهدف</div>
-                <div className="value">{goal.duration}</div>
-              </div>
-              <div className="info-box">
-                <div className="label">تاريخ البدء</div>
-                <div className="value">{goal.date}</div>
-              </div>
-              <div className="info-box w-100">
-                <div className="label">آليات المساعدة المعتمدة</div>
-                {goal.assistMethods.map((method, index) => (
-                  <div className="value" key={index}>
-                    <img src="/icons/check.svg" /> {method}
-                  </div>
-                ))}{" "}
-              </div>
-            </div>
+            <GoalInfoGrid
+              goal={goal}
+              onShowHelpModal={() => setShowHelpModal(true)}
+              onShowReviewsModal={() => setShowReviewsModal(true)}
+            />
+            <CustomButton onClick={() => setShowHelpModal(true)}>
+              تقديم عرض مساعدة
+            </CustomButton>
           </div>
-
         </div>
         <HelpModal showModal={showHelpModal} setShowModal={setShowHelpModal} />
         <ReportModal
           showModal={showReportModal}
           setShowModal={setShowReportModal}
         />
-         <InquiryModal
+        <InquiryModal
           showModal={showInquiryModal}
           setShowModal={setShowInquiryModal}
         />

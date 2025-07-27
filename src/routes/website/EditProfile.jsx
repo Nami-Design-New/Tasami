@@ -6,38 +6,44 @@ import CheckField from "../../ui/forms/CheckField";
 import DatePicker from "../../ui/forms/DatePicker";
 import PhoneField from "../../ui/forms/PhoneField";
 import GenderSelect from "../../ui/forms/GenderSelect copy";
-import SidebarFilter from "../../ui/website/home/SidebarFilter";
 
 export default function EditProfile() {
-  const {
-    register,
-    handleSubmit,
-    watch,
-    setValue,
-    formState: { errors },
-  } = useForm({
-    mode: "onChange",
-    defaultValues: {
-      wantChangePassword: false,
-    },
-  });
+const {
+  register,
+  handleSubmit,
+  watch,
+  setValue,
+  formState: { errors },
+} = useForm({
+  mode: "onChange",
+  defaultValues: {
+    firstName: "محمد",
+    lastName: "سمير",
+    date: "2000-01-01",
+    gender: "male",
+    nationality: "EG",
+    country: "EG",
+    phone: "05123456789",
+    email: "mariam@example.com",
+    wantChangePassword: false,
+  },
+});
 
   const wantChangePassword = watch("wantChangePassword");
+  const gender = watch("gender"); 
 
   const onSubmit = (data) => {
     console.log("بيانات الحساب:", data);
   };
 
   return (
-    <div className="page edit-profile-page container">
-      <SidebarFilter title="تعديل الحساب" />
-      <form className="form_ui mt-3" onSubmit={handleSubmit(onSubmit)}>
+    <div className="edit-profile-page container">
+      <form className="form_ui" onSubmit={handleSubmit(onSubmit)}>
         <div className="row">
           <div className="col-12 col-lg-6 p-2">
             <InputField
               label="الاسم الاول"
               id="firstName"
-              value="mariam"
               {...register("firstName", { required: "مطلوب" })}
               error={errors.firstName?.message}
             />
@@ -47,7 +53,6 @@ export default function EditProfile() {
             <InputField
               label="اسم الأب"
               id="lastName"
-              value="samir"
               {...register("lastName", { required: "مطلوب" })}
               error={errors.lastName?.message}
             />
@@ -63,7 +68,10 @@ export default function EditProfile() {
           </div>
 
           <div className="col-12 col-lg-6 p-2">
-            <GenderSelect />
+            <GenderSelect
+              value={gender}
+              onChange={(val) => setValue("gender", val)}
+            />
           </div>
 
           <div className="col-12 col-lg-6 p-2">
@@ -95,15 +103,18 @@ export default function EditProfile() {
               error={errors.country?.message}
             />
           </div>
+
           <div className="col-12 col-lg-6 p-2">
             <PhoneField
               label="رقم الهاتف"
               id="phone"
               type="phone"
+              country={"eg"}
               {...register("phone", { required: "مطلوب" })}
-              error={errors.email?.message}
+              error={errors.phone?.message}
             />
           </div>
+
           <div className="col-12 col-lg-6 p-2">
             <InputField
               label="البريد الإلكتروني"
@@ -114,7 +125,7 @@ export default function EditProfile() {
             />
           </div>
 
-          <div className="col-12 col-lg-6 p-2">
+           <div className="col-12 col-lg-6 p-2">
             <CheckField
               label="هل ترغب في تغيير كلمة السر؟"
               id="wantChangePassword"
@@ -126,8 +137,7 @@ export default function EditProfile() {
               onChange={(e) => setValue("wantChangePassword", e.target.value)}
             />
           </div>
-
-          {wantChangePassword === true && (
+        {wantChangePassword === true && (
             <>
               <div className="col-12 col-lg-6 p-2 mt-2">
                 <InputField
@@ -159,6 +169,8 @@ export default function EditProfile() {
               </div>
             </>
           )}
+
+
 
           <div className="col-12 p-2 mt-3">
             <div className="buttons">

@@ -62,21 +62,23 @@ import EditProfile from "../routes/website/EditProfile";
 import MyWallet from "../routes/website/MyWallet";
 import OtpConfirmationPage from "../routes/auth/OtpConfirmationPage";
 import RegisterInfo from "../routes/auth/RegisterInfo";
+import Interests from "../routes/website/Interests";
+import Savings from "../routes/website/Savings";
+import Followers from "../routes/website/Followers";
 export const router = createBrowserRouter([
-
   {
     element: <WebsiteLayout />,
     children: [
-        {
-    element: <AuthLayout />,
-    children: [
-      { path: "/login", element: <LoginPage /> },
-      { path: "/register", element: <RegisterPage /> },
-      { path: "/confirm-otp", element: <OtpConfirmationPage /> },
-      { path: "/register-info", element: <RegisterInfo /> },
-    ],
-  },
-  { path: "/reset-password", element: <ResetPassword /> },
+      {
+        element: <AuthLayout />,
+        children: [
+          { path: "/login", element: <LoginPage /> },
+          { path: "/register", element: <RegisterPage /> },
+          { path: "/confirm-otp", element: <OtpConfirmationPage /> },
+          { path: "/register-info", element: <RegisterInfo /> },
+        ],
+      },
+      { path: "/reset-password", element: <ResetPassword /> },
       {
         path: "/",
         element: <Home />,
@@ -126,11 +128,6 @@ export const router = createBrowserRouter([
         element: <MyNotifications />,
       },
       {
-        path: "edit-profile",
-        element: <EditProfile />,
-      },
-
-      {
         path: "my-wallet",
         element: <MyWallet />,
       },
@@ -157,29 +154,57 @@ export const router = createBrowserRouter([
       {
         path: "my-profile",
         element: <Profile />,
-      },
-      {
-        path: "personal-community",
-        element: <PersonalCommunity />,
         children: [
           {
-            path: "consultations",
-            element: <Consultations />,
+            index: true,
+            element: <EditProfile />,
           },
           {
-            path: "Encounters",
-            element: <Encounters />,
+            path: "my-notifications",
+            element: <MyNotifications />,
           },
           {
-            path: "posts",
-            element: <Posts />,
+            path: "my-wallet",
+            element: <MyWallet />,
           },
-          {
-            path: "views",
-            element: <Views />,
+           {
+            path: "interests",
+            element: <Interests />,
           },
+            {
+            path: "savings",
+            element: <Savings />,
+          },
+            {
+            path: "Followers",
+            element: <Followers />,
+          },
+          
         ],
       },
+    {
+  path: "personal-community/:id",
+  element: <PersonalCommunity />,
+  children: [
+    {
+      path: "consultations",
+      element: <Consultations />,
+    },
+    {
+      path: "encounters",
+      element: <Encounters />,
+    },
+    {
+      path: "posts",
+      element: <Posts />,
+    },
+    {
+      path: "views",
+      element: <Views />,
+    },
+  ],
+}
+
     ],
   },
   {
