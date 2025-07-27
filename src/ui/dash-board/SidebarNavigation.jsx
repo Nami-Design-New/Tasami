@@ -91,7 +91,7 @@ export default function SidebarNavigation() {
         <Accordion.Item eventKey="4">
           <Accordion.Header>
             <div className="icon">
-              <img src="/sys-icons/guest-details.svg" alt="Analytics" />
+              <img src="/sys-icons/website-manage.svg" alt="Analytics" />
             </div>
             <div className="d-flex flex-column">
               <h6> اداره الموقع </h6>
@@ -116,13 +116,25 @@ export default function SidebarNavigation() {
               <li className="sub_nav_item">
                 <NavLink to="list-management/fields-and-specializations">
                   <img src="/sys-icons/subArrow.svg" alt="arrow" />
-                  <span> المجالات والتخصصات </span>
+                  <span> الشروط و الاحكام </span>
                 </NavLink>
               </li>
               <li className="sub_nav_item">
                 <NavLink to="list-management/administrative-systems">
                   <img src="/sys-icons/subArrow.svg" alt="arrow" />
-                  <span> الانظمه الاداريه </span>
+                  <span> سياسات الخصوصية </span>
+                </NavLink>
+              </li>
+              <li className="sub_nav_item">
+                <NavLink to="list-management/administrative-systems">
+                  <img src="/sys-icons/subArrow.svg" alt="arrow" />
+                  <span> الأسئلة الشائعة </span>
+                </NavLink>
+              </li>
+              <li className="sub_nav_item">
+                <NavLink to="list-management/administrative-systems">
+                  <img src="/sys-icons/subArrow.svg" alt="arrow" />
+                  <span> تصنيف المهمات </span>
                 </NavLink>
               </li>
             </ul>
