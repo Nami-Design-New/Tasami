@@ -62,7 +62,7 @@ import EditProfile from "../routes/website/EditProfile";
 import MyWallet from "../routes/website/MyWallet";
 import OtpConfirmationPage from "../routes/auth/OtpConfirmationPage";
 import RegisterInfo from "../routes/auth/RegisterInfo";
-import ViolationsManagment from "../routes/dash-board/websiteManagment/ViolationsManagment";
+import ViolationsManagment from "../ui/dash-board/websiteManagment/ViolationsManagment";
 export const router = createBrowserRouter([
   {
     element: <WebsiteLayout />,
@@ -334,6 +334,10 @@ export const router = createBrowserRouter([
             element: <ActiveTab />,
           },
         ],
+      },
+      {
+        path: "violations-management",
+        element: <ViolationsManagment />,
       },
       {
         path: "violations-management",
