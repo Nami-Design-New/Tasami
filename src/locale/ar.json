@@ -40,7 +40,11 @@
     "Experiences": "الخبرات",
     "Documents": "الوثائق",
     "Violations Management": "ادارة المخالفات",
-    "Social Links Managment": "  ادارة روابط التواصل الاجتماعي  "
+    "Social Links Management": "  ادارة روابط التواصل الاجتماعي  ",
+    "Content Management": " إدارة المحتوى ",
+    "Faq Management": "الاسئلة الشائعة",
+    "Tasks Management": "تصنيف المهمات",
+    "Subscription Management": "ادارة الاشتراكات"
   },
   "website": {
     "header": {

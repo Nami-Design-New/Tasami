@@ -3,6 +3,8 @@ import AuthLayout from "../layout/AuthLayout";
 import DashboardLayout from "../layout/MainDashboardLayout";
 import WebsiteLayout from "../layout/WebsiteLayout";
 import LoginPage from "../routes/auth/LoginPage";
+import OtpConfirmationPage from "../routes/auth/OtpConfirmationPage";
+import RegisterInfo from "../routes/auth/RegisterInfo";
 import RegisterPage from "../routes/auth/RegisterPage";
 import ResetPassword from "../routes/auth/ResetPassword";
 import ChatPage from "../routes/ChatPage";
@@ -32,38 +34,40 @@ import SubscribersAndTeams from "../routes/dash-board/teams/SubscribersAndTeams"
 import Teams from "../routes/dash-board/teams/Teams";
 import UserAccounts from "../routes/dash-board/teams/UserAccounts";
 import UserProfile from "../routes/dash-board/UserProfile";
+import ContentManagment from "../routes/dash-board/websiteManagment/ContentManagment";
+import FaqManagment from "../routes/dash-board/websiteManagment/FaqManagment";
+import SocialLinksManage from "../routes/dash-board/websiteManagment/SocialLinksManage";
+import ViolationsManagment from "../routes/dash-board/websiteManagment/ViolationsManagment";
 import WokingGroupDetails from "../routes/dash-board/WokingGroupDetails";
 import PageNotFound from "../routes/PageNotFound";
-import Home from "../routes/website/Home";
-import PersonalGoal from "../routes/website/PersonalGoals";
-import LoginForm from "../ui/auth/LoginForm";
-import PersonalOffers from "../routes/website/Offers";
-import PersonalHelper from "../routes/website/PersonalHelper";
 import About from "../routes/website/About";
-import FAQsSection from "../routes/website/Faqs";
-import HowItWorks from "../routes/website/HowItWorks";
+import Consultations from "../routes/website/Consultations";
 import Contact from "../routes/website/contact";
-import Terms from "../routes/website/terms";
-import Privacy from "../routes/website/privacy";
+import EditProfile from "../routes/website/EditProfile";
+import Encounters from "../routes/website/Encounters";
+import FAQsSection from "../routes/website/Faqs";
+import GoalDetails from "../routes/website/GoalDetails";
+import HelpersDetails from "../routes/website/HelpersDetails";
+import Home from "../routes/website/Home";
+import HowItWorks from "../routes/website/HowItWorks";
+import MyNotifications from "../routes/website/MyNotifications";
+import MyWallet from "../routes/website/MyWallet";
+import MyWorks from "../routes/website/MyWorks";
 import NewGoal from "../routes/website/NewGoal";
 import NewHelpOffer from "../routes/website/NewHelpOffer";
-import GoalDetails from "../routes/website/GoalDetails";
 import OfferDetails from "../routes/website/OfferDetails";
-import HelpersDetails from "../routes/website/HelpersDetails";
-import MyWorks from "../routes/website/MyWorks";
-import Consultations from "../routes/website/Consultations";
+import PersonalOffers from "../routes/website/Offers";
 import PersonalCommunity from "../routes/website/PersonalCommunity";
-import Encounters from "../routes/website/Encounters";
+import PersonalGoal from "../routes/website/PersonalGoals";
+import PersonalHelper from "../routes/website/PersonalHelper";
 import Posts from "../routes/website/Posts";
-import Views from "../routes/website/Views";
+import Privacy from "../routes/website/privacy";
 import Profile from "../routes/website/Profile";
-import MyNotifications from "../routes/website/MyNotifications";
-import EditProfile from "../routes/website/EditProfile";
-import MyWallet from "../routes/website/MyWallet";
-import OtpConfirmationPage from "../routes/auth/OtpConfirmationPage";
-import RegisterInfo from "../routes/auth/RegisterInfo";
-import ViolationsManagment from "../routes/dash-board/websiteManagment/ViolationsManagment";
-import SocialLinksManage from "../routes/dash-board/websiteManagment/SocialLinksManage";
+import Terms from "../routes/website/terms";
+import Views from "../routes/website/Views";
+import LoginForm from "../ui/auth/LoginForm";
+import TasksManagment from "../routes/dash-board/websiteManagment/TasksManagment";
+import SubscriptionManagement from "../routes/dash-board/websiteManagment/SubscriptionManagement";
 export const router = createBrowserRouter([
   {
     element: <WebsiteLayout />,
@@ -341,8 +345,24 @@ export const router = createBrowserRouter([
         element: <ViolationsManagment />,
       },
       {
-        path: "social-links-managment",
+        path: "social-links-management",
         element: <SocialLinksManage />,
+      },
+      {
+        path: "content-management",
+        element: <ContentManagment />,
+      },
+      {
+        path: "faq-management",
+        element: <FaqManagment />,
+      },
+      {
+        path: "tasks-management",
+        element: <TasksManagment />,
+      },
+      {
+        path: "subscription-management",
+        element: <SubscriptionManagement />,
       },
     ],
   },
