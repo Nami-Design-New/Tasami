@@ -392,454 +392,6 @@
         }
       }
     }
-
-    // Settings Area
-    .settings {
-      flex: 1;
-      position: relative;
-      display: flex;
-      justify-content: end;
-
-      ul {
-        height: 100%;
-        display: flex;
-        gap: 12px;
-
-        li {
-          position: relative;
-          @include centerFlex();
-
-          .btn {
-            background: $inputStroke;
-            @include centerFlex();
-            width: 48px;
-            height: 48px;
-            border-radius: 50%;
-
-            img {
-              height: 20px;
-            }
-
-            @include tablet-layout {
-              width: 42px;
-              height: 42px;
-
-              img {
-                height: 16px;
-              }
-            }
-          }
-
-          &.notification {
-            position: relative;
-          }
-
-          .number {
-            top: 4px;
-            right: 5px;
-            position: absolute;
-            width: 20px;
-            height: 20px;
-            background: #214b92;
-            color: #fff;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 12px;
-            border-radius: 50%;
-          }
-
-          .dropdownButton {
-            height: 48px;
-            border: 1px solid $inputStroke;
-            background: $white;
-            border-radius: 24px;
-            display: flex;
-            cursor: pointer;
-
-            @include tablet-layout {
-              border: none;
-              margin-right: 12px;
-            }
-
-            .avatar {
-              width: 48px;
-              height: 48px;
-              border-radius: 50%;
-              border: 1px solid $inputStroke;
-              overflow: hidden;
-              border-left: 0;
-
-              img {
-                width: 100%;
-                height: 100%;
-                object-fit: cover;
-              }
-            }
-
-            .name {
-              @include centerFlex();
-              padding: 0 18px 0 12px;
-
-              @include tablet-layout {
-                display: none;
-              }
-
-              h6 {
-                color: $dark;
-                margin: 0;
-                display: flex;
-                gap: 4px;
-
-                i {
-                  transform: translateY(2px);
-                  transition: $transition;
-                }
-
-                &.animate {
-                  i {
-                    transform: translateY(2px) rotate(-90deg);
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-
-      // Profile Dropdown
-      .profile_dropdown {
-        position: absolute;
-        box-shadow: 0px 2px 15px -3px #00000012;
-        top: 100%;
-        z-index: 9;
-        width: 320px;
-        border-radius: 24px;
-        display: flex;
-        flex-direction: column;
-        gap: 8px;
-        background: $white;
-        height: 0;
-        overflow: hidden;
-        padding: 16px;
-        height: fit-content;
-        top: 58px;
-
-        @include tablet-layout {
-          right: 8px;
-        }
-
-        .account_owner {
-          gap: 12px;
-          @include centerFlex();
-          flex-direction: column;
-          position: relative;
-          .avatar--wrapper {
-            position: relative;
-            width: 80px;
-            height: 80px;
-            .avatar {
-              overflow: hidden;
-              width: 80px;
-              height: 80px;
-              border-radius: 50%;
-              border: 1px solid $inputStroke;
-
-              .edit {
-                width: 25px;
-                height: 25px;
-                border-radius: 12px;
-                border: 1px solid $inputStroke;
-                @include centerFlex();
-                position: absolute;
-                background: $white;
-                right: 0;
-                bottom: 0;
-
-                img {
-                  height: 12px !important;
-                  object-fit: contain;
-                }
-              }
-
-              img {
-                width: 100%;
-                height: 100%;
-                object-fit: cover;
-              }
-            }
-          }
-        }
-
-        .account_welcoming {
-          width: 100%;
-
-          h6 {
-            color: $dark;
-            margin: 0;
-            text-align: center;
-          }
-
-          span {
-            color: $gray;
-            width: 100%;
-            display: block;
-            text-align: center;
-          }
-        }
-
-        .manage_invite {
-          display: flex;
-          flex-direction: column;
-          gap: 4px;
-
-          .link {
-            display: flex;
-            align-items: center;
-            padding: 4px 8px;
-            gap: 8px;
-
-            a,
-            h6 {
-              font-weight: 600;
-              font-size: 14px;
-              color: $dark;
-              cursor: pointer;
-            }
-
-            i {
-              color: $main;
-              font-size: 20px;
-              width: 25px;
-              @include centerFlex();
-            }
-          }
-        }
-
-        .select_frame {
-          background: $main10;
-          padding: 8px;
-          border-radius: 16px;
-          display: flex;
-          gap: 8px;
-          flex-direction: column;
-
-          .accounts {
-            padding: 12px;
-            border-radius: 12px;
-            padding: 12px;
-            background: $white;
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-
-            .acc {
-              display: flex;
-              gap: 12px;
-
-              .avatar {
-                width: 52px;
-                height: 52px;
-                border-radius: 50%;
-                border: 1px solid $inputStroke;
-                overflow: hidden;
-
-                img {
-                  width: 100%;
-                  height: 100%;
-                  object-fit: cover;
-                  object-position: center;
-                }
-              }
-
-              .type_mail {
-                display: flex;
-                justify-content: center;
-                flex-direction: column;
-
-                h6 {
-                  color: $dark;
-                  font-size: 16px;
-                  margin: 0;
-                  font-weight: 600;
-                }
-
-                span {
-                  color: $gray;
-                }
-              }
-            }
-          }
-        }
-      }
-
-      // Modals
-      .modals {
-        position: absolute;
-        box-shadow: 0px 2px 15px -3px #00000012;
-        top: 100%;
-        z-index: 9;
-        border-radius: 24px;
-        display: flex;
-        flex-direction: column;
-
-        right: 0;
-        top: 58px;
-        background: $white;
-        overflow: hidden;
-        padding: 16px;
-        transform-origin: top;
-        &.ar {
-          left: 0;
-          right: auto;
-        }
-
-        .header {
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-          font-weight: 500;
-          font-size: 16px;
-          color: $dark;
-
-          p {
-            margin: 0;
-          }
-
-          a {
-            font-size: 14px;
-            font-weight: 400;
-            color: $main;
-            border: none;
-            background: none !important;
-            height: unset !important;
-          }
-        }
-
-        .body {
-          display: flex;
-          flex-direction: column;
-        }
-      }
-
-      .settings-gear {
-        position: relative;
-      }
-
-      .settings-modal {
-        width: 150px;
-      }
-
-      // Notification Modal
-      .notification-modal {
-        padding: 0;
-        width: 320px;
-        border-radius: 8px;
-        .header {
-          padding: 16px;
-          border-bottom: 1px solid #e6ebf1;
-          .bg-secondary-transparent {
-            color: $main;
-            background-color: $main10;
-          }
-          p {
-            font-size: 18px;
-            font-weight: 500;
-          }
-        }
-        .body {
-          overflow: scroll;
-          @include hide-scrollbar;
-        }
-        .footer {
-          padding: 16px;
-          width: 100%;
-          a {
-            width: 100%;
-            font-size: 0.85rem;
-            border-radius: 0.35rem;
-            padding: 0.5rem 0.85rem;
-            box-shadow: none;
-            font-weight: 500;
-            background-color: $main;
-            color: $white;
-          }
-        }
-
-        .notification-card {
-          display: flex;
-          align-items: start;
-          padding: 12px;
-          border: 1px solid #e6ebf1;
-          .icon-wrapper {
-            padding: 0 12px;
-            .avatar {
-              width: 2.5rem;
-              height: 2.5rem;
-              line-height: 2.5rem;
-              font-size: 0.8rem;
-              border-radius: 50%;
-              background-color: rgb(255, 0, 0, 0.1);
-              color: rgb(238, 14, 14);
-              @include centerFlex();
-            }
-          }
-          .notification-content {
-            flex-grow: 1;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            .notification-title {
-              font-weight: 500;
-              color: $dark;
-            }
-            span {
-              color: $text;
-              font-weight: 400;
-              font-size: 12px;
-            }
-          }
-        }
-      }
-
-      // Radio Buttons
-      .radio {
-        display: flex;
-        align-items: center;
-        width: 100%;
-        gap: 10px;
-        padding: 8px 12px;
-        cursor: pointer;
-
-        label {
-          cursor: pointer;
-          flex: 1;
-        }
-
-        input[type="radio"] {
-          appearance: none;
-          -webkit-appearance: none;
-          width: 16px;
-          height: 16px;
-          border: 2px solid $main10;
-          border-radius: 50%;
-          outline: none;
-          cursor: pointer;
-          position: relative;
-          &:checked::before {
-            content: "";
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background-color: $main;
-          }
-        }
-      }
-    }
   }
 
   // Main Content Area
@@ -1128,7 +680,453 @@
     }
   }
 }
+// Settings Area
+.settings {
+  flex: 1;
+  position: relative;
+  display: flex;
+  justify-content: end;
 
+  ul {
+    height: 100%;
+    display: flex;
+    gap: 12px;
+
+    li {
+      position: relative;
+      @include centerFlex();
+
+      .btn {
+        background: $inputStroke;
+        @include centerFlex();
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+
+        img {
+          height: 20px;
+        }
+
+        @include tablet-layout {
+          width: 42px;
+          height: 42px;
+
+          img {
+            height: 16px;
+          }
+        }
+      }
+
+      &.notification {
+        position: relative;
+      }
+
+      .number {
+        top: 4px;
+        right: 5px;
+        position: absolute;
+        width: 20px;
+        height: 20px;
+        background: #214b92;
+        color: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 12px;
+        border-radius: 50%;
+      }
+
+      .dropdownButton {
+        height: 48px;
+        border: 1px solid $inputStroke;
+        background: $white;
+        border-radius: 24px;
+        display: flex;
+        cursor: pointer;
+
+        @include tablet-layout {
+          border: none;
+          margin-right: 12px;
+        }
+
+        .avatar {
+          width: 48px;
+          height: 48px;
+          border-radius: 50%;
+          border: 1px solid $inputStroke;
+          overflow: hidden;
+          border-left: 0;
+
+          img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+          }
+        }
+
+        .name {
+          @include centerFlex();
+          padding: 0 18px 0 12px;
+
+          @include tablet-layout {
+            display: none;
+          }
+
+          h6 {
+            color: $dark;
+            margin: 0;
+            display: flex;
+            gap: 4px;
+
+            i {
+              transform: translateY(2px);
+              transition: $transition;
+            }
+
+            &.animate {
+              i {
+                transform: translateY(2px) rotate(-90deg);
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  // Profile Dropdown
+  .profile_dropdown {
+    position: absolute;
+    box-shadow: 0px 2px 15px -3px #00000012;
+    top: 100%;
+    z-index: 9;
+    width: 320px;
+    border-radius: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    background: $white;
+    height: 0;
+    overflow: hidden;
+    padding: 16px;
+    height: fit-content;
+    top: 58px;
+
+    @include tablet-layout {
+      right: 8px;
+    }
+
+    .account_owner {
+      gap: 12px;
+      @include centerFlex();
+      flex-direction: column;
+      position: relative;
+      .avatar--wrapper {
+        position: relative;
+        width: 80px;
+        height: 80px;
+        .avatar {
+          overflow: hidden;
+          width: 80px;
+          height: 80px;
+          border-radius: 50%;
+          border: 1px solid $inputStroke;
+
+          .edit {
+            width: 25px;
+            height: 25px;
+            border-radius: 12px;
+            border: 1px solid $inputStroke;
+            @include centerFlex();
+            position: absolute;
+            background: $white;
+            right: 0;
+            bottom: 0;
+
+            img {
+              height: 12px !important;
+              object-fit: contain;
+            }
+          }
+
+          img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+          }
+        }
+      }
+    }
+
+    .account_welcoming {
+      width: 100%;
+
+      h6 {
+        color: $dark;
+        margin: 0;
+        text-align: center;
+      }
+
+      span {
+        color: $gray;
+        width: 100%;
+        display: block;
+        text-align: center;
+      }
+    }
+
+    .manage_invite {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+
+      .link {
+        display: flex;
+        align-items: center;
+        padding: 4px 8px;
+        gap: 8px;
+
+        a,
+        h6 {
+          font-weight: 600;
+          font-size: 14px;
+          color: $dark;
+          cursor: pointer;
+        }
+
+        i {
+          color: $main;
+          font-size: 20px;
+          width: 25px;
+          @include centerFlex();
+        }
+      }
+    }
+
+    .select_frame {
+      background: $main10;
+      padding: 8px;
+      border-radius: 16px;
+      display: flex;
+      gap: 8px;
+      flex-direction: column;
+
+      .accounts {
+        padding: 12px;
+        border-radius: 12px;
+        padding: 12px;
+        background: $white;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+
+        .acc {
+          display: flex;
+          gap: 12px;
+
+          .avatar {
+            width: 52px;
+            height: 52px;
+            border-radius: 50%;
+            border: 1px solid $inputStroke;
+            overflow: hidden;
+
+            img {
+              width: 100%;
+              height: 100%;
+              object-fit: cover;
+              object-position: center;
+            }
+          }
+
+          .type_mail {
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+
+            h6 {
+              color: $dark;
+              font-size: 16px;
+              margin: 0;
+              font-weight: 600;
+            }
+
+            span {
+              color: $gray;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  // Modals
+  .modals {
+    position: absolute;
+    box-shadow: 0px 2px 15px -3px #00000012;
+    top: 100%;
+    z-index: 9;
+    border-radius: 24px;
+    display: flex;
+    flex-direction: column;
+
+    right: 0;
+    top: 58px;
+    background: $white;
+    overflow: hidden;
+    padding: 16px;
+    transform-origin: top;
+    &.ar {
+      left: 0;
+      right: auto;
+    }
+
+    .header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-weight: 500;
+      font-size: 16px;
+      color: $dark;
+
+      p {
+        margin: 0;
+      }
+
+      a {
+        font-size: 14px;
+        font-weight: 400;
+        color: $main;
+        border: none;
+        background: none !important;
+        height: unset !important;
+      }
+    }
+
+    .body {
+      display: flex;
+      flex-direction: column;
+    }
+  }
+
+  .settings-gear {
+    position: relative;
+  }
+
+  .settings-modal {
+    width: 150px;
+  }
+
+  // Notification Modal
+  .notification-modal {
+    padding: 0;
+    width: 320px;
+    border-radius: 8px;
+    .header {
+      padding: 16px;
+      border-bottom: 1px solid #e6ebf1;
+      .bg-secondary-transparent {
+        color: $main;
+        background-color: $main10;
+      }
+      p {
+        font-size: 18px;
+        font-weight: 500;
+      }
+    }
+    .body {
+      overflow: scroll;
+      @include hide-scrollbar;
+    }
+    .footer {
+      padding: 16px;
+      width: 100%;
+      a {
+        width: 100%;
+        font-size: 0.85rem;
+        border-radius: 0.35rem;
+        padding: 0.5rem 0.85rem;
+        box-shadow: none;
+        font-weight: 500;
+        background-color: $main;
+        color: $white;
+      }
+    }
+
+    .notification-card {
+      display: flex;
+      align-items: start;
+      padding: 12px;
+      border: 1px solid #e6ebf1;
+      .icon-wrapper {
+        padding: 0 12px;
+        .avatar {
+          width: 2.5rem;
+          height: 2.5rem;
+          line-height: 2.5rem;
+          font-size: 0.8rem;
+          border-radius: 50%;
+          background-color: rgb(255, 0, 0, 0.1);
+          color: rgb(238, 14, 14);
+          @include centerFlex();
+        }
+      }
+      .notification-content {
+        flex-grow: 1;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        .notification-title {
+          font-weight: 500;
+          color: $dark;
+        }
+        span {
+          color: $text;
+          font-weight: 400;
+          font-size: 12px;
+        }
+      }
+    }
+  }
+
+  // Radio Buttons
+  .radio {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    gap: 10px;
+    padding: 8px 12px;
+    cursor: pointer;
+
+    label {
+      cursor: pointer;
+      flex: 1;
+    }
+
+    input[type="radio"] {
+      appearance: none;
+      -webkit-appearance: none;
+      width: 16px;
+      height: 16px;
+      border: 2px solid $main10;
+      border-radius: 50%;
+      outline: none;
+      cursor: pointer;
+      position: relative;
+      &:checked::before {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background-color: $main;
+      }
+    }
+  }
+}
 footer {
   height: 100px;
   background: $white;

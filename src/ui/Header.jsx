@@ -1,12 +1,13 @@
-import { useEffect, useState, useRef } from "react";
-import { Link, NavLink, useNavigate } from "react-router";
+import { useEffect, useRef, useState } from "react";
+import { Link, NavLink } from "react-router";
 import UserDropDown from "./website/UserDropDown";
+import WebsiteLangDropdown from "./website/WebsiteLangDropdown";
+import { useTranslation } from "react-i18next";
 
 export default function Header() {
   const headerRef = useRef(null);
   const [openMenu, setOpenMenu] = useState(false);
-  const navigate = useNavigate();
-
+  const { t } = useTranslation();
   useEffect(() => {
     const handleScroll = () => {
       if (window.scrollY > 50) headerRef.current.classList.add("scrolled");
@@ -42,26 +43,39 @@ export default function Header() {
           <img src="/images/logo.svg" alt="logo" />
         </Link>
 
-        <div className={`layer ${openMenu ? "open" : ""}`}></div>
+        {/* <div className={`layer ${openMenu ? "open" : ""}`}></div> */}
 
         <ul className={`nav-links ${openMenu ? "open" : ""}`}>
-          {["/", "/how-it-works", "/about", "/services", "/contact"].map((path, i) => (
-            <li key={i} onClick={() => setOpenMenu(false)}>
-              <NavLink to={path}>{getLinkText(path)}</NavLink>
-            </li>
-          ))}
+          <li onClick={() => setOpenMenu(false)}>
+            <NavLink to={"/"}>{t("website.header.home")}</NavLink>
+          </li>
+          <li onClick={() => setOpenMenu(false)}>
+            <NavLink to={"/how-it-works"}>
+              {t("website.header.howitWorks")}
+            </NavLink>
+          </li>
+          <li onClick={() => setOpenMenu(false)}>
+            <NavLink to={"/about"}>{t("website.header.aboutUs")}</NavLink>
+          </li>
+          <li onClick={() => setOpenMenu(false)}>
+            <NavLink to={"/contact"}>{t("website.header.contactUs")}</NavLink>
+          </li>
+
           <li className="mobile-only">
-            <NavLink to="/login">تسجيل الدخول</NavLink>
+            <NavLink to="/login">{t("website.header.login")}</NavLink>
           </li>
           <li className="mobile-only">
-            <NavLink to="/register">إنشاء حساب</NavLink>
+            <NavLink to="/register">{t("website.header.signUp")}</NavLink>
           </li>
         </ul>
 
         <div className="actions">
-          <Link to="/login" className="auth-btn login-btn">تسجيل الدخول</Link>
-         <UserDropDown />
+          <Link to="/login" className="auth-btn login-btn">
+            {t("website.header.login")}{" "}
+          </Link>
+          <WebsiteLangDropdown />
 
+          <UserDropDown />
         </div>
 
         <button className="toggle_menu" onClick={handleToggleMenu}>
@@ -70,14 +84,4 @@ export default function Header() {
       </nav>
     </header>
   );
-
-  function getLinkText(path) {
-    switch (path) {
-      case "/": return "الرئيسية";
-      case "/how-it-works": return "كيف تعمل المنصة";
-      case "/about": return "عن تسامي";
-      case "/contact": return "اتصل بنا";
-      default: return "";
-    }
-  }
 }

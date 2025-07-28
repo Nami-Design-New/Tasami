@@ -3,6 +3,7 @@ import "swiper/css";
 import { Autoplay } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import HelperCard from "../../cards/HelperCard";
+import { Link } from "react-router";
 
 const helpers = [
   {
@@ -55,9 +56,9 @@ export default function HelpersSlider() {
           <h2>المساعدون الشخصيون</h2>
           <p>أبرز المساعدون المشتركين في المنصة</p>
         </div>
-        <a href="/personal-helpers" className="view-all">
+        <Link to="/personal-helpers" className="view-all">
           عرض الكل
-        </a>
+        </Link>
       </div>
 
       <Swiper

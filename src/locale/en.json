@@ -33,6 +33,33 @@
     "Users": "Users",
     "Contracts": "Contracts",
     "Expericences": "Expericences",
-    "Documents": "Documents"
+    "Documents": "Documents",
+    "Violations Management": "Violations Management",
+    "Social Links Managment": "Social Links Managment"
+  },
+  "website": {
+    "header": {
+      "home": "Home",
+      "howitWorks": "How It Works",
+      "aboutUs": "About Us",
+      "contactUs": "Contact Us",
+      "myAccount": "My Account",
+      "login": "Login",
+      "signUp": "Sign up",
+      "logout": "Logout",
+      "notifications": "Notifications",
+      "wallet": "Wallet",
+      "editAccount": "Edit Account"
+    },
+    "hero": {
+      "personalGoals": "Personal Goals",
+      "offerHelp": " Offer Help "
+    },
+    "personalGoals": {
+      "header": {
+        "title": "الأهداف الشخصية",
+        "subTitle": "أحدث طلبات المساعدة لتحقيق أهداف جديدة"
+      }
+    }
   }
 }

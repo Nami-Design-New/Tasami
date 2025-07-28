@@ -38,6 +38,34 @@
     "Users": "المستخدمون",
     "Contracts": "العقود",
     "Experiences": "الخبرات",
-    "Documents": "الوثائق"
+    "Documents": "الوثائق",
+    "Violations Management": "ادارة المخالفات",
+    "Social Links Managment": "  ادارة روابط التواصل الاجتماعي  "
+  },
+  "website": {
+    "header": {
+      "home": "الرئيسية",
+      "howitWorks": "كيف تعمل المنصة",
+      "aboutUs": "عن تسامي",
+      "contactUs": "اتصل بنا",
+      "myAccount": "حسابي",
+      "login": "تسجيل الدخول",
+      "signUp": "انشاء حساب",
+      "logout": "تسجيل خروج",
+      "notifications": "الاشعارات",
+      "wallet": "المحفظة",
+      "editAccount": "تعديل الحساب"
+    },
+    "hero": {
+      "personalGoals": "الاهداف الشخصيه",
+      "offerHelp": "تقديم مساعدة "
+    },
+
+    "personalGoals": {
+      "header": {
+        "title": "الأهداف الشخصية",
+        "subTitle": "أحدث طلبات المساعدة لتحقيق أهداف جديدة"
+      }
+    }
   }
 }

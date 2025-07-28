@@ -88,6 +88,58 @@ export default function SidebarNavigation() {
             </ul>
           </Accordion.Body>
         </Accordion.Item>
+        <Accordion.Item eventKey="4">
+          <Accordion.Header>
+            <div className="icon">
+              <img src="/sys-icons/website-manage.svg" alt="Analytics" />
+            </div>
+            <div className="d-flex flex-column">
+              <h6> اداره الموقع </h6>
+            </div>
+          </Accordion.Header>
+          {/* sub menu */}
+          <Accordion.Body>
+            <ul className="sub_navigation_menu">
+              {" "}
+              <li className="sub_nav_item">
+                <NavLink to="violations-management">
+                  <img src="/sys-icons/subArrow.svg" alt="arrow" />
+                  <span> المخالفات </span>
+                </NavLink>
+              </li>
+              <li className="sub_nav_item">
+                <NavLink to="social-links-managment">
+                  <img src="/sys-icons/subArrow.svg" alt="arrow" />
+                  <span> روابط وسائل التواصل </span>
+                </NavLink>
+              </li>
+              <li className="sub_nav_item">
+                <NavLink to="list-management/fields-and-specializations">
+                  <img src="/sys-icons/subArrow.svg" alt="arrow" />
+                  <span> الشروط و الاحكام </span>
+                </NavLink>
+              </li>
+              <li className="sub_nav_item">
+                <NavLink to="list-management/administrative-systems">
+                  <img src="/sys-icons/subArrow.svg" alt="arrow" />
+                  <span> سياسات الخصوصية </span>
+                </NavLink>
+              </li>
+              <li className="sub_nav_item">
+                <NavLink to="list-management/administrative-systems">
+                  <img src="/sys-icons/subArrow.svg" alt="arrow" />
+                  <span> الأسئلة الشائعة </span>
+                </NavLink>
+              </li>
+              <li className="sub_nav_item">
+                <NavLink to="list-management/administrative-systems">
+                  <img src="/sys-icons/subArrow.svg" alt="arrow" />
+                  <span> تصنيف المهمات </span>
+                </NavLink>
+              </li>
+            </ul>
+          </Accordion.Body>
+        </Accordion.Item>
       </Accordion>
     </>
   );

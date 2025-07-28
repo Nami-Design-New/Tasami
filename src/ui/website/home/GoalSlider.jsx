@@ -3,6 +3,7 @@ import "swiper/css";
 import { Autoplay } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import GoalCard from "../../cards/GoalCard";
+import { t } from "i18next";
 
 export default function GoalSlider() {
   const goals = [
@@ -52,8 +53,8 @@ export default function GoalSlider() {
     <div className="goal-slider container">
       <div className="slider-header">
         <div className="text">
-          <h2>الأهداف الشخصية</h2>
-          <p>أحدث طلبات المساعدة لتحقيق أهداف جديدة</p>
+          <h2> {t("website.personalGoals")} </h2>
+          <p> {t("")}  </p>
         </div>
         <Link to="/Personal-goals" className="view-all">
           عرض الكل
@@ -73,7 +74,7 @@ export default function GoalSlider() {
       >
         {goals.map((goal) => (
           <SwiperSlide key={goal.id}>
-            <GoalCard {...goal} showfav={true}/>
+            <GoalCard {...goal} showfav={true} />
           </SwiperSlide>
         ))}
       </Swiper>
