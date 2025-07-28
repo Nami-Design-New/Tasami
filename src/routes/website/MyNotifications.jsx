@@ -17,9 +17,8 @@ export default function MyNotifications() {
   ];
 
   return (
-    <div className="page notifications-page">
+    <div className=" notifications-page mt-30">
       <div className="container">
-        {/* <SectionHeader title="الإشعارات" /> */}
         <div className="notifications-list">
           {notifications.map((item) => (
             <div className="notification-card" key={item.id}>

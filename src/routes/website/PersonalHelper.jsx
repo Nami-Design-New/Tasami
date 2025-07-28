@@ -1,6 +1,10 @@
 import { useState } from "react";
 import useFilteredList from "../../hooks/useFilteredList";
 import HelperCard from "../../ui/cards/HelperCard";
+import SectionHeader from "../../ui/website/SectionHeader";
+import SidebarFilter from "../../ui/website/home/SidebarFilter";
+import helperFilterModal from "../../ui/website/helpers/HelperFilterModal";
+import HelperFilterModal from "../../ui/website/helpers/HelperFilterModal";
 
 export default function PersonalHelper() {
   const [showFilterModal, setShowFilterModal] = useState(false);
@@ -51,56 +55,7 @@ export default function PersonalHelper() {
       status: true,
     },
   ];
-  const offers = [
-    {
-      id: 1,
-      name: "علي الزهراني",
-      rating: 4.8,
-      title: "إطلاق مبادرة لتمكين النساء في التجارة الإلكترونية",
-      country: "البحرين",
-      type: "مؤسس - تمكين المرأة",
-      price1: 2200,
-      price2: 1700,
-      image: "/images/p2.png",
-      status: true,
-    },
-    {
-      id: 2,
-      name: "فاطمة الجهني",
-      rating: 4.5,
-      title: "تطوير تطبيقات الهاتف الذكي لتسهيل التسوق للأسر المنتجة",
-      country: "الإمارات",
-      type: "مبتكرة - تكنولوجيا المعلومات",
-      price1: 2500,
-      price2: 2000,
-      image: "/images/p1.png",
-      status: true,
-    },
-    {
-      id: 3,
-      name: "علي الزهراني",
-      rating: 4.8,
-      title: "إطلاق مبادرة لتمكين النساء في التجارة الإلكترونية",
-      country: "البحرين",
-      type: "مؤسس - تمكين المرأة",
-      price1: 2200,
-      price2: 1700,
-      image: "/images/p2.png",
-      status: true,
-    },
-    {
-      id: 4,
-      name: "فاطمة الجهني",
-      rating: 4.5,
-      title: "تطوير تطبيقات الهاتف الذكي لتسهيل التسوق للأسر المنتجة",
-      country: "الإمارات",
-      type: "مبتكرة - تكنولوجيا المعلومات",
-      price1: 2500,
-      price2: 2000,
-      image: "/images/p1.png",
-      status: true,
-    },
-  ];
+ 
 
   const {
     activeTab,
@@ -162,7 +117,7 @@ export default function PersonalHelper() {
       <div className="container">
         <div className="row">
           <div className="col-lg-3 col-12">
-            {/* <SectionHeader
+            <SectionHeader
               title="المساعدون الشخصيون"
               tabs={tabs}
               activeTab={activeTab}
@@ -171,25 +126,40 @@ export default function PersonalHelper() {
               searchValue={searchValue}
               onSearchChange={setSearchValue}
               onFilterClick={() => setShowFilterModal(true)}
-            /> */}
+            />
           </div>
-          <div className="row g-5 col-lg-9 col-12 mt-4">
-            {filteredItems.map((helper) => (
-              <div className="col-12 col-md-6 col-lg-5" key={helper.id}>
-                <HelperCard helper={helper} />
+          <div className="row">
+            <div className="col-12 col-lg-3 p-2">
+              <SidebarFilter
+                tabs={tabs}
+                activeTab={activeTab}
+                onTabChange={setActiveTab}
+                searchValue={searchValue}
+                onSearchChange={setSearchValue}
+                onFilterClick={() => setShowFilterModal(true)}
+              />
+            </div>
+            <div className="col-12 col-lg-9 p-2">
+              <div className="row">
+                <div className="result-count">
+                  <strong>{filteredItems.length}</strong> الأهداف الشخصية
+                </div>
+                {filteredItems.map((helper) => (
+                  <div className="col-12 col-md-6 col-xl-4 p-2" key={helper.id}>
+                    <HelperCard helper={helper} />
+                  </div>
+                ))}
               </div>
-            ))}
+            </div>
           </div>
         </div>
       </div>
-      {/* <FilteredModal
+      <HelperFilterModal
         show={showFilterModal}
         onHide={() => setShowFilterModal(false)}
-        filters={filters}
-        showValue={true}
-        showAge={true}
-        showRating={true}
-      /> */}
+        showValueRange={true}
+        showAgeRange={true}
+      />
     </section>
   );
 }
