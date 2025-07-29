@@ -50,7 +50,7 @@ import NewHelpOffer from "../routes/website/NewHelpOffer";
 import GoalDetails from "../routes/website/GoalDetails";
 import OfferDetails from "../routes/website/OfferDetails";
 import HelpersDetails from "../routes/website/HelpersDetails";
-import MyWorks from "../routes/website/MyWorks";
+import MyWorks from "../routes/website/Works/MyWorks";
 import Consultations from "../routes/website/Community/Consultations";
 import PersonalCommunity from "../routes/website/Community/PersonalCommunity";
 import Encounters from "../routes/website/Community/Encounters";
@@ -67,6 +67,9 @@ import Savings from "../routes/website/Savings";
 import Followers from "../routes/website/Followers";
 import ConsultationDetails from "../routes/website/Community/ConsultationDetails";
 import PostDetails from "../routes/website/Community/PostDetails";
+import PendingWorks from "../routes/website/Works/PendingWorks";
+import InProgressWorks from "../routes/website/Works/InProgressWorks";
+import CompletedWorks from "../routes/website/Works/CompletedWorks";
 export const router = createBrowserRouter([
   {
     element: <WebsiteLayout />,
@@ -199,7 +202,24 @@ export const router = createBrowserRouter([
             path: "posts",
             element: <Posts />,
           },
-          
+        ],
+      },
+      {
+        path: "my-works",
+        element: <MyWorks />,
+        children: [
+          {
+            path: "pending",
+            element: <PendingWorks />,
+          },
+          {
+            path: "inprogress",
+            element: <InProgressWorks />,
+          },
+          {
+            path: "completed",
+            element: <CompletedWorks />,
+          },
         ],
       },
       {

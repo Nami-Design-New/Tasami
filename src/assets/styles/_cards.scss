@@ -391,3 +391,54 @@
     }
   }
 }
+//
+.pending-card {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.05);
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+
+  .card-header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+
+    .triangle-icon {
+      width: 16px;
+      height: 16px;
+    }
+
+    .title {
+      font-weight: bold;
+      flex: 1;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
+
+  .card-info {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 0.75rem;
+    color: #666;
+    font-size: 0.9rem;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+
+    div {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+
+      img {
+        width: 16px;
+        height: 16px;
+      }
+    }
+  }
+
+ 
+
+}

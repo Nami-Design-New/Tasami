@@ -1,4 +1,6 @@
-export default function WorksTab({ activeTab, setActiveTab }) {
+import { NavLink } from "react-router";
+
+export default function WorksTab() {
   const tabs = [
     { id: "pending", label: "بانتظار التنفيذ" },
     { id: "inprogress", label: "قيد التنفيذ" },
@@ -9,13 +11,15 @@ export default function WorksTab({ activeTab, setActiveTab }) {
     <div className="tab-nav">
       <div className="tab-buttons">
         {tabs.map((tab) => (
-          <button
+          <NavLink
             key={tab.id}
-            className={`toggle-btn ${activeTab === tab.id ? "active" : ""}`}
-            onClick={() => setActiveTab(tab.id)}
+            to={tab.id}
+            className={({ isActive }) =>
+              `toggle-btn ${isActive ? "active" : ""}`
+            }
           >
             {tab.label}
-          </button>
+          </NavLink>
         ))}
       </div>
     </div>

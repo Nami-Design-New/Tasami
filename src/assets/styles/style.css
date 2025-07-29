@@ -1303,6 +1303,48 @@ input[type=number]::-webkit-outer-spin-button, input[type=number]::-webkit-inner
   flex-shrink: 0;
 }
 
+.pending-card {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.05);
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+}
+.pending-card .card-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.pending-card .card-header .triangle-icon {
+  width: 16px;
+  height: 16px;
+}
+.pending-card .card-header .title {
+  font-weight: bold;
+  flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.pending-card .card-info {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 0.75rem;
+  color: #666;
+  font-size: 0.9rem;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+.pending-card .card-info div {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.pending-card .card-info div img {
+  width: 16px;
+  height: 16px;
+}
+
 .form_ui {
   width: 100%;
 }
@@ -7066,24 +7108,26 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
   border-radius: 12px;
   overflow: hidden;
 }
-.myworks .tab-nav .tab-buttons button {
+.myworks .tab-nav .tab-buttons a {
   flex: 1;
   padding: 12px 16px;
-  border: none;
+  text-align: center;
+  text-decoration: none;
   background: transparent;
   color: #5fcafa;
   font-size: 16px;
   font-weight: 500;
   height: 54px;
+  line-height: 30px;
   cursor: pointer;
   transition: all 0.2s ease-in-out;
 }
-.myworks .tab-nav .tab-buttons button.active {
+.myworks .tab-nav .tab-buttons a.active {
   background: #5fcafa;
   color: #fff;
   border-radius: 12px;
 }
-.myworks .tab-nav .tab-buttons button:not(.active):hover {
+.myworks .tab-nav .tab-buttons a:not(.active):hover {
   background: #eee;
 }
 .myworks .tab-content {
