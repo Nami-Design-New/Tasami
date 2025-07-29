@@ -1,12 +1,12 @@
 import React from "react";
-import EncounterCard from "../../ui/cards/EncounterCard";
+import EncounterCard from "../../../ui/cards/EncounterCard";
 
 export default function Encounters() {
   const encounters = [
     {
       id: 1,
-      title: "لقاء تطوير المهارات",
-      desc: "مناقشة مهارات القيادة ورفع كفاءة الفريق لتحقيق أهداف العمل.",
+      title: "اللقاء الخامس",
+      desc: "مع الرسام المبدع محمد جمال النجار علي هامش معرض بينالى  للفنون الاسلامية ",
       date: "25 يونيو 2025",
       time: "4:00 مساءً",
       duration: "25 دقيقة",

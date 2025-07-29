@@ -1,10 +1,10 @@
 import { Routes, Route } from "react-router";
 import CommunityHeader from "./CommunityHeader";
-import CommunityTabs from "../..//ui/website/CommunityTabs";
+import CommunityTabs from "../../../ui/website/CommunityTabs";
 import Consultations from "./Consultations";
 import Encounters from "./Encounters";
 import Posts from "./Posts";
-import Views from "./Views";
+import Views from "../Views";
 
 export default function PersonalCommunity() {
   return (

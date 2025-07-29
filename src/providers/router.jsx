@@ -51,11 +51,11 @@ import GoalDetails from "../routes/website/GoalDetails";
 import OfferDetails from "../routes/website/OfferDetails";
 import HelpersDetails from "../routes/website/HelpersDetails";
 import MyWorks from "../routes/website/MyWorks";
-import Consultations from "../routes/website/Consultations";
-import PersonalCommunity from "../routes/website/PersonalCommunity";
-import Encounters from "../routes/website/Encounters";
-import Posts from "../routes/website/Posts";
-import Views from "../routes/website/Views";
+import Consultations from "../routes/website/Community/Consultations";
+import PersonalCommunity from "../routes/website/Community/PersonalCommunity";
+import Encounters from "../routes/website/Community/Encounters";
+import Posts from "../routes/website/Community/Posts";
+// import Views from "../routes/website/Views";
 import Profile from "../routes/website/Profile";
 import MyNotifications from "../routes/website/MyNotifications";
 import EditProfile from "../routes/website/EditProfile";
@@ -65,6 +65,8 @@ import RegisterInfo from "../routes/auth/RegisterInfo";
 import Interests from "../routes/website/Interests";
 import Savings from "../routes/website/Savings";
 import Followers from "../routes/website/Followers";
+import ConsultationDetails from "../routes/website/Community/ConsultationDetails";
+import PostDetails from "../routes/website/Community/PostDetails";
 export const router = createBrowserRouter([
   {
     element: <WebsiteLayout />,
@@ -167,44 +169,47 @@ export const router = createBrowserRouter([
             path: "my-wallet",
             element: <MyWallet />,
           },
-           {
+          {
             path: "interests",
             element: <Interests />,
           },
-            {
+          {
             path: "savings",
             element: <Savings />,
           },
-            {
+          {
             path: "Followers",
             element: <Followers />,
+          },
+        ],
+      },
+      {
+        path: "personal-community/:id",
+        element: <PersonalCommunity />,
+        children: [
+          {
+            path: "consultations",
+            element: <Consultations />,
+          },
+          {
+            path: "encounters",
+            element: <Encounters />,
+          },
+          {
+            path: "posts",
+            element: <Posts />,
           },
           
         ],
       },
-    {
-  path: "personal-community/:id",
-  element: <PersonalCommunity />,
-  children: [
-    {
-      path: "consultations",
-      element: <Consultations />,
-    },
-    {
-      path: "encounters",
-      element: <Encounters />,
-    },
-    {
-      path: "posts",
-      element: <Posts />,
-    },
-    {
-      path: "views",
-      element: <Views />,
-    },
-  ],
-}
-
+      {
+        path: "/consultation-details/:id",
+        element: <ConsultationDetails />,
+      },
+      {
+        path: "/post-details/:id",
+        element: <PostDetails />,
+      },
     ],
   },
   {

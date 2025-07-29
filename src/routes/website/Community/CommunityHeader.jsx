@@ -1,5 +1,5 @@
 import { Link } from "react-router";
-import CustomButton from "../../ui/CustomButton";
+import CustomButton from "../../../ui/CustomButton";
 import { useParams } from "react-router";
 
 export default function CommunityHeader() {
@@ -78,10 +78,10 @@ export default function CommunityHeader() {
             <button className="follow-btn">
               <i className="fa-solid fa-user-plus me-2"></i> انضمام
             </button>
-            <button className="cancel-btn">
+            {/* <button className="cancel-btn">
               <i className="fa-solid fa-user-xmark me-2"></i>
               الغاء العضوية
-            </button>
+            </button> */}
           </div>
         </div>
 

@@ -12,7 +12,7 @@ export default function OptionsMenu({ onInquiry, onReport }) {
         <div className="options-list">
           <button
             onClick={() => {
-              onInquiry();
+              onInquiry(); 
               setMenuOpen(false);
             }}
           >
@@ -20,7 +20,7 @@ export default function OptionsMenu({ onInquiry, onReport }) {
           </button>
           <button
             onClick={() => {
-              onReport();
+              onReport(); 
               setMenuOpen(false);
             }}
             className="text-danger"

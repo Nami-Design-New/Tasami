@@ -186,9 +186,9 @@ export default function OfferDetails() {
       <div className="container">
         <div className="header">
           <SectionHeader title="تفاصيل العرض" />
-          <OptionsMenu
-            setShowInquiryModal={setShowInquiryModal}
-            setShowReportModal={setShowReportModal}
+             <OptionsMenu
+            onInquiry={() => setShowInquiryModal(true)}
+            onReport={() => setShowReportModal(true)}
           />
         </div>
         <div className="goal-details-card mt-3 row">

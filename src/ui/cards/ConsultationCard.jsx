@@ -1,7 +1,8 @@
+import { Link } from "react-router";
+
 export default function ConsultationCard({ item }) {
   return (
-    <div className={`consultation-card ${item.type === "qes" ? "qes" : ""}`}>
-        <p className="date">{item.date}</p>
+    <Link to={`/consultation-details/${item.id}`} className={`consultation-card ${item.type === "qes" ? "qes" : ""}`}>
       <p className="title">{item.title}</p>
       <p className="desc">{item.desc}</p>
 
@@ -17,6 +18,6 @@ export default function ConsultationCard({ item }) {
           ))}
         </div>
       )}
-    </div>
+    </Link>
   );
 }

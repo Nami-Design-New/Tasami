@@ -19,6 +19,10 @@ export default function UserDropDown() {
             حسابي
           </Dropdown.Item>
 
+          <Dropdown.Item as={Link} to="/my-works">
+            <i className="fa-solid fa-file-lines"></i>
+            أعمالي
+          </Dropdown.Item>
           <Dropdown.Item as={Link} to="/my-profile/my-notifications">
             <i className="fa-regular fa-bell"></i>
             الإشعارات

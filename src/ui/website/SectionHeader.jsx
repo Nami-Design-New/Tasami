@@ -1,14 +1,14 @@
-import { Link } from "react-router";
+import { useNavigate } from "react-router";
 
 export default function SectionHeader({ title }) {
+  const navigate = useNavigate();
+
   return (
     <div className="section-header">
       <div className="page-header">
-        {
-          <Link to="/" className="back-btn">
-            <i className="fa-solid fa-angle-right"></i>
-          </Link>
-        }
+        <button className="back-btn" onClick={() => navigate(-1)}>
+          <i className="fa-solid fa-angle-right"></i>
+        </button>
         <h1>{title}</h1>
       </div>
     </div>

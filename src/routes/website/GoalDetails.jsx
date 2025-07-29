@@ -123,9 +123,10 @@ export default function GoalDetails() {
       <div className="container">
         <div className="header">
           <SectionHeader title="تفاصيل العرض" />
+
           <OptionsMenu
-            setShowInquiryModal={setShowInquiryModal}
-            setShowReportModal={setShowReportModal}
+            onInquiry={() => setShowInquiryModal(true)}
+            onReport={() => setShowReportModal(true)}
           />
         </div>
 
