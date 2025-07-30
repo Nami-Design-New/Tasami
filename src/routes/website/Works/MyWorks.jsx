@@ -1,8 +1,5 @@
-import { Routes, Route } from "react-router"; 
+import { Outlet } from "react-router"; 
 import TabNav from "./WorksTab";
-import PendingWorks from "./PendingWorks";
-import InProgressWorks from "./InProgressWorks";
-import CompletedWorks from "./CompletedWorks";
 import SectionHeader from "../../../ui/website/SectionHeader";
 
 export default function MyWorks() {
@@ -16,11 +13,7 @@ export default function MyWorks() {
           </div>
 
           <div className="col-lg-9 col-md-8 col-12">
-            <Routes>
-              <Route path="" element={<PendingWorks />} />
-              <Route path="inprogress" element={<InProgressWorks />} />
-              <Route path="completed" element={<CompletedWorks />} />
-            </Routes>
+          <Outlet />
           </div>
         </div>
       </div>

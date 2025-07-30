@@ -1,6 +1,4 @@
-.goal-details-section,
-.offer-details-section,
-.helper-details-section {
+
   .header {
     display: flex;
     justify-content: space-between;
@@ -40,7 +38,7 @@
       }
     }
   }
-  .goal-details-card {
+.goal-details-card {
     .top-info {
       display: flex;
       height: min-content;
@@ -353,25 +351,6 @@
       }
     }
   }
-  //   .fixed-request-button {
-  //   position: fixed;
-  //   bottom: 0px;
-  //   z-index: 1000;
-  //   background-color: #76d1f8;
-  //   width: 100%;
-
-  //   button {
-  //     padding: 0.75rem 2rem;
-  //     font-weight: bold;
-  //     font-size: 0.9rem;
-  //     margin: 10px 0;
-  //     &:hover {
-  //       background-color: darken;
-  //     }
-  //   }
-  // }
-}
-
 .contract-status__card {
   padding: 0.5rem;
   border-radius: 0.5rem;

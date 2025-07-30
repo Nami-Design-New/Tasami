@@ -70,6 +70,12 @@ import PostDetails from "../routes/website/Community/PostDetails";
 import PendingWorks from "../routes/website/Works/PendingWorks";
 import InProgressWorks from "../routes/website/Works/InProgressWorks";
 import CompletedWorks from "../routes/website/Works/CompletedWorks";
+import WorksDetails from "../routes/website/Works/worksDetails";
+import Details from "../routes/website/Works/Details";
+import Groups from "../routes/website/Works/Groups";
+import TasksDetails from "../routes/website/Works/TasksDetails";
+import Helpers from "../routes/website/Works/Helpers";
+
 export const router = createBrowserRouter([
   {
     element: <WebsiteLayout />,
@@ -222,7 +228,29 @@ export const router = createBrowserRouter([
           },
         ],
       },
-       
+        {
+        path: "/works-details/:id",
+        element: <WorksDetails />,
+           children: [
+          {
+            index: true,
+            element: <Details />,
+          },
+          {
+            path: "groups",
+            element: <Groups />,
+          },
+          {
+            path: "tasks",
+            element: <TasksDetails />,
+          },
+            {
+            path: "helpers",
+            element: <Helpers />,
+          },
+        ],
+      },
+    
       {
         path: "/consultation-details/:id",
         element: <ConsultationDetails />,
@@ -279,7 +307,6 @@ export const router = createBrowserRouter([
         path: "profile",
         element: <EmployeeProfile />,
       },
-
       {
         element: <SubscribersAndTeams />,
         children: [

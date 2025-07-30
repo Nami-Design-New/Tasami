@@ -6374,6 +6374,74 @@ footer .links a:hover {
   font-weight: bold;
 }
 
+.payment-modal .modal-body {
+  padding: 1.5rem;
+}
+.payment-modal .modal-body .option-box {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background-color: #f2f2f2;
+  border: 2px solid transparent;
+  padding: 12px 16px;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.payment-modal .modal-body .option-box.active {
+  border-color: #214b92;
+  background-color: #e5f2ff;
+}
+.payment-modal .modal-body .option-box span {
+  font-weight: bold;
+  color: #0d0d0d;
+}
+
+.cancel-modal .modal-body {
+  text-align: center;
+  padding: 2rem 1rem;
+}
+.cancel-modal .modal-body img {
+  margin-bottom: 10px;
+  width: 60px;
+}
+.cancel-modal .modal-body .title {
+  font-weight: bold;
+  margin: 1rem 0;
+  color: #FF7A59;
+}
+.cancel-modal .modal-body p {
+  color: #777777;
+  margin-bottom: 1.5rem;
+}
+.cancel-modal .modal-body .btn {
+  min-width: 100px;
+  font-weight: 500;
+  font-size: 15px;
+  border-radius: 8px;
+  padding: 8px 16px;
+  transition: 0.3s ease;
+}
+.cancel-modal .modal-body .btn.btn-outline-danger {
+  border: 1px solid #FF7A59;
+  color: #FF7A59;
+  background-color: transparent;
+}
+.cancel-modal .modal-body .btn.btn-outline-danger:hover {
+  background-color: rgba(255, 122, 89, 0.1);
+}
+.cancel-modal .modal-body .btn.btn-danger {
+  background-color: #FF7A59;
+  color: #fff;
+}
+.cancel-modal .modal-body .btn.btn-danger:hover {
+  background-color: rgb(255, 101.5692771084, 63.5);
+}
+.cancel-modal .modal-body .text-success {
+  color: #4ECDC4;
+  font-weight: bold;
+}
+
 .performance-filter {
   background-color: #fff;
   padding: 1rem;
@@ -6678,24 +6746,18 @@ footer .links a:hover {
   color: rgb(23.5977653631, 53.6312849162, 104.4022346369);
 }
 
-.goal-details-section .header,
-.offer-details-section .header,
-.helper-details-section .header {
+.header {
   display: flex;
   justify-content: space-between;
   position: relative;
 }
-.goal-details-section .header .options-menu,
-.offer-details-section .header .options-menu,
-.helper-details-section .header .options-menu {
+.header .options-menu {
   cursor: pointer;
   font-size: 1.2rem;
   color: #777;
   z-index: 10;
 }
-.goal-details-section .header .options-menu .options-list,
-.offer-details-section .header .options-menu .options-list,
-.helper-details-section .header .options-menu .options-list {
+.header .options-menu .options-list {
   position: absolute;
   left: 0px;
   background: #fff;
@@ -6705,9 +6767,7 @@ footer .links a:hover {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
   z-index: 100;
 }
-.goal-details-section .header .options-menu .options-list button,
-.offer-details-section .header .options-menu .options-list button,
-.helper-details-section .header .options-menu .options-list button {
+.header .options-menu .options-list button {
   display: block;
   width: 100%;
   padding: 0.5rem 0.75rem;
@@ -6718,14 +6778,11 @@ footer .links a:hover {
   text-align: right;
   cursor: pointer;
 }
-.goal-details-section .header .options-menu .options-list button:hover,
-.offer-details-section .header .options-menu .options-list button:hover,
-.helper-details-section .header .options-menu .options-list button:hover {
+.header .options-menu .options-list button:hover {
   background: rgba(33, 75, 146, 0.1);
 }
-.goal-details-section .goal-details-card .top-info,
-.offer-details-section .goal-details-card .top-info,
-.helper-details-section .goal-details-card .top-info {
+
+.goal-details-card .top-info {
   display: flex;
   height: -moz-min-content;
   height: min-content;
@@ -6737,141 +6794,101 @@ footer .links a:hover {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
   background-color: rgba(95, 202, 250, 0.1215686275);
 }
-.goal-details-section .goal-details-card .top-info .avatar,
-.offer-details-section .goal-details-card .top-info .avatar,
-.helper-details-section .goal-details-card .top-info .avatar {
+.goal-details-card .top-info .avatar {
   width: 120px;
   height: 120px;
   border-radius: 50%;
   -o-object-fit: cover;
      object-fit: cover;
 }
-.goal-details-section .goal-details-card .top-info .details,
-.offer-details-section .goal-details-card .top-info .details,
-.helper-details-section .goal-details-card .top-info .details {
+.goal-details-card .top-info .details {
   flex: 1;
   display: flex;
   flex-direction: column;
   justify-content: center;
 }
-.goal-details-section .goal-details-card .top-info .details .personal-info,
-.offer-details-section .goal-details-card .top-info .details .personal-info,
-.helper-details-section .goal-details-card .top-info .details .personal-info {
+.goal-details-card .top-info .details .personal-info {
   display: flex;
   flex-direction: column;
 }
-.goal-details-section .goal-details-card .top-info .details .personal-info h5,
-.offer-details-section .goal-details-card .top-info .details .personal-info h5,
-.helper-details-section .goal-details-card .top-info .details .personal-info h5 {
+.goal-details-card .top-info .details .personal-info h5 {
   padding-bottom: 0.5rem;
   font-size: 1.05rem;
   font-weight: 600;
   color: #333;
 }
-.goal-details-section .goal-details-card .top-info .details .personal-info .country,
-.offer-details-section .goal-details-card .top-info .details .personal-info .country,
-.helper-details-section .goal-details-card .top-info .details .personal-info .country {
+.goal-details-card .top-info .details .personal-info .country {
   display: flex;
   gap: 8px;
 }
-.goal-details-section .goal-details-card .top-info .details .personal-info .country i,
-.offer-details-section .goal-details-card .top-info .details .personal-info .country i,
-.helper-details-section .goal-details-card .top-info .details .personal-info .country i {
+.goal-details-card .top-info .details .personal-info .country i {
   font-size: 24px;
 }
-.goal-details-section .goal-details-card .top-info .details .rating,
-.offer-details-section .goal-details-card .top-info .details .rating,
-.helper-details-section .goal-details-card .top-info .details .rating {
+.goal-details-card .top-info .details .rating {
   display: flex;
   align-items: center;
 }
-.goal-details-section .goal-details-card .top-info .details .rating span,
-.offer-details-section .goal-details-card .top-info .details .rating span,
-.helper-details-section .goal-details-card .top-info .details .rating span {
+.goal-details-card .top-info .details .rating span {
   color: #0d0d0d;
   margin-inline-start: 6px;
   font-weight: 600;
   margin-top: 4px;
 }
-.goal-details-section .goal-details-card .top-info .details .info,
-.offer-details-section .goal-details-card .top-info .details .info,
-.helper-details-section .goal-details-card .top-info .details .info {
+.goal-details-card .top-info .details .info {
   display: flex;
   gap: 2rem;
 }
-.goal-details-section .goal-details-card .top-info .details .info i,
-.offer-details-section .goal-details-card .top-info .details .info i,
-.helper-details-section .goal-details-card .top-info .details .info i {
+.goal-details-card .top-info .details .info i {
   color: #214b92;
   margin-inline-end: 5px;
 }
-.goal-details-section .goal-details-card .top-info .details .info .country,
-.goal-details-section .goal-details-card .top-info .details .info .offers,
-.offer-details-section .goal-details-card .top-info .details .info .country,
-.offer-details-section .goal-details-card .top-info .details .info .offers,
-.helper-details-section .goal-details-card .top-info .details .info .country,
-.helper-details-section .goal-details-card .top-info .details .info .offers {
+.goal-details-card .top-info .details .info .country,
+.goal-details-card .top-info .details .info .offers {
   font-size: 1rem;
   color: #666;
   margin-top: 0.25rem;
 }
-.goal-details-section .goal-details-card .hed,
-.offer-details-section .goal-details-card .hed,
-.helper-details-section .goal-details-card .hed {
+.goal-details-card .hed {
   display: flex;
   align-items: center;
   gap: 0.5rem;
   margin: 1rem 0;
 }
-.goal-details-section .goal-details-card .hed img,
-.offer-details-section .goal-details-card .hed img,
-.helper-details-section .goal-details-card .hed img {
+.goal-details-card .hed img {
   width: 20px;
   height: 20px;
 }
-.goal-details-section .goal-details-card .hed h6,
-.offer-details-section .goal-details-card .hed h6,
-.helper-details-section .goal-details-card .hed h6 {
+.goal-details-card .hed h6 {
   color: #0d0d0d;
   font-size: 1.3rem;
   font-weight: 600;
 }
-.goal-details-section .goal-details-card .desc,
-.offer-details-section .goal-details-card .desc,
-.helper-details-section .goal-details-card .desc {
+.goal-details-card .desc {
   color: #444;
   line-height: 1.8;
   font-size: 0.95rem;
   margin-bottom: 1.2rem;
 }
-.goal-details-section .goal-details-card .info-grid,
-.offer-details-section .goal-details-card .info-grid,
-.helper-details-section .goal-details-card .info-grid {
+.goal-details-card .info-grid {
   border-radius: 16px;
   display: flex;
   flex-wrap: wrap;
   gap: 1rem;
 }
-.goal-details-section .goal-details-card .info-grid .info-box,
-.offer-details-section .goal-details-card .info-grid .info-box,
-.helper-details-section .goal-details-card .info-grid .info-box {
+.goal-details-card .info-grid .info-box {
   border: 1px solid #e0e0e0;
   border-radius: 12px;
   padding: 0.5rem;
   height: -moz-min-content;
   height: min-content;
 }
-.goal-details-section .goal-details-card .info-grid .info-box .label,
-.offer-details-section .goal-details-card .info-grid .info-box .label,
-.helper-details-section .goal-details-card .info-grid .info-box .label {
+.goal-details-card .info-grid .info-box .label {
   font-size: 0.9rem;
   font-weight: 600;
   color: #5fcafa;
   margin-bottom: 0.25rem;
 }
-.goal-details-section .goal-details-card .info-grid .info-box .value,
-.offer-details-section .goal-details-card .info-grid .info-box .value,
-.helper-details-section .goal-details-card .info-grid .info-box .value {
+.goal-details-card .info-grid .info-box .value {
   font-size: 1rem;
   font-weight: 600;
   color: #0d0d0d;
@@ -6879,45 +6896,31 @@ footer .links a:hover {
   align-items: center;
   gap: 6px;
 }
-.goal-details-section .goal-details-card .info-grid .info-box .value img,
-.offer-details-section .goal-details-card .info-grid .info-box .value img,
-.helper-details-section .goal-details-card .info-grid .info-box .value img {
+.goal-details-card .info-grid .info-box .value img {
   width: 18px;
   height: 18px;
 }
-.goal-details-section .goal-details-card .info-grid .info-box .flex,
-.offer-details-section .goal-details-card .info-grid .info-box .flex,
-.helper-details-section .goal-details-card .info-grid .info-box .flex {
+.goal-details-card .info-grid .info-box .flex {
   display: flex;
   justify-content: space-between;
 }
-.goal-details-section .goal-details-card .info-grid .info-box .flex .bold,
-.offer-details-section .goal-details-card .info-grid .info-box .flex .bold,
-.helper-details-section .goal-details-card .info-grid .info-box .flex .bold {
+.goal-details-card .info-grid .info-box .flex .bold {
   font-weight: bold;
 }
-.goal-details-section .goal-details-card .info-grid .info-box .flex .bold img,
-.offer-details-section .goal-details-card .info-grid .info-box .flex .bold img,
-.helper-details-section .goal-details-card .info-grid .info-box .flex .bold img {
+.goal-details-card .info-grid .info-box .flex .bold img {
   height: 20px;
   margin: 0 10px;
 }
-.goal-details-section .goal-details-card .info-grid .info-box.w-50,
-.offer-details-section .goal-details-card .info-grid .info-box.w-50,
-.helper-details-section .goal-details-card .info-grid .info-box.w-50 {
+.goal-details-card .info-grid .info-box.w-50 {
   flex: 1 1 100%;
 }
-.goal-details-section .goal-details-card .info-tabs,
-.offer-details-section .goal-details-card .info-tabs,
-.helper-details-section .goal-details-card .info-tabs {
+.goal-details-card .info-tabs {
   display: flex;
   gap: 1rem;
   flex-wrap: wrap;
   margin: 1rem 0;
 }
-.goal-details-section .goal-details-card .info-tabs .tab-button,
-.offer-details-section .goal-details-card .info-tabs .tab-button,
-.helper-details-section .goal-details-card .info-tabs .tab-button {
+.goal-details-card .info-tabs .tab-button {
   padding: 8px 16px;
   border: 1px solid #ccc;
   border-radius: 6px;
@@ -6926,99 +6929,69 @@ footer .links a:hover {
   color: #444;
   transition: 0.3s ease;
 }
-.goal-details-section .goal-details-card .info-tabs .tab-button:hover,
-.offer-details-section .goal-details-card .info-tabs .tab-button:hover,
-.helper-details-section .goal-details-card .info-tabs .tab-button:hover {
+.goal-details-card .info-tabs .tab-button:hover {
   background-color: #f5f5f5;
 }
-.goal-details-section .goal-details-card .info-tabs .tab-button.active,
-.offer-details-section .goal-details-card .info-tabs .tab-button.active,
-.helper-details-section .goal-details-card .info-tabs .tab-button.active {
+.goal-details-card .info-tabs .tab-button.active {
   background-color: #5fcafa;
   color: white;
   border-color: #5fcafa;
 }
-.goal-details-section .goal-details-card button,
-.offer-details-section .goal-details-card button,
-.helper-details-section .goal-details-card button {
+.goal-details-card button {
   padding: 0.75rem 2rem;
   font-weight: bold;
   font-size: 0.9rem;
   margin: 10px 0;
 }
-.goal-details-section .goal-details-card button:nth-of-type(2),
-.offer-details-section .goal-details-card button:nth-of-type(2),
-.helper-details-section .goal-details-card button:nth-of-type(2) {
+.goal-details-card button:nth-of-type(2) {
   background-color: #5fcafa;
 }
-.goal-details-section .goal-details-card button:hover,
-.offer-details-section .goal-details-card button:hover,
-.helper-details-section .goal-details-card button:hover {
+.goal-details-card button:hover {
   background-color: darken;
 }
 @media (max-width: 768px) {
-  .goal-details-section .goal-details-card .offer-info,
-  .offer-details-section .goal-details-card .offer-info,
-  .helper-details-section .goal-details-card .offer-info {
+  .goal-details-card .offer-info {
     flex-direction: column;
   }
-  .goal-details-section .goal-details-card .offer-info .info-box,
-  .offer-details-section .goal-details-card .offer-info .info-box,
-  .helper-details-section .goal-details-card .offer-info .info-box {
+  .goal-details-card .offer-info .info-box {
     flex: 1 1 100%;
   }
 }
-.goal-details-section .goal-details-card .sub-info,
-.offer-details-section .goal-details-card .sub-info,
-.helper-details-section .goal-details-card .sub-info {
+.goal-details-card .sub-info {
   background: #f3f3f3;
   padding: 0.6rem 0.75rem;
   border-radius: 10px;
   margin-bottom: 20px;
 }
-.goal-details-section .goal-details-card .assist-methods,
-.offer-details-section .goal-details-card .assist-methods,
-.helper-details-section .goal-details-card .assist-methods {
+.goal-details-card .assist-methods {
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
 }
-.goal-details-section .goal-details-card .assist-methods .assist-method,
-.offer-details-section .goal-details-card .assist-methods .assist-method,
-.helper-details-section .goal-details-card .assist-methods .assist-method {
+.goal-details-card .assist-methods .assist-method {
   background: #f3f1f1;
   padding: 0.6rem 0.75rem;
   border-radius: 10px;
   font-size: 0.9rem;
   text-align: center;
 }
-.goal-details-section .goal-details-card .assist-methods .bg,
-.offer-details-section .goal-details-card .assist-methods .bg,
-.helper-details-section .goal-details-card .assist-methods .bg {
+.goal-details-card .assist-methods .bg {
   background: #ffffff;
 }
-.goal-details-section .goal-details-card .contracts-summary-chart,
-.offer-details-section .goal-details-card .contracts-summary-chart,
-.helper-details-section .goal-details-card .contracts-summary-chart {
+.goal-details-card .contracts-summary-chart {
   text-align: center;
   margin-top: 10px;
 }
-.goal-details-section .goal-details-card .contracts-summary-chart .chart-wrapper,
-.offer-details-section .goal-details-card .contracts-summary-chart .chart-wrapper,
-.helper-details-section .goal-details-card .contracts-summary-chart .chart-wrapper {
+.goal-details-card .contracts-summary-chart .chart-wrapper {
   position: relative;
   width: 160px;
   margin: auto;
 }
-.goal-details-section .goal-details-card .contracts-summary-chart .chart-wrapper canvas,
-.offer-details-section .goal-details-card .contracts-summary-chart .chart-wrapper canvas,
-.helper-details-section .goal-details-card .contracts-summary-chart .chart-wrapper canvas {
+.goal-details-card .contracts-summary-chart .chart-wrapper canvas {
   width: 100% !important;
   height: auto !important;
 }
-.goal-details-section .goal-details-card .contracts-summary-chart .chart-wrapper .center-number,
-.offer-details-section .goal-details-card .contracts-summary-chart .chart-wrapper .center-number,
-.helper-details-section .goal-details-card .contracts-summary-chart .chart-wrapper .center-number {
+.goal-details-card .contracts-summary-chart .chart-wrapper .center-number {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -7027,94 +7000,64 @@ footer .links a:hover {
   font-weight: 700;
   color: #333;
 }
-.goal-details-section .goal-details-card .contracts-summary-chart .chart-wrapper .centered,
-.offer-details-section .goal-details-card .contracts-summary-chart .chart-wrapper .centered,
-.helper-details-section .goal-details-card .contracts-summary-chart .chart-wrapper .centered {
+.goal-details-card .contracts-summary-chart .chart-wrapper .centered {
   font-size: 15px;
   font-size: 400;
 }
-.goal-details-section .goal-details-card .contracts-summary-chart .contracts-summary,
-.offer-details-section .goal-details-card .contracts-summary-chart .contracts-summary,
-.helper-details-section .goal-details-card .contracts-summary-chart .contracts-summary {
+.goal-details-card .contracts-summary-chart .contracts-summary {
   font-size: 14px;
   margin-top: 10px;
 }
-.goal-details-section .goal-details-card .contracts-summary-chart .contracts-summary div,
-.offer-details-section .goal-details-card .contracts-summary-chart .contracts-summary div,
-.helper-details-section .goal-details-card .contracts-summary-chart .contracts-summary div {
+.goal-details-card .contracts-summary-chart .contracts-summary div {
   margin: 4px 0;
 }
-.goal-details-section .goal-details-card .contracts-summary-chart .contracts-summary div .dot,
-.offer-details-section .goal-details-card .contracts-summary-chart .contracts-summary div .dot,
-.helper-details-section .goal-details-card .contracts-summary-chart .contracts-summary div .dot {
+.goal-details-card .contracts-summary-chart .contracts-summary div .dot {
   width: 10px;
   height: 10px;
   border-radius: 50%;
   display: inline-block;
   margin-left: 6px;
 }
-.goal-details-section .goal-details-card .contracts-summary-chart .contracts-summary div .completed,
-.offer-details-section .goal-details-card .contracts-summary-chart .contracts-summary div .completed,
-.helper-details-section .goal-details-card .contracts-summary-chart .contracts-summary div .completed {
+.goal-details-card .contracts-summary-chart .contracts-summary div .completed {
   background: #20407c;
 }
-.goal-details-section .goal-details-card .contracts-summary-chart .contracts-summary div .active,
-.offer-details-section .goal-details-card .contracts-summary-chart .contracts-summary div .active,
-.helper-details-section .goal-details-card .contracts-summary-chart .contracts-summary div .active {
+.goal-details-card .contracts-summary-chart .contracts-summary div .active {
   background: #63c5f9;
 }
 @media (max-width: 576px) {
-  .goal-details-section .goal-details-card,
-  .offer-details-section .goal-details-card,
-  .helper-details-section .goal-details-card {
+  .goal-details-card {
     padding: 1rem;
   }
-  .goal-details-section .goal-details-card .top-info,
-  .offer-details-section .goal-details-card .top-info,
-  .helper-details-section .goal-details-card .top-info {
+  .goal-details-card .top-info {
     flex-direction: column;
     align-items: center;
     text-align: center;
   }
-  .goal-details-section .goal-details-card .top-info .avatar,
-  .offer-details-section .goal-details-card .top-info .avatar,
-  .helper-details-section .goal-details-card .top-info .avatar {
+  .goal-details-card .top-info .avatar {
     width: 60px;
     height: 60px;
   }
-  .goal-details-section .goal-details-card .top-info .details h5,
-  .offer-details-section .goal-details-card .top-info .details h5,
-  .helper-details-section .goal-details-card .top-info .details h5 {
+  .goal-details-card .top-info .details h5 {
     font-size: 1rem;
   }
-  .goal-details-section .goal-details-card .top-info .details .rating,
-  .offer-details-section .goal-details-card .top-info .details .rating,
-  .helper-details-section .goal-details-card .top-info .details .rating {
+  .goal-details-card .top-info .details .rating {
     font-size: 0.8rem;
   }
-  .goal-details-section .goal-details-card .top-info .details .country,
-  .offer-details-section .goal-details-card .top-info .details .country,
-  .helper-details-section .goal-details-card .top-info .details .country {
+  .goal-details-card .top-info .details .country {
     font-size: 0.8rem;
   }
-  .goal-details-section .goal-details-card .info-grid .info-box,
-  .offer-details-section .goal-details-card .info-grid .info-box,
-  .helper-details-section .goal-details-card .info-grid .info-box {
+  .goal-details-card .info-grid .info-box {
     flex: 1 1 100%;
   }
 }
-.goal-details-section .goal-details-card .stats,
-.offer-details-section .goal-details-card .stats,
-.helper-details-section .goal-details-card .stats {
+.goal-details-card .stats {
   display: flex;
   flex-wrap: wrap;
   gap: 20px;
   margin-top: 20px;
 }
 @media (max-width: 768px) {
-  .goal-details-section .goal-details-card .stats,
-  .offer-details-section .goal-details-card .stats,
-  .helper-details-section .goal-details-card .stats {
+  .goal-details-card .stats {
     flex-direction: column;
   }
 }
@@ -7213,22 +7156,23 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
   display: flex;
   flex-wrap: wrap;
 }
-.myworks .tab-nav {
+
+.tab-nav {
   width: 100%;
 }
 @media (min-width: 768px) {
-  .myworks .tab-nav {
+  .tab-nav {
     width: 100%;
   }
 }
-.myworks .tab-nav .tab-buttons {
+.tab-nav .tab-buttons {
   display: flex;
   flex-direction: column;
   border-radius: 12px;
   overflow: hidden;
   gap: 8px;
 }
-.myworks .tab-nav .tab-buttons a {
+.tab-nav .tab-buttons a {
   padding: 12px 16px;
   text-align: center;
   text-decoration: none;
@@ -7240,11 +7184,11 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
   transition: all 0.3s ease;
   cursor: pointer;
 }
-.myworks .tab-nav .tab-buttons a.active {
+.tab-nav .tab-buttons a.active {
   background: #5fcafa;
   color: #fff;
 }
-.myworks .tab-nav .tab-buttons a:not(.active):hover {
+.tab-nav .tab-buttons a:not(.active):hover {
   background-color: rgba(119.7272727273, 210.1909090909, 250.7727272727, 0.1215686275);
 }
 
