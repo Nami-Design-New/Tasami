@@ -1,6 +1,7 @@
 import React from "react";
 import PendingCard from "../../../ui/cards/PendingCard";
 
+// PendingWorks.jsx
 export default function PendingWorks() {
   const cardsData = [
     {
@@ -9,14 +10,24 @@ export default function PendingWorks() {
       type: "مؤسسة",
       progress: 1,
       triangleImage: "/icons/graytriangle.svg",
+      steps: [
+        { number: "1", label: "بدأ التنفيذ" },
+        { number: "2", label: "التخطيط" },
+      ],
     },
     {
       title: "تطوير تطبيق جوال لتسهيل الوصول إلى خدمات الرعاية الصحية",
       date: "20 مارس 2025",
       type: "مؤسسة",
       offers: "2+ عروض مبدئية",
-      progress: 2,
+      progress: 1,
       triangleImage: "/icons/triangle.svg",
+      steps: [
+        { number: "1", label: "العروض" },
+        { number: "2", label: "الدفع" },
+        { number: "3", label: "التخطيط" },
+        { number: "4", label: "بدأ التنفيذ" },
+      ],
     },
     {
       title: "تطوير تطبيق جوال لتسهيل الوصول إلى خدمات الرعاية الصحية",
@@ -25,6 +36,12 @@ export default function PendingWorks() {
       offers: "3+ عروض مبدئية",
       progress: 3,
       triangleImage: "/icons/bluetriangle.svg",
+      steps: [
+        { number: "1", label: "العروض" },
+        { number: "2", label: "الدفع" },
+        { number: "3", label: "التخطيط" },
+        { number: "4", label: "بدأ التنفيذ" },
+      ],
     },
   ];
 

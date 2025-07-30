@@ -1,7 +1,7 @@
 import React from "react";
 import HelperCard from "./HelperCard";
 
-export default function InProgressCard({
+export default function CompleteWorksCard({
   title,
   date,
   type,
@@ -9,6 +9,8 @@ export default function InProgressCard({
   status,
   statusDate = "",
   helper,
+  isRated = false,
+  onRateClick = () => {},
 }) {
   const getStatusStyle = (status) => {
     switch (status) {
@@ -30,6 +32,7 @@ export default function InProgressCard({
           <HelperCard helper={helper} />
         </div>
       )}
+
       <div className="pending-info">
         <div className="card-header">
           <img src={triangleImage} alt="triangle" className="triangle-icon" />
@@ -53,6 +56,18 @@ export default function InProgressCard({
             <span className="status-date">{statusDate}</span>
           </div>
         )}
+
+        <div className="rating-action mt-3">
+          {isRated ? (
+             <button className="rate-button" onClick={onRateClick}>
+              <i className="fa-regular fa-star"></i> تم التقييم
+            </button>
+          ) : (
+            <button className="rate-button" onClick={onRateClick}>
+              <i className="fa-regular fa-star"></i> قيّم تجربتك
+            </button>
+          )}
+        </div>
       </div>
     </div>
   );

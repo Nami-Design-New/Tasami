@@ -265,7 +265,7 @@
   }
 
   &__info {
-   @include space-between;
+    @include space-between;
 
     .reviews-modal__stars {
       color: #ffc107;
@@ -290,5 +290,32 @@
   &__comment {
     color: $dark;
     margin-top: 0.8rem;
+  }
+}
+///
+.rate-modal {
+  .modal-body {
+    .rating-sections {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+
+      .rating-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 10px;
+        .stars i {
+          font-size: 20px;
+          margin-left: 5px;
+        }
+
+        .label {
+          white-space: nowrap;
+          font-size: 14px;
+          font-weight: bold;
+        }
+      }
+    }
   }
 }
