@@ -1,7 +1,6 @@
 import React from "react";
 import PendingCard from "../../../ui/cards/PendingCard";
 
-// PendingWorks.jsx
 export default function PendingWorks() {
   const cardsData = [
     {
@@ -46,11 +45,11 @@ export default function PendingWorks() {
   ];
 
   return (
-    <div className="pending-works mt-30">
+    <div className="pending-works">
       <div className="container">
         <div className="row">
           {cardsData.map((card, index) => (
-            <div className="col-12 col-md-6 col-lg-4" key={index}>
+            <div  key={index}>
               <PendingCard {...card} />
             </div>
           ))}

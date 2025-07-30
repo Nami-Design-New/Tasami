@@ -40,11 +40,11 @@ export default function InProgressWorks() {
   ];
 
   return (
-    <div className="in-progress-works mt-30">
+    <div className="in-progress-works">
       <div className="container">
         <div className="row">
           {cardsData.map((card) => (
-            <div className="col-12 col-md-6 col-lg-4" key={card.id}>
+            <div  key={card.id}>
               <InProgressCard {...card} />
             </div>
           ))}

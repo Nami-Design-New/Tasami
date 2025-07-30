@@ -1,49 +1,44 @@
 .myworks {
-.tab-nav {
-  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
 
-  .field-label {
-    display: block;
-    margin-bottom: 8px;
-    color: $dark;
-    font-weight: 600;
-    font-size: 16px;
-  }
+  .tab-nav {
+    width: 100%;
 
-  .tab-buttons {
-    display: flex;
-    background: #f9f9f9;
-    border: 1px solid #ddd;
-    border-radius: 12px;
-    overflow: hidden;
+    @media (min-width: 768px) {
+      width: 100%;
+    }
 
-    // غيّر من button إلى a
-    a {
-      flex: 1;
-      padding: 12px 16px;
-      text-align: center;
-      text-decoration: none;
-      background: transparent;
-      color: $second;
-      font-size: 16px;
-      font-weight: 500;
-      height: 54px;
-      line-height: 30px;
-      cursor: pointer;
-      transition: all 0.2s ease-in-out;
+    .tab-buttons {
+      display: flex;
+      flex-direction: column; 
+      border-radius: 12px;
+      overflow: hidden;
+      gap: 8px;
 
-      &.active {
-        background: $second;
-        color: #fff;
-        border-radius: 12px;
-      }
+      a {
+        padding: 12px 16px;
+        text-align: center;
+        text-decoration: none;
+        color: $second;
+        background: $inputStroke;
+        font-size: 15px;
+        font-weight: bold;
+        border-radius: 10px;
+        transition: all 0.3s ease;
+        cursor: pointer;
 
-      &:not(.active):hover {
-        background: #eee;
+        &.active {
+          background: $second;
+          color: #fff;
+        }
+
+        &:not(.active):hover {
+          background-color: lighten($secondColor12, 5%);
+        }
       }
     }
   }
-}
 }
 
 

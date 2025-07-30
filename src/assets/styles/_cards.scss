@@ -391,14 +391,14 @@
     }
   }
 }
-//
+
 .pending-card {
   background: #fff;
   border-radius: 13px;
   box-shadow: 0 0 8px rgba(0, 0, 0, 0.05);
-  margin-bottom: 1.5rem;
+  margin-bottom: 2.2rem;
   .pending-info {
-    padding: 1rem;
+    padding: 1.2rem;
   }
   .helper-section {
     margin: -15px 0 10px 0;
@@ -445,7 +445,6 @@
 
   .progress-container {
     margin-top: 15px;
-    padding: 0 10px;
 
     .progress-step {
       display: flex;
@@ -453,7 +452,6 @@
       align-items: center;
       position: relative;
       z-index: 2;
-      min-width: 60px;
       flex-shrink: 0;
 
       .step-number {
@@ -530,25 +528,23 @@
     }
   }
   .rating-action {
-  .rate-button {
-    padding: 6px 12px;
-    font-size: 14px;
-    border: none;
-    border-radius: 8px;
-    color: $dark;
-    border: 1px solid $second;
-    font-weight: 600;
-    cursor: pointer;
-    transition: background 0.3s;
-width:100%;
-&:hover{
-background-color: $secondColor12;
-}
+    .rate-button {
+      padding: 6px 12px;
+      font-size: 14px;
+      border: none;
+      border-radius: 8px;
+      color: $dark;
+      border: 1px solid $second;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.3s;
+      width: 100%;
+      &:hover {
+        background-color: $secondColor12;
+      }
+    }
+    i {
+      color: $dark;
+    }
   }
-   i{
-    color: $dark;
-   }
-  
-}
-
 }

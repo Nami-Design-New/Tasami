@@ -209,7 +209,7 @@ export const router = createBrowserRouter([
         element: <MyWorks />,
         children: [
           {
-            path: "pending",
+            index: true,
             element: <PendingWorks />,
           },
           {
@@ -222,6 +222,7 @@ export const router = createBrowserRouter([
           },
         ],
       },
+       
       {
         path: "/consultation-details/:id",
         element: <ConsultationDetails />,
