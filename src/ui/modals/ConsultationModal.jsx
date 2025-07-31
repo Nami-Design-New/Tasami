@@ -8,11 +8,11 @@ import CheckField from "../forms/CheckField";
 const ConsultationModal = ({ showModal, setShowModal }) => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const [ageGroup, setAgeGroup] = useState("unselected");
+  const [ConsultationType, setConsultationType] = useState("unselected");
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const data = { title, description, ageGroup };
+    const data = { title, description, ConsultationType };
     setShowModal(false);
   };
 
@@ -49,13 +49,13 @@ const ConsultationModal = ({ showModal, setShowModal }) => {
             <div className="col-12 p-1">
               <CheckField
                 label="نوع الاستشارة"
-                id="ageGroup"
-                value={ageGroup}
+                id="consultationtype"
+                value={ConsultationType}
                 activeValue="selected"
                 inactiveValue="unselected"
                 activeLabel="خاصة"
                 inactiveLabel="عامة"
-                onChange={(e) => setAgeGroup(e.target.value)}
+                onChange={(e) => setConsultationType(e.target.value)}
               />
             </div>
           </div>

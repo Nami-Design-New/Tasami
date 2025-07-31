@@ -75,6 +75,8 @@ import Details from "../routes/website/Works/Details";
 import Groups from "../routes/website/Works/Groups";
 import TasksDetails from "../routes/website/Works/TasksDetails";
 import Helpers from "../routes/website/Works/Helpers";
+import TaskDetailPage from "../routes/website/Works/TaskDetail";
+import HelperDetailPage from "../routes/website/Works/HelperDetail";
 
 export const router = createBrowserRouter([
   {
@@ -161,6 +163,10 @@ export const router = createBrowserRouter([
       {
         path: "helper/:id",
         element: <HelpersDetails />,
+      },
+       {
+        path: "helper-detail",
+        element: <HelperDetailPage/>,
       },
       {
         path: "my-profile",
@@ -250,7 +256,10 @@ export const router = createBrowserRouter([
           },
         ],
       },
-    
+ {
+        path: "/tasks/:id",
+        element: <TaskDetailPage />,
+      },
       {
         path: "/consultation-details/:id",
         element: <ConsultationDetails />,

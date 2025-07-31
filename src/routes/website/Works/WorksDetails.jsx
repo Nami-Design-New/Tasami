@@ -1,12 +1,11 @@
 import React, { useState } from "react";
-
 import WorksDetailsTabs from "./WorkDetailsTabs";
 import SectionHeader from "../../../ui/website/SectionHeader";
 import { Outlet } from "react-router";
 import CancelConfirmationModal from "../../../ui/modals/CancelConfirmationModal";
 
 export default function WorksDetails() {
-const [menuOpen, setMenuOpen] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
   const toggleMenu = () => setMenuOpen(!menuOpen);
   const [showCancelModal, setShowCancelModal] = useState(false);
 
@@ -44,10 +43,9 @@ const [menuOpen, setMenuOpen] = useState(false);
         </div>
       </div>
       <CancelConfirmationModal
-  show={showCancelModal}
-  onClose={() => setShowCancelModal(false)}
-/>
-
+        show={showCancelModal}
+        onClose={() => setShowCancelModal(false)}
+      />
     </div>
   );
 }

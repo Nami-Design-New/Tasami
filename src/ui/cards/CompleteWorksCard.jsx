@@ -1,5 +1,6 @@
 import React from "react";
 import HelperCard from "./HelperCard";
+import { Link } from "react-router";
 
 export default function CompleteWorksCard({
   title,
@@ -26,6 +27,7 @@ export default function CompleteWorksCard({
   const statusInfo = status ? getStatusStyle(status) : null;
 
   return (
+          <Link to={`/works-details/1`} className="pending-card-link">
     <div className="pending-card">
       {helper && (
         <div className="helper-section">
@@ -70,5 +72,7 @@ export default function CompleteWorksCard({
         </div>
       </div>
     </div>
+            </Link>
+
   );
 }

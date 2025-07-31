@@ -3,40 +3,280 @@
   flex-wrap: wrap;
 }
 
- .tab-nav {
-    width: 100%;
+.tab-nav {
+  width: 100%;
 
-    @media (min-width: 768px) {
-      width: 100%;
+  @media (min-width: 768px) {
+    width: 100%;
+  }
+
+  .tab-buttons {
+    display: flex;
+    flex-direction: column;
+    border-radius: 12px;
+    overflow: hidden;
+    gap: 8px;
+
+    a {
+      padding: 12px 16px;
+      text-align: center;
+      text-decoration: none;
+      color: $second;
+      background: $inputStroke;
+      font-size: 15px;
+      font-weight: bold;
+      border-radius: 10px;
+      transition: all 0.3s ease;
+      cursor: pointer;
+
+      &.active {
+        background: $second;
+        color: #fff;
+      }
+
+      &:not(.active):hover {
+        background-color: lighten($secondColor12, 5%);
+      }
+    }
+  }
+}
+.Groups-page {
+  .hed {
+    font-weight: bold;
+    font-size: 20px;
+    span {
+      color: $second;
+    }
+    p {
+      color: $gray;
+      font-weight: 500;
+      font-size: 16px;
+      margin-top: 10px;
+    }
+  }
+  .btn-groups {
+    button {
+      padding: 0.75rem 2rem;
+      font-weight: bold;
+      font-size: 0.9rem;
+      margin: 10px 10px;
+
+      &:nth-of-type(1) {
+        background-color: transparent;
+        border: 1px solid $second;
+        color: $second;
+      }
+
+      &:hover {
+        background-color: darken;
+      }
+    }
+  }
+}
+.helpers {
+  .hed {
+    font-weight: bold;
+    font-size: 20px;
+  }
+}
+.info-grid {
+  border-radius: 16px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 10px;
+  .info-box {
+    border: 1px solid #e0e0e0;
+    border-radius: 12px;
+    padding: 0.5rem;
+    height: min-content;
+    .label {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: $second;
+      margin-bottom: 0.25rem;
     }
 
-    .tab-buttons {
+    .value {
+      font-size: 1rem;
+      font-weight: 600;
+      color: $dark;
       display: flex;
-      flex-direction: column; 
-      border-radius: 12px;
-      overflow: hidden;
-      gap: 8px;
+      align-items: center;
+      gap: 6px;
 
-      a {
-        padding: 12px 16px;
-        text-align: center;
-        text-decoration: none;
-        color: $second;
-        background: $inputStroke;
-        font-size: 15px;
+      img {
+        width: 18px;
+        height: 18px;
+      }
+    }
+    .flex {
+      display: flex;
+      justify-content: space-between;
+      .bold {
         font-weight: bold;
-        border-radius: 10px;
-        transition: all 0.3s ease;
-        cursor: pointer;
-
-        &.active {
-          background: $second;
-          color: #fff;
-        }
-
-        &:not(.active):hover {
-          background-color: lighten($secondColor12, 5%);
+        img {
+          height: 20px;
+          margin: 0 10px;
         }
       }
     }
   }
+
+  .info-box.w-50 {
+    flex: 1 1 100%;
+  }
+}
+
+.tasks-page {
+  .section-title {
+    font-size: 18px;
+    font-weight: bold;
+    margin-top: 10px;
+  }
+
+  .hint {
+    font-size: 13px;
+    color: #fdcb2f;
+    margin: 10px 0 20px;
+  }
+  .tasks-timeline {
+    position: relative;
+    .cancel {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .task-item {
+      display: flex;
+      align-items: flex-start;
+      margin-bottom: 20px;
+      position: relative;
+
+      .timeline-line {
+        position: absolute;
+        top: 20px;
+        right: 13px;
+        width: 2px;
+        height: 100%;
+        background-image: repeating-linear-gradient(
+          to bottom,
+          #ddd,
+          #ddd 4px,
+          transparent 4px,
+          transparent 8px
+        );
+        z-index: 0;
+      }
+
+      .timeline-icon {
+        position: relative;
+        width: 28px;
+        height: 28px;
+        border-radius: 50%;
+        text-align: center;
+        line-height: 28px;
+        font-size: 14px;
+        z-index: 1;
+        margin-inline-end: 16px;
+
+        &.done {
+          background: $second;
+          color: #fff;
+        }
+
+        &.pending {
+          background: $main;
+          color: #fff;
+        }
+
+        &.waiting {
+          background: #cfd8dc;
+          color: #000;
+          i {
+            color: $gray;
+          }
+        }
+      }
+      .task-card-wrapper {
+        width: 100%;
+        position: relative;
+        margin-bottom: 12px;
+
+        .task-card-link {
+          display: block;
+          text-decoration: none;
+          color: inherit;
+          width: 100%;
+          .task-card {
+            background-color: #f9f9f9;
+            border-radius: 12px;
+            padding: 16px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+
+            .task-title {
+              font-weight: 600;
+              margin-bottom: 12px;
+            }
+
+            .task-info {
+              display: flex;
+              gap: 12px;
+              font-size: 14px;
+              color: #888;
+
+              i {
+                margin-left: 4px;
+              }
+            }
+          }
+        }
+
+        .confirm-btn {
+          margin-top: 8px;
+          width: 100%;
+          padding: 8px;
+          background: $white;
+          border: 2px solid $second;
+          border-radius: 8px;
+          color: $second;
+          font-weight: bold;
+          cursor: pointer;
+
+          &:hover {
+            background: $second;
+            color: white;
+          }
+        }
+      }
+    }
+  }
+}
+.tasks-details{
+.type {
+  .hed{
+    font-weight: bold;
+    margin: 10px 0;
+    font-size: 20px;
+  }
+  .type-tabs {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+
+    .type-tab {
+      padding: 8px 16px;
+      background-color: #f5f5f5;
+      border-radius: 8px;
+      font-weight: bold;
+      color: #333;
+    }
+
+    .type-tab.active {
+      background-color:$second;
+      color: white;
+    }
+  }
+}
+
+}
