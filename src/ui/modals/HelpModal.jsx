@@ -19,7 +19,7 @@ const HelpModal = ({ showModal, setShowModal }) => {
 
             <Modal.Body>
                 <form className="form_ui">
-                                        <div className="row">
+                   <div className="row">
 
                     <div className="col-12 col-lg-6 p-1">
                         <InputField

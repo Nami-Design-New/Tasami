@@ -1,8 +1,10 @@
 import React, { useState } from "react";
-import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
+import TaskTimeline from "./TaskTimeline";
 import CancelConfirmationModal from "../../../ui/modals/CancelConfirmationModal";
 import PerformanceConfirmationModal from "../../../ui/modals/PerformanceConfirmationModal";
-import { Link } from "react-router";
+import NewTaskModal from "../../../ui/modals/NewTaskModal";
+
+
 const initialTasks = [
   {
     id: "1",
@@ -38,19 +40,14 @@ const initialTasks = [
   },
 ];
 
+
+
 export default function TasksDetails() {
   const [tasks, setTasks] = useState(initialTasks);
   const [showCancelModal, setShowCancelModal] = useState(false);
   const [showConfirmModal, setShowConfirmModal] = useState(false);
   const [selectedTaskId, setSelectedTaskId] = useState(null);
-
-  const handleOnDragEnd = (result) => {
-    if (!result.destination) return;
-    const items = Array.from(tasks);
-    const [reorderedItem] = items.splice(result.source.index, 1);
-    items.splice(result.destination.index, 0, reorderedItem);
-    setTasks(items);
-  };
+const [showTaskModal, setShowTaskModal] = useState(false);
 
   const handleConfirm = (notes) => {
     console.log("تم تأكيد الأداء للمهمة:", selectedTaskId, "بملاحظات:", notes);
@@ -77,85 +74,23 @@ export default function TasksDetails() {
       <h4 className="section-title">المهام التنفيذية</h4>
       <p className="hint">بإمكانك السحب والإفلات لإعادة ترتيب المهام</p>
 
-      <div className="tasks-timeline">
-        <DragDropContext onDragEnd={handleOnDragEnd}>
-          <Droppable droppableId="timeline">
-            {(provided) => (
-              <div ref={provided.innerRef} {...provided.droppableProps}>
-                {tasks.map((task, index) => (
-                  <Draggable key={task.id} draggableId={task.id} index={index}>
-                    {(provided) => (
-                      <div
-                        className="task-item"
-                        ref={provided.innerRef}
-                        {...provided.draggableProps}
-                        {...provided.dragHandleProps}
-                      >
-                        <div className="timeline-line" />
-                        <div className={`timeline-icon ${task.status}`}>
-                          {task.status === "done" && (
-                            <i className="fa-solid fa-check"></i>
-                          )}
-                          {task.status === "pending" && (
-                            <i className="fa-regular fa-hourglass-half"></i>
-                          )}
-                          {task.status === "waiting" && (
-                            <i className="fa-regular fa-hourglass-half"></i>
-                          )}
-                        </div>
+      <TaskTimeline
+        tasks={tasks}
+        setTasks={setTasks}
+        onConfirm={(taskId) => {
+          setSelectedTaskId(taskId);
+          setShowConfirmModal(true);
+        }}
+      />
 
-                        <div className="task-card-wrapper">
-                          <Link
-                            to={`/tasks/${task.id}`}
-                            className="task-card-link"
-                          >
-                            <div className="task-card">
-                              <p className="task-title">{task.title}</p>
-                              <div className="task-info">
-                                <span>
-                                  <img src="/icons/date.svg" alt="date" />{" "}
-                                  {task.date}
-                                </span>
-                                <span>
-                                  <img src="/icons/aim.svg" alt="aim" />{" "}
-                                  {task.type}
-                                </span>
-                                <span>
-                                  <img src="/icons/bell.svg" alt="bell" />{" "}
-                                  {task.duration}
-                                </span>
-                              </div>
-                            </div>
-                          </Link>
-
-                          <button
-                            className="confirm-btn"
-                            onClick={() => {
-                              setSelectedTaskId(task.id);
-                              setShowConfirmModal(true);
-                            }}
-                          >
-                            تأكيد الأداء
-                          </button>
-                        </div>
-                      </div>
-                    )}
-                  </Draggable>
-                ))}
-                {provided.placeholder}
-              </div>
-            )}
-          </Droppable>
-        </DragDropContext>
-
-        <div className="cancel">
-          <button
-            className="cancel-btn"
-            onClick={() => setShowCancelModal(true)}
-          >
-            ايقاف التنفيذ
-          </button>
-        </div>
+      <div className="cancel">
+        <button className="cancel-btn" onClick={() => setShowCancelModal(true)}>
+          ايقاف التنفيذ
+        </button>
+        
+          <button className="follow-btn" onClick={() => setShowTaskModal(true)}>
+              <i className="fa-solid fa-plus me-2"></i> اضافه مهمه جديده
+            </button>
       </div>
 
       <CancelConfirmationModal
@@ -168,6 +103,12 @@ export default function TasksDetails() {
         setShowModal={setShowConfirmModal}
         onConfirm={handleConfirm}
       />
+      <NewTaskModal
+  showModal={showTaskModal}
+  setShowModal={setShowTaskModal}
+  onSubmit={(data) => console.log("تم حفظ المهمة:", data)}
+/>;
+
     </div>
   );
 }

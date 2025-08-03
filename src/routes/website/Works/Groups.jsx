@@ -166,7 +166,7 @@ export default function Groups() {
           ))}
         </div>
         <div className="btn-groups">
-          <Link to={"/"}>
+          <Link to={"/group-chat"}>
             <CustomButton>محادثات المجموعة</CustomButton>
           </Link>
 

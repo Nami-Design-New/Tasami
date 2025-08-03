@@ -13,6 +13,7 @@
       .options-list {
         position: absolute;
         left: 0px;
+        top:40px;
         background: #fff;
         border: 1px solid #ddd;
         border-radius: 6px;
@@ -37,6 +38,27 @@
         }
       }
     }
+    .icon-button {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background-color: #f1f1f1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.icon-button:hover {
+  background-color: #e0e0e0;
+}
+
+.icon-button img {
+  width: 18px;
+  height: 18px;
+}
+
   }
   
 

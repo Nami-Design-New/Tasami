@@ -1,4 +1,3 @@
-// pages/.../Helpers.jsx
 import React from "react";
 import HelperWorkCard from "../../../ui/cards/HelperWorkCard";
 

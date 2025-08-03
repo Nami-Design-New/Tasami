@@ -77,6 +77,8 @@ import TasksDetails from "../routes/website/Works/TasksDetails";
 import Helpers from "../routes/website/Works/Helpers";
 import TaskDetailPage from "../routes/website/Works/TaskDetail";
 import HelperDetailPage from "../routes/website/Works/HelperDetail";
+import Chat from "../routes/website/Chat";
+import GroupChat from "../routes/website/GroupChat";
 
 export const router = createBrowserRouter([
   {
@@ -268,6 +270,15 @@ export const router = createBrowserRouter([
         path: "/post-details/:id",
         element: <PostDetails />,
       },
+       {
+        path: "/chat/:id",
+        element: <Chat />,
+      },
+       {
+        path: "/group-chat",
+        element: <GroupChat />,
+      },
+
     ],
   },
   {

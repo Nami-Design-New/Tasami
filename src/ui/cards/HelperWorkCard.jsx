@@ -1,10 +1,15 @@
-// ui/cards/HelperWorkCard.jsx
 import React from "react";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router"; 
 
 export default function HelperWorkCard({ helper, bgColor = "#e9f9ff" }) {
+  const navigate = useNavigate(); 
+
+  const handleCardClick = () => {
+    navigate(`/helper-detail`); 
+  };
+
   return (
-    <Link to={`/helper-detail`} className="helper-work-card">
+    <div className="helper-work-card" onClick={handleCardClick} style={{ cursor: "pointer" }}>
       <div className="content-wrapper" style={{ backgroundColor: bgColor }}>
         <div className="image-wrapper">
           <img src={helper.image} alt={helper.name} className="avatar" />
@@ -26,13 +31,17 @@ export default function HelperWorkCard({ helper, bgColor = "#e9f9ff" }) {
               <span>{helper.country}</span>
             </span>
 
-            <span className="chat-icon">
+            <Link
+              to={`/chat/${helper.id}`}
+              state={{ name: helper.name }}
+              className="chat-icon"
+              onClick={(e) => e.stopPropagation()} 
+            >
               <img src="/icons/Chat.svg" alt="chat" />
-            </span>
+            </Link>
           </div>
         </div>
       </div>
-    </Link>
+    </div>
   );
 }
-
