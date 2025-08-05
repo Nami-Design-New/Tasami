@@ -110,6 +110,7 @@ $JumbotronHead: #4f4f4f;
 $inputStroke: #f2f2f2;
 $InputStroke: #0d0d0d18;
 $InputBG: #0d0d0d05;
+$fire: #ff7a59;
 
 $success: #34b53a;
 $successLight: #34b53acc;
@@ -790,7 +791,8 @@ input[type="number"] {
 .apexcharts-canvas * {
   font-family: "Dubai";
 }
- @media (max-width: 992px) {
-main{
-  margin-top: 60px;
-}     }
+@media (max-width: 992px) {
+  main {
+    margin-top: 60px;
+  }
+}

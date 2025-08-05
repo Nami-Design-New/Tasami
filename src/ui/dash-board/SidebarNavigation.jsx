@@ -34,13 +34,6 @@ export default function SidebarNavigation() {
                   <span>فريق العمل </span>
                 </NavLink>
               </li>
-
-              {/* <li className="sub_nav_item">
-                <NavLink to="create-employee">
-                  <img src="/sys-icons/subArrow.svg" alt="arrow" />
-                  <span>انشاء موظف</span>
-                </NavLink>
-              </li> */}
             </ul>
           </Accordion.Body>
         </Accordion.Item>
@@ -133,6 +126,12 @@ export default function SidebarNavigation() {
                 <NavLink to="subscription-management">
                   <img src="/sys-icons/subArrow.svg" alt="arrow" />
                   <span> ادارة الاشتراكات </span>
+                </NavLink>
+              </li>
+              <li className="sub_nav_item">
+                <NavLink to="banners">
+                  <img src="/sys-icons/subArrow.svg" alt="arrow" />
+                  <span> لافتات اعلانية </span>
                 </NavLink>
               </li>
             </ul>

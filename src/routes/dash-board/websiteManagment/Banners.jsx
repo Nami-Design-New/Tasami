@@ -3,36 +3,29 @@ import CustomButton from "../../../ui/CustomButton";
 import PageHeader from "../../../ui/PageHeader";
 import ReusableDataTable from "../../../ui/table/ReusableDataTable";
 import { createColumnHelper } from "@tanstack/react-table";
-import AddNewSubscriptoinsModal from "../../../ui/dash-board/websiteManagment/AddNewSubscriptoinsModal";
-import DetailsSubscriptionsModal from "../../../ui/dash-board/websiteManagment/DetailsSubscriptionsModal";
 import ConfirmDeleteModal from "../../../ui/modals/ConfirmationDeleteModal";
+import AddNewBannerModal from "../../../ui/dash-board/websiteManagment/AddNewBannerModal";
 
 const columnHelper = createColumnHelper();
-
-export default function SubscriptionManagement() {
-  const [showDetails, setShowDetails] = useState();
+export default function Banners() {
   const [showDeleteModal, setShowDeleteModal] = useState();
 
-  const [showAddSubscriptions, setShowAddSubscriptions] = useState(false);
+  const [showAddBanner, setShowAddBanner] = useState(false);
 
   const [isEdit, setIsEdit] = useState(false);
-
   const data = useMemo(
     () => [
       {
         id: "1",
         image: "/images/dashboard/silver-package.svg",
-        classification: "اساسي",
       },
       {
         id: "2",
         image: "/images/dashboard/platinum-package.svg",
-        classification: "مميز",
       },
       {
         id: "3",
         image: "/images/dashboard/golden-package.svg",
-        classification: "الرواد",
       },
     ],
     []
@@ -40,12 +33,8 @@ export default function SubscriptionManagement() {
   const columns = useMemo(
     () => [
       columnHelper.accessor("image", {
-        header: " الشعار ",
+        header: " الافتة ",
         cell: (info) => <img width={40} height={40} src={info.getValue()} />,
-      }),
-      columnHelper.accessor("classification", {
-        header: " الاشتراك ",
-        cell: (info) => info.getValue(),
       }),
 
       columnHelper.display({
@@ -57,16 +46,12 @@ export default function SubscriptionManagement() {
             <i
               className="fa-solid fa-edit  table__actions--edit"
               onClick={() => {
-                setIsEdit(true), setShowAddSubscriptions(true);
+                setIsEdit(true), setShowAddBanner(true);
               }}
             ></i>
             <i
               className="fa-solid fa-trash  table__actions--delete"
               onClick={() => setShowDeleteModal(true)}
-            ></i>
-            <i
-              className="fa-solid fa-eye  table__actions--details"
-              onClick={() => setShowDetails(true)}
             ></i>
           </div>
         ),
@@ -75,42 +60,38 @@ export default function SubscriptionManagement() {
     ],
     []
   );
-
   return (
     <section>
+      {" "}
       <div className="p-2 d-flex align-items-center justify-content-between">
-        <PageHeader />
+        <PageHeader />{" "}
         <CustomButton
           icon={<i className="fa-solid fa-plus"></i>}
           color="secondary"
           onClick={() => {
-            setShowAddSubscriptions(true);
+            setShowAddBanner(true);
             setIsEdit(false);
           }}
         >
-          اضف اشتراك
+          اضف لافتة
         </CustomButton>
-      </div>
+      </div>{" "}
       <ReusableDataTable
-        title="روابط التواصل الاجتماعي"
+        title="الافتات الاعلانية"
         data={data}
         columns={columns}
         filter={false}
-        searchPlaceholder="البحث في الروابط  ..."
+        searchPlaceholder="البحث في الافتات  ..."
         initialPageSize={10}
       />
-      <AddNewSubscriptoinsModal
-        setShowModal={setShowAddSubscriptions}
-        showModal={showAddSubscriptions}
+      <AddNewBannerModal
+        setShowModal={setShowAddBanner}
+        showModal={showAddBanner}
         isEdit={isEdit}
       />
       <ConfirmDeleteModal
         showDeleteModal={showDeleteModal}
         setShowDeleteModal={setShowDeleteModal}
-      />
-      <DetailsSubscriptionsModal
-        setShowModal={setShowDetails}
-        showModal={showDetails}
       />
     </section>
   );

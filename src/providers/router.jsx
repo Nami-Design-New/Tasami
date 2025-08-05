@@ -68,6 +68,7 @@ import Views from "../routes/website/Views";
 import LoginForm from "../ui/auth/LoginForm";
 import TasksManagment from "../routes/dash-board/websiteManagment/TasksManagment";
 import SubscriptionManagement from "../routes/dash-board/websiteManagment/SubscriptionManagement";
+import Banners from "../routes/dash-board/websiteManagment/Banners";
 export const router = createBrowserRouter([
   {
     element: <WebsiteLayout />,
@@ -363,6 +364,10 @@ export const router = createBrowserRouter([
       {
         path: "subscription-management",
         element: <SubscriptionManagement />,
+      },
+      {
+        path: "banners",
+        element: <Banners />,
       },
     ],
   },
