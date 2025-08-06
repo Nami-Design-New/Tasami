@@ -13,15 +13,14 @@ const NewHelpOffer = () => {
     setValue,
     watch,
     formState: { errors },
-  } = useForm({ mode: "onChange", defaultValues: { ageGroup: "unselected" } ,
- defaultValues: {
-      duration_unit: "شهر",
-    },});
+  } = useForm({
+    mode: "onChange",
+    defaultValues: { ageGroup: "unselected", duration_unit: "شهر" },
+  });
 
   const ageGroup = watch("ageGroup");
   const unit = watch("duration_unit");
 
- 
   return (
     <div className="form_wrapper new-help-offer page container">
       <SectionHeader title="إضافة عرض مساعدة جديد" />
@@ -66,27 +65,27 @@ const NewHelpOffer = () => {
           </div>
 
           <div className="col-12 col-lg-6 p-2">
-           <div className="gender-goal-filter p-2">
-                  <p>تفضيل هوية المستفيد</p>
+            <div className="gender-goal-filter p-2">
+              <p>تفضيل هوية المستفيد</p>
 
-                  <div className="filter-options">
-                    <label>
-                      الكل
-                      <input type="radio" name="gender" value="all" />
-                    </label>
-                    <label>
-                      ذكر
-                      <input type="radio" name="gender" value="male" />
-                    </label>
-                    <label>
-                      أنثى
-                      <input type="radio" name="gender" value="female" />
-                    </label>
-                  </div>
-                </div>
+              <div className="filter-options">
+                <label>
+                  الكل
+                  <input type="radio" name="gender" value="all" />
+                </label>
+                <label>
+                  ذكر
+                  <input type="radio" name="gender" value="male" />
+                </label>
+                <label>
+                  أنثى
+                  <input type="radio" name="gender" value="female" />
+                </label>
+              </div>
+            </div>
           </div>
 
-           <div className="col-12 col-lg-6 p-2">
+          <div className="col-12 col-lg-6 p-2">
             <label className="field-label fw-bold">
               المدة المتوقعة لتقديم المساعد
             </label>
@@ -184,34 +183,25 @@ const NewHelpOffer = () => {
               </div>
             </>
           )}
-         <div className="col-12 col-lg-12">
-           <div className="select-filter p-2">
-                  <p>اليات المساعدة المناسبة</p>
-                  <div className="filter-options">
-                    
-                    <label>
-                      الالتقاء الشخصي
-                      <input type="checkbox" name="support" value="in_person" />
-                    </label>
-                       <label>
-                      الاتصال المرئي والمسموع
-                      <input
-                        type="checkbox"
-                        name="support"
-                        value="video_audio"
-                      />
-                    </label>
-                    <label>
-                      التراسل النصي والصوتي
-                      <input
-                        type="checkbox"
-                        name="support"
-                        value="text_voice"
-                      />
-                    </label>
-                  </div>
-                </div>
-                </div>
+          <div className="col-12 col-lg-12">
+            <div className="select-filter p-2">
+              <p>اليات المساعدة المناسبة</p>
+              <div className="filter-options">
+                <label>
+                  الالتقاء الشخصي
+                  <input type="checkbox" name="support" value="in_person" />
+                </label>
+                <label>
+                  الاتصال المرئي والمسموع
+                  <input type="checkbox" name="support" value="video_audio" />
+                </label>
+                <label>
+                  التراسل النصي والصوتي
+                  <input type="checkbox" name="support" value="text_voice" />
+                </label>
+              </div>
+            </div>
+          </div>
 
           <div className="col-12 p-2 mt-3">
             <div className="buttons">

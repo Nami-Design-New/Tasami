@@ -17,16 +17,11 @@ const NewGoal = () => {
     formState: { errors },
   } = useForm({
     mode: "onChange",
-    defaultValues: { needHelp: false },
-    defaultValues: {
-      duration_unit: "شهر",
-    },
+    defaultValues: { needHelp: false, duration_unit: "شهر" },
   });
 
   const needHelp = watch("needHelp");
   const unit = watch("duration_unit");
-  const duration = watch("duration");
-
 
   return (
     <div className="form_wrapper new-goal page container">
@@ -109,7 +104,7 @@ const NewGoal = () => {
               inactiveLabel="لا"
               onChange={(e) => setValue("needHelp", e.target.value)}
             />
-             {needHelp === true && (
+            {needHelp === true && (
               <div className="col-12 col-lg-12">
                 <div className="gender-goal-filter p-2">
                   <p>تفضيل هوية المساعد الشخصي</p>
@@ -161,7 +156,7 @@ const NewGoal = () => {
               </div>
             )}
           </div>
-        
+
           <div className="col-12 p-2 mt-3">
             <div className="buttons">
               <SubmitButton text="إنشاء" />
