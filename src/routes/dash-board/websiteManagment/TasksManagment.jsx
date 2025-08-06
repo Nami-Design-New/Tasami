@@ -1,40 +1,47 @@
-import { createColumnHelper } from "@tanstack/react-table";
 import { useMemo, useState } from "react";
+import CustomButton from "../../../ui/CustomButton";
 import PageHeader from "../../../ui/PageHeader";
 import ReusableDataTable from "../../../ui/table/ReusableDataTable";
+import { createColumnHelper } from "@tanstack/react-table";
 import ConfirmDeleteModal from "../../../ui/modals/ConfirmationDeleteModal";
-import CustomButton from "../../../ui/CustomButton";
-import SocialLinksModal from "../../../ui/dash-board/websiteManagment/SocialLinksModal";
+import TasksClassificationModal from "../../../ui/dash-board/websiteManagment/TasksClassificationModal";
 
 const columnHelper = createColumnHelper();
 
-export default function SocialLinksManage() {
+export default function TasksManagment() {
   const [showModal, setShowModal] = useState();
   const [showDeleteModal, setShowDeleteModal] = useState();
 
   const [isEdit, setIsEdit] = useState(false);
-
   const data = useMemo(
     () => [
       {
-        sociallinks: "https://facebook.com/exampleuser",
-        logo: "https://upload.wikimedia.org/wikipedia/commons/1/1b/Facebook_icon.svg",
-        actions: "",
+        id: "1",
+        classification: "تنمية معرفية",
       },
       {
-        sociallinks: "https://twitter.com/exampleuser",
-        logo: "https://upload.wikimedia.org/wikipedia/en/6/60/Twitter_Logo_as_of_2021.svg",
-        actions: "",
+        id: "2",
+        classification: "مهارات التفكير الإبداعي",
       },
       {
-        sociallinks: "https://instagram.com/exampleuser",
-        logo: "https://upload.wikimedia.org/wikipedia/commons/e/e7/Instagram_logo_2016.svg",
-        actions: "",
+        id: "3",
+        classification: "التخطيط الشخصي",
       },
       {
-        sociallinks: "https://linkedin.com/in/exampleuser",
-        logo: "https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png",
-        actions: "",
+        id: "4",
+        classification: "الذكاء العاطفي",
+      },
+      {
+        id: "5",
+        classification: "إدارة الوقت",
+      },
+      {
+        id: "6",
+        classification: "بناء فرق العمل",
+      },
+      {
+        id: "7",
+        classification: "حل المشكلات واتخاذ القرار",
       },
     ],
     []
@@ -42,21 +49,13 @@ export default function SocialLinksManage() {
 
   const columns = useMemo(
     () => [
-      columnHelper.accessor("sociallinks", {
-        header: " الرابط ",
+      columnHelper.accessor("classification", {
+        header: " تصنيف المهمة ",
         cell: (info) => info.getValue(),
       }),
-      columnHelper.accessor("logo", {
-        header: " الصوره ",
-        cell: (info) => (
-          <img
-            style={{ width: "2rem", height: "2rem" }}
-            src={info.getValue()}
-          />
-        ),
-      }),
 
-      columnHelper.accessor("actions", {
+      columnHelper.display({
+        id: "actions",
         header: " الاجراءات",
 
         cell: () => (
@@ -78,7 +77,6 @@ export default function SocialLinksManage() {
     ],
     []
   );
-
   return (
     <section>
       <div className="p-2 d-flex align-items-center justify-content-between">
@@ -91,18 +89,18 @@ export default function SocialLinksManage() {
             setIsEdit(false);
           }}
         >
-          اضف رابط
+          اضف تصنيف
         </CustomButton>
       </div>
       <ReusableDataTable
-        title="روابط التواصل الاجتماعي"
+        title="تصنيف المهمات"
         data={data}
         columns={columns}
         filter={false}
         searchPlaceholder="البحث في الروابط  ..."
         initialPageSize={10}
       />
-      <SocialLinksModal
+      <TasksClassificationModal
         showModal={showModal}
         setShowModal={setShowModal}
         isEdit={isEdit}

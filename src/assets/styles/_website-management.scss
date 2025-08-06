@@ -1,0 +1,238 @@
+.ck.ck-editor {
+  border: 1px solid #ddd;
+  padding: 0;
+  background-color: #fff;
+}
+
+.ck.ck-toolbar {
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  border-bottom: 1px solid #e0e0e0;
+  border-radius: 8px 8px 0 0;
+}
+
+.ck {
+  &.ck-content {
+    min-height: 200px;
+    padding: 16px;
+    border-bottom: 1px solid #e0e0e0;
+    line-height: 1.6;
+    background-color: #fafafa;
+    border-radius: 0 0 8px 8px;
+    &.ck-focused {
+      border: 1px solid $main !important;
+      box-shadow: none !important;
+    }
+  }
+}
+
+.editor-label {
+  font-weight: bold;
+  font-size: 1rem;
+}
+.faq-answer {
+  white-space: pre-line;
+  font-size: clamp(14px, 2vw, 18px);
+  line-height: 1.6;
+  color: #333;
+  margin-top: clamp(8px, 1.5vw, 16px);
+}
+.sub-type-lable {
+  color: #0d0d0d;
+  font-weight: 700;
+  font-size: 16px;
+  margin-bottom: 4px;
+}
+.toggle-radio-group {
+  display: flex;
+  padding: 4px;
+  background-color: $inputBG;
+  border-radius: 16px;
+  height: 54px;
+  .toggle-radio {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .toggle-radio input[type="radio"] {
+    display: none;
+  }
+  .toggle-radio-label {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 12px 32px;
+    font-size: 14px;
+    border-radius: 12px;
+    color: $dark;
+    font-weight: 400;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+    border: 2px solid transparent;
+    user-select: none;
+  }
+  .toggle-radio input[type="radio"]:checked + .toggle-radio-label {
+    background: $second;
+    color: #fff;
+    border-color: $second;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  }
+  .toggle-radio input[type="radio"]:focus + .toggle-radio-label {
+    outline: 2px solid $main;
+  }
+  .toggle-radio input[type="radio"]:not(:checked) + .toggle-radio-label {
+    background: transparent;
+  }
+}
+
+.image-upload-wrapper {
+  position: relative;
+  display: inline-block;
+  width: 120px;
+  height: 120px;
+  cursor: pointer;
+  .image-preview-circle {
+    display: block;
+    width: 120px;
+    height: 120px;
+    aspect-ratio: 1/1;
+    object-fit: contain;
+    border-radius: 50%;
+    border: 2px solid $inputStroke;
+  }
+  .edit-icon {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    color: $second;
+    border-radius: 50%;
+    padding: 6px;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    i {
+      pointer-events: none;
+    }
+  }
+}
+
+// _detailsSubscriptionsModal.scss
+
+.subscriptions-details {
+  padding: 1rem;
+
+  .row {
+    margin: 0;
+  }
+  .subscriptions-header {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    gap: 1rem;
+    .image-preview-circle {
+      width: 60px;
+      height: 60px;
+      object-fit: cover;
+    }
+    h3 {
+      margin: 0;
+      font-size: 1rem;
+      font-weight: bold;
+      color: $dark;
+    }
+
+    p {
+      margin: 0;
+      font-size: 14px;
+      margin-right: auto;
+      color: $gray;
+    }
+  }
+
+  ul {
+    list-style: none;
+    padding: 0;
+    margin-top: 1rem;
+
+    li {
+      display: flex;
+      position: relative;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.75rem 1.5rem 0.75rem 1rem;
+      border-bottom: 1px solid $inputStroke;
+
+      font-size: 1rem;
+      &::before {
+        content: "\f00c";
+        font-family: "Font Awesome 6 Pro";
+        font-weight: 900;
+        position: absolute;
+        right: 0;
+      }
+
+      span:first-child {
+        flex: 1;
+        color: $dark;
+        font-size: 14px;
+      }
+
+      span:last-child {
+        min-width: 60px;
+        font-size: 1rem;
+        text-align: end;
+        font-weight: bold;
+        color: $second;
+      }
+    }
+  }
+
+  .subscription-price {
+    display: flex;
+    justify-content: space-between;
+    font-size: 1rem;
+    padding: 0.75rem 1rem;
+    background-color: $inputBG;
+    margin-top: 0.5rem;
+    border-radius: 12px;
+
+    span:first-child {
+      color: $gray;
+    }
+
+    span:last-child {
+      display: flex;
+      align-items: center;
+      font-weight: bold;
+      color: $fire;
+    }
+  }
+}
+
+.dropzone {
+  border: 2px dashed #ccc;
+  padding: 2rem;
+  text-align: center;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: border-color 0.3s;
+
+  &.active {
+    border-color: #007bff;
+    background-color: #f0f8ff;
+  }
+
+  p {
+    margin: 0;
+    color: #666;
+  }
+
+  .banner-preview {
+    max-width: 200px;
+    aspect-ratio: 1/1;
+    border-radius: 12px;
+  }
+}

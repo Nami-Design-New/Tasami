@@ -7,7 +7,6 @@ export default function SidebarNavigation() {
   return (
     <>
       <Accordion className={lang === "en" && "en"}>
-        {/* markiting */}
         <Accordion.Item eventKey="1">
           <Accordion.Header>
             <div className="icon">
@@ -35,17 +34,9 @@ export default function SidebarNavigation() {
                   <span>فريق العمل </span>
                 </NavLink>
               </li>
-
-              {/* <li className="sub_nav_item">
-                <NavLink to="create-employee">
-                  <img src="/sys-icons/subArrow.svg" alt="arrow" />
-                  <span>انشاء موظف</span>
-                </NavLink>
-              </li> */}
             </ul>
           </Accordion.Body>
         </Accordion.Item>
-        {/* Analytics */}
 
         {/* List Managment */}
         <Accordion.Item eventKey="3">
@@ -108,33 +99,39 @@ export default function SidebarNavigation() {
                 </NavLink>
               </li>
               <li className="sub_nav_item">
-                <NavLink to="social-links-managment">
+                <NavLink to="social-links-management">
                   <img src="/sys-icons/subArrow.svg" alt="arrow" />
                   <span> روابط وسائل التواصل </span>
                 </NavLink>
               </li>
               <li className="sub_nav_item">
-                <NavLink to="list-management/fields-and-specializations">
+                <NavLink to="content-management">
                   <img src="/sys-icons/subArrow.svg" alt="arrow" />
-                  <span> الشروط و الاحكام </span>
+                  <span> إدارة المحتوى </span>
                 </NavLink>
               </li>
               <li className="sub_nav_item">
-                <NavLink to="list-management/administrative-systems">
-                  <img src="/sys-icons/subArrow.svg" alt="arrow" />
-                  <span> سياسات الخصوصية </span>
-                </NavLink>
-              </li>
-              <li className="sub_nav_item">
-                <NavLink to="list-management/administrative-systems">
+                <NavLink to="faq-management">
                   <img src="/sys-icons/subArrow.svg" alt="arrow" />
                   <span> الأسئلة الشائعة </span>
                 </NavLink>
               </li>
               <li className="sub_nav_item">
-                <NavLink to="list-management/administrative-systems">
+                <NavLink to="tasks-management">
                   <img src="/sys-icons/subArrow.svg" alt="arrow" />
                   <span> تصنيف المهمات </span>
+                </NavLink>
+              </li>
+              <li className="sub_nav_item">
+                <NavLink to="subscription-management">
+                  <img src="/sys-icons/subArrow.svg" alt="arrow" />
+                  <span> ادارة الاشتراكات </span>
+                </NavLink>
+              </li>
+              <li className="sub_nav_item">
+                <NavLink to="banners">
+                  <img src="/sys-icons/subArrow.svg" alt="arrow" />
+                  <span> لافتات اعلانية </span>
                 </NavLink>
               </li>
             </ul>

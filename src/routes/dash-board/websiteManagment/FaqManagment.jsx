@@ -2,13 +2,13 @@ import { createColumnHelper } from "@tanstack/react-table";
 import { useMemo, useState } from "react";
 import PageHeader from "../../../ui/PageHeader";
 import ReusableDataTable from "../../../ui/table/ReusableDataTable";
-import ConfirmDeleteModal from "../../../ui/modals/ConfirmationDeleteModal";
 import CustomButton from "../../../ui/CustomButton";
-import SocialLinksModal from "../../../ui/dash-board/websiteManagment/SocialLinksModal";
+import ConfirmDeleteModal from "../../../ui/modals/ConfirmationDeleteModal";
+import ContentModal from "../../../ui/dash-board/websiteManagment/ContentModal";
 
 const columnHelper = createColumnHelper();
 
-export default function SocialLinksManage() {
+export default function FaqManagment() {
   const [showModal, setShowModal] = useState();
   const [showDeleteModal, setShowDeleteModal] = useState();
 
@@ -17,24 +17,28 @@ export default function SocialLinksManage() {
   const data = useMemo(
     () => [
       {
-        sociallinks: "https://facebook.com/exampleuser",
-        logo: "https://upload.wikimedia.org/wikipedia/commons/1/1b/Facebook_icon.svg",
-        actions: "",
+        id: "1",
+        questions: "ما هي منصة تسامي؟",
+        answer:
+          "تسامي هي منصة إلكترونية تهدف إلى تقديم خدمات رقمية متنوعة لتسهيل العمليات الإدارية والتواصل بين المستخدمين.",
       },
       {
-        sociallinks: "https://twitter.com/exampleuser",
-        logo: "https://upload.wikimedia.org/wikipedia/en/6/60/Twitter_Logo_as_of_2021.svg",
-        actions: "",
+        id: "2",
+        questions: "كيف يمكنني إنشاء حساب جديد؟",
+        answer:
+          "يمكنك إنشاء حساب جديد عن طريق الضغط على زر 'تسجيل' في الصفحة الرئيسية وملء النموذج بالمعلومات المطلوبة.",
       },
       {
-        sociallinks: "https://instagram.com/exampleuser",
-        logo: "https://upload.wikimedia.org/wikipedia/commons/e/e7/Instagram_logo_2016.svg",
-        actions: "",
+        id: "3",
+        questions: "هل معلوماتي الشخصية آمنة؟",
+        answer:
+          "نعم، نحن نلتزم بسياسات صارمة لحماية بياناتك ونستخدم تقنيات تشفير متقدمة لضمان الأمان.",
       },
       {
-        sociallinks: "https://linkedin.com/in/exampleuser",
-        logo: "https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png",
-        actions: "",
+        id: "4",
+        questions: "كيف أتواصل مع فريق الدعم؟",
+        answer:
+          "يمكنك التواصل معنا عبر صفحة 'اتصل بنا' أو من خلال البريد الإلكتروني المخصص للدعم الفني.",
       },
     ],
     []
@@ -42,21 +46,16 @@ export default function SocialLinksManage() {
 
   const columns = useMemo(
     () => [
-      columnHelper.accessor("sociallinks", {
-        header: " الرابط ",
+      columnHelper.accessor("questions", {
+        header: " السؤال ",
         cell: (info) => info.getValue(),
       }),
-      columnHelper.accessor("logo", {
-        header: " الصوره ",
-        cell: (info) => (
-          <img
-            style={{ width: "2rem", height: "2rem" }}
-            src={info.getValue()}
-          />
-        ),
+      columnHelper.accessor("answer", {
+        header: " الاجابة ",
+        cell: (info) => <p className="faq-answer">{info.getValue()}</p>,
       }),
-
-      columnHelper.accessor("actions", {
+      columnHelper.display({
+        id: "actions",
         header: " الاجراءات",
 
         cell: () => (
@@ -91,18 +90,18 @@ export default function SocialLinksManage() {
             setIsEdit(false);
           }}
         >
-          اضف رابط
+          اضف سؤال
         </CustomButton>
       </div>
       <ReusableDataTable
-        title="روابط التواصل الاجتماعي"
+        title="الاسئلة الشائعة"
         data={data}
         columns={columns}
         filter={false}
-        searchPlaceholder="البحث في الروابط  ..."
-        initialPageSize={10}
+        searchPlaceholder="البحث في الأسئلة..."
+        rowDnD={true}
       />
-      <SocialLinksModal
+      <ContentModal
         showModal={showModal}
         setShowModal={setShowModal}
         isEdit={isEdit}

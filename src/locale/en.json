@@ -35,7 +35,12 @@
     "Expericences": "Expericences",
     "Documents": "Documents",
     "Violations Management": "Violations Management",
-    "Social Links Managment": "Social Links Managment"
+    "Social Links Management": "Social Links Managment",
+    "Content Management": "Content Management",
+    "Faq Management": "FAQ Management",
+    "Tasks Management": "Tasks Managements",
+    "Subscription Management": "Subscription Management",
+    "Banners": "Banners"
   },
   "website": {
     "header": {

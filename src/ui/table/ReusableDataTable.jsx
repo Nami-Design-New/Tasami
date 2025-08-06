@@ -6,9 +6,62 @@ import {
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
+import {
+  DndContext,
+  KeyboardSensor,
+  MouseSensor,
+  TouchSensor,
+  closestCenter,
+  useSensor,
+  useSensors,
+} from "@dnd-kit/core";
+import { restrictToVerticalAxis } from "@dnd-kit/modifiers";
+import {
+  arrayMove,
+  SortableContext,
+  verticalListSortingStrategy,
+} from "@dnd-kit/sortable";
+import { useSortable } from "@dnd-kit/sortable";
+import { CSS } from "@dnd-kit/utilities";
 import { useMemo, useState } from "react";
 import TableFilter from "./TableFilter";
 import TablePagentaion from "./TablePagentaion";
+
+// Cell Component
+const RowDragHandleCell = ({ rowId }) => {
+  const { attributes, listeners } = useSortable({ id: String(rowId) });
+  console.log(rowId);
+
+  return (
+    <button {...attributes} {...listeners}>
+      <i className="fa-regular fa-bars"> </i>
+    </button>
+  );
+};
+
+function DraggableRow({ row }) {
+  const { transform, transition, setNodeRef, isDragging } = useSortable({
+    id: String(row.original.id),
+  });
+
+  const style = {
+    transform: CSS.Transform.toString(transform),
+    transition,
+    opacity: isDragging ? 0.8 : 1,
+    zIndex: isDragging ? 1 : 0,
+    position: "relative",
+  };
+
+  return (
+    <tr ref={setNodeRef} style={style}>
+      {row.getVisibleCells().map((cell) => (
+        <td key={cell.id} width={cell.column.getSize()}>
+          {flexRender(cell.column.columnDef.cell, cell.getContext())}
+        </td>
+      ))}
+    </tr>
+  );
+}
 
 const ReusableDataTable = ({
   title = "Table",
@@ -22,18 +75,12 @@ const ReusableDataTable = ({
   initialPageSize = 5,
   searchPlaceholder = "Search",
   lang = "en",
+  rowDnD = false,
 }) => {
   const isRTL = lang === "ar";
-
   const [globalFilter, setGlobalFilter] = useState("");
   const [columnFilters, setColumnFilters] = useState([]);
-  const columnIds = useMemo(
-    () =>
-      columns.map((column) => {
-        return column.header;
-      }),
-    [columns]
-  );
+  const columnIds = useMemo(() => columns.map((c) => c.header), [columns]);
 
   const columnInitialVisibility = useMemo(() => {
     return columnIds.reduce((acc, id) => {
@@ -53,9 +100,57 @@ const ReusableDataTable = ({
     );
   };
 
+  const [dragData, setDragData] = useState(data);
+
+  const dataIds = useMemo(() => dragData?.map(({ id }) => id), [dragData]);
+
+  console.log("[ReusableDataTable] Current dataIds:", dataIds);
+
+  function handleDragEnd(event) {
+    const { active, over } = event;
+
+    console.log("[DragEnd] active.id:", active?.id);
+    console.log("[DragEnd] over?.id:", over?.id);
+
+    if (!over || active.id === over.id) return;
+
+    setDragData((items) => {
+      const oldIndex = items.findIndex(
+        (item) => String(item.id) === String(active.id)
+      );
+      const newIndex = items.findIndex(
+        (item) => String(item.id) === String(over.id)
+      );
+
+      if (oldIndex === -1 || newIndex === -1) {
+        console.warn("Invalid indices for drag");
+        return items;
+      }
+
+      console.log(`[Moving] ${active.id} from ${oldIndex} to ${newIndex}`);
+      return arrayMove(items, oldIndex, newIndex);
+    });
+  }
+
+  const sensors = useSensors(
+    useSensor(MouseSensor),
+    useSensor(TouchSensor),
+    useSensor(KeyboardSensor)
+  );
+
   const table = useReactTable({
-    data,
-    columns,
+    data: rowDnD ? dragData : data,
+    columns: rowDnD
+      ? [
+          {
+            id: "drag-handle",
+            header: "تحريك",
+            cell: ({ row }) => <RowDragHandleCell rowId={row.id} />,
+            size: 20,
+          },
+          ...columns,
+        ]
+      : columns,
     state: {
       globalFilter,
       columnFilters,
@@ -63,6 +158,7 @@ const ReusableDataTable = ({
     },
     globalFilterFn: customGlobalFilterFn,
     getCoreRowModel: getCoreRowModel(),
+    getRowId: (row) => String(row.id),
     getFilteredRowModel: getFilteredRowModel(),
     getSortedRowModel: getSortedRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
@@ -98,55 +194,71 @@ const ReusableDataTable = ({
       )}
       <div className="card__body">
         <div className="table-container table-responsive border">
-          <table
-            width={table.getTotalSize()}
-            className="custom-table table table-bordered text-center align-middle mb-0"
-          >
-            <thead className="table-light">
-              {table.getHeaderGroups().map((headerGroup) => (
-                <tr key={headerGroup.id}>
-                  {headerGroup.headers.map((header) => (
-                    <th key={header.id} width={header.getSize()}>
-                      {header.column.columnDef.header}
-                      {header.column.getCanSort() && (
-                        <i
-                          className="fa-solid fa-arrow-up-short-wide"
-                          onClick={header.column.getToggleSortingHandler()}
-                        ></i>
-                      )}
-                      {
-                        {
-                          asc: "تصاعديا",
-                          desc: "تنازليا",
-                        }[header.column.getIsSorted()]
-                      }
-                      {/* <div
-                        className={`resizer ${
-                          header.column.getIsResizing() ? "isResizing" : ""
-                        } ${isRTL ? "ar" : "en"}`}
-                        onMouseDown={header.getResizeHandler()}
-                        onTouchStart={header.getResizeHandler()}
-                      ></div> */}
-                    </th>
+          <>
+            {" "}
+            <DndContext
+              collisionDetection={closestCenter}
+              modifiers={[restrictToVerticalAxis]}
+              onDragEnd={handleDragEnd}
+              sensors={sensors}
+            >
+              <table
+                width={table.getTotalSize()}
+                className="custom-table table table-bordered text-center align-middle mb-0"
+              >
+                <thead className="table-light">
+                  {table.getHeaderGroups().map((headerGroup) => (
+                    <tr key={headerGroup.id}>
+                      {headerGroup.headers.map((header) => (
+                        <th key={header.id} width={header.getSize()}>
+                          {header.column.columnDef.header}
+                          {header.column.getCanSort() && (
+                            <i
+                              className="fa-solid fa-arrow-up-short-wide"
+                              onClick={header.column.getToggleSortingHandler()}
+                            ></i>
+                          )}
+                          {
+                            {
+                              asc: "تصاعديا",
+                              desc: "تنازليا",
+                            }[header.column.getIsSorted()]
+                          }
+                        </th>
+                      ))}
+                    </tr>
                   ))}
-                </tr>
-              ))}
-            </thead>
-            <tbody>
-              {table.getRowModel().rows.map((row) => (
-                <tr key={row.id}>
-                  {row.getVisibleCells().map((cell) => (
-                    <td key={cell.id} width={cell.column.getSize()}>
-                      {flexRender(
-                        cell.column.columnDef.cell,
-                        cell.getContext()
-                      )}
-                    </td>
-                  ))}
-                </tr>
-              ))}
-            </tbody>
-          </table>
+                </thead>
+                <tbody>
+                  {rowDnD ? (
+                    <SortableContext
+                      items={dataIds}
+                      strategy={verticalListSortingStrategy}
+                    >
+                      {table.getRowModel().rows.map((row) => (
+                        <DraggableRow key={row.id} row={row} />
+                      ))}
+                    </SortableContext>
+                  ) : (
+                    <>
+                      {table.getRowModel().rows.map((row) => (
+                        <tr key={row.id}>
+                          {row.getVisibleCells().map((cell) => (
+                            <td key={cell.id} width={cell.column.getSize()}>
+                              {flexRender(
+                                cell.column.columnDef.cell,
+                                cell.getContext()
+                              )}
+                            </td>
+                          ))}
+                        </tr>
+                      ))}
+                    </>
+                  )}
+                </tbody>
+              </table>
+            </DndContext>
+          </>
         </div>
       </div>
       <div className="card--footer">

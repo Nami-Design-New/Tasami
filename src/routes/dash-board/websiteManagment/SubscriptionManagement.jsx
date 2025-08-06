@@ -1,62 +1,55 @@
-import { createColumnHelper } from "@tanstack/react-table";
 import { useMemo, useState } from "react";
+import CustomButton from "../../../ui/CustomButton";
 import PageHeader from "../../../ui/PageHeader";
 import ReusableDataTable from "../../../ui/table/ReusableDataTable";
+import { createColumnHelper } from "@tanstack/react-table";
+import AddNewSubscriptoinsModal from "../../../ui/dash-board/websiteManagment/AddNewSubscriptoinsModal";
+import DetailsSubscriptionsModal from "../../../ui/dash-board/websiteManagment/DetailsSubscriptionsModal";
 import ConfirmDeleteModal from "../../../ui/modals/ConfirmationDeleteModal";
-import CustomButton from "../../../ui/CustomButton";
-import SocialLinksModal from "../../../ui/dash-board/websiteManagment/SocialLinksModal";
 
 const columnHelper = createColumnHelper();
 
-export default function SocialLinksManage() {
-  const [showModal, setShowModal] = useState();
+export default function SubscriptionManagement() {
+  const [showDetails, setShowDetails] = useState();
   const [showDeleteModal, setShowDeleteModal] = useState();
+
+  const [showAddSubscriptions, setShowAddSubscriptions] = useState(false);
 
   const [isEdit, setIsEdit] = useState(false);
 
   const data = useMemo(
     () => [
       {
-        sociallinks: "https://facebook.com/exampleuser",
-        logo: "https://upload.wikimedia.org/wikipedia/commons/1/1b/Facebook_icon.svg",
-        actions: "",
+        id: "1",
+        image: "/images/dashboard/silver-package.svg",
+        classification: "اساسي",
       },
       {
-        sociallinks: "https://twitter.com/exampleuser",
-        logo: "https://upload.wikimedia.org/wikipedia/en/6/60/Twitter_Logo_as_of_2021.svg",
-        actions: "",
+        id: "2",
+        image: "/images/dashboard/platinum-package.svg",
+        classification: "مميز",
       },
       {
-        sociallinks: "https://instagram.com/exampleuser",
-        logo: "https://upload.wikimedia.org/wikipedia/commons/e/e7/Instagram_logo_2016.svg",
-        actions: "",
-      },
-      {
-        sociallinks: "https://linkedin.com/in/exampleuser",
-        logo: "https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png",
-        actions: "",
+        id: "3",
+        image: "/images/dashboard/golden-package.svg",
+        classification: "الرواد",
       },
     ],
     []
   );
-
   const columns = useMemo(
     () => [
-      columnHelper.accessor("sociallinks", {
-        header: " الرابط ",
+      columnHelper.accessor("image", {
+        header: " الشعار ",
+        cell: (info) => <img width={40} height={40} src={info.getValue()} />,
+      }),
+      columnHelper.accessor("classification", {
+        header: " الاشتراك ",
         cell: (info) => info.getValue(),
       }),
-      columnHelper.accessor("logo", {
-        header: " الصوره ",
-        cell: (info) => (
-          <img
-            style={{ width: "2rem", height: "2rem" }}
-            src={info.getValue()}
-          />
-        ),
-      }),
 
-      columnHelper.accessor("actions", {
+      columnHelper.display({
+        id: "actions",
         header: " الاجراءات",
 
         cell: () => (
@@ -64,12 +57,16 @@ export default function SocialLinksManage() {
             <i
               className="fa-solid fa-edit  table__actions--edit"
               onClick={() => {
-                setIsEdit(true), setShowModal(true);
+                setIsEdit(true), setShowAddSubscriptions(true);
               }}
             ></i>
             <i
               className="fa-solid fa-trash  table__actions--delete"
               onClick={() => setShowDeleteModal(true)}
+            ></i>
+            <i
+              className="fa-solid fa-eye  table__actions--details"
+              onClick={() => setShowDetails(true)}
             ></i>
           </div>
         ),
@@ -87,11 +84,11 @@ export default function SocialLinksManage() {
           icon={<i className="fa-solid fa-plus"></i>}
           color="secondary"
           onClick={() => {
-            setShowModal(true);
+            setShowAddSubscriptions(true);
             setIsEdit(false);
           }}
         >
-          اضف رابط
+          اضف اشتراك
         </CustomButton>
       </div>
       <ReusableDataTable
@@ -102,15 +99,18 @@ export default function SocialLinksManage() {
         searchPlaceholder="البحث في الروابط  ..."
         initialPageSize={10}
       />
-      <SocialLinksModal
-        showModal={showModal}
-        setShowModal={setShowModal}
+      <AddNewSubscriptoinsModal
+        setShowModal={setShowAddSubscriptions}
+        showModal={showAddSubscriptions}
         isEdit={isEdit}
-        setIsEdit={setIsEdit}
       />
       <ConfirmDeleteModal
         showDeleteModal={showDeleteModal}
         setShowDeleteModal={setShowDeleteModal}
+      />
+      <DetailsSubscriptionsModal
+        setShowModal={setShowDetails}
+        showModal={showDetails}
       />
     </section>
   );
