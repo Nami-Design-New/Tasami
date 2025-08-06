@@ -71,11 +71,6 @@ import TasksManagment from "../routes/dash-board/websiteManagment/TasksManagment
 import SubscriptionManagement from "../routes/dash-board/websiteManagment/SubscriptionManagement";
 import Banners from "../routes/dash-board/websiteManagment/Banners";
 
-import MyNotifications from "../routes/website/MyNotifications";
-import EditProfile from "../routes/website/EditProfile";
-import MyWallet from "../routes/website/MyWallet";
-import OtpConfirmationPage from "../routes/auth/OtpConfirmationPage";
-import RegisterInfo from "../routes/auth/RegisterInfo";
 import Interests from "../routes/website/Interests";
 import Savings from "../routes/website/Savings";
 import Followers from "../routes/website/Followers";
@@ -182,44 +177,42 @@ export const router = createBrowserRouter([
             path: "my-wallet",
             element: <MyWallet />,
           },
-           {
+          {
             path: "interests",
             element: <Interests />,
           },
-            {
+          {
             path: "savings",
             element: <Savings />,
           },
-            {
+          {
             path: "Followers",
             element: <Followers />,
           },
-          
         ],
       },
-    {
-  path: "personal-community/:id",
-  element: <PersonalCommunity />,
-  children: [
-    {
-      path: "consultations",
-      element: <Consultations />,
-    },
-    {
-      path: "encounters",
-      element: <Encounters />,
-    },
-    {
-      path: "posts",
-      element: <Posts />,
-    },
-    {
-      path: "views",
-      element: <Views />,
-    },
-  ],
-}
-
+      {
+        path: "personal-community/:id",
+        element: <PersonalCommunity />,
+        children: [
+          {
+            path: "consultations",
+            element: <Consultations />,
+          },
+          {
+            path: "encounters",
+            element: <Encounters />,
+          },
+          {
+            path: "posts",
+            element: <Posts />,
+          },
+          {
+            path: "views",
+            element: <Views />,
+          },
+        ],
+      },
     ],
   },
   {
@@ -404,7 +397,6 @@ export const router = createBrowserRouter([
         path: "banners",
         element: <Banners />,
       },
-
     ],
   },
   {
