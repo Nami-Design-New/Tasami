@@ -79,6 +79,7 @@ import TaskDetailPage from "../routes/website/Works/TaskDetail";
 import HelperDetailPage from "../routes/website/Works/HelperDetail";
 import Chat from "../routes/website/Chat";
 import GroupChat from "../routes/website/GroupChat";
+import Community from "../routes/website/community";
 
 export const router = createBrowserRouter([
   {
@@ -193,6 +194,10 @@ export const router = createBrowserRouter([
           {
             path: "savings",
             element: <Savings />,
+          },
+           {
+            path: "communities",
+            element: <Community />,
           },
           {
             path: "Followers",

@@ -334,7 +334,7 @@
 
         .bubble {
           background: #003366;
-          color: #333;
+          color: $white;
           border-bottom-left-radius: 0;
         }
 
@@ -348,7 +348,7 @@
 
         .bubble {
           background: #f1f1f1;
-          color: white;
+          color: $main;
           border-bottom-right-radius: 0;
         }
 
@@ -365,6 +365,7 @@
 
     &.left {
       flex-direction: row;
+      
     }
 
     &.right {
@@ -391,6 +392,7 @@
       padding: 10px;
       border-radius: 10px;
       width: 100%;
+      color: $main;
     }
 
     .time {
@@ -471,3 +473,4 @@
     }
   }
 }
+/////

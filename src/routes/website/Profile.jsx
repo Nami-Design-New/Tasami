@@ -49,7 +49,7 @@ export default function Profile() {
                   محفوظاتي
                 </NavLink>
 
-                <NavLink to="community" className="nav_link">
+                <NavLink to="communities" className="nav_link">
                   <i className="fa-solid fa-users"></i>
                   مجتمعاتي
                 </NavLink>
