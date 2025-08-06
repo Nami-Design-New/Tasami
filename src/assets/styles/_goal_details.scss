@@ -142,8 +142,8 @@
       .info-box {
         border: 1px solid #e0e0e0;
         border-radius: 12px;
-        padding: 1rem;
-height: min-content;
+        padding: 0.5rem;
+        height: min-content;
         .label {
           font-size: 0.9rem;
           font-weight: 600;
@@ -165,24 +165,61 @@ height: min-content;
           }
         }
         .flex {
-        display: flex;
-        justify-content: space-between;
-         .bold {
-       font-weight: bold;
-       img{
-        height: 20px;
-        margin: 0 10px;
-       }
+          display: flex;
+          justify-content: space-between;
+          .bold {
+            font-weight: bold;
+            img {
+              height: 20px;
+              margin: 0 10px;
+            }
+          }
+        }
       }
-      }
-    
-      }
-       
+
       .info-box.w-50 {
         flex: 1 1 100%;
       }
     }
+    .info-tabs {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin: 1rem 0;
+      .tab-button {
+        padding: 8px 16px;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        cursor: pointer;
+        background-color: white;
+        color: #444;
+        transition: 0.3s ease;
 
+        &:hover {
+          background-color: #f5f5f5;
+        }
+
+        &.active {
+          background-color: $second;
+          color: white;
+          border-color: $second;
+        }
+      }
+    }
+
+    button {
+      padding: 0.75rem 2rem;
+      font-weight: bold;
+      font-size: 0.9rem;
+      margin: 10px 0;
+
+      &:nth-of-type(2) {
+        background-color: $second;
+      }
+      &:hover {
+        background-color: darken;
+      }
+    }
     @media (max-width: 768px) {
       .offer-info {
         flex-direction: column;
@@ -316,6 +353,23 @@ height: min-content;
       }
     }
   }
+  //   .fixed-request-button {
+  //   position: fixed;
+  //   bottom: 0px;
+  //   z-index: 1000;
+  //   background-color: #76d1f8;
+  //   width: 100%;
+
+  //   button {
+  //     padding: 0.75rem 2rem;
+  //     font-weight: bold;
+  //     font-size: 0.9rem;
+  //     margin: 10px 0;
+  //     &:hover {
+  //       background-color: darken;
+  //     }
+  //   }
+  // }
 }
 
 .contract-status__card {
@@ -373,5 +427,44 @@ height: min-content;
       color: $white;
       border-color: $secondColorDark;
     }
+  }
+}
+////
+.follow-btn {
+  background-color: #4ecdc4;
+  color: #fff;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 15px;
+  transition: background-color 0.3s ease;
+
+  i {
+    font-size: 16px;
+  }
+
+  &:hover {
+    background-color: darken(#4ecdc4, 10%);
+  }
+}
+.cancel-btn {
+  background-color: transparent;
+  color: red;
+  font-weight: normal;
+  border: 1px solid red;
+  padding: 8px 16px;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 15px;
+  transition: background-color 0.3s ease;
+
+  i {
+    font-size: 16px;
   }
 }

@@ -14,31 +14,26 @@ export default function UserDropDown() {
         </Dropdown.Toggle>
 
         <Dropdown.Menu className="custom-dropdown-menu text-end">
-          <Dropdown.Item as={Link} to="/profile">
+          <Dropdown.Item as={Link} to="/my-profile">
             <i className="fa-regular fa-user"></i>
-            {t("website.header.myAccount")}
+            حسابي
           </Dropdown.Item>
 
-          <Dropdown.Item as={Link} to="/my-notifications">
+          <Dropdown.Item as={Link} to="/my-profile/my-notifications">
             <i className="fa-regular fa-bell"></i>
-            {t("website.header.notifications")}
+            الإشعارات
           </Dropdown.Item>
 
-          <Dropdown.Item as={Link} to="/my-wallet">
-            <i className="fa-regular fa-wallet"></i>
-            {t("website.header.wallet")}
-          </Dropdown.Item>
-
-          <Dropdown.Item as={Link} to="edit-profile">
+          <Dropdown.Item as={Link} to="my-profile">
             <i className="fa-regular fa-user-pen"></i>
-            {t("website.header.editAccount")}
+            تعديل الحساب
           </Dropdown.Item>
 
           <Dropdown.Divider />
 
           <Dropdown.Item>
             <i className="fa-regular fa-sign-out-alt"></i>
-            {t("website.header.logout")}
+            تسجيل الخروج
           </Dropdown.Item>
         </Dropdown.Menu>
       </Dropdown>

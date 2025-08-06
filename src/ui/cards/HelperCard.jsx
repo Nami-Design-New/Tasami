@@ -1,7 +1,7 @@
 import { Link } from "react-router";
 export default function HelperCard({ helper }) {
   return (
-    <Link to={`/helper/${helper.id}`} className="helper-card    ">
+    <Link to={`/helper/${helper.id}`} className="helper-card">
       <div className="content-wrapper ">
         <div className="image-wrapper">
           <img src={helper.image} alt={helper.name} className="avatar" />

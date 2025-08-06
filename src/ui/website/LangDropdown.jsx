@@ -6,8 +6,8 @@ import i18next from "i18next";
 import { useQueryClient } from "@tanstack/react-query";
 import { setLanguage } from "../../redux/slices/languageSlice";
 
-const WebsiteLangDropdown = () => {
-  const [lang, setLan] = useState("ar");
+const LangDropdown = () => {
+  const [, setLan] = useState("ar");
   const dispatch = useDispatch();
   const queryClient = useQueryClient();
 
@@ -50,4 +50,4 @@ const WebsiteLangDropdown = () => {
   );
 };
 
-export default WebsiteLangDropdown;
+export default LangDropdown;

@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Link, NavLink } from "react-router";
 import UserDropDown from "./website/UserDropDown";
-import WebsiteLangDropdown from "./website/WebsiteLangDropdown";
+import LangDropdown from "./website/LangDropdown";
 import { useTranslation } from "react-i18next";
 
 export default function Header() {
@@ -73,7 +73,7 @@ export default function Header() {
           <Link to="/login" className="auth-btn login-btn">
             {t("website.header.login")}{" "}
           </Link>
-          <WebsiteLangDropdown />
+          <LangDropdown />
 
           <UserDropDown />
         </div>

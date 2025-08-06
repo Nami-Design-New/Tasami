@@ -1,9 +1,11 @@
+.mt-30{
+  margin-top: 30px;
+}
 .notifications-page {
   .notifications-list {
     display: flex;
     flex-direction: column;
     gap: 15px;
-    margin-top: 20px;
 
     .notification-card {
       display: flex;
@@ -53,25 +55,359 @@
 ///
 .wallet-page {
   .wallet-balance {
-    background: #f9f9f9;
+    text-align: center;
+    padding: 1.5rem;
+    border-radius: 12px;
     border: 1px solid #eee;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
+    margin-bottom: 1.5rem;
+
+    .wallet-header {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+
+      img {
+        width: 24px;
+      }
+
+      h5 {
+        margin: 0;
+      }
+    }
 
     .balance-amount {
       color: #003399;
       font-weight: bold;
-      img{
+      margin-bottom: 1.25rem;
+
+      img {
         height: 30px;
+        opacity: 0.5;
+      }
+    }
+
+    .wallet-actions {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+    }
+
+    .btn-charge {
+      background-color: $main;
+      color: white;
+      padding: 0.6rem 1.5rem;
+      border-radius: 8px;
+      font-weight: bold;
+      border: none;
+      transition: 0.3s ease;
+
+      &:hover {
+        background-color: darken($main, 10%);
+      }
+    }
+
+    .btn-refund {
+      background-color: transparent;
+      border: 2px solid $main;
+      color: $main;
+      padding: 0.6rem 1.5rem;
+      border-radius: 8px;
+      font-weight: bold;
+      transition: 0.3s ease;
+
+      &:hover {
+        background-color: $main;
+        color: white;
       }
     }
   }
 
-  .transaction-card {
-    border: 1px solid #ddd;
-    transition: all 0.3s;
+  .balance-box {
+    background-color: #fafafa;
+    border-radius: 12px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.03);
+    padding: 20px;
+    margin-bottom: 1rem;
 
-    &:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06);
+    .text {
+      font-weight: bold;
+      margin-bottom: 1rem;
+    }
+
+    .transaction-item {
+      margin-bottom: 1rem;
+
+      .top-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 0.5rem;
+
+        .type {
+          color: $second;
+          font-weight: bold;
+        }
+
+        .amount {
+          display: flex;
+          align-items: center;
+          gap: 5px;
+          color: $second;
+          font-weight: bold;
+
+          img {
+            height: 18px;
+            filter: grayscale(1);
+          }
+        }
+      }
+
+      .bottom-row {
+        display: flex;
+        justify-content: space-between;
+        color: #6c757d;
+        font-size: 0.875rem;
+      }
+
+      hr {
+        margin: 1rem 0;
+        border: none;
+        border-top: 2px dotted #e4e4e4;
+      }
+    }
+  }
+}
+.interests-page {
+  .container {
+    .categories-section {
+      background-color: $inputStroke;
+      padding: 20px;
+      margin-bottom: 2rem;
+      border-radius: 8px;
+    }
+
+    .subcategories-section {
+      margin-bottom: 1.5rem;
+
+      .subcategories {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.75rem;
+        min-width: 100%;
+        .sub-item {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          background-color: $inputStroke;
+          border-radius: 8px;
+          padding: 1rem;
+          font-size: 0.95rem;
+          color: #333;
+          font-weight: bold;
+          i {
+            color: $main;
+          }
+        }
+      }
+    }
+
+    .category {
+      margin-bottom: 2rem;
+
+      .category-header {
+        font-size: 1.1rem;
+        font-weight: bold;
+        margin-bottom: 1rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+
+        .tag {
+          background-color: #fff;
+          border: 1px solid $second;
+          color: $second;
+          border-radius: 8px;
+          padding: 8px 12px;
+          display: flex;
+          align-items: center;
+          gap: 6px;
+          font-size: 0.9rem;
+          cursor: pointer;
+          transition: 0.3s;
+
+          i {
+            font-size: 0.85rem;
+          }
+
+          &:hover {
+            background-color: #f0faff;
+          }
+
+          &.selected {
+            background-color: $second;
+            color: #fff;
+            border-color: $second;
+
+            i {
+              color: #fff;
+            }
+          }
+        }
+      }
+    }
+ 
+  }
+}
+
+///
+.profile_section {
+  padding: 40px 0;
+
+  .profile_sidebar {
+    padding: 24px 16px;
+    position: sticky;
+    top: 107.8px;
+    border-radius: 16px;
+
+    .user {
+      @include space-between;
+      gap: 12px;
+      padding: 16px;
+      margin-bottom: 16px;
+      background: $secondColor12;
+      border-radius: 10px;
+
+      .avatar {
+        width: 64px;
+        height: 64px;
+        border-radius: 50%;
+        border: 2px solid #003399;
+        object-fit: cover;
+      }
+
+      .content {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+
+        h6 {
+          font-size: 18px;
+          color: $dark;
+          margin-bottom: 4px;
+          font-weight: bold;
+        }
+
+        span {
+          font-size: 14px;
+          color: $gray;
+        }
+
+        .rating {
+          display: flex;
+          align-items: center;
+          gap: 6px;
+          margin-top: 8px;
+
+          img {
+            width: 18px;
+          }
+
+          span {
+            font-size: 13px;
+            color: #003399;
+            font-weight: 500;
+          }
+        }
+      }
+      .rating {
+        display: flex;
+        align-items: center;
+        span {
+          color: $dark;
+          margin-inline-start: 6px;
+          font-weight: 600;
+          margin-top: 4px;
+        }
+      }
+    }
+
+    .nav_links {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-top: 16px;
+
+      @media (max-width: 567px) {
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      .nav_link {
+        padding: 12px 18px;
+        background: $inputStroke;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        color: $dark;
+        font-size: 14px;
+        transition: all 0.3s ease;
+
+        i {
+          font-size: 15px;
+        }
+
+        &:hover {
+          background-color: lighten($secondColor12, 5%);
+        }
+
+        &.active {
+          background-color: $second;
+          color: $white;
+
+          i {
+            color: $white;
+          }
+        }
+        @media (max-width: 567px) {
+          padding: 10x;
+        }
+      }
+    }
+
+    .assistant_btn {
+      margin-top: 24px;
+      width: 100%;
+      background-color: #003399;
+      color: #fff;
+      padding: 12px 18px;
+      border: none;
+      border-radius: 10px;
+      font-size: 15px;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      transition: 0.3s;
+
+      i {
+        font-size: 16px;
+      }
+
+      &:hover {
+        background-color: darken(#003399, 5%);
+      }
     }
   }
 }
