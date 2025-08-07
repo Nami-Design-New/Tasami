@@ -16,15 +16,12 @@
       font-family: "Font Awesome 6 Pro";
       content: "\f00d";
       font-size: 14px;
-      color: var(--main);
-    }
-    &:hover {
-      background: var(--close-hover) !important;
     }
   }
   h6 {
-    color: var(--main);
+    color: $main;
     margin-bottom: 0;
+    font-size: 1.5rem;
   }
 }
 
@@ -41,6 +38,7 @@
   justify-content: center;
 }
 
+// confirmation madal
 .confirmation_modal {
   p {
     margin-top: 16px;
@@ -85,6 +83,7 @@
   }
 }
 
+// Suspend madal
 .suspend-modal {
   h2 {
     font-size: 1.25rem;
@@ -160,6 +159,7 @@
   }
 }
 
+// working group madal
 .working-group-modal {
   .calssification_tabs {
     width: 100%;
@@ -167,7 +167,7 @@
     height: 54px;
     border-radius: 12px;
     background: $white;
-    border: 1px solid $inputStroke;
+    border: 1px solid $InputStroke;
     position: relative;
     isolation: isolate;
     .activeTab {
@@ -207,7 +207,8 @@
     }
   }
 }
-////////////
+
+// reviews madal
 .reviews-modal {
   &__header {
     margin: 0.5rem;
@@ -265,7 +266,7 @@
   }
 
   &__info {
-   @include space-between;
+    @include space-between;
 
     .reviews-modal__stars {
       color: #ffc107;
@@ -290,5 +291,14 @@
   &__comment {
     color: $dark;
     margin-top: 0.8rem;
+  }
+}
+
+//rate modal
+.rate {
+  p {
+    font-size: 1.1rem;
+    color: $dark;
+    margin-bottom: 1rem;
   }
 }

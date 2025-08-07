@@ -1,13 +1,3 @@
-// Common UI Components
-@mixin card-container {
-  background: $white;
-  border-radius: 24px;
-  padding: 24px;
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-}
-
 // Main Grid Container
 .grid-container {
   display: grid;
@@ -597,7 +587,7 @@
             flex-direction: column;
             gap: 16px;
             padding: 16px;
-            background: $inputBG;
+            background: $InputBG;
             border-radius: 12px;
 
             .card_header {
@@ -698,7 +688,7 @@
       @include centerFlex();
 
       .btn {
-        background: $inputStroke;
+        background: $InputStroke;
         @include centerFlex();
         width: 48px;
         height: 48px;
@@ -739,7 +729,7 @@
 
       .dropdownButton {
         height: 48px;
-        border: 1px solid $inputStroke;
+        border: 1px solid $InputStroke;
         background: $white;
         border-radius: 24px;
         display: flex;
@@ -754,7 +744,7 @@
           width: 48px;
           height: 48px;
           border-radius: 50%;
-          border: 1px solid $inputStroke;
+          border: 1px solid $InputStroke;
           overflow: hidden;
           border-left: 0;
 
@@ -831,13 +821,13 @@
           width: 80px;
           height: 80px;
           border-radius: 50%;
-          border: 1px solid $inputStroke;
+          border: 1px solid $InputStroke;
 
           .edit {
             width: 25px;
             height: 25px;
             border-radius: 12px;
-            border: 1px solid $inputStroke;
+            border: 1px solid $InputStroke;
             @include centerFlex();
             position: absolute;
             background: $white;
@@ -861,6 +851,10 @@
 
     .account_welcoming {
       width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      align-items: center;
 
       h6 {
         color: $dark;
@@ -872,7 +866,6 @@
         color: $gray;
         width: 100%;
         display: block;
-        text-align: center;
       }
     }
 
@@ -929,7 +922,7 @@
             width: 52px;
             height: 52px;
             border-radius: 50%;
-            border: 1px solid $inputStroke;
+            border: 1px solid $InputStroke;
             overflow: hidden;
 
             img {
@@ -1139,7 +1132,7 @@ footer {
   }
   .inner_footer {
     height: 52px;
-    background: $inputBG;
+    background: $InputBG;
     border-radius: 40px;
     padding: 16px 24px;
     width: 100%;

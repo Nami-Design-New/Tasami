@@ -1,4 +1,3 @@
-import React from "react";
 import { Link } from "react-router";
 
 const groups = ["AG-000254", "AG-000254", "AG-000254"];

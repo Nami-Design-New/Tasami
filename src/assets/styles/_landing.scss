@@ -271,7 +271,7 @@
 
 ///cards///
 .goal-card {
-  border: 1px solid $inputStroke;
+  border: 1px solid $InputStroke;
   padding: 4px;
   border-radius: 12px;
   display: flex;
@@ -421,20 +421,19 @@
       }
     }
     .price {
-  @include space-between;
+      @include space-between;
 
-  i {
-    color: #777;
-    font-size: 20px;
-    cursor: pointer;
-    transition: color 0.3s ease;
+      i {
+        color: #777;
+        font-size: 20px;
+        cursor: pointer;
+        transition: color 0.3s ease;
 
-    &.active {
-      color: $main; 
+        &.active {
+          color: $main;
+        }
+      }
     }
-  }
-}
-
   }
 }
 .helper-card {

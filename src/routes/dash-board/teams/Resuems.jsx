@@ -260,7 +260,9 @@ const Resuems = () => {
       columnHelper.accessor("action", {
         header: " معاينه ",
         cell: (info) => (
-          <Link className="log px-2  py-1">{info.getValue()}</Link>
+          <Link to={"/dashboard/resuems/1"} className="log px-2  py-1">
+            {info.getValue()}
+          </Link>
         ),
       }),
     ],

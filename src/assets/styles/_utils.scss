@@ -1,0 +1,22 @@
+.link-styles {
+  text-decoration: underline;
+  color: $main;
+}
+
+.ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.form__wrapper--custom {
+  @include sectionWrapper();
+  .form__header {
+    font-size: 22px;
+    font-weight: 500;
+    margin-bottom: 16px;
+    @include tablet-layout() {
+      font-size: 18px;
+    }
+  }
+}

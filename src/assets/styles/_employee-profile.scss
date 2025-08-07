@@ -5,42 +5,75 @@
   top: 30px;
 }
 
+// .profile-image {
+//   margin-bottom: 0.5rem;
+//   @include centerFlex();
+//   .profile-image_wrapper {
+//     position: relative;
+//     width: 150px;
+//     height: 150px;
+//   }
+
+//   &__img {
+//     width: 100%;
+//     height: 100%;
+//     object-fit: cover;
+//     border-radius: 50%;
+//     display: block;
+//   }
+
+//   &__upload-btn {
+//     position: absolute;
+//     bottom: 10px;
+//     left: 0;
+//     width: 26px;
+//     height: 26px;
+//     background-color: $white;
+//     border-radius: 50%;
+//     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+//     cursor: pointer;
+//     display: flex;
+//     align-items: center;
+//     justify-content: center;
+//   }
+
+//   &__input {
+//     display: none;
+//   }
+// }
 .profile-image {
-  margin-bottom: 0.5rem;
-  @include centerFlex();
-  &__wrapper {
+  display: inline-block;
+
+  .profile-image__wrapper {
     position: relative;
-    width: 150px;
-    height: 150px;
-  }
-
-  &__img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+    width: 120px;
+    height: 120px;
     border-radius: 50%;
-    display: block;
-  }
-
-  &__upload-btn {
-    position: absolute;
-    bottom: 10px;
-    left: 0;
-    width: 26px;
-    height: 26px;
-    background-color: $white;
-    border-radius: 50%;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    .profile-image__img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 50%;
+      border: 2px solid #ddd;
+    }
   }
 
-  &__input {
-    display: none;
+  .profile-image__upload-btn {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    color: $main;
+    border: none;
+    border-radius: 50%;
+    padding: 6px;
+    cursor: pointer;
+    i {
+      font-size: 14px;
+    }
   }
 }
+
 .personal-data__button {
   display: flex;
   align-items: center;
@@ -80,18 +113,17 @@
   }
 }
 .employee__data {
-  &--item {
+  .employee__data--item {
     display: flex;
-    align-items: center;
-    gap: 8px;
-    white-space: nowrap;
+    flex-direction: column;
+    color: $gray;
     h6 {
-      font-size: "18px";
+      font-size: "16px";
     }
     p {
-      font-size: "16px";
+      font-size: "18px";
       font-weight: bold;
-      color: $text;
+      color: $dark;
     }
   }
 }

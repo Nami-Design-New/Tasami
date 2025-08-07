@@ -1,7 +1,7 @@
-import React from "react";
-import ReusableDataTable from "../../ui/table/ReusableDataTable";
 import { createColumnHelper } from "@tanstack/react-table";
+import { Badge } from "react-bootstrap";
 import { Link } from "react-router";
+import ReusableDataTable from "../../ui/table/ReusableDataTable";
 
 const columnHelper = createColumnHelper();
 const data = [
@@ -176,7 +176,41 @@ const columns = [
   }),
   columnHelper.accessor("accountType", { header: "نوع الحساب" }),
   columnHelper.accessor("accountDate", { header: "التاريخ" }),
-  columnHelper.accessor("accountStatus", { header: "حالة الحساب" }),
+  // columnHelper.accessor("accountStatus", { header: "حالة الحساب" }),
+  columnHelper.accessor("accountStatus", {
+    header: " حالة الحساب",
+    cell: (info) => {
+      let badgeColor;
+
+      switch (info.getValue()) {
+        case "نشط":
+          badgeColor = "#28a745";
+          break;
+        case "غير نشط":
+          badgeColor = "#007bff";
+          break;
+        case "موقوفة":
+          badgeColor = "#dc3545";
+          break;
+        default:
+          badgeColor = "#6c757d";
+          break;
+      }
+      return (
+        <Badge
+          pill
+          className="custom-badge"
+          style={{
+            "--badge-color": badgeColor,
+            "--text-color": "#fff",
+            fontWeight: "400",
+          }}
+        >
+          {info.getValue()}
+        </Badge>
+      );
+    },
+  }),
   columnHelper.accessor("nationality", { header: "الجنسية" }),
   columnHelper.accessor("region", { header: "الإقليم" }),
   columnHelper.accessor("sector", { header: "القطاع" }),

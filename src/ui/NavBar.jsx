@@ -5,7 +5,6 @@ import ProfileMenu from "./ProfileMenu";
 
 export default function NavBar({ collapsed, setCollapsed }) {
   const [profileDropDown, setProfileDropDown] = useState(false);
-  const [isNotificationOpen, setIsNotificationOpen] = useState(false);
   const [isLangOpen, setIsLangOpen] = useState(false);
   const toggleSidebar = () => setCollapsed(!collapsed);
   return (
@@ -33,19 +32,6 @@ export default function NavBar({ collapsed, setCollapsed }) {
               <i className="fa-light fa-comments"></i>
             </Link>
           </li>
-          {/* <li className="notification">
-            <div
-              className="btn"
-              onClick={() => setIsNotificationOpen(!isNotificationOpen)}
-            >
-              <i className="fa-light fa-bell"></i>
-              <span className="number">3</span>
-            </div>
-            <NotificationMenu
-              setIsOpen={setIsNotificationOpen}
-              isOpen={isNotificationOpen}
-            />
-          </li> */}
 
           <li className="profile">
             <div

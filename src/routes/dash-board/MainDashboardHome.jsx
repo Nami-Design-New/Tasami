@@ -1,12 +1,11 @@
+import { Link } from "react-router";
 import ChartCard from "../../ui/dash-board/cards/ChartCard";
-import LineAnalyticsChart from "../../ui/dash-board/charts/LineAnalyticsChart";
 import StatCard from "../../ui/dash-board/cards/StatCard";
 import ColumnChart from "../../ui/dash-board/charts/ColumnChart";
 import DounutCharts from "../../ui/dash-board/charts/DounutCharts";
+import LineAnalyticsChart from "../../ui/dash-board/charts/LineAnalyticsChart";
 import TaskStatus from "../../ui/dash-board/home/TaskStatus";
 import UsersTable from "../../ui/dash-board/home/UsersTable";
-import { Link } from "react-router";
-import CustomButton from "../../ui/CustomButton";
 
 // Line chart
 const series = [
@@ -190,14 +189,6 @@ export default function DashboardHome() {
           <h3>مرحبًا بك مرة أخرى، محمود عباس !</h3>
           <p>قم بتتبع نشاط المبيعات لديك، والعملاء المحتملين والصفقات هنا.</p>
         </div>
-        {/* <div className="actions">
-          <CustomButton
-            size="large"
-            icon={<i className="fa-light fa-filter"></i>}
-          >
-            التصفية
-          </CustomButton>
-        </div> */}
       </div>
       <div className="row">
         <div className="col-12  col-lg-6 col-xxl-3 p-2  ">

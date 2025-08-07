@@ -1,4 +1,4 @@
-import SubmitButton from "../../forms/SubmitButton";
+import CustomButton from "../../CustomButton";
 import PermissionGroup from "./PermissionGroup";
 
 const permessions = [
@@ -100,7 +100,7 @@ const permessions = [
   },
 ];
 
-const PermissionBoard = () => {
+const PermissionBoard = ({ isEdit }) => {
   return (
     <div className="permission">
       <div className="permission__search">
@@ -118,12 +118,16 @@ const PermissionBoard = () => {
             />
           ))}
         </div>
-        {/* <div className="form__action--buttons d-flex gap-3">
-          <button type="button" className=" log  button--add save-button">
-            حفظ و اغلاق
-          </button>
-          <SubmitButton className={"submit-button"} text={"حفظ"} />
-        </div> */}
+        <div className="col-12 p-2 ">
+          <div className="buttons w-full justify-content-end ">
+            <CustomButton color="secondary" size="large">
+              الغاء
+            </CustomButton>
+            <CustomButton color="primary" size="large">
+              {isEdit ? "تعديل" : "حفظ"}{" "}
+            </CustomButton>
+          </div>
+        </div>
       </form>
     </div>
   );

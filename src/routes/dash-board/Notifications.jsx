@@ -3,7 +3,7 @@ import PageHeader from "../../ui/PageHeader";
 
 const Notifications = () => {
   return (
-    <section>
+    <section className="notifications">
       <PageHeader name="التنبيهات" />
       <div className="table--wrapper">
         <NotificationTable />

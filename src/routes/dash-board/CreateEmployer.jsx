@@ -2,7 +2,6 @@ import { useMemo, useState } from "react";
 import { useParams, useSearchParams } from "react-router";
 import PageHeader from "../../ui/PageHeader";
 import Tabs from "../../ui/Tabs";
-import DataUpdateRequest from "../../ui/dash-board/create-employee/DataUpdateRequest";
 import EmployerDataForm from "../../ui/dash-board/create-employee/EmployerDataForm";
 import PerformanceIndicators from "../../ui/dash-board/create-employee/PerformanceIndicators";
 import PermissionBoard from "../../ui/dash-board/create-employee/PermissionBoard";
@@ -40,13 +39,6 @@ const CreateEmployee = () => {
       title: "مؤشرات الاداء",
       visibleInEditMode: true,
     },
-    {
-      id: 5,
-      icon: <i className="fa-regular fa-calendar-lines-pen"></i>,
-      notificationIndicator: true,
-      title: "طلبات تحديت البيانات",
-      visibleInEditMode: true,
-    },
   ];
 
   const tabs = useMemo(() => {
@@ -66,11 +58,11 @@ const CreateEmployee = () => {
   };
 
   const tabComponents = {
-    1: <EmployerDataForm />,
-    2: <PermissionBoard />,
+    1: <EmployerDataForm isEdit={isEditMode} />,
+    2: <PermissionBoard isEdit={isEditMode} />,
     3: <WorkGroups />,
     4: <PerformanceIndicators />,
-    5: <DataUpdateRequest />,
+    // 5: <DataUpdateRequest />,
   };
 
   return (
@@ -99,17 +91,6 @@ const CreateEmployee = () => {
             )}
 
             <div className="submit-actions">
-              {!isEditMode && (
-                <>
-                  {" "}
-                  <CustomButton color="primary" size="large" fullWidth>
-                    حفظ
-                  </CustomButton>
-                  <CustomButton color="secondary" size="large" fullWidth>
-                    اغلاق
-                  </CustomButton>
-                </>
-              )}
               {isEditMode ? (
                 <>
                   <CustomButton
@@ -142,8 +123,12 @@ const CreateEmployee = () => {
             <div> المحتوى غير متوفر لهذا التبويب</div>
           )}
         </div>
-      </div>{" "}
-      <AddNewTask showModal={showTaskModal} setShowModal={setShowTaskModal} />{" "}
+      </div>
+      <AddNewTask
+        showModal={showTaskModal}
+        setShowModal={setShowTaskModal}
+        title="طلب ايقاف الحساب"
+      />
       <SuspensionModel
         showModal={openSuspensionModel}
         setShowModal={setOpenSuspensionModel}

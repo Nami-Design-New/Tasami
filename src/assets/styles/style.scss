@@ -1,21 +1,45 @@
+// shared ui
 @import "./config";
-@import "./components";
-@import "./fonts";
-@import "./cards";
-@import "./form_ui";
-@import "./landing";
-@import "./auth";
 @import "./header";
 @import "./footer";
-@import "./tables";
-@import "./tasks";
-@import "./create_employer";
-@import "./dashboard";
+@import "./form_ui";
+@import "./cards";
+@import "./fonts";
+@import "./components";
 @import "./modals";
-@import "./reports";
-@import "./terms$privacy";
-@import "./goal_details";
-@import "./my_works";
-@import "./community";
-@import "./my_profile";
-@import "./_website-management";
+
+body {
+  direction: rtl;
+  font-family: "Dubai";
+  background-color: $white;
+  main {
+    min-height: calc(100vh - 80px);
+    @media (max-width: 992px) {
+      margin-top: 20px;
+    }
+  }
+
+  @import "./auth";
+  // main dashboard
+  @import "./dashboard";
+  @import "./tables";
+  @import "./tasks";
+  @import "./create_employer";
+  @import "./reports";
+  @import "./employee-profile";
+  @import "./chats";
+  @import "./model";
+  @import "./website-management";
+  // website
+  @import "./landing";
+  @import "./terms$privacy";
+  @import "./goal_details";
+  @import "./my_works";
+  @import "./community";
+  @import "./my_profile";
+
+  &.en {
+    direction: ltr;
+    font-family: "Roboto", sans-serif;
+  }
+}

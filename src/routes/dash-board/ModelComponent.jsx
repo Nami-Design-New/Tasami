@@ -1,4 +1,3 @@
-import "../../assets/styles/model.css";
 import Details from "../../ui/ModelComponent/Details";
 import EmployeeData from "../../ui/ModelComponent/EmployeeData";
 import Header from "../../ui/ModelComponent/Header";

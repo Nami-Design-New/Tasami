@@ -11,185 +11,185 @@ import RadarChart from "../../ui/dash-board/charts/RadarChart";
 import Header from "../../ui/ModelComponent/Header";
 
 // Dounut Charts
-const usersCountSeries = [50, 30, 22];
-const usersCountoptions = {
-  labels: ["التنفيذيين", "المشرفين", " موظفين خدمه العملاء"],
-  chart: {
-    type: "donut",
-  },
-  colors: ["#214b92", "#5fcafa", "#ff4a5f"],
-  legend: {
-    position: "bottom",
-    fontSize: "14px",
-  },
-  dataLabels: {
-    style: {
-      fontSize: "14px",
-      fontWeight: "400",
-      colors: ["#000"],
-    },
-  },
-  responsive: [
-    {
-      breakpoint: 480,
-      options: {
-        chart: { width: 200 },
-        legend: { position: "bottom" },
-      },
-    },
-  ],
-  plotOptions: {
-    pie: {
-      donut: {
-        size: "80%",
-        labels: {
-          show: true,
-          name: { show: true, fontSize: "16px", offsetY: -10 },
-          value: {
-            show: true,
-            fontSize: "20px",
-            fontWeight: 600,
-            offsetY: 10,
-          },
-          total: {
-            show: true,
-            label: "الكلي",
-            fontSize: "16px",
-            fontWeight: 500,
-            formatter: (w) => w.globals.seriesTotals.reduce((a, b) => a + b, 0),
-          },
-        },
-      },
-    },
-  },
-};
+// const usersCountSeries = [50, 30, 22];
+// const usersCountoptions = {
+//   labels: ["التنفيذيين", "المشرفين", " موظفين خدمه العملاء"],
+//   chart: {
+//     type: "donut",
+//   },
+//   colors: ["#214b92", "#5fcafa", "#ff4a5f"],
+//   legend: {
+//     position: "bottom",
+//     fontSize: "14px",
+//   },
+//   dataLabels: {
+//     style: {
+//       fontSize: "14px",
+//       fontWeight: "400",
+//       colors: ["#000"],
+//     },
+//   },
+//   responsive: [
+//     {
+//       breakpoint: 480,
+//       options: {
+//         chart: { width: 200 },
+//         legend: { position: "bottom" },
+//       },
+//     },
+//   ],
+//   plotOptions: {
+//     pie: {
+//       donut: {
+//         size: "80%",
+//         labels: {
+//           show: true,
+//           name: { show: true, fontSize: "16px", offsetY: -10 },
+//           value: {
+//             show: true,
+//             fontSize: "20px",
+//             fontWeight: 600,
+//             offsetY: 10,
+//           },
+//           total: {
+//             show: true,
+//             label: "الكلي",
+//             fontSize: "16px",
+//             fontWeight: 500,
+//             formatter: (w) => w.globals.seriesTotals.reduce((a, b) => a + b, 0),
+//           },
+//         },
+//       },
+//     },
+//   },
+// };
 
 // Column Chart
-const activeAccountsSeries = [
-  {
-    name: "الحسابات النشطه",
-    data: [10, 20, 30],
-  },
-];
-const usersCategories = ["التنفيذيين", "المشرفين", " موظفين خدمه العملاء"];
-const activeAccountsoptions = {
-  chart: {
-    type: "bar",
-    height: 250,
-    toolbar: { show: true },
-  },
-  grid: {
-    show: false,
-  },
-  plotOptions: {
-    bar: {
-      horizontal: false,
-      columnWidth: "20%",
-      barHeight: "100%",
-      borderRadius: 5,
-      borderRadiusApplication: "around",
-      distributed: false,
-    },
-  },
-  dataLabels: {
-    enabled: false,
-  },
-  xaxis: {
-    categories: usersCategories,
-    labels: {
-      style: {
-        fontSize: "14px",
-      },
-    },
-  },
-  yaxis: {
-    labels: {
-      style: {
-        fontSize: "12px",
-      },
-    },
-  },
-  colors: ["#214b92", "#5fcafa", "#ff4a5f"],
-  tooltip: {
-    y: {
-      formatter: (val) => `${val} حساب`,
-    },
-  },
-  legend: {
-    position: "top",
-    horizontalAlign: "center",
-  },
-};
+// const activeAccountsSeries = [
+//   {
+//     name: "الحسابات النشطه",
+//     data: [10, 20, 30],
+//   },
+// ];
+// const usersCategories = ["التنفيذيين", "المشرفين", " موظفين خدمه العملاء"];
+// const activeAccountsoptions = {
+//   chart: {
+//     type: "bar",
+//     height: 250,
+//     toolbar: { show: true },
+//   },
+//   grid: {
+//     show: false,
+//   },
+//   plotOptions: {
+//     bar: {
+//       horizontal: false,
+//       columnWidth: "20%",
+//       barHeight: "100%",
+//       borderRadius: 5,
+//       borderRadiusApplication: "around",
+//       distributed: false,
+//     },
+//   },
+//   dataLabels: {
+//     enabled: false,
+//   },
+//   xaxis: {
+//     categories: usersCategories,
+//     labels: {
+//       style: {
+//         fontSize: "14px",
+//       },
+//     },
+//   },
+//   yaxis: {
+//     labels: {
+//       style: {
+//         fontSize: "12px",
+//       },
+//     },
+//   },
+//   colors: ["#214b92", "#5fcafa", "#ff4a5f"],
+//   tooltip: {
+//     y: {
+//       formatter: (val) => `${val} حساب`,
+//     },
+//   },
+//   legend: {
+//     position: "top",
+//     horizontalAlign: "center",
+//   },
+// };
 
 // Radar Chart
-const SuspendedUsersOptions = {
-  chart: {
-    type: "radar",
-  },
+// const SuspendedUsersOptions = {
+//   chart: {
+//     type: "radar",
+//   },
 
-  xaxis: {
-    categories: usersCategories,
-  },
-  yaxis: {
-    show: false,
-  },
-  stroke: {
-    width: 3,
-  },
-  fill: {
-    opacity: 0.3,
-    color: "#D9534F",
-  },
-  markers: {
-    size: 4,
-  },
-};
-const SuspendedUsersSeries = [
-  {
-    name: "الحسابات الموقوفه",
-    data: [80, 90, 70],
-  },
-];
+//   xaxis: {
+//     categories: usersCategories,
+//   },
+//   yaxis: {
+//     show: false,
+//   },
+//   stroke: {
+//     width: 3,
+//   },
+//   fill: {
+//     opacity: 0.3,
+//     color: "#D9534F",
+//   },
+//   markers: {
+//     size: 4,
+//   },
+// };
+// const SuspendedUsersSeries = [
+//   {
+//     name: "الحسابات الموقوفه",
+//     data: [80, 90, 70],
+//   },
+// ];
 
 // Line Analytics Chart
-const deactiveUsersSeries = [
-  {
-    name: " غير نشط",
-    type: "area",
-    data: [350, 70, 28, 20],
-  },
-];
-const revnueAnalyticsOptions = {
-  chart: {
-    toolbar: { show: false },
-  },
-  stroke: {
-    curve: "smooth",
-    width: 2,
-  },
-  fill: {
-    type: "gradient",
-    gradient: {
-      shadeIntensity: 1,
-      opacityFrom: 0.4,
-      gradientToColors: ["#ff4a5f"],
-      opacityTo: 0,
-      stops: [0, 90, 100],
-    },
-    colors: ["#ff4a5f"],
-  },
-  xaxis: {
-    categories: usersCategories,
-  },
-  grid: {
-    show: true,
-    borderColor: "#e0e0e0",
-  },
-  tooltip: {
-    enabled: true,
-  },
-  colors: ["#ff4a5f"],
-};
+// const deactiveUsersSeries = [
+//   {
+//     name: " غير نشط",
+//     type: "area",
+//     data: [350, 70, 28, 20],
+//   },
+// ];
+// const revnueAnalyticsOptions = {
+//   chart: {
+//     toolbar: { show: false },
+//   },
+//   stroke: {
+//     curve: "smooth",
+//     width: 2,
+//   },
+//   fill: {
+//     type: "gradient",
+//     gradient: {
+//       shadeIntensity: 1,
+//       opacityFrom: 0.4,
+//       gradientToColors: ["#ff4a5f"],
+//       opacityTo: 0,
+//       stops: [0, 90, 100],
+//     },
+//     colors: ["#ff4a5f"],
+//   },
+//   xaxis: {
+//     categories: usersCategories,
+//   },
+//   grid: {
+//     show: true,
+//     borderColor: "#e0e0e0",
+//   },
+//   tooltip: {
+//     enabled: true,
+//   },
+//   colors: ["#ff4a5f"],
+// };
 
 const columnHelper = createColumnHelper();
 const WokingGroupDetails = () => {
@@ -556,7 +556,7 @@ const WokingGroupDetails = () => {
           <Header title={`تفاصيل فريق العمل رقم ${id} `} />
         </div>
         <div className="row">
-          <div className="col-12 col-md-3 ">
+          {/* <div className="col-12 col-md-3 ">
             <DounutCharts
               title={"عدد الموظفين"}
               series={usersCountSeries}
@@ -589,7 +589,7 @@ const WokingGroupDetails = () => {
               height={"250px"}
               type="area"
             />
-          </div>
+          </div> */}
           <div className="col-12">
             <ReusableDataTable
               data={data}

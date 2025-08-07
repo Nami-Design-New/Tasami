@@ -21,17 +21,7 @@ const ChatWindow = ({ isOpen, setIsOpen, activeChat }) => {
             <span className="chat-window__role">نشط الان</span>
           </div>
         </div>
-        <div className="chat-window__actions">
-          <button>
-            <i className="fa-solid fa-phone"></i>
-          </button>
-          <button>
-            <i className="fa-solid fa-camera"></i>
-          </button>
-          <button>
-            <i className="fa-solid fa-search"></i>
-          </button>
-        </div>
+        {/* <div className="chat-window__actions"></div> */}
       </header>
 
       <div className="chat-window__messages">
@@ -64,7 +54,7 @@ const ChatWindow = ({ isOpen, setIsOpen, activeChat }) => {
         </button>
         <button className="chat-window__footer--send">
           <i className="fa-solid fa-paper-plane"></i>
-          <span >إرسال</span>
+          <span>إرسال</span>
         </button>
       </footer>
     </div>

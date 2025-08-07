@@ -1,9 +1,9 @@
 import { yupResolver } from "@hookform/resolvers/yup";
-import { Form, Modal } from "react-bootstrap";
+import { Modal } from "react-bootstrap";
 import { Controller, useForm } from "react-hook-form";
 import * as yup from "yup";
+import CustomButton from "../CustomButton";
 import SelectField from "../forms/SelectField";
-import SubmitButton from "../forms/SubmitButton";
 import TextField from "../forms/TextField";
 import TabRadioGroup from "../TabRadioGroup";
 
@@ -38,7 +38,6 @@ const AddActionModal = ({ showModal, setShowModal }) => {
 
   const onSubmit = (data) => {
     console.log("Form Submitted:", data);
-    // handle submission logic here
     setShowModal(false);
     reset();
   };
@@ -49,15 +48,11 @@ const AddActionModal = ({ showModal, setShowModal }) => {
   };
   return (
     <Modal centered size="lg" show={showModal} onHide={handleCLose}>
-      <Modal.Header closeButton>
-        <h6> اضف افادتك </h6>
-      </Modal.Header>
+      <Modal.Header closeButton>اضف افادتك</Modal.Header>
       <Modal.Body>
         <form className="form_ui" onSubmit={handleSubmit(onSubmit)}>
           <div className="row">
             <div className="col-12 py-2">
-              <h6 className="action-lable"> نوع الاجراء </h6>
-
               <TabRadioGroup
                 name="actionType"
                 register={register}
@@ -100,27 +95,20 @@ const AddActionModal = ({ showModal, setShowModal }) => {
                 error={errors.description?.message}
               />
             </div>
-            <div className="col-12">
-              <Controller
-                name="sendNotification"
-                control={control}
-                render={({ field }) => (
-                  <Form.Check
-                    type="switch"
-                    id="urgent-switch"
-                    label="اشعار الرئيس المباشر"
-                    checked={field.value}
-                    onChange={(e) => field.onChange(e.target.checked)}
-                  />
-                )}
-              />
-            </div>
+
             <div className="col-12 py-2 ">
               <div className="d-flex align-items-center justify-content-end gap-2">
-                <button className="button button--add" onClick={handleCLose}>
-                  حفظ و اغلاق{" "}
-                </button>
-                <SubmitButton text="تنفيذ" className="button" />
+                <CustomButton
+                  onClick={handleCLose}
+                  type="button"
+                  color="secondary"
+                  size="large"
+                >
+                  حفظ و اغلاق
+                </CustomButton>
+                <CustomButton type="submit" color="primary" size="large">
+                  تنفيذ
+                </CustomButton>
               </div>
             </div>
           </div>

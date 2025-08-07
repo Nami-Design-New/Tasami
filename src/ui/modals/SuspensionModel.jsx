@@ -1,15 +1,14 @@
+import { DevTool } from "@hookform/devtools";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useEffect, useState } from "react";
 import { Form, Modal } from "react-bootstrap";
 import { Controller, useForm } from "react-hook-form";
+import { Link } from "react-router";
 import * as yup from "yup";
+import CustomButton from "../CustomButton";
 import FileUploader from "../forms/FileUPloader";
 import InputField from "../forms/InputField";
-import SubmitButton from "../forms/SubmitButton";
 import TextField from "../forms/TextField";
-import { DevTool } from "@hookform/devtools";
-import { Link } from "react-router";
-import CustomButton from "../CustomButton";
 
 const schema = yup.object().shape({
   duration: yup.boolean(),
@@ -189,7 +188,7 @@ const SuspensionModel = ({ showModal, setShowModal }) => {
             <CustomButton
               size="meduim"
               type="button"
-              color="danger"
+              color="secondary"
               onClick={() => setShowModal(false)}
             >
               الغاء

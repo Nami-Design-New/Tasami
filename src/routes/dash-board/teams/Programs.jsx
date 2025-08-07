@@ -6,10 +6,11 @@ import { Link } from "react-router";
 import { Badge } from "react-bootstrap";
 
 const usersSeries = [
-  { name: "عروض المساعده ", data: ["450", "211", "108"] },
-  { name: "عروض المساعده النشطة", data: ["320", "200", "150"] },
-  { name: "عروض المساعده المؤرشفة", data: ["150", "80", "60"] },
-  { name: "عروض المساعده المحذوفة", data: ["40", "50", "20"] },
+  { name: "عروض المساعده ", data: ["450", "211", "150"] },
+  { name: "بإنتظار التنفيذ", data: ["100", "30", "30"] },
+  { name: "قيد التنفيذ", data: ["110", "20", "60"] },
+  { name: "مكتملة", data: ["200", "100", "40"] },
+  { name: "  المحذوفة", data: ["40", "30", "20"] },
 ];
 
 const usersCategories = [
@@ -53,7 +54,7 @@ const usersOptions = {
       },
     },
   },
-  colors: ["#3B82F6", "#22C55E", "#F97316", "#EF4444"],
+  colors: ["#8c137e", "#007BFF", "#FFC107", "#28A745", "#DC3545"],
   tooltip: {
     y: {
       formatter: (val) => `${val} عروض مساعده`,
@@ -71,12 +72,12 @@ const Programs = () => {
   const data = useMemo(
     () => [
       {
-        programNumber: "PRG-001",
-        date: "25-Apr-2020",
-        status: "نشط",
-        accountNumber: "U-020522-00215a",
+        programNumber: "SO-210425-000001",
+        date: "21-04-2025",
+        status: "مكتمل",
+        accountNumber: "U-020522-000215",
         accountType: "متميز",
-        IdNumber: "ID-123456",
+        IdNumber: "01-014-003",
         field: "الهندسة",
         Specialization: "مدني",
         activeContracts: 3,
@@ -86,19 +87,49 @@ const Programs = () => {
         rate: 4.5,
       },
       {
-        programNumber: "PRG-002",
-        date: "25-Apr-2020",
+        programNumber: "SO-210425-000002",
+        date: "21-04-2025",
         status: "محذوف",
-        accountNumber: "U-020522-00215b",
+        accountNumber: "U-020522-000216",
         accountType: "رواد",
-        IdNumber: "ID-123457",
+        IdNumber: "01-014-003",
         field: "المالية",
         Specialization: "محاسبة",
         activeContracts: 1,
         completeContracts: 2,
         canceledContracts: 220,
         numbrOfUseres: 45,
-        rate: 4.2,
+        rate: "-",
+      },
+      {
+        programNumber: "SO-210425-000003",
+        date: "21-04-2025",
+        status: "قيد التنفيذ",
+        accountNumber: "U-020522-000217",
+        accountType: "رواد",
+        IdNumber: "01-014-003",
+        field: "المالية",
+        Specialization: "محاسبة",
+        activeContracts: 1,
+        completeContracts: 2,
+        canceledContracts: 220,
+        numbrOfUseres: 45,
+        rate: "-",
+      },
+      {
+        programNumber: "SO-210425-000004",
+        date: "21-04-2025",
+        status: "بانتظار التنفيذ",
+        accountNumber: "U-020522-000218",
+        accountType: "رواد",
+        IdNumber: "01-014-003",
+        field: "المالية",
+        Specialization: "محاسبة",
+        activeContracts: 1,
+        completeContracts: 2,
+        canceledContracts: 220,
+        numbrOfUseres: 45,
+        rate: "-",
       },
     ],
     []
@@ -124,10 +155,13 @@ const Programs = () => {
         cell: (info) => {
           let badgeColor;
           switch (info.getValue()) {
-            case "نشط":
+            case "مكتمل":
               badgeColor = "#28a745";
               break;
-            case "مؤرشف":
+            case "بانتظار التنفيذ":
+              badgeColor = "#ffc107  ";
+              break;
+            case "قيد التنفيذ":
               badgeColor = "#007bff";
               break;
             case "محذوف":
