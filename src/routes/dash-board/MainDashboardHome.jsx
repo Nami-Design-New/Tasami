@@ -238,7 +238,7 @@ export default function DashboardHome() {
             color="#26BF94"
           />
         </div>
-        <div className="col-12 pt-2">
+        <div className="col-12 p-2">
           <ChartCard title={" اجراءات عاجله  "}>
             <div className="quick__actions--list">
               <Link
@@ -269,39 +269,39 @@ export default function DashboardHome() {
         </div>
       </div>
       <div className="row">
-        <div className="col-12 col-xl-4">
-          <div className="col p-0">
+        <div className="col-12 col-xl-4 p-2">
+          <div className="col pb-2">
             <TaskStatus />
           </div>
 
-          <div className="col p-0">
+          <div className="col pt-2">
             <DounutCharts
               series={employersSeries}
               options={employersOptions}
               title={"عدد الموظفين"}
-              height={300}
+              height={"100%"}
             />
           </div>
         </div>
-        <div className="col-12 col-xl-8">
+        <div className="col-12 col-xl-8 p-2">
           <LineAnalyticsChart
             series={series}
             title={"تحليلات الإيرادات"}
             options={revnueAnalyticsOptions}
             type="line"
-            height={580}
+            height={"100%"}
           />
         </div>
       </div>
       <div className="row">
-        <div className="col-12">
+        <div className="col-12 p-2">
           <ColumnChart
             series={userGrowthSeries}
             options={userGrowthOptions}
             title={"نمو المستخدمين"}
           />
         </div>
-        <div className="col-12">
+        <div className="col-12 p-2">
           <UsersTable />
         </div>
       </div>

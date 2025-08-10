@@ -1,0 +1,282 @@
+.contract-header {
+  padding: 1.5rem;
+  background-color: $white;
+  border-radius: $borderRadius;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  @media (min-width: 1024px) {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .contract-title {
+    h1 {
+      display: flex;
+      align-items: center;
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: $second;
+      margin-bottom: 0.5rem;
+    }
+
+    p {
+      color: $text;
+      font-size: 1rem;
+    }
+  }
+
+  .contract-dates {
+    font-size: 0.875rem;
+    color: $dark;
+
+    .date-item {
+      display: flex;
+      align-items: center;
+      margin-bottom: 0.5rem;
+
+      i {
+        font-size: 1rem;
+        margin-left: 0.5rem;
+        color: $fire;
+      }
+    }
+  }
+}
+
+.assistant-card {
+  border-radius: $borderRadius;
+  background: $white;
+  padding: 1.5rem;
+  width: 100%;
+  .card-body {
+    .user-data {
+      display: flex;
+      gap: 0.5rem;
+
+      .img-wrapper {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        overflow: hidden;
+        img {
+          width: 80px;
+          height: 80px;
+          aspect-ratio: 1/1;
+          object-fit: contain;
+        }
+      }
+      .assistant-name {
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+        width: 100%;
+        h3 {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          font-size: 1rem;
+          font-weight: bold;
+          color: $dark;
+        }
+        .location {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          font-size: 14px;
+        }
+      }
+    }
+  }
+
+  .assistant-stats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 1rem;
+
+    .rating {
+      display: flex;
+      align-items: center;
+
+      i {
+        color: #ffc107;
+        margin-left: 0.25rem;
+      }
+
+      span {
+        margin-left: 0.25rem;
+      }
+
+      .reviews {
+        color: #6c757d;
+        font-size: 0.85rem;
+      }
+    }
+
+    .completed {
+      display: flex;
+      align-items: center;
+      color: #6c757d;
+
+      i {
+        margin-left: 0.25rem;
+        color: #0d6efd;
+      }
+    }
+  }
+
+  .assistant-details {
+    .detail-item {
+      display: flex;
+      align-items: center;
+      font-size: 0.9rem;
+      color: #6c757d;
+
+      i {
+        margin-left: 0.5rem;
+        color: #6c757d;
+      }
+    }
+  }
+}
+
+.payment-card {
+  border-radius: $borderRadius;
+  background: $white;
+  padding: 1.5rem;
+  .card-title {
+    font-size: 16px;
+    color: $dark;
+    font-weight: bold;
+  }
+  .card-body {
+    margin-top: 1rem;
+    .payment-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      li {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        h6 {
+          color: $second;
+          font-size: 16px;
+          font-weight: 500;
+        }
+        p {
+          font-weight: bold;
+          font-size: 14px;
+        }
+        &.total-amount {
+          padding-bottom: 8px;
+          border-bottom: 1px solid $InputStroke;
+          h6 {
+            color: $second;
+            font-size: 18px;
+            font-weight: 500;
+          }
+          p {
+            font-weight: bold;
+            font-size: 22px;
+          }
+        }
+        &.progress-payment {
+          border-top: 1px solid $InputStroke;
+          padding-top: 8px;
+          flex-direction: column;
+          align-items: start;
+          gap: 8px;
+          .progress-data {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            font-size: 12px;
+            font-weight: 700;
+
+            span:last-child {
+              font-weight: 400;
+              color: $gray;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.progress {
+  width: 100%;
+  height: 12px;
+  .progress-bar {
+    background-color: $green;
+    height: 12px;
+    border-radius: 50px;
+  }
+}
+
+.contract-description {
+  border-radius: $borderRadius;
+  background: $white;
+  padding: 1.5rem;
+  .title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    span {
+      font-size: 22px;
+      font-weight: 700;
+      color: $dark;
+    }
+  }
+  .description {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 1.8;
+    color: $gray;
+  }
+  h5 {
+    color: $second;
+    font-size: 20px;
+    font-weight: 500;
+  }
+  .dec-item {
+    p {
+      font-size: 14px;
+      line-height: 1.8;
+      font-weight: 700;
+      color: $dark;
+    }
+  }
+  .mechanisms {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    li {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 14px;
+      font-weight: 700;
+    }
+  }
+}
+
+.chat-history {
+  height: 500px !important;
+  background-color: $white !important;
+  border: none !important;
+  @media (max-width: 768px) {
+    &.chat-page {
+      flex-direction: row !important;
+    }
+  }
+  .chat-window {
+    background-color: $white !important;
+    footer {
+      border: 1px solid $InputStroke;
+    }
+  }
+}

@@ -74,6 +74,7 @@ import ResuemeDetails from "../routes/dash-board/teams/ResuemeDetails";
 import Followers from "../routes/website/Followers";
 import Interests from "../routes/website/Interests";
 import Savings from "../routes/website/Savings";
+import ContractDetails from "../routes/dash-board/ContractDetails";
 
 export const router = createBrowserRouter([
   {
@@ -309,10 +310,11 @@ export const router = createBrowserRouter([
         path: "employee-details/:id",
         element: <CreateEmployee />,
       },
-      // {
-      //   path: "requests/:id",
-      //   element: <DataUpdateRequestDetails />,
-      // },
+      {
+        path: "contracts/:id",
+        element: <ContractDetails />,
+      },
+
       {
         path: "list-management",
         element: <ListManagement />,

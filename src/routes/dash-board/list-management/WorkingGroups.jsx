@@ -13,9 +13,9 @@ const statsData = [
   {
     label: "المجموعات",
     value: 25,
-    icon: "fa-users", // Font Awesome icon
-    color: "#ffffff", // Icon color
-    bgColor: "#007bff", // Background color
+    icon: "fa-users",
+    color: "#ffffff",
+    bgColor: "#007bff",
   },
   {
     label: "التنفيذيون",

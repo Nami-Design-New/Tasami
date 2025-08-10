@@ -390,27 +390,27 @@
     grid-area: main;
     transition: $transition;
     height: calc(100vh - 80px);
-    padding: 0 1rem;
+    // padding: 0 1rem;
     overflow-y: auto;
     direction: inherit;
-    background: #fff;
+    background: $white;
     scrollbar-width: none;
     -ms-overflow-style: none;
-    @include tablet-layout {
-      padding: 0 0.5rem;
-    }
+    // @include tablet-layout {
+    //   padding: 0 0.5rem;
+    // }
 
     // Router Wrapper
     .router_wrapper {
       min-height: calc(100vh - 180px);
       background: $dashboardBg;
       border-radius: 24px;
-      padding: 32px 24px;
+      padding: 18px;
       display: flex;
       flex-direction: column;
 
       @include tablet-layout {
-        padding: 16px 0;
+        padding: 16px;
       }
 
       // Page Header
