@@ -1,14 +1,13 @@
 import { useState } from "react";
-import { Link } from "react-router";
-import "../../assets/styles/profile.css";
+import CustomButton from "../../ui/CustomButton";
+import CustomLink from "../../ui/CustomLink";
 import PageHeader from "../../ui/PageHeader";
 import TabsHorizontal from "../../ui/TabsHorizontal";
 import AssistantPresenter from "../../ui/dash-board/userprofile/AssistantPresenter";
 import Beneficiary from "../../ui/dash-board/userprofile/Beneficiary";
 import SuspensionModel from "../../ui/modals/SuspensionModel";
 import AddNewTask from "./tasks/AddNewTask";
-import CustomLink from "../../ui/CustomLink";
-import CustomButton from "../../ui/CustomButton";
+import { useSearchParams } from "react-router";
 const tabs = [
   {
     id: 1,
@@ -22,11 +21,9 @@ const tabs = [
 const UserProfile = () => {
   const [openSuspensionModel, setOpenSuspensionModel] = useState(false);
   const [showTaskModal, setShowTaskModal] = useState(false);
-  const [activeTab, setActiveTab] = useState(tabs[0].id);
+  const [searchParams] = useSearchParams();
+  const activeTab = searchParams.get("tab");
 
-  const handleTabClick = (tabId) => {
-    setActiveTab(tabId);
-  };
   return (
     <div className="user-dashboard">
       <PageHeader removeLast={true} name={"بيانات المستخدم"} />
@@ -95,20 +92,20 @@ const UserProfile = () => {
           </div>
         </div>
         <div className="col-12 col-lg-9 p-1 ">
-          <TabsHorizontal
-            tabs={tabs}
-            activeTab={activeTab}
-            onTabChange={handleTabClick}
-          />
-          {activeTab === 1 && <Beneficiary />}
-          {activeTab === 2 && <AssistantPresenter />}
+          <TabsHorizontal tabs={tabs} activeTab={activeTab} />
+          {activeTab === "1" && <Beneficiary />}
+          {activeTab === "2" && <AssistantPresenter />}
         </div>
       </div>
       <SuspensionModel
         showModal={openSuspensionModel}
         setShowModal={setOpenSuspensionModel}
       />{" "}
-      <AddNewTask showModal={showTaskModal} setShowModal={setShowTaskModal} />
+      <AddNewTask
+        showModal={showTaskModal}
+        setShowModal={setShowTaskModal}
+        title="طلب إيقاف الحساب"
+      />
     </div>
   );
 };

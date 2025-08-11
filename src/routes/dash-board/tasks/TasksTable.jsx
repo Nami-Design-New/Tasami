@@ -1,12 +1,14 @@
 import { createColumnHelper } from "@tanstack/react-table";
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { Badge } from "react-bootstrap";
 import { Link } from "react-router";
 import ReusableDataTable from "../../../ui/table/ReusableDataTable";
+import ReassignTaskModal from "./ReassignTaskModal";
 
 const columnHelper = createColumnHelper();
 
-const SupervisoryTasks = () => {
+const TasksTable = () => {
+  const [showReassignModal, setShowReassignModal] = useState(false);
   const data = useMemo(
     () => [
       {
@@ -25,11 +27,11 @@ const SupervisoryTasks = () => {
         location: "014 - السعوديه",
         city: "0001 - الرياض",
         employerName: "إياد محمد خالد",
-        directSuperVisor: "E-010222-0000",
+
         completionDate: "2025-05-25",
         status: "غير مكتمل",
         actionLevel: "الموظف",
-        action: null,
+        rate: null,
         assign: true,
       },
       {
@@ -48,11 +50,11 @@ const SupervisoryTasks = () => {
         location: "014 - السعوديه",
         city: "0001 - الرياض",
         employerName: "أحمد سعيد محمود",
-        directSuperVisor: "E-010222-0000",
+
         completionDate: "2025-05-25",
         status: "مكتمل",
         actionLevel: "المشرف",
-        action: null,
+        rate: null,
         assign: true,
       },
       {
@@ -71,11 +73,10 @@ const SupervisoryTasks = () => {
         location: "014 - السعوديه",
         city: "0001 - الرياض",
         employerName: "سارة أحمد علي",
-        directSuperVisor: "E-010222-0000",
         completionDate: "2025-05-25",
         status: "غير مضاف",
         actionLevel: "المشرف",
-        action: null,
+        rate: null,
         assign: false,
       },
       {
@@ -94,11 +95,10 @@ const SupervisoryTasks = () => {
         location: "014 - السعوديه",
         city: "0001 - الرياض",
         employerName: "محمد خالد عبدالله",
-        directSuperVisor: "E-010222-0000",
         completionDate: "2025-05-25",
         status: "غير مكتمل",
         actionLevel: "التنفيذي",
-        action: null,
+        rate: null,
         assign: true,
       },
       {
@@ -117,14 +117,12 @@ const SupervisoryTasks = () => {
         location: "014 - السعوديه",
         city: "0001 - الرياض",
         employerName: "فاطمة محمد سعيد",
-        directSuperVisor: "E-010222-0000",
         completionDate: "2025-05-25",
         status: "مكتمل",
         actionLevel: "التنفيذي",
-        action: "3.2",
+        rate: "3.2",
         assign: true,
       },
-      // ... Continue for id: 6 to 16 with same format
     ],
     []
   );
@@ -136,11 +134,6 @@ const SupervisoryTasks = () => {
         cell: (info) => info.getValue(),
         enableSorting: false,
       }),
-      // columnHelper.accessor("operation", {
-      //   header: "العملية",
-      //   cell: (info) => info.getValue(),
-      //   enableSorting: false,
-      // }),
 
       columnHelper.accessor("subject", {
         header: "الموضوع",
@@ -227,26 +220,7 @@ const SupervisoryTasks = () => {
         header: "  المدينه ",
         cell: (info) => info.getValue(),
       }),
-      columnHelper.accessor("directSuperVisor", {
-        header: " المسئول المباشر ",
-        cell: (info) => <Link className="link-styles">{info.getValue()}</Link>,
-      }),
 
-      // columnHelper.accessor("employerName", {
-      //   header: " الموظف ",
-      //   cell: (info) => info.getValue(),
-      // }),
-      // columnHelper.accessor("directSuperVisor", {
-      //   header: "حساب الموظف ",
-      //   cell: (info) => (
-      //     <Link
-      //       to={`/dashboard/employee-details/${info.getValue()}`}
-      //       className="link-styles"
-      //     >
-      //       {info.getValue()}
-      //     </Link>
-      //   ),
-      // }),
       columnHelper.accessor("status", {
         header: " الحالة ",
         cell: (info) => {
@@ -290,7 +264,7 @@ const SupervisoryTasks = () => {
         header: " تاريخ الاكمال ",
         cell: (info) => info.getValue(),
       }),
-      columnHelper.accessor("action", {
+      columnHelper.accessor("rate", {
         header: " التقييم ",
         cell: (info) => {
           return (
@@ -300,12 +274,11 @@ const SupervisoryTasks = () => {
           );
         },
       }),
-      // امر التعيين لايظهر الا للرئيس امباشر لايظهر للموظف نفسه
       columnHelper.accessor("assign", {
         header: "تعيين",
         cell: (info) => {
           return (
-            <button>
+            <button onClick={() => setShowReassignModal(true)}>
               {info.getValue() === false ? (
                 <i className="fa-solid fa-repeat"></i>
               ) : null}
@@ -318,14 +291,20 @@ const SupervisoryTasks = () => {
   );
 
   return (
-    <ReusableDataTable
-      columns={columns}
-      data={data}
-      filter={false}
-      title="المهام"
-      searchPlaceholder="بحث في المهام ..."
-    />
+    <>
+      <ReusableDataTable
+        columns={columns}
+        data={data}
+        filter={false}
+        title="المهام"
+        searchPlaceholder="بحث في المهام ..."
+      />
+      <ReassignTaskModal
+        showModal={showReassignModal}
+        setShowModal={setShowReassignModal}
+      />
+    </>
   );
 };
 
-export default SupervisoryTasks;
+export default TasksTable;

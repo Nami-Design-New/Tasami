@@ -239,10 +239,10 @@ $color-warning: #ffc107;
 
 .tab-radio-group {
   display: flex;
-  border: 1px solid $inputStroke;
+  border: 1px solid $InputStroke;
   border-radius: $borderRadius;
   overflow: hidden;
-  background-color: $inputBG;
+  background-color: $InputBG;
   padding: 0;
   input[type="radio"] {
     display: none;
@@ -268,5 +268,69 @@ $color-warning: #ffc107;
       color: $white;
       z-index: 1;
     }
+  }
+}
+
+// tab component
+.tab-list {
+  display: flex;
+  align-items: start;
+  justify-content: start;
+  cursor: pointer;
+  gap: 8px;
+  flex-direction: column;
+  background-color: $white;
+  padding: 16px;
+  border-radius: $borderRadius;
+  overflow: hidden;
+
+  .tab-item {
+    width: 100%;
+    .btn__tab-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 16px;
+      border-radius: $borderRadius;
+      color: $main;
+      width: 100%;
+      padding: 10px 16px;
+      transition: $transition;
+      background-color: $white;
+      &.active {
+        background-color: $dashboardBg;
+        color: $main;
+      }
+      &:hover {
+        background-color: $dashboardBg;
+      }
+    }
+  }
+}
+
+// star rate component
+
+.star-rating {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 1rem;
+  color: #f1c40f;
+
+  .fa-star,
+  .fa-star-half-alt,
+  .far.fa-star {
+    transition: transform 0.3s ease;
+  }
+
+  .fa-star:hover,
+  .fa-star-half-alt:hover,
+  .far.fa-star:hover {
+    transform: scale(1.1);
+  }
+
+  .rating-number {
+    font-size: 14px;
+    color: $text;
   }
 }

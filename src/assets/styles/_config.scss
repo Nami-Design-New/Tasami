@@ -1,72 +1,46 @@
-@mixin centerFlex {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
+$main: #214b92;
+$main8: #02489614;
+$main10: rgb(33, 75, 146, 0.1);
+$main25: rgb(33, 75, 146, 0.25);
+$main08: rgb(33, 75, 146, 0.08);
+$mainLight: rgba(33, 75, 146, 0.8);
+$second: #5fcafa;
+$secondHover: #32b3e6;
+$second25: rgb(95, 202, 250, 0.25);
+$second5: rgb(95, 202, 250, 0.05);
+$secondColor12: #5fcafa1f;
+$secondColor08: #5fcafa14;
+$secondColorDark: #13aef3;
+$fire: #ff7a59;
+$green: #4ecdc4;
+$dashboardBg: #f8f8f8;
+$clientYellow: #fdcb2f;
+$button: #8c137e;
+$dark: #0d0d0d;
+$border: #dddddd;
+$InputBG: #f8f8f8;
+$inputHint: #aaaaaa;
+$gray: #777777;
+$grayLight: #777777cc;
+$lightGray: #eeeeee;
+$text: #666b88;
+$white: #fff;
+$third25: #fff5e2;
+$JumbotronHead: #4f4f4f;
+$InputStroke: #0d0d0d18;
+$InputBG: #0d0d0d05;
 
-@mixin space-between {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
+$success: #34b53a;
+$successLight: #34b53acc;
+$danger: #ff3a29;
+$dangerLight: #dc3545cc;
+$eidtAction: #6c757d;
+$borderRadius: 12px;
+$online: #00ff44;
+$transition: 0.3s ease-in-out;
 
-@mixin centerAbsolute {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
-@mixin sectionWrapper {
-  padding: 16px;
-  border-radius: $borderRadius;
-  background-color: $white;
-  margin-bottom: 16px;
-  @include labtop-layout() {
-    padding: 8px;
-  }
-}
-
-@mixin clearInput {
-  border: none;
-  background: none;
-  outline: none;
-}
-
-@keyframes rotate {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
-}
-
-// Responsive Layout Mixins
-@mixin labtop-layout {
-  @media (max-width: 992px) {
-    @content;
-  }
-}
-
-@mixin tablet-layout {
-  @media (max-width: 768px) {
-    @content;
-  }
-}
-
-@mixin small-mobile {
-  @media screen and (max-width: 576px) {
-    @content;
-  }
-}
-
-// Hide scrollbar but keep functionality
-@mixin hide-scrollbar {
-  scrollbar-width: none;
-  &::-webkit-scrollbar {
-    display: none;
-  }
-}
+@import "./mixins";
+@import "./utils";
 
 * {
   padding: 0;
@@ -78,61 +52,6 @@
   /* Firefox */
   scrollbar-width: thin;
   scrollbar-color: #989898 #fff;
-}
-
-$main: #214b92;
-$main8: #02489614;
-$main10: rgb(33, 75, 146, 0.1);
-$main25: rgb(33, 75, 146, 0.25);
-$main08: rgb(33, 75, 146, 0.08);
-$mainLight: rgba(33, 75, 146, 0.8);
-$dashboardBg: #f8f8f8;
-$second: #5fcafa;
-$secondHover: #32b3e6;
-$second25: rgb(95, 202, 250, 0.25);
-$second5: rgb(95, 202, 250, 0.05);
-$secondColor12: #5fcafa1f;
-$secondColor08: #5fcafa14;
-$secondColorDark: #13aef3;
-$clientYellow: #fdcb2f;
-$button: #8c137e;
-$dark: #0d0d0d;
-$border: #dddddd;
-$inputBG: #f8f8f8;
-$inputHint: #aaaaaa;
-$gray: #777777;
-$grayLight: #777777cc;
-$lightGray: #eeeeee;
-$text: #666b88;
-$white: #fff;
-$third25: #fff5e2;
-$JumbotronHead: #4f4f4f;
-$inputStroke: #f2f2f2;
-$InputStroke: #0d0d0d18;
-$InputBG: #0d0d0d05;
-$fire: #ff7a59;
-
-$success: #34b53a;
-$successLight: #34b53acc;
-$danger: #ff3a29;
-$eidtAction: #6c757d;
-$dangerLight: #dc3545cc;
-$borderRadius: 12px;
-$transition: 0.3s ease-in-out;
-$online: #00ff44;
-body {
-  direction: rtl;
-  font-family: "Dubai";
-  background-color: $white;
-  // overflow: hidden;
-  main {
-    min-height: calc(100vh - 80px);
-  }
-
-  &.en {
-    direction: ltr;
-    font-family: "Roboto", sans-serif;
-  }
 }
 
 /* WebKit-based browsers (Chrome, Safari, Edge Chromium) */
@@ -147,23 +66,6 @@ body {
 ::-webkit-scrollbar-thumb {
   background: #989898;
   border-radius: 30px;
-}
-
-@mixin pulse($name, $color) {
-  @keyframes #{$name} {
-    0% {
-      transform: scale(0.95);
-      box-shadow: 0 0 0 0 rgba($color, 0.7);
-    }
-    70% {
-      transform: scale(1);
-      box-shadow: 0 0 0 8px rgba($color, 0);
-    }
-    100% {
-      transform: scale(0.95);
-      box-shadow: 0 0 0 0 rgba($color, 0);
-    }
-  }
 }
 
 button,
@@ -186,7 +88,7 @@ ol {
 a,
 button {
   text-decoration: none;
-  transition: var(--transition);
+  transition: $transition;
   color: #000;
 }
 
@@ -214,33 +116,10 @@ input[type="number"] {
   appearance: textfield;
 }
 
-.link-styles {
-  text-decoration: underline;
-  color: $main;
-}
 .custom-badge {
   background-color: var(--badge-color) !important;
   color: var(--text-color) !important;
 }
-// .form-switch {
-//   display: flex;
-//   align-items: center;
-//   justify-content: space-between;
-//   flex-direction: row-reverse;
-//   padding: 0;
-//   gap: 32px;
-//   label {
-//     margin: 0;
-//     font-size: 14px;
-//   }
-//   input {
-//     margin-left: 0 !important;
-//     float: unset !important;
-//     &:checked {
-//       background-color: $main;
-//     }
-//   }
-// }
 
 .error-page {
   background-color: #f8f9fa;
@@ -275,24 +154,18 @@ input[type="number"] {
     width: fit-content !important;
   }
 }
-.ellipsis {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
 
 .dropdown-menu {
   border: 0 !important;
-  box-shadow: 0 0 16px 0 rgba(0, 0, 0, 0.1);
   margin-top: 14px !important;
-  background: var(--dropdown-bg);
+  background: $white;
   border-radius: 8px;
   padding: 8px;
   span {
     display: block;
     width: 100%;
     height: 1px;
-    background: var(--input-stroke);
+    background: $InputStroke;
     margin: 8px 0;
   }
   a {
@@ -300,7 +173,7 @@ input[type="number"] {
     border-radius: 4px;
     padding: 6px 12px;
     font-size: 14px;
-    color: var(--main);
+    color: $main;
     display: flex;
     margin-bottom: 2px;
     align-items: center;
@@ -324,15 +197,6 @@ input[type="number"] {
 
 .invalid-feedback {
   display: block;
-}
-
-.button--add {
-  background-color: $button !important;
-  border-radius: $borderRadius;
-}
-.button--cancel {
-  background-color: $danger !important;
-  border-radius: $borderRadius;
 }
 
 // Select customization
@@ -389,51 +253,6 @@ input[type="number"] {
     font-size: 32px;
     color: var(--main);
   }
-}
-
-.back-to-top {
-  position: fixed;
-  z-index: 99;
-  right: 8px;
-  bottom: 88px;
-  height: 45px;
-  width: 45px;
-  cursor: pointer;
-  display: block;
-  border-radius: 50px;
-  box-shadow: inset 0 0 0 2px rgba(0, 0, 0, 0.1);
-  opacity: 0;
-  visibility: hidden;
-  transition: all 0.5s ease-in-out;
-  transform: translateY(30px);
-  &.active-progress {
-    opacity: 1;
-    visibility: visible;
-    transform: translateY(0);
-  }
-  &::before {
-    position: absolute;
-    font-family: "Font Awesome 6 Pro";
-    content: "\f062";
-    text-align: center;
-    line-height: 45px;
-    opacity: 1;
-    height: 45px;
-    width: 45px;
-    font-size: 16px;
-    font-weight: 600;
-    color: var(--main);
-  }
-  svg.progress-circle path {
-    stroke: var(--main);
-    stroke-width: 4;
-  }
-}
-
-.noComments {
-  margin: auto 0;
-  @include centerFlex();
-  color: var(--input-hint);
 }
 
 .empty-section {
@@ -513,17 +332,17 @@ input[type="number"] {
   position: relative;
   display: flex;
   flex-direction: row-reverse;
-  border: 1px solid $inputStroke;
-  background: $inputBG;
+  border: 1px solid $InputStroke;
+  background: $InputBG;
   height: 52px;
   border-radius: 12px;
   direction: ltr;
   .form-control {
     width: 100%;
     height: 100%;
-    color: var(--main);
+    color: $main;
     font-size: 14px;
-    background: $inputBG;
+    background: $InputBG;
     padding: 8px;
     border-radius: 12px;
     direction: ltr;
@@ -537,11 +356,11 @@ input[type="number"] {
     border-radius: 12px 0 0 12px;
     min-width: 52px;
     &.open {
-      background: $inputBG;
+      background: $InputBG;
       border-radius: 12px;
       .selected-flag {
         border-radius: 12px;
-        background: $inputBG;
+        background: $InputBG;
       }
     }
   }
@@ -560,7 +379,7 @@ input[type="number"] {
     }
     &:hover,
     &:focus {
-      background: $inputBG;
+      background: $InputBG;
     }
   }
 
@@ -591,10 +410,10 @@ input[type="number"] {
       color: var(--main);
       padding: 8px 10px;
       &:hover {
-        background: $inputBG;
+        background: $InputBG;
       }
       &.highlight {
-        background: $inputBG;
+        background: $InputBG;
       }
     }
     .dial-code {
@@ -603,6 +422,7 @@ input[type="number"] {
   }
 }
 
+// stars Rate Component
 .stars_rate {
   display: flex;
   align-items: center;
@@ -612,7 +432,7 @@ input[type="number"] {
     align-items: center;
     gap: 2px;
     span {
-      color: var(--gray);
+      color: $gray;
       font-size: 16px;
       margin: 0;
     }
@@ -622,177 +442,6 @@ input[type="number"] {
   }
 }
 
-.calender_modal {
-  p {
-    color: var(--gray);
-    font-size: 16px;
-  }
-}
-
-// calender
-.calender_modal .rmdp-calendar {
-  border: none;
-  box-shadow: none;
-  border-radius: 0;
-  padding: 8px;
-  background: $white;
-}
-
-.rmdp-wrapper {
-  background: $white !important;
-}
-
-.rmdp-day {
-  width: 52px !important;
-  height: 52px !important;
-  font-size: 16px !important;
-  color: var(--main) !important;
-  transition: var(--transition);
-  span:hover {
-    background-color: var(--close-hover) !important;
-    color: var(--main) !important;
-  }
-  &.rmdp-today span {
-    background-color: var(--close-hover) !important;
-    color: var(--main) !important;
-  }
-  &.rmdp-disabled {
-    color: var(--gray) !important;
-    cursor: not-allowed !important;
-    span {
-      text-decoration: line-through !important;
-      cursor: not-allowed !important;
-      &:hover {
-        background-color: transparent !important;
-        color: var(--gray) !important;
-      }
-    }
-  }
-}
-
-.rmdp-arrow-container {
-  width: 24px !important;
-  height: 24px !important;
-  @include centerFlex();
-  position: relative;
-  i {
-    display: none;
-  }
-  &::before {
-    font-family: "Font Awesome 6 Pro";
-    content: "\f104";
-    font-size: 14px;
-    color: var(--main);
-    @include centerAbsolute();
-  }
-  &.rmdp-right::before {
-    content: "\f105";
-  }
-  &:hover {
-    background: var(--close-hover) !important;
-    box-shadow: none !important;
-  }
-  &.disabled {
-    cursor: not-allowed !important;
-    &::before {
-      color: var(--gray) !important;
-    }
-    &:hover {
-      background: transparent !important;
-      box-shadow: none !important;
-    }
-  }
-}
-
-.rmdp-range {
-  background: var(--main) !important;
-  box-shadow: none !important;
-  color: $white !important;
-  &.rmdp-today span {
-    background: var(--main) !important;
-    color: $white !important;
-  }
-}
-
-.rmdp-week:first-child {
-  margin-bottom: 16px;
-  .rmdp-week-day {
-    color: var(--main) !important;
-  }
-}
-
-.rmdp-header-values {
-  color: var(--main) !important;
-}
-
-.rmdp-shadow {
-  box-shadow: none !important;
-}
-
-.calender_wrapper {
-  min-height: 384px;
-}
-
-.rmdp-week-day {
-  width: 52px !important;
-}
-
-// tab component
-
-.tab-list {
-  display: flex;
-  align-items: start;
-  justify-content: start;
-  cursor: pointer;
-  gap: 8px;
-  flex-direction: column;
-  background-color: $white;
-  padding: 16px;
-  border-radius: $borderRadius;
-  overflow: hidden;
-
-  .tab-item {
-    width: 100%;
-    .btn__tab-item {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 16px;
-      border-radius: $borderRadius;
-      color: $main;
-      width: 100%;
-      padding: 10px 16px;
-      transition: $transition;
-      background-color: $white;
-      &.active {
-        background-color: $dashboardBg;
-        color: $main;
-      }
-      &:hover {
-        background-color: $dashboardBg;
-      }
-    }
-  }
-}
-
-// form-wrapper
-.form__wrapper--custom {
-  @include sectionWrapper();
-  .form__header {
-    font-size: 22px;
-    font-weight: 500;
-    margin-bottom: 16px;
-    @include tablet-layout() {
-      font-size: 18px;
-    }
-  }
-}
-
 .apexcharts-canvas * {
   font-family: "Dubai";
-}
-@media (max-width: 992px) {
-  main {
-    margin-top: 60px;
-  }
 }

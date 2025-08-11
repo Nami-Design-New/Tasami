@@ -75,10 +75,12 @@ const UserAccounts = () => {
     () => [
       {
         name: "صالح",
-        accountNumber: "U-020522-00215a",
+        accountNumber: "U-020522-000001",
         accountType: "رواد",
         date: "25-Apr-2020",
         gender: "ذكر",
+        beneficiaryPoints: "13",
+        assistanceProviderPoints: "12",
         nationality: "السعودية",
         city: "الرياض-001",
         region: "014-المنطقة الوسطى",
@@ -91,10 +93,12 @@ const UserAccounts = () => {
       },
       {
         name: "محمد",
-        accountNumber: "U-020522-00215b",
+        accountNumber: "U-020522-000002",
         accountType: "رواد",
         date: "25-Apr-2020",
         gender: "ذكر",
+        beneficiaryPoints: "13",
+        assistanceProviderPoints: "12",
         nationality: "السعودية",
         city: "الرياض-002",
         region: "014-المنطقة الوسطى",
@@ -107,10 +111,12 @@ const UserAccounts = () => {
       },
       {
         name: "علي",
-        accountNumber: "U-020522-00215c",
+        accountNumber: "U-020522-000003",
         accountType: "اساسي",
         date: "25-Apr-2020",
         gender: "ذكر",
+        beneficiaryPoints: "13",
+        assistanceProviderPoints: "12",
         nationality: "السعودية",
         city: "الرياض-003",
         region: "014-المنطقة الوسطى",
@@ -123,10 +129,12 @@ const UserAccounts = () => {
       },
       {
         name: "سلمان",
-        accountNumber: "U-020522-00215d",
+        accountNumber: "U-020522-000004",
         accountType: "مستفيد",
         date: "25-Apr-2020",
         gender: "ذكر",
+        beneficiaryPoints: "13",
+        assistanceProviderPoints: "12",
         nationality: "السعودية",
         city: "الرياض-004",
         region: "014-المنطقة الوسطى",
@@ -139,10 +147,12 @@ const UserAccounts = () => {
       },
       {
         name: "أحمد",
-        accountNumber: "U-020522-00215e",
+        accountNumber: "U-020522-000005",
         accountType: "اساسي",
         date: "25-Apr-2020",
         gender: "ذكر",
+        beneficiaryPoints: "13",
+        assistanceProviderPoints: "12",
         nationality: "السعودية",
         city: "الرياض-005",
         region: "014-المنطقة الوسطى",
@@ -155,10 +165,12 @@ const UserAccounts = () => {
       },
       {
         name: "فهد",
-        accountNumber: "U-020522-00215f",
+        accountNumber: "U-020522-000006",
         accountType: "متميز",
         date: "25-Apr-2020",
         gender: "ذكر",
+        beneficiaryPoints: "13",
+        assistanceProviderPoints: "12",
         nationality: "السعودية",
         city: "الرياض-006",
         region: "014-المنطقة الوسطى",
@@ -171,10 +183,12 @@ const UserAccounts = () => {
       },
       {
         name: "ماجد",
-        accountNumber: "U-020522-00215g",
+        accountNumber: "U-020522-000007",
         accountType: "مستفيد",
         date: "25-Apr-2020",
         gender: "ذكر",
+        beneficiaryPoints: "13",
+        assistanceProviderPoints: "12",
         nationality: "السعودية",
         city: "الرياض-007",
         region: "014-المنطقة الوسطى",
@@ -187,10 +201,12 @@ const UserAccounts = () => {
       },
       {
         name: "ياسر",
-        accountNumber: "U-020522-00215h",
+        accountNumber: "U-020522-000008",
         accountType: "رواد",
         date: "25-Apr-2020",
         gender: "ذكر",
+        beneficiaryPoints: "13",
+        assistanceProviderPoints: "12",
         nationality: "السعودية",
         city: "الرياض-008",
         region: "014-المنطقة الوسطى",
@@ -203,10 +219,12 @@ const UserAccounts = () => {
       },
       {
         name: "سعد",
-        accountNumber: "U-020522-00215i",
+        accountNumber: "U-020522-000009",
         accountType: "اساسي",
         date: "25-Apr-2020",
         gender: "ذكر",
+        beneficiaryPoints: "13",
+        assistanceProviderPoints: "12",
         nationality: "السعودية",
         city: "الرياض-009",
         region: "014-المنطقة الوسطى",
@@ -219,10 +237,12 @@ const UserAccounts = () => {
       },
       {
         name: "بدر",
-        accountNumber: "U-020522-00215j",
+        accountNumber: "U-020522-000010",
         accountType: "متميز",
         date: "25-Apr-2020",
         gender: "ذكر",
+        beneficiaryPoints: "13",
+        assistanceProviderPoints: "12",
         nationality: "السعودية",
         city: "الرياض-010",
         region: "014-المنطقة الوسطى",
@@ -235,10 +255,12 @@ const UserAccounts = () => {
       },
       {
         name: "راشد",
-        accountNumber: "U-020522-00215k",
+        accountNumber: "U-020522-000011",
         accountType: "مستفيد",
         date: "25-Apr-2020",
         gender: "ذكر",
+        beneficiaryPoints: "13",
+        assistanceProviderPoints: "12",
         nationality: "السعودية",
         city: "الرياض-011",
         region: "014-المنطقة الوسطى",
@@ -251,10 +273,12 @@ const UserAccounts = () => {
       },
       {
         name: "جاسم",
-        accountNumber: "U-020522-00215l",
+        accountNumber: "U-020522-000012",
         accountType: "رواد",
         date: "25-Apr-2020",
         gender: "ذكر",
+        beneficiaryPoints: "13",
+        assistanceProviderPoints: "12",
         nationality: "السعودية",
         city: "الرياض-012",
         region: "014-المنطقة الوسطى",
@@ -267,10 +291,12 @@ const UserAccounts = () => {
       },
       {
         name: "تركي",
-        accountNumber: "U-020522-00215m",
+        accountNumber: "U-020522-000013",
         accountType: "متميز",
         date: "25-Apr-2020",
         gender: "ذكر",
+        beneficiaryPoints: "13",
+        assistanceProviderPoints: "12",
         nationality: "السعودية",
         city: "الرياض-013",
         region: "014-المنطقة الوسطى",
@@ -283,10 +309,12 @@ const UserAccounts = () => {
       },
       {
         name: "أنس",
-        accountNumber: "U-020522-00215n",
+        accountNumber: "U-020522-000014",
         accountType: "اساسي",
         date: "25-Apr-2020",
         gender: "ذكر",
+        beneficiaryPoints: "13",
+        assistanceProviderPoints: "12",
         nationality: "السعودية",
         city: "الرياض-014",
         region: "014-المنطقة الوسطى",
@@ -299,10 +327,12 @@ const UserAccounts = () => {
       },
       {
         name: "مازن",
-        accountNumber: "U-020522-00215o",
+        accountNumber: "U-020522-000015",
         accountType: "مستفيد",
         date: "25-Apr-2020",
         gender: "ذكر",
+        beneficiaryPoints: "13",
+        assistanceProviderPoints: "12",
         nationality: "السعودية",
         city: "الرياض-015",
         region: "014-المنطقة الوسطى",
@@ -350,6 +380,14 @@ const UserAccounts = () => {
       }),
       columnHelper.accessor("gender", {
         header: "الجنس",
+        cell: (info) => info.getValue(),
+      }),
+      columnHelper.accessor("beneficiaryPoints", {
+        header: "نقاط المستفيد",
+        cell: (info) => info.getValue(),
+      }),
+      columnHelper.accessor("assistanceProviderPoints", {
+        header: "نقاط المساعد",
         cell: (info) => info.getValue(),
       }),
       columnHelper.accessor("nationality", {
@@ -434,14 +472,7 @@ const UserAccounts = () => {
   return (
     <section className="mt-5">
       <div className="row">
-        <div className="col-12 col-lg-4">
-          {/* <DounutCharts
-            series={SuspendedAccountSeries}
-            options={options}
-            title={"الحسابات"}
-          /> */}
-        </div>
-        <div className="col-12 ">
+        <div className="col-12 p-2">  
           <ColumnChart
             series={series}
             options={UseresAccountsOptions}
@@ -449,7 +480,7 @@ const UserAccounts = () => {
             height={285}
           />
         </div>
-        <div className="col-12">
+        <div className="col-12 p-2">
           <ReusableDataTable
             title="الحسابات"
             filter={false}
@@ -457,6 +488,7 @@ const UserAccounts = () => {
             columns={columns}
             lang="ar"
             initialPageSize={10}
+            searchPlaceholder="البحث في الحسابات"
           />
         </div>
       </div>

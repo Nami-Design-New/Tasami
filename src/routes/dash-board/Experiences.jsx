@@ -1,4 +1,3 @@
-import React from "react";
 import ReusableDataTable from "../../ui/table/ReusableDataTable";
 import { createColumnHelper } from "@tanstack/react-table";
 import { Link } from "react-router";

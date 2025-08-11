@@ -10,7 +10,6 @@ import ResetPassword from "../routes/auth/ResetPassword";
 import ChatPage from "../routes/ChatPage";
 import ActionsLogModel from "../routes/dash-board/ActionsLogModel";
 import CreateEmployee from "../routes/dash-board/CreateEmployer";
-import DataUpdateRequestDetails from "../routes/dash-board/DataUpdateRequestDetails";
 import Documents from "../routes/dash-board/Documents";
 import EmployeeProfile from "../routes/dash-board/EmployeeProfile";
 import Experiences from "../routes/dash-board/Experiences";
@@ -64,16 +63,19 @@ import Posts from "../routes/website/Posts";
 import Privacy from "../routes/website/privacy";
 import Profile from "../routes/website/Profile";
 
+import Banners from "../routes/dash-board/websiteManagment/Banners";
+import SubscriptionManagement from "../routes/dash-board/websiteManagment/SubscriptionManagement";
+import TasksManagment from "../routes/dash-board/websiteManagment/TasksManagment";
 import Terms from "../routes/website/terms";
 import Views from "../routes/website/Views";
 import LoginForm from "../ui/auth/LoginForm";
-import TasksManagment from "../routes/dash-board/websiteManagment/TasksManagment";
-import SubscriptionManagement from "../routes/dash-board/websiteManagment/SubscriptionManagement";
-import Banners from "../routes/dash-board/websiteManagment/Banners";
 
+import CommunityPostDetails from "../routes/dash-board/CommunityPostDetails";
+import ContractDetails from "../routes/dash-board/ContractDetails";
+import ResuemeDetails from "../routes/dash-board/resuems/ResuemeDetails";
+import Followers from "../routes/website/Followers";
 import Interests from "../routes/website/Interests";
 import Savings from "../routes/website/Savings";
-import Followers from "../routes/website/Followers";
 
 export const router = createBrowserRouter([
   {
@@ -308,10 +310,16 @@ export const router = createBrowserRouter([
         path: "employee-details/:id",
         element: <CreateEmployee />,
       },
+      { path: "resuems/:id", element: <ResuemeDetails /> },
       {
-        path: "requests/:id",
-        element: <DataUpdateRequestDetails />,
+        path: "contracts/:id",
+        element: <ContractDetails />,
       },
+      {
+        path: "community-post-details/:id",
+        element: <CommunityPostDetails />,
+      },
+
       {
         path: "list-management",
         element: <ListManagement />,

@@ -1,17 +1,14 @@
-import { Modal } from "react-bootstrap";
-import InputField from "../../../ui/forms/InputField";
-import TextField from "../../../ui/forms/TextField";
-import SelectField from "../../../ui/forms/SelectField";
-import FileUploader from "../../../ui/forms/FileUPloader";
-import SubmitButton from "../../../ui/forms/SubmitButton";
 import { useState } from "react";
+import { Modal } from "react-bootstrap";
 import CustomButton from "../../../ui/CustomButton";
+import FileUploader from "../../../ui/forms/FileUPloader";
+import InputField from "../../../ui/forms/InputField";
+import SelectField from "../../../ui/forms/SelectField";
+import TextField from "../../../ui/forms/TextField";
 
-const AddNewTask = ({ showModal, setShowModal }) => {
+const AddNewTask = ({ showModal, setShowModal, title }) => {
   const [files, setFiles] = useState([]);
-  const [image, setImage] = useState(
-    "https://randomuser.me/api/portraits/women/44.jpg"
-  );
+
   const handleFilesChange = (updatedFiles) => {
     setFiles(updatedFiles);
   };
@@ -21,35 +18,17 @@ const AddNewTask = ({ showModal, setShowModal }) => {
   return (
     <Modal size="lg" centered show={showModal} onHide={handleClose}>
       <Modal.Header closeButton>
-        <h6>نموذج عمل جديد</h6>
+        <h6>{title}</h6>
       </Modal.Header>
       <Modal.Body>
         <form className="form_ui">
           <div className="row">
             <div className="col-12 col-md-6 py-2">
               <SelectField
-                label="النظام الاداري"
-                options={[
-                  { value: "1", name: "داخلي" },
-                  { value: "2", name: " خارجي " },
-                ]}
-              />
-            </div>
-            <div className="col-12 col-md-6 py-2">
-              <SelectField
-                label="الموضوع"
-                options={[
-                  { value: "1", name: "مهمه تنفيذيه" },
-                  { value: "2", name: "مهمه اجرائيه" },
-                ]}
-              />
-            </div>
-            <div className="col-12 col-md-6 py-2">
-              <SelectField
                 label="الموظف الموجه اليه الطلب"
                 options={[
-                  { value: "1", name: "مهمه تنفيذيه" },
-                  { value: "2", name: "مهمه اجرائيه" },
+                  { value: "1", name: "S-111111-0111111" },
+                  { value: "2", name: "S-111111-0111111" },
                 ]}
               />
             </div>
@@ -76,13 +55,13 @@ const AddNewTask = ({ showModal, setShowModal }) => {
               <CustomButton
                 size="meduim"
                 type="button"
-                color="danger"
+                color="secondary"
                 onClick={() => setShowModal(false)}
               >
                 الغاء
               </CustomButton>
               <CustomButton size="meduim" color="primary">
-                تأكيد
+                ارسال{" "}
               </CustomButton>
             </div>
           </div>

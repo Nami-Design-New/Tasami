@@ -104,10 +104,10 @@
           }
         }
         &:hover {
-          background-color: $inputBG;
+          background-color: $InputBG;
         }
         &.selected {
-          background-color: $inputBG;
+          background-color: $InputBG;
           font-weight: 600;
         }
       }

@@ -1,12 +1,11 @@
+import { Link } from "react-router";
 import ChartCard from "../../ui/dash-board/cards/ChartCard";
-import LineAnalyticsChart from "../../ui/dash-board/charts/LineAnalyticsChart";
 import StatCard from "../../ui/dash-board/cards/StatCard";
 import ColumnChart from "../../ui/dash-board/charts/ColumnChart";
 import DounutCharts from "../../ui/dash-board/charts/DounutCharts";
+import LineAnalyticsChart from "../../ui/dash-board/charts/LineAnalyticsChart";
 import TaskStatus from "../../ui/dash-board/home/TaskStatus";
 import UsersTable from "../../ui/dash-board/home/UsersTable";
-import { Link } from "react-router";
-import CustomButton from "../../ui/CustomButton";
 
 // Line chart
 const series = [
@@ -190,14 +189,6 @@ export default function DashboardHome() {
           <h3>مرحبًا بك مرة أخرى، محمود عباس !</h3>
           <p>قم بتتبع نشاط المبيعات لديك، والعملاء المحتملين والصفقات هنا.</p>
         </div>
-        {/* <div className="actions">
-          <CustomButton
-            size="large"
-            icon={<i className="fa-light fa-filter"></i>}
-          >
-            التصفية
-          </CustomButton>
-        </div> */}
       </div>
       <div className="row">
         <div className="col-12  col-lg-6 col-xxl-3 p-2  ">
@@ -236,7 +227,6 @@ export default function DashboardHome() {
           />
         </div>
         <div className="col-12 col-lg-6 col-xxl-3 p-2">
-          {" "}
           <StatCard
             icon={<i className="fa-solid fa-users-medical"></i>}
             title=" عدد الحسابات المميزه "
@@ -247,7 +237,7 @@ export default function DashboardHome() {
             color="#26BF94"
           />
         </div>
-        <div className="col-12 pt-2">
+        <div className="col-12 p-2">
           <ChartCard title={" اجراءات عاجله  "}>
             <div className="quick__actions--list">
               <Link
@@ -278,12 +268,12 @@ export default function DashboardHome() {
         </div>
       </div>
       <div className="row">
-        <div className="col-12 col-xl-4">
-          <div className="col p-0">
+        <div className="col-12 col-xl-4 p-2">
+          <div className="col pb-2">
             <TaskStatus />
           </div>
 
-          <div className="col p-0">
+          <div className="col pt-2">
             <DounutCharts
               series={employersSeries}
               options={employersOptions}
@@ -292,25 +282,25 @@ export default function DashboardHome() {
             />
           </div>
         </div>
-        <div className="col-12 col-xl-8">
+        <div className="col-12 col-xl-8 p-2">
           <LineAnalyticsChart
             series={series}
             title={"تحليلات الإيرادات"}
             options={revnueAnalyticsOptions}
             type="line"
-            height={580}
+            height={550}
           />
         </div>
       </div>
       <div className="row">
-        <div className="col-12">
+        <div className="col-12 p-2">
           <ColumnChart
             series={userGrowthSeries}
             options={userGrowthOptions}
             title={"نمو المستخدمين"}
           />
         </div>
-        <div className="col-12">
+        <div className="col-12 p-2">
           <UsersTable />
         </div>
       </div>

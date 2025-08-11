@@ -1,7 +1,7 @@
 import { useState } from "react";
 import StatisticsCard from "../../../ui/dash-board/cards/StatisticsCard";
 import PageHeader from "../../../ui/PageHeader";
-import SupervisoryTasks from "./SupervisoryTasks";
+import TasksTable from "./TasksTable";
 import AddNewTask from "./AddNewTask";
 import CustomButton from "../../../ui/CustomButton";
 import ChartCard from "../../../ui/dash-board/cards/ChartCard";
@@ -45,7 +45,7 @@ const statsData = [
     label: "متوسط مدة الإنجاز",
     value: "3 أيام",
     icon: "fa-clock",
-    color: "#ffc107", // yellow
+    color: "#ffc107",
     bgColor: "#fff3cd",
   },
 ];
@@ -56,14 +56,14 @@ const Tasks = () => {
     <>
       <section>
         <div className="p-2 d-flex align-items-center justify-content-between">
-          <PageHeader />{" "}
+          <PageHeader />
           <CustomButton
             size="large"
             color="secondary"
             icon={<i className="fa-solid fa-plus"></i>}
             onClick={() => setShowModal(true)}
           >
-            نموذج عمل جديد{" "}
+            نموذج عمل جديد
           </CustomButton>
         </div>
         <div className="row">
@@ -80,11 +80,15 @@ const Tasks = () => {
             </div>
           </ChartCard>
           <div className="col-12 p-2 p-md-0">
-            <SupervisoryTasks />
+            <TasksTable />
           </div>
         </div>
       </section>
-      <AddNewTask showModal={showModal} setShowModal={setShowModal} />
+      <AddNewTask
+        showModal={showModal}
+        setShowModal={setShowModal}
+        title="مهمة تنفيذية "
+      />
     </>
   );
 };

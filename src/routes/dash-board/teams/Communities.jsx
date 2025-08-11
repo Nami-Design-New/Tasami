@@ -123,7 +123,6 @@ const Communities = () => {
         posts: 24,
         consultations: 14,
         meetings: 4,
-        date: "25-Apr-2020",
       },
       {
         firstName: "علي ب.",
@@ -144,7 +143,6 @@ const Communities = () => {
         posts: 31,
         consultations: 16,
         meetings: 4,
-        date: "25-Apr-2020",
       },
     ],
     []
@@ -165,6 +163,7 @@ const Communities = () => {
         header: "الجنس",
         cell: (info) => info.getValue(),
       }),
+
       columnHelper.accessor("accountNumber", {
         header: "رقم الحساب",
         cell: (info) => (
@@ -236,7 +235,14 @@ const Communities = () => {
       }),
       columnHelper.accessor("communityTitle", {
         header: "عنوان المجتمع",
-        cell: (info) => info.getValue(),
+        cell: (info) => (
+          <Link
+            to={`/dashboard/communities-details/${info.getValue()}`}
+            className="link-styles"
+          >
+            {info.getValue()}
+          </Link>
+        ),
       }),
       columnHelper.accessor("memberCount", {
         header: "عدد الأعضاء",
@@ -260,10 +266,6 @@ const Communities = () => {
       }),
       columnHelper.accessor("meetings", {
         header: "الاجتماعات",
-        cell: (info) => info.getValue(),
-      }),
-      columnHelper.accessor("date", {
-        header: "التاريخ",
         cell: (info) => info.getValue(),
       }),
     ],

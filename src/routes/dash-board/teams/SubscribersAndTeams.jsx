@@ -20,9 +20,7 @@ const SubscribersAndTeams = () => {
         />
         {currentLocation === "teams" && (
           <CustomLink type="outlined" color="secondary" to={"create-employee"}>
-            {/* <Link className="button button--add" > */}
             انشاء موظف
-            {/* </Link> */}
           </CustomLink>
         )}
       </div>

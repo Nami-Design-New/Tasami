@@ -252,7 +252,7 @@ const Teams = () => {
   return (
     <section>
       <div className="row">
-        <div className="col-12 col-lg-6 col-xxl-4 ">
+        <div className="col-12 col-lg-6 col-xxl-4 p-2 ">
           <ColumnChart
             title={"التنفيذين"}
             series={excutives}
@@ -260,7 +260,7 @@ const Teams = () => {
             height={250}
           />
         </div>
-        <div className=" col-12 col-lg-6  col-xxl-4">
+        <div className=" col-12 col-lg-6  col-xxl-4 p-2">
           <ColumnChart
             title={"القاده"}
             series={leaders}
@@ -268,7 +268,7 @@ const Teams = () => {
             height={"250px"}
           />
         </div>
-        <div className="col-12 col-lg-6 col-xxl-4 ">
+        <div className="col-12 col-lg-6 col-xxl-4 p-2">
           <ColumnChart
             title={" المدراء "}
             series={manager}
@@ -276,7 +276,7 @@ const Teams = () => {
             height={"250px"}
           />
         </div>
-        <div className="col-12 col-lg-6">
+        <div className="col-12 col-lg-6 p-2">
           <ColumnChart
             title={"المشرفين"}
             series={supervisors}
@@ -284,7 +284,7 @@ const Teams = () => {
             height={"250px"}
           />
         </div>
-        <div className="col-12 col-xxl-6">
+        <div className="col-12 col-xxl-6 p-2">
           <ColumnChart
             title={"خدمه العملاء"}
             series={customerService}
@@ -292,7 +292,7 @@ const Teams = () => {
             height={"250px"}
           />
         </div>
-        <div className="col-12 ">
+        <div className="col-12 p-2">
           <ReusableDataTable
             data={data}
             filter={false}
