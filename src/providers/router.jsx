@@ -75,6 +75,7 @@ import Followers from "../routes/website/Followers";
 import Interests from "../routes/website/Interests";
 import Savings from "../routes/website/Savings";
 import ContractDetails from "../routes/dash-board/ContractDetails";
+import ComunityPostDetails from "../routes/dash-board/ComunityPostDetails";
 
 export const router = createBrowserRouter([
   {
@@ -313,6 +314,10 @@ export const router = createBrowserRouter([
       {
         path: "contracts/:id",
         element: <ContractDetails />,
+      },
+      {
+        path: "community-post-details/:id",
+        element: <ComunityPostDetails />,
       },
 
       {

@@ -235,28 +235,33 @@ const WorkingGroups = () => {
 
   return (
     <section>
-      {" "}
-      <ChartCard title={"احصائيات مجموعات العمل"}>
-        <div className="row">
-          {statsData.map((item, index) => (
-            <div
-              className="col-12 col-sm-6  col-md-4 col-lg-3 col-xxl-2 p-2"
-              key={index}
-            >
-              <StatisticsCard item={item} />
+      <div className="row">
+        <div className="col-12 p-2">
+          <ChartCard title={"احصائيات مجموعات العمل"}>
+            <div className="row">
+              {statsData.map((item, index) => (
+                <div
+                  className="col-12 col-sm-6  col-md-4 col-lg-3 col-xxl-2 p-2"
+                  key={index}
+                >
+                  <StatisticsCard item={item} />
+                </div>
+              ))}
             </div>
-          ))}
+          </ChartCard>
         </div>
-      </ChartCard>
-      <ReusableDataTable
-        title="مجموعات العمل"
-        data={data}
-        columns={columns}
-        lang="ar"
-        initialPageSize={10}
-        filter={false}
-        searchPlaceholder="البحث في مجموعات العمل ..."
-      />
+        <div className="col-12 p-2">
+          <ReusableDataTable
+            title="مجموعات العمل"
+            data={data}
+            columns={columns}
+            lang="ar"
+            initialPageSize={10}
+            filter={false}
+            searchPlaceholder="البحث في مجموعات العمل ..."
+          />
+        </div>
+      </div>
       <EditWorkGroupModal setShowModal={setShowModal} showModal={showModal} />
       <ConfirmDeleteModal
         setShowDeleteModal={setShowDeleteModal}

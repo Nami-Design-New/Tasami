@@ -144,27 +144,33 @@ const OperatingSectors = () => {
 
   return (
     <section>
-      <ChartCard title="إحصائيات قطاعات التشغيل">
-        <div className="row">
-          {statsData.map((item, index) => (
-            <div
-              className="col-12 col-sm-6  col-md-4 col-lg-3 col-xxl-2 p-2"
-              key={index}
-            >
-              <StatisticsCard item={item} />
+      <div className="row">
+        <div className="col-12 p-2">
+          <ChartCard title="إحصائيات قطاعات التشغيل">
+            <div className="row">
+              {statsData.map((item, index) => (
+                <div
+                  className="col-12 col-sm-6 col-md-4 col-lg-3 col-xxl-2 p-2"
+                  key={index}
+                >
+                  <StatisticsCard item={item} />
+                </div>
+              ))}
             </div>
-          ))}
+          </ChartCard>
         </div>
-      </ChartCard>
-      <ReusableDataTable
-        title="قطاعات التشغيل"
-        data={data}
-        columns={columns}
-        filter={false}
-        lang="ar"
-        initialPageSize={10}
-        searchPlaceholder=""
-      />
+        <div className="col-12 p-2">
+          <ReusableDataTable
+            title="قطاعات التشغيل"
+            data={data}
+            columns={columns}
+            filter={false}
+            lang="ar"
+            initialPageSize={10}
+            searchPlaceholder=""
+          />
+        </div>
+      </div>
       <OperatingSectorsModal
         setShowModal={setShowModal}
         showModal={showModal}

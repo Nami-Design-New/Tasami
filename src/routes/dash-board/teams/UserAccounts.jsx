@@ -472,8 +472,7 @@ const UserAccounts = () => {
   return (
     <section className="mt-5">
       <div className="row">
-        <div className="col-12 col-lg-4"></div>
-        <div className="col-12 ">
+        <div className="col-12 p-2">  
           <ColumnChart
             series={series}
             options={UseresAccountsOptions}
@@ -481,7 +480,7 @@ const UserAccounts = () => {
             height={285}
           />
         </div>
-        <div className="col-12">
+        <div className="col-12 p-2">
           <ReusableDataTable
             title="الحسابات"
             filter={false}

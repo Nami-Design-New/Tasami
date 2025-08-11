@@ -92,27 +92,33 @@ const FieldsAndSpecializations = () => {
   );
   return (
     <section>
-      <ChartCard title={"احصائيات  المجالات والتخصصات"}>
-        <div className="row">
-          {statsData.map((item, index) => (
-            <div
-              className="col-12 col-sm-6  col-md-4 col-lg-3 col-xxl-2 p-2"
-              key={index}
-            >
-              <StatisticsCard item={item} />
+      <div className="row">
+        <div className="col-12 p-2">
+          <ChartCard title={"احصائيات  المجالات والتخصصات"}>
+            <div className="row">
+              {statsData.map((item, index) => (
+                <div
+                  className="col-12 col-sm-6  col-md-4 col-lg-3 col-xxl-2 p-2"
+                  key={index}
+                >
+                  <StatisticsCard item={item} />
+                </div>
+              ))}
             </div>
-          ))}
+          </ChartCard>
         </div>
-      </ChartCard>
-      <ReusableDataTable
-        title=" المجالات و التخصصات  "
-        data={data}
-        columns={columns}
-        lang="ar"
-        initialPageSize={10}
-        searchPlaceholder=""
-        filter={false}
-      />
+        <div className="col-12 p-2">
+          <ReusableDataTable
+            title=" المجالات و التخصصات  "
+            data={data}
+            columns={columns}
+            lang="ar"
+            initialPageSize={10}
+            searchPlaceholder=""
+            filter={false}
+          />
+        </div>
+      </div>
       <FiledsAndSpecialzationsModal
         showModal={showModal}
         setShowModal={setShowModal}

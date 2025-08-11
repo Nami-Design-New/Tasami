@@ -272,14 +272,14 @@ const Resuems = () => {
   return (
     <section className="mt-5">
       <div className="row">
-        <div className="col-12">
+        <div className="col-12 p-2">
           <ColumnChart
             title={"السير الذاتيه"}
             options={usersOptions}
             series={usersSeries}
           />
         </div>
-        <div className="col-12">
+        <div className="col-12 p-2">
           <ReusableDataTable
             filter={false}
             data={data}
@@ -288,7 +288,7 @@ const Resuems = () => {
             initialPageSize={10}
           />
         </div>
-        <div className="d-flex align-items-center gap-3 ">
+        <div className="d-flex align-items-center gap-3 p-2 ">
           <CustomButton onClick={() => navigate("experiences")} size="large">
             الخبرات
           </CustomButton>

@@ -227,7 +227,6 @@ export default function DashboardHome() {
           />
         </div>
         <div className="col-12 col-lg-6 col-xxl-3 p-2">
-          {" "}
           <StatCard
             icon={<i className="fa-solid fa-users-medical"></i>}
             title=" عدد الحسابات المميزه "
@@ -279,7 +278,7 @@ export default function DashboardHome() {
               series={employersSeries}
               options={employersOptions}
               title={"عدد الموظفين"}
-              height={"100%"}
+              height={300}
             />
           </div>
         </div>
@@ -289,7 +288,7 @@ export default function DashboardHome() {
             title={"تحليلات الإيرادات"}
             options={revnueAnalyticsOptions}
             type="line"
-            height={"100%"}
+            height={550}
           />
         </div>
       </div>

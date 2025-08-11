@@ -59,7 +59,15 @@ const CummunityRecordModal = ({ showModal, setShowModal }) => {
       }),
       columnHelper.accessor("referenceNumber", {
         header: " الرقم المرجعي  ",
-        cell: (info) => <Link className="link-styles">{info.getValue()}</Link>,
+        cell: (info) => (
+          <Link
+            to={`/dashboard/community-post-details/${info.getValue()}`}
+            className="link-styles"
+          >
+            {info.getValue()}
+          </Link>
+        ),
+
         enableSorting: false,
       }),
       columnHelper.accessor("creationDate", {
