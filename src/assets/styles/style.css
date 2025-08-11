@@ -7227,6 +7227,111 @@ body .chat-history .chat-window {
 body .chat-history .chat-window footer {
   border: 1px solid rgba(13, 13, 13, 0.0941176471);
 }
+body .resumes-details .resume-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: 1rem;
+}
+body .resumes-details .resume-header h1 {
+  font-size: 2rem;
+  color: #5fcafa;
+}
+body .resumes-details .user {
+  display: flex;
+  gap: 0.5rem;
+  background-color: rgba(95, 202, 250, 0.0784313725);
+  padding: 0.5rem;
+  border-radius: 12px;
+}
+body .resumes-details .user .user-image {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+}
+body .resumes-details .user .user-data {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  gap: 0.25rem;
+}
+body .resumes-details .user .user-data h3 {
+  font-size: 1.25rem;
+  color: #0d0d0d;
+  font-weight: bold;
+}
+body .resumes-details .user .user-data .user-country {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.75rem;
+}
+body .resumes-details .description {
+  margin-bottom: 1rem;
+}
+body .resumes-details .description h3 {
+  font-size: 1.25rem;
+  color: #0d0d0d;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+body .resumes-details .description p {
+  padding: 1rem;
+  border: 1px solid rgba(13, 13, 13, 0.0941176471);
+  border-radius: 12px;
+  background-color: #fff;
+  color: #0d0d0d;
+  line-height: 1.8;
+  font-size: 1rem;
+}
+body .resumes-details .experiences {
+  margin-bottom: 1rem;
+}
+body .resumes-details .experiences h3 {
+  font-size: 1.25rem;
+  color: #0d0d0d;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+body .resumes-details .experiences .experiences-list {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+body .resumes-details .experiences .experiences-list li {
+  padding: 0.75rem;
+  border: 1px solid #5fcafa;
+  border-radius: 8px;
+  background-color: #fff;
+  font-size: 1rem;
+  font-weight: 500;
+  color: #5fcafa;
+  min-width: -moz-fit-content;
+  min-width: fit-content;
+}
+body .resumes-details .documents h3 {
+  font-size: 1.25rem;
+  color: #0d0d0d;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+body .resumes-details .documents .documents-list {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+body .resumes-details .documents .documents-list li {
+  padding: 0.75rem;
+  border: 1px solid #5fcafa;
+  border-radius: 8px;
+  background-color: #fff;
+  font-size: 1rem;
+  font-weight: 500;
+  color: #5fcafa;
+}
 body .hero-section {
   padding: 30px 0;
 }

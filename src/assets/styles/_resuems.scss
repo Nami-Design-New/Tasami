@@ -1,0 +1,108 @@
+.resumes-details {
+  .resume-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: 1rem;
+    h1 {
+      font-size: 2rem;
+      color: $second;
+    }
+  }
+  .user {
+    display: flex;
+    gap: 0.5rem;
+    background-color: $secondColor08;
+    padding: 0.5rem;
+    border-radius: $borderRadius;
+    .user-image {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+    }
+    .user-data {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      gap: 0.25rem;
+      h3 {
+        font-size: 1.25rem;
+        color: $dark;
+        font-weight: bold;
+      }
+      .user-country {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 0.75rem;
+      }
+    }
+  }
+  .description {
+    margin-bottom: 1rem;
+    h3 {
+      font-size: 1.25rem;
+      color: $dark;
+      font-weight: bold;
+      margin-bottom: 1rem;
+    }
+    p {
+      padding: 1rem;
+      border: 1px solid $InputStroke;
+      border-radius: $borderRadius;
+      background-color: $white;
+      color: $dark;
+      line-height: 1.8;
+      font-size: 1rem;
+    }
+  }
+  .experiences {
+    margin-bottom: 1rem;
+    h3 {
+      font-size: 1.25rem;
+      color: $dark;
+      font-weight: bold;
+      margin-bottom: 1rem;
+    }
+    .experiences-list {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      li {
+        padding: 0.75rem;
+        border: 1px solid $second;
+        border-radius: 8px;
+        background-color: $white;
+        font-size: 1rem;
+        font-weight: 500;
+        color: $second;
+        min-width: fit-content;
+      }
+    }
+  }
+  .documents {
+    h3 {
+      font-size: 1.25rem;
+      color: $dark;
+      font-weight: bold;
+      margin-bottom: 1rem;
+    }
+    .documents-list {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      li {
+        padding: 0.75rem;
+        border: 1px solid $second;
+        border-radius: 8px;
+        background-color: $white;
+        font-size: 1rem;
+        font-weight: 500;
+        color: $second;
+      }
+    }
+  }
+}

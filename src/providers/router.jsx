@@ -72,7 +72,7 @@ import LoginForm from "../ui/auth/LoginForm";
 
 import CommunityPostDetails from "../routes/dash-board/CommunityPostDetails";
 import ContractDetails from "../routes/dash-board/ContractDetails";
-import ResuemeDetails from "../routes/dash-board/teams/ResuemeDetails";
+import ResuemeDetails from "../routes/dash-board/resuems/ResuemeDetails";
 import Followers from "../routes/website/Followers";
 import Interests from "../routes/website/Interests";
 import Savings from "../routes/website/Savings";
@@ -291,7 +291,6 @@ export const router = createBrowserRouter([
             path: "resuems",
             children: [
               { index: true, element: <Resuems /> },
-              { path: ":id", element: <ResuemeDetails /> },
               { path: "experiences", element: <Experiences /> },
               { path: "documents", element: <Documents /> },
             ],
@@ -311,6 +310,7 @@ export const router = createBrowserRouter([
         path: "employee-details/:id",
         element: <CreateEmployee />,
       },
+      { path: "resuems/:id", element: <ResuemeDetails /> },
       {
         path: "contracts/:id",
         element: <ContractDetails />,
