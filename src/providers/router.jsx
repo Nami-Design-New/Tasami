@@ -70,12 +70,12 @@ import Terms from "../routes/website/terms";
 import Views from "../routes/website/Views";
 import LoginForm from "../ui/auth/LoginForm";
 
+import CommunityPostDetails from "../routes/dash-board/CommunityPostDetails";
+import ContractDetails from "../routes/dash-board/ContractDetails";
 import ResuemeDetails from "../routes/dash-board/teams/ResuemeDetails";
 import Followers from "../routes/website/Followers";
 import Interests from "../routes/website/Interests";
 import Savings from "../routes/website/Savings";
-import ContractDetails from "../routes/dash-board/ContractDetails";
-import ComunityPostDetails from "../routes/dash-board/ComunityPostDetails";
 
 export const router = createBrowserRouter([
   {
@@ -317,7 +317,7 @@ export const router = createBrowserRouter([
       },
       {
         path: "community-post-details/:id",
-        element: <ComunityPostDetails />,
+        element: <CommunityPostDetails />,
       },
 
       {

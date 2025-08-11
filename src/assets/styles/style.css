@@ -9293,6 +9293,115 @@ body .add-comment-btn i {
 body .add-comment-btn:hover {
   background: #183668;
 }
+body .community-post-details {
+  /* Post image */
+  /* Title */
+  /* Description */
+  /* Links section */
+  /* Stats row */
+  /* Comments */
+  /* Responsive adjustments */
+}
+body .community-post-details .container {
+  border-radius: 12px;
+}
+body .community-post-details .post-image .image-wrapper img {
+  max-width: 100%;
+  border-radius: 10px;
+}
+body .community-post-details .post-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #0d0d0d;
+  line-height: 1.5;
+}
+body .community-post-details .post-description {
+  font-size: 1rem;
+  color: #666b88;
+  line-height: 1.8;
+}
+body .community-post-details .post-links {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+body .community-post-details .post-links .links-title {
+  font-size: 1.2rem;
+  color: #5fcafa;
+}
+body .community-post-details .post-links .post-link {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #0d0d0d;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 1rem;
+}
+body .community-post-details .post-links .post-link img {
+  width: 20px;
+  height: 20px;
+}
+body .community-post-details .post-links .post-link:hover {
+  text-decoration: underline;
+}
+body .community-post-details .post-stats {
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+body .community-post-details .post-stats .stat-item {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 0.25rem;
+  color: #777777;
+  font-size: 14px;
+}
+body .community-post-details .post-stats .stat-item img {
+  width: 18px;
+  height: 18px;
+}
+body .community-post-details .comments-section .comments-title {
+  margin-bottom: 1rem;
+  color: #0d0d0d;
+  font-weight: 700;
+  font-size: 1.2rem;
+}
+body .community-post-details .comment-card {
+  margin-bottom: 1rem;
+  background-color: rgba(13, 13, 13, 0.0196078431);
+  padding: 0.5rem;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+body .community-post-details .comment-card .user {
+  font-size: 14px;
+  font-weight: 400;
+  color: #777777;
+}
+body .community-post-details .comment-card .comment {
+  font-size: 1rem;
+  font-weight: 700;
+}
+body .community-post-details .comment-card .data-time {
+  text-align: left;
+  color: rgba(119, 119, 119, 0.8);
+  font-size: 11px;
+}
+@media (max-width: 576px) {
+  body .community-post-details .container {
+    padding: 1rem;
+  }
+  body .community-post-details .post-title {
+    font-size: 1.4rem;
+  }
+  body .community-post-details .post-stats {
+    gap: 1rem;
+  }
+}
 body .mt-30 {
   margin-top: 30px;
 }
