@@ -1,0 +1,197 @@
+.subscription-management {
+  margin-top: 30px;
+
+  .plan-card {
+    background: #fff;
+    border-radius: 12px;
+    padding: 16px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    margin-bottom: 20px;
+
+    &.current-plan {
+      background: #f8fcff;
+    }
+
+    .plan-title {
+      font-weight: bold;
+      margin-bottom: 8px;
+      font-size: 25px;
+    }
+
+    .plan-header {
+      display: flex;
+      justify-content: space-between;
+      color: $gray;
+
+      .plan-name {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-weight: bold;
+        font-size: 1.1rem;
+        .plan-icon {
+          width: 24px;
+          height: 24px;
+        }
+      }
+
+      .plan-free-label {
+        margin: 0;
+      }
+    }
+
+    .features-list {
+      padding: 0;
+      margin-top: 12px;
+      list-style: none;
+
+      .feature-item {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        font-size: 0.9rem;
+        padding: 4px 0;
+
+        .feature-text {
+          display: flex;
+          align-items: center;
+        }
+
+        .feature-check-icon {
+          margin: 0 8px;
+          color: $gray;
+        }
+
+        .feature-value {
+          font-weight: bold;
+          color: $second;
+        }
+      }
+    }
+  }
+
+  .upgrade-title {
+    font-weight: bold;
+    margin: 20px 0 0;
+  }
+
+  .upgrade-section {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 20px 0;
+  }
+
+  .plans-grid {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 16px;
+    gap: 16px;
+
+    .plan-column {
+      flex: 1 1 calc(50% - 8px);
+      min-width: 300px;
+    }
+
+    .other-plan {
+      text-align: center;
+      padding: 16px;
+
+      .plan-image {
+        width: 60px;
+        height: 60px;
+        margin-bottom: 8px;
+      }
+
+      .plan-name-title {
+        margin-top: 8px;
+      }
+
+      .plan-divider {
+        margin: 12px 0;
+        border-color: rgba(0, 0, 0, 0.1);
+      }
+
+      .commission-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin: 8px 0;
+
+        .commission-info {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+
+          .commission-check-icon {
+            color: $gray;
+          }
+        }
+
+        .commission-value {
+          font-weight: bold;
+          color: $second;
+        }
+      }
+
+      .subscribe-section {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-top: 16px;
+        gap: 15px;
+        .subscribe-btn {
+          background-color: #4ecdc4;
+          color: #fff;
+          border: none;
+          padding: 8px 16px;
+          border-radius: 8px;
+          font-weight: bold;
+          cursor: pointer;
+          transition: 0.3s ease;
+          flex-grow: 1;
+
+          &:hover {
+            background-color: darken(#4ecdc4, 5%);
+          }
+        }
+
+        .price-container {
+          display: flex;
+          flex-direction: column;
+          align-items: flex-end;
+
+          .main-price {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+
+            .plan-price {
+              font-weight: bold;
+              color: #FF7A59;
+            }
+
+            .currency-icon {
+              width: 20px;
+            }
+          }
+
+          .monthly-price {
+            font-size: 0.6rem;
+            color: #666;
+            display: flex;
+            align-items: center;
+            gap: 2px;
+            margin-top: 2px;
+
+            .currency-icon {
+              width: 12px;
+              height: 12px;
+              opacity: 0.7;
+            }
+          }
+        }
+      }
+    }
+  }
+}

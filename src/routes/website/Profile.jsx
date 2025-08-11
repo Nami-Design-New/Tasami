@@ -1,28 +1,17 @@
 import { NavLink, Outlet } from "react-router";
-
+import React, { useState } from "react";
+import AssistantModal from "../../ui/modals/AssistantModal";
+import ProfileCard from "../../ui/cards/ProfileCard";
 export default function Profile() {
+    const [showAssistantModal, setShowAssistantModal] = useState(false);
+
   return (
     <section className="profile_section mt-80">
       <div className="container">
         <div className="row">
           <div className="col-lg-3 col-md-4 col-12 p-2">
             <div className="profile_sidebar">
-              <div className="user">
-                <img
-                  src="/images/profile1.png"
-                  alt="User Avatar"
-                  className="avatar"
-                />
-                <div className="content">
-                  <h6> محمد سمير</h6>
-                  <span>ID: 345654</span>
-                </div>
-                 <div className="rating">
-                  <img src="/icons/hz-bars.svg" />
-                  <span>11</span>
-                </div>
-              </div>
-
+              <ProfileCard />
               <div className="nav_links">
                 <NavLink to="" end className="nav_link">
                   <i className="fa-regular fa-user"></i>
@@ -60,10 +49,10 @@ export default function Profile() {
                 </NavLink>
               </div>
 
-              <button className="assistant_btn">
-                <i className="fa-solid fa-robot"></i>
-                منصة المساعد الشخصي
-              </button>
+              <button className="assistant_btn" onClick={() => setShowAssistantModal(true)}>
+               <i className="fa-solid fa-robot"></i>
+              منصة المساعد الشخصي
+             </button>
             </div>
           </div>
 
@@ -72,6 +61,11 @@ export default function Profile() {
           </div>
         </div>
       </div>
+        <AssistantModal
+          showModal={showAssistantModal}
+          setShowModal={setShowAssistantModal}
+        />
     </section>
+    
   );
 }

@@ -262,8 +262,26 @@
       font-weight: bold;
       cursor: pointer;
       white-space: nowrap;
-
       color: white;
     }
   }
+}
+////////
+.assistant-modal {
+    h5 {
+      font-weight: bold;
+      font-size: 1.2rem;
+      color: $main;
+    }
+    .title {
+        font-size: 1.25rem;
+        color: #333;
+        font-weight: bold;
+      }
+      .sub-title {
+        font-size: 1rem;
+        color: $gray;
+        margin: 10px 0;
+        line-height: 1.6;
+      }
 }

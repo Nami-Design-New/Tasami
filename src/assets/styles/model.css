@@ -884,4 +884,21 @@ input[type=number]::-webkit-outer-spin-button, input[type=number]::-webkit-inner
   cursor: pointer;
   white-space: nowrap;
   color: white;
+}
+
+.assistant-modal h5 {
+  font-weight: bold;
+  font-size: 1.2rem;
+  color: #214b92;
+}
+.assistant-modal .title {
+  font-size: 1.25rem;
+  color: #333;
+  font-weight: bold;
+}
+.assistant-modal .sub-title {
+  font-size: 1rem;
+  color: #777777;
+  margin: 10px 0;
+  line-height: 1.6;
 }/*# sourceMappingURL=model.css.map */

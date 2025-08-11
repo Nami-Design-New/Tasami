@@ -80,6 +80,9 @@ import HelperDetailPage from "../routes/website/Works/HelperDetail";
 import Chat from "../routes/website/Chat";
 import GroupChat from "../routes/website/GroupChat";
 import Community from "../routes/website/community";
+import AssistantPlatform from "../routes/website/Platform/AssistantPlatform";
+import MyPlatform from "../routes/website/Platform/MyPlatform";
+import SubscriptionManagement from "../routes/website/Platform/SubscriptionManagement";
 
 export const router = createBrowserRouter([
   {
@@ -203,6 +206,26 @@ export const router = createBrowserRouter([
             path: "Followers",
             element: <Followers />,
           },
+
+        ],
+      },
+        {
+        path: "personal-assistant-platform",
+        element: <AssistantPlatform />,
+        children: [
+          {
+            index: true,
+            element: <MyPlatform />,
+          },
+          {
+            path: "subscription-management",
+            element: <SubscriptionManagement />,
+          },
+          {
+            path: "my-wallet",
+            element: <MyWallet />,
+          },
+         
         ],
       },
       {
