@@ -76,21 +76,28 @@ import ResuemeDetails from "../routes/dash-board/resuems/ResuemeDetails";
 import Followers from "../routes/website/Followers";
 import Interests from "../routes/website/Interests";
 import Savings from "../routes/website/Savings";
+import AreasOfInterest from "../routes/auth/AreasOfInterest";
+import CustomizeServicesPage from "../routes/auth/CustomizeServicesPage";
 
 export const router = createBrowserRouter([
   {
+    element: <AuthLayout />,
+    children: [
+      { path: "/login", element: <LoginPage /> },
+      { path: "/register", element: <RegisterPage /> },
+      { path: "/confirm-otp", element: <OtpConfirmationPage /> },
+      { path: "/register-info", element: <RegisterInfo /> },
+      { path: "/areas-of-interest", element: <AreasOfInterest /> },
+      {
+        path: "/customize-platform-services",
+        element: <CustomizeServicesPage />,
+      },
+    ],
+  },
+  { path: "/reset-password", element: <ResetPassword /> },
+  {
     element: <WebsiteLayout />,
     children: [
-      {
-        element: <AuthLayout />,
-        children: [
-          { path: "/login", element: <LoginPage /> },
-          { path: "/register", element: <RegisterPage /> },
-          { path: "/confirm-otp", element: <OtpConfirmationPage /> },
-          { path: "/register-info", element: <RegisterInfo /> },
-        ],
-      },
-      { path: "/reset-password", element: <ResetPassword /> },
       {
         path: "/",
         element: <Home />,

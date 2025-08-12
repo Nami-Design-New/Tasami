@@ -6,6 +6,7 @@ import { phoneSchema } from "../../validations/phoneSchema";
 import CustomButton from "../CustomButton";
 import InputField from "../forms/InputField";
 import PasswordField from "../forms/PasswordField";
+import { useTranslation } from "react-i18next";
 
 const PhoneForm = () => {
   const {
@@ -17,6 +18,7 @@ const PhoneForm = () => {
   });
   const navigate = useNavigate();
   const role = useSelector((state) => state.authRole.role);
+  const { t } = useTranslation();
 
   const onSubmit = (data) => {
     console.log(data);
@@ -31,21 +33,21 @@ const PhoneForm = () => {
     <form className="form_ui" onSubmit={handleSubmit(onSubmit)}>
       <InputField
         type="text"
-        placeholder="مثال: +455 567888 555"
+        placeholder={t("auth.phonePlaceholder")}
         {...register("phone")}
         error={errors.phone?.message}
       />
       <PasswordField
         name="password"
-        placeholder="كلمه المرور"
+        placeholder={t("auth.passwordPlaceholder")}
         {...register("password")}
         error={errors.password?.message}
       />
-      <Link to={"/reset-password"}> نسيت كلمه المرور ؟ </Link>
+      <Link to={"/reset-password"}>{t("auth.forgotPassword")}</Link>
 
       <div className="buttons">
         <CustomButton fullWidth size="large" type="submit">
-          دخول
+          {t("auth.loginButton")}
         </CustomButton>
       </div>
     </form>
