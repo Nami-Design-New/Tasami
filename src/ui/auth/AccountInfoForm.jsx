@@ -1,6 +1,6 @@
 import { useState } from "react";
 import PhoneInput from "react-phone-input-2";
-import { useSearchParams } from "react-router";
+import { useNavigate, useSearchParams } from "react-router";
 import CustomButton from "../CustomButton";
 import BackButton from "../forms/BackButton";
 import InputField from "../forms/InputField";
@@ -9,11 +9,16 @@ import PasswordField from "../forms/PasswordField";
 export default function AccountInfoForm({ setFormType }) {
   const [phone, setPhone] = useState();
   const [searchParams, setSearchParams] = useSearchParams();
-
+  const navigate = useNavigate();
   function handleBack(e) {
     e.preventDefault();
     setSearchParams({ step: "1" });
     setFormType("personalInfo");
+  }
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    navigate("/areas-of-interest");
   }
 
   return (
@@ -46,7 +51,12 @@ export default function AccountInfoForm({ setFormType }) {
       <div className="col-12 p-2">
         <div className="buttons">
           <BackButton onClick={handleBack} />
-          <CustomButton type="submit" fullWidth size="large">
+          <CustomButton
+            type="button"
+            onClick={handleSubmit}
+            fullWidth
+            size="large"
+          >
             تأكيد
           </CustomButton>
         </div>

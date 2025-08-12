@@ -1,210 +1,204 @@
 .auth_section {
-  width: 100%;
-  height: 100dvh;
   display: flex;
-  justify-content: center;
-  align-items: center;
-  background: #fff;
+  height: 100vh;
+  overflow: hidden;
+  background: $white;
   .img {
-    width: 100%;
-    height: 100%;
-    padding-inline-start: 12px;
+    flex: 1;
+    position: sticky;
+    top: 0;
+    height: 100vh;
     img {
       width: 100%;
       height: 100%;
       object-fit: cover;
-      border-radius: 16px;
     }
   }
-  .form_wrapper {
-    flex: 1;
 
-    .form_container {
-      overflow-y: scroll;
+  .form_container {
+    flex: 1;
+    height: 100vh;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    padding: 3rem;
+    gap: 16px;
+    scrollbar-width: none;
+    @media (max-width: 576px) {
+      padding: 2rem 0;
+    }
+    &::-webkit-scrollbar {
+      display: none;
+    }
+    scrollbar-width: none;
+    @media (max-width: 576px) {
+      width: calc(100% - 2rem);
+    }
+    @media (max-width: 768px) {
+      width: calc(100% - 2rem);
+    }
+    .form-header {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      flex-direction: column;
+      gap: 16px;
+      .logo {
+        display: flex;
+        align-items: end;
+        gap: 12px;
+        img {
+          height: 60px;
+          object-fit: contain;
+        }
+        h1 {
+          color: $second;
+          margin: 0;
+          font-weight: 400;
+          font-size: 32px;
+        }
+        span {
+          height: 50px;
+          width: 2px;
+          background: $main25;
+          display: block;
+          position: relative;
+          &::after,
+          &::before {
+            content: "";
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: $main25;
+            top: -3px;
+            left: -1.1px;
+            border-radius: 50%;
+          }
+          &::before {
+            bottom: -3px;
+            top: initial;
+          }
+        }
+      }
+    }
+    .form {
+      width: 100%;
+      flex: 1 1;
       display: flex;
       flex-direction: column;
-      padding: 3rem 0;
-      gap: 16px;
-      margin: 0 auto;
-      height: 100%;
-      width: calc(100% - 8rem);
-      scrollbar-width: none;
-      @media (max-width: 576px) {
-        padding: 2rem 0;
+      .head {
+        color: $second;
+        font-size: 32px;
+        font-weight: 500;
+        margin-bottom: 1.5rem;
+        img {
+          height: 40px;
+        }
       }
-      &::-webkit-scrollbar {
-        display: none;
+      .sub-head {
+        font-size: 18px;
+        font-weight: 400;
+        color: $gray;
+        margin-bottom: 12px;
+        span {
+          color: $main;
+          font-weight: bold;
+        }
       }
-      scrollbar-width: none;
-      @media (max-width: 576px) {
-        width: calc(100% - 2rem);
-      }
-      @media (max-width: 768px) {
-        width: calc(100% - 2rem);
-      }
-      .form-header {
-        width: 100%;
+      .selection-grid {
         display: flex;
-        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 12px;
+        margin-top: 24px;
+        .select {
+          height: 70px;
+          min-width: calc(50% - 6px);
+          flex: 1;
+          @include clearInput();
+          background: $InputBG;
+          border-radius: 12px;
+          font-size: 16px;
+          font-weight: 600;
+          color: $dark;
+          transition: $transition;
+          &.active {
+            background: $main;
+            color: $white;
+          }
+        }
+      }
+      .next {
+        @include clearInput();
+        @include centerFlex();
+        width: 100%;
+        height: 60px;
+        background: $main;
+        color: $white;
+        border-radius: 12px;
+        margin-top: 24px;
+      }
+      .tabs {
+        width: 100%;
+        border-bottom: 2px solid $InputStroke;
+        gap: 0;
+        button {
+          @include clearInput();
+          padding: 4px 12px;
+          position: relative;
+          font-size: 16px;
+          font-weight: 500;
+          transition: $transition;
+          color: $dark;
+          &::after {
+            content: "";
+            position: absolute;
+            bottom: -2px;
+            width: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            height: 2px;
+            background: $main;
+            transition: $transition;
+          }
+          &.active {
+            color: $main;
+            &::after {
+              width: 100%;
+            }
+          }
+        }
+      }
+      form {
+        padding: 16px 0;
+        display: flex;
         flex-direction: column;
         gap: 16px;
-        .logo {
-          display: flex;
-          align-items: end;
-          gap: 12px;
-          img {
-            height: 60px;
-            object-fit: contain;
+        input {
+          height: 54px;
+          border: 1px solid $InputStroke;
+          background: $InputBG;
+          padding: 12px 16px;
+          border-radius: 8px;
+          outline: none;
+          color: $dark;
+          &::placeholder {
+            color: $inputHint;
           }
-          h1 {
+        }
+        a {
+          color: $main;
+          align-self: flex-end;
+          color: $main;
+        }
+        .resend {
+          @include space-between();
+          h6 {
             color: $second;
-            margin: 0;
-            font-weight: 400;
-            font-size: 32px;
+            font-weight: 700;
+            font-size: 1rem;
           }
-          span {
-            height: 50px;
-            width: 2px;
-            background: $main25;
-            display: block;
-            position: relative;
-            &::after,
-            &::before {
-              content: "";
-              position: absolute;
-              width: 4px;
-              height: 4px;
-              background: $main25;
-              top: -3px;
-              left: -1.1px;
-              border-radius: 50%;
-            }
-            &::before {
-              bottom: -3px;
-              top: initial;
-            }
-          }
-        }
-      }
-      .form {
-        width: 100%;
-        flex: 1 1;
-        display: flex;
-        flex-direction: column;
-        .head {
-          color: $second;
-          font-size: 32px;
-          font-weight: 500;
-          margin-bottom: 1.5rem;
-          img {
-            height: 40px;
-          }
-        }
-        .sub-head {
-          font-size: 18px;
-          font-weight: 400;
-          color: $gray;
-          margin-bottom: 12px;
-          span {
-            color: $main;
-            font-weight: bold;
-          }
-        }
-        .selection-grid {
-          display: flex;
-          flex-wrap: wrap;
-          gap: 12px;
-          margin-top: 24px;
-          .select {
-            height: 70px;
-            min-width: calc(50% - 6px);
-            flex: 1;
-            @include clearInput();
-            background: $InputBG;
-            border-radius: 12px;
-            font-size: 16px;
-            font-weight: 600;
-            color: $dark;
-            transition: $transition;
-            &.active {
-              background: $main;
-              color: $white;
-            }
-          }
-        }
-        .next {
-          @include clearInput();
-          @include centerFlex();
-          width: 100%;
-          height: 60px;
-          background: $main;
-          color: $white;
-          border-radius: 12px;
-          margin-top: 24px;
-        }
-        .tabs {
-          width: 100%;
-          border-bottom: 2px solid $InputStroke;
-          gap: 0;
-          button {
-            @include clearInput();
-            padding: 4px 12px;
-            position: relative;
-            font-size: 16px;
-            font-weight: 500;
-            transition: $transition;
-            color: $dark;
-            &::after {
-              content: "";
-              position: absolute;
-              bottom: -2px;
-              width: 0;
-              left: 50%;
-              transform: translateX(-50%);
-              height: 2px;
-              background: $main;
-              transition: $transition;
-            }
-            &.active {
-              color: $main;
-              &::after {
-                width: 100%;
-              }
-            }
-          }
-        }
-        form {
-          padding: 16px 0;
-          display: flex;
-          flex-direction: column;
-          gap: 16px;
-          input {
-            height: 54px;
-            border: 1px solid $InputStroke;
-            background: $InputBG;
-            padding: 12px 16px;
-            border-radius: 8px;
-            outline: none;
-            color: $dark;
-            &::placeholder {
-              color: $inputHint;
-            }
-          }
-          a {
-            color: $main;
-            align-self: flex-end;
-            color: $main;
-          }
-          .resend {
-            @include space-between();
-            h6 {
-              color: $second;
-              font-weight: 700;
-              font-size: 1rem;
-            }
-            p {
-              color: $second;
-            }
+          p {
+            color: $second;
           }
         }
       }
@@ -546,6 +540,127 @@ button.back {
         i {
           color: $white;
         }
+      }
+    }
+  }
+}
+
+.area-of-interest {
+  // accordion-overrides.scss
+  .accordion {
+    border: none;
+    background: transparent;
+
+    .accordion-item {
+      border: none;
+      margin-bottom: 0.5rem;
+
+      .accordion-button {
+        font-size: 1rem;
+        font-weight: 700;
+        background-color: $InputBG;
+        color: $dark;
+        border-radius: $borderRadius !important;
+        padding: 0.75rem 1rem;
+        border: none;
+        transition: background-color 0.3s ease, color 0.3s ease;
+        box-shadow: none;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        &::after {
+          display: none !important;
+          content: none !important;
+        }
+        &:not(.collapsed) {
+          border-radius: $borderRadius $borderRadius 0 0 !important;
+          .arrow-icon {
+            transform: rotate(0deg);
+          }
+
+          // background-color: #007bff;
+          // color: #fff;
+        }
+
+        // &:hover {
+        //   background-color: #e0e0e0;
+        //   color: #000;
+        // }
+
+        &:focus {
+          box-shadow: none;
+          // border-color: #007bff;
+        }
+        .arrow-icon {
+          width: 24px;
+          height: 24px;
+          border-radius: 50%;
+          background-color: $white;
+          @include centerFlex();
+          transform: rotate(90deg);
+          transition: 0.3s ease;
+          color: $second;
+        }
+      }
+
+      .accordion-body {
+        background-color: $InputBG;
+        padding: 12px;
+        border: none;
+
+        border-radius: 0 0 8px 8px;
+
+        label {
+          display: flex;
+          align-items: center;
+          font-size: 0.95rem;
+          gap: 8px;
+          margin-bottom: 0.5rem;
+          cursor: pointer;
+
+          input[type="checkbox"] {
+            accent-color: #007bff;
+            transform: scale(1.2);
+          }
+        }
+      }
+    }
+  }
+  .tag-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.4rem 0.8rem;
+      border: 2px solid $second;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      cursor: pointer;
+      background-color: $white;
+      color: $second;
+      transition: all 0.2s ease;
+      user-select: none;
+      direction: rtl;
+
+      input {
+        display: none;
+      }
+
+      &.selected {
+        background-color: $second;
+        color: $white;
+        border-color: $second;
+      }
+
+      .icon {
+        font-size: 1rem;
+        line-height: 1;
       }
     }
   }

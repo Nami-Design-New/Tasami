@@ -2614,89 +2614,83 @@ body main {
   }
 }
 body .auth_section {
-  width: 100%;
-  height: 100dvh;
   display: flex;
-  justify-content: center;
-  align-items: center;
+  height: 100vh;
+  overflow: hidden;
   background: #fff;
 }
 body .auth_section .img {
-  width: 100%;
-  height: 100%;
-  padding-inline-start: 12px;
+  flex: 1;
+  position: sticky;
+  top: 0;
+  height: 100vh;
 }
 body .auth_section .img img {
   width: 100%;
   height: 100%;
   -o-object-fit: cover;
      object-fit: cover;
-  border-radius: 16px;
 }
-body .auth_section .form_wrapper {
+body .auth_section .form_container {
   flex: 1;
-}
-body .auth_section .form_wrapper .form_container {
-  overflow-y: scroll;
+  height: 100vh;
+  overflow-y: auto;
   display: flex;
   flex-direction: column;
-  padding: 3rem 0;
+  padding: 3rem;
   gap: 16px;
-  margin: 0 auto;
-  height: 100%;
-  width: calc(100% - 8rem);
   scrollbar-width: none;
   scrollbar-width: none;
 }
 @media (max-width: 576px) {
-  body .auth_section .form_wrapper .form_container {
+  body .auth_section .form_container {
     padding: 2rem 0;
   }
 }
-body .auth_section .form_wrapper .form_container::-webkit-scrollbar {
+body .auth_section .form_container::-webkit-scrollbar {
   display: none;
 }
 @media (max-width: 576px) {
-  body .auth_section .form_wrapper .form_container {
+  body .auth_section .form_container {
     width: calc(100% - 2rem);
   }
 }
 @media (max-width: 768px) {
-  body .auth_section .form_wrapper .form_container {
+  body .auth_section .form_container {
     width: calc(100% - 2rem);
   }
 }
-body .auth_section .form_wrapper .form_container .form-header {
+body .auth_section .form_container .form-header {
   width: 100%;
   display: flex;
   justify-content: space-between;
   flex-direction: column;
   gap: 16px;
 }
-body .auth_section .form_wrapper .form_container .form-header .logo {
+body .auth_section .form_container .form-header .logo {
   display: flex;
   align-items: end;
   gap: 12px;
 }
-body .auth_section .form_wrapper .form_container .form-header .logo img {
+body .auth_section .form_container .form-header .logo img {
   height: 60px;
   -o-object-fit: contain;
      object-fit: contain;
 }
-body .auth_section .form_wrapper .form_container .form-header .logo h1 {
+body .auth_section .form_container .form-header .logo h1 {
   color: #5fcafa;
   margin: 0;
   font-weight: 400;
   font-size: 32px;
 }
-body .auth_section .form_wrapper .form_container .form-header .logo span {
+body .auth_section .form_container .form-header .logo span {
   height: 50px;
   width: 2px;
   background: rgba(33, 75, 146, 0.25);
   display: block;
   position: relative;
 }
-body .auth_section .form_wrapper .form_container .form-header .logo span::after, body .auth_section .form_wrapper .form_container .form-header .logo span::before {
+body .auth_section .form_container .form-header .logo span::after, body .auth_section .form_container .form-header .logo span::before {
   content: "";
   position: absolute;
   width: 4px;
@@ -2706,42 +2700,42 @@ body .auth_section .form_wrapper .form_container .form-header .logo span::after,
   left: -1.1px;
   border-radius: 50%;
 }
-body .auth_section .form_wrapper .form_container .form-header .logo span::before {
+body .auth_section .form_container .form-header .logo span::before {
   bottom: -3px;
   top: initial;
 }
-body .auth_section .form_wrapper .form_container .form {
+body .auth_section .form_container .form {
   width: 100%;
   flex: 1 1;
   display: flex;
   flex-direction: column;
 }
-body .auth_section .form_wrapper .form_container .form .head {
+body .auth_section .form_container .form .head {
   color: #5fcafa;
   font-size: 32px;
   font-weight: 500;
   margin-bottom: 1.5rem;
 }
-body .auth_section .form_wrapper .form_container .form .head img {
+body .auth_section .form_container .form .head img {
   height: 40px;
 }
-body .auth_section .form_wrapper .form_container .form .sub-head {
+body .auth_section .form_container .form .sub-head {
   font-size: 18px;
   font-weight: 400;
   color: #777777;
   margin-bottom: 12px;
 }
-body .auth_section .form_wrapper .form_container .form .sub-head span {
+body .auth_section .form_container .form .sub-head span {
   color: #214b92;
   font-weight: bold;
 }
-body .auth_section .form_wrapper .form_container .form .selection-grid {
+body .auth_section .form_container .form .selection-grid {
   display: flex;
   flex-wrap: wrap;
   gap: 12px;
   margin-top: 24px;
 }
-body .auth_section .form_wrapper .form_container .form .selection-grid .select {
+body .auth_section .form_container .form .selection-grid .select {
   height: 70px;
   min-width: calc(50% - 6px);
   flex: 1;
@@ -2755,11 +2749,11 @@ body .auth_section .form_wrapper .form_container .form .selection-grid .select {
   color: #0d0d0d;
   transition: 0.3s ease-in-out;
 }
-body .auth_section .form_wrapper .form_container .form .selection-grid .select.active {
+body .auth_section .form_container .form .selection-grid .select.active {
   background: #214b92;
   color: #fff;
 }
-body .auth_section .form_wrapper .form_container .form .next {
+body .auth_section .form_container .form .next {
   border: none;
   background: none;
   outline: none;
@@ -2773,12 +2767,12 @@ body .auth_section .form_wrapper .form_container .form .next {
   border-radius: 12px;
   margin-top: 24px;
 }
-body .auth_section .form_wrapper .form_container .form .tabs {
+body .auth_section .form_container .form .tabs {
   width: 100%;
   border-bottom: 2px solid rgba(13, 13, 13, 0.0941176471);
   gap: 0;
 }
-body .auth_section .form_wrapper .form_container .form .tabs button {
+body .auth_section .form_container .form .tabs button {
   border: none;
   background: none;
   outline: none;
@@ -2789,7 +2783,7 @@ body .auth_section .form_wrapper .form_container .form .tabs button {
   transition: 0.3s ease-in-out;
   color: #0d0d0d;
 }
-body .auth_section .form_wrapper .form_container .form .tabs button::after {
+body .auth_section .form_container .form .tabs button::after {
   content: "";
   position: absolute;
   bottom: -2px;
@@ -2800,19 +2794,19 @@ body .auth_section .form_wrapper .form_container .form .tabs button::after {
   background: #214b92;
   transition: 0.3s ease-in-out;
 }
-body .auth_section .form_wrapper .form_container .form .tabs button.active {
+body .auth_section .form_container .form .tabs button.active {
   color: #214b92;
 }
-body .auth_section .form_wrapper .form_container .form .tabs button.active::after {
+body .auth_section .form_container .form .tabs button.active::after {
   width: 100%;
 }
-body .auth_section .form_wrapper .form_container .form form {
+body .auth_section .form_container .form form {
   padding: 16px 0;
   display: flex;
   flex-direction: column;
   gap: 16px;
 }
-body .auth_section .form_wrapper .form_container .form form input {
+body .auth_section .form_container .form form input {
   height: 54px;
   border: 1px solid rgba(13, 13, 13, 0.0941176471);
   background: rgba(13, 13, 13, 0.0196078431);
@@ -2821,28 +2815,28 @@ body .auth_section .form_wrapper .form_container .form form input {
   outline: none;
   color: #0d0d0d;
 }
-body .auth_section .form_wrapper .form_container .form form input::-moz-placeholder {
+body .auth_section .form_container .form form input::-moz-placeholder {
   color: #aaaaaa;
 }
-body .auth_section .form_wrapper .form_container .form form input::placeholder {
+body .auth_section .form_container .form form input::placeholder {
   color: #aaaaaa;
 }
-body .auth_section .form_wrapper .form_container .form form a {
+body .auth_section .form_container .form form a {
   color: #214b92;
   align-self: flex-end;
   color: #214b92;
 }
-body .auth_section .form_wrapper .form_container .form form .resend {
+body .auth_section .form_container .form form .resend {
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
-body .auth_section .form_wrapper .form_container .form form .resend h6 {
+body .auth_section .form_container .form form .resend h6 {
   color: #5fcafa;
   font-weight: 700;
   font-size: 1rem;
 }
-body .auth_section .form_wrapper .form_container .form form .resend p {
+body .auth_section .form_container .form form .resend p {
   color: #5fcafa;
 }
 body .reset_section {
@@ -3162,6 +3156,106 @@ body .personal-info-form .images-input .image-input-wrapper .add-image-buttton {
 }
 body .personal-info-form .images-input .image-input-wrapper .add-image-buttton i {
   color: #fff;
+}
+body .area-of-interest .accordion {
+  border: none;
+  background: transparent;
+}
+body .area-of-interest .accordion .accordion-item {
+  border: none;
+  margin-bottom: 0.5rem;
+}
+body .area-of-interest .accordion .accordion-item .accordion-button {
+  font-size: 1rem;
+  font-weight: 700;
+  background-color: rgba(13, 13, 13, 0.0196078431);
+  color: #0d0d0d;
+  border-radius: 12px !important;
+  padding: 0.75rem 1rem;
+  border: none;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  box-shadow: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+body .area-of-interest .accordion .accordion-item .accordion-button::after {
+  display: none !important;
+  content: none !important;
+}
+body .area-of-interest .accordion .accordion-item .accordion-button:not(.collapsed) {
+  border-radius: 12px 12px 0 0 !important;
+}
+body .area-of-interest .accordion .accordion-item .accordion-button:not(.collapsed) .arrow-icon {
+  transform: rotate(0deg);
+}
+body .area-of-interest .accordion .accordion-item .accordion-button:focus {
+  box-shadow: none;
+}
+body .area-of-interest .accordion .accordion-item .accordion-button .arrow-icon {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background-color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: rotate(90deg);
+  transition: 0.3s ease;
+  color: #5fcafa;
+}
+body .area-of-interest .accordion .accordion-item .accordion-body {
+  background-color: rgba(13, 13, 13, 0.0196078431);
+  padding: 12px;
+  border: none;
+  border-radius: 0 0 8px 8px;
+}
+body .area-of-interest .accordion .accordion-item .accordion-body label {
+  display: flex;
+  align-items: center;
+  font-size: 0.95rem;
+  gap: 8px;
+  margin-bottom: 0.5rem;
+  cursor: pointer;
+}
+body .area-of-interest .accordion .accordion-item .accordion-body label input[type=checkbox] {
+  accent-color: #007bff;
+  transform: scale(1.2);
+}
+body .area-of-interest .tag-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+body .area-of-interest .tag-list .tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.4rem 0.8rem;
+  border: 2px solid #5fcafa;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  background-color: #fff;
+  color: #5fcafa;
+  transition: all 0.2s ease;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
+  direction: rtl;
+}
+body .area-of-interest .tag-list .tag input {
+  display: none;
+}
+body .area-of-interest .tag-list .tag.selected {
+  background-color: #5fcafa;
+  color: #fff;
+  border-color: #5fcafa;
+}
+body .area-of-interest .tag-list .tag .icon {
+  font-size: 1rem;
+  line-height: 1;
 }
 body .grid-container {
   display: grid;

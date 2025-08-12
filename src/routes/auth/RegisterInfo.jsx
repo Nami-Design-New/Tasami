@@ -34,7 +34,7 @@ export default function RegisterInfo() {
         {formType === "accountInfo" && (
           <AccountInfoForm setFormType={setFormType} />
         )}
-      </form>{" "}
+      </form>
     </section>
   );
 }
