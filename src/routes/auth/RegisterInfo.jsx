@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import PersonalInfoForm from "../../ui/auth/PersonalInfoForm";
 import AccountInfoForm from "../../ui/auth/AccountInfoForm";
 import { useSearchParams } from "react-router";
+import { useTranslation } from "react-i18next";
 
 export default function RegisterInfo() {
   const [searchparams] = useSearchParams();
@@ -17,15 +18,16 @@ export default function RegisterInfo() {
     }
   }, [step]);
 
+  const { t } = useTranslation();
   return (
     <section className="personal-info-form">
       {(step === "1" || step === null) && (
         <p className="form-head">
-          فضلاً أدخل البيانات الخاصة بك لإنشاء الحساب ..
+          {t("auth.registerInfoPrompt")}
         </p>
       )}
       {step === "2" && (
-        <p className="form-head">فضلاً أدخل بيانات الدخول إلى التطبيق .. </p>
+        <p className="form-head">{t("auth.accountInfoPrompt")}</p>
       )}
       <form className="form_ui  ">
         {formType === "personalInfo" && (

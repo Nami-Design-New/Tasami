@@ -3,10 +3,12 @@ import CustomButton from "../CustomButton";
 import BackButton from "../forms/BackButton";
 import InputField from "../forms/InputField";
 import { useSearchParams } from "react-router";
+import { useTranslation } from "react-i18next";
 
 export default function PersonalInfoForm({ setFormType }) {
   const inputFileRef = useRef();
   const [searchParams, setSearchParams] = useSearchParams();
+  const { t } = useTranslation();
 
   const handleFileChange = (event) => {
     const file = event.target.files[0];
@@ -23,11 +25,11 @@ export default function PersonalInfoForm({ setFormType }) {
     setFormType("accountInfo");
   }
   return (
-    <div className="row "  >
+    <div className="row ">
       <div className="col-12 p-2">
         <p className="image-label">
-          <span>الصوره الشخصية </span>
-          <span> &apos;اختياري &apos;</span>
+          <span>{t("auth.profilePicture")}</span>{" "}
+          <span>&apos;{t("auth.optional")}&apos;</span>
         </p>
         <label className="images-input">
           <div className="image-input-wrapper">
@@ -44,29 +46,26 @@ export default function PersonalInfoForm({ setFormType }) {
         </label>
       </div>
       <div className="col-12 p-2">
-        <InputField type="text" label="الاسم الأول" />
+        <InputField type="text" label={t("auth.firstName")} />
       </div>
       <div className="col-12 p-2">
-        <InputField
-          type="text"
-          label="اسم الأب أو اللقب أو الحرف الأول منهما"
-        />
+        <InputField type="text" label={t("auth.middleNameOrInitial")} />
       </div>
       <div className="col-12 p-2">
-        <InputField type="date" label="تاريخ الميلاد" />
+        <InputField type="date" label={t("auth.dateOfBirth")} />
       </div>
       <div className="col-12 p-2">
         <div className="identity-selector">
-          <h6 className="identity-title">الهوية</h6>
+          <h6 className="identity-title">{t("auth.identity")}</h6>
           <div className="identity-container">
             <label className="identity-option">
-              <img src="/icons/male-outlined.svg" alt="ذكر" />
-              <span>ذكر</span>
+              <img src="/icons/male-outlined.svg" alt={t("auth.male")} />
+              <span>{t("auth.male")}</span>
               <input type="radio" name="gender" value="male" />
             </label>
             <label className="identity-option">
-              <img src="/icons/female-outlined.svg" alt="أنثى" />
-              <span>أنثى</span>
+              <img src="/icons/female-outlined.svg" alt={t("auth.female")} />
+              <span>{t("auth.female")}</span>
               <input type="radio" name="gender" value="female" />
             </label>
           </div>
@@ -74,14 +73,14 @@ export default function PersonalInfoForm({ setFormType }) {
       </div>
       <div className="col-12 p-2">
         <div className="buttons">
-          <BackButton  />
+          <BackButton />
           <CustomButton
             type="button"
             fullWidth
             size="large"
             onClick={handleNext}
           >
-            التالي
+            {t("auth.next")}
           </CustomButton>
         </div>
       </div>

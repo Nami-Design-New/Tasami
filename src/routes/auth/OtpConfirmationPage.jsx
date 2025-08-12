@@ -3,6 +3,7 @@ import { useNavigate } from "react-router";
 import CustomButton from "../../ui/CustomButton";
 import BackButton from "../../ui/forms/BackButton";
 import OtpContainer from "../../ui/forms/OtpContainer";
+import { useTranslation } from "react-i18next";
 import { Link } from "react-router";
 
 export default function OtpConfirmationPage() {
@@ -11,6 +12,7 @@ export default function OtpConfirmationPage() {
   const [timer, setTimer] = useState(60);
   const [resendDisabled, setResendDisabled] = useState(true);
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   const handleSubmit = async (e) => {
     setLoading(true);
@@ -30,11 +32,11 @@ export default function OtpConfirmationPage() {
   return (
     <div className="reset-container">
       <p className="otp-page-des">
-        <span>فضلاً أدخل رمز التحقق الذي تم ارساله إلى الرقم ...</span>
+        <span>{t("auth.otpPrompt")}</span>
         <span> +96605123456789 </span>
          {location.pathname === "/confirm-otp" && (
               <h6>
-                <Link to={"/register"}> تعديل الرقم </Link>
+                <Link to={"/register"}> {t("auth.editPhoneNumber")} </Link>
               </h6>
             )}
       </p>
@@ -47,7 +49,7 @@ export default function OtpConfirmationPage() {
               pointerEvents: resendDisabled ? "none" : "auto",
             }}
           >
-            اعادة ارسال الرمز
+            {t("auth.resendCode")}
           </h6>
           <p>
             <span>
@@ -62,7 +64,7 @@ export default function OtpConfirmationPage() {
         <div className="buttons">
           <BackButton onClick={() => navigate(-1)} />
           <CustomButton fullWidth size="large">
-            إرسال
+            {t("auth.send")}
           </CustomButton>
         </div>
       </form>

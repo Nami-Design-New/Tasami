@@ -5,6 +5,7 @@ import CustomButton from "../CustomButton";
 import BackButton from "../forms/BackButton";
 import InputField from "../forms/InputField";
 import PasswordField from "../forms/PasswordField";
+import { useTranslation } from "react-i18next";
 
 export default function AccountInfoForm({ setFormType }) {
   const [phone, setPhone] = useState();
@@ -20,11 +21,11 @@ export default function AccountInfoForm({ setFormType }) {
     e.preventDefault();
     navigate("/areas-of-interest");
   }
-
+  const { t } = useTranslation();
   return (
     <div className="row">
       <div className="col-12 p-2">
-        <label className="phone-label">رقم الجوال</label>
+        <label className="phone-label">{t("auth.phoneLabel")}</label>
         <PhoneInput
           country={"sa"}
           value={phone}
@@ -40,13 +41,13 @@ export default function AccountInfoForm({ setFormType }) {
         />
       </div>
       <div className="col-12 p-2">
-        <InputField label="البريد الالكتروني" type="email" />
+        <InputField type="email" label={t("auth.emailAddress")} />
       </div>
       <div className="col-12 p-2">
-        <PasswordField label="كلمة المرور" type="password" />
+        <PasswordField type="password" label={t("auth.password")} />
       </div>
       <div className="col-12 p-2">
-        <PasswordField label="تأكيد كلمة المرور" type="password" />
+        <PasswordField type="password" label={t("auth.confirmPassword")} />
       </div>
       <div className="col-12 p-2">
         <div className="buttons">
@@ -57,7 +58,7 @@ export default function AccountInfoForm({ setFormType }) {
             fullWidth
             size="large"
           >
-            تأكيد
+            {t("auth.next")}
           </CustomButton>
         </div>
       </div>

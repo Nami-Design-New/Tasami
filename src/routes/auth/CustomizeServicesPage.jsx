@@ -2,24 +2,22 @@ import { useNavigate } from "react-router";
 import CustomButton from "../../ui/CustomButton";
 import BackButton from "../../ui/forms/BackButton";
 import SelectField from "../../ui/forms/SelectField";
+import { useTranslation } from "react-i18next";
 
 export default function CustomizeServicesPage() {
   const navigate = useNavigate();
   const handleBack = () => {
     navigate(-1);
   };
+  const { t } = useTranslation();
   return (
     <section className="personal-info-form">
-      <p className="form-head">
-        قم باستكمال معلوماتك لربط أعمالك بفريق خدمة العملاء حسب مكان تواجدك
-        الفعلي. تنصح &quot;تسامي&quot; بتحديث هذه المعلومات عند تغير بياناتك
-        المكانية كلما كان ذلك ضرورياً ليتم خدمتك بشكل أفضل.
-      </p>
+      <p className="form-head">{t("auth.customizeServicesPrompt")}</p>
       <form className="form_ui">
         <div className="row">
           <div className="col-12 p-2">
             <SelectField
-              label="الجنسية"
+              label={t("auth.nationality")}
               options={[
                 {
                   value: "saudi",
@@ -42,12 +40,12 @@ export default function CustomizeServicesPage() {
                   name: "لبنان",
                 },
               ]}
-              disableFiledValue="اختر"
+              disableFiledValue={t("auth.select")}
             />
           </div>
           <div className="col-12 p-2">
             <SelectField
-              label="بلد الإقامة"
+              label={t("auth.residenceCountry")}
               options={[
                 {
                   value: "saudi",
@@ -70,12 +68,12 @@ export default function CustomizeServicesPage() {
                   name: "لبنان",
                 },
               ]}
-              disableFiledValue="اختر"
+              disableFiledValue={t("auth.select")}
             />
           </div>
           <div className="col-12 p-2">
             <SelectField
-              label="المدينة"
+              label={t("auth.city")}
               options={[
                 {
                   value: "riyadh",
@@ -86,7 +84,7 @@ export default function CustomizeServicesPage() {
                   name: "جدة",
                 },
               ]}
-              disableFiledValue="اختر"
+              disableFiledValue={t("auth.select")}
             />
           </div>
           <div className="col-12 p-2">
@@ -98,7 +96,7 @@ export default function CustomizeServicesPage() {
                 size="large"
                 onClick={() => navigate("/")}
               >
-                تأكيد
+                {t("auth.confirm")}
               </CustomButton>
             </div>
           </div>

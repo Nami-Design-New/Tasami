@@ -1,26 +1,28 @@
 import { useState } from "react";
 import EmailForm from "./EmailForm";
 import PhoneForm from "./PhoneForm";
+import { useTranslation } from "react-i18next";
 
 const LoginForm = ({ setShowLoginForm }) => {
   const [formType, setFormType] = useState("email");
+  const { t } = useTranslation();
 
   return (
     <div className="form">
-      <h2 className="head">أهلاً !</h2>
+      <h2 className="head">{t("auth.greeting")}</h2>
 
       <div className="tabs">
         <button
           className={formType === "email" ? "active" : ""}
           onClick={() => setFormType("email")}
         >
-          بريد الكتروني
+          {t("auth.emailTab")}
         </button>
         <button
           className={formType === "phone" ? "active" : ""}
           onClick={() => setFormType("phone")}
         >
-          رقم هاتف
+          {t("auth.phoneTab")}
         </button>
       </div>
 

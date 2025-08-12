@@ -4,9 +4,11 @@ import TagItem from "../../ui/auth/TagItem";
 import CustomButton from "../../ui/CustomButton";
 import BackButton from "../../ui/forms/BackButton";
 import { useNavigate } from "react-router";
+import { useTranslation } from "react-i18next";
 
 export default function AreasOfInterest() {
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const options = [
     "التسويق الرقمي",
     "التدريب والتطوير",
@@ -28,8 +30,7 @@ export default function AreasOfInterest() {
   return (
     <section className="personal-info-form">
       <p className="form-head">
-        لتحسين تجربتك، حدد مجالات اهتمامك، وبإمكانك لاحقاً تخصيصها في أي وقت من
-        صفحة (اهتماماتي)
+        {t("auth.areasOfInterestPrompt")}
       </p>
       <div className="area-of-interest">
         <Accordion defaultActiveKey="0">
@@ -147,7 +148,7 @@ export default function AreasOfInterest() {
             size="large"
             onClick={() => navigate("/customize-platform-services")}
           >
-            استمرار
+            {t("auth.continue")}
           </CustomButton>
         </div>
       </div>
