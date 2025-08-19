@@ -386,17 +386,17 @@ input[type="number"] {
   .country-list {
     width: 100%;
     left: 0;
-    background: var(--dropdown-bg);
-    border: 1px solid var(--light-gray);
+    background: $white !important;
+    border: 1px solid $InputStroke;
     border-radius: 12px;
-    box-shadow: var(--shadow);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
     margin-top: 4px;
     scrollbar-width: none;
     .search {
       padding: 8px;
       input {
         margin: 0;
-        border: 1px solid var(--input-stroke);
+        border: 1px solid $InputStroke;
         height: 42px;
         border-radius: 8px;
         direction: ltr !important;
