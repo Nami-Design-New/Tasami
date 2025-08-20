@@ -5,7 +5,7 @@ import { toast } from "sonner";
 import useLogin from "../../hooks/auth/useLogin";
 import { setUser } from "../../redux/slices/authRole";
 import { setToken } from "../../utils/token";
-import { useLoginEmail } from "../../validations/login-email-schema";
+import { useLoginEmail } from "../../validations/auth/login-email-schema";
 import CustomButton from "../CustomButton";
 import InputField from "../forms/InputField";
 import PasswordField from "../forms/PasswordField";

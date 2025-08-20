@@ -113,7 +113,8 @@
     "fileSize": "File size must be less than 2MB",
     "fileType": "Only JPG and PNG files are allowed",
     "date": "Please enter a valid date",
-    "minAge": "You must be at least 13 years old"
+    "minAge": "You must be at least 13 years old",
+    "invalidPhoneNumber": "Phone number must contain only numbers"
   },
   "website": {
     "header": {

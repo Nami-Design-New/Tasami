@@ -3,7 +3,7 @@ import { FormProvider } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import AccountInfoForm from "../../ui/auth/AccountInfoForm";
 import PersonalInfoForm from "../../ui/auth/PersonalInfoForm";
-import { useRegisterValidation } from "../../validations/registerSchema";
+import { useRegisterValidation } from "../../validations/auth/register-schema";
 
 export default function RegisterInfo({ setRegisterStep }) {
   const { t } = useTranslation();

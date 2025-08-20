@@ -7,12 +7,12 @@ export const getLoginSchema = (t) =>
   yup.object().shape({
     email: yup
       .string()
-      .required("Email is required")
-      .email("Invalid Email Format"),
+      .required(t("validation.required"))
+      .email(t("validation.email")),
     password: yup
       .string()
-      .required("Password is required")
-      .min(6, "Password must be at least 6 characters long"),
+      .required(t("validation.required"))
+      .min(6, t("validation.passwordMin")),
   });
 
 export const useLoginEmail = () => {

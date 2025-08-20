@@ -1,14 +1,14 @@
 import { useTranslation } from "react-i18next";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router";
-import { useLoginPhone } from "../../validations/login-phone-schema";
+import { toast } from "sonner";
+import useLogin from "../../hooks/auth/useLogin";
+import { setUser } from "../../redux/slices/authRole";
+import { setToken } from "../../utils/token";
+import { useLoginPhone } from "../../validations/auth/login-phone-schema";
 import CustomButton from "../CustomButton";
 import InputField from "../forms/InputField";
 import PasswordField from "../forms/PasswordField";
-import useLogin from "../../hooks/auth/useLogin";
-import { setToken } from "../../utils/token";
-import { setUser } from "../../redux/slices/authRole";
-import { toast } from "sonner";
 
 const PhoneForm = () => {
   const navigate = useNavigate();
@@ -21,7 +21,7 @@ const PhoneForm = () => {
   } = useLoginPhone();
   const { login, isPending } = useLogin();
 
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
     console.log(data);
     login(
       { email_or_phone: data.phone, password: data.password },
