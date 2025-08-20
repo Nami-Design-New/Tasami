@@ -99,7 +99,21 @@
     "password": "Password",
     "phoneNumber": "Phone Number",
     "confirmPassword": "Confirm Password",
-    "next": "Next"
+    "next": "Next",
+    "skip": "Skip"
+  },
+  "validation": {
+    "fullPhoneRequired": "Full phone number is required",
+    "phoneRequired": "Phone number is required",
+    "countryCodeRequired": "Country code is required",
+    "required": "This field is required",
+    "email": "Please enter a valid email",
+    "passwordMin": "Password must be at least 6 characters",
+    "passwordMatch": "Passwords must match",
+    "fileSize": "File size must be less than 2MB",
+    "fileType": "Only JPG and PNG files are allowed",
+    "date": "Please enter a valid date",
+    "minAge": "You must be at least 13 years old"
   },
   "website": {
     "header": {

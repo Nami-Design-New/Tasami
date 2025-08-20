@@ -1,31 +1,41 @@
-import { yupResolver } from "@hookform/resolvers/yup";
-import { useForm } from "react-hook-form";
-import { useSelector } from "react-redux";
+import { useTranslation } from "react-i18next";
+import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router";
-import { loginSchema } from "../../validations/loginschema";
+import { toast } from "sonner";
+import useLogin from "../../hooks/auth/useLogin";
+import { setUser } from "../../redux/slices/authRole";
+import { setToken } from "../../utils/token";
+import { useLoginEmail } from "../../validations/login-email-schema";
 import CustomButton from "../CustomButton";
 import InputField from "../forms/InputField";
 import PasswordField from "../forms/PasswordField";
-import { useTranslation } from "react-i18next";
 
 const EmailForm = () => {
+  const { t } = useTranslation();
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm({
-    resolver: yupResolver(loginSchema),
-  });
-  const navigate = useNavigate();
-  const role = useSelector((state) => state.authRole.role);
-  const { t } = useTranslation();
+  } = useLoginEmail();
+  const { login, isPending } = useLogin();
 
-  const onSubmit = (data) => {
-    if (role === "admin") {
-      navigate("/dashboard");
-    } else if (role === "user") {
-      navigate("/");
-    }
+  const onSubmit = async (data) => {
+    login(
+      { email_or_phone: data.email, password: data.password },
+      {
+        onSuccess: (res) => {
+          setToken(res.data.token);
+          dispatch(setUser(res.data));
+          toast.success(res.message);
+          navigate("/");
+        },
+        onError: (error) => {
+          toast.error(error.message);
+        },
+      }
+    );
   };
 
   return (
@@ -46,7 +56,7 @@ const EmailForm = () => {
       <Link to={"/reset-password"}>{t("auth.forgotPassword")}</Link>
 
       <div className="buttons">
-        <CustomButton fullWidth size="large" type="submit">
+        <CustomButton loading={isPending} fullWidth size="large" type="submit">
           {t("auth.loginButton")}
         </CustomButton>
       </div>

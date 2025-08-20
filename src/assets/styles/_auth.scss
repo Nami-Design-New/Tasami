@@ -16,6 +16,11 @@
   }
 
   .form_container {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    &::-webkit-scrollbar {
+      display: none;
+    }
     flex: 1;
     height: 100vh;
     overflow-y: auto;
@@ -26,9 +31,7 @@
     @media (max-width: 576px) {
       padding: 2rem 1rem;
     }
-    &::-webkit-scrollbar {
-      display: none;
-    }
+
     @media (max-width: 576px) {
       width: calc(100% - 2rem);
     }
@@ -365,6 +368,11 @@
     font-family: 400;
   }
   .register-form {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    &::-webkit-scrollbar {
+      display: none;
+    }
     label {
       font-weight: 600;
       margin-bottom: 8px;
@@ -488,6 +496,7 @@ button.back {
     gap: 8px;
   }
   .identity-option {
+    cursor: pointer;
     @include centerFlex;
     flex: 1;
     gap: 8px;
@@ -496,8 +505,18 @@ button.back {
     border-radius: 12px;
     color: $second;
     font-size: 1rem;
+    transition: all 0.4s ease;
     input {
       appearance: none;
+    }
+    &.active {
+      border-color: $second;
+      background-color: $second;
+      color: $white;
+
+      img {
+        filter: brightness(0) invert(1);
+      }
     }
   }
 }
@@ -531,13 +550,16 @@ button.back {
       border: 1px solid $InputStroke;
       background-color: $InputBG;
       width: 80px;
-      padding: 1rem;
+      overflow: hidden;
+      // padding: 1rem;
       border-radius: 12px;
       min-height: 56px;
       height: 80px;
       img {
         aspect-ratio: 1/1;
-        object-fit: contain;
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
       }
       .add-image-buttton {
         width: 20px;

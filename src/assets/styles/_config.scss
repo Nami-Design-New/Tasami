@@ -199,6 +199,14 @@ input[type="number"] {
   display: block;
 }
 
+li[data-sonner-toast=""] {
+  padding: 12px;
+}
+.error-text {
+  color: $danger;
+  font-size: 0.8rem;
+  margin-top: 4px;
+}
 // Select customization
 .css-t3ipsp-control {
   border-color: $grayLight !important;
@@ -444,4 +452,20 @@ input[type="number"] {
 
 .apexcharts-canvas * {
   font-family: "Dubai";
+}
+
+.skeleton {
+  background: linear-gradient(90deg, #eee, #f5f5f5, #eee);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 6px;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
 }

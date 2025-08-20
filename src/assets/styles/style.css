@@ -186,6 +186,16 @@ input[type=number]::-webkit-outer-spin-button, input[type=number]::-webkit-inner
   display: block;
 }
 
+li[data-sonner-toast=""] {
+  padding: 12px;
+}
+
+.error-text {
+  color: #ff3a29;
+  font-size: 0.8rem;
+  margin-top: 4px;
+}
+
 .css-t3ipsp-control {
   border-color: rgba(119, 119, 119, 0.8) !important;
   box-shadow: none !important;
@@ -438,6 +448,21 @@ input[type=number]::-webkit-outer-spin-button, input[type=number]::-webkit-inner
   font-family: "Dubai";
 }
 
+.skeleton {
+  background: linear-gradient(90deg, #eee, #f5f5f5, #eee);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 6px;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
 .main-header {
   position: sticky;
   top: 0;
@@ -2632,6 +2657,8 @@ body .auth_section .img img {
      object-fit: cover;
 }
 body .auth_section .form_container {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
   flex: 1;
   height: 100vh;
   overflow-y: auto;
@@ -2640,13 +2667,13 @@ body .auth_section .form_container {
   padding: 3rem;
   gap: 16px;
 }
+body .auth_section .form_container::-webkit-scrollbar {
+  display: none;
+}
 @media (max-width: 576px) {
   body .auth_section .form_container {
     padding: 2rem 1rem;
   }
-}
-body .auth_section .form_container::-webkit-scrollbar {
-  display: none;
 }
 @media (max-width: 576px) {
   body .auth_section .form_container {
@@ -2979,6 +3006,13 @@ body .register .text-header {
   font-size: 14px;
   font-family: 400;
 }
+body .register .register-form {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+body .register .register-form::-webkit-scrollbar {
+  display: none;
+}
 body .register .register-form label {
   font-weight: 600;
   margin-bottom: 8px;
@@ -3095,6 +3129,7 @@ body .identity-selector .identity-container {
   gap: 8px;
 }
 body .identity-selector .identity-option {
+  cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -3105,11 +3140,20 @@ body .identity-selector .identity-option {
   border-radius: 12px;
   color: #5fcafa;
   font-size: 1rem;
+  transition: all 0.4s ease;
 }
 body .identity-selector .identity-option input {
   -webkit-appearance: none;
      -moz-appearance: none;
           appearance: none;
+}
+body .identity-selector .identity-option.active {
+  border-color: #5fcafa;
+  background-color: #5fcafa;
+  color: #fff;
+}
+body .identity-selector .identity-option.active img {
+  filter: brightness(0) invert(1);
 }
 body .personal-info-form .form-head {
   margin-bottom: 24px;
@@ -3142,15 +3186,17 @@ body .personal-info-form .images-input .image-input-wrapper {
   border: 1px solid rgba(13, 13, 13, 0.0941176471);
   background-color: rgba(13, 13, 13, 0.0196078431);
   width: 80px;
-  padding: 1rem;
+  overflow: hidden;
   border-radius: 12px;
   min-height: 56px;
   height: 80px;
 }
 body .personal-info-form .images-input .image-input-wrapper img {
   aspect-ratio: 1/1;
-  -o-object-fit: contain;
-     object-fit: contain;
+  height: 100%;
+  width: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
 }
 body .personal-info-form .images-input .image-input-wrapper .add-image-buttton {
   width: 20px;
@@ -5495,6 +5541,14 @@ body .dropdown-toggle::after {
 body .invalid-feedback {
   display: block;
 }
+body li[data-sonner-toast=""] {
+  padding: 12px;
+}
+body .error-text {
+  color: #ff3a29;
+  font-size: 0.8rem;
+  margin-top: 4px;
+}
 body .css-t3ipsp-control {
   border-color: rgba(119, 119, 119, 0.8) !important;
   box-shadow: none !important;
@@ -5733,6 +5787,20 @@ body .stars_rate .stars img {
 }
 body .apexcharts-canvas * {
   font-family: "Dubai";
+}
+body .skeleton {
+  background: linear-gradient(90deg, #eee, #f5f5f5, #eee);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 6px;
+}
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
 }
 body .right-side {
   position: sticky;
@@ -6415,6 +6483,14 @@ body .dropdown-toggle::after {
 body .invalid-feedback {
   display: block;
 }
+body li[data-sonner-toast=""] {
+  padding: 12px;
+}
+body .error-text {
+  color: #ff3a29;
+  font-size: 0.8rem;
+  margin-top: 4px;
+}
 body .css-t3ipsp-control {
   border-color: rgba(119, 119, 119, 0.8) !important;
   box-shadow: none !important;
@@ -6653,6 +6729,20 @@ body .stars_rate .stars img {
 }
 body .apexcharts-canvas * {
   font-family: "Dubai";
+}
+body .skeleton {
+  background: linear-gradient(90deg, #eee, #f5f5f5, #eee);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 6px;
+}
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
 }
 body .model {
   max-width: 1400px;

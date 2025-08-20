@@ -1,51 +1,68 @@
+import { yupResolver } from "@hookform/resolvers/yup";
+import dayjs from "dayjs";
+import { useForm } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 import * as yup from "yup";
 
-// Step 1: Personal Information Schema
-export const personalInfoSchema = yup.object().shape({
-  first_name: yup
-    .string()
-    .required("الاسم الأول مطلوب")
-    .min(2, "الاسم الأول يجب أن يكون على الأقل حرفين"),
-  last_name: yup
-    .string()
-    .required("اسم العائلة مطلوب")
-    .min(1, "اسم العائلة مطلوب"),
-  date_of_birth: yup
-    .date()
-    .required("تاريخ الميلاد مطلوب")
-    .max(new Date(), "تاريخ الميلاد يجب أن يكون في الماضي"),
-  gender: yup.string().required("الجنس مطلوب"),
-  nationality: yup.string().required("الجنسية مطلوبة"),
-  country: yup.string().required("بلد الإقامة مطلوب"),
-  city: yup.string().required("المدينة مطلوبة"),
-});
+const registerSchema = (t) => {
+  return yup.object().shape({
+    profilePicture: yup
+      .mixed()
+      .nullable()
+      .test("fileSize", t("validation.fileSize"), (file) => {
+        if (!file) return true;
+        return file.size <= 2 * 1024 * 1024;
+      })
+      .test("fileType", t("validation.fileType"), (file) => {
+        if (!file) return true;
+        return ["image/jpeg", "image/png", "image/jpg"].includes(file.type);
+      }),
+    firstName: yup.string().required(t("validation.required")),
+    middleName: yup.string().required(t("validation.required")),
+    dateOfBirth: yup
+      .date()
+      .typeError(t("validation.date"))
+      .required(t("validation.required"))
+      .test("minAge", t("validation.ageMin", { age: 13 }), (value) => {
+        if (!value) return false;
+        const today = dayjs();
+        const minDate = today.subtract(13, "year");
+        return (
+          dayjs(value).isBefore(minDate) || dayjs(value).isSame(minDate, "day")
+        );
+      }),
+    gender: yup.string().required(t("validation.required")),
+    email: yup
+      .string()
+      .email(t("validation.email"))
+      .required(t("validation.required")),
+    password: yup
+      .string()
+      .min(6, t("validation.passwordMin"))
+      .required(t("validation.required")),
+    confirmPassword: yup
+      .string()
+      .oneOf([yup.ref("password")], t("validation.passwordMatch"))
+      .required(t("validation.required")),
+  });
+};
 
-// Step 2: Account Information Schema
-export const accountInfoSchema = yup.object().shape({
-  phone: yup
-    .string()
-    .required("رقم الهاتف مطلوب")
-    .matches(
-      /^\+?[0-9\s]+$/,
-      "رقم الهاتف يجب أن يحتوي على أرقام فقط وقد يبدأ بعلامة +"
-    )
-    .min(8, "رقم الهاتف يجب أن يكون على الأقل 8 أرقام"),
-  email: yup
-    .string()
-    .required("البريد الإلكتروني مطلوب")
-    .email("صيغة البريد الإلكتروني غير صحيحة"),
-  password: yup
-    .string()
-    .required("كلمة المرور مطلوبة")
-    .min(8, "كلمة المرور يجب أن تكون على الأقل 8 أحرف")
-    .matches(/[a-zA-Z]/, "كلمة المرور يجب أن تحتوي على حرف واحد على الأقل")
-    .matches(/\d/, "كلمة المرور يجب أن تحتوي على رقم واحد على الأقل")
-    .matches(
-      /[@$!%*?&#]/,
-      "كلمة المرور يجب أن تحتوي على رمز خاص واحد على الأقل"
-    ),
-  confirmPassword: yup
-    .string()
-    .required("تأكيد كلمة المرور مطلوب")
-    .oneOf([yup.ref("password")], "كلمة المرور غير متطابقة"),
-});
+export const useRegisterValidation = () => {
+  const { t } = useTranslation();
+  const methods = useForm({
+    resolver: yupResolver(registerSchema(t)),
+    defaultValues: {
+      profilePicture: null,
+      firstName: "",
+      middleName: "",
+      dateOfBirth: "",
+      gender: "",
+      phone: "",
+      email: "",
+      password: "",
+      confirmPassword: "",
+    },
+    mode: "onblur",
+  });
+  return methods;
+};
