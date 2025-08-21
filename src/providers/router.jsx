@@ -76,6 +76,7 @@ import ResuemeDetails from "../routes/dash-board/resuems/ResuemeDetails";
 import Followers from "../routes/website/Followers";
 import Interests from "../routes/website/Interests";
 import Savings from "../routes/website/Savings";
+import ProtectedRoute from "./ProtectedRoute";
 
 export const router = createBrowserRouter([
   {
@@ -83,7 +84,14 @@ export const router = createBrowserRouter([
     children: [
       { path: "/login", element: <LoginPage /> },
       { path: "/register", element: <Register /> },
-      { path: "/areas-of-interest", element: <AreasOfInterest /> },
+      {
+        path: "/areas-of-interest",
+        element: (
+          <ProtectedRoute>
+            <AreasOfInterest />
+          </ProtectedRoute>
+        ),
+      },
       {
         path: "/customize-platform-services",
         element: <CustomizeServicesPage />,

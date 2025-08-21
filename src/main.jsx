@@ -12,7 +12,16 @@ import App from "./App";
 import "./assets/styles/all.min.css";
 import "./assets/styles/style.css";
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      retry: false,
+      refetchOnWindowFocus: false,
+      refetchOnMount: false,
+      refetchOnReconnect: false,
+    },
+  },
+});
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
 root.render(

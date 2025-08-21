@@ -203,9 +203,9 @@ li[data-sonner-toast=""] {
   padding: 12px;
 }
 .error-text {
-  color: $danger;
-  font-size: 0.8rem;
-  margin-top: 4px;
+  color: $danger !important;
+  font-size: 0.8rem !important;
+  margin-top: 4px !important;
 }
 // Select customization
 .css-t3ipsp-control {

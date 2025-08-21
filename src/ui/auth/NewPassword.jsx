@@ -6,6 +6,7 @@ import * as yup from "yup";
 import CustomButton from "../CustomButton";
 import BackButton from "../forms/BackButton";
 import PasswordField from "../forms/PasswordField";
+import { t } from "i18next";
 
 // Password validation schema
 const newPasswordSchema = yup.object().shape({
@@ -69,7 +70,7 @@ const NewPassword = ({ code, setResetPasswordStep }) => {
     <div className="reset-form">
       <form className="form_ui" onSubmit={handleSubmit(onSubmit)}>
         <PasswordField
-          label="كلمة المرور"
+          label={t("auth.password")}
           name="password"
           id="new_password"
           type="password"
@@ -78,7 +79,7 @@ const NewPassword = ({ code, setResetPasswordStep }) => {
         />
 
         <PasswordField
-          label="تأكيد كلمة المرور"
+          label={t("auth.newPassword")}
           name="confirmPassword"
           id="confirm_password"
           type="password"
@@ -89,7 +90,7 @@ const NewPassword = ({ code, setResetPasswordStep }) => {
         <div className="buttons">
           <BackButton onClick={handleBackButtonClick} />
           <CustomButton fullWidth size="large">
-            تأكيد
+            {t("auth.confirm")}
           </CustomButton>
         </div>
       </form>

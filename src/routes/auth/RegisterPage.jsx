@@ -37,7 +37,7 @@ const RegisterPage = ({ setRegisterStep }) => {
   // Submit
   const onSubmit = ({ phone, code, fullPhone }) => {
     verificationCode(
-      { phone, code },
+      { phone, code, type: "register" },
       {
         onSuccess: (data) => {
           toast.success(data.message);

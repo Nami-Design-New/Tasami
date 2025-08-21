@@ -6,6 +6,7 @@ import TagItem from "../../ui/auth/TagItem";
 import CustomButton from "../../ui/CustomButton";
 import useGetcategories from "../../hooks/area-of-interests/useGetcategories";
 import Skeleton from "react-loading-skeleton";
+import useUpdateUserCategories from "../../hooks/area-of-interests/useUpdateUserCategories";
 
 export default function AreasOfInterest() {
   const navigate = useNavigate();
@@ -13,10 +14,35 @@ export default function AreasOfInterest() {
   const { t } = useTranslation();
 
   const [selected, setSelected] = useState([]);
+  const [initialSelected, setInitialSelected] = useState([]);
+  const { updateUserCategories, isPending } = useUpdateUserCategories();
 
   const toggle = (value) => {
     setSelected((prev) =>
       prev.includes(value) ? prev.filter((v) => v !== value) : [...prev, value]
+    );
+  };
+
+  const handleContinue = () => {
+    const selectedIds = categories
+      .flatMap((cat) => cat.sub_categories)
+      .filter((sub) => selected.includes(sub.title))
+      .map((sub) => sub.id);
+    const initialIds = initialSelected;
+
+    const added = selectedIds.filter((id) => !initialIds.includes(id));
+    const removed = initialIds.filter((id) => !selectedIds.includes(id));
+
+    updateUserCategories(
+      {
+        sub_category_ids: added,
+        deleted_sub_category_ids: removed,
+      },
+      {
+        onSuccess: () => {
+          navigate("/");
+        },
+      }
     );
   };
 
@@ -86,7 +112,9 @@ export default function AreasOfInterest() {
             type="button"
             fullWidth
             size="large"
-            onClick={() => navigate("/")}
+            onClick={handleContinue}
+            loading={isPending}
+            disabled={isPending || selected.length === 0}
           >
             {t("auth.continue")}
           </CustomButton>

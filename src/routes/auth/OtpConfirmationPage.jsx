@@ -45,7 +45,11 @@ export default function OtpConfirmationPage({ setRegisterStep }) {
       {
         onSuccess: (data) => {
           toast.success(data.message);
-          setRegisterStep(3);
+          if (location.pathname === "/register") {
+            setRegisterStep(3);
+          } else if (location.pathname === "/reset-password") {
+            setRegisterStep("s3");
+          }
         },
         onError: (err) => {
           toast.error(err.message);
@@ -65,15 +69,24 @@ export default function OtpConfirmationPage({ setRegisterStep }) {
 
   return (
     <div className="reset-container">
-      <p className="otp-page-des">
-        <span>{t("auth.otpPrompt")}</span>
-        <span> {`${phoneCode}${phone}`} </span>
-        {location.pathname === "/confirm-otp" && (
-          <span className="d-block">
+      <div className="subTitle">
+        <p className="otp-page-des">
+          <span>{t("auth.otpPrompt")}</span>
+          <span className="phone-number"> {`${phoneCode}${phone}`} </span>
+          {location.pathname === "/register" && (
+            // <span className="d-block">
             <Link to={"/register"}> {t("auth.editPhoneNumber")} </Link>
-          </span>
-        )}
-      </p>
+            // </span>
+          )}
+          {location.pathname === "/reset-password" && (
+            // <span className="d-block">
+            <button onClick={() => setRegisterStep("s1")}>
+              {t("auth.editPhoneNumber")}
+            </button>
+            // </span>
+          )}
+        </p>
+      </div>
       <form onSubmit={handleSubmit(onSubmit)} className="reset-form">
         <Controller
           name="code"

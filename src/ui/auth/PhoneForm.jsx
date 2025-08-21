@@ -22,7 +22,6 @@ const PhoneForm = () => {
   const { login, isPending } = useLogin();
 
   const onSubmit = async (data) => {
-    console.log(data);
     login(
       { email_or_phone: data.phone, password: data.password },
       {
@@ -37,7 +36,6 @@ const PhoneForm = () => {
         },
       }
     );
-    navigate("/");
   };
 
   return (

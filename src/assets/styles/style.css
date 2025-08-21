@@ -191,9 +191,9 @@ li[data-sonner-toast=""] {
 }
 
 .error-text {
-  color: #ff3a29;
-  font-size: 0.8rem;
-  margin-top: 4px;
+  color: #ff3a29 !important;
+  font-size: 0.8rem !important;
+  margin-top: 4px !important;
 }
 
 .css-t3ipsp-control {
@@ -2898,43 +2898,46 @@ body .reset-container {
   width: min(100%, 700px);
   flex-direction: column;
 }
-body .reset-container h1 {
+body .reset-container .title {
   color: #5fcafa;
+  text-align: center;
   font-size: 32px;
   font-weight: 700;
   margin-bottom: 8px;
 }
 @media (max-width: 576px) {
-  body .reset-container h1 {
+  body .reset-container .title {
     font-size: 28px;
   }
 }
-body .reset-container h1.otp-page-title {
+body .reset-container .title.otp-page-title {
   color: #5fcafa;
   font: weight 700px;
   margin-bottom: 4px;
 }
-body .reset-container p {
+body .reset-container .subTitle {
   color: #777777;
   font-size: 1rem;
+  text-align: center;
 }
-body .reset-container p span:first-child {
+body .reset-container .subTitle .otp-page-des {
+  text-align: start;
+}
+body .reset-container .subTitle .otp-page-des span:first-child {
   color: #777777;
   font-weight: 400;
 }
-body .reset-container p span:last-child {
+body .reset-container .subTitle .otp-page-des span.phone-number {
   color: #0d0d0d;
   font-weight: 700;
 }
 @media (max-width: 576px) {
-  body .reset-container p {
+  body .reset-container .subTitle .otp-page-des {
     font-size: 14px;
   }
 }
-body .reset-container p.otp-page-des {
-  text-align: start;
-}
-body .reset-container p.otp-page-des a {
+body .reset-container .subTitle .otp-page-des a,
+body .reset-container .subTitle .otp-page-des button {
   color: #5fcafa;
   font-weight: 700;
 }
@@ -2979,6 +2982,10 @@ body .reset-container .reset-form form {
   display: flex;
   flex-direction: column;
   gap: 16px;
+}
+body .reset-container .reset-form form label {
+  font-weight: 600;
+  margin-bottom: 8px;
 }
 body .reset-container .reset-form form a {
   color: #214b92;
@@ -5545,9 +5552,9 @@ body li[data-sonner-toast=""] {
   padding: 12px;
 }
 body .error-text {
-  color: #ff3a29;
-  font-size: 0.8rem;
-  margin-top: 4px;
+  color: #ff3a29 !important;
+  font-size: 0.8rem !important;
+  margin-top: 4px !important;
 }
 body .css-t3ipsp-control {
   border-color: rgba(119, 119, 119, 0.8) !important;
@@ -6487,9 +6494,9 @@ body li[data-sonner-toast=""] {
   padding: 12px;
 }
 body .error-text {
-  color: #ff3a29;
-  font-size: 0.8rem;
-  margin-top: 4px;
+  color: #ff3a29 !important;
+  font-size: 0.8rem !important;
+  margin-top: 4px !important;
 }
 body .css-t3ipsp-control {
   border-color: rgba(119, 119, 119, 0.8) !important;

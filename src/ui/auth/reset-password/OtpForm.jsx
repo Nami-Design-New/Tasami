@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
-import OtpContainer from "../../forms/OtpContainer";
-import SubmitButton from "../../forms/SubmitButton";
-import BackButton from "../../forms/BackButton";
 import CustomButton from "../../CustomButton";
+import BackButton from "../../forms/BackButton";
+import OtpContainer from "../../forms/OtpContainer";
 
 export default function OtpForm({ setResetPasswordStep, setCode }) {
   const [loading, setLoading] = useState(false);

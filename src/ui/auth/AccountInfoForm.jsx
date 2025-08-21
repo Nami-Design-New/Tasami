@@ -1,7 +1,7 @@
 import { useFormContext } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import PhoneInput from "react-phone-input-2";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 import { toast } from "sonner";
 import useRegister from "../../hooks/auth/useRegister";
@@ -11,12 +11,16 @@ import CustomButton from "../CustomButton";
 import BackButton from "../forms/BackButton";
 import InputField from "../forms/InputField";
 import PasswordField from "../forms/PasswordField";
+import { setToken } from "../../utils/token";
+import { setUser } from "../../redux/slices/authRole";
 
 export default function AccountInfoForm({ setFormType }) {
   const { t } = useTranslation();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const { phoneCode, phone } = useSelector((state) => state.phone);
   const { signup, isPending } = useRegister();
+
   const {
     register,
     handleSubmit,
@@ -29,7 +33,6 @@ export default function AccountInfoForm({ setFormType }) {
   }
 
   async function onSubmit(data) {
-    console.log("Final form data:", data);
     const payload = {
       phone,
       phone_code: phoneCode,
@@ -46,6 +49,8 @@ export default function AccountInfoForm({ setFormType }) {
     signup(payload, {
       onSuccess: (data) => {
         navigate("/areas-of-interest");
+        setToken(data.data.token);
+        dispatch(setUser(data.data));
         toast.success(data.message);
         persistor.purge();
       },

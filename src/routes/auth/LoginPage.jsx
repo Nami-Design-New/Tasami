@@ -1,9 +1,15 @@
 import LoginForm from "../../ui/auth/LoginForm";
-import { Link } from "react-router";
+import { Link, Navigate } from "react-router";
 import { useTranslation } from "react-i18next";
+import { useSelector } from "react-redux";
 
 const LoginPage = () => {
   const { t } = useTranslation();
+  const { isAuthed } = useSelector((state) => state.authRole);
+
+  if (isAuthed) {
+    return <Navigate to="/" replace />;
+  }
   return (
     <section>
       <LoginForm />

@@ -8,11 +8,11 @@ export default function usePhoneRegister() {
     error,
     data,
   } = useMutation({
-    mutationFn: async ({ phone, code }) => {
+    mutationFn: async ({ phone, code, type }) => {
       const payload = {
         phone,
         phone_code: code,
-        type: "register ",
+        type,
       };
       const res = await axiosInstance.post("auth/send-code", payload);
       if (res.data.code !== 200) {
