@@ -1,5 +1,4 @@
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
@@ -7,11 +6,11 @@ import { Link, useNavigate } from "react-router";
 import { toast } from "sonner";
 import * as yup from "yup";
 import useOtpConfirmation from "../../hooks/auth/useOtpConfirmation";
+import usePhoneRegister from "../../hooks/auth/useSendOtpCode";
+import ResendTimer from "../../ui/auth/ResendTimer";
 import CustomButton from "../../ui/CustomButton";
 import BackButton from "../../ui/forms/BackButton";
 import OtpContainer from "../../ui/forms/OtpContainer";
-import ResendTimer from "../../ui/auth/ResendTimer";
-import usePhoneRegister from "../../hooks/auth/usePhoneRegister";
 
 const otpSchema = (t) =>
   yup.object().shape({
@@ -25,8 +24,7 @@ export default function OtpConfirmationPage({ setRegisterStep }) {
   const navigate = useNavigate();
   const { t } = useTranslation();
   const { confirmOtp, isPending } = useOtpConfirmation();
-  const { verificationCode, isPending: isPhoneRegisterPending } =
-    usePhoneRegister();
+  const { sendCode, isPending: isPhoneRegisterPending } = usePhoneRegister();
   //  useForm with yupResolver
   const {
     handleSubmit,
@@ -60,7 +58,7 @@ export default function OtpConfirmationPage({ setRegisterStep }) {
     );
   };
   const handleResend = () => {
-    verificationCode(
+    sendCode(
       {
         phone,
         code: phoneCode,
@@ -112,7 +110,7 @@ export default function OtpConfirmationPage({ setRegisterStep }) {
           label={t("auth.resendCode")}
           disabledLabel={t("auth.waitBeforeResend")}
           loadingLabel={t("auth.sending")}
-          loading={isPending}
+          loading={isPhoneRegisterPending}
         />
 
         <div className="buttons">

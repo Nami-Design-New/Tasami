@@ -7,6 +7,7 @@ import {
 } from "react-router";
 import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
+import useAuth from "../hooks/auth/useAuth";
 
 const getHeadingText = (route, step, t) => {
   if (route === "/login") {
@@ -38,9 +39,9 @@ const AuthLayout = () => {
   const route = location.pathname;
   const [searchParmas, setSearchParams] = useSearchParams();
   const step = searchParmas.get("step");
-  const { isAuthed } = useSelector((state) => state.authRole);
 
-  // ✅ Return immediately before rendering anything
+  const { isAuthed } = useAuth();
+
   if (isAuthed) {
     return <Navigate to="/" replace />;
   }

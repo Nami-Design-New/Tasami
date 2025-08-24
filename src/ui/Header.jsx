@@ -1,21 +1,14 @@
 import { useEffect, useRef, useState } from "react";
-import { Link, NavLink } from "react-router";
-import UserDropDown from "./website/UserDropDown";
-import LangDropdown from "./website/LangDropdown";
 import { useTranslation } from "react-i18next";
-
+import { useSelector } from "react-redux";
+import { Link, NavLink } from "react-router";
+import LangDropdown from "./website/LangDropdown";
+import UserDropDown from "./website/UserDropDown";
 export default function Header() {
   const headerRef = useRef(null);
   const [openMenu, setOpenMenu] = useState(false);
   const { t } = useTranslation();
-  useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY > 50) headerRef.current.classList.add("scrolled");
-      else headerRef.current.classList.remove("scrolled");
-    };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  const { isAuthed } = useSelector((state) => state.authRole);
 
   useEffect(() => {
     const handleOutsideClick = (e) => {
@@ -43,8 +36,6 @@ export default function Header() {
           <img src="/images/logo.svg" alt="logo" />
         </Link>
 
-        {/* <div className={`layer ${openMenu ? "open" : ""}`}></div> */}
-
         <ul className={`nav-links ${openMenu ? "open" : ""}`}>
           <li onClick={() => setOpenMenu(false)}>
             <NavLink to={"/"}>{t("website.header.home")}</NavLink>
@@ -70,12 +61,13 @@ export default function Header() {
         </ul>
 
         <div className="actions">
-          <Link to="/login" className="auth-btn login-btn">
-            {t("website.header.login")}{" "}
-          </Link>
+          {!isAuthed && (
+            <Link to="/login" className="auth-btn login-btn">
+              {t("website.header.login")}
+            </Link>
+          )}
           <LangDropdown />
-
-          <UserDropDown />
+          {isAuthed && <UserDropDown />}
         </div>
 
         <button className="toggle_menu" onClick={handleToggleMenu}>

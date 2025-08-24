@@ -3,7 +3,7 @@ import { axiosInstance } from "../../lib/axios";
 
 export default function usePhoneRegister() {
   const {
-    mutate: verificationCode,
+    mutate: sendCode,
     isPending,
     error,
     data,
@@ -22,5 +22,5 @@ export default function usePhoneRegister() {
     },
   });
 
-  return { verificationCode, isPending, error, data };
+  return { sendCode, isPending, error, data };
 }

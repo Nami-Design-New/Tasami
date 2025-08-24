@@ -110,7 +110,8 @@
     "newPassword": "كلمة المرور الجديدة",
     "newPassPrompt": "أدخل كلمة المرور الجديدة المكونة من 6 خانات علي الاقل...",
     "waitBeforeResend": "انتظر قبل إعادة الإرسال",
-    "codeResent": "تم إرسال رمز جديد"
+    "codeResent": "تم إرسال رمز جديد",
+    "sending": "جاري الإرسال..."
   },
   "validation": {
     "fullPhoneRequired": "رقم الهاتف الكامل مطلوب",
@@ -135,10 +136,10 @@
       "myAccount": "حسابي",
       "login": "تسجيل الدخول",
       "signUp": "انشاء حساب",
-      "logout": "تسجيل خروج",
       "notifications": "الاشعارات",
       "wallet": "المحفظة",
-      "editAccount": "تعديل الحساب"
+      "editAccount": "تعديل الحساب",
+      "logout": "تسجيل خروج"
     },
     "hero": {
       "personalGoals": "الاهداف الشخصيه",

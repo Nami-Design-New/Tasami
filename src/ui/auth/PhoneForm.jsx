@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router";
 import { toast } from "sonner";
 import useLogin from "../../hooks/auth/useLogin";
-import { setUser } from "../../redux/slices/authRole";
+import { setAuthed, setUser } from "../../redux/slices/authRole";
 import { setToken } from "../../utils/token";
 import { useLoginPhone } from "../../validations/auth/login-phone-schema";
 import CustomButton from "../CustomButton";
@@ -27,9 +27,10 @@ const PhoneForm = () => {
       {
         onSuccess: (res) => {
           setToken(res.data.token);
-          dispatch(setUser({ user: res.data, isAuthed: true }));
+          dispatch(setAuthed(true));
+          dispatch(setUser({ user: res.data }));
           toast.success(res.message);
-          navigate("/");
+          navigate("/", { replace: true });
         },
         onError: (error) => {
           toast.error(error.message);

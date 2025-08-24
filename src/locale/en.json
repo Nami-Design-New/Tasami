@@ -106,7 +106,8 @@
     "newPassword": "New Password",
     "newPassPrompt": "Enter the new password with at least 6 characters...",
     "waitBeforeResend": "Wait before resending",
-    "codeResent": "A new code has been sent"
+    "codeResent": "A new code has been sent",
+    "sending": "sending"
   },
   "validation": {
     "fullPhoneRequired": "Full phone number is required",

@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router";
 import * as yup from "yup";
 import CustomButton from "../CustomButton";
-import usePhoneRegister from "../../hooks/auth/usePhoneRegister";
+import usePhoneRegister from "../../hooks/auth/useSendOtpCode";
 import { toast } from "sonner";
 import { setPhoneData } from "../../redux/slices/phoneSlice";
 
@@ -20,7 +20,7 @@ const resetPasswordSchema = (t) =>
 const ResetForm = ({ setResetPasswordStep }) => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
-  const { verificationCode, isPending } = usePhoneRegister();
+  const { sendCode, isPending } = usePhoneRegister();
   const lang = useSelector((state) => state.language.lang);
   const {
     handleSubmit,
@@ -34,7 +34,7 @@ const ResetForm = ({ setResetPasswordStep }) => {
 
   // Submit
   const onSubmit = ({ phone, code, fullPhone }) => {
-    verificationCode(
+    sendCode(
       { phone, code, type: "reset_password" },
       {
         onSuccess: (data) => {

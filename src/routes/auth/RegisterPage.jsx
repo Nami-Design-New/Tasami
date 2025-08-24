@@ -6,7 +6,7 @@ import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router";
 import { toast } from "sonner";
 import * as yup from "yup";
-import usePhoneRegister from "../../hooks/auth/usePhoneRegister";
+import usePhoneRegister from "../../hooks/auth/useSendOtpCode";
 import { setPhoneData } from "../../redux/slices/phoneSlice";
 import CustomButton from "../../ui/CustomButton";
 import BackButton from "../../ui/forms/BackButton";
@@ -23,7 +23,7 @@ const RegisterPage = ({ setRegisterStep }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { t } = useTranslation();
-  const { verificationCode, isPending } = usePhoneRegister();
+  const { sendCode, isPending } = usePhoneRegister();
   const {
     handleSubmit,
     control,
@@ -36,7 +36,7 @@ const RegisterPage = ({ setRegisterStep }) => {
 
   // Submit
   const onSubmit = ({ phone, code, fullPhone }) => {
-    verificationCode(
+    sendCode(
       { phone, code, type: "register" },
       {
         onSuccess: (data) => {

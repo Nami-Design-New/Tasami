@@ -21,7 +21,7 @@ const LangDropdown = () => {
   };
 
   return (
-    <Dropdown style={{ background: "white" }} onSelect={handleSelect}>
+    <Dropdown style={{ background: "transparent" }} onSelect={handleSelect}>
       <Dropdown.Toggle
         variant="light"
         className=" rounded-circle"
@@ -30,6 +30,8 @@ const LangDropdown = () => {
           height: "40px",
           fontSize: "16px",
           fontWeight: "bold",
+          background: "transparent",
+          border: "none",
         }}
         id="dropdown-basic"
       >

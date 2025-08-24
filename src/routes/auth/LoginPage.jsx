@@ -1,10 +1,12 @@
 import { useTranslation } from "react-i18next";
 import { Link, useLocation } from "react-router";
 import LoginForm from "../../ui/auth/LoginForm";
+import useGoogleAuth from "../../hooks/auth/useGoogleAuth";
 
 const LoginPage = () => {
   const { t } = useTranslation();
   const location = useLocation();
+  const { handleGoogleLogin, isPending } = useGoogleAuth();
 
   return (
     <section>
@@ -19,7 +21,7 @@ const LoginPage = () => {
       </div>
       <div className="seperator">{t("auth.or")}</div>
       <div className="social-login-buttons">
-        <button>
+        <button onClick={handleGoogleLogin}>
           <img src="/icons/google-icon.svg" alt="Google" />
           <span>{t("auth.continueWithGoogle")}</span>
         </button>

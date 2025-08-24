@@ -1,16 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getToken } from "../../utils/token";
-
-const token = getToken();
-console.log(token);
 
 export const authRole = createSlice({
   name: "authRole",
 
   initialState: {
-    role: "user",
+    role: null,
     user: null,
-    isAuthed: token ? true : false,
+    isAuthed: false,
   },
 
   reducers: {
@@ -20,7 +16,10 @@ export const authRole = createSlice({
     setUser: (state, action) => {
       state.user = action.payload;
       state.role = action.payload?.role || null;
-      state.isAuthed = token ? true : false;
+      state.isAuthed = true;
+    },
+    setAuthed: (state, action) => {
+      state.isAuthed = action.payload;
     },
     clearAuth: (state) => {
       state.role = null;
@@ -30,5 +29,5 @@ export const authRole = createSlice({
   },
 });
 
-export const { setRole, setUser, clearAuth } = authRole.actions;
+export const { setRole, setUser, setAuthed, clearAuth } = authRole.actions;
 export default authRole.reducer;

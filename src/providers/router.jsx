@@ -68,7 +68,6 @@ import Views from "../routes/website/Views";
 import LoginForm from "../ui/auth/LoginForm";
 
 import AreasOfInterest from "../routes/auth/AreasOfInterest";
-import CustomizeServicesPage from "../routes/auth/CustomizeServicesPage";
 import Register from "../routes/auth/Register";
 import CommunityPostDetails from "../routes/dash-board/CommunityPostDetails";
 import ContractDetails from "../routes/dash-board/ContractDetails";
@@ -92,10 +91,6 @@ export const router = createBrowserRouter([
           </ProtectedRoute>
         ),
       },
-      // {
-      //   path: "/customize-platform-services",
-      //   element: <CustomizeServicesPage />,
-      // },
     ],
   },
   { path: "/reset-password", element: <ResetPassword /> },
