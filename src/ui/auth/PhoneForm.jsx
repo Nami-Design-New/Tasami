@@ -27,7 +27,7 @@ const PhoneForm = () => {
       {
         onSuccess: (res) => {
           setToken(res.data.token);
-          dispatch(setUser(res.data));
+          dispatch(setUser({ user: res.data, isAuthed: true }));
           toast.success(res.message);
           navigate("/");
         },

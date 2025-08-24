@@ -92,10 +92,10 @@ export const router = createBrowserRouter([
           </ProtectedRoute>
         ),
       },
-      {
-        path: "/customize-platform-services",
-        element: <CustomizeServicesPage />,
-      },
+      // {
+      //   path: "/customize-platform-services",
+      //   element: <CustomizeServicesPage />,
+      // },
     ],
   },
   { path: "/reset-password", element: <ResetPassword /> },

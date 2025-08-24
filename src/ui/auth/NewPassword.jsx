@@ -1,34 +1,35 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { useTranslation } from "react-i18next";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router";
+import { toast } from "sonner";
 import * as yup from "yup";
+import useResetPassword from "../../hooks/auth/useResetPassword";
+import { persistor } from "../../redux/store";
 import CustomButton from "../CustomButton";
 import BackButton from "../forms/BackButton";
 import PasswordField from "../forms/PasswordField";
-import { t } from "i18next";
 
 // Password validation schema
-const newPasswordSchema = yup.object().shape({
-  password: yup
-    .string()
-    .required("Password is required")
-    .min(8, "Password must be at least 8 characters long")
-    .matches(/[a-zA-Z]/, "Password must contain at least one letter")
-    .matches(/\d/, "Password must contain at least one number")
-    .matches(
-      /[@$!%*?&#]/,
-      "Password must contain at least one special character"
-    ),
-  confirmPassword: yup
-    .string()
-    .required("Please confirm your password")
-    .oneOf([yup.ref("password")], "Passwords must match"),
-});
+const newPasswordSchema = (t) =>
+  yup.object().shape({
+    password: yup
+      .string()
+      .required(t("validation.required"))
+      .min(6, t("validation.passwordMin")),
+    confirmPassword: yup
+      .string()
+      .required(t("validation.required"))
+      .oneOf([yup.ref("password")], t("validation.passwordMatch")),
+  });
 
-const NewPassword = ({ code, setResetPasswordStep }) => {
-  const [isSubmitting, setIsSubmitting] = useState(false);
+const NewPassword = ({ setResetPasswordStep }) => {
+  const { phone, phoneCode } = useSelector((state) => state.phone);
+  const { t } = useTranslation();
   const [resetSuccess, setResetSuccess] = useState(false);
+  const { resetPassword, isPending } = useResetPassword();
   const navigate = useNavigate();
 
   // Get user data from sessionStorage
@@ -37,7 +38,7 @@ const NewPassword = ({ code, setResetPasswordStep }) => {
     handleSubmit,
     formState: { errors },
   } = useForm({
-    // resolver: yupResolver(newPasswordSchema),
+    resolver: yupResolver(newPasswordSchema(t)),
     mode: "onChange",
   });
 
@@ -47,24 +48,25 @@ const NewPassword = ({ code, setResetPasswordStep }) => {
   };
 
   const onSubmit = async (data) => {
-    console.log(data);
-    setIsSubmitting(true);
-    navigate("/login");
+    const payload = {
+      password: data.password,
+      password_confirmation: data.confirmPassword,
+      phone,
+      phone_code: phoneCode,
+    };
+
+    resetPassword(payload, {
+      onSuccess: (data) => {
+        setResetSuccess(true);
+        toast.success(data.message);
+        persistor.purge();
+        navigate("/login");
+      },
+      onError: (error) => {
+        toast.error(error.message);
+      },
+    });
   };
-
-  if (resetSuccess) {
-    return (
-      <div className="success-message">
-        <h3>تم إعادة تعيين كلمة المرور بنجاح!</h3>
-        <p>لقد تم تحديث كلمة المرور الخاصة بك بنجاح.</p>
-        <a href="/login" className="btn btn-primary mt-3">
-          العودة إلى تسجيل الدخول
-        </a>
-      </div>
-    );
-  }
-
-  console.log(errors);
 
   return (
     <div className="reset-form">
@@ -89,7 +91,7 @@ const NewPassword = ({ code, setResetPasswordStep }) => {
 
         <div className="buttons">
           <BackButton onClick={handleBackButtonClick} />
-          <CustomButton fullWidth size="large">
+          <CustomButton loading={isPending} fullWidth size="large">
             {t("auth.confirm")}
           </CustomButton>
         </div>

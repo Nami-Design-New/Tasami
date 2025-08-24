@@ -10,6 +10,8 @@ import useOtpConfirmation from "../../hooks/auth/useOtpConfirmation";
 import CustomButton from "../../ui/CustomButton";
 import BackButton from "../../ui/forms/BackButton";
 import OtpContainer from "../../ui/forms/OtpContainer";
+import ResendTimer from "../../ui/auth/ResendTimer";
+import usePhoneRegister from "../../hooks/auth/usePhoneRegister";
 
 const otpSchema = (t) =>
   yup.object().shape({
@@ -20,11 +22,11 @@ const otpSchema = (t) =>
   });
 export default function OtpConfirmationPage({ setRegisterStep }) {
   const { phone, phoneCode } = useSelector((state) => state.phone);
-  const [timer, setTimer] = useState(60);
-  const [resendDisabled, setResendDisabled] = useState(true);
   const navigate = useNavigate();
   const { t } = useTranslation();
   const { confirmOtp, isPending } = useOtpConfirmation();
+  const { verificationCode, isPending: isPhoneRegisterPending } =
+    usePhoneRegister();
   //  useForm with yupResolver
   const {
     handleSubmit,
@@ -57,15 +59,23 @@ export default function OtpConfirmationPage({ setRegisterStep }) {
       }
     );
   };
-
-  useEffect(() => {
-    if (timer > 0) {
-      const countdown = setTimeout(() => setTimer(timer - 1), 1000);
-      return () => clearTimeout(countdown);
-    } else {
-      setResendDisabled(false);
-    }
-  }, [timer]);
+  const handleResend = () => {
+    verificationCode(
+      {
+        phone,
+        code: phoneCode,
+        type: location.pathname === "/register" ? "register" : "reset_password",
+      },
+      {
+        onSuccess: (data) => {
+          toast.success(data.message);
+        },
+        onError: (err) => {
+          toast.error(err.message);
+        },
+      }
+    );
+  };
 
   return (
     <div className="reset-container">
@@ -74,16 +84,12 @@ export default function OtpConfirmationPage({ setRegisterStep }) {
           <span>{t("auth.otpPrompt")}</span>
           <span className="phone-number"> {`${phoneCode}${phone}`} </span>
           {location.pathname === "/register" && (
-            // <span className="d-block">
             <Link to={"/register"}> {t("auth.editPhoneNumber")} </Link>
-            // </span>
           )}
           {location.pathname === "/reset-password" && (
-            // <span className="d-block">
             <button onClick={() => setRegisterStep("s1")}>
               {t("auth.editPhoneNumber")}
             </button>
-            // </span>
           )}
         </p>
       </div>
@@ -100,24 +106,14 @@ export default function OtpConfirmationPage({ setRegisterStep }) {
           )}
         />
         {errors.code && <p className="error-text">{errors.code.message}</p>}
-        <div className="resend">
-          <h6
-            style={{
-              cursor: "pointer",
-              pointerEvents: resendDisabled ? "none" : "auto",
-            }}
-          >
-            {t("auth.resendCode")}
-          </h6>
-          <p>
-            <span>
-              {Math.floor(timer / 60)
-                .toString()
-                .padStart(2, "0")}
-            </span>{" "}
-            : <span>{(timer % 60).toString().padStart(2, "0")}</span>
-          </p>
-        </div>
+        <ResendTimer
+          initialTime={60}
+          onResend={handleResend}
+          label={t("auth.resendCode")}
+          disabledLabel={t("auth.waitBeforeResend")}
+          loadingLabel={t("auth.sending")}
+          loading={isPending}
+        />
 
         <div className="buttons">
           <BackButton onClick={() => navigate(-1)} />

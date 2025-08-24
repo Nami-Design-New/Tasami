@@ -1,5 +1,12 @@
-import { Link, Outlet, useLocation, useSearchParams } from "react-router";
+import {
+  Link,
+  Navigate,
+  Outlet,
+  useLocation,
+  useSearchParams,
+} from "react-router";
 import { useTranslation } from "react-i18next";
+import { useSelector } from "react-redux";
 
 const getHeadingText = (route, step, t) => {
   if (route === "/login") {
@@ -31,7 +38,12 @@ const AuthLayout = () => {
   const route = location.pathname;
   const [searchParmas, setSearchParams] = useSearchParams();
   const step = searchParmas.get("step");
+  const { isAuthed } = useSelector((state) => state.authRole);
 
+  // ✅ Return immediately before rendering anything
+  if (isAuthed) {
+    return <Navigate to="/" replace />;
+  }
   return (
     <section className="auth_section">
       <div className="form_container">

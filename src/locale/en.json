@@ -104,7 +104,9 @@
     "forgetPass": "Forget Password...!",
     "forgetPassHeader": "Please enter the registered mobile number to receive the verification code...",
     "newPassword": "New Password",
-    "newPassPrompt": "Enter the new password with at least 6 characters..."
+    "newPassPrompt": "Enter the new password with at least 6 characters...",
+    "waitBeforeResend": "Wait before resending",
+    "codeResent": "A new code has been sent"
   },
   "validation": {
     "fullPhoneRequired": "Full phone number is required",
