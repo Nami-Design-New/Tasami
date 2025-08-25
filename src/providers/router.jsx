@@ -76,6 +76,7 @@ import Followers from "../routes/website/Followers";
 import Interests from "../routes/website/Interests";
 import Savings from "../routes/website/Savings";
 import ProtectedRoute from "./ProtectedRoute";
+import { SkipGuardedRoute } from "./SkipGuardedRoute";
 
 export const router = createBrowserRouter([
   {
@@ -83,15 +84,17 @@ export const router = createBrowserRouter([
     children: [
       { path: "/login", element: <LoginPage /> },
       { path: "/register", element: <Register /> },
-      {
-        path: "/areas-of-interest",
-        element: (
-          <ProtectedRoute>
-            <AreasOfInterest />
-          </ProtectedRoute>
-        ),
-      },
     ],
+  },
+  {
+    path: "/areas-of-interest",
+    element: (
+      <ProtectedRoute>
+        <SkipGuardedRoute>
+          <AreasOfInterest />
+        </SkipGuardedRoute>
+      </ProtectedRoute>
+    ),
   },
   { path: "/reset-password", element: <ResetPassword /> },
   {

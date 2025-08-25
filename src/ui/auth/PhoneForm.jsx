@@ -30,6 +30,8 @@ const PhoneForm = () => {
           dispatch(setAuthed(true));
           dispatch(setUser({ user: res.data }));
           toast.success(res.message);
+          localStorage.setItem("skipAreasOfInterest", "true");
+
           navigate("/", { replace: true });
         },
         onError: (error) => {

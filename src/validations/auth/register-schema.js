@@ -23,7 +23,7 @@ const registerSchema = (t) => {
       .date()
       .typeError(t("validation.date"))
       .required(t("validation.required"))
-      .test("minAge", t("validation.ageMin", { age: 13 }), (value) => {
+      .test("minAge", t("validation.minAge", { age: 13 }), (value) => {
         if (!value) return false;
         const today = dayjs();
         const minDate = today.subtract(13, "year");

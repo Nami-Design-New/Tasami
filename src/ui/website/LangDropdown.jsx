@@ -6,14 +6,14 @@ import { useDispatch } from "react-redux";
 import { setLanguage } from "../../redux/slices/languageSlice";
 
 const LangDropdown = () => {
-  const dispatch = useDispatch();
   const queryClient = useQueryClient();
+  const dispatch = useDispatch();
 
   const handleSelect = (lang) => {
-    dispatch(setLanguage(lang));
     i18next.changeLanguage(lang);
     queryClient.invalidateQueries();
     queryClient.removeQueries();
+    dispatch(setLanguage(lang));
     const bodyElement = document.querySelector("body");
     if (bodyElement) {
       bodyElement.classList.toggle("en", lang === "en");

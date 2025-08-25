@@ -21,10 +21,13 @@ export default function UserDropDown() {
       onSuccess: (res) => {
         dispatch(clearAuth());
         removeToken();
+        localStorage.removeItem("skipAreasOfInterest");
         queryClient.clear();
         queryClient.invalidateQueries();
         queryClient.removeQueries();
+
         navigate("/login");
+
         toast.success(res.message);
       },
       onError: (error) => {

@@ -12,7 +12,7 @@ import BackButton from "../forms/BackButton";
 import InputField from "../forms/InputField";
 import PasswordField from "../forms/PasswordField";
 import { setToken } from "../../utils/token";
-import { setUser } from "../../redux/slices/authRole";
+import { setAuthed, setUser } from "../../redux/slices/authRole";
 
 export default function AccountInfoForm({ setFormType }) {
   const { t } = useTranslation();
@@ -48,11 +48,12 @@ export default function AccountInfoForm({ setFormType }) {
 
     signup(payload, {
       onSuccess: (data) => {
-        navigate("/areas-of-interest");
         setToken(data.data.token);
         dispatch(setUser(data.data));
+        dispatch(setAuthed(true));
         toast.success(data.message);
         persistor.purge();
+        navigate("/areas-of-interest");
       },
       onError: (error) => {
         toast.error(error.message);

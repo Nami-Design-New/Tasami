@@ -6,6 +6,7 @@ export default function ProtectedRoute({ children, allowedRoles }) {
   const { loading, isAuthed } = useAuth();
   const role = useSelector((s) => s.authRole.role);
   const location = useLocation();
+  console.log("ProtectedRoute", { loading, isAuthed, role, allowedRoles });
 
   if (loading) {
     return <div className="p-6 text-center">Loading…</div>;

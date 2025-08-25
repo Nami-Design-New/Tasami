@@ -29,6 +29,7 @@ const EmailForm = () => {
           setToken(res.data.token);
           dispatch(setAuthed(true));
           dispatch(setUser({ user: res.data }));
+          localStorage.setItem("skipAreasOfInterest", "true");
           toast.success(res.message);
           navigate("/", { replace: true });
         },

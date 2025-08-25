@@ -23,9 +23,7 @@ const getHeadingText = (route, step, t) => {
     if (step === "2") return t("auth.accountInfo");
     return t("auth.personalInfo");
   }
-  if (route === "/areas-of-interest") {
-    return t("auth.areasOfInterest");
-  }
+
   if (route === "/customize-platform-services") {
     return t("auth.customizePlatformServices");
   }

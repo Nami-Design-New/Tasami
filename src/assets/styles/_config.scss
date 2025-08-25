@@ -191,8 +191,14 @@ input[type="number"] {
   margin: 0;
 }
 
-.dropdown-toggle::after {
-  display: none;
+.dropdown-toggle {
+  &:focus,
+  &:focus-visible {
+    box-shadow: none !important;
+  }
+  &::after {
+    display: none;
+  }
 }
 
 .invalid-feedback {
