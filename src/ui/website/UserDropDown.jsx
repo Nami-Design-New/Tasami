@@ -1,7 +1,7 @@
 import { Dropdown } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
 import { Link, useNavigate } from "react-router";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import useLogout from "../../hooks/auth/useLogout";
 import { clearAuth } from "../../redux/slices/authRole";
 import { removeToken } from "../../utils/token";
@@ -11,6 +11,7 @@ import { useQueryClient } from "@tanstack/react-query";
 export default function UserDropDown() {
   const { t } = useTranslation();
   const queryClient = useQueryClient();
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const { logout, isPending } = useLogout();
   const { user } = useSelector((state) => state.authRole);
@@ -18,7 +19,7 @@ export default function UserDropDown() {
     e.preventDefault();
     logout("", {
       onSuccess: (res) => {
-        clearAuth();
+        dispatch(clearAuth());
         removeToken();
         queryClient.clear();
         queryClient.invalidateQueries();

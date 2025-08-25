@@ -41,7 +41,7 @@ export default function useGoogleAuth() {
       });
     } catch (error) {
       console.error("Google Login Error:", error);
-      toast.error(t("auth.loginErorr"));
+      toast.error(t(error.message));
     }
   };
 

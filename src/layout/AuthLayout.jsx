@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import {
   Link,
   Navigate,
@@ -5,8 +6,6 @@ import {
   useLocation,
   useSearchParams,
 } from "react-router";
-import { useTranslation } from "react-i18next";
-import { useSelector } from "react-redux";
 import useAuth from "../hooks/auth/useAuth";
 
 const getHeadingText = (route, step, t) => {

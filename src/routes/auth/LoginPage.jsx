@@ -21,7 +21,7 @@ const LoginPage = () => {
       </div>
       <div className="seperator">{t("auth.or")}</div>
       <div className="social-login-buttons">
-        <button onClick={handleGoogleLogin}>
+        <button onClick={handleGoogleLogin} disabled={isPending}>
           <img src="/icons/google-icon.svg" alt="Google" />
           <span>{t("auth.continueWithGoogle")}</span>
         </button>
