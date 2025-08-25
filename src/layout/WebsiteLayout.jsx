@@ -6,11 +6,12 @@ import "aos/dist/aos.css";
 import { useEffect } from "react";
 import ScrollToTop from "../ui/ScrollToTop";
 import ResponsiveNav from "../layout/ResponsiveNav";
+import useAuth from "../hooks/auth/useAuth";
 
 const WebsiteLayout = () => {
+  const { loading } = useAuth();
   useEffect(() => {
     const sections = document.querySelectorAll("section");
-
     sections.forEach((section) => {
       const sectionDivs = section.querySelectorAll("[data-aos]");
       sectionDivs.forEach((div, index) => {
@@ -25,17 +26,22 @@ const WebsiteLayout = () => {
     });
     AOS.refresh();
   }, []);
+
   return (
     <section>
+      {loading ? (
+        <p>loading</p>
+      ) : (
         <>
-     <ScrollToTop />
-      <Header  />
-      <main>
-        <Outlet />
-      </main>
-      <Footer />
-      <ResponsiveNav />
-    </>
+          <ScrollToTop />
+          <Header />
+          <main>
+            <Outlet />
+          </main>
+          <Footer />
+          <ResponsiveNav />
+        </>
+      )}
     </section>
   );
 };

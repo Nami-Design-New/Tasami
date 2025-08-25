@@ -1,3 +1,4 @@
+@use "sass:color";
 .mt-30 {
   margin-top: 30px;
 }
@@ -105,7 +106,7 @@
       transition: 0.3s ease;
 
       &:hover {
-        background-color: darken($main, 10%);
+        background-color: color.adjust($main, $lightness: -10%);
       }
     }
 

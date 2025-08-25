@@ -3,9 +3,6 @@ import AuthLayout from "../layout/AuthLayout";
 import DashboardLayout from "../layout/MainDashboardLayout";
 import WebsiteLayout from "../layout/WebsiteLayout";
 import LoginPage from "../routes/auth/LoginPage";
-import OtpConfirmationPage from "../routes/auth/OtpConfirmationPage";
-import RegisterInfo from "../routes/auth/RegisterInfo";
-import RegisterPage from "../routes/auth/RegisterPage";
 import ResetPassword from "../routes/auth/ResetPassword";
 import ChatPage from "../routes/ChatPage";
 import ActionsLogModel from "../routes/dash-board/ActionsLogModel";
@@ -70,29 +67,34 @@ import Terms from "../routes/website/terms";
 import Views from "../routes/website/Views";
 import LoginForm from "../ui/auth/LoginForm";
 
+import AreasOfInterest from "../routes/auth/AreasOfInterest";
+import Register from "../routes/auth/Register";
 import CommunityPostDetails from "../routes/dash-board/CommunityPostDetails";
 import ContractDetails from "../routes/dash-board/ContractDetails";
 import ResuemeDetails from "../routes/dash-board/resuems/ResuemeDetails";
 import Followers from "../routes/website/Followers";
 import Interests from "../routes/website/Interests";
 import Savings from "../routes/website/Savings";
-import AreasOfInterest from "../routes/auth/AreasOfInterest";
-import CustomizeServicesPage from "../routes/auth/CustomizeServicesPage";
+import ProtectedRoute from "./ProtectedRoute";
+import { SkipGuardedRoute } from "./SkipGuardedRoute";
 
 export const router = createBrowserRouter([
   {
     element: <AuthLayout />,
     children: [
       { path: "/login", element: <LoginPage /> },
-      { path: "/register", element: <RegisterPage /> },
-      { path: "/confirm-otp", element: <OtpConfirmationPage /> },
-      { path: "/register-info", element: <RegisterInfo /> },
-      { path: "/areas-of-interest", element: <AreasOfInterest /> },
-      {
-        path: "/customize-platform-services",
-        element: <CustomizeServicesPage />,
-      },
+      { path: "/register", element: <Register /> },
     ],
+  },
+  {
+    path: "/areas-of-interest",
+    element: (
+      <ProtectedRoute>
+        <SkipGuardedRoute>
+          <AreasOfInterest />
+        </SkipGuardedRoute>
+      </ProtectedRoute>
+    ),
   },
   { path: "/reset-password", element: <ResetPassword /> },
   {
@@ -172,7 +174,11 @@ export const router = createBrowserRouter([
       },
       {
         path: "my-profile",
-        element: <Profile />,
+        element: (
+          <ProtectedRoute>
+            <Profile />
+          </ProtectedRoute>
+        ),
         children: [
           {
             index: true,

@@ -1,3 +1,4 @@
+@use "sass:color";
 .hero-section {
   padding: 30px 0;
 
@@ -44,7 +45,7 @@
     font-weight: 700;
 
     &:hover {
-      background-color: darken($main, 10%);
+      background-color: color.adjust($main, $lightness: -10%);
     }
 
     img {

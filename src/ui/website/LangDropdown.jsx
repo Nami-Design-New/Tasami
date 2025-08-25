@@ -1,25 +1,19 @@
-import { useState } from "react";
-import { Dropdown } from "react-bootstrap";
-import "bootstrap/dist/css/bootstrap.min.css";
-import { useDispatch } from "react-redux";
-import i18next from "i18next";
 import { useQueryClient } from "@tanstack/react-query";
+import "bootstrap/dist/css/bootstrap.min.css";
+import i18next from "i18next";
+import { Dropdown } from "react-bootstrap";
+import { useDispatch } from "react-redux";
 import { setLanguage } from "../../redux/slices/languageSlice";
 
 const LangDropdown = () => {
-  const [, setLan] = useState("ar");
-  const dispatch = useDispatch();
   const queryClient = useQueryClient();
+  const dispatch = useDispatch();
 
   const handleSelect = (lang) => {
-    console.log(lang);
-
-    setLan(lang);
-    dispatch(setLanguage(lang));
-    localStorage.setItem("lang", lang);
     i18next.changeLanguage(lang);
     queryClient.invalidateQueries();
     queryClient.removeQueries();
+    dispatch(setLanguage(lang));
     const bodyElement = document.querySelector("body");
     if (bodyElement) {
       bodyElement.classList.toggle("en", lang === "en");
@@ -27,7 +21,7 @@ const LangDropdown = () => {
   };
 
   return (
-    <Dropdown style={{ background: "white" }} onSelect={handleSelect}>
+    <Dropdown style={{ background: "transparent" }} onSelect={handleSelect}>
       <Dropdown.Toggle
         variant="light"
         className=" rounded-circle"
@@ -36,6 +30,8 @@ const LangDropdown = () => {
           height: "40px",
           fontSize: "16px",
           fontWeight: "bold",
+          background: "transparent",
+          border: "none",
         }}
         id="dropdown-basic"
       >

@@ -99,7 +99,49 @@
     "password": "Password",
     "phoneNumber": "Phone Number",
     "confirmPassword": "Confirm Password",
-    "next": "Next"
+    "next": "Next",
+    "skip": "Skip",
+    "forgetPass": "Forget Password...!",
+    "forgetPassHeader": "Please enter the registered mobile number to receive the verification code...",
+    "newPassword": "New Password",
+    "newPassPrompt": "Enter the new password with at least 6 characters...",
+    "waitBeforeResend": "Wait before resending",
+    "codeResent": "A new code has been sent",
+    "sending": "sending",
+    "explore": "Explore",
+    "tasami": "Tasami",
+    "withoutLogin": "without login "
+  },
+  "profile": {
+    "myInfo": "My Info",
+    "notifications": "Notifications",
+    "wallet": "My Wallet",
+    "interests": "My Interests",
+    "savings": "My Savings",
+    "community": "My Communities",
+    "followers": "My Followers",
+    "assistant": "Personal Assistant"
+  },
+  "settings": {
+    "termsTitle": "Terms and Conditions",
+    "termsDesc": "Please read these terms and conditions carefully before using our services.",
+    "termsContent": "Here are the full terms and conditions in English...",
+    "privacyTitle": "Privacy Policy",
+    "privacyDesc": "Please read the privacy policy carefully to understand how we handle your personal data."
+  },
+  "validation": {
+    "fullPhoneRequired": "Full phone number is required",
+    "phoneRequired": "Phone number is required",
+    "countryCodeRequired": "Country code is required",
+    "required": "This field is required",
+    "email": "Please enter a valid email",
+    "passwordMin": "Password must be at least 6 characters",
+    "passwordMatch": "Passwords must match",
+    "fileSize": "File size must be less than 2MB",
+    "fileType": "Only JPG and PNG files are allowed",
+    "date": "Please enter a valid date",
+    "minAge": "You must be at least 13 years old",
+    "invalidPhoneNumber": "Phone number must contain only numbers"
   },
   "website": {
     "header": {

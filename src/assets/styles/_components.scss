@@ -1,3 +1,5 @@
+@use "sass:color";
+
 $color-primary: #214b92;
 $color-primary08: #02489614;
 $color-secondary: #8c137e;
@@ -47,7 +49,7 @@ $color-warning: #ffc107;
     background-color: $color-primary;
     color: $white;
     &:hover {
-      background-color: darken($color-primary, 10%);
+      background-color: color.adjust($color-primary, $lightness: -10%);
     }
   }
 
@@ -55,7 +57,7 @@ $color-warning: #ffc107;
     background-color: $color-primary08;
     color: $dark;
     &:hover {
-      background-color: darken($color-primary08, 10%);
+      background-color: color.adjust($color-primary08, $lightness: -10%);
     }
   }
 
@@ -63,7 +65,7 @@ $color-warning: #ffc107;
     background-color: $color-secondary;
     color: $white;
     &:hover {
-      background-color: darken($color-secondary, 10%);
+      background-color: color.adjust($color-secondary, $lightness: -10%);
     }
   }
 
@@ -71,15 +73,15 @@ $color-warning: #ffc107;
     background-color: $color-danger;
     color: $white;
     &:hover {
-      background-color: darken($color-danger, 10%);
+      background-color: color.adjust($color-danger, $lightness: -10%);
     }
   }
 
   &--success {
-    background-color: $color-danger;
+    background-color: $color-success;
     color: $white;
     &:hover {
-      background-color: darken($color-danger, 10%);
+      background-color: color.adjust($color-success, $lightness: -10%);
     }
   }
 
@@ -87,7 +89,7 @@ $color-warning: #ffc107;
     background-color: $color-warning;
     color: $dark;
     &:hover {
-      background-color: darken($color-warning, 10%);
+      background-color: color.adjust($color-warning, $lightness: -10%);
     }
   }
 
@@ -144,7 +146,7 @@ $color-warning: #ffc107;
     background-color: $color-primary;
     color: $white;
     &:hover {
-      background-color: darken($color-primary, 10%);
+      background-color: color.adjust($color-primary, $lightness: -10%);
     }
   }
 
@@ -152,7 +154,7 @@ $color-warning: #ffc107;
     background-color: $color-secondary;
     color: $white;
     &:hover {
-      background-color: darken($color-secondary, 10%);
+      background-color: color.adjust($color-secondary, $lightness: -10%);
     }
   }
 
@@ -160,7 +162,7 @@ $color-warning: #ffc107;
     background-color: $color-danger;
     color: $white;
     &:hover {
-      background-color: darken($color-danger, 10%);
+      background-color: color.adjust($color-danger, $lightness: -10%);
     }
   }
 
@@ -168,7 +170,7 @@ $color-warning: #ffc107;
     background-color: $color-success;
     color: $white;
     &:hover {
-      background-color: darken($color-success, 10%);
+      background-color: color.adjust($color-success, $lightness: -10%);
     }
   }
 
@@ -176,7 +178,7 @@ $color-warning: #ffc107;
     background-color: $color-warning;
     color: $dark;
     &:hover {
-      background-color: darken($color-warning, 10%);
+      background-color: color.adjust($color-warning, $lightness: -10%);
     }
   }
 

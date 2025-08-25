@@ -27,7 +27,7 @@ export default function LanguageDropDown({ isOpen, setIsOpen }) {
     const selectedLanguage = e.target.value;
     setActive(selectedLanguage);
     dispatch(setLanguage(selectedLanguage));
-    localStorage.setItem("lang", selectedLanguage);
+    localStorage.setItem("i18nextLng", selectedLanguage);
     i18next.changeLanguage(selectedLanguage);
     queryClient.invalidateQueries();
     queryClient.removeQueries();
