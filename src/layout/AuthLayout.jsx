@@ -1,5 +1,12 @@
-import { Link, Outlet, useLocation, useSearchParams } from "react-router";
 import { useTranslation } from "react-i18next";
+import {
+  Link,
+  Navigate,
+  Outlet,
+  useLocation,
+  useSearchParams,
+} from "react-router";
+import useAuth from "../hooks/auth/useAuth";
 
 const getHeadingText = (route, step, t) => {
   if (route === "/login") {
@@ -16,9 +23,7 @@ const getHeadingText = (route, step, t) => {
     if (step === "2") return t("auth.accountInfo");
     return t("auth.personalInfo");
   }
-  if (route === "/areas-of-interest") {
-    return t("auth.areasOfInterest");
-  }
+
   if (route === "/customize-platform-services") {
     return t("auth.customizePlatformServices");
   }
@@ -32,6 +37,11 @@ const AuthLayout = () => {
   const [searchParmas, setSearchParams] = useSearchParams();
   const step = searchParmas.get("step");
 
+  const { isAuthed } = useAuth();
+
+  if (isAuthed) {
+    return <Navigate to="/" replace />;
+  }
   return (
     <section className="auth_section">
       <div className="form_container">

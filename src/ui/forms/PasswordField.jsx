@@ -5,6 +5,7 @@ import { useSelector } from "react-redux";
 const PasswordField = React.forwardRef(({ label, error, ...props }, ref) => {
   const [showPass, setShowPass] = useState(false);
   const lang = useSelector((state) => state.language.lang);
+  console.log(lang);
 
   const handleInputType = (e) => {
     e.preventDefault();
@@ -17,7 +18,7 @@ const PasswordField = React.forwardRef(({ label, error, ...props }, ref) => {
 
       <div className={`pass-group ${lang === "ar" ? "ar" : "en"}`}>
         <Form.Control
-          ref={ref} // 🔑 forward the ref here
+          ref={ref}
           {...props}
           type={showPass ? "text" : "password"}
           isInvalid={!!error}

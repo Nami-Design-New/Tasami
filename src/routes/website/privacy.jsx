@@ -1,60 +1,30 @@
-import React from "react";
 import { motion } from "framer-motion";
+import { useTranslation } from "react-i18next";
+import useSettings from "../../hooks/settings/useSettings";
+import Loading from "../../ui/loading/Loading";
 
 export default function Privacy() {
+  const { settings, isLoading } = useSettings();
+  const { t } = useTranslation();
+
+  if (isLoading) return <Loading />;
   return (
     <section className="privacy page px-3">
-        <div className="container">
-      <motion.div
-        className="section-head text-center mb-5"
-        initial={{ opacity: 0, y: 50 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.8 }}
-      >
-        <h2 className="main-title mb-3">سياسة <span>الخصوصية</span></h2>
-        <p className="desc">
-          نرجو قراءة سياسة الخصوصية بعناية لفهم كيفية تعاملنا مع بياناتك الشخصية.
-        </p>
-      </motion.div>
+      <div className="container">
+        <motion.div
+          className="section-head text-center mb-5"
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+        >
+          <h2 className="main-title mb-3">
+            <span>{t("settings.privacyTitle")}</span>
+          </h2>
+          <p className="desc">{t("settings.privacyDesc")}</p>
+        </motion.div>
 
-      <div className="privacy-content">
-        <h3>1. جمع المعلومات</h3>
-        <p>
-          نقوم بجمع معلوماتك الشخصية عندما تزور موقعنا، مثل اسمك وبريدك الإلكتروني وأي معلومات تقدمها طواعية.
-        </p>
-
-        <h3>2. استخدام المعلومات</h3>
-        <p>
-          نستخدم معلوماتك للرد على استفساراتك وتحسين خدماتنا وتخصيص تجربتك على الموقع.
-        </p>
-
-        <h3>3. حماية بياناتك</h3>
-        <p>
-          نتخذ تدابير أمنية مناسبة لحماية بياناتك من الوصول غير المصرح به، أو الإفشاء، أو التغيير، أو الإتلاف.
-        </p>
-
-        <h3>4. مشاركة المعلومات</h3>
-        <p>
-          لن نبيع أو نشارك بياناتك الشخصية مع جهات خارجية إلا إذا كان ذلك مطلوبًا قانونيًا أو بعد الحصول على موافقتك.
-        </p>
-
-        <h3>5. ملفات تعريف الارتباط (Cookies)</h3>
-        <p>
-          نستخدم ملفات تعريف الارتباط لتحسين أداء الموقع وتحليل سلوك المستخدمين من أجل تحسين تجربتك.
-        </p>
-
-        <h3>6. التعديلات على سياسة الخصوصية</h3>
-        <p>
-          نحتفظ بالحق في تعديل سياسة الخصوصية من وقت لآخر، لذا نوصي بزيارة هذه الصفحة بانتظام لمتابعة أي تحديثات.
-        </p>
-
-        <h3>7. التواصل</h3>
-        <p>
-          إذا كان لديك أسئلة أو استفسارات حول سياسة الخصوصية لدينا، يمكنك التواصل معنا عبر البريد الإلكتروني:
-          <a href="mailto:support@example.com"> support@example.com</a>
-        </p>
-      </div>
+        <div className="privacy-content">{settings.privacy}</div>
       </div>
     </section>
   );

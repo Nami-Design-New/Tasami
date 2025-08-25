@@ -1,27 +1,42 @@
 import { useRef } from "react";
+import { useFormContext } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 import CustomButton from "../CustomButton";
 import BackButton from "../forms/BackButton";
 import InputField from "../forms/InputField";
-import { useSearchParams } from "react-router";
-import { useTranslation } from "react-i18next";
 
-export default function PersonalInfoForm({ setFormType }) {
+export default function PersonalInfoForm({ setFormType, setRegisterStep }) {
   const inputFileRef = useRef();
-  const [searchParams, setSearchParams] = useSearchParams();
   const { t } = useTranslation();
+  const {
+    register,
+    trigger,
+    watch,
+    setValue,
+    formState: { errors },
+  } = useFormContext();
+
+  const selectedGender = watch("gender");
+  const profilePicture = watch("profilePicture");
 
   const handleFileChange = (event) => {
     const file = event.target.files[0];
-    console.log("Selected file:", file);
+    setValue("profilePicture", file);
   };
 
   const handleButtonClick = () => {
     inputFileRef.current.click();
   };
 
-  function handleNext(e) {
-    e.preventDefault();
-    setSearchParams({ step: "2" });
+  async function handleNext() {
+    const isValid = await trigger([
+      "profilePicture",
+      "firstName",
+      "middleName",
+      "dateOfBirth",
+      "gender",
+    ]);
+    if (!isValid) return;
     setFormType("accountInfo");
   }
   return (
@@ -33,7 +48,15 @@ export default function PersonalInfoForm({ setFormType }) {
         </p>
         <label className="images-input">
           <div className="image-input-wrapper">
-            <img src="/icons/add-photo.svg" />
+            {profilePicture ? (
+              <img
+                src={URL.createObjectURL(profilePicture)}
+                alt="preview"
+                className="preview-img"
+              />
+            ) : (
+              <img src="/icons/add-photo.svg" />
+            )}
             <button
               onClick={handleButtonClick}
               type="button"
@@ -46,34 +69,68 @@ export default function PersonalInfoForm({ setFormType }) {
         </label>
       </div>
       <div className="col-12 p-2">
-        <InputField type="text" label={t("auth.firstName")} />
+        <InputField
+          type="text"
+          label={t("auth.firstName")}
+          {...register("firstName")}
+          error={errors.firstName?.message}
+        />
       </div>
       <div className="col-12 p-2">
-        <InputField type="text" label={t("auth.middleNameOrInitial")} />
+        <InputField
+          type="text"
+          label={t("auth.middleNameOrInitial")}
+          {...register("middleName")}
+          error={errors.middleName?.message}
+        />
       </div>
       <div className="col-12 p-2">
-        <InputField type="date" label={t("auth.dateOfBirth")} />
+        <InputField
+          type="date"
+          label={t("auth.dateOfBirth")}
+          {...register("dateOfBirth")}
+          error={errors.dateOfBirth?.message}
+        />
       </div>
       <div className="col-12 p-2">
         <div className="identity-selector">
           <h6 className="identity-title">{t("auth.identity")}</h6>
           <div className="identity-container">
-            <label className="identity-option">
+            <label
+              className={`identity-option ${
+                selectedGender === "male" ? "active" : ""
+              }`}
+            >
               <img src="/icons/male-outlined.svg" alt={t("auth.male")} />
               <span>{t("auth.male")}</span>
-              <input type="radio" name="gender" value="male" />
+              <input
+                type="radio"
+                name="gender"
+                value="male"
+                {...register("gender")}
+              />
             </label>
-            <label className="identity-option">
+            <label
+              className={`identity-option ${
+                selectedGender === "female" ? "active" : ""
+              }`}
+            >
               <img src="/icons/female-outlined.svg" alt={t("auth.female")} />
               <span>{t("auth.female")}</span>
-              <input type="radio" name="gender" value="female" />
+              <input
+                type="radio"
+                name="gender"
+                value="female"
+                {...register("gender")}
+              />
             </label>
           </div>
+          <p className="error-text">{errors.gender?.message}</p>
         </div>
       </div>
       <div className="col-12 p-2">
         <div className="buttons">
-          <BackButton />
+          <BackButton onClick={() => setRegisterStep(1)} />
           <CustomButton
             type="button"
             fullWidth

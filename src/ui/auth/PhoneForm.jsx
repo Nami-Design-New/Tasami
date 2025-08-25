@@ -1,32 +1,44 @@
-import { yupResolver } from "@hookform/resolvers/yup";
-import { useForm } from "react-hook-form";
-import { useSelector } from "react-redux";
+import { useTranslation } from "react-i18next";
+import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router";
-import { phoneSchema } from "../../validations/phoneSchema";
+import { toast } from "sonner";
+import useLogin from "../../hooks/auth/useLogin";
+import { setAuthed, setUser } from "../../redux/slices/authRole";
+import { setToken } from "../../utils/token";
+import { useLoginPhone } from "../../validations/auth/login-phone-schema";
 import CustomButton from "../CustomButton";
 import InputField from "../forms/InputField";
 import PasswordField from "../forms/PasswordField";
-import { useTranslation } from "react-i18next";
 
 const PhoneForm = () => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { t } = useTranslation();
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm({
-    resolver: yupResolver(phoneSchema),
-  });
-  const navigate = useNavigate();
-  const role = useSelector((state) => state.authRole.role);
-  const { t } = useTranslation();
+  } = useLoginPhone();
+  const { login, isPending } = useLogin();
 
-  const onSubmit = (data) => {
-    console.log(data);
-    if (role === "admin") {
-      navigate("/dashboard");
-    } else if (role === "user") {
-      navigate("/");
-    }
+  const onSubmit = async (data) => {
+    login(
+      { email_or_phone: data.phone, password: data.password },
+      {
+        onSuccess: (res) => {
+          setToken(res.data.token);
+          dispatch(setAuthed(true));
+          dispatch(setUser({ user: res.data }));
+          toast.success(res.message);
+          localStorage.setItem("skipAreasOfInterest", "true");
+
+          navigate("/", { replace: true });
+        },
+        onError: (error) => {
+          toast.error(error.message);
+        },
+      }
+    );
   };
 
   return (
@@ -46,7 +58,7 @@ const PhoneForm = () => {
       <Link to={"/reset-password"}>{t("auth.forgotPassword")}</Link>
 
       <div className="buttons">
-        <CustomButton fullWidth size="large" type="submit">
+        <CustomButton fullWidth size="large" loading={isPending} type="submit">
           {t("auth.loginButton")}
         </CustomButton>
       </div>

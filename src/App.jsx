@@ -8,9 +8,7 @@ import i18n from "./utils/i18n";
 
 export default function App() {
   const lang = useSelector((state) => state.language.lang);
-
   useEffect(() => {
-    localStorage.setItem("lang", lang);
     const body = document.querySelector("body");
     lang === "en" ? body.classList.add("en") : body.classList.remove("en");
     i18n.changeLanguage(lang);
@@ -18,7 +16,12 @@ export default function App() {
 
   return (
     <>
-      <Toaster expand={false} duration={2000} position="bottom-right" />
+      <Toaster
+        expand={false}
+        duration={2000}
+        richColors
+        position="bottom-right"
+      />
       <RouterProvider router={router} />
     </>
   );

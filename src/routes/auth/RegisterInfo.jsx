@@ -1,42 +1,36 @@
-import { useEffect, useState } from "react";
-import PersonalInfoForm from "../../ui/auth/PersonalInfoForm";
-import AccountInfoForm from "../../ui/auth/AccountInfoForm";
-import { useSearchParams } from "react-router";
+import { useState } from "react";
+import { FormProvider } from "react-hook-form";
 import { useTranslation } from "react-i18next";
+import AccountInfoForm from "../../ui/auth/AccountInfoForm";
+import PersonalInfoForm from "../../ui/auth/PersonalInfoForm";
+import { useRegisterValidation } from "../../validations/auth/register-schema";
 
-export default function RegisterInfo() {
-  const [searchparams] = useSearchParams();
-  const step = searchparams.get("step");
-
+export default function RegisterInfo({ setRegisterStep }) {
+  const { t } = useTranslation();
+  const methods = useRegisterValidation();
   const [formType, setFormType] = useState("personalInfo");
 
-  useEffect(() => {
-    if (step === "2") {
-      setFormType("accountInfo");
-    } else {
-      setFormType("personalInfo");
-    }
-  }, [step]);
-
-  const { t } = useTranslation();
   return (
     <section className="personal-info-form">
-      {(step === "1" || step === null) && (
-        <p className="form-head">
-          {t("auth.registerInfoPrompt")}
-        </p>
+      {formType === "personalInfo" && (
+        <p className="form-head">{t("auth.registerInfoPrompt")}</p>
       )}
-      {step === "2" && (
+      {formType === "accountInfo" && (
         <p className="form-head">{t("auth.accountInfoPrompt")}</p>
       )}
-      <form className="form_ui  ">
-        {formType === "personalInfo" && (
-          <PersonalInfoForm setFormType={setFormType} />
-        )}
-        {formType === "accountInfo" && (
-          <AccountInfoForm setFormType={setFormType} />
-        )}
-      </form>
+      <FormProvider {...methods}>
+        <form className="form_ui  ">
+          {formType === "personalInfo" && (
+            <PersonalInfoForm
+              setFormType={setFormType}
+              setRegisterStep={setRegisterStep}
+            />
+          )}
+          {formType === "accountInfo" && (
+            <AccountInfoForm setFormType={setFormType} />
+          )}
+        </form>
+      </FormProvider>
     </section>
   );
 }
