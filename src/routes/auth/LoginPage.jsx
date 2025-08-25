@@ -18,6 +18,12 @@ const LoginPage = () => {
             <Link to={"/register"}>{t("auth.createAccount")}</Link>
           </h6>
         )}
+
+        <h6 className="mt-2">
+          <span>{t("auth.explore")}</span>
+          <Link to={"/"}>{t("auth.tasami")}</Link>
+          <span>{t("auth.withoutLogin")}</span>
+        </h6>
       </div>
       <div className="seperator">{t("auth.or")}</div>
       <div className="social-login-buttons">

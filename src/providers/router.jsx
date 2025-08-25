@@ -174,7 +174,11 @@ export const router = createBrowserRouter([
       },
       {
         path: "my-profile",
-        element: <Profile />,
+        element: (
+          <ProtectedRoute>
+            <Profile />
+          </ProtectedRoute>
+        ),
         children: [
           {
             index: true,

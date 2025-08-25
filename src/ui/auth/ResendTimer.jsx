@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
 export default function ResendTimer({
-  initialTime = 60,
+  initialTime = 10,
   onResend,
   label,
   disabledLabel,
@@ -22,9 +22,17 @@ export default function ResendTimer({
 
   const handleResendClick = async () => {
     if (!resendDisabled && !loading) {
-      await onResend?.();
-      setTimer(initialTime);
-      setResendDisabled(true);
+      try {
+        setResendDisabled(true);
+        const success = await onResend?.();
+        if (success) {
+          setTimer(initialTime);
+        } else {
+          setResendDisabled(false);
+        }
+      } catch (err) {
+        setResendDisabled(false);
+      }
     }
   };
 

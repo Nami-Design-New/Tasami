@@ -57,22 +57,44 @@ export default function OtpConfirmationPage({ setRegisterStep }) {
       }
     );
   };
+  // const handleResend = async () => {
+  //   sendCode(
+  //     {
+  //       phone,
+  //       code: phoneCode,
+  //       type: location.pathname === "/register" ? "register" : "reset_password",
+  //     },
+  //     {
+  //       onSuccess: (data) => {
+  //         toast.success(data.message);
+  //       },
+  //       onError: (err) => {
+  //         toast.error(err.message);
+  //       },
+  //     }
+  //   );
+  // };
   const handleResend = () => {
-    sendCode(
-      {
-        phone,
-        code: phoneCode,
-        type: location.pathname === "/register" ? "register" : "reset_password",
-      },
-      {
-        onSuccess: (data) => {
-          toast.success(data.message);
+    return new Promise((resolve, reject) => {
+      sendCode(
+        {
+          phone,
+          code: phoneCode,
+          type:
+            location.pathname === "/register" ? "register" : "reset_password",
         },
-        onError: (err) => {
-          toast.error(err.message);
-        },
-      }
-    );
+        {
+          onSuccess: (data) => {
+            toast.success(data.message);
+            resolve(true); // success
+          },
+          onError: (err) => {
+            toast.error(err.message);
+            reject(err); // fail
+          },
+        }
+      );
+    });
   };
 
   return (
@@ -105,7 +127,7 @@ export default function OtpConfirmationPage({ setRegisterStep }) {
         />
         {errors.code && <p className="error-text">{errors.code.message}</p>}
         <ResendTimer
-          initialTime={60}
+          initialTime={10}
           onResend={handleResend}
           label={t("auth.resendCode")}
           disabledLabel={t("auth.waitBeforeResend")}
