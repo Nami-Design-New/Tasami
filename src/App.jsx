@@ -22,6 +22,7 @@ export default function App() {
         richColors
         position="bottom-right"
       />
+
       <RouterProvider router={router} />
     </>
   );

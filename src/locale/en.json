@@ -143,6 +143,24 @@
     "minAge": "You must be at least 13 years old",
     "invalidPhoneNumber": "Phone number must contain only numbers"
   },
+  "pageNotFound": {
+    "alt": "404 Not Found",
+    "title": "Oops! Page Not Found (404)",
+    "description": "We couldn't find the page you're looking for. It might have been moved, deleted, or never existed.",
+    "return": "Return to",
+    "homepage": "Homepage"
+  },
+  "forbidden": {
+    "title": "Access Denied...!",
+    "description": "You don’t have permission to view this page."
+  },
+  "errors": {
+    "oops": "Oops!",
+    "appTitle": "Application Error",
+    "appMessage": "An unexpected application error occurred. Please try again later.",
+    "unexpectedTitle": "Unexpected Error",
+    "unexpectedMessage": "An unexpected error occurred. Please try again later."
+  },
   "website": {
     "header": {
       "home": "Home",
