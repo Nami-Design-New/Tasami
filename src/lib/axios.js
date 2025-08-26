@@ -24,9 +24,27 @@ axiosInstance.interceptors.request.use((config) => {
 axiosInstance.interceptors.response.use(
   (response) => response,
   (error) => {
-    if (error.response?.status === 401) {
-      removeToken();
-      window.location.href = "/login";
+    const status = error.response?.status;
+
+    switch (status) {
+      case 401:
+        removeToken();
+        window.location.href = "/login";
+        break;
+
+      case 403:
+        window.location.href = "/forbidden";
+        break;
+
+      case 500:
+        console.error("Server error:", error.response?.data);
+        break;
+
+      default:
+        break;
     }
+
+    // Important! Always return a rejected promise
+    return Promise.reject(error);
   }
 );
