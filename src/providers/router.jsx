@@ -77,10 +77,13 @@ import Interests from "../routes/website/Interests";
 import Savings from "../routes/website/Savings";
 import ProtectedRoute from "./ProtectedRoute";
 import { SkipGuardedRoute } from "./SkipGuardedRoute";
+import Forbidden from "../routes/Forbidden";
+import ErrorFallback from "../ui/ErrorFallback";
 
 export const router = createBrowserRouter([
   {
     element: <AuthLayout />,
+    errorElement: <ErrorFallback />,
     children: [
       { path: "/login", element: <LoginPage /> },
       { path: "/register", element: <Register /> },
@@ -99,6 +102,7 @@ export const router = createBrowserRouter([
   { path: "/reset-password", element: <ResetPassword /> },
   {
     element: <WebsiteLayout />,
+    errorElement: <ErrorFallback />,
     children: [
       {
         path: "/",
@@ -238,6 +242,7 @@ export const router = createBrowserRouter([
   {
     path: "/dashboard",
     element: <DashboardLayout />,
+    errorElement: <ErrorFallback />,
     children: [
       {
         index: true,
@@ -423,5 +428,9 @@ export const router = createBrowserRouter([
   {
     path: "*",
     element: <PageNotFound />,
+  },
+  {
+    path: "/forbidden",
+    element: <Forbidden />,
   },
 ]);

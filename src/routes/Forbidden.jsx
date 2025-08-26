@@ -1,8 +1,8 @@
-import { Link, useLocation } from "react-router";
 import { useTranslation } from "react-i18next";
+import { Link, useLocation } from "react-router";
 import { ROLE_REDIRECTS } from "../utils/constants";
 
-export default function PageNotFound() {
+export default function Forbidden() {
   const { t } = useTranslation();
   const location = useLocation();
 
@@ -17,11 +17,11 @@ export default function PageNotFound() {
   return (
     <div className="error-page">
       <div className="container">
-        <img src="/sys-icons/notFound.svg" alt={t("pageNotFound.alt")} />
+        <img src="/sys-icons/forbidden-bro.svg" alt={t("pageNotFound.alt")} />
 
-        <h1 className="error-title">{t("pageNotFound.title")}</h1>
+        <h1 className="error-title">{t("forbidden.title")}</h1>
 
-        <p className="error-description">{t("pageNotFound.description")}</p>
+        <p className="error-description">{t("forbidden.description")}</p>
 
         <Link to={roleRedirectPath || "/"} className="button">
           {t("pageNotFound.return")}{" "}
