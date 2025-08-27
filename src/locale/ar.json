@@ -124,7 +124,22 @@
     "savings": "محفوظاتي",
     "community": "مجتمعاتي",
     "followers": "متابعاتي",
-    "assistant": "منصة المساعد الشخصي"
+    "assistant": "منصة المساعد الشخصي",
+    "firstName": "الاسم الأول",
+    "lastName": "اسم الأب",
+    "date": "تاريخ الميلاد",
+    "gender": "الجنس",
+    "nationality": "الجنسية",
+    "country": "بلد الإقامة",
+    "phone": "رقم الهاتف",
+    "email": "البريد الإلكتروني",
+    "changePassword": "هل ترغب في تغيير كلمة المرور؟",
+    "yes": "نعم",
+    "no": "لا",
+    "oldPassword": "كلمة المرور القديمة",
+    "newPassword": "كلمة المرور الجديدة",
+    "confirmPassword": "تأكيد كلمة المرور",
+    "save": "حفظ البيانات"
   },
   "settings": {
     "termsTitle": "الشروط والأحكام",

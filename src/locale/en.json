@@ -120,7 +120,22 @@
     "savings": "My Savings",
     "community": "My Communities",
     "followers": "My Followers",
-    "assistant": "Personal Assistant"
+    "assistant": "Personal Assistant",
+    "firstName": "First Name",
+    "lastName": "Last Name",
+    "date": "Date of Birth",
+    "gender": "Gender",
+    "nationality": "Nationality",
+    "country": "Country of Residence",
+    "phone": "Phone Number",
+    "email": "Email",
+    "changePassword": "Do you want to change the password?",
+    "yes": "Yes",
+    "no": "No",
+    "oldPassword": "Old Password",
+    "newPassword": "New Password",
+    "confirmPassword": "Confirm Password",
+    "save": "Save Changes"
   },
   "settings": {
     "termsTitle": "Terms and Conditions",
