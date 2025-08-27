@@ -1,9 +1,7 @@
 import { createBrowserRouter } from "react-router";
-import AuthLayout from "../layout/AuthLayout";
 import DashboardLayout from "../layout/MainDashboardLayout";
 import WebsiteLayout from "../layout/WebsiteLayout";
-import LoginPage from "../routes/auth/LoginPage";
-import ResetPassword from "../routes/auth/ResetPassword";
+
 import ChatPage from "../routes/ChatPage";
 import ActionsLogModel from "../routes/dash-board/ActionsLogModel";
 import CreateEmployee from "../routes/dash-board/CreateEmployer";
@@ -65,24 +63,30 @@ import SubscriptionManagement from "../routes/dash-board/websiteManagment/Subscr
 import TasksManagment from "../routes/dash-board/websiteManagment/TasksManagment";
 import Terms from "../routes/website/terms";
 import Views from "../routes/website/Views";
-import LoginForm from "../ui/auth/LoginForm";
+import LoginForm from "../ui/website-auth/LoginForm";
 
-import AreasOfInterest from "../routes/auth/AreasOfInterest";
-import Register from "../routes/auth/Register";
+import DashboardAuthlayout from "../layout/DashboardAuthlayout";
+import WebsiteAuthLayout from "../layout/WebsiteAuthLayout";
 import CommunityPostDetails from "../routes/dash-board/CommunityPostDetails";
 import ContractDetails from "../routes/dash-board/ContractDetails";
 import ResuemeDetails from "../routes/dash-board/resuems/ResuemeDetails";
+import Forbidden from "../routes/Forbidden";
 import Followers from "../routes/website/Followers";
 import Interests from "../routes/website/Interests";
 import Savings from "../routes/website/Savings";
+import ErrorFallback from "../ui/ErrorFallback";
 import ProtectedRoute from "./ProtectedRoute";
 import { SkipGuardedRoute } from "./SkipGuardedRoute";
-import Forbidden from "../routes/Forbidden";
-import ErrorFallback from "../ui/ErrorFallback";
+import LoginPage from "../routes/website-auth/LoginPage";
+import Register from "../routes/website-auth/Register";
+import AreasOfInterest from "../routes/website-auth/AreasOfInterest";
+import ResetPassword from "../routes/website-auth/ResetPassword";
+import DashboardLoginPage from "../routes/dashboard-auth/DashboardLoginPage";
+import DashBoardResetPassword from "../routes/dashboard-auth/DashBoardResetPassword";
 
 export const router = createBrowserRouter([
   {
-    element: <AuthLayout />,
+    element: <WebsiteAuthLayout />,
     errorElement: <ErrorFallback />,
     children: [
       { path: "/login", element: <LoginPage /> },
@@ -236,8 +240,12 @@ export const router = createBrowserRouter([
   },
   {
     path: "/dashboard/login",
-    element: <AuthLayout />,
-    children: [{ index: true, element: <LoginForm /> }],
+    element: <DashboardAuthlayout />,
+    children: [{ index: true, element: <DashboardLoginPage /> }],
+  },
+  {
+    path: "/dashboard/reset-password",
+    element: <DashBoardResetPassword />,
   },
   {
     path: "/dashboard",

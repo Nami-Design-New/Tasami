@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { FormProvider } from "react-hook-form";
 import { useTranslation } from "react-i18next";
-import AccountInfoForm from "../../ui/auth/AccountInfoForm";
-import PersonalInfoForm from "../../ui/auth/PersonalInfoForm";
+import AccountInfoForm from "../../ui/website-auth/AccountInfoForm";
+import PersonalInfoForm from "../../ui/website-auth/PersonalInfoForm";
 import { useRegisterValidation } from "../../validations/auth/register-schema";
 
 export default function RegisterInfo({ setRegisterStep }) {

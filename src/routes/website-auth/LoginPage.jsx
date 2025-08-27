@@ -1,6 +1,6 @@
 import { useTranslation } from "react-i18next";
 import { Link, useLocation } from "react-router";
-import LoginForm from "../../ui/auth/LoginForm";
+import LoginForm from "../../ui/website-auth/LoginForm";
 import useGoogleAuth from "../../hooks/auth/useGoogleAuth";
 
 const LoginPage = () => {

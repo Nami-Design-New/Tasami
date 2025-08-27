@@ -7,7 +7,7 @@ import { toast } from "sonner";
 import * as yup from "yup";
 import useOtpConfirmation from "../../hooks/auth/useOtpConfirmation";
 import usePhoneRegister from "../../hooks/auth/useSendOtpCode";
-import ResendTimer from "../../ui/auth/ResendTimer";
+import ResendTimer from "../../ui/website-auth/ResendTimer";
 import CustomButton from "../../ui/CustomButton";
 import BackButton from "../../ui/forms/BackButton";
 import OtpContainer from "../../ui/forms/OtpContainer";
@@ -57,23 +57,7 @@ export default function OtpConfirmationPage({ setRegisterStep }) {
       }
     );
   };
-  // const handleResend = async () => {
-  //   sendCode(
-  //     {
-  //       phone,
-  //       code: phoneCode,
-  //       type: location.pathname === "/register" ? "register" : "reset_password",
-  //     },
-  //     {
-  //       onSuccess: (data) => {
-  //         toast.success(data.message);
-  //       },
-  //       onError: (err) => {
-  //         toast.error(err.message);
-  //       },
-  //     }
-  //   );
-  // };
+
   const handleResend = () => {
     return new Promise((resolve, reject) => {
       sendCode(
