@@ -1,3 +1,7 @@
+@use "./config" as *;
+@use "./mixins" as *;
+@use "./variables" as *;
+
 .chat-page {
   display: flex;
   height: 100%;

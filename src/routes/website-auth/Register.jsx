@@ -7,12 +7,12 @@ export default function Register() {
   const [registerStep, setRegisterStep] = useState(1);
 
   return (
-    <>
+    <section className="login-wrapper">
       {registerStep === 1 && <RegisterPage setRegisterStep={setRegisterStep} />}
       {registerStep === 2 && (
         <OtpConfirmationPage setRegisterStep={setRegisterStep} />
       )}
       {registerStep === 3 && <RegisterInfo setRegisterStep={setRegisterStep} />}
-    </>
+    </section>
   );
 }

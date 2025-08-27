@@ -1,6 +1,10 @@
-.terms{
+@use "sass:color";
+@use "./config" as *;
+@use "./mixins" as *;
+@use "./variables" as *;
+
+.terms {
   .terms-content {
-    
     h3 {
       font-weight: bold;
       color: $main;
@@ -21,14 +25,13 @@
         text-decoration: underline;
 
         &:hover {
-          color: darken($main, 10%);
+          color: color.adjust($main, $lightness: -10%);
         }
       }
     }
   }
 }
-.privacy{
-
+.privacy {
   .privacy-content {
     h3 {
       font-weight: bold;
@@ -50,7 +53,7 @@
         text-decoration: underline;
 
         &:hover {
-          color: darken($main, 10%);
+          color: color.adjust($main, $lightness: -10%);
         }
       }
     }

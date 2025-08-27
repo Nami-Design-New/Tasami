@@ -1,4 +1,6 @@
-@import "./config";
+@use "./config" as *;
+@use "./mixins" as *;
+@use "./variables" as *;
 
 // ================================
 // ModelComponent - Main Container

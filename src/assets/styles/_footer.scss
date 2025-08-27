@@ -1,3 +1,7 @@
+@use "./config" as *;
+@use "./mixins" as *;
+@use "./variables" as *;
+
 .footer2 {
   padding: 30px 0;
   // background: #F2F2F2;

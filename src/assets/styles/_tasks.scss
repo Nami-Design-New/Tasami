@@ -1,3 +1,7 @@
+@use "./config" as *;
+@use "./mixins" as *;
+@use "./variables" as *;
+
 .inner_navigation_side_bar {
   width: 100%;
   border-radius: 24px;
