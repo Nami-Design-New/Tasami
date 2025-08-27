@@ -14,8 +14,17 @@ const registerSchema = (t) => {
         return file.size <= 2 * 1024 * 1024;
       })
       .test("fileType", t("validation.fileType"), (file) => {
+        console.log(file.type);
+
         if (!file) return true;
-        return ["image/jpeg", "image/png", "image/jpg"].includes(file.type);
+        return [
+          "image/jpeg",
+          "image/png",
+          "image/jpg",
+          "image/svg+xml",
+          "image/svg",
+          "image/wepb",
+        ].includes(file.type);
       }),
     firstName: yup.string().required(t("validation.required")),
     middleName: yup.string().required(t("validation.required")),

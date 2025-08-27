@@ -1,45 +1,50 @@
 // shared ui
-@import "./config";
-@import "./header";
-@import "./footer";
-@import "./form_ui";
-@import "./cards";
-@import "./fonts";
-@import "./components";
-@import "./modals";
+@use "./variables" as *;
+@use "./mixins" as *;
+@use "./config" as *;
+
+@use "./utils";
+@use "./header";
+@use "./footer";
+@use "./form_ui";
+@use "./cards";
+@use "./fonts";
+@use "./components";
+@use "./modals";
+@use "./auth";
+
+// main dashboard
+@use "./dashboard";
+@use "./tables";
+@use "./tasks";
+@use "./create_employer";
+@use "./reports";
+@use "./employee-profile";
+@use "./chats";
+@use "./model";
+@use "./website-management";
+@use "./contracts";
+@use "./resuems";
+
+// website
+@use "./landing";
+@use "./terms-privacy";
+@use "./goal_details";
+@use "./my_works";
+@use "./community";
+@use "./my_profile";
 
 body {
   direction: rtl;
   font-family: "Dubai";
   background-color: $white;
+
   main {
     min-height: calc(100vh - 80px);
     @media (max-width: 992px) {
       margin-top: 20px;
     }
   }
-
-  @import "./auth";
-  // main dashboard
-  @import "./dashboard";
-  @import "./tables";
-  @import "./tasks";
-  @import "./create_employer";
-  @import "./reports";
-  @import "./employee-profile";
-  @import "./chats";
-  @import "./model";
-  @import "./website-management";
-  @import "./contracts";
-  @import "./resuems";
-
-  // website
-  @import "./landing";
-  @import "./terms$privacy";
-  @import "./goal_details";
-  @import "./my_works";
-  @import "./community";
-  @import "./my_profile";
 
   &.en {
     direction: ltr;

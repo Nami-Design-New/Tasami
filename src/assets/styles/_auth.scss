@@ -1,3 +1,7 @@
+@use "./config" as *;
+@use "./mixins" as *;
+@use "./variables" as *;
+
 .auth_section {
   display: flex;
   height: 100vh;
@@ -16,18 +20,20 @@
   }
 
   .form_container {
-    scrollbar-width: none;
-    -ms-overflow-style: none;
-    &::-webkit-scrollbar {
-      display: none;
-    }
     flex: 1;
     height: 100vh;
     overflow-y: auto;
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
     padding: 3rem;
     gap: 16px;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    &::-webkit-scrollbar {
+      display: none;
+    }
     @media (max-width: 576px) {
       padding: 2rem 1rem;
     }
@@ -40,9 +46,7 @@
     }
     .form-header {
       width: 100%;
-      display: flex;
-      justify-content: space-between;
-      flex-direction: column;
+      max-width: 600px;
       gap: 16px;
       .logo {
         display: flex;
@@ -83,214 +87,82 @@
       }
       @media (max-width: 992px) {
         .logo {
-          h1 {
-            font-size: 24px;
-          }
-        }
-      }
-    }
-    .form {
-      width: 100%;
-      flex: 1 1;
-      display: flex;
-      flex-direction: column;
-      .head {
-        color: $second;
-        font-size: 22px;
-        font-weight: 700;
-        margin-bottom: 1.5rem;
-        img {
-          height: 40px;
-        }
-      }
-      .sub-head {
-        font-size: 18px;
-        font-weight: 400;
-        color: $gray;
-        margin-bottom: 12px;
-        span {
-          color: $main;
-          font-weight: bold;
-        }
-      }
-      .selection-grid {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 12px;
-        margin-top: 24px;
-        .select {
-          height: 70px;
-          min-width: calc(50% - 6px);
-          flex: 1;
-          @include clearInput();
-          background: $InputBG;
-          border-radius: 12px;
-          font-size: 16px;
-          font-weight: 600;
-          color: $dark;
-          transition: $transition;
-          &.active {
-            background: $main;
-            color: $white;
-          }
-        }
-      }
-      .next {
-        @include clearInput();
-        @include centerFlex();
-        width: 100%;
-        height: 60px;
-        background: $main;
-        color: $white;
-        border-radius: 12px;
-        margin-top: 24px;
-      }
-      .tabs {
-        width: 100%;
-        border-bottom: 2px solid $InputStroke;
-        gap: 0;
-        button {
-          @include clearInput();
-          padding: 4px 12px;
-          position: relative;
-          font-size: 16px;
-          font-weight: 500;
-          transition: $transition;
-          color: $dark;
-          &::after {
-            content: "";
-            position: absolute;
-            bottom: -2px;
-            width: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            height: 2px;
-            background: $main;
-            transition: $transition;
-          }
-          &.active {
-            color: $main;
-            &::after {
-              width: 100%;
-            }
-          }
-        }
-      }
-      form {
-        padding: 16px 0;
-        display: flex;
-        flex-direction: column;
-        gap: 16px;
-        input {
-          height: 54px;
-          border: 1px solid $InputStroke;
-          background: $InputBG;
-          padding: 12px 16px;
-          border-radius: 8px;
-          outline: none;
-          color: $dark;
-          &::placeholder {
-            color: $inputHint;
-          }
-        }
-        a {
-          color: $main;
-          align-self: flex-end;
-          color: $main;
-        }
-        .resend {
-          @include space-between();
-          h6 {
-            color: $second;
-            font-weight: 700;
-            font-size: 1rem;
-          }
-          p {
-            color: $second;
-          }
+          font-size: 24px;
         }
       }
     }
   }
-}
-
-.reset_section {
-  padding: 60px;
-  min-height: 100dvh;
-  background: $white;
-  @include space-between();
-  flex-direction: column;
-  @media (max-width: 576px) {
-    padding: 32px 24px;
-  }
-  .header {
+  .login-wrapper {
     display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    max-width: 600px;
     width: 100%;
-    .logo {
-      height: 60px;
-      img {
-        height: 60px;
-      }
-    }
   }
-}
-.reset-container {
-  display: flex;
-  width: min(100%, 700px);
-  flex-direction: column;
-
-  .title {
-    color: $second;
-    text-align: center;
-    font-size: 32px;
-    font-weight: 700;
-    margin-bottom: 8px;
-    @media (max-width: 576px) {
-      font-size: 28px;
-    }
-    &.otp-page-title {
+  .form {
+    width: 100%;
+    flex: 1 1;
+    display: flex;
+    flex-direction: column;
+    .head {
       color: $second;
-      font: weight 700px;
-      margin-bottom: 4px;
+      font-size: 22px;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+      img {
+        height: 40px;
+      }
     }
-  }
-  .subTitle {
-    color: $gray;
-    font-size: 1rem;
-    text-align: center;
-
-    .otp-page-des {
+    .sub-head {
+      font-size: 18px;
+      font-weight: 400;
+      color: $gray;
+      margin-bottom: 12px;
       span {
-        &:first-child {
-          color: $gray;
-          font-weight: 400;
-        }
-        &.phone-number {
-          color: $dark;
-          font-weight: 700;
-        }
-      }
-      @media (max-width: 576px) {
-        font-size: 14px;
-      }
-      text-align: start;
-      a,
-      button {
-        color: $second;
-        font-weight: 700;
+        color: $main;
+        font-weight: bold;
       }
     }
-  }
-  .reset-form {
-    margin: 24px 0;
-    width: 100%;
-
+    .selection-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 24px;
+      .select {
+        height: 70px;
+        min-width: calc(50% - 6px);
+        flex: 1;
+        @include clearInput();
+        background: $InputBG;
+        border-radius: 12px;
+        font-size: 16px;
+        font-weight: 600;
+        color: $dark;
+        transition: $transition;
+        &.active {
+          background: $main;
+          color: $white;
+        }
+      }
+    }
+    .next {
+      @include clearInput();
+      @include centerFlex();
+      width: 100%;
+      height: 60px;
+      background: $main;
+      color: $white;
+      border-radius: 12px;
+      margin-top: 24px;
+    }
     .tabs {
       width: 100%;
       border-bottom: 2px solid $InputStroke;
+      gap: 0;
       button {
         @include clearInput();
-        padding: 0 12px;
+        padding: 4px 12px;
         position: relative;
         font-size: 16px;
         font-weight: 500;
@@ -320,35 +192,180 @@
       display: flex;
       flex-direction: column;
       gap: 16px;
-
-      label {
-        font-weight: 600;
-        margin-bottom: 8px;
+      input {
+        height: 54px;
+        border: 1px solid $InputStroke;
+        background: $InputBG;
+        padding: 12px 16px;
+        border-radius: 8px;
+        outline: none;
+        color: $dark;
+        &::placeholder {
+          color: $inputHint;
+        }
       }
       a {
         color: $main;
         align-self: flex-end;
         color: $main;
       }
-    }
-    .resend {
-      padding: 12px 0;
-      @include space-between();
-      h6 {
-        color: $second;
-        font-weight: 700;
-        font-size: 1rem;
-      }
-      p {
-        span {
+      .resend {
+        @include space-between();
+        h6 {
           color: $second;
           font-weight: 700;
+          font-size: 1rem;
+        }
+        p {
+          color: $second;
         }
       }
     }
   }
 }
+
+.reset_section {
+  padding: 60px;
+  min-height: 100dvh;
+  background: $white;
+  @include space-between();
+  flex-direction: column;
+  @media (max-width: 576px) {
+    padding: 32px 24px;
+  }
+  .header {
+    display: flex;
+    width: 100%;
+    .logo {
+      height: 60px;
+      img {
+        height: 60px;
+      }
+    }
+  }
+}
+
+.subTitle {
+  color: $gray;
+  font-size: 1rem;
+  text-align: center;
+
+  .otp-page-des {
+    span {
+      &:first-child {
+        color: $gray;
+        font-weight: 400;
+      }
+      &.phone-number {
+        color: $dark;
+        font-weight: 700;
+      }
+    }
+    @media (max-width: 576px) {
+      font-size: 14px;
+    }
+    a,
+    button {
+      color: $second;
+      font-weight: 700;
+    }
+  }
+}
+.reset-container {
+  display: flex;
+  width: min(100%, 700px);
+  flex-direction: column;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+
+  .title {
+    color: $second;
+    text-align: center;
+    font-size: 32px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    @media (max-width: 576px) {
+      font-size: 28px;
+    }
+    &.otp-page-title {
+      color: $second;
+      font: weight 700px;
+      margin-bottom: 4px;
+    }
+  }
+}
+.reset-form {
+  margin: 24px 0;
+  width: 100%;
+
+  .tabs {
+    width: 100%;
+    border-bottom: 2px solid $InputStroke;
+    button {
+      @include clearInput();
+      padding: 0 12px;
+      position: relative;
+      font-size: 16px;
+      font-weight: 500;
+      transition: $transition;
+      color: $dark;
+      &::after {
+        content: "";
+        position: absolute;
+        bottom: -2px;
+        width: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        height: 2px;
+        background: $main;
+        transition: $transition;
+      }
+      &.active {
+        color: $main;
+        &::after {
+          width: 100%;
+        }
+      }
+    }
+  }
+  form {
+    padding: 16px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+
+    label {
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+    a {
+      color: $main;
+      align-self: flex-end;
+      color: $main;
+    }
+  }
+  .resend {
+    padding: 12px 0;
+    @include space-between();
+    h6 {
+      color: $second;
+      font-weight: 700;
+      font-size: 1rem;
+    }
+    p {
+      span {
+        color: $second;
+        font-weight: 700;
+      }
+    }
+  }
+}
 .register {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
   .text-header {
     margin-bottom: 24px;
     color: $gray;
@@ -395,6 +412,7 @@
   justify-content: center;
   align-items: center;
   padding: 12px;
+  width: 100%;
 
   &::before {
     content: "";
@@ -417,6 +435,8 @@
   display: flex;
   gap: 12px;
   flex-wrap: wrap;
+  max-width: 600px;
+  width: 100%;
 
   button {
     @include centerFlex();

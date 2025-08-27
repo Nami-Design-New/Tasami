@@ -1,4 +1,8 @@
 @use "sass:color";
+@use "./config" as *;
+@use "./mixins" as *;
+@use "./variables" as *;
+
 .mt-30 {
   margin-top: 30px;
 }
@@ -368,7 +372,7 @@
         }
 
         &:hover {
-          background-color: lighten($secondColor12, 5%);
+          background-color: color.adjust($secondColor12, $lightness: 5%);
         }
 
         &.active {
@@ -406,7 +410,7 @@
       }
 
       &:hover {
-        background-color: darken(#003399, 5%);
+        background-color: color.adjust(#003399, $lightness: -5%);
       }
     }
   }

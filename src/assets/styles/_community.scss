@@ -1,3 +1,8 @@
+@use "sass:color";
+@use "./config" as *;
+@use "./mixins" as *;
+@use "./variables" as *;
+
 .community-header {
   display: flex;
   flex-direction: column;
@@ -323,7 +328,7 @@
       }
 
       &:hover {
-        background: darken($main, 8%);
+        background: color.adjust($main, $lightness: -8%);
       }
     }
   }
@@ -435,7 +440,7 @@
     }
 
     &:hover {
-      background: darken($main, 8%);
+      background: color.adjust($main, $lightness: -8%);
     }
   }
 }
@@ -454,7 +459,7 @@
   }
 
   &:hover {
-    background: darken($main, 10%);
+    background: color.adjust($main, $lightness: -10%);
   }
 }
 

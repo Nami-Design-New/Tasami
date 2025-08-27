@@ -1,4 +1,8 @@
 @use "sass:color";
+@use "./config" as *;
+@use "./mixins" as *;
+@use "./variables" as *;
+
 .hero-section {
   padding: 30px 0;
 
@@ -59,7 +63,7 @@
     font-weight: 700;
 
     &:hover {
-      background-color: darken($second, 10%);
+      background-color: color.adjust($second, $lightness: -10%);
     }
   }
 
@@ -688,7 +692,7 @@
     transition: color 0.3s;
 
     &:hover {
-      color: darken($main, 10%);
+      color: color.adjust($main, $lightness: -10%);
     }
   }
 }
@@ -1047,17 +1051,17 @@
       }
 
       &:hover {
-        background: lighten(#1e3a8a, 48%);
+        background: color.adjust(#1e3a8a, $lightness: 48%);
         box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
         transform: translateY(-8px);
 
         .icon-wrapper {
-          background: darken(#1e3a8a, 8%);
+          background: color.adjust(#1e3a8a, $lightness: -8%);
           animation: pulse 0.6s ease-in-out;
         }
 
         h3 {
-          color: darken(#1e3a8a, 8%);
+          color: color.adjust(#1e3a8a, $lightness: -8%);
         }
       }
     }
@@ -1221,7 +1225,7 @@
           padding: 0.2rem 0.8rem;
         }
         &:hover {
-          background: lighten($main, 10%);
+          background: color.adjust($main, $lightness: 10%);
           color: #fff;
         }
 

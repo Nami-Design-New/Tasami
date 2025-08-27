@@ -1,4 +1,7 @@
 @use "sass:color";
+@use "./config" as *;
+@use "./mixins" as *;
+@use "./variables" as *;
 
 $color-primary: #214b92;
 $color-primary08: #02489614;
