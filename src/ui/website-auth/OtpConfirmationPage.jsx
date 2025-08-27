@@ -82,7 +82,7 @@ export default function OtpConfirmationPage({ setRegisterStep }) {
   };
 
   return (
-    <div className="reset-container">
+    <div className="form_wrapper register">
       <div className="subTitle">
         <p className="otp-page-des">
           <span>{t("auth.otpPrompt")}</span>

@@ -1,3 +1,5 @@
+@use "./variables" as *;
+
 @mixin centerFlex {
   display: flex;
   align-items: center;
@@ -22,7 +24,8 @@
   border-radius: $borderRadius;
   background-color: $white;
   margin-bottom: 16px;
-  @include labtop-layout() {
+
+  @include labtop-layout {
     padding: 8px;
   }
 }
@@ -51,6 +54,7 @@
     @content;
   }
 }
+
 // Hide scrollbar but keep functionality
 @mixin hide-scrollbar {
   scrollbar-width: none;

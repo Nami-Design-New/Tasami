@@ -1,3 +1,7 @@
+@use "./config" as *;
+@use "./mixins" as *;
+@use "./variables" as *;
+
 .myworks {
   .tab-nav {
     display: flex;

@@ -1,3 +1,7 @@
+@use "./config" as *;
+@use "./mixins" as *;
+@use "./variables" as *;
+
 .link-styles {
   text-decoration: underline;
   color: $main;
@@ -15,7 +19,8 @@
     font-size: 22px;
     font-weight: 500;
     margin-bottom: 16px;
-    @include tablet-layout() {
+
+    @include tablet-layout {
       font-size: 18px;
     }
   }

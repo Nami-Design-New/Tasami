@@ -26,8 +26,6 @@ const DashboardAuthlayout = () => {
             <span />
             <h1>{getHeadingText(route, step, t)}</h1>
           </div>
-
-          {/* {location.pathname.includes("dashboard") && <></>} */}
         </div>
         <Outlet />
       </div>

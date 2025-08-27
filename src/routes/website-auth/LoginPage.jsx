@@ -9,7 +9,7 @@ const LoginPage = () => {
   const { handleGoogleLogin, isPending } = useGoogleAuth();
 
   return (
-    <section>
+    <section className="login-wrapper">
       <LoginForm />
       <div className="account-link">
         {location.pathname === "/login" && (
