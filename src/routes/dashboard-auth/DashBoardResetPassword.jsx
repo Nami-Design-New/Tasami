@@ -1,18 +1,19 @@
 import { useState } from "react";
-import { Link } from "react-router";
-import NewPassword from "../../ui/auth/NewPassword";
-import ResetForm from "../../ui/auth/ResetForm";
-import OtpConfirmationPage from "./OtpConfirmationPage";
 import { useTranslation } from "react-i18next";
+import { Link } from "react-router";
+import ResetForm from "../../ui/dashboard-auth/ResetForm";
+import OtpConfirmationPage from "./OtpConfirmationPage";
+import NewPassword from "./NewPassword";
 
-export default function ResetPassword() {
+export default function DashBoardResetPassword() {
   const [resetPasswordStep, setResetPasswordStep] = useState("s1");
+
   const { t } = useTranslation();
   let title, subTitle;
 
   if (resetPasswordStep === "s1") {
     title = t("auth.forgetPass");
-    subTitle = t("auth.forgetPassHeader");
+    subTitle = t("auth.forgetPassHeaderEmail");
   } else if (resetPasswordStep === "s2") {
     title = t("auth.confirmOtp");
   } else {
@@ -26,14 +27,12 @@ export default function ResetPassword() {
           <img src="/images/logo.svg" alt="logo" />
         </Link>
       </div>
-
       <div className="reset-container">
         <h1 className="title">{title}</h1>
         <p className="subTitle">{subTitle}</p>
         {resetPasswordStep === "s1" && (
           <ResetForm setResetPasswordStep={setResetPasswordStep} />
         )}
-
         {resetPasswordStep === "s2" && (
           <OtpConfirmationPage setRegisterStep={setResetPasswordStep} />
         )}

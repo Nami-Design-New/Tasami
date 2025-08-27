@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Accordion, AccordionBody } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
 import { Link, useNavigate } from "react-router";
-import TagItem from "../../ui/auth/TagItem";
+import TagItem from "../../ui/website-auth/TagItem";
 import CustomButton from "../../ui/CustomButton";
 import useGetcategories from "../../hooks/area-of-interests/useGetcategories";
 import Skeleton from "react-loading-skeleton";

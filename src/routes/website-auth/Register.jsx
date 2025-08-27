@@ -1,7 +1,7 @@
 import { useState } from "react";
-import OtpConfirmationPage from "./OtpConfirmationPage";
-import RegisterInfo from "./RegisterInfo";
-import RegisterPage from "./RegisterPage";
+import OtpConfirmationPage from "../../ui/website-auth/OtpConfirmationPage";
+import RegisterPage from "../../ui/website-auth/RegisterPage";
+import RegisterInfo from "../../ui/website-auth/RegisterInfo";
 
 export default function Register() {
   const [registerStep, setRegisterStep] = useState(1);

@@ -72,6 +72,7 @@
     "and": "and",
     "termsConditions": "Terms & Conditions",
     "otpPrompt": "Please enter the verification code sent to your number...",
+    "otpPromptEmail": "Please enter the verification code sent to your email",
     "editPhoneNumber": "Edit number",
     "resendCode": "Resend code",
     "send": "Send",
@@ -103,6 +104,7 @@
     "skip": "Skip",
     "forgetPass": "Forget Password...!",
     "forgetPassHeader": "Please enter the registered mobile number to receive the verification code...",
+    "forgetPassHeaderEmail": "Please enter the registered email address to receive the verification code...",
     "newPassword": "New Password",
     "newPassPrompt": "Enter the new password with at least 6 characters...",
     "waitBeforeResend": "Wait before resending",
@@ -110,7 +112,8 @@
     "sending": "sending",
     "explore": "Explore",
     "tasami": "Tasami",
-    "withoutLogin": "without login "
+    "withoutLogin": "without login ",
+    "email": "Email"
   },
   "profile": {
     "myInfo": "My Info",
@@ -120,7 +123,22 @@
     "savings": "My Savings",
     "community": "My Communities",
     "followers": "My Followers",
-    "assistant": "Personal Assistant"
+    "assistant": "Personal Assistant",
+    "firstName": "First Name",
+    "lastName": "Last Name",
+    "date": "Date of Birth",
+    "gender": "Gender",
+    "nationality": "Nationality",
+    "country": "Country of Residence",
+    "phone": "Phone Number",
+    "email": "Email",
+    "changePassword": "Do you want to change the password?",
+    "yes": "Yes",
+    "no": "No",
+    "oldPassword": "Old Password",
+    "newPassword": "New Password",
+    "confirmPassword": "Confirm Password",
+    "save": "Save Changes"
   },
   "settings": {
     "termsTitle": "Terms and Conditions",

@@ -3,7 +3,7 @@ import EmailForm from "./EmailForm";
 import PhoneForm from "./PhoneForm";
 import { useTranslation } from "react-i18next";
 
-const LoginForm = ({ setShowLoginForm }) => {
+const LoginForm = () => {
   const [formType, setFormType] = useState("email");
   const { t } = useTranslation();
 
@@ -26,13 +26,9 @@ const LoginForm = ({ setShowLoginForm }) => {
         </button>
       </div>
 
-      {formType === "email" && (
-        <EmailForm setShowLoginForm={setShowLoginForm} />
-      )}
+      {formType === "email" && <EmailForm />}
 
-      {formType === "phone" && (
-        <PhoneForm setShowLoginForm={setShowLoginForm} />
-      )}
+      {formType === "phone" && <PhoneForm />}
     </div>
   );
 };
