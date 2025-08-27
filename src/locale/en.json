@@ -191,7 +191,8 @@
       "logout": "Logout",
       "notifications": "Notifications",
       "wallet": "Wallet",
-      "editAccount": "Edit Account"
+      "editAccount": "Edit Account",
+      "communities": "Communities"
     },
     "hero": {
       "personalGoals": "Personal Goals",

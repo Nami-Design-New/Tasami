@@ -1,8 +1,6 @@
-import SubmitButton from "../../ui/forms/SubmitButton";
 import { useState } from "react";
-import ChargeBalanceModal from "../../ui/modals/ChargeBalanceModal"; 
 import CustomButton from "../../ui/CustomButton";
-
+import ChargeBalanceModal from "../../ui/modals/ChargeBalanceModal";
 
 export default function MyWallet() {
   const balance = 2500;
@@ -45,9 +43,19 @@ export default function MyWallet() {
           </h2>
 
           <div className="wallet-actions">
-            <CustomButton className="btn-charge" onClick={() => setShowChargeModal(true)} >شحن</CustomButton>
+            <CustomButton
+              className="btn-charge"
+              onClick={() => setShowChargeModal(true)}
+            >
+              شحن
+            </CustomButton>
 
-            <CustomButton  className="btn-refund" onClick={() => setShowChargeModal(true)}  >طلب استيراد</CustomButton>
+            <CustomButton
+              className="btn-refund"
+              onClick={() => setShowChargeModal(true)}
+            >
+              طلب استيراد
+            </CustomButton>
           </div>
         </div>
 
@@ -71,9 +79,10 @@ export default function MyWallet() {
           ))}
         </div>
       </div>
-  <ChargeBalanceModal showModal={showChargeModal} setShowModal={setShowChargeModal} />
-
+      <ChargeBalanceModal
+        showModal={showChargeModal}
+        setShowModal={setShowChargeModal}
+      />
     </div>
-    
   );
 }

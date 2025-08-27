@@ -1,4 +1,3 @@
-@charset "UTF-8";
 * {
   padding: 0;
   margin: 0;
@@ -534,14 +533,15 @@ li[data-sonner-toast=""] {
 @media (max-width: 992px) {
   .main-header nav .nav-links {
     position: fixed;
-    top: 0;
+    overflow-y: auto;
+    top: 80px;
     left: -100%;
     flex-direction: column;
     background: #fff;
-    width: 50%;
-    height: 100vh;
+    width: 100%;
+    height: calc(100vh - 80px);
     align-items: flex-start;
-    padding: 2rem 1.5rem;
+    padding: 2.5rem;
     gap: 1rem;
     transition: 0.3s;
     z-index: 20;
@@ -565,7 +565,9 @@ li[data-sonner-toast=""] {
 }
 .main-header nav .actions {
   display: flex;
-  gap: 1rem;
+  gap: 0.5rem;
+  justify-content: center;
+  align-items: center;
 }
 .main-header nav .actions .auth-btn {
   padding: 0.5rem 1.2rem;
@@ -585,16 +587,52 @@ li[data-sonner-toast=""] {
   color: #fff;
 }
 .main-header nav .actions .user_dropdown {
-  border-radius: 120px;
-  padding: 8px 20px;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
   cursor: pointer;
   display: flex;
   align-items: center;
-  gap: 4px;
-  background-color: #214b92;
+  justify-content: center;
+  background-color: transparent;
+  border: 1px solid #dddddd;
+  padding: 0;
 }
-.main-header nav .actions .user_dropdown i {
+.main-header nav .actions .user_dropdown img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+.main-header nav .actions .lang_dropdown {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: transparent;
+  border: none;
+  padding: 0;
+}
+.main-header nav .actions .lang_dropdown i {
+  font-size: 16px;
+  color: #214b92;
+}
+.main-header nav .actions .communites-link {
+  background-color: #4ecdc4;
+  padding: 6px 16px;
+  border-radius: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.25rem;
+}
+.main-header nav .actions .communites-link span {
   font-size: 12px;
+  color: #096b64;
 }
 @media (max-width: 992px) {
   .main-header nav .actions {
@@ -2898,9 +2936,6 @@ body.en .show-pass {
 .subTitle {
   color: #777777;
   font-size: 1rem;
-  text-align: center;
-}
-.subTitle .otp-page-des {
   text-align: center;
 }
 .subTitle .otp-page-des span:first-child {
@@ -7264,16 +7299,6 @@ footer .links a:hover {
   display: flex;
   align-items: center;
   justify-content: space-between;
-}
-
-.offers-slider,
-.helpers-slider,
-.contracts-statusو {
-  padding: 1rem;
-}
-
-.goal-slider {
-  padding: 1.8rem 1rem 1rem;
 }
 
 .contracts-status .content {

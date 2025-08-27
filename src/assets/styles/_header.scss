@@ -73,14 +73,15 @@
 
       @media (max-width: 992px) {
         position: fixed;
-        top: 0;
+        overflow-y: auto;
+        top: 80px;
         left: -100%;
         flex-direction: column;
         background: #fff;
-        width: 50%;
-        height: 100vh;
+        width: 100%;
+        height: calc(100vh - 80px);
         align-items: flex-start;
-        padding: 2rem 1.5rem;
+        padding: 2.5rem;
         gap: 1rem;
         transition: 0.3s;
         z-index: 20;
@@ -108,7 +109,9 @@
 
     .actions {
       display: flex;
-      gap: 1rem;
+      gap: 0.5rem;
+      justify-content: center;
+      align-items: center;
 
       .auth-btn {
         padding: 0.5rem 1.2rem;
@@ -131,16 +134,51 @@
       }
 
       .user_dropdown {
-        border-radius: 120px;
-        padding: 8px 20px;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
         cursor: pointer;
         display: flex;
         align-items: center;
-        gap: 4px;
-        background-color: $main;
+        justify-content: center;
+        background-color: transparent;
+        border: 1px solid $border;
+        padding: 0;
+
+        img {
+          width: 100%;
+          height: 100%;
+          border-radius: 50%;
+          object-fit: cover;
+        }
+      }
+      .lang_dropdown {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: transparent;
+        border: none;
+        padding: 0;
 
         i {
+          font-size: 16px;
+          color: $main;
+        }
+      }
+
+      .communites-link {
+        background-color: $green;
+        padding: 6px 16px;
+        border-radius: 100px;
+        @include centerFlex();
+        gap: 0.25rem;
+        span {
           font-size: 12px;
+          color: #096b64;
         }
       }
 

@@ -50,7 +50,7 @@ const helpers = [
 
 export default function HelpersSlider() {
   return (
-    <section className="helpers-slider container">
+    <section className="helpers-slider">
       <div className="slider-header">
         <div className="text">
           <h2>المساعدون الشخصيون</h2>

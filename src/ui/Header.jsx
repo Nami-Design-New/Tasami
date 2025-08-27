@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import { Link, NavLink } from "react-router";
 import LangDropdown from "./website/LangDropdown";
 import UserDropDown from "./website/UserDropDown";
+import CustomButton from "./CustomButton";
 export default function Header() {
   const headerRef = useRef(null);
   const [openMenu, setOpenMenu] = useState(false);
@@ -31,12 +32,12 @@ export default function Header() {
 
   return (
     <header className="main-header" ref={headerRef}>
-      <nav className="container">
+      <nav className="container-lg">
         <Link to="/" className="logo">
           <img src="/images/logo.svg" alt="logo" />
         </Link>
 
-        <ul className={`nav-links ${openMenu ? "open" : ""}`}>
+        <ul className={`nav-links container-lg ${openMenu ? "open" : ""}`}>
           <li onClick={() => setOpenMenu(false)}>
             <NavLink to={"/"}>{t("website.header.home")}</NavLink>
           </li>
@@ -58,6 +59,57 @@ export default function Header() {
           <li className="mobile-only">
             <NavLink to="/register">{t("website.header.signUp")}</NavLink>
           </li>
+          <li className="mobile-only">
+            <NavLink to="/register">{t("website.header.signUp")}</NavLink>
+          </li>
+          <li className="mobile-only">
+            <NavLink to="/register">{t("website.header.signUp")}</NavLink>
+          </li>
+          <li className="mobile-only">
+            <NavLink to="/register">{t("website.header.signUp")}</NavLink>
+          </li>
+          <li className="mobile-only">
+            <NavLink to="/register">{t("website.header.signUp")}</NavLink>
+          </li>
+          <li className="mobile-only">
+            <NavLink to="/register">{t("website.header.signUp")}</NavLink>
+          </li>
+          <li className="mobile-only">
+            <NavLink to="/register">{t("website.header.signUp")}</NavLink>
+          </li>
+          <li className="mobile-only">
+            <NavLink to="/register">{t("website.header.signUp")}</NavLink>
+          </li>
+          <li className="mobile-only">
+            <NavLink to="/register">{t("website.header.signUp")}</NavLink>
+          </li>
+          <li className="mobile-only">
+            <NavLink to="/register">{t("website.header.signUp")}</NavLink>
+          </li>
+          <li className="mobile-only">
+            <NavLink to="/register">{t("website.header.signUp")}</NavLink>
+          </li>
+          <li className="mobile-only">
+            <NavLink to="/register">{t("website.header.signUp")}</NavLink>
+          </li>
+          <li className="mobile-only">
+            <NavLink to="/register">{t("website.header.signUp")}</NavLink>
+          </li>
+          <li className="mobile-only">
+            <NavLink to="/register">{t("website.header.signUp")}</NavLink>
+          </li>
+          <li className="mobile-only">
+            <NavLink to="/register">{t("website.header.signUp")}</NavLink>
+          </li>
+          <li className="mobile-only">
+            <NavLink to="/register">{t("website.header.signUp")}</NavLink>
+          </li>
+          <li className="mobile-only">
+            <NavLink to="/register">{t("website.header.signUp")}</NavLink>
+          </li>
+          <li className="mobile-only">
+            <NavLink to="/register">{t("website.header.signUp")}</NavLink>
+          </li>
         </ul>
 
         <div className="actions">
@@ -66,6 +118,14 @@ export default function Header() {
               {t("website.header.login")}
             </Link>
           )}
+          <Link className="communites-link">
+            <img src="./icons/communities.svg" />
+            <span>{t("website.header.communities")}</span>
+          </Link>
+          <CustomButton size="small">
+            <i className="fa-solid fa-robot"></i>
+            {t("profile.assistant")}
+          </CustomButton>
           <LangDropdown />
           {isAuthed && <UserDropDown />}
         </div>

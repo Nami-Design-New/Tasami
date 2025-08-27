@@ -7,17 +7,31 @@ import OffersSlider from "../../ui/website/home/OffersSlider";
 
 export default function Home() {
   return (
-    <>
-      <Hero />
-      <GoalsHelpSection />
-      <GoalSlider />
-      <OffersSlider />
-      <HelpersSlider />
-      <ContractsStatus />
-      {/* <Statistics /> */}
-      {/* <Parteners /> */}
-      {/* <WhyUsSection /> */}
-      {/* <GetInspired />  */}
-    </>
+    <section className="container-lg">
+      <div className="row">
+        <div className="col-12 p-2">
+          <Hero />
+        </div>
+        <div className="col-12 p-2">
+          <GoalsHelpSection />
+        </div>
+        <div className="col-12 p-2">
+          <GoalSlider />
+        </div>
+        <div className="col-12 p-2">
+          <OffersSlider />
+        </div>
+        <div className="col-12 p-2">
+          <HelpersSlider />
+        </div>
+        <div className="col-12 p-2">
+          <ContractsStatus />
+        </div>
+        {/* <Statistics /> */}
+        {/* <Parteners /> */}
+        {/* <WhyUsSection /> */}
+        {/* <GetInspired />  */}
+      </div>
+    </section>
   );
 }

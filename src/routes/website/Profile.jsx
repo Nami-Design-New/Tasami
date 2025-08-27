@@ -64,11 +64,6 @@ export default function Profile() {
                   {t("profile.followers")}
                 </NavLink>
               </div>
-
-              <button className="assistant_btn">
-                <i className="fa-solid fa-robot"></i>
-                {t("profile.assistant")}
-              </button>
             </div>
           </div>
 
