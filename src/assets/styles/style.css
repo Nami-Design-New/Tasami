@@ -478,11 +478,6 @@ li[data-sonner-toast=""] {
   z-index: 999;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
 }
-@media (max-width: 992px) {
-  .main-header {
-    position: fixed;
-  }
-}
 .main-header.scrolled {
   background: #fff;
 }
@@ -513,7 +508,6 @@ li[data-sonner-toast=""] {
   display: flex;
   gap: 1.5rem;
   transition: 0.3s;
-  justify-content: center;
 }
 .main-header nav .nav-links li a {
   color: #333;
@@ -737,11 +731,9 @@ li[data-sonner-toast=""] {
 }
 
 .footer2 {
-  padding: 30px 0;
   background: #f7f9fc;
   box-shadow: 2px 0px 10px rgba(0, 0, 0, 0.08);
   height: auto;
-  margin-top: 50px;
 }
 .footer2 .logo {
   margin-bottom: 24px;
@@ -6836,9 +6828,6 @@ footer .links a:hover {
   color: #5fcafa;
 }
 
-.hero-section {
-  padding: 30px 0;
-}
 .hero-section .hero_slider {
   width: 100%;
   height: auto;
@@ -7381,6 +7370,7 @@ footer .links a:hover {
 .slider-header .text h2 {
   font-size: 1.4rem;
   font-weight: bold;
+  margin-bottom: 4px;
 }
 .slider-header .text p {
   font-size: 1rem;
@@ -9257,9 +9247,6 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
   color: #fff;
 }
 
-.profile_section {
-  padding: 40px 0;
-}
 .profile_section .profile_sidebar {
   position: sticky;
   top: 107.8px;
@@ -9326,13 +9313,6 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
   flex-direction: column;
   gap: 12px;
   margin-top: 16px;
-}
-@media (max-width: 567px) {
-  .profile_section .profile_sidebar .nav_links {
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: center;
-  }
 }
 .profile_section .profile_sidebar .nav_links .nav_link {
   padding: 12px 18px;
@@ -9424,15 +9404,29 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
 }
 
 .platform-header {
-  margin-bottom: 1.5rem;
   display: flex;
   align-items: center;
   gap: 1rem;
+  margin-bottom: 0.5rem;
 }
 .platform-header .platform-header__title {
   font-size: 1.5rem;
   font-weight: 700;
   color: #5fcafa;
+}
+
+.platform-hint {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.platform-hint i {
+  color: #214b92;
+}
+.platform-hint p {
+  font-weight: 400;
+  color: #777777;
+  font-size: 1rem;
 }
 
 body {
@@ -9442,10 +9436,11 @@ body {
 }
 body main {
   min-height: calc(100vh - 80px);
+  padding: 20px 0;
 }
 @media (max-width: 992px) {
   body main {
-    margin-top: 20px;
+    padding: 10px 0;
   }
 }
 body.en {

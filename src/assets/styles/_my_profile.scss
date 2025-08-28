@@ -274,8 +274,6 @@
 
 ///
 .profile_section {
-  padding: 40px 0;
-
   .profile_sidebar {
     position: sticky;
     top: 107.8px;
@@ -348,11 +346,11 @@
       gap: 12px;
       margin-top: 16px;
 
-      @media (max-width: 567px) {
-        flex-direction: row;
-        flex-wrap: wrap;
-        justify-content: center;
-      }
+      // @media (max-width: 567px) {
+      //   flex-direction: row;
+      //   flex-wrap: wrap;
+      //   justify-content: center;
+      // }
 
       .nav_link {
         padding: 12px 18px;

@@ -2,9 +2,8 @@ import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
 import { NavLink, Outlet } from "react-router";
 import Loading from "../../../ui/loading/Loading";
-import UserCard from "../profile/UserCard";
-import BackButton from "../../../ui/forms/BackButton";
 import RoundedBackButton from "../../../ui/website-auth/shared/RoundedBackButton";
+import UserCard from "../profile/UserCard";
 
 export default function MyPlatform() {
   const { t } = useTranslation();
@@ -15,10 +14,10 @@ export default function MyPlatform() {
   }
 
   return (
-    <section className="profile_section mt-80">
-      <div className="container">
+    <section className="profile_section ">
+      <div className="container-lg p-0">
         <div className="row">
-          <div className="col-12">
+          <div className="col-12 p-2 mb-4">
             <div className="platform-header">
               <RoundedBackButton>
                 <i className="fa-solid fa-angle-right"></i>
@@ -26,6 +25,10 @@ export default function MyPlatform() {
               <h2 className="platform-header__title">
                 {t("website.platformModal.platform")}
               </h2>
+            </div>
+            <div className="platform-hint">
+              <i className="fa-regular fa-circle-info"></i>
+              <p>{t("website.platformModal.hint")}</p>
             </div>
           </div>
           <div className="col-lg-4 col-md-4 col-12 p-2">
@@ -76,7 +79,7 @@ export default function MyPlatform() {
             </div>
           </div>
 
-          <div className="col-lg-8 col-md-8 col-12 p-0">
+          <div className="col-lg-8 col-md-8 col-12 p-2">
             <Outlet />
           </div>
         </div>

@@ -3,7 +3,7 @@ import { Link } from "react-router";
 export default function Footer() {
   return (
     <footer className="footer2">
-      <div className="container-lg">
+      <div className="container-lg p-0">
         <div className="row justify-content-center">
           <div className="col-lg-4 col-md-6 col-12 p-2">
             <Link to="/" className="logo">

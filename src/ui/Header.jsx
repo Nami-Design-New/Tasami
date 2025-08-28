@@ -34,7 +34,7 @@ export default function Header() {
 
   return (
     <header className="main-header" ref={headerRef}>
-      <nav className="container-lg">
+      <nav className="container-lg p-0">
         <Link to="/" className="logo">
           <img src="/images/logo.svg" alt="logo" />
         </Link>
@@ -53,63 +53,16 @@ export default function Header() {
           <li onClick={() => setOpenMenu(false)}>
             <NavLink to={"/contact"}>{t("website.header.contactUs")}</NavLink>
           </li>
-          <li className="mobile-only">
-            <NavLink to="/login">{t("website.header.login")}</NavLink>
-          </li>
-          <li className="mobile-only">
-            <NavLink to="/register">{t("website.header.signUp")}</NavLink>
-          </li>
-          <li className="mobile-only">
-            <NavLink to="/register">{t("website.header.signUp")}</NavLink>
-          </li>
-          <li className="mobile-only">
-            <NavLink to="/register">{t("website.header.signUp")}</NavLink>
-          </li>
-          <li className="mobile-only">
-            <NavLink to="/register">{t("website.header.signUp")}</NavLink>
-          </li>
-          <li className="mobile-only">
-            <NavLink to="/register">{t("website.header.signUp")}</NavLink>
-          </li>
-          <li className="mobile-only">
-            <NavLink to="/register">{t("website.header.signUp")}</NavLink>
-          </li>
-          <li className="mobile-only">
-            <NavLink to="/register">{t("website.header.signUp")}</NavLink>
-          </li>
-          <li className="mobile-only">
-            <NavLink to="/register">{t("website.header.signUp")}</NavLink>
-          </li>
-          <li className="mobile-only">
-            <NavLink to="/register">{t("website.header.signUp")}</NavLink>
-          </li>
-          <li className="mobile-only">
-            <NavLink to="/register">{t("website.header.signUp")}</NavLink>
-          </li>
-          <li className="mobile-only">
-            <NavLink to="/register">{t("website.header.signUp")}</NavLink>
-          </li>
-          <li className="mobile-only">
-            <NavLink to="/register">{t("website.header.signUp")}</NavLink>
-          </li>
-          <li className="mobile-only">
-            <NavLink to="/register">{t("website.header.signUp")}</NavLink>
-          </li>
-          <li className="mobile-only">
-            <NavLink to="/register">{t("website.header.signUp")}</NavLink>
-          </li>
-          <li className="mobile-only">
-            <NavLink to="/register">{t("website.header.signUp")}</NavLink>
-          </li>
-          <li className="mobile-only">
-            <NavLink to="/register">{t("website.header.signUp")}</NavLink>
-          </li>
-          <li className="mobile-only">
-            <NavLink to="/register">{t("website.header.signUp")}</NavLink>
-          </li>
-          <li className="mobile-only">
-            <NavLink to="/register">{t("website.header.signUp")}</NavLink>
-          </li>
+          {!isAuthed && (
+            <>
+              <li className="mobile-only">
+                <NavLink to="/login">{t("website.header.login")}</NavLink>
+              </li>
+              <li className="mobile-only">
+                <NavLink to="/register">{t("website.header.signUp")}</NavLink>
+              </li>
+            </>
+          )}
         </ul>
 
         <div className="actions">

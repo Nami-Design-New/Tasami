@@ -4,7 +4,7 @@
 @use "./variables" as *;
 
 .hero-section {
-  padding: 30px 0;
+  // padding: 30px 0;
 
   .hero_slider {
     width: 100%;
@@ -603,6 +603,7 @@
     h2 {
       font-size: 1.4rem;
       font-weight: bold;
+      margin-bottom: 4px;
     }
 
     p {

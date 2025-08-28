@@ -13,7 +13,7 @@ export default function Profile() {
   }
 
   return (
-    <section className="profile_section mt-80">
+    <section className="profile_section ">
       <div className="container">
         <div className="row">
           <div className="col-lg-4 col-md-4 col-12 p-2">
