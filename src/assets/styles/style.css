@@ -512,8 +512,8 @@ li[data-sonner-toast=""] {
   list-style: none;
   display: flex;
   gap: 1.5rem;
-  align-items: center;
   transition: 0.3s;
+  justify-content: center;
 }
 .main-header nav .nav-links li a {
   color: #333;
@@ -629,6 +629,7 @@ li[data-sonner-toast=""] {
 }
 .main-header nav .actions .communites-link {
   background-color: #4ecdc4;
+  white-space: nowrap;
   padding: 6px 16px;
   border-radius: 100px;
   display: flex;
@@ -2391,6 +2392,22 @@ body.en .show-pass {
 .star-rating .rating-number {
   font-size: 14px;
   color: #666b88;
+}
+
+.rouded-back-button {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  text-align: center;
+  color: #0d0d0d;
+  background-color: rgba(2, 72, 150, 0.0392156863);
+  transition: background-color 0.3s ease;
 }
 
 .modal-header {
@@ -9244,7 +9261,6 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
   padding: 40px 0;
 }
 .profile_section .profile_sidebar {
-  padding: 24px 16px;
   position: sticky;
   top: 107.8px;
   border-radius: 16px;
@@ -9263,7 +9279,6 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
   width: 64px;
   height: 64px;
   border-radius: 50%;
-  border: 2px solid #003399;
   -o-object-fit: cover;
      object-fit: cover;
 }
@@ -9321,17 +9336,23 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
 }
 .profile_section .profile_sidebar .nav_links .nav_link {
   padding: 12px 18px;
-  background: rgba(13, 13, 13, 0.0941176471);
+  background: rgba(13, 13, 13, 0.0196078431);
   border-radius: 10px;
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 8px;
   color: #0d0d0d;
   font-size: 14px;
+  color: #0d0d0d;
+  font-weight: 700;
   transition: all 0.3s ease;
 }
 .profile_section .profile_sidebar .nav_links .nav_link i {
-  font-size: 15px;
+  font-size: 24px;
+}
+.profile_section .profile_sidebar .nav_links .nav_link img {
+  width: 24px;
+  height: 24px;
 }
 .profile_section .profile_sidebar .nav_links .nav_link:hover {
   background-color: rgba(119.7272727273, 210.1909090909, 250.7727272727, 0.1215686275);
@@ -9339,6 +9360,9 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
 .profile_section .profile_sidebar .nav_links .nav_link.active {
   background-color: #5fcafa;
   color: #fff;
+}
+.profile_section .profile_sidebar .nav_links .nav_link.active img {
+  filter: brightness(0) invert(1);
 }
 .profile_section .profile_sidebar .nav_links .nav_link.active i {
   color: #fff;
@@ -9369,6 +9393,46 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
 }
 .profile_section .profile_sidebar .assistant_btn:hover {
   background-color: rgb(0, 42.5, 127.5);
+}
+
+.platform-modal-header {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #214b92;
+}
+
+.platform-modal-body {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.platform-modal-body .platform-modal-heading {
+  font-size: 18px;
+  font-weight: 700;
+  color: #0d0d0d;
+}
+.platform-modal-body .platform-modal-content {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.platform-modal-body .platform-modal-content .platform-modal-paragraph {
+  font-size: 14px;
+  font-weight: 400;
+  color: rgba(13, 13, 13, 0.5607843137);
+}
+
+.platform-header {
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.platform-header .platform-header__title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #5fcafa;
 }
 
 body {

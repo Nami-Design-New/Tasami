@@ -339,3 +339,18 @@ $color-warning: #ffc107;
     color: $text;
   }
 }
+
+// rounded buttons
+.rouded-back-button {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  @include centerFlex();
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  text-align: center;
+  color: $dark;
+  background-color: $main4;
+  transition: background-color 0.3s ease;
+}

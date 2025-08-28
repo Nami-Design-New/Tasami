@@ -277,7 +277,6 @@
   padding: 40px 0;
 
   .profile_sidebar {
-    padding: 24px 16px;
     position: sticky;
     top: 107.8px;
     border-radius: 16px;
@@ -294,7 +293,6 @@
         width: 64px;
         height: 64px;
         border-radius: 50%;
-        border: 2px solid #003399;
         object-fit: cover;
       }
 
@@ -358,17 +356,24 @@
 
       .nav_link {
         padding: 12px 18px;
-        background: $InputStroke;
+        background: $InputBG;
         border-radius: 10px;
         display: flex;
         align-items: center;
-        gap: 12px;
+        gap: 8px;
         color: $dark;
         font-size: 14px;
+        color: $dark;
+        font-weight: 700;
         transition: all 0.3s ease;
 
         i {
-          font-size: 15px;
+          font-size: 24px;
+        }
+
+        img {
+          width: 24px;
+          height: 24px;
         }
 
         &:hover {
@@ -378,6 +383,9 @@
         &.active {
           background-color: $second;
           color: $white;
+          img {
+            filter: brightness(0) invert(1);
+          }
 
           i {
             color: $white;

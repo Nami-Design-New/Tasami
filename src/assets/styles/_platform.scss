@@ -1,0 +1,43 @@
+@use "sass:color";
+@use "./config" as *;
+@use "./mixins" as *;
+@use "./variables" as *;
+
+.platform-modal-header {
+  font-size: 1rem;
+  font-weight: 700;
+  color: $main;
+}
+.platform-modal-body {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  .platform-modal-heading {
+    font-size: 18px;
+    font-weight: 700;
+    color: $dark;
+  }
+  .platform-modal-content {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    .platform-modal-paragraph {
+      font-size: 14px;
+      font-weight: 400;
+      color: #0d0d0d8f;
+    }
+  }
+}
+
+.platform-header {
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  .platform-header__title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: $second;
+  }
+}

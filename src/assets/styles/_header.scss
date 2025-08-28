@@ -49,8 +49,8 @@
       list-style: none;
       display: flex;
       gap: 1.5rem;
-      align-items: center;
       transition: 0.3s;
+      justify-content: center;
 
       li a {
         color: #333;
@@ -179,6 +179,7 @@
 
       .communites-link {
         background-color: $green;
+        white-space: nowrap;
         padding: 6px 16px;
         border-radius: 100px;
         @include centerFlex();

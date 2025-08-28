@@ -5,9 +5,11 @@ import { Link, NavLink } from "react-router";
 import LangDropdown from "./website/LangDropdown";
 import UserDropDown from "./website/UserDropDown";
 import CustomButton from "./CustomButton";
+import PlatformModal from "./website-auth/my-platform/PlatformModal";
 export default function Header() {
   const headerRef = useRef(null);
   const [openMenu, setOpenMenu] = useState(false);
+  const [showModal, setShowModal] = useState(false);
   const { t } = useTranslation();
   const { isAuthed } = useSelector((state) => state.authRole);
 
@@ -36,7 +38,6 @@ export default function Header() {
         <Link to="/" className="logo">
           <img src="/images/logo.svg" alt="logo" />
         </Link>
-
         <ul className={`nav-links container-lg ${openMenu ? "open" : ""}`}>
           <li onClick={() => setOpenMenu(false)}>
             <NavLink to={"/"}>{t("website.header.home")}</NavLink>
@@ -52,7 +53,6 @@ export default function Header() {
           <li onClick={() => setOpenMenu(false)}>
             <NavLink to={"/contact"}>{t("website.header.contactUs")}</NavLink>
           </li>
-
           <li className="mobile-only">
             <NavLink to="/login">{t("website.header.login")}</NavLink>
           </li>
@@ -122,18 +122,24 @@ export default function Header() {
             <img src="./icons/communities.svg" />
             <span>{t("website.header.communities")}</span>
           </Link>
-          <CustomButton size="small">
-            <i className="fa-solid fa-robot"></i>
-            {t("profile.assistant")}
-          </CustomButton>
+          {isAuthed && (
+            <CustomButton
+              size="small"
+              style={{ whiteSpace: "nowrap" }}
+              onClick={() => setShowModal(true)}
+            >
+              <i className="fa-solid fa-robot"></i>
+              {t("profile.assistant")}
+            </CustomButton>
+          )}
           <LangDropdown />
           {isAuthed && <UserDropDown />}
         </div>
-
         <button className="toggle_menu" onClick={handleToggleMenu}>
           <i className="fa-light fa-bars"></i>
         </button>
       </nav>
+      <PlatformModal showModal={showModal} setShowModal={setShowModal} />
     </header>
   );
 }
