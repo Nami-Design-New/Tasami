@@ -83,6 +83,7 @@ import AreasOfInterest from "../routes/website-auth/AreasOfInterest";
 import ResetPassword from "../routes/website-auth/ResetPassword";
 import DashboardLoginPage from "../routes/dashboard-auth/DashboardLoginPage";
 import DashBoardResetPassword from "../routes/dashboard-auth/DashBoardResetPassword";
+import CommunitiesDetails from "../routes/dash-board/CommunitiesDetails";
 
 export const router = createBrowserRouter([
   {
@@ -288,6 +289,10 @@ export const router = createBrowserRouter([
       {
         path: "profile",
         element: <EmployeeProfile />,
+      },
+      {
+        path: "communities-details/:id",
+        element: <CommunitiesDetails />,
       },
 
       {
