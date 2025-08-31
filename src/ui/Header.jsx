@@ -5,7 +5,7 @@ import { Link, NavLink } from "react-router";
 import LangDropdown from "./website/LangDropdown";
 import UserDropDown from "./website/UserDropDown";
 import CustomButton from "./CustomButton";
-import PlatformModal from "./website-auth/my-platform/PlatformModal";
+import PlatformModal from "./website/platform/PlatformModal";
 export default function Header() {
   const headerRef = useRef(null);
   const [openMenu, setOpenMenu] = useState(false);

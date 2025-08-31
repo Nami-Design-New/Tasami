@@ -432,6 +432,11 @@ li[data-sonner-toast=""] {
     background-position: 200% 0;
   }
 }
+.placeholder {
+  border-radius: 100px !important;
+  background-color: "#737475" !important;
+}
+
 .link-styles {
   text-decoration: underline;
   color: #214b92;
@@ -508,6 +513,7 @@ li[data-sonner-toast=""] {
   display: flex;
   gap: 1.5rem;
   transition: 0.3s;
+  justify-content: center;
 }
 .main-header nav .nav-links li a {
   color: #333;
@@ -527,6 +533,7 @@ li[data-sonner-toast=""] {
 @media (max-width: 992px) {
   .main-header nav .nav-links {
     position: fixed;
+    display: none;
     overflow-y: auto;
     top: 80px;
     left: -100%;
@@ -548,6 +555,8 @@ li[data-sonner-toast=""] {
   }
   .main-header nav .nav-links.open {
     left: 0;
+    display: flex;
+    justify-content: start;
   }
   .main-header nav .nav-links .close-btn {
     display: block;
@@ -9427,6 +9436,266 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
   font-weight: 400;
   color: #777777;
   font-size: 1rem;
+}
+
+.subscription-section .subscription-current-plan {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  background-color: rgba(2, 72, 150, 0.0392156863);
+  padding: 1rem 1.5rem;
+  border-radius: 1rem;
+}
+.subscription-section .subscription-current-plan .subscription-header {
+  font-size: 700;
+  font-size: 22px;
+  color: #0d0d0d;
+}
+.subscription-section .subscription-current-plan .plan-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #dddddd;
+}
+.subscription-section .subscription-current-plan .plan-header .plan-info {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.subscription-section .subscription-current-plan .plan-header .plan-info img {
+  width: 32px;
+  height: 32px;
+}
+.subscription-section .subscription-current-plan .plan-header .plan-info .account-type {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #0d0d0d;
+}
+.subscription-section .subscription-current-plan .plan-header .plan-duration {
+  font-size: 0.875rem;
+  font-weight: 400;
+  color: #777777;
+}
+.subscription-section .subscription-current-plan .features-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 1rem 0;
+  position: relative;
+}
+.subscription-section .subscription-current-plan .features-list li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 1.5rem 0.75rem 1rem;
+}
+.subscription-section .subscription-current-plan .features-list li .feature-text {
+  font-size: 16px;
+  position: relative;
+  color: #0d0d0d;
+  z-index: 1;
+}
+.subscription-section .subscription-current-plan .features-list li .feature-value {
+  font-size: 18px;
+  color: #5fcafa;
+  font-weight: 700;
+}
+.subscription-section .subscription-current-plan .features-list li:before {
+  content: "\f00c";
+  font-family: "Font Awesome 6 Pro";
+  font-weight: 900;
+  position: absolute;
+  right: 0;
+}
+.subscription-section .subscription-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #0d0d0d;
+  margin: 1.5rem 0 0.75rem;
+}
+.subscription-section .subscription-upgrade-options {
+  height: 56px;
+  background-color: rgba(13, 13, 13, 0.0196078431);
+  width: 100%;
+  border-radius: 1rem;
+  padding: 0.25rem;
+  display: flex;
+  justify-content: center;
+}
+.subscription-section .subscription-upgrade-options .plan-option {
+  flex: 1;
+  cursor: pointer;
+  height: 100%;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+.subscription-section .subscription-upgrade-options .plan-option .plan-radio {
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+}
+.subscription-section .subscription-upgrade-options .plan-option-active {
+  background-color: #5fcafa;
+  color: #fff;
+}
+
+.plan-card {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem 0.75rem;
+  align-items: center;
+  border: 1px solid #dddddd;
+  border-radius: 1rem;
+  gap: 0.5rem;
+}
+.plan-card .plan {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.plan-card .plan img {
+  height: 80px;
+}
+.plan-card .plan h3 {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #0d0d0d;
+}
+.plan-card .plan-features {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  position: relative;
+  padding: 0.5rem 0;
+  border-top: 1px solid #dddddd;
+  border-bottom: 1px solid #dddddd;
+  width: 100%;
+}
+.plan-card .plan-features li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 1.25rem;
+}
+.plan-card .plan-features li p {
+  font-size: 14px;
+  position: relative;
+  color: #0d0d0d;
+  z-index: 1;
+}
+.plan-card .plan-features li span {
+  font-size: 18px;
+  color: #5fcafa;
+  font-weight: 700;
+}
+.plan-card .plan-features li:before {
+  content: "\f00c";
+  font-family: "Font Awesome 6 Pro";
+  font-weight: 900;
+  position: absolute;
+  right: 0;
+}
+.plan-card .plan-card-foot {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  width: 100%;
+}
+.plan-card .plan-card-foot .price {
+  min-width: 62px;
+}
+.plan-card .plan-card-foot .price .total {
+  color: #ff7a59;
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+.plan-card .plan-card-foot .price .monthly {
+  color: #777777;
+  font-size: 12px;
+  font-weight: 400;
+}
+
+.payment-modal-header {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #214b92;
+}
+
+.payment-modal-body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+.payment-modal-body .payment-modal-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+.payment-modal-body .payment-modal-header .payment-modal-heading {
+  font-size: 14px;
+  font-weight: 400;
+  color: #0d0d0d;
+}
+.payment-modal-body .payment-modal-header .payment-modal-price {
+  font-size: 28px;
+  color: #0d0d0d;
+}
+.payment-modal-body .payment-methods {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+}
+.payment-modal-body .payment-methods .payment-method {
+  border: 1px solid #dddddd;
+  border-radius: 12px;
+  padding: 12px 16px;
+  width: 100%;
+  min-height: 64px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  transition: 0.3s ease-in-out;
+}
+.payment-modal-body .payment-methods .payment-method input {
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+}
+.payment-modal-body .payment-methods .payment-method.active {
+  background-color: rgba(95, 202, 250, 0.1215686275);
+}
+.payment-modal-body .payment-methods .payment-method .payment-methd-image-wrapper {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  overflow: hidden;
+  background-color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.payment-modal-body .payment-methods .payment-method .payment-methd-image-wrapper img {
+  width: 21px;
+  height: 18px;
+}
+.payment-modal-body .payment-methods .payment-method .payment-method-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: #0d0d0d;
+  flex: 1;
+}
+.payment-modal-body .payment-methods .payment-method .wallet-balance {
+  font-size: 18px;
+  font-weight: 700;
+  color: #214b92;
 }
 
 body {

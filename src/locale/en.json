@@ -211,6 +211,7 @@
       "title": "Welcome to the Community of Inspirers at 'Tasami'",
       "description1": "Your personal assistant account allows you to publish assistance programs and offer services to others. You can also create workgroups as virtual spaces for social learning, as well as activate your own channels to publish exclusive content and receive membership subscriptions within the 'Personal Assistant Community'!",
       "description2": "By continuing, you commit that the assistance services you provide through the Tasami platform will not violate the regulations and laws in the country of operation, and you also commit to fulfilling all regulatory requirements determined by the relevant authorities whenever required.",
+      "subscribe": "Subscribe",
       "menu": {
         "subscriptions": "Subscription Management",
         "cv": "My CV",
@@ -221,7 +222,17 @@
         "myCommunity": "My Community",
         "myAudience": "My Audience",
         "myClients": "My Clients"
+      },
+      "subscription": {
+        "currentPlan": "Current Plan",
+        "upgradeYourPlan": "Upgrade your plan to suit your business needs",
+        "freeForever": "Free Forever",
+        "offersCount": "Number of offers you can submit at once",
+        "groupsCount": "Number of groups you can create",
+        "seatsCount": "Seats available per group",
+        "appCommission": "Platform commission from contracts and memberships"
       }
-    }
+    },
+    "payment": "payment"
   }
 }

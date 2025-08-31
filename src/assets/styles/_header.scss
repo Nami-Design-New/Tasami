@@ -48,7 +48,7 @@
       display: flex;
       gap: 1.5rem;
       transition: 0.3s;
-      // justify-content: center;
+      justify-content: center;
 
       li a {
         color: #333;
@@ -71,6 +71,7 @@
 
       @media (max-width: 992px) {
         position: fixed;
+        display: none;
         overflow-y: auto;
         top: 80px;
         left: -100%;
@@ -93,6 +94,8 @@
 
         &.open {
           left: 0;
+          display: flex;
+          justify-content: start;
         }
 
         .close-btn {
