@@ -11,7 +11,7 @@ export default function CurrentPlan() {
   return (
     <div className="subscription-current-plan ">
       <h2 className="subscription-header">
-        {t("website.platformModal.subscription.currentPlan")}
+        {t("website.platform.subscription.currentPlan")}
       </h2>
 
       {/* Plan Card */}
@@ -26,7 +26,7 @@ export default function CurrentPlan() {
         </div>
         {currentPackage.package.type === "free" ? (
           <span className="plan-duration">
-            {t("website.platformModal.subscription.freeForever")}
+            {t("website.platform.subscription.freeForever")}
           </span>
         ) : (
           ""
@@ -37,7 +37,7 @@ export default function CurrentPlan() {
       <ul className="features-list ">
         <li className="feature-item ">
           <p className="feature-text">
-            {t("website.platformModal.subscription.offersCount")}
+            {t("website.platform.subscription.offersCount")}
           </p>
           <span className="feature-value">
             {currentPackage?.package?.offers_count}
@@ -45,7 +45,7 @@ export default function CurrentPlan() {
         </li>
         <li className="feature-item ">
           <p className="feature-text">
-            {t("website.platformModal.subscription.groupsCount")}
+            {t("website.platform.subscription.groupsCount")}
           </p>
           <span className="feature-value">
             {currentPackage?.package?.groups_count}
@@ -53,7 +53,7 @@ export default function CurrentPlan() {
         </li>
         <li className="feature-item ">
           <p className="feature-text">
-            {t("website.platformModal.subscription.seatsCount")}
+            {t("website.platform.subscription.seatsCount")}
           </p>
           <span className="feature-value">
             {currentPackage?.package?.seats_count}
@@ -61,7 +61,7 @@ export default function CurrentPlan() {
         </li>
         <li className="feature-item ">
           <p className="feature-text">
-            {t("website.platformModal.subscription.appCommission")}
+            {t("website.platform.subscription.appCommission")}
           </p>
           <span className="feature-value">
             {currentPackage?.package?.app_commission}%

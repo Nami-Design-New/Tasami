@@ -11,7 +11,7 @@ export default function PlanCard({ plan, setSelectedPlan, setShowModal }) {
       </div>
       <ul className="plan-features">
         <li>
-          <p> {t("website.platformModal.subscription.appCommission")}</p>
+          <p> {t("website.platform.subscription.appCommission")}</p>
           <span>{plan?.app_commission}%</span>
         </li>
       </ul>
@@ -25,7 +25,7 @@ export default function PlanCard({ plan, setSelectedPlan, setShowModal }) {
             setSelectedPlan(plan);
           }}
         >
-          {t("website.platformModal.subscribe")}
+          {t("website.platform.subscribe")}
         </CustomButton>
         <div className="price">
           <p className="total">

@@ -209,7 +209,7 @@
         "subTitle": "أحدث طلبات المساعدة لتحقيق أهداف جديدة"
       }
     },
-    "platformModal": {
+    "platform": {
       "platform": "منصتي",
       "hint": " تقدم هذه المنصة مجموعة من الأدوات لإدارة أعمالك وأنشطتك كمساعد شخصي باحترافية وتحقيق أفضل تجربة لعملائك",
       "header": "إنشاء حساب مساعد شخصي أساسي - (مجاني)",
@@ -237,6 +237,28 @@
         "groupsCount": "عدد المجموعات التي يمكن إنشاؤها",
         "seatsCount": "عدد المقاعد المتاحة للمستفيدين في المجموعة الواحدة",
         "appCommission": "عمولة المنصة من العقود وعضويات المجتمعات"
+      },
+      "cv": {
+        "addDocument": "إضافة وثيقة",
+        "field": "المجال",
+        "specialization": "التخصص",
+        "specializationHint": "إذا لم تجد المجال والتخصص المطلوب، تواصل مع خدمة العملاء لإضافة تصنيف جديد",
+        "documentType": "نوع التصريح",
+        "issuingAuthority": "جهة الإصدار",
+        "documentNumber": "رقم الوثيقة / الاعتماد",
+        "expiryDate": "تاريخ الانتهاء",
+        "addExperience": "إضافة خبرة",
+        "description": "الوصف",
+        "yearsOfExperience": "سنوات الخبرة",
+        "qualification": "المؤهل",
+        "aboutLabel": "عرف عن نفسك",
+        "aboutPlaceholder": "اكتب هنا",
+        "experience": "الخبرات العلمية",
+        "optional": "اختياري",
+        "viewExperience": "تفاصيل الخبرة",
+        "viewDocument": "تفاصيل الوثيقة",
+        "documents": "الوثائق",
+        "save": "حفظ"
       }
     },
     "payment": "الدفع"

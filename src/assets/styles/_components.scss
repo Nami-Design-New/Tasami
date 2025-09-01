@@ -5,6 +5,7 @@
 
 $color-primary: #214b92;
 $color-primary08: #02489614;
+$color-second-website: #5fcafa;
 $color-secondary: #8c137e;
 $color-danger: #ff3a29;
 $color-success: #28a745;
@@ -93,6 +94,14 @@ $color-warning: #ffc107;
     color: $dark;
     &:hover {
       background-color: color.adjust($color-warning, $lightness: -10%);
+    }
+  }
+
+  &--secondary-website {
+    background-color: $color-second-website;
+    color: $white;
+    &:hover {
+      background-color: color.adjust($color-second-website, $lightness: -10%);
     }
   }
 
@@ -185,6 +194,14 @@ $color-warning: #ffc107;
     }
   }
 
+  &--secondary-website {
+    background-color: $color-second-website;
+    color: $white;
+    &:hover {
+      background-color: color.adjust($color-second-website, $lightness: -10%);
+    }
+  }
+
   // Outlined Type
   &--outlined {
     background-color: transparent;
@@ -232,6 +249,15 @@ $color-warning: #ffc107;
       &:hover {
         color: $white;
         background-color: $color-warning;
+      }
+    }
+
+    &.custom-link--secondary-website {
+      color: $color-second-website;
+      border-color: $color-second-website;
+      &:hover {
+        color: $white;
+        background-color: $color-second-website;
       }
     }
   }

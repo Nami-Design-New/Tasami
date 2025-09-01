@@ -131,7 +131,7 @@
       cursor: pointer;
       &.disable {
         pointer-events: none;
-        background: $border;
+        background: $InputStroke;
         color: $grayLight;
       }
     }

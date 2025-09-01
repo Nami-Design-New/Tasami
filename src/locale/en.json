@@ -204,7 +204,7 @@
         "subTitle": "The latest help requests to achieve new goals"
       }
     },
-    "platformModal": {
+    "platform": {
       "platform": "platform",
       "hint": "This platform provides a set of tools to manage your business and activities as a personal assistant professionally, and to deliver the best experience for your clients.",
       "header": "Create a Basic Personal Assistant Account - (Free)",
@@ -231,8 +231,31 @@
         "groupsCount": "Number of groups you can create",
         "seatsCount": "Seats available per group",
         "appCommission": "Platform commission from contracts and memberships"
+      },
+      "cv": {
+        "addDocument": "Add Document",
+        "field": "Field",
+        "specialization": "Specialization",
+        "specializationHint": "If you can’t find the required field or specialization, please contact customer support to add a new category.",
+        "documentType": "Document Type",
+        "issuingAuthority": "Issuing Authority",
+        "documentNumber": "Document / Accreditation Number",
+        "expiryDate": "Expiry Date",
+        "addExperience": "Add Expericences",
+        "description": "Description",
+        "yearsOfExperience": "Years of Experience",
+        "qualification": "Qualification",
+        "aboutLabel": "About You",
+        "aboutPlaceholder": "Write here",
+        "experience": "Work Experience",
+        "optional": "Optional",
+        "viewExperience": "Experience details",
+        "documents": "Documents",
+        "viewDocument": "Document details",
+        "save": "Save"
       }
     },
-    "payment": "payment"
+
+    "payment": "Payment"
   }
 }

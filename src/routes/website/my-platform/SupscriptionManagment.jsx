@@ -19,7 +19,7 @@ export default function SupscriptionManagment() {
     <section className="subscription-section">
       <CurrentPlan />
       <h2 className="subscription-title">
-        {t("website.platformModal.subscription.upgradeYourPlan")}
+        {t("website.platform.subscription.upgradeYourPlan")}
       </h2>
       <PlanDurationSelector
         options={[
