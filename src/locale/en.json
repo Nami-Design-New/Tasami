@@ -1,5 +1,7 @@
 {
   "hello": "Hello",
+  "loading": "Loading...",
+  "select": "Select",
   "pageHeaders": {
     "Notifications": "Notifications",
     "Dashboard": "Dashboard",
@@ -159,7 +161,9 @@
     "fileType": "Only JPG and PNG files are allowed",
     "date": "Please enter a valid date",
     "minAge": "You must be at least 13 years old",
-    "invalidPhoneNumber": "Phone number must contain only numbers"
+    "invalidPhoneNumber": "Phone number must contain only numbers",
+    "number": "Must be a number",
+    "min": "{{field}} must be at least {{min}}"
   },
   "pageNotFound": {
     "alt": "404 Not Found",
@@ -252,6 +256,12 @@
         "viewExperience": "Experience details",
         "documents": "Documents",
         "viewDocument": "Document details",
+        "noExperience": "No experiences added",
+        "noDocuments": "No documents added",
+        "bachelor": "Bachelor",
+        "master": "Master",
+        "doctorate": "Doctorate",
+        "other": "Other",
         "save": "Save"
       }
     },

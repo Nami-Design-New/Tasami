@@ -1,5 +1,7 @@
 {
   "hello": "مرحبا",
+  "loading": "جار التحميل...",
+  "select": "اختر",
   "pageHeaders": {
     "Notifications": " التنبيهات ",
     "Dashboard": " لوحة التحكم ",
@@ -163,7 +165,9 @@
     "fileType": "يسمح فقط بملفات JPG و PNG",
     "date": "يرجى إدخال تاريخ صالح",
     "minAge": "يجب أن يكون عمرك على الأقل 13 سنوات",
-    "invalidPhoneNumber": "يجب أن يحتوي رقم الهاتف على أرقام فقط"
+    "invalidPhoneNumber": "يجب أن يحتوي رقم الهاتف على أرقام فقط",
+    "number": "يجب أن يكون رقمًا",
+    "min": "يجب أن يكون {{field}} على الأقل {{min}}"
   },
   "pageNotFound": {
     "alt": "لم يتم العثور على الصفحة",
@@ -258,6 +262,12 @@
         "viewExperience": "تفاصيل الخبرة",
         "viewDocument": "تفاصيل الوثيقة",
         "documents": "الوثائق",
+        "noExperience": "لا يوجد خبرات مضافة",
+        "noDocuments": "لا توجد وثائق مضافة",
+        "bachelor": "بكالوريوس",
+        "master": "ماجستير",
+        "doctorate": "دكتوراه",
+        "other": "أخرى",
         "save": "حفظ"
       }
     },

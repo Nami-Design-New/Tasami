@@ -107,7 +107,7 @@
       border: 1px solid $InputStroke;
       border-radius: 12px;
       background: $InputBG;
-      padding: 12px 16px;
+      padding: 12px 16px !important;
       box-shadow: none !important;
       &:disabled {
         background-color: $lightGray;
