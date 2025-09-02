@@ -71,9 +71,7 @@ const RegisterPage = ({ setRegisterStep }) => {
               country={"sa"}
               value={field.value}
               onChange={(value, country) => {
-                // full input for UI
                 field.onChange(value);
-                // extract parts for API
                 const dialCode = `+${country.dialCode}`;
                 const localPhone = value.replace(country.dialCode, "");
                 setValue("code", dialCode);

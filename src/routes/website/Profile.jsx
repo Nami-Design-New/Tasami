@@ -58,7 +58,7 @@ export default function Profile() {
             </div>
           </div>
 
-          <div className="col-lg-8 col-md-8 col-12 p-0">
+          <div className="col-lg-8 col-md-8 col-12 p-2">
             <Outlet />
           </div>
         </div>

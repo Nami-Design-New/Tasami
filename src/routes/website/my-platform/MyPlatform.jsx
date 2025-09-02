@@ -4,6 +4,7 @@ import { NavLink, Outlet } from "react-router";
 import Loading from "../../../ui/loading/Loading";
 import RoundedBackButton from "../../../ui/website-auth/shared/RoundedBackButton";
 import UserCard from "../profile/UserCard";
+import ProtectedNavLink from "./ProtectedNavLink";
 
 export default function MyPlatform() {
   const { t } = useTranslation();
@@ -45,36 +46,40 @@ export default function MyPlatform() {
                   {t("website.platform.menu.cv")}
                 </NavLink>
 
-                <NavLink to="my-assistant" className="nav_link">
-                  <img src="./icons/my-assistance.svg" />
+                <ProtectedNavLink to="my-assistant" disabled={!user.about}>
+                  <img src="./icons/my-assistance.svg" alt="" />
                   {t("website.platform.menu.myAssistant")}
-                </NavLink>
+                </ProtectedNavLink>
 
-                <NavLink to="my-opportunities" className="nav_link">
-                  <img src="./icons/my-opportunities.svg" />
+                <ProtectedNavLink to="my-opportunities" disabled={!user.about}>
+                  <img src="./icons/my-opportunities.svg" alt="" />
                   {t("website.platform.menu.myOpportunities")}
-                </NavLink>
+                </ProtectedNavLink>
 
-                <NavLink to="my-offers" className="nav_link">
-                  <img src="./icons/my-contracts.svg" />
+                <ProtectedNavLink to="my-offers" disabled={!user.about}>
+                  <img src="./icons/my-contracts.svg" alt="" />
                   {t("website.platform.menu.myOffers")}
-                </NavLink>
-                <NavLink to="my-groups" className="nav_link">
-                  <img src="./icons/my-groups.svg" />
+                </ProtectedNavLink>
+
+                <ProtectedNavLink to="my-groups" disabled={!user.about}>
+                  <img src="./icons/my-groups.svg" alt="" />
                   {t("website.platform.menu.myGroups")}
-                </NavLink>
-                <NavLink to="my-community" className="nav_link">
-                  <img src="./icons/communities-second.svg" />
+                </ProtectedNavLink>
+
+                <ProtectedNavLink to="my-community" disabled={!user.about}>
+                  <img src="./icons/communities-second.svg" alt="" />
                   {t("website.platform.menu.myCommunity")}
-                </NavLink>
-                <NavLink to="my-audience" className="nav_link">
-                  <img src="./icons/fans.svg" />
+                </ProtectedNavLink>
+
+                <ProtectedNavLink to="my-audience" disabled={!user.about}>
+                  <img src="./icons/fans.svg" alt="" />
                   {t("website.platform.menu.myAudience")}
-                </NavLink>
-                <NavLink to="my-clients" className="nav_link">
-                  <img src="./icons/my-clients.svg" />
+                </ProtectedNavLink>
+
+                <ProtectedNavLink to="my-clients" disabled={!user.about}>
+                  <img src="./icons/my-clients.svg" alt="" />
                   {t("website.platform.menu.myClients")}
-                </NavLink>
+                </ProtectedNavLink>
               </div>
             </div>
           </div>

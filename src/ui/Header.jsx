@@ -1,22 +1,24 @@
 import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
-import { Link, NavLink } from "react-router";
+import { Link, NavLink, useNavigate } from "react-router";
 import LangDropdown from "./website/LangDropdown";
 import UserDropDown from "./website/UserDropDown";
 import CustomButton from "./CustomButton";
 import PlatformModal from "./website/platform/PlatformModal";
 export default function Header() {
+  const { t } = useTranslation();
+  const navigate = useNavigate();
   const headerRef = useRef(null);
   const [openMenu, setOpenMenu] = useState(false);
   const [showModal, setShowModal] = useState(false);
-  const { t } = useTranslation();
-  const { isAuthed } = useSelector((state) => state.authRole);
+  const { isAuthed, user } = useSelector((state) => state.authRole);
 
   useEffect(() => {
     const handleOutsideClick = (e) => {
       const menu = document.querySelector(".nav-links");
       const toggler = document.querySelector(".toggle_menu");
+
       if (
         openMenu &&
         !menu.contains(e.target) &&
@@ -79,7 +81,9 @@ export default function Header() {
             <CustomButton
               size="small"
               style={{ whiteSpace: "nowrap" }}
-              onClick={() => setShowModal(true)}
+              onClick={() => {
+                user.about ? navigate("my-platform/my-cv") : setShowModal(true);
+              }}
             >
               <i className="fa-solid fa-robot"></i>
               {t("profile.assistant")}

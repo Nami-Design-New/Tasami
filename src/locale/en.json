@@ -140,7 +140,22 @@
     "oldPassword": "Old Password",
     "newPassword": "New Password",
     "confirmPassword": "Confirm Password",
-    "save": "Save Changes"
+    "save": "Save Changes",
+    "balance": "Balance",
+    "charge": "Charge",
+    "refundReq": "Refund Rquest",
+    "chargeBalance": "Charge Balance",
+    "fullName": "Account Holder Full Name",
+    "iban": "IBAN",
+    "bankName": "Bank Name",
+    "branchCode": "Branch Code",
+    "swiftCode": "SWIFT Code",
+    "fullNamePlaceholder": "Enter full name",
+    "ibanPlaceholder": "Example: SA1234567890123456789012",
+    "bankNamePlaceholder": "Enter bank name",
+    "branchCodePlaceholder": "Enter branch code",
+    "swiftCodePlaceholder": "Example: RJHISARI",
+    "confirm": "Confirm"
   },
   "settings": {
     "termsTitle": "Terms and Conditions",

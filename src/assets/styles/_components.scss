@@ -105,13 +105,73 @@ $color-warning: #ffc107;
     }
   }
 
+  // Outlined Type
+  &--outlined {
+    background-color: transparent;
+    border: 1px solid currentColor;
+
+    &.custom-btn--primary {
+      color: $color-primary;
+      border-color: $color-primary;
+      &:hover {
+        color: $white;
+        background-color: $color-primary;
+      }
+    }
+
+    &.custom-btn--secondary {
+      color: $color-secondary;
+      border-color: $color-secondary;
+      &:hover {
+        color: $white;
+        background-color: $color-secondary;
+      }
+    }
+
+    &.custom-btn--danger {
+      color: $color-danger;
+      border-color: $color-danger;
+      &:hover {
+        color: $white;
+        background-color: $color-danger;
+      }
+    }
+
+    &.custom-btn--success {
+      color: $color-success;
+      border-color: $color-success;
+      &:hover {
+        color: $white;
+        background-color: $color-success;
+      }
+    }
+
+    &.custom-btn--warning {
+      color: $color-warning;
+      border-color: $color-warning;
+      &:hover {
+        color: $white;
+        background-color: $color-warning;
+      }
+    }
+
+    &.custom-btn--secondary-website {
+      color: $color-second-website;
+      border-color: $color-second-website;
+      &:hover {
+        color: $white;
+        background-color: $color-second-website;
+      }
+    }
+  }
+
   .btn__spinner {
     font-size: 1rem;
   }
 }
 
 .custom-link {
-  @extend .custom-btn; // Reuse button base styles (optional if using mixins instead)
+  @extend .custom-btn;
 
   text-decoration: none;
   display: inline-flex;

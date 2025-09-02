@@ -43,7 +43,7 @@ export default function EditProfile() {
   };
 
   return (
-    <div className="edit-profile-page container">
+    <div className="edit-profile-page">
       <form className="form_ui" onSubmit={handleSubmit(onSubmit)}>
         <div className="row">
           <div className="col-12 col-lg-6 p-2">
