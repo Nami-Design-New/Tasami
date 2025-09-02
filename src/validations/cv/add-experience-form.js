@@ -15,11 +15,20 @@ const getSchema = (t) =>
         field: t("website.platform.cv.specialization"),
       })
     ),
-    description: yup.string().required(
-      t("validation.required", {
-        field: t("website.platform.cv.description"),
-      })
-    ),
+    description: yup
+      .string()
+      .required(
+        t("validation.required", {
+          field: t("website.platform.cv.description"),
+        })
+      )
+      .max(
+        1000,
+        t("validation.max", {
+          field: t("website.platform.cv.description"),
+          max: 1000,
+        })
+      ),
     yearsOfExperience: yup
       .number()
       .typeError(t("validation.number"))

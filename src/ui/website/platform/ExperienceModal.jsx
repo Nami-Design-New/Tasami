@@ -6,13 +6,14 @@ import { useAddExperienceForm } from "../../../validations/cv/add-experience-for
 import CustomButton from "../../CustomButton";
 import InputField from "../../forms/InputField";
 import SelectField from "../../forms/SelectField";
-import useAddExp from "../../../hooks/cv/useAddExp";
 import { toast } from "sonner";
 import { useQueryClient } from "@tanstack/react-query";
 import { useEffect } from "react";
-import useEditExp from "../../../hooks/cv/useEditExp";
+import useAddExp from "../../../hooks/cv/exp/useAddExp";
+import useEditExp from "../../../hooks/cv/exp/useEditExp";
+import useDeleteExp from "../../../hooks/cv/exp/useDeleteExp";
 
-export default function AddExperienceModal({
+export default function ExperienceModal({
   showExperienceModal,
   setShowExperienceModal,
   selectedExp,
@@ -23,6 +24,7 @@ export default function AddExperienceModal({
   const queryClient = useQueryClient();
   const { addExp, isPending: isAdding } = useAddExp();
   const { editExp, isPending: isUpdating } = useEditExp();
+  const { deleteExp, isPending: isDeleting } = useDeleteExp();
   const QUALIFICATIONS = [
     {
       value: QUALIFICATION_VALUES.BACHELOR,
@@ -72,7 +74,8 @@ export default function AddExperienceModal({
           onSuccess: (res) => {
             setShowExperienceModal(false);
             setSelectedExp(null);
-            reset();
+            console.log("i am in success Update");
+
             toast.success(
               res.data.message || t("website.platform.cv.updateSuccess")
             );
@@ -88,6 +91,8 @@ export default function AddExperienceModal({
       addExp(payload, {
         onSuccess: (res) => {
           setShowExperienceModal(false);
+          console.log("i am in success Add");
+
           reset();
           toast.success(
             res.data.message || t("website.platform.cv.addSuccess")
@@ -101,8 +106,24 @@ export default function AddExperienceModal({
     }
   };
 
+  const handleDeleteExp = async () => {
+    deleteExp(selectedExp.id, {
+      onSuccess: (res) => {
+        setShowExperienceModal(false);
+        setSelectedExp(null);
+        toast.success(res.message || t("website.platform.cv.deleteSuccess"));
+        queryClient.invalidateQueries({ queryKey: ["cv"] });
+      },
+      onError: (err) => {
+        console.log(err);
+
+        toast.error(err.message || t("website.platform.cv.deleteError"));
+      },
+    });
+  };
+
   useEffect(() => {
-    if (selectedExp) {
+    if (selectedExp !== null) {
       reset({
         field: selectedExp.category_id || "",
         specialization: selectedExp.sub_category_id || "",
@@ -111,14 +132,23 @@ export default function AddExperienceModal({
         qualification: selectedExp.qualifications || "",
       });
     } else {
-      reset();
+      reset({
+        field: "",
+        specialization: "",
+        description: "",
+        yearsOfExperience: "",
+        qualification: "",
+      });
     }
   }, [selectedExp, reset]);
 
   return (
     <Modal
       show={showExperienceModal}
-      onHide={() => setShowExperienceModal(false)}
+      onHide={() => {
+        setShowExperienceModal(false);
+        setSelectedExp(null);
+      }}
       centered
       size="lg"
       aria-labelledby="add-experience-title"
@@ -196,16 +226,30 @@ export default function AddExperienceModal({
 
             {/* Save Button */}
             <div className="col-12 d-flex justify-content-end p-2">
-              <CustomButton
-                type="submit"
-                size="large"
-                disabled={isAdding || isUpdating}
-                loading={isAdding || isUpdating}
-              >
-                {selectedExp
-                  ? t("website.platform.cv.update")
-                  : t("website.platform.cv.save")}
-              </CustomButton>
+              <div className="buttons">
+                {selectedExp && (
+                  <CustomButton
+                    style={{ backgroundColor: "#ff7a59" }}
+                    type="button"
+                    size="large"
+                    onClick={handleDeleteExp}
+                    loading={isDeleting}
+                    disabled={isDeleting}
+                  >
+                    {t("website.platform.cv.deleteExperience")}
+                  </CustomButton>
+                )}
+                <CustomButton
+                  type="submit"
+                  size="large"
+                  disabled={isAdding || isUpdating}
+                  loading={isAdding || isUpdating}
+                >
+                  {selectedExp
+                    ? t("website.platform.cv.update")
+                    : t("website.platform.cv.save")}
+                </CustomButton>
+              </div>
             </div>
           </div>
         </form>

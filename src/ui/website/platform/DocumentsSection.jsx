@@ -1,10 +1,15 @@
 import { useTranslation } from "react-i18next";
-import CustomButton from "../../CustomButton";
 import useGetCV from "../../../hooks/cv/useGetCV";
+import CustomButton from "../../CustomButton";
+import ExpDocItemLoader from "../../loading/ExpDocItemLoader";
+import DocumentModal from "./DocumentModal";
+import { useState } from "react";
 
-export default function DocumentsSection({ setShowDocumentModal }) {
+export default function DocumentsSection() {
   const { t } = useTranslation();
   const { cv, isLoading } = useGetCV();
+  const [showDocumentModal, setShowDocumentModal] = useState(false);
+  const [selectedDoc, setSelectedDoc] = useState(null);
 
   return (
     <section className="cv__section" aria-labelledby="documents-title">
@@ -27,11 +32,7 @@ export default function DocumentsSection({ setShowDocumentModal }) {
       </header>
 
       {/* Loading State */}
-      {isLoading && (
-        <div className="loading-data">
-          <p>{t("website.platform.cv.loading")}</p>
-        </div>
-      )}
+      {isLoading && <ExpDocItemLoader />}
 
       {/* Empty State */}
       {!isLoading && cv?.user_documents?.length === 0 && (
@@ -44,8 +45,15 @@ export default function DocumentsSection({ setShowDocumentModal }) {
       {!isLoading && cv?.user_documents?.length > 0 && (
         <ul className="cv__list">
           {cv.user_documents.map((item) => (
-            <li key={item.id} className="cv__list-item">
-              <p className="cv__item-text">{item?.title}</p>
+            <li
+              key={item.id}
+              className="cv__list-item"
+              onClick={() => {
+                setShowDocumentModal(true);
+                setSelectedDoc(item);
+              }}
+            >
+              <p className="cv__item-text">{item?.category_title}</p>
               <button
                 type="button"
                 className="cv__item-action"
@@ -57,6 +65,13 @@ export default function DocumentsSection({ setShowDocumentModal }) {
           ))}
         </ul>
       )}
+
+      <DocumentModal
+        showDocumentModal={showDocumentModal}
+        setShowDocumentModal={setShowDocumentModal}
+        selectedDoc={selectedDoc}
+        setSelectedDoc={setSelectedDoc}
+      />
     </section>
   );
 }

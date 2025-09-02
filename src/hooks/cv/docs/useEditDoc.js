@@ -1,10 +1,10 @@
 import { useMutation } from "@tanstack/react-query";
-import { axiosInstance } from "../../lib/axios";
+import { axiosInstance } from "../../../lib/axios";
 
-export default function useEditExp() {
-  const { mutate: editExp, isPending } = useMutation({
+export default function useEditDoc() {
+  const { mutate: editDoc, isPending } = useMutation({
     mutationFn: async ({ id, ...data }) => {
-      const res = await axiosInstance.put(`user-experience/${id}`, null, {
+      const res = await axiosInstance.put(`user-documents/${id}`, null, {
         params: data,
       });
 
@@ -14,5 +14,6 @@ export default function useEditExp() {
       return res.data;
     },
   });
-  return { editExp, isPending };
+
+  return { editDoc, isPending };
 }

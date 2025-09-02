@@ -1,8 +1,9 @@
-import { useTranslation } from "react-i18next";
-import CustomButton from "../../CustomButton";
-import useGetCV from "../../../hooks/cv/useGetCV";
 import { useState } from "react";
-import AddExperienceModal from "./AddExperienceModal";
+import { useTranslation } from "react-i18next";
+import useGetCV from "../../../hooks/cv/useGetCV";
+import CustomButton from "../../CustomButton";
+import ExpDocItemLoader from "../../loading/ExpDocItemLoader";
+import ExperienceModal from "./ExperienceModal";
 
 export default function ExperienceSection() {
   const { t } = useTranslation();
@@ -31,11 +32,7 @@ export default function ExperienceSection() {
       </header>
 
       {/* Loading State */}
-      {isLoading && (
-        <div className="loading-data">
-          <p>{t("website.platform.cv.loading")}</p>
-        </div>
-      )}
+      {isLoading && <ExpDocItemLoader />}
 
       {/* Empty State */}
       {!isLoading && cv?.user_experiences?.length === 0 && (
@@ -68,7 +65,7 @@ export default function ExperienceSection() {
           ))}
         </ul>
       )}
-      <AddExperienceModal
+      <ExperienceModal
         showExperienceModal={showExperienceModal}
         setShowExperienceModal={setShowExperienceModal}
         selectedExp={selectedExp}

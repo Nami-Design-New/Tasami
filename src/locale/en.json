@@ -262,6 +262,9 @@
         "master": "Master",
         "doctorate": "Doctorate",
         "other": "Other",
+        "editExperience": "Edit Experience",
+        "deleteExperience": "Delete",
+        "update": "Update",
         "save": "Save"
       }
     },

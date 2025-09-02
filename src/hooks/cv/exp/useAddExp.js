@@ -1,5 +1,5 @@
 import { useMutation } from "@tanstack/react-query";
-import { axiosInstance } from "../../lib/axios";
+import { axiosInstance } from "../../../lib/axios";
 
 export default function useAddExp() {
   const { mutate: addExp, isPending } = useMutation({
@@ -8,7 +8,7 @@ export default function useAddExp() {
         ...data,
       });
       if (res.data.code !== 200) {
-        throw new Error("Failed to add experience");
+        throw new Error(res.data.message || "Failed to add experience");
       }
       return res.data;
     },
