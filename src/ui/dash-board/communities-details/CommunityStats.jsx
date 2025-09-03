@@ -1,19 +1,19 @@
 import Currency from "../../Currency";
 import { CommunityStat } from "./CommunityStat";
 
-export default function CommunityStats() {
+export default function CommunityStats({ community }) {
   return (
     <div className="community-stats">
       <CommunityStat
         title="الاعضاء"
         icon="/icons/group-second.svg"
-        value="144"
+        value={community.members_count}
         label="عضو"
       />
       <CommunityStat
         title="الإعجابات"
         icon="/icons/heart-fill.svg"
-        value="144"
+        value={community.likes_count}
         label="إعجاب"
       />
       <CommunityStat
@@ -21,7 +21,7 @@ export default function CommunityStats() {
         icon="/icons/wallet-second.svg"
         value={
           <>
-            144 <Currency />
+            {community.price} <Currency />
           </>
         }
         label="شهريا"
@@ -29,7 +29,7 @@ export default function CommunityStats() {
       <CommunityStat
         title="قيمة العضوية"
         icon="/icons/active-index.svg"
-        label="متوسط"
+        label={community.activity_level}
       />
     </div>
   );

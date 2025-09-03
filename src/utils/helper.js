@@ -8,6 +8,7 @@ export const handleChange = (e, setFormData) => {
 export function capitalizeWord(word) {
   return word[0].toUpperCase() + word.slice(1);
 }
+
 export const formatYMD = (date) => {
   if (!date) return "";
 

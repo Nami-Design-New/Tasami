@@ -10,6 +10,7 @@ $color-secondary: #8c137e;
 $color-danger: #ff3a29;
 $color-success: #28a745;
 $color-warning: #ffc107;
+$color-fire: #ff7a59;
 
 .custom-btn {
   display: inline-flex;
@@ -104,6 +105,13 @@ $color-warning: #ffc107;
       background-color: color.adjust($color-second-website, $lightness: -10%);
     }
   }
+  &--fire {
+    background-color: $color-fire;
+    color: $white;
+    &:hover {
+      background-color: color.adjust($color-fire, $lightness: -10%);
+    }
+  }
 
   // Outlined Type
   &--outlined {
@@ -161,6 +169,14 @@ $color-warning: #ffc107;
       &:hover {
         color: $white;
         background-color: $color-second-website;
+      }
+    }
+    &.custom-btn--fire {
+      color: $color-fire;
+      border-color: $color-fire;
+      &:hover {
+        color: $white;
+        background-color: $color-fire;
       }
     }
   }
@@ -439,4 +455,12 @@ $color-warning: #ffc107;
   color: $dark;
   background-color: $main4;
   transition: background-color 0.3s ease;
+}
+
+.alert-modal {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
 }

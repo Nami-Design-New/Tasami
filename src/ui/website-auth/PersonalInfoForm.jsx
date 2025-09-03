@@ -15,7 +15,6 @@ export default function PersonalInfoForm({ setFormType, setRegisterStep }) {
     setValue,
     formState: { errors },
   } = useFormContext();
-  console.log(errors);
 
   const selectedGender = watch("gender");
   const profilePicture = watch("profilePicture");
