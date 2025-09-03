@@ -45,6 +45,7 @@ CustomButton.propTypes = {
     "success",
     "warning",
     "secondary-website",
+    "fire",
   ]),
   size: PropTypes.oneOf(["small", "medium", "large"]),
   fullWidth: PropTypes.bool,

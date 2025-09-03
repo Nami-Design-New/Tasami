@@ -612,7 +612,7 @@
 
 .communities-details {
   .communities-image-wrapper {
-    height: 45vh;
+    height: 300px;
     border-radius: 12px;
     overflow: hidden;
     max-width: 1500px;
@@ -685,6 +685,32 @@
           }
         }
       }
+    }
+  }
+}
+
+.community-actions {
+  .community-actions-list {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    .chat-link {
+      @include centerFlex();
+      width: 2.5rem;
+      height: 2.5rem;
+      border-radius: 50%;
+      background-color: $second;
+    }
+    .edit-item {
+      color: $dark;
+      text-align: center;
+      font-weight: 700;
+    }
+    .deactive-item {
+      color: $fire;
+      text-align: center;
+      font-weight: 700;
     }
   }
 }
