@@ -260,6 +260,7 @@
   &__items {
     max-height: 250px;
     overflow-y: auto;
+    border: 1px solid $InputStroke;
 
     /* For Webkit (Chrome, Safari) */
     &::-webkit-scrollbar {

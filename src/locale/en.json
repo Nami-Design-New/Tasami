@@ -3,6 +3,11 @@
   "loading": "Loading...",
   "select": "Select",
   "create": "create",
+  "save": "save",
+  "edit": "Edit",
+  "deactive": "Deactive",
+  "active": "Active",
+  "cancel": "Cancel",
   "pageHeaders": {
     "Notifications": "Notifications",
     "Dashboard": "Dashboard",
@@ -287,6 +292,15 @@
       "groups": {
         "groupName": "Group Name",
         "groupDescription": "Description"
+      },
+      "myCommunity": {
+        "editCommunity": "Edit Community Details",
+        "coverPicture": "Cover Picture",
+        "price": "Subscription Fee",
+        "priceHint": "Monthly",
+        "about": "About Your Community",
+        "areYouSure": "Are You Sure",
+        "message": "The monthly deduction from members' accounts will be stopped while keeping the community active until all memberships expire, after which the deactivation will take effect."
       }
     },
 
