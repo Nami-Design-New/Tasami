@@ -480,6 +480,14 @@ li[data-sonner-toast=""] {
   }
 }
 
+.no-scroll-bar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.no-scroll-bar::-webkit-scrollbar {
+  display: none;
+}
+
 .main-header {
   position: sticky;
   top: 0;
@@ -9809,12 +9817,13 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
   margin: 0 4px;
   color: #fdcb2f;
 }
-.cv .cv__section .cv__list {
+
+.cv__list {
   display: flex;
   flex-direction: column;
   gap: 8px;
 }
-.cv .cv__section .cv__list .cv__list-item {
+.cv__list .cv__list-item {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -9823,12 +9832,12 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
   background-color: rgba(13, 13, 13, 0.0196078431);
   cursor: pointer;
 }
-.cv .cv__section .cv__list .cv__list-item .cv__item-text {
+.cv__list .cv__list-item .cv__item-text {
   font-size: 14px;
   color: #0d0d0d;
   font-weight: 700;
 }
-.cv .cv__section .cv__list .cv__list-item .cv__item-action {
+.cv__list .cv__list-item .cv__item-action {
   width: 24px;
   height: 24px;
   border-radius: 50%;
@@ -9840,7 +9849,7 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
   cursor: pointer;
   font-size: 14px;
 }
-.cv .cv__section .cv__list .cv__list-item .cv__item-action i {
+.cv__list .cv__list-item .cv__item-action i {
   font-size: 12px;
 }
 
@@ -9858,6 +9867,47 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
 .empty-data p {
   font-size: 12px;
   color: #0d0d0d;
+}
+
+.groups__section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  position: relative;
+}
+.groups__section .groups__list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.groups__section .groups__list .groups__list-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 12px;
+  border-radius: 16px;
+  background-color: rgba(13, 13, 13, 0.0196078431);
+  cursor: pointer;
+}
+.groups__section .groups__list .groups__list-item .groups__item-text {
+  font-size: 14px;
+  color: #0d0d0d;
+  font-weight: 700;
+}
+.groups__section .groups__list .groups__list-item .groups__item-action {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background-color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #5fcafa;
+  cursor: pointer;
+  font-size: 14px;
+}
+.groups__section .groups__list .groups__list-item .groups__item-action i {
+  font-size: 12px;
 }
 
 body {

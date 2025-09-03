@@ -2,6 +2,7 @@
   "hello": "Hello",
   "loading": "Loading...",
   "select": "Select",
+  "create": "create",
   "pageHeaders": {
     "Notifications": "Notifications",
     "Dashboard": "Dashboard",
@@ -178,7 +179,8 @@
     "minAge": "You must be at least 13 years old",
     "invalidPhoneNumber": "Phone number must contain only numbers",
     "number": "Must be a number",
-    "min": "{{field}} must be at least {{min}}"
+    "min": "{{field}} must be at least {{min}}",
+    "maxLength": "Must be at most {{max}} characters"
   },
   "pageNotFound": {
     "alt": "404 Not Found",
@@ -281,6 +283,10 @@
         "deleteExperience": "Delete",
         "update": "Update",
         "save": "Save"
+      },
+      "groups": {
+        "groupName": "Group Name",
+        "groupDescription": "Description"
       }
     },
 

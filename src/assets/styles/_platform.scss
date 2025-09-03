@@ -342,36 +342,36 @@
         }
       }
     }
-    .cv__list {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-      .cv__list-item {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        padding: 16px 12px;
-        border-radius: 16px;
-        background-color: $InputBG;
-        cursor: pointer;
-        .cv__item-text {
-          font-size: 14px;
-          color: $dark;
-          font-weight: 700;
-        }
-        .cv__item-action {
-          width: 24px;
-          height: 24px;
-          border-radius: 50%;
-          background-color: $white;
-          @include centerFlex();
-          color: $second;
-          cursor: pointer;
-          font-size: 14px;
-          i {
-            font-size: 12px;
-          }
-        }
+  }
+}
+.cv__list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  .cv__list-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 12px;
+    border-radius: 16px;
+    background-color: $InputBG;
+    cursor: pointer;
+    .cv__item-text {
+      font-size: 14px;
+      color: $dark;
+      font-weight: 700;
+    }
+    .cv__item-action {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background-color: $white;
+      @include centerFlex();
+      color: $second;
+      cursor: pointer;
+      font-size: 14px;
+      i {
+        font-size: 12px;
       }
     }
   }
@@ -388,5 +388,45 @@
   p {
     font-size: 12px;
     color: $dark;
+  }
+}
+
+.groups__section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  position: relative;
+  .groups__list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    // align-items: center;
+    .groups__list-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 12px;
+      border-radius: 16px;
+      background-color: $InputBG;
+      cursor: pointer;
+      .groups__item-text {
+        font-size: 14px;
+        color: $dark;
+        font-weight: 700;
+      }
+      .groups__item-action {
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        background-color: $white;
+        @include centerFlex();
+        color: $second;
+        cursor: pointer;
+        font-size: 14px;
+        i {
+          font-size: 12px;
+        }
+      }
+    }
   }
 }

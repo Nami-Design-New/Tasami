@@ -2,6 +2,7 @@
   "hello": "مرحبا",
   "loading": "جار التحميل...",
   "select": "اختر",
+  "create": "انشاء",
   "pageHeaders": {
     "Notifications": " التنبيهات ",
     "Dashboard": " لوحة التحكم ",
@@ -183,7 +184,8 @@
     "minAge": "يجب أن يكون عمرك على الأقل 13 سنوات",
     "invalidPhoneNumber": "يجب أن يحتوي رقم الهاتف على أرقام فقط",
     "number": "يجب أن يكون رقمًا",
-    "min": "يجب أن يكون {{field}} على الأقل {{min}}"
+    "min": "يجب أن يكون {{field}} على الأقل {{min}}",
+    "maxLength": "يجب ألا يزيد عن {{max}} حرفًا"
   },
   "pageNotFound": {
     "alt": "لم يتم العثور على الصفحة",
@@ -288,6 +290,10 @@
         "deleteExperience": "حذف ",
         "update": "تعديل",
         "save": "حفظ"
+      },
+      "groups": {
+        "groupName": "اسم المجموعة",
+        "groupDescription": "الوصف"
       }
     },
     "payment": "الدفع"
