@@ -9,6 +9,7 @@ const CustomButton = ({
   iconPosition = "left",
   loading = false,
   disabled = false,
+  type = "default",
   ...props
 }) => {
   const classNames = [
@@ -17,6 +18,7 @@ const CustomButton = ({
     `custom-btn--${size}`,
     fullWidth ? "custom-btn--full" : "",
     loading ? "btn--loading" : "",
+    type === "outlined" ? "custom-btn--outlined" : "",
   ].join(" ");
 
   return (
@@ -42,11 +44,13 @@ CustomButton.propTypes = {
     "danger",
     "success",
     "warning",
+    "secondary-website",
   ]),
   size: PropTypes.oneOf(["small", "medium", "large"]),
   fullWidth: PropTypes.bool,
   icon: PropTypes.node,
   iconPosition: PropTypes.oneOf(["left", "right"]),
+  type: PropTypes.oneOf(["default", "outlined"]),
   loading: PropTypes.bool,
   disabled: PropTypes.bool,
 };

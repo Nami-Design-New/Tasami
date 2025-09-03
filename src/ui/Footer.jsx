@@ -3,18 +3,8 @@ import { Link } from "react-router";
 export default function Footer() {
   return (
     <footer className="footer2">
-      <div className="container">
+      <div className="container-lg p-0">
         <div className="row justify-content-center">
-          {/* <div className="col-12 p-2">
-            <div className="news_letter">
-              <h6>اشترك لمتابعة آخر الأخبار والتحديثات</h6>
-              <form>
-                <input type="email" placeholder="أدخل بريدك الإلكتروني" />
-                <button type="submit">اشترك</button>
-              </form>
-            </div>
-          </div> */}
-
           <div className="col-lg-4 col-md-6 col-12 p-2">
             <Link to="/" className="logo">
               <img src="/images/logo.svg" alt="الشعار" />

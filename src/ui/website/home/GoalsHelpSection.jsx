@@ -4,7 +4,7 @@ import { Link } from "react-router";
 export default function GoalsHelpSection() {
   const { t } = useTranslation();
   return (
-    <section className="goals-help-section container">
+    <section className="goals-help-section ">
       <Link to="/new-goal" className="goal-btn personal-goal">
         <img src="/icons/add.svg" alt="icon" />
         {t("website.hero.personalGoals")}

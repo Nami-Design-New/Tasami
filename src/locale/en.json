@@ -1,5 +1,8 @@
 {
   "hello": "Hello",
+  "loading": "Loading...",
+  "select": "Select",
+  "create": "create",
   "pageHeaders": {
     "Notifications": "Notifications",
     "Dashboard": "Dashboard",
@@ -138,7 +141,22 @@
     "oldPassword": "Old Password",
     "newPassword": "New Password",
     "confirmPassword": "Confirm Password",
-    "save": "Save Changes"
+    "save": "Save Changes",
+    "balance": "Balance",
+    "charge": "Charge",
+    "refundReq": "Refund Rquest",
+    "chargeBalance": "Charge Balance",
+    "fullName": "Account Holder Full Name",
+    "iban": "IBAN",
+    "bankName": "Bank Name",
+    "branchCode": "Branch Code",
+    "swiftCode": "SWIFT Code",
+    "fullNamePlaceholder": "Enter full name",
+    "ibanPlaceholder": "Example: SA1234567890123456789012",
+    "bankNamePlaceholder": "Enter bank name",
+    "branchCodePlaceholder": "Enter branch code",
+    "swiftCodePlaceholder": "Example: RJHISARI",
+    "confirm": "Confirm"
   },
   "settings": {
     "termsTitle": "Terms and Conditions",
@@ -159,7 +177,10 @@
     "fileType": "Only JPG and PNG files are allowed",
     "date": "Please enter a valid date",
     "minAge": "You must be at least 13 years old",
-    "invalidPhoneNumber": "Phone number must contain only numbers"
+    "invalidPhoneNumber": "Phone number must contain only numbers",
+    "number": "Must be a number",
+    "min": "{{field}} must be at least {{min}}",
+    "maxLength": "Must be at most {{max}} characters"
   },
   "pageNotFound": {
     "alt": "404 Not Found",
@@ -191,7 +212,8 @@
       "logout": "Logout",
       "notifications": "Notifications",
       "wallet": "Wallet",
-      "editAccount": "Edit Account"
+      "editAccount": "Edit Account",
+      "communities": "Communities"
     },
     "hero": {
       "personalGoals": "Personal Goals",
@@ -199,9 +221,75 @@
     },
     "personalGoals": {
       "header": {
-        "title": "الأهداف الشخصية",
-        "subTitle": "أحدث طلبات المساعدة لتحقيق أهداف جديدة"
+        "title": "Personal Goals",
+        "subTitle": "The latest help requests to achieve new goals"
       }
-    }
+    },
+    "platform": {
+      "platform": "platform",
+      "hint": "This platform provides a set of tools to manage your business and activities as a personal assistant professionally, and to deliver the best experience for your clients.",
+      "header": "Create a Basic Personal Assistant Account - (Free)",
+      "title": "Welcome to the Community of Inspirers at 'Tasami'",
+      "description1": "Your personal assistant account allows you to publish assistance programs and offer services to others. You can also create workgroups as virtual spaces for social learning, as well as activate your own channels to publish exclusive content and receive membership subscriptions within the 'Personal Assistant Community'!",
+      "description2": "By continuing, you commit that the assistance services you provide through the Tasami platform will not violate the regulations and laws in the country of operation, and you also commit to fulfilling all regulatory requirements determined by the relevant authorities whenever required.",
+      "subscribe": "Subscribe",
+      "menu": {
+        "subscriptions": "Subscription Management",
+        "cv": "My CV",
+        "myAssistant": "My Assistant",
+        "myOpportunities": "My Opportunities",
+        "myOffers": "My Offers",
+        "myGroups": "My Groups",
+        "myCommunity": "My Community",
+        "myAudience": "My Audience",
+        "myClients": "My Clients"
+      },
+      "subscription": {
+        "currentPlan": "Current Plan",
+        "upgradeYourPlan": "Upgrade your plan to suit your business needs",
+        "freeForever": "Free Forever",
+        "offersCount": "Number of offers you can submit at once",
+        "groupsCount": "Number of groups you can create",
+        "seatsCount": "Seats available per group",
+        "appCommission": "Platform commission from contracts and memberships"
+      },
+      "cv": {
+        "addDocument": "Add Document",
+        "field": "Field",
+        "specialization": "Specialization",
+        "specializationHint": "If you can’t find the required field or specialization, please contact customer support to add a new category.",
+        "documentType": "Document Type",
+        "issuingAuthority": "Issuing Authority",
+        "documentNumber": "Document / Accreditation Number",
+        "expiryDate": "Expiry Date",
+        "addExperience": "Add Expericences",
+        "description": "Description",
+        "yearsOfExperience": "Years of Experience",
+        "qualification": "Qualification",
+        "aboutLabel": "About You",
+        "aboutPlaceholder": "Write here",
+        "experience": "Work Experience",
+        "optional": "Optional",
+        "viewExperience": "Experience details",
+        "documents": "Documents",
+        "viewDocument": "Document details",
+        "noExperience": "No experiences added",
+        "noDocuments": "No documents added",
+        "bachelor": "Bachelor",
+        "master": "Master",
+        "doctorate": "Doctorate",
+        "other": "Other",
+        "editExperience": "Edit Experience",
+        "deleteExperience": "Delete",
+        "update": "Update",
+        "save": "Save"
+      },
+      "groups": {
+        "groupName": "Group Name",
+        "groupDescription": "Description"
+      }
+    },
+
+    "payment": "Payment"
   }
 }

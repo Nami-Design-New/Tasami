@@ -53,28 +53,7 @@
         }
       }
     }
-    .phone-group {
-      .PhoneInput {
-        display: flex;
-        gap: 12px;
-        .PhoneInputCountryIcon {
-          position: relative;
-        }
-        .PhoneInputCountryIconImg {
-          width: 20px;
-          position: absolute;
-          top: -33px;
-          left: 10px;
-        }
-        select {
-          padding: 12px 6px 12px 36px;
-        }
-      }
-      .phone-code {
-        height: 54px;
-        border-radius: 4px;
-      }
-    }
+
     .searchMapGroup {
       gap: 8px;
       display: flex;
@@ -107,7 +86,7 @@
       border: 1px solid $InputStroke;
       border-radius: 12px;
       background: $InputBG;
-      padding: 12px 16px;
+      padding: 12px 16px !important;
       box-shadow: none !important;
       &:disabled {
         background-color: $lightGray;
@@ -126,12 +105,13 @@
         color: $gray;
       }
     }
+
     select {
       color: $dark;
       cursor: pointer;
       &.disable {
         pointer-events: none;
-        background: $border;
+        background: $InputStroke;
         color: $grayLight;
       }
     }
@@ -193,6 +173,18 @@
       color: #e2e2e2 !important;
       &.mainImg {
         color: $main !important;
+      }
+    }
+  }
+  .form_field {
+    .form_label {
+      color: $dark;
+      font-weight: 600;
+      font-size: 16px;
+      margin-bottom: 4px;
+      span {
+        font-size: 12px;
+        color: $gray;
       }
     }
   }
@@ -661,11 +653,6 @@ body.en {
         }
       }
     }
-  }
-
-  .react-tel-input input {
-    border: 0 !important;
-    height: unset !important;
   }
 }
 

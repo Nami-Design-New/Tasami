@@ -13,9 +13,7 @@
   transition: 0.3s;
   z-index: 999;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
-  @media (max-width: 992px) {
-    position: fixed;
-  }
+
   &.scrolled {
     background: #fff;
   }
@@ -49,8 +47,8 @@
       list-style: none;
       display: flex;
       gap: 1.5rem;
-      align-items: center;
       transition: 0.3s;
+      justify-content: center;
 
       li a {
         color: #333;
@@ -73,20 +71,31 @@
 
       @media (max-width: 992px) {
         position: fixed;
-        top: 0;
+        display: none;
+        overflow-y: auto;
+        top: 80px;
         left: -100%;
         flex-direction: column;
         background: #fff;
-        width: 50%;
-        height: 100vh;
+        width: 100%;
+        height: calc(100vh - 80px);
         align-items: flex-start;
-        padding: 2rem 1.5rem;
+        padding: 1rem 2.5rem;
         gap: 1rem;
         transition: 0.3s;
         z-index: 20;
 
+        scrollbar-width: none;
+        /* IE, Edge */
+        -ms-overflow-style: none;
+        &::-webkit-scrollbar {
+          display: none; /* Chrome, Safari */
+        }
+
         &.open {
           left: 0;
+          display: flex;
+          justify-content: start;
         }
 
         .close-btn {
@@ -108,7 +117,9 @@
 
     .actions {
       display: flex;
-      gap: 1rem;
+      gap: 0.5rem;
+      justify-content: center;
+      align-items: center;
 
       .auth-btn {
         padding: 0.5rem 1.2rem;
@@ -118,6 +129,7 @@
         border: 1px solid transparent;
         text-decoration: none;
         transition: 0.3s;
+        white-space: nowrap;
       }
 
       .login-btn {
@@ -131,16 +143,52 @@
       }
 
       .user_dropdown {
-        border-radius: 120px;
-        padding: 8px 20px;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
         cursor: pointer;
         display: flex;
         align-items: center;
-        gap: 4px;
-        background-color: $main;
+        justify-content: center;
+        background-color: transparent;
+        border: 1px solid $InputStroke;
+        padding: 0;
+
+        img {
+          width: 100%;
+          height: 100%;
+          border-radius: 50%;
+          object-fit: cover;
+        }
+      }
+      .lang_dropdown {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: transparent;
+        border: none;
+        padding: 0;
 
         i {
+          font-size: 16px;
+          color: $main;
+        }
+      }
+
+      .communites-link {
+        background-color: $green;
+        white-space: nowrap;
+        padding: 6px 16px;
+        border-radius: 100px;
+        @include centerFlex();
+        gap: 0.25rem;
+        span {
           font-size: 12px;
+          color: #096b64;
         }
       }
 

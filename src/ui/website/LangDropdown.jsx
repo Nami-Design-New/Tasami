@@ -24,15 +24,7 @@ const LangDropdown = () => {
     <Dropdown style={{ background: "transparent" }} onSelect={handleSelect}>
       <Dropdown.Toggle
         variant="light"
-        className=" rounded-circle"
-        style={{
-          width: "40px",
-          height: "40px",
-          fontSize: "16px",
-          fontWeight: "bold",
-          background: "transparent",
-          border: "none",
-        }}
+        className="lang_dropdown"
         id="dropdown-basic"
       >
         <i className="fa-sharp fa-regular fa-globe"></i>

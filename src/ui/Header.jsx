@@ -1,19 +1,24 @@
 import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
-import { Link, NavLink } from "react-router";
+import { Link, NavLink, useNavigate } from "react-router";
 import LangDropdown from "./website/LangDropdown";
 import UserDropDown from "./website/UserDropDown";
+import CustomButton from "./CustomButton";
+import PlatformModal from "./website/platform/PlatformModal";
 export default function Header() {
+  const { t } = useTranslation();
+  const navigate = useNavigate();
   const headerRef = useRef(null);
   const [openMenu, setOpenMenu] = useState(false);
-  const { t } = useTranslation();
-  const { isAuthed } = useSelector((state) => state.authRole);
+  const [showModal, setShowModal] = useState(false);
+  const { isAuthed, user } = useSelector((state) => state.authRole);
 
   useEffect(() => {
     const handleOutsideClick = (e) => {
       const menu = document.querySelector(".nav-links");
       const toggler = document.querySelector(".toggle_menu");
+
       if (
         openMenu &&
         !menu.contains(e.target) &&
@@ -31,12 +36,11 @@ export default function Header() {
 
   return (
     <header className="main-header" ref={headerRef}>
-      <nav className="container">
+      <nav className="container-lg p-0">
         <Link to="/" className="logo">
           <img src="/images/logo.svg" alt="logo" />
         </Link>
-
-        <ul className={`nav-links ${openMenu ? "open" : ""}`}>
+        <ul className={`nav-links container-lg ${openMenu ? "open" : ""}`}>
           <li onClick={() => setOpenMenu(false)}>
             <NavLink to={"/"}>{t("website.header.home")}</NavLink>
           </li>
@@ -51,13 +55,16 @@ export default function Header() {
           <li onClick={() => setOpenMenu(false)}>
             <NavLink to={"/contact"}>{t("website.header.contactUs")}</NavLink>
           </li>
-
-          <li className="mobile-only">
-            <NavLink to="/login">{t("website.header.login")}</NavLink>
-          </li>
-          <li className="mobile-only">
-            <NavLink to="/register">{t("website.header.signUp")}</NavLink>
-          </li>
+          {!isAuthed && (
+            <>
+              <li className="mobile-only">
+                <NavLink to="/login">{t("website.header.login")}</NavLink>
+              </li>
+              <li className="mobile-only">
+                <NavLink to="/register">{t("website.header.signUp")}</NavLink>
+              </li>
+            </>
+          )}
         </ul>
 
         <div className="actions">
@@ -66,14 +73,30 @@ export default function Header() {
               {t("website.header.login")}
             </Link>
           )}
+          <Link className="communites-link">
+            <img src="./icons/communities.svg" />
+            <span>{t("website.header.communities")}</span>
+          </Link>
+          {isAuthed && (
+            <CustomButton
+              size="small"
+              style={{ whiteSpace: "nowrap" }}
+              onClick={() => {
+                user.about ? navigate("my-platform/my-cv") : setShowModal(true);
+              }}
+            >
+              <i className="fa-solid fa-robot"></i>
+              {t("profile.assistant")}
+            </CustomButton>
+          )}
           <LangDropdown />
           {isAuthed && <UserDropDown />}
         </div>
-
         <button className="toggle_menu" onClick={handleToggleMenu}>
           <i className="fa-light fa-bars"></i>
         </button>
       </nav>
+      <PlatformModal showModal={showModal} setShowModal={setShowModal} />
     </header>
   );
 }

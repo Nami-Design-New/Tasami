@@ -306,7 +306,7 @@ li[data-sonner-toast=""] {
   flex-direction: row-reverse;
   border: 1px solid $InputStroke;
   background: $InputBG;
-  height: 52px;
+  height: 56px;
   border-radius: 12px;
   direction: ltr;
   .form-control {
@@ -316,7 +316,7 @@ li[data-sonner-toast=""] {
     font-size: 14px;
     background: $InputBG;
     padding: 8px;
-    border-radius: 12px;
+    border-radius: 0 12px 12px 0px;
     direction: ltr;
     border: 0;
   }
@@ -338,10 +338,11 @@ li[data-sonner-toast=""] {
   }
 
   .selected-flag {
-    background: transparent;
+    background: $InputBG;
     padding: 0;
     width: 100%;
-    border-radius: 12px;
+    border-radius: 12px 0 0 12px;
+    border: 0;
     @include centerFlex();
     .arrow {
       border-top-color: var(--main);
@@ -366,7 +367,9 @@ li[data-sonner-toast=""] {
     scrollbar-width: none;
     .search {
       padding: 8px;
+      width: 100%;
       input {
+        width: 100%;
         margin: 0;
         border: 1px solid $InputStroke;
         height: 42px;
@@ -432,4 +435,16 @@ li[data-sonner-toast=""] {
   100% {
     background-position: 200% 0;
   }
+}
+
+.loading-container {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.placeholder {
+  border-radius: 100px !important;
+  background-color: #737475 !important;
 }

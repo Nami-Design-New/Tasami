@@ -65,7 +65,7 @@ const offers = [
 
 export default function OffersSlider() {
   return (
-    <section className="offers-slider container">
+    <section className="offers-slider">
       <div className="slider-header">
         <div className="text">
           <h2>عروض المساعدة</h2>

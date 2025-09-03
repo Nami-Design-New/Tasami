@@ -10,6 +10,7 @@ import usePhoneRegister from "../../hooks/auth/useSendOtpCode";
 import { setPhoneData } from "../../redux/slices/phoneSlice";
 import CustomButton from "../../ui/CustomButton";
 import BackButton from "../../ui/forms/BackButton";
+import useGetCountries from "../../hooks/countries/useGetCountries";
 
 // validation schema
 const registerSchema = (t) =>
@@ -24,6 +25,7 @@ const RegisterPage = ({ setRegisterStep }) => {
   const dispatch = useDispatch();
   const { t } = useTranslation();
   const { sendCode, isPending } = usePhoneRegister();
+  const { countries, isLoading } = useGetCountries();
   const {
     handleSubmit,
     control,
@@ -69,9 +71,7 @@ const RegisterPage = ({ setRegisterStep }) => {
               country={"sa"}
               value={field.value}
               onChange={(value, country) => {
-                // full input for UI
                 field.onChange(value);
-                // extract parts for API
                 const dialCode = `+${country.dialCode}`;
                 const localPhone = value.replace(country.dialCode, "");
                 setValue("code", dialCode);
