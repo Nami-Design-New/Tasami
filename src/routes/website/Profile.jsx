@@ -1,33 +1,24 @@
 import { useSelector } from "react-redux";
 import { NavLink, Outlet } from "react-router";
 import { useTranslation } from "react-i18next";
+import Loading from "../../ui/loading/Loading";
+import UserCard from "./profile/UserCard";
 
 export default function Profile() {
   const { t } = useTranslation();
   const { user } = useSelector((state) => state.authRole);
 
   if (!user) {
-    return <div>{t("loading") || "Loading..."}</div>;
+    return <Loading />;
   }
 
   return (
-    <section className="profile_section mt-80">
+    <section className="profile_section ">
       <div className="container">
         <div className="row">
-          <div className="col-lg-3 col-md-4 col-12 p-2">
+          <div className="col-lg-4 col-md-4 col-12 p-2">
             <div className="profile_sidebar">
-              <div className="user">
-                <img src={user.image} alt={user.name} className="avatar" />
-                <div className="content">
-                  <h6>{user.name}</h6>
-                  <span>{user.id}</span>
-                </div>
-                <div className="rating">
-                  <img src="/icons/medal.svg" />
-                  <span>11</span>
-                </div>
-              </div>
-
+              <UserCard user={user} />
               <div className="nav_links">
                 <NavLink to="" end className="nav_link">
                   <i className="fa-regular fa-user"></i>
@@ -64,15 +55,10 @@ export default function Profile() {
                   {t("profile.followers")}
                 </NavLink>
               </div>
-
-              <button className="assistant_btn">
-                <i className="fa-solid fa-robot"></i>
-                {t("profile.assistant")}
-              </button>
             </div>
           </div>
 
-          <div className="col-lg-9 col-md-8 col-12 p-0">
+          <div className="col-lg-8 col-md-8 col-12 p-2">
             <Outlet />
           </div>
         </div>

@@ -24,19 +24,16 @@ const data = [
     title: "مكتمله",
     count: 58,
   },
-
 ];
 
 export default function ContractsStatus() {
- 
   return (
-    <section className="contracts-status container">
+    <section className="contracts-status">
       <div className="slider-header">
         <div className="text">
           <h2>اعمالي</h2>
           <p>راجع وتابع اعمالك بسهولة</p>
         </div>
-        
       </div>
 
       <Swiper

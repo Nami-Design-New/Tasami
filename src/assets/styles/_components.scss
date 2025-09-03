@@ -5,6 +5,7 @@
 
 $color-primary: #214b92;
 $color-primary08: #02489614;
+$color-second-website: #5fcafa;
 $color-secondary: #8c137e;
 $color-danger: #ff3a29;
 $color-success: #28a745;
@@ -96,13 +97,81 @@ $color-warning: #ffc107;
     }
   }
 
+  &--secondary-website {
+    background-color: $color-second-website;
+    color: $white;
+    &:hover {
+      background-color: color.adjust($color-second-website, $lightness: -10%);
+    }
+  }
+
+  // Outlined Type
+  &--outlined {
+    background-color: transparent;
+    border: 1px solid currentColor;
+
+    &.custom-btn--primary {
+      color: $color-primary;
+      border-color: $color-primary;
+      &:hover {
+        color: $white;
+        background-color: $color-primary;
+      }
+    }
+
+    &.custom-btn--secondary {
+      color: $color-secondary;
+      border-color: $color-secondary;
+      &:hover {
+        color: $white;
+        background-color: $color-secondary;
+      }
+    }
+
+    &.custom-btn--danger {
+      color: $color-danger;
+      border-color: $color-danger;
+      &:hover {
+        color: $white;
+        background-color: $color-danger;
+      }
+    }
+
+    &.custom-btn--success {
+      color: $color-success;
+      border-color: $color-success;
+      &:hover {
+        color: $white;
+        background-color: $color-success;
+      }
+    }
+
+    &.custom-btn--warning {
+      color: $color-warning;
+      border-color: $color-warning;
+      &:hover {
+        color: $white;
+        background-color: $color-warning;
+      }
+    }
+
+    &.custom-btn--secondary-website {
+      color: $color-second-website;
+      border-color: $color-second-website;
+      &:hover {
+        color: $white;
+        background-color: $color-second-website;
+      }
+    }
+  }
+
   .btn__spinner {
     font-size: 1rem;
   }
 }
 
 .custom-link {
-  @extend .custom-btn; // Reuse button base styles (optional if using mixins instead)
+  @extend .custom-btn;
 
   text-decoration: none;
   display: inline-flex;
@@ -185,6 +254,14 @@ $color-warning: #ffc107;
     }
   }
 
+  &--secondary-website {
+    background-color: $color-second-website;
+    color: $white;
+    &:hover {
+      background-color: color.adjust($color-second-website, $lightness: -10%);
+    }
+  }
+
   // Outlined Type
   &--outlined {
     background-color: transparent;
@@ -232,6 +309,15 @@ $color-warning: #ffc107;
       &:hover {
         color: $white;
         background-color: $color-warning;
+      }
+    }
+
+    &.custom-link--secondary-website {
+      color: $color-second-website;
+      border-color: $color-second-website;
+      &:hover {
+        color: $white;
+        background-color: $color-second-website;
       }
     }
   }
@@ -338,4 +424,19 @@ $color-warning: #ffc107;
     font-size: 14px;
     color: $text;
   }
+}
+
+// rounded buttons
+.rouded-back-button {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  @include centerFlex();
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  text-align: center;
+  color: $dark;
+  background-color: $main4;
+  transition: background-color 0.3s ease;
 }

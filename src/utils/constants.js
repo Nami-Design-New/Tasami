@@ -19,6 +19,13 @@ export const TASKS_TABS = [
   },
 ];
 
+export const QUALIFICATION_VALUES = {
+  BACHELOR: "bachelor",
+  MASTER: "master",
+  DOCTORATE: "doctorate",
+  OTHER: "other",
+};
+
 export const SUB_TABS = [
   { id: 1, label: "الحسابات", to: "user-accounts" },
   { id: 2, label: "الاهداف الشخصيه", to: "personal-goals" },

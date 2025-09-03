@@ -42,12 +42,12 @@ CustomLink.propTypes = {
     "danger",
     "success",
     "warning",
+    "secondary-website",
   ]),
   size: PropTypes.oneOf(["small", "medium", "large"]),
   fullWidth: PropTypes.bool,
   icon: PropTypes.node,
   iconPosition: PropTypes.oneOf(["left", "right"]),
-
   type: PropTypes.oneOf(["default", "outlined"]),
 };
 

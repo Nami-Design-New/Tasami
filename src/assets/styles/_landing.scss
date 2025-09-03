@@ -4,7 +4,7 @@
 @use "./variables" as *;
 
 .hero-section {
-  padding: 30px 0;
+  // padding: 30px 0;
 
   .hero_slider {
     width: 100%;
@@ -525,88 +525,14 @@
   }
 }
 
-// .info {
-//   .info-header {
-//     display: flex;
-//     justify-content: space-between;
-//     align-items: center;
-//     margin: 0.5rem 0;
-
-//     h3 {
-//       font-size: 1.1rem;
-//       margin: 0;
-//     }
-
-//     .rating {
-//       font-size: 1rem;
-//       font-weight: 500;
-
-//       i {
-//         margin-right: 0.2rem;
-//         color: #ffb400;
-//       }
-//     }
-//   }
-
-//   .title {
-//     font-size: 0.85rem;
-//     color: #555;
-//     display: -webkit-box;
-//     -webkit-line-clamp: 1;
-//     -webkit-box-orient: vertical;
-//     overflow: hidden;
-//     margin-bottom: 0.5rem;
-//   }
-
-//   .meta {
-//     display: flex;
-//     flex-wrap: wrap;
-//     justify-content: space-between;
-//     font-size: 0.9rem;
-//     color: #777;
-//     margin-top: 0.5rem;
-
-//     span {
-//       display: flex;
-//       align-items: center;
-//       gap: 0.3rem;
-
-//       i {
-//         color: $main;
-//       }
-//     }
-//   }
-
-//   .prices {
-//     margin-top: 0.6rem;
-//     display: flex;
-//     justify-content: space-between;
-//     font-size: 1.1rem;
-//     color: $dark;
-//     font-weight: 600;
-
-//     span {
-//       display: flex;
-//       align-items: center;
-//       gap: 0.3rem;
-
-//       img {
-//         height: 22px;
-//       }
-//     }
-//   }
+// .offers-slider,
+// .helpers-slider,
+// .contracts-statusو {
+//   // padding: 1rem;
 // }
 
-//////////////
-.offers-slider,
-.helpers-slider,
-.contracts-statusو {
-  padding: 1rem;
-}
-
-.goal-slider {
-  padding: 1.8rem 1rem 1rem;
-}
+// .goal-slider {
+// }
 
 .contracts-status {
   .content {
@@ -677,6 +603,7 @@
     h2 {
       font-size: 1.4rem;
       font-weight: bold;
+      margin-bottom: 4px;
     }
 
     p {

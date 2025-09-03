@@ -7,6 +7,7 @@ import { useEffect } from "react";
 import ScrollToTop from "../ui/ScrollToTop";
 import ResponsiveNav from "../layout/ResponsiveNav";
 import useAuth from "../hooks/auth/useAuth";
+import Loading from "../ui/loading/Loading";
 
 const WebsiteLayout = () => {
   const { loading } = useAuth();
@@ -28,21 +29,21 @@ const WebsiteLayout = () => {
   }, []);
 
   return (
-    <section>
+    <>
       {loading ? (
-        <p>loading</p>
+        <Loading />
       ) : (
         <>
           <ScrollToTop />
           <Header />
-          <main>
+          <main className="main">
             <Outlet />
           </main>
           <Footer />
           <ResponsiveNav />
         </>
       )}
-    </section>
+    </>
   );
 };
 

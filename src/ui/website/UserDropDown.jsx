@@ -15,6 +15,7 @@ export default function UserDropDown() {
   const navigate = useNavigate();
   const { logout, isPending } = useLogout();
   const { user } = useSelector((state) => state.authRole);
+
   const handleLogout = async (e) => {
     e.preventDefault();
     logout("", {
@@ -39,8 +40,10 @@ export default function UserDropDown() {
   return (
     <Dropdown className="d-lg-block d-none">
       <Dropdown.Toggle className="user_dropdown">
-        <span>{user?.name || "User"}</span>
-        <i className="fa fa-chevron-down"></i>
+        <img
+          src={user?.image || "/default-avatar.png"}
+          alt={user?.name || "User"}
+        />
       </Dropdown.Toggle>
 
       <Dropdown.Menu className="custom-dropdown-menu text-end">

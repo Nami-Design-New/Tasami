@@ -50,11 +50,11 @@ export default function GoalSlider() {
     },
   ];
   return (
-    <div className="goal-slider container">
+    <div className="goal-slider">
       <div className="slider-header">
         <div className="text">
-          <h2> {t("website.personalGoals")} </h2>
-          <p> {t("")}  </p>
+          <h2> {t("website.personalGoals.header.title")} </h2>
+          <p> {t("website.personalGoals.header.subTitle")} </p>
         </div>
         <Link to="/Personal-goals" className="view-all">
           عرض الكل

@@ -63,7 +63,6 @@ import SubscriptionManagement from "../routes/dash-board/websiteManagment/Subscr
 import TasksManagment from "../routes/dash-board/websiteManagment/TasksManagment";
 import Terms from "../routes/website/terms";
 import Views from "../routes/website/Views";
-import LoginForm from "../ui/website-auth/LoginForm";
 
 import DashboardAuthlayout from "../layout/DashboardAuthlayout";
 import WebsiteAuthLayout from "../layout/WebsiteAuthLayout";
@@ -83,7 +82,18 @@ import AreasOfInterest from "../routes/website-auth/AreasOfInterest";
 import ResetPassword from "../routes/website-auth/ResetPassword";
 import DashboardLoginPage from "../routes/dashboard-auth/DashboardLoginPage";
 import DashBoardResetPassword from "../routes/dashboard-auth/DashBoardResetPassword";
+import MyPlatform from "../routes/website/my-platform/MyPlatform";
+import SupscriptionManagment from "../routes/website/my-platform/SupscriptionManagment";
+import Cv from "../routes/website/my-platform/Cv";
+import MyAssistant from "../routes/website/my-platform/MyAssistant";
+import MyOpportunities from "../routes/website/my-platform/MyOpportunities";
+import MyOffers from "../routes/website/my-platform/MyOffers";
+import MyGroups from "../routes/website/my-platform/MyGroups";
+import MyCommunity from "../routes/website/my-platform/MyCommunity";
+import MyAudience from "../routes/website/my-platform/MyAudience";
+import MyClients from "../routes/website/my-platform/MyClients";
 import CommunitiesDetails from "../routes/dash-board/CommunitiesDetails";
+
 
 export const router = createBrowserRouter([
   {
@@ -117,6 +127,7 @@ export const router = createBrowserRouter([
         path: "personal-goals",
         element: <PersonalGoal />,
       },
+
       {
         path: "offers",
         element: <PersonalOffers />,
@@ -212,6 +223,48 @@ export const router = createBrowserRouter([
           {
             path: "Followers",
             element: <Followers />,
+          },
+        ],
+      },
+      {
+        path: "/my-platform",
+        element: <MyPlatform />,
+        children: [
+          {
+            index: true,
+            element: <SupscriptionManagment />,
+          },
+          {
+            path: "my-cv",
+            element: <Cv />,
+          },
+          {
+            path: "my-assistant",
+            element: <MyAssistant />,
+          },
+          {
+            path: "my-opportunities",
+            element: <MyOpportunities />,
+          },
+          {
+            path: "my-offers",
+            element: <MyOffers />,
+          },
+          {
+            path: "my-groups",
+            element: <MyGroups />,
+          },
+          {
+            path: "my-community",
+            element: <MyCommunity />,
+          },
+          {
+            path: "my-audience",
+            element: <MyAudience />,
+          },
+          {
+            path: "my-clients",
+            element: <MyClients />,
           },
         ],
       },
