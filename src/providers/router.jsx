@@ -92,6 +92,8 @@ import MyGroups from "../routes/website/my-platform/MyGroups";
 import MyCommunity from "../routes/website/my-platform/MyCommunity";
 import MyAudience from "../routes/website/my-platform/MyAudience";
 import MyClients from "../routes/website/my-platform/MyClients";
+import CommunitiesDetails from "../routes/dash-board/CommunitiesDetails";
+
 
 export const router = createBrowserRouter([
   {
@@ -340,6 +342,10 @@ export const router = createBrowserRouter([
       {
         path: "profile",
         element: <EmployeeProfile />,
+      },
+      {
+        path: "communities-details/:id",
+        element: <CommunitiesDetails />,
       },
 
       {
