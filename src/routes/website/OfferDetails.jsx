@@ -1,16 +1,19 @@
 import { useState } from "react";
 import { useParams } from "react-router";
+import useGetOfferDetials from "../../hooks/my-assistances/useGetOfferDetials";
+import CustomButton from "../../ui/CustomButton";
 import ContractReq from "../../ui/modals/ContractReqModal";
 import ReportModal from "../../ui/modals/ReportModal";
-import InquiryModal from "../../ui/modals/inquiryModal";
 import ReviewsModal from "../../ui/modals/ReviewsModal";
-import SectionHeader from "../../ui/website/SectionHeader";
-import CustomButton from "../../ui/CustomButton";
+import InquiryModal from "../../ui/modals/inquiryModal";
 import OptionsMenu from "../../ui/website/OptionsMenu";
-import TopInfo from "../../ui/website/offers/TopInfo";
+import SectionHeader from "../../ui/website/SectionHeader";
 import OfferInfoGrid from "../../ui/website/offers/OfferInfoGrid";
+import TopInfo from "../../ui/website/offers/TopInfo";
+import Loading from "../../ui/loading/Loading";
 export default function OfferDetails() {
   const { id } = useParams();
+  const { offer, isLoading } = useGetOfferDetials(id);
   const [menuOpen, setMenuOpen] = useState(false);
   const [showHelpModal, setShowHelpModal] = useState(false);
   const [showReportModal, setShowReportModal] = useState(false);
@@ -25,161 +28,7 @@ export default function OfferDetails() {
     setShowReviewsModal(false);
   };
 
-  const offers = [
-    {
-      id: 1,
-      name: "علي الزهراني",
-      rating: 4.8,
-      title: "إطلاق مبادرة لتمكين النساء في التجارة الإلكترونية",
-      country: "البحرين",
-      type: "مؤسس ",
-      section: "تجارة إلكترونية",
-      ageCategory: "15 - 24",
-      identity: "رجال فقط",
-      extraTerms:
-        "توفر نسخة قابلة للتعديل من نموذج بطاقة الأداء المتوازن مع خطوات إرشادية دقيقة لطريقة تطبيقها على المشروع.",
-      price: 2500,
-      image: "/images/p2.png",
-      status: true,
-      assistMethods: [
-        "الالتقاء الشخصي",
-        "الاتصال المرئي والمسموع ",
-        "التراسل النصي والصوتي",
-      ],
-      rates: [
-        { label: "خبره ومعرفة", value: 4.5 },
-        { label: "جودة الأداء", value: 4.6 },
-        { label: "الالتزام بالوقت", value: 4.7 },
-        { label: "حسن التعامل", value: 4.3 },
-      ],
-      Previousbeneficiaries: "18",
-    },
-    {
-      id: 2,
-      name: "فاطمة الجهني",
-      rating: 4.5,
-      title: "تطوير تطبيقات الهاتف الذكي لتسهيل التسوق للأسر المنتجة",
-      country: "الإمارات",
-      type: "مبتكرة ",
-      section: "تكنولوجيا المعلومات",
-      ageCategory: "15 - 24",
-      identity: "رجال فقط",
-      extraTerms:
-        "توفر نسخة قابلة للتعديل من نموذج بطاقة الأداء المتوازن مع خطوات إرشادية دقيقة لطريقة تطبيقها على المشروع.",
-      price: 2500,
-      image: "/images/p1.png",
-      status: true,
-      assistMethods: [
-        "الالتقاء الشخصي",
-        "الاتصال المرئي والمسموع ",
-        "التراسل النصي والصوتي",
-      ],
-      rates: [
-        { label: "خبره ومعرفة", value: 4.5 },
-        { label: "جودة الأداء", value: 4.6 },
-        { label: "الالتزام بالوقت", value: 4.7 },
-        { label: "حسن التعامل", value: 4.3 },
-      ],
-      Previousbeneficiaries: "22",
-    },
-    {
-      id: 4,
-      name: "فاطمة الجهني",
-      rating: 4.5,
-      title: "تطوير تطبيقات الهاتف الذكي لتسهيل التسوق للأسر المنتجة",
-      country: "الإمارات",
-      type: "مبتكرة  ",
-      section: "تكنولوجيا المعلومات",
-      ageCategory: "15 - 24",
-      identity: "الكل",
-      extraTerms:
-        "توفر نسخة قابلة للتعديل من نموذج بطاقة الأداء المتوازن مع خطوات إرشادية دقيقة لطريقة تطبيقها على المشروع.",
-      price: 2500,
-      image: "/images/p1.png",
-      status: true,
-      assistMethods: [
-        "الالتقاء الشخصي",
-        "الاتصال المرئي والمسموع ",
-        "التراسل النصي والصوتي",
-      ],
-      rates: [
-        { label: "خبره ومعرفة", value: 4.5 },
-        { label: "جودة الأداء", value: 4.6 },
-        { label: "الالتزام بالوقت", value: 4.7 },
-        { label: "حسن التعامل", value: 4.3 },
-      ],
-      Previousbeneficiaries: "33",
-    },
-
-    {
-      id: 3,
-      name: "فاطمة الجهني",
-      rating: 4.5,
-      title: "تطوير تطبيقات الهاتف الذكي لتسهيل التسوق للأسر المنتجة",
-      country: "الإمارات",
-      type: "مبتكرة ",
-      section: "تكنولوجيا المعلومات",
-      ageCategory: "15 - 24",
-      identity: "الكل",
-      extraTerms:
-        "توفر نسخة قابلة للتعديل من نموذج بطاقة الأداء المتوازن مع خطوات إرشادية دقيقة لطريقة تطبيقها على المشروع.",
-      price: 2500,
-      image: "/images/p1.png",
-      status: true,
-      assistMethods: [
-        "الالتقاء الشخصي",
-        "الاتصال المرئي والمسموع ",
-        "التراسل النصي والصوتي",
-      ],
-      rates: [
-        { label: "خبره ومعرفة", value: 4.5 },
-        { label: "جودة الأداء", value: 4.6 },
-        { label: "الالتزام بالوقت", value: 4.7 },
-        { label: "حسن التعامل", value: 4.3 },
-      ],
-      Previousbeneficiaries: "12",
-    },
-    {
-      id: 5,
-      name: "فاطمة الجهني",
-      rating: 4.5,
-      title: "تطوير تطبيقات الهاتف الذكي لتسهيل التسوق للأسر المنتجة",
-      country: "الإمارات",
-      type: "مبتكرة ",
-      section: "تكنولوجيا المعلومات",
-      ageCategory: "15 - 24",
-      identity: "الكل",
-      extraTerms:
-        "توفر نسخة قابلة للتعديل من نموذج بطاقة الأداء المتوازن مع خطوات إرشادية دقيقة لطريقة تطبيقها على المشروع.",
-      price: 2500,
-      image: "/images/p1.png",
-      status: true,
-      assistMethods: [
-        "الالتقاء الشخصي",
-        "الاتصال المرئي والمسموع ",
-        "التراسل النصي والصوتي",
-      ],
-      rates: [
-        { label: "خبره ومعرفة", value: 4.5 },
-        { label: "جودة الأداء", value: 4.6 },
-        { label: "الالتزام بالوقت", value: 4.7 },
-        { label: "حسن التعامل", value: 4.3 },
-      ],
-      Previousbeneficiaries: "5",
-    },
-  ];
-
-  const offer = offers.find((o) => o.id === Number(id));
-
-  if (!offer) {
-    return (
-      <section className="page offer-details-section mx-3">
-        <div className="container text-center p-5">
-          <h2>العرض غير موجود</h2>
-        </div>
-      </section>
-    );
-  }
+  if (isLoading) return <Loading />;
 
   return (
     <section className="page offer-details-section ">

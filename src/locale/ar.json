@@ -315,7 +315,15 @@
       },
       "audience": {
         "noFollowers": "لا يوجد متابعون بعد",
-        "memberSince": "عضو منذ"
+        "memberSince": "عضو منذ",
+        "followers": "المتابعون",
+        "members": "الاعضاء"
+      },
+      "myAssistance": {
+        "activeOffers": "العروض النشطة",
+        "archivedOffers": "العروض المؤرشفة",
+        "noActiveAssiatances": "ليس لديك أي مساعدات نشطة حالياً.",
+        "noArcivedAssiatances": "ليس لديك أي مساعدات مؤرشفة بعد."
       }
     },
     "payment": "الدفع"

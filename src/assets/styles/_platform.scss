@@ -3,6 +3,12 @@
 @use "./mixins" as *;
 @use "./variables" as *;
 
+.platform-tabs {
+  position: sticky;
+  top: 100px;
+  z-index: 100;
+}
+
 // MODAL
 .platform-modal-header {
   font-size: 1rem;
@@ -139,7 +145,7 @@
 }
 .subscription-upgrade-options {
   height: 56px;
-  background-color: $InputBG;
+  background-color: $main4;
   width: 100%;
   border-radius: 1rem;
   padding: 0.25rem;

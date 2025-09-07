@@ -307,7 +307,15 @@
       },
       "audience": {
         "noFollowers": "No followers yet",
-        "memberSince": "Member Since"
+        "memberSince": "Member Since",
+        "followers": "Followers",
+        "members": "Members"
+      },
+      "myAssistance": {
+        "activeOffers": "Active Offers",
+        "archivedOffers": "Archived Offers",
+        "noActiveAssiatances": "You don’t have any active assistances at the moment.",
+        "noArcivedAssiatances": "You don’t have any archived assistances yet."
       }
     },
 

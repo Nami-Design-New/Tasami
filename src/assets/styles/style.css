@@ -7354,10 +7354,15 @@ footer .links a:hover {
   align-items: center;
   margin-bottom: 0.5rem;
 }
-.offer-card .info .info-header h3 {
+.offer-card .info .info-header h3,
+.offer-card .info .info-header .rating {
   font-weight: 600;
   font-size: 16px;
   color: #0d0d0d;
+}
+.offer-card .info .title {
+  font-size: 14px;
+  color: rgba(13, 13, 13, 0.5607843137);
 }
 .offer-card .data {
   padding: 0 0.5rem;
@@ -7369,6 +7374,8 @@ footer .links a:hover {
   display: flex;
   align-items: center;
   gap: 10px;
+  font-size: 14px;
+  font-weight: 700;
 }
 .offer-card .data .item img {
   width: 16px;
@@ -7380,7 +7387,7 @@ footer .links a:hover {
   justify-content: space-between;
 }
 .offer-card .data .price i {
-  color: #777;
+  color: #aaaaaa;
   font-size: 20px;
   cursor: pointer;
   transition: color 0.3s ease;
@@ -9637,6 +9644,12 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
   background-color: rgb(0, 42.5, 127.5);
 }
 
+.platform-tabs {
+  position: sticky;
+  top: 100px;
+  z-index: 100;
+}
+
 .platform-modal-header {
   font-size: 1rem;
   font-weight: 700;
@@ -9770,7 +9783,7 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
 
 .subscription-upgrade-options {
   height: 56px;
-  background-color: rgba(13, 13, 13, 0.0196078431);
+  background-color: rgba(2, 72, 150, 0.0392156863);
   width: 100%;
   border-radius: 1rem;
   padding: 0.25rem;
