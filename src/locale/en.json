@@ -8,6 +8,7 @@
   "deactive": "Deactive",
   "active": "Active",
   "cancel": "Cancel",
+  "noDataAvilable": "No Data Available",
   "pageHeaders": {
     "Notifications": "Notifications",
     "Dashboard": "Dashboard",
@@ -256,7 +257,9 @@
         "offersCount": "Number of offers you can submit at once",
         "groupsCount": "Number of groups you can create",
         "seatsCount": "Seats available per group",
-        "appCommission": "Platform commission from contracts and memberships"
+        "appCommission": "Platform commission from contracts and memberships",
+        "yearly": "Yearly",
+        "halfYearly": "Half yearly"
       },
       "cv": {
         "addDocument": "Add Document",
@@ -301,6 +304,10 @@
         "about": "About Your Community",
         "areYouSure": "Are You Sure",
         "message": "The monthly deduction from members' accounts will be stopped while keeping the community active until all memberships expire, after which the deactivation will take effect."
+      },
+      "audience": {
+        "noFollowers": "No followers yet",
+        "memberSince": "Member Since"
       }
     },
 
