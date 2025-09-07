@@ -23,8 +23,14 @@ export default function SupscriptionManagment() {
       </h2>
       <PlanDurationSelector
         options={[
-          { label: "نصف سنوية", value: "half_yearly" },
-          { label: "سنوية", value: "yearly" },
+          {
+            label: t("website.platform.subscription.yearly"),
+            value: "half_yearly",
+          },
+          {
+            label: t("website.platform.subscription.halfYearly"),
+            value: "yearly",
+          },
         ]}
         value={selectedDuration}
         onChange={setSelectedDuration}
