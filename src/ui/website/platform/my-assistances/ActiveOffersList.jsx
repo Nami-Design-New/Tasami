@@ -18,11 +18,16 @@ export default function ActiveOffersList() {
     myAssistances?.pages?.flatMap((page) => page?.data) ?? [];
   return (
     <section className="active-assistances-list">
-      {!isLoading && activeAssistances.length === 0 && (
-        <EmptySection
-          height="500px"
-          message={t("website.platform.myAssistance.noActiveAssiatances")}
-        />
+      {" "}
+      {/* Fetching next page indicator */}
+      {(isLoading || isFetchingNextPage) && (
+        <div className="row">
+          {[1, 2, 3].map((i) => (
+            <div className="col-12 col-md-6 col-lg-4  p-2" key={i}>
+              <OfferCardSkeleton />
+            </div>
+          ))}
+        </div>
       )}
       <InfiniteScroll
         onLoadMore={fetchNextPage}
@@ -37,15 +42,11 @@ export default function ActiveOffersList() {
           ))}
         </div>
       </InfiniteScroll>{" "}
-      {/* Fetching next page indicator */}
-      {(isLoading || isFetchingNextPage) && (
-        <div className="row">
-          {[1, 2, 3].map((i) => (
-            <div className="col-12 col-md-6 col-lg-4  p-2" key={i}>
-              <OfferCardSkeleton />
-            </div>
-          ))}
-        </div>
+      {!isLoading && activeAssistances.length === 0 && (
+        <EmptySection
+          height="500px"
+          message={t("website.platform.myAssistance.noActiveAssiatances")}
+        />
       )}
     </section>
   );

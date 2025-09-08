@@ -11,6 +11,8 @@ export default function useGetOfferDetials() {
       if (res.data.code !== 200) {
         throw new Error(res.data.message);
       }
+      console.log(res.data.data);
+
       return res.data.data;
     },
   });

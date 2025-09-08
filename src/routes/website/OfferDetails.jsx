@@ -11,16 +11,16 @@ import SectionHeader from "../../ui/website/SectionHeader";
 import OfferInfoGrid from "../../ui/website/offers/OfferInfoGrid";
 import TopInfo from "../../ui/website/offers/TopInfo";
 import Loading from "../../ui/loading/Loading";
+import { useSelector } from "react-redux";
 export default function OfferDetails() {
-  const { id } = useParams();
-  const { offer, isLoading } = useGetOfferDetials(id);
-  const [menuOpen, setMenuOpen] = useState(false);
+  const { offerDetails, isLoading } = useGetOfferDetials();
+  const { user } = useSelector((state) => state.authRole);
+
   const [showHelpModal, setShowHelpModal] = useState(false);
   const [showReportModal, setShowReportModal] = useState(false);
   const [showInquiryModal, setShowInquiryModal] = useState(false);
   const [showReviewsModal, setShowReviewsModal] = useState(false);
 
-  const toggleMenu = () => setMenuOpen(!menuOpen);
   const closeModals = () => {
     setShowHelpModal(false);
     setShowReportModal(false);
@@ -35,48 +35,72 @@ export default function OfferDetails() {
       <div className="container">
         <div className="header">
           <SectionHeader title="تفاصيل العرض" />
-          <OptionsMenu
-            setShowInquiryModal={setShowInquiryModal}
-            setShowReportModal={setShowReportModal}
-          />
+          {user.id === offerDetails.user.id && (
+            <OptionsMenu
+              options={[
+                { label: "تعديل", onClick: () => console.log("edit") },
+                {
+                  label: "ارشفه",
+                  onClick: () => console.log("Archive"),
+                },
+                {
+                  label: "حذف",
+                  onClick: () => console.log("Delete"),
+                  className: "text-danger",
+                },
+              ]}
+            />
+          )}
+          {user.id !== offerDetails.user.id && (
+            <OptionsMenu
+              options={[
+                { label: "استفسار", onClick: () => console.log("Inquiry") },
+                {
+                  label: "إبلاغ عن مخالفة",
+                  onClick: () => console.log("Report"),
+                  className: "text-danger",
+                },
+              ]}
+            />
+          )}
         </div>
         <div className="goal-details-card mt-3 row">
-          <TopInfo offer={offer} />
+          <TopInfo offer={offerDetails} />
           <div className="col-lg-8 col-12 ">
             <div className="hed">
               <img src="/icons/triangle.svg" />
               <h6>المساعدة</h6>
             </div>
-            <p className="desc">{offer.title}</p>
+            <p className="desc">{offerDetails?.title}</p>
             <OfferInfoGrid
-              offer={offer}
+              offer={offerDetails}
               onShowHelpModal={() => setShowHelpModal(true)}
               onShowReviewsModal={() => setShowReviewsModal(true)}
             />
-            <div className="hed">
+            {/* <div className="hed">
               <h6>تقييمات سابقة</h6>
-            </div>
+            </div> */}
             <div className="info-grid">
-              <div className="info-box w-100">
+              {/* <div className="info-box w-100">
                 <div className="flex">
                   <div className="label">مستفيدون سابقون </div>
                   <div className="bold">
                     <img src="/icons/Groups.svg" alt="icon" />
-                    <span>{offer.Previousbeneficiaries}</span>
+                    <span>{offerDetails?.Previousbeneficiaries}</span>
                   </div>
                 </div>
-              </div>
-              <div className="info-box w-100">
+              </div> */}
+              {/* <div className="info-box w-100">
                 <div className="flex">
                   <div className="label">التقييم الاجمالي</div>
                   <div>
                     <i className="fa-solid fa-star text-warning"></i>{" "}
-                    <span className="bold">{offer.rating}</span>
+                    <span className="bold">{offerDetails.rating}</span>
                   </div>
                 </div>
 
                 <ul className="rates-list mt-2">
-                  {offer.rates.map((rate, index) => (
+                  {offerDetails.rates.map((rate, index) => (
                     <li key={index}>
                       <div className="flex">
                         <span>{rate.label}</span>
@@ -85,7 +109,7 @@ export default function OfferDetails() {
                     </li>
                   ))}
                 </ul>
-              </div>
+              </div> */}
               <CustomButton onClick={() => setShowHelpModal(true)}>
                 إرسال طلب تعاقد
               </CustomButton>

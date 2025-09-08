@@ -8,6 +8,11 @@
   "cancel": "الغاء",
   "deactive": "ايقاف التنشيط",
   "active": "تنشيط",
+  "add": "إضافة",
+  "generate": "توليد",
+  "from": "من",
+  "to": "إلى",
+  "optional": "اختياري",
   "noDataAvilable": "لا توجد معلومات ",
 
   "pageHeaders": {
@@ -127,7 +132,8 @@
     "explore": "استكشف",
     "tasami": "تسامي",
     "withoutLogin": "بدون تسجيل ",
-    "email": "البريد الإلكتروني"
+    "email": "البريد الإلكتروني",
+    "all": "الكل"
   },
   "profile": {
     "myInfo": "معلوماتي",
@@ -186,13 +192,20 @@
     "passwordMin": "كلمة المرور يجب أن تكون 6 أحرف على الأقل",
     "passwordMatch": "يجب أن تتطابق كلمتا المرور",
     "fileSize": "يجب أن يكون حجم الملف أقل من 2 ميغابايت",
-    "fileType": "يسمح فقط بملفات JPG و PNG",
+    "fileType": "يسمح فقط بالصور ",
     "date": "يرجى إدخال تاريخ صالح",
     "minAge": "يجب أن يكون عمرك على الأقل 13 سنوات",
     "invalidPhoneNumber": "يجب أن يحتوي رقم الهاتف على أرقام فقط",
     "number": "يجب أن يكون رقمًا",
     "min": "يجب أن يكون {{field}} على الأقل {{min}}",
-    "maxLength": "يجب ألا يزيد عن {{max}} حرفًا"
+    "maxLength": "يجب ألا يزيد عن {{max}} حرفًا",
+    "offerMinAge": "العمر الأدنى هو {{min}}",
+    "maxAge": "العمر الأقصى هو {{max}}",
+    "toAgeGteFromAge": "عمر (إلى) يجب أن يكون أكبر أو مساوياً لعمر (من)",
+    "mustBeNumber": "يجب أن يكون رقماً",
+    "mustBePositive": "يجب أن يكون موجباً",
+    "minPrice": "قيمة المساعدة الدنيا هي {{min}}",
+    "helpMechanismRequired": "يرجى اختيار آلية مساعدة واحدة على الأقل"
   },
   "pageNotFound": {
     "alt": "لم يتم العثور على الصفحة",
@@ -323,7 +336,25 @@
         "activeOffers": "العروض النشطة",
         "archivedOffers": "العروض المؤرشفة",
         "noActiveAssiatances": "ليس لديك أي مساعدات نشطة حالياً.",
-        "noArcivedAssiatances": "ليس لديك أي مساعدات مؤرشفة بعد."
+        "noArcivedAssiatances": "ليس لديك أي مساعدات مؤرشفة بعد.",
+        "addNewOffer": "إضافة عرض مساعدة جديد",
+        "identity": "تفضيل هوية المستفيد",
+        "offerTitle": "المساعدة المعروضة",
+        "defined": "محدد",
+        "notDefined": "غير محدد",
+        "age": "الفئة العمرية للمستفيد",
+        "duration": "المدة المتوقعة لتقديم المساعدة",
+        "day": "يوم",
+        "month": "شهر",
+        "days": "أيام",
+        "price": "قيمة المساعدة",
+        "extraTerms": "بنود إضافية",
+        "extraTermsPlaceholder": "أدخل البنود الإضافية",
+        "helpMechanism": "آلية المساعدة",
+        "meeting": "الالتقاء الشخصي",
+        "videoCall": "الاتصال المرئي والمسموع",
+        "textAudio": "التراسل النصي والصوتي",
+        "offerImage": "صورة العرض"
       }
     },
     "payment": "الدفع"

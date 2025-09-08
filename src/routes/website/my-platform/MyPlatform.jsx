@@ -16,7 +16,7 @@ export default function MyPlatform() {
 
   return (
     <section className="profile_section ">
-      <div className="container-lg p-0">
+      <div className="container-lg p-0 position-relative">
         <div className="row">
           <div className="col-12 p-2 mb-4">
             <div className="platform-header">

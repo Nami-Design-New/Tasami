@@ -399,7 +399,7 @@
 .gender-goal-filter {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 4px;
   p {
     font-weight: bold;
   }
@@ -414,13 +414,14 @@
   label {
     @include centerFlex();
     padding: 1rem;
-    min-width: 96px;
+    flex: 1;
     border: 1px solid $secondColorDark;
     color: $secondColorDark;
     border-radius: 12px;
     cursor: pointer;
     font-size: 1rem;
     transition: all 0.2s ease;
+    height: 54px;
 
     input[type="radio"] {
       display: none;
