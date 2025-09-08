@@ -1,54 +1,10 @@
-// HelpersSlider.jsx
+import { Link } from "react-router";
 import "swiper/css";
-import { Autoplay } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import HelperCard from "../../cards/HelperCard";
-import { Link } from "react-router";
+import { Autoplay } from "swiper/modules";
 
-const helpers = [
-  {
-    id: 1,
-    name: "انس تركي",
-    country: "السعودية",
-    rating: 6,
-    image: "/images/p2.png",
-    status: true,
-  },
-  {
-    id: 2,
-    name: "مها صالح",
-    country: "الإمارات",
-    rating: 10,
-    image: "/images/p1.png",
-    status: true,
-  },
-  {
-    id: 3,
-    name: "انس تركي",
-    country: "السعودية",
-    rating: 8,
-    image: "/images/p2.png",
-    status: true,
-  },
-  {
-    id: 4,
-    name: "مها صالح",
-    country: "الإمارات",
-    rating: 11,
-    image: "/images/p1.png",
-    status: true,
-  },
-  {
-    id: 5,
-    name: "مني صالح",
-    country: "الإمارات",
-    rating: 11,
-    image: "/images/p1.png",
-    status: true,
-  },
-];
-
-export default function HelpersSlider() {
+export default function HelpersSlider({ helpers }) {
   return (
     <section className="helpers-slider">
       <div className="slider-header">
@@ -69,9 +25,9 @@ export default function HelpersSlider() {
           992: { slidesPerView: 3 },
           1200: { slidesPerView: 4 },
         }}
-        // loop
-        // autoplay={{ delay: 3000, disableOnInteraction: false }}
-        // modules={[Autoplay]}
+        loop
+        autoplay={{ delay: 3000, disableOnInteraction: false }}
+        modules={[Autoplay]}
       >
         {helpers.map((helper) => (
           <SwiperSlide key={helper.id}>

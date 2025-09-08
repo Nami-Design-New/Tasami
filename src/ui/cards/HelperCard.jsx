@@ -1,11 +1,13 @@
 import { Link } from "react-router";
 export default function HelperCard({ helper }) {
+  console.log(helper);
+
   return (
     <Link to={`/helper/${helper.id}`} className="helper-card">
       <div className="content-wrapper ">
         <div className="image-wrapper">
           <img src={helper.image} alt={helper.name} className="avatar" />
-          {helper.status && <span className="status-dot"></span>}
+          <span className="status-dot"></span>
         </div>
 
         <div className="info">
@@ -13,16 +15,18 @@ export default function HelperCard({ helper }) {
             <h3>{helper.name}</h3>
             <div className="rating">
               <img src="/icons/medal.svg" />
-              <span>{helper.rating}</span>
+              <span>{helper.contract_numbers}</span>
             </div>
           </div>
 
-          <div className="meta">
-            <span className="country">
-              <img src="/icons/flag.svg" />
-              <span>{helper.country}</span>
-            </span>
-          </div>
+          {helper.country && (
+            <div className="meta">
+              <span className="country">
+                <img src="/icons/flag.svg" />
+                <span>{helper.country.title}</span>
+              </span>
+            </div>
+          )}
         </div>
       </div>
     </Link>

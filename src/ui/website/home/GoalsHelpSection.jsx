@@ -1,7 +1,7 @@
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router";
 
-export default function GoalsHelpSection() {
+export default function GoalsHelpSection({ goals }) {
   const { t } = useTranslation();
   return (
     <section className="goals-help-section ">

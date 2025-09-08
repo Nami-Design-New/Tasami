@@ -7012,6 +7012,8 @@ footer .links a:hover {
 .hero-section .hero_slider {
   width: 100%;
   height: auto;
+  border-radius: 12px;
+  overflow: hidden;
 }
 .hero-section img {
   width: 100%;
