@@ -82,7 +82,7 @@ export default function Header() {
               size="small"
               style={{ whiteSpace: "nowrap" }}
               onClick={() => {
-                user.about ? navigate("my-platform/my-cv") : setShowModal(true);
+                user.about ? navigate("my-platform") : setShowModal(true);
               }}
             >
               <i className="fa-solid fa-robot"></i>

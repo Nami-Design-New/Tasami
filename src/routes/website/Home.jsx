@@ -18,9 +18,7 @@ export default function Home() {
         <div className="col-12 p-2 my-3">
           <GoalSlider />
         </div>
-        <div className="col-12 p-2 my-3">
-          <OffersSlider />
-        </div>
+        <div className="col-12 p-2 my-3">{/* <OffersSlider /> */}</div>
         <div className="col-12 p-2 my-3">
           <HelpersSlider />
         </div>

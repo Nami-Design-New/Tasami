@@ -3,6 +3,12 @@
 @use "./mixins" as *;
 @use "./variables" as *;
 
+.platform-tabs {
+  position: sticky;
+  top: 100px;
+  z-index: 100;
+}
+
 // MODAL
 .platform-modal-header {
   font-size: 1rem;
@@ -139,7 +145,7 @@
 }
 .subscription-upgrade-options {
   height: 56px;
-  background-color: $InputBG;
+  background-color: $main4;
   width: 100%;
   border-radius: 1rem;
   padding: 0.25rem;
@@ -492,6 +498,44 @@
         font-weight: 400;
         color: $gray;
       }
+    }
+  }
+}
+
+// add assistance
+
+.duration-selector {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 54px;
+  border: 1px solid $InputStroke;
+  border-radius: 12px;
+  background-color: $InputBG;
+  padding: 4px;
+  flex: 2;
+}
+
+.duration-option {
+  cursor: pointer;
+  @include centerFlex;
+  font-size: 14px;
+  flex: 1;
+  gap: 4px;
+  padding: 12px 8px;
+  border-radius: 12px;
+  color: $second;
+  transition: all 0.4s ease;
+  input {
+    appearance: none;
+  }
+  &.active {
+    border-color: $second;
+    background-color: $second;
+    color: $white;
+
+    img {
+      filter: brightness(0) invert(1);
     }
   }
 }

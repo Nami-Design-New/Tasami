@@ -66,34 +66,33 @@ import Views from "../routes/website/Views";
 
 import DashboardAuthlayout from "../layout/DashboardAuthlayout";
 import WebsiteAuthLayout from "../layout/WebsiteAuthLayout";
+import CommunitiesDetails from "../routes/dash-board/CommunitiesDetails";
 import CommunityPostDetails from "../routes/dash-board/CommunityPostDetails";
 import ContractDetails from "../routes/dash-board/ContractDetails";
 import ResuemeDetails from "../routes/dash-board/resuems/ResuemeDetails";
+import DashboardLoginPage from "../routes/dashboard-auth/DashboardLoginPage";
+import DashBoardResetPassword from "../routes/dashboard-auth/DashBoardResetPassword";
 import Forbidden from "../routes/Forbidden";
+import AreasOfInterest from "../routes/website-auth/AreasOfInterest";
+import LoginPage from "../routes/website-auth/LoginPage";
+import Register from "../routes/website-auth/Register";
+import ResetPassword from "../routes/website-auth/ResetPassword";
 import Followers from "../routes/website/Followers";
 import Interests from "../routes/website/Interests";
+import Cv from "../routes/website/my-platform/Cv";
+import MyAssistance from "../routes/website/my-platform/MyAssistance";
+import MyAudience from "../routes/website/my-platform/MyAudience";
+import MyClients from "../routes/website/my-platform/MyClients";
+import MyCommunity from "../routes/website/my-platform/MyCommunity";
+import MyGroups from "../routes/website/my-platform/MyGroups";
+import MyOffers from "../routes/website/my-platform/MyOffers";
+import MyOpportunities from "../routes/website/my-platform/MyOpportunities";
+import MyPlatform from "../routes/website/my-platform/MyPlatform";
+import SupscriptionManagment from "../routes/website/my-platform/SupscriptionManagment";
 import Savings from "../routes/website/Savings";
 import ErrorFallback from "../ui/ErrorFallback";
 import ProtectedRoute from "./ProtectedRoute";
 import { SkipGuardedRoute } from "./SkipGuardedRoute";
-import LoginPage from "../routes/website-auth/LoginPage";
-import Register from "../routes/website-auth/Register";
-import AreasOfInterest from "../routes/website-auth/AreasOfInterest";
-import ResetPassword from "../routes/website-auth/ResetPassword";
-import DashboardLoginPage from "../routes/dashboard-auth/DashboardLoginPage";
-import DashBoardResetPassword from "../routes/dashboard-auth/DashBoardResetPassword";
-import MyPlatform from "../routes/website/my-platform/MyPlatform";
-import SupscriptionManagment from "../routes/website/my-platform/SupscriptionManagment";
-import Cv from "../routes/website/my-platform/Cv";
-import MyAssistant from "../routes/website/my-platform/MyAssistant";
-import MyOpportunities from "../routes/website/my-platform/MyOpportunities";
-import MyOffers from "../routes/website/my-platform/MyOffers";
-import MyGroups from "../routes/website/my-platform/MyGroups";
-import MyCommunity from "../routes/website/my-platform/MyCommunity";
-import MyAudience from "../routes/website/my-platform/MyAudience";
-import MyClients from "../routes/website/my-platform/MyClients";
-import CommunitiesDetails from "../routes/dash-board/CommunitiesDetails";
-
 
 export const router = createBrowserRouter([
   {
@@ -239,8 +238,8 @@ export const router = createBrowserRouter([
             element: <Cv />,
           },
           {
-            path: "my-assistant",
-            element: <MyAssistant />,
+            path: "my-assistances",
+            element: <MyAssistance />,
           },
           {
             path: "my-opportunities",
