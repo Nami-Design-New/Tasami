@@ -488,6 +488,32 @@ li[data-sonner-toast=""] {
   display: none;
 }
 
+.float-button-wrapper {
+  position: sticky;
+  bottom: 0;
+  z-index: 10; /* above list items */
+  display: flex;
+  justify-content: end;
+}
+@media screen and (max-width: 991px) {
+  .float-button-wrapper {
+    bottom: 80px;
+  }
+}
+
+/* Your existing button styles */
+.float-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem 1rem;
+  border-radius: 0.75rem;
+  background-color: rgb(33, 75, 146);
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+}
+
 .main-header {
   position: sticky;
   top: 0;
@@ -716,6 +742,7 @@ li[data-sonner-toast=""] {
   background: #fff;
   align-items: center;
   display: none;
+  min-height: 76px;
 }
 @media screen and (max-width: 991px) {
   .small_menu {
@@ -3342,12 +3369,14 @@ button.back:hover {
   font-size: 16px;
   margin-bottom: 4px;
 }
-.identity-selector .identity-container {
+
+.identity-container {
   display: flex;
   align-items: center;
   gap: 8px;
 }
-.identity-selector .identity-option {
+
+.identity-option {
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -3361,17 +3390,17 @@ button.back:hover {
   font-size: 1rem;
   transition: all 0.4s ease;
 }
-.identity-selector .identity-option input {
+.identity-option input {
   -webkit-appearance: none;
      -moz-appearance: none;
           appearance: none;
 }
-.identity-selector .identity-option.active {
+.identity-option.active {
   border-color: #5fcafa;
   background-color: #5fcafa;
   color: #fff;
 }
-.identity-selector .identity-option.active img {
+.identity-option.active img {
   filter: brightness(0) invert(1);
 }
 
@@ -7354,10 +7383,15 @@ footer .links a:hover {
   align-items: center;
   margin-bottom: 0.5rem;
 }
-.offer-card .info .info-header h3 {
+.offer-card .info .info-header h3,
+.offer-card .info .info-header .rating {
   font-weight: 600;
   font-size: 16px;
   color: #0d0d0d;
+}
+.offer-card .info .title {
+  font-size: 14px;
+  color: rgba(13, 13, 13, 0.5607843137);
 }
 .offer-card .data {
   padding: 0 0.5rem;
@@ -7369,6 +7403,8 @@ footer .links a:hover {
   display: flex;
   align-items: center;
   gap: 10px;
+  font-size: 14px;
+  font-weight: 700;
 }
 .offer-card .data .item img {
   width: 16px;
@@ -7380,7 +7416,7 @@ footer .links a:hover {
   justify-content: space-between;
 }
 .offer-card .data .price i {
-  color: #777;
+  color: #aaaaaa;
   font-size: 20px;
   cursor: pointer;
   transition: color 0.3s ease;
@@ -8516,7 +8552,7 @@ footer .links a:hover {
 .gender-goal-filter {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 4px;
 }
 .gender-goal-filter p {
   font-weight: bold;
@@ -8533,13 +8569,14 @@ footer .links a:hover {
   align-items: center;
   justify-content: center;
   padding: 1rem;
-  min-width: 96px;
+  flex: 1;
   border: 1px solid #13aef3;
   color: #13aef3;
   border-radius: 12px;
   cursor: pointer;
   font-size: 1rem;
   transition: all 0.2s ease;
+  height: 54px;
 }
 .gender-goal-filter label input[type=radio] {
   display: none;
@@ -9637,6 +9674,12 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
   background-color: rgb(0, 42.5, 127.5);
 }
 
+.platform-tabs {
+  position: sticky;
+  top: 100px;
+  z-index: 100;
+}
+
 .platform-modal-header {
   font-size: 1rem;
   font-weight: 700;
@@ -9770,7 +9813,7 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
 
 .subscription-upgrade-options {
   height: 56px;
-  background-color: rgba(13, 13, 13, 0.0196078431);
+  background-color: rgba(2, 72, 150, 0.0392156863);
   width: 100%;
   border-radius: 1rem;
   padding: 0.25rem;
@@ -10131,6 +10174,45 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
   font-size: 11px;
   font-weight: 400;
   color: rgba(13, 13, 13, 0.5607843137);
+}
+
+.duration-selector {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 54px;
+  border: 1px solid rgba(13, 13, 13, 0.0941176471);
+  border-radius: 12px;
+  background-color: rgba(13, 13, 13, 0.0196078431);
+  padding: 4px;
+  flex: 2;
+}
+
+.duration-option {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  flex: 1;
+  gap: 4px;
+  padding: 12px 8px;
+  border-radius: 12px;
+  color: #5fcafa;
+  transition: all 0.4s ease;
+}
+.duration-option input {
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+}
+.duration-option.active {
+  border-color: #5fcafa;
+  background-color: #5fcafa;
+  color: #fff;
+}
+.duration-option.active img {
+  filter: brightness(0) invert(1);
 }
 
 body {

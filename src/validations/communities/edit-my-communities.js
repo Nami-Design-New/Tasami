@@ -21,7 +21,7 @@ const getSchema = (t) =>
           "image/jpg",
           "image/svg+xml",
           "image/svg",
-          "image/wepb",
+          "image/webp",
         ].includes(file.type);
       }),
 

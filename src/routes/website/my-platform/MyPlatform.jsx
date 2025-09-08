@@ -16,7 +16,7 @@ export default function MyPlatform() {
 
   return (
     <section className="profile_section ">
-      <div className="container-lg p-0">
+      <div className="container-lg p-0 position-relative">
         <div className="row">
           <div className="col-12 p-2 mb-4">
             <div className="platform-header">
@@ -32,7 +32,7 @@ export default function MyPlatform() {
               <p>{t("website.platform.hint")}</p>
             </div>
           </div>
-          <div className="col-lg-4 col-md-4 col-12 p-2">
+          <div className="col-lg-3 col-md-3 col-12 p-2">
             <div className="profile_sidebar">
               <UserCard user={user} />
               <div className="nav_links">
@@ -46,7 +46,7 @@ export default function MyPlatform() {
                   {t("website.platform.menu.cv")}
                 </NavLink>
 
-                <ProtectedNavLink to="my-assistant" disabled={!user.about}>
+                <ProtectedNavLink to="my-assistances" disabled={!user.about}>
                   <img src="./icons/my-assistance.svg" alt="" />
                   {t("website.platform.menu.myAssistant")}
                 </ProtectedNavLink>
@@ -84,7 +84,7 @@ export default function MyPlatform() {
             </div>
           </div>
 
-          <div className="col-lg-8 col-md-8 col-12 p-2">
+          <div className="col-lg-9 col-md-9 col-12 p-2">
             <Outlet />
           </div>
         </div>

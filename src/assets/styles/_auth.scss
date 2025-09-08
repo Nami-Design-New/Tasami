@@ -498,37 +498,37 @@ button.back {
     font-size: 16px;
     margin-bottom: 4px;
   }
-  .identity-container {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-  .identity-option {
-    cursor: pointer;
-    @include centerFlex;
-    flex: 1;
-    gap: 8px;
-    border: 1px solid $second;
-    padding: 1rem;
-    border-radius: 12px;
-    color: $second;
-    font-size: 1rem;
-    transition: all 0.4s ease;
-    input {
-      appearance: none;
-    }
-    &.active {
-      border-color: $second;
-      background-color: $second;
-      color: $white;
+}
+.identity-container {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
 
-      img {
-        filter: brightness(0) invert(1);
-      }
+.identity-option {
+  cursor: pointer;
+  @include centerFlex;
+  flex: 1;
+  gap: 8px;
+  border: 1px solid $second;
+  padding: 1rem;
+  border-radius: 12px;
+  color: $second;
+  font-size: 1rem;
+  transition: all 0.4s ease;
+  input {
+    appearance: none;
+  }
+  &.active {
+    border-color: $second;
+    background-color: $second;
+    color: $white;
+
+    img {
+      filter: brightness(0) invert(1);
     }
   }
 }
-
 .personal-info-form {
   .form-head {
     margin-bottom: 24px;

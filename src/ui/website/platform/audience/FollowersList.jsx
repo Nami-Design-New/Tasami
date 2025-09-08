@@ -1,10 +1,9 @@
 import { useTranslation } from "react-i18next";
 import useGetFollowers from "../../../../hooks/my-audience/useGetFollowers";
-import InfiniteScroll from "../../../loading/InfiniteScroll";
-import ExpDocItemLoader from "../../../loading/ExpDocItemLoader";
 import EmptySection from "../../../EmptySection";
-import AudienceCard from "./AudienceCard";
 import AudienceCardLoader from "../../../loading/AudienceCardLoader";
+import InfiniteScroll from "../../../loading/InfiniteScroll";
+import AudienceCard from "./AudienceCard";
 
 export default function FollowersList() {
   const { t } = useTranslation();
