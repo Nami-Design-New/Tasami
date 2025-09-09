@@ -15,6 +15,8 @@
   "optional": "اختياري",
   "noDataAvilable": "لا توجد معلومات ",
   "showAll": "عرض الكل",
+  "selectAsReads": "تحديد كمقروء",
+  "delete": "حذف",
 
   "pageHeaders": {
     "Notifications": " التنبيهات ",
@@ -186,6 +188,22 @@
     "goal_same_category": "التنبيه بالعروض التي توافق اهتماماتي في نفس المجال",
     "goal_same_sub_category": "التنبيه بالعروض التي توافق اهتماماتي في نفس التخصص",
     "goal_same_city": "التنبيه بالعروض التي تم نشرها ضمن مدينتي"
+  },
+  "notification": {
+    "title": "الإشعارات",
+    "mark_all_read": "تحديد الكل كمقروء",
+    "tab_notifications": "الإشعارات",
+    "tab_inquiries": "الاستفسارات",
+    "search": "بحث",
+    "latest": "أحدث التنبيهات",
+    "previous": "التنبيهات السابقة",
+    "system": "النظام",
+    "new_update": "هناك تحديث جديد للتطبيق، يمكنك تثبيته الآن",
+    "account_activated": "تم تفعيل حسابك بنجاح",
+    "days_ago": "منذ {{count}} أيام",
+    "one_day_ago": "منذ يوم",
+    "empty": "لا توجد إشعارات",
+    "fetch_error": "فشل في تحميل الإشعارات. حاول مرة أخرى."
   },
   "settings": {
     "termsTitle": "الشروط والأحكام",

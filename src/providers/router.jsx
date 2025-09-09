@@ -269,6 +269,10 @@ export const router = createBrowserRouter([
         ],
       },
       {
+        path: "notifications",
+        element: <MyNotifications />,
+      },
+      {
         path: "personal-community/:id",
         element: <PersonalCommunity />,
         children: [

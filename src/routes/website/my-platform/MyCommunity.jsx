@@ -9,7 +9,6 @@ export default function MyCommunity() {
   if (isLoading) {
     return <div>Loading...</div>;
   }
-  console.log(myCommunity);
 
   return (
     <section className="communities-details">

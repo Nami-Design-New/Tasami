@@ -23,7 +23,7 @@ export default function MembersList() {
           height="500px"
           message={t("website.platform.audience.noFollowers")}
         />
-      )}{" "}
+      )}
       <InfiniteScroll
         onLoadMore={fetchNextPage}
         hasNextPage={hasNextPage}

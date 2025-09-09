@@ -6,6 +6,7 @@ import LangDropdown from "./website/LangDropdown";
 import UserDropDown from "./website/UserDropDown";
 import CustomButton from "./CustomButton";
 import PlatformModal from "./website/platform/PlatformModal";
+import { Badge } from "react-bootstrap";
 export default function Header() {
   const { t } = useTranslation();
   const navigate = useNavigate();
@@ -13,7 +14,7 @@ export default function Header() {
   const [openMenu, setOpenMenu] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const { isAuthed, user } = useSelector((state) => state.authRole);
-
+  const count = "0";
   useEffect(() => {
     const handleOutsideClick = (e) => {
       const menu = document.querySelector(".nav-links");
@@ -88,6 +89,13 @@ export default function Header() {
               <i className="fa-solid fa-robot"></i>
               {t("profile.assistant")}
             </CustomButton>
+          )}
+          {isAuthed && (
+            <Link to="/notifications" className="notification-btn">
+              <i className="fa-solid fa-bell">
+                {count >= 0 && <Badge>{count > 99 ? "99+" : count}</Badge>}
+              </i>
+            </Link>
           )}
           <LangDropdown />
           {isAuthed && <UserDropDown />}

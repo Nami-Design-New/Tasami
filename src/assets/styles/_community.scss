@@ -702,15 +702,15 @@
       border-radius: 50%;
       background-color: $second;
     }
-    .edit-item {
-      color: $dark;
-      text-align: center;
-      font-weight: 700;
-    }
-    .deactive-item {
-      color: $fire;
-      text-align: center;
-      font-weight: 700;
-    }
   }
+}
+.edit-item {
+  color: $dark !important;
+  text-align: center !important;
+  font-weight: 700;
+}
+.deactive-item {
+  color: $fire !important;
+  text-align: center !important;
+  font-weight: 700 !important;
 }
