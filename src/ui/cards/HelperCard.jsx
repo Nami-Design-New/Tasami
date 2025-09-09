@@ -1,7 +1,5 @@
 import { Link } from "react-router";
 export default function HelperCard({ helper }) {
-  console.log(helper);
-
   return (
     <Link to={`/helper/${helper.id}`} className="helper-card">
       <div className="content-wrapper ">

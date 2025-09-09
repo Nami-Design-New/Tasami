@@ -14,6 +14,7 @@
   "to": "إلى",
   "optional": "اختياري",
   "noDataAvilable": "لا توجد معلومات ",
+  "showAll": "عرض الكل",
 
   "pageHeaders": {
     "Notifications": " التنبيهات ",
@@ -226,6 +227,20 @@
     "unexpectedMessage": "حدث خطأ غير متوقع. يرجى المحاولة مرة أخرى لاحقاً."
   },
   "website": {
+    "home": {
+      "totalWork": "اجمالى  الاعمال",
+      "inProgress": "قيد التنفيذ",
+      "pending": "بانتظار التنفيذ",
+      "completed": "مكتملة",
+      "personalGoalsTitle": "الأهداف الشخصية",
+      "personalGoalsSubtitle": "أحدث طلبات المساعدة لتحقيق أهداف جديدة",
+      "offersTitle": "عروض المساعدة",
+      "offersSubtitle": "جميع المساعدات التي يقدمها المساعدون",
+      "heplersTitle": "المساعدون الشخصيون",
+      "heplersSubtitle": "تعرف على المساعدين الملهمين في تسامي",
+      "myWroksTitle": "أعمالي",
+      "myWroksSubtitle": "راجع وتابع اعمالك بسهولة"
+    },
     "header": {
       "home": "الرئيسية",
       "howitWorks": "كيف تعمل المنصة",
@@ -241,15 +256,8 @@
       "communities": "مجتمعات تسامي"
     },
     "hero": {
-      "personalGoals": "الاهداف الشخصيه",
-      "offerHelp": "تقديم مساعدة "
-    },
-
-    "personalGoals": {
-      "header": {
-        "title": "الأهداف الشخصية",
-        "subTitle": "أحدث طلبات المساعدة لتحقيق أهداف جديدة"
-      }
+      "personalGoal": "هدف شخصي",
+      "offerHelp": "عرض مساعدة"
     },
     "platform": {
       "platform": "منصتي",

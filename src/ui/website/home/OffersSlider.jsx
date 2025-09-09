@@ -4,19 +4,19 @@ import { Autoplay } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import OfferCard from "../../cards/OfferCard";
 import { Link } from "react-router";
+import { useTranslation } from "react-i18next";
 
 export default function OffersSlider({ offers }) {
-  console.log("offers -------------", offers);
-
+  const { t } = useTranslation();
   return (
     <section className="offers-slider">
       <div className="slider-header">
         <div className="text">
-          <h2>عروض المساعدة</h2>
-          <p>جميع المساعدات التي يقدمها المساعدون</p>
+          <h2>{t("website.home.offersTitle")}</h2>
+          <p>{t("website.home.offersSubtitle")}</p>
         </div>
         <Link to="/offers" className="view-all">
-          عرض الكل
+          {t("showAll")}
         </Link>
       </div>
 

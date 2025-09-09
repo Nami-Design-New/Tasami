@@ -9,9 +9,8 @@ import OffersSlider from "../../ui/website/home/OffersSlider";
 
 export default function Home() {
   const { homePageData, isLoading } = useGetHomeData();
-  if (isLoading) return <Loading />;
-  console.log(homePageData?.help_service);
 
+  if (isLoading) return <Loading />;
   return (
     <section className="container-lg p-0">
       <div className="row">
@@ -36,9 +35,11 @@ export default function Home() {
             <HelpersSlider helpers={homePageData.helpers} />
           </div>
         )}
-        <div className="col-12 p-2 my-3">
-          <ContractsStatus />
-        </div>
+        {homePageData.my_works && (
+          <div className="col-12 p-2 my-3">
+            <ContractsStatus stats={homePageData.my_works} />
+          </div>
+        )}
       </div>
     </section>
   );

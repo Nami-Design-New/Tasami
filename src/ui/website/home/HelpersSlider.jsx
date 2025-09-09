@@ -3,14 +3,16 @@ import "swiper/css";
 import { Swiper, SwiperSlide } from "swiper/react";
 import HelperCard from "../../cards/HelperCard";
 import { Autoplay } from "swiper/modules";
+import { useTranslation } from "react-i18next";
 
 export default function HelpersSlider({ helpers }) {
+  const { t } = useTranslation();
   return (
     <section className="helpers-slider">
       <div className="slider-header">
         <div className="text">
-          <h2>المساعدون الشخصيون</h2>
-          <p>أبرز المساعدون المشتركين في المنصة</p>
+          <h2>{t("website.home.heplersTitle")}</h2>
+          <p>{t("website.home.heplersSubtitle")}</p>
         </div>
         <Link to="/personal-helpers" className="view-all">
           عرض الكل
@@ -28,9 +30,13 @@ export default function HelpersSlider({ helpers }) {
         loop
         autoplay={{ delay: 3000, disableOnInteraction: false }}
         modules={[Autoplay]}
+        style={{ height: "100%" }}
       >
         {helpers.map((helper) => (
-          <SwiperSlide key={helper.id}>
+          <SwiperSlide
+            key={helper.id}
+            style={{ height: "auto", cursor: "pointer" }}
+          >
             <HelperCard helper={helper} />
           </SwiperSlide>
         ))}
