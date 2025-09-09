@@ -6,7 +6,10 @@
 .platform-tabs {
   position: sticky;
   top: 100px;
-  z-index: 100;
+  z-index: 2;
+  backdrop-filter: blur(33px);
+  overflow: hidden;
+  border-radius: 1rem;
 }
 
 // MODAL
