@@ -7012,6 +7012,8 @@ footer .links a:hover {
 .hero-section .hero_slider {
   width: 100%;
   height: auto;
+  border-radius: 12px;
+  overflow: hidden;
 }
 .hero-section img {
   width: 100%;
@@ -7023,17 +7025,16 @@ footer .links a:hover {
 
 .goals-help-section {
   display: flex;
-  gap: 1rem;
+  gap: 0.5rem;
 }
 .goals-help-section .goal-btn {
   flex: 1;
   padding: 1rem;
   border: none;
-  border-radius: 0.5rem;
   font-size: 1rem;
   font-weight: 500;
   cursor: pointer;
-  color: white;
+  color: #fff;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -7043,29 +7044,31 @@ footer .links a:hover {
 .goals-help-section .goal-btn i {
   font-size: 1.2rem;
 }
-.goals-help-section .personal-goal {
-  background-color: #214b92;
-  color: #fff;
-  font-weight: 700;
-}
-.goals-help-section .personal-goal:hover {
-  background-color: rgb(23.5977653631, 53.6312849162, 104.4022346369);
-}
-.goals-help-section .personal-goal img {
+.goals-help-section .goal-btn img {
   filter: brightness(0) invert(1);
 }
-.goals-help-section .offer-help {
-  background-color: #5fcafa;
-  color: #0d0d0d;
-  font-weight: 700;
+.goals-help-section.en .personal-goal {
+  border-radius: 12px 0 0 12px;
 }
-.goals-help-section .offer-help:hover {
+.goals-help-section.en .offer-help {
+  border-radius: 0 12px 12px 0;
+}
+.goals-help-section .personal-goal {
+  background-color: #5fcafa;
+  color: #fff;
+  font-weight: 700;
+  border-radius: 0 12px 12px 0;
+}
+.goals-help-section .personal-goal:hover {
   background-color: rgb(45.5454545455, 185.6181818182, 248.4545454545);
 }
-@media (max-width: 576px) {
-  .goals-help-section {
-    flex-direction: column;
-  }
+.goals-help-section .offer-help {
+  font-weight: 700;
+  background-color: #214b92;
+  border-radius: 12px 0 0 12px;
+}
+.goals-help-section .offer-help:hover {
+  background-color: rgb(23.5977653631, 53.6312849162, 104.4022346369);
 }
 
 .why-section .container,
@@ -7428,6 +7431,7 @@ footer .links a:hover {
 .helper-card {
   display: block;
   padding-right: 40px;
+  height: 100%;
 }
 .helper-card .content-wrapper {
   background-color: rgba(95, 202, 250, 0.0784313725);
@@ -7477,6 +7481,11 @@ footer .links a:hover {
 .helper-card .content-wrapper .info .info-header h3 {
   font-size: 1rem;
   font-weight: 600;
+}
+.helper-card .content-wrapper .info .info-header .rating {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
 }
 .helper-card .content-wrapper .info .info-header .rating img {
   width: 16px;
@@ -7550,22 +7559,23 @@ footer .links a:hover {
 
 .slider-header {
   display: flex;
-  align-items: center;
+  align-items: end;
   justify-content: space-between;
   gap: 0.5rem;
   margin-bottom: 1rem;
 }
 .slider-header .text h2 {
-  font-size: 1.4rem;
+  font-size: clamp(16px, 1vw + 16px, 2rem);
   font-weight: bold;
   margin-bottom: 4px;
+  color: #0d0d0d;
 }
 .slider-header .text p {
   font-size: 1rem;
-  color: #555;
+  color: rgba(13, 13, 13, 0.5607843137);
 }
 .slider-header .view-all {
-  color: #214b92;
+  color: #5fcafa;
   font-weight: 500;
   text-decoration: underline;
   transition: color 0.3s;

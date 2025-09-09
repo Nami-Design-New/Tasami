@@ -1,60 +1,18 @@
-// HelpersSlider.jsx
+import { Link } from "react-router";
 import "swiper/css";
-import { Autoplay } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import HelperCard from "../../cards/HelperCard";
-import { Link } from "react-router";
+import { Autoplay } from "swiper/modules";
+import { useTranslation } from "react-i18next";
 
-const helpers = [
-  {
-    id: 1,
-    name: "انس تركي",
-    country: "السعودية",
-    rating: 6,
-    image: "/images/p2.png",
-    status: true,
-  },
-  {
-    id: 2,
-    name: "مها صالح",
-    country: "الإمارات",
-    rating: 10,
-    image: "/images/p1.png",
-    status: true,
-  },
-  {
-    id: 3,
-    name: "انس تركي",
-    country: "السعودية",
-    rating: 8,
-    image: "/images/p2.png",
-    status: true,
-  },
-  {
-    id: 4,
-    name: "مها صالح",
-    country: "الإمارات",
-    rating: 11,
-    image: "/images/p1.png",
-    status: true,
-  },
-  {
-    id: 5,
-    name: "مني صالح",
-    country: "الإمارات",
-    rating: 11,
-    image: "/images/p1.png",
-    status: true,
-  },
-];
-
-export default function HelpersSlider() {
+export default function HelpersSlider({ helpers }) {
+  const { t } = useTranslation();
   return (
     <section className="helpers-slider">
       <div className="slider-header">
         <div className="text">
-          <h2>المساعدون الشخصيون</h2>
-          <p>أبرز المساعدون المشتركين في المنصة</p>
+          <h2>{t("website.home.heplersTitle")}</h2>
+          <p>{t("website.home.heplersSubtitle")}</p>
         </div>
         <Link to="/personal-helpers" className="view-all">
           عرض الكل
@@ -69,12 +27,16 @@ export default function HelpersSlider() {
           992: { slidesPerView: 3 },
           1200: { slidesPerView: 4 },
         }}
-        // loop
-        // autoplay={{ delay: 3000, disableOnInteraction: false }}
-        // modules={[Autoplay]}
+        loop
+        autoplay={{ delay: 3000, disableOnInteraction: false }}
+        modules={[Autoplay]}
+        style={{ height: "100%" }}
       >
         {helpers.map((helper) => (
-          <SwiperSlide key={helper.id}>
+          <SwiperSlide
+            key={helper.id}
+            style={{ height: "auto", cursor: "pointer" }}
+          >
             <HelperCard helper={helper} />
           </SwiperSlide>
         ))}

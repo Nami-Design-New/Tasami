@@ -3,61 +3,19 @@ import "swiper/css";
 import { Autoplay } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import GoalCard from "../../cards/GoalCard";
-import { t } from "i18next";
+import { useTranslation } from "react-i18next";
 
-export default function GoalSlider() {
-  const goals = [
-    {
-      id: 1,
-      name: "سلطان حسن",
-      title: "إنشاء متجر لبيع مستلزمات الطباعة ثلاثية الأبعاد في السعودية.",
-      date: "16 فبراير 2025",
-      type: "ريادي",
-      offers: 12,
-      image: "/images/profile1.png",
-      status: true,
-    },
-    {
-      id: 2,
-      name: "علياء السالم",
-      title:
-        "تطوير تطبيق لتسهيل الوصول إلى الخدمات الصحية في الإمارات للمواطنين والمقيمين.",
-      date: "10 مارس 2025",
-      type: "تقنية",
-      offers: 8,
-      image: "/images/profile2.png",
-      status: false,
-    },
-    {
-      id: 3,
-      name: "محمد العلي",
-      title: "إنشاء منصة تعليمية لتعليم البرمجة للأطفال في العالم العربي.",
-      date: "5 أبريل 2025",
-      type: "تعليم",
-      offers: 15,
-      image: "/images/profile2.png",
-      status: true,
-    },
-    {
-      id: 4,
-      name: "سارة القحطاني",
-      title: "تطوير موقع إلكتروني لبيع المنتجات اليدوية والحرفية في الكويت.",
-      date: "20 مايو 2025",
-      type: "ريادي",
-      offers: 10,
-      image: "/images/profile1.png",
-      status: false,
-    },
-  ];
+export default function GoalSlider({ goals }) {
+  const { t } = useTranslation();
   return (
     <div className="goal-slider">
       <div className="slider-header">
         <div className="text">
-          <h2> {t("website.personalGoals.header.title")} </h2>
-          <p> {t("website.personalGoals.header.subTitle")} </p>
+          <h2> {t("website.home.personalGoalsTitle")} </h2>
+          <p> {t("website.home.personalGoalsSubtitle")} </p>
         </div>
         <Link to="/Personal-goals" className="view-all">
-          عرض الكل
+          {t("showAll")}
         </Link>
       </div>
 
@@ -74,7 +32,7 @@ export default function GoalSlider() {
       >
         {goals.map((goal) => (
           <SwiperSlide key={goal.id}>
-            <GoalCard {...goal} showfav={true} />
+            <GoalCard goal={goal} showfav={true} />
           </SwiperSlide>
         ))}
       </Swiper>

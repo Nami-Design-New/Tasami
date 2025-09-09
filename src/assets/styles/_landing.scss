@@ -9,6 +9,8 @@
   .hero_slider {
     width: 100%;
     height: auto;
+    border-radius: 12px;
+    overflow: hidden;
   }
 
   img {
@@ -21,17 +23,16 @@
 
 .goals-help-section {
   display: flex;
-  gap: 1rem;
+  gap: 0.5rem;
 
   .goal-btn {
     flex: 1;
     padding: 1rem;
     border: none;
-    border-radius: 0.5rem;
     font-size: 1rem;
     font-weight: 500;
     cursor: pointer;
-    color: white;
+    color: $white;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -41,34 +42,36 @@
     i {
       font-size: 1.2rem;
     }
-  }
-
-  .personal-goal {
-    background-color: $main;
-    color: $white;
-    font-weight: 700;
-
-    &:hover {
-      background-color: color.adjust($main, $lightness: -10%);
-    }
-
     img {
       filter: brightness(0) invert(1);
     }
   }
-
-  .offer-help {
+  &.en {
+    .personal-goal {
+      border-radius: 12px 0 0 12px;
+    }
+    .offer-help {
+      border-radius: 0 12px 12px 0;
+    }
+  }
+  .personal-goal {
     background-color: $second;
-    color: $dark;
+    color: $white;
     font-weight: 700;
+    border-radius: 0 12px 12px 0;
 
     &:hover {
       background-color: color.adjust($second, $lightness: -10%);
     }
   }
 
-  @media (max-width: 576px) {
-    flex-direction: column;
+  .offer-help {
+    font-weight: 700;
+    background-color: $main;
+    border-radius: 12px 0 0 12px;
+    &:hover {
+      background-color: color.adjust($main, $lightness: -10%);
+    }
   }
 }
 
@@ -451,6 +454,7 @@
 .helper-card {
   display: block;
   padding-right: 40px;
+  height: 100%;
 
   .content-wrapper {
     background-color: $secondColor08;
@@ -502,6 +506,9 @@
           font-weight: 600;
         }
         .rating {
+          display: flex;
+          align-items: center;
+          gap: 0.25rem;
           img {
             width: 16px;
             height: 16px;
@@ -601,26 +608,27 @@
 // main-slider-header
 .slider-header {
   display: flex;
-  align-items: center;
+  align-items: end;
   justify-content: space-between;
   gap: 0.5rem;
   margin-bottom: 1rem;
 
   .text {
     h2 {
-      font-size: 1.4rem;
+      font-size: clamp(16px, 1vw + 16px, 2rem);
       font-weight: bold;
       margin-bottom: 4px;
+      color: $dark;
     }
 
     p {
       font-size: 1rem;
-      color: #555;
+      color: $gray;
     }
   }
 
   .view-all {
-    color: $main;
+    color: $second;
     font-weight: 500;
     text-decoration: underline;
     transition: color 0.3s;
