@@ -1,38 +1,15 @@
-import { ArcElement, Chart, Legend, Tooltip } from "chart.js";
+import { useTranslation } from "react-i18next";
 import { Autoplay } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
-Chart.register(ArcElement, Tooltip, Legend);
 
-const data = [
-  {
-    id: 1,
-    title: "اجمالي الاعمال",
-    count: 128,
-  },
-  {
-    id: 2,
-    title: "بانتظار التنفيذ",
-    count: 38,
-  },
-  {
-    id: 3,
-    title: "قيد التنفيذ",
-    count: 32,
-  },
-  {
-    id: 4,
-    title: "مكتمله",
-    count: 58,
-  },
-];
-
-export default function ContractsStatus() {
+export default function ContractsStatus({ stats }) {
+  const { t } = useTranslation();
   return (
     <section className="contracts-status">
       <div className="slider-header">
         <div className="text">
-          <h2>اعمالي</h2>
-          <p>راجع وتابع اعمالك بسهولة</p>
+          <h2>{t("website.home.myWroksTitle")}</h2>
+          <p>{t("website.home.myWroksSubtitle")}</p>
         </div>
       </div>
 
@@ -49,14 +26,43 @@ export default function ContractsStatus() {
         autoplay={{ delay: 3000, disableOnInteraction: false }}
         modules={[Autoplay]}
       >
-        {data.map((stat) => (
-          <SwiperSlide key={stat.id}>
-            <div className="contract-status__card">
-              <h3 className="contract-status__card-title">{stat.title}</h3>
-              <p className="contract-status__card-count">{stat.count}</p>
-            </div>
-          </SwiperSlide>
-        ))}
+        <SwiperSlide>
+          <div className="contract-status__card">
+            <h3 className="contract-status__card-title">
+              {t("website.home.totalWork")}
+            </h3>
+            <p className="contract-status__card-count">{stats.total_works}</p>
+          </div>
+        </SwiperSlide>
+        <SwiperSlide>
+          <div className="contract-status__card">
+            <h3 className="contract-status__card-title">
+              {t("website.home.inProgress")}
+            </h3>
+            <p className="contract-status__card-count">
+              {stats.progress_works}
+            </p>
+          </div>
+        </SwiperSlide>
+        <SwiperSlide>
+          <div className="contract-status__card">
+            <h3 className="contract-status__card-title">
+              {t("website.home.pending")}
+            </h3>
+            <p className="contract-status__card-count">{stats.waiting_works}</p>
+          </div>
+        </SwiperSlide>
+        <SwiperSlide>
+          <div className="contract-status__card">
+            <h3 className="contract-status__card-title">
+              {t("website.home.completed")}
+            </h3>
+            <p className="contract-status__card-count">
+              {" "}
+              {stats.completed_works}
+            </p>
+          </div>
+        </SwiperSlide>
       </Swiper>
     </section>
   );

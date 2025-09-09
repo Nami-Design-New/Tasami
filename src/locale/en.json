@@ -14,6 +14,7 @@
   "to": "To",
   "optional": "Optional",
   "noDataAvilable": "No Data Available",
+  "showAll": "Show All",
   "pageHeaders": {
     "Notifications": "Notifications",
     "Dashboard": "Dashboard",
@@ -220,6 +221,20 @@
     "unexpectedMessage": "An unexpected error occurred. Please try again later."
   },
   "website": {
+    "home": {
+      "totalWork": "Total Work",
+      "inProgress": "In Progress",
+      "pending": "Pending",
+      "completed": "Completed",
+      "personalGoalsTitle": "Personal Goals",
+      "personalGoalsSubtitle": "The latest help requests to achieve new goals",
+      "offersTitle": "Help Offers",
+      "offersSubtitle": "All assistance provided by helpers",
+      "heplersTitle": "Personal Assistants",
+      "heplersSubtitle": "Meet the inspiring assistants in Tesami",
+      "myWroksTitle": "My Works",
+      "myWroksSubtitle": "Review and track your works easily"
+    },
     "header": {
       "home": "Home",
       "howitWorks": "How It Works",
@@ -235,14 +250,8 @@
       "communities": "Communities"
     },
     "hero": {
-      "personalGoals": "Personal Goals",
+      "personalGoal": "Personal Goal",
       "offerHelp": " Offer Help "
-    },
-    "personalGoals": {
-      "header": {
-        "title": "Personal Goals",
-        "subTitle": "The latest help requests to achieve new goals"
-      }
     },
     "platform": {
       "platform": "platform",

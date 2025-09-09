@@ -21,22 +21,25 @@ export default function MyAssistance() {
   return (
     <>
       <section className="my-assistances">
-        {/* <div className="platform-tabs"> */}
-        <PlanDurationSelector
-          options={[
-            {
-              label: t("website.platform.myAssistance.activeOffers"),
-              value: "active",
-            },
-            {
-              label: t("website.platform.myAssistance.archivedOffers"),
-              value: "archived",
-            },
-          ]}
-          value={selectedTab}
-          onChange={setSelectedTab}
-        />
-        {/* </div> */}
+        <div className="platform-tabs">
+          <PlanDurationSelector
+            options={[
+              {
+                label: t("website.platform.myAssistance.activeOffers"),
+                value: "active",
+              },
+              {
+                label: t("website.platform.myAssistance.archivedOffers"),
+                value: "archived",
+              },
+            ]}
+            value={selectedTab}
+            onChange={(tab) => {
+              setSelectedTab(tab);
+              window.scrollTo({ top: 0, behavior: "smooth" });
+            }}
+          />
+        </div>
         {selectedTab === "active" && <ActiveOffersList />}
         {selectedTab === "archived" && <ArchivedOffersList />}{" "}
       </section>
