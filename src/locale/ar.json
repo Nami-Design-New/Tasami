@@ -138,7 +138,7 @@
   },
   "profile": {
     "myInfo": "معلوماتي",
-    "notifications": "الإشعارات",
+    "notificationsSys": "إشعارات النظام",
     "wallet": "محفظتي",
     "interests": "اهتماماتي",
     "savings": "محفوظاتي",
@@ -175,7 +175,17 @@
     "ibanPlaceholder": "مثال: SA1234567890123456789012",
     "bankNamePlaceholder": "أدخل اسم البنك",
     "branchCodePlaceholder": "أدخل رمز الفرع",
-    "swiftCodePlaceholder": "مثال: RJHISARI"
+    "swiftCodePlaceholder": "مثال: RJHISARI",
+    "personal_assistant_title": "التنبيهات بأنشطة المساعدين الشخصيين",
+    "beneficiary_title": "التنبيهات بأنشطة المستفيدين",
+    "multi_choice_hint": "يمكن تحديد أكثر من اختيار",
+    "beneficiary_hint": "يتم تفعيلها فقط إذا كان لديك حساب مساعد شخصي",
+    "help_same_category": "التنبيه بالعروض التي توافق اهتماماتي في نفس المجال",
+    "help_same_sub_category": "التنبيه بالعروض التي توافق اهتماماتي في نفس التخصص",
+    "help_same_city": "التنبيه بالعروض التي تم نشرها ضمن مدينتي",
+    "goal_same_category": "التنبيه بالعروض التي توافق اهتماماتي في نفس المجال",
+    "goal_same_sub_category": "التنبيه بالعروض التي توافق اهتماماتي في نفس التخصص",
+    "goal_same_city": "التنبيه بالعروض التي تم نشرها ضمن مدينتي"
   },
   "settings": {
     "termsTitle": "الشروط والأحكام",

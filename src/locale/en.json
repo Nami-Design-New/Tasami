@@ -133,7 +133,7 @@
   },
   "profile": {
     "myInfo": "My Info",
-    "notifications": "Notifications",
+    "notificationsSys": "ٍSystem Notifications",
     "wallet": "My Wallet",
     "interests": "My Interests",
     "savings": "My Savings",
@@ -169,7 +169,17 @@
     "bankNamePlaceholder": "Enter bank name",
     "branchCodePlaceholder": "Enter branch code",
     "swiftCodePlaceholder": "Example: RJHISARI",
-    "confirm": "Confirm"
+    "confirm": "Confirm",
+    "personal_assistant_title": "Notifications for Personal Assistants",
+    "beneficiary_title": "Notifications for Beneficiaries",
+    "multi_choice_hint": "You can select more than one option",
+    "beneficiary_hint": "Enabled only if you have a personal assistant account",
+    "help_same_category": "Notify me about offers matching my interests in the same category",
+    "help_same_sub_category": "Notify me about offers matching my interests in the same sub-category",
+    "help_same_city": "Notify me about offers published in my city",
+    "goal_same_category": "Notify me about offers matching my interests in the same category",
+    "goal_same_sub_category": "Notify me about offers matching my interests in the same sub-category",
+    "goal_same_city": "Notify me about offers published in my city"
   },
   "settings": {
     "termsTitle": "Terms and Conditions",

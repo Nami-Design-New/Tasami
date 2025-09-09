@@ -45,7 +45,6 @@ import HelpersDetails from "../routes/website/HelpersDetails";
 import Home from "../routes/website/Home";
 import HowItWorks from "../routes/website/HowItWorks";
 import MyNotifications from "../routes/website/MyNotifications";
-import MyWallet from "../routes/website/MyWallet";
 import MyWorks from "../routes/website/MyWorks";
 import NewGoal from "../routes/website/NewGoal";
 import NewHelpOffer from "../routes/website/NewHelpOffer";
@@ -93,6 +92,8 @@ import Savings from "../routes/website/Savings";
 import ErrorFallback from "../ui/ErrorFallback";
 import ProtectedRoute from "./ProtectedRoute";
 import { SkipGuardedRoute } from "./SkipGuardedRoute";
+import MyWallet from "../routes/website/profile/MyWallet";
+import NotificationSetting from "../routes/website/profile/NotificationSetting";
 
 export const router = createBrowserRouter([
   {
@@ -205,7 +206,7 @@ export const router = createBrowserRouter([
           },
           {
             path: "my-notifications",
-            element: <MyNotifications />,
+            element: <NotificationSetting />,
           },
           {
             path: "my-wallet",
