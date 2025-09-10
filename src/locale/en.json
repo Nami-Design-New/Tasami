@@ -172,6 +172,7 @@
     "bankNamePlaceholder": "Enter bank name",
     "branchCodePlaceholder": "Enter branch code",
     "swiftCodePlaceholder": "Example: RJHISARI",
+    "city": "city",
     "confirm": "Confirm",
     "personal_assistant_title": "Notifications for Personal Assistants",
     "beneficiary_title": "Notifications for Beneficiaries",

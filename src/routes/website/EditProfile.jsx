@@ -8,9 +8,18 @@ import InputField from "../../ui/forms/InputField";
 import PhoneField from "../../ui/forms/PhoneField";
 import SelectField from "../../ui/forms/SelectField";
 import SubmitButton from "../../ui/forms/SubmitButton";
+import { useEffect, useRef } from "react";
+import useGetCountries from "../../hooks/countries/useGetCountries";
+import useGetNationalities from "../../hooks/countries/useGetNationalities";
+import useGetCities from "../../hooks/countries/useGetCities";
 
 export default function EditProfile() {
   const { user } = useSelector((state) => state.authRole);
+  const inputFileRef = useRef();
+  const { countries, isLoading } = useGetCountries("", "off");
+  const { nationalities, isLoading: isNationaliesLoading } =
+    useGetNationalities("", "off");
+  const { cities, isCitiesLoading } = useGetCities("", "off");
   console.log(user);
 
   const { t } = useTranslation();
@@ -18,34 +27,109 @@ export default function EditProfile() {
     register,
     handleSubmit,
     watch,
+    reset,
     setValue,
     formState: { errors },
   } = useForm({
     mode: "onChange",
     defaultValues: {
-      firstName: user.first_name,
-      lastName: user.last_name,
-      date: user.birthdate,
-      gender: user.gender,
-      nationality: user.nationality,
-      country: user.phone_code,
-      phone: user.phone,
-      email: user.email,
+      profilePicture: "",
+      firstName: "",
+      lastName: "",
+      date: "",
+      gender: "",
+      nationality: "",
+      country: "",
+      city: "",
+      phone: "",
+      email: "",
       wantChangePassword: false,
+      oldPassword: "",
+      newPassword: "",
+      confirmPassword: "",
     },
   });
-
+  const profilePicture = watch("profilePicture");
   const wantChangePassword = watch("wantChangePassword");
   const gender = watch("gender");
+
+  const handleFileChange = (event) => {
+    const file = event.target.files[0];
+    setValue("profilePicture", file);
+  };
+
+  const handleButtonClick = () => {
+    inputFileRef.current.click();
+  };
 
   const onSubmit = (data) => {
     console.log("بيانات الحساب:", data);
   };
 
+  useEffect(() => {
+    if (user) {
+      reset({
+        profilePicture: user.image,
+        firstName: user.first_name,
+        lastName: user.last_name,
+        date: user.birthdate,
+        gender: user.gender,
+        nationality: String(user.nationality?.id ?? ""),
+        country: String(user.country_id ?? ""),
+        city: String(user.city?.id ?? ""),
+        phone: user.phone,
+        email: user.email,
+        wantChangePassword: false,
+        oldPassword: "",
+        newPassword: "",
+        confirmPassword: "",
+      });
+    }
+  }, [user, reset]);
+
   return (
     <div className="edit-profile-page">
       <form className="form_ui" onSubmit={handleSubmit(onSubmit)}>
         <div className="row">
+          <div className="col-12 p-2">
+            <p className="image-label">
+              <span>{t("auth.profilePicture")}</span>{" "}
+              <span>&apos;{t("auth.optional")}&apos;</span>
+            </p>
+            <label className="images-input">
+              <div className="image-input-wrapper">
+                {profilePicture ? (
+                  typeof profilePicture === "string" ? (
+                    <img
+                      src={profilePicture}
+                      alt="preview"
+                      className="preview-img"
+                    />
+                  ) : (
+                    <img
+                      src={URL.createObjectURL(profilePicture)}
+                      alt="preview"
+                      className="preview-img"
+                    />
+                  )
+                ) : (
+                  <img src="/icons/add-photo.svg" alt="placeholder" />
+                )}
+                <button
+                  onClick={handleButtonClick}
+                  type="button"
+                  className="add-image-buttton"
+                >
+                  <i className="fa-light fa-plus"></i>{" "}
+                </button>
+              </div>
+              <input
+                type="file"
+                ref={inputFileRef}
+                onChange={handleFileChange}
+              />
+            </label>
+          </div>
           <div className="col-12 col-lg-6 p-2">
             <InputField
               label={t("profile.firstName")}
@@ -88,14 +172,13 @@ export default function EditProfile() {
 
           <div className="col-12 col-lg-6 p-2">
             <SelectField
+              loading={isNationaliesLoading}
               label={t("profile.nationality")}
               id="nationality"
-              options={[
-                { value: "EG", name: t("EG") },
-                { value: "SA", name: t("SA") },
-                { value: "AE", name: t("AE") },
-                { value: "JO", name: t("JO") },
-              ]}
+              options={nationalities?.data?.map((nationality) => ({
+                value: nationality.id,
+                name: nationality.title,
+              }))}
               {...register("nationality")}
               error={errors.nationality?.message}
             />
@@ -105,14 +188,25 @@ export default function EditProfile() {
             <SelectField
               label={t("profile.country")}
               id="country"
-              options={[
-                { value: "EG", name: t("EG") },
-                { value: "SA", name: t("SA") },
-                { value: "AE", name: t("AE") },
-                { value: "QA", name: t("QA") },
-              ]}
+              options={countries?.data?.map((country) => ({
+                value: country.id,
+                name: country.title,
+              }))}
               {...register("country")}
               error={errors.country?.message}
+            />
+          </div>
+          <div className="col-12 col-lg-6 p-2">
+            <SelectField
+              loading={isCitiesLoading}
+              label={t("profile.city")}
+              id="city"
+              options={cities?.data?.map((city) => ({
+                value: city.id,
+                name: city.title,
+              }))}
+              {...register("city")}
+              error={errors.city?.message}
             />
           </div>
 
