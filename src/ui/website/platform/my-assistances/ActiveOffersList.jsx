@@ -1,9 +1,9 @@
 import { useTranslation } from "react-i18next";
-import useGetMyAssistances from "../../../../hooks/my-assistances/useGetMyAssistances";
 import OfferCard from "../../../cards/OfferCard";
 import EmptySection from "../../../EmptySection";
 import InfiniteScroll from "../../../loading/InfiniteScroll";
 import OfferCardSkeleton from "../../../loading/OfferCardSkeleton";
+import useGetMyAssistances from "../../../../hooks/website/my-assistances/useGetMyAssistances";
 
 export default function ActiveOffersList() {
   const { t } = useTranslation();

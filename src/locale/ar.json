@@ -15,6 +15,9 @@
   "optional": "اختياري",
   "noDataAvilable": "لا توجد معلومات ",
   "showAll": "عرض الكل",
+  "selectAsReads": "تحديد كمقروء",
+  "delete": "حذف",
+  "deleteAll": "حذف الكل",
 
   "pageHeaders": {
     "Notifications": " التنبيهات ",
@@ -138,7 +141,7 @@
   },
   "profile": {
     "myInfo": "معلوماتي",
-    "notifications": "الإشعارات",
+    "notificationsSys": "إشعارات النظام",
     "wallet": "محفظتي",
     "interests": "اهتماماتي",
     "savings": "محفوظاتي",
@@ -175,7 +178,33 @@
     "ibanPlaceholder": "مثال: SA1234567890123456789012",
     "bankNamePlaceholder": "أدخل اسم البنك",
     "branchCodePlaceholder": "أدخل رمز الفرع",
-    "swiftCodePlaceholder": "مثال: RJHISARI"
+    "swiftCodePlaceholder": "مثال: RJHISARI",
+    "personal_assistant_title": "التنبيهات بأنشطة المساعدين الشخصيين",
+    "beneficiary_title": "التنبيهات بأنشطة المستفيدين",
+    "multi_choice_hint": "يمكن تحديد أكثر من اختيار",
+    "beneficiary_hint": "يتم تفعيلها فقط إذا كان لديك حساب مساعد شخصي",
+    "help_same_category": "التنبيه بالعروض التي توافق اهتماماتي في نفس المجال",
+    "help_same_sub_category": "التنبيه بالعروض التي توافق اهتماماتي في نفس التخصص",
+    "help_same_city": "التنبيه بالعروض التي تم نشرها ضمن مدينتي",
+    "goal_same_category": "التنبيه بالعروض التي توافق اهتماماتي في نفس المجال",
+    "goal_same_sub_category": "التنبيه بالعروض التي توافق اهتماماتي في نفس التخصص",
+    "goal_same_city": "التنبيه بالعروض التي تم نشرها ضمن مدينتي"
+  },
+  "notification": {
+    "title": "الإشعارات",
+    "mark_all_read": "تحديد الكل كمقروء",
+    "tab_notifications": "الإشعارات",
+    "tab_inquiries": "الاستفسارات",
+    "search": "بحث",
+    "latest": "أحدث التنبيهات",
+    "previous": "التنبيهات السابقة",
+    "system": "النظام",
+    "new_update": "هناك تحديث جديد للتطبيق، يمكنك تثبيته الآن",
+    "account_activated": "تم تفعيل حسابك بنجاح",
+    "days_ago": "منذ {{count}} أيام",
+    "one_day_ago": "منذ يوم",
+    "empty": "لا توجد إشعارات",
+    "fetch_error": "فشل في تحميل الإشعارات. حاول مرة أخرى."
   },
   "settings": {
     "termsTitle": "الشروط والأحكام",

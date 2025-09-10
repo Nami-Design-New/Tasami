@@ -1,4 +1,4 @@
-import useGetMyCommunity from "../../../hooks/communities/useGetMyCommunities";
+import useGetMyCommunity from "../../../hooks/website/communities/useGetMyCommunities";
 import CommunityBio from "../../../ui/dash-board/communities-details/CommunityBio";
 import CommunityStats from "../../../ui/dash-board/communities-details/CommunityStats";
 import CommunityActions from "../../../ui/website/platform/my-community/CommunityActions";
@@ -9,7 +9,6 @@ export default function MyCommunity() {
   if (isLoading) {
     return <div>Loading...</div>;
   }
-  console.log(myCommunity);
 
   return (
     <section className="communities-details">

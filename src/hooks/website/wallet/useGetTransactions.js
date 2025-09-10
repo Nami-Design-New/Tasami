@@ -1,5 +1,5 @@
 import { useInfiniteQuery } from "@tanstack/react-query";
-import { axiosInstance } from "../../lib/axios";
+import { axiosInstance } from "../../../lib/axios";
 
 export default function useGetTransactions() {
   const { data: transctions, isLoading } = useInfiniteQuery({

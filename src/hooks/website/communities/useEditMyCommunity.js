@@ -1,5 +1,5 @@
 import { useMutation } from "@tanstack/react-query";
-import { axiosInstance } from "../../lib/axios";
+import { axiosInstance } from "../../../lib/axios";
 
 const editMyCommunity = async ({ communityId, formData }) => {
   const res = await axiosInstance.post(`community/${communityId}`, formData, {

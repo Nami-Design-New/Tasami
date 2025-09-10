@@ -1,8 +1,8 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getToken, removeToken } from "../../utils/token";
-import useGetAuthedUser from "../profile/useGetAuthedUser";
 import { clearAuth, setUser, setAuthed } from "../../redux/slices/authRole";
+import useGetAuthedUser from "../website/profile/useGetAuthedUser";
 
 export default function useAuth() {
   const dispatch = useDispatch();

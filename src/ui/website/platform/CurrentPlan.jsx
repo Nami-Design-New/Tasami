@@ -1,6 +1,6 @@
 import { useTranslation } from "react-i18next";
-import useGetCurrentPackage from "../../../hooks/subscribe/useGetCurrentPackage";
 import PlanCardLoader from "../../loading/PlanCardLoader";
+import useGetCurrentPackage from "../../../hooks/website/subscribe/useGetCurrentPackage";
 
 export default function CurrentPlan() {
   const { t } = useTranslation();

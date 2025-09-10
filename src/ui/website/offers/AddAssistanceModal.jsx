@@ -1,20 +1,22 @@
+import { useQueryClient } from "@tanstack/react-query";
+import { useRef } from "react";
 import { Modal } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
-import useGetcategories from "../../../hooks/area-of-interests/useGetcategories";
-import useAddAssistanceForm from "../../../validations/add-assistance/add-assistance-validation";
-import SelectField from "../../forms/SelectField";
-import InputField from "../../forms/InputField";
-import CustomButton from "../../CustomButton";
-import { useRef } from "react";
-import useGetHelpMechanisms from "../../../hooks/useGetHelpMechanisms";
-import useAddNewAssistance from "../../../hooks/my-assistances/useAddNewAssistance";
-import { QueryClient, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
+import useGetcategories from "../../../hooks/area-of-interests/useGetcategories";
+import useGetHelpMechanisms from "../../../hooks/useGetHelpMechanisms";
+import useAddNewAssistance from "../../../hooks/website/my-assistances/useAddNewAssistance";
+import useAddAssistanceForm from "../../../validations/add-assistance/add-assistance-validation";
+import CustomButton from "../../CustomButton";
+import InputField from "../../forms/InputField";
+import SelectField from "../../forms/SelectField";
+import useGenerateDes from "../../../hooks/website/my-assistances/useGenerateDes";
 
 export default function AddAssistanceModal({ showModal, setShowModal }) {
   const { t } = useTranslation();
   const { categories, isLoading } = useGetcategories();
   const { helpMechanisms, isLoading: helpLoading } = useGetHelpMechanisms();
+  const { generateDes, isPending: isGenerating } = useGenerateDes();
   const { addNewAssistance, isPending } = useAddNewAssistance();
   const queryClient = useQueryClient();
   const inputFileRef = useRef();
@@ -31,6 +33,7 @@ export default function AddAssistanceModal({ showModal, setShowModal }) {
   const selectedFieldId = watch("field");
   const selectedGender = watch("gender");
   const selectedAgeOption = watch("ageOption");
+
   const selectedHelpMechanism = watch("helpMechanism") || [];
   const subCategories =
     categories?.find((cat) => String(cat.id) === String(selectedFieldId))
@@ -57,7 +60,6 @@ export default function AddAssistanceModal({ showModal, setShowModal }) {
     formData.append("duration", data.duration);
     formData.append("price", data.price);
     formData.append("preferred_gender", data.gender);
-    formData.append("title", data.title);
     formData.append("notes", data.extraTerms);
     data.helpMechanism.forEach((id) => {
       formData.append("help_mechanism_ids[]", id);
@@ -75,6 +77,29 @@ export default function AddAssistanceModal({ showModal, setShowModal }) {
         toast.error(error?.message);
       },
     });
+  };
+
+  const handleGeneratDes = async () => {
+    const title = watch("title");
+
+    if (!title) {
+      toast.error(t("pleaseFillRequiredFields"));
+      return;
+    }
+
+    generateDes(
+      { text: title, page: "help_service" },
+      {
+        onSuccess: (res) => {
+          console.log(res.text);
+
+          setValue("title", res?.text || "");
+        },
+        onError: (error) => {
+          toast.error(error?.message || t("failedToGenerate"));
+        },
+      }
+    );
   };
 
   return (
@@ -322,6 +347,9 @@ export default function AddAssistanceModal({ showModal, setShowModal }) {
                 <CustomButton
                   type="button"
                   size="large"
+                  onClick={handleGeneratDes}
+                  loading={isGenerating}
+                  fullWidth
                   icon={<i className="fa-solid fa-sparkles"></i>}
                   style={{ backgroundColor: "#FDCB2F" }}
                 >

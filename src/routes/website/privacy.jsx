@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { useTranslation } from "react-i18next";
-import useSettings from "../../hooks/settings/useSettings";
 import Loading from "../../ui/loading/Loading";
+import useSettings from "../../hooks/website/settings/useSettings";
 
 export default function Privacy() {
   const { settings, isLoading } = useSettings();

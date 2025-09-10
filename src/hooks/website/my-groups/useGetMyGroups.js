@@ -1,25 +1,20 @@
 import { useInfiniteQuery } from "@tanstack/react-query";
-import { axiosInstance } from "../../lib/axios";
-import { useSearchParams } from "react-router";
+import { axiosInstance } from "../../../lib/axios";
 
-export default function useGetMyAssistances() {
-  const [searchParams] = useSearchParams();
-  const is_archived = searchParams.get("tab") === "archived" ? 1 : 0;
-
+export default function useGetMyGroups() {
   const {
-    data: myAssistances,
+    data: myGroups,
     isLoading,
     error,
     hasNextPage,
     fetchNextPage,
     isFetchingNextPage,
   } = useInfiniteQuery({
-    queryKey: ["my-assistances", is_archived],
+    queryKey: ["my-groups"],
     queryFn: async ({ pageParam = 1 }) => {
-      const res = await axiosInstance.get("my-help-service", {
+      const res = await axiosInstance.get("helper-groups", {
         params: {
           page: pageParam,
-          is_archived,
         },
       });
 
@@ -35,8 +30,9 @@ export default function useGetMyAssistances() {
     },
   });
   return {
-    myAssistances,
+    myGroups,
     isLoading,
+    total: myGroups?.pages?.[0]?.total || 0,
     error,
     hasNextPage,
     fetchNextPage,

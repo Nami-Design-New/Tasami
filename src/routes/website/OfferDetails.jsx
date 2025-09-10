@@ -1,7 +1,8 @@
 import { useState } from "react";
-import { useParams } from "react-router";
-import useGetOfferDetials from "../../hooks/my-assistances/useGetOfferDetials";
+import { useSelector } from "react-redux";
+import useGetOfferDetials from "../../hooks/website/my-assistances/useGetOfferDetials";
 import CustomButton from "../../ui/CustomButton";
+import Loading from "../../ui/loading/Loading";
 import ContractReq from "../../ui/modals/ContractReqModal";
 import ReportModal from "../../ui/modals/ReportModal";
 import ReviewsModal from "../../ui/modals/ReviewsModal";
@@ -10,8 +11,6 @@ import OptionsMenu from "../../ui/website/OptionsMenu";
 import SectionHeader from "../../ui/website/SectionHeader";
 import OfferInfoGrid from "../../ui/website/offers/OfferInfoGrid";
 import TopInfo from "../../ui/website/offers/TopInfo";
-import Loading from "../../ui/loading/Loading";
-import { useSelector } from "react-redux";
 export default function OfferDetails() {
   const { offerDetails, isLoading } = useGetOfferDetials();
   const { user } = useSelector((state) => state.authRole);
