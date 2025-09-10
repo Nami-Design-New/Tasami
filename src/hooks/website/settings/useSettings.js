@@ -6,6 +6,7 @@ export default function useSettings() {
     data: settings,
     isLoading,
     error,
+    refetch,
   } = useQuery({
     queryKey: ["settings"],
     queryFn: async () => {
@@ -20,5 +21,6 @@ export default function useSettings() {
     settings,
     isLoading,
     error,
+    refetch,
   };
 }

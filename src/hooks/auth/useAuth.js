@@ -7,7 +7,6 @@ import useGetAuthedUser from "../website/profile/useGetAuthedUser";
 export default function useAuth() {
   const dispatch = useDispatch();
   const { isAuthed, user } = useSelector((s) => s.authRole);
-  console.log("isauthed from the useAuth hook", isAuthed);
 
   const token = getToken();
 
