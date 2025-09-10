@@ -3,10 +3,10 @@ import { useTranslation } from "react-i18next";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
 import { toast } from "sonner";
-import { auth, googleProvider } from "../../lib/firebase";
 import { setAuthed, setUser } from "../../redux/slices/authRole";
 import { setToken } from "../../utils/token";
 import { useSocialLoginMutation } from "./useSocialLoginMutation";
+import { auth, googleProvider } from "../../lib/fireBase/config";
 
 export default function useGoogleAuth() {
   const dispatch = useDispatch();
