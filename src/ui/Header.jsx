@@ -7,14 +7,15 @@ import UserDropDown from "./website/UserDropDown";
 import CustomButton from "./CustomButton";
 import PlatformModal from "./website/platform/PlatformModal";
 import { Badge } from "react-bootstrap";
+import useSettings from "../hooks/website/settings/useSettings";
 export default function Header() {
   const { t } = useTranslation();
+  const { settings, isLoading } = useSettings();
   const navigate = useNavigate();
   const headerRef = useRef(null);
   const [openMenu, setOpenMenu] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const { isAuthed, user } = useSelector((state) => state.authRole);
-  const count = "0";
   useEffect(() => {
     const handleOutsideClick = (e) => {
       const menu = document.querySelector(".nav-links");
@@ -93,7 +94,13 @@ export default function Header() {
           {isAuthed && (
             <Link to="/notifications" className="notification-btn">
               <i className="fa-solid fa-bell">
-                {count >= 0 && <Badge>{count > 99 ? "99+" : count}</Badge>}
+                {settings?.notification_count >= 0 && (
+                  <Badge>
+                    {settings?.notification_count > 99
+                      ? "99+"
+                      : settings?.notification_count}
+                  </Badge>
+                )}
               </i>
             </Link>
           )}

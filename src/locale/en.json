@@ -17,6 +17,7 @@
   "showAll": "Show All",
   "selectAsReads": "Mark as read",
   "delete": "Delete",
+  "deleteAll": "Delete all",
   "pageHeaders": {
     "Notifications": "Notifications",
     "Dashboard": "Dashboard",

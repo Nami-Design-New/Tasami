@@ -1,9 +1,33 @@
 import { Dropdown } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
+import useMarkAsRead from "../../../hooks/website/notification/useMarkAsRead";
+import { useQueryClient } from "@tanstack/react-query";
+import useDeleteNotification from "../../../hooks/website/notification/useDeleteNotification";
 
 export default function NotificationCard({ item }) {
   const { t } = useTranslation();
-  console.log(item.is_read);
+  const queryClient = useQueryClient();
+  const { markAsRead, isPending } = useMarkAsRead();
+  const { deleteNotification, isPending: isDeleting } = useDeleteNotification();
+
+  const handleMarkAsRead = (id) => {
+    markAsRead(id, {
+      onSuccess: () => {
+        queryClient.invalidateQueries({
+          queryKey: ["notifications"],
+        });
+      },
+    });
+  };
+  const handleDeleteNotification = (id) => {
+    deleteNotification(id, {
+      onSuccess: () => {
+        queryClient.invalidateQueries({
+          queryKey: ["notifications"],
+        });
+      },
+    });
+  };
 
   return (
     <div
@@ -22,10 +46,20 @@ export default function NotificationCard({ item }) {
               <i className="fa-solid fa-ellipsis-vertical"></i>
             </Dropdown.Toggle>
             <Dropdown.Menu>
-              <Dropdown.Item className="edit-item" eventKey="read">
+              <Dropdown.Item
+                className="edit-item"
+                eventKey="read"
+                disabled={isPending}
+                onClick={() => handleMarkAsRead(item.id)}
+              >
                 {t("selectAsReads")}
               </Dropdown.Item>
-              <Dropdown.Item className="deactive-item" eventKey="deactive">
+              <Dropdown.Item
+                className="deactive-item"
+                eventKey="deactive"
+                disabled={isDeleting}
+                onClick={() => handleDeleteNotification(item.id)}
+              >
                 {t("delete")}
               </Dropdown.Item>
             </Dropdown.Menu>
