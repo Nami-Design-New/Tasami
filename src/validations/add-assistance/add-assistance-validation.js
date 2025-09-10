@@ -13,7 +13,6 @@ const getSchema = (t) =>
         return file.size <= 2 * 1024 * 1024;
       })
       .test("fileType", t("validation.fileType"), (file) => {
-        console.log(file.type);
         if (!file) return true;
         return [
           "image/jpeg",

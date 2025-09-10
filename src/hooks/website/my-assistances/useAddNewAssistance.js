@@ -1,5 +1,5 @@
 import { useMutation } from "@tanstack/react-query";
-import { axiosInstance } from "../../lib/axios";
+import { axiosInstance } from "../../../lib/axios";
 
 export default function useAddNewAssistance() {
   const { mutate: addNewAssistance, isPending } = useMutation({

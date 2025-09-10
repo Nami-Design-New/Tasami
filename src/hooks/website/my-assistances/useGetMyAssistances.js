@@ -1,6 +1,6 @@
 import { useInfiniteQuery } from "@tanstack/react-query";
-import { axiosInstance } from "../../lib/axios";
 import { useSearchParams } from "react-router";
+import { axiosInstance } from "../../../lib/axios";
 
 export default function useGetMyAssistances() {
   const [searchParams] = useSearchParams();
