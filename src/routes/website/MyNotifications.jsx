@@ -45,7 +45,7 @@ export default function MyNotifications() {
     hasNextPage,
     fetchNextPage,
     isFetchingNextPage,
-  } = useGetNotifications({ searchWord });
+  } = useGetNotifications(searchWord);
 
   const allNotifications =
     notifications?.pages?.flatMap((page) => page?.data) ?? [];

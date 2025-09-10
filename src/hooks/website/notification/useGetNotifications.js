@@ -1,7 +1,7 @@
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { axiosInstance } from "../../../lib/axios";
 
-export default function useGetNotifications({ searchWord = "" }) {
+export default function useGetNotifications(searchWord = "") {
   const {
     data: notifications,
     isLoading,
@@ -9,6 +9,7 @@ export default function useGetNotifications({ searchWord = "" }) {
     hasNextPage,
     fetchNextPage,
     isFetchingNextPage,
+    refetch,
   } = useInfiniteQuery({
     queryKey: ["notifications", searchWord],
     queryFn: async ({ pageParam = 1 }) => {
@@ -39,5 +40,6 @@ export default function useGetNotifications({ searchWord = "" }) {
     hasNextPage,
     fetchNextPage,
     isFetchingNextPage,
+    refetch,
   };
 }

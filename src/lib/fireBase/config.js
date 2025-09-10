@@ -1,6 +1,7 @@
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
-import { getAuth, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import { getAuth, GoogleAuthProvider } from "firebase/auth";
+import { getMessaging, onMessage, getToken } from "firebase/messaging";
 
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
@@ -16,11 +17,13 @@ const app = initializeApp(firebaseConfig);
 
 const analytics = getAnalytics(app);
 export const auth = getAuth(app);
+const messaging = getMessaging(app);
 auth.languageCode = localStorage.getItem("i18nextLng") || "ar";
 export const googleProvider = new GoogleAuthProvider();
+
 // Force account selection every time
 googleProvider.setCustomParameters({
   prompt: "select_account",
 });
 
-export { signInWithPopup };
+export { messaging, onMessage, getToken };

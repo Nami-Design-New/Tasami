@@ -13,9 +13,8 @@ export default function NotificationCard({ item }) {
   const handleMarkAsRead = (id) => {
     markAsRead(id, {
       onSuccess: () => {
-        queryClient.invalidateQueries({
-          queryKey: ["notifications"],
-        });
+        queryClient.invalidateQueries({ queryKey: ["notifications"] });
+        queryClient.invalidateQueries({ queryKey: ["settings"] });
       },
     });
   };

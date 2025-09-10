@@ -13,9 +13,8 @@ export default function NotificationPageHeader() {
   const handleMarkAllAsRead = () => {
     markAllAsRead(undefined, {
       onSuccess: () => {
-        queryClient.invalidateQueries({
-          queryKey: ["notifications"],
-        });
+        queryClient.invalidateQueries({ queryKey: ["notifications"] });
+        queryClient.invalidateQueries({ queryKey: ["settings"] });
       },
     });
   };

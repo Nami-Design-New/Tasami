@@ -8,8 +8,14 @@ import ScrollToTop from "../ui/ScrollToTop";
 import ResponsiveNav from "../layout/ResponsiveNav";
 import useAuth from "../hooks/auth/useAuth";
 import Loading from "../ui/loading/Loading";
+import { listenToMessages, requestPermission } from "../lib/fireBase/service";
+import useSettings from "../hooks/website/settings/useSettings";
+import useGetNotifications from "../hooks/website/notification/useGetNotifications";
 
 const WebsiteLayout = () => {
+  const { refetch: refetchSettings } = useSettings();
+  const { refetch: refetchNotifications } = useGetNotifications();
+
   const { loading } = useAuth();
   useEffect(() => {
     const sections = document.querySelectorAll("section");
@@ -27,6 +33,21 @@ const WebsiteLayout = () => {
     });
     AOS.refresh();
   }, []);
+
+  useEffect(() => {
+    const initializeNotifications = async () => {
+      await requestPermission();
+      const unsubscribe = listenToMessages(
+        refetchSettings,
+        refetchNotifications
+      );
+      return () => {
+        if (unsubscribe) unsubscribe();
+      };
+    };
+
+    initializeNotifications();
+  }, [refetchSettings, refetchNotifications]);
 
   return (
     <>
