@@ -1,4 +1,4 @@
-import useGetHomeData from "../../hooks/home/useGetHomeData";
+import useGetHomeData from "../../hooks/website/home/useGetHomeData";
 import Loading from "../../ui/loading/Loading";
 import ContractsStatus from "../../ui/website/home/ContractsStatus";
 import GoalsHelpSection from "../../ui/website/home/GoalsHelpSection";

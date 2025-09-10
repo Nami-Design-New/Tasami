@@ -2,7 +2,7 @@ import { useSelector } from "react-redux";
 import { NavLink, Outlet } from "react-router";
 import { useTranslation } from "react-i18next";
 import Loading from "../../ui/loading/Loading";
-import UserCard from "./profile/UserCard";
+import UserCard from "../../ui/website/profile/UserCard";
 
 export default function Profile() {
   const { t } = useTranslation();
@@ -16,7 +16,7 @@ export default function Profile() {
     <section className="profile_section ">
       <div className="container">
         <div className="row">
-          <div className="col-lg-4 col-md-4 col-12 p-2">
+          <div className="col-lg-3 col-md-4 col-12 p-2">
             <div className="profile_sidebar">
               <UserCard user={user} />
               <div className="nav_links">
@@ -27,7 +27,7 @@ export default function Profile() {
 
                 <NavLink to="my-notifications" className="nav_link">
                   <i className="fa-regular fa-bell"></i>
-                  {t("profile.notifications")}
+                  {t("profile.notificationsSys")}
                 </NavLink>
 
                 <NavLink to="my-wallet" className="nav_link">
@@ -58,7 +58,7 @@ export default function Profile() {
             </div>
           </div>
 
-          <div className="col-lg-8 col-md-8 col-12 p-2">
+          <div className="col-lg-9 col-md-8 col-12 p-2">
             <Outlet />
           </div>
         </div>

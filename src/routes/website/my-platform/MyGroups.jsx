@@ -1,11 +1,11 @@
 import { useTranslation } from "react-i18next";
-import useGetMyGroups from "../../../hooks/my-groups/useGetMyGroups";
 import ExpDocItemLoader from "../../../ui/loading/ExpDocItemLoader";
 import InfiniteScroll from "../../../ui/loading/InfiniteScroll";
 import GroupList from "../../../ui/website/platform/groups/GroupList";
 import CustomButton from "../../../ui/CustomButton";
 import { useState } from "react";
 import AddGroupModal from "../../../ui/website/platform/groups/AddGroupModal";
+import useGetMyGroups from "../../../hooks/website/my-groups/useGetMyGroups";
 
 export default function MyGroups() {
   const { t } = useTranslation();

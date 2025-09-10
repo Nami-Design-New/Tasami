@@ -15,6 +15,9 @@
   "optional": "Optional",
   "noDataAvilable": "No Data Available",
   "showAll": "Show All",
+  "selectAsReads": "Mark as read",
+  "delete": "Delete",
+  "deleteAll": "Delete all",
   "pageHeaders": {
     "Notifications": "Notifications",
     "Dashboard": "Dashboard",
@@ -133,7 +136,7 @@
   },
   "profile": {
     "myInfo": "My Info",
-    "notifications": "Notifications",
+    "notificationsSys": "ٍSystem Notifications",
     "wallet": "My Wallet",
     "interests": "My Interests",
     "savings": "My Savings",
@@ -169,7 +172,33 @@
     "bankNamePlaceholder": "Enter bank name",
     "branchCodePlaceholder": "Enter branch code",
     "swiftCodePlaceholder": "Example: RJHISARI",
-    "confirm": "Confirm"
+    "confirm": "Confirm",
+    "personal_assistant_title": "Notifications for Personal Assistants",
+    "beneficiary_title": "Notifications for Beneficiaries",
+    "multi_choice_hint": "You can select more than one option",
+    "beneficiary_hint": "Enabled only if you have a personal assistant account",
+    "help_same_category": "Notify me about offers matching my interests in the same category",
+    "help_same_sub_category": "Notify me about offers matching my interests in the same sub-category",
+    "help_same_city": "Notify me about offers published in my city",
+    "goal_same_category": "Notify me about offers matching my interests in the same category",
+    "goal_same_sub_category": "Notify me about offers matching my interests in the same sub-category",
+    "goal_same_city": "Notify me about offers published in my city"
+  },
+  "notification": {
+    "title": "Notifications",
+    "mark_all_read": "Mark all as read",
+    "tab_notifications": "Notifications",
+    "tab_inquiries": "Inquiries",
+    "search": "Search",
+    "latest": "Latest notifications",
+    "previous": "Previous notifications",
+    "system": "System",
+    "new_update": "There is a new update available, you can install it now",
+    "account_activated": "Your account has been successfully activated",
+    "days_ago": "{{count}} days ago",
+    "one_day_ago": "1 day ago",
+    "empty": "No notifications found",
+    "fetch_error": "Failed to load notifications. Please try again."
   },
   "settings": {
     "termsTitle": "Terms and Conditions",

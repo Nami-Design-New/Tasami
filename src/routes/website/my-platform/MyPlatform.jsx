@@ -3,8 +3,8 @@ import { useSelector } from "react-redux";
 import { NavLink, Outlet } from "react-router";
 import Loading from "../../../ui/loading/Loading";
 import RoundedBackButton from "../../../ui/website-auth/shared/RoundedBackButton";
-import UserCard from "../profile/UserCard";
 import ProtectedNavLink from "./ProtectedNavLink";
+import UserCard from "../../../ui/website/profile/UserCard";
 
 export default function MyPlatform() {
   const { t } = useTranslation();

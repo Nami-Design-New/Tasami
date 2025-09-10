@@ -4,9 +4,9 @@ import { useTranslation } from "react-i18next";
 import { Link } from "react-router";
 import EditCommunityModal from "./EditCommunityModal";
 import AlertModal from "./AlertModal";
-import useEditMyCommunity from "../../../../hooks/communities/useEditMyCommunity";
 import { toast } from "sonner";
 import { useQueryClient } from "@tanstack/react-query";
+import useEditMyCommunity from "../../../../hooks/website/communities/useEditMyCommunity";
 
 export default function CommunityActions({ community }) {
   const { t } = useTranslation();
