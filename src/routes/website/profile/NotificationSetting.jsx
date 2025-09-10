@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
-import useGetNotificationSetting from "../../../hooks/notification/useGetNotificationSetting";
-import useChangeNotificationsSettings from "../../../hooks/notification/useChangeNotificationsSettings";
 import { useQueryClient } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
+import useChangeNotificationsSettings from "../../../hooks/website/notification/useChangeNotificationsSettings";
+import useGetNotificationSetting from "../../../hooks/website/notification/useGetNotificationSetting";
 
 export default function NotificationSetting() {
   const { t } = useTranslation();

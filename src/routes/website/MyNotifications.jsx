@@ -1,14 +1,14 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { useSearchParams } from "react-router";
+import useGetNotifications from "../../hooks/website/notification/useGetNotifications";
+import EmptySection from "../../ui/EmptySection";
 import InputField from "../../ui/forms/InputField";
+import InfiniteScroll from "../../ui/loading/InfiniteScroll";
+import NotificationLoader from "../../ui/loading/NotificationLoader";
+import NotificationList from "../../ui/website/my-notifications/NotificationList";
 import NotificationPageHeader from "../../ui/website/my-notifications/NotificationPageHeader";
 import PlanDurationSelector from "../../ui/website/platform/PlanDurationSelector";
-import NotificationList from "../../ui/website/my-notifications/NotificationList";
-import useGetNotifications from "../../hooks/notification/useGetNotifications";
-import { useSearchParams } from "react-router";
-import InfiniteScroll from "../../ui/loading/InfiniteScroll";
-import AudienceCardLoader from "../../ui/loading/AudienceCardLoader";
-import EmptySection from "../../ui/EmptySection";
 
 export default function MyNotifications() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -109,7 +109,7 @@ export default function MyNotifications() {
               <div className="row">
                 {[1, 2, 3].map((i) => (
                   <div className="col-12 p-2" key={i}>
-                    <AudienceCardLoader />
+                    <NotificationLoader />
                   </div>
                 ))}
               </div>

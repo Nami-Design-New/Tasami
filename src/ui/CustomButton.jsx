@@ -10,6 +10,7 @@ const CustomButton = ({
   loading = false,
   disabled = false,
   type = "default",
+  className = "",
   ...props
 }) => {
   const classNames = [
@@ -19,8 +20,10 @@ const CustomButton = ({
     fullWidth ? "custom-btn--full" : "",
     loading ? "btn--loading" : "",
     type === "outlined" ? "custom-btn--outlined" : "",
-  ].join(" ");
-
+    className,
+  ]
+    .filter(Boolean)
+    .join(" ");
   return (
     <button className={classNames} disabled={disabled || loading} {...props}>
       {" "}

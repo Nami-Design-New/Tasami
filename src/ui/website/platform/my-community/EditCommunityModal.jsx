@@ -3,11 +3,11 @@ import { useEffect, useRef } from "react";
 import { Modal } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
 import { toast } from "sonner";
-import useEditMyCommunity from "../../../../hooks/communities/useEditMyCommunity";
 import useEditMyCommunityForm from "../../../../validations/communities/edit-my-communities";
 import CustomButton from "../../../CustomButton";
 import InputField from "../../../forms/InputField";
 import TextField from "../../../forms/TextField";
+import useEditMyCommunity from "../../../../hooks/website/communities/useEditMyCommunity";
 
 export default function EditCommunityModal({
   showModal,

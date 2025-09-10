@@ -3,8 +3,13 @@ import { useTranslation } from "react-i18next";
 
 export default function NotificationCard({ item }) {
   const { t } = useTranslation();
+  console.log(item.is_read);
+
   return (
-    <div className="notification-card" key={item.id}>
+    <div
+      className={`notification-web-card ${item.is_read === true ? "read" : ""}`}
+      key={item.id}
+    >
       <div className="notification-icon">
         <img src={item.from_user_image} alt="icon" />
       </div>

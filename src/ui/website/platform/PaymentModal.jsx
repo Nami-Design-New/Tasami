@@ -2,10 +2,10 @@ import { useState } from "react";
 import { Modal } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
 import { toast } from "sonner";
-import useSubscripePackage from "../../../hooks/subscribe/useSubscripePackage";
 import Currency from "../../Currency";
 import CustomButton from "../../CustomButton";
 import { useQueryClient } from "@tanstack/react-query";
+import useSubscripePackage from "../../../hooks/website/subscribe/useSubscripePackage";
 
 export default function PaymentModal({ plan, showModal, setShowModal }) {
   const { t } = useTranslation();

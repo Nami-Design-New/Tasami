@@ -1,29 +1,26 @@
 import { useInfiniteQuery } from "@tanstack/react-query";
-import { axiosInstance } from "../../lib/axios";
+import { axiosInstance } from "../../../lib/axios";
 
-export default function useGetNotifications({ searchWord = "" }) {
+export default function useGetMyGroups() {
   const {
-    data: notifications,
+    data: myGroups,
     isLoading,
     error,
     hasNextPage,
     fetchNextPage,
     isFetchingNextPage,
   } = useInfiniteQuery({
-    queryKey: ["notifications", searchWord],
+    queryKey: ["my-groups"],
     queryFn: async ({ pageParam = 1 }) => {
-      const res = await axiosInstance.get("notifications", {
+      const res = await axiosInstance.get("helper-groups", {
         params: {
-          pagination: "on",
           page: pageParam,
-          search_word: searchWord,
         },
       });
 
       if (res.data.code !== 200) {
-        throw new Error(res.data.message || "Failed to fetch notifications");
+        throw new Error(res.data.message || "Something went wrong");
       }
-
       return res.data;
     },
     getNextPageParam: (lastPage) => {
@@ -33,8 +30,9 @@ export default function useGetNotifications({ searchWord = "" }) {
     },
   });
   return {
-    notifications,
+    myGroups,
     isLoading,
+    total: myGroups?.pages?.[0]?.total || 0,
     error,
     hasNextPage,
     fetchNextPage,

@@ -5,9 +5,9 @@ import useAddGroupForm from "../../../../validations/groups/add-group-vaildation
 import { useTranslation } from "react-i18next";
 import InputField from "../../../forms/InputField";
 import CustomButton from "../../../CustomButton";
-import useAddGroup from "../../../../hooks/my-groups/useAddGroup";
 import { useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
+import useAddGroup from "../../../../hooks/website/my-groups/useAddGroup";
 
 export default function AddGroupModal({ showModal, setShowModal }) {
   const { categories, isLoading } = useGetcategories();
