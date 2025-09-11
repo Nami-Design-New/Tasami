@@ -18,6 +18,7 @@
   "selectAsReads": "Mark as read",
   "delete": "Delete",
   "deleteAll": "Delete all",
+  "confirm": "Confirm",
   "pageHeaders": {
     "Notifications": "Notifications",
     "Dashboard": "Dashboard",
@@ -132,7 +133,7 @@
     "tasami": "Tasami",
     "withoutLogin": "without login ",
     "email": "Email",
-    "all": "all"
+    "both": "both"
   },
   "profile": {
     "myInfo": "My Info",
@@ -172,6 +173,7 @@
     "bankNamePlaceholder": "Enter bank name",
     "branchCodePlaceholder": "Enter branch code",
     "swiftCodePlaceholder": "Example: RJHISARI",
+    "city": "city",
     "confirm": "Confirm",
     "personal_assistant_title": "Notifications for Personal Assistants",
     "beneficiary_title": "Notifications for Beneficiaries",
@@ -182,7 +184,9 @@
     "help_same_city": "Notify me about offers published in my city",
     "goal_same_category": "Notify me about offers matching my interests in the same category",
     "goal_same_sub_category": "Notify me about offers matching my interests in the same sub-category",
-    "goal_same_city": "Notify me about offers published in my city"
+    "goal_same_city": "Notify me about offers published in my city",
+    "deleteAccount": "Delete Account",
+    "deleteAlertMessage": "All account-related information will be deleted and cannot be recovered."
   },
   "notification": {
     "title": "Notifications",

@@ -20,7 +20,9 @@ const CheckField = ({
       <div className="yes-no-toggle">
         <button
           type="button"
-          className={value === inactiveValue ? "toggle-btn active" : "toggle-btn"}
+          className={
+            value === inactiveValue ? "toggle-btn active" : "toggle-btn"
+          }
           onClick={() => onChange({ target: { value: inactiveValue } })}
         >
           {inactiveLabel}

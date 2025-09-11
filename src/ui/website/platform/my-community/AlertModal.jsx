@@ -7,6 +7,7 @@ export default function AlertModal({
   setShowModal,
   confirmButtonText,
   onConfirm,
+  loading = false,
   children,
 }) {
   const { t } = useTranslation();
@@ -44,6 +45,7 @@ export default function AlertModal({
               fullWidth
               color="fire"
               onClick={handleConfirm}
+              loading={loading}
             >
               {confirmButtonText}
             </CustomButton>

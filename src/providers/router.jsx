@@ -1,9 +1,63 @@
+import { lazy, Suspense } from "react";
+import Loading from "../ui/loading/Loading";
 import { createBrowserRouter } from "react-router";
-import DashboardLayout from "../layout/MainDashboardLayout";
-import WebsiteLayout from "../layout/WebsiteLayout";
 
+/* ---------------- WEBSITE ROUTES ---------------- */
+
+import WebsiteLayout from "../layout/WebsiteLayout";
+import Home from "../routes/website/Home";
+import About from "../routes/website/About";
+import Consultations from "../routes/website/Consultations";
+import Contact from "../routes/website/contact";
+import EditProfile from "../routes/website/EditProfile";
+import Encounters from "../routes/website/Encounters";
+import FAQsSection from "../routes/website/Faqs";
+import GoalDetails from "../routes/website/GoalDetails";
+import HelpersDetails from "../routes/website/HelpersDetails";
+import HowItWorks from "../routes/website/HowItWorks";
+import MyNotifications from "../routes/website/MyNotifications";
+import MyWorks from "../routes/website/MyWorks";
+import NewGoal from "../routes/website/NewGoal";
+import NewHelpOffer from "../routes/website/NewHelpOffer";
+import OfferDetails from "../routes/website/OfferDetails";
+import PersonalOffers from "../routes/website/Offers";
+import PersonalCommunity from "../routes/website/PersonalCommunity";
+import PersonalHelper from "../routes/website/PersonalHelper";
+import Posts from "../routes/website/Posts";
+import Privacy from "../routes/website/privacy";
+import Profile from "../routes/website/Profile";
+import MyWallet from "../routes/website/profile/MyWallet";
+import NotificationSetting from "../routes/website/profile/NotificationSetting";
+import Followers from "../routes/website/Followers";
+import Interests from "../routes/website/Interests";
+import Cv from "../routes/website/my-platform/Cv";
+import MyAssistance from "../routes/website/my-platform/MyAssistance";
+import MyAudience from "../routes/website/my-platform/MyAudience";
+import MyClients from "../routes/website/my-platform/MyClients";
+import MyCommunity from "../routes/website/my-platform/MyCommunity";
+import MyGroups from "../routes/website/my-platform/MyGroups";
+import MyOffers from "../routes/website/my-platform/MyOffers";
+import MyOpportunities from "../routes/website/my-platform/MyOpportunities";
+import MyPlatform from "../routes/website/my-platform/MyPlatform";
+import SupscriptionManagment from "../routes/website/my-platform/SupscriptionManagment";
+import Savings from "../routes/website/Savings";
+
+/* ---------------- AUTH ROUTES ---------------- */
+import WebsiteAuthLayout from "../layout/WebsiteAuthLayout";
+import LoginPage from "../routes/website-auth/LoginPage";
+import Register from "../routes/website-auth/Register";
+import ResetPassword from "../routes/website-auth/ResetPassword";
+import AreasOfInterest from "../routes/website-auth/AreasOfInterest";
+
+/* ---------------- DASHBOARD ROUTES ---------------- */
+
+const DashboardLayout = lazy(() => import("../layout/MainDashboardLayout"));
+const DashboardHome = lazy(() =>
+  import("../routes/dash-board/MainDashboardHome")
+);
 import ChatPage from "../routes/ChatPage";
 import ActionsLogModel from "../routes/dash-board/ActionsLogModel";
+import PersonalGoal from "../routes/website/PersonalGoals";
 import CreateEmployee from "../routes/dash-board/CreateEmployer";
 import Documents from "../routes/dash-board/Documents";
 import EmployeeProfile from "../routes/dash-board/EmployeeProfile";
@@ -13,7 +67,6 @@ import FieldsAndSpecializations from "../routes/dash-board/list-management/Field
 import ListManagement from "../routes/dash-board/list-management/ListManagement";
 import OperatingSectors from "../routes/dash-board/list-management/OperatingSectors";
 import WorkingGroups from "../routes/dash-board/list-management/WorkingGroups";
-import DashboardHome from "../routes/dash-board/MainDashboardHome";
 import ModelComponent from "../routes/dash-board/ModelComponent";
 import Notifications from "../routes/dash-board/Notifications";
 import ActiveTab from "../routes/dash-board/reports/ActiveTab";
@@ -34,68 +87,30 @@ import SocialLinksManage from "../routes/dash-board/websiteManagment/SocialLinks
 import ViolationsManagment from "../routes/dash-board/websiteManagment/ViolationsManagment";
 import WokingGroupDetails from "../routes/dash-board/WokingGroupDetails";
 import PageNotFound from "../routes/PageNotFound";
-import About from "../routes/website/About";
-import Consultations from "../routes/website/Consultations";
-import Contact from "../routes/website/contact";
-import EditProfile from "../routes/website/EditProfile";
-import Encounters from "../routes/website/Encounters";
-import FAQsSection from "../routes/website/Faqs";
-import GoalDetails from "../routes/website/GoalDetails";
-import HelpersDetails from "../routes/website/HelpersDetails";
-import Home from "../routes/website/Home";
-import HowItWorks from "../routes/website/HowItWorks";
-import MyNotifications from "../routes/website/MyNotifications";
-import MyWorks from "../routes/website/MyWorks";
-import NewGoal from "../routes/website/NewGoal";
-import NewHelpOffer from "../routes/website/NewHelpOffer";
-import OfferDetails from "../routes/website/OfferDetails";
-import PersonalOffers from "../routes/website/Offers";
-import PersonalCommunity from "../routes/website/PersonalCommunity";
-import PersonalGoal from "../routes/website/PersonalGoals";
-import PersonalHelper from "../routes/website/PersonalHelper";
-import Posts from "../routes/website/Posts";
-import Privacy from "../routes/website/privacy";
-import Profile from "../routes/website/Profile";
-
 import Banners from "../routes/dash-board/websiteManagment/Banners";
 import SubscriptionManagement from "../routes/dash-board/websiteManagment/SubscriptionManagement";
 import TasksManagment from "../routes/dash-board/websiteManagment/TasksManagment";
 import Terms from "../routes/website/terms";
 import Views from "../routes/website/Views";
-
-import DashboardAuthlayout from "../layout/DashboardAuthlayout";
-import WebsiteAuthLayout from "../layout/WebsiteAuthLayout";
 import CommunitiesDetails from "../routes/dash-board/CommunitiesDetails";
 import CommunityPostDetails from "../routes/dash-board/CommunityPostDetails";
 import ContractDetails from "../routes/dash-board/ContractDetails";
 import ResuemeDetails from "../routes/dash-board/resuems/ResuemeDetails";
+
+/* ---------------- DASHBOARD AUTH ---------------- */
+import DashboardAuthlayout from "../layout/DashboardAuthlayout";
 import DashboardLoginPage from "../routes/dashboard-auth/DashboardLoginPage";
 import DashBoardResetPassword from "../routes/dashboard-auth/DashBoardResetPassword";
-import Forbidden from "../routes/Forbidden";
-import AreasOfInterest from "../routes/website-auth/AreasOfInterest";
-import LoginPage from "../routes/website-auth/LoginPage";
-import Register from "../routes/website-auth/Register";
-import ResetPassword from "../routes/website-auth/ResetPassword";
-import Followers from "../routes/website/Followers";
-import Interests from "../routes/website/Interests";
-import Cv from "../routes/website/my-platform/Cv";
-import MyAssistance from "../routes/website/my-platform/MyAssistance";
-import MyAudience from "../routes/website/my-platform/MyAudience";
-import MyClients from "../routes/website/my-platform/MyClients";
-import MyCommunity from "../routes/website/my-platform/MyCommunity";
-import MyGroups from "../routes/website/my-platform/MyGroups";
-import MyOffers from "../routes/website/my-platform/MyOffers";
-import MyOpportunities from "../routes/website/my-platform/MyOpportunities";
-import MyPlatform from "../routes/website/my-platform/MyPlatform";
-import SupscriptionManagment from "../routes/website/my-platform/SupscriptionManagment";
-import Savings from "../routes/website/Savings";
-import ErrorFallback from "../ui/ErrorFallback";
+
+/* ---------------- ERROR / EXTRA ---------------- */
+
 import ProtectedRoute from "./ProtectedRoute";
+import Forbidden from "../routes/Forbidden";
+import ErrorFallback from "../ui/ErrorFallback";
 import { SkipGuardedRoute } from "./SkipGuardedRoute";
-import MyWallet from "../routes/website/profile/MyWallet";
-import NotificationSetting from "../routes/website/profile/NotificationSetting";
 
 export const router = createBrowserRouter([
+  /* WEBSITE AUTH */
   {
     element: <WebsiteAuthLayout />,
     errorElement: <ErrorFallback />,
@@ -104,6 +119,8 @@ export const router = createBrowserRouter([
       { path: "/register", element: <Register /> },
     ],
   },
+
+  /* AREAS OF INTEREST */
   {
     path: "/areas-of-interest",
     element: (
@@ -114,7 +131,11 @@ export const router = createBrowserRouter([
       </ProtectedRoute>
     ),
   },
+
+  /* RESET PASSWORD */
   { path: "/reset-password", element: <ResetPassword /> },
+
+  /* WEBSITE */
   {
     element: <WebsiteLayout />,
     errorElement: <ErrorFallback />,
@@ -296,19 +317,32 @@ export const router = createBrowserRouter([
       },
     ],
   },
+
+  /* Dashboard Auth */
   {
     path: "/dashboard/login",
     element: <DashboardAuthlayout />,
     children: [{ index: true, element: <DashboardLoginPage /> }],
   },
+
+  /* Dashboard reset password */
+
   {
     path: "/dashboard/reset-password",
     element: <DashBoardResetPassword />,
   },
+
+  /* Dashboard */
+
   {
-    path: "/dashboard",
-    element: <DashboardLayout />,
+    path: "/dashboard/*",
+    element: (
+      <Suspense fallback={<Loading />}>
+        <DashboardLayout />
+      </Suspense>
+    ),
     errorElement: <ErrorFallback />,
+
     children: [
       {
         index: true,
@@ -495,6 +529,8 @@ export const router = createBrowserRouter([
       },
     ],
   },
+
+  /* ERRORS */
   {
     path: "*",
     element: <PageNotFound />,

@@ -524,3 +524,22 @@
     }
   }
 }
+
+// edit profile
+
+.edit-profile-page {
+  .change-pasowrd {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    label {
+      color: #0d0d0d;
+      font-weight: 600;
+      font-size: 16px;
+    }
+    .form-check-input:checked {
+      background-color: $second;
+      border-color: $second25;
+    }
+  }
+}
