@@ -15,6 +15,7 @@ import PhoneField from "../../ui/forms/PhoneField";
 import SelectField from "../../ui/forms/SelectField";
 import useProfileValidation from "../../validations/my-profile/my-profile-validation";
 import { Controller } from "react-hook-form";
+import PasswordField from "../../ui/forms/PasswordField";
 
 export default function EditProfile() {
   const { user } = useSelector((state) => state.authRole);
@@ -307,7 +308,7 @@ export default function EditProfile() {
           {wantChangePassword === true && (
             <>
               <div className="col-12 col-lg-6 p-2">
-                <InputField
+                <PasswordField
                   label={t("profile.oldPassword")}
                   id="oldPassword"
                   type="password"
@@ -316,7 +317,7 @@ export default function EditProfile() {
                 />
               </div>
               <div className="col-12 col-lg-6 p-2">
-                <InputField
+                <PasswordField
                   label={t("profile.newPassword")}
                   id="newPassword"
                   type="password"
@@ -326,7 +327,7 @@ export default function EditProfile() {
               </div>
 
               <div className="col-12 col-lg-6 p-2">
-                <InputField
+                <PasswordField
                   label={t("profile.confirmPassword")}
                   id="confirmPassword"
                   type="password"
