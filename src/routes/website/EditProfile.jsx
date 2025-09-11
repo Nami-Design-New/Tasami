@@ -316,7 +316,11 @@ export default function EditProfile() {
 
           <div className="col-12 p-2 mt-3">
             <div className="buttons justify-content-end">
-              <CustomButton loading={isEditingProfile} type="submit">
+              <CustomButton
+                size="large"
+                loading={isEditingProfile}
+                type="submit"
+              >
                 {t("profile.save")}
               </CustomButton>
             </div>
