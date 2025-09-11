@@ -9,7 +9,7 @@ const CustomButton = ({
   iconPosition = "left",
   loading = false,
   disabled = false,
-  type = "default",
+  variant = "default",
   className = "",
   ...props
 }) => {
@@ -19,7 +19,7 @@ const CustomButton = ({
     `custom-btn--${size}`,
     fullWidth ? "custom-btn--full" : "",
     loading ? "btn--loading" : "",
-    type === "outlined" ? "custom-btn--outlined" : "",
+    variant === "outlined" ? "custom-btn--outlined" : "",
     className,
   ]
     .filter(Boolean)
@@ -54,7 +54,7 @@ CustomButton.propTypes = {
   fullWidth: PropTypes.bool,
   icon: PropTypes.node,
   iconPosition: PropTypes.oneOf(["left", "right"]),
-  type: PropTypes.oneOf(["default", "outlined"]),
+  variant: PropTypes.oneOf(["default", "outlined"]),
   loading: PropTypes.bool,
   disabled: PropTypes.bool,
 };

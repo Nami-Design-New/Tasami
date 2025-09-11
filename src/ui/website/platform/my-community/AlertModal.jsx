@@ -35,7 +35,7 @@ export default function AlertModal({
               size="large"
               fullWidth
               color="fire"
-              type="outlined"
+              variant="outlined"
               onClick={handleCancel}
             >
               {t("cancel")}
