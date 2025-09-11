@@ -8,6 +8,8 @@ import useGetcategories from "../../hooks/area-of-interests/useGetcategories";
 import useUpdateUserCategories from "../../hooks/area-of-interests/useUpdateUserCategories";
 
 export default function AreasOfInterest() {
+  console.log("AreasOfInterest-----------------------------");
+
   const navigate = useNavigate();
   const { categories, isLoading } = useGetcategories();
   const { t } = useTranslation();
@@ -74,9 +76,7 @@ export default function AreasOfInterest() {
                   <AccordionBody>
                     <div className="tag-list">
                       {[...Array(5)].map((_, i) => (
-                        <div key={i} style={{ margin: "5px 0" }}>
-                          <Skeleton width={80} height={25} borderRadius={12} />
-                        </div>
+                        <div key={i} style={{ margin: "5px 0" }}></div>
                       ))}
                     </div>
                   </AccordionBody>

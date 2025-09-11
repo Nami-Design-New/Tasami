@@ -8,6 +8,8 @@ export default function ProtectedRoute({ children, allowedRoles }) {
   const role = useSelector((s) => s.authRole.role);
   const location = useLocation();
 
+  console.log("iam in protected route");
+
   if (loading) {
     return <Loading />;
   }
