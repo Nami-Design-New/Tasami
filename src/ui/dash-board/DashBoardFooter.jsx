@@ -2,7 +2,7 @@ import { Link } from "react-router";
 
 const DashBoardFooter = () => {
   return (
-    <footer>
+    <footer className="dashboard_footer">
       <div className="inner_footer">
         <h6>
           جميع الحقوق محفوظه ل <Link to="/">تسامي</Link>

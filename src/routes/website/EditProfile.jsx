@@ -1,51 +1,168 @@
-import { useForm } from "react-hook-form";
+import { useQueryClient } from "@tanstack/react-query";
+import { useEffect, useRef } from "react";
+import { Form } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
-import { useSelector } from "react-redux";
-import CheckField from "../../ui/forms/CheckField";
+import { useDispatch, useSelector } from "react-redux";
+import useGetCities from "../../hooks/countries/useGetCities";
+import useGetCountries from "../../hooks/countries/useGetCountries";
+import useGetNationalities from "../../hooks/countries/useGetNationalities";
+import useEditProfile from "../../hooks/website/profile/useEditProfile";
+import { setUser } from "../../redux/slices/authRole";
+import CustomButton from "../../ui/CustomButton";
 import DatePicker from "../../ui/forms/DatePicker";
 import GenderSelect from "../../ui/forms/GenderSelect copy";
 import InputField from "../../ui/forms/InputField";
 import PhoneField from "../../ui/forms/PhoneField";
 import SelectField from "../../ui/forms/SelectField";
-import SubmitButton from "../../ui/forms/SubmitButton";
+import useProfileValidation from "../../validations/my-profile/my-profile-validation";
 
 export default function EditProfile() {
   const { user } = useSelector((state) => state.authRole);
-  console.log(user);
+  const dispatch = useDispatch();
+  const { editProfile, isEditingProfile } = useEditProfile();
+  const queryClient = useQueryClient();
 
+  const inputFileRef = useRef();
   const { t } = useTranslation();
   const {
     register,
     handleSubmit,
     watch,
+    reset,
     setValue,
     formState: { errors },
-  } = useForm({
-    mode: "onChange",
-    defaultValues: {
-      firstName: user.first_name,
-      lastName: user.last_name,
-      date: user.birthdate,
-      gender: user.gender,
-      nationality: user.nationality,
-      country: user.phone_code,
-      phone: user.phone,
-      email: user.email,
-      wantChangePassword: false,
-    },
-  });
+  } = useProfileValidation();
 
+  const profilePicture = watch("profilePicture");
   const wantChangePassword = watch("wantChangePassword");
   const gender = watch("gender");
+  const countryId = watch("country");
+
+  const { countries, isLoading: isCountriesLoading } = useGetCountries({
+    search: "",
+    pagenation: "off",
+  });
+  const { nationalities, isLoading: isNationaliesLoading } =
+    useGetNationalities("", "off");
+  const { cities, isCitiesLoading } = useGetCities({
+    search: "",
+    pagenation: "off",
+    countryId,
+  });
+
+  const handleFileChange = (event) => {
+    const file = event.target.files[0];
+    setValue("profilePicture", file);
+  };
+
+  const handleButtonClick = () => {
+    inputFileRef.current.click();
+  };
 
   const onSubmit = (data) => {
-    console.log("بيانات الحساب:", data);
+    const formData = new FormData();
+
+    // Required fields
+    // formData.append("phone", data.phone);
+    // formData.append("phone_code", "+966");
+    formData.append("first_name", data.firstName);
+    formData.append("last_name", data.lastName);
+    formData.append("email", data.email);
+    formData.append("nationality_id", data.nationality);
+    formData.append("country_id", data.country);
+    formData.append("city_id", data.city);
+
+    // Optional password fields
+    if (data.wantChangePassword) {
+      formData.append("old_password", data.oldPassword || "");
+      formData.append("password", data.newPassword || "");
+      formData.append("password_confirmation", data.confirmPassword || "");
+    }
+
+    // Optional profile picture
+    if (data.profilePicture && typeof data.profilePicture !== "string") {
+      formData.append("profilePicture", data.profilePicture);
+    }
+
+    editProfile(formData, {
+      onSuccess: (res) => {
+        dispatch(setUser(res.data));
+      },
+      onError: (err) => {
+        console.error("Failed to update profile:", err.message);
+      },
+    });
   };
+
+  useEffect(() => {
+    if (
+      user &&
+      countries?.data?.length > 0 &&
+      nationalities?.data?.length > 0 &&
+      (countryId ? cities?.data?.length > 0 : true)
+    ) {
+      reset({
+        profilePicture: user.image,
+        firstName: user.first_name,
+        lastName: user.last_name,
+        date: user.birthdate,
+        gender: user.gender,
+        nationality: String(user?.nationality?.id),
+        country: String(user?.country_id),
+        city: String(user?.city?.id),
+        phone: user.phone,
+        email: user.email,
+        wantChangePassword: false,
+        oldPassword: "",
+        newPassword: "",
+        confirmPassword: "",
+      });
+    }
+  }, [user, countries, nationalities, cities, countryId, reset]);
 
   return (
     <div className="edit-profile-page">
       <form className="form_ui" onSubmit={handleSubmit(onSubmit)}>
         <div className="row">
+          <div className="col-12 p-2">
+            <p className="image-label">
+              <span>{t("auth.profilePicture")}</span>{" "}
+              <span>&apos;{t("auth.optional")}&apos;</span>
+            </p>
+            <label className="images-input">
+              <div className="image-input-wrapper">
+                {profilePicture ? (
+                  typeof profilePicture === "string" ? (
+                    <img
+                      src={profilePicture}
+                      alt="preview"
+                      className="preview-img"
+                    />
+                  ) : (
+                    <img
+                      src={URL.createObjectURL(profilePicture)}
+                      alt="preview"
+                      className="preview-img"
+                    />
+                  )
+                ) : (
+                  <img src="/icons/add-photo.svg" alt="placeholder" />
+                )}
+                <button
+                  onClick={handleButtonClick}
+                  type="button"
+                  className="add-image-buttton"
+                >
+                  <i className="fa-light fa-plus"></i>{" "}
+                </button>
+              </div>
+              <input
+                type="file"
+                ref={inputFileRef}
+                onChange={handleFileChange}
+              />
+            </label>
+          </div>
           <div className="col-12 col-lg-6 p-2">
             <InputField
               label={t("profile.firstName")}
@@ -88,14 +205,13 @@ export default function EditProfile() {
 
           <div className="col-12 col-lg-6 p-2">
             <SelectField
+              loading={isNationaliesLoading}
               label={t("profile.nationality")}
               id="nationality"
-              options={[
-                { value: "EG", name: t("EG") },
-                { value: "SA", name: t("SA") },
-                { value: "AE", name: t("AE") },
-                { value: "JO", name: t("JO") },
-              ]}
+              options={nationalities?.data?.map((nationality) => ({
+                value: nationality.id,
+                name: nationality.title,
+              }))}
               {...register("nationality")}
               error={errors.nationality?.message}
             />
@@ -104,15 +220,27 @@ export default function EditProfile() {
           <div className="col-12 col-lg-6 p-2">
             <SelectField
               label={t("profile.country")}
+              loading={isCountriesLoading}
               id="country"
-              options={[
-                { value: "EG", name: t("EG") },
-                { value: "SA", name: t("SA") },
-                { value: "AE", name: t("AE") },
-                { value: "QA", name: t("QA") },
-              ]}
+              options={countries?.data?.map((country) => ({
+                value: country.id,
+                name: country.title,
+              }))}
               {...register("country")}
               error={errors.country?.message}
+            />
+          </div>
+          <div className="col-12 col-lg-6 p-2">
+            <SelectField
+              loading={isCitiesLoading}
+              label={t("profile.city")}
+              id="city"
+              options={cities?.data?.map((city) => ({
+                value: city.id,
+                name: city.title,
+              }))}
+              {...register("city")}
+              error={errors.city?.message}
             />
           </div>
 
@@ -122,14 +250,13 @@ export default function EditProfile() {
               id="phone"
               type="phone"
               country={"eg"}
-              {...register("phone", {
-                required: t("validation.required"),
-              })}
+              disabled // 👈 disable the field
+              {...register("phone")}
               error={errors.phone?.message}
             />
           </div>
 
-          <div className="col-12 col-lg-6 p-2">
+          <div className="col-12  p-2">
             <InputField
               label={t("profile.email")}
               id="email"
@@ -141,22 +268,22 @@ export default function EditProfile() {
             />
           </div>
 
-          <div className="col-12 col-lg-6 p-2">
-            <CheckField
-              label={t("profile.changePassword")}
-              id="wantChangePassword"
-              value={wantChangePassword}
-              activeValue={true}
-              inactiveValue={false}
-              activeLabel={t("profile.yes")}
-              inactiveLabel={t("profile.no")}
-              onChange={(e) => setValue("wantChangePassword", e.target.value)}
-            />
+          <div className="col-12  p-2">
+            <div className="change-pasowrd">
+              <label className="field-label" htmlFor="wantChangePassword">
+                {t("profile.changePassword")}
+              </label>
+              <Form.Switch
+                {...register("wantChangePassword")}
+                id="wantChangePassword"
+                checked={wantChangePassword}
+              />
+            </div>
           </div>
 
           {wantChangePassword === true && (
             <>
-              <div className="col-12 col-lg-6 p-2 mt-2">
+              <div className="col-12 col-lg-6 p-2">
                 <InputField
                   label={t("profile.oldPassword")}
                   id="oldPassword"
@@ -188,8 +315,14 @@ export default function EditProfile() {
           )}
 
           <div className="col-12 p-2 mt-3">
-            <div className="buttons">
-              <SubmitButton text={t("profile.save")} />
+            <div className="buttons justify-content-end">
+              <CustomButton
+                size="large"
+                loading={isEditingProfile}
+                type="submit"
+              >
+                {t("profile.save")}
+              </CustomButton>
             </div>
           </div>
         </div>

@@ -1,5 +1,3 @@
-import "swiper/css";
-import "swiper/css/autoplay";
 import { Autoplay } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import OfferCard from "../../cards/OfferCard";
@@ -24,17 +22,25 @@ export default function OffersSlider({ offers }) {
         slidesPerView={1}
         spaceBetween={16}
         breakpoints={{
-          0: { slidesPerView: 1 },
-          768: { slidesPerView: 2 },
-          1024: { slidesPerView: 3 },
-          1200: { slidesPerView: 4 },
+          768: { slidesPerView: 2, spaceBetween: 20 },
+          1024: { slidesPerView: 3, spaceBetween: 24 },
+          1200: { slidesPerView: 4, spaceBetween: 24 },
         }}
-        loop
+        loop={true}
         autoplay={{ delay: 3000, disableOnInteraction: false }}
         modules={[Autoplay]}
+        // 👇 optimizations
+        observer={false}
+        observeParents={false}
+        watchOverflow={true}
+        resizeObserver={false}
       >
-        {offers.map((offer) => (
-          <SwiperSlide key={offer.id}>
+        {offers.map((offer, index) => (
+          <SwiperSlide
+            key={offer.id}
+            style={{ height: "100%" }}
+            virtualIndex={index}
+          >
             <OfferCard offer={offer} />
           </SwiperSlide>
         ))}

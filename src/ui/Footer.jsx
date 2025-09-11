@@ -7,7 +7,7 @@ export default function Footer() {
         <div className="row justify-content-center">
           <div className="col-lg-4 col-md-6 col-12 p-2">
             <Link to="/" className="logo">
-              <img src="/images/logo.svg" alt="الشعار" />
+              <img src="/images/logo.svg" alt="logo" width="150" height="60" />
             </Link>
             <p className="description">
               نحن منصة عربية نسعى لربط الأفكار بأصحاب المهارات والخبرات من خلال

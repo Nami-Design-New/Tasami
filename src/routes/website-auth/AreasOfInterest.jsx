@@ -5,10 +5,11 @@ import { Link, useNavigate } from "react-router";
 import TagItem from "../../ui/website-auth/TagItem";
 import CustomButton from "../../ui/CustomButton";
 import useGetcategories from "../../hooks/area-of-interests/useGetcategories";
-import Skeleton from "react-loading-skeleton";
 import useUpdateUserCategories from "../../hooks/area-of-interests/useUpdateUserCategories";
 
 export default function AreasOfInterest() {
+  console.log("AreasOfInterest-----------------------------");
+
   const navigate = useNavigate();
   const { categories, isLoading } = useGetcategories();
   const { t } = useTranslation();
@@ -67,9 +68,7 @@ export default function AreasOfInterest() {
               {isLoading ? (
                 <Accordion.Item eventKey="skeleton" key="skeleton">
                   <Accordion.Header>
-                    <span>
-                      <Skeleton width={120} height={18} />
-                    </span>
+                    <span>loading</span>
                     <span className="arrow-icon">
                       <i className="fa-solid fa-angle-left"></i>
                     </span>
@@ -77,9 +76,7 @@ export default function AreasOfInterest() {
                   <AccordionBody>
                     <div className="tag-list">
                       {[...Array(5)].map((_, i) => (
-                        <div key={i} style={{ margin: "5px 0" }}>
-                          <Skeleton width={80} height={25} borderRadius={12} />
-                        </div>
+                        <div key={i} style={{ margin: "5px 0" }}></div>
                       ))}
                     </div>
                   </AccordionBody>

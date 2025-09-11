@@ -1,5 +1,4 @@
 import { Link } from "react-router";
-import "swiper/css";
 import { Autoplay } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import GoalCard from "../../cards/GoalCard";
