@@ -31,7 +31,10 @@ const WebsiteLayout = () => {
       easing: "ease-out-cubic",
       once: true,
     });
-    AOS.refresh();
+
+    requestAnimationFrame(() => {
+      AOS.refresh();
+    });
   }, []);
 
   useEffect(() => {

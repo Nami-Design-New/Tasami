@@ -7,21 +7,16 @@ const getSchema = (t) =>
   yup.object().shape({
     profilePicture: yup
       .mixed()
-      .nullable()
+      .required(t("validation.required")) // ✅ make it required
       .test("fileSize", t("validation.fileSize"), (file) => {
-        if (!file) return true;
-        return file.size <= 2 * 1024 * 1024;
+        if (!file) return false; // required, so empty fails
+        if (typeof file === "string") return true; // already uploaded URL
+        return file.size <= 2 * 1024 * 1024; // max 2MB
       })
       .test("fileType", t("validation.fileType"), (file) => {
-        if (!file) return true;
-        return [
-          "image/jpeg",
-          "image/png",
-          "image/jpg",
-          "image/svg+xml",
-          "image/svg",
-          "image/wepb",
-        ].includes(file.type);
+        if (!file) return false; // required, so empty fails
+        if (typeof file === "string") return true; // already uploaded URL
+        return file.type.startsWith("image/"); // accept any image type
       }),
 
     field: yup.string().required(t("validation.required")),

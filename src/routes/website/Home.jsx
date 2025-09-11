@@ -15,29 +15,29 @@ export default function Home() {
     <section className="container-lg p-0">
       <div className="row">
         <div className="col-12 p-2 ">
-          <Hero sliders={homePageData.sliders} />
+          <Hero sliders={homePageData?.sliders} />
         </div>
         <div className="col-12 p-2 my-3">
-          <GoalsHelpSection goals={homePageData.goals} />
+          <GoalsHelpSection goals={homePageData?.goals} />
         </div>
-        {homePageData.goals.length > 0 && (
+        {homePageData?.goals.length > 0 && (
           <div className="col-12 p-2 my-3">
-            <GoalSlider goals={homePageData.goals} />
+            <GoalSlider goals={homePageData?.goals} />
           </div>
         )}
-        {homePageData.help_service.length > 0 && (
+        {homePageData?.help_service.length > 0 && (
           <div className="col-12 p-2 my-3">
-            <OffersSlider offers={homePageData.help_service} />
+            <OffersSlider offers={homePageData?.help_service} />
           </div>
         )}
-        {homePageData.helpers.length > 0 && (
+        {homePageData?.helpers.length > 0 && (
           <div className="col-12 p-2 my-3">
-            <HelpersSlider helpers={homePageData.helpers} />
+            <HelpersSlider helpers={homePageData?.helpers} />
           </div>
         )}
-        {homePageData.my_works && (
+        {homePageData?.my_works && (
           <div className="col-12 p-2 my-3">
-            <ContractsStatus stats={homePageData.my_works} />
+            <ContractsStatus stats={homePageData?.my_works} />
           </div>
         )}
       </div>
