@@ -503,16 +503,19 @@ button.back {
   display: flex;
   align-items: center;
   gap: 8px;
+  flex: 1;
 }
 
 .identity-option {
   cursor: pointer;
   @include centerFlex;
+  white-space: nowrap;
   flex: 1;
   gap: 8px;
   border: 1px solid $second;
   padding: 1rem;
   border-radius: 12px;
+  height: 54px;
   color: $second;
   font-size: 1rem;
   transition: all 0.4s ease;

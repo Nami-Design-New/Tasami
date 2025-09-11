@@ -87,13 +87,13 @@ export default function Header() {
                 user.about ? navigate("my-platform") : setShowModal(true);
               }}
             >
-              <i className="fa-solid fa-robot"></i>
+              <i className="fa-regular fa-robot"></i>
               {t("profile.assistant")}
             </CustomButton>
           )}
           {isAuthed && (
             <Link to="/notifications" className="notification-btn">
-              <i className="fa-solid fa-bell">
+              <i className="fa-regular fa-bell">
                 {settings?.notification_count >= 0 && (
                   <Badge>
                     {settings?.notification_count > 99

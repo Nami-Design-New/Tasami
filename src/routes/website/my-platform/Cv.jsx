@@ -45,6 +45,7 @@ export default function Cv() {
       onSuccess: (res) => {
         toast.success(res.message || t("website.platform.cv.updateSuccess"));
         queryClient.invalidateQueries({ queryKey: ["cv"] });
+        queryClient.invalidateQueries({ queryKey: ["authedUser"] });
       },
       onError: (error) => {
         console.log(error);

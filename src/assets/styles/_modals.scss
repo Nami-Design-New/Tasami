@@ -2,6 +2,14 @@
 @use "./mixins" as *;
 @use "./variables" as *;
 
+.modal {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
 .modal-header {
   border-bottom: 0;
   .btn-close {

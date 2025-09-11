@@ -117,6 +117,7 @@ export default function Profile() {
                   color="fire"
                   onClick={handleLogout}
                   disabled={isPending}
+                  loading={isPending}
                 >
                   {t("website.header.logout")}
                 </CustomButton>

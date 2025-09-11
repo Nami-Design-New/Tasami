@@ -492,6 +492,7 @@ body.en {
 .otp-container {
   display: flex;
   gap: 8px;
+  direction: ltr;
   .otp-input {
     flex: 1;
     width: 100%;

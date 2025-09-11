@@ -1,6 +1,6 @@
 import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
-import { NavLink, Outlet } from "react-router";
+import { NavLink, Outlet, useNavigate } from "react-router";
 import Loading from "../../../ui/loading/Loading";
 import RoundedBackButton from "../../../ui/website-auth/shared/RoundedBackButton";
 import ProtectedNavLink from "./ProtectedNavLink";
@@ -8,8 +8,12 @@ import UserCard from "../../../ui/website/profile/UserCard";
 
 export default function MyPlatform() {
   const { t } = useTranslation();
+  const navigate = useNavigate();
+  const { lang } = useSelector((state) => state.language);
   const { user } = useSelector((state) => state.authRole);
-
+  const handleBack = () => {
+    navigate(-1);
+  };
   if (!user) {
     return <Loading />;
   }
@@ -20,8 +24,12 @@ export default function MyPlatform() {
         <div className="row">
           <div className="col-12 p-2 mb-4">
             <div className="platform-header">
-              <RoundedBackButton>
-                <i className="fa-solid fa-angle-right"></i>
+              <RoundedBackButton onClick={handleBack}>
+                {lang === "ar" ? (
+                  <i className="fa-solid fa-angle-right"></i>
+                ) : (
+                  <i className="fa-solid fa-angle-left"></i>
+                )}
               </RoundedBackButton>
               <h2 className="platform-header__title">
                 {t("website.platform.platform")}

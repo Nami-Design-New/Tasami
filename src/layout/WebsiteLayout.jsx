@@ -4,17 +4,18 @@ import { useEffect } from "react";
 import { Outlet } from "react-router";
 import useAuth from "../hooks/auth/useAuth";
 import ResponsiveNav from "../layout/ResponsiveNav";
-import { requestPermission } from "../lib/fireBase/service";
+import { listenToMessages, requestPermission } from "../lib/fireBase/service";
 import Footer from "../ui/Footer";
 import Header from "../ui/Header";
 import Loading from "../ui/loading/Loading";
 import ScrollToTop from "../ui/ScrollToTop";
+import useSettings from "../hooks/website/settings/useSettings";
 
 const WebsiteLayout = () => {
-  // const { refetch: refetchSettings } = useSettings();
+  const { refetch: refetchSettings } = useSettings();
   // const { refetch: refetchNotifications } = useGetNotifications();
 
-  const { loading } = useAuth();
+  const { user, loading } = useAuth();
   useEffect(() => {
     const sections = document.querySelectorAll("section");
     sections.forEach((section) => {
@@ -36,12 +37,17 @@ const WebsiteLayout = () => {
   }, []);
 
   useEffect(() => {
+    if (!user) return;
+
     const initializeNotifications = async () => {
       await requestPermission();
+      const unsubscribe = listenToMessages(refetchSettings);
+      return () => {
+        if (unsubscribe) unsubscribe();
+      };
     };
-
     initializeNotifications();
-  }, []);
+  }, [refetchSettings, user]);
 
   return (
     <>

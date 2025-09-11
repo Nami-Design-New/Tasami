@@ -1,4 +1,3 @@
-import { useQueryClient } from "@tanstack/react-query";
 import { useEffect, useRef } from "react";
 import { Form } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
@@ -15,12 +14,12 @@ import InputField from "../../ui/forms/InputField";
 import PhoneField from "../../ui/forms/PhoneField";
 import SelectField from "../../ui/forms/SelectField";
 import useProfileValidation from "../../validations/my-profile/my-profile-validation";
+import { Controller } from "react-hook-form";
 
 export default function EditProfile() {
   const { user } = useSelector((state) => state.authRole);
   const dispatch = useDispatch();
   const { editProfile, isEditingProfile } = useEditProfile();
-  const queryClient = useQueryClient();
 
   const inputFileRef = useRef();
   const { t } = useTranslation();
@@ -30,6 +29,7 @@ export default function EditProfile() {
     watch,
     reset,
     setValue,
+    control,
     formState: { errors },
   } = useProfileValidation();
 
@@ -95,21 +95,16 @@ export default function EditProfile() {
   };
 
   useEffect(() => {
-    if (
-      user &&
-      countries?.data?.length > 0 &&
-      nationalities?.data?.length > 0 &&
-      (countryId ? cities?.data?.length > 0 : true)
-    ) {
+    if (user) {
       reset({
         profilePicture: user.image,
         firstName: user.first_name,
         lastName: user.last_name,
         date: user.birthdate,
         gender: user.gender,
-        nationality: String(user?.nationality?.id),
-        country: String(user?.country_id),
-        city: String(user?.city?.id),
+        nationality: String(user?.nationality?.id) || "",
+        country: String(user?.country_id) || "",
+        city: String(user?.city?.id) || "",
         phone: user.phone,
         email: user.email,
         wantChangePassword: false,
@@ -118,7 +113,7 @@ export default function EditProfile() {
         confirmPassword: "",
       });
     }
-  }, [user, countries, nationalities, cities, countryId, reset]);
+  }, [user, reset]);
 
   return (
     <div className="edit-profile-page">
@@ -204,43 +199,70 @@ export default function EditProfile() {
           </div>
 
           <div className="col-12 col-lg-6 p-2">
-            <SelectField
-              loading={isNationaliesLoading}
-              label={t("profile.nationality")}
-              id="nationality"
-              options={nationalities?.data?.map((nationality) => ({
-                value: nationality.id,
-                name: nationality.title,
-              }))}
-              {...register("nationality")}
-              error={errors.nationality?.message}
+            <Controller
+              name="nationality"
+              control={control}
+              render={({ field }) => (
+                <SelectField
+                  loading={isNationaliesLoading}
+                  label={t("profile.nationality")}
+                  id="nationality"
+                  // value={String(user?.nationality?.id)}
+                  // {...register("nationality")}
+                  options={nationalities?.data?.map((nationality) => ({
+                    value: nationality.id,
+                    name: nationality.title,
+                  }))}
+                  value={field.value}
+                  onChange={field.onChange}
+                  error={errors.nationality?.message}
+                />
+              )}
             />
           </div>
 
           <div className="col-12 col-lg-6 p-2">
-            <SelectField
-              label={t("profile.country")}
-              loading={isCountriesLoading}
-              id="country"
-              options={countries?.data?.map((country) => ({
-                value: country.id,
-                name: country.title,
-              }))}
-              {...register("country")}
-              error={errors.country?.message}
+            <Controller
+              name="country"
+              control={control}
+              render={({ field }) => (
+                <SelectField
+                  label={t("profile.country")}
+                  loading={isCountriesLoading}
+                  id="country"
+                  // value={String(user?.country_id)}
+                  // {...register("country")}
+                  options={countries?.data?.map((country) => ({
+                    value: country.id,
+                    name: country.title,
+                  }))}
+                  value={field.value}
+                  onChange={field.onChange}
+                  error={errors.country?.message}
+                />
+              )}
             />
           </div>
           <div className="col-12 col-lg-6 p-2">
-            <SelectField
-              loading={isCitiesLoading}
-              label={t("profile.city")}
-              id="city"
-              options={cities?.data?.map((city) => ({
-                value: city.id,
-                name: city.title,
-              }))}
-              {...register("city")}
-              error={errors.city?.message}
+            <Controller
+              name="city"
+              control={control}
+              render={({ field }) => (
+                <SelectField
+                  loading={isCitiesLoading}
+                  label={t("profile.city")}
+                  id="city"
+                  // value={String(user?.city?.id)}
+                  options={cities?.data?.map((city) => ({
+                    value: city.id,
+                    name: city.title,
+                  }))}
+                  // {...register("city")}
+                  value={field.value}
+                  onChange={field.onChange}
+                  error={errors.city?.message}
+                />
+              )}
             />
           </div>
 
@@ -249,8 +271,9 @@ export default function EditProfile() {
               label={t("profile.phone")}
               id="phone"
               type="phone"
-              country={"eg"}
-              disabled // 👈 disable the field
+              country="eg"
+              disabled
+              value={user?.phone_code + watch("phone")} // 👈 هنا نستخدم watch
               {...register("phone")}
               error={errors.phone?.message}
             />

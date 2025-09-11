@@ -11,6 +11,7 @@ import CustomButton from "../../CustomButton";
 import InputField from "../../forms/InputField";
 import SelectField from "../../forms/SelectField";
 import useGenerateDes from "../../../hooks/website/my-assistances/useGenerateDes";
+import TextField from "../../forms/TextField";
 
 export default function AddAssistanceModal({ showModal, setShowModal }) {
   const { t } = useTranslation();
@@ -171,15 +172,26 @@ export default function AddAssistanceModal({ showModal, setShowModal }) {
               />
             </div>
             {/* Offer Title */}
-            <div className="col-12 col-md-6 p-2">
-              <InputField
+            <div className="col-12 p-2">
+              <TextField
                 label={t("website.platform.myAssistance.offerTitle")}
                 {...register("title")}
                 error={errors.title?.message}
               />
+              <CustomButton
+                type="button"
+                size="large"
+                onClick={handleGeneratDes}
+                loading={isGenerating}
+                fullWidth
+                icon={<i className="fa-solid fa-sparkles"></i>}
+                style={{ backgroundColor: "#FDCB2F", marginTop: "12px" }}
+              >
+                {t("generate")}
+              </CustomButton>
             </div>
             {/* Gender */}
-            <div className="col-12 col-md-6 p-2">
+            <div className="col-12  p-2">
               <div className="identity-selector">
                 <h6 className="identity-title">
                   {t("website.platform.myAssistance.identity")}
@@ -207,55 +219,61 @@ export default function AddAssistanceModal({ showModal, setShowModal }) {
               </div>
             </div>
             {/* Age Range */}
-            <div className="col-12 col-md-6 p-2">
+            <div className="col-12  p-2">
               <div className="identity-selector">
                 <h6 className="identity-title">
                   {t("website.platform.myAssistance.age")}
                 </h6>
-                <div className="identity-container">
-                  <label
-                    className={`identity-option ${
-                      selectedAgeOption === "defined" ? "active" : ""
-                    }`}
-                  >
-                    <span>{t("website.platform.myAssistance.defined")}</span>
-                    <input
-                      type="radio"
-                      value="defined"
-                      {...register("ageOption")}
-                    />
-                  </label>
-                  <label
-                    className={`identity-option ${
-                      selectedAgeOption === "notDefined" ? "active" : ""
-                    }`}
-                  >
-                    <span>{t("website.platform.myAssistance.notDefined")}</span>
-                    <input
-                      type="radio"
-                      value="notDefined"
-                      {...register("ageOption")}
-                    />
-                  </label>
+                <div className="d-flex align-items-center gap-2">
+                  <div className="identity-container">
+                    <label
+                      className={`identity-option ${
+                        selectedAgeOption === "defined" ? "active" : ""
+                      }`}
+                    >
+                      <span>{t("website.platform.myAssistance.defined")}</span>
+                      <input
+                        type="radio"
+                        value="defined"
+                        {...register("ageOption")}
+                      />
+                    </label>
+                    <label
+                      className={`identity-option ${
+                        selectedAgeOption === "notDefined" ? "active" : ""
+                      }`}
+                    >
+                      <span>
+                        {t("website.platform.myAssistance.notDefined")}
+                      </span>
+                      <input
+                        type="radio"
+                        value="notDefined"
+                        {...register("ageOption")}
+                      />
+                    </label>
+                  </div>
+                  {selectedAgeOption === "defined" && (
+                    <div className="d-flex gap-2 flex-grow-1">
+                      <InputField
+                        placeholder={t("from")}
+                        {...register("fromAge")}
+                      />
+                      <InputField
+                        placeholder={t("to")}
+                        {...register("toAge")}
+                      />
+                    </div>
+                  )}
                 </div>
+                <p className="error-text">
+                  <span>{errors?.fromAge && errors.fromAge.message}</span>
+                  <span>{errors?.toAge && ` , ${errors.toAge.message} `} </span>
+                </p>
               </div>
-              {selectedAgeOption === "defined" && (
-                <div className="d-flex mt-2 gap-2">
-                  <InputField
-                    placeholder={t("from")}
-                    {...register("fromAge")}
-                    error={errors.fromAge?.message}
-                  />
-                  <InputField
-                    placeholder={t("to")}
-                    {...register("toAge")}
-                    error={errors.toAge?.message}
-                  />
-                </div>
-              )}
             </div>
             {/* Duration */}
-            <div className="col-12 col-md-6 p-2">
+            <div className="col-12  p-2">
               <div className="d-flex align-items-end gap-2">
                 <InputField
                   label={t("website.platform.myAssistance.duration")}
@@ -344,17 +362,6 @@ export default function AddAssistanceModal({ showModal, setShowModal }) {
             {/* Buttons */}
             <div className="col-12 p-2">
               <div className="buttons">
-                <CustomButton
-                  type="button"
-                  size="large"
-                  onClick={handleGeneratDes}
-                  loading={isGenerating}
-                  fullWidth
-                  icon={<i className="fa-solid fa-sparkles"></i>}
-                  style={{ backgroundColor: "#FDCB2F" }}
-                >
-                  {t("generate")}
-                </CustomButton>
                 <CustomButton
                   type="submit"
                   loading={isPending}

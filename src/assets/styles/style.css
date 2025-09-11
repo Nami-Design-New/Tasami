@@ -1470,6 +1470,7 @@ body.en .show-pass {
 .otp-container {
   display: flex;
   gap: 8px;
+  direction: ltr;
 }
 .otp-container .otp-input {
   flex: 1;
@@ -2630,6 +2631,14 @@ body.en .show-pass {
   margin-top: 0.5rem;
 }
 
+.modal {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.modal::-webkit-scrollbar {
+  display: none;
+}
+
 .modal-header {
   border-bottom: 0;
 }
@@ -3438,6 +3447,7 @@ button.back:hover {
   display: flex;
   align-items: center;
   gap: 8px;
+  flex: 1;
 }
 
 .identity-option {
@@ -3445,11 +3455,13 @@ button.back:hover {
   display: flex;
   align-items: center;
   justify-content: center;
+  white-space: nowrap;
   flex: 1;
   gap: 8px;
   border: 1px solid #5fcafa;
   padding: 1rem;
   border-radius: 12px;
+  height: 54px;
   color: #5fcafa;
   font-size: 1rem;
   transition: all 0.4s ease;
@@ -9748,9 +9760,9 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
   border-radius: 10px;
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 12px;
   color: #0d0d0d;
-  font-size: 14px;
+  font-size: 16px;
   color: #0d0d0d;
   font-weight: 700;
   transition: all 0.3s ease;
@@ -9761,7 +9773,12 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
   cursor: not-allowed;
 }
 .profile_section .profile_sidebar .nav_links .nav_link i {
-  font-size: 24px;
+  font-size: 18px;
+  width: 18px;
+  aspect-ratio: 1/1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   color: #5fcafa;
 }
 .profile_section .profile_sidebar .nav_links .nav_link img {
