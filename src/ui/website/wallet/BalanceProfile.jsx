@@ -28,7 +28,7 @@ export default function BalanceProfile() {
         </CustomButton>
 
         <CustomButton
-          type="outlined"
+          variant="outlined"
           size="large"
           onClick={() => setShowRefundModal(true)}
         >

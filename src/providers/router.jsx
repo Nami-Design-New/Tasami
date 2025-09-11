@@ -1,20 +1,32 @@
 import { lazy, Suspense } from "react";
-import Loading from "../ui/loading/Loading";
 import { createBrowserRouter } from "react-router";
+import Loading from "../ui/loading/Loading";
 
 /* ---------------- WEBSITE ROUTES ---------------- */
 
 import WebsiteLayout from "../layout/WebsiteLayout";
-import Home from "../routes/website/Home";
 import About from "../routes/website/About";
 import Consultations from "../routes/website/Consultations";
 import Contact from "../routes/website/contact";
 import EditProfile from "../routes/website/EditProfile";
 import Encounters from "../routes/website/Encounters";
 import FAQsSection from "../routes/website/Faqs";
+import Followers from "../routes/website/Followers";
 import GoalDetails from "../routes/website/GoalDetails";
 import HelpersDetails from "../routes/website/HelpersDetails";
+import Home from "../routes/website/Home";
 import HowItWorks from "../routes/website/HowItWorks";
+import Interests from "../routes/website/Interests";
+import Cv from "../routes/website/my-platform/Cv";
+import MyAssistance from "../routes/website/my-platform/MyAssistance";
+import MyAudience from "../routes/website/my-platform/MyAudience";
+import MyClients from "../routes/website/my-platform/MyClients";
+import MyCommunity from "../routes/website/my-platform/MyCommunity";
+import MyGroups from "../routes/website/my-platform/MyGroups";
+import MyOffers from "../routes/website/my-platform/MyOffers";
+import MyOpportunities from "../routes/website/my-platform/MyOpportunities";
+import MyPlatform from "../routes/website/my-platform/MyPlatform";
+import SupscriptionManagment from "../routes/website/my-platform/SupscriptionManagment";
 import MyNotifications from "../routes/website/MyNotifications";
 import MyWorks from "../routes/website/MyWorks";
 import NewGoal from "../routes/website/NewGoal";
@@ -28,36 +40,15 @@ import Privacy from "../routes/website/privacy";
 import Profile from "../routes/website/Profile";
 import MyWallet from "../routes/website/profile/MyWallet";
 import NotificationSetting from "../routes/website/profile/NotificationSetting";
-import Followers from "../routes/website/Followers";
-import Interests from "../routes/website/Interests";
-import Cv from "../routes/website/my-platform/Cv";
-import MyAssistance from "../routes/website/my-platform/MyAssistance";
-import MyAudience from "../routes/website/my-platform/MyAudience";
-import MyClients from "../routes/website/my-platform/MyClients";
-import MyCommunity from "../routes/website/my-platform/MyCommunity";
-import MyGroups from "../routes/website/my-platform/MyGroups";
-import MyOffers from "../routes/website/my-platform/MyOffers";
-import MyOpportunities from "../routes/website/my-platform/MyOpportunities";
-import MyPlatform from "../routes/website/my-platform/MyPlatform";
-import SupscriptionManagment from "../routes/website/my-platform/SupscriptionManagment";
 import Savings from "../routes/website/Savings";
 
 /* ---------------- AUTH ROUTES ---------------- */
 import WebsiteAuthLayout from "../layout/WebsiteAuthLayout";
-import LoginPage from "../routes/website-auth/LoginPage";
-import Register from "../routes/website-auth/Register";
-import ResetPassword from "../routes/website-auth/ResetPassword";
-import AreasOfInterest from "../routes/website-auth/AreasOfInterest";
-
-/* ---------------- DASHBOARD ROUTES ---------------- */
-
-const DashboardLayout = lazy(() => import("../layout/MainDashboardLayout"));
-const DashboardHome = lazy(() =>
-  import("../routes/dash-board/MainDashboardHome")
-);
 import ChatPage from "../routes/ChatPage";
 import ActionsLogModel from "../routes/dash-board/ActionsLogModel";
-import PersonalGoal from "../routes/website/PersonalGoals";
+import CommunitiesDetails from "../routes/dash-board/CommunitiesDetails";
+import CommunityPostDetails from "../routes/dash-board/CommunityPostDetails";
+import ContractDetails from "../routes/dash-board/ContractDetails";
 import CreateEmployee from "../routes/dash-board/CreateEmployer";
 import Documents from "../routes/dash-board/Documents";
 import EmployeeProfile from "../routes/dash-board/EmployeeProfile";
@@ -71,6 +62,7 @@ import ModelComponent from "../routes/dash-board/ModelComponent";
 import Notifications from "../routes/dash-board/Notifications";
 import ActiveTab from "../routes/dash-board/reports/ActiveTab";
 import Reports from "../routes/dash-board/reports/Reports";
+import ResuemeDetails from "../routes/dash-board/resuems/ResuemeDetails";
 import Tasks from "../routes/dash-board/tasks/Tasks";
 import Communities from "../routes/dash-board/teams/Communities";
 import Services from "../routes/dash-board/teams/MyServices";
@@ -81,21 +73,29 @@ import SubscribersAndTeams from "../routes/dash-board/teams/SubscribersAndTeams"
 import Teams from "../routes/dash-board/teams/Teams";
 import UserAccounts from "../routes/dash-board/teams/UserAccounts";
 import UserProfile from "../routes/dash-board/UserProfile";
+import Banners from "../routes/dash-board/websiteManagment/Banners";
 import ContentManagment from "../routes/dash-board/websiteManagment/ContentManagment";
 import FaqManagment from "../routes/dash-board/websiteManagment/FaqManagment";
 import SocialLinksManage from "../routes/dash-board/websiteManagment/SocialLinksManage";
+import SubscriptionManagement from "../routes/dash-board/websiteManagment/SubscriptionManagement";
+import TasksManagment from "../routes/dash-board/websiteManagment/TasksManagment";
 import ViolationsManagment from "../routes/dash-board/websiteManagment/ViolationsManagment";
 import WokingGroupDetails from "../routes/dash-board/WokingGroupDetails";
 import PageNotFound from "../routes/PageNotFound";
-import Banners from "../routes/dash-board/websiteManagment/Banners";
-import SubscriptionManagement from "../routes/dash-board/websiteManagment/SubscriptionManagement";
-import TasksManagment from "../routes/dash-board/websiteManagment/TasksManagment";
+import AreasOfInterest from "../routes/website-auth/AreasOfInterest";
+import LoginPage from "../routes/website-auth/LoginPage";
+import Register from "../routes/website-auth/Register";
+import ResetPassword from "../routes/website-auth/ResetPassword";
+import PersonalGoal from "../routes/website/PersonalGoals";
 import Terms from "../routes/website/terms";
 import Views from "../routes/website/Views";
-import CommunitiesDetails from "../routes/dash-board/CommunitiesDetails";
-import CommunityPostDetails from "../routes/dash-board/CommunityPostDetails";
-import ContractDetails from "../routes/dash-board/ContractDetails";
-import ResuemeDetails from "../routes/dash-board/resuems/ResuemeDetails";
+
+/* ---------------- DASHBOARD ROUTES ---------------- */
+
+const DashboardLayout = lazy(() => import("../layout/MainDashboardLayout"));
+const DashboardHome = lazy(() =>
+  import("../routes/dash-board/MainDashboardHome")
+);
 
 /* ---------------- DASHBOARD AUTH ---------------- */
 import DashboardAuthlayout from "../layout/DashboardAuthlayout";
@@ -104,10 +104,9 @@ import DashBoardResetPassword from "../routes/dashboard-auth/DashBoardResetPassw
 
 /* ---------------- ERROR / EXTRA ---------------- */
 
-import ProtectedRoute from "./ProtectedRoute";
 import Forbidden from "../routes/Forbidden";
 import ErrorFallback from "../ui/ErrorFallback";
-import { SkipGuardedRoute } from "./SkipGuardedRoute";
+import ProtectedRoute from "./ProtectedRoute";
 
 export const router = createBrowserRouter([
   /* WEBSITE AUTH */
@@ -123,13 +122,7 @@ export const router = createBrowserRouter([
   /* AREAS OF INTEREST */
   {
     path: "/areas-of-interest",
-    element: (
-      <ProtectedRoute>
-        <SkipGuardedRoute>
-          <AreasOfInterest />
-        </SkipGuardedRoute>
-      </ProtectedRoute>
-    ),
+    element: <AreasOfInterest />,
   },
 
   /* RESET PASSWORD */

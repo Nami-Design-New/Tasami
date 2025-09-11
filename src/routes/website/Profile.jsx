@@ -11,16 +11,20 @@ import { clearAuth } from "../../redux/slices/authRole";
 import { removeToken } from "../../utils/token";
 import { useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
+import useLogout from "../../hooks/auth/useLogout";
 
 export default function Profile() {
+  const [showAlertModal, setShowAlertModal] = useState(false);
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const queryClient = useQueryClient();
   const navigate = useNavigate();
 
   const { user } = useSelector((state) => state.authRole);
-  const [showAlertModal, setShowAlertModal] = useState(false);
+
+  const { logout, isPending } = useLogout();
   const { deleteAccount, isDeletingAccount } = useDeleteAccount();
+
   const handleDeleteAccount = () => {
     deleteAccount(user.id, {
       onSuccess: (res) => {
@@ -38,6 +42,25 @@ export default function Profile() {
       onError: (err) => {
         console.log(err);
         toast.error(err.message);
+      },
+    });
+  };
+
+  const handleLogout = async (e) => {
+    e.preventDefault();
+    logout("", {
+      onSuccess: (res) => {
+        dispatch(clearAuth());
+        removeToken();
+        localStorage.removeItem("skipAreasOfInterest");
+        queryClient.clear();
+        queryClient.invalidateQueries();
+        queryClient.removeQueries();
+        navigate("/login");
+        toast.success(res.message);
+      },
+      onError: (error) => {
+        toast.error(error.message);
       },
     });
   };
@@ -92,6 +115,14 @@ export default function Profile() {
                 <CustomButton
                   size="large"
                   color="fire"
+                  onClick={handleLogout}
+                  disabled={isPending}
+                >
+                  {t("website.header.logout")}
+                </CustomButton>
+                <CustomButton
+                  size="large"
+                  style={{ background: "#0248960A", color: "#0D0D0D" }}
                   onClick={() => setShowAlertModal(true)}
                 >
                   {t("profile.deleteAccount")}

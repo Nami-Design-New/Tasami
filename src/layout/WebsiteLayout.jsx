@@ -1,20 +1,18 @@
-import { Outlet } from "react-router";
-import Header from "../ui/Header";
-import Footer from "../ui/Footer";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import { useEffect } from "react";
-import ScrollToTop from "../ui/ScrollToTop";
-import ResponsiveNav from "../layout/ResponsiveNav";
+import { Outlet } from "react-router";
 import useAuth from "../hooks/auth/useAuth";
+import ResponsiveNav from "../layout/ResponsiveNav";
+import { requestPermission } from "../lib/fireBase/service";
+import Footer from "../ui/Footer";
+import Header from "../ui/Header";
 import Loading from "../ui/loading/Loading";
-import { listenToMessages, requestPermission } from "../lib/fireBase/service";
-import useSettings from "../hooks/website/settings/useSettings";
-import useGetNotifications from "../hooks/website/notification/useGetNotifications";
+import ScrollToTop from "../ui/ScrollToTop";
 
 const WebsiteLayout = () => {
-  const { refetch: refetchSettings } = useSettings();
-  const { refetch: refetchNotifications } = useGetNotifications();
+  // const { refetch: refetchSettings } = useSettings();
+  // const { refetch: refetchNotifications } = useGetNotifications();
 
   const { loading } = useAuth();
   useEffect(() => {
@@ -40,17 +38,10 @@ const WebsiteLayout = () => {
   useEffect(() => {
     const initializeNotifications = async () => {
       await requestPermission();
-      const unsubscribe = listenToMessages(
-        refetchSettings,
-        refetchNotifications
-      );
-      return () => {
-        if (unsubscribe) unsubscribe();
-      };
     };
 
     initializeNotifications();
-  }, [refetchSettings, refetchNotifications]);
+  }, []);
 
   return (
     <>
