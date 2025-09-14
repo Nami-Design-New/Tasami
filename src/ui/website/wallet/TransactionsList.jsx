@@ -1,8 +1,9 @@
 import { useTranslation } from "react-i18next";
 import useGetTransactions from "../../../hooks/website/wallet/useGetTransactions";
-import InfiniteScroll from "../../loading/InfiniteScroll";
+import Currency from "../../Currency";
 import EmptySection from "../../EmptySection";
-import AudienceCardLoader from "../../loading/AudienceCardLoader";
+import InfiniteScroll from "../../loading/InfiniteScroll";
+import WalletLoading from "../../loading/WalletLoading";
 
 export default function TransactionsList() {
   const { t } = useTranslation();
@@ -15,7 +16,6 @@ export default function TransactionsList() {
   } = useGetTransactions();
   const allTransctions =
     transctions?.pages?.flatMap((page) => page?.data) ?? [];
-  console.log(transctions);
 
   return (
     <div className="balance-box">
@@ -31,20 +31,24 @@ export default function TransactionsList() {
         {allTransctions.map((item, index) => (
           <div key={index} className="transaction-item">
             <div className="top-row">
-              <span className="type">{item.type}</span>
+              <span className="type">{item.desc}</span>
               <span className="amount">
-                {item.amount}
-                <img src="/icons/ryal.svg" alt="ريال" />
+                {item.price}
+                <Currency
+                  style={{
+                    filter:
+                      "invert(67%) sepia(53%) saturate(651%) hue-rotate(161deg) brightness(98%) contrast(95%)",
+                  }}
+                />
               </span>
             </div>
             <div className="bottom-row">
               <span className="contract-id">
-                {" "}
-                {t("profile.contractNo")} {item.id}
+                {t("profile.operationNo")} {item.operation_id}
               </span>
-              <span className="date">{item.date}</span>
+              <span className="date">{item.created_at}</span>
             </div>
-            {index !== transactions.length - 1 && <hr />}
+            {index !== allTransctions.length - 1 && <hr />}
           </div>
         ))}
       </InfiniteScroll>
@@ -52,8 +56,8 @@ export default function TransactionsList() {
       {(isLoading || isFetchingNextPage) && (
         <div className="row">
           {[1, 2, 3].map((i) => (
-            <div className="col-12 col-md-6 p-2" key={i}>
-              <AudienceCardLoader />
+            <div className="p-2" key={i}>
+              <WalletLoading />
             </div>
           ))}
         </div>

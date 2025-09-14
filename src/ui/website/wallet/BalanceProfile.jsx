@@ -1,16 +1,19 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
+import useGetWallaetBalance from "../../../hooks/website/wallet/useGetWallaetBalance";
 import Currency from "../../Currency";
 import CustomButton from "../../CustomButton";
-import { useTranslation } from "react-i18next";
 import ChargeBalanceModal from "../../modals/ChargeBalanceModal";
-import RefundRequestModal from "./RefundRequestModal";
+import WithdrawModal from "./WithdrawModal";
 
 export default function BalanceProfile() {
   const { t } = useTranslation();
   const [showChargeModal, setShowChargeModal] = useState(false);
   const [showRefundModal, setShowRefundModal] = useState(false);
   const { user } = useSelector((state) => state.authRole);
+  const { balance, isLoading } = useGetWallaetBalance(user?.id);
+
   return (
     <div className="wallet-balance">
       <div className="wallet-header">
@@ -18,7 +21,7 @@ export default function BalanceProfile() {
       </div>
 
       <h2 className="balance-amount">
-        <span>{user?.available_balance} </span>
+        <span>{balance?.available_balance} </span>
         <Currency style={{ width: "28px", height: "32px" }} />
       </h2>
 
@@ -40,7 +43,7 @@ export default function BalanceProfile() {
         showModal={showChargeModal}
         setShowModal={setShowChargeModal}
       />
-      <RefundRequestModal
+      <WithdrawModal
         showModal={showRefundModal}
         setShowModal={setShowRefundModal}
       />

@@ -17,10 +17,9 @@ export default function useGetTransactions() {
           page: pageParam,
         },
       });
-      if (res.data.code !== "") {
+      if (res.data.code !== 200) {
         throw new Error(res.data.message || "Something went wrong");
       }
-      console.log(res.data);
 
       return res.data;
     },

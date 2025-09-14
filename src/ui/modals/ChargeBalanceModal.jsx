@@ -5,6 +5,8 @@ import { useTranslation } from "react-i18next";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import useChargeWallet from "../../hooks/website/wallet/useChargeWallet";
+import { toast } from "sonner";
 
 const getChargeBalanceSchema = (t) =>
   yup.object().shape({
@@ -23,6 +25,7 @@ const getChargeBalanceSchema = (t) =>
 
 const ChargeBalanceModal = ({ showModal, setShowModal }) => {
   const { t } = useTranslation();
+  const { charge, isPending } = useChargeWallet();
 
   const {
     register,
@@ -35,10 +38,20 @@ const ChargeBalanceModal = ({ showModal, setShowModal }) => {
   });
 
   const onSubmit = (data) => {
-    console.log(data);
-
-    setShowModal(false);
-    reset();
+    const price = data.charge;
+    charge(price, {
+      onSuccess: (res) => {
+        setShowModal(false);
+        toast.success("profile.chargeSuccess");
+        if (res?.data?.redirect_url) {
+          window.open(res.data.redirect_url, "_blank");
+        }
+        reset();
+      },
+      onError: (err) => {
+        toast.error(err.message);
+      },
+    });
   };
 
   return (
@@ -55,7 +68,7 @@ const ChargeBalanceModal = ({ showModal, setShowModal }) => {
                 type="number"
                 icon="/icons/ryal.svg"
                 id="charge"
-                placeholder="أدخل المبلغ"
+                placeholder={t("profile.enterAmount")}
                 {...register("charge")}
                 error={errors.charge?.message}
               />
@@ -63,7 +76,12 @@ const ChargeBalanceModal = ({ showModal, setShowModal }) => {
           </div>
 
           <div className="col-12 p-2">
-            <CustomButton type="submit" fullWidth size="large">
+            <CustomButton
+              type="submit"
+              loading={isPending}
+              fullWidth
+              size="large"
+            >
               {t("profile.confirm")}
             </CustomButton>
           </div>

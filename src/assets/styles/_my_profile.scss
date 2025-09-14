@@ -195,7 +195,8 @@
       .bottom-row {
         display: flex;
         justify-content: space-between;
-        color: #6c757d;
+        color: $inputHint;
+        font-weight: 700;
         font-size: 0.875rem;
       }
 

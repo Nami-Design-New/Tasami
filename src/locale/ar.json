@@ -194,7 +194,9 @@
     "deleteAccount": "حذف حسابي",
     "deleteAlertMessage": "سيتم حذف جميع المعلومات المتعلقة بالحساب  ولن يمكن استردادها",
     "transactions": "عمليات الرصيد",
-    "contractNo": "عقد رقم"
+    "operationNo": "عمليه رقم",
+    "enterAmount": "أدخل المبلغ",
+    "price": "السعر"
   },
   "notification": {
     "title": "الإشعارات",
@@ -241,7 +243,9 @@
     "mustBeNumber": "يجب أن يكون رقماً",
     "mustBePositive": "يجب أن يكون موجباً",
     "minPrice": "قيمة المساعدة الدنيا هي {{min}}",
-    "helpMechanismRequired": "يرجى اختيار آلية مساعدة واحدة على الأقل"
+    "helpMechanismRequired": "يرجى اختيار آلية مساعدة واحدة على الأقل",
+    "pattern": "تنسيق {{field}} غير صحيح",
+    "ibanFormat": "يجب أن يبدأ {{field}} بحرفين كبيرين"
   },
   "pageNotFound": {
     "alt": "لم يتم العثور على الصفحة",
