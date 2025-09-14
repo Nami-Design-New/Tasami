@@ -186,7 +186,11 @@
     "goal_same_sub_category": "Notify me about offers matching my interests in the same sub-category",
     "goal_same_city": "Notify me about offers published in my city",
     "deleteAccount": "Delete Account",
-    "deleteAlertMessage": "All account-related information will be deleted and cannot be recovered."
+    "deleteAlertMessage": "All account-related information will be deleted and cannot be recovered.",
+    "transactions": "Transactions",
+    "operationNo": "Operation Number",
+    "enterAmount": "Enter amount",
+    "price": "Price"
   },
   "notification": {
     "title": "Notifications",
@@ -233,7 +237,9 @@
     "mustBeNumber": "Must be a number",
     "mustBePositive": "Must be positive",
     "minPrice": "Minimum price is {{min}}",
-    "helpMechanismRequired": "Select at least one help mechanism"
+    "helpMechanismRequired": "Select at least one help mechanism",
+    "pattern": "{{field}} format is invalid",
+    "ibanFormat": "{{field}} must start with two capital letters"
   },
   "pageNotFound": {
     "alt": "404 Not Found",

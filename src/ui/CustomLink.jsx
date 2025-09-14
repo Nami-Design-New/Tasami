@@ -10,6 +10,7 @@ const CustomLink = ({
   icon,
   iconPosition = "left",
   type = "default",
+  className = "",
   ...props
 }) => {
   const classNames = [
@@ -18,6 +19,7 @@ const CustomLink = ({
     `custom-link--${size}`,
     fullWidth ? "custom-link--full" : "",
     type === "outlined" ? "custom-link--outlined" : "",
+    className,
   ].join(" ");
 
   return (

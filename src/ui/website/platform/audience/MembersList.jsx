@@ -1,10 +1,9 @@
 import { useTranslation } from "react-i18next";
 import useGetMembers from "../../../../hooks/my-audience/useGetMembers";
-import InfiniteScroll from "../../../loading/InfiniteScroll";
 import EmptySection from "../../../EmptySection";
-import AudienceCard from "./AudienceCard";
-import ExpDocItemLoader from "../../../loading/ExpDocItemLoader";
 import AudienceCardLoader from "../../../loading/AudienceCardLoader";
+import InfiniteScroll from "../../../loading/InfiniteScroll";
+import AudienceCard from "./AudienceCard";
 
 export default function MembersList() {
   const { t } = useTranslation();

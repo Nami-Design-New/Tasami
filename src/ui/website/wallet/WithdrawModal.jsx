@@ -1,27 +1,54 @@
+import { useQueryClient } from "@tanstack/react-query";
 import { Modal } from "react-bootstrap";
+import { useTranslation } from "react-i18next";
+import { toast } from "sonner";
+import useWithdrawWallet from "../../../hooks/website/wallet/useWithdrawWallet";
+import useWithDrawForm from "../../../validations/wallet/withdraw-validation";
 import CustomButton from "../../CustomButton";
 import InputField from "../../forms/InputField";
-import { useForm } from "react-hook-form";
-import { useTranslation } from "react-i18next";
-import useWithDrawForm from "../../../validations/wallet/withdraw-validation";
 
-export default function RefundRequestModal({ showModal, setShowModal }) {
+export default function WithdrawModal({ showModal, setShowModal }) {
   const { t } = useTranslation();
+  const queryClient = useQueryClient();
   const {
     handleSubmit,
     register,
     formState: { errors },
+    reset,
   } = useWithDrawForm();
+  const { withdrawWallet, isPending } = useWithdrawWallet();
 
   const onSubmit = (data) => {
-    console.log(data);
+    const payload = {
+      iban: data.iban,
+      bank_name: data.bankName,
+      full_name: data.fullName,
+      branch_code: data.branchCode,
+      swift_code: data.swiftCode,
+      price: data.price,
+    };
+    withdrawWallet(payload, {
+      onSuccess: (res) => {
+        toast.success(res?.data?.message || "تمت العملية بنجاخ");
+        queryClient.invalidateQueries({
+          queryKey: ["wallet-balance"],
+        });
+        setShowModal(false);
+      },
+      onError: (error) => {
+        toast.error(error.message);
+      },
+    });
   };
 
   return (
     <Modal
       show={showModal}
       size="lg"
-      onHide={() => setShowModal(false)}
+      onHide={() => {
+        setShowModal(false);
+        reset();
+      }}
       centered
     >
       <Modal.Header closeButton>
@@ -75,9 +102,23 @@ export default function RefundRequestModal({ showModal, setShowModal }) {
                 error={errors.swiftCode?.message}
               />
             </div>
+            <div className="col-12 col-md-6 p-2">
+              <InputField
+                label={t("profile.price")}
+                id="charge"
+                placeholder={t("profile.price")}
+                {...register("price")}
+                error={errors.price?.message}
+              />
+            </div>
 
             <div className="col-12 p-2">
-              <CustomButton type="submit" fullWidth size="large">
+              <CustomButton
+                type="submit"
+                loading={isPending}
+                fullWidth
+                size="large"
+              >
                 {t("profile.confirm")}
               </CustomButton>
             </div>
