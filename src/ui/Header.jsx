@@ -8,6 +8,7 @@ import CustomButton from "./CustomButton";
 import PlatformModal from "./website/platform/PlatformModal";
 import { Badge } from "react-bootstrap";
 import useSettings from "../hooks/website/settings/useSettings";
+import CustomLink from "./CustomLink";
 export default function Header() {
   const { t } = useTranslation();
   const { settings, isLoading } = useSettings();
@@ -70,27 +71,7 @@ export default function Header() {
         </ul>
 
         <div className="actions">
-          {!isAuthed && (
-            <Link to="/login" className="auth-btn login-btn">
-              {t("website.header.login")}
-            </Link>
-          )}
-          <Link className="communites-link">
-            <img src="./icons/communities.svg" />
-            <span>{t("website.header.communities")}</span>
-          </Link>
-          {isAuthed && (
-            <CustomButton
-              size="small"
-              style={{ whiteSpace: "nowrap" }}
-              onClick={() => {
-                user.about ? navigate("my-platform") : setShowModal(true);
-              }}
-            >
-              <i className="fa-regular fa-robot"></i>
-              {t("profile.assistant")}
-            </CustomButton>
-          )}
+          <LangDropdown />
           {isAuthed && (
             <Link to="/notifications" className="notification-btn">
               <i className="fa-regular fa-bell">
@@ -104,8 +85,33 @@ export default function Header() {
               </i>
             </Link>
           )}
-          <LangDropdown />
+          <Link className="communites-link">
+            <img src="./icons/communities.svg" />
+            <span>{t("website.header.communities")}</span>
+          </Link>{" "}
+          {isAuthed && (
+            <CustomButton
+              size="small"
+              style={{ whiteSpace: "nowrap" }}
+              onClick={() => {
+                user.about ? navigate("my-platform") : setShowModal(true);
+              }}
+            >
+              <i className="fa-regular fa-robot"></i>
+              {t("profile.assistant")}
+            </CustomButton>
+          )}
           {isAuthed && <UserDropDown />}
+          {!isAuthed && (
+            <CustomLink
+              type="outlined"
+              to="/login"
+              className="auth-btn login-btn"
+              size="small"
+            >
+              {t("website.header.login")}
+            </CustomLink>
+          )}
         </div>
         <button className="toggle_menu" onClick={handleToggleMenu}>
           <i className="fa-light fa-bars"></i>

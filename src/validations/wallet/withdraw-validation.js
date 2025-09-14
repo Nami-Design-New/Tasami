@@ -11,13 +11,22 @@ const getRefundRequestSchema = (t) =>
     iban: yup
       .string()
       .required(t("validation.required", { field: t("profile.iban") }))
-      .min(15, t("validation.min", { field: t("profile.iban"), min: 15 })),
+      .min(15, t("validation.min", { field: t("profile.iban"), min: 15 }))
+      .matches(
+        /^[A-Z]{2}[0-9A-Z]+$/,
+        t("validation.pattern", { field: t("profile.iban") })
+      ),
     bankName: yup
       .string()
       .required(t("validation.required", { field: t("profile.bankName") })),
     branchCode: yup
       .string()
       .required(t("validation.required", { field: t("profile.branchCode") })),
+    price: yup
+      .number()
+      .typeError(t("validation.number", { field: t("profile.price") }))
+      .required(t("validation.required", { field: t("profile.price") }))
+      .moreThan(1, t("validation.min", { field: t("profile.price"), min: 1 })),
     swiftCode: yup
       .string()
       .required(t("validation.required", { field: t("profile.swiftCode") })),

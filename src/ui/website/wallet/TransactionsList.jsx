@@ -1,46 +1,67 @@
+import { useTranslation } from "react-i18next";
+import useGetTransactions from "../../../hooks/website/wallet/useGetTransactions";
+import Currency from "../../Currency";
+import EmptySection from "../../EmptySection";
+import InfiniteScroll from "../../loading/InfiniteScroll";
+import WalletLoading from "../../loading/WalletLoading";
+
 export default function TransactionsList() {
-  const transactions = [
-    {
-      id: "5467",
-      amount: "400",
-      date: "30 يونيو 2025 - 5:45 مساءً",
-      type: "خصم",
-      status: "withdraw",
-    },
-    {
-      id: "5467",
-      amount: "3,500",
-      date: "30 يونيو 2025 - 6:05 مساءً",
-      type: "استرداد",
-      status: "refund",
-    },
-    {
-      id: "5467",
-      amount: "8,000",
-      date: "30 يونيو 2025 - 6:45 مساءً",
-      type: "شحن رصيد",
-      status: "charge",
-    },
-  ];
+  const { t } = useTranslation();
+  const {
+    transctions,
+    isLoading,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+  } = useGetTransactions();
+  const allTransctions =
+    transctions?.pages?.flatMap((page) => page?.data) ?? [];
+
   return (
-    <div className="balance-box ">
-      <h5 className="text">عمليات الرصيد</h5>
-      {transactions.map((item, index) => (
-        <div key={index} className="transaction-item">
-          <div className="top-row">
-            <span className="type">{item.type}</span>
-            <span className="amount">
-              {item.amount}
-              <img src="/icons/ryal.svg" alt="ريال" />
-            </span>
+    <div className="balance-box">
+      <h5 className="text">{t("profile.transactions")}</h5>
+      {!isLoading && allTransctions.length === 0 && (
+        <EmptySection height="300px" message={t("profile.noTransactions")} />
+      )}
+      <InfiniteScroll
+        onLoadMore={fetchNextPage}
+        hasNextPage={hasNextPage}
+        isFetchingNextPage={isFetchingNextPage}
+      >
+        {allTransctions.map((item, index) => (
+          <div key={index} className="transaction-item">
+            <div className="top-row">
+              <span className="type">{item.desc}</span>
+              <span className="amount">
+                {item.price}
+                <Currency
+                  style={{
+                    filter:
+                      "invert(67%) sepia(53%) saturate(651%) hue-rotate(161deg) brightness(98%) contrast(95%)",
+                  }}
+                />
+              </span>
+            </div>
+            <div className="bottom-row">
+              <span className="contract-id">
+                {t("profile.operationNo")} {item.operation_id}
+              </span>
+              <span className="date">{item.created_at}</span>
+            </div>
+            {index !== allTransctions.length - 1 && <hr />}
           </div>
-          <div className="bottom-row">
-            <span className="contract-id"> عقد رقم {item.id}</span>
-            <span className="date">{item.date}</span>
-          </div>
-          {index !== transactions.length - 1 && <hr />}
+        ))}
+      </InfiniteScroll>
+      {/* Fetching next page indicator */}
+      {(isLoading || isFetchingNextPage) && (
+        <div className="row">
+          {[1, 2, 3].map((i) => (
+            <div className="p-2" key={i}>
+              <WalletLoading />
+            </div>
+          ))}
         </div>
-      ))}
+      )}
     </div>
   );
 }

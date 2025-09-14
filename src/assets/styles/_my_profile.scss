@@ -148,15 +148,14 @@
 
       &:hover {
         background-color: $main;
-        color: white;
+        color: $white;
       }
     }
   }
 
   .balance-box {
-    background-color: #fafafa;
+    background-color: $InputBG;
     border-radius: 12px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.03);
     padding: 20px;
     margin-bottom: 1rem;
 
@@ -196,7 +195,8 @@
       .bottom-row {
         display: flex;
         justify-content: space-between;
-        color: #6c757d;
+        color: $inputHint;
+        font-weight: 700;
         font-size: 0.875rem;
       }
 
