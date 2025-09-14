@@ -186,7 +186,9 @@
     "goal_same_sub_category": "Notify me about offers matching my interests in the same sub-category",
     "goal_same_city": "Notify me about offers published in my city",
     "deleteAccount": "Delete Account",
-    "deleteAlertMessage": "All account-related information will be deleted and cannot be recovered."
+    "deleteAlertMessage": "All account-related information will be deleted and cannot be recovered.",
+    "transactions": "Transactions",
+    "contractNo": "Contract Number"
   },
   "notification": {
     "title": "Notifications",

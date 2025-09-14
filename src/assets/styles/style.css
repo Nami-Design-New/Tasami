@@ -655,27 +655,13 @@ li[data-sonner-toast=""] {
   align-items: center;
 }
 .main-header nav .actions .auth-btn {
-  padding: 0.5rem 1.2rem;
-  font-size: 0.9rem;
-  font-weight: 500;
   border-radius: 20px;
-  border: 1px solid transparent;
-  text-decoration: none;
-  transition: 0.3s;
   white-space: nowrap;
-}
-.main-header nav .actions .login-btn {
-  border-color: #214b92;
-  color: #214b92;
-}
-.main-header nav .actions .login-btn:hover {
-  background: #214b92;
-  color: #fff;
 }
 .main-header nav .actions .notification-btn {
   border: none !important;
-  height: 50px;
-  padding: 16px;
+  height: 24px;
+  width: 24px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -720,8 +706,8 @@ li[data-sonner-toast=""] {
      object-fit: cover;
 }
 .main-header nav .actions .lang_dropdown {
-  width: 50px;
-  height: 50px;
+  height: 32px;
+  width: 32px;
   border-radius: 50%;
   cursor: pointer;
   display: flex;
@@ -732,7 +718,8 @@ li[data-sonner-toast=""] {
   padding: 0;
 }
 .main-header nav .actions .lang_dropdown i {
-  font-size: 16px;
+  font-size: 24px;
+  margin: 0 8px;
   color: #214b92;
 }
 .main-header nav .actions .communites-link {
@@ -9565,12 +9552,11 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
 }
 .wallet-page .wallet-balance .btn-refund:hover {
   background-color: #214b92;
-  color: white;
+  color: #fff;
 }
 .wallet-page .balance-box {
-  background-color: #fafafa;
+  background-color: rgba(13, 13, 13, 0.0196078431);
   border-radius: 12px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.03);
   padding: 20px;
   margin-bottom: 1rem;
 }
