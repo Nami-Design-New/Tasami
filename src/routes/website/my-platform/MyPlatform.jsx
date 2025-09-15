@@ -19,7 +19,7 @@ export default function MyPlatform() {
   }
 
   return (
-    <section className="profile_section ">
+    <section className="profile_section page ">
       <div className="container-lg p-0 position-relative">
         <div className="row">
           <div className="col-12 p-2 mb-4">

@@ -836,6 +836,7 @@ li[data-sonner-toast=""] {
   background: #f7f9fc;
   box-shadow: 2px 0px 10px rgba(0, 0, 0, 0.08);
   height: auto;
+  padding: 20px 0;
 }
 .footer2 .logo {
   margin-bottom: 24px;
@@ -7142,7 +7143,7 @@ input[type=file] {
 .privacy .container {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0 20px;
+  padding: 0 80px;
 }
 .why-section .section-head,
 .about-section .section-head,
@@ -7240,7 +7241,7 @@ input[type=file] {
 }
 .about-section {
   position: relative;
-  padding: 40px 0;
+  padding: 80px 0;
   text-align: center;
   background: #f9f9f9;
   overflow: hidden;
@@ -7784,6 +7785,7 @@ input[type=file] {
   background: #f9f9f9;
   position: relative;
   overflow: hidden;
+  padding: 80px 0;
 }
 .faqs-section .section-head {
   text-align: center;
@@ -7875,7 +7877,7 @@ input[type=file] {
 }
 
 .steps-section {
-  padding: 40px 0;
+  padding: 80px 0;
   position: relative;
   text-align: center;
   background: #fafafa;
@@ -9684,7 +9686,7 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
 
 .profile_section .profile_sidebar {
   position: sticky;
-  top: 100px;
+  top: 80px;
   border-radius: 16px;
 }
 .profile_section .profile_sidebar .user {
@@ -10461,12 +10463,6 @@ body {
 }
 body main {
   min-height: calc(100vh - 80px);
-  padding: 20px 0;
-}
-@media (max-width: 992px) {
-  body main {
-    padding: 10px 0;
-  }
 }
 body.en {
   direction: ltr;

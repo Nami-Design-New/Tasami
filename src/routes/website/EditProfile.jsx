@@ -208,8 +208,6 @@ export default function EditProfile() {
                   loading={isNationaliesLoading}
                   label={t("profile.nationality")}
                   id="nationality"
-                  // value={String(user?.nationality?.id)}
-                  // {...register("nationality")}
                   options={nationalities?.data?.map((nationality) => ({
                     value: nationality.id,
                     name: nationality.title,
@@ -231,8 +229,6 @@ export default function EditProfile() {
                   label={t("profile.country")}
                   loading={isCountriesLoading}
                   id="country"
-                  // value={String(user?.country_id)}
-                  // {...register("country")}
                   options={countries?.data?.map((country) => ({
                     value: country.id,
                     name: country.title,
@@ -253,12 +249,10 @@ export default function EditProfile() {
                   loading={isCitiesLoading}
                   label={t("profile.city")}
                   id="city"
-                  // value={String(user?.city?.id)}
                   options={cities?.data?.map((city) => ({
                     value: city.id,
                     name: city.title,
                   }))}
-                  // {...register("city")}
                   value={field.value}
                   onChange={field.onChange}
                   error={errors.city?.message}
