@@ -19,6 +19,7 @@
   "delete": "Delete",
   "deleteAll": "Delete all",
   "confirm": "Confirm",
+  "search": "Search",
   "pageHeaders": {
     "Notifications": "Notifications",
     "Dashboard": "Dashboard",
@@ -396,6 +397,29 @@
         "textAudio": "Text and Audio Messaging",
         "offerImage": "Offer Image"
       }
+    },
+    "assistants": {
+      "filterTitle": "Filter Options",
+      "filter": "Filter",
+      "reset": "Reset",
+      "personalAssistants": "Personal Assistants",
+      "personalAssistant": "Personal Assistant",
+      "noPersonalAssistants": "You don’t have any personal assistants yet.",
+      "community": "Community",
+      "completed_contracts": "Completed Contracts",
+      "progress_contracts": "Active Contracts",
+      "about": "About",
+      "experiences": "Work Experiences",
+      "documents": "Documents",
+      "offers": "Support Offers from",
+      "follow": "Follow",
+      "unFollow": "Unfollow",
+      "qualification": "Qualification",
+      "years_of_experience": "Years of Experience",
+      "type": "Document Type",
+      "issuer": "Issuing Authority",
+      "number": "Accreditation / Document Number",
+      "expiry_date": "Expiry Date"
     },
 
     "payment": "Payment"

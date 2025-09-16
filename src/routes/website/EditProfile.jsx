@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Form } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
@@ -6,7 +6,7 @@ import useGetCities from "../../hooks/countries/useGetCities";
 import useGetCountries from "../../hooks/countries/useGetCountries";
 import useGetNationalities from "../../hooks/countries/useGetNationalities";
 import useEditProfile from "../../hooks/website/profile/useEditProfile";
-import { setUser } from "../../redux/slices/authRole";
+import { clearAuth, setUser } from "../../redux/slices/authRole";
 import CustomButton from "../../ui/CustomButton";
 import DatePicker from "../../ui/forms/DatePicker";
 import GenderSelect from "../../ui/forms/GenderSelect copy";
@@ -16,14 +16,23 @@ import SelectField from "../../ui/forms/SelectField";
 import useProfileValidation from "../../validations/my-profile/my-profile-validation";
 import { Controller } from "react-hook-form";
 import PasswordField from "../../ui/forms/PasswordField";
+import AlertModal from "../../ui/website/platform/my-community/AlertModal";
+import { removeToken } from "../../utils/token";
+import { useQueryClient } from "@tanstack/react-query";
+import useDeleteAccount from "../../hooks/website/profile/useDeleteAccount";
+import { toast } from "sonner";
+import { useNavigate } from "react-router";
 
 export default function EditProfile() {
   const { user } = useSelector((state) => state.authRole);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { editProfile, isEditingProfile } = useEditProfile();
+  const [showAlertModal, setShowAlertModal] = useState(false);
 
   const inputFileRef = useRef();
   const { t } = useTranslation();
+  const queryClient = useQueryClient();
   const {
     register,
     handleSubmit,
@@ -91,6 +100,29 @@ export default function EditProfile() {
       },
       onError: (err) => {
         console.error("Failed to update profile:", err.message);
+      },
+    });
+  };
+
+  const { deleteAccount, isDeletingAccount } = useDeleteAccount();
+
+  const handleDeleteAccount = () => {
+    deleteAccount(user.id, {
+      onSuccess: (res) => {
+        dispatch(clearAuth());
+        removeToken();
+        localStorage.removeItem("skipAreasOfInterest");
+        queryClient.clear();
+        queryClient.invalidateQueries();
+        queryClient.removeQueries();
+
+        navigate("/login");
+
+        toast.success(res.message);
+      },
+      onError: (err) => {
+        console.log(err);
+        toast.error(err.message);
       },
     });
   };
@@ -208,8 +240,6 @@ export default function EditProfile() {
                   loading={isNationaliesLoading}
                   label={t("profile.nationality")}
                   id="nationality"
-                  // value={String(user?.nationality?.id)}
-                  // {...register("nationality")}
                   options={nationalities?.data?.map((nationality) => ({
                     value: nationality.id,
                     name: nationality.title,
@@ -231,8 +261,6 @@ export default function EditProfile() {
                   label={t("profile.country")}
                   loading={isCountriesLoading}
                   id="country"
-                  // value={String(user?.country_id)}
-                  // {...register("country")}
                   options={countries?.data?.map((country) => ({
                     value: country.id,
                     name: country.title,
@@ -253,12 +281,10 @@ export default function EditProfile() {
                   loading={isCitiesLoading}
                   label={t("profile.city")}
                   id="city"
-                  // value={String(user?.city?.id)}
                   options={cities?.data?.map((city) => ({
                     value: city.id,
                     name: city.title,
                   }))}
-                  // {...register("city")}
                   value={field.value}
                   onChange={field.onChange}
                   error={errors.city?.message}
@@ -337,7 +363,21 @@ export default function EditProfile() {
               </div>
             </>
           )}
-
+          <div className="col-12 p-2">
+            <CustomButton
+              size="large"
+              style={{
+                display: "block",
+                textAlign: "start",
+                padding: "0",
+                background: "transparent",
+                color: "#ff7a59",
+              }}
+              onClick={() => setShowAlertModal(true)}
+            >
+              {t("profile.deleteAccount")}
+            </CustomButton>
+          </div>
           <div className="col-12 p-2 mt-3">
             <div className="buttons justify-content-end">
               <CustomButton
@@ -351,6 +391,15 @@ export default function EditProfile() {
           </div>
         </div>
       </form>
+      <AlertModal
+        confirmButtonText={t("confirm")}
+        showModal={showAlertModal}
+        setShowModal={setShowAlertModal}
+        onConfirm={handleDeleteAccount}
+        loading={isDeletingAccount}
+      >
+        {t("profile.deleteAlertMessage")}
+      </AlertModal>
     </div>
   );
 }

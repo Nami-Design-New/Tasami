@@ -1,6 +1,6 @@
 export default function UserCard({ user }) {
   return (
-    <div className="user">
+    <div className="user-profile">
       <img src={user.image} alt={user.name} className="avatar" />
       <div className="content">
         <h6>{user.name}</h6>

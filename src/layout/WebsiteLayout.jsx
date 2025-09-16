@@ -14,7 +14,7 @@ import useGetNotifications from "../hooks/website/notification/useGetNotificatio
 
 const WebsiteLayout = () => {
   const { refetch: refetchSettings } = useSettings();
-  const { refetch: refetchNotifications } = useGetNotifications();
+  // const { refetch: refetchNotifications } = useGetNotifications();
 
   const { user, loading } = useAuth();
   useEffect(() => {
@@ -43,15 +43,15 @@ const WebsiteLayout = () => {
     const initializeNotifications = async () => {
       await requestPermission();
       const unsubscribe = listenToMessages(
-        refetchSettings,
-        refetchNotifications
+        refetchSettings
+        // refetchNotifications
       );
       return () => {
         if (unsubscribe) unsubscribe();
       };
     };
     initializeNotifications();
-  }, [refetchSettings, refetchNotifications, user]);
+  }, [refetchSettings, user]);
 
   return (
     <>
