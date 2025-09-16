@@ -1,20 +1,16 @@
+import { useQueryClient } from "@tanstack/react-query";
+import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink, Outlet, useNavigate } from "react-router";
-import { useTranslation } from "react-i18next";
-import Loading from "../../ui/loading/Loading";
-import UserCard from "../../ui/website/profile/UserCard";
-import CustomButton from "../../ui/CustomButton";
-import AlertModal from "../../ui/website/platform/my-community/AlertModal";
-import { useState } from "react";
-import useDeleteAccount from "../../hooks/website/profile/useDeleteAccount";
-import { clearAuth } from "../../redux/slices/authRole";
-import { removeToken } from "../../utils/token";
-import { useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 import useLogout from "../../hooks/auth/useLogout";
+import { clearAuth } from "../../redux/slices/authRole";
+import CustomButton from "../../ui/CustomButton";
+import Loading from "../../ui/loading/Loading";
+import UserCard from "../../ui/website/profile/UserCard";
+import { removeToken } from "../../utils/token";
 
 export default function Profile() {
-  const [showAlertModal, setShowAlertModal] = useState(false);
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const queryClient = useQueryClient();
@@ -23,28 +19,6 @@ export default function Profile() {
   const { user } = useSelector((state) => state.authRole);
 
   const { logout, isPending } = useLogout();
-  const { deleteAccount, isDeletingAccount } = useDeleteAccount();
-
-  const handleDeleteAccount = () => {
-    deleteAccount(user.id, {
-      onSuccess: (res) => {
-        dispatch(clearAuth());
-        removeToken();
-        localStorage.removeItem("skipAreasOfInterest");
-        queryClient.clear();
-        queryClient.invalidateQueries();
-        queryClient.removeQueries();
-
-        navigate("/login");
-
-        toast.success(res.message);
-      },
-      onError: (err) => {
-        console.log(err);
-        toast.error(err.message);
-      },
-    });
-  };
 
   const handleLogout = async (e) => {
     e.preventDefault();
@@ -121,13 +95,6 @@ export default function Profile() {
                 >
                   {t("website.header.logout")}
                 </CustomButton>
-                <CustomButton
-                  size="large"
-                  style={{ background: "#0248960A", color: "#0D0D0D" }}
-                  onClick={() => setShowAlertModal(true)}
-                >
-                  {t("profile.deleteAccount")}
-                </CustomButton>
               </div>
             </div>
           </div>
@@ -137,15 +104,6 @@ export default function Profile() {
           </div>
         </div>
       </div>
-      <AlertModal
-        confirmButtonText={t("confirm")}
-        showModal={showAlertModal}
-        setShowModal={setShowAlertModal}
-        onConfirm={handleDeleteAccount}
-        loading={isDeletingAccount}
-      >
-        {t("profile.deleteAlertMessage")}
-      </AlertModal>
     </section>
   );
 }
