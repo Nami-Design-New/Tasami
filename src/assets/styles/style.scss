@@ -34,6 +34,7 @@
 @use "./community";
 @use "./my_profile";
 @use "./platform";
+@use "./personal_helper";
 
 body {
   direction: rtl;
@@ -42,10 +43,6 @@ body {
 
   main {
     min-height: calc(100vh - 80px);
-    padding: 20px 0;
-    @media (max-width: 992px) {
-      padding: 10px 0;
-    }
   }
 
   &.en {

@@ -82,7 +82,7 @@
   .container {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 0 20px;
+    padding: 0 80px;
   }
 
   .section-head {
@@ -169,7 +169,7 @@
 
 .about-section {
   position: relative;
-  padding: 40px 0;
+  padding: 80px 0;
   text-align: center;
   // background: #F2F2F2;
   background: #f9f9f9;
@@ -457,7 +457,7 @@
   border-radius: 1rem;
   padding: 16px 40px 16px 16px;
   position: relative;
-  min-height: 100%;
+  min-height: 80px;
   margin: 0 40px 0 0;
 
   // --- Avatar + status
@@ -789,6 +789,7 @@
   background: #f9f9f9;
   position: relative;
   overflow: hidden;
+  padding: 80px 0;
 
   .section-head {
     text-align: center;
@@ -896,7 +897,7 @@
 }
 
 .steps-section {
-  padding: 40px 0;
+  padding: 80px 0;
   position: relative;
   text-align: center;
   background: #fafafa;
