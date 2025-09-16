@@ -14,7 +14,7 @@ export default function HelpersSlider({ helpers }) {
           <p>{t("website.home.heplersSubtitle")}</p>
         </div>
         <Link to="/personal-helpers" className="view-all">
-          {t("showall")}{" "}
+          {t("showAll")}{" "}
         </Link>
       </div>
 

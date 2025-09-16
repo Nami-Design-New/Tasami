@@ -5,12 +5,12 @@ import { useSearchParams } from "react-router";
 export default function useGetPersonalAssistants() {
   const [searchParams] = useSearchParams();
   const params = {
-    city_id: searchParams.get("city_id"),
-    nationality_id: searchParams.get("nationality_id"),
-    category_id: searchParams.get("category_id"),
-    sub_category_id: searchParams.get("sub_category_id"),
-    preferred_gender: searchParams.get("preferred_gender"),
-    search_word: searchParams.get("search_word"),
+    city_id: searchParams.get("city"),
+    nationality_id: searchParams.get("nationality"),
+    category_id: searchParams.get("filed"),
+    sub_category_id: searchParams.get("specialization"),
+    preferred_gender: searchParams.get("gender"),
+    search_word: searchParams.get("search"),
   };
   const {
     data: assistantsData,
@@ -20,9 +20,14 @@ export default function useGetPersonalAssistants() {
     fetchNextPage,
     isFetchingNextPage,
   } = useInfiniteQuery({
-    queryKey: ["personal-assistants"],
-    queryFn: async () => {
-      const res = await axiosInstance.get("helpers", { params });
+    queryKey: ["personal-assistants", params],
+    queryFn: async ({ pageParam = 1 }) => {
+      const res = await axiosInstance.get("helpers", {
+        params: {
+          ...params,
+          page: pageParam,
+        },
+      });
 
       if (res.data.code !== 200) {
         throw new Error(res.data.message || "error fetching assistants");

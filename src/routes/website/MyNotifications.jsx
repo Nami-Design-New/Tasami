@@ -51,7 +51,7 @@ export default function MyNotifications() {
     notifications?.pages?.flatMap((page) => page?.data) ?? [];
 
   return (
-    <div className="notifications-page mt-30">
+    <div className="notifications-page page">
       <div className="container">
         {/* Header */}
         <NotificationPageHeader />

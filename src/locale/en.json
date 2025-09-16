@@ -19,6 +19,7 @@
   "delete": "Delete",
   "deleteAll": "Delete all",
   "confirm": "Confirm",
+  "search": "Search",
   "pageHeaders": {
     "Notifications": "Notifications",
     "Dashboard": "Dashboard",
@@ -396,6 +397,14 @@
         "textAudio": "Text and Audio Messaging",
         "offerImage": "Offer Image"
       }
+    },
+    "assistants": {
+      "filterTitle": "Filter Options",
+      "filter": "Filter",
+      "reset": "Reset",
+      "personalAssistants": "Personal Assistants",
+      "personalAssistant": "Personal Assistant",
+      "noPersonalAssistants": "You don’t have any personal assistants yet."
     },
 
     "payment": "Payment"

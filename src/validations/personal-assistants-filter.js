@@ -5,16 +5,12 @@ import * as yup from "yup";
 
 const getDocSchema = (t) => {
   return yup.object().shape({
-    field: yup.string().required(t("validation.required")),
-    specialization: yup.string().required(t("validation.required")),
-    documentType: yup.string().required(t("validation.required")),
-    gender: yup.string().required(t("validation.required")),
-    issuingAuthority: yup.string().required(t("validation.required")),
-    documentNumber: yup.string().required(t("validation.required")),
-    expiryDate: yup
-      .date()
-      .typeError(t("validation.date"))
-      .required(t("validation.required")),
+    search: yup.string().optional(),
+    city: yup.string().optional(),
+    nationality: yup.string().optional(),
+    field: yup.string().optional(),
+    specialization: yup.string().optional(),
+    gender: yup.string().oneOf(["both", "male", "female"]).optional(),
   });
 };
 
@@ -23,6 +19,14 @@ export default function useAssistantsFilterForm() {
   const methods = useForm({
     resolver: yupResolver(getDocSchema(t)),
     mode: "onBlur",
+    defaultValues: {
+      search: "",
+      city: "",
+      nationality: "",
+      field: "",
+      specialization: "",
+      gender: "both",
+    },
   });
   return methods;
 }

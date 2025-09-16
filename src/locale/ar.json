@@ -19,6 +19,7 @@
   "delete": "حذف",
   "deleteAll": "حذف الكل",
   "confirm": "تأكيد",
+  "search": "بحث",
 
   "pageHeaders": {
     "Notifications": " التنبيهات ",
@@ -403,6 +404,14 @@
         "textAudio": "التراسل النصي والصوتي",
         "offerImage": "صورة العرض"
       }
+    },
+    "assistants": {
+      "filterTitle": "خيارات التصفية",
+      "filter": "التصفية",
+      "reset": "الغاء",
+      "personalAssistants": "المساعدون الشخصيون",
+      "personalAssistant": "مساعد شخصي",
+      "noPersonalAssistants": "ليس لديك أي مساعد شخصي."
     },
     "payment": "الدفع"
   }

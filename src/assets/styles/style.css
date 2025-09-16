@@ -7507,7 +7507,7 @@ input[type=file] {
   border-radius: 1rem;
   padding: 16px 40px 16px 16px;
   position: relative;
-  min-height: 100%;
+  min-height: 80px;
   margin: 0 40px 0 0;
 }
 .helper-card .image-wrapper {
@@ -9686,7 +9686,7 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
 
 .profile_section .profile_sidebar {
   position: sticky;
-  top: 80px;
+  top: 100px;
   border-radius: 16px;
 }
 .profile_section .profile_sidebar .user {
@@ -10454,6 +10454,14 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
 }
 .duration-option.active img {
   filter: brightness(0) invert(1);
+}
+
+.filter-side-bar {
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  padding: 1rem;
+  position: sticky;
+  top: 100px;
 }
 
 body {

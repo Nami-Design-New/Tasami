@@ -1,16 +1,14 @@
-import { useState } from "react";
-import useFilteredList from "../../hooks/useFilteredList";
-import HelperCard from "../../ui/cards/HelperCard";
-import SectionHeader from "../../ui/website/SectionHeader";
-import SidebarFilter from "../../ui/website/home/SidebarFilter";
-import helperFilterModal from "../../ui/website/helpers/HelperFilterModal";
-import HelperFilterModal from "../../ui/website/helpers/HelperFilterModal";
-import useGetPersonalAssistants from "../../hooks/website/personal-assistants/useGetPersonalAssistants";
-import AssistantsSidebar from "../../ui/website/helpers/AssistantsSidebar";
+import { useTranslation } from "react-i18next";
 import { Link } from "react-router";
+import useGetPersonalAssistants from "../../hooks/website/personal-assistants/useGetPersonalAssistants";
+import EmptySection from "../../ui/EmptySection";
+import HelperCard from "../../ui/cards/HelperCard";
+import AudienceCardLoader from "../../ui/loading/AudienceCardLoader";
+import InfiniteScroll from "../../ui/loading/InfiniteScroll";
+import AssistantsSidebar from "../../ui/website/helpers/AssistantsSidebar";
 
 export default function PersonalHelper() {
-  const [showFilterModal, setShowFilterModal] = useState(false);
+  const { t } = useTranslation();
   const {
     assistantsData,
     isLoading,
@@ -22,60 +20,6 @@ export default function PersonalHelper() {
 
   const allAssistants =
     assistantsData?.pages?.flatMap((page) => page?.data) ?? [];
-  // const {
-  //   activeTab,
-  //   setActiveTab,
-  //   searchValue,
-  //   setSearchValue,
-  //   tabs,
-  //   filteredItems,
-  // } = useFilteredList("type", ["title", "name"]);
-  // const filters = [
-  //   {
-  //     label: "جنسية المساعد الشخصي",
-  //     placeholder: "اختر",
-  //     options: [
-  //       { value: "sa", name: "السعودية" },
-  //       { value: "eg", name: "مصر" },
-  //       { value: "ae", name: "الإمارات" },
-  //     ],
-  //   },
-  //   {
-  //     label: "مدينة المساعد الشخصي",
-  //     placeholder: "اختر",
-  //     options: [
-  //       { value: "riyadh", name: "الرياض" },
-  //       { value: "jeddah", name: "جدة" },
-  //       { value: "cairo", name: "القاهرة" },
-  //     ],
-  //   },
-  //   {
-  //     label: "المجال",
-  //     placeholder: "اختر المجال",
-  //     options: [
-  //       { value: "trade", name: "تجارة" },
-  //       { value: "tech", name: "تقنية" },
-  //       { value: "health", name: "صحة" },
-  //     ],
-  //   },
-  //   {
-  //     label: "التخصص",
-  //     placeholder: "اختر التخصص",
-  //     options: [
-  //       { value: "coding", name: "برمجة" },
-  //       { value: "design", name: "تصميم" },
-  //       { value: "medicine", name: "طب" },
-  //     ],
-  //   },
-  //   {
-  //     label: "جنس المساعد الشخصي",
-  //     placeholder: "اختر",
-  //     options: [
-  //       { value: "male", name: "ذكر" },
-  //       { value: "female", name: "أنثى" },
-  //     ],
-  //   },
-  // ];
 
   return (
     <section className="personal-helpers page">
@@ -89,7 +33,7 @@ export default function PersonalHelper() {
                     <i className="fa-solid fa-angle-right"></i>
                   </Link>
                 }
-                <h1>المساعدون الشخصيون</h1>
+                <h1> {t("website.assistants.personalAssistants")} </h1>
               </div>
             </div>
           </div>
@@ -100,24 +44,40 @@ export default function PersonalHelper() {
             <div className="row">
               <div className="col-12 p-2">
                 <div className="result-count">
-                  <strong>{allAssistants.length}</strong> الأهداف الشخصية
+                  <strong>{allAssistants.length}</strong>{" "}
+                  {t("website.assistants.personalAssistant")}
                 </div>
               </div>
-              {allAssistants.map((helper) => (
-                <div className="col-12 col-md-6 col-xl-4 p-2" key={helper.id}>
-                  <HelperCard helper={helper} />
+              {!isLoading && allAssistants.length === 0 && (
+                <EmptySection
+                  height="300px"
+                  message={t("website.assistants.noPersonalAssistants")}
+                />
+              )}
+              <InfiniteScroll
+                onLoadMore={fetchNextPage}
+                hasNextPage={hasNextPage}
+                isFetchingNextPage={isFetchingNextPage}
+              >
+                {allAssistants.map((helper) => (
+                  <div className="col-12 col-md-6 col-xl-4 p-2" key={helper.id}>
+                    <HelperCard helper={helper} />
+                  </div>
+                ))}
+              </InfiniteScroll>{" "}
+              {(isLoading || isFetchingNextPage) && (
+                <div className="row">
+                  {[1, 2, 3].map((i) => (
+                    <div className="col-12 col-md-6 col-xl-4 p-2" key={i}>
+                      <AudienceCardLoader />
+                    </div>
+                  ))}
                 </div>
-              ))}
+              )}
             </div>
           </div>
         </div>
       </div>
-      {/* <HelperFilterModal
-        show={showFilterModal}
-        onHide={() => setShowFilterModal(false)}
-        showValueRange={true}
-        showAgeRange={true}
-      /> */}
     </section>
   );
 }
