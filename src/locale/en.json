@@ -404,7 +404,22 @@
       "reset": "Reset",
       "personalAssistants": "Personal Assistants",
       "personalAssistant": "Personal Assistant",
-      "noPersonalAssistants": "You don’t have any personal assistants yet."
+      "noPersonalAssistants": "You don’t have any personal assistants yet.",
+      "community": "Community",
+      "completed_contracts": "Completed Contracts",
+      "progress_contracts": "Active Contracts",
+      "about": "About",
+      "experiences": "Work Experiences",
+      "documents": "Documents",
+      "offers": "Support Offers from",
+      "follow": "Follow",
+      "unFollow": "Unfollow",
+      "qualification": "Qualification",
+      "years_of_experience": "Years of Experience",
+      "type": "Document Type",
+      "issuer": "Issuing Authority",
+      "number": "Accreditation / Document Number",
+      "expiry_date": "Expiry Date"
     },
 
     "payment": "Payment"

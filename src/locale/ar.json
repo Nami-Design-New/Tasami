@@ -411,7 +411,22 @@
       "reset": "الغاء",
       "personalAssistants": "المساعدون الشخصيون",
       "personalAssistant": "مساعد شخصي",
-      "noPersonalAssistants": "ليس لديك أي مساعد شخصي."
+      "noPersonalAssistants": "ليس لديك أي مساعد شخصي.",
+      "community": "مجتمع",
+      "completed_contracts": "عدد العقود المكتملة",
+      "progress_contracts": "عدد العقود النشطة",
+      "about": "نبذة",
+      "experiences": "الخبرات العملية",
+      "documents": "الوثائق",
+      "offers": "عروض مساعدة من",
+      "follow": "متابعة",
+      "unFollow": " الغاء المتابعة ",
+      "qualification": "المؤهلات",
+      "years_of_experience": "عدد سنوات الخبرة",
+      "type": "نوع التصريح",
+      "issuer": "جهة الإصدار",
+      "number": "الاعتماد / رقم الوثيقة",
+      "expiry_date": "تاريخ الصلاحية"
     },
     "payment": "الدفع"
   }
