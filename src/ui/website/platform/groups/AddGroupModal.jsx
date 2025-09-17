@@ -58,7 +58,7 @@ export default function AddGroupModal({ showModal, setShowModal }) {
       }}
     >
       <Modal.Header closeButton>
-        <h6>انشاء مجموعة جديدة</h6>
+        <h6> {t("website.platform.groups.addNew")} </h6>
       </Modal.Header>
       <Modal.Body>
         <form className="form_ui" onSubmit={handleSubmit(onSubmit)}>
