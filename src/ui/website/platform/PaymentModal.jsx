@@ -57,7 +57,9 @@ export default function PaymentModal({ plan, showModal, setShowModal }) {
       <Modal.Body className="payment-modal-body">
         <div className="payment-modal-header">
           <h1 className="payment-modal-heading">
-            الرجاء دفع قيمة الاستراك باقة الذهب والتي تقدر بـ
+            {t("website.platform.subscription.payMessage", {
+              plan: plan?.title,
+            })}{" "}
           </h1>
           <p className="payment-modal-price">
             {plan?.price} <Currency style={{ height: "22px" }} />
@@ -75,7 +77,10 @@ export default function PaymentModal({ plan, showModal, setShowModal }) {
             <div className="payment-methd-image-wrapper">
               <img src="/icons/mastercard-logo.svg" />
             </div>
-            <span className="payment-method-title">دفع الكتروني</span>
+            <span className="payment-method-title">
+              {" "}
+              {t("website.platform.subscription.online")}
+            </span>
             <input
               type="radio"
               name="payment-method"
@@ -94,7 +99,10 @@ export default function PaymentModal({ plan, showModal, setShowModal }) {
             <div className="payment-methd-image-wrapper">
               <img src="/icons/wallet-image.svg" />
             </div>
-            <span className="payment-method-title">محفظة</span>
+            <span className="payment-method-title">
+              {" "}
+              {t("website.platform.subscription.wallet")}
+            </span>
             <input
               type="radio"
               name="payment-method"
@@ -113,7 +121,7 @@ export default function PaymentModal({ plan, showModal, setShowModal }) {
           fullWidth
           size="large"
         >
-          تأكيد الدفع
+          {t("website.platform.subscription.confirm")}
         </CustomButton>
       </Modal.Body>
     </Modal>

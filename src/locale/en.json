@@ -310,7 +310,12 @@
         "myGroups": "My Groups",
         "myCommunity": "My Community",
         "myAudience": "My Audience",
-        "myClients": "My Clients"
+        "myClients": "My Clients",
+        "payment": "Payment",
+        "payMessage": "Please pay the subscription for plan {{plan}} which costs",
+        "online": "Online Payment",
+        "wallet": "Wallet",
+        "confirm": "Confirm Payment"
       },
       "subscription": {
         "currentPlan": "Current Plan",
@@ -321,7 +326,12 @@
         "seatsCount": "Seats available per group",
         "appCommission": "Platform commission from contracts and memberships",
         "yearly": "Yearly",
-        "halfYearly": "Half yearly"
+        "halfYearly": "Half yearly",
+        "payment": "Payment",
+        "payMessage": "Please pay the subscription for plan {{plan}} which costs",
+        "online": "Online Payment",
+        "wallet": "Wallet",
+        "confirm": "Confirm Payment"
       },
       "cv": {
         "addDocument": "Add Document",
