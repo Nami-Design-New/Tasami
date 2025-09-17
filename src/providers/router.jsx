@@ -107,6 +107,8 @@ import Forbidden from "../routes/Forbidden";
 import Followings from "../routes/website/Followings";
 import ErrorFallback from "../ui/ErrorFallback";
 import ProtectedRoute from "./ProtectedRoute";
+import MyCommunities from "../routes/website/profile/MyCommunities";
+import CommunityDetails from "../ui/website/profile/my-communities/CommunityDetails";
 
 export const router = createBrowserRouter([
   /* WEBSITE AUTH */
@@ -227,6 +229,10 @@ export const router = createBrowserRouter([
             element: <Savings />,
           },
           {
+            path: "my-communities",
+            element: <MyCommunities />,
+          },
+          {
             path: "Followings",
             element: <Followings />,
           },
@@ -265,8 +271,8 @@ export const router = createBrowserRouter([
             element: <MyGroups />,
           },
           {
-            path: "my-community",
-            element: <MyCommunity />,
+            path: "my-communities",
+            element: <MyCommunities />,
           },
           {
             path: "my-audience",
@@ -283,6 +289,22 @@ export const router = createBrowserRouter([
         element: (
           <ProtectedRoute>
             <MyNotifications />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "my-community",
+        element: (
+          <ProtectedRoute>
+            <MyCommunity />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "community/:id",
+        element: (
+          <ProtectedRoute>
+            <CommunityDetails />
           </ProtectedRoute>
         ),
       },
