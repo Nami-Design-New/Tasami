@@ -11,7 +11,6 @@ export default function MyPlatform() {
   const navigate = useNavigate();
   const { lang } = useSelector((state) => state.language);
   const { user } = useSelector((state) => state.authRole);
-  console.log(user);
 
   const handleBack = () => {
     navigate(-1);

@@ -1,15 +1,16 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Swiper, SwiperSlide } from "swiper/react";
+import useGetPackages from "../../../hooks/website/subscribe/useGetPackages";
 import PackageCardLoader from "../../../ui/loading/PackageCardLoader";
 import CurrentPlan from "../../../ui/website/platform/CurrentPlan";
+import PaymentModal from "../../../ui/website/platform/PaymentModal";
 import PlanCard from "../../../ui/website/platform/PlanCard";
 import PlanDurationSelector from "../../../ui/website/platform/PlanDurationSelector";
-import PaymentModal from "../../../ui/website/platform/PaymentModal";
-import useGetPackages from "../../../hooks/website/subscribe/useGetPackages";
 
 export default function SupscriptionManagment() {
   const { t } = useTranslation();
+
   const { packages, isLoading } = useGetPackages();
   const [showModal, setShowModal] = useState(false);
   const [selectedDuration, setSelectedDuration] = useState("half_yearly");
