@@ -542,3 +542,21 @@
     }
   }
 }
+
+.group-details {
+  .header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 1rem;
+    h1 {
+      flex: 1;
+      font-size: 1.5rem;
+      color: $dark;
+      font-weight: 700;
+      span {
+        color: $second;
+      }
+    }
+  }
+}

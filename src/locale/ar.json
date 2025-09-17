@@ -368,7 +368,9 @@
       },
       "groups": {
         "groupName": "اسم المجموعة",
-        "groupDescription": "الوصف"
+        "groupDescription": "الوصف",
+        "addNew": "انشاء مجموعة جديدة",
+        "noGroups": "ليس لديك أي مجموعات بعد."
       },
       "myCommunity": {
         "editCommunity": "تعديل بيانات المجتمع المساعد",

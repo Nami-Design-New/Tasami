@@ -10500,6 +10500,22 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
   filter: brightness(0) invert(1);
 }
 
+.group-details .header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 1rem;
+}
+.group-details .header h1 {
+  flex: 1;
+  font-size: 1.5rem;
+  color: #0d0d0d;
+  font-weight: 700;
+}
+.group-details .header h1 span {
+  color: #5fcafa;
+}
+
 .filter-side-bar {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   border-radius: 12px;

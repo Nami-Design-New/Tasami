@@ -109,6 +109,7 @@ import ErrorFallback from "../ui/ErrorFallback";
 import ProtectedRoute from "./ProtectedRoute";
 import MyCommunities from "../routes/website/profile/MyCommunities";
 import CommunityDetails from "../ui/website/profile/my-communities/CommunityDetails";
+import GroupDetails from "../routes/website/my-platform/GroupDetails";
 
 export const router = createBrowserRouter([
   /* WEBSITE AUTH */
@@ -307,6 +308,10 @@ export const router = createBrowserRouter([
             <CommunityDetails />
           </ProtectedRoute>
         ),
+      },
+      {
+        path: "my-group/:id",
+        element: <GroupDetails />,
       },
       {
         path: "personal-community/:id",

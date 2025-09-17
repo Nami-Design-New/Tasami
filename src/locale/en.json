@@ -366,7 +366,9 @@
       },
       "groups": {
         "groupName": "Group Name",
-        "groupDescription": "Description"
+        "groupDescription": "Description",
+        "addNew": "Add New Group",
+        "noGroups": "You have No Groups Yet"
       },
       "myCommunity": {
         "editCommunity": "Edit Community Details",
