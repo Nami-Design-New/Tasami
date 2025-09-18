@@ -3,8 +3,8 @@ import { useSelector } from "react-redux";
 import { NavLink, Outlet, useNavigate } from "react-router";
 import Loading from "../../../ui/loading/Loading";
 import RoundedBackButton from "../../../ui/website-auth/shared/RoundedBackButton";
-import ProtectedNavLink from "./ProtectedNavLink";
 import UserCard from "../../../ui/website/profile/UserCard";
+import ProtectedNavLink from "./ProtectedNavLink";
 
 export default function MyPlatform() {
   const { t } = useTranslation();
@@ -39,6 +39,50 @@ export default function MyPlatform() {
             <div className="platform-hint">
               <i className="fa-regular fa-circle-info"></i>
               <p>{t("website.platform.hint")}</p>
+            </div>
+            <div className="exp-info-grid mt-3">
+              <div className="exp-info-box  ">
+                <h5> العقود النشطة</h5>
+                <p>
+                  {user.active_individual_contracts} من{" "}
+                  <span> {user.all_individual_contracts}</span>
+                </p>
+              </div>{" "}
+              <div className="exp-info-box  ">
+                <h5>المجموعات النشطة </h5>
+                <p>
+                  {user.active_groups} من <span> {user.non_active_groups}</span>
+                </p>
+              </div>{" "}
+              <div className="exp-info-box  ">
+                <h5>مدة الاشتراك</h5>
+                <p>
+                  <span style={{ color: "#0D0D0D8F", fontSize: "12px" }}>
+                    {" "}
+                    {user.my_package_details.package.type === "half_yearly"
+                      ? "6 اشهر"
+                      : "1 سنة"}
+                  </span>
+                </p>
+              </div>
+              <div className="exp-info-box  ">
+                <h5> بداية الاشتراك</h5>
+                <p>
+                  <span style={{ color: "#0D0D0D8F", fontSize: "12px" }}>
+                    {" "}
+                    {user.my_package_details.start_date}
+                  </span>
+                </p>
+              </div>
+              <div className="exp-info-box  ">
+                <h5> نهاية الاشتراك</h5>
+                <p>
+                  <span style={{ color: "#0D0D0D8F", fontSize: "12px" }}>
+                    {" "}
+                    {user.my_package_details.end_date}
+                  </span>
+                </p>
+              </div>
             </div>
           </div>
           <div className="col-lg-3 col-md-3 col-12 p-2">
