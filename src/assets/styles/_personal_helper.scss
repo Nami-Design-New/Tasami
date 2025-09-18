@@ -223,27 +223,7 @@
       }
     }
   }
-  .exp-info-grid {
-    display: flex;
-    gap: 8px;
-    .exp-info-box {
-      padding: 8px;
-      border-radius: 8px;
-      border: 1px solid $second;
-      min-width: 120px;
-      h5 {
-        font-size: 14px;
-        color: $second;
-        font-weight: 500;
-        margin-bottom: 4px;
-      }
-      p {
-        font-size: 14px;
-        color: $dark;
-        font-weight: 700;
-      }
-    }
-  }
+
   .more-offers {
     h6 {
       margin-bottom: 12px;
@@ -398,6 +378,28 @@
 
     @media (max-width: 768px) {
       flex-direction: column;
+    }
+  }
+}
+
+.exp-info-grid {
+  display: flex;
+  gap: 8px;
+  .exp-info-box {
+    padding: 8px;
+    border-radius: 8px;
+    border: 1px solid $second;
+    min-width: 120px;
+    h5 {
+      font-size: 14px;
+      color: $second;
+      font-weight: 500;
+      margin-bottom: 4px;
+    }
+    p {
+      font-size: 14px;
+      color: $dark;
+      font-weight: 700;
     }
   }
 }

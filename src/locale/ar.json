@@ -370,7 +370,17 @@
         "groupName": "اسم المجموعة",
         "groupDescription": "الوصف",
         "addNew": "انشاء مجموعة جديدة",
-        "noGroups": "ليس لديك أي مجموعات بعد."
+        "editGroup": "تعديل المجموعة",
+        "noGroups": "ليس لديك أي مجموعات بعد.",
+        "group": "المجموعة",
+        "noGroupFound": "لا يوجد اعضاء في المجموعة حتي الان!",
+        "edit": "تعديل",
+        "delete": "حذف",
+        "description": "الوصف",
+        "field": "المجال",
+        "strength": "مؤشرات القوة",
+        "groupMembers": "أعضاء المجموعة",
+        "deleteAlertMessage": "سيتم خذف المجموعة! "
       },
       "myCommunity": {
         "editCommunity": "تعديل بيانات المجتمع المساعد",

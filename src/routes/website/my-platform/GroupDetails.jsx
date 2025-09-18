@@ -6,12 +6,44 @@ import { useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
 import { Dropdown } from "react-bootstrap";
 import InfoCard from "../../../ui/cards/InfoCard";
+import GroupMembersList from "../../../ui/website/platform/groups/GroupMembersList";
+import AddGroupModal from "../../../ui/website/platform/groups/AddGroupModal";
+import { useState } from "react";
+import AlertModal from "../../../ui/website/platform/my-community/AlertModal";
+import useDeleteGroup from "../../../hooks/website/my-groups/useDeleteGroup";
+import { useQueryClient } from "@tanstack/react-query";
+import { toast } from "sonner";
 
 export default function GroupDetails() {
   const navigate = useNavigate();
   const { lang } = useSelector((state) => state.language);
   const { t } = useTranslation();
   const { groupDetails, isLoading } = useGetGroupDetails();
+  const [showAddGroupModal, setShowAddGroupModal] = useState(false);
+  const [showAlertModal, setShowAlertModal] = useState(false);
+  const queryClient = useQueryClient();
+
+  const { deleteGroup, isPending: isDeleteingGroup } = useDeleteGroup();
+
+  const handleDeleteGroup = (id, members) => {
+    if (members.length == 0) {
+      deleteGroup(id, {
+        onSuccess: (res) => {
+          navigate("/my-platform/my-groups");
+          queryClient.refetchQueries({ queryKey: ["my-groups"] });
+          toast.success(res?.message);
+        },
+        onError: (error) => {
+          toast.error(error.message);
+        },
+        onSettled: () => {
+          setShowAlertModal(false);
+        },
+      });
+    } else {
+      toast.info(t("canNotDelete"));
+    }
+  };
 
   if (isLoading) return <Loading />;
 
@@ -38,7 +70,8 @@ export default function GroupDetails() {
           </RoundedBackButton>
           <h1>
             {" "}
-            {t("group")} <span> {groupDetails.title}</span>
+            {t("website.platform.groups.group")}{" "}
+            <span> {groupDetails.title}</span>
           </h1>
           <Dropdown className="custom-dropdown">
             <Dropdown.Toggle id="dropdown-basic">
@@ -48,32 +81,67 @@ export default function GroupDetails() {
               <Dropdown.Item
                 className="edit-item"
                 eventKey="edit"
-                // onClick={() => setShowEditModal(true)}
+                onClick={() => setShowAddGroupModal(true)}
               >
                 {t("edit")}
               </Dropdown.Item>
 
               {/* Handle activate/deactivate */}
-              <Dropdown.Item className="deactive-item" eventKey="deactive">
+              <Dropdown.Item
+                className="deactive-item"
+                eventKey="deactive"
+                onClick={() => setShowAlertModal(true)}
+              >
                 {t("delete")}
               </Dropdown.Item>
             </Dropdown.Menu>
           </Dropdown>
         </div>
         <div className="row">
-          <div className="col-12 col-lg-5 p-2">
-            <div className="desxription">
-              <h3>{t("description")}</h3>
+          <div className="col-12 p-2">
+            <div className="description">
+              <h3>{t("website.platform.groups.description")}</h3>
               <p>{groupDetails.desc}</p>
             </div>
-            <div className="info">
-              <InfoCard title={t("created_at")} data={""} />
-              <InfoCard title={t("members")} data={""} />
+          </div>
+          <div className="col-12 p-2">
+            <div className="exp-info-grid">
+              <InfoCard
+                title={t("website.platform.groups.field")}
+                data={groupDetails.category_title}
+              />
+              <InfoCard
+                title={t("website.platform.groups.strength")}
+                data={groupDetails.strength_indicator}
+              />
             </div>
           </div>
-          <div className="col-12 col-lg-7 p-2"></div>
+          <div className="col-12 p-2">
+            <h2 className="group-label">
+              {" "}
+              {t("website.platform.groups.groupMembers")}{" "}
+            </h2>
+            <GroupMembersList members={groupDetails.members} />
+          </div>
         </div>
       </div>
+
+      <AddGroupModal
+        setShowModal={setShowAddGroupModal}
+        showModal={showAddGroupModal}
+        group={groupDetails}
+      />
+      <AlertModal
+        confirmButtonText={t("confirm")}
+        showModal={showAlertModal}
+        setShowModal={setShowAlertModal}
+        onConfirm={() =>
+          handleDeleteGroup(groupDetails?.id, groupDetails?.members)
+        }
+        loading={isDeleteingGroup}
+      >
+        {t("website.platform.groups.deleteAlertMessage")}
+      </AlertModal>
     </section>
   );
 }

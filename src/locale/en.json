@@ -368,7 +368,17 @@
         "groupName": "Group Name",
         "groupDescription": "Description",
         "addNew": "Add New Group",
-        "noGroups": "You have No Groups Yet"
+        "editGroup": "Edit Group",
+        "noGroups": "You have No Groups Yet",
+        "group": "Group",
+        "noGroupFound": "There are no members in the group yet",
+        "edit": "Edit",
+        "delete": "Delete",
+        "description": "Description",
+        "field": "Field",
+        "strength": "Strength",
+        "groupMembers": "Group Members",
+        "deleteAlertMessage": "The Group Will be deleted"
       },
       "myCommunity": {
         "editCommunity": "Edit Community Details",

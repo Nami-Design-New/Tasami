@@ -9916,7 +9916,7 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
 }
 .edit-profile-page .change-pasowrd .form-check-input:checked {
   background-color: #5fcafa;
-  border-color: rgba(95, 202, 250, 0.25);
+  border-color: rgba(95, 202, 250, 0.2509803922);
 }
 
 .communities-list {
@@ -10504,7 +10504,6 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
   display: flex;
   align-items: center;
   gap: 16px;
-  margin-bottom: 1rem;
 }
 .group-details .header h1 {
   flex: 1;
@@ -10514,6 +10513,66 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
 }
 .group-details .header h1 span {
   color: #5fcafa;
+}
+.group-details .description h3 {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #0d0d0d;
+}
+.group-details .description p {
+  font-size: 16px;
+  font-weight: 500;
+  color: rgba(13, 13, 13, 0.5607843137);
+}
+.group-details .info {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.group-details .group-label {
+  color: #0d0d0d;
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.group-members-list {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.member-card {
+  border: 1px solid rgba(13, 13, 13, 0.0941176471);
+  border-radius: 6px;
+  background-color: rgba(1, 199, 251, 0.0392156863);
+  overflow: hidden;
+  flex: 1;
+  max-width: 180px;
+  min-width: 180px;
+}
+@media (max-width: 475px) {
+  .member-card {
+    min-width: 140px;
+  }
+}
+.member-card .member-card__avatar {
+  width: 100%;
+  aspect-ratio: 1/1;
+}
+.member-card .info {
+  padding: 8px 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 6px;
+  text-align: center;
+  font-weight: 700;
+  color: #0d0d0d;
+}
+.member-card .info .member-name {
+  font-size: 16px;
 }
 
 .filter-side-bar {
@@ -10705,27 +10764,6 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
   color: #fff;
   border-color: #5fcafa;
 }
-.personal-assiatant-details-card .exp-info-grid {
-  display: flex;
-  gap: 8px;
-}
-.personal-assiatant-details-card .exp-info-grid .exp-info-box {
-  padding: 8px;
-  border-radius: 8px;
-  border: 1px solid #5fcafa;
-  min-width: 120px;
-}
-.personal-assiatant-details-card .exp-info-grid .exp-info-box h5 {
-  font-size: 14px;
-  color: #5fcafa;
-  font-weight: 500;
-  margin-bottom: 4px;
-}
-.personal-assiatant-details-card .exp-info-grid .exp-info-box p {
-  font-size: 14px;
-  color: #0d0d0d;
-  font-weight: 700;
-}
 .personal-assiatant-details-card .more-offers h6 {
   margin-bottom: 12px;
   font-size: 1rem;
@@ -10845,6 +10883,28 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
   .personal-assiatant-details-card .stats {
     flex-direction: column;
   }
+}
+
+.exp-info-grid {
+  display: flex;
+  gap: 8px;
+}
+.exp-info-grid .exp-info-box {
+  padding: 8px;
+  border-radius: 8px;
+  border: 1px solid #5fcafa;
+  min-width: 120px;
+}
+.exp-info-grid .exp-info-box h5 {
+  font-size: 14px;
+  color: #5fcafa;
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+.exp-info-grid .exp-info-box p {
+  font-size: 14px;
+  color: #0d0d0d;
+  font-weight: 700;
 }
 
 body {
