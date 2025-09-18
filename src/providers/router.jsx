@@ -11,7 +11,6 @@ import Contact from "../routes/website/contact";
 import EditProfile from "../routes/website/EditProfile";
 import Encounters from "../routes/website/Encounters";
 import FAQsSection from "../routes/website/Faqs";
-import Followers from "../routes/website/Followers";
 import GoalDetails from "../routes/website/GoalDetails";
 import HelpersDetails from "../routes/website/HelpersDetails";
 import Home from "../routes/website/Home";
@@ -105,8 +104,12 @@ import DashBoardResetPassword from "../routes/dashboard-auth/DashBoardResetPassw
 /* ---------------- ERROR / EXTRA ---------------- */
 
 import Forbidden from "../routes/Forbidden";
+import Followings from "../routes/website/Followings";
 import ErrorFallback from "../ui/ErrorFallback";
 import ProtectedRoute from "./ProtectedRoute";
+import MyCommunities from "../routes/website/profile/MyCommunities";
+import CommunityDetails from "../ui/website/profile/my-communities/CommunityDetails";
+import GroupDetails from "../routes/website/my-platform/GroupDetails";
 
 export const router = createBrowserRouter([
   /* WEBSITE AUTH */
@@ -179,14 +182,6 @@ export const router = createBrowserRouter([
         element: <NewGoal />,
       },
       {
-        path: "my-notifications",
-        element: <MyNotifications />,
-      },
-      {
-        path: "my-wallet",
-        element: <MyWallet />,
-      },
-      {
         path: "goal/:id",
         element: <GoalDetails />,
       },
@@ -235,14 +230,22 @@ export const router = createBrowserRouter([
             element: <Savings />,
           },
           {
-            path: "Followers",
-            element: <Followers />,
+            path: "my-communities",
+            element: <MyCommunities />,
+          },
+          {
+            path: "Followings",
+            element: <Followings />,
           },
         ],
       },
       {
         path: "/my-platform",
-        element: <MyPlatform />,
+        element: (
+          <ProtectedRoute>
+            <MyPlatform />
+          </ProtectedRoute>
+        ),
         children: [
           {
             index: true,
@@ -269,8 +272,8 @@ export const router = createBrowserRouter([
             element: <MyGroups />,
           },
           {
-            path: "my-community",
-            element: <MyCommunity />,
+            path: "my-communities",
+            element: <MyCommunities />,
           },
           {
             path: "my-audience",
@@ -284,7 +287,31 @@ export const router = createBrowserRouter([
       },
       {
         path: "notifications",
-        element: <MyNotifications />,
+        element: (
+          <ProtectedRoute>
+            <MyNotifications />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "my-community",
+        element: (
+          <ProtectedRoute>
+            <MyCommunity />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "community/:id",
+        element: (
+          <ProtectedRoute>
+            <CommunityDetails />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "my-group/:id",
+        element: <GroupDetails />,
       },
       {
         path: "personal-community/:id",

@@ -6,9 +6,11 @@ import Currency from "../../Currency";
 import CustomButton from "../../CustomButton";
 import { useQueryClient } from "@tanstack/react-query";
 import useSubscripePackage from "../../../hooks/website/subscribe/useSubscripePackage";
+import { useSelector } from "react-redux";
 
 export default function PaymentModal({ plan, showModal, setShowModal }) {
   const { t } = useTranslation();
+  const { user } = useSelector((state) => state.authRole);
   const [selectedMethod, setSelectedMethod] = useState("online");
   const { subscribe, isPending } = useSubscripePackage();
   const queryClient = useQueryClient();
@@ -18,10 +20,18 @@ export default function PaymentModal({ plan, showModal, setShowModal }) {
       { packageId: plan?.id, paymentMethod: selectedMethod },
       {
         onSuccess: (res) => {
-          const url = res.data.redirect_url;
-          window.open(url, "_blank", "noopener,noreferrer");
+          if (selectedMethod === "online") {
+            const url = res.data.redirect_url;
+            window.open(url, "_blank", "noopener,noreferrer");
+          }
           queryClient.invalidateQueries({ queryKey: ["current-package"] });
+          queryClient.invalidateQueries({ queryKey: ["get-packages"] });
+          setSelectedMethod("online");
           setShowModal(false);
+
+          if (selectedMethod === "wallet") {
+            toast.success(res?.message);
+          }
         },
         onError: (error) => {
           toast.error(error.message);
@@ -35,7 +45,10 @@ export default function PaymentModal({ plan, showModal, setShowModal }) {
       centered
       size="md"
       show={showModal}
-      onHide={() => setShowModal(false)}
+      onHide={() => {
+        setShowModal(false);
+        setSelectedMethod("online");
+      }}
     >
       <Modal.Header closeButton className="payment-modal-header">
         {t("website.payment")}
@@ -44,7 +57,9 @@ export default function PaymentModal({ plan, showModal, setShowModal }) {
       <Modal.Body className="payment-modal-body">
         <div className="payment-modal-header">
           <h1 className="payment-modal-heading">
-            الرجاء دفع قيمة الاستراك باقة الذهب والتي تقدر بـ
+            {t("website.platform.subscription.payMessage", {
+              plan: plan?.title,
+            })}{" "}
           </h1>
           <p className="payment-modal-price">
             {plan?.price} <Currency style={{ height: "22px" }} />
@@ -62,7 +77,10 @@ export default function PaymentModal({ plan, showModal, setShowModal }) {
             <div className="payment-methd-image-wrapper">
               <img src="/icons/mastercard-logo.svg" />
             </div>
-            <span className="payment-method-title">دفع الكتروني</span>
+            <span className="payment-method-title">
+              {" "}
+              {t("website.platform.subscription.online")}
+            </span>
             <input
               type="radio"
               name="payment-method"
@@ -81,7 +99,10 @@ export default function PaymentModal({ plan, showModal, setShowModal }) {
             <div className="payment-methd-image-wrapper">
               <img src="/icons/wallet-image.svg" />
             </div>
-            <span className="payment-method-title">محفظة</span>
+            <span className="payment-method-title">
+              {" "}
+              {t("website.platform.subscription.wallet")}
+            </span>
             <input
               type="radio"
               name="payment-method"
@@ -90,7 +111,7 @@ export default function PaymentModal({ plan, showModal, setShowModal }) {
               onChange={(e) => setSelectedMethod(e.target.value)}
             />
             <span className="wallet-balance">
-              2500 <Currency />
+              {user?.available_balance} <Currency />
             </span>
           </label>
         </div>
@@ -100,7 +121,7 @@ export default function PaymentModal({ plan, showModal, setShowModal }) {
           fullWidth
           size="large"
         >
-          تأكيد الدفع
+          {t("website.platform.subscription.confirm")}
         </CustomButton>
       </Modal.Body>
     </Modal>

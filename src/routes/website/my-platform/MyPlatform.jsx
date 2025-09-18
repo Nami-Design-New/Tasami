@@ -11,6 +11,7 @@ export default function MyPlatform() {
   const navigate = useNavigate();
   const { lang } = useSelector((state) => state.language);
   const { user } = useSelector((state) => state.authRole);
+
   const handleBack = () => {
     navigate(-1);
   };
@@ -74,7 +75,7 @@ export default function MyPlatform() {
                   {t("website.platform.menu.myGroups")}
                 </ProtectedNavLink>
 
-                <ProtectedNavLink to="my-community" disabled={!user.about}>
+                <ProtectedNavLink to="/my-community" disabled={!user.about}>
                   <img src="./icons/communities-second.svg" alt="" />
                   {t("website.platform.menu.myCommunity")}
                 </ProtectedNavLink>

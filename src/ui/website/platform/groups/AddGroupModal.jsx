@@ -8,12 +8,24 @@ import CustomButton from "../../../CustomButton";
 import { useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 import useAddGroup from "../../../../hooks/website/my-groups/useAddGroup";
+import { useEffect } from "react";
+import useEditGroup from "../../../../hooks/website/my-groups/useEditGroup";
 
-export default function AddGroupModal({ showModal, setShowModal }) {
+export default function AddGroupModal({
+  showModal,
+  setShowModal,
+  group = null,
+}) {
+  console.log(group);
+
   const { categories, isLoading } = useGetcategories();
   const { t } = useTranslation();
   const queryClient = useQueryClient();
-  const { addGroup, isPending } = useAddGroup();
+
+  const { addGroup, isPending: isAdding } = useAddGroup();
+  const { editGroup, isPending: isEditing } = useEditGroup();
+  const isPending = isAdding || isEditing;
+
   const {
     register,
     handleSubmit,
@@ -35,18 +47,44 @@ export default function AddGroupModal({ showModal, setShowModal }) {
       title: data.groupName,
       desc: data.description,
     };
-    addGroup(payload, {
-      onSuccess: (res) => {
-        setShowModal(false);
-        queryClient.invalidateQueries(["my-groups"]);
-        reset();
-        toast.success(res.message);
-      },
-      onError: (err) => {
-        toast.error(err.message);
-      },
-    });
+    if (group) {
+      editGroup(
+        { id: group.id, payload },
+        {
+          onSuccess: (res) => {
+            setShowModal(false);
+            queryClient.invalidateQueries(["group-details"]);
+            reset();
+            toast.success(res.message);
+          },
+          onError: (err) => toast.error(err.message),
+        }
+      );
+    } else {
+      addGroup(payload, {
+        onSuccess: (res) => {
+          setShowModal(false);
+          queryClient.invalidateQueries(["my-groups"]);
+          reset();
+          toast.success(res.message);
+        },
+        onError: (err) => {
+          toast.error(err.message);
+        },
+      });
+    }
   };
+
+  useEffect(() => {
+    if (group) {
+      reset({
+        field: group.category_id,
+        specialization: group.sub_category_id,
+        groupName: group.title,
+        description: group.desc,
+      });
+    }
+  }, [group, reset]);
   return (
     <Modal
       show={showModal}
@@ -58,7 +96,11 @@ export default function AddGroupModal({ showModal, setShowModal }) {
       }}
     >
       <Modal.Header closeButton>
-        <h6>انشاء مجموعة جديدة</h6>
+        <h6>
+          {group
+            ? t("website.platform.groups.editGroup")
+            : t("website.platform.groups.addNew")}
+        </h6>
       </Modal.Header>
       <Modal.Body>
         <form className="form_ui" onSubmit={handleSubmit(onSubmit)}>
@@ -105,7 +147,7 @@ export default function AddGroupModal({ showModal, setShowModal }) {
             </div>
             <div className="col-12 p-2 d-flex justify-content-end ">
               <CustomButton loading={isPending} type="submit" size="large">
-                {t("create")}
+                {group ? t("confirm") : t("create")}
               </CustomButton>
             </div>
           </div>

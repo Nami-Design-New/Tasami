@@ -546,3 +546,42 @@
     }
   }
 }
+
+// communities
+.communities-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.communities-card {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 12px;
+  border-radius: 12px;
+  background-color: $InputBG;
+  img {
+    width: 50px;
+    aspect-ratio: 1/1;
+    border-radius: 10px;
+  }
+  h2 {
+    font-size: 1rem;
+    font-weight: 700;
+    color: $dark;
+    flex: 1;
+  }
+  .arrow-icon {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background-color: $white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    // transform: rotate(90deg);
+    // transition: 0.3s ease;
+    color: $second;
+  }
+}

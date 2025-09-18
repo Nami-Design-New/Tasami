@@ -6,7 +6,6 @@ importScripts(
   "https://www.gstatic.com/firebasejs/10.8.0/firebase-messaging-compat.js"
 );
 
-console.log("[SW] Loading firebase-messaging-sw.js...");
 
 firebase.initializeApp({
   apiKey: "AIzaSyBlnHC6QbOODn6lqOYy9QdD9ouTJIK4sYA",
@@ -18,21 +17,16 @@ firebase.initializeApp({
   measurementId: "G-5XL214WKTJ",
 });
 
-console.log("[SW] Firebase initialized");
 
 const messaging = firebase.messaging();
 
 messaging.onBackgroundMessage(function (payload) {
-  console.log("[SW] Received background message:", payload);
 
   const title =
     payload.notification?.title || payload.data?.title || "New Notification";
   const body =
     payload.notification?.body || payload.data?.body || "You have a message";
 
-  console.log("[SW] Extracted title:", title);
-  console.log("[SW] Extracted body:", body);
-  console.log("[SW] Notification data:", payload.data);
 
   const notificationOptions = {
     body,
@@ -57,12 +51,10 @@ messaging.onBackgroundMessage(function (payload) {
 });
 
 self.addEventListener("notificationclick", function (event) {
-  console.log("[SW] Notification clicked:", event.notification);
 
   event.notification.close();
 
   const urlToOpen = new URL("/", self.location.origin).href;
-  console.log("[SW] Target URL:", urlToOpen);
 
   const promiseChain = clients
     .matchAll({
@@ -70,12 +62,10 @@ self.addEventListener("notificationclick", function (event) {
       includeUncontrolled: true,
     })
     .then((windowClients) => {
-      console.log("[SW] Existing window clients:", windowClients);
 
       let matchingClient = null;
       for (let i = 0; i < windowClients.length; i++) {
         const windowClient = windowClients[i];
-        console.log("[SW] Checking window client:", windowClient.url);
         if (windowClient.url === urlToOpen) {
           matchingClient = windowClient;
           break;
@@ -83,10 +73,8 @@ self.addEventListener("notificationclick", function (event) {
       }
 
       if (matchingClient) {
-        console.log("[SW] Found matching client, focusing...");
         return matchingClient.focus();
       } else {
-        console.log("[SW] No matching client, opening new window...");
         return clients.openWindow(urlToOpen);
       }
     });
@@ -94,4 +82,3 @@ self.addEventListener("notificationclick", function (event) {
   event.waitUntil(promiseChain);
 });
 
-console.log("[SW] firebase-messaging-sw.js ready");

@@ -21,7 +21,7 @@ const PlanDurationSelector = ({ options = [], value, onChange }) => {
           <input
             type="radio"
             name="plan-duration"
-            defaultChecked={"half"}
+            // defaultChecked={"half"}
             value={option.value}
             checked={value === option.value}
             onChange={() => onChange(option.value)}
