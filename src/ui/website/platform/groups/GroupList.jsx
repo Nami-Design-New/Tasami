@@ -10,7 +10,7 @@ export default function GroupList({ allGroups }) {
       style={{ maxHeight: "auto", overflowY: "auto" }}
     >
       {allGroups.map((group) => (
-        <Link key={group.id} to="">
+        <Link key={group.id} to={`/my-group/${group.id}`}>
           <li className="groups__list-item">
             <div className="d-flex gap-2 align-items-center">
               <img src="/icons/Groups.svg" alt={group.title} />

@@ -328,7 +328,12 @@
         "seatsCount": "عدد المقاعد المتاحة للمستفيدين في المجموعة الواحدة",
         "appCommission": "عمولة المنصة من العقود وعضويات المجتمعات",
         "yearly": "سنوية",
-        "halfYearly": "نصف سنوية"
+        "halfYearly": "نصف سنوية",
+        "payment": "الدفع",
+        "payMessage": "الرجاء دفع قيمة الاشتراك باقة {{plan}} والتي تقدر بـ",
+        "online": "دفع الكتروني",
+        "wallet": "محفظة",
+        "confirm": "تأكيد الدفع"
       },
       "cv": {
         "addDocument": "إضافة وثيقة",
@@ -363,7 +368,19 @@
       },
       "groups": {
         "groupName": "اسم المجموعة",
-        "groupDescription": "الوصف"
+        "groupDescription": "الوصف",
+        "addNew": "انشاء مجموعة جديدة",
+        "editGroup": "تعديل المجموعة",
+        "noGroups": "ليس لديك أي مجموعات بعد.",
+        "group": "المجموعة",
+        "noGroupFound": "لا يوجد اعضاء في المجموعة حتي الان!",
+        "edit": "تعديل",
+        "delete": "حذف",
+        "description": "الوصف",
+        "field": "المجال",
+        "strength": "مؤشرات القوة",
+        "groupMembers": "أعضاء المجموعة",
+        "deleteAlertMessage": "سيتم خذف المجموعة! "
       },
       "myCommunity": {
         "editCommunity": "تعديل بيانات المجتمع المساعد",

@@ -310,7 +310,12 @@
         "myGroups": "My Groups",
         "myCommunity": "My Community",
         "myAudience": "My Audience",
-        "myClients": "My Clients"
+        "myClients": "My Clients",
+        "payment": "Payment",
+        "payMessage": "Please pay the subscription for plan {{plan}} which costs",
+        "online": "Online Payment",
+        "wallet": "Wallet",
+        "confirm": "Confirm Payment"
       },
       "subscription": {
         "currentPlan": "Current Plan",
@@ -321,7 +326,12 @@
         "seatsCount": "Seats available per group",
         "appCommission": "Platform commission from contracts and memberships",
         "yearly": "Yearly",
-        "halfYearly": "Half yearly"
+        "halfYearly": "Half yearly",
+        "payment": "Payment",
+        "payMessage": "Please pay the subscription for plan {{plan}} which costs",
+        "online": "Online Payment",
+        "wallet": "Wallet",
+        "confirm": "Confirm Payment"
       },
       "cv": {
         "addDocument": "Add Document",
@@ -356,7 +366,19 @@
       },
       "groups": {
         "groupName": "Group Name",
-        "groupDescription": "Description"
+        "groupDescription": "Description",
+        "addNew": "Add New Group",
+        "editGroup": "Edit Group",
+        "noGroups": "You have No Groups Yet",
+        "group": "Group",
+        "noGroupFound": "There are no members in the group yet",
+        "edit": "Edit",
+        "delete": "Delete",
+        "description": "Description",
+        "field": "Field",
+        "strength": "Strength",
+        "groupMembers": "Group Members",
+        "deleteAlertMessage": "The Group Will be deleted"
       },
       "myCommunity": {
         "editCommunity": "Edit Community Details",

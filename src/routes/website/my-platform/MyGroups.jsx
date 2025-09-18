@@ -28,13 +28,13 @@ export default function MyGroups() {
       >
         <div className="position-sticky top-0 z-3 d-flex justify-content-end">
           <CustomButton onClick={() => setShowAddGroupModal(true)} size="large">
-            انشاء مجموعة جديدة
+            {t("website.platform.groups.addNew")}{" "}
           </CustomButton>
         </div>
         {/* Empty state */}
         {!isLoading && allGroups.length === 0 && (
           <div className="empty-data h-100">
-            <p>{t("website.platform.cv.noExperience")}</p>
+            <p>{t("website.platform.groups.noGroups")}</p>
           </div>
         )}
 

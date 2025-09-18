@@ -381,8 +381,8 @@ $color-fire: #ff7a59;
 // tab component
 .tab-list {
   display: flex;
-  align-items: start;
-  justify-content: start;
+  align-items: flex-start;
+  justify-content: flex-start;
   cursor: pointer;
   gap: 8px;
   flex-direction: column;

@@ -76,12 +76,12 @@ export default function Profile() {
                   {t("profile.savings")}
                 </NavLink>
 
-                <NavLink to="community" className="nav_link">
+                <NavLink to="my-communities" className="nav_link">
                   <i className="fa-regular fa-users"></i>
                   {t("profile.community")}
                 </NavLink>
 
-                <NavLink to="followers" className="nav_link">
+                <NavLink to="followings" className="nav_link">
                   <i className="fa-regular fa-heart"></i>
                   {t("profile.followers")}
                 </NavLink>

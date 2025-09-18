@@ -26,7 +26,7 @@
     grid-area: sidebar;
     display: flex;
     flex-direction: column;
-    align-self: start;
+    align-self: flex-start;
     align-items: center;
     gap: 24px;
     position: sticky;
@@ -639,8 +639,8 @@
     margin-bottom: 24px;
     @include tablet-layout {
       flex-direction: column;
-      justify-content: start;
-      align-items: start;
+      justify-content: flex-start;
+      align-items: flex-start;
       gap: 12px;
     }
     .welcome {
@@ -669,7 +669,7 @@
         gap: 10px;
       }
       @include tablet-layout {
-        justify-content: start;
+        justify-content: flex-start;
         align-items: center;
       }
     }
@@ -1053,7 +1053,7 @@
 
     .notification-card {
       display: flex;
-      align-items: start;
+      align-items: flex-start;
       padding: 12px;
       border: 1px solid #e6ebf1;
       .icon-wrapper {

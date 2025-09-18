@@ -7,6 +7,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import useChargeWallet from "../../hooks/website/wallet/useChargeWallet";
 import { toast } from "sonner";
+import { useSelector } from "react-redux";
 
 const getChargeBalanceSchema = (t) =>
   yup.object().shape({

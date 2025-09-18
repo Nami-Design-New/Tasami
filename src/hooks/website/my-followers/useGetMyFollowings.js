@@ -1,24 +1,26 @@
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { axiosInstance } from "../../../lib/axios";
 
-export default function useGetMyCommunities() {
+export default function useGetMyFollowings() {
   const {
-    data: myCommunities,
+    data: followings,
     isLoading,
     error,
     hasNextPage,
     fetchNextPage,
     isFetchingNextPage,
   } = useInfiniteQuery({
-    queryKey: ["my-communities"],
+    queryKey: ["my-following"],
     queryFn: async ({ pageParam = 1 }) => {
-      const res = await axiosInstance.get("my-communities", {
+      const res = await axiosInstance.get("/my-following", {
         params: {
           page: pageParam,
         },
       });
+      console.log(res);
+
       if (res.data.code !== 200) {
-        throw new Error(res.data.message);
+        throw new Error(res.data.message || "error fetching data");
       }
       return res.data;
     },
@@ -29,7 +31,7 @@ export default function useGetMyCommunities() {
     },
   });
   return {
-    myCommunities,
+    followings,
     isLoading,
     error,
     hasNextPage,
