@@ -245,7 +245,9 @@
     "mustBePositive": "Must be a positive number",
     "requiredField": "{{field}} is required",
     "maxMonths": "Months must not exceed {{max}}",
-    "maxDays": "Days must not exceed {{max}}"
+    "maxDays": "Days must not exceed {{max}}",
+    "atLeastOne": "At least one of the fields (month or day) must be filled",
+    "maxTotal": "The total number of days must not exceed {{max}}"
   },
   "pageNotFound": {
     "alt": "404 Not Found",

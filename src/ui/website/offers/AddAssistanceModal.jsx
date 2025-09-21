@@ -106,6 +106,7 @@ export default function AddAssistanceModal({ showModal, setShowModal }) {
       }
     );
   };
+  console.log(errors);
 
   return (
     <Modal
@@ -297,8 +298,8 @@ export default function AddAssistanceModal({ showModal, setShowModal }) {
                 })}
               </p>
               <p className="error-text d-block">
-                <span>{errors?.month && errors.month.message}</span>
-                <span>{errors?.day && errors.day.message}</span>
+                  {errors?.month?.message}
+                  {errors?.day?.message}
               </p>
             </div>
             {/* Price */}
