@@ -190,13 +190,9 @@ export default function DocumentModal({
 
             {/* Issuing Authority */}
             <div className="col-12 col-md-6 p-2">
-              <SelectField
+              <InputField
                 label={t("website.platform.cv.issuingAuthority")}
                 loading={docsAuthLoading}
-                options={docsAuthorities?.map((sub) => ({
-                  value: sub.id,
-                  name: sub.title,
-                }))}
                 {...register("issuingAuthority")}
                 error={errors.issuingAuthority?.message}
               />
