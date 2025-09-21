@@ -8,7 +8,7 @@ import { toast } from "sonner";
 import { useQueryClient } from "@tanstack/react-query";
 import useEditMyCommunity from "../../../../hooks/website/communities/useEditMyCommunity";
 
-export default function CommunityActions({ community }) {
+export default function CommunityActions({ community, isMyCommunity = true }) {
   const { t } = useTranslation();
   const [showEditModal, setShowEditModal] = useState(false);
   const queryClient = useQueryClient();
@@ -52,53 +52,59 @@ export default function CommunityActions({ community }) {
           </Link>
         </li>
         <li>
-          <Dropdown className="custom-dropdown">
-            <Dropdown.Toggle id="dropdown-basic">
-              <i className="fa-solid fa-ellipsis-vertical"></i>
-            </Dropdown.Toggle>
-            <Dropdown.Menu>
-              <Dropdown.Item
-                className="edit-item"
-                eventKey="edit"
-                onClick={() => setShowEditModal(true)}
-              >
-                {t("edit")}
-              </Dropdown.Item>
+          {isMyCommunity && (
+            <Dropdown className="custom-dropdown">
+              <Dropdown.Toggle id="dropdown-basic">
+                <i className="fa-solid fa-ellipsis-vertical"></i>
+              </Dropdown.Toggle>
+              <Dropdown.Menu>
+                <Dropdown.Item
+                  className="edit-item"
+                  eventKey="edit"
+                  onClick={() => setShowEditModal(true)}
+                >
+                  {t("edit")}
+                </Dropdown.Item>
 
-              {/* Handle activate/deactivate */}
-              <Dropdown.Item
-                className="deactive-item"
-                eventKey="deactive"
-                onClick={
-                  community.is_active === true
-                    ? () => setShowAlertModal(true)
-                    : onActivate
-                }
-              >
-                {community.is_active === true ? t("deactive") : t("active")}
-              </Dropdown.Item>
-            </Dropdown.Menu>
-          </Dropdown>
+                {/* Handle activate/deactivate */}
+                <Dropdown.Item
+                  className="deactive-item"
+                  eventKey="deactive"
+                  onClick={
+                    community.is_active === true
+                      ? () => setShowAlertModal(true)
+                      : onActivate
+                  }
+                >
+                  {community.is_active === true ? t("deactive") : t("active")}
+                </Dropdown.Item>
+              </Dropdown.Menu>
+            </Dropdown>
+          )}
         </li>
       </ul>
 
-      <EditCommunityModal
-        showModal={showEditModal}
-        setShowModal={setShowEditModal}
-        community={community}
-      />
+      {isMyCommunity && (
+        <EditCommunityModal
+          showModal={showEditModal}
+          setShowModal={setShowEditModal}
+          community={community}
+        />
+      )}
 
       {/* Alert only for deactivation */}
-      <AlertModal
-        setShowModal={setShowAlertModal}
-        confirmButtonText={t("deactive")}
-        showModal={showAlertModal}
-        onConfirm={onConfirmDeactivate}
-      >
-        <p className="text-center mb-4">
-          {t("website.platform.myCommunity.message")}
-        </p>
-      </AlertModal>
+      {isMyCommunity && (
+        <AlertModal
+          setShowModal={setShowAlertModal}
+          confirmButtonText={t("deactive")}
+          showModal={showAlertModal}
+          onConfirm={onConfirmDeactivate}
+        >
+          <p className="text-center mb-4">
+            {t("website.platform.myCommunity.message")}
+          </p>
+        </AlertModal>
+      )}
     </section>
   );
 }
