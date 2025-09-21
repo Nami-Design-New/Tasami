@@ -458,7 +458,9 @@
       "issuer": "Issuing Authority",
       "number": "Accreditation / Document Number",
       "expiry_date": "Expiry Date",
-      "myCommunity": "My Community"
+      "myCommunity": "My Community",
+      "join": "Join",
+      "unjoin": "Unjoin"
     },
 
     "payment": "Payment"

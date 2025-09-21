@@ -31,8 +31,11 @@ export default function CommunityDetails() {
                 <CommunityActions
                   community={communityDetails}
                   isMyCommunity={false}
-                />
+                />{" "}
               </div>
+              <p className="community-desc">
+                {communityDetails?.helper?.about}
+              </p>
             </div>
             <div className="col-12 p-2">
               <CommunityStats community={communityDetails} />

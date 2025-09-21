@@ -25,7 +25,6 @@ export default function HelpersDetails() {
   const [optimisticFollow, setOptimisticFollow] = useState(
     assistantDetails?.i_follow_him
   );
-  console.log(optimisticFollow);
   useEffect(() => {
     if (assistantDetails) {
       setOptimisticFollow(assistantDetails.i_follow_him);

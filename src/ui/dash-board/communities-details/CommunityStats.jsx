@@ -20,11 +20,15 @@ export default function CommunityStats({ community }) {
         title="قيمة العضوية"
         icon="/icons/wallet-second.svg"
         value={
-          <>
-            {community?.price} <Currency />
-          </>
+          community?.price === 0 ? (
+            "مجاني"
+          ) : (
+            <>
+              {community?.price} {<Currency />}
+            </>
+          )
         }
-        label="شهريا"
+        label={community?.price === 0 ? "" : "شهريا"}
       />
       <CommunityStat
         title="قيمة العضوية"
