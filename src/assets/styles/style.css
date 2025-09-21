@@ -10783,6 +10783,7 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
   color: #fff;
   border-color: #5fcafa;
 }
+
 .personal-assiatant-details-card .more-offers h6 {
   margin-bottom: 12px;
   font-size: 1rem;
@@ -10904,6 +10905,7 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
   }
 }
 
+
 .exp-info-grid {
   display: flex;
   gap: 8px;
@@ -10924,6 +10926,7 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
   font-size: 14px;
   color: #0d0d0d;
   font-weight: 700;
+
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -10932,6 +10935,7 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
   width: 24px;
   height: 24px;
 }
+
 
 body {
   direction: rtl;
