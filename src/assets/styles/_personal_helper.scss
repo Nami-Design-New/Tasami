@@ -390,30 +390,23 @@
     border-radius: 8px;
     border: 1px solid $second;
     min-width: 120px;
-    &__mobile {
-      .exp-info-box {
-        padding: 1rem;
-        border-radius: 1rem;
-        background: #fff;
-        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-      }
-      h5 {
-        font-size: 14px;
-        color: $second;
-        font-weight: 500;
-        margin-bottom: 4px;
-      }
-      p {
-        font-size: 14px;
-        color: $dark;
-        font-weight: 700;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        img {
-          width: 24px;
-          height: 24px;
-        }
+
+    h5 {
+      font-size: 14px;
+      color: $second;
+      font-weight: 500;
+      margin-bottom: 4px;
+    }
+    p {
+      font-size: 14px;
+      color: $dark;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      img {
+        width: 24px;
+        height: 24px;
       }
     }
   }
