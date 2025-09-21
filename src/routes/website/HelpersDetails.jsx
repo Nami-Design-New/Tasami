@@ -13,6 +13,7 @@ import Loading from "../../ui/loading/Loading";
 import RoundedBackButton from "../../ui/website-auth/shared/RoundedBackButton";
 import PersonalHelperDoc from "../../ui/website/helpers/PersonalHelperDoc";
 import PersonalHelperExperiences from "../../ui/website/helpers/PersonalHelperExperiences";
+import CustomLink from "../../ui/CustomLink";
 
 export default function HelpersDetails() {
   const navigate = useNavigate();
@@ -139,11 +140,22 @@ export default function HelpersDetails() {
                 <p>{assistantDetails.about}</p>
               </div>
 
-              <CustomButton size="large" fullWidth>
-                {`${t("website.assistants.community")}  ${
-                  assistantDetails.name
-                }`}
-              </CustomButton>
+              <CustomLink
+                className="mt-2"
+                to={
+                  thisIsMe
+                    ? `/my-community`
+                    : `/community/${assistantDetails.community_id}`
+                }
+                size="large"
+                fullWidth
+              >
+                {thisIsMe
+                  ? t("website.assistants.myCommunity")
+                  : `${t("website.assistants.community")}  ${
+                      assistantDetails.name
+                    }`}
+              </CustomLink>
             </div>
           </div>
 

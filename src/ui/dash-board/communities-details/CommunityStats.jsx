@@ -7,13 +7,13 @@ export default function CommunityStats({ community }) {
       <CommunityStat
         title="الاعضاء"
         icon="/icons/group-second.svg"
-        value={community.members_count}
+        value={community?.members_count}
         label="عضو"
       />
       <CommunityStat
         title="الإعجابات"
         icon="/icons/heart-fill.svg"
-        value={community.likes_count}
+        value={community?.likes_count}
         label="إعجاب"
       />
       <CommunityStat
@@ -21,7 +21,7 @@ export default function CommunityStats({ community }) {
         icon="/icons/wallet-second.svg"
         value={
           <>
-            {community.price} <Currency />
+            {community?.price} <Currency />
           </>
         }
         label="شهريا"
@@ -29,7 +29,7 @@ export default function CommunityStats({ community }) {
       <CommunityStat
         title="قيمة العضوية"
         icon="/icons/active-index.svg"
-        label={community.activity_level}
+        label={community?.activity_level}
       />
     </div>
   );

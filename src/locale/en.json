@@ -457,7 +457,8 @@
       "type": "Document Type",
       "issuer": "Issuing Authority",
       "number": "Accreditation / Document Number",
-      "expiry_date": "Expiry Date"
+      "expiry_date": "Expiry Date",
+      "myCommunity": "My Community"
     },
 
     "payment": "Payment"
