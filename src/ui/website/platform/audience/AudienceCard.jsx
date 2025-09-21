@@ -1,11 +1,12 @@
 import { useTranslation } from "react-i18next";
+import { Link } from "react-router";
 
 export default function AudienceCard({ data }) {
   const { t } = useTranslation();
   console.log(data);
 
   return (
-    <div className="audience-card">
+    <Link to={`/helper/${data.user.id}`} className="audience-card">
       <div className="user-image-wrapper">
         <img
           className="user-image"
@@ -36,6 +37,6 @@ export default function AudienceCard({ data }) {
           )}
         </div>
       </div>
-    </div>
+    </Link>
   );
 }
