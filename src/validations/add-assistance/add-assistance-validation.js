@@ -21,7 +21,10 @@ const getSchema = (t) =>
 
     field: yup.string().required(t("validation.required")),
     specialization: yup.string().required(t("validation.required")),
-    title: yup.string().required(t("validation.required")),
+    title: yup
+      .string()
+      .required(t("validation.required"))
+      .min(15, t("validation.minCharacters", { count: 15 })),
     gender: yup.string().required(t("validation.required")),
     ageOption: yup.string().required(t("validation.required")),
 
@@ -90,7 +93,6 @@ export default function useAddAssistanceForm() {
       ageOption: "notDefined",
       fromAge: null,
       toAge: null,
-
       duration: "",
       price: "",
       extraTerms: "",
