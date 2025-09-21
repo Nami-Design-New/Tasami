@@ -14,7 +14,13 @@ export default function AudienceCard({ data }) {
         />
       </div>
       <div className="info">
-        <h2>{data.user.name}</h2>
+        <h2>
+          <span>{data.user.name}</span>
+          <span className="score">
+            <img src="/icons/medal.svg" />
+            {0}
+          </span>
+        </h2>
 
         <div className="country-date">
           {data.user?.country && (

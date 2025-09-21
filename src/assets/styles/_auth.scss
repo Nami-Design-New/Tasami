@@ -632,19 +632,10 @@ input[type="file"] {
           .arrow-icon {
             transform: rotate(-90deg);
           }
-
-          // background-color: #007bff;
-          // color: #fff;
         }
-
-        // &:hover {
-        //   background-color: #e0e0e0;
-        //   color: #000;
-        // }
 
         &:focus {
           box-shadow: none;
-          // border-color: #007bff;
         }
         .arrow-icon {
           width: 24px;
@@ -716,6 +707,15 @@ input[type="file"] {
         font-size: 1rem;
         line-height: 1;
       }
+    }
+  }
+}
+.accordion-header.has-selected {
+  .accordion-button {
+    .arrow-icon {
+      background-color: $second !important;
+      color: $white !important;
+      transition: 0.3s ease;
     }
   }
 }

@@ -7,11 +7,10 @@ import useGetMyInterests from "../../hooks/area-of-interests/useGetMyInterests";
 import TagItem from "../../ui/website-auth/TagItem";
 
 export default function Interests() {
-  const { interests, isLoading: isInterestsLoading } = useGetMyInterests();
   const { t } = useTranslation();
-
   const [selected, setSelected] = useState([]); // selected IDs
   const [initialSelected, setInitialSelected] = useState([]); // initial IDs from API
+  const { interests, isLoading: isInterestsLoading } = useGetMyInterests();
   const { updateUserCategories, isPending } = useUpdateUserCategories();
 
   // Initialize selection once data is loaded
@@ -91,7 +90,15 @@ export default function Interests() {
               ) : (
                 interests.map((category, index) => (
                   <Accordion.Item eventKey={index.toString()} key={category.id}>
-                    <Accordion.Header>
+                    <Accordion.Header
+                      className={
+                        category.sub_categories.some((sub) =>
+                          selected.includes(sub.id)
+                        )
+                          ? "has-selected"
+                          : ""
+                      }
+                    >
                       <span>{category.title}</span>
                       <span className="arrow-icon">
                         <i className="fa-solid fa-angle-left"></i>
