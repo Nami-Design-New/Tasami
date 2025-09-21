@@ -10500,7 +10500,6 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
   filter: brightness(0) invert(1);
 }
 
-
 .group-details .header {
   display: flex;
   align-items: center;
@@ -10575,7 +10574,6 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
 .member-card .info .member-name {
   font-size: 16px;
 }
-
 
 .filter-side-bar {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -10766,7 +10764,6 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
   color: #fff;
   border-color: #5fcafa;
 }
-
 .personal-assiatant-details-card .more-offers h6 {
   margin-bottom: 12px;
   font-size: 1rem;
@@ -10888,7 +10885,6 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
   }
 }
 
-
 .exp-info-grid {
   display: flex;
   gap: 8px;
@@ -10909,8 +10905,14 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
   font-size: 14px;
   color: #0d0d0d;
   font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
-
+.exp-info-grid .exp-info-box p img {
+  width: 24px;
+  height: 24px;
+}
 
 body {
   direction: rtl;

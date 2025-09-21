@@ -418,7 +418,15 @@
         "videoCall": "Video and Audio Call",
         "textAudio": "Text and Audio Messaging",
         "offerImage": "Offer Image"
-      }
+      },
+      "activeContracts": "Active Contracts",
+      "activeGroups": "Active Groups",
+      "subscriptionPeriod": "Subscription Period",
+      "halfYear": "6 Months",
+      "fullYear": "1 Year",
+      "startDate": "Start Date",
+      "endDate": "End Date",
+      "from": "of"
     },
     "assistants": {
       "filterTitle": "Filter Options",

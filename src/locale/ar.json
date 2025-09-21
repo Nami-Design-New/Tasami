@@ -420,7 +420,15 @@
         "videoCall": "الاتصال المرئي والمسموع",
         "textAudio": "التراسل النصي والصوتي",
         "offerImage": "صورة العرض"
-      }
+      },
+      "activeContracts": "العقود النشطة",
+      "activeGroups": "المجموعات النشطة",
+      "subscriptionPeriod": "مدة الاشتراك",
+      "halfYear": "٦ أشهر",
+      "fullYear": "سنة واحدة",
+      "startDate": "بداية الاشتراك",
+      "endDate": "نهاية الاشتراك",
+      "from": "من"
     },
     "assistants": {
       "filterTitle": "خيارات التصفية",

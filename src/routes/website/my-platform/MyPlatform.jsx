@@ -5,6 +5,7 @@ import Loading from "../../../ui/loading/Loading";
 import RoundedBackButton from "../../../ui/website-auth/shared/RoundedBackButton";
 import UserCard from "../../../ui/website/profile/UserCard";
 import ProtectedNavLink from "./ProtectedNavLink";
+import AssistantStat from "../../../ui/website/platform/AssistantStat";
 
 export default function MyPlatform() {
   const { t } = useTranslation();
@@ -40,7 +41,7 @@ export default function MyPlatform() {
               <i className="fa-regular fa-circle-info"></i>
               <p>{t("website.platform.hint")}</p>
             </div>
-            <div className="exp-info-grid mt-3">
+            {/* <div className="exp-info-grid mt-3">
               <div className="exp-info-box  ">
                 <h5> العقود النشطة</h5>
                 <p>
@@ -63,6 +64,7 @@ export default function MyPlatform() {
                       ? "6 اشهر"
                       : "1 سنة"}
                   </span>
+                  <img src="/icons/clock.svg" />
                 </p>
               </div>
               <div className="exp-info-box  ">
@@ -71,7 +73,8 @@ export default function MyPlatform() {
                   <span style={{ color: "#0D0D0D8F", fontSize: "12px" }}>
                     {" "}
                     {user.my_package_details.start_date}
-                  </span>
+                  </span>{" "}
+                  <img src="/icons/calendar-check.svg" />
                 </p>
               </div>
               <div className="exp-info-box  ">
@@ -80,10 +83,12 @@ export default function MyPlatform() {
                   <span style={{ color: "#0D0D0D8F", fontSize: "12px" }}>
                     {" "}
                     {user.my_package_details.end_date}
-                  </span>
+                  </span>{" "}
+                  <img src="/icons/calendar-x.svg" />
                 </p>
               </div>
-            </div>
+            </div> */}
+            <AssistantStat />
           </div>
           <div className="col-lg-3 col-md-3 col-12 p-2">
             <div className="profile_sidebar">
