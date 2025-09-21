@@ -34,6 +34,10 @@ export default function AddAssistanceModal({ showModal, setShowModal }) {
   const selectedFieldId = watch("field");
   const selectedGender = watch("gender");
   const selectedAgeOption = watch("ageOption");
+  const month = watch("month");
+  const day = watch("day");
+  const durationInDays = Number(month) * 30 + Number(day);
+  console.log();
 
   const selectedHelpMechanism = watch("helpMechanism") || [];
   const subCategories =
@@ -58,7 +62,7 @@ export default function AddAssistanceModal({ showModal, setShowModal }) {
     formData.append("category_id", data.field);
     formData.append("sub_category_id", data.specialization);
     formData.append("title", data.title);
-    formData.append("duration", data.duration);
+    formData.append("duration", durationInDays);
     formData.append("price", data.price);
     formData.append("preferred_gender", data.gender);
     formData.append("notes", data.extraTerms);
@@ -278,36 +282,24 @@ export default function AddAssistanceModal({ showModal, setShowModal }) {
                 <InputField
                   label={t("website.platform.myAssistance.duration")}
                   placeholder="00"
-                  {...register("duration")}
+                  {...register("month")}
+                  icon={"/icons/month.svg"}
                 />
-                <div className="duration-selector">
-                  <label
-                    className={`duration-option ${
-                      watch("durationType") === "day" ? "active" : ""
-                    }`}
-                  >
-                    <span>{t("website.platform.myAssistance.day")}</span>
-                    <input
-                      type="radio"
-                      value="day"
-                      {...register("durationType")}
-                    />
-                  </label>
-                  <label
-                    className={`duration-option ${
-                      watch("durationType") === "month" ? "active" : ""
-                    }`}
-                  >
-                    <span>{t("website.platform.myAssistance.month")}</span>
-                    <input
-                      type="radio"
-                      value="month"
-                      {...register("durationType")}
-                    />
-                  </label>
-                </div>
+                <InputField
+                  placeholder="00"
+                  {...register("day")}
+                  icon={"/icons/day.svg"}
+                />
               </div>
-              <p className="error-text d-block">{errors.duration?.message}</p>
+              <p className="mt-2" style={{ color: "gray" }}>
+                {t("website.platform.myAssistance.totalDuration", {
+                  duration: durationInDays,
+                })}
+              </p>
+              <p className="error-text d-block">
+                <span>{errors?.month && errors.month.message}</span>
+                <span>{errors?.day && errors.day.message}</span>
+              </p>
             </div>
             {/* Price */}
             <div className="col-12 col-md-6 p-2">

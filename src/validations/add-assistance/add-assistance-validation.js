@@ -60,15 +60,19 @@ const getSchema = (t) =>
           .transform(() => undefined),
     }),
 
-    duration: yup
+    month: yup
       .number()
       .typeError(t("validation.number"))
       .positive(t("validation.mustBePositive"))
+      .max(24, t("validation.maxMonths", { max: 24 }))
       .required(t("validation.required")),
-    durationType: yup
-      .string()
-      .oneOf(["day", "month"])
+    day: yup
+      .number()
+      .typeError(t("validation.number"))
+      .positive(t("validation.mustBePositive"))
+      .max(30, t("validation.maxDays", { max: 30 }))
       .required(t("validation.required")),
+
     price: yup
       .number()
       .typeError(t("validation.mustBeNumber"))
@@ -93,8 +97,10 @@ export default function useAddAssistanceForm() {
       ageOption: "notDefined",
       fromAge: null,
       toAge: null,
-      duration: "",
+      durationInDays: "",
       price: "",
+      month: "",
+      day: "",
       extraTerms: "",
       helpMechanism: [],
     },
