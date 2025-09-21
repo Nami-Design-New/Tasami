@@ -240,7 +240,8 @@
     "minPrice": "Minimum price is {{min}}",
     "helpMechanismRequired": "Select at least one help mechanism",
     "pattern": "{{field}} format is invalid",
-    "ibanFormat": "{{field}} must start with two capital letters"
+    "ibanFormat": "{{field}} must start with two capital letters",
+    "minCharacters": "Must be at least {{count}} characters"
   },
   "pageNotFound": {
     "alt": "404 Not Found",

@@ -1,7 +1,7 @@
 import React from "react";
 import { Form } from "react-bootstrap";
 
-const TextField = React.forwardRef(({ label, hint, ...props }, ref) => {
+const TextField = React.forwardRef(({ label, error, hint, ...props }, ref) => {
   return (
     <div className="input-field">
       {label && (
@@ -10,6 +10,9 @@ const TextField = React.forwardRef(({ label, hint, ...props }, ref) => {
         </label>
       )}
       <Form.Control as={"textarea"} ref={ref} {...props} />
+      {error && (
+        <Form.Control.Feedback type="invalid">{error}</Form.Control.Feedback>
+      )}
     </div>
   );
 });
