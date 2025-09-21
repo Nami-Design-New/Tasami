@@ -242,11 +242,18 @@
     "maxAge": "العمر الأقصى هو {{max}}",
     "toAgeGteFromAge": "عمر (إلى) يجب أن يكون أكبر أو مساوياً لعمر (من)",
     "mustBeNumber": "يجب أن يكون رقماً",
-    "mustBePositive": "يجب أن يكون موجباً",
     "minPrice": "قيمة المساعدة الدنيا هي {{min}}",
     "helpMechanismRequired": "يرجى اختيار آلية مساعدة واحدة على الأقل",
     "pattern": "تنسيق {{field}} غير صحيح",
-    "ibanFormat": "يجب أن يبدأ {{field}} بحرفين كبيرين"
+    "ibanFormat": "يجب أن يبدأ {{field}} بحرفين كبيرين",
+    "minCharacters": "يجب أن يحتوي على الأقل {{count}} حرفًا",
+    "durationRequired": "يجب أن تختار نوع فترة",
+    "mustBePositive": "يجب أن يكون رقمًا موجبًا",
+    "requiredField": "{{field}} مطلوب",
+    "maxMonths": "يجب ألا يتجاوز عدد الأشهر {{max}} شهرًا",
+    "maxDays": "يجب ألا يتجاوز عدد الأيام {{max}} يومًا",
+    "atLeastOne": "يجب إدخال قيمة في أحد الحقلين (شهر أو يوم) على الأقل",
+    "maxTotal": "يجب ألا يتجاوز إجمالي عدد الأيام {{max}}"
   },
   "pageNotFound": {
     "alt": "لم يتم العثور على الصفحة",
@@ -419,8 +426,17 @@
         "meeting": "الالتقاء الشخصي",
         "videoCall": "الاتصال المرئي والمسموع",
         "textAudio": "التراسل النصي والصوتي",
-        "offerImage": "صورة العرض"
-      }
+        "offerImage": "صورة العرض",
+        "totalDuration": "اجمالي مدة المدة المحددة {{duration}} يوم"
+      },
+      "activeContracts": "العقود النشطة",
+      "activeGroups": "المجموعات النشطة",
+      "subscriptionPeriod": "مدة الاشتراك",
+      "halfYear": "٦ أشهر",
+      "fullYear": "سنة واحدة",
+      "startDate": "بداية الاشتراك",
+      "endDate": "نهاية الاشتراك",
+      "from": "من"
     },
     "assistants": {
       "filterTitle": "خيارات التصفية",

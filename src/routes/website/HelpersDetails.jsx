@@ -1,17 +1,18 @@
+import { useQueryClient } from "@tanstack/react-query";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router";
+import { Autoplay } from "swiper/modules";
+import { Swiper, SwiperSlide } from "swiper/react";
+import useFollow from "../../hooks/website/personal-assistants/useFollow";
 import useGetAssistantDetails from "../../hooks/website/personal-assistants/useGetAssistantDetails";
+import OfferCard from "../../ui/cards/OfferCard";
 import CustomButton from "../../ui/CustomButton";
 import Loading from "../../ui/loading/Loading";
 import RoundedBackButton from "../../ui/website-auth/shared/RoundedBackButton";
-import PersonalHelperExperiences from "../../ui/website/helpers/PersonalHelperExperiences";
 import PersonalHelperDoc from "../../ui/website/helpers/PersonalHelperDoc";
-import OfferCard from "../../ui/cards/OfferCard";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Autoplay } from "swiper/modules";
-import { useSelector } from "react-redux";
-import useFollow from "../../hooks/website/personal-assistants/useFollow";
-import { useState } from "react";
+import PersonalHelperExperiences from "../../ui/website/helpers/PersonalHelperExperiences";
 
 export default function HelpersDetails() {
   const navigate = useNavigate();
@@ -19,9 +20,16 @@ export default function HelpersDetails() {
   const { user } = useSelector((state) => state.authRole);
   const { lang } = useSelector((state) => state.language);
   const { assistantDetails, isLoading } = useGetAssistantDetails();
+  const queryClient = useQueryClient();
   const [optimisticFollow, setOptimisticFollow] = useState(
     assistantDetails?.i_follow_him
   );
+  console.log(optimisticFollow);
+  useEffect(() => {
+    if (assistantDetails) {
+      setOptimisticFollow(assistantDetails.i_follow_him);
+    }
+  }, [assistantDetails]);
   const { toggleFollow, isPending } = useFollow();
 
   const handleBack = () => {
@@ -29,16 +37,37 @@ export default function HelpersDetails() {
   };
 
   const handleFollow = (id) => {
-    // Save old state in case we need to rollback
     const previousValue = optimisticFollow;
 
-    // Immediately flip the value (optimistic update)
+    // Optimistic update
     setOptimisticFollow(!optimisticFollow);
 
     toggleFollow(id, {
+      onSuccess: (res) => {
+        if (res?.data?.i_follow_him !== undefined) {
+          setOptimisticFollow(res.data.i_follow_him);
+        }
+
+        // ✅ If the result is "unfollowed"
+        if (res?.data?.i_follow_him === false) {
+          // Navigate to followings page
+          navigate("/my-profile/followings");
+
+          // Invalidate followings query so list refetches
+        }
+        queryClient.refetchQueries({
+          queryKey: ["my-following"],
+        });
+      },
       onError: () => {
-        // Rollback if server call fails
+        // Rollback if API fails
         setOptimisticFollow(previousValue);
+      },
+      onSettled: () => {
+        // Optionally refetch assistant details too
+        queryClient.invalidateQueries({
+          queryKey: ["assistant-details", id],
+        });
       },
     });
   };
@@ -61,7 +90,7 @@ export default function HelpersDetails() {
                   }
                 ></i>
               </RoundedBackButton>
-              {!assistantDetails.i_follow_him && !thisIsMe && (
+              {!thisIsMe && (
                 <button
                   className={`follow-btn  ${
                     optimisticFollow ? "unfollow" : ""

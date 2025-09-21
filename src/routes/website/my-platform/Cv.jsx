@@ -13,15 +13,17 @@ import TextField from "../../../ui/forms/TextField";
 import DocumentsSection from "../../../ui/website/platform/DocumentsSection";
 import ExperienceSection from "../../../ui/website/platform/ExperienceSection";
 
-const CVSchema = yup.object().shape({
-  about: yup.string().required("هذا الحقل مطلوب"), // TODO: localize
-});
-
 export default function Cv() {
   const { t } = useTranslation();
   const queryClient = useQueryClient();
   const { cv, isLoading } = useGetCV();
   const { editCV, isPending } = useEditCV();
+  const CVSchema = yup.object().shape({
+    about: yup
+      .string()
+      .required(t("validation.required"))
+      .min(15, t("validation.minCharacters", { count: 15 })),
+  });
 
   const {
     register,

@@ -476,11 +476,23 @@
       font-size: 16px;
       font-weight: 500;
       color: $dark;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      .score {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        font-size: 16px;
+        font-weight: 700;
+        color: $dark;
+      }
     }
     .country-date {
       display: flex;
       align-items: center;
       justify-content: space-between;
+      flex-wrap: wrap;
       .country {
         display: flex;
         align-items: center;
@@ -497,9 +509,10 @@
         }
       }
       .date {
-        font-size: 11px;
+        font-size: 14px;
         font-weight: 400;
         color: $gray;
+        white-space: nowrap;
       }
     }
   }

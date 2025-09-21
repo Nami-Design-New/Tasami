@@ -391,6 +391,7 @@
     border-radius: 8px;
     border: 1px solid $second;
     min-width: 120px;
+
     h5 {
       font-size: 14px;
       color: $second;
@@ -401,6 +402,13 @@
       font-size: 14px;
       color: $dark;
       font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      img {
+        width: 24px;
+        height: 24px;
+      }
     }
   }
 }

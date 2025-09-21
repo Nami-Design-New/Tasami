@@ -3639,6 +3639,12 @@ input[type=file] {
   line-height: 1;
 }
 
+.accordion-header.has-selected .accordion-button .arrow-icon {
+  background-color: #5fcafa !important;
+  color: #fff !important;
+  transition: 0.3s ease;
+}
+
 .grid-container {
   display: grid;
   grid-template-areas: "sidebar nav" "sidebar main";
@@ -10435,11 +10441,23 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
   font-size: 16px;
   font-weight: 500;
   color: #0d0d0d;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.audience-card .info h2 .score {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 16px;
+  font-weight: 700;
+  color: #0d0d0d;
 }
 .audience-card .info .country-date {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  flex-wrap: wrap;
 }
 .audience-card .info .country-date .country {
   display: flex;
@@ -10456,9 +10474,10 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
   height: 14px;
 }
 .audience-card .info .country-date .date {
-  font-size: 11px;
+  font-size: 14px;
   font-weight: 400;
   color: rgba(13, 13, 13, 0.5607843137);
+  white-space: nowrap;
 }
 
 .duration-selector {
@@ -10499,7 +10518,6 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
 .duration-option.active img {
   filter: brightness(0) invert(1);
 }
-
 
 .group-details .header {
   display: flex;
@@ -10575,7 +10593,6 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
 .member-card .info .member-name {
   font-size: 16px;
 }
-
 
 .filter-side-bar {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -10909,6 +10926,14 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
   font-size: 14px;
   color: #0d0d0d;
   font-weight: 700;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.exp-info-grid .exp-info-box p img {
+  width: 24px;
+  height: 24px;
 }
 
 
