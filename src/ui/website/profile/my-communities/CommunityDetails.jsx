@@ -1,4 +1,3 @@
-import React from "react";
 import useGetCommunityDetails from "../../../../hooks/website/communities/useGetCommunityDetails";
 import Loading from "../../../loading/Loading";
 import CommunityBio from "../../../dash-board/communities-details/CommunityBio";

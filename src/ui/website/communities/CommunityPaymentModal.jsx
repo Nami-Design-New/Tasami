@@ -1,19 +1,20 @@
+import { useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 import { Modal } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
+import { useSelector } from "react-redux";
 import { toast } from "sonner";
+import useJoinCommunity from "../../../hooks/website/communities/useJoinCommunity";
 import Currency from "../../Currency";
 import CustomButton from "../../CustomButton";
-import { useQueryClient } from "@tanstack/react-query";
-import useSubscripePackage from "../../../hooks/website/subscribe/useSubscripePackage";
-import { useSelector } from "react-redux";
-import useJoinCommunity from "../../../hooks/website/communities/useJoinCommunity";
 
 export default function CommunityPaymentModal({
   community,
   showModal,
   setShowModal,
 }) {
+  console.log(community);
+
   const { t } = useTranslation();
   const { user } = useSelector((state) => state.authRole);
   const [selectedMethod, setSelectedMethod] = useState("online");
@@ -22,20 +23,25 @@ export default function CommunityPaymentModal({
 
   async function handleSubscribe() {
     joinCommunity(
-      { community_id: community?.id, paymentMethod: selectedMethod },
+      { community_id: community?.id, payment_method: selectedMethod },
       {
         onSuccess: (res) => {
           if (selectedMethod === "online") {
             const url = res.data.redirect_url;
             window.open(url, "_blank", "noopener,noreferrer");
           }
-          queryClient.invalidateQueries({ queryKey: ["current-package"] });
-          queryClient.invalidateQueries({ queryKey: ["get-packages"] });
+          queryClient.invalidateQueries({
+            queryKey: ["community-details"],
+          });
+          // queryClient.invalidateQueries({ queryKey: ["get-packages"] });
           setSelectedMethod("online");
           setShowModal(false);
 
           if (selectedMethod === "wallet") {
             toast.success(res?.message);
+            queryClient.invalidateQueries({
+              queryKey: ["community-details"],
+            });
           }
         },
         onError: (error) => {
@@ -62,7 +68,7 @@ export default function CommunityPaymentModal({
       <Modal.Body className="payment-modal-body">
         <div className="payment-modal-header">
           <h1 className="payment-modal-heading">
-            {t("website.platform.subscription.payMessage", {
+            {t("payMessage", {
               plan: community?.helper?.name,
             })}{" "}
           </h1>

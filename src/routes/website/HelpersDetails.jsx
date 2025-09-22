@@ -8,12 +8,11 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import useFollow from "../../hooks/website/personal-assistants/useFollow";
 import useGetAssistantDetails from "../../hooks/website/personal-assistants/useGetAssistantDetails";
 import OfferCard from "../../ui/cards/OfferCard";
-import CustomButton from "../../ui/CustomButton";
+import CustomLink from "../../ui/CustomLink";
 import Loading from "../../ui/loading/Loading";
 import RoundedBackButton from "../../ui/website-auth/shared/RoundedBackButton";
 import PersonalHelperDoc from "../../ui/website/helpers/PersonalHelperDoc";
 import PersonalHelperExperiences from "../../ui/website/helpers/PersonalHelperExperiences";
-import CustomLink from "../../ui/CustomLink";
 
 export default function HelpersDetails() {
   const navigate = useNavigate();
@@ -138,23 +137,28 @@ export default function HelpersDetails() {
                 <h6>{t("website.assistants.about")}</h6>
                 <p>{assistantDetails.about}</p>
               </div>
-
-              <CustomLink
-                className="mt-2"
-                to={
-                  thisIsMe
-                    ? `/my-community`
-                    : `/community/${assistantDetails.community_id}`
-                }
-                size="large"
-                fullWidth
-              >
-                {thisIsMe
-                  ? t("website.assistants.myCommunity")
-                  : `${t("website.assistants.community")}  ${
-                      assistantDetails.name
-                    }`}
-              </CustomLink>
+              {assistantDetails.community_id !== null && !thisIsMe && (
+                <CustomLink
+                  to={`/community/${assistantDetails.community_id}`}
+                  size="large"
+                  fullWidth
+                  className="mt-3"
+                >
+                  {`${t("website.assistants.community")} ${
+                    assistantDetails.name
+                  }`}
+                </CustomLink>
+              )}
+              {thisIsMe && (
+                <CustomLink
+                  to="/my-community"
+                  size="large"
+                  fullWidth
+                  className="mt-3"
+                >
+                  {t("website.assistants.myCommunity")}
+                </CustomLink>
+              )}
             </div>
           </div>
 

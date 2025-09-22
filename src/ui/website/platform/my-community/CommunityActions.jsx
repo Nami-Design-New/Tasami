@@ -173,7 +173,7 @@ export default function CommunityActions({ community, isMyCommunity = true }) {
       <CommunityPaymentModal
         showModal={showPaymentModal}
         setShowModal={setShowPaymentModal}
-        plan={community}
+        community={community}
       />
     </section>
   );
