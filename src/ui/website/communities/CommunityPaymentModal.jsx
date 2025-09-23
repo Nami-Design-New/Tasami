@@ -13,8 +13,6 @@ export default function CommunityPaymentModal({
   showModal,
   setShowModal,
 }) {
-  console.log(community);
-
   const { t } = useTranslation();
   const { user } = useSelector((state) => state.authRole);
   const [selectedMethod, setSelectedMethod] = useState("online");

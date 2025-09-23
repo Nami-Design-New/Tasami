@@ -20,6 +20,7 @@
   "deleteAll": "Delete all",
   "confirm": "Confirm",
   "search": "Search",
+  "loadMore": "Load more",
   "pageHeaders": {
     "Notifications": "Notifications",
     "Dashboard": "Dashboard",
@@ -281,7 +282,10 @@
     "addConsultaionTitle": "Consultation Title",
     "addConsultaionDec": "Consultation Description",
     "descPlaceholder": "Enter a description",
-    "consultationType": "Consultation Type"
+    "consultationType": "Consultation Type",
+    "privateConsultations": "Private Consultations",
+    "privateHint": "Private consultations are visible only to you",
+    "publicConsultations": "Public Consultations"
   },
   "website": {
     "home": {

@@ -33,7 +33,7 @@ export default function CommunityDetails() {
                 <CommunityActions
                   community={communityDetails}
                   isMyCommunity={false}
-                />{" "}
+                />
               </div>
               <p className="community-desc">
                 {communityDetails?.helper?.about}
@@ -46,10 +46,13 @@ export default function CommunityDetails() {
         </div>
         <div className="row">
           <h4 className="chanels">{t("community.channels")}</h4>
-          <div className="col-12 col-lg-3 p-2">
-            <CommunityTabs />
+          <div className="col-12 p-2">
+            <CommunityTabs
+              isMyCommunity={false}
+              communityId={communityDetails?.id}
+            />
           </div>
-          <div className="col-12 col-lg-9 p-0">
+          <div className="col-12 p-0">
             <Outlet />
           </div>
         </div>

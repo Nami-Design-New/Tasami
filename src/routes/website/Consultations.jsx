@@ -3,34 +3,25 @@ import ConsultationCard from "../../ui/cards/ConsultationCard";
 import CustomButton from "../../ui/CustomButton";
 import AddConsultationModal from "../../ui/website/profile/my-communities/AddConsultationModal";
 import { useState } from "react";
+import useGetConsultations from "../../hooks/website/communities/useGetConsultations";
+import InfiniteScroll from "../../ui/loading/InfiniteScroll";
+import AudienceCardLoader from "../../ui/loading/AudienceCardLoader";
+import EmptySection from "../../ui/EmptySection";
 
 export default function Consultations() {
   const { t } = useTranslation();
   const [showModal, setShowModal] = useState();
-  const publicConsultations = [
-    {
-      title: "تحدي إدارة الوقت",
-      desc: "كيف يمكنني تحسين مهاراتي في إدارة الوقت لتجنب التأخير في مواعيد التسليم؟",
-      type: "qes",
-      stats: [
-        { icon: "fa-regular fa-share", value: 12 },
-        { icon: "fa-regular fa-heart", value: 45 },
-        { icon: "fa-regular fa-comment", value: 8 },
-        { icon: "fa-regular fa-eye", value: 60 },
-      ],
-    },
-    {
-      title: "مخاطر التغيير",
-      desc: "ما هي الاستراتيجيات للتعامل مع المخاطر الناتجة عن التغييرات المفاجئة؟",
-      type: "qes",
-      stats: [
-        { icon: "fa-regular fa-share", value: 12 },
-        { icon: "fa-regular fa-heart", value: 45 },
-        { icon: "fa-regular fa-comment", value: 8 },
-        { icon: "fa-regular fa-eye", value: 60 },
-      ],
-    },
-  ];
+  const {
+    consultaions,
+    isLoading,
+    error,
+    hasNextPage,
+    fetchNextPage,
+    isFetchingNextPage,
+  } = useGetConsultations();
+
+  const allConsultaions =
+    consultaions?.pages?.flatMap((page) => page?.data) ?? [];
 
   return (
     <>
@@ -43,12 +34,33 @@ export default function Consultations() {
                 {t("community.addConsultation")}
               </CustomButton>
             </div>
-          </div>
-          {publicConsultations.map((item, idx) => (
-            <div className="col-lg-6 p-2" key={idx}>
-              <ConsultationCard item={item} />
+          </div>{" "}
+          {!isLoading && allConsultaions.length === 0 && (
+            <EmptySection
+              height="500px"
+              message={t("community.noConsultaion")}
+            />
+          )}{" "}
+          <InfiniteScroll
+            onLoadMore={fetchNextPage}
+            hasNextPage={hasNextPage}
+            isFetchingNextPage={isFetchingNextPage}
+          >
+            {allConsultaions.map((item, idx) => (
+              <div className="col-12 col-lg-6 p-2" key={idx}>
+                <ConsultationCard item={item} />
+              </div>
+            ))}
+          </InfiniteScroll>{" "}
+          {(isLoading || isFetchingNextPage) && (
+            <div className="row">
+              {[1, 2, 3].map((i) => (
+                <div className="col-12 col-lg-6 p-2" key={i}>
+                  <AudienceCardLoader />
+                </div>
+              ))}
             </div>
-          ))}
+          )}
         </div>
       </div>
       <AddConsultationModal showModal={showModal} setShowModal={setShowModal} />

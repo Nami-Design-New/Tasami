@@ -110,6 +110,8 @@ import ProtectedRoute from "./ProtectedRoute";
 import MyCommunities from "../routes/website/profile/MyCommunities";
 import CommunityDetails from "../ui/website/profile/my-communities/CommunityDetails";
 import GroupDetails from "../routes/website/my-platform/GroupDetails";
+import MyCommunityConsultations from "../routes/website/my-platform/MyCommunityConsultations";
+import ConsultaionDetails from "../routes/website/my-platform/ConsultaionDetails";
 
 export const router = createBrowserRouter([
   /* WEBSITE AUTH */
@@ -300,6 +302,24 @@ export const router = createBrowserRouter([
             <MyCommunity />
           </ProtectedRoute>
         ),
+        children: [
+          {
+            index: true,
+            element: <MyCommunityConsultations />,
+          },
+          {
+            path: "encounters",
+            element: <Encounters />,
+          },
+          {
+            path: "posts",
+            element: <Posts />,
+          },
+        ],
+      },
+      {
+        path: "my-community/:id",
+        element: <ConsultaionDetails />,
       },
       {
         path: "community/:id",
@@ -307,6 +327,9 @@ export const router = createBrowserRouter([
         children: [
           {
             index: true,
+            element: <Consultations />,
+          },
+          {
             path: "consultations",
             element: <Consultations />,
           },

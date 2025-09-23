@@ -119,7 +119,7 @@
 .community-tabs {
   .tabs {
     display: flex;
-    flex-direction: column;
+    // flex-direction: column;
     gap: 0.5rem;
     border-radius: 8px;
 
@@ -155,26 +155,31 @@
       font-size: 1.125rem;
       font-weight: bold;
     }
+    .private-consultaion-hint {
+      color: $clientYellow;
+      font-size: 1rem;
+      margin-top: 8px;
+    }
   }
 
   .consultation-card {
-    background: #fff;
-    padding: 1.5rem;
-    border-radius: 16px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-    margin-bottom: 1.5rem;
+    display: block;
+    background: $white;
+    padding: 8px;
+    border-radius: 8px;
+    border: 1px solid $InputStroke;
     transition: 0.3s;
     min-height: 100%;
 
     .title {
-      font-size: 1.1rem;
-      font-weight: 600;
+      font-size: 1.125rem;
+      font-weight: 400;
       margin-bottom: 0.5rem;
       color: $second;
     }
 
     .desc {
-      font-size: 0.95rem;
+      font-size: 1rem;
       color: $dark;
       font-weight: bold;
     }
@@ -186,19 +191,18 @@
       flex-wrap: wrap;
       margin-top: 1rem;
 
-      span {
+      .icons-wrapper {
         display: flex;
         align-items: center;
         gap: 6px;
         font-size: 0.85rem;
         color: $dark;
         font-weight: bold;
-        cursor: pointer;
 
         .icon-circle {
           width: 34px;
           height: 34px;
-          background: #f1f1f1;
+          background: $main4;
           border-radius: 50%;
           display: flex;
           align-items: center;
@@ -215,7 +219,7 @@
           background: $second;
 
           i {
-            color: #fff;
+            color: $white;
           }
         }
       }

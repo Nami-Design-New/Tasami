@@ -6,12 +6,10 @@ export default function useGetMyCommunity() {
     queryKey: ["my-community"],
     queryFn: async () => {
       const res = await axiosInstance.get("community");
-      console.log(res.data);
 
       if (res.data.code !== 200) {
         throw new Error(res.data.message);
       }
-      console.log(res.data);
 
       return res.data.data;
     },

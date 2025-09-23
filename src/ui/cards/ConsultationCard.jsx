@@ -1,22 +1,40 @@
+import { Link } from "react-router";
+
 export default function ConsultationCard({ item }) {
   return (
-    <div className={`consultation-card ${item.type === "qes" ? "qes" : ""}`}>
-        <p className="date">{item.date}</p>
+    <Link to={`/my-community/${item.id}`} className="consultation-card">
       <p className="title">{item.title}</p>
-      <p className="desc">{item.desc}</p>
+      <p className="desc ellipsis">{item.desc}</p>
 
-      {item.stats && (
+      {!item.is_private && (
         <div className="icons-row">
-          {item.stats.map((stat, idx) => (
-            <span key={idx}>
-              <div className="icon-circle">
-                <i className={stat.icon}></i>
-              </div>
-              {stat.value}
-            </span>
-          ))}
+          {" "}
+          <div className="icons-wrapper">
+            <div className="icon-circle">
+              <i className="fa-solid fa-eye"></i>
+            </div>
+            <span>{item.views_count}</span>
+          </div>
+          <div className="icons-wrapper">
+            <div className="icon-circle">
+              <i className="fa-solid fa-heart"></i>
+            </div>
+            <span>{item.likes_count}</span>
+          </div>{" "}
+          <div className="icons-wrapper">
+            <div className="icon-circle">
+              <i className="fa-solid fa-comment"></i>
+            </div>
+            <span>{item.comments_count}</span>
+          </div>
+          <div className="icons-wrapper">
+            <div className="icon-circle">
+              <i className="fa-solid fa-share"></i>
+            </div>
+            <span>{item.shares_count}</span>
+          </div>
         </div>
       )}
-    </div>
+    </Link>
   );
 }

@@ -8923,7 +8923,6 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
 
 .community-tabs .tabs {
   display: flex;
-  flex-direction: column;
   gap: 0.5rem;
   border-radius: 8px;
 }
@@ -8954,23 +8953,28 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
   font-size: 1.125rem;
   font-weight: bold;
 }
+.consultations-section .consultations-header .private-consultaion-hint {
+  color: #fdcb2f;
+  font-size: 1rem;
+  margin-top: 8px;
+}
 .consultations-section .consultation-card {
+  display: block;
   background: #fff;
-  padding: 1.5rem;
-  border-radius: 16px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-  margin-bottom: 1.5rem;
+  padding: 8px;
+  border-radius: 8px;
+  border: 1px solid rgba(13, 13, 13, 0.0941176471);
   transition: 0.3s;
   min-height: 100%;
 }
 .consultations-section .consultation-card .title {
-  font-size: 1.1rem;
-  font-weight: 600;
+  font-size: 1.125rem;
+  font-weight: 400;
   margin-bottom: 0.5rem;
   color: #5fcafa;
 }
 .consultations-section .consultation-card .desc {
-  font-size: 0.95rem;
+  font-size: 1rem;
   color: #0d0d0d;
   font-weight: bold;
 }
@@ -8981,33 +8985,32 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
   flex-wrap: wrap;
   margin-top: 1rem;
 }
-.consultations-section .consultation-card .icons-row span {
+.consultations-section .consultation-card .icons-row .icons-wrapper {
   display: flex;
   align-items: center;
   gap: 6px;
   font-size: 0.85rem;
   color: #0d0d0d;
   font-weight: bold;
-  cursor: pointer;
 }
-.consultations-section .consultation-card .icons-row span .icon-circle {
+.consultations-section .consultation-card .icons-row .icons-wrapper .icon-circle {
   width: 34px;
   height: 34px;
-  background: #f1f1f1;
+  background: rgba(2, 72, 150, 0.0392156863);
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   transition: 0.3s;
 }
-.consultations-section .consultation-card .icons-row span .icon-circle i {
+.consultations-section .consultation-card .icons-row .icons-wrapper .icon-circle i {
   font-size: 0.9rem;
   color: #5fcafa;
 }
-.consultations-section .consultation-card .icons-row span:hover .icon-circle {
+.consultations-section .consultation-card .icons-row .icons-wrapper:hover .icon-circle {
   background: #5fcafa;
 }
-.consultations-section .consultation-card .icons-row span:hover .icon-circle i {
+.consultations-section .consultation-card .icons-row .icons-wrapper:hover .icon-circle i {
   color: #fff;
 }
 

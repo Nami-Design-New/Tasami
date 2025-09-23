@@ -22,6 +22,7 @@
   "search": "بحث",
   "public": "عامة",
   "private": "خاصة",
+  "loadMore": "تحميل المزيد",
 
   "pageHeaders": {
     "Notifications": " التنبيهات ",
@@ -289,7 +290,10 @@
     "addConsultaionTitle": "عنوان الاستشارة",
     "addConsultaionDec": "وصف الاستشارة",
     "descPlaceholder": "أدخل الوصف",
-    "consultationType": "نوع الاستشارة"
+    "consultationType": "نوع الاستشارة",
+    "privateConsultations": "الاستشارات الخاصة",
+    "privateHint": "تظهر الاستشارات الخاصة لك أنت فقط",
+    "publicConsultations": "الاستشارات العامة"
   },
   "website": {
     "home": {
