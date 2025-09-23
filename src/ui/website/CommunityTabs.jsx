@@ -1,15 +1,15 @@
+import { useTranslation } from "react-i18next";
 import { NavLink } from "react-router";
 
 export default function CommunityTabs() {
+  const { t } = useTranslation();
   return (
     <div className="community-tabs">
-   <div className="hed"> القنوات</div>
-
-    <div className="tabs">
-      <NavLink to="consultations">استشارات</NavLink>
-      <NavLink to="Encounters">اللقاءات</NavLink>
-      <NavLink to="posts">منشورات</NavLink>
-    </div>
+      <div className="tabs">
+        <NavLink to="consultations">{t("community.consultant")}</NavLink>
+        <NavLink to="encounters">{t("community.meetings")}</NavLink>
+        <NavLink to="posts">{t("community.posts")}</NavLink>
+      </div>
     </div>
   );
 }

@@ -110,18 +110,18 @@
 }
 
 ///////
+.chanels {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: $dark;
+  padding: 0.5rem 0.5rem 0;
+}
 .community-tabs {
-  .hed {
-    font-size: 1.3rem;
-    font-weight: 700;
-    color: $dark;
-  }
   .tabs {
     display: flex;
+    flex-direction: column;
     gap: 0.5rem;
-    padding: 0.5rem;
     border-radius: 8px;
-    margin: 1rem 0;
 
     a {
       flex: 1;
@@ -147,12 +147,14 @@
 
 ////
 .consultations-section {
-  padding: 2rem 0;
-
-  h5 {
-    margin: 1rem 0px;
-    font-size: 1.3rem;
-    font-weight: bold;
+  .consultations-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    h5 {
+      font-size: 1.125rem;
+      font-weight: bold;
+    }
   }
 
   .consultation-card {

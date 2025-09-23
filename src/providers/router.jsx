@@ -303,21 +303,10 @@ export const router = createBrowserRouter([
       },
       {
         path: "community/:id",
-        element: (
-          <ProtectedRoute>
-            <CommunityDetails />
-          </ProtectedRoute>
-        ),
-      },
-      {
-        path: "my-group/:id",
-        element: <GroupDetails />,
-      },
-      {
-        path: "personal-community/:id",
-        element: <PersonalCommunity />,
+        element: <CommunityDetails />,
         children: [
           {
+            index: true,
             path: "consultations",
             element: <Consultations />,
           },
@@ -329,11 +318,19 @@ export const router = createBrowserRouter([
             path: "posts",
             element: <Posts />,
           },
-          {
-            path: "views",
-            element: <Views />,
-          },
+          // {
+          //   path: "views",
+          //   element: <Views />,
+          // },
         ],
+      },
+      {
+        path: "my-group/:id",
+        element: <GroupDetails />,
+      },
+      {
+        path: "personal-community/:id",
+        element: <PersonalCommunity />,
       },
     ],
   },
