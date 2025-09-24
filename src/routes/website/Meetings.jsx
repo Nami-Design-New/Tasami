@@ -1,6 +1,12 @@
-import EncounterCard from "../../ui/website/communities/meetings/MeetingCard";
+import { useState } from "react";
+import { useTranslation } from "react-i18next";
+import CustomButton from "../../ui/CustomButton";
+import MeetingCard from "../../ui/website/communities/meetings/MeetingCard";
+import AddMeetingModal from "../../ui/website/communities/meetings/AddMeetingModal";
 
 export default function Meetings() {
+  const { t } = useTranslation();
+  const [showModal, setShowModal] = useState(false);
   const encounters = [
     {
       id: 1,
@@ -52,22 +58,24 @@ export default function Meetings() {
     <section className="meeting-section">
       <div className="row">
         <div className="col-12 p-2">
-          <div className="consultations-header justify-content-end">
-            {/* {communityDetails.is_subscribed && (
-              <CustomButton className="" onClick={() => setShowModal(true)}>
-                {t("community.addConsultation")}
-              </CustomButton>
-            )} */}
+          <div className="d-flex align-items-center justify-content-end">
+            <CustomButton onClick={() => setShowModal(true)}>
+              {t("community.addMeeting")}
+            </CustomButton>
           </div>
         </div>
       </div>
-      <div className=" mettings-list">
-        {encounters.map((item) => (
-          <div className="col-lg-4 col-md-6 col-12" key={item.id}>
-            <EncounterCard item={item} />
-          </div>
-        ))}
+      <div className="mettings-list">
+        <div className="row">
+          {encounters.map((item) => (
+            <div className="col-lg-4 col-md-6 col-12 p-2" key={item.id}>
+              <MeetingCard item={item} />
+            </div>
+          ))}
+        </div>
       </div>
+
+      <AddMeetingModal showModal={showModal} setShowModal={setShowModal} />
     </section>
   );
 }

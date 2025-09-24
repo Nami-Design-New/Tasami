@@ -453,6 +453,13 @@ li[data-sonner-toast=""] {
   color: #214b92;
 }
 
+.label {
+  color: #0d0d0d;
+  font-weight: 600;
+  font-size: 16px;
+  margin-bottom: 4px;
+}
+
 .ellipsis {
   overflow: hidden;
   text-overflow: ellipsis;
@@ -9104,27 +9111,29 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
   font-weight: 400;
 }
 
-.meetings .encounter-card {
+.meeting-section .mettings-list .meeting-card {
   padding: 12px;
   border-radius: 12px;
-  background-color: rgba(13, 13, 13, 0.0196078431);
+  background-color: #fff;
   display: flex;
   flex-direction: column;
   gap: 12px;
   cursor: pointer;
+  border: 1px solid rgba(13, 13, 13, 0.0941176471);
+  min-height: 100%;
 }
-.meetings .encounter-card .title {
+.meeting-section .mettings-list .meeting-card .title {
   font-weight: 700;
   font-size: 1rem;
   margin-bottom: 8px;
   color: #5fcafa;
 }
-.meetings .encounter-card .desc {
+.meeting-section .mettings-list .meeting-card .desc {
   font-size: 0.9rem;
   color: #0d0d0d;
   margin-bottom: 14px;
 }
-.meetings .encounter-card .meta {
+.meeting-section .mettings-list .meeting-card .meta {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
@@ -9132,12 +9141,9 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
   color: #777;
   margin-top: auto;
 }
-.meetings .encounter-card .meta i {
+.meeting-section .mettings-list .meeting-card .meta i {
   margin-left: 5px;
   color: #5fcafa;
-}
-.meetings .encounter-card:hover {
-  box-shadow: 0 0 14px rgba(0, 0, 0, 0.08);
 }
 
 .encounter-modal .desc {

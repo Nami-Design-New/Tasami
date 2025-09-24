@@ -319,44 +319,43 @@
 }
 
 ////
-.meetings {
-  .encounter-card {
-    padding: 12px;
-    border-radius: 12px;
-    background-color: $InputBG;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    cursor: pointer;
-
-    .title {
-      font-weight: 700;
-      font-size: 1rem;
-      margin-bottom: 8px;
-      color: $second;
-    }
-    .desc {
-      font-size: 0.9rem;
-      color: $dark;
-      margin-bottom: 14px;
-    }
-
-    .meta {
+.meeting-section {
+  .mettings-list {
+    .meeting-card {
+      padding: 12px;
+      border-radius: 12px;
+      background-color: $white;
       display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      font-size: 0.8rem;
-      color: #777;
-      margin-top: auto;
-
-      i {
-        margin-left: 5px;
+      flex-direction: column;
+      gap: 12px;
+      cursor: pointer;
+      border: 1px solid $InputStroke;
+      min-height: 100%;
+      .title {
+        font-weight: 700;
+        font-size: 1rem;
+        margin-bottom: 8px;
         color: $second;
       }
-    }
+      .desc {
+        font-size: 0.9rem;
+        color: $dark;
+        margin-bottom: 14px;
+      }
 
-    &:hover {
-      box-shadow: 0 0 14px rgba(0, 0, 0, 0.08);
+      .meta {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        font-size: 0.8rem;
+        color: #777;
+        margin-top: auto;
+
+        i {
+          margin-left: 5px;
+          color: $second;
+        }
+      }
     }
   }
 }

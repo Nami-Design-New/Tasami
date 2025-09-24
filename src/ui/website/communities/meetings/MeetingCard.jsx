@@ -6,7 +6,7 @@ export default function MeetingCard({ item }) {
 
   return (
     <>
-      <div className="encounter-card" onClick={() => setShowDetails(true)}>
+      <div className="meeting-card" onClick={() => setShowDetails(true)}>
         <p className="title">{item.title}</p>
         <p className="desc">{item.desc}</p>
         <div className="meta">

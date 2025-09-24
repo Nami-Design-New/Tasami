@@ -21,6 +21,8 @@
   "confirm": "Confirm",
   "search": "Search",
   "loadMore": "Load more",
+  "membersOnly": "Members Only",
+
   "pageHeaders": {
     "Notifications": "Notifications",
     "Dashboard": "Dashboard",
@@ -300,7 +302,24 @@
     "addCommentTitle": "Add Comment",
     "commentLabel": "Comment text",
     "commentPlaceholder": "Write your comment here...",
-    "sendComment": "Send Comment"
+    "sendComment": "Send Comment",
+    "addMeeting": "Add Meeting",
+    "field": "Field",
+    "specialization": "Specialization",
+    "meetingTitle": "Title",
+    "meetingTitlePlaceholder": "Meeting title",
+    "description": "Description",
+    "descriptionPlaceholder": "Write here",
+    "date": "Date",
+    "datePlaceholder": "Select date",
+    "time": "Time",
+    "timePlaceholder": "Select time",
+    "duration": "Duration",
+    "durationPlaceholder": "Enter duration",
+    "link": "Link",
+    "linkPlaceholder": "Meeting link",
+    "visibility": "Visibility",
+    "add": "Add"
   },
   "website": {
     "home": {

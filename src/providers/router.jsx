@@ -307,7 +307,7 @@ export const router = createBrowserRouter([
           },
           {
             path: "meetings",
-            element: <>dsdadadad</>,
+            element: <Meetings />,
           },
           {
             path: "posts",

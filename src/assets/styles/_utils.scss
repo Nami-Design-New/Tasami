@@ -7,6 +7,13 @@
   color: $main;
 }
 
+.label {
+  color: #0d0d0d;
+  font-weight: 600;
+  font-size: 16px;
+  margin-bottom: 4px;
+}
+
 .ellipsis {
   overflow: hidden;
   text-overflow: ellipsis;

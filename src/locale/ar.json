@@ -23,6 +23,7 @@
   "public": "عامة",
   "private": "خاصة",
   "loadMore": "تحميل المزيد",
+  "membersOnly": "للأعضاء فقط",
 
   "pageHeaders": {
     "Notifications": " التنبيهات ",
@@ -308,7 +309,24 @@
     "addCommentTitle": "إضافة تعليق",
     "commentLabel": "نص التعليق",
     "commentPlaceholder": "اكتب تعليقك هنا...",
-    "sendComment": "إرسال التعليق"
+    "sendComment": "إرسال التعليق",
+    "addMeeting": "إضافة لقاء",
+    "field": "المجال",
+    "specialization": "التخصص",
+    "meetingTitle": "العنوان",
+    "meetingTitlePlaceholder": "عنوان اللقاء",
+    "description": "الوصف",
+    "descriptionPlaceholder": "اكتب هنا",
+    "date": "التاريخ",
+    "datePlaceholder": "اختر التاريخ",
+    "time": "الوقت",
+    "timePlaceholder": "اختر الوقت",
+    "duration": "المدة",
+    "durationPlaceholder": "ادخل المدة",
+    "link": "الرابط",
+    "linkPlaceholder": "رابط اللقاء",
+    "visibility": "الظهور",
+    "add": "إضافة"
   },
   "website": {
     "home": {
