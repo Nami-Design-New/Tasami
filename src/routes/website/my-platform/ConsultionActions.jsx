@@ -1,36 +1,65 @@
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
 import useToggleLikeConsultion from "../../../hooks/website/communities/useToggleLikeConsultion";
+import useShareConsultation from "../../../hooks/website/communities/useShareConsultation";
 
 export default function ConsultionActions({ consultaionDetails }) {
-  const { toggleLike, isPending } = useToggleLikeConsultion();
+  const { toggleLike, isPending: likePending } = useToggleLikeConsultion();
+  const { mutate: toggleShare } = useShareConsultation();
 
-  // ✅ Local optimistic state
-  const [isLiked, setIsLiked] = useState(
-    consultaionDetails.i_liked_it || false
-  );
+  const [isLiked, setIsLiked] = useState(false);
   const [likesCount, setLikesCount] = useState(consultaionDetails.likes_count);
+  const [sharesCount, setSharesCount] = useState(
+    consultaionDetails.shares_count
+  );
 
+  // ✅ Sync states with API data
   useEffect(() => {
     if (consultaionDetails) {
-      setIsLiked(consultaionDetails.i_liked_it || false);
+      setIsLiked(consultaionDetails.is_liked || false);
       setLikesCount(consultaionDetails.likes_count);
+      setSharesCount(consultaionDetails.shares_count);
     }
   }, [consultaionDetails]);
 
   const handleLike = () => {
-    // Optimistic update
     setIsLiked((prev) => !prev);
     setLikesCount((prev) => (isLiked ? prev - 1 : prev + 1));
 
     toggleLike(consultaionDetails.id, {
-      onError: (err) => {
-        console.log(err);
-
-        // Revert if API fails
+      onError: () => {
         setIsLiked((prev) => !prev);
         setLikesCount((prev) => (isLiked ? prev + 1 : prev - 1));
       },
     });
+  };
+
+  const handleShare = () => {
+    // ✅ Native Web Share API
+    if (navigator.share) {
+      navigator
+        .share({
+          title: consultaionDetails.title,
+          text: consultaionDetails.desc,
+          url: window.location.href,
+        })
+        .then(() => {
+          // Optimistically update UI
+          setSharesCount((prev) => prev + 1);
+          toggleShare(consultaionDetails.id, {
+            onError: () => setSharesCount((prev) => prev - 1),
+          });
+        })
+        .catch((error) => console.error("Share failed:", error));
+    } else {
+      // fallback → copy link
+      navigator.clipboard.writeText(window.location.href);
+      alert("Link copied to clipboard!");
+
+      setSharesCount((prev) => prev + 1);
+      toggleShare(consultaionDetails.id, {
+        onError: () => setSharesCount((prev) => prev - 1),
+      });
+    }
   };
 
   return (
@@ -46,11 +75,13 @@ export default function ConsultionActions({ consultaionDetails }) {
       {/* Likes */}
       <div className="icons-wrapper">
         <button
-          disabled={isPending}
+          disabled={likePending}
           onClick={handleLike}
           className={`icon-circle ${isLiked ? "active" : ""}`}
         >
-          <i className={`fa-solid fa-heart ${isLiked ? "heart" : ""}`}></i>
+          <i
+            className={`fa-solid fa-heart ${isLiked ? "text-danger" : ""}`}
+          ></i>
         </button>
         <span>{likesCount}</span>
       </div>
@@ -65,10 +96,10 @@ export default function ConsultionActions({ consultaionDetails }) {
 
       {/* Shares */}
       <div className="icons-wrapper">
-        <div className="icon-circle">
+        <button className="icon-circle" onClick={handleShare}>
           <i className="fa-solid fa-share"></i>
-        </div>
-        <span>{consultaionDetails.shares_count}</span>
+        </button>
+        <span>{sharesCount}</span>
       </div>
     </div>
   );
