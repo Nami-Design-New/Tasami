@@ -107,6 +107,7 @@ import RoundedBackButton from "../../../ui/website-auth/shared/RoundedBackButton
 import AnswerModal from "../../../ui/website/profile/my-communities/AnswerModal";
 import ConsultaionComments from "../../../ui/website/profile/my-communities/ConsultaionComments";
 import CustomButton from "../../../ui/CustomButton";
+import ConsultionActions from "./ConsultionActions";
 
 export default function ConsultaionDetails() {
   const navigate = useNavigate();
@@ -161,35 +162,7 @@ export default function ConsultaionDetails() {
 
             <p>{consultaionDetails.answer}</p>
 
-            <div className="icons-row details">
-              <div className="icons-wrapper">
-                <div className="icon-circle">
-                  <i className="fa-solid fa-eye"></i>
-                </div>
-                <span>{consultaionDetails.views_count}</span>
-              </div>
-
-              <div className="icons-wrapper">
-                <div className="icon-circle">
-                  <i className="fa-solid fa-heart heart"></i>
-                </div>
-                <span>{consultaionDetails.likes_count}</span>
-              </div>
-
-              <div className="icons-wrapper">
-                <div className="icon-circle">
-                  <i className="fa-solid fa-comment"></i>
-                </div>
-                <span>{consultaionDetails.comments_count}</span>
-              </div>
-
-              <div className="icons-wrapper">
-                <div className="icon-circle">
-                  <i className="fa-solid fa-share"></i>
-                </div>
-                <span>{consultaionDetails.shares_count}</span>
-              </div>
-            </div>
+            <ConsultionActions consultaionDetails={consultaionDetails} />
           </div>
         )}
 

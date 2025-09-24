@@ -9020,6 +9020,7 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
   align-items: center;
   justify-content: center;
   transition: 0.3s;
+  text-decoration: none;
 }
 .icons-row.details .icons-wrapper .icon-circle i {
   font-size: 1rem;
