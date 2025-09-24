@@ -183,47 +183,145 @@
       color: $dark;
       font-weight: bold;
     }
+  }
+}
+.icons-row {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-top: 1rem;
 
-    .icons-row {
+  .icons-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.85rem;
+    color: $dark;
+    font-weight: bold;
+
+    .icon-circle {
+      width: 34px;
+      height: 34px;
+      background: $main4;
+      border-radius: 50%;
       display: flex;
-      gap: 12px;
       align-items: center;
-      flex-wrap: wrap;
-      margin-top: 1rem;
+      justify-content: center;
+      transition: 0.3s;
 
-      .icons-wrapper {
+      i {
+        font-size: 0.9rem;
+        color: $second;
+      }
+    }
+
+    // &:hover .icon-circle {
+    //   background: $second;
+
+    //   i {
+    //     color: $white;
+    //   }
+    // }
+  }
+  &.details {
+    .icons-wrapper {
+      flex-direction: column;
+      .icon-circle {
+        width: 34px;
+        height: 34px;
+        background: $main4;
+        border-radius: 50%;
         display: flex;
         align-items: center;
-        gap: 6px;
-        font-size: 0.85rem;
-        color: $dark;
-        font-weight: bold;
+        justify-content: center;
+        transition: 0.3s;
 
-        .icon-circle {
-          width: 34px;
-          height: 34px;
-          background: $main4;
-          border-radius: 50%;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          transition: 0.3s;
-
-          i {
-            font-size: 0.9rem;
+        i {
+          font-size: 1rem;
+          color: $inputHint;
+          &.heart {
             color: $second;
-          }
-        }
-
-        &:hover .icon-circle {
-          background: $second;
-
-          i {
-            color: $white;
           }
         }
       }
     }
+  }
+}
+
+.consultaion-details {
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+    .title {
+      font-size: 1.25rem;
+      color: $second;
+    }
+  }
+  .decription {
+    font-size: 1.25rem;
+    color: $dark;
+    font-weight: 500;
+  }
+  .answer-container {
+    margin-top: 1rem;
+    padding: 12px;
+    border: 1px solid $InputStroke;
+    border-radius: 12px;
+    h2 {
+      font-size: 1.125rem;
+      color: $second;
+      font-weight: 500;
+      margin-bottom: 0.5rem;
+    }
+    p {
+      font-size: 1.25rem;
+      color: $dark;
+      font-weight: 700;
+    }
+
+    button {
+      text-decoration: underline;
+      color: $main;
+    }
+  }
+  .comments {
+    margin-top: 1rem;
+    .comments-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      h2 {
+        font-size: 1.125rem;
+        color: $dark;
+      }
+    }
+  }
+}
+.consultation-comments-card {
+  padding: 12px;
+  border-radius: 12px;
+  background-color: $InputBG;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  h5 {
+    color: $gray;
+    font-weight: 500;
+    font-size: 1rem;
+  }
+  p {
+    font-size: 1.125rem;
+    color: $dark;
+    font-weight: 700;
+  }
+  span {
+    display: block;
+    color: $gray;
+    text-align: end;
+    font-weight: 400;
   }
 }
 

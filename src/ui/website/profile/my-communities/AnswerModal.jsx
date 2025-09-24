@@ -1,31 +1,31 @@
-import { Modal } from "react-bootstrap";
-import CustomButton from "../CustomButton";
-import TextField from "../forms/TextField";
-import { useTranslation } from "react-i18next";
-import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
-import useAddComment from "../../hooks/website/communities/useAddComment";
-import { toast } from "sonner";
 import { useQueryClient } from "@tanstack/react-query";
+import { Modal } from "react-bootstrap";
+import { useForm } from "react-hook-form";
+import { useTranslation } from "react-i18next";
+import * as yup from "yup";
+import useReplyToConsultaion from "../../../../hooks/website/communities/useReplyToConsultaion";
+import CustomButton from "../../../CustomButton";
+import TextField from "../../../forms/TextField";
+import { toast } from "sonner";
 
-const AddCommentModal = ({ showModal, setShowModal }) => {
+export default function AnswerModal({ showModal, setShowModal }) {
   const { t } = useTranslation();
-  const { addComment, isPending } = useAddComment();
   const queryClient = useQueryClient();
-  // ✅ Validation schema
+  const minChars = 15;
   const schema = yup.object().shape({
-    commentText: yup
+    answer: yup
       .string()
-      .required(
-        t("validation.requiredField", { field: t("community.commentLabel") })
-      )
+      .required(t("validation.required"))
       .min(
-        15,
-        t("validation.min", { field: t("community.commentLabel"), min: 15 })
+        minChars,
+        t("validation.min", {
+          field: t("community.fieldLabel"),
+          min: minChars,
+        })
       ),
   });
-
+  const { replyToConsultaion, isPending } = useReplyToConsultaion();
   const {
     register,
     handleSubmit,
@@ -35,17 +35,15 @@ const AddCommentModal = ({ showModal, setShowModal }) => {
     resolver: yupResolver(schema),
   });
 
-  // ✅ Submit handler
   const onSubmit = (data) => {
-    addComment(data.commentText, {
-      onSuccess: (res) => {
-        toast.success(res.message);
-        queryClient.invalidateQueries({ queryKey: ["comments"] });
-        reset();
+    replyToConsultaion(data.answer, {
+      onSuccess: () => {
         setShowModal(false);
+        queryClient.invalidateQueries({ queryKey: ["consultaion-details"] });
+        reset();
       },
       onError: (error) => {
-        console.error("Error adding comment:", error);
+        console.error("Error replying to consultation:", error);
         toast.error(
           error?.response?.data?.message ||
             error?.message ||
@@ -58,38 +56,37 @@ const AddCommentModal = ({ showModal, setShowModal }) => {
 
   return (
     <Modal
-      show={showModal}
-      size="md"
       onHide={() => {
         setShowModal(false);
         reset();
       }}
+      show={showModal}
       centered
+      size="md"
     >
       <Modal.Header closeButton>
-        <h6 className="fw-bold">{t("community.addCommentTitle")}</h6>
+        <h6>{t("community.title")}</h6>
       </Modal.Header>
-
       <Modal.Body>
         <form className="form_ui" onSubmit={handleSubmit(onSubmit)}>
           <div className="row">
             <div className="col-12 p-2">
               <TextField
-                label={t("community.commentLabel")}
-                placeholder={t("community.commentPlaceholder")}
-                id="commentText"
-                {...register("commentText")}
-                error={errors.commentText?.message}
+                rows="8"
+                label={t("community.fieldLabel")}
+                placeholder={t("community.fieldPlaceholder")}
+                {...register("answer")}
+                error={errors?.answer?.message}
               />
             </div>
             <div className="col-12 p-2">
               <CustomButton
+                type="submit"
                 loading={isPending}
                 fullWidth
                 size="large"
-                type="submit"
               >
-                {t("community.sendComment")}
+                {t("save")}
               </CustomButton>
             </div>
           </div>
@@ -97,6 +94,4 @@ const AddCommentModal = ({ showModal, setShowModal }) => {
       </Modal.Body>
     </Modal>
   );
-};
-
-export default AddCommentModal;
+}

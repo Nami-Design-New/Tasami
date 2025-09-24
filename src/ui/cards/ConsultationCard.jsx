@@ -2,7 +2,7 @@ import { Link } from "react-router";
 
 export default function ConsultationCard({ item }) {
   return (
-    <Link to={`/my-community/${item.id}`} className="consultation-card">
+    <Link to={`/consultaion-details/${item.id}`} className="consultation-card">
       <p className="title">{item.title}</p>
       <p className="desc ellipsis">{item.desc}</p>
 

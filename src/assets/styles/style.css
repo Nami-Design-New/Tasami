@@ -8978,14 +8978,15 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
   color: #0d0d0d;
   font-weight: bold;
 }
-.consultations-section .consultation-card .icons-row {
+
+.icons-row {
   display: flex;
   gap: 12px;
   align-items: center;
   flex-wrap: wrap;
   margin-top: 1rem;
 }
-.consultations-section .consultation-card .icons-row .icons-wrapper {
+.icons-row .icons-wrapper {
   display: flex;
   align-items: center;
   gap: 6px;
@@ -8993,7 +8994,7 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
   color: #0d0d0d;
   font-weight: bold;
 }
-.consultations-section .consultation-card .icons-row .icons-wrapper .icon-circle {
+.icons-row .icons-wrapper .icon-circle {
   width: 34px;
   height: 34px;
   background: rgba(2, 72, 150, 0.0392156863);
@@ -9003,15 +9004,103 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
   justify-content: center;
   transition: 0.3s;
 }
-.consultations-section .consultation-card .icons-row .icons-wrapper .icon-circle i {
+.icons-row .icons-wrapper .icon-circle i {
   font-size: 0.9rem;
   color: #5fcafa;
 }
-.consultations-section .consultation-card .icons-row .icons-wrapper:hover .icon-circle {
-  background: #5fcafa;
+.icons-row.details .icons-wrapper {
+  flex-direction: column;
 }
-.consultations-section .consultation-card .icons-row .icons-wrapper:hover .icon-circle i {
-  color: #fff;
+.icons-row.details .icons-wrapper .icon-circle {
+  width: 34px;
+  height: 34px;
+  background: rgba(2, 72, 150, 0.0392156863);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: 0.3s;
+}
+.icons-row.details .icons-wrapper .icon-circle i {
+  font-size: 1rem;
+  color: #aaaaaa;
+}
+.icons-row.details .icons-wrapper .icon-circle i.heart {
+  color: #5fcafa;
+}
+
+.consultaion-details .header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+.consultaion-details .header .title {
+  font-size: 1.25rem;
+  color: #5fcafa;
+}
+.consultaion-details .decription {
+  font-size: 1.25rem;
+  color: #0d0d0d;
+  font-weight: 500;
+}
+.consultaion-details .answer-container {
+  margin-top: 1rem;
+  padding: 12px;
+  border: 1px solid rgba(13, 13, 13, 0.0941176471);
+  border-radius: 12px;
+}
+.consultaion-details .answer-container h2 {
+  font-size: 1.125rem;
+  color: #5fcafa;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+}
+.consultaion-details .answer-container p {
+  font-size: 1.25rem;
+  color: #0d0d0d;
+  font-weight: 700;
+}
+.consultaion-details .answer-container button {
+  text-decoration: underline;
+  color: #214b92;
+}
+.consultaion-details .comments {
+  margin-top: 1rem;
+}
+.consultaion-details .comments .comments-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.consultaion-details .comments .comments-header h2 {
+  font-size: 1.125rem;
+  color: #0d0d0d;
+}
+
+.consultation-comments-card {
+  padding: 12px;
+  border-radius: 12px;
+  background-color: rgba(13, 13, 13, 0.0196078431);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.consultation-comments-card h5 {
+  color: rgba(13, 13, 13, 0.5607843137);
+  font-weight: 500;
+  font-size: 1rem;
+}
+.consultation-comments-card p {
+  font-size: 1.125rem;
+  color: #0d0d0d;
+  font-weight: 700;
+}
+.consultation-comments-card span {
+  display: block;
+  color: rgba(13, 13, 13, 0.5607843137);
+  text-align: end;
+  font-weight: 400;
 }
 
 .encounters-cards .encounter-card {

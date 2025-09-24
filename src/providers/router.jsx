@@ -108,7 +108,7 @@ import Followings from "../routes/website/Followings";
 import ErrorFallback from "../ui/ErrorFallback";
 import ProtectedRoute from "./ProtectedRoute";
 import MyCommunities from "../routes/website/profile/MyCommunities";
-import CommunityDetails from "../ui/website/profile/my-communities/CommunityDetails";
+import CommunityDetails from "../routes/website/CommunityDetails";
 import GroupDetails from "../routes/website/my-platform/GroupDetails";
 import MyCommunityConsultations from "../routes/website/my-platform/MyCommunityConsultations";
 import ConsultaionDetails from "../routes/website/my-platform/ConsultaionDetails";
@@ -318,7 +318,7 @@ export const router = createBrowserRouter([
         ],
       },
       {
-        path: "my-community/:id",
+        path: "consultaion-details/:id",
         element: <ConsultaionDetails />,
       },
       {

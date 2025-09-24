@@ -1,9 +1,9 @@
-import useGetCommunityDetails from "../../../../hooks/website/communities/useGetCommunityDetails";
-import Loading from "../../../loading/Loading";
-import CommunityBio from "../../../dash-board/communities-details/CommunityBio";
-import CommunityActions from "../../platform/my-community/CommunityActions";
-import CommunityStats from "../../../dash-board/communities-details/CommunityStats";
-import CommunityTabs from "../../CommunityTabs";
+import useGetCommunityDetails from "../../hooks/website/communities/useGetCommunityDetails";
+import Loading from "../../ui/loading/Loading";
+import CommunityBio from "../../ui/dash-board/communities-details/CommunityBio";
+import CommunityActions from "../../ui/website/platform/my-community/CommunityActions";
+import CommunityStats from "../../ui/dash-board/communities-details/CommunityStats";
+import CommunityTabs from "../../ui/website/CommunityTabs";
 import { Outlet } from "react-router";
 import { useTranslation } from "react-i18next";
 
@@ -53,7 +53,7 @@ export default function CommunityDetails() {
             />
           </div>
           <div className="col-12 p-0">
-            <Outlet />
+            <Outlet context={{ communityDetails }} />
           </div>
         </div>
       </section>

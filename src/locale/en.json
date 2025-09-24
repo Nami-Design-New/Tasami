@@ -285,7 +285,22 @@
     "consultationType": "Consultation Type",
     "privateConsultations": "Private Consultations",
     "privateHint": "Private consultations are visible only to you",
-    "publicConsultations": "Public Consultations"
+    "publicConsultations": "Public Consultations",
+    "noConsultaion": "No consultations are available in this community.",
+    "title": "Reply to Consultation",
+    "fieldLabel": "Add a reply",
+    "fieldLabel1": "reply",
+    "fieldPlaceholder": "Type here",
+    "comments": "Comments",
+    "addComment": "Add Comment",
+    "noComments": "No comments yet",
+    "yourAnswer": "Your Answer",
+    "assistantAnswer": "Assistant's Answer",
+    "answer": "Answer",
+    "addCommentTitle": "Add Comment",
+    "commentLabel": "Comment text",
+    "commentPlaceholder": "Write your comment here...",
+    "sendComment": "Send Comment"
   },
   "website": {
     "home": {

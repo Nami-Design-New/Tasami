@@ -1,16 +1,18 @@
+import { useState } from "react";
 import { useTranslation } from "react-i18next";
+import { useOutletContext } from "react-router";
+import useGetConsultations from "../../hooks/website/communities/useGetConsultations";
 import ConsultationCard from "../../ui/cards/ConsultationCard";
 import CustomButton from "../../ui/CustomButton";
-import AddConsultationModal from "../../ui/website/profile/my-communities/AddConsultationModal";
-import { useState } from "react";
-import useGetConsultations from "../../hooks/website/communities/useGetConsultations";
-import InfiniteScroll from "../../ui/loading/InfiniteScroll";
-import AudienceCardLoader from "../../ui/loading/AudienceCardLoader";
 import EmptySection from "../../ui/EmptySection";
+import AudienceCardLoader from "../../ui/loading/AudienceCardLoader";
+import InfiniteScroll from "../../ui/loading/InfiniteScroll";
+import AddConsultationModal from "../../ui/website/profile/my-communities/AddConsultationModal";
 
 export default function Consultations() {
   const { t } = useTranslation();
   const [showModal, setShowModal] = useState();
+  const { communityDetails } = useOutletContext();
   const {
     consultaions,
     isLoading,
@@ -28,11 +30,12 @@ export default function Consultations() {
       <div className="consultations-section">
         <div className="row">
           <div className="col-12 p-2">
-            <div className="consultations-header">
-              <h5>الاستشارات العامة</h5>{" "}
-              <CustomButton onClick={() => setShowModal(true)}>
-                {t("community.addConsultation")}
-              </CustomButton>
+            <div className="consultations-header justify-content-end">
+              {communityDetails.is_subscribed && (
+                <CustomButton className="" onClick={() => setShowModal(true)}>
+                  {t("community.addConsultation")}
+                </CustomButton>
+              )}
             </div>
           </div>{" "}
           {!isLoading && allConsultaions.length === 0 && (

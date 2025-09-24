@@ -293,7 +293,22 @@
     "consultationType": "نوع الاستشارة",
     "privateConsultations": "الاستشارات الخاصة",
     "privateHint": "تظهر الاستشارات الخاصة لك أنت فقط",
-    "publicConsultations": "الاستشارات العامة"
+    "publicConsultations": "الاستشارات العامة",
+    "noConsultaion": "لا توجد استشارات متاحة في هذه المجتمع.",
+    "title": "قم بالرد علي الاستشارة",
+    "fieldLabel": "اضف رد",
+    "fieldLabel1": "الرد",
+    "fieldPlaceholder": "اكتب هنا",
+    "comments": "التعليقات",
+    "addComment": "اضف تعليق",
+    "noComments": "لا توجد تعليقات حتى الآن",
+    "yourAnswer": "رأيك",
+    "assistantAnswer": "رأي المساعد",
+    "answer": "قم بالرد",
+    "addCommentTitle": "إضافة تعليق",
+    "commentLabel": "نص التعليق",
+    "commentPlaceholder": "اكتب تعليقك هنا...",
+    "sendComment": "إرسال التعليق"
   },
   "website": {
     "home": {
