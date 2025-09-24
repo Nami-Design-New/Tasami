@@ -1,12 +1,12 @@
 import { useTranslation } from "react-i18next";
+import { useState } from "react";
 import useGetConsultaionComments from "../../../../hooks/website/communities/useGetConsultaionComments";
-import EmptySection from "../../../EmptySection";
 import CustomButton from "../../../CustomButton";
+import EmptySection from "../../../EmptySection";
 import InfiniteScroll from "../../../loading/InfiniteScroll";
 import ConsultationCommentsCard from "./ConsultationCommentsCard";
 import AudienceCardLoader from "../../../loading/AudienceCardLoader";
 import AddCommentModal from "../../../modals/AddCommentModal";
-import { useState } from "react";
 
 export default function ConsultaionComments() {
   const { t } = useTranslation();
@@ -14,7 +14,6 @@ export default function ConsultaionComments() {
   const {
     consultaionComments,
     commentsLoading,
-    error,
     hasNextPage,
     fetchNextPage,
     isFetchingNextPage,

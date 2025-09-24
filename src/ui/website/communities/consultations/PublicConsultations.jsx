@@ -1,43 +1,43 @@
 import { useTranslation } from "react-i18next";
-import useGetPrivateConsultaions from "../../hooks/website/communities/useGetPrivateConsultaions";
-import CustomButton from "../CustomButton";
-import AudienceCardLoader from "../loading/AudienceCardLoader";
+import useGetPublicConsultations from "../../../../hooks/website/communities/useGetPublicConsultaion";
+import CustomButton from "../../../CustomButton";
+import AudienceCardLoader from "../../../loading/AudienceCardLoader";
 import ConsultationCard from "./ConsultationCard";
 
-export default function PrivateConsultations() {
+export default function PublicConsultations() {
   const { t } = useTranslation();
 
   const {
-    privateConsultaions,
+    publicConsultaions,
     isLoading,
     hasNextPage,
     fetchNextPage,
     isFetchingNextPage,
-  } = useGetPrivateConsultaions();
+  } = useGetPublicConsultations();
 
-  const allPrivateConsultations =
-    privateConsultaions?.pages?.flatMap((page) => page?.data) ?? [];
+  const allPublicConsultaions =
+    publicConsultaions?.pages?.flatMap((page) => page?.data) ?? [];
 
-  if (!isLoading && allPrivateConsultations.length === 0) {
+  if (!isLoading && allPublicConsultaions.length === 0) {
     return null;
   }
+
+  console.log("allPublicConsultaions", allPublicConsultaions);
 
   return (
     <div className="row">
       <div className="col-12 p-2">
         <div className="consultations-header d-block">
-          <h5>{t("community.privateConsultations")}</h5>
-          <p className="private-consultaion-hint">
-            {t("community.privateHint")}
-          </p>
+          <h5>{t("community.publicConsultations")}</h5>
         </div>
       </div>
 
-      {allPrivateConsultations.map((item, idx) => (
+      {allPublicConsultaions.map((item, idx) => (
         <div className="col-12 col-lg-4 p-2" key={idx}>
           <ConsultationCard item={item} />
         </div>
       ))}
+
       {isLoading && (
         <div className="row">
           {[1, 2, 3].map((i) => (
@@ -47,6 +47,7 @@ export default function PrivateConsultations() {
           ))}
         </div>
       )}
+
       {hasNextPage && (
         <div className="col-12 text-center mb-2">
           <CustomButton

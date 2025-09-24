@@ -6,7 +6,7 @@ export default function ConsultionActions({ consultaionDetails }) {
   const { toggleLike, isPending: likePending } = useToggleLikeConsultion();
   const { mutate: toggleShare } = useShareConsultation();
 
-  const [isLiked, setIsLiked] = useState(false);
+  const [isLiked, setIsLiked] = useState(consultaionDetails.i_liked_it);
   const [likesCount, setLikesCount] = useState(consultaionDetails.likes_count);
   const [sharesCount, setSharesCount] = useState(
     consultaionDetails.shares_count
@@ -15,7 +15,7 @@ export default function ConsultionActions({ consultaionDetails }) {
   // ✅ Sync states with API data
   useEffect(() => {
     if (consultaionDetails) {
-      setIsLiked(consultaionDetails.is_liked || false);
+      setIsLiked(consultaionDetails.i_liked_it || false);
       setLikesCount(consultaionDetails.likes_count);
       setSharesCount(consultaionDetails.shares_count);
     }
@@ -79,9 +79,7 @@ export default function ConsultionActions({ consultaionDetails }) {
           onClick={handleLike}
           className={`icon-circle ${isLiked ? "active" : ""}`}
         >
-          <i
-            className={`fa-solid fa-heart ${isLiked ? "text-danger" : ""}`}
-          ></i>
+          <i className={`fa-solid fa-heart ${isLiked ? "heart" : ""}`}></i>
         </button>
         <span>{likesCount}</span>
       </div>

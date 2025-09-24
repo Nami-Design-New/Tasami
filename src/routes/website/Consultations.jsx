@@ -2,12 +2,12 @@ import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useOutletContext } from "react-router";
 import useGetConsultations from "../../hooks/website/communities/useGetConsultations";
-import ConsultationCard from "../../ui/cards/ConsultationCard";
 import CustomButton from "../../ui/CustomButton";
 import EmptySection from "../../ui/EmptySection";
 import AudienceCardLoader from "../../ui/loading/AudienceCardLoader";
 import InfiniteScroll from "../../ui/loading/InfiniteScroll";
-import AddConsultationModal from "../../ui/website/profile/my-communities/AddConsultationModal";
+import AddConsultationModal from "../../ui/website/communities/consultations/AddConsultationModal";
+import ConsultationCard from "../../ui/website/communities/consultations/ConsultationCard";
 
 export default function Consultations() {
   const { t } = useTranslation();

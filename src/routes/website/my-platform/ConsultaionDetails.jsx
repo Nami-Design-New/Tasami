@@ -104,10 +104,10 @@ import { useNavigate } from "react-router";
 import useGetConsultaionDetails from "../../../hooks/website/communities/useGetConsultaionDetails";
 import Loading from "../../../ui/loading/Loading";
 import RoundedBackButton from "../../../ui/website-auth/shared/RoundedBackButton";
-import AnswerModal from "../../../ui/website/profile/my-communities/AnswerModal";
-import ConsultaionComments from "../../../ui/website/profile/my-communities/ConsultaionComments";
+import AnswerModal from "../../../ui/website/communities/consultations/AnswerModal";
 import CustomButton from "../../../ui/CustomButton";
 import ConsultionActions from "./ConsultionActions";
+import ConsultaionComments from "../../../ui/website/communities/consultations/ConsultaionComments";
 
 export default function ConsultaionDetails() {
   const navigate = useNavigate();
@@ -123,6 +123,7 @@ export default function ConsultaionDetails() {
   // ✅ Extract conditions into variables
   const isOwner = user.id === consultaionDetails.to_user_id;
   const hasAnswer = Boolean(consultaionDetails.answer);
+  console.log(hasAnswer);
 
   return (
     <section className="consultaion-details page">

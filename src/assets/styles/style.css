@@ -9104,30 +9104,27 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
   font-weight: 400;
 }
 
-.encounters-cards .encounter-card {
-  background: #fff;
+.meetings .encounter-card {
+  padding: 12px;
   border-radius: 12px;
-  padding: 20px;
-  box-shadow: 0 0 8px rgba(0, 0, 0, 0.05);
-  transition: 0.3s;
+  background-color: rgba(13, 13, 13, 0.0196078431);
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  min-height: 100%;
+  gap: 12px;
   cursor: pointer;
 }
-.encounters-cards .encounter-card .title {
+.meetings .encounter-card .title {
   font-weight: 700;
   font-size: 1rem;
   margin-bottom: 8px;
   color: #5fcafa;
 }
-.encounters-cards .encounter-card .desc {
+.meetings .encounter-card .desc {
   font-size: 0.9rem;
   color: #0d0d0d;
   margin-bottom: 14px;
 }
-.encounters-cards .encounter-card .meta {
+.meetings .encounter-card .meta {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
@@ -9135,11 +9132,11 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
   color: #777;
   margin-top: auto;
 }
-.encounters-cards .encounter-card .meta i {
+.meetings .encounter-card .meta i {
   margin-left: 5px;
   color: #5fcafa;
 }
-.encounters-cards .encounter-card:hover {
+.meetings .encounter-card:hover {
   box-shadow: 0 0 14px rgba(0, 0, 0, 0.08);
 }
 

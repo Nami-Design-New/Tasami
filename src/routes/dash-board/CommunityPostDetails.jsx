@@ -1,5 +1,4 @@
 import { Link } from "react-router";
-import CommentCard from "../../ui/website/communities/CommentCard";
 
 export default function CommunityPostDetails() {
   return (
@@ -80,7 +79,8 @@ export default function CommunityPostDetails() {
             <div className="comments-section">
               <h3 className="comments-title">التعليقات</h3>
               {Array.from({ length: 5 }).map((_, index) => (
-                <CommentCard key={index} className="comment-card" />
+                // <CommentCard key={index} className="comment-card" />
+                <div key={index}>Comment {index + 1}</div>
               ))}
             </div>
           </div>
