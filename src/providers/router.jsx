@@ -329,7 +329,7 @@ export const router = createBrowserRouter([
           },
           {
             path: "meetings",
-            element: <Meetings />,
+            element: <Meetings isMyCommuntiy={false} />,
           },
           {
             path: "posts",

@@ -3,79 +3,64 @@ import { useTranslation } from "react-i18next";
 import CustomButton from "../../ui/CustomButton";
 import MeetingCard from "../../ui/website/communities/meetings/MeetingCard";
 import AddMeetingModal from "../../ui/website/communities/meetings/AddMeetingModal";
+import InfiniteScroll from "../../ui/loading/InfiniteScroll";
+import EmptySection from "../../ui/EmptySection";
+import AudienceCardLoader from "../../ui/loading/AudienceCardLoader";
+import useGetMeetings from "../../hooks/website/communities/mettings/useGetMeetings";
 
-export default function Meetings() {
+export default function Meetings({ isMyCommuntiy = true }) {
   const { t } = useTranslation();
   const [showModal, setShowModal] = useState(false);
-  const encounters = [
-    {
-      id: 1,
-      title: "لقاء تطوير المهارات",
-      desc: "مناقشة مهارات القيادة ورفع كفاءة الفريق لتحقيق أهداف العمل.",
-      date: "25 يونيو 2025",
-      time: "4:00 مساءً",
-      duration: "25 دقيقة",
-      url: "https://zoom.us/1225dfe852ffa/php",
-      field: "الفنون",
-      specialty: "الرسم",
-    },
-    {
-      id: 2,
-      title: "ورشة إدارة المشاريع",
-      desc: "أفضل الممارسات لتخطيط ومتابعة المشاريع بكفاءة.",
-      date: "27 يونيو 2025",
-      time: "6:00 مساءً",
-      duration: "40 دقيقة",
-      url: "https://zoom.us/1225dfe852ffa/php",
-      field: "الفنون",
-      specialty: "الرسم",
-    },
-    {
-      id: 3,
-      title: "ندوة الابتكار",
-      desc: "كيف تحفز الابتكار داخل فريق العمل لتحقيق التميز.",
-      date: "1 يوليو 2025",
-      time: "8:00 مساءً",
-      duration: "30 دقيقة",
-      url: "https://zoom.us/1225dfe852ffa/php",
-      field: "الفنون",
-      specialty: "الرسم",
-    },
-    {
-      id: 4,
-      title: "اللقاء الخامس",
-      desc: "كيف تحفز الابتكار داخل فريق العمل لتحقيق التميز.",
-      date: "1 يوليو 2025",
-      time: "8:00 مساءً",
-      duration: "30 دقيقة",
-      url: "https://zoom.us/1225dfe852ffa/php",
-      field: "الفنون",
-      specialty: "الرسم",
-    },
-  ];
+  const { isLoading, data, hasNextPage, fetchNextPage, isFetchingNextPage } =
+    useGetMeetings();
+
+  const allMeetings = data?.pages?.flatMap((page) => page?.data) ?? [];
 
   return (
     <section className="meeting-section">
       <div className="row">
         <div className="col-12 p-2">
           <div className="d-flex align-items-center justify-content-end">
-            <CustomButton onClick={() => setShowModal(true)}>
-              {t("community.addMeeting")}
-            </CustomButton>
+            {isMyCommuntiy && (
+              <CustomButton onClick={() => setShowModal(true)}>
+                {t("community.addMeeting")}
+              </CustomButton>
+            )}
           </div>
         </div>
       </div>
       <div className="mettings-list">
         <div className="row">
-          {encounters.map((item) => (
-            <div className="col-lg-4 col-md-6 col-12 p-2" key={item.id}>
-              <MeetingCard item={item} />
-            </div>
-          ))}
+          {" "}
+          {!isLoading && allMeetings.length === 0 && (
+            <EmptySection height="500px" message={t("community.noMeetings")} />
+          )}
+          <InfiniteScroll
+            onLoadMore={fetchNextPage}
+            hasNextPage={hasNextPage}
+            isFetchingNextPage={isFetchingNextPage}
+          >
+            {allMeetings.map((item) => (
+              <div className="col-lg-4 col-md-6 col-12 p-2" key={item.id}>
+                <MeetingCard item={item} />
+              </div>
+            ))}
+          </InfiniteScroll>{" "}
+          {(isLoading || isFetchingNextPage) && (
+            <>
+              {[1, 2, 3].map((i) => (
+                <div className="col-12 col-lg-6 p-2" key={i}>
+                  <AudienceCardLoader />
+                </div>
+              ))}
+            </>
+          )}
         </div>
       </div>
 
-      <AddMeetingModal showModal={showModal} setShowModal={setShowModal} />
+      {isMyCommuntiy && (
+        <AddMeetingModal showModal={showModal} setShowModal={setShowModal} />
+      )}
     </section>
   );
 }

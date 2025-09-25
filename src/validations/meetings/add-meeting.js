@@ -17,7 +17,12 @@ const getSchema = (t) =>
       .min(15, t("validation.minCharacters", { count: 15 })),
     date: yup.string().required(t("validation.required")),
     time: yup.string().required(t("validation.required")),
-    duration: yup.string().required(t("validation.required")),
+    duration: yup
+      .number()
+      .typeError(t("validation.mustBeNumber")) // custom error if not a number
+      .required(t("validation.required"))
+      .positive(t("validation.mustBePositive")) // ensure positive number
+      .integer(t("validation.mustBeInteger")),
     link: yup.string().required(t("validation.required")),
     meetingType: yup.string().required(t("validation.typeRequired")),
   });
