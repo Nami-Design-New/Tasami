@@ -117,9 +117,11 @@
   padding: 0.5rem 0.5rem 0;
 }
 .community-tabs {
+  position: sticky;
+  top: 100px;
   .tabs {
     display: flex;
-    // flex-direction: column;
+    flex-direction: column;
     gap: 0.5rem;
     border-radius: 8px;
 
@@ -280,16 +282,16 @@
       color: $main;
     }
   }
-  .comments {
-    margin-top: 1rem;
-    .comments-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      h2 {
-        font-size: 1.125rem;
-        color: $dark;
-      }
+}
+.comments {
+  margin-top: 1rem;
+  .comments-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    h2 {
+      font-size: 1.125rem;
+      color: $dark;
     }
   }
 }
@@ -441,6 +443,81 @@
     }
   }
 }
+
+// Posts
+.post-card {
+  display: flex;
+  flex-direction: column;
+  background: $white;
+  border-radius: 12px;
+  padding: 8px;
+  border: 1px solid $InputStroke;
+  text-decoration: none;
+  overflow: hidden;
+
+  .image-wrapper {
+    width: 100%;
+    overflow: hidden;
+
+    .image {
+      width: 100%;
+      height: auto;
+      display: block;
+      object-fit: cover;
+      aspect-ratio: 3 / 2;
+    }
+  }
+
+  .date {
+    font-size: 12px;
+    color: $gray;
+    margin: 8px 12px 0;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+
+    i {
+      color: $second;
+      font-size: 14px;
+    }
+    span {
+      color: $gray;
+    }
+  }
+
+  .info {
+    padding: 8px 12px;
+
+    h2 {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 4px;
+      line-height: 1.4;
+      color: $dark;
+      @include line-clamp(2); // لو عندك util جاهز
+    }
+
+    p {
+      font-size: 14px;
+      color: $gray;
+      line-height: 1.4;
+      @include line-clamp(3);
+    }
+  }
+
+  .icons-row {
+    display: flex;
+    padding: 8px 12px 12px;
+    border-top: 1px solid $InputStroke;
+
+    .icons-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+  }
+}
+
 ////
 .views-section {
   .video-box {
@@ -579,13 +656,61 @@
     // padding: 2rem;
   }
 
-  /* Post image */
-  .post-image {
-    .image-wrapper {
-      img {
-        max-width: 100%;
-        border-radius: 10px;
-      }
+  @media screen and (max-width: 768px) {
+    padding: 16px 0;
+  }
+
+  .media_wrapper {
+    aspect-ratio: 3 / 2;
+    position: relative;
+    border-radius: 12px;
+    overflow: hidden;
+    background: $lightGray;
+
+    .blurde_bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: blur(20px);
+      z-index: -1;
+    }
+
+    a {
+      cursor: zoom-in;
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+
+    img,
+    video {
+      z-index: 1;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      border-radius: 12px;
+    }
+
+    video {
+      background: #000; // عشان الفيديو يبقى واضح لو aspect ratio مش مظبوط
+    }
+
+    .arrow_icon {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      color: $white;
+      z-index: 9;
+      cursor: pointer;
+      width: 36px;
+      height: 36px;
+      background-color: #0000003b;
+      backdrop-filter: blur(12px);
+      border-radius: 50%;
+      @include centerFlex();
     }
   }
 

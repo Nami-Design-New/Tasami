@@ -20,7 +20,7 @@ export default function AddMeetingModal({ showModal, setShowModal }) {
     handleSubmit,
     watch,
     reset,
-    setValue,
+
     formState: { errors },
   } = useAddMeetingForm();
 

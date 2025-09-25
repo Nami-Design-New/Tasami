@@ -50,7 +50,7 @@ export default function Consultations() {
             isFetchingNextPage={isFetchingNextPage}
           >
             {allConsultaions.map((item, idx) => (
-              <div className="col-12 col-lg-6 p-2" key={idx}>
+              <div className="col-12 p-2" key={idx}>
                 <ConsultationCard item={item} />
               </div>
             ))}
@@ -58,7 +58,7 @@ export default function Consultations() {
           {(isLoading || isFetchingNextPage) && (
             <div className="row">
               {[1, 2, 3].map((i) => (
-                <div className="col-12 col-lg-6 p-2" key={i}>
+                <div className="col-12  p-2" key={i}>
                   <AudienceCardLoader />
                 </div>
               ))}

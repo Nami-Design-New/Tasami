@@ -389,6 +389,7 @@ body.en {
     display: flex;
     align-items: center;
     gap: 4px;
+
     .label {
       font-size: 16px;
     }
@@ -400,7 +401,7 @@ body.en {
 
   .images_grid_upload {
     display: flex;
-    flex-wrap: wrap;
+    flex-direction: column;
     gap: 1rem;
   }
 
@@ -408,8 +409,6 @@ body.en {
     display: flex;
     align-items: center;
     justify-content: center;
-    min-height: 120px;
-    min-width: 120px;
     border: 2px dashed #ccc;
     border-radius: 12px;
     padding: 1rem;
@@ -417,6 +416,7 @@ body.en {
     transition: border-color 0.3s ease, background-color 0.3s ease;
     text-align: center;
     flex-direction: column;
+    cursor: pointer;
 
     &:hover {
       border-color: #888;
@@ -427,9 +427,20 @@ body.en {
       background-color: #eaf4ff;
     }
 
+    &.single {
+      width: 100%;
+      min-height: 220px;
+    }
+
+    &.multiple {
+      min-height: 120px;
+      min-width: 120px;
+      max-width: 200px;
+    }
+
     .icon {
       img {
-        max-width: 40px;
+        max-width: 60px;
         margin-bottom: 0.5rem;
       }
 
@@ -439,6 +450,12 @@ body.en {
         color: #666;
       }
     }
+  }
+
+  .uploads_wrapper.multiple {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
   }
 
   .uploaded_file {
@@ -462,28 +479,60 @@ body.en {
     }
 
     .delete {
-      position: absolute;
-      top: 4px;
-      right: 4px;
       background: rgba(0, 0, 0, 0.6);
       border: none;
       color: white;
       border-radius: 50%;
-      width: 22px;
-      height: 22px;
+
       display: flex;
       align-items: center;
       justify-content: center;
       cursor: pointer;
       font-size: 12px;
       line-height: 1;
-
-      i {
-        pointer-events: none;
+      &.multiple {
+        position: absolute;
+        top: 4px;
+        right: 4px;
+        width: 22px;
+        height: 22px;
       }
-
       &:hover {
         background: rgba(0, 0, 0, 0.8);
+      }
+    }
+
+    &.single {
+      width: 100%;
+      height: auto;
+      max-height: 220px;
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .actions {
+        position: absolute;
+        bottom: 10px;
+        right: 10px;
+        display: flex;
+        gap: 6px;
+
+        button {
+          background: rgba(0, 0, 0, 0.6);
+          color: #fff;
+          border: none;
+          border-radius: 6px;
+          padding: 4px 8px;
+          font-size: 12px;
+          cursor: pointer;
+
+          &:hover {
+            background: rgba(0, 0, 0, 0.8);
+          }
+        }
       }
     }
   }

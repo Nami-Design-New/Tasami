@@ -1,24 +1,24 @@
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { useParams } from "react-router";
-import { axiosInstance } from "../../../lib/axios";
+import { axiosInstance } from "../../../../lib/axios";
 
-export default function useGetConsultaionComments() {
+export default function useGetPostComments() {
   const { id } = useParams();
   const {
-    data: consultaionComments,
-    isLoading: commentsLoading,
+    data: postComments,
+    isLoading,
     error,
     hasNextPage,
     fetchNextPage,
     isFetchingNextPage,
   } = useInfiniteQuery({
-    queryKey: ["comments", id],
+    queryKey: ["post", id],
     queryFn: async ({ pageParam = 1 }) => {
-      const res = await axiosInstance.get("consultation-comments", {
-        params: { consultation_id: id, page: pageParam },
+      const res = await axiosInstance.get("post-comments", {
+        params: { post_id: id, page: pageParam },
       });
       if (res.data.code !== 200) {
-        throw new Error("Failed to fetch consultaion comments");
+        throw new Error("Failed to fetch Post comments");
       }
       return res.data;
     },
@@ -29,8 +29,8 @@ export default function useGetConsultaionComments() {
     },
   });
   return {
-    consultaionComments,
-    commentsLoading,
+    postComments,
+    isLoading,
     error,
     hasNextPage,
     fetchNextPage,

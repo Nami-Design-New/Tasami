@@ -47,12 +47,8 @@ export default function HelpersDetails() {
           setOptimisticFollow(res.data.i_follow_him);
         }
 
-        // ✅ If the result is "unfollowed"
         if (res?.data?.i_follow_him === false) {
-          // Navigate to followings page
           navigate("/my-profile/followings");
-
-          // Invalidate followings query so list refetches
         }
         queryClient.refetchQueries({
           queryKey: ["my-following"],
@@ -72,7 +68,7 @@ export default function HelpersDetails() {
   };
 
   if (isLoading) return <Loading />;
-  const thisIsMe = user.id === assistantDetails.id;
+  const thisIsMe = user?.id === assistantDetails?.id;
 
   return (
     <section className="page helper-details-section">

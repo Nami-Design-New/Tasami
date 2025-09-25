@@ -41,7 +41,7 @@ export default function Meetings({ isMyCommuntiy = true }) {
             isFetchingNextPage={isFetchingNextPage}
           >
             {allMeetings.map((item) => (
-              <div className="col-lg-4 col-md-6 col-12 p-2" key={item.id}>
+              <div className="col-12 p-2" key={item.id}>
                 <MeetingCard item={item} />
               </div>
             ))}
@@ -49,7 +49,7 @@ export default function Meetings({ isMyCommuntiy = true }) {
           {(isLoading || isFetchingNextPage) && (
             <>
               {[1, 2, 3].map((i) => (
-                <div className="col-12 col-lg-6 p-2" key={i}>
+                <div className="col-12  p-2" key={i}>
                   <AudienceCardLoader />
                 </div>
               ))}

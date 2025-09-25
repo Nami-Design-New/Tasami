@@ -1,59 +1,58 @@
-// import React from 'react'
+import { useState } from "react";
+import { useTranslation } from "react-i18next";
+import useGetPosts from "../../hooks/website/communities/posts/useGetPosts";
+import CustomButton from "../../ui/CustomButton";
+import EmptySection from "../../ui/EmptySection";
+import AudienceCardLoader from "../../ui/loading/AudienceCardLoader";
+import InfiniteScroll from "../../ui/loading/InfiniteScroll";
+import AddPostModal from "../../ui/website/communities/posts/AddPostModal";
+import PostCard from "../../ui/website/communities/posts/PostCard";
 
-import ConsultationCard from "../../ui/website/communities/consultations/ConsultationCard";
-
-// export default function Posts() {
-//   return (
-//     <div>Posts</div>
-//   )
-// }
-
-export default function Posts() {
-  const posts = [
-    {
-      desc: "كيف يمكنني تحسين مهاراتي في إدارة الوقت لتجنب التأخير في مواعيد التسليم؟",
-      type: "qes",
-      date: "1 يوليو 2025",
-      stats: [
-        { icon: "fa-regular fa-share", value: 12 },
-        { icon: "fa-regular fa-heart", value: 45 },
-        { icon: "fa-regular fa-comment", value: 8 },
-        { icon: "fa-regular fa-eye", value: 60 },
-      ],
-    },
-    {
-      desc: "ما هي الاستراتيجيات للتعامل مع المخاطر الناتجة عن التغييرات المفاجئة؟",
-      type: "qes",
-      date: "1 يوليو 2025",
-      stats: [
-        { icon: "fa-regular fa-share", value: 12 },
-        { icon: "fa-regular fa-heart", value: 45 },
-        { icon: "fa-regular fa-comment", value: 8 },
-        { icon: "fa-regular fa-eye", value: 60 },
-      ],
-    },
-    {
-      desc: "ما هي الاستراتيجيات للتعامل مع المخاطر الناتجة عن التغييرات المفاجئة؟",
-      type: "qes",
-      date: "1 يوليو 2025",
-      stats: [
-        { icon: "fa-regular fa-share", value: 12 },
-        { icon: "fa-regular fa-heart", value: 45 },
-        { icon: "fa-regular fa-comment", value: 8 },
-        { icon: "fa-regular fa-eye", value: 60 },
-      ],
-    },
-  ];
-
+export default function Posts({ isMyCommuntiy = true }) {
+  const { t } = useTranslation();
+  const [showModal, setShowModal] = useState(false);
+  const { posts, isLoading, hasNextPage, fetchNextPage, isFetchingNextPage } =
+    useGetPosts();
+  const allPosts = posts?.pages?.flatMap((page) => page?.data) ?? [];
   return (
     <div className="consultations-section">
       <div className="row">
-        {posts.map((item, idx) => (
-          <div className="col-lg-4 mt-3" key={idx}>
-            <ConsultationCard item={item} />
+        <div className="col-12 p-2">
+          <div className="d-flex align-items-center justify-content-end">
+            {isMyCommuntiy && (
+              <CustomButton onClick={() => setShowModal(true)}>
+                {t("community.addPost")}
+              </CustomButton>
+            )}
           </div>
-        ))}
+        </div>
+        {!isLoading && allPosts.length === 0 && (
+          <EmptySection height="500px" message={t("communty.noPosts")} />
+        )}
+        <InfiniteScroll
+          onLoadMore={fetchNextPage}
+          hasNextPage={hasNextPage}
+          isFetchingNextPage={isFetchingNextPage}
+        >
+          {allPosts.map((post) => (
+            <div className="col-12 p-2" key={post.id}>
+              <PostCard post={post} />
+            </div>
+          ))}
+        </InfiniteScroll>
+        {(isLoading || isFetchingNextPage) && (
+          <>
+            {[1, 2, 3].map((i) => (
+              <div className="col-12 p-2" key={i}>
+                <AudienceCardLoader />
+              </div>
+            ))}
+          </>
+        )}
       </div>
+      {isMyCommuntiy && (
+        <AddPostModal showModal={showModal} setShowModal={setShowModal} />
+      )}
     </div>
   );
 }

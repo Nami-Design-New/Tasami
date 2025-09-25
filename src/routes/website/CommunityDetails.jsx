@@ -46,13 +46,13 @@ export default function CommunityDetails() {
         </div>
         <div className="row">
           <h4 className="chanels">{t("community.channels")}</h4>
-          <div className="col-12 p-2">
+          <div className="col-4 p-2">
             <CommunityTabs
               isMyCommunity={false}
               communityId={communityDetails?.id}
             />
           </div>
-          <div className="col-12 p-0">
+          <div className="col-8 p-0">
             <Outlet context={{ communityDetails }} />
           </div>
         </div>
