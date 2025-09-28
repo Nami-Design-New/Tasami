@@ -34,7 +34,7 @@ export default function OfferDetails() {
       <div className="container">
         <div className="header">
           <SectionHeader title="تفاصيل العرض" />
-          {user.id === offerDetails.user.id && (
+          {user?.id === offerDetails.user.id && (
             <OptionsMenu
               options={[
                 { label: "تعديل", onClick: () => console.log("edit") },
@@ -50,7 +50,7 @@ export default function OfferDetails() {
               ]}
             />
           )}
-          {user.id !== offerDetails.user.id && (
+          {user?.id !== offerDetails.user.id && (
             <OptionsMenu
               options={[
                 { label: "استفسار", onClick: () => console.log("Inquiry") },

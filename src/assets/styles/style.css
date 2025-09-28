@@ -448,6 +448,23 @@ li[data-sonner-toast=""] {
   background-color: #737475 !important;
 }
 
+.range-slider {
+  height: 4px;
+  margin-top: 12px;
+  background-color: rgba(33, 75, 146, 0.25);
+}
+.range-slider .range-slider__thumb {
+  height: 14px;
+  width: 14px;
+  border: 1px solid #fff;
+  box-shadow: 0 0 10.1px -1px #214b92;
+}
+.range-slider .range-slider__range {
+  height: 4px;
+  background-color: #214b92;
+  color: #214b92;
+}
+
 .link-styles {
   text-decoration: underline;
   color: #214b92;
@@ -3521,7 +3538,7 @@ button.back:hover {
 .identity-option.active {
   border-color: #5fcafa;
   background-color: #5fcafa;
-  color: #fff;
+  color: #fff !important;
 }
 .identity-option.active img {
   filter: brightness(0) invert(1);
@@ -10884,9 +10901,7 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
 .filter-side-bar {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   border-radius: 12px;
-  padding: 1rem;
-  position: sticky;
-  top: 100px;
+  padding: 0.75rem;
 }
 
 .helper-details-section .goal-details-card .about h6 {
@@ -11211,7 +11226,6 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
   font-size: 14px;
   color: #0d0d0d;
   font-weight: 700;
-
   display: flex;
   align-items: center;
   justify-content: space-between;

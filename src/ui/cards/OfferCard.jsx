@@ -14,7 +14,7 @@ const OfferCard = ({ offer }) => {
     >
       <div className="image-wrapper">
         <img
-          src={offer.help_service.image}
+          src={offer?.help_service?.image}
           alt={offer.user.name}
           className="avatar"
         />

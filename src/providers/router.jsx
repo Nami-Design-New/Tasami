@@ -30,7 +30,6 @@ import MyWorks from "../routes/website/MyWorks";
 import NewGoal from "../routes/website/NewGoal";
 import NewHelpOffer from "../routes/website/NewHelpOffer";
 import OfferDetails from "../routes/website/OfferDetails";
-import PersonalOffers from "../routes/website/Offers";
 import PersonalHelper from "../routes/website/PersonalHelper";
 import Posts from "../routes/website/Posts";
 import Privacy from "../routes/website/privacy";
@@ -110,6 +109,7 @@ import MyCommunityConsultations from "../routes/website/my-platform/MyCommunityC
 import MyCommunities from "../routes/website/profile/MyCommunities";
 import ErrorFallback from "../ui/ErrorFallback";
 import ProtectedRoute from "./ProtectedRoute";
+import PersonalOffers from "../routes/website/PersonalOffers";
 
 export const router = createBrowserRouter([
   /* WEBSITE AUTH */

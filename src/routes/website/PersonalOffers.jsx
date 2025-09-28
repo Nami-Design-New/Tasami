@@ -1,24 +1,26 @@
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router";
-import useGetPersonalAssistants from "../../hooks/website/personal-assistants/useGetPersonalAssistants";
+import OfferCard from "../../ui/cards/OfferCard";
 import EmptySection from "../../ui/EmptySection";
-import HelperCard from "../../ui/cards/HelperCard";
-import AudienceCardLoader from "../../ui/loading/AudienceCardLoader";
 import InfiniteScroll from "../../ui/loading/InfiniteScroll";
-import AssistantsSidebar from "../../ui/website/helpers/AssistantsSidebar";
+import OfferCardSkeleton from "../../ui/loading/OfferCardSkeleton";
+import PersonalOffersSidebarFilter from "../../ui/website/home/PersonalOffersSidebarFilter";
+import useGetPersonalOffers from "../../hooks/website/personal-assistances/useGetPersonalOffers";
 
-export default function PersonalHelper() {
+export default function PersonalOffers() {
   const { t } = useTranslation();
   const {
-    assistantsData,
+    personalOffers,
     isLoading,
     hasNextPage,
     fetchNextPage,
     isFetchingNextPage,
-  } = useGetPersonalAssistants();
+  } = useGetPersonalOffers();
 
-  const allAssistants =
-    assistantsData?.pages?.flatMap((page) => page?.data) ?? [];
+  const allPersonalOffers =
+    personalOffers?.pages?.flatMap((page) => page?.data) ?? [];
+  console.log(personalOffers);
+  console.log(allPersonalOffers);
 
   return (
     <section className="personal-helpers page">
@@ -32,25 +34,27 @@ export default function PersonalHelper() {
                     <i className="fa-solid fa-angle-right"></i>
                   </Link>
                 }
-                <h1> {t("website.assistants.personalAssistants")} </h1>
+                <h1> عروض المساعدة </h1>
               </div>
             </div>
           </div>
-          <div className="col-12 col-lg-3 p-2">
-            <AssistantsSidebar />
+
+          <div className="col-12 col-lg-3 p-0">
+            <PersonalOffersSidebarFilter />
           </div>
-          <div className="col-12 col-lg-9 p-2">
+          <div className="col-12 col-lg-9 p-0 ">
             <div className="row">
+              {" "}
               <div className="col-12 p-2">
                 <div className="result-count">
-                  <strong>{allAssistants.length}</strong>{" "}
+                  <strong>{allPersonalOffers?.length}</strong>{" "}
                   {t("website.assistants.personalAssistant")}
                 </div>
               </div>
-              {!isLoading && allAssistants.length === 0 && (
+              {!isLoading && allPersonalOffers?.length === 0 && (
                 <EmptySection
                   height="300px"
-                  message={t("website.assistants.noPersonalAssistants")}
+                  message={t("website.offers.noPersonalOffers")}
                 />
               )}
               <InfiniteScroll
@@ -58,21 +62,21 @@ export default function PersonalHelper() {
                 hasNextPage={hasNextPage}
                 isFetchingNextPage={isFetchingNextPage}
               >
-                {allAssistants.map((helper) => (
-                  <div className="col-12 col-md-6 col-xl-4 p-2" key={helper.id}>
-                    <HelperCard helper={helper} />
+                {allPersonalOffers.map((offer) => (
+                  <div className="col-12 col-md-6 col-lg-4 p-2" key={offer.id}>
+                    <OfferCard offer={offer} />
                   </div>
                 ))}{" "}
                 {(isLoading || isFetchingNextPage) && (
                   <>
                     {[1, 2, 3].map((i) => (
                       <div className="col-12 col-md-6 col-xl-4 p-2" key={i}>
-                        <AudienceCardLoader />
+                        <OfferCardSkeleton />
                       </div>
                     ))}
                   </>
                 )}
-              </InfiniteScroll>{" "}
+              </InfiniteScroll>
             </div>
           </div>
         </div>
