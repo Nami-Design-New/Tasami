@@ -12,7 +12,7 @@ export default function useGetPostComments() {
     fetchNextPage,
     isFetchingNextPage,
   } = useInfiniteQuery({
-    queryKey: ["post", id],
+    queryKey: ["post-comments", id],
     queryFn: async ({ pageParam = 1 }) => {
       const res = await axiosInstance.get("post-comments", {
         params: { post_id: id, page: pageParam },

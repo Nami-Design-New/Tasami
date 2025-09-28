@@ -9,7 +9,7 @@ export default function CommunityPostDetails() {
   const handleCopy = () => {};
   if (isLoading) return <Loading />;
   return (
-    <section className="community-post-details">
+    <section className="community-post-details page">
       <div className="container" style={{ maxWidth: "800px" }}>
         {/* Post image */}
         <PostMedia post={postDetails} />
@@ -63,16 +63,8 @@ export default function CommunityPostDetails() {
           <div className="col-12 p-2">
             {" "}
             <PostsComments />
-            {/* <div className="comments-section">
-              <h3 className="comments-title">التعليقات</h3>
-              {Array.from({ length: 5 }).map((_, index) => (
-                <div key={index}>Comment {index + 1}</div>
-              ))}
-            </div> */}
           </div>
         </div>
-
-        {/* Comments */}
       </div>
     </section>
   );

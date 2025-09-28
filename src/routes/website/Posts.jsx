@@ -9,6 +9,8 @@ import AddPostModal from "../../ui/website/communities/posts/AddPostModal";
 import PostCard from "../../ui/website/communities/posts/PostCard";
 
 export default function Posts({ isMyCommuntiy = true }) {
+  console.log(isMyCommuntiy);
+
   const { t } = useTranslation();
   const [showModal, setShowModal] = useState(false);
   const { posts, isLoading, hasNextPage, fetchNextPage, isFetchingNextPage } =
@@ -17,15 +19,17 @@ export default function Posts({ isMyCommuntiy = true }) {
   return (
     <div className="consultations-section">
       <div className="row">
-        <div className="col-12 p-2">
-          <div className="d-flex align-items-center justify-content-end">
-            {isMyCommuntiy && (
+        {" "}
+        {isMyCommuntiy && (
+          <div className="col-12 p-2">
+            {" "}
+            <div className="d-flex align-items-center justify-content-end">
               <CustomButton onClick={() => setShowModal(true)}>
                 {t("community.addPost")}
               </CustomButton>
-            )}
+            </div>
           </div>
-        </div>
+        )}
         {!isLoading && allPosts.length === 0 && (
           <EmptySection height="500px" message={t("communty.noPosts")} />
         )}

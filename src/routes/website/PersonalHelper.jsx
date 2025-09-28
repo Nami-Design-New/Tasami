@@ -63,17 +63,17 @@ export default function PersonalHelper() {
                   <div className="col-12 col-md-6 col-xl-4 p-2" key={helper.id}>
                     <HelperCard helper={helper} />
                   </div>
-                ))}
+                ))}{" "}
+                {(isLoading || isFetchingNextPage) && (
+                  <>
+                    {[1, 2, 3].map((i) => (
+                      <div className="col-12 col-md-6 col-xl-4 p-2" key={i}>
+                        <AudienceCardLoader />
+                      </div>
+                    ))}
+                  </>
+                )}
               </InfiniteScroll>{" "}
-              {(isLoading || isFetchingNextPage) && (
-                <div className="row">
-                  {[1, 2, 3].map((i) => (
-                    <div className="col-12 col-md-6 col-xl-4 p-2" key={i}>
-                      <AudienceCardLoader />
-                    </div>
-                  ))}
-                </div>
-              )}
             </div>
           </div>
         </div>

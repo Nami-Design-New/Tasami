@@ -110,7 +110,6 @@ import MyCommunityConsultations from "../routes/website/my-platform/MyCommunityC
 import MyCommunities from "../routes/website/profile/MyCommunities";
 import ErrorFallback from "../ui/ErrorFallback";
 import ProtectedRoute from "./ProtectedRoute";
-import PostDetails from "../ui/website/communities/posts/PostDetails";
 
 export const router = createBrowserRouter([
   /* WEBSITE AUTH */
@@ -334,7 +333,7 @@ export const router = createBrowserRouter([
           },
           {
             path: "posts",
-            element: <Posts />,
+            element: <Posts isMyCommuntiy={false} />,
           },
         ],
       },

@@ -1,19 +1,14 @@
+import { yupResolver } from "@hookform/resolvers/yup";
 import { Modal } from "react-bootstrap";
+import { useForm } from "react-hook-form";
+import { useTranslation } from "react-i18next";
+import * as yup from "yup";
 import CustomButton from "../CustomButton";
 import TextField from "../forms/TextField";
-import { useTranslation } from "react-i18next";
-import { useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
-import useAddComment from "../../hooks/website/communities/useAddComment";
-import { toast } from "sonner";
-import { useQueryClient } from "@tanstack/react-query";
 
-const AddCommentModal = ({ showModal, setShowModal }) => {
+const AddCommentModal = ({ showModal, setShowModal, onSubmit, isLoading }) => {
   const { t } = useTranslation();
-  const { addComment, isPending } = useAddComment();
-  const queryClient = useQueryClient();
-  // ✅ Validation schema
+
   const schema = yup.object().shape({
     commentText: yup
       .string()
@@ -35,25 +30,9 @@ const AddCommentModal = ({ showModal, setShowModal }) => {
     resolver: yupResolver(schema),
   });
 
-  // ✅ Submit handler
-  const onSubmit = (data) => {
-    addComment(data.commentText, {
-      onSuccess: (res) => {
-        toast.success(res.message);
-        queryClient.invalidateQueries({ queryKey: ["comments"] });
-        reset();
-        setShowModal(false);
-      },
-      onError: (error) => {
-        console.error("Error adding comment:", error);
-        toast.error(
-          error?.response?.data?.message ||
-            error?.message ||
-            t("errors.somethingWentWrong")
-        );
-        reset();
-      },
-    });
+  const handleFormSubmit = async (data) => {
+    await onSubmit?.(data.commentText);
+    reset();
   };
 
   return (
@@ -71,7 +50,7 @@ const AddCommentModal = ({ showModal, setShowModal }) => {
       </Modal.Header>
 
       <Modal.Body>
-        <form className="form_ui" onSubmit={handleSubmit(onSubmit)}>
+        <form className="form_ui" onSubmit={handleSubmit(handleFormSubmit)}>
           <div className="row">
             <div className="col-12 p-2">
               <TextField
@@ -84,7 +63,7 @@ const AddCommentModal = ({ showModal, setShowModal }) => {
             </div>
             <div className="col-12 p-2">
               <CustomButton
-                loading={isPending}
+                loading={isLoading}
                 fullWidth
                 size="large"
                 type="submit"

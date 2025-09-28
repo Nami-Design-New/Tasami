@@ -10,7 +10,7 @@ export default function useAddComment() {
         params: { consultation_id: id, comment },
       });
       if (res.data.code !== 200) {
-        throw new Error(res.data.message || "Failed to reply to consultaion");
+        throw new Error(res.data.message || "Failed to comment on consultaion");
       }
       return res.data;
     },

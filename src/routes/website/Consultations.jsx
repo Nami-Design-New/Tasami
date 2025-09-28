@@ -16,7 +16,6 @@ export default function Consultations() {
   const {
     consultaions,
     isLoading,
-    error,
     hasNextPage,
     fetchNextPage,
     isFetchingNextPage,
