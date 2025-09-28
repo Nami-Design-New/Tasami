@@ -65,7 +65,7 @@ export default function PostsComments() {
     <div className="comments">
       <div className="comments-header">
         <h2>{t("community.comments")}</h2>
-        <CustomButton size="large" onClick={() => setShowModal(true)}>
+        <CustomButton size="medium" onClick={() => setShowModal(true)}>
           {t("community.addComment")}
         </CustomButton>
       </div>

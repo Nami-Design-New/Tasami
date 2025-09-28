@@ -1,17 +1,32 @@
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import useGetPostDetails from "../../hooks/website/communities/posts/useGetPostDetails";
 import Loading from "../../ui/loading/Loading";
 import PostMedia from "../../ui/website/communities/posts/MyProductSlider";
 import PostsComments from "../../ui/website/communities/posts/PostsComments";
+import RoundedBackButton from "../../ui/website-auth/shared/RoundedBackButton";
+import { useSelector } from "react-redux";
 
 export default function CommunityPostDetails() {
   const { postDetails, isLoading } = useGetPostDetails();
+  const navigate = useNavigate();
+  const { lang } = useSelector((state) => state.language);
+  const handleBack = () => {
+    navigate(-1);
+  };
   const handleCopy = () => {};
   if (isLoading) return <Loading />;
   return (
     <section className="community-post-details page">
       <div className="container" style={{ maxWidth: "800px" }}>
-        {/* Post image */}
+        <div className="my-2">
+          <RoundedBackButton onClick={handleBack}>
+            {lang === "ar" ? (
+              <i className="fa-solid fa-angle-right"></i>
+            ) : (
+              <i className="fa-solid fa-angle-left"></i>
+            )}
+          </RoundedBackButton>
+        </div>
         <PostMedia post={postDetails} />
         <div className="post-image row">
           <div className="col-12 p-2">

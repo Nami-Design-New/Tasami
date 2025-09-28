@@ -19,15 +19,16 @@ export default function Meetings({ isMyCommuntiy = true }) {
   return (
     <section className="meeting-section">
       <div className="row">
-        <div className="col-12 p-2">
-          <div className="d-flex align-items-center justify-content-end">
-            {isMyCommuntiy && (
+        {" "}
+        {isMyCommuntiy && (
+          <div className="col-12 p-2">
+            <div className="d-flex align-items-center justify-content-end">
               <CustomButton onClick={() => setShowModal(true)}>
                 {t("community.addMeeting")}
               </CustomButton>
-            )}
+            </div>
           </div>
-        </div>
+        )}
       </div>
       <div className="mettings-list">
         <div className="row">

@@ -1,4 +1,4 @@
-import { Outlet } from "react-router";
+import { Outlet, useNavigate } from "react-router";
 import useGetMyCommunity from "../../../hooks/website/communities/useGetMyCommunity";
 import CommunityBio from "../../../ui/dash-board/communities-details/CommunityBio";
 import CommunityStats from "../../../ui/dash-board/communities-details/CommunityStats";
@@ -6,16 +6,31 @@ import Loading from "../../../ui/loading/Loading";
 import CommunityTabs from "../../../ui/website/CommunityTabs";
 import CommunityActions from "../../../ui/website/platform/my-community/CommunityActions";
 import { useTranslation } from "react-i18next";
+import RoundedBackButton from "../../../ui/website-auth/shared/RoundedBackButton";
+import { useSelector } from "react-redux";
 
 export default function MyCommunity() {
   const { myCommunity, isLoading } = useGetMyCommunity();
   const { t } = useTranslation();
+  const navigate = useNavigate();
+  const { lang } = useSelector((state) => state.language);
+
   if (isLoading) {
     return <Loading />;
   }
 
   return (
-    <div className="container">
+    <div className="container page">
+      {" "}
+      <div className="my-2">
+        <RoundedBackButton onClick={() => navigate(-1)}>
+          {lang === "ar" ? (
+            <i className="fa-solid fa-angle-right"></i>
+          ) : (
+            <i className="fa-solid fa-angle-left"></i>
+          )}
+        </RoundedBackButton>
+      </div>
       <section className="communities-details">
         <div className="communities-image-wrapper">
           <img
