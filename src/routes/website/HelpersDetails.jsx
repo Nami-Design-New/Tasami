@@ -8,7 +8,9 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import useFollow from "../../hooks/website/personal-assistants/useFollow";
 import useGetAssistantDetails from "../../hooks/website/personal-assistants/useGetAssistantDetails";
 import OfferCard from "../../ui/cards/OfferCard";
+
 import CustomLink from "../../ui/CustomLink";
+
 import Loading from "../../ui/loading/Loading";
 import RoundedBackButton from "../../ui/website-auth/shared/RoundedBackButton";
 import PersonalHelperDoc from "../../ui/website/helpers/PersonalHelperDoc";
@@ -24,6 +26,7 @@ export default function HelpersDetails() {
   const [optimisticFollow, setOptimisticFollow] = useState(
     assistantDetails?.i_follow_him
   );
+
   useEffect(() => {
     if (assistantDetails) {
       setOptimisticFollow(assistantDetails.i_follow_him);
@@ -46,6 +49,7 @@ export default function HelpersDetails() {
         if (res?.data?.i_follow_him !== undefined) {
           setOptimisticFollow(res.data.i_follow_him);
         }
+
 
         if (res?.data?.i_follow_him === false) {
           navigate("/my-profile/followings");

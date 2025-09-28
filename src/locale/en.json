@@ -250,12 +250,15 @@
     "maxMonths": "Months must not exceed {{max}}",
     "maxDays": "Days must not exceed {{max}}",
     "atLeastOne": "At least one of the fields (month or day) must be filled",
+
     "maxTotal": "The total number of days must not exceed {{max}}",
     "titleRequired": "Title is required",
     "titleMin": "Title must be at least 5 characters",
     "descriptionRequired": "Description is required",
     "descriptionMin": "Description must be at least 15 characters",
     "descriptionMax": "Description cannot exceed 500 characters"
+
+
   },
   "pageNotFound": {
     "alt": "404 Not Found",
