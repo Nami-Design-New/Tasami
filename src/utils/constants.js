@@ -26,6 +26,11 @@ export const QUALIFICATION_VALUES = {
   OTHER: "other",
 };
 
+export const CONSULTATION_TYPE = [
+  { id: "1", title: "public", value: 0 },
+  { id: "2", title: "private", value: 1 },
+];
+
 export const SUB_TABS = [
   { id: 1, label: "الحسابات", to: "user-accounts" },
   { id: 2, label: "الاهداف الشخصيه", to: "personal-goals" },

@@ -7,10 +7,26 @@
   color: $main;
 }
 
+.label {
+  color: #0d0d0d;
+  font-weight: 600;
+  font-size: 16px;
+  margin-bottom: 4px;
+}
+
 .ellipsis {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+.text-2lines {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.4em;
+  max-height: calc(1.4em * 2);
 }
 
 .form__wrapper--custom {

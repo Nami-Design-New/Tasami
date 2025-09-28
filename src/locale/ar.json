@@ -20,6 +20,10 @@
   "deleteAll": "حذف الكل",
   "confirm": "تأكيد",
   "search": "بحث",
+  "public": "عامة",
+  "private": "خاصة",
+  "loadMore": "تحميل المزيد",
+  "membersOnly": "للأعضاء فقط",
 
   "pageHeaders": {
     "Notifications": " التنبيهات ",
@@ -253,7 +257,12 @@
     "maxMonths": "يجب ألا يتجاوز عدد الأشهر {{max}} شهرًا",
     "maxDays": "يجب ألا يتجاوز عدد الأيام {{max}} يومًا",
     "atLeastOne": "يجب إدخال قيمة في أحد الحقلين (شهر أو يوم) على الأقل",
-    "maxTotal": "يجب ألا يتجاوز إجمالي عدد الأيام {{max}}"
+    "maxTotal": "يجب ألا يتجاوز إجمالي عدد الأيام {{max}}",
+    "titleRequired": "العنوان مطلوب",
+    "titleMin": "يجب أن يكون العنوان 5 أحرف على الأقل",
+    "descriptionRequired": "الوصف مطلوب",
+    "descriptionMin": "يجب أن يكون الوصف 15 حرفًا على الأقل",
+    "descriptionMax": "لا يمكن أن يتجاوز الوصف 500 حرف"
   },
   "pageNotFound": {
     "alt": "لم يتم العثور على الصفحة",
@@ -272,6 +281,52 @@
     "appMessage": "حدث خطأ غير متوقع في التطبيق. يرجى المحاولة مرة أخرى لاحقاً.",
     "unexpectedTitle": "خطأ غير متوقع",
     "unexpectedMessage": "حدث خطأ غير متوقع. يرجى المحاولة مرة أخرى لاحقاً."
+  },
+  "community": {
+    "channels": "القنوات",
+    "consultant": "الاستشارات",
+    "meetings": "اللقاءات",
+    "posts": "المنشورات",
+    "addConsultation": "إضافة استشارة",
+    "addConsultaionTitle": "عنوان الاستشارة",
+    "addConsultaionDec": "وصف الاستشارة",
+    "descPlaceholder": "أدخل الوصف",
+    "consultationType": "نوع الاستشارة",
+    "privateConsultations": "الاستشارات الخاصة",
+    "privateHint": "تظهر الاستشارات الخاصة لك أنت فقط",
+    "publicConsultations": "الاستشارات العامة",
+    "noConsultaion": "لا توجد استشارات متاحة في هذه المجتمع.",
+    "title": "قم بالرد علي الاستشارة",
+    "fieldLabel": "اضف رد",
+    "fieldLabel1": "الرد",
+    "fieldPlaceholder": "اكتب هنا",
+    "comments": "التعليقات",
+    "addComment": "اضف تعليق",
+    "noComments": "لا توجد تعليقات حتى الآن",
+    "yourAnswer": "رأيك",
+    "assistantAnswer": "رأي المساعد",
+    "answer": "قم بالرد",
+    "addCommentTitle": "إضافة تعليق",
+    "commentLabel": "نص التعليق",
+    "commentPlaceholder": "اكتب تعليقك هنا...",
+    "sendComment": "إرسال التعليق",
+    "addMeeting": "إضافة لقاء",
+    "field": "المجال",
+    "specialization": "التخصص",
+    "meetingTitle": "العنوان",
+    "meetingTitlePlaceholder": "عنوان اللقاء",
+    "description": "الوصف",
+    "descriptionPlaceholder": "اكتب هنا",
+    "date": "التاريخ",
+    "datePlaceholder": "اختر التاريخ",
+    "time": "الوقت",
+    "timePlaceholder": "اختر الوقت",
+    "duration": "المدة",
+    "durationPlaceholder": "ادخل المدة",
+    "link": "الرابط",
+    "linkPlaceholder": "رابط اللقاء",
+    "visibility": "الظهور",
+    "add": "إضافة"
   },
   "website": {
     "home": {
@@ -459,7 +514,10 @@
       "type": "نوع التصريح",
       "issuer": "جهة الإصدار",
       "number": "الاعتماد / رقم الوثيقة",
-      "expiry_date": "تاريخ الصلاحية"
+      "expiry_date": "تاريخ الصلاحية",
+      "myCommunity": "الذهاب الي مجتمعي",
+      "join": "انضم",
+      "unjoin": "إلغاء الانضمام"
     },
     "payment": "الدفع"
   }

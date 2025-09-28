@@ -15,7 +15,6 @@ export default function MyCommunities() {
     fetchNextPage,
     isFetchingNextPage,
   } = useGetMyCommunities();
-  console.log(myCommunities);
 
   const allCommunities =
     myCommunities?.pages?.flatMap((page) => page?.data) ?? [];

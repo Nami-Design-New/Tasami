@@ -9,7 +9,6 @@ import About from "../routes/website/About";
 import Consultations from "../routes/website/Consultations";
 import Contact from "../routes/website/contact";
 import EditProfile from "../routes/website/EditProfile";
-import Encounters from "../routes/website/Encounters";
 import FAQsSection from "../routes/website/Faqs";
 import GoalDetails from "../routes/website/GoalDetails";
 import HelpersDetails from "../routes/website/HelpersDetails";
@@ -32,7 +31,6 @@ import NewGoal from "../routes/website/NewGoal";
 import NewHelpOffer from "../routes/website/NewHelpOffer";
 import OfferDetails from "../routes/website/OfferDetails";
 import PersonalOffers from "../routes/website/Offers";
-import PersonalCommunity from "../routes/website/PersonalCommunity";
 import PersonalHelper from "../routes/website/PersonalHelper";
 import Posts from "../routes/website/Posts";
 import Privacy from "../routes/website/privacy";
@@ -87,7 +85,6 @@ import Register from "../routes/website-auth/Register";
 import ResetPassword from "../routes/website-auth/ResetPassword";
 import PersonalGoal from "../routes/website/PersonalGoals";
 import Terms from "../routes/website/terms";
-import Views from "../routes/website/Views";
 
 /* ---------------- DASHBOARD ROUTES ---------------- */
 
@@ -104,12 +101,15 @@ import DashBoardResetPassword from "../routes/dashboard-auth/DashBoardResetPassw
 /* ---------------- ERROR / EXTRA ---------------- */
 
 import Forbidden from "../routes/Forbidden";
+import CommunityDetails from "../routes/website/CommunityDetails";
 import Followings from "../routes/website/Followings";
+import Meetings from "../routes/website/Meetings";
+import ConsultaionDetails from "../routes/website/my-platform/ConsultaionDetails";
+import GroupDetails from "../routes/website/my-platform/GroupDetails";
+import MyCommunityConsultations from "../routes/website/my-platform/MyCommunityConsultations";
+import MyCommunities from "../routes/website/profile/MyCommunities";
 import ErrorFallback from "../ui/ErrorFallback";
 import ProtectedRoute from "./ProtectedRoute";
-import MyCommunities from "../routes/website/profile/MyCommunities";
-import CommunityDetails from "../ui/website/profile/my-communities/CommunityDetails";
-import GroupDetails from "../routes/website/my-platform/GroupDetails";
 
 export const router = createBrowserRouter([
   /* WEBSITE AUTH */
@@ -300,40 +300,50 @@ export const router = createBrowserRouter([
             <MyCommunity />
           </ProtectedRoute>
         ),
-      },
-      {
-        path: "community/:id",
-        element: (
-          <ProtectedRoute>
-            <CommunityDetails />
-          </ProtectedRoute>
-        ),
-      },
-      {
-        path: "my-group/:id",
-        element: <GroupDetails />,
-      },
-      {
-        path: "personal-community/:id",
-        element: <PersonalCommunity />,
         children: [
           {
-            path: "consultations",
-            element: <Consultations />,
+            index: true,
+            element: <MyCommunityConsultations />,
           },
           {
-            path: "encounters",
-            element: <Encounters />,
+            path: "meetings",
+            element: <Meetings />,
           },
           {
             path: "posts",
             element: <Posts />,
           },
+        ],
+      },
+      {
+        path: "consultaion-details/:id",
+        element: <ConsultaionDetails />,
+      },
+      {
+        path: "community/:id",
+        element: <CommunityDetails />,
+        children: [
           {
-            path: "views",
-            element: <Views />,
+            index: true,
+            element: <Consultations />,
+          },
+          {
+            path: "meetings",
+            element: <Meetings isMyCommuntiy={false} />,
+          },
+          {
+            path: "posts",
+            element: <Posts isMyCommuntiy={false} />,
           },
         ],
+      },
+      {
+        path: "posts/:id",
+        element: <CommunityPostDetails />,
+      },
+      {
+        path: "my-group/:id",
+        element: <GroupDetails />,
       },
     ],
   },
