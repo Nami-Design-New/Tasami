@@ -5,6 +5,7 @@ import PostMedia from "../../ui/website/communities/posts/MyProductSlider";
 import PostsComments from "../../ui/website/communities/posts/PostsComments";
 import RoundedBackButton from "../../ui/website-auth/shared/RoundedBackButton";
 import { useSelector } from "react-redux";
+import PostsActions from "../../ui/website/communities/posts/PostsActions";
 
 export default function CommunityPostDetails() {
   const { postDetails, isLoading } = useGetPostDetails();
@@ -55,25 +56,7 @@ export default function CommunityPostDetails() {
             </div>
           </div>
           <div className="col-12 p-2">
-            {/* Post stats */}
-            <div className="post-stats">
-              <div className="stat-item">
-                <img src="/icons/eye.svg" alt="views" />
-                <span>{postDetails.views_count}</span>
-              </div>
-              <div className="stat-item">
-                <img src="/icons/heart-fill.svg" alt="likes" />
-                <span>{postDetails.likes_count}</span>
-              </div>
-              <div className="stat-item">
-                <img src="/icons/share.svg" alt="shares" />
-                <span>{postDetails.shares_count}</span>
-              </div>{" "}
-              <div className="stat-item">
-                <img src="/icons/comments.svg" alt="comments" />
-                <span>{postDetails.comments_count}</span>
-              </div>
-            </div>
+            <PostsActions post={postDetails} />
           </div>
           <div className="col-12 p-2">
             {" "}
