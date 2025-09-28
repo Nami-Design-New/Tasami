@@ -26,7 +26,6 @@ const SelectField = React.forwardRef(
           {...props}
           disabled={loading}
         >
-          {/* Loading state */}
           {loading ? (
             <option value="">{props.loadingText || t("loading")}</option>
           ) : (

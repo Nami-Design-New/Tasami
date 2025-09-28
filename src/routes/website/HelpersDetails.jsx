@@ -8,7 +8,9 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import useFollow from "../../hooks/website/personal-assistants/useFollow";
 import useGetAssistantDetails from "../../hooks/website/personal-assistants/useGetAssistantDetails";
 import OfferCard from "../../ui/cards/OfferCard";
-import CustomButton from "../../ui/CustomButton";
+
+import CustomLink from "../../ui/CustomLink";
+
 import Loading from "../../ui/loading/Loading";
 import RoundedBackButton from "../../ui/website-auth/shared/RoundedBackButton";
 import PersonalHelperDoc from "../../ui/website/helpers/PersonalHelperDoc";
@@ -24,7 +26,7 @@ export default function HelpersDetails() {
   const [optimisticFollow, setOptimisticFollow] = useState(
     assistantDetails?.i_follow_him
   );
-  console.log(optimisticFollow);
+
   useEffect(() => {
     if (assistantDetails) {
       setOptimisticFollow(assistantDetails.i_follow_him);
@@ -48,12 +50,9 @@ export default function HelpersDetails() {
           setOptimisticFollow(res.data.i_follow_him);
         }
 
-        // ✅ If the result is "unfollowed"
-        if (res?.data?.i_follow_him === false) {
-          // Navigate to followings page
-          navigate("/my-profile/followings");
 
-          // Invalidate followings query so list refetches
+        if (res?.data?.i_follow_him === false) {
+          navigate("/my-profile/followings");
         }
         queryClient.refetchQueries({
           queryKey: ["my-following"],
@@ -73,7 +72,7 @@ export default function HelpersDetails() {
   };
 
   if (isLoading) return <Loading />;
-  const thisIsMe = user.id === assistantDetails.id;
+  const thisIsMe = user?.id === assistantDetails?.id;
 
   return (
     <section className="page helper-details-section">
@@ -138,12 +137,28 @@ export default function HelpersDetails() {
                 <h6>{t("website.assistants.about")}</h6>
                 <p>{assistantDetails.about}</p>
               </div>
-
-              <CustomButton size="large" fullWidth>
-                {`${t("website.assistants.community")}  ${
-                  assistantDetails.name
-                }`}
-              </CustomButton>
+              {assistantDetails.community_id !== null && !thisIsMe && (
+                <CustomLink
+                  to={`/community/${assistantDetails.community_id}`}
+                  size="large"
+                  fullWidth
+                  className="mt-3"
+                >
+                  {`${t("website.assistants.community")} ${
+                    assistantDetails.name
+                  }`}
+                </CustomLink>
+              )}
+              {thisIsMe && (
+                <CustomLink
+                  to="/my-community"
+                  size="large"
+                  fullWidth
+                  className="mt-3"
+                >
+                  {t("website.assistants.myCommunity")}
+                </CustomLink>
+              )}
             </div>
           </div>
 

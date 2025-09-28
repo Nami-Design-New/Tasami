@@ -1,36 +1,76 @@
+import { yupResolver } from "@hookform/resolvers/yup";
 import { Modal } from "react-bootstrap";
+import { useForm } from "react-hook-form";
+import { useTranslation } from "react-i18next";
+import * as yup from "yup";
+import CustomButton from "../CustomButton";
 import TextField from "../forms/TextField";
-import SubmitButton from "../forms/SubmitButton";
 
-const AddCommentModal = ({ showModal, setShowModal }) => {
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    alert("تم إضافة التعليق!");
-    setShowModal(false);
+const AddCommentModal = ({ showModal, setShowModal, onSubmit, isLoading }) => {
+  const { t } = useTranslation();
+
+  const schema = yup.object().shape({
+    commentText: yup
+      .string()
+      .required(
+        t("validation.requiredField", { field: t("community.commentLabel") })
+      )
+      .min(
+        15,
+        t("validation.min", { field: t("community.commentLabel"), min: 15 })
+      ),
+  });
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm({
+    resolver: yupResolver(schema),
+  });
+
+  const handleFormSubmit = async (data) => {
+    await onSubmit?.(data.commentText);
+    reset();
   };
 
   return (
-    <Modal show={showModal} size="lg" onHide={() => setShowModal(false)} centered>
-      <Modal.Header closeButton className="m-2">
-        <h5 className="fw-bold">إضافة تعليق</h5>
+    <Modal
+      show={showModal}
+      size="md"
+      onHide={() => {
+        setShowModal(false);
+        reset();
+      }}
+      centered
+    >
+      <Modal.Header closeButton>
+        <h6 className="fw-bold">{t("community.addCommentTitle")}</h6>
       </Modal.Header>
 
       <Modal.Body>
-        <form className="form_ui" onSubmit={handleSubmit}>
+        <form className="form_ui" onSubmit={handleSubmit(handleFormSubmit)}>
           <div className="row">
-          
-
-            <div className="col-12 p-1">
+            <div className="col-12 p-2">
               <TextField
-                label="نص التعليق"
-                placeholder="اكتب تعليقك هنا..."
+                label={t("community.commentLabel")}
+                placeholder={t("community.commentPlaceholder")}
                 id="commentText"
+                {...register("commentText")}
+                error={errors.commentText?.message}
               />
             </div>
-          </div>
-
-          <div className="mt-3 text-end">
-            <SubmitButton text="إرسال التعليق" />
+            <div className="col-12 p-2">
+              <CustomButton
+                loading={isLoading}
+                fullWidth
+                size="large"
+                type="submit"
+              >
+                {t("community.sendComment")}
+              </CustomButton>
+            </div>
           </div>
         </form>
       </Modal.Body>

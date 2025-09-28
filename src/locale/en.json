@@ -20,6 +20,9 @@
   "deleteAll": "Delete all",
   "confirm": "Confirm",
   "search": "Search",
+  "loadMore": "Load more",
+  "membersOnly": "Members Only",
+
   "pageHeaders": {
     "Notifications": "Notifications",
     "Dashboard": "Dashboard",
@@ -247,7 +250,15 @@
     "maxMonths": "Months must not exceed {{max}}",
     "maxDays": "Days must not exceed {{max}}",
     "atLeastOne": "At least one of the fields (month or day) must be filled",
-    "maxTotal": "The total number of days must not exceed {{max}}"
+
+    "maxTotal": "The total number of days must not exceed {{max}}",
+    "titleRequired": "Title is required",
+    "titleMin": "Title must be at least 5 characters",
+    "descriptionRequired": "Description is required",
+    "descriptionMin": "Description must be at least 15 characters",
+    "descriptionMax": "Description cannot exceed 500 characters"
+
+
   },
   "pageNotFound": {
     "alt": "404 Not Found",
@@ -266,6 +277,52 @@
     "appMessage": "An unexpected application error occurred. Please try again later.",
     "unexpectedTitle": "Unexpected Error",
     "unexpectedMessage": "An unexpected error occurred. Please try again later."
+  },
+  "community": {
+    "chanels": "Channels",
+    "consultant": "Consultations",
+    "meetings": "Encounters",
+    "posts": "Posts",
+    "addConsultation": "Add Consultation",
+    "addConsultaionTitle": "Consultation Title",
+    "addConsultaionDec": "Consultation Description",
+    "descPlaceholder": "Enter a description",
+    "consultationType": "Consultation Type",
+    "privateConsultations": "Private Consultations",
+    "privateHint": "Private consultations are visible only to you",
+    "publicConsultations": "Public Consultations",
+    "noConsultaion": "No consultations are available in this community.",
+    "title": "Reply to Consultation",
+    "fieldLabel": "Add a reply",
+    "fieldLabel1": "reply",
+    "fieldPlaceholder": "Type here",
+    "comments": "Comments",
+    "addComment": "Add Comment",
+    "noComments": "No comments yet",
+    "yourAnswer": "Your Answer",
+    "assistantAnswer": "Assistant's Answer",
+    "answer": "Answer",
+    "addCommentTitle": "Add Comment",
+    "commentLabel": "Comment text",
+    "commentPlaceholder": "Write your comment here...",
+    "sendComment": "Send Comment",
+    "addMeeting": "Add Meeting",
+    "field": "Field",
+    "specialization": "Specialization",
+    "meetingTitle": "Title",
+    "meetingTitlePlaceholder": "Meeting title",
+    "description": "Description",
+    "descriptionPlaceholder": "Write here",
+    "date": "Date",
+    "datePlaceholder": "Select date",
+    "time": "Time",
+    "timePlaceholder": "Select time",
+    "duration": "Duration",
+    "durationPlaceholder": "Enter duration",
+    "link": "Link",
+    "linkPlaceholder": "Meeting link",
+    "visibility": "Visibility",
+    "add": "Add"
   },
   "website": {
     "home": {
@@ -457,7 +514,10 @@
       "type": "Document Type",
       "issuer": "Issuing Authority",
       "number": "Accreditation / Document Number",
-      "expiry_date": "Expiry Date"
+      "expiry_date": "Expiry Date",
+      "myCommunity": "My Community",
+      "join": "Join",
+      "unjoin": "Unjoin"
     },
 
     "payment": "Payment"
