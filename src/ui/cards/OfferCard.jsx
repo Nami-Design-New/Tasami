@@ -63,16 +63,18 @@ const OfferCard = ({ offer }) => {
             <img src="/icons/cash.svg" alt="icon" className="mx-2" />
             {offer.help_service.price} <img src="/icons/ryal.svg" alt="ريال" />
           </span>
-          <button
-            className="toggle-bookmark-button"
-            onClick={handleToggleBookmark}
-          >
-            <i
-              className={`fa-solid fa-bookmark ${bookmarked ? "active" : ""} ${
-                isPending ? "opacity-50" : ""
-              }`}
-            ></i>
-          </button>
+          {!isMyOffer && (
+            <button
+              className="toggle-bookmark-button"
+              onClick={handleToggleBookmark}
+            >
+              <i
+                className={`fa-solid fa-bookmark ${
+                  bookmarked ? "active" : ""
+                } ${isPending ? "opacity-50" : ""}`}
+              ></i>
+            </button>
+          )}
         </div>
       </div>
     </Link>

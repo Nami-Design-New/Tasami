@@ -325,6 +325,36 @@
     "add": "Add"
   },
   "website": {
+    "inquiry": {
+      "title": "Add Inquiry",
+      "placeholder": "Write here..."
+    },
+    "offerDetails": {
+      "title": "Offer Details",
+      "edit": "Edit",
+      "archive": "Archive",
+      "delete": "Delete",
+      "inquiry": "Inquiry",
+      "report": "Report a violation",
+      "assistance": "Assistance",
+      "extraTerms": "Extra Terms",
+      "mechanisms": "Suitable assistance mechanisms",
+      "previousRatings": "Previous Ratings",
+      "previousUsers": "Previous Beneficiaries",
+      "overallRating": "Overall Rating",
+      "experience": "Experience & Knowledge",
+      "time": "Time Commitment",
+      "quality": "Quality of Performance",
+      "treatment": "Good Treatment",
+      "showReviews": "Show Reviews",
+      "sendContract": "Send Contract Request",
+      "field": "Field",
+      "specialty": "Specialty",
+      "helpValue": "Help Value",
+      "preferredGender": "Preferred Beneficiary Gender",
+      "ageRange": "Beneficiary Age Range",
+      "duration": "Expected Duration of Assistance (days)"
+    },
     "home": {
       "totalWork": "Total Work",
       "inProgress": "In Progress",

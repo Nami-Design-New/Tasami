@@ -13,13 +13,15 @@ import OfferInfoGrid from "../../ui/website/offers/OfferInfoGrid";
 import TopInfo from "../../ui/website/offers/TopInfo";
 import useAddOrRemoveBookmark from "../../hooks/website/personal-assistances/useAddOrRemoveBookmark";
 import { useQueryClient } from "@tanstack/react-query";
+import { useTranslation } from "react-i18next";
 
 export default function PersonalOffersDetails() {
   const queryClient = useQueryClient();
+  const { t } = useTranslation();
+  const { lang } = useSelector((state) => state.language);
   const { offerDetails, isLoading } = useGetPersonalOfferDetails();
   const { toggleBookmark, isPending } = useAddOrRemoveBookmark();
   const [bookmarked, setBookmarked] = useState(offerDetails?.is_saved || false);
-  const { user } = useSelector((state) => state.authRole);
   const [showHelpModal, setShowHelpModal] = useState(false);
   const [showReportModal, setShowReportModal] = useState(false);
   const [showInquiryModal, setShowInquiryModal] = useState(false);
@@ -53,27 +55,12 @@ export default function PersonalOffersDetails() {
   if (isLoading) return <Loading />;
 
   return (
-    <section className="page offer-details-section ">
+    <section className="page offer-details-section">
       <div className="container">
         <div className="col-12 p-2">
           <div className="header">
-            <SectionHeader title="تفاصيل العرض" />
-            {user?.id === offerDetails.user.id && (
-              <OptionsMenu
-                options={[
-                  { label: "تعديل", onClick: () => console.log("edit") },
-                  {
-                    label: "ارشفه",
-                    onClick: () => console.log("Archive"),
-                  },
-                  {
-                    label: "حذف",
-                    onClick: () => console.log("Delete"),
-                    className: "text-danger",
-                  },
-                ]}
-              />
-            )}
+            <SectionHeader title={t("website.offerDetails.title")} />
+
             <div className="d-flex align-items-center gap-2">
               <button
                 onClick={(e) => handleToggleBookmark(e, offerDetails.id)}
@@ -87,9 +74,12 @@ export default function PersonalOffersDetails() {
               </button>
               <OptionsMenu
                 options={[
-                  { label: "استفسار", onClick: () => console.log("Inquiry") },
                   {
-                    label: "إبلاغ عن مخالفة",
+                    label: t("website.offerDetails.inquiry"),
+                    onClick: () => setShowInquiryModal(true),
+                  },
+                  {
+                    label: t("website.offerDetails.report"),
                     onClick: () => console.log("Report"),
                     className: "text-danger",
                   },
@@ -98,44 +88,51 @@ export default function PersonalOffersDetails() {
             </div>
           </div>
         </div>
+
         <div className="goal-details-card mt-3 row">
           <div className="col-12 col-lg-4 p-2">
-            <TopInfo offer={offerDetails} />{" "}
+            <TopInfo offer={offerDetails} />
           </div>
 
           <div className="col-lg-8 col-12 p-2">
             <div className="hed">
               <img src="/icons/triangle.svg" />
-              <h6>المساعدة</h6>
-            </div>{" "}
-            <p className="desc">{offerDetails?.title}</p>{" "}
+              <h6>{t("website.offerDetails.assistance")}</h6>
+            </div>
+            <p className="desc">{offerDetails?.title}</p>
+
             <OfferInfoGrid
               offer={offerDetails}
               onShowHelpModal={() => setShowHelpModal(true)}
               onShowReviewsModal={() => setShowReviewsModal(true)}
             />
+
             {offerDetails.help_service?.notes && (
               <div className="extra-terms">
-                <h2>بنود إضافية</h2>
+                <h2>{t("website.offerDetails.extraTerms")}</h2>
                 <p>{offerDetails?.help_service?.notes}</p>
               </div>
             )}
+
             <div className="extra-terms">
-              <h2>آليات المساعدة المناسبة</h2>
-              <ul className="mechanisms-list  ">
+              <h2>{t("website.offerDetails.mechanisms")}</h2>
+              <ul className="mechanisms-list">
                 {offerDetails.mechanisms.map((item) => (
-                  <li key={item.id} className="mech-item">
-                    {" "}
-                    {item.title}{" "}
+                  <li
+                    key={item.id}
+                    className={`mech-item  ${lang === "en" ? "en" : ""} `}
+                  >
+                    {item.title}
                   </li>
                 ))}
               </ul>
             </div>
+
             <div className="rates">
-              <h2>تقييمات سابقة</h2>
+              <h2>{t("website.offerDetails.previousRatings")}</h2>
               <div className="extra-terms">
                 <div className="content">
-                  <h3>مستفيدون سابقون</h3>
+                  <h3>{t("website.offerDetails.previousUsers")}</h3>
                   <div className="user-count">
                     <i className="fa-regular fa-users"></i>
                     <span>{offerDetails.previous_users}</span>
@@ -144,7 +141,7 @@ export default function PersonalOffersDetails() {
               </div>
               <div className="extra-terms">
                 <div className="content">
-                  <h3>التقييم الاجمالي</h3>
+                  <h3>{t("website.offerDetails.overallRating")}</h3>
                   <div className="user-count gap-1">
                     <i
                       className="fa-solid fa-star"
@@ -158,38 +155,40 @@ export default function PersonalOffersDetails() {
                 </div>
                 <ul className="rate-list">
                   <li>
-                    <span>الخبرة والمعرفة</span>
+                    <span>{t("website.offerDetails.experience")}</span>
                     <span>{offerDetails.experience_rate}</span>
                   </li>
                   <li>
-                    <span> الالتزام بالوقت</span>
+                    <span>{t("website.offerDetails.time")}</span>
                     <span>{offerDetails.time_rate}</span>
                   </li>
                   <li>
-                    <span>جودة الأداء</span>
+                    <span>{t("website.offerDetails.quality")}</span>
                     <span>{offerDetails.quality_rate}</span>
                   </li>
                   <li>
-                    <span>حسن التعامل</span>
+                    <span>{t("website.offerDetails.treatment")}</span>
                     <span>{offerDetails.good_treatment}</span>
                   </li>
                 </ul>
               </div>
             </div>
+
             <div className="buttons justify-content-end mt-2">
               <CustomButton
                 variant="outlined"
                 color="primary"
                 onClick={() => setShowReviewsModal(true)}
               >
-                عرض التقييمات
-              </CustomButton>{" "}
+                {t("website.offerDetails.showReviews")}
+              </CustomButton>
               <CustomButton onClick={() => setShowHelpModal(true)}>
-                إرسال طلب تعاقد
+                {t("website.offerDetails.sendContract")}
               </CustomButton>
             </div>
           </div>
-        </div>{" "}
+        </div>
+
         <ContractReq
           showModal={showHelpModal}
           setShowModal={setShowHelpModal}
@@ -199,44 +198,14 @@ export default function PersonalOffersDetails() {
           setShowModal={setShowReportModal}
         />
         <InquiryModal
+          workid={offerDetails.id}
           showModal={showInquiryModal}
           setShowModal={setShowInquiryModal}
         />
         <ReviewsModal
           showModal={showReviewsModal}
           setShowModal={setShowReviewsModal}
-          reviews={[
-            {
-              name: "عماد مجيدي",
-              stars: 5,
-              time: "منذ 16 يوم و9 ساعات",
-              comment: "الخدمة مميزة جدا",
-            },
-            {
-              name: "محمد خالد",
-              stars: 4,
-              time: "منذ 10 أيام و5 ساعات",
-              comment: "سعيد بالتعامل مع الاستاذ يوسف العتيبي",
-            },
-            {
-              name: "نورا مصطفى",
-              stars: 2,
-              time: "منذ يومين و6 ساعات",
-              comment: "جودة واداء اكثر من رائع",
-            },
-            {
-              name: "حسن صلاح",
-              stars: 3,
-              time: "منذ 3 أيام و7 ساعات",
-              comment: "الخدمة مميزة جدا",
-            },
-            {
-              name: "علي أحمد",
-              stars: 5,
-              time: "منذ 10 ساعات",
-              comment: "سعيد بالتعامل مع الاستاذ يوسف العتيبي",
-            },
-          ]}
+          reviews={[]}
         />
       </div>
     </section>
