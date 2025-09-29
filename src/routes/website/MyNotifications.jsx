@@ -1,54 +1,33 @@
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useSearchParams } from "react-router";
-import useGetNotifications from "../../hooks/website/notification/useGetNotifications";
-import EmptySection from "../../ui/EmptySection";
-import InputField from "../../ui/forms/InputField";
-import InfiniteScroll from "../../ui/loading/InfiniteScroll";
-import NotificationLoader from "../../ui/loading/NotificationLoader";
 import NotificationList from "../../ui/website/my-notifications/NotificationList";
 import NotificationPageHeader from "../../ui/website/my-notifications/NotificationPageHeader";
 import PlanDurationSelector from "../../ui/website/platform/PlanDurationSelector";
+import IquriesList from "../../ui/website/my-notifications/IquriesList";
 
 export default function MyNotifications() {
-  const [searchParams, setSearchParams] = useSearchParams();
-  const [selectedTab, setSelectedTab] = useState("notifications");
-  const [inputValue, setInputValue] = useState(
-    searchParams.get("search") || ""
-  );
-
   const { t } = useTranslation();
+  const [searchParams, setSearchParams] = useSearchParams();
 
-  // Debounce input before updating search params
+  // get initial tab from URL or fallback to notifications
+  const initialTab = searchParams.get("tab") || "notifications";
+  const [selectedTab, setSelectedTab] = useState(initialTab);
+
+  // keep URL in sync when tab changes
   useEffect(() => {
-    const handler = setTimeout(() => {
-      setSearchParams((prev) => {
-        const params = new URLSearchParams(prev);
-        if (inputValue.trim()) {
-          params.set("search", inputValue.trim());
-        } else {
-          params.delete("search");
-        }
-        return params;
-      });
-    }, 500);
+    setSearchParams((prev) => {
+      console.log("prev", prev);
 
-    return () => clearTimeout(handler);
-  }, [inputValue, setSearchParams]);
+      const params = new URLSearchParams(prev);
+      console.log("params", params);
 
-  const searchWord = searchParams.get("search") || "";
-
-  const {
-    notifications,
-    isLoading,
-    error,
-    hasNextPage,
-    fetchNextPage,
-    isFetchingNextPage,
-  } = useGetNotifications(searchWord);
-
-  const allNotifications =
-    notifications?.pages?.flatMap((page) => page?.data) ?? [];
+      if (selectedTab) {
+        params.set("tab", selectedTab);
+      }
+      return params;
+    });
+  }, [selectedTab, setSearchParams]);
 
   return (
     <div className="notifications-page page">
@@ -74,48 +53,9 @@ export default function MyNotifications() {
           />
         </div>
 
-        {/* Search */}
-        <div className="form_ui my-2">
-          <InputField
-            placeholder={t("notification.search")}
-            icon="/icons/search.svg"
-            value={inputValue}
-            onChange={(e) => {
-              setInputValue(e.target.value);
-            }}
-          />
-        </div>
-
         {/* Notifications */}
-        {selectedTab === "notifications" && (
-          <>
-            {error && (
-              <p className="text-danger">{t("notification.fetch_error")}</p>
-            )}
-
-            {!isLoading && allNotifications.length === 0 && (
-              <EmptySection height="500px" message={t("notification.empty")} />
-            )}
-
-            <InfiniteScroll
-              onLoadMore={fetchNextPage}
-              hasNextPage={hasNextPage}
-              isFetchingNextPage={isFetchingNextPage}
-            >
-              <NotificationList items={allNotifications} />
-            </InfiniteScroll>
-
-            {(isLoading || isFetchingNextPage) && (
-              <div className="row">
-                {[1, 2, 3].map((i) => (
-                  <div className="col-12 p-2" key={i}>
-                    <NotificationLoader />
-                  </div>
-                ))}
-              </div>
-            )}
-          </>
-        )}
+        {selectedTab === "notifications" && <NotificationList />}
+        {selectedTab === "inquries" && <IquriesList />}
       </div>
     </div>
   );

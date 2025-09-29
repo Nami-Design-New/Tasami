@@ -9899,6 +9899,32 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
   color: rgba(13, 13, 13, 0.5607843137);
 }
 
+.inquriy-card {
+  padding: 12px;
+  border-radius: 12px;
+  border: 1px solid rgba(13, 13, 13, 0.0941176471);
+}
+.inquriy-card .inquriy-data {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 8px;
+}
+.inquriy-card .inquriy-data .inquriy-header {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.inquriy-card .inquriy-data p {
+  color: rgba(13, 13, 13, 0.5607843137);
+  font-size: 14px;
+}
+.inquriy-card .inquriy-data small {
+  display: block;
+  width: 100%;
+  text-align: end;
+}
+
 .wallet-page .wallet-balance {
   display: flex;
   align-items: center;
