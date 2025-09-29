@@ -24,6 +24,7 @@
   "private": "خاصة",
   "loadMore": "تحميل المزيد",
   "membersOnly": "للأعضاء فقط",
+  "personalOffers": "عروض المساعدة",
 
   "pageHeaders": {
     "Notifications": " التنبيهات ",
@@ -143,7 +144,8 @@
     "tasami": "تسامي",
     "withoutLogin": "بدون تسجيل ",
     "email": "البريد الإلكتروني",
-    "both": "الكل"
+    "both": "الكل",
+    "all": "الكل"
   },
   "profile": {
     "myInfo": "معلوماتي",
@@ -264,7 +266,6 @@
     "descriptionRequired": "الوصف مطلوب",
     "descriptionMin": "يجب أن يكون الوصف 15 حرفًا على الأقل",
     "descriptionMax": "لا يمكن أن يتجاوز الوصف 500 حرف"
-
   },
   "pageNotFound": {
     "alt": "لم يتم العثور على الصفحة",
@@ -295,7 +296,7 @@
     "descPlaceholder": "أدخل الوصف",
     "consultationType": "نوع الاستشارة",
     "privateConsultations": "الاستشارات الخاصة",
-    "privateHint": "تظهر الاستشارات الخاصة لك أنت فقط",
+    "privateHint": "تظهر الاستشارات الخاصة لك أنت قطع",
     "publicConsultations": "الاستشارات العامة",
     "noConsultaion": "لا توجد استشارات متاحة في هذه المجتمع.",
     "title": "قم بالرد علي الاستشارة",
@@ -511,6 +512,23 @@
       "offers": "عروض مساعدة من",
       "follow": "متابعة",
       "unFollow": " الغاء المتابعة ",
+      "qualification": "المؤهلات",
+      "years_of_experience": "عدد سنوات الخبرة",
+      "type": "نوع التصريح",
+      "issuer": "جهة الإصدار",
+      "number": "الاعتماد / رقم الوثيقة",
+      "expiry_date": "تاريخ الصلاحية",
+      "myCommunity": "الذهاب الي مجتمعي",
+      "join": "انضم",
+      "unjoin": "إلغاء الانضمام",
+      "priceTitle": "القيمة",
+      "priceMinLabel": "الحد الأدنى",
+      "priceMaxLabel": "الحد الأقصى",
+      "ageTitle": "الفئات العمرية المستهدفة",
+      "ageMinLabel": "من",
+      "ageMaxLabel": "إلى",
+      "clear": "مسح",
+      "moreThan": "أكثر من",
       "qualification": "المؤهلات",
       "years_of_experience": "عدد سنوات الخبرة",
       "type": "نوع التصريح",

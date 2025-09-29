@@ -7571,13 +7571,14 @@ input[type=file] {
   align-items: center;
   justify-content: space-between;
 }
-.offer-card .data .price i {
+
+.toggle-bookmark-button i {
   color: #aaaaaa;
   font-size: 20px;
   cursor: pointer;
   transition: color 0.3s ease;
 }
-.offer-card .data .price i.active {
+.toggle-bookmark-button i.active {
   color: #214b92;
 }
 
@@ -8334,6 +8335,11 @@ input[type=file] {
 .helper-details-section .header .options-menu .options-list button:hover {
   background: rgba(33, 75, 146, 0.1);
 }
+.goal-details-section .goal-details-card,
+.offer-details-section .goal-details-card,
+.helper-details-section .goal-details-card {
+  padding: 0 !important;
+}
 .goal-details-section .goal-details-card .top-info,
 .offer-details-section .goal-details-card .top-info,
 .helper-details-section .goal-details-card .top-info {
@@ -8341,18 +8347,16 @@ input[type=file] {
   height: -moz-min-content;
   height: min-content;
   gap: 0.75rem;
-  margin-top: 1rem;
   background: #fff;
   border-radius: 12px;
-  padding: 1.5rem;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
   background-color: rgba(95, 202, 250, 0.1215686275);
 }
 .goal-details-section .goal-details-card .top-info .avatar,
 .offer-details-section .goal-details-card .top-info .avatar,
 .helper-details-section .goal-details-card .top-info .avatar {
-  width: 120px;
-  height: 120px;
+  width: 80px;
+  height: 80px;
   border-radius: 50%;
   -o-object-fit: cover;
      object-fit: cover;
@@ -8432,7 +8436,6 @@ input[type=file] {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  margin: 1rem 0;
 }
 .goal-details-section .goal-details-card .hed img,
 .offer-details-section .goal-details-card .hed img,
@@ -8548,24 +8551,6 @@ input[type=file] {
   background-color: #5fcafa;
   color: white;
   border-color: #5fcafa;
-}
-.goal-details-section .goal-details-card button,
-.offer-details-section .goal-details-card button,
-.helper-details-section .goal-details-card button {
-  padding: 0.75rem 2rem;
-  font-weight: bold;
-  font-size: 0.9rem;
-  margin: 10px 0;
-}
-.goal-details-section .goal-details-card button:nth-of-type(2),
-.offer-details-section .goal-details-card button:nth-of-type(2),
-.helper-details-section .goal-details-card button:nth-of-type(2) {
-  background-color: #5fcafa;
-}
-.goal-details-section .goal-details-card button:hover,
-.offer-details-section .goal-details-card button:hover,
-.helper-details-section .goal-details-card button:hover {
-  background-color: darken;
 }
 @media (max-width: 768px) {
   .goal-details-section .goal-details-card .offer-info,
@@ -8826,6 +8811,97 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
 }
 .cancel-btn i {
   font-size: 16px;
+}
+
+.extra-terms {
+  margin-top: 8px;
+  width: 100%;
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 1px solid rgba(13, 13, 13, 0.0941176471);
+}
+.extra-terms h2 {
+  font-size: 1rem;
+  color: #5fcafa;
+  margin-bottom: 4px;
+}
+.extra-terms p {
+  font-size: 14px;
+  color: #0d0d0d;
+  font-weight: 700;
+}
+.extra-terms .mechanisms-list {
+  display: flex;
+  flex-direction: column;
+  margin-top: 12px;
+  gap: 8px;
+}
+.extra-terms .mechanisms-list .mech-item {
+  font-size: 14px;
+  color: #0d0d0d;
+  font-weight: 700;
+  position: relative;
+  padding: 0 28px;
+}
+.extra-terms .mechanisms-list .mech-item::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  background-image: url(/icons/check.svg);
+  width: 20px;
+  height: 20px;
+  background-repeat: no-repeat;
+  background-position: 50%, 50%;
+}
+
+.rates h2 {
+  font-size: 1.25rem;
+  color: #0d0d0d;
+  font-weight: 700;
+  margin: 18px 0;
+}
+.rates .content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.rates .content h3 {
+  font-size: 1rem;
+  color: #5fcafa;
+}
+.rates .content .user-count {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.rates .content .user-count i {
+  width: 20px;
+  height: 20px;
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #5fcafa;
+}
+.rates .content .user-count span {
+  color: #0d0d0d;
+  font-size: 16px;
+  font-weight: 700;
+}
+.rates .rate-list {
+  display: flex;
+  flex-direction: column;
+  margin-top: 8px;
+  gap: 8px;
+  font-size: 1rem;
+  color: rgba(13, 13, 13, 0.5607843137);
+}
+.rates .rate-list li {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .myworks .tab-nav {
@@ -10950,7 +11026,6 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
   margin-top: 1rem;
   background: #fff;
   border-radius: 12px;
-  padding: 1.5rem;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
   background-color: rgba(95, 202, 250, 0.1215686275);
 }

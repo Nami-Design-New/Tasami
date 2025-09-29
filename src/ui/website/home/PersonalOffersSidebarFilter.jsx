@@ -5,7 +5,7 @@ import useGetcategories from "../../../hooks/area-of-interests/useGetcategories"
 import useGetCities from "../../../hooks/countries/useGetCities";
 import useGetNationalities from "../../../hooks/countries/useGetNationalities";
 import usePersonalFilterForm from "../../../validations/personal-offers-filter";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import SelectField from "../../forms/SelectField";
 import CustomButton from "../../CustomButton";
 import RangeSlider from "react-range-slider-input";
@@ -46,8 +46,8 @@ export default function PersonalOffersSidebarFilter() {
     setValue("ageMin", min, { shouldDirty: true });
     setValue("ageMax", max, { shouldDirty: true });
   };
-  const selectedHelpMechanism = watch("helpMechanism") || [];
 
+  const selectedHelpMechanism = watch("helpMechanism") || [];
   const selectedFieldId = watch("field");
   const selectedGender = watch("gender");
   const selectedRate = watch("rate");
@@ -85,6 +85,10 @@ export default function PersonalOffersSidebarFilter() {
     }
 
     setSearchParams(filteredData);
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
   };
 
   // --- Reset (clear params + form)
@@ -96,9 +100,9 @@ export default function PersonalOffersSidebarFilter() {
       field: "",
       specialization: "",
       gender: "both",
-      priceMin: 0,
-      priceMax: 30000,
-      ageMin: 18,
+      priceMin: 1,
+      priceMax: 9000000,
+      ageMin: 15,
       ageMax: 65,
     });
     setSearchParams({});
@@ -224,7 +228,6 @@ export default function PersonalOffersSidebarFilter() {
                       console.log(
                         selectedHelpMechanism.includes(String(option.id))
                       );
-                      console.log("ids", String(option.id));
 
                       return (
                         <label
@@ -259,22 +262,24 @@ export default function PersonalOffersSidebarFilter() {
           {/* Price Range Slider */}
           <div className="col-12 py-2 px-0">
             <div className="d-flex align-items-center justify-content-between">
-              <h6 className="slider-title">القيمة</h6>
+              <h6 className="slider-title">
+                {t("website.assistants.priceTitle")}
+              </h6>
               <button
                 className="text-danger"
                 type="button"
                 onClick={() => {
-                  setValue("priceMin", 100);
-                  setValue("priceMax", 30000);
+                  setValue("priceMin", 1);
+                  setValue("priceMax", 9000000);
                 }}
               >
-                مسح
+                {t("website.assistants.clear")}
               </button>
             </div>
             <RangeSlider
-              min={100}
-              max={30000}
-              step={100}
+              min={1}
+              max={9000000}
+              step={20}
               value={[priceMin, priceMax]}
               onInput={handlePriceChange}
               className="w-100"
@@ -282,12 +287,12 @@ export default function PersonalOffersSidebarFilter() {
             <div className="d-flex justify-content-between mt-2  gap-2">
               <InputField
                 type="number"
-                label="الحد الادني"
+                label={t("website.assistants.priceMinLabel")}
                 icon="/icons/ryal.svg"
                 value={priceMin}
-                min={100}
+                min={priceMin}
                 max={priceMax}
-                step={100}
+                step={20}
                 onChange={(e) => {
                   const v = Number(e.target.value);
                   if (!isNaN(v)) {
@@ -298,11 +303,11 @@ export default function PersonalOffersSidebarFilter() {
 
               <InputField
                 type="number"
-                label="الحد الأقصى"
+                label={t("website.assistants.priceMaxLabel")}
                 icon="/icons/ryal.svg"
                 value={priceMax}
                 min={priceMin}
-                max={30000}
+                max={priceMax}
                 step={100}
                 onChange={(e) => {
                   const v = Number(e.target.value);
@@ -316,7 +321,9 @@ export default function PersonalOffersSidebarFilter() {
           {/* Age Range Slider */}
           <div className="col-12 py-2 px-0">
             <div className="d-flex align-items-center justify-content-between">
-              <h6 className="slider-title">الفئات العمرية المستهدفة</h6>
+              <h6 className="slider-title">
+                {t("website.assistants.ageTitle")}
+              </h6>
               <button
                 type="button"
                 className="text-danger"
@@ -325,7 +332,7 @@ export default function PersonalOffersSidebarFilter() {
                   setValue("ageMax", 65);
                 }}
               >
-                مسح
+                {t("website.assistants.clear")}
               </button>
             </div>
 
@@ -340,7 +347,7 @@ export default function PersonalOffersSidebarFilter() {
             <div className="d-flex justify-content-between mt-2 gap-2">
               <InputField
                 type="number"
-                label="من"
+                label={t("website.assistants.ageMinLabel")}
                 value={ageMin}
                 min={16}
                 max={ageMax}
@@ -356,7 +363,7 @@ export default function PersonalOffersSidebarFilter() {
               <InputField
                 type="number"
                 value={ageMax}
-                label="الي"
+                label={t("website.assistants.ageMaxLabel")}
                 min={ageMin}
                 max={65}
                 step={1}
@@ -371,7 +378,9 @@ export default function PersonalOffersSidebarFilter() {
           </div>
           <div className="col-12  py-2 px-0">
             <div className="identity-selector">
-              <h6 className="identity-title">التقييم</h6>
+              <h6 className="identity-title">
+                {t("website.assistants.ratingTitle")}
+              </h6>
               <div className="identity-container flex-wrap">
                 {["all", "1", "2", "3", "4", "5"].map((g) => (
                   <label
@@ -380,14 +389,14 @@ export default function PersonalOffersSidebarFilter() {
                       selectedRate === g ? "active" : ""
                     }`}
                   >
-                    {g === "all" && <span>{t(`${g}`)}</span>}
+                    {g === "all" && <span>{t("auth.all")}</span>}
                     {g !== "all" && (
                       <>
                         <i
                           style={{ color: "#FFBE4C" }}
                           className="fa-solid fa-star"
                         ></i>
-                        <span> اكثر من </span>
+                        <span> {t("website.assistants.moreThan")} </span>
                         <span>{t(` ${g}`)}</span>
                       </>
                     )}

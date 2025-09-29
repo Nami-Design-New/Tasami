@@ -435,21 +435,21 @@
     }
     .price {
       @include space-between;
-
-      i {
-        color: $inputHint;
-        font-size: 20px;
-        cursor: pointer;
-        transition: color 0.3s ease;
-
-        &.active {
-          color: $main;
-        }
-      }
     }
   }
 }
+.toggle-bookmark-button {
+  i {
+    color: $inputHint;
+    font-size: 20px;
+    cursor: pointer;
+    transition: color 0.3s ease;
 
+    &.active {
+      color: $main;
+    }
+  }
+}
 .helper-card {
   display: block;
   height: 100%;

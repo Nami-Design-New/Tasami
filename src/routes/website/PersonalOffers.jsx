@@ -1,14 +1,18 @@
 import { useTranslation } from "react-i18next";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import OfferCard from "../../ui/cards/OfferCard";
 import EmptySection from "../../ui/EmptySection";
 import InfiniteScroll from "../../ui/loading/InfiniteScroll";
 import OfferCardSkeleton from "../../ui/loading/OfferCardSkeleton";
 import PersonalOffersSidebarFilter from "../../ui/website/home/PersonalOffersSidebarFilter";
 import useGetPersonalOffers from "../../hooks/website/personal-assistances/useGetPersonalOffers";
+import RoundedBackButton from "../../ui/website-auth/shared/RoundedBackButton";
+import { useSelector } from "react-redux";
 
 export default function PersonalOffers() {
   const { t } = useTranslation();
+  const navigate = useNavigate();
+  const { lang } = useSelector((state) => state.language);
   const {
     personalOffers,
     isLoading,
@@ -29,12 +33,14 @@ export default function PersonalOffers() {
           <div className="col-12 p-2">
             <div className="section-header">
               <div className="page-header">
-                {
-                  <Link to="/" className="back-btn">
+                <RoundedBackButton onClick={() => navigate(-1)}>
+                  {lang === "ar" ? (
                     <i className="fa-solid fa-angle-right"></i>
-                  </Link>
-                }
-                <h1> عروض المساعدة </h1>
+                  ) : (
+                    <i className="fa-solid fa-angle-left"></i>
+                  )}
+                </RoundedBackButton>{" "}
+                <h1> {t("personalOffers")}</h1>
               </div>
             </div>
           </div>

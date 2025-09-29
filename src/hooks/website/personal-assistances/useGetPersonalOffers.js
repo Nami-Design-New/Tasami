@@ -39,15 +39,7 @@ export default function useGetPersonalOffers() {
     hasNextPage,
     isFetchingNextPage,
   } = useInfiniteQuery({
-    queryKey: [
-      "personal-offers",
-      params.city_id,
-      params.nationality_id,
-      params.category_id,
-      params.sub_category_id,
-      params.preferred_gender,
-      params.search_word,
-    ],
+    queryKey: ["personal-offers", params],
     queryFn: async ({ pageParam = 1 }) => {
       const res = await axiosInstance.get("help-services", {
         params: { ...params, page: pageParam },
