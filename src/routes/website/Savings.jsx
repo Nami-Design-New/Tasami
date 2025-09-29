@@ -1,55 +1,44 @@
-import React from "react";
+import { useTranslation } from "react-i18next";
+import useGetBookmarkedOffers from "../../hooks/website/personal-assistances/useGetBookmarkedOffers";
 import OfferCard from "../../ui/cards/OfferCard";
+import EmptySection from "../../ui/EmptySection";
+import InfiniteScroll from "../../ui/loading/InfiniteScroll";
 
 export default function SavingsPage() {
-  const Offers = [
-    {
-      id: 1,
-      name: "أنس تركي",
-      country: "السعودية",
-      rating: 6,
-      image: "/images/p2.png",
-    //   status: true,
-      title: "مساعدة منزلية لمدة أسبوع",
-      type: "عمالة منزلية",
-      price: "2500",
-    },
-    {
-      id: 2,
-      name: "مها صالح",
-      country: "الإمارات",
-      rating: 10,
-      image: "/images/p1.png",
-      status: true,
-      title: "جليسة أطفال بدوام جزئي",
-      type: "رعاية أطفال",
-      price: "1800",
-    },
-    {
-      id: 3,
-      name: "محمد علي",
-      country: "السعودية",
-      rating: 8,
-      image: "/images/p2.png",
-    //   status: true,
-      title: "عامل نظافة لمدة شهر",
-      type: "نظافة",
-      price: "3200",
-    },
-  ];
+  const { t } = useTranslation();
+  const {
+    bookMarkedOffers,
+    isLoading,
+    hasNextPage,
+    fetchNextPage,
+    isFetchingNextPage,
+  } = useGetBookmarkedOffers();
+  const allBookMarkedOffers =
+    bookMarkedOffers?.pages?.flatMap((page) => page?.data) ?? [];
 
   return (
-    <div className="savings-page mt-30">
-      <div className="container">
-
-        <div className="row g-3">
-          {Offers.map((offer) => (
-            <div className="col-md-6 col-lg-4" key={offer.id}>
-              <OfferCard offer={offer} />
-            </div>
-          ))}
+    <div className="savings-page">
+      <>
+        {!isLoading && allBookMarkedOffers.length === 0 && (
+          <EmptySection
+            height="500px"
+            message={t("website.profile.noBookmarkedOffers")}
+          />
+        )}
+        <div className="row">
+          <InfiniteScroll
+            onLoadMore={fetchNextPage}
+            hasNextPage={hasNextPage}
+            isFetchingNextPage={isFetchingNextPage}
+          >
+            {allBookMarkedOffers.map((offer) => (
+              <div className="col-md-6 col-lg-4 p-2" key={offer.id}>
+                <OfferCard offer={offer} />
+              </div>
+            ))}
+          </InfiniteScroll>
         </div>
-      </div>
+      </>
     </div>
   );
 }

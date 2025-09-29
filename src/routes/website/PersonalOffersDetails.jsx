@@ -12,8 +12,10 @@ import SectionHeader from "../../ui/website/SectionHeader";
 import OfferInfoGrid from "../../ui/website/offers/OfferInfoGrid";
 import TopInfo from "../../ui/website/offers/TopInfo";
 import useAddOrRemoveBookmark from "../../hooks/website/personal-assistances/useAddOrRemoveBookmark";
+import { useQueryClient } from "@tanstack/react-query";
 
 export default function PersonalOffersDetails() {
+  const queryClient = useQueryClient();
   const { offerDetails, isLoading } = useGetPersonalOfferDetails();
   const { toggleBookmark, isPending } = useAddOrRemoveBookmark();
   const [bookmarked, setBookmarked] = useState(offerDetails?.is_saved || false);
@@ -34,6 +36,9 @@ export default function PersonalOffersDetails() {
     setBookmarked(!prevState);
 
     toggleBookmark(id, {
+      onSuccess: () => {
+        queryClient.refetchQueries({ queryKey: ["bookmarked-offes"] });
+      },
       onError: () => {
         setBookmarked(prevState);
       },

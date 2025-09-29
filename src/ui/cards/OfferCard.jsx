@@ -2,12 +2,13 @@ import { Link } from "react-router";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import useAddOrRemoveBookmark from "../../hooks/website/personal-assistances/useAddOrRemoveBookmark";
+import { useQueryClient } from "@tanstack/react-query";
 
 const OfferCard = ({ offer }) => {
   const { user } = useSelector((state) => state.authRole);
   const { toggleBookmark, isPending } = useAddOrRemoveBookmark();
   const [bookmarked, setBookmarked] = useState(offer?.is_saved || false);
-
+  const queryClient = useQueryClient();
   const isMyOffer = user.id === offer.user.id;
 
   const handleToggleBookmark = (e) => {
@@ -18,6 +19,9 @@ const OfferCard = ({ offer }) => {
     setBookmarked(!prevState);
 
     toggleBookmark(offer.id, {
+      onSuccess: () => {
+        queryClient.refetchQueries({ queryKey: ["bookmarked-offes"] });
+      },
       onError: () => {
         setBookmarked(prevState);
       },
