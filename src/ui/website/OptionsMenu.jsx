@@ -1,6 +1,8 @@
 import { useEffect, useRef, useState } from "react";
+import { useSelector } from "react-redux";
 
 export default function OptionsMenu({ options = [] }) {
+  const { lang } = useSelector((state) => state.language);
   const [menuOpen, setMenuOpen] = useState(false);
   const menuRef = useRef(null);
 
@@ -24,7 +26,7 @@ export default function OptionsMenu({ options = [] }) {
 
       {/* Dropdown */}
       {menuOpen && (
-        <div className="options-list">
+        <div className={`options-list  ${lang === "en" ? "en" : ""} `}>
           {options.map((option, index) => (
             <button
               key={index}

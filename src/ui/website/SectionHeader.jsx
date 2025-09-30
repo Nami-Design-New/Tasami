@@ -1,14 +1,20 @@
-import { Link } from "react-router";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router";
+import RoundedBackButton from "../website-auth/shared/RoundedBackButton";
 
 export default function SectionHeader({ title }) {
+  const navigate = useNavigate();
+  const { lang } = useSelector((state) => state.language);
   return (
     <div className="section-header">
       <div className="page-header">
-        {
-          <Link to="/" className="back-btn">
+        <RoundedBackButton onClick={() => navigate(-1)}>
+          {lang === "ar" ? (
             <i className="fa-solid fa-angle-right"></i>
-          </Link>
-        }
+          ) : (
+            <i className="fa-solid fa-angle-left"></i>
+          )}
+        </RoundedBackButton>
         <h1>{title}</h1>
       </div>
     </div>

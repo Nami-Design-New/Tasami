@@ -3,7 +3,7 @@ import { Link } from "react-router";
 import useFilteredList from "../../hooks/useFilteredList";
 import GoalCard from "../../ui/cards/GoalCard";
 import GoalFilterModal from "../../ui/website/gaols/GoalFilterModal";
-import SidebarFilter from "../../ui/website/home/SidebarFilter";
+import SidebarFilter from "../../ui/website/home/PersonalOffersSidebarFilter";
 import SectionHeader from "../../ui/website/SectionHeader";
 export default function PersonalGoals() {
   const [showFilterModal, setShowFilterModal] = useState(false);
