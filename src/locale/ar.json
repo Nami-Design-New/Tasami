@@ -24,6 +24,8 @@
   "private": "خاصة",
   "loadMore": "تحميل المزيد",
   "membersOnly": "للأعضاء فقط",
+  "personalOffers": "عروض المساعدة",
+  "send": "إرسال",
 
   "pageHeaders": {
     "Notifications": " التنبيهات ",
@@ -143,7 +145,8 @@
     "tasami": "تسامي",
     "withoutLogin": "بدون تسجيل ",
     "email": "البريد الإلكتروني",
-    "both": "الكل"
+    "both": "الكل",
+    "all": "الكل"
   },
   "profile": {
     "myInfo": "معلوماتي",
@@ -264,7 +267,6 @@
     "descriptionRequired": "الوصف مطلوب",
     "descriptionMin": "يجب أن يكون الوصف 15 حرفًا على الأقل",
     "descriptionMax": "لا يمكن أن يتجاوز الوصف 500 حرف"
-
   },
   "pageNotFound": {
     "alt": "لم يتم العثور على الصفحة",
@@ -295,7 +297,7 @@
     "descPlaceholder": "أدخل الوصف",
     "consultationType": "نوع الاستشارة",
     "privateConsultations": "الاستشارات الخاصة",
-    "privateHint": "تظهر الاستشارات الخاصة لك أنت فقط",
+    "privateHint": "تظهر الاستشارات الخاصة لك أنت قطع",
     "publicConsultations": "الاستشارات العامة",
     "noConsultaion": "لا توجد استشارات متاحة في هذه المجتمع.",
     "title": "قم بالرد علي الاستشارة",
@@ -331,6 +333,37 @@
     "add": "إضافة"
   },
   "website": {
+    "inquiry": {
+      "title": "إضافة استفسار",
+      "placeholder": "اكتب هنا...",
+      "answer": { "title": "أضف رد" }
+    },
+    "offerDetails": {
+      "title": "تفاصيل العرض",
+      "edit": "تعديل",
+      "archive": "أرشفة",
+      "delete": "حذف",
+      "inquiry": "استفسار",
+      "report": "إبلاغ عن مخالفة",
+      "assistance": "المساعدة",
+      "extraTerms": "بنود إضافية",
+      "mechanisms": "آليات المساعدة المناسبة",
+      "previousRatings": "تقييمات سابقة",
+      "previousUsers": "مستفيدون سابقون",
+      "overallRating": "التقييم الاجمالي",
+      "experience": "الخبرة والمعرفة",
+      "time": "الالتزام بالوقت",
+      "quality": "جودة الأداء",
+      "treatment": "حسن التعامل",
+      "showReviews": "عرض التقييمات",
+      "sendContract": "إرسال طلب تعاقد",
+      "field": "المجال",
+      "specialty": "التخصص",
+      "helpValue": "قيمة المساعدة",
+      "preferredGender": "تفضيل هوية المستفيد",
+      "ageRange": "الفئة العمرية للمستفيد",
+      "duration": "المدة المتوقعة لتقديم المساعدة"
+    },
     "home": {
       "totalWork": "اجمالى  الاعمال",
       "inProgress": "قيد التنفيذ",
@@ -519,7 +552,15 @@
       "expiry_date": "تاريخ الصلاحية",
       "myCommunity": "الذهاب الي مجتمعي",
       "join": "انضم",
-      "unjoin": "إلغاء الانضمام"
+      "unjoin": "إلغاء الانضمام",
+      "priceTitle": "القيمة",
+      "priceMinLabel": "الحد الأدنى",
+      "priceMaxLabel": "الحد الأقصى",
+      "ageTitle": "الفئات العمرية المستهدفة",
+      "ageMinLabel": "من",
+      "ageMaxLabel": "إلى",
+      "clear": "مسح",
+      "moreThan": "أكثر من"
     },
     "payment": "الدفع"
   }

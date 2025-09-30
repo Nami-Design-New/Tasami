@@ -72,6 +72,53 @@
     }
   }
 }
+
+.inquriy-card {
+  padding: 12px;
+  border-radius: 12px;
+  border: 1px solid $InputStroke;
+  .inquriy-data {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 8px;
+    .inquriy-header {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      h2 {
+        color: $second;
+        font-size: 16px;
+      }
+    }
+    p {
+      color: $gray;
+      font-size: 14px;
+    }
+    small {
+      display: block;
+      width: 100%;
+      text-align: end;
+    }
+  }
+}
+
+.answer-modal {
+  .message-title {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    span {
+      font-size: 22px;
+      color: $dark;
+    }
+  }
+  .message-desc {
+    font-size: 16px;
+    margin-top: 6px;
+    color: $gray;
+  }
+}
 ///
 .wallet-page {
   .wallet-balance {

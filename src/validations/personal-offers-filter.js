@@ -10,12 +10,18 @@ const getDocSchema = () => {
     field: yup.string().optional(),
     specialization: yup.string().optional(),
     gender: yup.string().oneOf(["both", "male", "female"]).optional(),
+    rate: yup.string().oneOf(["all", "1", "2", "3", "4", "5"]).optional(),
+    priceMin: yup.number().optional(),
+    priceMax: yup.number().optional(),
+    ageMin: yup.number().optional(),
+    ageMax: yup.number().optional(),
+    helpMechanism: yup.array().of(yup.string()).optional(),
   });
 };
 
-export default function useAssistantsFilterForm() {
+export default function usePersonalFilterForm(helpMechanisms = []) {
   const methods = useForm({
-    resolver: yupResolver(getDocSchema()),
+    resolver: yupResolver(getDocSchema(helpMechanisms)),
     mode: "onBlur",
     defaultValues: {
       search: "",
@@ -24,7 +30,14 @@ export default function useAssistantsFilterForm() {
       field: "",
       specialization: "",
       gender: "both",
+      priceMin: 100,
+      priceMax: 30000,
+      rate: "all",
+      ageMin: 16,
+      ageMax: 65,
+      helpMechanism: [],
     },
+    context: { helpMechanisms },
   });
   return methods;
 }

@@ -12,7 +12,6 @@ export default function PersonalHelper() {
   const {
     assistantsData,
     isLoading,
-    error,
     hasNextPage,
     fetchNextPage,
     isFetchingNextPage,

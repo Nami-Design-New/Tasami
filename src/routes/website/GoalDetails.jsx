@@ -2,12 +2,12 @@ import { useState } from "react";
 import { useParams } from "react-router";
 import HelpModal from "../../ui/modals/HelpModal";
 import ReportModal from "../../ui/modals/ReportModal";
-import InquiryModal from "../../ui/modals/inquiryModal";
 import SectionHeader from "../../ui/website/SectionHeader";
 import CustomButton from "../../ui/CustomButton";
 import OptionsMenu from "../../ui/website/OptionsMenu";
 import TopInfo from "../../ui/website/gaols/TopInfo";
 import GoalInfoGrid from "../../ui/website/gaols/GoalInfoGrid";
+import InquiryModal from "../../ui/website/my-notifications/inquiryModal";
 
 export default function GoalDetails() {
   const { id } = useParams();
@@ -140,7 +140,7 @@ export default function GoalDetails() {
             <GoalInfoGrid
               goal={goal}
               onShowHelpModal={() => setShowHelpModal(true)}
-              onShowReviewsModal={() => setShowReviewsModal(true)}
+              // onShowReviewsModal={() => setShowReviewsModal(true)}
             />
             <CustomButton onClick={() => setShowHelpModal(true)}>
               تقديم عرض مساعدة

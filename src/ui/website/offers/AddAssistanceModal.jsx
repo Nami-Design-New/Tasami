@@ -37,7 +37,6 @@ export default function AddAssistanceModal({ showModal, setShowModal }) {
   const month = watch("month");
   const day = watch("day");
   const durationInDays = Number(month) * 30 + Number(day);
-  console.log();
 
   const selectedHelpMechanism = watch("helpMechanism") || [];
   const subCategories =
@@ -298,8 +297,8 @@ export default function AddAssistanceModal({ showModal, setShowModal }) {
                 })}
               </p>
               <p className="error-text d-block">
-                  {errors?.month?.message}
-                  {errors?.day?.message}
+                {errors?.month?.message}
+                {errors?.day?.message}
               </p>
             </div>
             {/* Price */}

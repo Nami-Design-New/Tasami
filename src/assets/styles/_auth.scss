@@ -525,7 +525,7 @@ button.back {
   &.active {
     border-color: $second;
     background-color: $second;
-    color: $white;
+    color: $white !important;
 
     img {
       filter: brightness(0) invert(1);

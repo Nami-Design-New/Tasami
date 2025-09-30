@@ -30,7 +30,6 @@ import MyWorks from "../routes/website/MyWorks";
 import NewGoal from "../routes/website/NewGoal";
 import NewHelpOffer from "../routes/website/NewHelpOffer";
 import OfferDetails from "../routes/website/OfferDetails";
-import PersonalOffers from "../routes/website/Offers";
 import PersonalHelper from "../routes/website/PersonalHelper";
 import Posts from "../routes/website/Posts";
 import Privacy from "../routes/website/privacy";
@@ -110,6 +109,8 @@ import MyCommunityConsultations from "../routes/website/my-platform/MyCommunityC
 import MyCommunities from "../routes/website/profile/MyCommunities";
 import ErrorFallback from "../ui/ErrorFallback";
 import ProtectedRoute from "./ProtectedRoute";
+import PersonalOffers from "../routes/website/PersonalOffers";
+import PersonalOffersDetails from "../routes/website/PersonalOffersDetails";
 
 export const router = createBrowserRouter([
   /* WEBSITE AUTH */
@@ -144,10 +145,17 @@ export const router = createBrowserRouter([
         path: "personal-goals",
         element: <PersonalGoal />,
       },
-
+      {
+        path: "my-offers",
+        element: <MyOffers />,
+      },
       {
         path: "offers",
         element: <PersonalOffers />,
+      },
+      {
+        path: "offers/:id",
+        element: <PersonalOffersDetails />,
       },
       {
         path: "personal-helpers",
@@ -193,13 +201,18 @@ export const router = createBrowserRouter([
         path: "my-works",
         element: <MyWorks />,
       },
-      {
-        path: "offer/:id",
-        element: <OfferDetails />,
-      },
+
       {
         path: "helper/:id",
         element: <HelpersDetails />,
+      },
+      {
+        path: "notifications",
+        element: (
+          <ProtectedRoute>
+            <MyNotifications />
+          </ProtectedRoute>
+        ),
       },
       {
         path: "my-profile",
@@ -239,6 +252,7 @@ export const router = createBrowserRouter([
           },
         ],
       },
+
       {
         path: "/my-platform",
         element: (
@@ -286,12 +300,8 @@ export const router = createBrowserRouter([
         ],
       },
       {
-        path: "notifications",
-        element: (
-          <ProtectedRoute>
-            <MyNotifications />
-          </ProtectedRoute>
-        ),
+        path: "my-assistances/:id",
+        element: <OfferDetails />,
       },
       {
         path: "my-community",

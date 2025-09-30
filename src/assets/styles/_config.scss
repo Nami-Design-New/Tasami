@@ -449,3 +449,21 @@ li[data-sonner-toast=""] {
   border-radius: 100px;
   background-color: #737475 !important;
 }
+
+// Range slider
+.range-slider {
+  height: 4px;
+  margin-top: 12px;
+  background-color: $main25;
+  .range-slider__thumb {
+    height: 14px;
+    width: 14px;
+    border: 1px solid $white;
+    box-shadow: 0 0 10.1px -1px $main;
+  }
+  .range-slider__range {
+    height: 4px;
+    background-color: $main;
+    color: $main;
+  }
+}

@@ -1,6 +1,6 @@
 export default function TopInfo({ offer }) {
   return (
-    <div className="top-info col-lg-4 col-12">
+    <div className="top-info">
       <div style={{ position: "relative" }}>
         <img src={offer.user.image} alt={offer.user.name} className="avatar" />
         {offer.status && <span className="status-dot"></span>}
@@ -16,7 +16,7 @@ export default function TopInfo({ offer }) {
             </div>
           </div>
           <div className="rating">
-            <img src="/icons/hz-bars.svg" />
+            <img src="/icons/medal.svg" />
             <span>11</span>
           </div>
         </div>
