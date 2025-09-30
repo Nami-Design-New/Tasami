@@ -1,23 +1,18 @@
-import { useQueryClient } from "@tanstack/react-query";
-import React from "react";
 import { useTranslation } from "react-i18next";
 import useGetInquries from "../../../hooks/website/inquiries/useGetInquries";
 import EmptySection from "../../EmptySection";
 import InfiniteScroll from "../../loading/InfiniteScroll";
-import InQuriyCard from "./InQuriyCard";
 import NotificationLoader from "../../loading/NotificationLoader";
+import InQuriyCard from "./InQuriyCard";
 
 export default function IquriesList() {
   const { t } = useTranslation();
-  const queryClient = useQueryClient();
   const {
     inquries,
     isLoading,
-    error,
     hasNextPage,
     fetchNextPage,
     isFetchingNextPage,
-    refetch,
   } = useGetInquries();
   const allInquries = inquries?.pages?.flatMap((page) => page?.data) ?? [];
 

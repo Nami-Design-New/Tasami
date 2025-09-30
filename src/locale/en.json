@@ -23,6 +23,7 @@
   "loadMore": "Load more",
   "membersOnly": "Members Only",
   "personalOffers": "Personal Offers",
+  "send": "Send",
 
   "pageHeaders": {
     "Notifications": "Notifications",
@@ -327,7 +328,10 @@
   "website": {
     "inquiry": {
       "title": "Add Inquiry",
-      "placeholder": "Write here..."
+      "placeholder": "Write here...",
+      "answer": {
+        "title": "Add Reply"
+      }
     },
     "offerDetails": {
       "title": "Offer Details",

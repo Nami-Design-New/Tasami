@@ -6,7 +6,6 @@ import Loading from "../../ui/loading/Loading";
 import ContractReq from "../../ui/modals/ContractReqModal";
 import ReportModal from "../../ui/modals/ReportModal";
 import ReviewsModal from "../../ui/modals/ReviewsModal";
-import InquiryModal from "../../ui/modals/inquiryModal";
 import OptionsMenu from "../../ui/website/OptionsMenu";
 import SectionHeader from "../../ui/website/SectionHeader";
 import OfferInfoGrid from "../../ui/website/offers/OfferInfoGrid";
@@ -14,6 +13,7 @@ import TopInfo from "../../ui/website/offers/TopInfo";
 import useAddOrRemoveBookmark from "../../hooks/website/personal-assistances/useAddOrRemoveBookmark";
 import { useQueryClient } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
+import InquiryModal from "../../ui/website/my-notifications/inquiryModal";
 
 export default function PersonalOffersDetails() {
   const queryClient = useQueryClient();

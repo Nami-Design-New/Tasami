@@ -25,6 +25,7 @@
   "loadMore": "تحميل المزيد",
   "membersOnly": "للأعضاء فقط",
   "personalOffers": "عروض المساعدة",
+  "send": "إرسال",
 
   "pageHeaders": {
     "Notifications": " التنبيهات ",
@@ -334,7 +335,8 @@
   "website": {
     "inquiry": {
       "title": "إضافة استفسار",
-      "placeholder": "اكتب هنا..."
+      "placeholder": "اكتب هنا...",
+      "answer": { "title": "أضف رد" }
     },
     "offerDetails": {
       "title": "تفاصيل العرض",

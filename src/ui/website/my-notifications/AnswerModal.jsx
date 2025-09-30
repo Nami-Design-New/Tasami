@@ -1,21 +1,22 @@
+import React from "react";
 import { Modal } from "react-bootstrap";
-import CustomButton from "../CustomButton";
-import TextField from "../forms/TextField";
-import useInquiry from "../../hooks/website/inquiries/useInquiry";
+import CustomButton from "../../CustomButton";
+import TextField from "../../forms/TextField";
+import { useQueryClient } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
+import useAnswerInquriy from "../../../hooks/website/inquiries/useAnswerInquriy";
 
-const InquiryModal = ({ showModal, setShowModal, workid }) => {
+export default function AnswerModal({ shwModal, setShowModal, item }) {
   const { t } = useTranslation();
+  const { answer, isPending } = useAnswerInquriy();
   const querClient = useQueryClient();
-  const { inquiry, isPending } = useInquiry();
 
   const schema = yup.object().shape({
-    comment: yup
+    answer: yup
       .string()
       .required(t("validation.required"))
       .min(15, t("validation.descriptionMin"))
@@ -32,14 +33,15 @@ const InquiryModal = ({ showModal, setShowModal, workid }) => {
   });
 
   const onSubmit = (data) => {
-    inquiry(
-      { work_id: workid, message: data.comment },
+    console.log(data);
+    answer(
+      { work_id: item?.id, answer: data.answer },
       {
         onSuccess: (res) => {
+          toast.success(res.message);
+          querClient.invalidateQueries([{ queryKey: "inquries" }]);
           reset();
           setShowModal(false);
-          querClient.refetchQueries({ queryKey: ["inquries"] });
-          toast.success(res.message);
         },
         onError: (err) => {
           toast.error(err.message);
@@ -47,31 +49,37 @@ const InquiryModal = ({ showModal, setShowModal, workid }) => {
       }
     );
   };
-
   return (
     <Modal
-      show={showModal}
-      size="md"
+      className="answer-modal"
+      show={shwModal}
       onHide={() => setShowModal(false)}
       centered
+      size="md"
     >
       <Modal.Header closeButton className="m-2">
-        <h5 className="fw-bold">{t("website.inquiry.title")}</h5>
+        <h5 className="fw-bold">{t("website.inquiry.answer.title")}</h5>
       </Modal.Header>
-
       <Modal.Body>
         <form className="form_ui" onSubmit={handleSubmit(onSubmit)}>
           <div className="row">
             <div className="col-12 p-2">
+              <h3 className="message-title">
+                <img src="/icons/triangle.svg" />
+                <span> الهدف </span>
+              </h3>
+              <p className="message-desc">{item.message}</p>
+            </div>
+            <div className="col-12 p-2">
               <TextField
                 placeholder={t("website.inquiry.placeholder")}
                 id="commentText"
-                {...register("comment")}
-                error={errors.comment?.message}
+                {...register("answer")}
+                error={errors.answer?.message}
               />
             </div>
 
-            <div className="col-8 p-2">
+            <div className="col-12 p-2">
               <CustomButton
                 fullWidth
                 size="large"
@@ -79,18 +87,7 @@ const InquiryModal = ({ showModal, setShowModal, workid }) => {
                 disabled={isPending}
                 loading={isPending}
               >
-                {t("submit")}
-              </CustomButton>
-            </div>
-
-            <div className="col-4 p-2">
-              <CustomButton
-                fullWidth
-                size="large"
-                variant="outlined"
-                onClick={() => setShowModal(false)}
-              >
-                {t("cancel")}
+                {t("send")}
               </CustomButton>
             </div>
           </div>
@@ -98,6 +95,4 @@ const InquiryModal = ({ showModal, setShowModal, workid }) => {
       </Modal.Body>
     </Modal>
   );
-};
-
-export default InquiryModal;
+}

@@ -9,7 +9,7 @@ const OfferCard = ({ offer }) => {
   const { toggleBookmark, isPending } = useAddOrRemoveBookmark();
   const [bookmarked, setBookmarked] = useState(offer?.is_saved || false);
   const queryClient = useQueryClient();
-  const isMyOffer = user.id === offer.user.id;
+  const isMyOffer = user?.id === offer?.user?.id;
 
   const handleToggleBookmark = (e) => {
     e.preventDefault();
@@ -63,7 +63,7 @@ const OfferCard = ({ offer }) => {
             <img src="/icons/cash.svg" alt="icon" className="mx-2" />
             {offer.help_service.price} <img src="/icons/ryal.svg" alt="ريال" />
           </span>
-          {!isMyOffer && (
+          {!isMyOffer && user && (
             <button
               className="toggle-bookmark-button"
               onClick={handleToggleBookmark}
