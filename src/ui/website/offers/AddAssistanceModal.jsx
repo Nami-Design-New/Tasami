@@ -75,6 +75,9 @@ export default function AddAssistanceModal({ showModal, setShowModal }) {
         queryClient.invalidateQueries({
           queryKey: ["my-assistances"],
         });
+        queryClient.invalidateQueries({
+          queryKey: ["personal-assistants"],
+        });
         toast.success(res?.message);
       },
       onError: (error) => {

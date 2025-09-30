@@ -5,7 +5,7 @@ import useGetcategories from "../../../hooks/area-of-interests/useGetcategories"
 import useGetCities from "../../../hooks/countries/useGetCities";
 import useGetNationalities from "../../../hooks/countries/useGetNationalities";
 import usePersonalFilterForm from "../../../validations/personal-offers-filter";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import SelectField from "../../forms/SelectField";
 import CustomButton from "../../CustomButton";
 import RangeSlider from "react-range-slider-input";

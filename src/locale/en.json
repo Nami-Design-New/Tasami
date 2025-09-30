@@ -516,7 +516,9 @@
         "videoCall": "Video and Audio Call",
         "textAudio": "Text and Audio Messaging",
         "offerImage": "Offer Image",
-        "totalDuration": "Total Duration {{duration}} (in days)"
+        "totalDuration": "Total Duration {{duration}} (in days)",
+        "yes": "Yes",
+        "no": "No"
       },
       "activeContracts": "Active Contracts",
       "activeGroups": "Active Groups",

@@ -8,12 +8,17 @@ const GoalCard = ({ goal }) => {
     >
       <div className="d-flex gap-2">
         <div className="image-wrapper">
-          <img src={goal.image} alt={goal.name} className="avatar" />
+          <img src={goal.user.image} alt={goal.name} className="avatar" />
           {goal.status && <span className="status-dot"></span>}
         </div>
         <div className="info">
           <div className="d-flex align-items-center  justify-content-between  ">
-            <h2>{goal.name}</h2>
+            <div className="d-flex align-items center justify-content-between w-100 mb-2">
+              <h2 className="m-0">{goal.user.name}</h2>
+              <button>
+                <i className="fa-solid fa-heart "></i>
+              </button>
+            </div>
             {goal.is_favorites && <i className="fa-solid fa-heart"></i>}
           </div>
           <p>{goal.title}</p>
