@@ -1,46 +1,30 @@
-import { Link } from "react-router";
-import { useQueryClient } from "@tanstack/react-query";
-import { useState, useEffect } from "react";
-import useToggleSavedGoals from "../../hooks/website/goals/useToggleSavedGoals";
-import { toast } from "sonner";
 import { motion } from "framer-motion";
+import { useState } from "react";
+import { useTranslation } from "react-i18next";
+import { Link } from "react-router";
+import { toast } from "sonner";
+import useToggleSavedGoals from "../../hooks/website/goals/useToggleSavedGoals";
+import { useSelector } from "react-redux";
 
 const GoalCard = ({ goal }) => {
-  const queryClient = useQueryClient();
+  const { user } = useSelector((state) => state.authRole);
+
+  const { t } = useTranslation();
   const { toggleSaveGoal, isPending } = useToggleSavedGoals();
-
-  const [isActive, setIsActive] = useState(goal.is_saved);
-
-  useEffect(() => {
-    setIsActive(goal.is_saved);
-  }, [goal.is_saved]);
+  const [isActive, setIsActive] = useState(goal?.is_saved || false);
 
   const handleToggle = (e) => {
     e.preventDefault();
+    e.stopPropagation();
 
-    setIsActive((prev) => !prev);
+    const prevState = isActive;
+    setIsActive(!prevState);
 
     toggleSaveGoal(goal.id, {
-      onMutate: async (goalId) => {
-        await queryClient.cancelQueries(["goals"]);
-        const previousGoals = queryClient.getQueryData(["goals"]);
-
-        queryClient.setQueryData(["goals"], (old) =>
-          old?.map((g) =>
-            g.id === goalId ? { ...g, is_saved: !g.is_saved } : g
-          )
-        );
-
-        return { previousGoals };
-      },
-      onError: (err, goalId, context) => {
-        setIsActive(goal.is_saved);
+      onError: (err) => {
+        setIsActive(prevState);
         toast.error(err.message);
-        if (context?.previousGoals) {
-          queryClient.setQueryData(["goals"], context.previousGoals);
-        }
       },
-      onSuccess: () => {},
     });
   };
 
@@ -65,24 +49,26 @@ const GoalCard = ({ goal }) => {
           </div>
         </Link>
 
-        <button
-          type="button"
-          className="btn btn-link like-button p-0"
-          disabled={isPending}
-          onClick={handleToggle}
-        >
-          <motion.i
-            key={isActive}
-            initial={{ scale: 0.8, rotate: 0 }}
-            animate={{
-              scale: [1, 0.85, 1.15, 1],
-              rotate: isActive ? [0, -20, 20, 0] : 0,
-              color: isActive ? "#01C7FB" : "#0D0D0D59",
-            }}
-            transition={{ duration: 0.6, ease: "easeInOut" }}
-            className="fa-solid fa-heart"
-          />
-        </button>
+        {user && (
+          <button
+            type="button"
+            className="btn btn-link like-button p-0"
+            disabled={isPending}
+            onClick={handleToggle}
+          >
+            <motion.i
+              key={isActive}
+              initial={{ scale: 0.8, rotate: 0 }}
+              animate={{
+                scale: [1, 0.85, 1.15, 1],
+                rotate: isActive ? [0, -20, 20, 0] : 0,
+                color: isActive ? "#01C7FB" : "#0D0D0D59",
+              }}
+              transition={{ duration: 0.6, ease: "easeInOut" }}
+              className="fa-solid fa-heart"
+            />
+          </button>
+        )}
       </div>
 
       <Link
@@ -90,11 +76,11 @@ const GoalCard = ({ goal }) => {
         className="meta text-decoration-none text-dark mt-2"
       >
         <span>
-          <img src="/icons/title.svg" alt="type" /> {goal.type}
+          <img src="/icons/title.svg" alt="type" /> {goal.category_title}
         </span>
         <span>
-          <img src="/icons/offers-icon.svg" alt="offers" /> {goal.count} عرض
-          مقدم
+          <img src="/icons/offers-icon.svg" alt="offers" />{" "}
+          {goal.goal.offers_count} {t("website.offerDetails.submittedOffer")}
         </span>
       </Link>
     </div>

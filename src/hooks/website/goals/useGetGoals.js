@@ -22,7 +22,7 @@ export default function useGetGoals() {
     fetchNextPage,
     isFetchingNextPage,
   } = useInfiniteQuery({
-    queryKey: ["personal-assistants", params],
+    queryKey: ["goals", params],
     queryFn: async ({ pageParam = 1 }) => {
       const res = await axiosInstance.get("goals", {
         params: {

@@ -14,6 +14,7 @@ import { useQueryClient } from "@tanstack/react-query";
 
 export default function AddGoalModal({ showModal, setShowModal }) {
   const { t } = useTranslation();
+  const queryClient = useQueryClient();
   const { categories, isLoading } = useGetcategories();
   const { helpMechanisms, isLoading: helpLoading } = useGetHelpMechanisms();
   const { generateDes, isPending: isGenerating } = useGenerateDes();
@@ -27,7 +28,6 @@ export default function AddGoalModal({ showModal, setShowModal }) {
     formState: { errors },
   } = useAddGoalForm();
   const month = watch("month");
-  const queryClient = useQueryClient();
 
   const day = watch("day");
   const durationInDays = Number(month) * 30 + Number(day);
@@ -41,8 +41,6 @@ export default function AddGoalModal({ showModal, setShowModal }) {
 
   console.log(errors);
   const onSubmit = async (data) => {
-    console.log("Form Submitted: ", data);
-
     const formData = new FormData();
 
     if (data.assistantOption === "defined") {
@@ -72,6 +70,7 @@ export default function AddGoalModal({ showModal, setShowModal }) {
         queryClient.invalidateQueries({
           queryKey: ["goals"],
         });
+        queryClient.refetchQueries({ queryKey: ["homeData"] });
         toast.success(res?.message);
       },
       onError: (error) => {

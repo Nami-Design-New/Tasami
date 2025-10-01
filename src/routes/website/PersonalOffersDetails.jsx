@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
+import useAddOrRemoveBookmark from "../../hooks/website/personal-assistances/useAddOrRemoveBookmark";
 import useGetPersonalOfferDetails from "../../hooks/website/personal-assistances/useGetPersonalOfferDetails";
 import CustomButton from "../../ui/CustomButton";
 import Loading from "../../ui/loading/Loading";
@@ -8,15 +10,11 @@ import ReportModal from "../../ui/modals/ReportModal";
 import ReviewsModal from "../../ui/modals/ReviewsModal";
 import OptionsMenu from "../../ui/website/OptionsMenu";
 import SectionHeader from "../../ui/website/SectionHeader";
+import InquiryModal from "../../ui/website/my-notifications/inquiryModal";
 import OfferInfoGrid from "../../ui/website/offers/OfferInfoGrid";
 import TopInfo from "../../ui/website/offers/TopInfo";
-import useAddOrRemoveBookmark from "../../hooks/website/personal-assistances/useAddOrRemoveBookmark";
-import { useQueryClient } from "@tanstack/react-query";
-import { useTranslation } from "react-i18next";
-import InquiryModal from "../../ui/website/my-notifications/inquiryModal";
 
 export default function PersonalOffersDetails() {
-  const queryClient = useQueryClient();
   const { t } = useTranslation();
   const { lang } = useSelector((state) => state.language);
   const { offerDetails, isLoading } = useGetPersonalOfferDetails();
@@ -36,11 +34,7 @@ export default function PersonalOffersDetails() {
 
     const prevState = bookmarked;
     setBookmarked(!prevState);
-
     toggleBookmark(id, {
-      onSuccess: () => {
-        queryClient.refetchQueries({ queryKey: ["bookmarked-offes"] });
-      },
       onError: () => {
         setBookmarked(prevState);
       },

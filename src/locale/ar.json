@@ -28,7 +28,8 @@
   "send": "إرسال",
   "defined": "محدد",
   "notDefined": "غير محدد",
-
+  "day": "يوم",
+  "days": "أيام",
   "pageHeaders": {
     "Notifications": " التنبيهات ",
     "Dashboard": " لوحة التحكم ",
@@ -341,6 +342,7 @@
       "answer": { "title": "أضف رد" }
     },
     "offerDetails": {
+      "goalHeader": "تفاصيل الهدف",
       "title": "تفاصيل العرض",
       "edit": "تعديل",
       "archive": "أرشفة",
@@ -364,7 +366,18 @@
       "helpValue": "قيمة المساعدة",
       "preferredGender": "تفضيل هوية المستفيد",
       "ageRange": "الفئة العمرية للمستفيد",
-      "duration": "المدة المتوقعة لتقديم المساعدة"
+      "duration": "المدة المتوقعة لتقديم المساعدة",
+      "expectedData": "المدة المتوقعة لتحقيق الهدف",
+      "startDate": "تاريخ البدء",
+      "offerHelp": "تقديم عرض مساعدة",
+      "goal": "هدف",
+      "noGoalsOffers": "لا توجد عروض مقدمه",
+      "submittedOffers": "العروض المقدمة",
+      "submittedOffer": "عرض مقدم",
+      "offers": "عروض",
+      "addGroup": "اضافة مجموعة",
+      "offerValue": "قيمة العرض",
+      "submitHelpOffer": "تقديم عرض مساعدة "
     },
     "home": {
       "totalWork": "اجمالى  الاعمال",

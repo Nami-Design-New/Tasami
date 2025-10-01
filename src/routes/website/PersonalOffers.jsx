@@ -1,13 +1,13 @@
 import { useTranslation } from "react-i18next";
-import { Link, useNavigate } from "react-router";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router";
+import useGetPersonalOffers from "../../hooks/website/personal-assistances/useGetPersonalOffers";
 import OfferCard from "../../ui/cards/OfferCard";
 import EmptySection from "../../ui/EmptySection";
 import InfiniteScroll from "../../ui/loading/InfiniteScroll";
 import OfferCardSkeleton from "../../ui/loading/OfferCardSkeleton";
-import PersonalOffersSidebarFilter from "../../ui/website/home/PersonalOffersSidebarFilter";
-import useGetPersonalOffers from "../../hooks/website/personal-assistances/useGetPersonalOffers";
 import RoundedBackButton from "../../ui/website-auth/shared/RoundedBackButton";
-import { useSelector } from "react-redux";
+import PersonalOffersSidebarFilter from "../../ui/website/home/PersonalOffersSidebarFilter";
 
 export default function PersonalOffers() {
   const { t } = useTranslation();

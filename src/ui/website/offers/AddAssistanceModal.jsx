@@ -78,6 +78,7 @@ export default function AddAssistanceModal({ showModal, setShowModal }) {
         queryClient.invalidateQueries({
           queryKey: ["personal-assistants"],
         });
+        queryClient.refetchQueries({ queryKey: ["homeData"] });
         toast.success(res?.message);
       },
       onError: (error) => {

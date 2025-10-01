@@ -15,7 +15,7 @@ export default function MyGroups() {
     fetchNextPage,
     hasNextPage,
     isFetchingNextPage,
-  } = useGetMyGroups();
+  } = useGetMyGroups("on");
 
   const allGroups = myGroups?.pages?.flatMap((page) => page?.data) ?? [];
   const [showAddGroupModal, setShowAddGroupModal] = useState(false);
