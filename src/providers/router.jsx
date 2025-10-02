@@ -109,6 +109,7 @@ import PersonalOffersDetails from "../routes/website/PersonalOffersDetails";
 import MyCommunities from "../routes/website/profile/MyCommunities";
 import ErrorFallback from "../ui/ErrorFallback";
 import ProtectedRoute from "./ProtectedRoute";
+import Reels from "../routes/website/Reels";
 
 export const router = createBrowserRouter([
   /* WEBSITE AUTH */
@@ -186,6 +187,10 @@ export const router = createBrowserRouter([
       {
         path: "privacy-policy",
         element: <Privacy />,
+      },
+      {
+        path: "reels",
+        element: <Reels />,
       },
 
       {
