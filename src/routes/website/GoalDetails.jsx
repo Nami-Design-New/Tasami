@@ -53,24 +53,26 @@ export default function GoalDetails() {
         <div className="header">
           <SectionHeader title={t("website.offerDetails.goalHeader")} />
           <div className="d-flex align-items-center gap-2">
-            <button
-              type="button"
-              className="btn btn-link like-button p-0"
-              disabled={isSavingToggle}
-              onClick={handleToggle}
-            >
-              <motion.i
-                key={isActive}
-                initial={{ scale: 0.8, rotate: 0 }}
-                animate={{
-                  scale: [1, 0.85, 1.15, 1],
-                  rotate: isActive ? [0, -20, 20, 0] : 0,
-                  color: isActive ? "#01C7FB" : "#0D0D0D59",
-                }}
-                transition={{ duration: 0.6, ease: "easeInOut" }}
-                className="fa-solid fa-heart"
-              />
-            </button>{" "}
+            {user && (
+              <button
+                type="button"
+                className="btn btn-link like-button p-0"
+                disabled={isSavingToggle}
+                onClick={handleToggle}
+              >
+                <motion.i
+                  key={isActive}
+                  initial={{ scale: 0.8, rotate: 0 }}
+                  animate={{
+                    scale: [1, 0.85, 1.15, 1],
+                    rotate: isActive ? [0, -20, 20, 0] : 0,
+                    color: isActive ? "#01C7FB" : "#0D0D0D59",
+                  }}
+                  transition={{ duration: 0.6, ease: "easeInOut" }}
+                  className="fa-solid fa-heart"
+                />
+              </button>
+            )}{" "}
             <button className="toggle-bookmark-button">
               <i
                 className="fa-solid fa-share"
@@ -79,19 +81,21 @@ export default function GoalDetails() {
                 }}
               ></i>
             </button>
-            <OptionsMenu
-              options={[
-                {
-                  label: t("website.offerDetails.inquiry"),
-                  onClick: () => setShowInquiryModal(true),
-                },
-                {
-                  label: t("website.offerDetails.report"),
-                  onClick: () => console.log("Report"),
-                  className: "text-danger",
-                },
-              ]}
-            />
+            {user && (
+              <OptionsMenu
+                options={[
+                  {
+                    label: t("website.offerDetails.inquiry"),
+                    onClick: () => setShowInquiryModal(true),
+                  },
+                  {
+                    label: t("website.offerDetails.report"),
+                    onClick: () => console.log("Report"),
+                    className: "text-danger",
+                  },
+                ]}
+              />
+            )}
           </div>
         </div>
 
@@ -119,7 +123,7 @@ export default function GoalDetails() {
                 ))}
               </ul>
             </div>
-            {!isMyGoal && (
+            {user && !isMyGoal && (
               <div className="add-offer-wrapper">
                 <div className="offers-count">
                   <i className="fa-regular fa-layer-group"></i>
@@ -148,21 +152,25 @@ export default function GoalDetails() {
             )}
           </div>
         </div>
-        {!isMyGoal && (
+        {user && !isMyGoal && (
           <HelpModal
             goal={goalDetails}
             showModal={showHelpModal}
             setShowModal={setShowHelpModal}
           />
         )}
-        <ReportModal
-          showModal={showReportModal}
-          setShowModal={setShowReportModal}
-        />
-        <InquiryModal
-          showModal={showInquiryModal}
-          setShowModal={setShowInquiryModal}
-        />
+        {user && (
+          <ReportModal
+            showModal={showReportModal}
+            setShowModal={setShowReportModal}
+          />
+        )}
+        {user && (
+          <InquiryModal
+            showModal={showInquiryModal}
+            setShowModal={setShowInquiryModal}
+          />
+        )}
       </div>
     </section>
   );

@@ -88,7 +88,7 @@ export default function HelpersDetails() {
                   }
                 ></i>
               </RoundedBackButton>
-              {!thisIsMe && (
+              {user && !thisIsMe && (
                 <button
                   className={`follow-btn  ${
                     optimisticFollow ? "unfollow" : ""

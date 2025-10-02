@@ -17,6 +17,7 @@ import TopInfo from "../../ui/website/offers/TopInfo";
 export default function PersonalOffersDetails() {
   const { t } = useTranslation();
   const { lang } = useSelector((state) => state.language);
+  const { user } = useSelector((state) => state.authRole);
   const { offerDetails, isLoading } = useGetPersonalOfferDetails();
   const { toggleBookmark, isPending } = useAddOrRemoveBookmark();
   const [bookmarked, setBookmarked] = useState(offerDetails?.is_saved || false);
@@ -56,29 +57,33 @@ export default function PersonalOffersDetails() {
             <SectionHeader title={t("website.offerDetails.title")} />
 
             <div className="d-flex align-items-center gap-2">
-              <button
-                onClick={(e) => handleToggleBookmark(e, offerDetails.id)}
-                className="toggle-bookmark-button"
-              >
-                <i
-                  className={`fa-solid fa-bookmark ${
-                    bookmarked ? "active" : ""
-                  } ${isPending ? "opacity-50" : ""}`}
-                ></i>
-              </button>
-              <OptionsMenu
-                options={[
-                  {
-                    label: t("website.offerDetails.inquiry"),
-                    onClick: () => setShowInquiryModal(true),
-                  },
-                  {
-                    label: t("website.offerDetails.report"),
-                    onClick: () => console.log("Report"),
-                    className: "text-danger",
-                  },
-                ]}
-              />
+              {user && (
+                <button
+                  onClick={(e) => handleToggleBookmark(e, offerDetails.id)}
+                  className="toggle-bookmark-button"
+                >
+                  <i
+                    className={`fa-solid fa-bookmark ${
+                      bookmarked ? "active" : ""
+                    } ${isPending ? "opacity-50" : ""}`}
+                  ></i>
+                </button>
+              )}
+              {user && (
+                <OptionsMenu
+                  options={[
+                    {
+                      label: t("website.offerDetails.inquiry"),
+                      onClick: () => setShowInquiryModal(true),
+                    },
+                    {
+                      label: t("website.offerDetails.report"),
+                      onClick: () => console.log("Report"),
+                      className: "text-danger",
+                    },
+                  ]}
+                />
+              )}
             </div>
           </div>
         </div>
@@ -168,39 +173,48 @@ export default function PersonalOffersDetails() {
               </div>
             </div>
 
-            <div className="buttons justify-content-end mt-2">
-              <CustomButton
-                variant="outlined"
-                color="primary"
-                onClick={() => setShowReviewsModal(true)}
-              >
-                {t("website.offerDetails.showReviews")}
-              </CustomButton>
-              <CustomButton onClick={() => setShowHelpModal(true)}>
-                {t("website.offerDetails.sendContract")}
-              </CustomButton>
-            </div>
+            {user && (
+              <div className="buttons justify-content-end mt-2">
+                <CustomButton
+                  variant="outlined"
+                  color="primary"
+                  onClick={() => setShowReviewsModal(true)}
+                >
+                  {t("website.offerDetails.showReviews")}
+                </CustomButton>
+                <CustomButton onClick={() => setShowHelpModal(true)}>
+                  {t("website.offerDetails.sendContract")}
+                </CustomButton>
+              </div>
+            )}
           </div>
         </div>
 
-        <ContractReq
-          showModal={showHelpModal}
-          setShowModal={setShowHelpModal}
-        />
-        <ReportModal
-          showModal={showReportModal}
-          setShowModal={setShowReportModal}
-        />
-        <InquiryModal
-          workid={offerDetails.id}
-          showModal={showInquiryModal}
-          setShowModal={setShowInquiryModal}
-        />
-        <ReviewsModal
-          showModal={showReviewsModal}
-          setShowModal={setShowReviewsModal}
-          reviews={[]}
-        />
+        {user && (
+          <>
+            <ContractReq
+              showModal={showHelpModal}
+              setShowModal={setShowHelpModal}
+            />
+
+            <ReportModal
+              showModal={showReportModal}
+              setShowModal={setShowReportModal}
+            />
+
+            <InquiryModal
+              workid={offerDetails.id}
+              showModal={showInquiryModal}
+              setShowModal={setShowInquiryModal}
+            />
+
+            <ReviewsModal
+              showModal={showReviewsModal}
+              setShowModal={setShowReviewsModal}
+              reviews={[]}
+            />
+          </>
+        )}
       </div>
     </section>
   );

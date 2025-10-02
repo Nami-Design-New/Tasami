@@ -16,7 +16,9 @@ export default function GoalsHelpSection() {
   return (
     <section className={`goals-help-section ${lang === "en" && "en"}  `}>
       <CustomButton
-        onClick={() => setShowGoalModal(true)}
+        onClick={() => {
+          user ? setShowGoalModal(true) : navigate("/login");
+        }}
         className="goal-btn personal-goal"
       >
         <img src="/icons/add.svg" alt="icon" />

@@ -8,7 +8,7 @@ export default function useGetGroupDetails() {
   const { data: groupDetails, isLoading } = useQuery({
     queryKey: ["group-details", id],
     queryFn: async () => {
-      const res = await axiosInstance.get(`/helper-groups/${id}`);
+      const res = await axiosInstance.get(`helper-groups/${id}`);
       if (res.data.code !== 200) {
         throw new Error(res.data.message);
       }
