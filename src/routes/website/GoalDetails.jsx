@@ -169,6 +169,7 @@ export default function GoalDetails() {
           <InquiryModal
             showModal={showInquiryModal}
             setShowModal={setShowInquiryModal}
+            workid={goalDetails?.id}
           />
         )}
       </div>

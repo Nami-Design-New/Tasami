@@ -53,7 +53,10 @@ const InquiryModal = ({ showModal, setShowModal, workid }) => {
     <Modal
       show={showModal}
       size="md"
-      onHide={() => setShowModal(false)}
+      onHide={() => {
+        setShowModal(false);
+        reset();
+      }}
       centered
     >
       <Modal.Header closeButton className="m-2">
@@ -80,7 +83,7 @@ const InquiryModal = ({ showModal, setShowModal, workid }) => {
                 disabled={isPending}
                 loading={isPending}
               >
-                {t("submit")}
+                {t("send")}
               </CustomButton>
             </div>
 
