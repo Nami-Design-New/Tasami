@@ -50,7 +50,6 @@ export default function HelpersDetails() {
           setOptimisticFollow(res.data.i_follow_him);
         }
 
-
         if (res?.data?.i_follow_him === false) {
           navigate("/my-profile/followings");
         }
@@ -89,7 +88,7 @@ export default function HelpersDetails() {
                   }
                 ></i>
               </RoundedBackButton>
-              {!thisIsMe && (
+              {user && !thisIsMe && (
                 <button
                   className={`follow-btn  ${
                     optimisticFollow ? "unfollow" : ""

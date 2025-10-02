@@ -1,161 +1,177 @@
+import { motion } from "framer-motion";
 import { useState } from "react";
-import { useParams } from "react-router";
+import { useTranslation } from "react-i18next";
+import { useSelector } from "react-redux";
+import { toast } from "sonner";
+import useGetGoalDetails from "../../hooks/website/goals/useGetGoalDetails";
+import useToggleSavedGoals from "../../hooks/website/goals/useToggleSavedGoals";
+import CustomButton from "../../ui/CustomButton";
+import Loading from "../../ui/loading/Loading";
 import HelpModal from "../../ui/modals/HelpModal";
 import ReportModal from "../../ui/modals/ReportModal";
-import SectionHeader from "../../ui/website/SectionHeader";
-import CustomButton from "../../ui/CustomButton";
 import OptionsMenu from "../../ui/website/OptionsMenu";
-import TopInfo from "../../ui/website/gaols/TopInfo";
+import SectionHeader from "../../ui/website/SectionHeader";
 import GoalInfoGrid from "../../ui/website/gaols/GoalInfoGrid";
 import InquiryModal from "../../ui/website/my-notifications/inquiryModal";
+import TopInfo from "../../ui/website/offers/TopInfo";
 
 export default function GoalDetails() {
-  const { id } = useParams();
-  const [menuOpen, setMenuOpen] = useState(false);
+  const { t } = useTranslation();
+
   const [showHelpModal, setShowHelpModal] = useState(false);
   const [showReportModal, setShowReportModal] = useState(false);
   const [showInquiryModal, setShowInquiryModal] = useState(false);
 
-  const toggleMenu = () => setMenuOpen(!menuOpen);
-  const closeModals = () => {
-    setShowHelpModal(false);
-    setShowReportModal(false);
-    setShowCommentModal(false);
-    setShowInquiryModal(false);
+  const { lang } = useSelector((state) => state.language);
+  const { user } = useSelector((state) => state.authRole);
+
+  const { goalDetails, isLoading } = useGetGoalDetails();
+
+  const { toggleSaveGoal, isPending: isSavingToggle } = useToggleSavedGoals();
+  const [isActive, setIsActive] = useState(goalDetails?.is_saved);
+
+  const handleToggle = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+
+    const prevState = isActive;
+    setIsActive(!prevState);
+
+    toggleSaveGoal(goalDetails?.id, {
+      onError: (err) => {
+        setIsActive(prevState);
+        toast.error(err.message);
+      },
+    });
   };
-  const goals = [
-    {
-      id: 1,
-      name: "سلطان حسن",
-      title: "إنشاء متجر لبيع مستلزمات الطباعة ثلاثية الأبعاد في السعودية.",
-      country: "السعودية",
-      date: "16 فبراير 2025",
-      type: "ريادي ",
-      section: " تجارة إلكترونية",
-      offers: 12,
-      image: "/images/profile1.png",
-      status: true,
-      description:
-        "تطوير تطبيق جوال متكامل لمراقبة الصحة الشخصية، يهدف إلى تمكين المستخدمين من تتبع مؤشرات صحتهم بشكل يومي. سيوفر التطبيق ميزات مثل تسجيل النشاط البدني، مراقبة النظام الغذائي، وتحليل البيانات الصحية لتقديم نصائح مخصصة. كما سيتضمن التطبيق واجهة مستخدم سهلة الاستخدام، مع إمكانية الوصول إلى معلومات صحية موثوقة، مما يساعد المستخدمين على اتخاذ قرارات أفضل بشأن صحتهم.",
-      duration: "6 شهور",
-      assistMethods: [
-        "الالتقاء الشخصي",
-        "الاتصال المرئي والمسموع ",
-        "التراسل النصي والصوتي",
-      ],
-    },
-    {
-      id: 2,
-      name: "علياء السالم",
-      title:
-        "تطوير تطبيق لتسهيل الوصول إلى الخدمات الصحية في الإمارات للمواطنين والمقيمين.",
-      country: "الإمارات",
-      date: "10 مارس 2025",
-      type: "تقنية ",
-      section: " تطبيقات موبايل",
-      offers: 8,
-      image: "/images/profile2.png",
-      status: false,
-      description:
-        "تطوير تطبيق جوال متكامل لمراقبة الصحة الشخصية، يهدف إلى تمكين المستخدمين من تتبع مؤشرات صحتهم بشكل يومي. سيوفر التطبيق ميزات مثل تسجيل النشاط البدني، مراقبة النظام الغذائي، وتحليل البيانات الصحية لتقديم نصائح مخصصة. كما سيتضمن التطبيق واجهة مستخدم سهلة الاستخدام، مع إمكانية الوصول إلى معلومات صحية موثوقة، مما يساعد المستخدمين على اتخاذ قرارات أفضل بشأن صحتهم.",
-      duration: "4 شهور",
-      assistMethods: [
-        "الالتقاء الشخصي",
-        "الاتصال المرئي والمسموع ",
-        "التراسل النصي والصوتي",
-      ],
-    },
-    {
-      id: 3,
-      name: "محمد العلي",
-      title: "إنشاء منصة تعليمية لتعليم البرمجة للأطفال في العالم العربي.",
-      country: "مصر",
-      date: "5 أبريل 2025",
-      type: "تقنية",
-      section: " تعليم",
-      offers: 15,
-      image: "/images/profile2.png",
-      status: true,
-      description:
-        "تطوير تطبيق جوال متكامل لمراقبة الصحة الشخصية، يهدف إلى تمكين المستخدمين من تتبع مؤشرات صحتهم بشكل يومي. سيوفر التطبيق ميزات مثل تسجيل النشاط البدني، مراقبة النظام الغذائي، وتحليل البيانات الصحية لتقديم نصائح مخصصة. كما سيتضمن التطبيق واجهة مستخدم سهلة الاستخدام، مع إمكانية الوصول إلى معلومات صحية موثوقة، مما يساعد المستخدمين على اتخاذ قرارات أفضل بشأن صحتهم.",
-      duration: "8 شهور",
-      assistMethods: [
-        "الالتقاء الشخصي",
-        "الاتصال المرئي والمسموع ",
-        "التراسل النصي والصوتي",
-      ],
-    },
-    {
-      id: 4,
-      name: "سارة القحطاني",
-      title: "تطوير موقع إلكتروني لبيع المنتجات اليدوية والحرفية في الكويت.",
-      country: "الكويت",
-      date: "20 مايو 2025",
-      type: "ريادي",
-      section: " تجارة إلكترونية",
-      offers: 10,
-      image: "/images/profile1.png",
-      status: false,
-      description:
-        "تطوير تطبيق جوال متكامل لمراقبة الصحة الشخصية، يهدف إلى تمكين المستخدمين من تتبع مؤشرات صحتهم بشكل يومي. سيوفر التطبيق ميزات مثل تسجيل النشاط البدني، مراقبة النظام الغذائي، وتحليل البيانات الصحية لتقديم نصائح مخصصة. كما سيتضمن التطبيق واجهة مستخدم سهلة الاستخدام، مع إمكانية الوصول إلى معلومات صحية موثوقة، مما يساعد المستخدمين على اتخاذ قرارات أفضل بشأن صحتهم.",
-      duration: "5 شهور",
-      assistMethods: [
-        "الالتقاء الشخصي",
-        "الاتصال المرئي والمسموع ",
-        "التراسل النصي والصوتي",
-      ],
-    },
-  ];
 
-  const goal = goals.find((g) => g.id === Number(id));
-  if (!goal) {
-    return (
-      <section className="page goal-details-section mx-3">
-        <div className="container text-center p-5">
-          <h2>الهدف غير موجود</h2>
-        </div>
-      </section>
-    );
-  }
-
+  if (isLoading) return <Loading />;
+  const isMyGoal = user?.id === goalDetails?.user?.id;
   return (
     <section className="page goal-details-section mx-3">
       <div className="container">
         <div className="header">
-          <SectionHeader title="تفاصيل العرض" />
-          <OptionsMenu
-            setShowInquiryModal={setShowInquiryModal}
-            setShowReportModal={setShowReportModal}
-          />
+          <SectionHeader title={t("website.offerDetails.goalHeader")} />
+          <div className="d-flex align-items-center gap-2">
+            {user && (
+              <button
+                type="button"
+                className="btn btn-link like-button p-0"
+                disabled={isSavingToggle}
+                onClick={handleToggle}
+              >
+                <motion.i
+                  key={isActive}
+                  initial={{ scale: 0.8, rotate: 0 }}
+                  animate={{
+                    scale: [1, 0.85, 1.15, 1],
+                    rotate: isActive ? [0, -20, 20, 0] : 0,
+                    color: isActive ? "#01C7FB" : "#0D0D0D59",
+                  }}
+                  transition={{ duration: 0.6, ease: "easeInOut" }}
+                  className="fa-solid fa-heart"
+                />
+              </button>
+            )}{" "}
+            <button className="toggle-bookmark-button">
+              <i
+                className="fa-solid fa-share"
+                style={{
+                  color: "#0D0D0D59",
+                }}
+              ></i>
+            </button>
+            {user && (
+              <OptionsMenu
+                options={[
+                  {
+                    label: t("website.offerDetails.inquiry"),
+                    onClick: () => setShowInquiryModal(true),
+                  },
+                  {
+                    label: t("website.offerDetails.report"),
+                    onClick: () => console.log("Report"),
+                    className: "text-danger",
+                  },
+                ]}
+              />
+            )}
+          </div>
         </div>
 
         <div className="goal-details-card mt-3 row ">
-          <TopInfo goal={goal} />
-          <div className="col-lg-8 col-12 ">
+          <div className="col-12 col-lg-4 p-2">
+            <TopInfo offer={goalDetails} />
+          </div>
+          <div className="col-lg-8 col-12 p-2 ">
             <div className="hed">
               <img src="/icons/triangle.svg" />
-              <h6>الهدف</h6>
+              <h6>{t("website.offerDetails.goal")}</h6>
             </div>
-            <p className="desc ">{goal.description}</p>
-            <GoalInfoGrid
-              goal={goal}
-              onShowHelpModal={() => setShowHelpModal(true)}
-              // onShowReviewsModal={() => setShowReviewsModal(true)}
-            />
-            <CustomButton onClick={() => setShowHelpModal(true)}>
-              تقديم عرض مساعدة
-            </CustomButton>
+            <p className="desc ">{goalDetails.title}</p>
+            <GoalInfoGrid goal={goalDetails} />
+            <div className="extra-terms">
+              <h2>{t("website.offerDetails.mechanisms")}</h2>
+              <ul className="mechanisms-list">
+                {goalDetails.mechanisms.map((item) => (
+                  <li
+                    key={item.id}
+                    className={`mech-item  ${lang === "en" ? "en" : ""} `}
+                  >
+                    {item.title}
+                  </li>
+                ))}
+              </ul>
+            </div>
+            {user && !isMyGoal && (
+              <div className="add-offer-wrapper">
+                <div className="offers-count">
+                  <i className="fa-regular fa-layer-group"></i>
+                  <div className="content">
+                    {goalDetails?.goal.offers_count === 0 ? (
+                      <h5 className="head fs-6 ">
+                        {t("website.offerDetails.noGoalsOffers")}{" "}
+                      </h5>
+                    ) : (
+                      <>
+                        <h5 className="head">
+                          {t("website.offerDetails.submittedOffers")}
+                        </h5>
+                        <p className="desc">
+                          {goalDetails?.goal.offers_count}{" "}
+                          {t("website.offerDetails.offers")}
+                        </p>
+                      </>
+                    )}
+                  </div>
+                </div>
+                <CustomButton onClick={() => setShowHelpModal(true)}>
+                  {t("website.offerDetails.offerHelp")}{" "}
+                </CustomButton>
+              </div>
+            )}
           </div>
         </div>
-        <HelpModal showModal={showHelpModal} setShowModal={setShowHelpModal} />
-        <ReportModal
-          showModal={showReportModal}
-          setShowModal={setShowReportModal}
-        />
-        <InquiryModal
-          showModal={showInquiryModal}
-          setShowModal={setShowInquiryModal}
-        />
+        {user && !isMyGoal && (
+          <HelpModal
+            goal={goalDetails}
+            showModal={showHelpModal}
+            setShowModal={setShowHelpModal}
+          />
+        )}
+        {user && (
+          <ReportModal
+            showModal={showReportModal}
+            setShowModal={setShowReportModal}
+          />
+        )}
+        {user && (
+          <InquiryModal
+            showModal={showInquiryModal}
+            setShowModal={setShowInquiryModal}
+            workid={goalDetails?.id}
+          />
+        )}
       </div>
     </section>
   );

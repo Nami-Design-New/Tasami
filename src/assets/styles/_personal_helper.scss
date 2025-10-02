@@ -161,6 +161,7 @@
         font-weight: 600;
         color: $second;
         margin-bottom: 0.25rem;
+        white-space: nowrap;
       }
 
       .value {
@@ -169,6 +170,7 @@
         color: $dark;
         display: flex;
         align-items: center;
+        white-space: nowrap;
         gap: 6px;
 
         img {

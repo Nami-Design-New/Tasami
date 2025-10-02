@@ -1,26 +1,25 @@
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { axiosInstance } from "../../../lib/axios";
 
-export default function useGetMyGroups({ pagenation = "on" }) {
+export default function useGetMyOpportunities() {
   const {
-    data: myGroups,
+    data: saves,
     isLoading,
     error,
     hasNextPage,
     fetchNextPage,
     isFetchingNextPage,
   } = useInfiniteQuery({
-    queryKey: ["my-groups"],
+    queryKey: ["saves"],
     queryFn: async ({ pageParam = 1 }) => {
-      const res = await axiosInstance.get("helper-groups", {
+      const res = await axiosInstance.get("my-saved-goals", {
         params: {
           page: pageParam,
-          pagenation,
         },
       });
 
       if (res.data.code !== 200) {
-        throw new Error(res.data.message || "Something went wrong");
+        throw new Error(res.data.message || "error fetching My Saves");
       }
       return res.data;
     },
@@ -31,9 +30,8 @@ export default function useGetMyGroups({ pagenation = "on" }) {
     },
   });
   return {
-    myGroups,
+    saves,
     isLoading,
-    total: myGroups?.pages?.[0]?.total || 0,
     error,
     hasNextPage,
     fetchNextPage,

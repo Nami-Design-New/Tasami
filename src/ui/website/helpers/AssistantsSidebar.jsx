@@ -1,23 +1,23 @@
+import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import InputField from "../../forms/InputField";
-import SelectField from "../../forms/SelectField";
+import { useSearchParams } from "react-router";
+import useGetcategories from "../../../hooks/area-of-interests/useGetcategories";
 import useGetCities from "../../../hooks/countries/useGetCities";
 import useGetNationalities from "../../../hooks/countries/useGetNationalities";
-import useGetcategories from "../../../hooks/area-of-interests/useGetcategories";
+import useGetHelpMechanisms from "../../../hooks/useGetHelpMechanisms";
 import useAssistantsFilterForm from "../../../validations/personal-assistants-filter";
 import CustomButton from "../../CustomButton";
-import { useSearchParams } from "react-router";
-import { useEffect } from "react";
+import InputField from "../../forms/InputField";
+import SelectField from "../../forms/SelectField";
 
-export default function AssistantsSidebar() {
+export default function AssistantsSidebar({ isGoal = false }) {
   const { t } = useTranslation();
   const [searchParams, setSearchParams] = useSearchParams();
-
+  const { helpMechanisms, isLoading: helpLoading } = useGetHelpMechanisms();
   const { categories, isLoading } = useGetcategories();
   const { cities, isCitiesLoading } = useGetCities({
     search: "",
     pagenation: "off",
-    // countryId,
   });
   const { nationalities, isLoading: isNationaliesLoading } =
     useGetNationalities("", "off");
@@ -31,7 +31,9 @@ export default function AssistantsSidebar() {
   } = useAssistantsFilterForm();
 
   const selectedFieldId = watch("field");
+  const selectedHelpMechanism = watch("helpMechanism") || [];
   const selectedGender = watch("gender");
+  const selectedDateOptions = watch("dateOptions");
   const subCategories =
     categories?.find((cat) => String(cat.id) === String(selectedFieldId))
       ?.sub_categories || [];
@@ -39,29 +41,65 @@ export default function AssistantsSidebar() {
   // --- Sync form with URL on mount
   useEffect(() => {
     const paramsObj = Object.fromEntries([...searchParams]);
-    reset(paramsObj); // populate form fields from query params
-  }, [searchParams, reset]);
+
+    // ensure gender=both by default if not provided
+    if (!paramsObj.gender) {
+      paramsObj.gender = "both";
+      setSearchParams(paramsObj);
+    }
+    if (!paramsObj.dateOptions) {
+      paramsObj.dateOptions = "notDefined";
+      setSearchParams(paramsObj);
+    }
+
+    // handle helpMechanism array
+    const helpMechanism = searchParams.getAll("helpMechanism");
+    reset({
+      ...paramsObj,
+      helpMechanism,
+    });
+  }, [searchParams, reset, setSearchParams]);
 
   // --- Handle submit (sync with URL search params)
   const onSubmit = (data) => {
-    // Remove empty values before setting params
     const filteredData = Object.fromEntries(
       Object.entries(data).filter(([_, v]) => v && v !== "")
     );
+
+    // handle helpMechanism as array
+    if (Array.isArray(data.helpMechanism) && data.helpMechanism.length > 0) {
+      filteredData.helpMechanism = data.helpMechanism;
+    } else {
+      delete filteredData.helpMechanism;
+    }
+
+    // handle startDate
+    if (data.dateOptions === "defined" && data.startDate) {
+      filteredData.startDate = data.startDate;
+    } else {
+      delete filteredData.startDate;
+    }
+
     setSearchParams(filteredData);
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
   };
 
   // --- Reset (clear params + form)
   const handleReset = () => {
-    reset({
+    const resetValues = {
       search: "",
       city: "",
       nationality: "",
       field: "",
       specialization: "",
       gender: "both",
-    });
-    setSearchParams({});
+      dateOptions: "notDefined",
+    };
+    reset(resetValues);
+    setSearchParams(resetValues);
   };
 
   return (
@@ -124,6 +162,7 @@ export default function AssistantsSidebar() {
             />
           </div>
 
+          {/* gender */}
           <div className="col-12  py-2 px-0">
             <div className="identity-selector">
               <h6 className="identity-title">
@@ -151,6 +190,86 @@ export default function AssistantsSidebar() {
               <p className="error-text">{errors.gender?.message}</p>
             </div>
           </div>
+
+          {isGoal && (
+            <>
+              {/* startDate */}
+              <div className="col-12 py-2 px-0">
+                <div className="identity-selector">
+                  <h6 className="identity-title">
+                    {t("website.platform.myAssistance.startDate")}
+                  </h6>
+                  <div className="identity-container  flex-wrap">
+                    {["defined", "notDefined"].map((g) => (
+                      <label
+                        key={g}
+                        className={`identity-option ${
+                          selectedDateOptions === g ? "active" : ""
+                        }`}
+                      >
+                        <span>{t(`${g}`)}</span>
+                        <input
+                          type="radio"
+                          value={g}
+                          {...register("dateOptions")}
+                        />
+                      </label>
+                    ))}
+                  </div>
+                  <p className="error-text">{errors.gender?.message}</p>
+                </div>
+              </div>
+              {selectedDateOptions === "defined" && (
+                <div className="col-12 py-2 px-0">
+                  <InputField
+                    type="date"
+                    lable={t("sartDate")}
+                    {...register("startDate")}
+                  />
+                </div>
+              )}
+              {/* helpMechanism */}
+              <div className="col-12 p-2">
+                <div className="identity-selector">
+                  <h6 className="identity-title">
+                    {t("website.platform.myAssistance.helpMechanism")}
+                  </h6>
+                  <div className="identity-container flex-wrap">
+                    {!helpLoading && (
+                      <>
+                        {helpMechanisms.map((option) => (
+                          <label
+                            style={{
+                              padding: "8px",
+                              fontSize: "12px",
+                              height: "46px",
+                              borderRadius: "8px",
+                            }}
+                            key={option.id}
+                            className={`identity-option d-flex align-items-center justify-contnet-center gap-0 ${
+                              selectedHelpMechanism.includes(String(option.id))
+                                ? "active"
+                                : ""
+                            }`}
+                          >
+                            <span>{option.title}</span>
+                            <input
+                              type="checkbox"
+                              value={option.id}
+                              {...register("helpMechanism")}
+                            />
+                          </label>
+                        ))}
+                      </>
+                    )}
+                  </div>
+                  <p className="error-text">{errors.helpMechanism?.message}</p>
+                </div>
+              </div>
+            </>
+          )}
+
+          {/* buttons */}
           <div className="col-12 py-2 px-0">
             <div className="buttons">
               <CustomButton

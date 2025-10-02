@@ -36,7 +36,8 @@ export default function OfferInfoGrid({ offer }) {
       <div className="info-box">
         <div className="label">{t("website.offerDetails.duration")}</div>
         <div className="value">
-          {offer.help_service.duration} {t("common.days")}
+          {offer.help_service.duration}{" "}
+          {offer.help_service.duration < 10 ? t("days") : t("day")}
         </div>
       </div>
     </div>

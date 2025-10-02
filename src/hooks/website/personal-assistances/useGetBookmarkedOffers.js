@@ -10,7 +10,7 @@ export default function useGetBookmarkedOffers() {
     fetchNextPage,
     isFetchingNextPage,
   } = useInfiniteQuery({
-    queryKey: ["bookmarked-offes"],
+    queryKey: ["bookmarked-offers"],
     queryFn: async ({ pageParam = 1 }) => {
       const res = await axiosInstance.get("my-saved-help-offers", {
         params: {

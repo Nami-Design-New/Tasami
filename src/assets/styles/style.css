@@ -8484,6 +8484,7 @@ input[type=file] {
   font-size: 0.9rem;
   font-weight: 600;
   color: #5fcafa;
+  white-space: nowrap;
   margin-bottom: 0.25rem;
 }
 .goal-details-section .goal-details-card .info-grid .info-box .value,
@@ -8494,6 +8495,7 @@ input[type=file] {
   color: #0d0d0d;
   display: flex;
   align-items: center;
+  white-space: nowrap;
   gap: 6px;
 }
 .goal-details-section .goal-details-card .info-grid .info-box .value img,
@@ -8554,6 +8556,45 @@ input[type=file] {
   background-color: #5fcafa;
   color: white;
   border-color: #5fcafa;
+}
+.goal-details-section .goal-details-card .add-offer-wrapper,
+.offer-details-section .goal-details-card .add-offer-wrapper,
+.helper-details-section .goal-details-card .add-offer-wrapper {
+  background-color: rgba(33, 75, 146, 0.08);
+  padding: 12px 16px;
+  margin-top: 8px;
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  border-radius: 12px;
+  width: -moz-fit-content;
+  width: fit-content;
+}
+.goal-details-section .goal-details-card .add-offer-wrapper .offers-count,
+.offer-details-section .goal-details-card .add-offer-wrapper .offers-count,
+.helper-details-section .goal-details-card .add-offer-wrapper .offers-count {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.goal-details-section .goal-details-card .add-offer-wrapper .offers-count i,
+.offer-details-section .goal-details-card .add-offer-wrapper .offers-count i,
+.helper-details-section .goal-details-card .add-offer-wrapper .offers-count i {
+  width: 24px;
+  height: 24px;
+  font-size: 24px;
+}
+.goal-details-section .goal-details-card .add-offer-wrapper .offers-count .content .head,
+.offer-details-section .goal-details-card .add-offer-wrapper .offers-count .content .head,
+.helper-details-section .goal-details-card .add-offer-wrapper .offers-count .content .head {
+  font-size: 12px;
+}
+.goal-details-section .goal-details-card .add-offer-wrapper .offers-count .content .desc,
+.offer-details-section .goal-details-card .add-offer-wrapper .offers-count .content .desc,
+.helper-details-section .goal-details-card .add-offer-wrapper .offers-count .content .desc {
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 0;
 }
 @media (max-width: 768px) {
   .goal-details-section .goal-details-card .offer-info,
@@ -8716,6 +8757,13 @@ input[type=file] {
   .helper-details-section .goal-details-card .stats {
     flex-direction: column;
   }
+}
+
+.add-groub-button {
+  font-size: 12px;
+  color: #214b92;
+  font-weight: bold;
+  text-decoration: underline;
 }
 
 .contract-status__card {
@@ -11159,6 +11207,7 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
   font-weight: 600;
   color: #5fcafa;
   margin-bottom: 0.25rem;
+  white-space: nowrap;
 }
 .personal-assiatant-details-card .info-grid .info-box .value {
   font-size: 1rem;
@@ -11166,6 +11215,7 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
   color: #0d0d0d;
   display: flex;
   align-items: center;
+  white-space: nowrap;
   gap: 6px;
 }
 .personal-assiatant-details-card .info-grid .info-box .value img {

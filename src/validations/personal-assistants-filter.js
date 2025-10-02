@@ -10,6 +10,8 @@ const getDocSchema = () => {
     field: yup.string().optional(),
     specialization: yup.string().optional(),
     gender: yup.string().oneOf(["both", "male", "female"]).optional(),
+    dateOptions: yup.string().oneOf(["defined", "notDefined"]).optional(),
+    helpMechanism: yup.array().of(yup.string()).optional(),
   });
 };
 
