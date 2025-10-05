@@ -110,6 +110,7 @@ import MyCommunities from "../routes/website/profile/MyCommunities";
 import ErrorFallback from "../ui/ErrorFallback";
 import ProtectedRoute from "./ProtectedRoute";
 import Reels from "../routes/website/Reels";
+import CommunityChat from "../routes/website/CommunityChat";
 
 export const router = createBrowserRouter([
   /* WEBSITE AUTH */
@@ -338,6 +339,10 @@ export const router = createBrowserRouter([
             element: <Posts isMyCommuntiy={false} />,
           },
         ],
+      },
+      {
+        path: "community/:id/chats",
+        element: <CommunityChat />,
       },
       {
         path: "posts/:id",
