@@ -5,5 +5,11 @@ export default defineConfig({
   plugins: [react()],
   server: {
     port: 3000,
+    proxy: {
+      "/auth": {
+        target: "http://192.168.1.44:8000",
+        changeOrigin: true,
+      },
+    },
   },
 });

@@ -292,9 +292,16 @@
 .message {
   display: flex;
   gap: 0.75rem;
+  align-items: flex-start;
 
-  &--self {
+  &--sender {
+    flex-direction: row;
+    text-align: right;
+  }
+
+  &--receiver {
     flex-direction: row-reverse;
+    text-align: left;
   }
 
   &__avatar {
@@ -310,26 +317,29 @@
 
   &__text {
     font-size: 0.95rem;
-    background-color: #e4e4e4;
     padding: 0.75rem 1rem;
-    width: 100%;
     border-radius: 1rem;
   }
-  &--self .message__text {
+
+  &--main .message__text {
     background-color: $main;
-    color: white;
+    color: $white;
+  }
+
+  &--second .message__text {
+    background-color: $second;
+    color: $white;
+  }
+
+  &--gray .message__text {
+    background-color: #ccc;
+    color: #222;
   }
 
   &__time {
     font-size: 0.75rem;
     color: #999;
-    // text-align: right;
     margin-top: 0.25rem;
-  }
-  &--self {
-    .message__time {
-      text-align: left;
-    }
   }
 }
 
@@ -347,23 +357,20 @@
         min-height: calc(100vh - 156px);
       }
     }
-
-    &__back {
-      color: $main;
-      display: none;
-      @include tablet-layout() {
-        display: block;
-      }
-    }
-
-    &__info {
+    .chat-window__info {
       display: flex;
       align-items: center;
       gap: 1rem;
       padding-bottom: 1rem;
       border-bottom: 1px solid $InputStroke;
+      .chat-window__name {
+        font-size: 1.75rem;
+        font-weight: bold;
+        color: $second;
+        margin-bottom: 0.25rem;
+      }
     }
-    &__hint {
+    .chat-window__hint {
       text-align: center;
       padding: 12px 16px;
       background: $main4;
@@ -372,13 +379,6 @@
         font-weight: 500;
         color: $main;
       }
-    }
-
-    &__name {
-      font-size: 1.75rem;
-      font-weight: bold;
-      color: $second;
-      margin-bottom: 0.25rem;
     }
 
     &__role {
@@ -407,11 +407,11 @@
       }
     }
 
-    &__messages {
-      flex: 1;
+    .chat-window__messages {
+      flex: 0 1 auto !important;
       overflow-y: scroll;
       padding: 1rem 0;
-      height: 100%;
+      height: calc(100vh - 286px);
       display: flex;
       flex-direction: column;
       gap: 1rem;
@@ -438,6 +438,9 @@
       .preview-section {
         width: 100%;
         flex: 1;
+        .text-input {
+          width: 100%;
+        }
       }
 
       .chat-actions {
@@ -476,49 +479,49 @@
     }
   }
 
-  .message {
-    display: flex;
-    gap: 0.75rem;
+  // .message {
+  //   display: flex;
+  //   gap: 0.75rem;
 
-    &--self {
-      flex-direction: row-reverse;
-    }
+  //   &--self {
+  //     flex-direction: row-reverse;
+  //   }
 
-    &__avatar {
-      width: 36px;
-      height: 36px;
-      border-radius: 50%;
-      object-fit: cover;
-    }
+  //   &__avatar {
+  //     width: 36px;
+  //     height: 36px;
+  //     border-radius: 50%;
+  //     object-fit: cover;
+  //   }
 
-    &__content {
-      max-width: 75%;
-    }
+  //   &__content {
+  //     max-width: 75%;
+  //   }
 
-    &__text {
-      font-size: 0.95rem;
-      background-color: #e4e4e4;
-      padding: 0.75rem 1rem;
-      width: 100%;
-      border-radius: 1rem;
-    }
-    &--self .message__text {
-      background-color: $main;
-      color: white;
-    }
+  //   &__text {
+  //     font-size: 0.95rem;
+  //     background-color: #e4e4e4;
+  //     padding: 0.75rem 1rem;
+  //     width: 100%;
+  //     border-radius: 1rem;
+  //   }
+  //   &--self .message__text {
+  //     background-color: $main;
+  //     color: white;
+  //   }
 
-    &__time {
-      font-size: 0.75rem;
-      color: #999;
-      // text-align: right;
-      margin-top: 0.25rem;
-    }
-    &--self {
-      .message__time {
-        text-align: left;
-      }
-    }
-  }
+  //   &__time {
+  //     font-size: 0.75rem;
+  //     color: #999;
+  //     // text-align: right;
+  //     margin-top: 0.25rem;
+  //   }
+  //   &--self {
+  //     .message__time {
+  //       text-align: left;
+  //     }
+  //   }
+  // }
 }
 // === Recording bar ===
 .recording-bar {

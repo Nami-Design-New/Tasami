@@ -28,11 +28,11 @@ axiosInstance.interceptors.response.use(
     const status = error.response?.status;
 
     switch (status) {
-      // case 401:
-      //   removeToken();
-      //   toast.error("you Should login");
-      //   window.location.href = "/login";
-      //   break;
+      case 401:
+        removeToken();
+        toast.error("you Should login");
+        window.location.href = "/login";
+        break;
 
       case 403:
         window.location.href = "/forbidden";

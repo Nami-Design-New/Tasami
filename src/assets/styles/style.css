@@ -6309,9 +6309,15 @@ input[type=file] {
 .message {
   display: flex;
   gap: 0.75rem;
+  align-items: flex-start;
 }
-.message--self {
+.message--sender {
+  flex-direction: row;
+  text-align: right;
+}
+.message--receiver {
   flex-direction: row-reverse;
+  text-align: left;
 }
 .message__avatar {
   width: 36px;
@@ -6325,22 +6331,25 @@ input[type=file] {
 }
 .message__text {
   font-size: 0.95rem;
-  background-color: #e4e4e4;
   padding: 0.75rem 1rem;
-  width: 100%;
   border-radius: 1rem;
 }
-.message--self .message__text {
+.message--main .message__text {
   background-color: #214b92;
-  color: white;
+  color: #fff;
+}
+.message--second .message__text {
+  background-color: #5fcafa;
+  color: #fff;
+}
+.message--gray .message__text {
+  background-color: #ccc;
+  color: #222;
 }
 .message__time {
   font-size: 0.75rem;
   color: #999;
   margin-top: 0.25rem;
-}
-.message--self .message__time {
-  text-align: left;
 }
 
 .community-chat-window {
@@ -6359,37 +6368,28 @@ input[type=file] {
     min-height: calc(100vh - 156px);
   }
 }
-.community-chat-window .chat-window__back {
-  color: #214b92;
-  display: none;
-}
-@media (max-width: 768px) {
-  .community-chat-window .chat-window__back {
-    display: block;
-  }
-}
-.community-chat-window .chat-window__info {
+.community-chat-window .chat-window .chat-window__info {
   display: flex;
   align-items: center;
   gap: 1rem;
   padding-bottom: 1rem;
   border-bottom: 1px solid rgba(13, 13, 13, 0.0941176471);
 }
-.community-chat-window .chat-window__hint {
-  text-align: center;
-  padding: 12px 16px;
-  background: rgba(2, 72, 150, 0.0392156863);
-}
-.community-chat-window .chat-window__hint p {
-  font-size: 1.125rem;
-  font-weight: 500;
-  color: #214b92;
-}
-.community-chat-window .chat-window__name {
+.community-chat-window .chat-window .chat-window__info .chat-window__name {
   font-size: 1.75rem;
   font-weight: bold;
   color: #5fcafa;
   margin-bottom: 0.25rem;
+}
+.community-chat-window .chat-window .chat-window__hint {
+  text-align: center;
+  padding: 12px 16px;
+  background: rgba(2, 72, 150, 0.0392156863);
+}
+.community-chat-window .chat-window .chat-window__hint p {
+  font-size: 1.125rem;
+  font-weight: 500;
+  color: #214b92;
 }
 .community-chat-window .chat-window__role {
   font-size: 0.85rem;
@@ -6415,18 +6415,18 @@ input[type=file] {
   color: #6c757d;
   font-size: 1rem;
 }
-.community-chat-window .chat-window__messages {
-  flex: 1;
+.community-chat-window .chat-window .chat-window__messages {
+  flex: 0 1 auto !important;
   overflow-y: scroll;
   padding: 1rem 0;
-  height: 100%;
+  height: calc(100vh - 286px);
   display: flex;
   flex-direction: column;
   gap: 1rem;
   /* Hide scrollbar while maintaining scroll functionality */
   scrollbar-width: none;
 }
-.community-chat-window .chat-window__messages::-webkit-scrollbar {
+.community-chat-window .chat-window .chat-window__messages::-webkit-scrollbar {
   width: 0;
   background: transparent;
 }
@@ -6443,6 +6443,9 @@ input[type=file] {
 .community-chat-window .chat-window__footer .preview-section {
   width: 100%;
   flex: 1;
+}
+.community-chat-window .chat-window__footer .preview-section .text-input {
+  width: 100%;
 }
 .community-chat-window .chat-window__footer .chat-actions {
   display: flex;
@@ -6476,42 +6479,6 @@ input[type=file] {
   .community-chat-window .chat-window__footer--send span {
     display: none;
   }
-}
-.community-chat-window .message {
-  display: flex;
-  gap: 0.75rem;
-}
-.community-chat-window .message--self {
-  flex-direction: row-reverse;
-}
-.community-chat-window .message__avatar {
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  -o-object-fit: cover;
-     object-fit: cover;
-}
-.community-chat-window .message__content {
-  max-width: 75%;
-}
-.community-chat-window .message__text {
-  font-size: 0.95rem;
-  background-color: #e4e4e4;
-  padding: 0.75rem 1rem;
-  width: 100%;
-  border-radius: 1rem;
-}
-.community-chat-window .message--self .message__text {
-  background-color: #214b92;
-  color: white;
-}
-.community-chat-window .message__time {
-  font-size: 0.75rem;
-  color: #999;
-  margin-top: 0.25rem;
-}
-.community-chat-window .message--self .message__time {
-  text-align: left;
 }
 
 .recording-bar {

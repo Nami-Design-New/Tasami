@@ -342,7 +342,12 @@ export const router = createBrowserRouter([
       },
       {
         path: "community/:id/chats",
-        element: <CommunityChat />,
+        element: (
+          <ProtectedRoute>
+            {" "}
+            <CommunityChat />
+          </ProtectedRoute>
+        ),
       },
       {
         path: "posts/:id",

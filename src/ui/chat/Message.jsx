@@ -1,8 +1,10 @@
+// export default Message;
 import { useState } from "react";
 
 const Message = ({
   message,
   sender,
+  creatorId,
   time = null,
   isCurrentUser = false,
   type = "text",
@@ -13,13 +15,21 @@ const Message = ({
   const [imageLoaded, setImageLoaded] = useState(false);
   const [videoLoaded, setVideoLoaded] = useState(false);
 
-  const messageClass = from
-    ? `message--${from}`
-    : isCurrentUser
-    ? "message--sent"
-    : "message--received";
   const displayText = message || text;
   const displayAvatar = sender?.image || avatar;
+
+  const isSender = from === "sender";
+
+  const baseClass = isSender ? "message--sender" : "message--receiver";
+
+  let colorClass = "";
+  if (isSender) {
+    colorClass = sender?.id === creatorId ? "message--main" : "message--second";
+  } else {
+    colorClass = sender?.id === creatorId ? "message--main" : "message--gray";
+  }
+
+  const messageClass = `message ${baseClass} ${colorClass}`;
 
   const renderMessageContent = () => {
     switch (type) {
@@ -111,18 +121,16 @@ const Message = ({
   };
 
   return (
-    <div className={`message ${messageClass}`}>
-      {!isCurrentUser && (displayAvatar || sender?.image) && (
+    <div className={messageClass}>
+      {!isSender && displayAvatar && (
         <img
           src={displayAvatar || sender?.image?.replace(/`/g, "").trim()}
           alt={sender?.name || "User"}
           className="message__avatar"
         />
       )}
+
       <div className="message__content">
-        {!isCurrentUser && sender?.name && (
-          <div className="message__sender-name">{sender.name}</div>
-        )}
         {renderMessageContent()}
         {time && <div className="message__time">{time}</div>}
       </div>

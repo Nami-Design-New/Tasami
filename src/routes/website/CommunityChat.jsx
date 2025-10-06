@@ -1,7 +1,7 @@
 import { useTranslation } from "react-i18next";
 import Message from "../../ui/chat/Message";
 import RoundedBackButton from "../../ui/website-auth/shared/RoundedBackButton";
-import { useNavigate } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import { useSelector } from "react-redux";
 import { useQueryClient } from "@tanstack/react-query";
 import useGetCommunityChats from "../../hooks/website/communities/chat/useGetCommunityChats";
@@ -11,6 +11,8 @@ import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useState, useRef, useEffect } from "react";
+import { ChatSocketService } from "../../utils/ChatSocketService";
+import { getToken } from "../../utils/token";
 
 const getMessageType = (file) => {
   if (!file) return "text";
@@ -19,13 +21,17 @@ const getMessageType = (file) => {
   if (file.type.startsWith("video/")) return "video";
   return "file";
 };
-// ✅ Validation schema
+//  Validation schema
 const schema = yup.object().shape({
   message: yup
     .string()
+    .nullable()
     .test("message-or-file", "يجب كتابة رسالة أو إرفاق ملف", function (value) {
-      const { parent } = this;
-      return value?.trim()?.length > 0 || parent.file instanceof File;
+      const { file } = this.parent;
+      const hasMessage = value?.trim()?.length > 0;
+      const hasFile = file instanceof File;
+
+      return hasMessage || hasFile;
     }),
   file: yup.mixed().nullable(),
 });
@@ -33,6 +39,7 @@ export default function CommunityChat() {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const { lang } = useSelector((state) => state.language);
+  const { user } = useSelector((state) => state.authRole);
   const [selectedFile, setSelectedFile] = useState(null);
   const [isRecording, setIsRecording] = useState(false);
   const [isPaused, setIsPaused] = useState(false);
@@ -48,6 +55,19 @@ export default function CommunityChat() {
   const allChats = chats?.pages?.flatMap((page) => page?.data) ?? [];
 
   const { sendMessage, isPending } = useSendMessage();
+  const { id } = useParams();
+  useEffect(() => {
+    const socket = new ChatSocketService();
+    const token = getToken();
+    socket.connectPrivate({
+      token,
+      communityId: id,
+    });
+
+    return () => {
+      socket.disconnect();
+    };
+  }, [id]);
 
   const {
     register,
@@ -63,17 +83,43 @@ export default function CommunityChat() {
 
   //  Send message
   const onSubmit = (data) => {
-    const type = getMessageType(selectedFile);
+    let content = null;
+    let type = "text";
+    let payload;
 
-    sendMessage({
-      message: selectedFile || data.message,
-      type,
-    });
+    if (audioBlob) {
+      content = audioBlob;
+      type = "audio";
+      payload = {
+        file_path: audioBlob,
+        type,
+      };
+    } else if (selectedFile) {
+      content = selectedFile;
+      type = getMessageType(selectedFile);
+      payload = {
+        file_path: selectedFile,
+        type,
+      };
+    } else if (data.message?.trim()) {
+      content = data.message.trim();
+      type = "text";
+      payload = {
+        message: data.message.trim(),
+        type,
+      };
+    }
+
+    if (!content) return;
+    sendMessage(payload);
 
     reset();
     setSelectedFile(null);
+    setAudioBlob(null);
+    setIsRecording(false);
+    setRecordingTime(0);
   };
-  // ✅ Ask for microphone permission ONCE
+  //Ask for microphone permission ONCE
   const askForMicPermission = async () => {
     if (micPermission) return true;
     try {
@@ -82,16 +128,21 @@ export default function CommunityChat() {
       setMicPermission(true);
       return true;
     } catch (err) {
-      alert("من فضلك فعّل إذن الميكروفون للتسجيل الصوتي 🎙️");
+      alert("من فضلك فعّل إذن الميكروفون للتسجيل الصوتي");
       return false;
     }
   };
   // Recording
   const startRecording = async () => {
+    if (isRecording || audioBlob) return;
+
     const allowed = await askForMicPermission();
     if (!allowed) return;
     try {
-      // setValue({ message: "", file: null });
+      setValue("message", "");
+      setSelectedFile(null);
+      setValue("file", null);
+
       const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
       const mediaRecorder = new MediaRecorder(stream);
       mediaRecorderRef.current = mediaRecorder;
@@ -167,6 +218,7 @@ export default function CommunityChat() {
       2,
       "0"
     )}`;
+
   console.log(errors);
 
   return (
@@ -197,19 +249,30 @@ export default function CommunityChat() {
               hasNextPage={hasNextPage}
               isFetchingNextPage={isFetchingNextPage}
             >
-              {allChats.map((chat) => (
-                <Message
-                  key={chat.id}
-                  from={chat.user_id === chat.community_id ? "self" : "other"}
-                  text={chat.message}
-                  time={chat.created_at}
-                  avatar={
-                    chat.user_id === chat.community_id
-                      ? "https://avatar.iran.liara.run/public/42"
-                      : "https://avatar.iran.liara.run/public/1"
-                  }
-                />
-              ))}
+              {allChats.map((chat) => {
+                let form;
+                if (Number(chat.sender.id) === Number(user.id)) {
+                  form = "sender";
+                } else {
+                  form = "receiver";
+                }
+
+                return (
+                  <Message
+                    key={chat.id}
+                    from={form}
+                    creatorId={chat?.creator_id}
+                    text={chat.message}
+                    time={chat.created_at}
+                    sender={chat?.sender}
+                    avatar={
+                      chat.user_id === chat.community_id
+                        ? "https://avatar.iran.liara.run/public/42"
+                        : "https://avatar.iran.liara.run/public/1"
+                    }
+                  />
+                );
+              })}
 
               {(isLoading || isFetchingNextPage) &&
                 [1, 2, 3].map((i) => (
@@ -271,8 +334,10 @@ export default function CommunityChat() {
                 <>
                   <input
                     type="text"
+                    className="text-input"
                     placeholder="اكتب رسالتك هنا..."
                     {...register("message")}
+                    disabled={isRecording || audioBlob || selectedFile}
                   />
                 </>
               )}
@@ -287,9 +352,22 @@ export default function CommunityChat() {
                 type="file"
                 hidden
                 {...register("file")}
-                onChange={(e) => setSelectedFile(e.target.files[0])}
+                onChange={(e) => {
+                  const file = e.target.files[0];
+                  if (file) {
+                    setValue("message", "");
+                    setAudioBlob(null);
+                    cancelRecording();
+                    setSelectedFile(file);
+                    setValue("file", file);
+                  }
+                }}
               />
-              <button type="button" onClick={startRecording}>
+              <button
+                type="button"
+                onClick={startRecording}
+                disabled={selectedFile || (isRecording && !isPaused)}
+              >
                 <i className="fa-solid fa-microphone"></i>
               </button>
               <button type="submit" className="chat-window__footer--send">
