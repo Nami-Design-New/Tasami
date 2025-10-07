@@ -112,10 +112,10 @@ export default function Header() {
               {t("website.header.login")}
             </CustomLink>
           )}
+          <button className="toggle_menu" onClick={handleToggleMenu}>
+            <i className="fa-light fa-bars"></i>
+          </button>
         </div>
-        <button className="toggle_menu" onClick={handleToggleMenu}>
-          <i className="fa-light fa-bars"></i>
-        </button>
       </nav>
       <PlatformModal showModal={showModal} setShowModal={setShowModal} />
     </header>
