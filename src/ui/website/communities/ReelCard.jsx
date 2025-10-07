@@ -1,7 +1,10 @@
 import { useRef, useState } from "react";
-import { Link } from "react-router";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router";
 
 export default function ReelCard({ reel }) {
+  const navigate = useNavigate();
+  const { user } = useSelector((state) => state.authRole);
   const videoRef = useRef(null);
   const [isPlaying, setIsPlaying] = useState(false);
 
@@ -16,6 +19,17 @@ export default function ReelCard({ reel }) {
       video.pause();
       setIsPlaying(false);
     }
+  };
+
+  const handleTogglike = () => {
+    if (!user) {
+      navigate("/login");
+      return;
+    }
+  };
+
+  const handleAddComment = () => {
+    navigate(`${reel.id}`);
   };
   return (
     <div className="social-card">
@@ -40,7 +54,7 @@ export default function ReelCard({ reel }) {
           {reel?.type === "image" && (
             <img
               src={reel?.file}
-              style={{ aspectRatio: `${1.5}` }}
+              style={{ aspectRatio: "0.5625 / 1" }}
               className="social-card__image"
             />
           )}
@@ -58,7 +72,7 @@ export default function ReelCard({ reel }) {
                 controlsList="nodownload nofullscreen noremoteplayback"
                 onContextMenu={(e) => e.preventDefault()}
                 className="social-card__video"
-                style={{ aspectRatio: `${1.5}` }}
+                style={{ aspectRatio: "0.5625 / 1" }}
               ></video>
 
               {/* Custom play button overlay */}
@@ -74,14 +88,17 @@ export default function ReelCard({ reel }) {
       {/* Actions */}
       <div className="social-card__actions">
         <div className="social-card__action">
-          <button className="social-card__action-btn">
+          <button onClick={handleTogglike} className="social-card__action-btn">
             <i className="fa-solid fa-heart"></i>
           </button>
           <span>{reel?.likes_count}</span>
         </div>
 
         <div className="social-card__action">
-          <button className="social-card__action-btn">
+          <button
+            onClick={handleAddComment}
+            className="social-card__action-btn"
+          >
             <i className="fa-regular fa-comment"></i>
           </button>
           <span>{reel?.comments_count}</span>

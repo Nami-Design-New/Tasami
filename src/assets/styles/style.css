@@ -6328,6 +6328,55 @@ input[type=file] {
 }
 .message__content {
   max-width: 75%;
+  /* shimmer loading effect */
+}
+.message__content .message__image-container {
+  position: relative;
+  border-radius: 16px;
+  overflow: hidden;
+  width: 220px;
+  max-height: 280px;
+  background-color: #f2f2f2;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+.message__content .message__image-container:hover {
+  transform: scale(1.02);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+.message__content .message__image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.message__content .message__image.loaded {
+  opacity: 1;
+}
+.message__content .message__image-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 180px;
+  color: #777;
+  font-size: 0.9rem;
+  background: #e6e6e6;
+}
+.message__content .shimmer {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.2s infinite;
+}
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
 }
 .message__text {
   font-size: 0.95rem;
@@ -6603,6 +6652,41 @@ input[type=file] {
   font-size: 1.1rem;
 }
 
+.loader {
+  width: 15px;
+  aspect-ratio: 1;
+  position: relative;
+}
+
+.loader::before,
+.loader::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: #214b92;
+}
+
+.loader::before {
+  box-shadow: -25px 0;
+  animation: l8-1 1s infinite linear;
+}
+
+.loader::after {
+  transform: rotate(0deg) translateX(25px);
+  animation: l8-2 1s infinite linear;
+}
+
+@keyframes l8-1 {
+  100% {
+    transform: translateX(25px);
+  }
+}
+@keyframes l8-2 {
+  100% {
+    transform: rotate(-180deg) translateX(25px);
+  }
+}
 .model {
   max-width: 1400px;
   padding: 0 8px;
@@ -10161,63 +10245,103 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
 }
 
 .reels-page {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 40px 0;
-  background-color: #f5f7fa;
-  min-height: 100vh;
-}
-.reels-page .container {
   width: 100%;
-  max-width: 600px;
-}
-.reels-page .reels-header {
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  gap: 10px;
-  margin-bottom: 25px;
-}
-.reels-page .reels-header h1 {
-  font-size: 1.6rem;
-  color: #5fcafa;
-  margin: 0;
-}
-.reels-page .reels-feed {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 24px;
-}
-
-.social-card {
-  max-width: 400px;
-  background: #fff;
-  border-radius: 20px;
-  overflow: hidden;
+  height: calc(100vh - 82px);
+  overflow-y: scroll;
+  scroll-snap-type: y mandatory;
   position: relative;
   display: flex;
   flex-direction: column;
+  align-items: center;
+  /* Hide scrollbars for a clean look */
+}
+.reels-page::-webkit-scrollbar {
+  width: 0;
+  background: transparent;
+}
+.reels-page .reels-feed {
+  width: 100%;
+  height: 100%;
+}
+.reels-page .reel-item {
+  width: 100%;
+  height: calc(100vh - 82px);
+  scroll-snap-align: start;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px; /* space around each reel */
+  box-sizing: border-box;
+}
+
+/* ===========================
+   Social Card (Full Screen Reel)
+=========================== */
+.social-card {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  background: #000;
+  overflow: hidden;
+  border-radius: 24px; /* Rounded corners for reel */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  max-width: 600px; /* optional - center on desktop */
+  margin: 0 auto;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+  /* Header (user info) */
+  /* ===========================
+     Video / Image Container
+  ============================ */
+  /* Custom play button overlay */
+  /* ===========================
+     Actions (Right Sidebar)
+  ============================ */
+  /* ===========================
+     Description (Bottom Text)
+  ============================ */
 }
 .social-card__header {
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
+  top: 16px;
+  left: 16px;
+  right: 16px;
   z-index: 10;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 12px;
+}
+.social-card__user-info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 20px;
+  padding: 6px 10px;
+  -webkit-backdrop-filter: blur(4px);
+          backdrop-filter: blur(4px);
+}
+.social-card__user-img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 2px solid #fff;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+.social-card__username {
+  color: #fff;
+  font-weight: 500;
+  font-size: 14px;
 }
 .social-card__user-btn {
   width: 36px;
   height: 36px;
   border: none;
   border-radius: 50%;
-  -webkit-backdrop-filter: blur(4px);
-          backdrop-filter: blur(4px);
+  background: rgba(0, 0, 0, 0.4);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -10227,44 +10351,20 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
   color: #fff;
   font-size: 16px;
 }
-.social-card__user-info {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  -webkit-backdrop-filter: blur(4px);
-          backdrop-filter: blur(4px);
-  border-radius: 20px;
-  padding: 6px 10px;
-  transition: 0.2s;
-}
-.social-card__username {
-  color: #fff;
-  font-weight: 500;
-  font-size: 14px;
-  direction: rtl;
-}
-.social-card__user-img {
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  border: 2px solid #fff;
-  -o-object-fit: cover;
-     object-fit: cover;
-}
 .social-card__video-container {
+  width: 100%;
+  height: 100%;
   background: #000;
+  position: relative;
+  border-radius: 24px;
+  overflow: hidden;
 }
-.social-card__video {
+.social-card__video, .social-card__image {
   width: 100%;
-  height: 450px;
+  height: 100%;
   -o-object-fit: cover;
      object-fit: cover;
-}
-.social-card__image {
-  width: 100%;
-  height: 450px;
-  -o-object-fit: cover;
-     object-fit: cover;
+  border-radius: 24px;
 }
 .social-card .play-button {
   position: absolute;
@@ -10275,25 +10375,31 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
   border-radius: 50%;
   width: 80px;
   height: 80px;
+  background: rgba(0, 0, 0, 0.5);
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
   transition: all 0.25s ease;
+  z-index: 20;
 }
 .social-card .play-button i {
   color: #fff;
   font-size: 32px;
-  margin-left: 4px;
+}
+.social-card .play-button:hover {
+  background: rgba(0, 0, 0, 0.7);
+  transform: translate(-50%, -50%) scale(1.05);
 }
 .social-card__actions {
   position: absolute;
-  right: 18px;
-  top: 50%;
-  transform: translateY(-50%);
+  right: 20px;
+  bottom: 120px;
+  z-index: 15;
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  align-items: center;
+  gap: 18px;
 }
 .social-card__action {
   display: flex;
@@ -10304,34 +10410,79 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
   color: #fff;
   font-size: 12px;
   font-weight: 600;
-  margin-top: 3px;
+  margin-top: 4px;
 }
 .social-card__action-btn {
-  width: 20px;
-  height: 20px;
+  width: 44px;
+  height: 44px;
   border-radius: 50%;
+  background: rgba(0, 0, 0, 0.3);
+  border: none;
   display: flex;
   align-items: center;
   justify-content: center;
-  border: none;
   cursor: pointer;
-  transition: all 0.2s;
+  transition: all 0.2s ease;
 }
 .social-card__action-btn i {
   color: #fff;
-  font-size: 18px;
+  font-size: 20px;
+}
+.social-card__action-btn:hover {
+  transform: scale(1.1);
+  background: rgba(255, 255, 255, 0.15);
 }
 .social-card__description {
-  padding: 16px 20px;
-  background: #fff;
+  position: absolute;
+  bottom: 20px;
+  left: 16px;
+  right: 16px;
+  color: #fff;
+  z-index: 12;
 }
 .social-card__description p {
-  color: #0d0d0d;
+  color: #fff;
   font-size: 16px;
-  line-height: 1.5;
-  font-weight: bold;
+  font-weight: 500;
+  line-height: 1.4;
+  margin: 0;
 }
 
+/* ===========================
+   Responsive adjustments
+=========================== */
+@media (max-width: 768px) {
+  .reel-item {
+    padding: 12px;
+  }
+  .social-card {
+    border-radius: 18px;
+  }
+  .social-card__user-img {
+    width: 32px;
+    height: 32px;
+  }
+  .social-card__action-btn {
+    width: 38px;
+    height: 38px;
+  }
+  .social-card__action-btn i {
+    font-size: 18px;
+  }
+  .social-card .play-button {
+    width: 60px;
+    height: 60px;
+  }
+  .social-card .play-button i {
+    font-size: 26px;
+  }
+  .social-card__video-container {
+    border-radius: 18px;
+  }
+  .social-card__video, .social-card__image {
+    border-radius: 18px;
+  }
+}
 .mt-30 {
   margin-top: 30px;
 }

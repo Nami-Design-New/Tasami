@@ -556,6 +556,7 @@
       "filter": "التصفية",
       "reset": "الغاء",
       "personalAssistant": "مساعد شخصي",
+      "personalAssistants": "المساعدون الشخصيون",
       "goals": "الاهداف الشخصية",
       "goal": "هدف شخصي",
       "noPersonalAssistants": "ليس لديك أي مساعد شخصي.",
@@ -584,7 +585,8 @@
       "ageMinLabel": "من",
       "ageMaxLabel": "إلى",
       "clear": "مسح",
-      "moreThan": "أكثر من"
+      "moreThan": "أكثر من",
+      "ratingTitle": "التقييم"
     },
     "payment": "الدفع"
   }

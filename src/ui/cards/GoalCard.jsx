@@ -1,19 +1,24 @@
 import { motion } from "framer-motion";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { toast } from "sonner";
 import useToggleSavedGoals from "../../hooks/website/goals/useToggleSavedGoals";
 import { useSelector } from "react-redux";
 
 const GoalCard = ({ goal }) => {
   const { user } = useSelector((state) => state.authRole);
+  const navigate = useNavigate();
 
   const { t } = useTranslation();
   const { toggleSaveGoal, isPending } = useToggleSavedGoals();
   const [isActive, setIsActive] = useState(goal?.is_saved || false);
 
   const handleToggle = (e) => {
+    if (!user) {
+      navigate("/login");
+      return;
+    }
     e.preventDefault();
     e.stopPropagation();
 
@@ -49,26 +54,24 @@ const GoalCard = ({ goal }) => {
           </div>
         </Link>
 
-        {user && (
-          <button
-            type="button"
-            className="btn btn-link like-button p-0"
-            disabled={isPending}
-            onClick={handleToggle}
-          >
-            <motion.i
-              key={isActive}
-              initial={{ scale: 0.8, rotate: 0 }}
-              animate={{
-                scale: [1, 0.85, 1.15, 1],
-                rotate: isActive ? [0, -20, 20, 0] : 0,
-                color: isActive ? "#01C7FB" : "#0D0D0D59",
-              }}
-              transition={{ duration: 0.6, ease: "easeInOut" }}
-              className="fa-solid fa-heart"
-            />
-          </button>
-        )}
+        <button
+          type="button"
+          className="btn btn-link like-button p-0"
+          disabled={isPending}
+          onClick={handleToggle}
+        >
+          <motion.i
+            key={isActive}
+            initial={{ scale: 0.8, rotate: 0 }}
+            animate={{
+              scale: [1, 0.85, 1.15, 1],
+              rotate: isActive ? [0, -20, 20, 0] : 0,
+              color: isActive ? "#01C7FB" : "#0D0D0D59",
+            }}
+            transition={{ duration: 0.6, ease: "easeInOut" }}
+            className="fa-solid fa-heart"
+          />
+        </button>
       </div>
 
       <Link

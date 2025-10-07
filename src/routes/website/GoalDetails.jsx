@@ -14,9 +14,12 @@ import SectionHeader from "../../ui/website/SectionHeader";
 import GoalInfoGrid from "../../ui/website/gaols/GoalInfoGrid";
 import InquiryModal from "../../ui/website/my-notifications/inquiryModal";
 import TopInfo from "../../ui/website/offers/TopInfo";
+import { shareContent } from "../../utils/shared";
+import { useNavigate } from "react-router";
 
 export default function GoalDetails() {
   const { t } = useTranslation();
+  const navigate = useNavigate();
 
   const [showHelpModal, setShowHelpModal] = useState(false);
   const [showReportModal, setShowReportModal] = useState(false);
@@ -33,6 +36,11 @@ export default function GoalDetails() {
   const handleToggle = (e) => {
     e.preventDefault();
     e.stopPropagation();
+
+    if (!user) {
+      navigate("/login");
+      return;
+    }
 
     const prevState = isActive;
     setIsActive(!prevState);
@@ -53,27 +61,34 @@ export default function GoalDetails() {
         <div className="header">
           <SectionHeader title={t("website.offerDetails.goalHeader")} />
           <div className="d-flex align-items-center gap-2">
-            {user && (
-              <button
-                type="button"
-                className="btn btn-link like-button p-0"
-                disabled={isSavingToggle}
-                onClick={handleToggle}
-              >
-                <motion.i
-                  key={isActive}
-                  initial={{ scale: 0.8, rotate: 0 }}
-                  animate={{
-                    scale: [1, 0.85, 1.15, 1],
-                    rotate: isActive ? [0, -20, 20, 0] : 0,
-                    color: isActive ? "#01C7FB" : "#0D0D0D59",
-                  }}
-                  transition={{ duration: 0.6, ease: "easeInOut" }}
-                  className="fa-solid fa-heart"
-                />
-              </button>
-            )}{" "}
-            <button className="toggle-bookmark-button">
+            <button
+              type="button"
+              className="btn btn-link like-button p-0"
+              disabled={isSavingToggle}
+              onClick={handleToggle}
+            >
+              <motion.i
+                key={isActive}
+                initial={{ scale: 0.8, rotate: 0 }}
+                animate={{
+                  scale: [1, 0.85, 1.15, 1],
+                  rotate: isActive ? [0, -20, 20, 0] : 0,
+                  color: isActive ? "#01C7FB" : "#0D0D0D59",
+                }}
+                transition={{ duration: 0.6, ease: "easeInOut" }}
+                className="fa-solid fa-heart"
+              />
+            </button>
+
+            <button
+              className="toggle-bookmark-button"
+              onClick={() =>
+                shareContent({
+                  title: goalDetails.title,
+                  url: window.location.href,
+                })
+              }
+            >
               <i
                 className="fa-solid fa-share"
                 style={{

@@ -39,6 +39,11 @@ export default function HelpersDetails() {
   };
 
   const handleFollow = (id) => {
+    if (!user) {
+      navigate("/login");
+      return;
+    }
+
     const previousValue = optimisticFollow;
 
     // Optimistic update
@@ -88,7 +93,7 @@ export default function HelpersDetails() {
                   }
                 ></i>
               </RoundedBackButton>
-              {user && !thisIsMe && (
+              {!thisIsMe && (
                 <button
                   className={`follow-btn  ${
                     optimisticFollow ? "unfollow" : ""
@@ -138,7 +143,11 @@ export default function HelpersDetails() {
               </div>
               {assistantDetails.community_id !== null && !thisIsMe && (
                 <CustomLink
-                  to={`/community/${assistantDetails.community_id}`}
+                  to={
+                    !user
+                      ? "/login"
+                      : `/community/${assistantDetails.community_id}`
+                  }
                   size="large"
                   fullWidth
                   className="mt-3"

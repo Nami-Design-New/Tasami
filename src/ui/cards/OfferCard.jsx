@@ -1,9 +1,10 @@
 import { useState } from "react";
 import { useSelector } from "react-redux";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import useAddOrRemoveBookmark from "../../hooks/website/personal-assistances/useAddOrRemoveBookmark";
 
 const OfferCard = ({ offer }) => {
+  const navigate = useNavigate();
   const { user } = useSelector((state) => state.authRole);
   const { toggleBookmark, isPending } = useAddOrRemoveBookmark();
   const [bookmarked, setBookmarked] = useState(offer?.is_saved || false);
@@ -12,6 +13,10 @@ const OfferCard = ({ offer }) => {
   const handleToggleBookmark = (e) => {
     e.preventDefault();
     e.stopPropagation();
+    if (!user) {
+      navigate("/login");
+      return;
+    }
 
     const prevState = bookmarked;
     setBookmarked(!prevState);
@@ -58,7 +63,7 @@ const OfferCard = ({ offer }) => {
             <img src="/icons/cash.svg" alt="icon" className="mx-2" />
             {offer.help_service.price} <img src="/icons/ryal.svg" alt="ريال" />
           </span>
-          {!isMyOffer && user && (
+          {!isMyOffer && (
             <button
               className="toggle-bookmark-button"
               onClick={handleToggleBookmark}

@@ -32,7 +32,6 @@ export default function PostsActions({ post }) {
   };
 
   const handleShare = () => {
-    // ✅ Native Web Share API
     if (navigator.share) {
       navigator
         .share({

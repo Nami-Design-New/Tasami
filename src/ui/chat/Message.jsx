@@ -1,12 +1,10 @@
-// export default Message;
 import { useState } from "react";
 
 const Message = ({
-  message,
   sender,
   creatorId,
   time = null,
-  isCurrentUser = false,
+  filePath,
   type = "text",
   from,
   text,
@@ -14,9 +12,6 @@ const Message = ({
 }) => {
   const [imageLoaded, setImageLoaded] = useState(false);
   const [videoLoaded, setVideoLoaded] = useState(false);
-
-  const displayText = message || text;
-  const displayAvatar = sender?.image || avatar;
 
   const isSender = from === "sender";
 
@@ -34,24 +29,21 @@ const Message = ({
   const renderMessageContent = () => {
     switch (type) {
       case "text":
-        return <div className="message__text">{displayText}</div>;
+        return <div className="message__text">{text}</div>;
 
       case "image":
-      case "text_with_image":
         return (
           <div className="message__content-wrapper">
-            {type === "text_with_image" && displayText && (
-              <div className="message__text mb-2">{displayText}</div>
-            )}
             <div className="message__image-container">
               {!imageLoaded && (
-                <div className="message__image-loading">Loading image...</div>
+                <div className="message__image-loading shimmer">
+                  <span>جارٍ تحميل الصورة...</span>
+                </div>
               )}
               <img
-                src={sender?.file_path}
+                src={filePath}
                 alt="Shared image"
-                className="message__image"
-                style={{ display: imageLoaded ? "block" : "none" }}
+                className={`message__image ${imageLoaded ? "loaded" : ""}`}
                 onLoad={() => setImageLoaded(true)}
               />
             </div>
@@ -59,21 +51,18 @@ const Message = ({
         );
 
       case "video":
-      case "text_with_video":
         return (
           <div className="message__content-wrapper">
-            {type === "text_with_video" && displayText && (
-              <div className="message__text mb-2">{displayText}</div>
-            )}
             <div className="message__video-container">
               {!videoLoaded && (
-                <div className="message__video-loading">Loading video...</div>
+                <div className="message__video-loading shimmer">
+                  <span>جارٍ تحميل الفيديو...</span>
+                </div>
               )}
               <video
-                src={sender?.file_path}
+                src={filePath}
                 controls
-                className="message__video"
-                style={{ display: videoLoaded ? "block" : "none" }}
+                className={`message__video ${videoLoaded ? "loaded" : ""}`}
                 onLoadedData={() => setVideoLoaded(true)}
               />
             </div>
@@ -83,52 +72,23 @@ const Message = ({
       case "audio":
         return (
           <div className="message__content-wrapper">
-            {displayText && (
-              <div className="message__text mb-2">{displayText}</div>
-            )}
-            <audio
-              src={sender?.file_path}
-              controls
-              className="message__audio"
-            />
-          </div>
-        );
-
-      case "file":
-      case "text_with_file":
-        return (
-          <div className="message__content-wrapper">
-            {type === "text_with_file" && displayText && (
-              <div className="message__text mb-2">{displayText}</div>
-            )}
-            <div className="message__file">
-              <a
-                href={sender?.file_path}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="message__file-link"
-              >
-                <i className="fas fa-file-download me-2"></i>
-                Download File
-              </a>
-            </div>
+            {text && <div className="message__text mb-2">{text}</div>}
+            <audio src={filePath} controls className="message__audio" />
           </div>
         );
 
       default:
-        return <div className="message__text">{displayText}</div>;
+        return <div className="message__text">{text}</div>;
     }
   };
 
   return (
     <div className={messageClass}>
-      {!isSender && displayAvatar && (
-        <img
-          src={displayAvatar || sender?.image?.replace(/`/g, "").trim()}
-          alt={sender?.name || "User"}
-          className="message__avatar"
-        />
-      )}
+      <img
+        src={avatar}
+        alt={sender?.name || "User"}
+        className="message__avatar"
+      />
 
       <div className="message__content">
         {renderMessageContent()}

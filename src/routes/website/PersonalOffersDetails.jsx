@@ -13,9 +13,12 @@ import SectionHeader from "../../ui/website/SectionHeader";
 import InquiryModal from "../../ui/website/my-notifications/inquiryModal";
 import OfferInfoGrid from "../../ui/website/offers/OfferInfoGrid";
 import TopInfo from "../../ui/website/offers/TopInfo";
+import { shareContent } from "../../utils/shared";
+import { useNavigate } from "react-router";
 
 export default function PersonalOffersDetails() {
   const { t } = useTranslation();
+  const navigate = useNavigate();
   const { lang } = useSelector((state) => state.language);
   const { user } = useSelector((state) => state.authRole);
   const { offerDetails, isLoading } = useGetPersonalOfferDetails();
@@ -32,6 +35,10 @@ export default function PersonalOffersDetails() {
   const handleToggleBookmark = (e, id) => {
     e.preventDefault();
     e.stopPropagation();
+    if (!user) {
+      navigate("/login");
+      return;
+    }
 
     const prevState = bookmarked;
     setBookmarked(!prevState);
@@ -57,18 +64,29 @@ export default function PersonalOffersDetails() {
             <SectionHeader title={t("website.offerDetails.title")} />
 
             <div className="d-flex align-items-center gap-2">
-              {user && (
-                <button
-                  onClick={(e) => handleToggleBookmark(e, offerDetails.id)}
-                  className="toggle-bookmark-button"
-                >
-                  <i
-                    className={`fa-solid fa-bookmark ${
-                      bookmarked ? "active" : ""
-                    } ${isPending ? "opacity-50" : ""}`}
-                  ></i>
-                </button>
-              )}
+              <button
+                className="toggle-bookmark-button"
+                onClick={() =>
+                  shareContent({
+                    title: offerDetails?.title,
+                    url: window.location.href,
+                  })
+                }
+              >
+                <i className="fa-solid fa-share"></i>
+              </button>
+
+              <button
+                onClick={(e) => handleToggleBookmark(e, offerDetails.id)}
+                className="toggle-bookmark-button"
+              >
+                <i
+                  className={`fa-solid fa-bookmark ${
+                    bookmarked ? "active" : ""
+                  } ${isPending ? "opacity-50" : ""}`}
+                ></i>
+              </button>
+
               {user && (
                 <OptionsMenu
                   options={[

@@ -1,16 +1,16 @@
-import { useTranslation } from "react-i18next";
-import Message from "../../ui/chat/Message";
-import RoundedBackButton from "../../ui/website-auth/shared/RoundedBackButton";
-import { useNavigate, useParams } from "react-router";
-import { useSelector } from "react-redux";
-import { useQueryClient } from "@tanstack/react-query";
-import useGetCommunityChats from "../../hooks/website/communities/chat/useGetCommunityChats";
-import InfiniteScroll from "../../ui/loading/InfiniteScroll";
-import useSendMessage from "../../hooks/website/communities/chat/useSendMessage";
-import { useForm } from "react-hook-form";
-import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useState, useRef, useEffect } from "react";
+import { useQueryClient } from "@tanstack/react-query";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import { useForm } from "react-hook-form";
+import { useTranslation } from "react-i18next";
+import { useSelector } from "react-redux";
+import { useNavigate, useParams } from "react-router";
+import * as yup from "yup";
+import useGetCommunityChats from "../../hooks/website/communities/chat/useGetCommunityChats";
+import useSendMessage from "../../hooks/website/communities/chat/useSendMessage";
+import Message from "../../ui/chat/Message";
+import InfiniteScroll from "../../ui/loading/InfiniteScroll";
+import RoundedBackButton from "../../ui/website-auth/shared/RoundedBackButton";
 import { ChatSocketService } from "../../utils/ChatSocketService";
 import { getToken } from "../../utils/token";
 
@@ -21,41 +21,72 @@ const getMessageType = (file) => {
   if (file.type.startsWith("video/")) return "video";
   return "file";
 };
-//  Validation schema
+
+// Validation schema
 const schema = yup.object().shape({
   message: yup
     .string()
     .nullable()
-    .test("message-or-file", "يجب كتابة رسالة أو إرفاق ملف", function (value) {
-      const { file } = this.parent;
-      const hasMessage = value?.trim()?.length > 0;
-      const hasFile = file instanceof File;
-
-      return hasMessage || hasFile;
-    }),
+    .test(
+      "message-or-file-or-audio",
+      "يجب كتابة رسالة أو إرفاق ملف",
+      function (value) {
+        const { file, audio } = this.parent;
+        const hasMessage = value?.trim()?.length > 0;
+        const hasFile = file instanceof File;
+        const hasAudio = audio instanceof Blob;
+        return hasMessage || hasFile || hasAudio;
+      }
+    ),
   file: yup.mixed().nullable(),
+  audio: yup.mixed().nullable(),
 });
+
 export default function CommunityChat() {
   const { t } = useTranslation();
   const navigate = useNavigate();
+  const { id } = useParams();
+  const queryClient = useQueryClient();
   const { lang } = useSelector((state) => state.language);
   const { user } = useSelector((state) => state.authRole);
+
+  // ===== States =====
   const [selectedFile, setSelectedFile] = useState(null);
   const [isRecording, setIsRecording] = useState(false);
   const [isPaused, setIsPaused] = useState(false);
   const [recordingTime, setRecordingTime] = useState(0);
   const [audioBlob, setAudioBlob] = useState(null);
   const [micPermission, setMicPermission] = useState(false);
+
   const mediaRecorderRef = useRef(null);
   const audioChunksRef = useRef([]);
   const timerRef = useRef(null);
 
   const { chats, isLoading, hasNextPage, fetchNextPage, isFetchingNextPage } =
     useGetCommunityChats();
-  const allChats = chats?.pages?.flatMap((page) => page?.data) ?? [];
+  const allChats = chats?.pages?.flatMap((page) => page?.data).reverse() ?? [];
 
   const { sendMessage, isPending } = useSendMessage();
-  const { id } = useParams();
+
+  const messagesEndRef = useRef(null);
+  const chatContainerRef = useRef(null);
+  const [initialScrollDone, setInitialScrollDone] = useState(false);
+
+  // ===== Scroll to bottom after first load =====
+  useLayoutEffect(() => {
+    if (!isLoading && allChats.length > 0 && !initialScrollDone) {
+      // scroll to bottom
+      requestAnimationFrame(() => {
+        if (chatContainerRef.current) {
+          chatContainerRef.current.scrollTop =
+            chatContainerRef.current.scrollHeight;
+        }
+      });
+      setInitialScrollDone(true);
+    }
+  }, [isLoading, allChats, initialScrollDone]);
+
+  // ===== SOCKET CONNECTION =====
   useEffect(() => {
     const socket = new ChatSocketService();
     const token = getToken();
@@ -69,6 +100,7 @@ export default function CommunityChat() {
     };
   }, [id]);
 
+  // ===== FORM HOOK =====
   const {
     register,
     handleSubmit,
@@ -77,139 +109,41 @@ export default function CommunityChat() {
     formState: { errors },
   } = useForm({
     resolver: yupResolver(schema),
+    defaultValues: {
+      message: "",
+      file: null,
+      audio: null,
+    },
   });
 
-  const queryClient = useQueryClient();
-
-  //  Send message
-  const onSubmit = (data) => {
-    let content = null;
-    let type = "text";
-    let payload;
-
-    if (audioBlob) {
-      content = audioBlob;
-      type = "audio";
-      payload = {
-        file_path: audioBlob,
-        type,
-      };
-    } else if (selectedFile) {
-      content = selectedFile;
-      type = getMessageType(selectedFile);
-      payload = {
-        file_path: selectedFile,
-        type,
-      };
-    } else if (data.message?.trim()) {
-      content = data.message.trim();
-      type = "text";
-      payload = {
-        message: data.message.trim(),
-        type,
-      };
-    }
-
-    if (!content) return;
-    sendMessage(payload);
-
-    reset();
-    setSelectedFile(null);
-    setAudioBlob(null);
-    setIsRecording(false);
-    setRecordingTime(0);
-  };
-  //Ask for microphone permission ONCE
+  // ===== PERMISSION =====
   const askForMicPermission = async () => {
     if (micPermission) return true;
     try {
       const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-      stream.getTracks().forEach((track) => track.stop());
+      stream.getTracks().forEach((t) => t.stop());
       setMicPermission(true);
       return true;
-    } catch (err) {
+    } catch {
       alert("من فضلك فعّل إذن الميكروفون للتسجيل الصوتي");
       return false;
     }
   };
-  // Recording
-  const startRecording = async () => {
-    if (isRecording || audioBlob) return;
 
-    const allowed = await askForMicPermission();
-    if (!allowed) return;
-    try {
-      setValue("message", "");
-      setSelectedFile(null);
-      setValue("file", null);
-
-      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-      const mediaRecorder = new MediaRecorder(stream);
-      mediaRecorderRef.current = mediaRecorder;
-      audioChunksRef.current = [];
-      setRecordingTime(0);
-
-      mediaRecorder.ondataavailable = (e) => {
-        if (e.data.size > 0) audioChunksRef.current.push(e.data);
-      };
-
-      mediaRecorder.onstop = () => {
-        const blob = new Blob(audioChunksRef.current, { type: "audio/webm" });
-        setAudioBlob(blob);
-        stopTimer();
-      };
-
-      mediaRecorder.start();
-      startTimer();
-      setIsRecording(true);
-      setIsPaused(false);
-    } catch (err) {
-      console.error("Microphone access denied", err);
-    }
-  };
-
-  const pauseRecording = () => {
-    const recorder = mediaRecorderRef.current;
-    if (recorder && recorder.state === "recording") {
-      recorder.pause();
-      setIsPaused(true);
-      stopTimer();
-    }
-  };
-
-  const resumeRecording = () => {
-    const recorder = mediaRecorderRef.current;
-    if (recorder && recorder.state === "paused") {
-      recorder.resume();
-      setIsPaused(false);
-      startTimer();
-    }
-  };
-
-  const stopRecording = () => {
-    const recorder = mediaRecorderRef.current;
-    if (recorder && recorder.state !== "inactive") {
-      recorder.stop();
-      setIsRecording(false);
-      stopTimer();
-    }
-  };
-
-  const cancelRecording = () => {
-    stopRecording();
-    setAudioBlob(null);
-    setRecordingTime(0);
-    setIsRecording(false);
-    setIsPaused(false);
-  };
-
-  // Timer
+  // ===== TIMER =====
   const startTimer = () => {
+    stopTimer();
     timerRef.current = setInterval(() => {
       setRecordingTime((t) => t + 1);
     }, 1000);
   };
-  const stopTimer = () => clearInterval(timerRef.current);
+
+  const stopTimer = () => {
+    if (timerRef.current) {
+      clearInterval(timerRef.current);
+      timerRef.current = null;
+    }
+  };
 
   useEffect(() => () => stopTimer(), []);
 
@@ -219,8 +153,126 @@ export default function CommunityChat() {
       "0"
     )}`;
 
-  console.log(errors);
+  // ===== RECORDING CONTROLS =====
+  const startRecording = async () => {
+    if (isRecording) return;
 
+    const allowed = await askForMicPermission();
+    if (!allowed) return;
+
+    try {
+      setSelectedFile(null);
+      setValue("file", null);
+      setValue("message", "");
+
+      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      const recorder = new MediaRecorder(stream);
+      mediaRecorderRef.current = recorder;
+      audioChunksRef.current = [];
+      setRecordingTime(0);
+
+      recorder.ondataavailable = (e) => {
+        if (e.data.size > 0) audioChunksRef.current.push(e.data);
+      };
+
+      recorder.onstop = () => {
+        const blob = new Blob(audioChunksRef.current, { type: "audio/webm" });
+        setAudioBlob(blob);
+        setValue("audio", blob);
+
+        // Stop all mic tracks
+        stream.getTracks().forEach((t) => t.stop());
+        stopTimer();
+        setIsRecording(false);
+        setIsPaused(false);
+      };
+
+      recorder.start();
+      startTimer();
+      setIsRecording(true);
+      setIsPaused(false);
+    } catch (err) {
+      console.error("Failed to start recording:", err);
+    }
+  };
+
+  const pauseRecording = () => {
+    const recorder = mediaRecorderRef.current;
+    if (recorder?.state === "recording") {
+      recorder.pause();
+      setIsPaused(true);
+      stopTimer();
+    }
+  };
+
+  const resumeRecording = () => {
+    const recorder = mediaRecorderRef.current;
+    if (recorder?.state === "paused") {
+      recorder.resume();
+      setIsPaused(false);
+      startTimer();
+    }
+  };
+
+  const stopRecording = () => {
+    const recorder = mediaRecorderRef.current;
+    if (recorder && recorder.state !== "inactive") {
+      recorder.stop(); // will trigger onstop()
+    }
+  };
+
+  const cancelRecording = () => {
+    const recorder = mediaRecorderRef.current;
+
+    if (recorder && recorder.state !== "inactive") {
+      recorder.stop();
+    }
+
+    stopTimer();
+    setAudioBlob(null);
+    setRecordingTime(0);
+    setIsRecording(false);
+    setIsPaused(false);
+    setValue("audio", null);
+
+    // stop mic if still active
+    if (recorder?.stream) {
+      recorder.stream.getTracks().forEach((t) => t.stop());
+    }
+  };
+
+  // ===== SEND MESSAGE =====
+  const onSubmit = async (data) => {
+    console.log(data);
+    const formData = new FormData();
+    let type = "text";
+
+    console.log(formData);
+
+    if (data.audio instanceof Blob) {
+      formData.append("file_path", data.audio, "recording.webm");
+      type = "audio";
+    } else if (data.file instanceof File) {
+      formData.append("file_path", data.file);
+      type = getMessageType(data.file);
+    } else if (data.message?.trim()) {
+      formData.append("message", data.message.trim());
+      type = "text";
+    } else {
+      return;
+    }
+
+    formData.append("type", type);
+    formData.append("community_id", id);
+
+    sendMessage(formData);
+
+    cancelRecording();
+    reset();
+    setSelectedFile(null);
+  };
+
+  // ===== RENDER =====
   return (
     <div className="container">
       <div className="community-chat-window">
@@ -243,20 +295,24 @@ export default function CommunityChat() {
           </div>
 
           {/* ===== Messages ===== */}
-          <div className="chat-window__messages">
+          <div className="chat-window__messages" ref={chatContainerRef}>
             <InfiniteScroll
               onLoadMore={fetchNextPage}
               hasNextPage={hasNextPage}
               isFetchingNextPage={isFetchingNextPage}
+              revers={true}
             >
+              {" "}
+              {(isLoading || isFetchingNextPage) && (
+                <div className="d-flex align-items-center  py-3  justify-content-center">
+                  <div className="loader"></div>
+                </div>
+              )}
               {allChats.map((chat) => {
-                let form;
-                if (Number(chat.sender.id) === Number(user.id)) {
-                  form = "sender";
-                } else {
-                  form = "receiver";
-                }
-
+                const form =
+                  Number(chat.sender.id) === Number(user.id)
+                    ? "sender"
+                    : "receiver";
                 return (
                   <Message
                     key={chat.id}
@@ -265,21 +321,16 @@ export default function CommunityChat() {
                     text={chat.message}
                     time={chat.created_at}
                     sender={chat?.sender}
+                    filePath={chat?.file_path}
+                    type={chat?.type}
                     avatar={
-                      chat.user_id === chat.community_id
-                        ? "https://avatar.iran.liara.run/public/42"
-                        : "https://avatar.iran.liara.run/public/1"
+                      chat.sender.id === user.id
+                        ? user?.image
+                        : chat?.sender?.image
                     }
                   />
                 );
               })}
-
-              {(isLoading || isFetchingNextPage) &&
-                [1, 2, 3].map((i) => (
-                  <div key={i}>
-                    <p>loading.......................</p>
-                  </div>
-                ))}
             </InfiniteScroll>
           </div>
 
@@ -289,7 +340,6 @@ export default function CommunityChat() {
             onSubmit={handleSubmit(onSubmit)}
           >
             <div className="preview-section">
-              {" "}
               {isRecording ? (
                 <div className={`recording-bar ${isPaused ? "paused" : ""}`}>
                   <button
@@ -297,7 +347,7 @@ export default function CommunityChat() {
                     className="delete-btn"
                     onClick={cancelRecording}
                   >
-                    <i className="fa-solid fa-trash"></i>
+                    <i className="fa-solid fa-stop"></i>
                   </button>
 
                   {!isPaused ? (
@@ -312,6 +362,17 @@ export default function CommunityChat() {
 
                   <div className="wave"></div>
                   <span className="timer">{formatTime(recordingTime)}</span>
+                </div>
+              ) : audioBlob ? (
+                <div className="audio-preview d-flex align-items-center gap-2">
+                  <audio controls src={URL.createObjectURL(audioBlob)} />
+                  <button
+                    type="button"
+                    className="cancel-audio"
+                    onClick={cancelRecording}
+                  >
+                    <i className="fa-solid fa-xmark"></i>
+                  </button>
                 </div>
               ) : selectedFile ? (
                 <div className="file-chat-preview">
@@ -331,15 +392,13 @@ export default function CommunityChat() {
                   </button>
                 </div>
               ) : (
-                <>
-                  <input
-                    type="text"
-                    className="text-input"
-                    placeholder="اكتب رسالتك هنا..."
-                    {...register("message")}
-                    disabled={isRecording || audioBlob || selectedFile}
-                  />
-                </>
+                <input
+                  type="text"
+                  className="text-input"
+                  placeholder="اكتب رسالتك هنا..."
+                  {...register("message")}
+                  disabled={isRecording}
+                />
               )}
             </div>
 
@@ -350,29 +409,38 @@ export default function CommunityChat() {
               <input
                 id="fileInput"
                 type="file"
+                accept="image/*,video/*"
                 hidden
                 {...register("file")}
                 onChange={(e) => {
                   const file = e.target.files[0];
-                  if (file) {
+
+                  if (!file) return;
+                  //  validate type (safety check)
+                  const isImage = file.type.startsWith("image/");
+                  const isVideo = file.type.startsWith("video/");
+
+                  if (isImage || isVideo) {
                     setValue("message", "");
                     setAudioBlob(null);
                     cancelRecording();
                     setSelectedFile(file);
                     setValue("file", file);
+                  } else {
+                    e.target.value = "";
                   }
                 }}
               />
               <button
                 type="button"
                 onClick={startRecording}
-                disabled={selectedFile || (isRecording && !isPaused)}
+                disabled={selectedFile || isRecording}
               >
                 <i className="fa-solid fa-microphone"></i>
               </button>
               <button type="submit" className="chat-window__footer--send">
                 <i className="fa-solid fa-paper-plane"></i>
-              </button>{" "}
+              </button>
             </div>
           </form>
         </div>

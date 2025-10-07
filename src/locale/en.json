@@ -547,8 +547,8 @@
       "filterTitle": "Filter Options",
       "filter": "Filter",
       "reset": "Reset",
-      "personalAssistants": "Personal Assistants",
       "personalAssistant": "Personal Assistant",
+      "personalAssistants": "Personal Assistants",
       "noPersonalAssistants": "You don’t have any personal assistants yet.",
       "community": "Community",
       "completed_contracts": "Completed Contracts",
@@ -614,7 +614,8 @@
       "link": "Link",
       "linkPlaceholder": "Meeting link",
       "visibility": "Visibility",
-      "add": "Add"
+      "add": "Add",
+      "ratingTitle": "Rating"
     },
 
     "payment": "Payment"

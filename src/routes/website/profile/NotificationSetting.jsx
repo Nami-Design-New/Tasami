@@ -3,6 +3,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
 import useChangeNotificationsSettings from "../../../hooks/website/notification/useChangeNotificationsSettings";
 import useGetNotificationSetting from "../../../hooks/website/notification/useGetNotificationSetting";
+import { Placeholder } from "react-bootstrap";
 
 export default function NotificationSetting() {
   const { t } = useTranslation();
@@ -12,10 +13,9 @@ export default function NotificationSetting() {
   const queryClient = useQueryClient();
   const [settings, setSettings] = useState(null);
 
-  // Sync API data into state
   useEffect(() => {
     if (notificationSetting) {
-      const { id, user_id, ...rest } = notificationSetting; // remove id and user_id
+      const { id, user_id, ...rest } = notificationSetting;
       const normalized = Object.fromEntries(
         Object.entries(rest).map(([key, value]) => [key, value ? 1 : 0])
       );
@@ -23,7 +23,43 @@ export default function NotificationSetting() {
     }
   }, [notificationSetting]);
 
-  if (isLoading || !settings) return <p>Loading...</p>;
+  if (isLoading || !settings)
+    return [1, 2].map((_, i) => (
+      <div key={i} className="mb-4">
+        <Placeholder as={"div"} xs={9} animation="glow">
+          <Placeholder xs={9} />
+        </Placeholder>
+        <Placeholder xs={4} animation="glow">
+          <Placeholder xs={4} />
+        </Placeholder>
+        <div className="mt-4">
+          <div className="d-flex align-items-center gap-2">
+            <Placeholder xs={12} animation="glow">
+              <Placeholder xs={8} />
+            </Placeholder>
+            <Placeholder xs={2} animation="glow">
+              <Placeholder xs={2} />
+            </Placeholder>
+          </div>
+          <div className="d-flex align-items-center gap-2">
+            <Placeholder xs={12} animation="glow">
+              <Placeholder xs={8} />
+            </Placeholder>
+            <Placeholder xs={2} animation="glow">
+              <Placeholder xs={2} />
+            </Placeholder>
+          </div>
+          <div className="d-flex align-items-center gap-2">
+            <Placeholder xs={12} animation="glow">
+              <Placeholder xs={8} />
+            </Placeholder>
+            <Placeholder xs={2} animation="glow">
+              <Placeholder xs={2} />
+            </Placeholder>
+          </div>
+        </div>
+      </div>
+    ));
 
   const personalAssistantOptions = [
     {
@@ -82,7 +118,6 @@ export default function NotificationSetting() {
 
   return (
     <section className="notification-setting">
-      {/* Personal Assistant Section */}
       <div className="personal-assistant">
         <h2>{t("profile.personal_assistant_title")}</h2>
         <p>{t("profile.multi_choice_hint")}</p>
