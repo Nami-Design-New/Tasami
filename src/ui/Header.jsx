@@ -67,6 +67,19 @@ export default function Header() {
                 <NavLink to="/register">{t("website.header.signUp")}</NavLink>
               </li>
             </>
+          )}{" "}
+          {isAuthed && (
+            <CustomButton
+              size="small"
+              style={{ whiteSpace: "nowrap" }}
+              onClick={() => {
+                user.about ? navigate("my-platform") : setShowModal(true);
+              }}
+              className="mobile-only"
+            >
+              <i className="fa-regular fa-robot"></i>
+              {t("profile.assistant")}
+            </CustomButton>
           )}
         </ul>
 
@@ -92,6 +105,7 @@ export default function Header() {
           {isAuthed && (
             <CustomButton
               size="small"
+              className="d-none d-sm-flex"
               style={{ whiteSpace: "nowrap" }}
               onClick={() => {
                 user.about ? navigate("my-platform") : setShowModal(true);
@@ -112,9 +126,15 @@ export default function Header() {
               {t("website.header.login")}
             </CustomLink>
           )}
-          <button className="toggle_menu" onClick={handleToggleMenu}>
-            <i className="fa-light fa-bars"></i>
-          </button>
+          {openMenu ? (
+            <button className="toggle_menu" onClick={handleToggleMenu}>
+              <i className="fa-light fa-xmark"></i>
+            </button>
+          ) : (
+            <button className="toggle_menu" onClick={handleToggleMenu}>
+              <i className="fa-light fa-bars"></i>
+            </button>
+          )}
         </div>
       </nav>
       <PlatformModal showModal={showModal} setShowModal={setShowModal} />

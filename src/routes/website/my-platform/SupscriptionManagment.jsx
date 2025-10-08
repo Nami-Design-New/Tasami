@@ -7,6 +7,7 @@ import CurrentPlan from "../../../ui/website/platform/CurrentPlan";
 import PaymentModal from "../../../ui/website/platform/PaymentModal";
 import PlanCard from "../../../ui/website/platform/PlanCard";
 import PlanDurationSelector from "../../../ui/website/platform/PlanDurationSelector";
+import { Scrollbar } from "swiper/modules";
 
 export default function SupscriptionManagment() {
   const { t } = useTranslation();
@@ -37,7 +38,18 @@ export default function SupscriptionManagment() {
         onChange={setSelectedDuration}
       />
       <div className="mt-2">
-        <Swiper spaceBetween={16} slidesPerView={2} loop={true}>
+        <Swiper
+          spaceBetween={16}
+          slidesPerView={2}
+          breakpoints={{
+            0: { slidesPerView: 1 },
+            600: { slidesPerView: 2 },
+          }}
+          loop={true}
+          style={{ height: "100%", paddingBottom: "10px" }}
+          modules={[Scrollbar]}
+          scrollbar={{ draggable: true, dragSize: 90, hide: false }}
+        >
           {isLoading ? (
             <>
               {[1, 2].map((index) => (

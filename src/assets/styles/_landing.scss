@@ -82,12 +82,13 @@
   .container {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 0 80px;
   }
 
   .section-head {
     text-align: center;
     margin-bottom: 50px;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
 
     .sub-title {
       display: inline-block;
@@ -169,7 +170,6 @@
 
 .about-section {
   position: relative;
-  padding: 80px 0;
   text-align: center;
   // background: #F2F2F2;
   background: #f9f9f9;
@@ -781,13 +781,15 @@
 
 .page {
   padding: 60px 0;
+  @include small-mobile {
+    padding: 20px 0;
+  }
 }
 
 .faqs-section {
   background: #f9f9f9;
   position: relative;
   overflow: hidden;
-  padding: 80px 0;
 
   .section-head {
     text-align: center;
@@ -895,8 +897,9 @@
 }
 
 .steps-section {
-  padding: 80px 0;
+  // padding: 80px 0;
   position: relative;
+
   text-align: center;
   background: #fafafa;
 
@@ -922,7 +925,7 @@
       position: relative;
       z-index: 1;
       width: 23%;
-      padding: 60px 10px 20px;
+      padding: 1.25rem;
       cursor: pointer;
       border-radius: 12px;
       transition: all 0.3s ease;
@@ -1026,15 +1029,12 @@
       .step {
         width: 100%;
         margin-bottom: 40px;
-        padding-top: 60px;
       }
     }
   }
 }
 
 .aim-section {
-  padding: 80px 0;
-
   img {
     height: 250px;
 
@@ -1142,7 +1142,6 @@
   }
 
   .contact-form-wrapper {
-    padding: 1.5rem;
     .title {
       color: $main;
       font-size: 1.5rem;

@@ -22,7 +22,7 @@ export default function SavingsPage() {
         {!isLoading && allBookMarkedOffers.length === 0 && (
           <EmptySection
             height="500px"
-            message={t("website.profile.noBookmarkedOffers")}
+            message={t("profile.noBookmarkedOffers")}
           />
         )}
         <div className="row">

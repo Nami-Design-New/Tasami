@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
 import useHandelToggleLikePosts from "../../../../hooks/website/communities/posts/useHandelToggleLikePosts";
 import useSharePost from "../../../../hooks/website/communities/posts/useSharePost";
+import { useQueryClient } from "@tanstack/react-query";
 
 export default function PostsActions({ post }) {
   const { toggleLike, isPending: likePending } = useHandelToggleLikePosts();
   const { mutate: sharePost } = useSharePost();
+  const queryClient = useQueryClient();
 
   const [isLiked, setIsLiked] = useState(post.i_liked_it);
   const [likesCount, setLikesCount] = useState(post.likes_count);
@@ -24,6 +26,11 @@ export default function PostsActions({ post }) {
     setLikesCount((prev) => (isLiked ? prev - 1 : prev + 1));
 
     toggleLike(post.id, {
+      onSuccess: () => {
+        queryClient.refetchQueries({ queryKey: ["community-posts"] });
+        queryClient.refetchQueries({ queryKey: ["reels"] });
+        queryClient.invalidateQueries({ queryKey: ["post-details"] });
+      },
       onError: () => {
         setIsLiked((prev) => !prev);
         setLikesCount((prev) => (isLiked ? prev + 1 : prev - 1));
@@ -43,6 +50,11 @@ export default function PostsActions({ post }) {
           // Optimistically update UI
           setSharesCount((prev) => prev + 1);
           sharePost(post.id, {
+            onSuccess: () => {
+              queryClient.refetchQueries({ queryKey: ["community-posts"] });
+              queryClient.refetchQueries({ queryKey: ["reels"] });
+              queryClient.invalidateQueries({ queryKey: ["post-details"] });
+            },
             onError: () => setSharesCount((prev) => prev - 1),
           });
         })

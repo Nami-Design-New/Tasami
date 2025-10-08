@@ -1,10 +1,9 @@
+import { Card, Placeholder } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
-import { useNavigate } from "react-router";
 import useGetReels from "../../hooks/website/communities/useGetReels";
 import EmptySection from "../../ui/EmptySection";
 import InfiniteScroll from "../../ui/loading/InfiniteScroll";
 import ReelCard from "../../ui/website/communities/ReelCard";
-import { Card, Placeholder } from "react-bootstrap";
 
 export default function Reels() {
   const { t } = useTranslation();
@@ -17,7 +16,7 @@ export default function Reels() {
     <section className="reels-page no-scroll-bar">
       <div className="container">
         {!isLoading && allReels.length === 0 && (
-          <EmptySection height="500px" message={t("communty.noPosts")} />
+          <EmptySection height="500px" message={t("community.noPosts")} />
         )}
 
         <InfiniteScroll
@@ -71,7 +70,7 @@ export default function Reels() {
                       <Placeholder xs={6} />
                     </Placeholder>
                   </Card.Body>
-                </Card>{" "}
+                </Card>
               </div>
             )}
           </div>

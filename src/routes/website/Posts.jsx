@@ -31,7 +31,7 @@ export default function Posts({ isMyCommuntiy = true }) {
           </div>
         )}
         {!isLoading && allPosts.length === 0 && (
-          <EmptySection height="500px" message={t("communty.noPosts")} />
+          <EmptySection height="500px" message={t("community.noPosts")} />
         )}
         <InfiniteScroll
           onLoadMore={fetchNextPage}

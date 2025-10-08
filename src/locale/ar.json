@@ -208,7 +208,9 @@
     "transactions": "عمليات الرصيد",
     "operationNo": "عمليه رقم",
     "enterAmount": "أدخل المبلغ",
-    "price": "السعر"
+    "price": "السعر",
+    "noTransactions": "لا توجد معاملات بعد ",
+    "noBookmarkedOffers": "لا توجد محفوظات بعد"
   },
   "notification": {
     "title": "الإشعارات",
@@ -334,7 +336,11 @@
     "link": "الرابط",
     "linkPlaceholder": "رابط اللقاء",
     "visibility": "الظهور",
-    "add": "إضافة"
+    "add": "إضافة",
+    "noMeetings": "لا توجد لقاءات بعد",
+    "noPosts": "لا توجد منشورات بعد",
+    "addPost": "اضافة منشور",
+    "linkLabel": "اضف رابط"
   },
   "website": {
     "inquiry": {
@@ -586,7 +592,8 @@
       "ageMaxLabel": "إلى",
       "clear": "مسح",
       "moreThan": "أكثر من",
-      "ratingTitle": "التقييم"
+      "ratingTitle": "التقييم",
+      "noOpportunities": "لا توجد معلومات متاحة"
     },
     "payment": "الدفع"
   }

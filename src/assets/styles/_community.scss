@@ -986,6 +986,9 @@
     justify-content: center;
     padding: 20px; /* space around each reel */
     box-sizing: border-box;
+    @include labtop-layout {
+      height: calc(100vh - 158px);
+    }
   }
 }
 
@@ -1146,7 +1149,11 @@
     justify-content: center;
     cursor: pointer;
     transition: all 0.2s ease;
-
+    &.liked {
+      i {
+        color: $second;
+      }
+    }
     i {
       color: #fff;
       font-size: 20px;
@@ -1221,5 +1228,11 @@
     &__image {
       border-radius: 18px;
     }
+  }
+}
+
+@media (min-width: 991px) {
+  .reel-item {
+    height: calc(100vh - 158px);
   }
 }

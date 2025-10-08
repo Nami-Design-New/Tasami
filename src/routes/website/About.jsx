@@ -32,14 +32,14 @@ const whyItems = [
 export default function AboutSection() {
   return (
     <>
-      <section className="about-section">
+      <section className="about-section page">
         <div className="triangles">
           <span className="triangle t1"></span>
           <span className="triangle t2"></span>
           <span className="triangle t3"></span>
         </div>
 
-        <div className="section-head">
+        <div className="section-head ">
           <span className="sub-title">من نحن؟</span>
           <h2 className="main-title">
             عن <span>تسامي</span>
@@ -63,7 +63,7 @@ export default function AboutSection() {
         </div>
       </section>
 
-      <section className="why-section">
+      <section className="why-section page">
         <div className="container">
           <div className="section-head text-center mb-5">
             <span className="sub-title d-block mb-2">لماذا تختارنا؟</span>

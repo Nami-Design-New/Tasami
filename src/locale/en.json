@@ -199,7 +199,9 @@
     "transactions": "Transactions",
     "operationNo": "Operation Number",
     "enterAmount": "Enter amount",
-    "price": "Price"
+    "price": "Price",
+    "noTransactions": "No transactions yet",
+    "noBookmarkedOffers": "No bookmarked offers yet."
   },
   "notification": {
     "title": "Notifications",
@@ -325,7 +327,11 @@
     "link": "Link",
     "linkPlaceholder": "Meeting link",
     "visibility": "Visibility",
-    "add": "Add"
+    "add": "Add",
+    "noMeetings": "No Meetings Yet",
+    "noPosts": "No Posts Yet",
+    "addPost": "Add Post",
+    "linkLabel": "Add New Link"
   },
   "website": {
     "inquiry": {
@@ -615,7 +621,8 @@
       "linkPlaceholder": "Meeting link",
       "visibility": "Visibility",
       "add": "Add",
-      "ratingTitle": "Rating"
+      "ratingTitle": "Rating",
+      "noOpportunities": "No opportunities yet"
     },
 
     "payment": "Payment"
