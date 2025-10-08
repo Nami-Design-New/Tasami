@@ -7,6 +7,11 @@ window.Pusher = Pusher;
 export class ChatSocketService {
   constructor() {
     this.echo = null;
+    this.messageCallback = null;
+  }
+
+  onMessage(callback) {
+    this.messageCallback = callback;
   }
 
   connectPrivate({ token, communityId }) {
@@ -47,6 +52,11 @@ export class ChatSocketService {
       .private(`communitychat.${communityId}`)
       .listen("CommunityMessageSent", (event) => {
         console.log("New message:", event.message);
+        if (this.messageCallback) {
+          console.log(this.messageCallback);
+
+          this.messageCallback(event.message);
+        }
       });
 
     console.log(`Subscribed to private-communitychat.${communityId}`);

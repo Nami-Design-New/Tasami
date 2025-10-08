@@ -95,10 +95,27 @@ export default function CommunityChat() {
       communityId: id,
     });
 
+    socket.onMessage((message) => {
+      console.log("message from the calback", message);
+
+      queryClient.setQueryData(["community-chat", id], (oldData) => {
+        if (!oldData) return oldData;
+        const updatedPages = [...oldData.pages];
+        console.log(oldData);
+
+        // Assuming the latest messages are in the first page
+        updatedPages[0] = {
+          ...updatedPages[0],
+          data: [...updatedPages[0].data, message],
+        };
+        return { ...oldData, pages: updatedPages };
+      });
+    });
+
     return () => {
       socket.disconnect();
     };
-  }, [id]);
+  }, [id, queryClient]);
 
   // ===== FORM HOOK =====
   const {

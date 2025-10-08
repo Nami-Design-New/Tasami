@@ -1,21 +1,13 @@
-export default function WorksTab({ activeTab, setActiveTab }) {
-  const tabs = [
-    { id: "pending", label: "بانتظار التنفيذ" },
-    { id: "inprogress", label: "قيد التنفيذ" },
-    { id: "completed", label: "مكتملة" },
-  ];
+import { NavLink } from "react-router";
 
+export default function WorksTab() {
   return (
     <div className="tab-nav">
-      {tabs.map((tab) => (
-        <button
-          key={tab.id}
-          className={activeTab === tab.id ? "active" : ""}
-          onClick={() => setActiveTab(tab.id)}
-        >
-          {tab.label}
-        </button>
-      ))}
+      <NavLink to={"/my-works"} end>
+        بانتظار التنفيذ
+      </NavLink>
+      <NavLink to={"in-progress"}>قيد التنفيذ</NavLink>
+      <NavLink to={"completed"}>مكتملة</NavLink>
     </div>
   );
 }

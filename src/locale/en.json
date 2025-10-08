@@ -405,7 +405,8 @@
       "notifications": "Notifications",
       "wallet": "Wallet",
       "editAccount": "Edit Account",
-      "communities": "Communities"
+      "communities": "Communities",
+      "myWorks": "My Works"
     },
     "hero": {
       "personalGoal": "Personal Goal",

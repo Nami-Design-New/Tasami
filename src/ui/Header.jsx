@@ -48,10 +48,15 @@ export default function Header() {
             <NavLink to={"/"}>{t("website.header.home")}</NavLink>
           </li>
           <li onClick={() => setOpenMenu(false)}>
-            <NavLink to={"/how-it-works"}>
-              {t("website.header.howitWorks")}
-            </NavLink>
+            <NavLink to={"/my-works"}>{t("website.header.myWorks")}</NavLink>
           </li>
+          {user && (
+            <li onClick={() => setOpenMenu(false)}>
+              <NavLink to={"/how-it-works"}>
+                {t("website.header.howitWorks")}
+              </NavLink>
+            </li>
+          )}
           <li onClick={() => setOpenMenu(false)}>
             <NavLink to={"/about"}>{t("website.header.aboutUs")}</NavLink>
           </li>

@@ -65,6 +65,9 @@
         &:hover {
           color: $main;
         }
+        &.active {
+          color: $main;
+        }
       }
 
       .close-btn {
