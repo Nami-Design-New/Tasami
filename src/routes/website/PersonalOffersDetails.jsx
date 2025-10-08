@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
+import useAddOrRemoveBookmark from "../../hooks/website/personal-assistances/useAddOrRemoveBookmark";
 import useGetPersonalOfferDetails from "../../hooks/website/personal-assistances/useGetPersonalOfferDetails";
 import CustomButton from "../../ui/CustomButton";
 import Loading from "../../ui/loading/Loading";
@@ -8,17 +10,17 @@ import ReportModal from "../../ui/modals/ReportModal";
 import ReviewsModal from "../../ui/modals/ReviewsModal";
 import OptionsMenu from "../../ui/website/OptionsMenu";
 import SectionHeader from "../../ui/website/SectionHeader";
+import InquiryModal from "../../ui/website/my-notifications/inquiryModal";
 import OfferInfoGrid from "../../ui/website/offers/OfferInfoGrid";
 import TopInfo from "../../ui/website/offers/TopInfo";
-import useAddOrRemoveBookmark from "../../hooks/website/personal-assistances/useAddOrRemoveBookmark";
-import { useQueryClient } from "@tanstack/react-query";
-import { useTranslation } from "react-i18next";
-import InquiryModal from "../../ui/website/my-notifications/inquiryModal";
+import { shareContent } from "../../utils/shared";
+import { useNavigate } from "react-router";
 
 export default function PersonalOffersDetails() {
-  const queryClient = useQueryClient();
   const { t } = useTranslation();
+  const navigate = useNavigate();
   const { lang } = useSelector((state) => state.language);
+  const { user } = useSelector((state) => state.authRole);
   const { offerDetails, isLoading } = useGetPersonalOfferDetails();
   const { toggleBookmark, isPending } = useAddOrRemoveBookmark();
   const [bookmarked, setBookmarked] = useState(offerDetails?.is_saved || false);
@@ -33,14 +35,14 @@ export default function PersonalOffersDetails() {
   const handleToggleBookmark = (e, id) => {
     e.preventDefault();
     e.stopPropagation();
+    if (!user) {
+      navigate("/login");
+      return;
+    }
 
     const prevState = bookmarked;
     setBookmarked(!prevState);
-
     toggleBookmark(id, {
-      onSuccess: () => {
-        queryClient.refetchQueries({ queryKey: ["bookmarked-offes"] });
-      },
       onError: () => {
         setBookmarked(prevState);
       },
@@ -63,6 +65,18 @@ export default function PersonalOffersDetails() {
 
             <div className="d-flex align-items-center gap-2">
               <button
+                className="toggle-bookmark-button"
+                onClick={() =>
+                  shareContent({
+                    title: offerDetails?.title,
+                    url: window.location.href,
+                  })
+                }
+              >
+                <i className="fa-solid fa-share"></i>
+              </button>
+
+              <button
                 onClick={(e) => handleToggleBookmark(e, offerDetails.id)}
                 className="toggle-bookmark-button"
               >
@@ -72,19 +86,22 @@ export default function PersonalOffersDetails() {
                   } ${isPending ? "opacity-50" : ""}`}
                 ></i>
               </button>
-              <OptionsMenu
-                options={[
-                  {
-                    label: t("website.offerDetails.inquiry"),
-                    onClick: () => setShowInquiryModal(true),
-                  },
-                  {
-                    label: t("website.offerDetails.report"),
-                    onClick: () => console.log("Report"),
-                    className: "text-danger",
-                  },
-                ]}
-              />
+
+              {user && (
+                <OptionsMenu
+                  options={[
+                    {
+                      label: t("website.offerDetails.inquiry"),
+                      onClick: () => setShowInquiryModal(true),
+                    },
+                    {
+                      label: t("website.offerDetails.report"),
+                      onClick: () => console.log("Report"),
+                      className: "text-danger",
+                    },
+                  ]}
+                />
+              )}
             </div>
           </div>
         </div>
@@ -174,39 +191,48 @@ export default function PersonalOffersDetails() {
               </div>
             </div>
 
-            <div className="buttons justify-content-end mt-2">
-              <CustomButton
-                variant="outlined"
-                color="primary"
-                onClick={() => setShowReviewsModal(true)}
-              >
-                {t("website.offerDetails.showReviews")}
-              </CustomButton>
-              <CustomButton onClick={() => setShowHelpModal(true)}>
-                {t("website.offerDetails.sendContract")}
-              </CustomButton>
-            </div>
+            {user && (
+              <div className="buttons justify-content-end mt-2">
+                <CustomButton
+                  variant="outlined"
+                  color="primary"
+                  onClick={() => setShowReviewsModal(true)}
+                >
+                  {t("website.offerDetails.showReviews")}
+                </CustomButton>
+                <CustomButton onClick={() => setShowHelpModal(true)}>
+                  {t("website.offerDetails.sendContract")}
+                </CustomButton>
+              </div>
+            )}
           </div>
         </div>
 
-        <ContractReq
-          showModal={showHelpModal}
-          setShowModal={setShowHelpModal}
-        />
-        <ReportModal
-          showModal={showReportModal}
-          setShowModal={setShowReportModal}
-        />
-        <InquiryModal
-          workid={offerDetails.id}
-          showModal={showInquiryModal}
-          setShowModal={setShowInquiryModal}
-        />
-        <ReviewsModal
-          showModal={showReviewsModal}
-          setShowModal={setShowReviewsModal}
-          reviews={[]}
-        />
+        {user && (
+          <>
+            <ContractReq
+              showModal={showHelpModal}
+              setShowModal={setShowHelpModal}
+            />
+
+            <ReportModal
+              showModal={showReportModal}
+              setShowModal={setShowReportModal}
+            />
+
+            <InquiryModal
+              workid={offerDetails.id}
+              showModal={showInquiryModal}
+              setShowModal={setShowInquiryModal}
+            />
+
+            <ReviewsModal
+              showModal={showReviewsModal}
+              setShowModal={setShowReviewsModal}
+              reviews={[]}
+            />
+          </>
+        )}
       </div>
     </section>
   );

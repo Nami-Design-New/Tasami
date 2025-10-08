@@ -159,6 +159,7 @@
           font-size: 0.9rem;
           font-weight: 600;
           color: $second;
+          white-space: nowrap;
           margin-bottom: 0.25rem;
         }
 
@@ -168,6 +169,7 @@
           color: $dark;
           display: flex;
           align-items: center;
+          white-space: nowrap;
           gap: 6px;
 
           img {
@@ -217,7 +219,36 @@
         }
       }
     }
-
+    .add-offer-wrapper {
+      background-color: $main08;
+      padding: 12px 16px;
+      margin-top: 8px;
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      border-radius: 12px;
+      width: fit-content;
+      .offers-count {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        i {
+          width: 24px;
+          height: 24px;
+          font-size: 24px;
+        }
+        .content {
+          .head {
+            font-size: 12px;
+          }
+          .desc {
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 0;
+          }
+        }
+      }
+    }
     @media (max-width: 768px) {
       .offer-info {
         flex-direction: column;
@@ -351,23 +382,13 @@
       }
     }
   }
-  //   .fixed-request-button {
-  //   position: fixed;
-  //   bottom: 0px;
-  //   z-index: 1000;
-  //   background-color: #76d1f8;
-  //   width: 100%;
+}
 
-  //   button {
-  //     padding: 0.75rem 2rem;
-  //     font-weight: bold;
-  //     font-size: 0.9rem;
-  //     margin: 10px 0;
-  //     &:hover {
-  //       background-color: darken;
-  //     }
-  //   }
-  // }
+.add-groub-button {
+  font-size: 12px;
+  color: $main;
+  font-weight: bold;
+  text-decoration: underline;
 }
 
 .contract-status__card {

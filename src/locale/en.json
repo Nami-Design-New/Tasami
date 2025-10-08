@@ -24,7 +24,9 @@
   "membersOnly": "Members Only",
   "personalOffers": "Personal Offers",
   "send": "Send",
-
+  "day": "days",
+  "days": "days",
+  "postDetails": "Post details",
   "pageHeaders": {
     "Notifications": "Notifications",
     "Dashboard": "Dashboard",
@@ -197,7 +199,9 @@
     "transactions": "Transactions",
     "operationNo": "Operation Number",
     "enterAmount": "Enter amount",
-    "price": "Price"
+    "price": "Price",
+    "noTransactions": "No transactions yet",
+    "noBookmarkedOffers": "No bookmarked offers yet."
   },
   "notification": {
     "title": "Notifications",
@@ -323,7 +327,11 @@
     "link": "Link",
     "linkPlaceholder": "Meeting link",
     "visibility": "Visibility",
-    "add": "Add"
+    "add": "Add",
+    "noMeetings": "No Meetings Yet",
+    "noPosts": "No Posts Yet",
+    "addPost": "Add Post",
+    "linkLabel": "Add New Link"
   },
   "website": {
     "inquiry": {
@@ -335,6 +343,7 @@
     },
     "offerDetails": {
       "title": "Offer Details",
+      "goalHeader": "Goal Details",
       "edit": "Edit",
       "archive": "Archive",
       "delete": "Delete",
@@ -357,7 +366,18 @@
       "helpValue": "Help Value",
       "preferredGender": "Preferred Beneficiary Gender",
       "ageRange": "Beneficiary Age Range",
-      "duration": "Expected Duration of Assistance (days)"
+      "duration": "Expected Duration of Assistance (days)",
+      "expectedData": "Expected duration of goal  ",
+      "startDate": "Start Date",
+      "offerHelp": "Submit a Help Offer",
+      "goal": "Goal",
+      "noGoalsOffers": "No offers yet",
+      "submittedOffers": "submitted offers",
+      "submittedOffer": "Submitted Offer",
+      "offers": "Offers",
+      "addGroup": "Add Group",
+      "offerValue": "Offer Value",
+      "submitHelpOffer": "ِAdd Offer"
     },
     "home": {
       "totalWork": "Total Work",
@@ -516,7 +536,9 @@
         "videoCall": "Video and Audio Call",
         "textAudio": "Text and Audio Messaging",
         "offerImage": "Offer Image",
-        "totalDuration": "Total Duration {{duration}} (in days)"
+        "totalDuration": "Total Duration {{duration}} (in days)",
+        "yes": "Yes",
+        "no": "No"
       },
       "activeContracts": "Active Contracts",
       "activeGroups": "Active Groups",
@@ -531,8 +553,8 @@
       "filterTitle": "Filter Options",
       "filter": "Filter",
       "reset": "Reset",
-      "personalAssistants": "Personal Assistants",
       "personalAssistant": "Personal Assistant",
+      "personalAssistants": "Personal Assistants",
       "noPersonalAssistants": "You don’t have any personal assistants yet.",
       "community": "Community",
       "completed_contracts": "Completed Contracts",
@@ -598,7 +620,9 @@
       "link": "Link",
       "linkPlaceholder": "Meeting link",
       "visibility": "Visibility",
-      "add": "Add"
+      "add": "Add",
+      "ratingTitle": "Rating",
+      "noOpportunities": "No opportunities yet"
     },
 
     "payment": "Payment"

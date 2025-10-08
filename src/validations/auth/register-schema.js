@@ -24,10 +24,10 @@ const registerSchema = (t) => {
       .date()
       .typeError(t("validation.date"))
       .required(t("validation.required"))
-      .test("minAge", t("validation.minAge", { age: 13 }), (value) => {
+      .test("minAge", t("validation.minAge", { age: 15 }), (value) => {
         if (!value) return false;
         const today = dayjs();
-        const minDate = today.subtract(13, "year");
+        const minDate = today.subtract(15, "year");
         return (
           dayjs(value).isBefore(minDate) || dayjs(value).isSame(minDate, "day")
         );
@@ -63,7 +63,7 @@ export const useRegisterValidation = () => {
       password: "",
       confirmPassword: "",
     },
-    mode: "onblur",
+    mode: "onchange",
   });
   return methods;
 };

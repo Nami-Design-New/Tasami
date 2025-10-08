@@ -55,12 +55,18 @@
         img {
           height: 60px;
           object-fit: contain;
+          @include small-mobile {
+            height: 48px;
+          }
         }
         h1 {
           color: $second;
           margin: 0;
           font-weight: 400;
           font-size: 32px;
+          @include small-mobile {
+            font-size: 24px;
+          }
         }
         span {
           height: 50px;
@@ -502,6 +508,7 @@ button.back {
 .identity-container {
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
   gap: 8px;
   flex: 1;
 }

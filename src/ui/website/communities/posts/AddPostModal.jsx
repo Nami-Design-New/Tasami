@@ -67,7 +67,7 @@ export default function AddPostModal({ showModal, setShowModal }) {
     }
     addPost(formData, {
       onSuccess: (res) => {
-        queryClient.invalidateQueries(["posts"]);
+        queryClient.invalidateQueries(["community-posts"]);
         reset();
         setShowModal(false);
         toast.success(res.message);

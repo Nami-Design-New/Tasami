@@ -1,13 +1,13 @@
 import { useTranslation } from "react-i18next";
-import { Link, useNavigate } from "react-router";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router";
+import useGetPersonalOffers from "../../hooks/website/personal-assistances/useGetPersonalOffers";
 import OfferCard from "../../ui/cards/OfferCard";
 import EmptySection from "../../ui/EmptySection";
 import InfiniteScroll from "../../ui/loading/InfiniteScroll";
 import OfferCardSkeleton from "../../ui/loading/OfferCardSkeleton";
-import PersonalOffersSidebarFilter from "../../ui/website/home/PersonalOffersSidebarFilter";
-import useGetPersonalOffers from "../../hooks/website/personal-assistances/useGetPersonalOffers";
 import RoundedBackButton from "../../ui/website-auth/shared/RoundedBackButton";
-import { useSelector } from "react-redux";
+import PersonalOffersSidebarFilter from "../../ui/website/home/PersonalOffersSidebarFilter";
 
 export default function PersonalOffers() {
   const { t } = useTranslation();
@@ -23,8 +23,6 @@ export default function PersonalOffers() {
 
   const allPersonalOffers =
     personalOffers?.pages?.flatMap((page) => page?.data) ?? [];
-  console.log(personalOffers);
-  console.log(allPersonalOffers);
 
   return (
     <section className="personal-helpers page">
@@ -39,7 +37,7 @@ export default function PersonalOffers() {
                   ) : (
                     <i className="fa-solid fa-angle-left"></i>
                   )}
-                </RoundedBackButton>{" "}
+                </RoundedBackButton>
                 <h1> {t("personalOffers")}</h1>
               </div>
             </div>
@@ -54,7 +52,7 @@ export default function PersonalOffers() {
               <div className="col-12 p-2">
                 <div className="result-count">
                   <strong>{allPersonalOffers?.length}</strong>{" "}
-                  {t("website.assistants.personalAssistant")}
+                  {t("personalOffers")}
                 </div>
               </div>
               {!isLoading && allPersonalOffers?.length === 0 && (

@@ -26,7 +26,11 @@
   "membersOnly": "للأعضاء فقط",
   "personalOffers": "عروض المساعدة",
   "send": "إرسال",
-
+  "defined": "محدد",
+  "notDefined": "غير محدد",
+  "day": "يوم",
+  "days": "أيام",
+  "postDetails": "تفاصيل منشور",
   "pageHeaders": {
     "Notifications": " التنبيهات ",
     "Dashboard": " لوحة التحكم ",
@@ -204,7 +208,9 @@
     "transactions": "عمليات الرصيد",
     "operationNo": "عمليه رقم",
     "enterAmount": "أدخل المبلغ",
-    "price": "السعر"
+    "price": "السعر",
+    "noTransactions": "لا توجد معاملات بعد ",
+    "noBookmarkedOffers": "لا توجد محفوظات بعد"
   },
   "notification": {
     "title": "الإشعارات",
@@ -240,7 +246,7 @@
     "fileSize": "يجب أن يكون حجم الملف أقل من 2 ميغابايت",
     "fileType": "يسمح فقط بالصور ",
     "date": "يرجى إدخال تاريخ صالح",
-    "minAge": "يجب أن يكون عمرك على الأقل 13 سنوات",
+    "minAge": "يجب أن يكون عمرك على الأقل {{age}} سنوات",
     "invalidPhoneNumber": "يجب أن يحتوي رقم الهاتف على أرقام فقط",
     "number": "يجب أن يكون رقمًا",
     "min": "يجب أن يكون {{field}} على الأقل {{min}}",
@@ -330,7 +336,11 @@
     "link": "الرابط",
     "linkPlaceholder": "رابط اللقاء",
     "visibility": "الظهور",
-    "add": "إضافة"
+    "add": "إضافة",
+    "noMeetings": "لا توجد لقاءات بعد",
+    "noPosts": "لا توجد منشورات بعد",
+    "addPost": "اضافة منشور",
+    "linkLabel": "اضف رابط"
   },
   "website": {
     "inquiry": {
@@ -339,6 +349,7 @@
       "answer": { "title": "أضف رد" }
     },
     "offerDetails": {
+      "goalHeader": "تفاصيل الهدف",
       "title": "تفاصيل العرض",
       "edit": "تعديل",
       "archive": "أرشفة",
@@ -362,7 +373,18 @@
       "helpValue": "قيمة المساعدة",
       "preferredGender": "تفضيل هوية المستفيد",
       "ageRange": "الفئة العمرية للمستفيد",
-      "duration": "المدة المتوقعة لتقديم المساعدة"
+      "duration": "المدة المتوقعة لتقديم المساعدة",
+      "expectedData": "المدة المتوقعة لتحقيق الهدف",
+      "startDate": "تاريخ البدء",
+      "offerHelp": "تقديم عرض مساعدة",
+      "goal": "هدف",
+      "noGoalsOffers": "لا توجد عروض مقدمه",
+      "submittedOffers": "العروض المقدمة",
+      "submittedOffer": "عرض مقدم",
+      "offers": "عروض",
+      "addGroup": "اضافة مجموعة",
+      "offerValue": "قيمة العرض",
+      "submitHelpOffer": "تقديم عرض مساعدة "
     },
     "home": {
       "totalWork": "اجمالى  الاعمال",
@@ -512,12 +534,19 @@
         "price": "قيمة المساعدة",
         "extraTerms": "بنود إضافية",
         "extraTermsPlaceholder": "أدخل البنود الإضافية",
-        "helpMechanism": "آلية المساعدة",
         "meeting": "الالتقاء الشخصي",
         "videoCall": "الاتصال المرئي والمسموع",
         "textAudio": "التراسل النصي والصوتي",
         "offerImage": "صورة العرض",
-        "totalDuration": "اجمالي مدة المدة المحددة {{duration}} يوم"
+        "totalDuration": "اجمالي مدة المدة المحددة {{duration}} يوم",
+        "yes": "نعم",
+        "no": "لا",
+        "addAssistant": "تعيين مساعد شخصي؟",
+        "startDate": "تاريخ البدء",
+        "goalDuration": "المدة المتوقعة لتحقيق الهدف",
+        "goalTitle": "وصف الهدف",
+        "addNewGoal": "هدف جديد",
+        "helpMechanism": "آليات المساعدة المناسبة"
       },
       "activeContracts": "العقود النشطة",
       "activeGroups": "المجموعات النشطة",
@@ -532,8 +561,10 @@
       "filterTitle": "خيارات التصفية",
       "filter": "التصفية",
       "reset": "الغاء",
-      "personalAssistants": "المساعدون الشخصيون",
       "personalAssistant": "مساعد شخصي",
+      "personalAssistants": "المساعدون الشخصيون",
+      "goals": "الاهداف الشخصية",
+      "goal": "هدف شخصي",
       "noPersonalAssistants": "ليس لديك أي مساعد شخصي.",
       "community": "مجتمع",
       "completed_contracts": "عدد العقود المكتملة",
@@ -560,7 +591,9 @@
       "ageMinLabel": "من",
       "ageMaxLabel": "إلى",
       "clear": "مسح",
-      "moreThan": "أكثر من"
+      "moreThan": "أكثر من",
+      "ratingTitle": "التقييم",
+      "noOpportunities": "لا توجد معلومات متاحة"
     },
     "payment": "الدفع"
   }

@@ -34,7 +34,6 @@ export default function ConsultionActions({ consultaionDetails }) {
   };
 
   const handleShare = () => {
-    // ✅ Native Web Share API
     if (navigator.share) {
       navigator
         .share({

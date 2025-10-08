@@ -6,8 +6,10 @@ import PostsComments from "../../ui/website/communities/posts/PostsComments";
 import RoundedBackButton from "../../ui/website-auth/shared/RoundedBackButton";
 import { useSelector } from "react-redux";
 import PostsActions from "../../ui/website/communities/posts/PostsActions";
+import { useTranslation } from "react-i18next";
 
 export default function CommunityPostDetails() {
+  const { t } = useTranslation();
   const { postDetails, isLoading } = useGetPostDetails();
   const navigate = useNavigate();
   const { lang } = useSelector((state) => state.language);
@@ -19,7 +21,7 @@ export default function CommunityPostDetails() {
   return (
     <section className="community-post-details page">
       <div className="container" style={{ maxWidth: "800px" }}>
-        <div className="my-2">
+        <div className="my-2 d-flex align-items-center  gap-2">
           <RoundedBackButton onClick={handleBack}>
             {lang === "ar" ? (
               <i className="fa-solid fa-angle-right"></i>
@@ -27,6 +29,7 @@ export default function CommunityPostDetails() {
               <i className="fa-solid fa-angle-left"></i>
             )}
           </RoundedBackButton>
+          <h2 className="post-details-header">{t("postDetails")}</h2>
         </div>
         <PostMedia post={postDetails} />
         <div className="post-image row">

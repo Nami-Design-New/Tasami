@@ -39,6 +39,11 @@ export default function HelpersDetails() {
   };
 
   const handleFollow = (id) => {
+    if (!user) {
+      navigate("/login");
+      return;
+    }
+
     const previousValue = optimisticFollow;
 
     // Optimistic update
@@ -49,7 +54,6 @@ export default function HelpersDetails() {
         if (res?.data?.i_follow_him !== undefined) {
           setOptimisticFollow(res.data.i_follow_him);
         }
-
 
         if (res?.data?.i_follow_him === false) {
           navigate("/my-profile/followings");
@@ -139,7 +143,11 @@ export default function HelpersDetails() {
               </div>
               {assistantDetails.community_id !== null && !thisIsMe && (
                 <CustomLink
-                  to={`/community/${assistantDetails.community_id}`}
+                  to={
+                    !user
+                      ? "/login"
+                      : `/community/${assistantDetails.community_id}`
+                  }
                   size="large"
                   fullWidth
                   className="mt-3"

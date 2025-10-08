@@ -5,7 +5,7 @@ import { axiosInstance } from "../../../../lib/axios";
 export default function useGetPostDetails() {
   const { id } = useParams();
   const { data: postDetails, isLoading } = useQuery({
-    queryKey: ["post-details"],
+    queryKey: ["post-details", id],
     queryFn: async () => {
       const res = await axiosInstance.get(`posts/${id}`);
       if (res.data.code !== 200) {

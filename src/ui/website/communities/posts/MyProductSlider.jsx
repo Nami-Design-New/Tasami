@@ -1,10 +1,10 @@
-import { useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
 import "@fancyapps/ui/dist/fancybox/fancybox.css";
 import { Fancybox } from "@fancyapps/ui";
 
 export default function PostMedia({ post }) {
   const media = post?.file;
-
+  const videoRef = useRef(null);
   // helper local
   const isVideo = (url) => {
     if (!url) return false;
@@ -13,7 +13,20 @@ export default function PostMedia({ post }) {
   };
 
   useEffect(() => {
-    Fancybox.bind("[data-fancybox]", {});
+    Fancybox.bind("[data-fancybox]", {
+      on: {
+        "Carousel.change": () => {
+          const video = videoRef.current;
+          if (video) video.play();
+        },
+        close: () => {
+          const video = videoRef.current;
+          if (video) {
+            video.play();
+          }
+        },
+      },
+    });
     return () => {
       Fancybox.destroy();
     };
@@ -25,11 +38,21 @@ export default function PostMedia({ post }) {
     <div className="media_wrapper relative">
       <a href={media} data-fancybox="gallery">
         {isVideo(media) ? (
-          <video
-            src={media}
-            controls
-            className="max-h-[500px] w-full rounded-xl mx-auto"
-          />
+          <>
+            <video
+              ref={videoRef}
+              src={media}
+              autoPlay
+              muted
+              loop
+              playsInline
+              controls={false}
+              disablePictureInPicture
+              controlsList="nodownload nofullscreen noremoteplayback"
+              onContextMenu={(e) => e.preventDefault()}
+              className="max-h-[500px] w-full rounded-xl mx-auto"
+            />
+          </>
         ) : (
           <img
             src={media}

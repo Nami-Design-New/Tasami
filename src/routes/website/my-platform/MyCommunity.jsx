@@ -53,12 +53,12 @@ export default function MyCommunity() {
             <div className="col-12 p-2">
               <CommunityStats community={myCommunity} />
             </div>
-            <div className="row">
+            <div className="row p-0">
               <h4 className="chanels">{t("community.channels")}</h4>
-              <div className="col-4 p-2">
+              <div className="col-12 col-md-4 p-2">
                 <CommunityTabs isMyCommunity={true} />
               </div>
-              <div className="col-8 p-0">
+              <div className="col-12 col-md-8 p-0">
                 <Outlet />
               </div>
             </div>

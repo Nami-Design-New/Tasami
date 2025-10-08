@@ -8,6 +8,7 @@ const SelectField = React.forwardRef(
       label,
       hint,
       options,
+      labelHint,
       error,
       disableFiledValue,
       loading = false,
@@ -18,7 +19,12 @@ const SelectField = React.forwardRef(
     const { t } = useTranslation();
     return (
       <div className="input-field">
-        {label && <label htmlFor={props?.id}>{label}</label>}
+        {label && (
+          <div className="d-flex align-items-center justify-content-between">
+            {" "}
+            <label htmlFor={props?.id}>{label}</label> {labelHint}
+          </div>
+        )}
 
         <Form.Select
           ref={ref}

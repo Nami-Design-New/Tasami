@@ -31,14 +31,15 @@ export default function Steps() {
 
   return (
     <>
-      <section className="steps-section">
+      <section className="steps-section page">
         <div className="section-head text-center mb-5">
           <span className="sub-title d-block mb-2">الخطوات ببساطة</span>
           <h2 className="main-title mb-3">
             كيف تعمل <span>تسامي</span>؟
           </h2>
           <p className="desc">
-            من البداية حتى تحقيق هدفك — "تسامي" تساعدك على تحديد أهدافك، التواصل مع المساعد الأنسب، والمتابعة حتى تصل للنتيجة التي تطمح إليها.
+            من البداية حتى تحقيق هدفك — "تسامي" تساعدك على تحديد أهدافك، التواصل
+            مع المساعد الأنسب، والمتابعة حتى تصل للنتيجة التي تطمح إليها.
           </p>
         </div>
 
@@ -56,14 +57,15 @@ export default function Steps() {
         </div>
       </section>
 
-      <section className="aim-section">
-        <div className="section-head text-center mb-5">
+      <section className="aim-section page">
+        <div className="section-head text-center mb-3 mb-lg-5">
           <span className="sub-title">صممت من أجلك</span>
           <h2 className="main-title mb-3">
             ما الذي تقدمه لك <span>تسامي</span>؟
           </h2>
           <p className="desc">
-            منصتنا تلبي احتياجاتك، سواء كنت مستفيدًا تسعى لتحقيق أهدافك، أو مساعدًا شخصيًا يدعم الآخرين لتحقيق النجاح.
+            منصتنا تلبي احتياجاتك، سواء كنت مستفيدًا تسعى لتحقيق أهدافك، أو
+            مساعدًا شخصيًا يدعم الآخرين لتحقيق النجاح.
           </p>
         </div>
 
@@ -77,7 +79,8 @@ export default function Steps() {
               />
               <h3>كمستفيد</h3>
               <p>
-                منصة لا غنى عنها لتحقيق أهدافك بكفاءة وفعالية ضمن مجتمع داعم ومتحفز.
+                منصة لا غنى عنها لتحقيق أهدافك بكفاءة وفعالية ضمن مجتمع داعم
+                ومتحفز.
               </p>
             </div>
 
@@ -89,7 +92,8 @@ export default function Steps() {
               />
               <h3>كمساعد شخصي</h3>
               <p>
-                منصة مميزة لدعم الطموحين ومساعدتهم على تخطي التحديات والوصول إلى أهدافهم.
+                منصة مميزة لدعم الطموحين ومساعدتهم على تخطي التحديات والوصول إلى
+                أهدافهم.
               </p>
             </div>
           </div>

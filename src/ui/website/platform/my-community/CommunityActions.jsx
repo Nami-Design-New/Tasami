@@ -114,7 +114,7 @@ export default function CommunityActions({ community, isMyCommunity = true }) {
           )}
         </li>
         <li>
-          <Link to="" className="chat-link">
+          <Link to={`/community/${community?.id}/chats`} className="chat-link">
             <img src="/icons/chat.svg" />
           </Link>
         </li>

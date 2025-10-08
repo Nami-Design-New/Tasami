@@ -11,7 +11,7 @@ export default function useGetPosts() {
     fetchNextPage,
     isFetchingNextPage,
   } = useInfiniteQuery({
-    queryKey: ["posts", id],
+    queryKey: ["community-posts", id],
     queryFn: async ({ pageParam = 1 }) => {
       const res = await axiosInstance.get("posts", {
         params: {

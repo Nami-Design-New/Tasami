@@ -14,6 +14,7 @@ export default function CommunityDetails() {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const { lang } = useSelector((state) => state.language);
+  const { user } = useSelector((state) => state.authRole);
   if (isLoading) return <Loading />;
   return (
     <div className="container page">
@@ -39,15 +40,16 @@ export default function CommunityDetails() {
           />
         </div>
         <div className=" mt-3">
-          <div className="row">
+          <div className="row ">
             <div className="col-12 p-2">
-              {" "}
               <div className="d-flex justify-content-between ">
                 <CommunityBio userData={communityDetails?.helper} />
-                <CommunityActions
-                  community={communityDetails}
-                  isMyCommunity={false}
-                />
+                {user && (
+                  <CommunityActions
+                    community={communityDetails}
+                    isMyCommunity={false}
+                  />
+                )}
               </div>
               <p className="community-desc">
                 {communityDetails?.helper?.about}
@@ -58,15 +60,15 @@ export default function CommunityDetails() {
             </div>
           </div>
         </div>
-        <div className="row">
+        <div className="row p-0">
           <h4 className="chanels">{t("community.channels")}</h4>
-          <div className="col-4 p-2">
+          <div className="col-12 col-md-4 p-2">
             <CommunityTabs
               isMyCommunity={false}
               communityId={communityDetails?.id}
             />
           </div>
-          <div className="col-8 p-0">
+          <div className="col-12 col-md-8 p-0">
             <Outlet context={{ communityDetails }} />
           </div>
         </div>

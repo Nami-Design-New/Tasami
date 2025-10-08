@@ -7,6 +7,7 @@ export default function InfiniteScroll({
   hasNextPage,
   isFetchingNextPage,
   loaderHeight = "2px",
+  revers = false,
 }) {
   const loaderRef = useRef(null);
 
@@ -35,8 +36,13 @@ export default function InfiniteScroll({
 
   return (
     <>
+      {revers === true && (
+        <div ref={loaderRef} style={{ height: loaderHeight }} />
+      )}
       {children}
-      <div ref={loaderRef} style={{ height: loaderHeight }} />
+      {revers === false && (
+        <div ref={loaderRef} style={{ height: loaderHeight }} />
+      )}
     </>
   );
 }

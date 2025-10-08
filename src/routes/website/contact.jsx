@@ -17,9 +17,9 @@ export default function Contact() {
   return (
     <section className="contact-page  page">
       <div className="container">
-        <div className="row g-3 mb-4 social-links">
+        <div className="row  mb-4 social-links">
           {socialLinks.map((link, index) => (
-            <div className="col-6 col-md-3" key={index}>
+            <div className="col-6 col-md-3 p-2" key={index}>
               <a href={link.href} className="social-box">
                 <img src={link.src} alt={link.label} className="social-icon" />
                 <span>{link.label}</span>
@@ -28,8 +28,8 @@ export default function Contact() {
           ))}
         </div>
 
-        <div className="row g-4">
-          <div className="col-12 col-md-6">
+        <div className="row ">
+          <div className="col-12 col-md-6 p-2">
             <div className="contact-form-wrapper">
               <h3 className="title">اتصل بنا</h3>
               <p className="desc">
@@ -85,7 +85,7 @@ export default function Contact() {
               </form>
             </div>
           </div>
-          <div className="col-12 col-md-6">
+          <div className="col-12 col-md-6 p-2">
             <div className="map-wrapper">
               <iframe
                 title="Location"

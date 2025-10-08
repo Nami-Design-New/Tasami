@@ -41,53 +41,7 @@ export default function MyPlatform() {
               <i className="fa-regular fa-circle-info"></i>
               <p>{t("website.platform.hint")}</p>
             </div>
-            {/* <div className="exp-info-grid mt-3">
-              <div className="exp-info-box  ">
-                <h5> العقود النشطة</h5>
-                <p>
-                  {user.active_individual_contracts} من{" "}
-                  <span> {user.all_individual_contracts}</span>
-                </p>
-              </div>{" "}
-              <div className="exp-info-box  ">
-                <h5>المجموعات النشطة </h5>
-                <p>
-                  {user.active_groups} من <span> {user.non_active_groups}</span>
-                </p>
-              </div>{" "}
-              <div className="exp-info-box  ">
-                <h5>مدة الاشتراك</h5>
-                <p>
-                  <span style={{ color: "#0D0D0D8F", fontSize: "12px" }}>
-                    {" "}
-                    {user.my_package_details.package.type === "half_yearly"
-                      ? "6 اشهر"
-                      : "1 سنة"}
-                  </span>
-                  <img src="/icons/clock.svg" />
-                </p>
-              </div>
-              <div className="exp-info-box  ">
-                <h5> بداية الاشتراك</h5>
-                <p>
-                  <span style={{ color: "#0D0D0D8F", fontSize: "12px" }}>
-                    {" "}
-                    {user.my_package_details.start_date}
-                  </span>{" "}
-                  <img src="/icons/calendar-check.svg" />
-                </p>
-              </div>
-              <div className="exp-info-box  ">
-                <h5> نهاية الاشتراك</h5>
-                <p>
-                  <span style={{ color: "#0D0D0D8F", fontSize: "12px" }}>
-                    {" "}
-                    {user.my_package_details.end_date}
-                  </span>{" "}
-                  <img src="/icons/calendar-x.svg" />
-                </p>
-              </div>
-            </div> */}
+
             <AssistantStat />
           </div>
           <div className="col-lg-3 col-md-3 col-12 p-2">

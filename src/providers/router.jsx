@@ -27,8 +27,6 @@ import MyPlatform from "../routes/website/my-platform/MyPlatform";
 import SupscriptionManagment from "../routes/website/my-platform/SupscriptionManagment";
 import MyNotifications from "../routes/website/MyNotifications";
 import MyWorks from "../routes/website/MyWorks";
-import NewGoal from "../routes/website/NewGoal";
-import NewHelpOffer from "../routes/website/NewHelpOffer";
 import OfferDetails from "../routes/website/OfferDetails";
 import PersonalHelper from "../routes/website/PersonalHelper";
 import Posts from "../routes/website/Posts";
@@ -106,11 +104,13 @@ import Meetings from "../routes/website/Meetings";
 import ConsultaionDetails from "../routes/website/my-platform/ConsultaionDetails";
 import GroupDetails from "../routes/website/my-platform/GroupDetails";
 import MyCommunityConsultations from "../routes/website/my-platform/MyCommunityConsultations";
+import PersonalOffers from "../routes/website/PersonalOffers";
+import PersonalOffersDetails from "../routes/website/PersonalOffersDetails";
 import MyCommunities from "../routes/website/profile/MyCommunities";
 import ErrorFallback from "../ui/ErrorFallback";
 import ProtectedRoute from "./ProtectedRoute";
-import PersonalOffers from "../routes/website/PersonalOffers";
-import PersonalOffersDetails from "../routes/website/PersonalOffersDetails";
+import Reels from "../routes/website/Reels";
+import CommunityChat from "../routes/website/CommunityChat";
 
 export const router = createBrowserRouter([
   /* WEBSITE AUTH */
@@ -146,8 +146,8 @@ export const router = createBrowserRouter([
         element: <PersonalGoal />,
       },
       {
-        path: "my-offers",
-        element: <MyOffers />,
+        path: "goal/:id",
+        element: <GoalDetails />,
       },
       {
         path: "offers",
@@ -160,6 +160,10 @@ export const router = createBrowserRouter([
       {
         path: "personal-helpers",
         element: <PersonalHelper />,
+      },
+      {
+        path: "helper/:id",
+        element: <HelpersDetails />,
       },
       {
         path: "about",
@@ -186,26 +190,15 @@ export const router = createBrowserRouter([
         element: <Privacy />,
       },
       {
-        path: "new-goal",
-        element: <NewGoal />,
+        path: "reels",
+        element: <Reels />,
       },
-      {
-        path: "goal/:id",
-        element: <GoalDetails />,
-      },
-      {
-        path: "new-help",
-        element: <NewHelpOffer />,
-      },
+
       {
         path: "my-works",
         element: <MyWorks />,
       },
 
-      {
-        path: "helper/:id",
-        element: <HelpersDetails />,
-      },
       {
         path: "notifications",
         element: (
@@ -346,6 +339,15 @@ export const router = createBrowserRouter([
             element: <Posts isMyCommuntiy={false} />,
           },
         ],
+      },
+      {
+        path: "community/:id/chats",
+        element: (
+          <ProtectedRoute>
+            {" "}
+            <CommunityChat />
+          </ProtectedRoute>
+        ),
       },
       {
         path: "posts/:id",

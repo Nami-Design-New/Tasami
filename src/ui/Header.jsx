@@ -67,6 +67,19 @@ export default function Header() {
                 <NavLink to="/register">{t("website.header.signUp")}</NavLink>
               </li>
             </>
+          )}{" "}
+          {isAuthed && (
+            <CustomButton
+              size="small"
+              style={{ whiteSpace: "nowrap" }}
+              onClick={() => {
+                user.about ? navigate("my-platform") : setShowModal(true);
+              }}
+              className="mobile-only"
+            >
+              <i className="fa-regular fa-robot"></i>
+              {t("profile.assistant")}
+            </CustomButton>
           )}
         </ul>
 
@@ -85,13 +98,14 @@ export default function Header() {
               </i>
             </Link>
           )}
-          <Link className="communites-link">
+          <Link className="communites-link" to="/reels">
             <img src="./icons/communities.svg" />
             <span>{t("website.header.communities")}</span>
           </Link>{" "}
           {isAuthed && (
             <CustomButton
               size="small"
+              className="d-none d-sm-flex"
               style={{ whiteSpace: "nowrap" }}
               onClick={() => {
                 user.about ? navigate("my-platform") : setShowModal(true);
@@ -112,10 +126,16 @@ export default function Header() {
               {t("website.header.login")}
             </CustomLink>
           )}
+          {openMenu ? (
+            <button className="toggle_menu" onClick={handleToggleMenu}>
+              <i className="fa-light fa-xmark"></i>
+            </button>
+          ) : (
+            <button className="toggle_menu" onClick={handleToggleMenu}>
+              <i className="fa-light fa-bars"></i>
+            </button>
+          )}
         </div>
-        <button className="toggle_menu" onClick={handleToggleMenu}>
-          <i className="fa-light fa-bars"></i>
-        </button>
       </nav>
       <PlatformModal showModal={showModal} setShowModal={setShowModal} />
     </header>
