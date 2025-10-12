@@ -3,7 +3,7 @@ import { axiosInstance } from "../../../lib/axios";
 
 export default function useGetMyWorks() {
   const {
-    myWorks,
+    data: myWorks,
     isLoading,
     error,
     hasNextPage,

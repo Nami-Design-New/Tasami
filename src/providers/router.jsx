@@ -114,6 +114,11 @@ import CommunityChat from "../routes/website/CommunityChat";
 import PendingWorks from "../routes/website/my-works/PendingWorks";
 import InProgressWorks from "../routes/website/my-works/InProgressWorks";
 import CompletedWorks from "../routes/website/my-works/CompletedWorks";
+import WorksDetailsLayout from "../routes/website/my-works/WorksDetailsLayout";
+import WorksTasks from "../routes/website/my-works/WorksTasks";
+import WorksGroup from "../routes/website/my-works/WorksGroup";
+import WorksAssistants from "../routes/website/my-works/WorksAssistants";
+import WorksDetails from "../routes/website/my-works/WorksDetails";
 
 export const router = createBrowserRouter([
   /* WEBSITE AUTH */
@@ -210,7 +215,16 @@ export const router = createBrowserRouter([
           { path: "completed", element: <CompletedWorks /> },
         ],
       },
-
+      {
+        path: "my-works-details/:id",
+        element: <WorksDetailsLayout />,
+        children: [
+          { index: true, element: <WorksDetails /> },
+          { path: "tasks", element: <WorksTasks /> },
+          { path: "group", element: <WorksGroup /> },
+          { path: "assistants", element: <WorksAssistants /> },
+        ],
+      },
       {
         path: "notifications",
         element: (

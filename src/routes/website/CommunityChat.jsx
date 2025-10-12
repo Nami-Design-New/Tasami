@@ -296,13 +296,7 @@ export default function CommunityChat() {
         <div className="chat-window">
           {/* ===== Header ===== */}
           <div className="chat-window__info">
-            <RoundedBackButton onClick={() => navigate(-1)}>
-              {lang === "ar" ? (
-                <i className="fa-solid fa-angle-right"></i>
-              ) : (
-                <i className="fa-solid fa-angle-left"></i>
-              )}
-            </RoundedBackButton>
+            <RoundedBackButton onClick={() => navigate(-1)}></RoundedBackButton>
 
             <h4 className="chat-window__name">{t("chats")}</h4>
           </div>

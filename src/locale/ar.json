@@ -342,6 +342,20 @@
     "addPost": "اضافة منشور",
     "linkLabel": "اضف رابط"
   },
+  "works": {
+    "complete": "اكمال الهدف",
+    "delete": "حذف الهدف",
+    "details": "التفاصيل",
+    "group": "المجموعة",
+    "tasks": "المهام",
+    "assistants": "المساعدون",
+    "status": {
+      "offers": "العروض",
+      "payment": "الدفع",
+      "plan": "التخطيط",
+      "start": "بدء التنفيذ"
+    }
+  },
   "website": {
     "inquiry": {
       "title": "إضافة استفسار",

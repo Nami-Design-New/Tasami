@@ -15,7 +15,7 @@ export default function InQuriyCard({ item }) {
       <HelperCard helper={item?.fromUser} />
       <div className="inquriy-data">
         <div className="inquriy-header">
-          <img src="/icons/triangle.svg" />
+          <img src="/icons/triangle-with-helper.svg" />
           <h2>{item.code}</h2>
         </div>
         <p>{item.message} </p>

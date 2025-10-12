@@ -31,13 +31,7 @@ export default function ConsultaionDetails() {
         {/* Header */}
         <div className="header d-flex align-items-center justify-content-between">
           <div className="d-flex align-items-center gap-3">
-            <RoundedBackButton onClick={() => navigate(-1)}>
-              {lang === "ar" ? (
-                <i className="fa-solid fa-angle-right"></i>
-              ) : (
-                <i className="fa-solid fa-angle-left"></i>
-              )}
-            </RoundedBackButton>
+            <RoundedBackButton onClick={() => navigate(-1)}></RoundedBackButton>
             <h1 className="title">{consultaionDetails.title}</h1>
           </div>
 

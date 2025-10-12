@@ -11,46 +11,6 @@
     justify-content: space-between;
     align-items: center;
     position: relative;
-    .options-menu {
-      cursor: pointer;
-      font-size: 1.2rem;
-      color: #777;
-      z-index: 10;
-
-      .options-list {
-        position: absolute;
-        left: 0px;
-        background: #fff;
-        border: 1px solid #ddd;
-        border-radius: 6px;
-        min-width: 150px;
-
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-        z-index: 100;
-        &.en {
-          right: 0;
-          left: auto;
-          button {
-            text-align: left;
-          }
-        }
-        button {
-          display: block;
-          width: 100%;
-          padding: 0.5rem 0.75rem;
-          font-size: 0.9rem;
-          color: #333;
-          background: none;
-          border: none;
-          text-align: right;
-          cursor: pointer;
-
-          &:hover {
-            background: $main10;
-          }
-        }
-      }
-    }
   }
   .goal-details-card {
     padding: 0 !important;

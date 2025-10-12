@@ -474,6 +474,10 @@ li[data-sonner-toast=""] {
   color: #214b92;
 }
 
+.text-green {
+  color: #4ecdc4 !important;
+}
+
 .label {
   color: #0d0d0d;
   font-weight: 600;
@@ -2738,6 +2742,50 @@ body.en .show-pass {
 }
 .empty-section__actions {
   margin-top: 0.5rem;
+}
+
+.options-menu {
+  cursor: pointer;
+  font-size: 1.2rem;
+  color: #777;
+  z-index: 10;
+  position: relative;
+}
+.options-menu .options-list {
+  position: absolute;
+  left: 0px;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  min-width: 150px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  z-index: 100;
+}
+.options-menu .options-list.en {
+  right: 0;
+  left: auto;
+}
+.options-menu .options-list.en button {
+  text-align: left;
+}
+.options-menu .options-list .options-item {
+  font-size: 14px;
+  font-weight: 700;
+  text-align: center;
+}
+.options-menu .options-list button {
+  display: block;
+  width: 100%;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.9rem;
+  color: #333;
+  background: none;
+  border: none;
+  text-align: right;
+  cursor: pointer;
+}
+.options-menu .options-list button:hover {
+  background: rgba(33, 75, 146, 0.1);
 }
 
 .modal {
@@ -8694,55 +8742,6 @@ input[type=file] {
   align-items: center;
   position: relative;
 }
-.goal-details-section .header .options-menu,
-.offer-details-section .header .options-menu,
-.helper-details-section .header .options-menu {
-  cursor: pointer;
-  font-size: 1.2rem;
-  color: #777;
-  z-index: 10;
-}
-.goal-details-section .header .options-menu .options-list,
-.offer-details-section .header .options-menu .options-list,
-.helper-details-section .header .options-menu .options-list {
-  position: absolute;
-  left: 0px;
-  background: #fff;
-  border: 1px solid #ddd;
-  border-radius: 6px;
-  min-width: 150px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-  z-index: 100;
-}
-.goal-details-section .header .options-menu .options-list.en,
-.offer-details-section .header .options-menu .options-list.en,
-.helper-details-section .header .options-menu .options-list.en {
-  right: 0;
-  left: auto;
-}
-.goal-details-section .header .options-menu .options-list.en button,
-.offer-details-section .header .options-menu .options-list.en button,
-.helper-details-section .header .options-menu .options-list.en button {
-  text-align: left;
-}
-.goal-details-section .header .options-menu .options-list button,
-.offer-details-section .header .options-menu .options-list button,
-.helper-details-section .header .options-menu .options-list button {
-  display: block;
-  width: 100%;
-  padding: 0.5rem 0.75rem;
-  font-size: 0.9rem;
-  color: #333;
-  background: none;
-  border: none;
-  text-align: right;
-  cursor: pointer;
-}
-.goal-details-section .header .options-menu .options-list button:hover,
-.offer-details-section .header .options-menu .options-list button:hover,
-.helper-details-section .header .options-menu .options-list button:hover {
-  background: rgba(33, 75, 146, 0.1);
-}
 .goal-details-section .goal-details-card,
 .offer-details-section .goal-details-card,
 .helper-details-section .goal-details-card {
@@ -9393,52 +9392,146 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
   flex-direction: column;
   gap: 1rem;
 }
-.myworks .tab-content .work-card {
+.myworks .work-card {
+  display: block;
+  border: 1px solid rgba(13, 13, 13, 0.0941176471);
+  padding: 8px;
+  border-radius: 1rem;
   background: #fff;
-  border: 1px solid #eee;
-  border-radius: 12px;
-  padding: 1rem;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
 }
-.myworks .tab-content .work-card .user-info {
+.myworks .work-card .work-title {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-  margin-bottom: 0.7rem;
+  gap: 4px;
 }
-.myworks .tab-content .work-card .user-info img {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-}
-.myworks .tab-content .work-card .user-info h4 {
-  margin: 0;
-  font-size: 1rem;
-}
-.myworks .tab-content .work-card .user-info p {
-  margin: 0;
-  font-size: 0.85rem;
-  color: #666;
-}
-.myworks .tab-content .work-card .title {
+.myworks .work-card .work-title .title {
   font-weight: 600;
-  margin-bottom: 0.5rem;
+  font-size: 1rem;
+  color: #0d0d0d;
 }
-.myworks .tab-content .work-card .details {
+.myworks .work-card .info {
+  width: 100%;
+}
+.myworks .work-card .info .info-item {
   display: flex;
-  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px;
+  font-size: 14px;
+  font-weight: 500;
+}
+.myworks .work-card .info i {
+  color: #5fcafa;
+  width: 12px;
+  height: 12px;
+  font-size: 12px;
+}
+.myworks .work-card .info img {
+  width: 12px;
+  height: 12px;
+}
+.myworks .work-card .work-progress {
+  margin-top: 24px;
+}
+.myworks .work-card .work-progress h3 {
+  font-size: 1.125rem;
+  line-height: 1.75rem;
+  margin-bottom: 1.5rem;
+  font-weight: 600;
+  color: var(--color-black);
+}
+.myworks .work-card .work-progress .progress-step {
+  display: flex;
+  align-items: end;
+  align-items: center;
+}
+.myworks .work-card .step-icon {
+  position: relative;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background-color: rgba(13, 13, 13, 0.0941176471);
+  color: rgba(13, 13, 13, 0.0941176471);
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.myworks .work-card .step-label {
+  position: absolute;
+  top: -18px;
+  font-size: 0.75rem;
+  white-space: nowrap;
+  color: rgba(13, 13, 13, 0.5607843137);
+}
+.myworks .work-card .step-label:last-child(2) {
+  left: 0;
+}
+.myworks .work-card .step-line {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  background-color: rgba(13, 13, 13, 0.0941176471);
+  height: 0.125rem;
+  top: 1.25rem;
+}
+.myworks .work-card .step-line.completed {
+  background-color: #4ecdc4;
+}
+.myworks .work-card .step-icon.completed {
+  background-color: #4ecdc4;
+  color: #fff;
+  border: none;
+}
+
+.work-details .header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+.work-details .header h1 {
+  font-size: 1.5rem;
+  color: #5fcafa;
+  font-weight: 700;
+}
+
+.works-details-tabs {
+  display: flex;
+  align-items: center;
   gap: 1rem;
-  font-size: 0.85rem;
-  color: #555;
-  margin-bottom: 0.5rem;
+  border-bottom: 2px solid rgba(13, 13, 13, 0.0941176471);
 }
-.myworks .tab-content .work-card .details i {
-  margin-left: 0.3rem;
+.works-details-tabs .tab-link {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 16px;
+  color: rgba(13, 13, 13, 0.5607843137);
+  text-align: center;
+  font-weight: 700;
+  cursor: pointer;
 }
-.myworks .tab-content .work-card .time {
-  text-align: left;
-  font-size: 0.8rem;
-  color: #888;
+@media screen and (max-width: 576px) {
+  .works-details-tabs .tab-link {
+    padding: 4px 8px;
+  }
+}
+.works-details-tabs .tab-link::after {
+  content: "";
+  position: absolute;
+  bottom: -2px;
+  left: 50%;
+  width: 100%;
+  height: 3px;
+  background-color: #0d0d0d;
+  transform: translateX(-50%) scaleX(0);
+  transform-origin: center;
+  transition: transform 0.3s ease-in-out;
+}
+.works-details-tabs .tab-link.active {
+  color: #0d0d0d;
+}
+.works-details-tabs .tab-link.active::after {
+  transform: translateX(-50%) scaleX(1);
 }
 
 .community-header {

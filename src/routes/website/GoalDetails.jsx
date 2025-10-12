@@ -120,7 +120,7 @@ export default function GoalDetails() {
           </div>
           <div className="col-lg-8 col-12 p-2 ">
             <div className="hed">
-              <img src="/icons/triangle.svg" />
+              <img src="/icons/triangle-with-helper.svg" />
               <h6>{t("website.offerDetails.goal")}</h6>
             </div>
             <p className="desc ">{goalDetails.title}</p>
