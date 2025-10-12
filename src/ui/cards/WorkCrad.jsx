@@ -33,7 +33,7 @@ export default function WorkCard({ work }) {
   console.log(progressSteps);
 
   return (
-    <Link to={`/my-works-details/${work.id}`} className="work-card">
+    <Link to={`/my-works/${work.id}`} className="work-card">
       <div className="work-title">
         {work.rectangle === "personal_goal_with_helper" && (
           <img src="/icons/triangle-with-helper.svg" />

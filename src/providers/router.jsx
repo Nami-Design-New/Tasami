@@ -216,7 +216,7 @@ export const router = createBrowserRouter([
         ],
       },
       {
-        path: "my-works-details/:id",
+        path: "my-works/:id",
         element: <WorksDetailsLayout />,
         children: [
           { index: true, element: <WorksDetails /> },
