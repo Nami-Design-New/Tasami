@@ -26,7 +26,7 @@ import MyOpportunities from "../routes/website/my-platform/MyOpportunities";
 import MyPlatform from "../routes/website/my-platform/MyPlatform";
 import SupscriptionManagment from "../routes/website/my-platform/SupscriptionManagment";
 import MyNotifications from "../routes/website/MyNotifications";
-import MyWorks from "../routes/website/MyWorks";
+import MyWorks from "../routes/website/my-works/MyWorks";
 import OfferDetails from "../routes/website/OfferDetails";
 import PersonalHelper from "../routes/website/PersonalHelper";
 import Posts from "../routes/website/Posts";
@@ -111,6 +111,9 @@ import ErrorFallback from "../ui/ErrorFallback";
 import ProtectedRoute from "./ProtectedRoute";
 import Reels from "../routes/website/Reels";
 import CommunityChat from "../routes/website/CommunityChat";
+import PendingWorks from "../routes/website/my-works/PendingWorks";
+import InProgressWorks from "../routes/website/my-works/InProgressWorks";
+import CompletedWorks from "../routes/website/my-works/CompletedWorks";
 
 export const router = createBrowserRouter([
   /* WEBSITE AUTH */
@@ -196,7 +199,16 @@ export const router = createBrowserRouter([
 
       {
         path: "my-works",
-        element: <MyWorks />,
+        element: (
+          <ProtectedRoute>
+            <MyWorks />
+          </ProtectedRoute>
+        ),
+        children: [
+          { index: true, element: <PendingWorks /> },
+          { path: "in-progress", element: <InProgressWorks /> },
+          { path: "completed", element: <CompletedWorks /> },
+        ],
       },
 
       {

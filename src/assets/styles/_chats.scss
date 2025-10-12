@@ -234,7 +234,7 @@
   }
 
   &__messages {
-    flex: 1;
+    // flex: 1;
     overflow-y: scroll;
     padding: 1rem 0;
     display: flex;
@@ -399,12 +399,13 @@
 
 .community-chat-window {
   min-height: calc(100vh - 80px);
+  display: flex;
   @media screen and (max-width: 991px) {
     & {
       min-height: calc(100vh - 156px);
     }
   }
-  display: flex;
+
   .chat-window {
     flex: 1;
     display: flex;
@@ -468,9 +469,10 @@
     }
 
     .chat-window__messages {
+      scrollbar-width: none;
       overflow-y: scroll;
       padding: 1rem 0;
-
+      height: calc(100vh - 280px);
       display: flex;
       flex-direction: column;
       gap: 1rem;
@@ -481,7 +483,11 @@
         background: transparent;
       }
 
-      scrollbar-width: none;
+      @media screen and (max-width: 991px) {
+        & {
+          height: calc(100vh - 354px);
+        }
+      }
     }
 
     &__footer {
