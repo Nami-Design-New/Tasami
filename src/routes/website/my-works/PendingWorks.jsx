@@ -19,7 +19,7 @@ export default function PendingWorks() {
         {(isLoading || isFetchingNextPage) && (
           <div className="row">
             {[1, 2, 3, 4, 5].map((i) => (
-              <div className="col-12 col-md-6 col-lg-4 col-xl-3 p-2" key={i}>
+              <div className="col-12 col-md-6  p-2" key={i}>
                 <WorkCardLoader />
               </div>
             ))}
@@ -31,10 +31,7 @@ export default function PendingWorks() {
           isFetchingNextPage={isFetchingNextPage}
         >
           {allMyWorks.map((work) => (
-            <div
-              className="col-12 col-md-6 col-lg-4 col-xl-3 p-2"
-              key={work.id}
-            >
+            <div className="col-12 col-md-6  p-2" key={work.id}>
               <WorkCard work={work} />
             </div>
           ))}

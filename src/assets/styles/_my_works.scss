@@ -35,104 +35,104 @@
     flex-direction: column;
     gap: 1rem;
   }
-  .work-card {
-    display: block;
-    border: 1px solid $InputStroke;
-    padding: 8px;
-    border-radius: 1rem;
-    background: $white;
-    .work-title {
+}
+.work-card {
+  display: block;
+  border: 1px solid $InputStroke;
+  padding: 8px;
+  border-radius: 1rem;
+  background: $white;
+  .work-title {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    .title {
+      font-weight: 600;
+      font-size: 1rem;
+      color: $dark;
+    }
+  }
+
+  .info {
+    width: 100%;
+    .info-item {
       display: flex;
       align-items: center;
       gap: 4px;
-      .title {
-        font-weight: 600;
-        font-size: 1rem;
-        color: $dark;
-      }
+      font-size: 14px;
+      font-weight: 500;
     }
 
-    .info {
-      width: 100%;
-      .info-item {
-        display: flex;
-        align-items: center;
-        gap: 4px;
-        font-size: 14px;
-        font-weight: 500;
-      }
-
-      i {
-        color: $second;
-        width: 12px;
-        height: 12px;
-        font-size: 12px;
-      }
-      img {
-        width: 12px;
-        height: 12px;
-      }
-    }
-
-    .work-progress {
-      margin-top: 24px;
-      h3 {
-        font-size: 1.125rem;
-        line-height: 1.75rem;
-        margin-bottom: 1.5rem;
-        font-weight: 600;
-        color: var(--color-black);
-      }
-      .progress-step {
-        display: flex;
-        align-items: end;
-        align-items: center;
-      }
-    }
-
-    .step-icon {
-      position: relative;
+    i {
+      color: $second;
       width: 12px;
       height: 12px;
-      border-radius: 50%;
-      background-color: $InputStroke;
-      color: $InputStroke;
+      font-size: 12px;
+    }
+    img {
+      width: 12px;
+      height: 12px;
+    }
+  }
+
+  .work-progress {
+    margin-top: 24px;
+    h3 {
+      font-size: 1.125rem;
+      line-height: 1.75rem;
+      margin-bottom: 1.5rem;
+      font-weight: 600;
+      color: var(--color-black);
+    }
+    .progress-step {
       display: flex;
+      align-items: end;
       align-items: center;
-      justify-content: start;
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }
-    .step-label {
-      position: absolute;
-      top: -18px;
-      font-size: 0.75rem;
-      white-space: nowrap;
-      color: $gray;
+  }
 
-      &:last-child(2) {
-        left: 0;
-      }
+  .step-icon {
+    position: relative;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: $InputStroke;
+    color: $InputStroke;
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .step-label {
+    position: absolute;
+    top: -18px;
+    font-size: 0.75rem;
+    white-space: nowrap;
+    color: $gray;
+
+    &:last-child(2) {
+      left: 0;
     }
+  }
 
-    .step-line {
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      background-color: $InputStroke;
-      height: 0.125rem;
-      top: 1.25rem;
+  .step-line {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    background-color: $InputStroke;
+    height: 0.125rem;
+    top: 1.25rem;
 
-      &.completed {
-        background-color: $green;
-      }
-    }
-    .step-icon.completed {
+    &.completed {
       background-color: $green;
-      color: $white;
-      border: none;
     }
+  }
+  .step-icon.completed {
+    background-color: $green;
+    color: $white;
+    border: none;
   }
 }
 
-.work-details {
+.work-details-layout {
   .header {
     display: flex;
     align-items: center;
@@ -184,6 +184,145 @@
 
       &::after {
         transform: translateX(-50%) scaleX(1);
+      }
+    }
+  }
+}
+
+.work-details-page {
+  .status-info {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.5rem;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    &.not-completed {
+      background-color: #ff7a590a;
+      color: $fire;
+    }
+    &.completed {
+      background-color: #4ecdc414;
+      color: $green;
+    }
+  }
+}
+
+.no-groups {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  text-align: center;
+  padding: 1rem;
+  max-width: 375px;
+  height: 100%;
+  img {
+    aspect-ratio: 1/1;
+  }
+  h1 {
+    margin: 2rem 0 0.25rem;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: $fire;
+    flex: 1;
+  }
+  p {
+    color: $gray;
+    font-size: 1rem;
+  }
+}
+
+.button-wrapper {
+  position: absolute;
+  bottom: 6px;
+  left: 50%;
+  transform: translateX(-50%);
+  @include small-mobile {
+    bottom: 82px;
+  }
+}
+
+.no-tasks {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  text-align: center;
+  padding: 1rem;
+  max-width: 375px;
+  min-height: 56px;
+  border-radius: 12px;
+  background-color: $InputBG;
+  img {
+    aspect-ratio: 0.8;
+    width: 50;
+  }
+  p {
+    margin: 2rem 0 0.25rem;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: $gray;
+  }
+}
+
+.tasks-page {
+  .execution-tasks {
+    .tasks-header {
+      margin-top: 1rem;
+      h1 {
+        color: $dark;
+        font-size: 1.25rem;
+        margin-bottom: 0.5rem;
+        font-weight: 700;
+      }
+      p {
+        color: $clientYellow;
+        font-size: 1rem;
+      }
+    }
+  }
+}
+
+.task-card {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+
+  img {
+    height: 20px;
+    width: 20px;
+  }
+  .card-body {
+    padding: 0.5rem;
+    border-radius: 12px;
+    background-color: $main4;
+    .card__title {
+      font-size: 1rem;
+      color: $dark;
+      margin-bottom: 12px;
+    }
+    .meta-info {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      .item {
+        display: flex;
+        align-items: center;
+        gap: 0.25rem;
+        i {
+          color: $second;
+          width: 16px;
+          height: 16px;
+          font-size: 16px;
+          @include centerFlex();
+        }
+        span {
+          display: flex;
+          color: $grayLight;
+        }
       }
     }
   }

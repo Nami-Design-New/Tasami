@@ -119,6 +119,7 @@ import WorksTasks from "../routes/website/my-works/WorksTasks";
 import WorksGroup from "../routes/website/my-works/WorksGroup";
 import WorksAssistants from "../routes/website/my-works/WorksAssistants";
 import WorksDetails from "../routes/website/my-works/WorksDetails";
+import WorksOffers from "../routes/website/my-works/WorksOffers";
 
 export const router = createBrowserRouter([
   /* WEBSITE AUTH */
@@ -221,6 +222,7 @@ export const router = createBrowserRouter([
         children: [
           { index: true, element: <WorksDetails /> },
           { path: "tasks", element: <WorksTasks /> },
+          { path: "offers", element: <WorksOffers /> },
           { path: "group", element: <WorksGroup /> },
           { path: "assistants", element: <WorksAssistants /> },
         ],

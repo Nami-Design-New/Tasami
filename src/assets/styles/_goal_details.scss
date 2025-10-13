@@ -104,56 +104,6 @@
       margin-bottom: 1.2rem;
     }
 
-    .info-grid {
-      border-radius: 16px;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.5rem;
-
-      .info-box {
-        border: 1px solid #e0e0e0;
-        border-radius: 12px;
-        padding: 0.5rem;
-        height: min-content;
-        .label {
-          font-size: 0.9rem;
-          font-weight: 600;
-          color: $second;
-          white-space: nowrap;
-          margin-bottom: 0.25rem;
-        }
-
-        .value {
-          font-size: 1rem;
-          font-weight: 600;
-          color: $dark;
-          display: flex;
-          align-items: center;
-          white-space: nowrap;
-          gap: 6px;
-
-          img {
-            width: 18px;
-            height: 18px;
-          }
-        }
-        .flex {
-          display: flex;
-          justify-content: space-between;
-          .bold {
-            font-weight: bold;
-            img {
-              height: 20px;
-              margin: 0 10px;
-            }
-          }
-        }
-      }
-
-      .info-box.w-50 {
-        flex: 1 1 100%;
-      }
-    }
     .info-tabs {
       display: flex;
       gap: 1rem;
@@ -343,7 +293,56 @@
     }
   }
 }
+.info-grid {
+  border-radius: 16px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
 
+  .info-box {
+    border: 1px solid #e0e0e0;
+    border-radius: 12px;
+    padding: 0.5rem;
+    height: min-content;
+    .label {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: $second;
+      white-space: nowrap;
+      margin-bottom: 0.25rem;
+    }
+
+    .value {
+      font-size: 1rem;
+      font-weight: 600;
+      color: $dark;
+      display: flex;
+      align-items: center;
+      white-space: nowrap;
+      gap: 6px;
+
+      img {
+        width: 18px;
+        height: 18px;
+      }
+    }
+    .flex {
+      display: flex;
+      justify-content: space-between;
+      .bold {
+        font-weight: bold;
+        img {
+          height: 20px;
+          margin: 0 10px;
+        }
+      }
+    }
+  }
+
+  .info-box.w-50 {
+    flex: 1 1 100%;
+  }
+}
 .add-groub-button {
   font-size: 12px;
   color: $main;

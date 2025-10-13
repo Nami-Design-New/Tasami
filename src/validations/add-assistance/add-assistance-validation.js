@@ -80,7 +80,7 @@ const getSchema = (t) =>
         })
         .nullable()
         .typeError(t("validation.mustBeNumber"))
-        .min(1, t("validation.mustBePositive"))
+        .min(0, t("validation.mustBePositive"))
         .max(30, t("validation.maxDays", { max: 30 })),
 
       price: yup

@@ -7,22 +7,36 @@ import OptionsMenu from "../../../ui/website/OptionsMenu";
 
 export default function WorksDetailsLayout() {
   const { t } = useTranslation();
+  let tabs;
   const navigate = useNavigate();
   const { workDetails, isLoading } = useGetWorkDetails();
-
-  const tabs = [
-    {
-      id: 1,
-      label: t("works.details"),
-      end: true,
-    },
-    { id: 2, label: t("works.group"), link: "tasks" },
-    { id: 3, label: t("works.tasks"), link: "group" },
-    { id: 4, label: t("works.assistants"), link: "assistants" },
-  ];
   if (isLoading) return <Loading />;
+  if (workDetails.rectangle === "personal_goal_with_helper") {
+    tabs = [
+      {
+        id: 1,
+        label: t("works.details"),
+        end: true,
+      },
+      { id: 2, label: t("works.offers"), link: "offers" },
+      { id: 3, label: t("works.group"), link: "group" },
+      { id: 4, label: t("works.tasks"), link: "tasks" },
+      { id: 5, label: t("works.assistants"), link: "assistants" },
+    ];
+  } else {
+    tabs = [
+      {
+        id: 1,
+        label: t("works.details"),
+        end: true,
+      },
+      { id: 2, label: t("works.group"), link: "group" },
+      { id: 3, label: t("works.tasks"), link: "tasks" },
+      { id: 4, label: t("works.assistants"), link: "assistants" },
+    ];
+  }
   return (
-    <section className="page work-details">
+    <section className="page work-details-layout">
       <div className="container ">
         <div className="row">
           <div className="col-12 p-2">

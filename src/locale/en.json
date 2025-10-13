@@ -333,6 +333,28 @@
     "addPost": "Add Post",
     "linkLabel": "Add New Link"
   },
+  "works": {
+    "new_task": "New Task",
+    "task_description": "Task Description",
+    "task_category": "Task Category",
+    "expected_end_date": "Expected End Date",
+    "notes": "Notes",
+    "reminder_notifications": "Reminder Notifications",
+    "repeat": "Repeat",
+    "daily": "Daily",
+    "weekly": "Weekly",
+    "day": "Day",
+    "time": "Time",
+    "add": "Add",
+    "monday": "Monday",
+    "tuesday": "Tuesday",
+    "wednesday": "Wednesday",
+    "thursday": "Thursday",
+    "friday": "Friday",
+    "saturday": "Saturday",
+    "sunday": "Sunday",
+    "fill_required_fields_first": "Please fill in the required fields first to enable reminders"
+  },
   "website": {
     "inquiry": {
       "title": "Add Inquiry",
