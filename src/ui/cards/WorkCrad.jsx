@@ -2,7 +2,7 @@ import { useTranslation } from "react-i18next";
 import WorkProgress from "../website/my-works/WorkProgress";
 import { Link } from "react-router";
 
-export default function WorkCard({ work }) {
+export default function WorkCard({ work, withoutStatus = false }) {
   let steps;
   const { t } = useTranslation();
   if (work.rectangle === "personal_goal") {
@@ -30,7 +30,7 @@ export default function WorkCard({ work }) {
     completed: index <= currentIndex && work.status !== "canceled",
     current: index === currentIndex && work.status !== "canceled",
   }));
-  console.log(progressSteps);
+  console.log(withoutStatus);
 
   return (
     <Link to={`/my-works/${work.id}`} className="work-card">
@@ -67,8 +67,7 @@ export default function WorkCard({ work }) {
           )}
         </div>
       </div>
-
-      <WorkProgress steps={progressSteps} />
+      {!withoutStatus && <WorkProgress steps={progressSteps} />}
     </Link>
   );
 }

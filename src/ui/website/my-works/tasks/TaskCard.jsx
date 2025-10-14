@@ -1,14 +1,26 @@
-import React from "react";
+import { Link } from "react-router";
 
 export default function TaskCard({ task }) {
   return (
-    <div className="task-card">
-      <div className="check">
-        {task.status === "pending" ? (
+    <Link to={`/tasks/${task?.id}`} className="task-card">
+      <div
+        className={`check ${
+          task.status === "pending"
+            ? "pending"
+            : task.status === "progress"
+            ? "progress"
+            : task.status === "completed"
+            ? "completed"
+            : ""
+        } `}
+      >
+        {task.status === "pending" && (
           <img src="/icons/pending-task-check.svg" />
-        ) : (
-          <img src="/icons/task-check.svg" />
         )}
+        {task.status === "progress" && (
+          <img src="/icons/progress-task-check.svg" />
+        )}
+        {task.status === "completed" && <img src="/icons/task-check.svg" />}
       </div>
       <div className="card-body">
         <div className="card__title">{task?.title}</div>
@@ -27,6 +39,6 @@ export default function TaskCard({ task }) {
           </div>
         </div>
       </div>
-    </div>
+    </Link>
   );
 }

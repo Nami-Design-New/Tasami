@@ -11,13 +11,13 @@ export default function NoTasks() {
         <p>لا توجد مهام مضافة</p>
       </div>
       <div className="button-wrapper d-flex align-items-center gap-2">
-        <CustomButton
+        {/* <CustomButton
           style={{ backgroundColor: "#FDCB2F" }}
           icon={<i className="fa-solid fa-sparkles"></i>}
           size="large"
         >
           اقتراح
-        </CustomButton>
+        </CustomButton> */}
         <CustomButton
           style={{ whiteSpace: "nowrap" }}
           size="large"

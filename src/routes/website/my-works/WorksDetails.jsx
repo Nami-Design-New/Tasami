@@ -29,11 +29,11 @@ export default function WorksDetails() {
           <div className="info-box">
             <div className="label">{t("website.offerDetails.field")}</div>
             <div className="value">{workDetails.category_title}</div>
-          </div>{" "}
+          </div>
           <div className="info-box">
             <div className="label">{t("website.offerDetails.specialty")}</div>{" "}
             <div className="value">{workDetails.sub_category_title}</div>
-          </div>{" "}
+          </div>
           <div className="info-box">
             <div className="label">{t("website.offerDetails.goal")}</div>
             <div className="value">{workDetails?.title}</div>

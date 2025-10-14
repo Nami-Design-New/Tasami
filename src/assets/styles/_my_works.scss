@@ -37,7 +37,9 @@
   }
 }
 .work-card {
-  display: block;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
   border: 1px solid $InputStroke;
   padding: 8px;
   border-radius: 1rem;
@@ -286,15 +288,55 @@
   }
 }
 
+.tasks-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: 1rem;
+}
 .task-card {
   display: flex;
   gap: 1rem;
   align-items: center;
+  position: relative;
+  .check {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    @include centerFlex();
+    &.pending {
+      background-color: $main4;
+    }
+    &.completed {
+      background-color: $green;
+    }
+    &.progress {
+      background-color: $main;
+    }
+    &::after {
+      content: "";
+      position: absolute;
+      height: calc(50% - 14px + 8px);
+      border: 1px dashed $main08;
+      top: 50%;
+      transform: translateY(14px);
+      right: 13px;
+    }
+  }
+
+  &:last-child {
+    .check::after {
+      top: auto;
+      bottom: 50%;
+      transform: translateY(-14px);
+    }
+  }
 
   img {
-    height: 20px;
-    width: 20px;
+    height: 16px;
+    width: 16px;
   }
+
   .card-body {
     padding: 0.5rem;
     border-radius: 12px;
@@ -322,8 +364,29 @@
         span {
           display: flex;
           color: $grayLight;
+          font-size: 14px;
         }
       }
+    }
+  }
+}
+
+.task_details {
+  .task-details__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    h1 {
+      font-size: 1.5rem;
+      color: $second;
+      font-weight: 700;
+    }
+  }
+  .identity-container {
+    .identity-option:has(input:disabled) {
+      opacity: 0.5;
+      cursor: not-allowed;
+      pointer-events: none;
     }
   }
 }

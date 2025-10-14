@@ -478,6 +478,14 @@ li[data-sonner-toast=""] {
   color: #4ecdc4 !important;
 }
 
+.white-space-wrap {
+  white-space: wrap !important;
+}
+
+.white-space-nowrap {
+  white-space: nowrap !important;
+}
+
 .label {
   color: #0d0d0d;
   font-weight: 600;
@@ -9377,7 +9385,9 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
 }
 
 .work-card {
-  display: block;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
   border: 1px solid rgba(13, 13, 13, 0.0941176471);
   padding: 8px;
   border-radius: 1rem;
@@ -9611,14 +9621,53 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
   font-size: 1rem;
 }
 
+.tasks-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
 .task-card {
   display: flex;
   gap: 1rem;
   align-items: center;
+  position: relative;
+}
+.task-card .check {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.task-card .check.pending {
+  background-color: rgba(2, 72, 150, 0.0392156863);
+}
+.task-card .check.completed {
+  background-color: #4ecdc4;
+}
+.task-card .check.progress {
+  background-color: #214b92;
+}
+.task-card .check::after {
+  content: "";
+  position: absolute;
+  height: calc(50% - 14px + 8px);
+  border: 1px dashed rgba(33, 75, 146, 0.08);
+  top: 50%;
+  transform: translateY(14px);
+  right: 13px;
+}
+.task-card:last-child .check::after {
+  top: auto;
+  bottom: 50%;
+  transform: translateY(-14px);
 }
 .task-card img {
-  height: 20px;
-  width: 20px;
+  height: 16px;
+  width: 16px;
 }
 .task-card .card-body {
   padding: 0.5rem;
@@ -9652,6 +9701,23 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
 .task-card .card-body .meta-info .item span {
   display: flex;
   color: rgba(119, 119, 119, 0.8);
+  font-size: 14px;
+}
+
+.task_details .task-details__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.task_details .task-details__header h1 {
+  font-size: 1.5rem;
+  color: #5fcafa;
+  font-weight: 700;
+}
+.task_details .identity-container .identity-option:has(input:disabled) {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
 }
 
 .community-header {

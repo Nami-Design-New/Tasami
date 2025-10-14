@@ -1,4 +1,4 @@
-import React from "react";
+import { useEffect } from "react";
 import { Form, Modal } from "react-bootstrap";
 import InputField from "../../../forms/InputField";
 import TextField from "../../../forms/TextField";
@@ -8,32 +8,62 @@ import SelectField from "../../../forms/SelectField";
 import CustomButton from "../../../CustomButton";
 import useGetTasksCategories from "../../../../hooks/website/MyWorks/tasks/useGetTasksCategories";
 import useAddTasks from "../../../../hooks/website/MyWorks/tasks/useAddTasks";
+import useUpdateTask from "../../../../hooks/website/MyWorks/tasks/useUpdateTask";
 import { toast } from "sonner";
 import { useQueryClient } from "@tanstack/react-query";
 import { useParams } from "react-router";
 import { formatYMD } from "../../../../utils/helper";
 
-export default function AddTasksModal({ showModal, setShowModal }) {
+export default function AddTasksModal({
+  showModal,
+  setShowModal,
+  taskId,
+  taskData,
+}) {
   const { t } = useTranslation();
   const { id } = useParams();
   const queryClient = useQueryClient();
+
   const { taskaCategories, isLoading } = useGetTasksCategories();
   const { addNewTask, isPending } = useAddTasks();
+  const { updateTask, isPending: updatingTask } = useUpdateTask();
+
   const {
     handleSubmit,
     register,
     watch,
     reset,
+    setValue,
     formState: { errors },
   } = useAddTasksForm();
 
   const reminderNotifications = watch("reminderNotifications");
   const notificationRepeat = watch("notification_repeat");
-
   const expectedEndDate = watch("expected_end_date");
 
+  //  Populate form when editing an existing task
+  useEffect(() => {
+    if (taskData) {
+      reset({
+        taskDescription: taskData.title || "",
+        taskCategory: taskData.task_category.id || "",
+        expected_end_date: taskData.expected_end_date
+          ? formatYMD(taskData.expected_end_date)
+          : "",
+        notes: taskData.notes || "",
+        reminderNotifications: !!taskData.notification_repeat,
+        notification_repeat: taskData.notification_repeat || "",
+        notification_day: taskData.notification_day || "",
+        notification_time: taskData.notification_time || "",
+      });
+    } else {
+      reset(); // Clear form when switching to add mode
+    }
+  }, [taskData, reset]);
+
+  // Handle Add / Update logic
   const onSubmit = (data) => {
-    console.log("Form submitted:", data);
+    const payloadId = taskId || id;
 
     const payload = {
       task_category_id: data.taskCategory,
@@ -44,30 +74,51 @@ export default function AddTasksModal({ showModal, setShowModal }) {
         data.notification_day === "" ? undefined : data.notification_day,
       notification_time: data.notification_time,
       notes: data.notes,
-      work_id: id,
+      work_id: payloadId,
     };
-    addNewTask(payload, {
-      onSuccess: (res) => {
-        reset();
-        toast.success(res?.message);
-        queryClient.invalidateQueries({ queryKey: ["works-tasks"] });
-        setShowModal(false);
-      },
-      onError: (error) => {
-        toast.error(error.message);
-      },
-    });
+
+    if (taskData) {
+      // UPDATE MODE
+      updateTask(
+        { id: taskData.id, ...payload },
+        {
+          onSuccess: (res) => {
+            toast.success(res?.message || t("works.task_updated"));
+            queryClient.refetchQueries({ queryKey: ["works-tasks"] });
+            queryClient.invalidateQueries({ queryKey: ["task-details"] });
+            setShowModal(false);
+          },
+          onError: (err) => toast.error(err.message),
+        }
+      );
+    } else {
+      // ADD MODE
+      addNewTask(payload, {
+        onSuccess: (res) => {
+          console.log("iam in success");
+          reset();
+          toast.success(res?.message || t("works.task_added"));
+          queryClient.refetchQueries({ queryKey: ["works-tasks"] });
+          queryClient.invalidateQueries({ queryKey: ["works-tasks"] });
+          setShowModal(false);
+        },
+        onError: (err) => toast.error(err.message),
+      });
+    }
   };
 
   return (
     <Modal
       show={showModal}
-      onHide={() => setShowModal(false)}
+      onHide={() => {
+        setShowModal(false);
+        reset();
+      }}
       centered
       size="lg"
     >
       <Modal.Header closeButton>
-        <h5>{t("works.new_task")}</h5>
+        <h5>{taskData ? t("works.update_task") : t("works.new_task")}</h5>
       </Modal.Header>
 
       <Modal.Body>
@@ -111,6 +162,7 @@ export default function AddTasksModal({ showModal, setShowModal }) {
               />
             </div>
 
+            {/* Reminder notifications */}
             <div className="col-12 p-2">
               <div className="change-pasowrd">
                 <label className="field-label" htmlFor="reminderNotifications">
@@ -193,8 +245,8 @@ export default function AddTasksModal({ showModal, setShowModal }) {
             )}
 
             <div className="col-12 p-2">
-              <CustomButton loading={isPending} size="large">
-                {t("works.add")}
+              <CustomButton loading={isPending || updatingTask} size="large">
+                {taskData ? t("works.update") : t("works.add")}
               </CustomButton>
             </div>
           </div>

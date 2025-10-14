@@ -36,6 +36,7 @@ export default function OptionsMenu({ toggleButton, options = [] }) {
             <button
               key={index}
               className={`options-item ${option.className || ""}`}
+              {...options?.props}
               onClick={() => {
                 option.onClick?.();
                 setMenuOpen(false);

@@ -8,9 +8,8 @@ import WorkCardLoader from "../../../ui/loading/WorkCardLoader";
 export default function PendingWorks() {
   const { t } = useTranslation();
   const { myWorks, isLoading, fetchNextPage, hasNextPage, isFetchingNextPage } =
-    useGetMyWorks();
+    useGetMyWorks("waiting");
   const allMyWorks = myWorks?.pages?.flatMap((page) => page?.data) ?? [];
-  console.log(myWorks);
 
   return (
     <section className="pending-works-sectoin">
@@ -18,7 +17,7 @@ export default function PendingWorks() {
         {" "}
         {(isLoading || isFetchingNextPage) && (
           <div className="row">
-            {[1, 2, 3, 4, 5].map((i) => (
+            {[1, 2, 3].map((i) => (
               <div className="col-12 col-md-6  p-2" key={i}>
                 <WorkCardLoader />
               </div>
