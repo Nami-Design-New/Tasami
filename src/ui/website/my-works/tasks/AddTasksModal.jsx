@@ -84,7 +84,7 @@ export default function AddTasksModal({
         {
           onSuccess: (res) => {
             toast.success(res?.message || t("works.task_updated"));
-            queryClient.refetchQueries({ queryKey: ["works-tasks"] });
+            queryClient.refetchQueries({ queryKey: ["work-tasks"] });
             queryClient.invalidateQueries({ queryKey: ["task-details"] });
             setShowModal(false);
           },
@@ -98,8 +98,8 @@ export default function AddTasksModal({
           console.log("iam in success");
           reset();
           toast.success(res?.message || t("works.task_added"));
-          queryClient.refetchQueries({ queryKey: ["works-tasks"] });
-          queryClient.invalidateQueries({ queryKey: ["works-tasks"] });
+          queryClient.refetchQueries({ queryKey: ["work-tasks"] });
+          // queryClient.invalidateQueries({ queryKey: ["works-tasks"] });
           setShowModal(false);
         },
         onError: (err) => toast.error(err.message),

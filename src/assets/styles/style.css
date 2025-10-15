@@ -9627,6 +9627,13 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
   gap: 1rem;
   margin-top: 1rem;
 }
+.tasks-list > .task-card {
+  transition: transform 0.2s ease;
+  cursor: grab;
+}
+.tasks-list > .task-card:active {
+  cursor: grabbing;
+}
 
 .task-card {
   display: flex;

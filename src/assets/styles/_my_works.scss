@@ -293,6 +293,13 @@
   flex-direction: column;
   gap: 1rem;
   margin-top: 1rem;
+  & > .task-card {
+    transition: transform 0.2s ease;
+    cursor: grab;
+  }
+  & > .task-card:active {
+    cursor: grabbing;
+  }
 }
 .task-card {
   display: flex;
