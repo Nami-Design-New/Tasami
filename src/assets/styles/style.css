@@ -8106,6 +8106,7 @@ input[type=file] {
 .helper-card .info .meta {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   gap: 0.25rem;
 }
 .helper-card .info .meta .flag-icon {
@@ -9392,6 +9393,7 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
   padding: 8px;
   border-radius: 1rem;
   background: #fff;
+  min-height: 100%;
 }
 .work-card .work-title {
   display: flex;
@@ -9528,7 +9530,7 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
   transform: translateX(-50%) scaleX(1);
 }
 
-.work-details-page .status-info {
+.status-info {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -9536,11 +9538,11 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
   border-radius: 8px;
   margin-bottom: 1rem;
 }
-.work-details-page .status-info.not-completed {
+.status-info.not-completed {
   background-color: rgba(255, 122, 89, 0.0392156863);
   color: #ff7a59;
 }
-.work-details-page .status-info.completed {
+.status-info.completed {
   background-color: rgba(78, 205, 196, 0.0784313725);
   color: #4ecdc4;
 }

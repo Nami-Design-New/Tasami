@@ -19,7 +19,7 @@ export default function WorksDetails() {
           {workDetails.status === "execution" && " بانتظار خطة التنفيذ"}
           {workDetails.status === "payment" &&
             "تم الدفع وبإنتظار بدء خطة التنفيذ"}
-          {workDetails.status === "completed" && " بانتظار خطة التنفيذ"}
+          {workDetails.status === "completed" && "مكتمل"}
         </span>
         <span>{workDetails.status_date}</span>
       </div>

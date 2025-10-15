@@ -1,6 +1,9 @@
+import { useState } from "react";
 import CustomButton from "../../CustomButton";
+import AssignAssistantModal from "./assistants/AssignAssistantModal";
 
 export default function NoGroup({ withHelper = false }) {
+  const [showModal, setShowModal] = useState();
   return (
     <div className="no-groups">
       <img src="/icons/alert-icon.svg" />
@@ -15,11 +18,13 @@ export default function NoGroup({ withHelper = false }) {
             fullWidth
             size="large"
             style={{ backgroundColor: "#4ECDC4" }}
+            onClick={() => setShowModal(true)}
           >
             تعين مساعد شخصي
           </CustomButton>
         </div>
       )}
+      <AssignAssistantModal showModal={showModal} setShowModal={setShowModal} />
     </div>
   );
 }

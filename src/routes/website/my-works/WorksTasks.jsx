@@ -1,4 +1,4 @@
-import { useParams } from "react-router";
+import { useOutletContext, useParams } from "react-router";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useQueryClient } from "@tanstack/react-query";
@@ -64,6 +64,7 @@ export default function WorksTasks() {
   const { id } = useParams();
   const { t } = useTranslation();
   const queryClient = useQueryClient();
+  const { setTasksSummary } = useOutletContext();
 
   const [tasks, setTasks] = useState([]);
   const [showModal, setShowModal] = useState(false);
@@ -74,6 +75,14 @@ export default function WorksTasks() {
   const { workDetails } = useGetWorkDetails(id);
   const { toggleGoalExe, isPending } = useGetToggleGoalExe();
   const { reorderTasks } = useReorderTasks();
+
+  useEffect(() => {
+    if (goalTasks?.data) {
+      setTasksSummary({
+        exePercentage: goalTasks["additional-data"]?.execution_percentage,
+      });
+    }
+  }, [goalTasks, setTasksSummary]);
 
   // Load tasks from API into local state
   useEffect(() => {
@@ -103,8 +112,8 @@ export default function WorksTasks() {
       onSuccess: (res) => {
         toast.success(res.message);
         queryClient.invalidateQueries({ queryKey: ["work-details"] });
-        queryClient.invalidateQueries({ queryKey: ["my-works"] });
-        // queryClient.invalidateQueries({ queryKey: ["tasks", id] });
+        queryClient.refetchQueries({ queryKey: ["my-works"] });
+        queryClient.refetchQueries({ queryKey: ["task-details"] });
       },
       onError: (err) => {
         console.error("[handleToggleTaskExe] Error:", err);
@@ -115,6 +124,7 @@ export default function WorksTasks() {
 
   // Handle DnD reorder
   const handleDragEnd = (event) => {
+    if (workDetails.status === "completed") return;
     const { active, over } = event;
     if (!active || !over) return;
     if (active.id === over.id) return;
@@ -213,29 +223,31 @@ export default function WorksTasks() {
         </DndContext>
 
         {/* Buttons */}
-        <div className="buttons mt-3 justify-content-end">
-          <CustomButton
-            style={{ whiteSpace: "nowrap" }}
-            size="large"
-            variant="outlined"
-            loading={isPending}
-            onClick={() => {
-              if (!workDetails?.goal?.is_paused) setShowAlertModal(true);
-              else handleToggleTaskExe(workDetails?.goal?.id);
-            }}
-          >
-            {workDetails?.goal?.is_paused ? "بدء التنفيذ" : "ايقاف التنفيذ"}
-          </CustomButton>
+        {workDetails.status !== "completed" && (
+          <div className="buttons mt-3 justify-content-end">
+            <CustomButton
+              style={{ whiteSpace: "nowrap" }}
+              size="large"
+              variant="outlined"
+              loading={isPending}
+              onClick={() => {
+                if (!workDetails?.goal?.is_paused) setShowAlertModal(true);
+                else handleToggleTaskExe(workDetails?.goal?.id);
+              }}
+            >
+              {workDetails?.goal?.is_paused ? "بدء التنفيذ" : "ايقاف التنفيذ"}
+            </CustomButton>
 
-          <CustomButton
-            style={{ whiteSpace: "nowrap" }}
-            size="large"
-            icon={<i className="fa-solid fa-plus"></i>}
-            onClick={() => setShowModal(true)}
-          >
-            إضافة مهمة جديدة
-          </CustomButton>
-        </div>
+            <CustomButton
+              style={{ whiteSpace: "nowrap" }}
+              size="large"
+              icon={<i className="fa-solid fa-plus"></i>}
+              onClick={() => setShowModal(true)}
+            >
+              إضافة مهمة جديدة
+            </CustomButton>
+          </div>
+        )}
 
         {/* Modals */}
         <AddTasksModal showModal={showModal} setShowModal={setShowModal} />

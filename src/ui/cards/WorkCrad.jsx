@@ -60,7 +60,7 @@ export default function WorkCard({ work, withoutStatus = false }) {
           {work.offers_count > 0 && (
             <div className="col-6 p-1 ">
               <div className="info-item">
-                <img src="/icons/offers-icon.svg" />{" "}
+                <img src="/icons/offers-icon.svg" />
                 <p>{work.offers_count} عروض مقدمة</p>
               </div>
             </div>
@@ -68,6 +68,22 @@ export default function WorkCard({ work, withoutStatus = false }) {
         </div>
       </div>
       {!withoutStatus && <WorkProgress steps={progressSteps} />}
+      {work.status === "completed" && (
+        <div
+          className={`status-info m-0  ${
+            work.status !== "completed" ? "not-completed" : "completed"
+          }`}
+        >
+          <span>
+            {work.status === "planning" && " بانتظار بدء خطة التنفيذ"}
+            {work.status === "offers" && "بانتظار قبول العرض المناسب"}
+            {work.status === "execution" && " بانتظار خطة التنفيذ"}
+            {work.status === "payment" && "تم الدفع وبإنتظار بدء خطة التنفيذ"}
+            {work.status === "completed" && "مكتمل"}
+          </span>
+          <span>{work.status_date}</span>
+        </div>
+      )}
     </Link>
   );
 }

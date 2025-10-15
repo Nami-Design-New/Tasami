@@ -44,6 +44,7 @@
   padding: 8px;
   border-radius: 1rem;
   background: $white;
+  min-height: 100%;
   .work-title {
     display: flex;
     align-items: center;
@@ -192,21 +193,21 @@
 }
 
 .work-details-page {
-  .status-info {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0.5rem;
-    border-radius: 8px;
-    margin-bottom: 1rem;
-    &.not-completed {
-      background-color: #ff7a590a;
-      color: $fire;
-    }
-    &.completed {
-      background-color: #4ecdc414;
-      color: $green;
-    }
+}
+.status-info {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.5rem;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  &.not-completed {
+    background-color: #ff7a590a;
+    color: $fire;
+  }
+  &.completed {
+    background-color: #4ecdc414;
+    color: $green;
   }
 }
 
