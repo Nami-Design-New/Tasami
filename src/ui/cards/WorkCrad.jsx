@@ -1,6 +1,7 @@
 import { useTranslation } from "react-i18next";
 import WorkProgress from "../website/my-works/WorkProgress";
 import { Link } from "react-router";
+import HelperCard from "./HelperCard";
 
 export default function WorkCard({ work, withoutStatus = false }) {
   let steps;
@@ -34,6 +35,7 @@ export default function WorkCard({ work, withoutStatus = false }) {
 
   return (
     <Link to={`/my-works/${work.id}`} className="work-card">
+      {work.status === "execution" && <HelperCard helper={work.helper} />}
       <div className="work-title">
         {work.rectangle === "personal_goal_with_helper" && (
           <img src="/icons/triangle-with-helper.svg" />
@@ -44,7 +46,7 @@ export default function WorkCard({ work, withoutStatus = false }) {
         <p className="title ellipsis">{work.title}</p>
       </div>
 
-      <div className="info">
+      <div className="info flex-grow-1 ">
         <div className="row">
           <div className="col-6 p-1">
             <div className="info-item">

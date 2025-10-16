@@ -528,7 +528,13 @@
       align-items: center;
       justify-content: space-between;
       gap: 0.25rem;
-
+      .chat {
+        @include centerFlex();
+        background-color: $second;
+        width: 26px;
+        height: 26px;
+        border-radius: 50%;
+      }
       .flag-icon {
         width: 16px;
         height: 16px;
@@ -542,15 +548,6 @@
     }
   }
 }
-
-// .offers-slider,
-// .helpers-slider,
-// .contracts-statusو {
-//   // padding: 1rem;
-// }
-
-// .goal-slider {
-// }
 
 .contracts-status {
   .content {

@@ -154,7 +154,9 @@
   align-items: center;
   gap: 1rem;
   border-bottom: 2px solid $InputStroke;
-
+  @include small-mobile {
+    gap: 0;
+  }
   .tab-link {
     position: relative;
     display: flex;
@@ -396,5 +398,75 @@
       cursor: not-allowed;
       pointer-events: none;
     }
+  }
+}
+
+.works-assistants-section {
+  h1 {
+    font-size: 1.25rem;
+    margin-bottom: 0.5rem;
+  }
+  .recent-assistants {
+    margin-bottom: 1.5rem;
+  }
+  .previous-assistants {
+    .helper-card {
+      background-color: #fdcb2f14;
+      .meta {
+        .chat {
+          background-color: #fdcb2f33;
+        }
+      }
+    }
+  }
+}
+
+.work-group-section {
+  header {
+    h1 {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 1.25rem;
+      color: $dark;
+      span:last-child {
+        color: $second;
+      }
+    }
+    .group-desc {
+      font-size: 1rem;
+      color: $gray;
+    }
+  }
+  .share-goal {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    p {
+      font-size: 1rem;
+      color: $dark;
+      font-weight: 700;
+    }
+    .identity-selector {
+      background-color: $InputBG;
+      padding: 2px;
+      border-radius: 12px;
+      border: 1px solid $InputStroke;
+      .identity-option {
+        height: 28px;
+        min-width: 56px;
+        border: none;
+        color: $dark;
+
+        input {
+          display: none;
+        }
+      }
+    }
+  }
+  .group-label {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    font-size: 1.25rem;
   }
 }

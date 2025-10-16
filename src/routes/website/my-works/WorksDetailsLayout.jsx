@@ -1,13 +1,13 @@
+import { useQueryClient } from "@tanstack/react-query";
+import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { NavLink, Outlet, useNavigate } from "react-router";
+import { toast } from "sonner";
+import useCompleteGoal from "../../../hooks/website/MyWorks/useCompleteGoal";
 import useGetWorkDetails from "../../../hooks/website/MyWorks/useGetWorkDetails";
 import Loading from "../../../ui/loading/Loading";
 import RoundedBackButton from "../../../ui/website-auth/shared/RoundedBackButton";
 import OptionsMenu from "../../../ui/website/OptionsMenu";
-import { useState } from "react";
-import useCompleteGoal from "../../../hooks/website/MyWorks/useCompleteGoal";
-import { toast } from "sonner";
-import { useQueryClient } from "@tanstack/react-query";
 
 export default function WorksDetailsLayout() {
   let tabs;
@@ -42,17 +42,30 @@ export default function WorksDetailsLayout() {
     ];
   } else {
     if (workDetails.rectangle === "personal_goal_with_helper") {
-      tabs = [
-        {
-          id: 1,
-          label: t("works.details"),
-          end: true,
-        },
-        { id: 2, label: t("works.offers"), link: "offers" },
-        { id: 3, label: t("works.group"), link: "group" },
-        { id: 4, label: t("works.tasks"), link: "tasks" },
-        { id: 5, label: t("works.assistants"), link: "assistants" },
-      ];
+      if (workDetails.helper === null) {
+        tabs = [
+          {
+            id: 1,
+            label: t("works.details"),
+            end: true,
+          },
+          { id: 2, label: t("works.offers"), link: "offers" },
+
+          { id: 4, label: t("works.tasks"), link: "tasks" },
+          { id: 5, label: t("works.assistants"), link: "assistants" },
+        ];
+      } else {
+        tabs = [
+          {
+            id: 1,
+            label: t("works.details"),
+            end: true,
+          },
+          { id: 3, label: t("works.group"), link: "group" },
+          { id: 4, label: t("works.tasks"), link: "tasks" },
+          { id: 5, label: t("works.assistants"), link: "assistants" },
+        ];
+      }
     } else {
       tabs = [
         {
@@ -88,6 +101,9 @@ export default function WorksDetailsLayout() {
                             label: t("works.complete"),
                             className: "text-green",
                             onClick: () => handleCompleteGoal(workDetails?.id),
+                            props: {
+                              disabled: isPending,
+                            },
                           },
                           {
                             label: t("works.delete"),
@@ -110,11 +126,16 @@ export default function WorksDetailsLayout() {
               {tabs.map((tab) => (
                 <NavLink
                   className="tab-link"
-                  key={tab.id}
                   to={tab.link || ""}
+                  key={tab.id}
                   end={tab.end}
                 >
-                  {tab.label}
+                  {tab.label}{" "}
+                  {tab.link === "offers" && (
+                    <span className="offer-count-badge">
+                      {workDetails?.offers_count}
+                    </span>
+                  )}
                 </NavLink>
               ))}
             </div>

@@ -7,7 +7,13 @@ export default function GroupMembersList({ members }) {
   return (
     <section className="group-members-list">
       {members?.length > 0 ? (
-        members?.map((member) => <MemberCard key={member.id} member={member} />)
+        members?.map((member) => (
+          <MemberCard
+            key={member?.id}
+            member={member}
+            exePercentage={member?.execution_percentage}
+          />
+        ))
       ) : (
         <EmptySection message={t("website.platform.groups.noGroupFound")} />
       )}

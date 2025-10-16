@@ -1,11 +1,10 @@
-import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
-import React from "react";
+import { useInfiniteQuery } from "@tanstack/react-query";
 import { axiosInstance } from "../../../../lib/axios";
 
 export default function useGetWorkOffers(id) {
   const {
     data: workOffers,
-    isLaoding,
+    isLoading,
     error,
     hasNextPage,
     fetchNextPage,
@@ -30,7 +29,7 @@ export default function useGetWorkOffers(id) {
 
   return {
     workOffers,
-    isLaoding,
+    isLoading,
     error,
     hasNextPage,
     fetchNextPage,

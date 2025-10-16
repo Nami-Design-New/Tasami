@@ -1,11 +1,16 @@
 import { useState } from "react";
 import Currency from "../../../Currency";
+import WorkOfferDetails from "./WorkOfferDetails";
 
-export default function WorkOffersCard({ helper, price }) {
+export default function WorkOffersCard({ helper, price, offerId }) {
   const [showDetailsModal, setShowDetailsModal] = useState(false);
   return (
     <>
-      <div onClick={() => setShowDetailsModal(true)} className="helper-card">
+      <div
+        onClick={() => setShowDetailsModal(true)}
+        className="helper-card"
+        style={{ cursor: "pointer" }}
+      >
         <figure className="image-wrapper">
           <img
             src={helper.image}
@@ -57,6 +62,11 @@ export default function WorkOffersCard({ helper, price }) {
           </footer>
         </section>
       </div>
+      <WorkOfferDetails
+        showModal={showDetailsModal}
+        setShowModal={setShowDetailsModal}
+        offerId={offerId}
+      />
     </>
   );
 }

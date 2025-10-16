@@ -4,12 +4,17 @@ import Loading from "../../../ui/loading/Loading";
 import useGetWorkDetails from "../../../hooks/website/MyWorks/useGetWorkDetails";
 import useGetWorkAssistants from "../../../hooks/website/MyWorks/assistants/useGetWorkAssistants";
 import HelperCard from "../../../ui/cards/HelperCard";
+import { useParams } from "react-router";
 
 export default function WorksAssistants() {
   const { t } = useTranslation();
+  const { id } = useParams();
+
   const { workDetails, isLoading } = useGetWorkDetails();
   const { workAssistants, isLoading: loadingWorkAssistants } =
-    useGetWorkAssistants(workDetails?.id);
+    useGetWorkAssistants(id);
+
+  console.log(workAssistants);
 
   if (isLoading || loadingWorkAssistants) return <Loading />;
 
@@ -25,19 +30,22 @@ export default function WorksAssistants() {
   }
 
   return (
-    <section className="works-group-section">
+    <section className="works-assistants-section">
       {workAssistants?.current_helper && (
         <div className="recent-assistants">
           <h1>{t("الاحدث")}</h1>
-          <HelperCard helper={workAssistants.current_helper} />
+          <HelperCard
+            helper={workAssistants?.current_helper?.helper}
+            withChat={true}
+          />
         </div>
       )}
 
       {workAssistants?.previous_helpers?.length > 0 && (
-        <div className="recent-assistants">
+        <div className="previous-assistants">
           <h1>{t("المساعدون السابقون")}</h1>
           {workAssistants.previous_helpers.map((helper) => (
-            <HelperCard key={helper.id} helper={helper} />
+            <HelperCard key={helper.id} helper={helper} withChat={true} />
           ))}
         </div>
       )}

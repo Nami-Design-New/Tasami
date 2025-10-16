@@ -470,6 +470,7 @@
         "halfYearly": "Half yearly",
         "payment": "Payment",
         "payMessage": "Please pay the subscription for plan {{plan}} which costs",
+        "offerPayMessage": "Please pay the Assistance value which costs",
         "online": "Online Payment",
         "wallet": "Wallet",
         "confirm": "Confirm Payment"

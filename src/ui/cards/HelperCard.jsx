@@ -1,7 +1,6 @@
 import { Link } from "react-router";
-import Currency from "../Currency";
 
-export default function HelperCard({ helper }) {
+export default function HelperCard({ helper, withChat = false }) {
   return (
     <Link to={`/helper/${helper.id}`} className="helper-card">
       <figure className="image-wrapper">
@@ -39,6 +38,16 @@ export default function HelperCard({ helper }) {
               />
               <span>{helper.country.title}</span>
             </span>
+          )}
+          {withChat && (
+            <Link to={"/group-chat"} className="chat">
+              <img
+                src="/icons/chat-white-icon.svg"
+                alt="chat"
+                className="flag-icon "
+                loading="lazy"
+              />
+            </Link>
           )}
         </footer>
       </section>

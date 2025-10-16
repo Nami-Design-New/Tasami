@@ -138,7 +138,12 @@ export default function GoalDetails() {
                 ))}
               </ul>
             </div>
-            {user && !isMyGoal && (
+            {!goalDetails?.goal?.can_send_offers && (
+              <div className="add-offer-wrapper">
+                <p> لقد قمت بتقديم عرض بالفعل </p>
+              </div>
+            )}
+            {user && !isMyGoal && goalDetails?.goal?.can_send_offers && (
               <div className="add-offer-wrapper">
                 <div className="offers-count">
                   <i className="fa-regular fa-layer-group"></i>
