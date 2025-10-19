@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 
-export default function OptionsMenu({ options = [] }) {
+export default function OptionsMenu({ toggleButton, options = [] }) {
   const { lang } = useSelector((state) => state.language);
   const [menuOpen, setMenuOpen] = useState(false);
   const menuRef = useRef(null);
@@ -22,7 +22,12 @@ export default function OptionsMenu({ options = [] }) {
   return (
     <div className="options-menu" ref={menuRef}>
       {/* Trigger Icon */}
-      <i className="fas fa-ellipsis-v options-toggle" onClick={toggleMenu}></i>
+      <i
+        className={`${
+          toggleButton ? toggleButton : "fas fa-ellipsis-v"
+        } options-toggle`}
+        onClick={toggleMenu}
+      ></i>
 
       {/* Dropdown */}
       {menuOpen && (
@@ -31,6 +36,7 @@ export default function OptionsMenu({ options = [] }) {
             <button
               key={index}
               className={`options-item ${option.className || ""}`}
+              {...options?.props}
               onClick={() => {
                 option.onClick?.();
                 setMenuOpen(false);

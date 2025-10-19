@@ -1,7 +1,6 @@
 import { useState } from "react";
-import TabNav from "../../../ui/website/WorksTab";
-import TabContent from "../../../ui/website/TabContent";
 import { Outlet } from "react-router";
+import TabNav from "../../../ui/website/WorksTab";
 
 export default function MyWorks() {
   const [activeTab, setActiveTab] = useState("pending");
@@ -17,7 +16,6 @@ export default function MyWorks() {
         <div className="row">
           <Outlet />
         </div>
-        {/* <TabContent activeTab={activeTab} /> */}
       </div>
     </div>
   );

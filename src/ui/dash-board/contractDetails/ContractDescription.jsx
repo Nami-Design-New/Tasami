@@ -2,7 +2,7 @@ export default function ContractDescription() {
   return (
     <div className="contract-description">
       <h3 className="title">
-        <img src="/icons/help-triangle.svg" />
+        <img src="/icons/help-triangle-with-helper.svg" />
         <span>المساعدة</span>
       </h3>
       <p className="description">

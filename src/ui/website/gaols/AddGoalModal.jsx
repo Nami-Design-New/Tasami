@@ -27,14 +27,14 @@ export default function AddGoalModal({ showModal, setShowModal }) {
     setValue,
     formState: { errors },
   } = useAddGoalForm();
-  const month = watch("month");
 
+  const month = watch("month");
   const day = watch("day");
   const durationInDays = Number(month) * 30 + Number(day);
   const selecteAssistnsOption = watch("assistantOption");
+  const selectedHelpMechanism = watch("helpMechanism") || [];
   const selectedGender = watch("gender");
   const selectedFieldId = watch("field");
-  const selectedHelpMechanism = watch("helpMechanism") || [];
   const subCategories =
     categories?.find((cat) => String(cat.id) === String(selectedFieldId))
       ?.sub_categories || [];

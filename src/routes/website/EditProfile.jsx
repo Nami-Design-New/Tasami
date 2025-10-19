@@ -300,7 +300,7 @@ export default function EditProfile() {
               type="phone"
               country="eg"
               disabled
-              value={user?.phone_code + watch("phone")} // 👈 هنا نستخدم watch
+              value={user?.phone_code + watch("phone")}
               {...register("phone")}
               error={errors.phone?.message}
             />

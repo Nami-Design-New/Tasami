@@ -233,7 +233,10 @@ export default function AddAssistanceModal({ showModal, setShowModal }) {
                   {t("website.platform.myAssistance.age")}
                 </h6>
                 <div className="d-flex align-items-center gap-2">
-                  <div className="identity-container">
+                  <div
+                    className="identity-container"
+                    style={{ flexWrap: "nowrap" }}
+                  >
                     <label
                       className={`identity-option ${
                         selectedAgeOption === "defined" ? "active" : ""

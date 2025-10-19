@@ -79,6 +79,8 @@
     "Banners": "لافتات اعلانية"
   },
   "auth": {
+    "yes": "نعم",
+    "no": "لا",
     "login": "تسجيل الدخول",
     "register": "إنشاء حساب جديد",
     "confirmOtp": "أدخل رمز التحقق",
@@ -342,6 +344,41 @@
     "addPost": "اضافة منشور",
     "linkLabel": "اضف رابط"
   },
+  "works": {
+    "complete": "اكمال الهدف",
+    "delete": "حذف الهدف",
+    "details": "التفاصيل",
+    "group": "المجموعة",
+    "tasks": "المهام",
+    "offers": "العروض",
+    "assistants": "المساعدون",
+    "new_task": "مهمة جديدة",
+    "task_description": "وصف المهمة",
+    "task_category": "تصنيف المهمة",
+    "expected_end_date": "تاريخ الإنجاز",
+    "notes": "ملاحظات",
+    "reminder_notifications": "إشعارات التذكير",
+    "repeat": "التكرار",
+    "daily": "يومي",
+    "weekly": "أسبوعي",
+    "day": "اليوم",
+    "time": "الساعة",
+    "add": "إضافة",
+    "monday": "الاثنين",
+    "tuesday": "الثلاثاء",
+    "wednesday": "الأربعاء",
+    "thursday": "الخميس",
+    "friday": "الجمعة",
+    "saturday": "السبت",
+    "sunday": "الأحد",
+    "fill_required_fields_first": "يرجى اختيار تاريخ البدء أولاً لتفعيل إشعارات التذكير",
+    "status": {
+      "offers": "العروض",
+      "payment": "الدفع",
+      "plan": "التخطيط",
+      "start": "بدء التنفيذ"
+    }
+  },
   "website": {
     "inquiry": {
       "title": "إضافة استفسار",
@@ -451,6 +488,7 @@
         "halfYearly": "نصف سنوية",
         "payment": "الدفع",
         "payMessage": "الرجاء دفع قيمة الاشتراك باقة {{plan}} والتي تقدر بـ",
+        "offerPayMessage": "الرجاء دفع قيمة المساعدة  والتي تقدر بـ",
         "online": "دفع الكتروني",
         "wallet": "محفظة",
         "confirm": "تأكيد الدفع"
