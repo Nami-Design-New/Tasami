@@ -24,6 +24,7 @@ export default function NoGroup({ withHelper = false }) {
           </CustomButton>
         </div>
       )}
+
       <AssignAssistantModal showModal={showModal} setShowModal={setShowModal} />
     </div>
   );
