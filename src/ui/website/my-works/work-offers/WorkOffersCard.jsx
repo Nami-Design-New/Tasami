@@ -48,7 +48,7 @@ export default function WorkOffersCard({ helper, price, offerId }) {
               </span>
             )}
             {price && (
-              <sapn>
+              <span>
                 <img
                   src="/icons/cash.svg"
                   alt={`${helper.country.title} flag`}
@@ -57,7 +57,7 @@ export default function WorkOffersCard({ helper, price, offerId }) {
                 />
                 <span>{price}</span>
                 <Currency />
-              </sapn>
+              </span>
             )}
           </footer>
         </section>

@@ -120,7 +120,7 @@
 }
 
 .offer-count-badge {
-  background-color: $fire;
+  background-color: $clientYellow;
   color: $white;
   width: 18px;
   height: 18px;
@@ -128,4 +128,7 @@
   @include centerFlex();
   margin: 0 2px;
   font-size: 0.75rem;
+}
+
+.button-sticky {
 }

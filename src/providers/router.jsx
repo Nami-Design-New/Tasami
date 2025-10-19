@@ -384,7 +384,6 @@ export const router = createBrowserRouter([
         path: "community/:id/chats",
         element: (
           <ProtectedRoute>
-            {" "}
             <CommunityChat />
           </ProtectedRoute>
         ),
@@ -417,7 +416,7 @@ export const router = createBrowserRouter([
   /* Dashboard */
 
   {
-    path: "/dashboard/*",
+    path: "/dashboard",
     element: (
       <Suspense fallback={<Loading />}>
         <DashboardLayout />
