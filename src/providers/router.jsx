@@ -389,7 +389,7 @@ export const router = createBrowserRouter([
   /* Dashboard */
 
   {
-    path: "/dashboard/*",
+    path: "/dashboard",
     element: (
       <Suspense fallback={<Loading />}>
         <DashboardLayout />
