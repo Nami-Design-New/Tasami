@@ -10,19 +10,13 @@ export default function NoTasks() {
         <img src="/icons/no-tasks-icon.svg" />
         <p>لا توجد مهام مضافة</p>
       </div>
-      <div className="button-wrapper d-flex align-items-center gap-2">
-        {/* <CustomButton
-          style={{ backgroundColor: "#FDCB2F" }}
-          icon={<i className="fa-solid fa-sparkles"></i>}
-          size="large"
-        >
-          اقتراح
-        </CustomButton> */}
+      <div className="button-wrapper d-flex mt-2 align-items-center gap-2">
         <CustomButton
           style={{ whiteSpace: "nowrap" }}
           size="large"
           icon={<i className="fa-solid fa-plus"></i>}
           onClick={() => setShowModal(true)}
+          fullWidth
         >
           إضافة مهمة جديدة
         </CustomButton>

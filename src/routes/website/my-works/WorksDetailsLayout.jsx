@@ -42,14 +42,14 @@ export default function WorksDetailsLayout() {
     ];
   } else {
     if (workDetails.rectangle === "personal_goal_with_helper") {
-      if (workDetails.helper === null) {
+      if (workDetails.helper === null && workDetails?.offers_count === 0) {
         tabs = [
           {
             id: 1,
             label: t("works.details"),
             end: true,
           },
-          { id: 2, label: t("works.offers"), link: "offers" },
+          { id: 3, label: t("works.group"), link: "group" },
 
           { id: 4, label: t("works.tasks"), link: "tasks" },
           { id: 5, label: t("works.assistants"), link: "assistants" },
@@ -61,7 +61,7 @@ export default function WorksDetailsLayout() {
             label: t("works.details"),
             end: true,
           },
-          { id: 3, label: t("works.group"), link: "group" },
+          { id: 3, label: t("works.offers"), link: "offers" },
           { id: 4, label: t("works.tasks"), link: "tasks" },
           { id: 5, label: t("works.assistants"), link: "assistants" },
         ];

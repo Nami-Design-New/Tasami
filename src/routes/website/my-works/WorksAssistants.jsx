@@ -5,28 +5,51 @@ import useGetWorkDetails from "../../../hooks/website/MyWorks/useGetWorkDetails"
 import useGetWorkAssistants from "../../../hooks/website/MyWorks/assistants/useGetWorkAssistants";
 import HelperCard from "../../../ui/cards/HelperCard";
 import { useParams } from "react-router";
+import { useState } from "react";
+import CustomButton from "../../../ui/CustomButton";
+import AssignAssistantModal from "../../../ui/website/my-works/assistants/AssignAssistantModal";
 
 export default function WorksAssistants() {
   const { t } = useTranslation();
   const { id } = useParams();
-
+  const [showModal, setShowModal] = useState();
   const { workDetails, isLoading } = useGetWorkDetails();
   const { workAssistants, isLoading: loadingWorkAssistants } =
     useGetWorkAssistants(id);
 
-  console.log(workAssistants);
-
+  // Show loading until both queries finish
   if (isLoading || loadingWorkAssistants) return <Loading />;
 
-  const withHelper = workDetails.rectangle === "personal_goal";
+  const withHelper = workDetails?.rectangle === "personal_goal";
 
   const noHelpers =
     !workAssistants?.current_helper &&
     (!workAssistants?.previous_helpers ||
       workAssistants.previous_helpers.length === 0);
 
+  // Show "NoGroup" if there are no helpers
   if (noHelpers) {
-    return <NoGroup withHelper={withHelper} />;
+    return (
+      <section className="works-assistants-section">
+        <NoGroup withHelper={withHelper} />{" "}
+        {withHelper && (
+          <div className="button-wrapper">
+            <CustomButton
+              fullWidth
+              size="large"
+              style={{ backgroundColor: "#4ECDC4" }}
+              onClick={() => setShowModal(true)}
+            >
+              تعين مساعد شخصي
+            </CustomButton>
+          </div>
+        )}{" "}
+        <AssignAssistantModal
+          showModal={showModal}
+          setShowModal={setShowModal}
+        />
+      </section>
+    );
   }
 
   return (
@@ -35,7 +58,7 @@ export default function WorksAssistants() {
         <div className="recent-assistants">
           <h1>{t("الاحدث")}</h1>
           <HelperCard
-            helper={workAssistants?.current_helper?.helper}
+            helper={workAssistants.current_helper.helper}
             withChat={true}
           />
         </div>

@@ -1,16 +1,25 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import useGetWorkDetails from "../../../hooks/website/MyWorks/useGetWorkDetails";
+import useWorkWithoutAssistant from "../../../hooks/website/MyWorks/assistants/useWorkWithoutAssistant";
 import useGetWorkGroup from "../../../hooks/website/MyWorks/groups/useGetWorkGroup";
-import NoGroup from "../../../ui/website/my-works/noGroup";
-import Loading from "../../../ui/loading/Loading";
-import CustomLink from "../../../ui/CustomLink";
-import GroupMembersList from "../../../ui/website/platform/groups/GroupMembersList";
 import useShowMyGoal from "../../../hooks/website/MyWorks/groups/useShowMyGoal";
+import useGetWorkDetails from "../../../hooks/website/MyWorks/useGetWorkDetails";
+import CustomButton from "../../../ui/CustomButton";
+import CustomLink from "../../../ui/CustomLink";
+import Loading from "../../../ui/loading/Loading";
+import AssignAssistantModal from "../../../ui/website/my-works/assistants/AssignAssistantModal";
+import NoGroup from "../../../ui/website/my-works/noGroup";
+import NoOffers from "../../../ui/website/my-works/NoOffers";
+import GroupMembersList from "../../../ui/website/platform/groups/GroupMembersList";
+import AlertModal from "../../../ui/website/platform/my-community/AlertModal";
 
 export default function WorksGroup() {
   const { t } = useTranslation();
+  const [showModal, setShowModal] = useState();
+  const [showAlertModal, setShowAlertModal] = useState();
   const { workDetails, isLoading } = useGetWorkDetails();
+  const { removeAssistant, isPending: isRemovingHelperPending } =
+    useWorkWithoutAssistant();
   const { workGroup, isLoading: groupLoading } = useGetWorkGroup(
     workDetails?.id ?? null,
     workDetails?.goal?.group_id ?? null
@@ -21,11 +30,13 @@ export default function WorksGroup() {
     workDetails?.i_show_goal === true ? "yes" : "no"
   );
 
-  if (isLoading || groupLoading) return <Loading />;
+  if (isLoading || groupLoading) return <Loading height={"500px"} />;
 
-  const withHelper = workDetails?.rectangle === "personal_goal";
+  const withHelper = workDetails?.rectangle === "personal_goal_with_helper";
+  const isHelperAssigned = workDetails?.helper !== null;
+  console.log(withHelper, isHelperAssigned);
 
-  // 🧠 Handle toggling "share goal"
+  // Handle toggling "share goal"
   const handleShareGoalChange = (option) => {
     setShareGoal(option);
 
@@ -36,9 +47,13 @@ export default function WorksGroup() {
       show_goal: option === "yes" ? 1 : 0,
     });
   };
-
+  const handleRemoveAssistants = (id) => {
+    removeAssistant(id, {
+      onSuccess: (res) => {},
+    });
+  };
   return (
-    <section>
+    <section className="position-relative">
       {workGroup ? (
         <section className="work-group-section">
           <div className="row">
@@ -72,7 +87,7 @@ export default function WorksGroup() {
               </div>
             </div>
 
-            {/* 🔘 Share Goal */}
+            {/*Share Goal */}
             <div className="col-12 p-2">
               <div className="share-goal">
                 <p>مشاركة هدفك مع المجموعة؟</p>
@@ -120,7 +135,49 @@ export default function WorksGroup() {
           </div>
         </section>
       ) : (
-        <NoGroup withHelper={withHelper} />
+        <>
+          {!withHelper && <NoGroup withHelper={withHelper} />}
+          {workDetails?.offers_count === 0 && (
+            <NoOffers withHelper={withHelper} />
+          )}
+          {withHelper && (
+            <div className="button-wrapper">
+              {!isHelperAssigned ? (
+                <CustomButton
+                  fullWidth
+                  size="large"
+                  style={{ backgroundColor: "#ff7a59" }}
+                  onClick={() => setShowAlertModal(true)}
+                >
+                  تنفيذ الهدف بدون مساعدة{" "}
+                </CustomButton>
+              ) : (
+                <CustomButton
+                  fullWidth
+                  size="large"
+                  style={{ backgroundColor: "#4ECDC4" }}
+                  onClick={() => setShowModal(true)}
+                >
+                  تعين مساعد شخصي
+                </CustomButton>
+              )}
+            </div>
+          )}
+
+          <AssignAssistantModal
+            showModal={showModal}
+            setShowModal={setShowModal}
+          />
+          <AlertModal
+            confirmButtonText={t("confirm")}
+            showModal={showAlertModal}
+            setShowModal={setShowAlertModal}
+            onConfirm={() => handleRemoveAssistants(workDetails?.id)}
+            loading={isRemovingHelperPending}
+          >
+            سيتم استبعاد جميع العروض وإلغاء تعيين المساعدة لهذا الهدف!
+          </AlertModal>
+        </>
       )}
     </section>
   );

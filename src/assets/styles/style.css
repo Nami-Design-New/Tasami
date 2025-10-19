@@ -9523,7 +9523,7 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
 }
 @media screen and (max-width: 576px) {
   .works-details-tabs {
-    gap: 0;
+    gap: 0.5rem;
   }
 }
 .works-details-tabs .tab-link {
@@ -9593,7 +9593,7 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
   aspect-ratio: 1/1;
 }
 .no-groups h1 {
-  margin: 2rem 0 0.25rem;
+  margin: 1rem 0 0.25rem;
   font-size: 1.25rem;
   font-weight: 700;
   color: #ff7a59;
@@ -9605,15 +9605,12 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
 }
 
 .button-wrapper {
-  position: absolute;
-  bottom: 6px;
   left: 50%;
-  transform: translateX(-50%);
-}
-@media screen and (max-width: 576px) {
-  .button-wrapper {
-    bottom: 82px;
-  }
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  max-width: 375px;
 }
 
 .no-tasks {
