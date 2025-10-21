@@ -2498,7 +2498,7 @@ body.en .show-pass {
 
 .custom-link {
   text-decoration: none;
-  display: inline-flex;
+  display: flex;
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
@@ -8058,7 +8058,6 @@ input[type=file] {
 
 .helper-card {
   display: block;
-  height: 100%;
   background-color: rgba(95, 202, 250, 0.0784313725);
   border-radius: 1rem;
   padding: 16px 40px 16px 16px;
@@ -9523,7 +9522,7 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
 }
 @media screen and (max-width: 576px) {
   .works-details-tabs {
-    gap: 0.5rem;
+    gap: 0;
   }
 }
 .works-details-tabs .tab-link {
@@ -9539,7 +9538,7 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
 }
 @media screen and (max-width: 576px) {
   .works-details-tabs .tab-link {
-    padding: 4px 8px;
+    padding: 4px 6px;
   }
 }
 .works-details-tabs .tab-link::after {
@@ -9814,6 +9813,23 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
   margin-top: 1rem;
   margin-bottom: 1rem;
   font-size: 1.25rem;
+}
+
+.work-contract-details header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.work-contract-details header .work-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.work-contract-details header .work-actions button {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background-color: rgba(2, 72, 150, 0.0392156863);
 }
 
 .community-header {
@@ -12469,12 +12485,14 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
 .exp-info-grid {
   display: flex;
   gap: 8px;
+  flex-wrap: wrap;
 }
 .exp-info-grid .exp-info-box {
   padding: 8px;
   border-radius: 8px;
   border: 1px solid #5fcafa;
   min-width: 120px;
+  flex: 1;
 }
 .exp-info-grid .exp-info-box h5 {
   font-size: 14px;

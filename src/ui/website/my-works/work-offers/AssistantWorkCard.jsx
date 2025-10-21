@@ -1,8 +1,8 @@
 import { Link } from "react-router";
 
-export default function HelperCard({ helper }) {
+export default function AssistantWorkCard({ helper, contractId }) {
   return (
-    <Link to={`/helper/${helper.id}`} className="helper-card">
+    <Link to={`/assisatant/contarct/${contractId}`} className="helper-card">
       <figure className="image-wrapper">
         <img
           src={helper.image}
@@ -39,6 +39,15 @@ export default function HelperCard({ helper }) {
               <span>{helper.country.title}</span>
             </span>
           )}
+
+          <Link to={"/group-chat"} className="chat">
+            <img
+              src="/icons/chat-white-icon.svg"
+              alt="chat"
+              className="flag-icon "
+              loading="lazy"
+            />
+          </Link>
         </footer>
       </section>
     </Link>

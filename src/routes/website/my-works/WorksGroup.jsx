@@ -18,14 +18,16 @@ export default function WorksGroup() {
   const [showModal, setShowModal] = useState();
   const [showAlertModal, setShowAlertModal] = useState();
   const { workDetails, isLoading } = useGetWorkDetails();
+
   const { removeAssistant, isPending: isRemovingHelperPending } =
     useWorkWithoutAssistant();
+
   const { workGroup, isLoading: groupLoading } = useGetWorkGroup(
     workDetails?.id ?? null,
     workDetails?.goal?.group_id ?? null
   );
-  const { showMyGoal, isPending } = useShowMyGoal();
 
+  const { showMyGoal, isPending } = useShowMyGoal();
   const [shareGoal, setShareGoal] = useState(
     workDetails?.i_show_goal === true ? "yes" : "no"
   );
@@ -136,33 +138,24 @@ export default function WorksGroup() {
         </section>
       ) : (
         <>
-          {!withHelper && <NoGroup withHelper={withHelper} />}
-          {workDetails?.offers_count === 0 && (
-            <NoOffers withHelper={withHelper} />
+          {withHelper ? (
+            !isHelperAssigned && <NoOffers withHelper={withHelper} />
+          ) : (
+            <NoGroup />
           )}
-          {withHelper && (
-            <div className="button-wrapper">
-              {!isHelperAssigned ? (
-                <CustomButton
-                  fullWidth
-                  size="large"
-                  style={{ backgroundColor: "#ff7a59" }}
-                  onClick={() => setShowAlertModal(true)}
-                >
-                  تنفيذ الهدف بدون مساعدة{" "}
-                </CustomButton>
-              ) : (
-                <CustomButton
-                  fullWidth
-                  size="large"
-                  style={{ backgroundColor: "#4ECDC4" }}
-                  onClick={() => setShowModal(true)}
-                >
-                  تعين مساعد شخصي
-                </CustomButton>
-              )}
-            </div>
-          )}
+
+          <div className="button-wrapper">
+            {!withHelper && (
+              <CustomButton
+                fullWidth
+                size="large"
+                style={{ backgroundColor: "#4ECDC4" }}
+                onClick={() => setShowModal(true)}
+              >
+                تعين مساعد شخصي
+              </CustomButton>
+            )}
+          </div>
 
           <AssignAssistantModal
             showModal={showModal}

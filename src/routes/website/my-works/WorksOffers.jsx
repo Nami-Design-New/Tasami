@@ -1,19 +1,23 @@
+import { useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
+import { toast } from "sonner";
+import useWorkWithoutAssistant from "../../../hooks/website/MyWorks/assistants/useWorkWithoutAssistant";
 import useGetWorkOffers from "../../../hooks/website/MyWorks/offers/useGetWorkOffers";
 import useGetWorkDetails from "../../../hooks/website/MyWorks/useGetWorkDetails";
-import EmptySection from "../../../ui/EmptySection";
+import CustomButton from "../../../ui/CustomButton";
 import AudienceCardLoader from "../../../ui/loading/AudienceCardLoader";
 import InfiniteScroll from "../../../ui/loading/InfiniteScroll";
+import NoOffers from "../../../ui/website/my-works/NoOffers";
 import WorkOffersCard from "../../../ui/website/my-works/work-offers/WorkOffersCard";
-import CustomButton from "../../../ui/CustomButton";
 import AlertModal from "../../../ui/website/platform/my-community/AlertModal";
-import useWorkWithoutAssistant from "../../../hooks/website/MyWorks/assistants/useWorkWithoutAssistant";
 
 export default function WorksOffers() {
   const { id } = useParams();
   const { t } = useTranslation();
+  const queryClient = useQueryClient();
+  const navigate = useNavigate();
   const [showAlertModal, setShowAlertModal] = useState();
   const { workDetails, isLoading: workDetailsLoading } = useGetWorkDetails();
   const { removeAssistant, isPending: isRemovingHelperPending } =
@@ -29,14 +33,45 @@ export default function WorksOffers() {
   const allWorkOffers = workOffers?.pages?.flatMap((page) => page?.data) ?? [];
   const handleRemoveAssistants = (id) => {
     removeAssistant(id, {
-      onSuccess: (res) => {},
+      onSuccess: (res) => {
+        setShowAlertModal(false);
+        queryClient.invalidateQueries({
+          queryKey: ["work-offers"],
+        });
+        queryClient.refetchQueries({
+          queryKey: ["assistants"],
+        });
+        queryClient.refetchQueries({
+          queryKey: ["work-details"],
+        });
+        setShowModal(false);
+        queryClient.refetchQueries({ queryKey: ["homeData"] });
+        queryClient.refetchQueries({ queryKey: ["work-group"] });
+        toast.success(res?.message);
+        navigate(`/my-works/${workDetails?.id}/group`);
+      },
+      onError: (err) => {
+        console.log(err);
+      },
     });
   };
   return (
     <section className="work-offers-section ">
       <div className="row">
         {!isLoading && allWorkOffers.length === 0 && (
-          <EmptySection height="200px" message={t("community.noOffers")} />
+          <div className="d-flex flex-column  align-items-center gap-3  ">
+            {" "}
+            <NoOffers />{" "}
+            <div className="button-wrapper">
+              <CustomButton
+                size="large"
+                style={{ backgroundColor: "#ff7a59" }}
+                onClick={() => setShowAlertModal(true)}
+              >
+                تنفيذ الهدف بدون مساعدة{" "}
+              </CustomButton>
+            </div>
+          </div>
         )}
         <InfiniteScroll
           onLoadMore={fetchNextPage}
@@ -52,6 +87,17 @@ export default function WorksOffers() {
               />
             </div>
           ))}
+          {!isLoading && allWorkOffers.length > 0 && (
+            <div className="d-flex align-items-center justify-content-end">
+              <CustomButton
+                size="large"
+                style={{ backgroundColor: "#ff7a59" }}
+                onClick={() => setShowAlertModal(true)}
+              >
+                تنفيذ الهدف بدون مساعدة{" "}
+              </CustomButton>
+            </div>
+          )}
           {(isLoading || isFetchingNextPage) && (
             <>
               {[1, 2, 3].map((i) => (
@@ -62,15 +108,6 @@ export default function WorksOffers() {
             </>
           )}
         </InfiniteScroll>
-        <div className="d-flex align-items-center justify-content-end">
-          <CustomButton
-            size="large"
-            style={{ backgroundColor: "#ff7a59" }}
-            onClick={() => setShowAlertModal(true)}
-          >
-            تنفيذ الهدف بدون مساعدة{" "}
-          </CustomButton>
-        </div>
       </div>{" "}
       <AlertModal
         confirmButtonText={t("confirm")}
