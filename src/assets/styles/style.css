@@ -478,6 +478,10 @@ li[data-sonner-toast=""] {
   color: #4ecdc4 !important;
 }
 
+.text-fire {
+  color: #ff7a59 !important;
+}
+
 .white-space-wrap {
   white-space: wrap !important;
 }
@@ -9158,7 +9162,6 @@ input[type=file] {
   color: #0d0d0d;
   display: flex;
   align-items: center;
-  white-space: nowrap;
   gap: 6px;
 }
 .info-grid .info-box .value img {
@@ -9825,11 +9828,29 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
   align-items: center;
   gap: 0.5rem;
 }
-.work-contract-details header .work-actions button {
+.work-contract-details header .work-actions .action-buttons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 32px;
   height: 32px;
   border-radius: 50%;
   background-color: rgba(2, 72, 150, 0.0392156863);
+}
+.work-contract-details .contract-data h2 {
+  margin-bottom: 8px;
+  font-size: 1.25rem;
+}
+.work-contract-details .progress-bar-label {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.25rem;
+  color: rgba(13, 13, 13, 0.5607843137);
+}
+.work-contract-details .progress-bar-label span:first-child {
+  color: #0d0d0d;
+  font-weight: 700;
 }
 
 .community-header {

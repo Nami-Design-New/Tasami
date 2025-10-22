@@ -394,6 +394,7 @@
       "offerHelp": "Submit a Help Offer",
       "goal": "Goal",
       "noGoalsOffers": "No offers yet",
+      "alreadySubmittedOffer": "You have already submitted an offer",
       "submittedOffers": "submitted offers",
       "submittedOffer": "Submitted Offer",
       "offers": "Offers",
