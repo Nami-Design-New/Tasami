@@ -121,6 +121,7 @@ import WorksAssistants from "../routes/website/my-works/WorksAssistants";
 import WorksDetails from "../routes/website/my-works/WorksDetails";
 import WorksOffers from "../routes/website/my-works/WorksOffers";
 import TaskDetails from "../routes/website/my-works/TaskDetails";
+import WorksContractDetails from "../routes/website/my-works/WorksContractDetails";
 
 export const router = createBrowserRouter([
   /* WEBSITE AUTH */
@@ -230,6 +231,10 @@ export const router = createBrowserRouter([
           { path: "group", element: <WorksGroup /> },
           { path: "assistants", element: <WorksAssistants /> },
         ],
+      },
+      {
+        path: "assisatant/contarct/:id",
+        element: <WorksContractDetails />,
       },
       {
         path: "/tasks/:taskId",

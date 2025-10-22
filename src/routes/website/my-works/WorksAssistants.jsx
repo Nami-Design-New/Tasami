@@ -5,28 +5,59 @@ import useGetWorkDetails from "../../../hooks/website/MyWorks/useGetWorkDetails"
 import useGetWorkAssistants from "../../../hooks/website/MyWorks/assistants/useGetWorkAssistants";
 import HelperCard from "../../../ui/cards/HelperCard";
 import { useParams } from "react-router";
+import { useState } from "react";
+import CustomButton from "../../../ui/CustomButton";
+import AssignAssistantModal from "../../../ui/website/my-works/assistants/AssignAssistantModal";
+import NoOffers from "../../../ui/website/my-works/NoOffers";
+import AssistantWorkCard from "../../../ui/website/my-works/work-offers/AssistantWorkCard";
 
 export default function WorksAssistants() {
   const { t } = useTranslation();
   const { id } = useParams();
-
+  const [showModal, setShowModal] = useState();
   const { workDetails, isLoading } = useGetWorkDetails();
   const { workAssistants, isLoading: loadingWorkAssistants } =
     useGetWorkAssistants(id);
 
-  console.log(workAssistants);
-
+  // Show loading until both queries finish
   if (isLoading || loadingWorkAssistants) return <Loading />;
 
-  const withHelper = workDetails.rectangle === "personal_goal";
+  const withHelper = workDetails?.rectangle === "personal_goal_with_helper";
 
   const noHelpers =
     !workAssistants?.current_helper &&
     (!workAssistants?.previous_helpers ||
       workAssistants.previous_helpers.length === 0);
 
+  // Show "NoGroup" if there are no helpers
   if (noHelpers) {
-    return <NoGroup withHelper={withHelper} />;
+    return (
+      <section className="works-assistants-section">
+        {withHelper ? (
+          <>
+            <NoOffers />
+          </>
+        ) : (
+          <>
+            <NoGroup withHelper={withHelper} />
+            <div className="button-wrapper">
+              <CustomButton
+                fullWidth
+                size="large"
+                style={{ backgroundColor: "#4ECDC4" }}
+                onClick={() => setShowModal(true)}
+              >
+                تعين مساعد شخصي
+              </CustomButton>
+            </div>
+          </>
+        )}{" "}
+        <AssignAssistantModal
+          showModal={showModal}
+          setShowModal={setShowModal}
+        />
+      </section>
+    );
   }
 
   return (
@@ -34,9 +65,9 @@ export default function WorksAssistants() {
       {workAssistants?.current_helper && (
         <div className="recent-assistants">
           <h1>{t("الاحدث")}</h1>
-          <HelperCard
-            helper={workAssistants?.current_helper?.helper}
-            withChat={true}
+          <AssistantWorkCard
+            helper={workAssistants.current_helper.helper}
+            contractId={workAssistants.current_helper.id}
           />
         </div>
       )}
@@ -45,7 +76,11 @@ export default function WorksAssistants() {
         <div className="previous-assistants">
           <h1>{t("المساعدون السابقون")}</h1>
           {workAssistants.previous_helpers.map((helper) => (
-            <HelperCard key={helper.id} helper={helper} withChat={true} />
+            <AssistantWorkCard
+              key={helper.id}
+              helper={helper}
+              contractId={helper?.id}
+            />
           ))}
         </div>
       )}

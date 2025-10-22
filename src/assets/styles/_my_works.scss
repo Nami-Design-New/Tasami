@@ -168,7 +168,7 @@
     font-weight: 700;
     cursor: pointer;
     @include small-mobile {
-      padding: 4px 8px;
+      padding: 4px 6px;
     }
 
     &::after {
@@ -227,7 +227,7 @@
     aspect-ratio: 1/1;
   }
   h1 {
-    margin: 2rem 0 0.25rem;
+    margin: 1rem 0 0.25rem;
     font-size: 1.25rem;
     font-weight: 700;
     color: $fire;
@@ -240,13 +240,12 @@
 }
 
 .button-wrapper {
-  position: absolute;
-  bottom: 6px;
   left: 50%;
-  transform: translateX(-50%);
-  @include small-mobile {
-    bottom: 82px;
-  }
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  max-width: 375px;
 }
 
 .no-tasks {
@@ -468,5 +467,25 @@
     margin-top: 1rem;
     margin-bottom: 1rem;
     font-size: 1.25rem;
+  }
+}
+
+.work-contract-details {
+  header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .work-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      button {
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        background-color: $main4;
+      }
+    }
   }
 }

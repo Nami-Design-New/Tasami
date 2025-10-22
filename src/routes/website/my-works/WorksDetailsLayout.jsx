@@ -41,16 +41,16 @@ export default function WorksDetailsLayout() {
       { id: 4, label: t("works.tasks"), link: "tasks" },
     ];
   } else {
-    if (workDetails.rectangle === "personal_goal_with_helper") {
-      if (workDetails.helper === null) {
+    if (workDetails?.rectangle === "personal_goal_with_helper") {
+      if (workDetails?.helper === null) {
         tabs = [
           {
             id: 1,
             label: t("works.details"),
             end: true,
           },
-          { id: 2, label: t("works.offers"), link: "offers" },
-
+          { id: 3, label: t("works.group"), link: "group" },
+          { id: 3, label: t("works.offers"), link: "offers" },
           { id: 4, label: t("works.tasks"), link: "tasks" },
           { id: 5, label: t("works.assistants"), link: "assistants" },
         ];
@@ -62,6 +62,7 @@ export default function WorksDetailsLayout() {
             end: true,
           },
           { id: 3, label: t("works.group"), link: "group" },
+
           { id: 4, label: t("works.tasks"), link: "tasks" },
           { id: 5, label: t("works.assistants"), link: "assistants" },
         ];
@@ -130,7 +131,7 @@ export default function WorksDetailsLayout() {
                   key={tab.id}
                   end={tab.end}
                 >
-                  {tab.label}{" "}
+                  {tab.label}
                   {tab.link === "offers" && (
                     <span className="offer-count-badge">
                       {workDetails?.offers_count}

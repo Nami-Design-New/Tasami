@@ -1,6 +1,6 @@
-export default function Loading() {
+export default function Loading({ height }) {
   return (
-    <div className="loading-container">
+    <div className="loading-container" style={{ height: height }}>
       <svg width="180" height="60" viewBox="0 0 120 40">
         <text x="10" y="25" fill="#214b92" fontSize="16" fontFamily="Arial">
           L

@@ -60,7 +60,12 @@ export default function AssignAssistantModal({ showModal, setShowModal }) {
         queryClient.invalidateQueries({
           queryKey: ["assistants"],
         });
+        queryClient.invalidateQueries({
+          queryKey: ["work-details"],
+        });
+        setShowModal(false);
         queryClient.refetchQueries({ queryKey: ["homeData"] });
+        queryClient.refetchQueries({ queryKey: ["work-group"] });
         toast.success(res?.message);
       },
       onError: (error) => {
@@ -194,7 +199,7 @@ export default function AssignAssistantModal({ showModal, setShowModal }) {
             <div className="buttons">
               <CustomButton
                 type="submit"
-                // loading={isPending}
+                loading={isPending}
                 size="large"
                 fullWidth
               >

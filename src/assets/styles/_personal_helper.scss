@@ -357,12 +357,13 @@
 .exp-info-grid {
   display: flex;
   gap: 8px;
+  flex-wrap: wrap;
   .exp-info-box {
     padding: 8px;
     border-radius: 8px;
     border: 1px solid $second;
     min-width: 120px;
-
+    flex: 1;
     h5 {
       font-size: 14px;
       color: $second;

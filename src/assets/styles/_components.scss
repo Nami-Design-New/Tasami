@@ -190,7 +190,7 @@ $color-fire: #ff7a59;
   @extend .custom-btn;
 
   text-decoration: none;
-  display: inline-flex;
+  display: flex;
   align-items: center;
   justify-content: center;
   gap: 0.5rem;

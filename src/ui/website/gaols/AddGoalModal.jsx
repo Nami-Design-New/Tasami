@@ -71,6 +71,7 @@ export default function AddGoalModal({ showModal, setShowModal }) {
           queryKey: ["goals"],
         });
         queryClient.refetchQueries({ queryKey: ["homeData"] });
+        queryClient.refetchQueries({ queryKey: ["my-works"] });
         toast.success(res?.message);
       },
       onError: (error) => {
