@@ -1,8 +1,16 @@
 import { Link } from "react-router";
 
-export default function AssistantWorkCard({ helper, contractId }) {
+export default function AssistantWorkCard({
+  helper,
+  contractId,
+  chat = true,
+  prevAssistant = false,
+}) {
   return (
-    <Link to={`/assisatant/contarct/${contractId}`} className="helper-card">
+    <Link
+      to={`/assisatant/contarct/${contractId}`}
+      className={`helper-card  ${prevAssistant ? "yellow" : ""}`}
+    >
       <figure className="image-wrapper">
         <img
           src={helper.image}
@@ -40,14 +48,16 @@ export default function AssistantWorkCard({ helper, contractId }) {
             </span>
           )}
 
-          <Link to={"/group-chat"} className="chat">
-            <img
-              src="/icons/chat-white-icon.svg"
-              alt="chat"
-              className="flag-icon "
-              loading="lazy"
-            />
-          </Link>
+          {chat && (
+            <Link to={"/user-chat"} className="chat">
+              <img
+                src="/icons/chat-white-icon.svg"
+                alt="chat"
+                className="flag-icon "
+                loading="lazy"
+              />
+            </Link>
+          )}
         </footer>
       </section>
     </Link>

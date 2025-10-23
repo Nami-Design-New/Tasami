@@ -457,6 +457,9 @@
   position: relative;
   min-height: 80px;
   margin: 0 40px 0 0;
+  &.yellow {
+    background-color: #fdcb2f14;
+  }
 
   // --- Avatar + status
   .image-wrapper {

@@ -62,9 +62,9 @@ export default function MyPlatform() {
                   {t("website.platform.menu.myOpportunities")}
                 </ProtectedNavLink>
 
-                <ProtectedNavLink to="my-offers" disabled={!user.about}>
+                <ProtectedNavLink to="/my-contracts" disabled={!user.about}>
                   <img src="./icons/my-contracts.svg" alt="" />
-                  {t("website.platform.menu.myOffers")}
+                  {t("website.platform.menu.myContracts")}
                 </ProtectedNavLink>
 
                 <ProtectedNavLink to="my-groups" disabled={!user.about}>

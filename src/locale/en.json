@@ -27,6 +27,7 @@
   "day": "days",
   "days": "days",
   "postDetails": "Post details",
+  "anotherReason": "Another reason",
   "pageHeaders": {
     "Notifications": "Notifications",
     "Dashboard": "Dashboard",
@@ -448,7 +449,7 @@
         "cv": "My CV",
         "myAssistant": "My Assistant",
         "myOpportunities": "My Opportunities",
-        "myOffers": "My Offers",
+        "myContracts": "My Contracts",
         "myGroups": "My Groups",
         "myCommunity": "My Community",
         "myAudience": "My Audience",

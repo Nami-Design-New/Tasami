@@ -8069,6 +8069,9 @@ input[type=file] {
   min-height: 80px;
   margin: 0 40px 0 0;
 }
+.helper-card.yellow {
+  background-color: rgba(253, 203, 47, 0.0784313725);
+}
 .helper-card .image-wrapper {
   position: absolute;
   top: 50%;
@@ -9383,6 +9386,38 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
   justify-content: space-between;
 }
 
+.reason-form-input {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  /* When checked */
+  /* Optional hover effect */
+}
+.reason-form-input label {
+  cursor: pointer;
+  font-weight: 700;
+}
+.reason-form-input input[type=radio] {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  width: 12px;
+  height: 12px;
+  border: 2px solid #214b92;
+  border-radius: 50%;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.2s ease;
+}
+.reason-form-input input[type=radio]:checked {
+  border-color: #214b92; /* outline color */
+  background-color: #214b92; /* fill color */
+}
+.reason-form-input input[type=radio]:hover {
+  border-color: #214b92;
+}
+
 .myworks .tab-nav {
   display: flex;
   gap: 0.25rem;
@@ -9836,6 +9871,9 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
   height: 32px;
   border-radius: 50%;
   background-color: rgba(2, 72, 150, 0.0392156863);
+}
+.work-contract-details header .work-actions .action-buttons.yellow {
+  background-color: rgba(253, 203, 47, 0.0392156863);
 }
 .work-contract-details .contract-data h2 {
   margin-bottom: 8px;

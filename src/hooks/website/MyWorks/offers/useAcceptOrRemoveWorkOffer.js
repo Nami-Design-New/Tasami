@@ -13,8 +13,12 @@ export default function useAcceptOrRemoveWorkOffer() {
           params: payload,
         }
       );
+      console.log("accept Response", res.data);
+
       if (res.data.code !== 200) {
-        throw new Error(res.data.message, "Error Handle offer");
+        console.log("From Error", res.data);
+
+        // throw new Error(res.data.message, "Error Handle offer");
       }
       return res.data;
     },

@@ -31,6 +31,7 @@
   "day": "يوم",
   "days": "أيام",
   "postDetails": "تفاصيل منشور",
+  "anotherReason": "سبب آخر",
   "pageHeaders": {
     "Notifications": " التنبيهات ",
     "Dashboard": " لوحة التحكم ",
@@ -376,7 +377,8 @@
       "offers": "العروض",
       "payment": "الدفع",
       "plan": "التخطيط",
-      "start": "بدء التنفيذ"
+      "start": "بدء التنفيذ",
+      "accOffer": "قبول العرض"
     }
   },
   "website": {
@@ -471,7 +473,7 @@
         "cv": "سيرتي الذاتية",
         "myAssistant": "مساعدتي",
         "myOpportunities": "فرصي",
-        "myOffers": "عروضي",
+        "myContracts": "عقودي",
         "myGroups": "مجموعاتي",
         "myCommunity": "مجتمعي",
         "myAudience": "جمهوري",

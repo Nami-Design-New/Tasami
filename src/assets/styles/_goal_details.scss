@@ -552,3 +552,37 @@
     }
   }
 }
+
+.reason-form-input {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  label {
+    cursor: pointer;
+    font-weight: 700;
+  }
+  input[type="radio"] {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    width: 12px;
+    height: 12px;
+    border: 2px solid $main;
+    border-radius: 50%;
+    cursor: pointer;
+    position: relative;
+    transition: all 0.2s ease;
+  }
+
+  /* When checked */
+  input[type="radio"]:checked {
+    border-color: $main; /* outline color */
+    background-color: $main; /* fill color */
+  }
+
+  /* Optional hover effect */
+  input[type="radio"]:hover {
+    border-color: $main;
+  }
+}

@@ -10,6 +10,7 @@ import RoundedBackButton from "../../../ui/website-auth/shared/RoundedBackButton
 import { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import CancelContractModal from "../../../ui/website/my-works/CancelContractModal";
+import AssistantWorkCard from "../../../ui/website/my-works/work-offers/AssistantWorkCard";
 
 export default function WorksContractDetails() {
   const { t } = useTranslation();
@@ -20,11 +21,11 @@ export default function WorksContractDetails() {
   const toggleMenu = () => setMenuOpen(!menuOpen);
   const menuRef = useRef(null);
   const options = [
-    {
-      id: 1,
-      label: "تمديد العقد",
-      className: "text-green",
-    },
+    // {
+    //   id: 1,
+    //   label: "تمديد العقد",
+    //   className: "text-green",
+    // },
     {
       id: 1,
       label: "أنهاء العقد",
@@ -43,7 +44,6 @@ export default function WorksContractDetails() {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
   if (isLoading) return <Loading />;
-  console.log(contractDetails);
   return (
     <section className="work-contract-details page">
       <div className="container">
@@ -53,42 +53,69 @@ export default function WorksContractDetails() {
               <RoundedBackButton
                 onClick={() => navigate(-1)}
               ></RoundedBackButton>
-              <div className="work-actions">
-                <button className="action-buttons">
-                  <img src="/icons/work-star.svg" />
-                </button>
-                <Link className="action-buttons">
-                  <img src="/icons/work-chat.svg" />
-                </Link>{" "}
-                <div className="options-menu" ref={menuRef}>
-                  <button className="action-buttons" onClick={toggleMenu}>
-                    <img src="/icons/contract-flag.svg" />
+              <div className={`work-actions `}>
+                {
+                  <button
+                    className={`action-buttons ${
+                      contractDetails.status === "working" ? "" : "yellow"
+                    }`}
+                  >
+                    {contractDetails.status === "working" ? (
+                      <img src="/icons/work-star.svg" />
+                    ) : (
+                      <img src="/icons/work-star-yellow.svg" />
+                    )}
                   </button>
-                  {menuOpen && (
-                    <div
-                      className={`options-list  ${lang === "en" ? "en" : ""} `}
-                    >
-                      {options.map((option, index) => (
-                        <button
-                          key={index}
-                          className={`options-item ${option.className || ""}`}
-                          onClick={() => {
-                            option.onClick?.();
-                            setMenuOpen(false);
-                          }}
-                        >
-                          {option.label}
-                        </button>
-                      ))}
-                    </div>
+                }
+                <Link
+                  className={`action-buttons ${
+                    contractDetails.status === "working" ? "" : "yellow"
+                  }`}
+                >
+                  {" "}
+                  {contractDetails.status === "working" ? (
+                    <img src="/icons/work-chat.svg" />
+                  ) : (
+                    <img src="/icons/work-chat-yellow.svg" />
                   )}
-                </div>
+                </Link>{" "}
+                {contractDetails.status === "working" && (
+                  <div className="options-menu" ref={menuRef}>
+                    <button className="action-buttons" onClick={toggleMenu}>
+                      <img src="/icons/contract-flag.svg" />
+                    </button>
+                    {menuOpen && (
+                      <div
+                        className={`options-list  ${
+                          lang === "en" ? "en" : ""
+                        } `}
+                      >
+                        {options.map((option, index) => (
+                          <button
+                            key={index}
+                            className={`options-item ${option.className || ""}`}
+                            onClick={() => {
+                              option.onClick?.();
+                              setMenuOpen(false);
+                            }}
+                          >
+                            {option.label}
+                          </button>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                )}
               </div>
             </header>
           </div>
           <div className="col-4 p-2">
-            <d-flex className="d-flex flex-column gap-3">
-              <HelperCard helper={contractDetails?.helper} />
+            <div className="d-flex flex-column gap-3">
+              <AssistantWorkCard
+                helper={contractDetails?.helper}
+                chat={false}
+                prevAssistant={contractDetails?.status !== "working"}
+              />
               <CustomLink
                 type="outlined"
                 fullWidth
@@ -97,7 +124,7 @@ export default function WorksContractDetails() {
               >
                 السيرة الذاتية
               </CustomLink>
-            </d-flex>
+            </div>
           </div>
           <div className="col-8 p-2">
             <div className="contract-data">
@@ -162,6 +189,7 @@ export default function WorksContractDetails() {
       <CancelContractModal
         showModal={showCancelModal}
         setShowModal={setShowCancelModal}
+        workId={contractDetails?.work_id}
       />
     </section>
   );

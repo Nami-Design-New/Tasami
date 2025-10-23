@@ -9,9 +9,12 @@ import CustomButton from "../../../CustomButton";
 import OfferPaymentModal from "./OfferPaymentModal";
 import { toast } from "sonner";
 import { useQueryClient } from "@tanstack/react-query";
+import { useNavigate, useParams } from "react-router";
 
 export default function WorkOfferDetails({ showModal, setShowModal, offerId }) {
   const { t } = useTranslation();
+  const { id: workId } = useParams();
+  const navigate = useNavigate();
   const [showPaymentModal, setShowPaymentModal] = useState();
   const queryClient = useQueryClient();
   const { acceptOrRemoveWorkOffer, isPending } = useAcceptOrRemoveWorkOffer();
@@ -25,9 +28,12 @@ export default function WorkOfferDetails({ showModal, setShowModal, offerId }) {
     acceptOrRemoveWorkOffer(payload, {
       onSuccess: (res) => {
         toast.success(res?.message);
+        navigate(`my-works/${workId}/group`);
         setShowModal(false);
-        queryClient.refetchQueries({ queryKey: ["work-offers"] });
-        queryClient.refetchQueries({ queryKey: ["goal-details"] });
+        queryClient.invalidateQueries({ queryKey: ["work-offers"] });
+        queryClient.refetchQueries({ queryKey: ["work-details"] });
+        queryClient.refetchQueries({ queryKey: ["assistants"] });
+        queryClient.refetchQueries({ queryKey: ["work-group"] });
       },
       onError: (error) => {
         toast.error(error.message);
