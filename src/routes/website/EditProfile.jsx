@@ -88,11 +88,14 @@ export default function EditProfile() {
       formData.append("password", data.newPassword || "");
       formData.append("password_confirmation", data.confirmPassword || "");
     }
+    console.log(data.profilePicture, typeof data.profilePicture !== "string");
 
     // Optional profile picture
     if (data.profilePicture && typeof data.profilePicture !== "string") {
-      formData.append("profilePicture", data.profilePicture);
+      formData.append("image", data.profilePicture);
     }
+
+    console.log(formData);
 
     editProfile(formData, {
       onSuccess: (res) => {
