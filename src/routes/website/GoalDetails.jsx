@@ -120,7 +120,7 @@ export default function GoalDetails() {
           </div>
           <div className="col-lg-8 col-12 p-2 ">
             <div className="hed">
-              <img src="/icons/triangle-with-helper.svg" />
+              <img src="/icons/triangle.svg" />
               <h6>{t("website.offerDetails.goal")}</h6>
             </div>
             <p className="desc ">{goalDetails.title}</p>
@@ -138,19 +138,14 @@ export default function GoalDetails() {
                 ))}
               </ul>
             </div>
-            {!goalDetails?.goal?.can_send_offers && !isMyGoal && (
-              <div className="add-offer-wrapper">
-                <p>{t("website.offerDetails.alreadySubmittedOffer")}</p>
-              </div>
-            )}
-            {user && !isMyGoal && goalDetails?.goal?.can_send_offers && (
+            {user && !isMyGoal && (
               <div className="add-offer-wrapper">
                 <div className="offers-count">
                   <i className="fa-regular fa-layer-group"></i>
                   <div className="content">
                     {goalDetails?.goal.offers_count === 0 ? (
                       <h5 className="head fs-6 ">
-                        {t("website.offerDetails.noGoalsOffers")}
+                        {t("website.offerDetails.noGoalsOffers")}{" "}
                       </h5>
                     ) : (
                       <>
