@@ -8,7 +8,7 @@ import { useTranslation } from "react-i18next";
 import TextField from "../../forms/TextField";
 import CustomButton from "../../CustomButton";
 import { useEffect } from "react";
-import { useNavigate, useParams } from "react-router";
+import { useLocation, useNavigate } from "react-router";
 import { toast } from "sonner";
 import { useQueryClient } from "@tanstack/react-query";
 
@@ -26,9 +26,11 @@ export default function CancelContractModal({
   showModal,
   setShowModal,
   workId,
+  contractId,
 }) {
   const { t } = useTranslation();
-  const { id } = useParams();
+  const { pathname } = useLocation();
+  const isMyWorksTab = pathname.includes("my-works");
   const navigate = useNavigate();
   const queryClient = useQueryClient();
   const { cancelReasons, isLoading } = useGetCancelReasons();
@@ -53,7 +55,7 @@ export default function CancelContractModal({
   //  Handle form submit
   const onSubmit = (data) => {
     const payload = {
-      id,
+      id: contractId,
       reason: data.reason === "another" ? data.anotherReason : data.reason,
     };
 
@@ -62,7 +64,7 @@ export default function CancelContractModal({
         reset();
         setShowModal(false);
         toast.success(res?.message);
-        navigate(`/my-works/${workId}/assistants`);
+        if (isMyWorksTab) navigate(`/my-works/${workId}/assistants`);
         queryClient.refetchQueries({ queryKey: ["assistants"] });
         queryClient.refetchQueries({ queryKey: ["work-group"] });
         queryClient.refetchQueries({ queryKey: ["work-details"] });

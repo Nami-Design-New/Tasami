@@ -142,7 +142,11 @@ export default function WorksDetailsLayout() {
             </div>
           </div>
           <div className="col-12 p-2">
-            <Outlet context={{ setTasksSummary }} />
+            <Outlet
+              context={{
+                setTasksSummary,
+              }}
+            />
           </div>
         </div>
       </div>

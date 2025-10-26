@@ -1,25 +1,26 @@
+import { useEffect, useRef, useState } from "react";
 import { ProgressBar } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
-import { Link, useNavigate } from "react-router";
+import { useSelector } from "react-redux";
+import { Link, useNavigate, useParams } from "react-router";
 import useGetContractDetails from "../../../hooks/website/MyWorks/assistants/useGetContractDetails";
-import HelperCard from "../../../ui/cards/HelperCard";
 import Currency from "../../../ui/Currency";
 import CustomLink from "../../../ui/CustomLink";
 import Loading from "../../../ui/loading/Loading";
 import RoundedBackButton from "../../../ui/website-auth/shared/RoundedBackButton";
-import { useEffect, useRef, useState } from "react";
-import { useSelector } from "react-redux";
 import CancelContractModal from "../../../ui/website/my-works/CancelContractModal";
 import AssistantWorkCard from "../../../ui/website/my-works/work-offers/AssistantWorkCard";
 
 export default function WorksContractDetails() {
   const { t } = useTranslation();
+  const { id } = useParams();
   const navigate = useNavigate();
   const [showCancelModal, setShowCancelModal] = useState(false);
   const { lang } = useSelector((state) => state.language);
   const [menuOpen, setMenuOpen] = useState(false);
   const toggleMenu = () => setMenuOpen(!menuOpen);
   const menuRef = useRef(null);
+
   const options = [
     // {
     //   id: 1,
@@ -33,7 +34,7 @@ export default function WorksContractDetails() {
       onClick: () => setShowCancelModal(true),
     },
   ];
-  const { contractDetails, isLoading } = useGetContractDetails();
+  const { contractDetails, isLoading } = useGetContractDetails(id);
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (menuRef.current && !menuRef.current.contains(event.target)) {
@@ -190,6 +191,7 @@ export default function WorksContractDetails() {
         showModal={showCancelModal}
         setShowModal={setShowCancelModal}
         workId={contractDetails?.work_id}
+        contractId={contractDetails?.id}
       />
     </section>
   );

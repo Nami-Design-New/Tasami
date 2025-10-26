@@ -37,7 +37,7 @@ export default function InProgressContracts() {
             {allMyContracts?.map((contract) => {
               return (
                 <div className="col-12 col-md-6  p-2" key={contract.id}>
-                  <ContractCard contract={contract} />
+                  <ContractCard contract={contract} withoutStatus={false} />
                 </div>
               );
             })}

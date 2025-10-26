@@ -126,6 +126,9 @@ import InProgressContracts from "../routes/website/my-platform/contracts/InProgr
 import CompletedContracts from "../routes/website/my-platform/contracts/CompletedContracts";
 import ContractDetailsLayout from "../routes/website/my-platform/contracts/ContractDetailsLayout";
 import ContractDetails from "../routes/website/my-platform/contracts/ContractDetails";
+import ContractTasks from "../routes/website/my-platform/contracts/ContractTasks";
+import ContractsGroup from "../routes/website/my-platform/contracts/ContractsGroup";
+import ContractsBeneficiaries from "../routes/website/my-platform/contracts/ContractsBeneficiaries";
 
 export const router = createBrowserRouter([
   /* WEBSITE AUTH */
@@ -358,11 +361,10 @@ export const router = createBrowserRouter([
           { index: true, element: <ContractDetails /> },
           {
             path: "tasks",
-            element: <WorksTasks />,
+            element: <ContractTasks />,
           },
-          { path: "offers", element: <WorksOffers /> },
-          { path: "group", element: <WorksGroup /> },
-          { path: "assistants", element: <WorksAssistants /> },
+          { path: "group", element: <ContractsGroup /> },
+          { path: "beneficiaries", element: <ContractsBeneficiaries /> },
         ],
       },
       {
