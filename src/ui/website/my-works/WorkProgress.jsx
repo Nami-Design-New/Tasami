@@ -1,4 +1,6 @@
 export default function WorkProgress({ steps }) {
+  console.log("steps :", steps);
+
   return (
     <div className="work-progress">
       <div className="position-relative">

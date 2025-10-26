@@ -1,27 +1,26 @@
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { axiosInstance } from "../../../lib/axios";
 
-export default function useGetMyWorks(status) {
+export default function useGetMyContracts(status) {
   const {
-    data: myWorks,
+    data: myContracts,
     isLoading,
     error,
     hasNextPage,
     fetchNextPage,
     isFetchingNextPage,
   } = useInfiniteQuery({
-    queryKey: ["my-works", status],
+    queryKey: ["my-contracts", status],
     queryFn: async ({ pageParam }) => {
-      const res = await axiosInstance.get("my-works", {
+      const res = await axiosInstance.get("my-contracts", {
         params: {
           status,
           page: pageParam,
         },
       });
       if (res.data.code !== 200) {
-        throw new Error(res.data.message || "Error Fething my works");
+        throw new Error(res.data.code || "Error Fetching Data");
       }
-
       return res.data;
     },
     getNextPageParam: (lastPage) => {
@@ -31,7 +30,7 @@ export default function useGetMyWorks(status) {
     },
   });
   return {
-    myWorks,
+    myContracts,
     isLoading,
     error,
     hasNextPage,

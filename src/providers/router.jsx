@@ -21,12 +21,11 @@ import MyAudience from "../routes/website/my-platform/MyAudience";
 import MyClients from "../routes/website/my-platform/MyClients";
 import MyCommunity from "../routes/website/my-platform/MyCommunity";
 import MyGroups from "../routes/website/my-platform/MyGroups";
-import MyOffers from "../routes/website/my-platform/MyOffers";
 import MyOpportunities from "../routes/website/my-platform/MyOpportunities";
 import MyPlatform from "../routes/website/my-platform/MyPlatform";
 import SupscriptionManagment from "../routes/website/my-platform/SupscriptionManagment";
-import MyNotifications from "../routes/website/MyNotifications";
 import MyWorks from "../routes/website/my-works/MyWorks";
+import MyNotifications from "../routes/website/MyNotifications";
 import OfferDetails from "../routes/website/OfferDetails";
 import PersonalHelper from "../routes/website/PersonalHelper";
 import Posts from "../routes/website/Posts";
@@ -42,7 +41,6 @@ import ChatPage from "../routes/ChatPage";
 import ActionsLogModel from "../routes/dash-board/ActionsLogModel";
 import CommunitiesDetails from "../routes/dash-board/CommunitiesDetails";
 import CommunityPostDetails from "../routes/dash-board/CommunityPostDetails";
-import ContractDetails from "../routes/dash-board/ContractDetails";
 import CreateEmployee from "../routes/dash-board/CreateEmployer";
 import Documents from "../routes/dash-board/Documents";
 import EmployeeProfile from "../routes/dash-board/EmployeeProfile";
@@ -98,30 +96,36 @@ import DashBoardResetPassword from "../routes/dashboard-auth/DashBoardResetPassw
 /* ---------------- ERROR / EXTRA ---------------- */
 
 import Forbidden from "../routes/Forbidden";
+import CommunityChat from "../routes/website/CommunityChat";
 import CommunityDetails from "../routes/website/CommunityDetails";
 import Followings from "../routes/website/Followings";
 import Meetings from "../routes/website/Meetings";
 import ConsultaionDetails from "../routes/website/my-platform/ConsultaionDetails";
 import GroupDetails from "../routes/website/my-platform/GroupDetails";
 import MyCommunityConsultations from "../routes/website/my-platform/MyCommunityConsultations";
+import MyContracts from "../routes/website/my-platform/MyContracts";
+import CompletedWorks from "../routes/website/my-works/CompletedWorks";
+import InProgressWorks from "../routes/website/my-works/InProgressWorks";
+import PendingWorks from "../routes/website/my-works/PendingWorks";
+import TaskDetails from "../routes/website/my-works/TaskDetails";
+import WorksAssistants from "../routes/website/my-works/WorksAssistants";
+import WorksContractDetails from "../routes/website/my-works/WorksContractDetails";
+import WorksDetails from "../routes/website/my-works/WorksDetails";
+import WorksDetailsLayout from "../routes/website/my-works/WorksDetailsLayout";
+import WorksGroup from "../routes/website/my-works/WorksGroup";
+import WorksOffers from "../routes/website/my-works/WorksOffers";
+import WorksTasks from "../routes/website/my-works/WorksTasks";
 import PersonalOffers from "../routes/website/PersonalOffers";
 import PersonalOffersDetails from "../routes/website/PersonalOffersDetails";
 import MyCommunities from "../routes/website/profile/MyCommunities";
+import Reels from "../routes/website/Reels";
 import ErrorFallback from "../ui/ErrorFallback";
 import ProtectedRoute from "./ProtectedRoute";
-import Reels from "../routes/website/Reels";
-import CommunityChat from "../routes/website/CommunityChat";
-import PendingWorks from "../routes/website/my-works/PendingWorks";
-import InProgressWorks from "../routes/website/my-works/InProgressWorks";
-import CompletedWorks from "../routes/website/my-works/CompletedWorks";
-import WorksDetailsLayout from "../routes/website/my-works/WorksDetailsLayout";
-import WorksTasks from "../routes/website/my-works/WorksTasks";
-import WorksGroup from "../routes/website/my-works/WorksGroup";
-import WorksAssistants from "../routes/website/my-works/WorksAssistants";
-import WorksDetails from "../routes/website/my-works/WorksDetails";
-import WorksOffers from "../routes/website/my-works/WorksOffers";
-import TaskDetails from "../routes/website/my-works/TaskDetails";
-import WorksContractDetails from "../routes/website/my-works/WorksContractDetails";
+import PendingContracts from "../routes/website/my-platform/contracts/PendingContracts";
+import InProgressContracts from "../routes/website/my-platform/contracts/InProgressContracts";
+import CompletedContracts from "../routes/website/my-platform/contracts/CompletedContracts";
+import ContractDetailsLayout from "../routes/website/my-platform/contracts/ContractDetailsLayout";
+import ContractDetails from "../routes/website/my-platform/contracts/ContractDetails";
 
 export const router = createBrowserRouter([
   /* WEBSITE AUTH */
@@ -315,10 +319,7 @@ export const router = createBrowserRouter([
             path: "my-opportunities",
             element: <MyOpportunities />,
           },
-          {
-            path: "my-offers",
-            element: <MyOffers />,
-          },
+
           {
             path: "my-groups",
             element: <MyGroups />,
@@ -335,6 +336,33 @@ export const router = createBrowserRouter([
             path: "my-clients",
             element: <MyClients />,
           },
+        ],
+      },
+      {
+        path: "my-contracts",
+        element: (
+          <ProtectedRoute>
+            <MyContracts />
+          </ProtectedRoute>
+        ),
+        children: [
+          { index: true, element: <PendingContracts /> },
+          { path: "in-progress", element: <InProgressContracts /> },
+          { path: "completed", element: <CompletedContracts /> },
+        ],
+      },
+      {
+        path: "my-contracts/:id",
+        element: <ContractDetailsLayout />,
+        children: [
+          { index: true, element: <ContractDetails /> },
+          {
+            path: "tasks",
+            element: <WorksTasks />,
+          },
+          { path: "offers", element: <WorksOffers /> },
+          { path: "group", element: <WorksGroup /> },
+          { path: "assistants", element: <WorksAssistants /> },
         ],
       },
       {
@@ -519,10 +547,10 @@ export const router = createBrowserRouter([
         element: <CreateEmployee />,
       },
       { path: "resuems/:id", element: <ResuemeDetails /> },
-      {
-        path: "contracts/:id",
-        element: <ContractDetails />,
-      },
+      // {
+      //   path: "contracts/:id",
+      //   element: <ContractDetails />,
+      // },
       {
         path: "community-post-details/:id",
         element: <CommunityPostDetails />,

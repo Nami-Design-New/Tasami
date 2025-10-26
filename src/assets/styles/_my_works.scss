@@ -411,6 +411,7 @@
   .previous-assistants {
     .helper-card {
       background-color: #fdcb2f14;
+
       .meta {
         .chat {
           background-color: #fdcb2f33;
@@ -480,11 +481,35 @@
       display: flex;
       align-items: center;
       gap: 0.5rem;
-      button {
+
+      .action-buttons {
+        @include centerFlex();
         width: 32px;
         height: 32px;
         border-radius: 50%;
         background-color: $main4;
+        &.yellow {
+          background-color: #fdcb2f0a;
+        }
+      }
+    }
+  }
+  .contract-data {
+    h2 {
+      margin-bottom: 8px;
+      font-size: 1.25rem;
+    }
+  }
+  .progress-bar-label {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0.25rem;
+    color: $gray;
+    span {
+      &:first-child {
+        color: $dark;
+        font-weight: 700;
       }
     }
   }

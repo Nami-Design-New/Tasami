@@ -75,13 +75,16 @@ export default function WorksAssistants() {
       {workAssistants?.previous_helpers?.length > 0 && (
         <div className="previous-assistants">
           <h1>{t("المساعدون السابقون")}</h1>
-          {workAssistants.previous_helpers.map((helper) => (
-            <AssistantWorkCard
-              key={helper.id}
-              helper={helper}
-              contractId={helper?.id}
-            />
-          ))}
+          <div className="row">
+            {workAssistants.previous_helpers.map((helper) => (
+              <div className="col-12 py-2 px-0" key={helper.id}>
+                <AssistantWorkCard
+                  helper={helper?.helper}
+                  contractId={helper?.id}
+                />
+              </div>
+            ))}
+          </div>
         </div>
       )}
     </section>

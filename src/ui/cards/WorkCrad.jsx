@@ -14,9 +14,19 @@ export default function WorkCard({ work, withoutStatus = false }) {
         label: t("works.status.start"),
       },
     ];
-  } else {
+  } else if (work.rectangle === "personal_goal_with_helper") {
     steps = [
       { key: "offers", label: t("works.status.offers") },
+      { key: "payment", label: t("works.status.payment") },
+      { key: "planning", label: t("works.status.plan") },
+      {
+        key: "execution",
+        label: t("works.status.start"),
+      },
+    ];
+  } else {
+    steps = [
+      { key: "acceptOffers", label: "قبول الطلب" },
       { key: "payment", label: t("works.status.payment") },
       { key: "planning", label: t("works.status.plan") },
       {
@@ -42,6 +52,9 @@ export default function WorkCard({ work, withoutStatus = false }) {
         )}
         {work.rectangle === "personal_goal" && (
           <img src="/icons/triangle-without-helper.png" />
+        )}
+        {work.rectangle === "help_service_from_helper" && (
+          <img src="/icons/help_service_from_helper.svg" />
         )}
         <p className="title ellipsis">{work.title}</p>
       </div>

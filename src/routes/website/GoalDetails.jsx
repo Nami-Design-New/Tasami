@@ -138,9 +138,9 @@ export default function GoalDetails() {
                 ))}
               </ul>
             </div>
-            {!goalDetails?.goal?.can_send_offers && (
+            {!goalDetails?.goal?.can_send_offers && !isMyGoal && (
               <div className="add-offer-wrapper">
-                <p> لقد قمت بتقديم عرض بالفعل </p>
+                <p>{t("website.offerDetails.alreadySubmittedOffer")}</p>
               </div>
             )}
             {user && !isMyGoal && goalDetails?.goal?.can_send_offers && (
@@ -150,7 +150,7 @@ export default function GoalDetails() {
                   <div className="content">
                     {goalDetails?.goal.offers_count === 0 ? (
                       <h5 className="head fs-6 ">
-                        {t("website.offerDetails.noGoalsOffers")}{" "}
+                        {t("website.offerDetails.noGoalsOffers")}
                       </h5>
                     ) : (
                       <>
