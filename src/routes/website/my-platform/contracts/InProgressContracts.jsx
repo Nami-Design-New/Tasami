@@ -19,7 +19,7 @@ export default function InProgressContracts() {
     myContracts?.pages?.flatMap((page) => page?.data) ?? [];
 
   return (
-    <section className="pending-works-sectoin">
+    <section className="pending-works-section">
       <div className="row">
         <div className="row">
           {(isLoading || isFetchingNextPage) &&

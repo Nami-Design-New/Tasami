@@ -13,13 +13,13 @@ export default function PendingContracts() {
     hasNextPage,
     fetchNextPage,
     isFetchingNextPage,
-  } = useGetMyContracts("wating");
+  } = useGetMyContracts("waiting");
 
   const allMyContracts =
     myContracts?.pages?.flatMap((page) => page?.data) ?? [];
 
   return (
-    <section className="pending-works-sectoin">
+    <section className="pending-works-section">
       <div className="row">
         <div className="row">
           {(isLoading || isFetchingNextPage) &&

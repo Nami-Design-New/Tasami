@@ -13,7 +13,7 @@ export default function CompletedWorks() {
   const allMyWorks = myWorks?.pages?.flatMap((page) => page?.data) ?? [];
 
   return (
-    <section className="pending-works-sectoin">
+    <section className="pending-works-section">
       <div className="row">
         {" "}
         {(isLoading || isFetchingNextPage) && (

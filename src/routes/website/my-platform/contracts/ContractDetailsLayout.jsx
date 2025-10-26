@@ -1,10 +1,11 @@
 import { useTranslation } from "react-i18next";
-import { NavLink, Outlet } from "react-router";
+import { NavLink, Outlet, useNavigate } from "react-router";
 import useGetWorkDetails from "../../../../hooks/website/MyWorks/useGetWorkDetails";
 import Loading from "../../../../ui/loading/Loading";
 import RoundedBackButton from "../../../../ui/website-auth/shared/RoundedBackButton";
 
-export default function ContructDetailsLayout() {
+export default function ContractDetailsLayout() {
+  const navigate = useNavigate();
   const { t } = useTranslation();
   const { workDetails, isLoading } = useGetWorkDetails();
   if (isLoading) return <Loading />;

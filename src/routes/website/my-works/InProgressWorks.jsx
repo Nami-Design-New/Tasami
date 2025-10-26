@@ -12,7 +12,7 @@ export default function InProgressWorks() {
   const allMyWorks = myWorks?.pages?.flatMap((page) => page?.data) ?? [];
   console.log(myWorks);
   return (
-    <section className="pending-works-sectoin">
+    <section className="pending-works-section">
       <div className="row">
         {" "}
         {(isLoading || isFetchingNextPage) && (

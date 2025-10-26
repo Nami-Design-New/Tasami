@@ -41,7 +41,6 @@ import ChatPage from "../routes/ChatPage";
 import ActionsLogModel from "../routes/dash-board/ActionsLogModel";
 import CommunitiesDetails from "../routes/dash-board/CommunitiesDetails";
 import CommunityPostDetails from "../routes/dash-board/CommunityPostDetails";
-import ContractDetails from "../routes/dash-board/ContractDetails";
 import CreateEmployee from "../routes/dash-board/CreateEmployer";
 import Documents from "../routes/dash-board/Documents";
 import EmployeeProfile from "../routes/dash-board/EmployeeProfile";
@@ -125,7 +124,8 @@ import ProtectedRoute from "./ProtectedRoute";
 import PendingContracts from "../routes/website/my-platform/contracts/PendingContracts";
 import InProgressContracts from "../routes/website/my-platform/contracts/InProgressContracts";
 import CompletedContracts from "../routes/website/my-platform/contracts/CompletedContracts";
-import ContructDetailsLayout from "../routes/website/my-platform/contracts/ContructDetailsLayout ";
+import ContractDetailsLayout from "../routes/website/my-platform/contracts/ContractDetailsLayout";
+import ContractDetails from "../routes/website/my-platform/contracts/ContractDetails";
 
 export const router = createBrowserRouter([
   /* WEBSITE AUTH */
@@ -353,9 +353,9 @@ export const router = createBrowserRouter([
       },
       {
         path: "my-contracts/:id",
-        element: <ContructDetailsLayout />,
+        element: <ContractDetailsLayout />,
         children: [
-          { index: true, element: <WorksDetails /> },
+          { index: true, element: <ContractDetails /> },
           {
             path: "tasks",
             element: <WorksTasks />,
@@ -547,10 +547,10 @@ export const router = createBrowserRouter([
         element: <CreateEmployee />,
       },
       { path: "resuems/:id", element: <ResuemeDetails /> },
-      {
-        path: "contracts/:id",
-        element: <ContractDetails />,
-      },
+      // {
+      //   path: "contracts/:id",
+      //   element: <ContractDetails />,
+      // },
       {
         path: "community-post-details/:id",
         element: <CommunityPostDetails />,

@@ -24,7 +24,7 @@ export default function ContractCard({ contract, withoutStatus = true }) {
   }));
   return (
     <Link to={`/my-contracts/${contract.id}`} className="work-card">
-      <HelperCard helper={contract?.helper} />
+      <HelperCard helper={contract?.user} />
       <div className="work-title">
         {" "}
         {contract.rectangle === "personal_goal_with_helper" && (
