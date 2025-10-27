@@ -45,6 +45,7 @@ export default function ContractCard({ contract, withoutStatus = true }) {
     completed: index <= currentIndex && contract.status !== "canceled",
     current: index === currentIndex && contract.status !== "canceled",
   }));
+  
   return (
     <Link to={`/my-contracts/${contract.id}`} className="work-card">
       <HelperCard helper={contract?.user} />
