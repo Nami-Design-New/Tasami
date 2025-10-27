@@ -26,7 +26,7 @@ export default function WorkCard({ work, withoutStatus = false }) {
     ];
   } else {
     steps = [
-      { key: "acceptOffers", label: "قبول الطلب" },
+      { key: "wait_helper_to_accept", label: t("works.status.request") },
       { key: "payment", label: t("works.status.payment") },
       { key: "planning", label: t("works.status.plan") },
       {
@@ -41,7 +41,6 @@ export default function WorkCard({ work, withoutStatus = false }) {
     completed: index <= currentIndex && work.status !== "canceled",
     current: index === currentIndex && work.status !== "canceled",
   }));
-  console.log(withoutStatus);
 
   return (
     <Link to={`/my-works/${work.id}`} className="work-card">
