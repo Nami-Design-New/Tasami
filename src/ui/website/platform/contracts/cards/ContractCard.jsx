@@ -4,18 +4,41 @@ import HelperCard from "../../../../cards/HelperCard";
 import WorkProgress from "../../../my-works/WorkProgress";
 
 export default function ContractCard({ contract, withoutStatus = true }) {
-  console.log("contract cradt :", contract);
+  console.log(contract.id, contract.status);
+
+  let steps;
   const { t } = useTranslation();
-  const steps = [
-    { key: "offers", label: t("works.status.offers") },
-    { key: "planning", label: t("works.status.accOffer") },
-    { key: "payment", label: t("works.status.payment") },
-    { key: "planning", label: t("works.status.plan") },
-    {
-      key: "execution",
-      label: t("works.status.start"),
-    },
-  ];
+  if (contract.rectangle === "personal_goal") {
+    steps = [
+      { key: "planning", label: t("works.status.plan") },
+      {
+        key: "execution",
+        label: t("works.status.start"),
+      },
+    ];
+  } else if (contract.rectangle === "personal_goal_with_helper") {
+    steps = [
+      { key: "offer_sent", label: "تقديم العرض" },
+      { key: "accOffers", label: "قبول العرض" },
+      { key: "payment", label: t("works.status.payment") },
+      { key: "planning", label: t("works.status.plan") },
+      {
+        key: "execution",
+        label: t("works.status.start"),
+      },
+    ];
+  } else {
+    steps = [
+      { key: "wait_helper_to_accept", label: "طلب تعاقد" },
+      { key: "wait_for_user_payment", label: "قبول الطلب" },
+      { key: "payment", label: t("works.status.payment") },
+      { key: "planning", label: t("works.status.plan") },
+      {
+        key: "execution",
+        label: t("works.status.start"),
+      },
+    ];
+  }
   const currentIndex = steps.findIndex((s) => s.key === contract.status);
   const progressSteps = steps.map((step, index) => ({
     ...step,
@@ -34,7 +57,7 @@ export default function ContractCard({ contract, withoutStatus = true }) {
           <img src="/icons/triangle-without-helper.png" />
         )}
         {contract.rectangle === "help_service_from_helper" && (
-          <img src="/icons/triangle-without-helper.png" />
+          <img src="/icons/help_service_from_helper.svg" />
         )}
         <p className="title ellipsis">{contract.title}</p>
       </div>{" "}

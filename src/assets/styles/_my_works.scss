@@ -195,6 +195,58 @@
 }
 
 .work-details-page {
+  .work-description {
+    .label {
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+      color: $dark;
+      font-weight: 700;
+      font-size: 1.25rem;
+    }
+    .value {
+      color: $gray;
+    }
+  }
+  .notse-box {
+    border: 1px solid #e0e0e0;
+    border-radius: 12px;
+    padding: 0.5rem;
+    height: min-content;
+    .label {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: $second;
+      white-space: wrap;
+      margin-bottom: 0.25rem;
+    }
+
+    .value {
+      font-size: 1rem;
+      font-weight: 600;
+      color: $dark;
+      display: flex;
+      align-items: center;
+      // white-space: nowrap;
+      gap: 6px;
+
+      img {
+        width: 18px;
+        height: 18px;
+      }
+    }
+    .flex {
+      display: flex;
+      justify-content: space-between;
+      .bold {
+        font-weight: bold;
+        img {
+          height: 20px;
+          margin: 0 10px;
+        }
+      }
+    }
+  }
 }
 .status-info {
   display: flex;

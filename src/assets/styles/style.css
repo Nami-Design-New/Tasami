@@ -9598,6 +9598,55 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
   transform: translateX(-50%) scaleX(1);
 }
 
+.work-details-page .work-description .label {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  color: #0d0d0d;
+  font-weight: 700;
+  font-size: 1.25rem;
+}
+.work-details-page .work-description .value {
+  color: rgba(13, 13, 13, 0.5607843137);
+}
+.work-details-page .notse-box {
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  padding: 0.5rem;
+  height: -moz-min-content;
+  height: min-content;
+}
+.work-details-page .notse-box .label {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #5fcafa;
+  white-space: wrap;
+  margin-bottom: 0.25rem;
+}
+.work-details-page .notse-box .value {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #0d0d0d;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.work-details-page .notse-box .value img {
+  width: 18px;
+  height: 18px;
+}
+.work-details-page .notse-box .flex {
+  display: flex;
+  justify-content: space-between;
+}
+.work-details-page .notse-box .flex .bold {
+  font-weight: bold;
+}
+.work-details-page .notse-box .flex .bold img {
+  height: 20px;
+  margin: 0 10px;
+}
+
 .status-info {
   display: flex;
   align-items: center;

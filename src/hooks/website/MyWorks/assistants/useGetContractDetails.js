@@ -1,9 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
-import { useParams } from "react-router";
 import { axiosInstance } from "../../../../lib/axios";
 
-export default function useGetContractDetails() {
-  const { id } = useParams();
+export default function useGetContractDetails(id) {
   const { data: contractDetails, isLoading } = useQuery({
     queryKey: ["contract-details", id],
     queryFn: async () => {
