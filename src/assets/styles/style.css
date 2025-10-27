@@ -2409,11 +2409,11 @@ body.en .show-pass {
   background-color: rgb(245, 19.4626168224, 0);
 }
 .custom-btn--success {
-  background-color: #28a745;
+  background-color: #4ecdc4;
   color: #fff;
 }
 .custom-btn--success:hover {
-  background-color: rgb(30.1449275362, 125.8550724638, 52);
+  background-color: rgb(51.1013215859, 180.8986784141, 171.7004405286);
 }
 .custom-btn--warning {
   background-color: #ffc107;
@@ -2465,12 +2465,12 @@ body.en .show-pass {
   background-color: #ff3a29;
 }
 .custom-btn--outlined.custom-btn--success {
-  color: #28a745;
-  border-color: #28a745;
+  color: #4ecdc4;
+  border-color: #4ecdc4;
 }
 .custom-btn--outlined.custom-btn--success:hover {
   color: #fff;
-  background-color: #28a745;
+  background-color: #4ecdc4;
 }
 .custom-btn--outlined.custom-btn--warning {
   color: #ffc107;
@@ -2557,11 +2557,11 @@ body.en .show-pass {
   background-color: rgb(245, 19.4626168224, 0);
 }
 .custom-link--success {
-  background-color: #28a745;
+  background-color: #4ecdc4;
   color: #fff;
 }
 .custom-link--success:hover {
-  background-color: rgb(30.1449275362, 125.8550724638, 52);
+  background-color: rgb(51.1013215859, 180.8986784141, 171.7004405286);
 }
 .custom-link--warning {
   background-color: #ffc107;
@@ -2606,12 +2606,12 @@ body.en .show-pass {
   background-color: #ff3a29;
 }
 .custom-link--outlined.custom-link--success {
-  color: #28a745;
-  border-color: #28a745;
+  color: #4ecdc4;
+  border-color: #4ecdc4;
 }
 .custom-link--outlined.custom-link--success:hover {
   color: #fff;
-  background-color: #28a745;
+  background-color: #4ecdc4;
 }
 .custom-link--outlined.custom-link--warning {
   color: #ffc107;

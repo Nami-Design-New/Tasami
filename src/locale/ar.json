@@ -346,6 +346,8 @@
   },
   "works": {
     "complete": "اكمال الهدف",
+    "cancelRequest": "الغاء طلب التعاقد",
+    "beneficiaries": "المستفيد",
     "delete": "حذف الهدف",
     "details": "التفاصيل",
     "group": "المجموعة",
@@ -378,7 +380,8 @@
       "plan": "التخطيط",
       "start": "بدء التنفيذ",
       "accOffer": "قبول العرض",
-      "request": "قبول الطلب"
+      "request": "قبول الطلب",
+      "waitAccept": "بانتظار قبول الطلب"
     }
   },
   "website": {

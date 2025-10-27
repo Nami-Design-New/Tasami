@@ -3,41 +3,43 @@ import { useState } from "react";
 import { Modal } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
-import { toast } from "sonner";
-import useAcceptOrRemoveWorkOffer from "../../../../hooks/website/MyWorks/offers/useAcceptOrRemoveWorkOffer";
+import useOfferRequestPayment from "../../../../hooks/website/contracts/useOfferRequestPayment";
 import Currency from "../../../Currency";
 import CustomButton from "../../../CustomButton";
+import { toast } from "sonner";
 
-export default function OfferPaymentModal({
+export default function OfferRequestPaymentModal({
   plan,
+  workId,
   showModal,
   setShowModal,
-  setShowOfferModal,
 }) {
+  const queryClient = useQueryClient();
+  console.log(plan);
+
+  const [selectedMethod, setSelectedMethod] = useState("online");
   const { t } = useTranslation();
   const { user } = useSelector((state) => state.authRole);
-  const [selectedMethod, setSelectedMethod] = useState("online");
-  const { acceptOrRemoveWorkOffer, isPending } = useAcceptOrRemoveWorkOffer();
-  const queryClient = useQueryClient();
 
-  const handleAcceptOffers = () => {
+  const { offerRequestPayment, isPending } = useOfferRequestPayment();
+
+  const handelPayment = () => {
     const payload = {
-      status: "accepted",
-      offer_id: plan?.id,
-      payment_method: selectedMethod,
+      method: selectedMethod,
+      workId,
     };
-    acceptOrRemoveWorkOffer(payload, {
+    offerRequestPayment(payload, {
       onSuccess: (res) => {
         toast.success(res.message);
         setShowModal(false);
-        setShowOfferModal(false);
+        queryClient.refetchQueries({ queryKey: ["work-details"] });
         setSelectedMethod("online");
-        queryClient.refetchQueries({ queryKey: ["work-offers"] });
-        queryClient.refetchQueries({ queryKey: ["goal-details"] });
+      },
+      onError: (error) => {
+        toast.error(error.message);
       },
     });
   };
-
   return (
     <Modal
       centered
@@ -48,10 +50,10 @@ export default function OfferPaymentModal({
         setSelectedMethod("online");
       }}
     >
+      {" "}
       <Modal.Header closeButton className="payment-modal-header">
         {t("website.payment")}
-      </Modal.Header>
-
+      </Modal.Header>{" "}
       <Modal.Body className="payment-modal-body">
         <div className="payment-modal-header">
           <h1 className="payment-modal-heading">
@@ -60,7 +62,7 @@ export default function OfferPaymentModal({
             })}
           </h1>
           <p className="payment-modal-price">
-            {plan?.price} <Currency style={{ height: "22px" }} />
+            {plan} <Currency style={{ height: "22px" }} />
           </p>
         </div>
 
@@ -113,7 +115,7 @@ export default function OfferPaymentModal({
         </div>
         <CustomButton
           loading={isPending}
-          onClick={handleAcceptOffers}
+          onClick={handelPayment}
           fullWidth
           size="large"
         >

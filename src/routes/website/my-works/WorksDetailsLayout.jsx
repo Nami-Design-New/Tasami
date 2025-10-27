@@ -67,6 +67,31 @@ export default function WorksDetailsLayout() {
           { id: 5, label: t("works.assistants"), link: "assistants" },
         ];
       }
+    } else if (workDetails?.rectangle === "help_service_from_helper") {
+      if (
+        workDetails.status === "wait_for_user_payment" ||
+        workDetails.status === "wait_helper_to_accept" ||
+        workDetails.status === "offer_sent"
+      ) {
+        tabs = [
+          {
+            id: 1,
+            label: t("works.details"),
+            end: true,
+          },
+        ];
+      } else {
+        tabs = [
+          {
+            id: 1,
+            label: t("works.details"),
+            end: true,
+          },
+          { id: 2, label: t("works.group"), link: "group" },
+          { id: 3, label: t("works.tasks"), link: "tasks" },
+          { id: 4, label: t("works.assistants"), link: "assistants" },
+        ];
+      }
     } else {
       tabs = [
         {
@@ -92,33 +117,58 @@ export default function WorksDetailsLayout() {
                 ></RoundedBackButton>
                 <h1>{workDetails?.code}</h1>
               </div>
-              {workDetails.status !== "completed" && (
-                <OptionsMenu
-                  toggleButton={"fa-light fa-shield-exclamation"}
-                  options={
-                    tasksSummary?.exePercentage === 100
-                      ? [
-                          {
-                            label: t("works.complete"),
-                            className: "text-green",
-                            onClick: () => handleCompleteGoal(workDetails?.id),
-                            props: {
-                              disabled: isPending,
-                            },
+              {workDetails.rectangle === "help_service_from_helper" ? (
+                <>
+                  {(workDetails.status === "wait_for_user_payment" ||
+                    workDetails.status === "wait_helper_to_accept" ||
+                    workDetails.status === "offer_sent") && (
+                    <OptionsMenu
+                      toggleButton={"fa-solid fa-ellipsis"}
+                      options={[
+                        {
+                          label: t("works.cancelRequest"),
+                          className: "text-danger",
+                          onClick: () => handleCompleteGoal(workDetails?.id),
+                          props: {
+                            disabled: isPending,
                           },
-                          {
-                            label: t("works.delete"),
-                            className: "text-danger",
-                          },
-                        ]
-                      : [
-                          {
-                            label: t("works.delete"),
-                            className: "text-danger",
-                          },
-                        ]
-                  }
-                />
+                        },
+                      ]}
+                    />
+                  )}
+                </>
+              ) : (
+                <>
+                  {workDetails.status !== "completed" && (
+                    <OptionsMenu
+                      toggleButton={"fa-light fa-shield-exclamation"}
+                      options={
+                        tasksSummary?.exePercentage === 100
+                          ? [
+                              {
+                                label: t("works.complete"),
+                                className: "text-green",
+                                onClick: () =>
+                                  handleCompleteGoal(workDetails?.id),
+                                props: {
+                                  disabled: isPending,
+                                },
+                              },
+                              {
+                                label: t("works.delete"),
+                                className: "text-danger",
+                              },
+                            ]
+                          : [
+                              {
+                                label: t("works.delete"),
+                                className: "text-danger",
+                              },
+                            ]
+                      }
+                    />
+                  )}
+                </>
               )}
             </div>
           </div>

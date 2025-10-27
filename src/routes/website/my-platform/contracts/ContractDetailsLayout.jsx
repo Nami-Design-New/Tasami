@@ -41,6 +41,7 @@ export default function ContractDetailsLayout() {
         label: t("works.details"),
         end: true,
       },
+      { id: 2, label: t("works.beneficiaries"), link: "beneficiaries" },
     ];
   } else {
     tabs = [
