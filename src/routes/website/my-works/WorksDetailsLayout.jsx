@@ -8,15 +8,19 @@ import useGetWorkDetails from "../../../hooks/website/MyWorks/useGetWorkDetails"
 import Loading from "../../../ui/loading/Loading";
 import RoundedBackButton from "../../../ui/website-auth/shared/RoundedBackButton";
 import OptionsMenu from "../../../ui/website/OptionsMenu";
+import AlertModal from "../../../ui/website/platform/my-community/AlertModal";
+import useWithdrawOfferHelp from "../../../hooks/website/contracts/useWithdrawOfferHelp";
 
 export default function WorksDetailsLayout() {
   let tabs;
   const { t } = useTranslation();
   const navigate = useNavigate();
   const queryClient = useQueryClient();
+  const [showAlertModal, setShowAlertModal] = useState(false);
   const [tasksSummary, setTasksSummary] = useState(null);
   const { workDetails, isLoading } = useGetWorkDetails();
   const { completeGoal, isPending } = useCompleteGoal();
+  const { withdrawOffer, isPending: isWithdrawing } = useWithdrawOfferHelp();
 
   const handleCompleteGoal = (id) => {
     completeGoal(id, {
@@ -25,6 +29,19 @@ export default function WorksDetailsLayout() {
         queryClient.refetchQueries("work-details");
         queryClient.refetchQueries("work-tasks");
         queryClient.refetchQueries("my-works");
+      },
+    });
+  };
+
+  const handleWithdrawOffer = (id) => {
+    withdrawOffer(id, {
+      onSuccess: (res) => {
+        toast.success(res?.message);
+        navigate("/my-works");
+        queryClient.refetchQueries("my-works");
+      },
+      onError: (error) => {
+        toast.error(error.message || "حدث خطأ أثناء تنفيذ العملية");
       },
     });
   };
@@ -128,7 +145,7 @@ export default function WorksDetailsLayout() {
                         {
                           label: t("works.cancelRequest"),
                           className: "text-danger",
-                          onClick: () => handleCompleteGoal(workDetails?.id),
+                          onClick: () => setShowAlertModal(true),
                           props: {
                             disabled: isPending,
                           },
@@ -200,6 +217,15 @@ export default function WorksDetailsLayout() {
           </div>
         </div>
       </div>
+      <AlertModal
+        confirmButtonText={t("confirm")}
+        showModal={showAlertModal}
+        setShowModal={setShowAlertModal}
+        onConfirm={() => handleWithdrawOffer(workDetails.id)}
+        loading={isPending}
+      >
+        سيؤدي هذا الإجراء إلى فقدان تفاصيل العرض ولن تتمكن من استعادته لاحقًا
+      </AlertModal>
     </section>
   );
 }

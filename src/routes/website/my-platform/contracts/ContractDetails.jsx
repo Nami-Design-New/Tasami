@@ -114,11 +114,11 @@ export default function ContractDetails() {
           <div className="value">{workDetails?.goal.notes}</div>
         </div>
       )}
-      <div className="extra-terms">
-        <h2>{t("website.offerDetails.mechanisms")}</h2>
-        <ul className="mechanisms-list">
-          {workDetails?.help_mechanisms.length > 0 &&
-            workDetails?.help_mechanisms.map((item) => (
+      {workDetails?.help_mechanisms.length > 0 && (
+        <div className="extra-terms">
+          <h2>{t("website.offerDetails.mechanisms")}</h2>
+          <ul className="mechanisms-list">
+            {workDetails?.help_mechanisms.map((item) => (
               <li
                 key={item.id}
                 className={`mech-item  ${lang === "en" ? "en" : ""} `}
@@ -126,10 +126,11 @@ export default function ContractDetails() {
                 {item.title}
               </li>
             ))}
-        </ul>
-      </div>{" "}
+          </ul>
+        </div>
+      )}
       {workDetails?.offer_price >= 0 && (
-        <div className="notse-box my-3">
+        <div className="notse-box my-3" style={{ width: "fit-content" }}>
           <div className="label">{t("website.offerDetails.price")}</div>
           <div className="value">
             {workDetails?.offer_price} <Currency />
