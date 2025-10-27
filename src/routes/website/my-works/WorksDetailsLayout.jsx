@@ -12,12 +12,12 @@ import AlertModal from "../../../ui/website/platform/my-community/AlertModal";
 import useWithdrawOfferHelp from "../../../hooks/website/contracts/useWithdrawOfferHelp";
 
 export default function WorksDetailsLayout() {
-  let tabs;
   const { t } = useTranslation();
   const navigate = useNavigate();
   const queryClient = useQueryClient();
   const [showAlertModal, setShowAlertModal] = useState(false);
   const [tasksSummary, setTasksSummary] = useState(null);
+
   const { workDetails, isLoading } = useGetWorkDetails();
   const { completeGoal, isPending } = useCompleteGoal();
   const { withdrawOffer, isPending: isWithdrawing } = useWithdrawOfferHelp();
@@ -41,104 +41,93 @@ export default function WorksDetailsLayout() {
         queryClient.refetchQueries("my-works");
       },
       onError: (error) => {
-        toast.error(error.message || "حدث خطأ أثناء تنفيذ العملية");
+        toast.error(error.message || t("works.errorOccurred"));
       },
     });
   };
 
   if (isLoading) return <Loading />;
-  if (workDetails.status === "completed") {
-    tabs = [
-      {
-        id: 1,
-        label: t("works.details"),
-        end: true,
-      },
 
-      { id: 4, label: t("works.tasks"), link: "tasks" },
-    ];
-  } else {
-    if (workDetails?.rectangle === "personal_goal_with_helper") {
-      if (workDetails?.helper === null) {
-        tabs = [
-          {
-            id: 1,
-            label: t("works.details"),
-            end: true,
-          },
-          { id: 3, label: t("works.group"), link: "group" },
+  const getTabs = () => {
+    const { rectangle, helper, status } = workDetails;
+
+    // Case 1: Completed work
+    if (status === "completed") {
+      return [
+        { id: 1, label: t("works.details"), end: true },
+        { id: 2, label: t("works.tasks"), link: "tasks" },
+      ];
+    }
+
+    // Case 2: Personal goal with helper
+    if (rectangle === "personal_goal_with_helper") {
+      if (helper === null) {
+        return [
+          { id: 1, label: t("works.details"), end: true },
+          { id: 2, label: t("works.myGroup"), link: "group" },
           { id: 3, label: t("works.offers"), link: "offers" },
           { id: 4, label: t("works.tasks"), link: "tasks" },
           { id: 5, label: t("works.assistants"), link: "assistants" },
         ];
-      } else {
-        tabs = [
-          {
-            id: 1,
-            label: t("works.details"),
-            end: true,
-          },
-          { id: 3, label: t("works.group"), link: "group" },
-
-          { id: 4, label: t("works.tasks"), link: "tasks" },
-          { id: 5, label: t("works.assistants"), link: "assistants" },
-        ];
       }
-    } else if (workDetails?.rectangle === "help_service_from_helper") {
-      if (
-        workDetails.status === "wait_for_user_payment" ||
-        workDetails.status === "wait_helper_to_accept" ||
-        workDetails.status === "offer_sent"
-      ) {
-        tabs = [
-          {
-            id: 1,
-            label: t("works.details"),
-            end: true,
-          },
-        ];
-      } else {
-        tabs = [
-          {
-            id: 1,
-            label: t("works.details"),
-            end: true,
-          },
-          { id: 2, label: t("works.group"), link: "group" },
-          { id: 3, label: t("works.tasks"), link: "tasks" },
-          { id: 4, label: t("works.assistants"), link: "assistants" },
-        ];
-      }
-    } else {
-      tabs = [
-        {
-          id: 1,
-          label: t("works.details"),
-          end: true,
-        },
-        { id: 2, label: t("works.group"), link: "group" },
+      return [
+        { id: 1, label: t("works.details"), end: true },
+        { id: 2, label: t("works.myGroup"), link: "group" },
         { id: 3, label: t("works.tasks"), link: "tasks" },
         { id: 4, label: t("works.assistants"), link: "assistants" },
       ];
     }
-  }
+
+    // Case 3: Help service from helper
+    if (rectangle === "help_service_from_helper") {
+      const waitingStatuses = [
+        "wait_for_user_payment",
+        "wait_helper_to_accept",
+        "offer_sent",
+      ];
+
+      if (waitingStatuses.includes(status)) {
+        return [{ id: 1, label: t("works.details"), end: true }];
+      }
+
+      return [
+        { id: 1, label: t("works.details"), end: true },
+        { id: 2, label: t("works.myGroup"), link: "group" },
+        { id: 3, label: t("works.tasks"), link: "tasks" },
+        { id: 4, label: t("works.assistants"), link: "assistants" },
+      ];
+    }
+
+    // Default case
+    return [
+      { id: 1, label: t("works.details"), end: true },
+      { id: 2, label: t("works.myGroup"), link: "group" },
+      { id: 3, label: t("works.tasks"), link: "tasks" },
+      { id: 4, label: t("works.assistants"), link: "assistants" },
+    ];
+  };
+
+  const tabs = getTabs();
+
   return (
     <section className="page work-details-layout">
-      <div className="container ">
+      <div className="container">
         <div className="row">
           <div className="col-12 p-2">
             <div className="header">
               <div className="d-flex align-items-center gap-2">
-                <RoundedBackButton
-                  onClick={() => navigate(`/my-works`)}
-                ></RoundedBackButton>
+                <RoundedBackButton onClick={() => navigate(`/my-works`)} />
                 <h1>{workDetails?.code}</h1>
               </div>
+
+              {/* Options Menu */}
               {workDetails.rectangle === "help_service_from_helper" ? (
                 <>
-                  {(workDetails.status === "wait_for_user_payment" ||
-                    workDetails.status === "wait_helper_to_accept" ||
-                    workDetails.status === "offer_sent") && (
+                  {[
+                    "wait_for_user_payment",
+                    "wait_helper_to_accept",
+                    "offer_sent",
+                  ].includes(workDetails.status) && (
                     <OptionsMenu
                       toggleButton={"fa-solid fa-ellipsis"}
                       options={[
@@ -146,9 +135,7 @@ export default function WorksDetailsLayout() {
                           label: t("works.cancelRequest"),
                           className: "text-danger",
                           onClick: () => setShowAlertModal(true),
-                          props: {
-                            disabled: isPending,
-                          },
+                          props: { disabled: isPending },
                         },
                       ]}
                     />
@@ -167,9 +154,7 @@ export default function WorksDetailsLayout() {
                                 className: "text-green",
                                 onClick: () =>
                                   handleCompleteGoal(workDetails?.id),
-                                props: {
-                                  disabled: isPending,
-                                },
+                                props: { disabled: isPending },
                               },
                               {
                                 label: t("works.delete"),
@@ -189,13 +174,14 @@ export default function WorksDetailsLayout() {
               )}
             </div>
           </div>
+
           <div className="col-12 p-2">
             <div className="works-details-tabs">
               {tabs.map((tab) => (
                 <NavLink
+                  key={tab.id}
                   className="tab-link"
                   to={tab.link || ""}
-                  key={tab.id}
                   end={tab.end}
                 >
                   {tab.label}
@@ -208,23 +194,21 @@ export default function WorksDetailsLayout() {
               ))}
             </div>
           </div>
+
           <div className="col-12 p-2">
-            <Outlet
-              context={{
-                setTasksSummary,
-              }}
-            />
+            <Outlet context={{ setTasksSummary }} />
           </div>
         </div>
       </div>
+
       <AlertModal
         confirmButtonText={t("confirm")}
         showModal={showAlertModal}
         setShowModal={setShowAlertModal}
         onConfirm={() => handleWithdrawOffer(workDetails.id)}
-        loading={isPending}
+        loading={isWithdrawing}
       >
-        سيؤدي هذا الإجراء إلى فقدان تفاصيل العرض ولن تتمكن من استعادته لاحقًا
+        {t("works.withdrawWarning")}
       </AlertModal>
     </section>
   );

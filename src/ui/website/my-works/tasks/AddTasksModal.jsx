@@ -33,7 +33,6 @@ export default function AddTasksModal({
     register,
     watch,
     reset,
-    setValue,
     formState: { errors },
   } = useAddTasksForm();
 
@@ -118,7 +117,7 @@ export default function AddTasksModal({
       size="lg"
     >
       <Modal.Header closeButton>
-        <h5>{taskData ? t("works.update_task") : t("works.new_task")}</h5>
+        <h5>{taskData ? t("works.updateTask") : t("works.newTask")}</h5>
       </Modal.Header>
 
       <Modal.Body>

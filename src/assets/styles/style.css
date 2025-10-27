@@ -9421,7 +9421,6 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
 .myworks .tab-nav {
   display: flex;
   gap: 0.25rem;
-  margin-bottom: 1rem;
   border: 1px solid rgba(13, 13, 13, 0.0941176471);
   padding: 0.5rem;
   border-radius: 1rem;
@@ -9502,6 +9501,9 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
   display: flex;
   align-items: end;
   align-items: center;
+}
+.work-card .work-progress.en .step-label:last-child(2) {
+  left: 0;
 }
 .work-card .step-icon {
   position: relative;

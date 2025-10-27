@@ -35,10 +35,7 @@ export default function PendingWorks() {
             </div>
           ))}
           {!isLoading && allMyWorks.length === 0 && (
-            <EmptySection
-              height="300px"
-              message={t("website.assistants.noPersonalAssistants")}
-            />
+            <EmptySection height="300px" message={t("works.noWorks")} />
           )}
         </InfiniteScroll>
       </div>

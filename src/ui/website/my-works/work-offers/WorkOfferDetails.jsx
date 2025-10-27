@@ -1,22 +1,25 @@
 import { useState } from "react";
 import { Modal, Spinner } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
+import { toast } from "sonner";
+import { useQueryClient } from "@tanstack/react-query";
+import { useNavigate, useParams } from "react-router";
+
 import useAcceptOrRemoveWorkOffer from "../../../../hooks/website/MyWorks/offers/useAcceptOrRemoveWorkOffer";
 import useGetWorkOffersDetails from "../../../../hooks/website/MyWorks/offers/useGetWorkOffersDetails";
+
 import HelperCard from "../../../cards/HelperCard";
 import Currency from "../../../Currency";
 import CustomButton from "../../../CustomButton";
 import OfferPaymentModal from "./OfferPaymentModal";
-import { toast } from "sonner";
-import { useQueryClient } from "@tanstack/react-query";
-import { useNavigate, useParams } from "react-router";
 
 export default function WorkOfferDetails({ showModal, setShowModal, offerId }) {
   const { t } = useTranslation();
   const { id: workId } = useParams();
   const navigate = useNavigate();
-  const [showPaymentModal, setShowPaymentModal] = useState();
+  const [showPaymentModal, setShowPaymentModal] = useState(false);
   const queryClient = useQueryClient();
+
   const { acceptOrRemoveWorkOffer, isPending } = useAcceptOrRemoveWorkOffer();
   const { workOfferDetails, isLoading } = useGetWorkOffersDetails(offerId);
 
@@ -28,7 +31,7 @@ export default function WorkOfferDetails({ showModal, setShowModal, offerId }) {
     acceptOrRemoveWorkOffer(payload, {
       onSuccess: (res) => {
         toast.success(res?.message);
-        navigate(`my-works/${workId}/group`);
+        navigate(`/my-works/${workId}/group`);
         setShowModal(false);
         queryClient.invalidateQueries({ queryKey: ["work-offers"] });
         queryClient.refetchQueries({ queryKey: ["work-details"] });
@@ -43,24 +46,18 @@ export default function WorkOfferDetails({ showModal, setShowModal, offerId }) {
 
   return (
     <>
-      <Modal
-        show={showModal}
-        onHide={() => {
-          setShowModal(false);
-        }}
-        centered
-      >
+      <Modal show={showModal} onHide={() => setShowModal(false)} centered>
         <Modal.Header closeButton>
-          <h5>تفاصيل العرض </h5>
+          <h5>{t("works.myOffers.details.title")}</h5>
         </Modal.Header>
         <Modal.Body>
           {isLoading ? (
             <div
-              className="d-flex align-items-center justify-content-center w-100 "
+              className="d-flex align-items-center justify-content-center w-100"
               style={{ minHeight: "200px" }}
             >
               <Spinner animation="border" role="status" color="#214b92">
-                <span className="visually-hidden">Loading...</span>
+                <span className="visually-hidden">{t("loading")}</span>
               </Spinner>
             </div>
           ) : (
@@ -68,20 +65,27 @@ export default function WorkOfferDetails({ showModal, setShowModal, offerId }) {
               <div className="col-12 p-2">
                 <HelperCard helper={workOfferDetails?.helper} />
               </div>
+
               <div className="info-grid">
                 <div className="info-box flex-grow-1 w-100">
-                  <div className="label">قيمة المساعدة</div>
+                  <div className="label">
+                    {t("works.myOffers.details.amount")}
+                  </div>
                   <div className="value">
                     {workOfferDetails?.price} <Currency />
                   </div>
                 </div>
+
                 {workOfferDetails?.notes && (
-                  <div className="info-box   flex-grow-1 w-100 ">
-                    <div className="label"> بنود إضافية </div>{" "}
+                  <div className="info-box flex-grow-1 w-100">
+                    <div className="label">
+                      {t("works.myOffers.details.extraTerms")}
+                    </div>
                     <div className="value">{workOfferDetails?.notes}</div>
                   </div>
                 )}
               </div>
+
               <div className="col-12 p-2">
                 <div className="buttons">
                   <CustomButton
@@ -90,14 +94,15 @@ export default function WorkOfferDetails({ showModal, setShowModal, offerId }) {
                     loading={isPending}
                     onClick={() => handleRemoveOffers(workOfferDetails?.id)}
                   >
-                    استبعاد
+                    {t("works.myOffers.details.reject")}
                   </CustomButton>
+
                   <CustomButton
                     fullWidth
                     size="large"
                     onClick={() => setShowPaymentModal(true)}
                   >
-                    قبول
+                    {t("works.myOffers.details.accept")}
                   </CustomButton>
                 </div>
               </div>
@@ -105,6 +110,7 @@ export default function WorkOfferDetails({ showModal, setShowModal, offerId }) {
           )}
         </Modal.Body>
       </Modal>
+
       <OfferPaymentModal
         showModal={showPaymentModal}
         setShowModal={setShowPaymentModal}

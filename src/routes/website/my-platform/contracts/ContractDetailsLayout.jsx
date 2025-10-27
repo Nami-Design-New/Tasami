@@ -50,7 +50,7 @@ export default function ContractDetailsLayout() {
         label: t("works.details"),
         end: true,
       },
-      { id: 3, label: t("works.group"), link: "group" },
+      { id: 3, label: t("works.myGroup"), link: "group" },
       { id: 4, label: t("works.tasks"), link: "tasks" },
       { id: 5, label: t("works.beneficiaries"), link: "beneficiaries" },
     ];
