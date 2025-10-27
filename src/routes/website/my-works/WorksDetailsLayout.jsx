@@ -55,7 +55,7 @@ export default function WorksDetailsLayout() {
     if (status === "completed") {
       return [
         { id: 1, label: t("works.details"), end: true },
-        { id: 2, label: t("works.tasks"), link: "tasks" },
+        { id: 2, label: t("works.assistants"), link: "assistants" },
       ];
     }
 

@@ -433,6 +433,19 @@
       "latestAssistant": "Latest Assistant",
       "previousAssistants": "Previous Assistants"
     },
+    "contractDetails": {
+      "endContract": "End Contract",
+      "cv": "Resume",
+      "payments": "Payments",
+      "contractValue": "Contract Value",
+      "contractDuration": "Contract Duration",
+      "dailyPayment": "Daily Payment for the Assistant",
+      "progress": "Progress",
+      "days": "days",
+      "day": "day",
+      "receivedAmount": "Received Amount",
+      "remainingBalance": "Remaining Guarantee Balance"
+    },
     "status": {
       "pending": "Pending",
       "inProgress": "In Progress",

@@ -443,6 +443,19 @@
       "latestAssistant": "الأحدث",
       "previousAssistants": "المساعدون السابقون"
     },
+    "contractDetails": {
+      "endContract": "إنهاء العقد",
+      "cv": "السيرة الذاتية",
+      "payments": "المدفوعات",
+      "contractValue": "قيمة العقد",
+      "contractDuration": "مدة العقد",
+      "dailyPayment": "قيمة الاستحقاق اليومي للمساعد الشخصي",
+      "progress": "التقدم",
+      "days": "أيام",
+      "day": "يوم",
+      "receivedAmount": "القيمة المستحقة للمساعد",
+      "remainingBalance": "رصيد الضمان المتبقي"
+    },
     "status": {
       "pending": "بانتظار التنفيذ",
       "inProgress": "قيد التنفيذ",
