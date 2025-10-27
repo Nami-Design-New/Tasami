@@ -438,7 +438,7 @@
       "assignAssistant": "تعيين مساعد شخصي",
       "removeHelperAlert": "سيتم استبعاد جميع العروض وإلغاء تعيين المساعدة لهذا الهدف!"
     },
-    "MyAssistants": {
+    "myAssistants": {
       "assignAssistant": "تعيين مساعد شخصي",
       "latestAssistant": "الأحدث",
       "previousAssistants": "المساعدون السابقون"
