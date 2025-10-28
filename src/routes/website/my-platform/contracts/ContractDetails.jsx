@@ -32,58 +32,63 @@ export default function ContractDetails() {
         status,
       },
       {
-        onSuccess: (res) => {
-          toast.success("تم قبول العقد بنجاح ");
+        onSuccess: () => {
+          toast.success(t("contract.acceptedSuccessfully"));
           navigate("/my-contracts");
           queryClient.invalidateQueries(["workDetails"]);
           queryClient.refetchQueries(["my-contracts"]);
         },
         onError: (error) => {
-          toast.error(error.message || "حدث خطأ أثناء تنفيذ العملية");
+          toast.error(error.message || t("contract.errorOccurred"));
         },
       }
     );
   };
+
+  // const statusText = {
+  //   wait_helper_to_accept: t("contract.status.waitHelperToAccept"),
+  //   wait_for_user_payment: t("contract.status.waitForUserPayment"),
+  //   offer_sent: t("works.status.offerSent"),
+  //   planning: t("contract.status.planning"),
+  //   offers: t("contract.status.offers"),
+  //   execution: t("contract.status.execution"),
+  //   payment: t("contract.status.payment"),
+  //   completed: t("contract.status.completed"),
+  // }[workDetails?.status];
+
   return (
     <section className="work-details-page">
       <div
-        className={`status-info  ${
+        className={`status-info ${
           workDetails?.status !== "completed" ? "not-completed" : "completed"
         }`}
       >
-        <span>
-          {workDetails.status === "wait_helper_to_accept" &&
-            "بإنتظار موافقة المساعد"}{" "}
-          {workDetails?.status === "wait_for_user_payment" && "بانتظار الدفع"}
-          {workDetails?.status === "planning" && " بانتظار بدء خطة التنفيذ"}
-          {workDetails?.status === "offers" && "بانتظار قبول العرض المناسب"}
-          {workDetails?.status === "execution" && " بانتظار خطة التنفيذ"}
-          {workDetails?.status === "payment" &&
-            "تم الدفع وبإنتظار بدء خطة التنفيذ"}
-          {workDetails?.status === "completed" && "مكتمل"}
-        </span>
+        <span>{workDetails.status_text}</span>
         <span>{workDetails?.status_date}</span>
       </div>
+
       <div className="mb-3">
         <AssistantWorkCard helper={workDetails?.user} />
       </div>
+
       <div className="my-3 work-description">
         <div className="label">
           {workDetails.rectangle === "personal_goal_with_helper" && (
             <>
-              <img src="/icons/triangle-with-helper.svg" />{" "}
+              <img src="/icons/triangle-with-helper.svg" alt="" />{" "}
               {t("website.offerDetails.goal")}
             </>
           )}
           {workDetails.rectangle === "help_service_from_helper" && (
             <>
-              <img src="/icons/help_service_from_helper.svg" />{" "}
+              <img src="/icons/help_service_from_helper.svg" alt="" />{" "}
               {t("website.offerDetails.offer")}
             </>
           )}
         </div>
         <p className="value">{workDetails?.title}</p>
       </div>
+
       <div className="goal-info">
         <div className="info-grid">
           <div className="info-box">
@@ -91,7 +96,7 @@ export default function ContractDetails() {
             <div className="value">{workDetails?.category_title}</div>
           </div>
           <div className="info-box">
-            <div className="label">{t("website.offerDetails.specialty")}</div>{" "}
+            <div className="label">{t("website.offerDetails.specialty")}</div>
             <div className="value">{workDetails?.sub_category_title}</div>
           </div>
           <div className="info-box">
@@ -107,13 +112,15 @@ export default function ContractDetails() {
             <div className="value">{workDetails?.goal?.start_date}</div>
           </div>
         </div>
-      </div>{" "}
+      </div>
+
       {workDetails?.goal?.notes && (
         <div className="notse-box my-3">
           <div className="label">{t("website.offerDetails.extraTerms")}</div>
           <div className="value">{workDetails?.goal.notes}</div>
         </div>
       )}
+
       {workDetails?.help_mechanisms.length > 0 && (
         <div className="extra-terms">
           <h2>{t("website.offerDetails.mechanisms")}</h2>
@@ -121,7 +128,7 @@ export default function ContractDetails() {
             {workDetails?.help_mechanisms.map((item) => (
               <li
                 key={item.id}
-                className={`mech-item  ${lang === "en" ? "en" : ""} `}
+                className={`mech-item ${lang === "en" ? "en" : ""}`}
               >
                 {item.title}
               </li>
@@ -129,6 +136,7 @@ export default function ContractDetails() {
           </ul>
         </div>
       )}
+
       {workDetails?.offer_price >= 0 && (
         <div className="notse-box my-3" style={{ width: "fit-content" }}>
           <div className="label">{t("website.offerDetails.price")}</div>
@@ -137,6 +145,7 @@ export default function ContractDetails() {
           </div>
         </div>
       )}
+
       {workDetails.status === "wait_helper_to_accept" && (
         <div className="buttons d-flex align-items-center justify-content-end gap-2 ">
           <CustomButton
@@ -146,7 +155,7 @@ export default function ContractDetails() {
             disabled={isPending}
             onClick={() => setShowAlertModal(true)}
           >
-            رفض
+            {t("reject")}
           </CustomButton>
 
           <CustomButton
@@ -156,19 +165,21 @@ export default function ContractDetails() {
             disabled={isPending}
             onClick={() => setShowAcceptModal(true)}
           >
-            قبول
+            {t("accept")}
           </CustomButton>
         </div>
       )}
+
       <AlertModal
-        confirmButtonText={t("confirm")}
+        confirmButtonText={t("common.confirm")}
         showModal={showAlertModal}
         setShowModal={setShowAlertModal}
         onConfirm={() => handleRefuseAction("refused_by_helper")}
         loading={isPending}
       >
-        سيؤدي هذا الإجراء إلى فقدان تفاصيل العرض ولن تتمكن من استعادته لاحقًا
+        {t("contract.refuseWarning")}
       </AlertModal>
+
       <AcceptModal
         workId={workDetails.id}
         showModal={showAcceptModal}

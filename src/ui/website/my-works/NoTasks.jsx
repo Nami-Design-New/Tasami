@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 import CustomButton from "../../CustomButton";
 import AddTasksModal from "./tasks/AddTasksModal";
 
-export default function NoTasks() {
+export default function NoTasks({ noActions = false }) {
   const [showModal, setShowModal] = useState(false);
   const { t } = useTranslation();
 
@@ -14,17 +14,19 @@ export default function NoTasks() {
         <p>{t("works.myTasks.noTasks")}</p>
       </div>
 
-      <div className="button-wrapper d-flex mt-2 align-items-center gap-2">
-        <CustomButton
-          style={{ whiteSpace: "nowrap" }}
-          size="large"
-          icon={<i className="fa-solid fa-plus"></i>}
-          onClick={() => setShowModal(true)}
-          fullWidth
-        >
-          {t("works.myTasks.addNew")}
-        </CustomButton>
-      </div>
+      {!noActions && (
+        <div className="button-wrapper d-flex mt-2 align-items-center gap-2">
+          <CustomButton
+            style={{ whiteSpace: "nowrap" }}
+            size="large"
+            icon={<i className="fa-solid fa-plus"></i>}
+            onClick={() => setShowModal(true)}
+            fullWidth
+          >
+            {t("works.myTasks.addNew")}
+          </CustomButton>
+        </div>
+      )}
 
       <AddTasksModal showModal={showModal} setShowModal={setShowModal} />
     </>

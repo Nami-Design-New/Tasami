@@ -1,10 +1,15 @@
 // TaskCard.jsx
-import { useRef } from "react";
-import { useNavigate } from "react-router";
+import { useRef, useState } from "react";
+import { useLocation, useNavigate } from "react-router";
+import CustomButton from "../../../CustomButton";
+import ConfirmPerformanceModal from "./ConfirmPerformanceModal";
+import ConfirmPerformanceContractModal from "./ConfirmPerformanceContractModal";
 
 export default function TaskCard({ task, isDragging = false }) {
   const navigate = useNavigate();
-
+  const [showModal, setShowModal] = useState(false);
+  const { pathname } = useLocation();
+  const isContracts = pathname.includes("my-contracts");
   // persistent refs across renders
   const pointerStart = useRef({ x: 0, y: 0 });
   const moved = useRef(false);
@@ -29,6 +34,8 @@ export default function TaskCard({ task, isDragging = false }) {
       // DnD is active — do nothing
       return;
     }
+    if (showModal) return;
+    if (e.target.closest("button")) return;
 
     // If user didn't move pointer significantly, treat as click
     if (!moved.current) {
@@ -44,6 +51,9 @@ export default function TaskCard({ task, isDragging = false }) {
       navigate(`/tasks/${task?.id}`);
     }
   };
+  console.log(task);
+  console.log(task.id, isContracts && task?.rate !== null);
+  console.log(isContracts, task?.rate);
 
   return (
     <div
@@ -96,7 +106,49 @@ export default function TaskCard({ task, isDragging = false }) {
             <span>{task?.notification_repeat}</span>
           </div>
         </div>
+        {task.status === "completed" && (
+          <>
+            {isContracts ? (
+              task?.rate === null ? (
+                <></>
+              ) : (
+                <div className="mt-3">
+                  <CustomButton
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setShowModal(true);
+                    }}
+                    size="large"
+                    variant="outlined"
+                    fullWidth
+                  >
+                    تأكيد الاداء
+                  </CustomButton>
+                </div>
+              )
+            ) : (
+              <div className="mt-3">
+                <CustomButton
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setShowModal(true);
+                  }}
+                  size="large"
+                  variant="outlined"
+                  fullWidth
+                >
+                  تأكيد الاداء
+                </CustomButton>
+              </div>
+            )}
+          </>
+        )}
       </div>
+      <ConfirmPerformanceModal
+        show={showModal}
+        setShowModal={setShowModal}
+        task={task}
+      />
     </div>
   );
 }

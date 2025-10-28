@@ -27,6 +27,8 @@
   "day": "days",
   "days": "days",
   "postDetails": "Post details",
+  "accept": "Accept",
+  "reject": "Reject",
   "anotherReason": "Another reason",
   "pageHeaders": {
     "Notifications": "Notifications",
@@ -337,6 +339,7 @@
   "works": {
     "newTask": "New Task",
     "updateTask": "Update Task",
+    "beneficiary": "Beneficiary",
     "update": "Update",
     "task_description": "Task Description",
     "task_category": "Task Category",
@@ -369,6 +372,7 @@
     "errorOccurred": "An error occurred during the operation",
     "withdrawWarning": "This action will permanently delete the offer details and you will not be able to recover them later.",
     "completePayment": "Complete Payment",
+
     "myTasks": {
       "title": "Execution Tasks",
       "dragInstruction": "You can drag and drop to reorder tasks",
@@ -456,7 +460,23 @@
       "start": "Start Execution",
       "accOffer": "Accept Offer",
       "request": "Accept Request",
-      "waitAccept": "Waiting for Acceptance"
+      "waitAccept": "Waiting for Acceptance",
+      "offerSent": "Offer Sent",
+      "requestOffer": "Request Offer"
+    }
+  },
+  "contract": {
+    "acceptedSuccessfully": "Contract accepted successfully",
+    "errorOccurred": "An error occurred while performing the operation",
+    "refuseWarning": "This action will delete the offer details and cannot be undone",
+    "status": {
+      "waitHelperToAccept": "Waiting for assistant's approval",
+      "waitForUserPayment": "Waiting for user payment",
+      "planning": "Waiting for execution plan",
+      "offers": "Waiting for offer acceptance",
+      "execution": "Execution in progress",
+      "payment": "Payment completed, waiting for execution plan",
+      "completed": "Completed"
     }
   },
   "website": {

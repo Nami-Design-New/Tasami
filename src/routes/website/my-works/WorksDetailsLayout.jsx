@@ -3,13 +3,13 @@ import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { NavLink, Outlet, useNavigate } from "react-router";
 import { toast } from "sonner";
+import useCancelRequestOffer from "../../../hooks/website/MyWorks/useCancelRequestOffer";
 import useCompleteGoal from "../../../hooks/website/MyWorks/useCompleteGoal";
 import useGetWorkDetails from "../../../hooks/website/MyWorks/useGetWorkDetails";
 import Loading from "../../../ui/loading/Loading";
 import RoundedBackButton from "../../../ui/website-auth/shared/RoundedBackButton";
 import OptionsMenu from "../../../ui/website/OptionsMenu";
 import AlertModal from "../../../ui/website/platform/my-community/AlertModal";
-import useWithdrawOfferHelp from "../../../hooks/website/contracts/useWithdrawOfferHelp";
 
 export default function WorksDetailsLayout() {
   const { t } = useTranslation();
@@ -20,7 +20,8 @@ export default function WorksDetailsLayout() {
 
   const { workDetails, isLoading } = useGetWorkDetails();
   const { completeGoal, isPending } = useCompleteGoal();
-  const { withdrawOffer, isPending: isWithdrawing } = useWithdrawOfferHelp();
+  const { cancelRequestOffer, isPending: isCanceling } =
+    useCancelRequestOffer();
 
   const handleCompleteGoal = (id) => {
     completeGoal(id, {
@@ -33,8 +34,8 @@ export default function WorksDetailsLayout() {
     });
   };
 
-  const handleWithdrawOffer = (id) => {
-    withdrawOffer(id, {
+  const handleCancelOfferOffer = (id) => {
+    cancelRequestOffer(id, {
       onSuccess: (res) => {
         toast.success(res?.message);
         navigate("/my-works");
@@ -143,33 +144,34 @@ export default function WorksDetailsLayout() {
                 </>
               ) : (
                 <>
-                  {workDetails.status !== "completed" && (
-                    <OptionsMenu
-                      toggleButton={"fa-light fa-shield-exclamation"}
-                      options={
-                        tasksSummary?.exePercentage === 100
-                          ? [
-                              {
-                                label: t("works.complete"),
-                                className: "text-green",
-                                onClick: () =>
-                                  handleCompleteGoal(workDetails?.id),
-                                props: { disabled: isPending },
-                              },
-                              {
-                                label: t("works.delete"),
-                                className: "text-danger",
-                              },
-                            ]
-                          : [
-                              {
-                                label: t("works.delete"),
-                                className: "text-danger",
-                              },
-                            ]
-                      }
-                    />
-                  )}
+                  {workDetails.helper === null &&
+                    workDetails.status !== "completed" && (
+                      <OptionsMenu
+                        toggleButton={"fa-light fa-shield-exclamation"}
+                        options={
+                          tasksSummary?.exePercentage === 100
+                            ? [
+                                {
+                                  label: t("works.complete"),
+                                  className: "text-green",
+                                  onClick: () =>
+                                    handleCompleteGoal(workDetails?.id),
+                                  props: { disabled: isPending },
+                                },
+                                {
+                                  label: t("works.delete"),
+                                  className: "text-fire",
+                                },
+                              ]
+                            : [
+                                {
+                                  label: t("works.delete"),
+                                  className: "text-fire",
+                                },
+                              ]
+                        }
+                      />
+                    )}
                 </>
               )}
             </div>
@@ -205,8 +207,8 @@ export default function WorksDetailsLayout() {
         confirmButtonText={t("confirm")}
         showModal={showAlertModal}
         setShowModal={setShowAlertModal}
-        onConfirm={() => handleWithdrawOffer(workDetails.id)}
-        loading={isWithdrawing}
+        onConfirm={() => handleCancelOfferOffer(workDetails.id)}
+        loading={isCanceling}
       >
         {t("works.withdrawWarning")}
       </AlertModal>

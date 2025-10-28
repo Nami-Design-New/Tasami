@@ -12,6 +12,7 @@ const SelectField = React.forwardRef(
       error,
       disableFiledValue,
       loading = false,
+      disabled = false,
       ...props
     },
     ref
@@ -30,7 +31,7 @@ const SelectField = React.forwardRef(
           ref={ref}
           isInvalid={!!error}
           {...props}
-          disabled={loading}
+          disabled={disabled || loading}
         >
           {loading ? (
             <option value="">{props.loadingText || t("loading")}</option>

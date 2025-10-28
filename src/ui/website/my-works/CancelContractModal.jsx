@@ -68,6 +68,7 @@ export default function CancelContractModal({
         queryClient.refetchQueries({ queryKey: ["assistants"] });
         queryClient.refetchQueries({ queryKey: ["work-group"] });
         queryClient.refetchQueries({ queryKey: ["work-details"] });
+        queryClient.refetchQueries({ queryKey: ["my-contracts"] });
       },
     });
   };

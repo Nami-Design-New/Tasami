@@ -19,7 +19,7 @@ export default function ContractsBeneficiaries() {
           <div className="col-4 p-2">
             <div className="d-flex flex-column gap-3">
               <AssistantWorkCard
-                helper={contractDetails?.helper}
+                helper={contractDetails?.user}
                 chat={false}
                 prevAssistant={contractDetails?.status !== "working"}
               />
