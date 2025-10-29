@@ -8141,16 +8141,6 @@ input[type=file] {
   padding: 0 8px;
 }
 
-html[lang=en] .helper-card {
-  margin: 0 0 0 40px;
-  padding: 16px 16px 16px 40px;
-}
-html[lang=en] .helper-card .image-wrapper {
-  right: auto;
-  left: -40px;
-  transform: translateY(-50%) rotateY(180deg);
-}
-
 .contracts-status .content {
   display: flex;
   align-items: center;

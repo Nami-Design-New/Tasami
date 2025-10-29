@@ -3,7 +3,6 @@ import { useRef, useState } from "react";
 import { useLocation, useNavigate } from "react-router";
 import CustomButton from "../../../CustomButton";
 import ConfirmPerformanceModal from "./ConfirmPerformanceModal";
-import ConfirmPerformanceContractModal from "./ConfirmPerformanceContractModal";
 
 export default function TaskCard({ task, isDragging = false }) {
   const navigate = useNavigate();
