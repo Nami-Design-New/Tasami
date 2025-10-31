@@ -18,8 +18,8 @@ export default function ContractCard({ contract, withoutStatus = true }) {
     ];
   } else if (contract.rectangle === "personal_goal_with_helper") {
     steps = [
-      { key: "offer_sent", label: "تقديم العرض" },
-      { key: "accOffers", label: "قبول العرض" },
+      { key: "offer_sent", label: t("works.status.offerSent") },
+      { key: "accOffers", label: t("works.status.accOffer") },
       { key: "payment", label: t("works.status.payment") },
       { key: "planning", label: t("works.status.plan") },
       {
@@ -29,8 +29,8 @@ export default function ContractCard({ contract, withoutStatus = true }) {
     ];
   } else {
     steps = [
-      { key: "wait_helper_to_accept", label: "طلب تعاقد" },
-      { key: "wait_for_user_payment", label: "قبول الطلب" },
+      { key: "wait_helper_to_accept", label: t("works.status.requestOffer") },
+      { key: "wait_for_user_payment", label: t("works.status.request") },
       { key: "payment", label: t("works.status.payment") },
       { key: "planning", label: t("works.status.plan") },
       {
@@ -45,7 +45,7 @@ export default function ContractCard({ contract, withoutStatus = true }) {
     completed: index <= currentIndex && contract.status !== "canceled",
     current: index === currentIndex && contract.status !== "canceled",
   }));
-  
+
   return (
     <Link to={`/my-contracts/${contract.id}`} className="work-card">
       <HelperCard helper={contract?.user} />

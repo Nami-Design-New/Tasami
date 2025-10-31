@@ -32,8 +32,9 @@ import {
   arrayMove,
 } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
+import Loading from "../../../ui/loading/Loading";
 
-// Sortable item wrapper for each TaskCard
+// Sortable wrapper for TaskCard
 function SortableTask({ task }) {
   const {
     attributes,
@@ -54,7 +55,6 @@ function SortableTask({ task }) {
 
   return (
     <div ref={setNodeRef} style={style} {...attributes} {...listeners}>
-      {/* disableLink is assumed prop to prevent navigation while dragging */}
       <TaskCard task={task} isDragging={isDragging} />
     </div>
   );
@@ -84,7 +84,7 @@ export default function WorksTasks() {
     }
   }, [goalTasks, setTasksSummary]);
 
-  // Load tasks from API into local state
+  // Load tasks from API
   useEffect(() => {
     if (goalTasks?.data) {
       const formatted = goalTasks.data.map((t) => ({
@@ -92,10 +92,6 @@ export default function WorksTasks() {
         id: String(t.id),
       }));
       setTasks(formatted);
-      console.log(
-        "[useEffect] tasks synced from API:",
-        formatted.map((t) => t.id)
-      );
     }
   }, [goalTasks]);
 
@@ -116,8 +112,7 @@ export default function WorksTasks() {
         queryClient.refetchQueries({ queryKey: ["task-details"] });
       },
       onError: (err) => {
-        console.error("[handleToggleTaskExe] Error:", err);
-        toast.error(err.message);
+        toast.error(err.message || t("common.error"));
       },
     });
   };
@@ -129,39 +124,22 @@ export default function WorksTasks() {
     if (!active || !over) return;
     if (active.id === over.id) return;
 
-    console.log("[handleDragEnd] Active:", active.id, "Over:", over.id);
-    console.log(
-      "[handleDragEnd] Current task IDs:",
-      tasks.map((t) => t.id)
-    );
-
     setTasks((prev) => {
       const oldIndex = prev.findIndex((t) => t.id === String(active.id));
       const newIndex = prev.findIndex((t) => t.id === String(over.id));
-
-      if (oldIndex === -1 || newIndex === -1) {
-        console.warn("[handleDragEnd] ❌ One of the items not found");
-        return prev;
-      }
+      if (oldIndex === -1 || newIndex === -1) return prev;
 
       const reordered = arrayMove(prev, oldIndex, newIndex);
-      console.log(
-        "[handleDragEnd] ✅ New local order:",
-        reordered.map((t) => t.id)
-      );
 
-      // Immediately update local UI
-      // Then sync with backend
       reorderTasks(
         reordered.map((t) => t.id),
         {
           onSuccess: () => {
-            toast.success("تم حفظ ترتيب المهام بنجاح");
-            queryClient.invalidateQueries({ queryKey: ["tasks", id] }); // refetch latest from server
+            toast.success(t("works.myTasks.reorderSuccess"));
+            queryClient.invalidateQueries({ queryKey: ["tasks", id] });
           },
-          onError: (err) => {
-            console.error("❌ Reorder failed:", err);
-            toast.error("حدث خطأ أثناء حفظ الترتيب");
+          onError: () => {
+            toast.error(t("works.myTasks.reorderError"));
           },
         }
       );
@@ -170,7 +148,7 @@ export default function WorksTasks() {
     });
   };
 
-  if (isLoading) return <p>جار التحميل...</p>;
+  if (isLoading) return <Loading />;
   if (goalTasks?.data?.length === 0) return <NoTasks />;
 
   return (
@@ -178,19 +156,19 @@ export default function WorksTasks() {
       {/* Info Section */}
       <div className="info-grid">
         <div className="info-box flex-grow-1">
-          <div className="label">بداية التنفيذ</div>
+          <div className="label">{t("works.myTasks.startExecution")}</div>
           <div className="value">
             {goalTasks["additional-data"]?.start_of_execution || "---"}
           </div>
         </div>
         <div className="info-box flex-grow-1">
-          <div className="label">اكتمال التنفيذ</div>
+          <div className="label">{t("works.myTasks.endExecution")}</div>
           <div className="value">
             {goalTasks["additional-data"]?.end_of_execution || "---"}
           </div>
         </div>
         <div className="info-box flex-grow-1">
-          <div className="label">نسبة الانجاز</div>
+          <div className="label">{t("works.myTasks.executionRate")}</div>
           <div className="value">
             {goalTasks["additional-data"]?.execution_percentage}
           </div>
@@ -200,11 +178,10 @@ export default function WorksTasks() {
       {/* Tasks Section */}
       <div className="execution-tasks">
         <div className="tasks-header">
-          <h1>المهام التنفيذية</h1>
-          <p>يمكنك السحب والإفلات لإعادة ترتيب المهام</p>
+          <h1>{t("works.myTasks.title")}</h1>
+          <p>{t("works.myTasks.dragInstruction")}</p>
         </div>
 
-        {/* Drag-and-Drop Context */}
         <DndContext
           sensors={sensors}
           collisionDetection={closestCenter}
@@ -235,7 +212,9 @@ export default function WorksTasks() {
                 else handleToggleTaskExe(workDetails?.goal?.id);
               }}
             >
-              {workDetails?.goal?.is_paused ? "بدء التنفيذ" : "ايقاف التنفيذ"}
+              {workDetails?.goal?.is_paused
+                ? t("works.myTasks.startExecutionBtn")
+                : t("works.myTasks.pauseExecutionBtn")}
             </CustomButton>
 
             <CustomButton
@@ -244,7 +223,7 @@ export default function WorksTasks() {
               icon={<i className="fa-solid fa-plus"></i>}
               onClick={() => setShowModal(true)}
             >
-              إضافة مهمة جديدة
+              {t("works.myTasks.addNew")}
             </CustomButton>
           </div>
         )}
@@ -258,9 +237,7 @@ export default function WorksTasks() {
           onConfirm={() => handleToggleTaskExe(workDetails?.goal?.id)}
           loading={isPending}
         >
-          سيتم إيقاف تنفيذ المهام مؤقتاً وتعطيل جميع التنبيهات المرتبطة بها.
-          بإمكانك استئناف التنفيذ لاحقاً عبر وظيفة &quot;بدء التنفيذ&quot; من
-          صفحة المهام.
+          {t("works.myTasks.pauseExecutionWarning")}
         </AlertModal>
       </div>
     </section>

@@ -33,7 +33,6 @@ export default function AddTasksModal({
     register,
     watch,
     reset,
-    setValue,
     formState: { errors },
   } = useAddTasksForm();
 
@@ -64,7 +63,8 @@ export default function AddTasksModal({
   // Handle Add / Update logic
   const onSubmit = (data) => {
     const payloadId = taskId || id;
-
+    // let payload;
+    // if (reminderNotifications) {
     const payload = {
       task_category_id: data.taskCategory,
       title: data.taskDescription,
@@ -76,6 +76,15 @@ export default function AddTasksModal({
       notes: data.notes,
       work_id: payloadId,
     };
+    // } else {
+    //   payload = {
+    //     task_category_id: data.taskCategory,
+    //     title: data.taskDescription,
+    //     expected_end_date: formatYMD(data.expected_end_date),
+    //     notes: data.notes,
+    //     work_id: payloadId,
+    //   };
+    // }
 
     if (taskData) {
       // UPDATE MODE
@@ -118,7 +127,7 @@ export default function AddTasksModal({
       size="lg"
     >
       <Modal.Header closeButton>
-        <h5>{taskData ? t("works.update_task") : t("works.new_task")}</h5>
+        <h5>{taskData ? t("works.updateTask") : t("works.newTask")}</h5>
       </Modal.Header>
 
       <Modal.Body>

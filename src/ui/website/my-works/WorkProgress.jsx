@@ -1,42 +1,47 @@
+import { Fragment } from "react";
+import { useSelector } from "react-redux";
+
 export default function WorkProgress({ steps }) {
-  console.log("steps :", steps);
+  const { lang } = useSelector((state) => state.language);
 
   return (
-    <div className="work-progress">
+    <div className={`work-progress`}>
       <div className="position-relative">
         <div className="progress-step">
-          {steps.map((step, index) => (
-            <>
-              <div
-                key={step.key}
-                className=" position-relative d-flex fl  flex-column "
-              >
-                {" "}
-                <div
-                  className={`step-icon ${
-                    step.completed ? "completed" : step.current ? "current" : ""
-                  }`}
-                >
-                  <span
-                    style={{
-                      left: `${
-                        index === steps.length - 1
-                          ? "0"
-                          : index < steps.length - 1 && index > 0
-                          ? "50%"
-                          : ""
-                      }`,
-                      transform: `translateX(${
-                        index < steps.length - 1 && index > 0 ? "-50%" : ""
-                      })`,
-                    }}
-                    className="step-label"
+          {steps.map((step, index) => {
+            const isLast = index === steps.length - 1;
+            const isMiddle = index < steps.length - 1 && index > 0;
+
+            // Choose the correct side depending on language
+            const positionStyle =
+              lang === "en"
+                ? {
+                    right: isLast ? "0" : isMiddle ? "50%" : "",
+                    transform: isMiddle ? "translateX(50%)" : "",
+                  }
+                : {
+                    left: isLast ? "0" : isMiddle ? "50%" : "",
+                    transform: isMiddle ? "translateX(-50%)" : "",
+                  };
+
+            return (
+              <Fragment key={step.key}>
+                <div className="position-relative d-flex flex-column">
+                  <div
+                    className={`step-icon ${
+                      step.completed
+                        ? "completed"
+                        : step.current
+                        ? "current"
+                        : ""
+                    }`}
                   >
-                    {step.label}
-                  </span>
+                    <span className="step-label" style={positionStyle}>
+                      {step.label}
+                    </span>
+                  </div>
                 </div>
-              </div>{" "}
-              <>
+
                 {index < steps.length - 1 && (
                   <div
                     className={`step-line ${
@@ -49,9 +54,9 @@ export default function WorkProgress({ steps }) {
                     style={{ width: "100vw" }}
                   />
                 )}
-              </>
-            </>
-          ))}
+              </Fragment>
+            );
+          })}
         </div>
       </div>
     </div>

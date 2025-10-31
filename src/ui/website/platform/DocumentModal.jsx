@@ -47,7 +47,7 @@ export default function DocumentModal({
       category_id: data.field,
       sub_category_id: data.specialization,
       document_type_id: data.documentType,
-      document_auth_id: data.issuingAuthority,
+      document_auth: data.issuingAuthority,
       end_date: formatYMD(data.expiryDate),
       document_number: data.documentNumber,
     };

@@ -26,7 +26,8 @@ export default function WorkCard({ work, withoutStatus = false }) {
     ];
   } else {
     steps = [
-      { key: "wait_helper_to_accept", label: t("works.status.request") },
+      { key: "wait_helper_to_accept", label: t("works.status.waitAccept") },
+      { key: "wait_for_user_payment", label: t("works.status.request") },
       { key: "payment", label: t("works.status.payment") },
       { key: "planning", label: t("works.status.plan") },
       {
@@ -44,7 +45,9 @@ export default function WorkCard({ work, withoutStatus = false }) {
 
   return (
     <Link to={`/my-works/${work.id}`} className="work-card">
-      {work.status === "execution" && <HelperCard helper={work.helper} />}
+      {work.status === "execution" && work.helper !== null && (
+        <HelperCard helper={work.helper} />
+      )}
       <div className="work-title">
         {work.rectangle === "personal_goal_with_helper" && (
           <img src="/icons/triangle-with-helper.svg" />

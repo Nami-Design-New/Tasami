@@ -129,6 +129,7 @@ import ContractDetails from "../routes/website/my-platform/contracts/ContractDet
 import ContractTasks from "../routes/website/my-platform/contracts/ContractTasks";
 import ContractsGroup from "../routes/website/my-platform/contracts/ContractsGroup";
 import ContractsBeneficiaries from "../routes/website/my-platform/contracts/ContractsBeneficiaries";
+import GroupChat from "../routes/website/my-works/GroupChat";
 
 export const router = createBrowserRouter([
   /* WEBSITE AUTH */
@@ -366,6 +367,10 @@ export const router = createBrowserRouter([
           { path: "group", element: <ContractsGroup /> },
           { path: "beneficiaries", element: <ContractsBeneficiaries /> },
         ],
+      },
+      {
+        path: "group/chat/:id",
+        element: <GroupChat />,
       },
       {
         path: "my-assistances/:id",

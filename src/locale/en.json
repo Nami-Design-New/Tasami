@@ -1,4 +1,5 @@
 {
+  "chats": "chats",
   "hello": "Hello",
   "loading": "Loading...",
   "select": "Select",
@@ -27,6 +28,8 @@
   "day": "days",
   "days": "days",
   "postDetails": "Post details",
+  "accept": "Accept",
+  "reject": "Reject",
   "anotherReason": "Another reason",
   "pageHeaders": {
     "Notifications": "Notifications",
@@ -335,7 +338,10 @@
     "linkLabel": "Add New Link"
   },
   "works": {
-    "new_task": "New Task",
+    "newTask": "New Task",
+    "updateTask": "Update Task",
+    "beneficiary": "Beneficiary",
+    "update": "Update",
     "task_description": "Task Description",
     "task_category": "Task Category",
     "expected_end_date": "Expected End Date",
@@ -354,7 +360,125 @@
     "friday": "Friday",
     "saturday": "Saturday",
     "sunday": "Sunday",
-    "fill_required_fields_first": "Please fill in the required fields first to enable reminders"
+    "fill_required_fields_first": "Please fill in the required fields first to enable reminders",
+    "noWorks": "No works available yet",
+    "details": "Details",
+    "tasks": "Tasks",
+    "myGroup": "Group",
+    "offers": "Offers",
+    "assistants": "Assistants",
+    "cancelRequest": "Cancel Request",
+    "delete": "Delete",
+    "complete": "Mark as Complete",
+    "errorOccurred": "An error occurred during the operation",
+    "withdrawWarning": "This action will permanently delete the offer details and you will not be able to recover them later.",
+    "completePayment": "Complete Payment",
+
+    "myTasks": {
+      "title": "Execution Tasks",
+      "dragInstruction": "You can drag and drop to reorder tasks",
+      "startExecution": "Start of Execution",
+      "endExecution": "End of Execution",
+      "executionRate": "Execution Progress",
+      "startExecutionBtn": "Start Execution",
+      "pauseExecutionBtn": "Pause Execution",
+      "addNew": "Add New Task",
+      "pauseExecutionWarning": "Execution will be paused temporarily, and all related notifications will be disabled. You can resume later from the 'Start Execution' button on the Tasks page.",
+      "reorderSuccess": "Tasks order saved successfully",
+      "reorderError": "An error occurred while saving task order",
+      "noTasks": "No tasks added yet",
+      "taskDetails": "Task Details",
+      "edit": "Edit Task",
+      "delete": "Delete Task",
+      "taskTitle": "Task Title",
+      "notes": "Notes",
+      "category": "Task Category",
+      "reminder": "Reminder Notifications",
+      "date": "Expected Completion Date",
+      "status": "Task Status",
+      "pausedHint": "(Execution must be started to change the status)",
+      "error": "An error occurred while updating the task",
+
+      "statuses": {
+        "pending": "Pending",
+        "progress": "In Progress",
+        "completed": "Completed",
+        "paused": "Paused"
+      }
+    },
+    "myOffers": {
+      "noOffers": {
+        "title": "Receiving offers",
+        "description": "We are currently receiving offers from personal assistants for this goal"
+      },
+      "details": {
+        "title": "Offer Details",
+        "amount": "Offer Amount",
+        "extraTerms": "Additional Terms",
+        "accept": "Accept",
+        "reject": "Reject"
+      },
+
+      "doWithoutAssistant": "Complete the goal without assistance",
+      "confirm": "Confirm",
+      "alertText": "All offers will be dismissed, and the assistant will be removed from this goal!",
+      "error": "An error occurred while removing the assistant."
+    },
+    "group": {
+      "groupTitle": "Group",
+      "field": "Category",
+      "strengthIndex": "Group Strength Index",
+      "shareGoalQuestion": "Share your goal with the group?",
+      "groupChats": "Group Chats",
+      "assignAssistant": "Assign Personal Assistant",
+      "removeHelperAlert": "All offers will be dismissed, and the assistant will be removed from this goal!"
+    },
+    "myAssistants": {
+      "assignAssistant": "Assign Personal Assistant",
+      "latestAssistant": "Latest Assistant",
+      "previousAssistants": "Previous Assistants"
+    },
+    "contractDetails": {
+      "endContract": "End Contract",
+      "cv": "Resume",
+      "payments": "Payments",
+      "contractValue": "Contract Value",
+      "contractDuration": "Contract Duration",
+      "dailyPayment": "Daily Payment for the Assistant",
+      "progress": "Progress",
+      "days": "days",
+      "day": "day",
+      "receivedAmount": "Received Amount",
+      "remainingBalance": "Remaining Guarantee Balance"
+    },
+    "status": {
+      "pending": "Pending",
+      "inProgress": "In Progress",
+      "completed": "Completed",
+      "offers": "Offers",
+      "payment": "Payment",
+      "plan": "Planning",
+      "start": "Start Execution",
+      "accOffer": "Accept Offer",
+      "request": "Accept Request",
+      "waitAccept": "Waiting for Acceptance",
+      "offerSent": "Offer Sent",
+      "requestOffer": "Request Offer"
+    }
+  },
+  "contract": {
+    "acceptedSuccessfully": "Contract accepted successfully",
+    "errorOccurred": "An error occurred while performing the operation",
+    "refuseWarning": "This action will delete the offer details and cannot be undone",
+    "status": {
+      "waitHelperToAccept": "Waiting for assistant's approval",
+      "waitForUserPayment": "Waiting for user payment",
+      "planning": "Waiting for execution plan",
+      "offers": "Waiting for offer acceptance",
+      "execution": "Execution in progress",
+      "payment": "Payment completed, waiting for execution plan",
+      "completed": "Completed"
+    }
   },
   "website": {
     "inquiry": {
@@ -369,6 +493,7 @@
       "goalHeader": "Goal Details",
       "edit": "Edit",
       "archive": "Archive",
+      "youSendOffer": "You submitted an offer already",
       "delete": "Delete",
       "inquiry": "Inquiry",
       "report": "Report a violation",
@@ -402,7 +527,9 @@
       "offers": "Offers",
       "addGroup": "Add Group",
       "offerValue": "Offer Value",
-      "submitHelpOffer": "ِAdd Offer"
+      "submitHelpOffer": "ِAdd Offer",
+      "price": "Price",
+      "expectedDuration": "Expected Duration"
     },
     "home": {
       "totalWork": "Total Work",

@@ -450,7 +450,6 @@
 }
 .helper-card {
   display: block;
-  // height: 100%;
   background-color: $secondColor08;
   border-radius: 1rem;
   padding: 16px 40px 16px 16px;
@@ -478,16 +477,16 @@
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     }
 
-    .status-dot {
-      position: absolute;
-      bottom: 6px;
-      left: 6px;
-      width: 16px;
-      height: 16px;
-      background: $online;
-      border: 2px solid $white;
-      border-radius: 50%;
-    }
+    // .status-dot {
+    //   position: absolute;
+    //   bottom: 6px;
+    //   left: 6px;
+    //   width: 16px;
+    //   height: 16px;
+    //   background: $online;
+    //   border: 2px solid $white;
+    //   border-radius: 50%;
+    // }
   }
 
   // --- Info container
@@ -551,7 +550,18 @@
     }
   }
 }
+// html[lang="en"] {
+//   .helper-card {
+//     margin: 0 0 0 40px;
+//     padding: 16px 16px 16px 40px;
 
+//     .image-wrapper {
+//       right: auto;
+//       left: -40px;
+//       transform: translateY(-50%) rotateY(180deg);
+//     }
+//   }
+// }
 .contracts-status {
   .content {
     display: flex;

@@ -18,11 +18,12 @@ export default function WorksOffers() {
   const { t } = useTranslation();
   const queryClient = useQueryClient();
   const navigate = useNavigate();
-  const [showAlertModal, setShowAlertModal] = useState();
+  const [showAlertModal, setShowAlertModal] = useState(false);
+
   const { workDetails, isLoading: workDetailsLoading } = useGetWorkDetails();
   const { removeAssistant, isPending: isRemovingHelperPending } =
     useWorkWithoutAssistant();
-  const [showModal, setShowModal] = useState();
+
   const {
     workOffers,
     isLoading,
@@ -30,56 +31,53 @@ export default function WorksOffers() {
     fetchNextPage,
     isFetchingNextPage,
   } = useGetWorkOffers(id);
+
   const allWorkOffers = workOffers?.pages?.flatMap((page) => page?.data) ?? [];
+
   const handleRemoveAssistants = (id) => {
     removeAssistant(id, {
       onSuccess: (res) => {
         setShowAlertModal(false);
-        queryClient.invalidateQueries({
-          queryKey: ["work-offers"],
-        });
-        queryClient.refetchQueries({
-          queryKey: ["assistants"],
-        });
-        queryClient.refetchQueries({
-          queryKey: ["work-details"],
-        });
-        setShowModal(false);
+        queryClient.invalidateQueries({ queryKey: ["work-offers"] });
+        queryClient.refetchQueries({ queryKey: ["assistants"] });
+        queryClient.refetchQueries({ queryKey: ["work-details"] });
         queryClient.refetchQueries({ queryKey: ["homeData"] });
         queryClient.refetchQueries({ queryKey: ["work-group"] });
         toast.success(res?.message);
         navigate(`/my-works/${workDetails?.id}/group`);
       },
       onError: (err) => {
-        console.log(err);
+        console.error(err);
+        toast.error(t("works.myOffers.error"));
       },
     });
   };
+
   return (
-    <section className="work-offers-section ">
+    <section className="work-offers-section">
       <div className="row">
         {!isLoading && allWorkOffers.length === 0 && (
-          <div className="d-flex flex-column  align-items-center gap-3  ">
-            {" "}
-            <NoOffers />{" "}
+          <div className="d-flex flex-column align-items-center gap-3">
+            <NoOffers />
             <div className="button-wrapper">
               <CustomButton
                 size="large"
                 style={{ backgroundColor: "#ff7a59" }}
                 onClick={() => setShowAlertModal(true)}
               >
-                تنفيذ الهدف بدون مساعدة{" "}
+                {t("works.myOffers.doWithoutAssistant")}
               </CustomButton>
             </div>
           </div>
         )}
+
         <InfiniteScroll
           onLoadMore={fetchNextPage}
           hasNextPage={hasNextPage}
           isFetchingNextPage={isFetchingNextPage}
         >
           {allWorkOffers.map((offer) => (
-            <div className="col-12 col-md-6  col-lg-4 p-2" key={offer.id}>
+            <div className="col-12 col-md-6 col-lg-4 p-2" key={offer.id}>
               <WorkOffersCard
                 helper={offer.helper}
                 price={offer.price}
@@ -87,6 +85,7 @@ export default function WorksOffers() {
               />
             </div>
           ))}
+
           {!isLoading && allWorkOffers.length > 0 && (
             <div className="d-flex align-items-center justify-content-end">
               <CustomButton
@@ -94,10 +93,11 @@ export default function WorksOffers() {
                 style={{ backgroundColor: "#ff7a59" }}
                 onClick={() => setShowAlertModal(true)}
               >
-                تنفيذ الهدف بدون مساعدة{" "}
+                {t("works.myOffers.doWithoutAssistant")}
               </CustomButton>
             </div>
           )}
+
           {(isLoading || isFetchingNextPage) && (
             <>
               {[1, 2, 3].map((i) => (
@@ -108,15 +108,16 @@ export default function WorksOffers() {
             </>
           )}
         </InfiniteScroll>
-      </div>{" "}
+      </div>
+
       <AlertModal
-        confirmButtonText={t("confirm")}
+        confirmButtonText={t("works.myOffers.confirm")}
         showModal={showAlertModal}
         setShowModal={setShowAlertModal}
         onConfirm={() => handleRemoveAssistants(workDetails?.id)}
         loading={isRemovingHelperPending}
       >
-        سيتم استبعاد جميع العروض وإلغاء تعيين المساعدة لهذا الهدف!
+        {t("works.myOffers.alertText")}
       </AlertModal>
     </section>
   );

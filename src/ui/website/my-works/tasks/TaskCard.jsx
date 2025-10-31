@@ -1,10 +1,14 @@
 // TaskCard.jsx
-import { useRef } from "react";
-import { useNavigate } from "react-router";
+import { useRef, useState } from "react";
+import { useLocation, useNavigate } from "react-router";
+import CustomButton from "../../../CustomButton";
+import ConfirmPerformanceModal from "./ConfirmPerformanceModal";
 
 export default function TaskCard({ task, isDragging = false }) {
   const navigate = useNavigate();
-
+  const [showModal, setShowModal] = useState(false);
+  const { pathname } = useLocation();
+  const isContracts = pathname.includes("my-contracts");
   // persistent refs across renders
   const pointerStart = useRef({ x: 0, y: 0 });
   const moved = useRef(false);
@@ -29,9 +33,11 @@ export default function TaskCard({ task, isDragging = false }) {
       // DnD is active — do nothing
       return;
     }
+    if (showModal) return;
+    if (e.target.closest("button")) return;
 
     // If user didn't move pointer significantly, treat as click
-    if (!moved.current) {
+    if (!moved.current && !isContracts) {
       navigate(`/tasks/${task?.id}`);
     }
   };
@@ -39,11 +45,14 @@ export default function TaskCard({ task, isDragging = false }) {
   // keyboard support (Enter / Space to activate)
   const handleKeyDown = (e) => {
     if (isDragging) return;
-    if (e.key === "Enter" || e.key === " ") {
+    if ((e.key === "Enter" || e.key === " ") && !isContracts) {
       e.preventDefault();
       navigate(`/tasks/${task?.id}`);
     }
   };
+  console.log(task);
+  console.log(task.id, isContracts && task?.rate !== null);
+  console.log(isContracts, task?.rate);
 
   return (
     <div
@@ -64,7 +73,7 @@ export default function TaskCard({ task, isDragging = false }) {
             ? "pending"
             : task.status === "progress"
             ? "progress"
-            : task.status === "completed"
+            : task.status === "completed" || task.status === "confirmed"
             ? "completed"
             : ""
         }`}
@@ -75,7 +84,7 @@ export default function TaskCard({ task, isDragging = false }) {
         {task.status === "progress" && (
           <img src="/icons/progress-task-check.svg" alt="progress" />
         )}
-        {task.status === "completed" && (
+        {(task.status === "completed" || task.status === "confirmed") && (
           <img src="/icons/task-check.svg" alt="completed" />
         )}
       </div>
@@ -96,7 +105,49 @@ export default function TaskCard({ task, isDragging = false }) {
             <span>{task?.notification_repeat}</span>
           </div>
         </div>
+        {(task.status === "completed" || task.status === "confirmed") && (
+          <>
+            {isContracts ? (
+              task?.rate === null ? (
+                <></>
+              ) : (
+                <div className="mt-3">
+                  <CustomButton
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setShowModal(true);
+                    }}
+                    size="large"
+                    variant="outlined"
+                    fullWidth
+                  >
+                    تأكيد الاداء
+                  </CustomButton>
+                </div>
+              )
+            ) : (
+              <div className="mt-3">
+                <CustomButton
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setShowModal(true);
+                  }}
+                  size="large"
+                  variant="outlined"
+                  fullWidth
+                >
+                  تأكيد الاداء
+                </CustomButton>
+              </div>
+            )}
+          </>
+        )}
       </div>
+      <ConfirmPerformanceModal
+        show={showModal}
+        setShowModal={setShowModal}
+        task={task}
+      />
     </div>
   );
 }

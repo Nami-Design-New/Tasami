@@ -60,7 +60,13 @@ export default function ContractsGroup() {
             </div>
 
             <div className="col-12 p-2">
-              <CustomLink fullWidth color="main" size="large" type="outlined">
+              <CustomLink
+                to={`/group/chat/${workGroup?.group?.id}`}
+                fullWidth
+                color="main"
+                size="large"
+                type="outlined"
+              >
                 محادثات المجموعة
               </CustomLink>
             </div>

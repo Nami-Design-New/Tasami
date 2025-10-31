@@ -161,7 +161,16 @@ export default function AddGoalModal({ showModal, setShowModal }) {
                 loading={isGenerating}
                 fullWidth
                 icon={<i className="fa-solid fa-sparkles"></i>}
-                style={{ backgroundColor: "#FDCB2F", marginTop: "12px" }}
+                style={{
+                  backgroundColor: "#FDCB2F",
+                  marginTop: "12px",
+                  opacity: !watch("title")?.trim() || isGenerating ? 0.5 : 1,
+                  cursor:
+                    !watch("title")?.trim() || isGenerating
+                      ? "not-allowed"
+                      : "pointer",
+                }}
+                disabled={!watch("title")?.trim() || isGenerating}
               >
                 {t("generate")}
               </CustomButton>

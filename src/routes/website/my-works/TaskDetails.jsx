@@ -17,17 +17,20 @@ export default function TaskDetails() {
   const { taskId } = useParams();
   const { t } = useTranslation();
   const queryClient = useQueryClient();
-  const [showAddModal, setShowAddModal] = useState();
+
+  const [showAddModal, setShowAddModal] = useState(false);
+  const [selectedStatus, setSelectedStatus] = useState(null);
+
   const { taskDetails, isLoading } = useGetTaskDetails();
   const { updateTaskStatus, isPending } = useUpdateTaskStatus();
   const { deleteTask, isPending: isDeleting } = useDeleteTask();
 
-  const [selectedStatus, setSelectedStatus] = useState(taskDetails?.status);
-
   const handleChange = (e) => {
-    setSelectedStatus(e.target.value);
+    const newStatus = e.target.value;
+    setSelectedStatus(newStatus);
+
     updateTaskStatus(
-      { status: e.target.value, id: taskDetails?.id },
+      { status: newStatus, id: taskDetails?.id },
       {
         onSuccess: (res) => {
           toast.success(res?.message);
@@ -35,11 +38,12 @@ export default function TaskDetails() {
           queryClient.refetchQueries({ queryKey: ["work-tasks"] });
         },
         onError: (err) => {
-          toast.error(err?.message);
+          toast.error(err?.message || t("works.myTasks.error"));
         },
       }
     );
   };
+
   const handleDeleteTask = (id, workid) => {
     deleteTask(id, {
       onSuccess: (res) => {
@@ -51,30 +55,31 @@ export default function TaskDetails() {
   };
 
   useEffect(() => {
-    setSelectedStatus(taskDetails?.status);
+    if (taskDetails?.status) {
+      setSelectedStatus(taskDetails.status);
+    }
   }, [taskDetails?.status]);
 
-  if (isLoading) {
-    return <Loading />;
-  }
+  if (isLoading) return <Loading />;
 
   return (
     <section className="task_details page">
       <div className="container">
         <header className="task-details__header">
           <div className="d-flex gap-3">
-            <RoundedBackButton onClick={() => navigate(-1)}></RoundedBackButton>
-            <h1>تفاصيل المهمة</h1>
-          </div>{" "}
+            <RoundedBackButton onClick={() => navigate(-1)} />
+            <h1>{t("works.myTasks.taskDetails")}</h1>
+          </div>
+
           {taskDetails?.work_status !== "completed" && (
             <OptionsMenu
               options={[
                 {
-                  label: t("website.offerDetails.edit"),
+                  label: t("works.myTasks.edit"),
                   onClick: () => setShowAddModal(true),
                 },
                 {
-                  label: t("website.offerDetails.delete"),
+                  label: t("works.myTasks.delete"),
                   onClick: () =>
                     handleDeleteTask(taskDetails?.id, taskDetails?.work_id),
                   props: { disabled: isDeleting },
@@ -84,63 +89,69 @@ export default function TaskDetails() {
             />
           )}
         </header>
+
         <div className="row mt-4">
           <div className="col-12 p-2">
             <div className="info-grid w-100">
               <div className="info-box flex-grow-1">
-                <div className="label">عنوان المهمة</div>
+                <div className="label">{t("works.myTasks.taskTitle")}</div>
                 <div className="value white-space-wrap">
                   {taskDetails.title}
                 </div>
               </div>
             </div>
           </div>
+
           <div className="col-12 p-2">
             <div className="info-grid w-100">
               <div className="info-box flex-grow-1">
-                <div className="label">ملاحظات</div>
+                <div className="label">{t("works.myTasks.notes")}</div>
                 <div className="value white-space-wrap">
                   {taskDetails?.notes}
                 </div>
               </div>
             </div>
           </div>
+
           <div className="col-4 p-2">
             <div className="info-grid w-100">
               <div className="info-box flex-grow-1">
-                <div className="label">تصنيف المهمة</div>
-                <div className="value">
-                  {" "}
-                  {taskDetails?.task_category?.title}
-                </div>
+                <div className="label">{t("works.myTasks.category")}</div>
+                <div className="value">{taskDetails?.task_category?.title}</div>
               </div>
             </div>
           </div>
+
           <div className="col-4 p-2">
             <div className="info-grid w-100">
               <div className="info-box flex-grow-1">
-                <div className="label">إشعارات التذكير</div>
+                <div className="label">{t("works.myTasks.reminder")}</div>
                 <div className="value">{taskDetails?.notification_repeat}</div>
               </div>
             </div>
           </div>
+
           <div className="col-4 p-2">
             <div className="info-grid w-100">
               <div className="info-box flex-grow-1">
-                <div className="label">تاريخ الانجاز</div>
+                <div className="label">{t("works.myTasks.date")}</div>
                 <div className="value">{taskDetails?.expected_end_date}</div>
               </div>
             </div>
           </div>
+
           {taskDetails?.work_status !== "completed" && (
-            <div className="col-12  p-2">
+            <div className="col-12 p-2">
               <div className="identity-selector">
-                <div className="d-flex  align-items-center mb-2">
-                  <h6 className="identity-title m-0">حالة المهمة</h6>{" "}
+                <div className="d-flex align-items-center mb-2">
+                  <h6 className="identity-title m-0">
+                    {t("works.myTasks.status")}
+                  </h6>
                   {taskDetails.is_paused && (
-                    <p className="hint">(يجب بدء التنفيذ لتغيير الحاله)</p>
+                    <p className="hint">{t("works.myTasks.pausedHint")}</p>
                   )}
                 </div>
+
                 <div className="identity-container gap-2">
                   {TASKS_STATUS.map((status) => (
                     <label
@@ -149,7 +160,7 @@ export default function TaskDetails() {
                         selectedStatus === status ? "active" : ""
                       }`}
                     >
-                      <span>{status}</span>
+                      <span>{t(`works.myTasks.statuses.${status}`)}</span>
                       <input
                         type="radio"
                         name="taskStatus"
@@ -166,6 +177,7 @@ export default function TaskDetails() {
           )}
         </div>
       </div>
+
       <AddTasksModal
         showModal={showAddModal}
         setShowModal={setShowAddModal}

@@ -1,4 +1,5 @@
 {
+  "chats": "المحادثات",
   "hello": "مرحبا",
   "loading": "جار التحميل...",
   "select": "اختر",
@@ -32,6 +33,8 @@
   "days": "أيام",
   "postDetails": "تفاصيل منشور",
   "anotherReason": "سبب آخر",
+  "accept": "قبول",
+  "reject": "رفض",
   "pageHeaders": {
     "Notifications": " التنبيهات ",
     "Dashboard": " لوحة التحكم ",
@@ -346,13 +349,17 @@
   },
   "works": {
     "complete": "اكمال الهدف",
+    "cancelRequest": "الغاء طلب التعاقد",
+    "beneficiary": "المستفيد",
     "delete": "حذف الهدف",
     "details": "التفاصيل",
-    "group": "المجموعة",
+    "myGroup": "المجموعة",
     "tasks": "المهام",
     "offers": "العروض",
     "assistants": "المساعدون",
-    "new_task": "مهمة جديدة",
+    "newTask": "مهمة جديدة",
+    "updateTask": "تعديل المهمة",
+    "update": "تعديل",
     "task_description": "وصف المهمة",
     "task_category": "تصنيف المهمة",
     "expected_end_date": "تاريخ الإنجاز",
@@ -372,13 +379,114 @@
     "saturday": "السبت",
     "sunday": "الأحد",
     "fill_required_fields_first": "يرجى اختيار تاريخ البدء أولاً لتفعيل إشعارات التذكير",
+    "noWorks": "لا توجد أعمال حتى الآن",
+    "errorOccurred": "حدث خطأ أثناء تنفيذ العملية",
+    "withdrawWarning": "سيؤدي هذا الإجراء إلى فقدان تفاصيل العرض ولن تتمكن من استعادته لاحقًا.",
+    "completePayment": "إتمام الدفع",
+    "myTasks": {
+      "title": "المهام التنفيذية",
+      "dragInstruction": "يمكنك السحب والإفلات لإعادة ترتيب المهام",
+      "startExecution": "بداية التنفيذ",
+      "endExecution": "اكتمال التنفيذ",
+      "executionRate": "نسبة الإنجاز",
+      "startExecutionBtn": "بدء التنفيذ",
+      "pauseExecutionBtn": "إيقاف التنفيذ",
+      "addNew": "إضافة مهمة جديدة",
+      "pauseExecutionWarning": "سيتم إيقاف تنفيذ المهام مؤقتًا وتعطيل جميع التنبيهات المرتبطة بها. يمكنك استئناف التنفيذ لاحقًا من خلال زر \"بدء التنفيذ\" في صفحة المهام.",
+      "reorderSuccess": "تم حفظ ترتيب المهام بنجاح",
+      "reorderError": "حدث خطأ أثناء حفظ الترتيب",
+      "noTasks": "لا توجد مهام مضافة",
+      "taskDetails": "تفاصيل المهمة",
+      "edit": "تعديل المهمة",
+      "delete": "حذف المهمة",
+      "taskTitle": "عنوان المهمة",
+      "notes": "ملاحظات",
+      "category": "تصنيف المهمة",
+      "reminder": "إشعارات التذكير",
+      "date": "تاريخ الإنجاز",
+      "status": "حالة المهمة",
+      "pausedHint": "(يجب بدء التنفيذ لتغيير الحالة)",
+      "error": "حدث خطأ أثناء تحديث المهمة",
+      "statuses": {
+        "pending": "قيد الانتظار",
+        "progress": "قيد التنفيذ",
+        "completed": "مكتملة",
+        "paused": "متوقفة"
+      }
+    },
+    "myOffers": {
+      "noOffers": {
+        "title": "جاري تلقي العروض",
+        "description": "جاري تلقي العروض المقدمة من قبل المساعدين الشخصيين لهذا الهدف"
+      },
+      "details": {
+        "title": "تفاصيل العرض",
+        "amount": "قيمة المساعدة",
+        "extraTerms": "بنود إضافية",
+        "accept": "قبول",
+        "reject": "استبعاد"
+      },
+
+      "doWithoutAssistant": "تنفيذ الهدف بدون مساعدة",
+      "confirm": "تأكيد",
+      "alertText": "سيتم استبعاد جميع العروض وإلغاء تعيين المساعدة لهذا الهدف!",
+      "error": "حدث خطأ أثناء إزالة المساعدة."
+    },
+    "group": {
+      "groupTitle": "مجموعة",
+      "field": "المجال",
+      "strengthIndex": "مؤشر قوة المجموعة",
+      "shareGoalQuestion": "مشاركة هدفك مع المجموعة؟",
+      "groupChats": "محادثات المجموعة",
+      "assignAssistant": "تعيين مساعد شخصي",
+      "removeHelperAlert": "سيتم استبعاد جميع العروض وإلغاء تعيين المساعدة لهذا الهدف!"
+    },
+    "myAssistants": {
+      "assignAssistant": "تعيين مساعد شخصي",
+      "latestAssistant": "الأحدث",
+      "previousAssistants": "المساعدون السابقون"
+    },
+    "contractDetails": {
+      "endContract": "إنهاء العقد",
+      "cv": "السيرة الذاتية",
+      "payments": "المدفوعات",
+      "contractValue": "قيمة العقد",
+      "contractDuration": "مدة العقد",
+      "dailyPayment": "قيمة الاستحقاق اليومي للمساعد الشخصي",
+      "progress": "التقدم",
+      "days": "أيام",
+      "day": "يوم",
+      "receivedAmount": "القيمة المستحقة للمساعد",
+      "remainingBalance": "رصيد الضمان المتبقي",
+      "withDraw": "سحب العرض"
+    },
     "status": {
+      "pending": "بانتظار التنفيذ",
+      "inProgress": "قيد التنفيذ",
+      "completed": "مكتملة",
       "offers": "العروض",
       "payment": "الدفع",
       "plan": "التخطيط",
       "start": "بدء التنفيذ",
       "accOffer": "قبول العرض",
-      "request": "قبول الطلب"
+      "request": "قبول الطلب",
+      "waitAccept": "بانتظار قبول الطلب",
+      "offerSent": "تم تقديم العرض",
+      "requestOffer": "طلب تعاقد"
+    }
+  },
+  "contract": {
+    "acceptedSuccessfully": "تم قبول العقد بنجاح",
+    "errorOccurred": "حدث خطأ أثناء تنفيذ العملية",
+    "refuseWarning": "سيؤدي هذا الإجراء إلى فقدان تفاصيل العرض ولن تتمكن من استعادته لاحقًا",
+    "status": {
+      "waitHelperToAccept": "بإنتظار موافقة المساعد",
+      "waitForUserPayment": "بانتظار الدفع",
+      "planning": "بإنتظار بدء خطة التنفيذ",
+      "offers": "بانتظار قبول العرض المناسب",
+      "execution": "بإنتظار خطة التنفيذ",
+      "payment": "تم الدفع وبإنتظار بدء خطة التنفيذ",
+      "completed": "مكتمل"
     }
   },
   "website": {
@@ -416,10 +524,13 @@
       "ageRange": "الفئة العمرية للمستفيد",
       "duration": "المدة المتوقعة لتقديم المساعدة",
       "expectedData": "المدة المتوقعة لتحقيق الهدف",
+      "youSendOffer": "لقد قمت بتقديم عرض بالفعل",
       "startDate": "تاريخ البدء",
       "offerHelp": "تقديم عرض مساعدة",
       "goal": "هدف",
       "offer": "مساعدة",
+      "price": "السعر",
+      "expectedDuration": "المدة المتوقعة لتقديم المساعدة",
       "noGoalsOffers": "لا توجد عروض مقدمه",
       "alreadySubmittedOffer": "لقد قمت بتقديم عرض بالفعل",
       "submittedOffers": "العروض المقدمة",

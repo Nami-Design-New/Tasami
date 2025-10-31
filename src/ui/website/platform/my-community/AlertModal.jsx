@@ -37,6 +37,7 @@ export default function AlertModal({
               color="fire"
               variant="outlined"
               onClick={handleCancel}
+              style={{ width: "70%" }}
             >
               {t("cancel")}
             </CustomButton>
@@ -46,6 +47,7 @@ export default function AlertModal({
               color="fire"
               onClick={handleConfirm}
               loading={loading}
+              style={{ width: "30%" }}
             >
               {confirmButtonText}
             </CustomButton>
