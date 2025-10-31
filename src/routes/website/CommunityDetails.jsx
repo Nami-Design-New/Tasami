@@ -20,13 +20,7 @@ export default function CommunityDetails() {
     <div className="container page">
       {" "}
       <div className="my-2">
-        <RoundedBackButton onClick={() => navigate(-1)}>
-          {lang === "ar" ? (
-            <i className="fa-solid fa-angle-right"></i>
-          ) : (
-            <i className="fa-solid fa-angle-left"></i>
-          )}
-        </RoundedBackButton>
+        <RoundedBackButton onClick={() => navigate(-1)}></RoundedBackButton>
       </div>
       <section className="communities-details">
         <div className="communities-image-wrapper">

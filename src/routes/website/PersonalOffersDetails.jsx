@@ -55,6 +55,9 @@ export default function PersonalOffersDetails() {
     setShowReviewsModal(false);
   };
   if (isLoading) return <Loading />;
+  const isMyOffer = user?.id === offerDetails?.user?.id;
+
+  console.log("personal offers details", user, offerDetails , isMyOffer);
 
   return (
     <section className="page offer-details-section">
@@ -81,9 +84,8 @@ export default function PersonalOffersDetails() {
                 className="toggle-bookmark-button"
               >
                 <i
-                  className={`fa-solid fa-bookmark ${
-                    bookmarked ? "active" : ""
-                  } ${isPending ? "opacity-50" : ""}`}
+                  className={`fa-solid fa-bookmark ${bookmarked ? "active" : ""
+                    } ${isPending ? "opacity-50" : ""}`}
                 ></i>
               </button>
 
@@ -113,7 +115,7 @@ export default function PersonalOffersDetails() {
 
           <div className="col-lg-8 col-12 p-2">
             <div className="hed">
-              <img src="/icons/triangle.svg" />
+              <img src="/icons/help-triangle.svg" />
               <h6>{t("website.offerDetails.assistance")}</h6>
             </div>
             <p className="desc">{offerDetails?.title}</p>
@@ -200,9 +202,12 @@ export default function PersonalOffersDetails() {
                 >
                   {t("website.offerDetails.showReviews")}
                 </CustomButton>
-                <CustomButton onClick={() => setShowHelpModal(true)}>
-                  {t("website.offerDetails.sendContract")}
-                </CustomButton>
+                {offerDetails.can_send_request && !isMyOffer && (
+                  <CustomButton onClick={() => setShowHelpModal(true)}>
+                    {t("website.offerDetails.sendContract")}
+                  </CustomButton>
+                )}
+
               </div>
             )}
           </div>

@@ -27,8 +27,8 @@ export default function HelperCard({ helper }) {
           </div>
         </header>
 
-        {helper.country && (
-          <footer className="meta">
+        <footer className="meta">
+          {helper.country && (
             <span className="country">
               <img
                 src="/icons/flag.svg"
@@ -38,8 +38,8 @@ export default function HelperCard({ helper }) {
               />
               <span>{helper.country.title}</span>
             </span>
-          </footer>
-        )}
+          )}
+        </footer>
       </section>
     </Link>
   );

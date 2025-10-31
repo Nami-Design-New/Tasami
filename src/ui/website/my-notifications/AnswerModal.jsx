@@ -65,7 +65,7 @@ export default function AnswerModal({ shwModal, setShowModal, item }) {
           <div className="row">
             <div className="col-12 p-2">
               <h3 className="message-title">
-                <img src="/icons/triangle.svg" />
+                <img src="/icons/triangle-with-helper.svg" />
                 <span> الهدف </span>
               </h3>
               <p className="message-desc">{item.message}</p>

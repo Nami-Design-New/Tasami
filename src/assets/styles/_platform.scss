@@ -603,12 +603,12 @@
 }
 .member-card {
   border: 1px solid $InputStroke;
-  border-radius: 6px;
+  border-radius: 12px;
   background-color: $second4;
   overflow: hidden;
   flex: 1;
   max-width: 180px;
-  min-width: 180px;
+  position: relative;
   @media (max-width: 475px) {
     min-width: 140px;
   }
@@ -628,5 +628,17 @@
     .member-name {
       font-size: 16px;
     }
+  }
+  .exe-padge {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: $main;
+    color: $white;
+    padding: 6px;
+    min-width: 32px;
+    text-align: center;
+    font-size: 12px;
+    border-radius: 12px 0 12px;
   }
 }

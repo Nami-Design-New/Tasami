@@ -6,7 +6,21 @@
   text-decoration: underline;
   color: $main;
 }
-
+.text-green {
+  color: $green !important;
+}
+.text-fire {
+  color: $fire !important;
+}
+.white-space-wrap {
+  white-space: wrap !important;
+}
+.white-space-nowrap {
+  white-space: nowrap !important;
+}
+.cursor-pointer {
+  cursor: pointer;
+}
 .label {
   color: #0d0d0d;
   font-weight: 600;
@@ -106,4 +120,18 @@
     transform: scale(3) translate(-50%, -50%);
     opacity: 0;
   }
+}
+
+.offer-count-badge {
+  background-color: $clientYellow;
+  color: $white;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  @include centerFlex();
+  margin: 0 2px;
+  font-size: 0.75rem;
+}
+
+.button-sticky {
 }

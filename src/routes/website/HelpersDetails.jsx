@@ -84,15 +84,7 @@ export default function HelpersDetails() {
         <div className="row">
           <div className="col-12 p-2">
             <div className="header">
-              <RoundedBackButton onClick={handleBack}>
-                <i
-                  className={
-                    lang === "ar"
-                      ? "fa-solid fa-angle-right"
-                      : "fa-solid fa-angle-left"
-                  }
-                ></i>
-              </RoundedBackButton>
+              <RoundedBackButton onClick={handleBack}></RoundedBackButton>
               {!thisIsMe && (
                 <button
                   className={`follow-btn  ${

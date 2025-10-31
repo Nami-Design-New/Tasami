@@ -27,14 +27,14 @@ export default function AddGoalModal({ showModal, setShowModal }) {
     setValue,
     formState: { errors },
   } = useAddGoalForm();
-  const month = watch("month");
 
+  const month = watch("month");
   const day = watch("day");
   const durationInDays = Number(month) * 30 + Number(day);
   const selecteAssistnsOption = watch("assistantOption");
+  const selectedHelpMechanism = watch("helpMechanism") || [];
   const selectedGender = watch("gender");
   const selectedFieldId = watch("field");
-  const selectedHelpMechanism = watch("helpMechanism") || [];
   const subCategories =
     categories?.find((cat) => String(cat.id) === String(selectedFieldId))
       ?.sub_categories || [];
@@ -71,6 +71,7 @@ export default function AddGoalModal({ showModal, setShowModal }) {
           queryKey: ["goals"],
         });
         queryClient.refetchQueries({ queryKey: ["homeData"] });
+        queryClient.refetchQueries({ queryKey: ["my-works"] });
         toast.success(res?.message);
       },
       onError: (error) => {
@@ -160,7 +161,16 @@ export default function AddGoalModal({ showModal, setShowModal }) {
                 loading={isGenerating}
                 fullWidth
                 icon={<i className="fa-solid fa-sparkles"></i>}
-                style={{ backgroundColor: "#FDCB2F", marginTop: "12px" }}
+                style={{
+                  backgroundColor: "#FDCB2F",
+                  marginTop: "12px",
+                  opacity: !watch("title")?.trim() || isGenerating ? 0.5 : 1,
+                  cursor:
+                    !watch("title")?.trim() || isGenerating
+                      ? "not-allowed"
+                      : "pointer",
+                }}
+                disabled={!watch("title")?.trim() || isGenerating}
               >
                 {t("generate")}
               </CustomButton>

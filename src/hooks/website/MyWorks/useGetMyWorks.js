@@ -1,27 +1,26 @@
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { axiosInstance } from "../../../lib/axios";
 
-export default function useGetMyWorks() {
+export default function useGetMyWorks(status) {
   const {
-    myWorks,
+    data: myWorks,
     isLoading,
     error,
     hasNextPage,
     fetchNextPage,
     isFetchingNextPage,
   } = useInfiniteQuery({
-    queryKey: ["my-works"],
+    queryKey: ["my-works", status],
     queryFn: async ({ pageParam }) => {
       const res = await axiosInstance.get("my-works", {
         params: {
-          status: "waiting",
+          status,
           page: pageParam,
         },
       });
       if (res.data.code !== 200) {
         throw new Error(res.data.message || "Error Fething my works");
       }
-      console.log(res.data);
 
       return res.data;
     },

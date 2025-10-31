@@ -140,29 +140,39 @@ export default function GoalDetails() {
             </div>
             {user && !isMyGoal && (
               <div className="add-offer-wrapper">
-                <div className="offers-count">
-                  <i className="fa-regular fa-layer-group"></i>
-                  <div className="content">
-                    {goalDetails?.goal.offers_count === 0 ? (
-                      <h5 className="head fs-6 ">
-                        {t("website.offerDetails.noGoalsOffers")}{" "}
-                      </h5>
-                    ) : (
-                      <>
-                        <h5 className="head">
-                          {t("website.offerDetails.submittedOffers")}
-                        </h5>
-                        <p className="desc">
-                          {goalDetails?.goal.offers_count}{" "}
-                          {t("website.offerDetails.offers")}
-                        </p>
-                      </>
-                    )}
-                  </div>
-                </div>
-                <CustomButton onClick={() => setShowHelpModal(true)}>
-                  {t("website.offerDetails.offerHelp")}{" "}
-                </CustomButton>
+                {" "}
+                {goalDetails?.goal?.can_send_offers ? (
+                  <>
+                    {" "}
+                    <div className="offers-count">
+                      <i className="fa-regular fa-layer-group"></i>
+                      <div className="content">
+                        {goalDetails?.goal.offers_count === 0 ? (
+                          <h5 className="head fs-6 ">
+                            {t("website.offerDetails.noGoalsOffers")}{" "}
+                          </h5>
+                        ) : (
+                          <>
+                            <h5 className="head">
+                              {t("website.offerDetails.submittedOffers")}
+                            </h5>
+                            <p className="desc">
+                              {goalDetails?.goal.offers_count}{" "}
+                              {t("website.offerDetails.offers")}
+                            </p>
+                          </>
+                        )}
+                      </div>
+                    </div>
+                    <CustomButton onClick={() => setShowHelpModal(true)}>
+                      {t("website.offerDetails.offerHelp")}{" "}
+                    </CustomButton>
+                  </>
+                ) : (
+                  <h5 className="head fs-6 ">
+                    {t("website.offerDetails.youSendOffer")}
+                  </h5>
+                )}
               </div>
             )}
           </div>

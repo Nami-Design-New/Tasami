@@ -61,13 +61,7 @@ export default function GroupDetails() {
     <section className="group-details page">
       <div className="container">
         <div className="header">
-          <RoundedBackButton onClick={() => navigate(-1)}>
-            {lang === "ar" ? (
-              <i className="fa-solid fa-angle-right"></i>
-            ) : (
-              <i className="fa-solid fa-angle-left"></i>
-            )}
-          </RoundedBackButton>
+          <RoundedBackButton onClick={() => navigate(-1)}></RoundedBackButton>
           <h1>
             {" "}
             {t("website.platform.groups.group")}{" "}

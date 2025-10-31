@@ -122,22 +122,7 @@
       }
     }
   }
-  // .hed {
-  //   display: flex;
-  //   align-items: center;
-  //   gap: 0.5rem;
-  //   margin: 1rem 0;
 
-  //   img {
-  //     width: 20px;
-  //     height: 20px;
-  //   }
-  //   h6 {
-  //     color: $dark;
-  //     font-size: 1.3rem;
-  //     font-weight: 600;
-  //   }
-  // }
   .desc {
     color: #444;
     line-height: 1.8;
@@ -170,7 +155,7 @@
         color: $dark;
         display: flex;
         align-items: center;
-        white-space: nowrap;
+        white-space: wrap;
         gap: 6px;
 
         img {
@@ -372,12 +357,13 @@
 .exp-info-grid {
   display: flex;
   gap: 8px;
+  flex-wrap: wrap;
   .exp-info-box {
     padding: 8px;
     border-radius: 8px;
     border: 1px solid $second;
     min-width: 120px;
-
+    flex: 1;
     h5 {
       font-size: 14px;
       color: $second;

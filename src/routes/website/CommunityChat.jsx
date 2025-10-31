@@ -47,7 +47,7 @@ export default function CommunityChat() {
   const navigate = useNavigate();
   const { id } = useParams();
   const queryClient = useQueryClient();
-  const { lang } = useSelector((state) => state.language);
+  // const { lang } = useSelector((state) => state.language);
   const { user } = useSelector((state) => state.authRole);
 
   // ===== States =====
@@ -66,9 +66,9 @@ export default function CommunityChat() {
     useGetCommunityChats();
   const allChats = chats?.pages?.flatMap((page) => page?.data).reverse() ?? [];
 
-  const { sendMessage, isPending } = useSendMessage();
+  const { sendMessage } = useSendMessage();
 
-  const messagesEndRef = useRef(null);
+  // const messagesEndRef = useRef(null);
   const chatContainerRef = useRef(null);
   const [initialScrollDone, setInitialScrollDone] = useState(false);
 
@@ -118,13 +118,7 @@ export default function CommunityChat() {
   }, [id, queryClient]);
 
   // ===== FORM HOOK =====
-  const {
-    register,
-    handleSubmit,
-    setValue,
-    reset,
-    formState: { errors },
-  } = useForm({
+  const { register, handleSubmit, setValue, reset } = useForm({
     resolver: yupResolver(schema),
     defaultValues: {
       message: "",
@@ -231,12 +225,12 @@ export default function CommunityChat() {
     }
   };
 
-  const stopRecording = () => {
-    const recorder = mediaRecorderRef.current;
-    if (recorder && recorder.state !== "inactive") {
-      recorder.stop(); // will trigger onstop()
-    }
-  };
+  // const stopRecording = () => {
+  //   const recorder = mediaRecorderRef.current;
+  //   if (recorder && recorder.state !== "inactive") {
+  //     recorder.stop(); // will trigger onstop()
+  //   }
+  // };
 
   const cancelRecording = () => {
     const recorder = mediaRecorderRef.current;
@@ -296,13 +290,7 @@ export default function CommunityChat() {
         <div className="chat-window">
           {/* ===== Header ===== */}
           <div className="chat-window__info">
-            <RoundedBackButton onClick={() => navigate(-1)}>
-              {lang === "ar" ? (
-                <i className="fa-solid fa-angle-right"></i>
-              ) : (
-                <i className="fa-solid fa-angle-left"></i>
-              )}
-            </RoundedBackButton>
+            <RoundedBackButton onClick={() => navigate(-1)}></RoundedBackButton>
 
             <h4 className="chat-window__name">{t("chats")}</h4>
           </div>

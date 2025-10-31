@@ -8,7 +8,7 @@ $color-primary08: #02489614;
 $color-second-website: #5fcafa;
 $color-secondary: #8c137e;
 $color-danger: #ff3a29;
-$color-success: #28a745;
+$color-success: #4ecdc4;
 $color-warning: #ffc107;
 $color-fire: #ff7a59;
 
@@ -190,7 +190,7 @@ $color-fire: #ff7a59;
   @extend .custom-btn;
 
   text-decoration: none;
-  display: inline-flex;
+  display: flex;
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
@@ -492,5 +492,52 @@ $color-fire: #ff7a59;
 
   &__actions {
     margin-top: 0.5rem;
+  }
+}
+
+// option Menu
+.options-menu {
+  cursor: pointer;
+  font-size: 1.2rem;
+  color: #777;
+  z-index: 10;
+  position: relative;
+
+  .options-list {
+    position: absolute;
+    left: 0px;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    min-width: 150px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    z-index: 100;
+    &.en {
+      right: 0;
+      left: auto;
+      button {
+        text-align: left;
+      }
+    }
+    .options-item {
+      font-size: 14px;
+      font-weight: 700;
+      text-align: center;
+    }
+    button {
+      display: block;
+      width: 100%;
+      padding: 0.5rem 0.75rem;
+      font-size: 0.9rem;
+      color: #333;
+      background: none;
+      border: none;
+      text-align: right;
+      cursor: pointer;
+
+      &:hover {
+        background: $main10;
+      }
+    }
   }
 }

@@ -193,7 +193,16 @@ export default function AddAssistanceModal({ showModal, setShowModal }) {
                 loading={isGenerating}
                 fullWidth
                 icon={<i className="fa-solid fa-sparkles"></i>}
-                style={{ backgroundColor: "#FDCB2F", marginTop: "12px" }}
+                style={{
+                  backgroundColor: "#FDCB2F",
+                  marginTop: "12px",
+                  opacity: !watch("title")?.trim() || isGenerating ? 0.5 : 1,
+                  cursor:
+                    !watch("title")?.trim() || isGenerating
+                      ? "not-allowed"
+                      : "pointer",
+                }}
+                disabled={!watch("title")?.trim() || isGenerating}
               >
                 {t("generate")}
               </CustomButton>
@@ -233,7 +242,10 @@ export default function AddAssistanceModal({ showModal, setShowModal }) {
                   {t("website.platform.myAssistance.age")}
                 </h6>
                 <div className="d-flex align-items-center gap-2">
-                  <div className="identity-container">
+                  <div
+                    className="identity-container"
+                    style={{ flexWrap: "nowrap" }}
+                  >
                     <label
                       className={`identity-option ${
                         selectedAgeOption === "defined" ? "active" : ""

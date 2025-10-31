@@ -26,13 +26,7 @@ export default function MyPlatform() {
         <div className="row">
           <div className="col-12 p-2 mb-4">
             <div className="platform-header">
-              <RoundedBackButton onClick={handleBack}>
-                {lang === "ar" ? (
-                  <i className="fa-solid fa-angle-right"></i>
-                ) : (
-                  <i className="fa-solid fa-angle-left"></i>
-                )}
-              </RoundedBackButton>
+              <RoundedBackButton onClick={handleBack}></RoundedBackButton>
               <h2 className="platform-header__title">
                 {t("website.platform.platform")}
               </h2>
@@ -68,9 +62,9 @@ export default function MyPlatform() {
                   {t("website.platform.menu.myOpportunities")}
                 </ProtectedNavLink>
 
-                <ProtectedNavLink to="my-offers" disabled={!user.about}>
+                <ProtectedNavLink to="/my-contracts" disabled={!user.about}>
                   <img src="./icons/my-contracts.svg" alt="" />
-                  {t("website.platform.menu.myOffers")}
+                  {t("website.platform.menu.myContracts")}
                 </ProtectedNavLink>
 
                 <ProtectedNavLink to="my-groups" disabled={!user.about}>

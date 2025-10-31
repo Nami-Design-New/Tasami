@@ -22,13 +22,7 @@ export default function CommunityPostDetails() {
     <section className="community-post-details page">
       <div className="container" style={{ maxWidth: "800px" }}>
         <div className="my-2 d-flex align-items-center  gap-2">
-          <RoundedBackButton onClick={handleBack}>
-            {lang === "ar" ? (
-              <i className="fa-solid fa-angle-right"></i>
-            ) : (
-              <i className="fa-solid fa-angle-left"></i>
-            )}
-          </RoundedBackButton>
+          <RoundedBackButton onClick={handleBack}></RoundedBackButton>
           <h2 className="post-details-header">{t("postDetails")}</h2>
         </div>
         <PostMedia post={postDetails} />
