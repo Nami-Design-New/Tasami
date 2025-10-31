@@ -121,59 +121,37 @@ export default function WorksDetailsLayout() {
                 <h1>{workDetails?.code}</h1>
               </div>
 
-              {/* Options Menu */}
-              {workDetails.rectangle === "help_service_from_helper" ? (
-                <>
-                  {[
-                    "wait_for_user_payment",
-                    "wait_helper_to_accept",
-                    "offer_sent",
-                  ].includes(workDetails.status) && (
-                    <OptionsMenu
-                      toggleButton={"fa-solid fa-ellipsis"}
-                      options={[
-                        {
-                          label: t("works.cancelRequest"),
-                          className: "text-danger",
-                          onClick: () => setShowAlertModal(true),
-                          props: { disabled: isPending },
-                        },
-                      ]}
-                    />
-                  )}
-                </>
-              ) : (
-                <>
-                  {workDetails.helper === null &&
-                    workDetails.status !== "completed" && (
-                      <OptionsMenu
-                        toggleButton={"fa-light fa-shield-exclamation"}
-                        options={
-                          tasksSummary?.exePercentage === 100
-                            ? [
-                                {
-                                  label: t("works.complete"),
-                                  className: "text-green",
-                                  onClick: () =>
-                                    handleCompleteGoal(workDetails?.id),
-                                  props: { disabled: isPending },
-                                },
-                                {
-                                  label: t("works.delete"),
-                                  className: "text-fire",
-                                },
-                              ]
-                            : [
-                                {
-                                  label: t("works.delete"),
-                                  className: "text-fire",
-                                },
-                              ]
-                        }
-                      />
-                    )}
-                </>
-              )}
+              {workDetails.status !== "completed" &&
+                workDetails.helper === null && (
+                  <OptionsMenu
+                    toggleButton={"fa-light fa-shield-exclamation"}
+                    options={
+                      tasksSummary?.exePercentage === 100
+                        ? [
+                            {
+                              label: t("works.complete"),
+                              className: "text-green",
+                              onClick: () =>
+                                handleCompleteGoal(workDetails?.id),
+                              props: {
+                                disabled: isPending,
+                              },
+                            },
+                            {
+                              label: t("works.delete"),
+                              className: "text-danger",
+                            },
+                          ]
+                        : [
+                            {
+                              label: t("works.delete"),
+                              className: "text-danger",
+                            },
+                          ]
+                    }
+                  />
+                )}
+
             </div>
           </div>
 
