@@ -45,7 +45,9 @@ export default function WorkCard({ work, withoutStatus = false }) {
 
   return (
     <Link to={`/my-works/${work.id}`} className="work-card">
-      {work.status === "execution" && <HelperCard helper={work.helper} />}
+      {work.status === "execution" && work.helper !== null && (
+        <HelperCard helper={work.helper} />
+      )}
       <div className="work-title">
         {work.rectangle === "personal_goal_with_helper" && (
           <img src="/icons/triangle-with-helper.svg" />

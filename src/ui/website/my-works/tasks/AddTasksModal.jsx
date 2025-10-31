@@ -63,7 +63,8 @@ export default function AddTasksModal({
   // Handle Add / Update logic
   const onSubmit = (data) => {
     const payloadId = taskId || id;
-
+    // let payload;
+    // if (reminderNotifications) {
     const payload = {
       task_category_id: data.taskCategory,
       title: data.taskDescription,
@@ -75,6 +76,15 @@ export default function AddTasksModal({
       notes: data.notes,
       work_id: payloadId,
     };
+    // } else {
+    //   payload = {
+    //     task_category_id: data.taskCategory,
+    //     title: data.taskDescription,
+    //     expected_end_date: formatYMD(data.expected_end_date),
+    //     notes: data.notes,
+    //     work_id: payloadId,
+    //   };
+    // }
 
     if (taskData) {
       // UPDATE MODE

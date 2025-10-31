@@ -107,8 +107,8 @@ export default function ConfirmPerformanceModal({ show, setShowModal, task }) {
             </div>
             {task.rate !== null ? (
               <div>
-                {task?.rate?.guidance !== null &&
-                  task?.rate?.verification !== null && (
+                {task?.rate?.execution !== null &&
+                  task?.rate?.benefit !== null && (
                     <div className="col-12 p-2">
                       <div className="goal-info ">
                         <div className="info-grid ">
@@ -163,9 +163,31 @@ export default function ConfirmPerformanceModal({ show, setShowModal, task }) {
               <AssistantWorkCard helper={user} chat={false} />
             </div>
             {task.rate !== null &&
-            task?.rate?.guidance === "" &&
-            !task?.rate?.verification === "" ? (
-              <></>
+            task?.rate?.guidance !== "" &&
+            task?.rate?.guidance !== "" ? (
+              <div>
+                {task?.rate?.guidance !== "" &&
+                  task?.rate?.verification !== "" && (
+                    <div className="col-12 p-2">
+                      <div className="goal-info ">
+                        <div className="info-grid ">
+                          <div className="info-box flex-grow-1">
+                            <div className="label">الارشاد</div>
+                            <div className="value">
+                              {task?.rate?.guidance_text}
+                            </div>
+                          </div>
+                          <div className="info-box flex-grow-1">
+                            <div className="label">التحقق</div>
+                            <div className="value">
+                              {task?.rate?.verification_text}
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+              </div>
             ) : (
               <>
                 <div className="col-6 p-2">

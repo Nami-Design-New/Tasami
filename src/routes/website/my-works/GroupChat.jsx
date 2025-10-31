@@ -1,18 +1,18 @@
-import { yupResolver } from "@hookform/resolvers/yup";
 import { useQueryClient } from "@tanstack/react-query";
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
-import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router";
+import useGetGroupChats from "../../../hooks/website/MyWorks/groups/chat/useGetGroupChat";
+import useSendGroupMessage from "../../../hooks/website/MyWorks/groups/chat/useSendGroupMessage";
+import { ChatSocketService } from "../../../utils/ChatSocketService";
+import { getToken } from "firebase/messaging";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { useForm } from "react-hook-form";
+import Message from "../../../ui/chat/Message";
+import InfiniteScroll from "../../../ui/loading/InfiniteScroll";
+import RoundedBackButton from "../../../ui/website-auth/shared/RoundedBackButton";
 import * as yup from "yup";
-import useGetCommunityChats from "../../hooks/website/communities/chat/useGetCommunityChats";
-import useSendMessage from "../../hooks/website/communities/chat/useSendMessage";
-import Message from "../../ui/chat/Message";
-import InfiniteScroll from "../../ui/loading/InfiniteScroll";
-import RoundedBackButton from "../../ui/website-auth/shared/RoundedBackButton";
-import { ChatSocketService } from "../../utils/ChatSocketService";
-import { getToken } from "../../utils/token";
 
 const getMessageType = (file) => {
   if (!file) return "text";
@@ -42,12 +42,12 @@ const schema = yup.object().shape({
   audio: yup.mixed().nullable(),
 });
 
-export default function CommunityChat() {
+export default function GroupChat() {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const { id } = useParams();
   const queryClient = useQueryClient();
-  // const { lang } = useSelector((state) => state.language);
+  //   const { lang } = useSelector((state) => state.language);
   const { user } = useSelector((state) => state.authRole);
 
   // ===== States =====
@@ -63,12 +63,12 @@ export default function CommunityChat() {
   const timerRef = useRef(null);
 
   const { chats, isLoading, hasNextPage, fetchNextPage, isFetchingNextPage } =
-    useGetCommunityChats();
+    useGetGroupChats();
   const allChats = chats?.pages?.flatMap((page) => page?.data).reverse() ?? [];
 
-  const { sendMessage } = useSendMessage();
+  const { sendMessage } = useSendGroupMessage();
 
-  // const messagesEndRef = useRef(null);
+  //   const messagesEndRef = useRef(null);
   const chatContainerRef = useRef(null);
   const [initialScrollDone, setInitialScrollDone] = useState(false);
 
@@ -98,18 +98,18 @@ export default function CommunityChat() {
     socket.onMessage((message) => {
       console.log("message from the calback", message);
 
-      queryClient.setQueryData(["community-chat", id], (oldData) => {
-        if (!oldData) return oldData;
-        const updatedPages = [...oldData.pages];
-        console.log(oldData);
+      //   queryClient.setQueryData(["community-chat", id], (oldData) => {
+      //     if (!oldData) return oldData;
+      //     const updatedPages = [...oldData.pages];
+      //     console.log(oldData);
 
-        // Assuming the latest messages are in the first page
-        updatedPages[0] = {
-          ...updatedPages[0],
-          data: [...updatedPages[0].data, message],
-        };
-        return { ...oldData, pages: updatedPages };
-      });
+      //     // Assuming the latest messages are in the first page
+      //     updatedPages[0] = {
+      //       ...updatedPages[0],
+      //       data: [...updatedPages[0].data, message],
+      //     };
+      //     return { ...oldData, pages: updatedPages };
+      //   });
     });
 
     return () => {
@@ -118,7 +118,13 @@ export default function CommunityChat() {
   }, [id, queryClient]);
 
   // ===== FORM HOOK =====
-  const { register, handleSubmit, setValue, reset } = useForm({
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    reset,
+    // formState: { errors },
+  } = useForm({
     resolver: yupResolver(schema),
     defaultValues: {
       message: "",
@@ -225,12 +231,12 @@ export default function CommunityChat() {
     }
   };
 
-  // const stopRecording = () => {
-  //   const recorder = mediaRecorderRef.current;
-  //   if (recorder && recorder.state !== "inactive") {
-  //     recorder.stop(); // will trigger onstop()
-  //   }
-  // };
+  //   const stopRecording = () => {
+  //     const recorder = mediaRecorderRef.current;
+  //     if (recorder && recorder.state !== "inactive") {
+  //       recorder.stop(); // will trigger onstop()
+  //     }
+  //   };
 
   const cancelRecording = () => {
     const recorder = mediaRecorderRef.current;
