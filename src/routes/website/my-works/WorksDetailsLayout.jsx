@@ -92,34 +92,36 @@ export default function WorksDetailsLayout() {
                 ></RoundedBackButton>
                 <h1>{workDetails?.code}</h1>
               </div>
-              {workDetails.status !== "completed" && (
-                <OptionsMenu
-                  toggleButton={"fa-light fa-shield-exclamation"}
-                  options={
-                    tasksSummary?.exePercentage === 100
-                      ? [
-                          {
-                            label: t("works.complete"),
-                            className: "text-green",
-                            onClick: () => handleCompleteGoal(workDetails?.id),
-                            props: {
-                              disabled: isPending,
+              {workDetails.status !== "completed" &&
+                workDetails.helper === null && (
+                  <OptionsMenu
+                    toggleButton={"fa-light fa-shield-exclamation"}
+                    options={
+                      tasksSummary?.exePercentage === 100
+                        ? [
+                            {
+                              label: t("works.complete"),
+                              className: "text-green",
+                              onClick: () =>
+                                handleCompleteGoal(workDetails?.id),
+                              props: {
+                                disabled: isPending,
+                              },
                             },
-                          },
-                          {
-                            label: t("works.delete"),
-                            className: "text-danger",
-                          },
-                        ]
-                      : [
-                          {
-                            label: t("works.delete"),
-                            className: "text-danger",
-                          },
-                        ]
-                  }
-                />
-              )}
+                            {
+                              label: t("works.delete"),
+                              className: "text-danger",
+                            },
+                          ]
+                        : [
+                            {
+                              label: t("works.delete"),
+                              className: "text-danger",
+                            },
+                          ]
+                    }
+                  />
+                )}
             </div>
           </div>
           <div className="col-12 p-2">
