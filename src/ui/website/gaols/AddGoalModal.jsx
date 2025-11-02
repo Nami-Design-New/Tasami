@@ -39,7 +39,6 @@ export default function AddGoalModal({ showModal, setShowModal }) {
     categories?.find((cat) => String(cat.id) === String(selectedFieldId))
       ?.sub_categories || [];
 
-  console.log(errors);
   const onSubmit = async (data) => {
     const formData = new FormData();
 

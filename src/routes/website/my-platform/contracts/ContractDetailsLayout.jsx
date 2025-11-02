@@ -152,7 +152,8 @@ export default function ContractDetailsLayout() {
                 <h1>{workDetails?.code}</h1>
               </div>
               {workDetails?.rectangle === "help_service_from_helper" &&
-              workDetails?.status === "wait_helper_to_accept" ? (
+              workDetails?.status === "wait_helper_to_accept" &&
+              workDetails.status !== "completed" ? (
                 <></>
               ) : (
                 <div className={`work-actions `}>

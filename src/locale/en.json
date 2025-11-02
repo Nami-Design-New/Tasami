@@ -440,6 +440,7 @@
     },
     "contractDetails": {
       "endContract": "End Contract",
+      "renewContract": "Renew COntract",
       "cv": "Resume",
       "payments": "Payments",
       "contractValue": "Contract Value",

@@ -10,16 +10,19 @@ import Loading from "../../../ui/loading/Loading";
 import RoundedBackButton from "../../../ui/website-auth/shared/RoundedBackButton";
 import OptionsMenu from "../../../ui/website/OptionsMenu";
 import AlertModal from "../../../ui/website/platform/my-community/AlertModal";
+import useDeleteWork from "../../../hooks/website/MyWorks/useDeleteWork";
 
 export default function WorksDetailsLayout() {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const queryClient = useQueryClient();
   const [showAlertModal, setShowAlertModal] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [tasksSummary, setTasksSummary] = useState(null);
 
   const { workDetails, isLoading } = useGetWorkDetails();
   const { completeGoal, isPending } = useCompleteGoal();
+  const { deleteWork, isPending: isdeletingWork } = useDeleteWork();
   const { cancelRequestOffer, isPending: isCanceling } =
     useCancelRequestOffer();
 
@@ -30,6 +33,19 @@ export default function WorksDetailsLayout() {
         queryClient.refetchQueries("work-details");
         queryClient.refetchQueries("work-tasks");
         queryClient.refetchQueries("my-works");
+      },
+    });
+  };
+
+  const handleDeleteGoal = (id) => {
+    deleteWork(id, {
+      onSuccess: (res) => {
+        toast.success(res?.message);
+        queryClient.refetchQueries({ queryKey: ["my-works"] });
+        navigate("/my-works");
+      },
+      onError: (err) => {
+        toast.error(err.message);
       },
     });
   };
@@ -140,18 +156,31 @@ export default function WorksDetailsLayout() {
                             {
                               label: t("works.delete"),
                               className: "text-danger",
+                              onClick: () => {
+                                console.log("clicked");
+                                setShowDeleteModal(true);
+                              },
+                              props: {
+                                disabled: isPending,
+                              },
                             },
                           ]
                         : [
                             {
                               label: t("works.delete"),
                               className: "text-danger",
+                              onClick: () => {
+                                console.log("clicked");
+                                setShowDeleteModal(true);
+                              },
+                              props: {
+                                disabled: isPending,
+                              },
                             },
                           ]
                     }
                   />
                 )}
-
             </div>
           </div>
 
@@ -189,6 +218,16 @@ export default function WorksDetailsLayout() {
         loading={isCanceling}
       >
         {t("works.withdrawWarning")}
+      </AlertModal>
+
+      <AlertModal
+        confirmButtonText={t("confirm")}
+        showModal={showDeleteModal}
+        setShowModal={setShowDeleteModal}
+        onConfirm={() => handleDeleteGoal(workDetails.id)}
+        loading={isdeletingWork}
+      >
+        سيتم حذف الهدف نهائيًا من قاءمة اعمالك
       </AlertModal>
     </section>
   );

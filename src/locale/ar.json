@@ -448,6 +448,7 @@
     },
     "contractDetails": {
       "endContract": "إنهاء العقد",
+      "renewContract": "تمديد العقد",
       "cv": "السيرة الذاتية",
       "payments": "المدفوعات",
       "contractValue": "قيمة العقد",

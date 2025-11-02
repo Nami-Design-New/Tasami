@@ -12,12 +12,14 @@ import CancelContractModal from "../../../ui/website/my-works/CancelContractModa
 import ContractRateModal from "../../../ui/website/my-works/ContractRateModal";
 import AssistantWorkCard from "../../../ui/website/my-works/work-offers/AssistantWorkCard";
 import RateShowModal from "../../../ui/website/my-works/work-offers/RateShowModal";
+import RenewContractModal from "../../../ui/website/my-works/RenewContractModal";
 
 export default function WorksContractDetails() {
   const { t } = useTranslation();
   const { id } = useParams();
   const navigate = useNavigate();
   const [showCancelModal, setShowCancelModal] = useState(false);
+  const [showRenewModal, setShowRenewModal] = useState(false);
   const [showRateReadOnlyModal, setShowRateReadOnlyModal] = useState(false);
   const [showRateMdoal, setShowRateModal] = useState();
   const { lang } = useSelector((state) => state.language);
@@ -25,15 +27,7 @@ export default function WorksContractDetails() {
   const menuRef = useRef(null);
 
   const toggleMenu = () => setMenuOpen(!menuOpen);
-
-  const options = [
-    {
-      id: 1,
-      label: t("works.contractDetails.endContract"),
-      className: "text-fire",
-      onClick: () => setShowCancelModal(true),
-    },
-  ];
+  let options;
 
   const { contractDetails, isLoading } = useGetContractDetails(id);
 
@@ -48,7 +42,22 @@ export default function WorksContractDetails() {
   }, []);
 
   if (isLoading) return <Loading />;
-
+  if (contractDetails?.renew_status !== "pending") {
+    options = [
+      {
+        id: 1,
+        label: t("works.contractDetails.renewContract"),
+        className: "text-green",
+        onClick: () => setShowRenewModal(true),
+      },
+      {
+        id: 1,
+        label: t("works.contractDetails.endContract"),
+        className: "text-fire",
+        onClick: () => setShowCancelModal(true),
+      },
+    ];
+  }
   return (
     <section className="work-contract-details page">
       <div className="container">
@@ -57,25 +66,31 @@ export default function WorksContractDetails() {
             <header>
               <RoundedBackButton onClick={() => navigate(-1)} />
               <div className="work-actions">
-                {contractDetails.status === "working" &&
-                contractDetails.rate === null ? (
-                  <button
-                    className="action-buttons"
-                    onClick={() => {
-                      setShowRateModal(true);
-                    }}
-                  >
-                    <img src="/icons/work-star.svg" alt="working" />
-                  </button>
-                ) : (
-                  <button
-                    className={`action-buttons yellow`}
-                    onClick={() => {
-                      setShowRateReadOnlyModal(true);
-                    }}
-                  >
-                    <img src="/icons/work-star-yellow.svg" alt="not working" />
-                  </button>
+                {contractDetails.status !== "working" && (
+                  <>
+                    {contractDetails.rate === null ? (
+                      <button
+                        className="action-buttons yellow"
+                        onClick={() => {
+                          setShowRateModal(true);
+                        }}
+                      >
+                        <img src="/icons/work-star-yellow.svg" alt="working" />
+                      </button>
+                    ) : (
+                      <button
+                        className={`action-buttons yellow`}
+                        onClick={() => {
+                          setShowRateReadOnlyModal(true);
+                        }}
+                      >
+                        <img
+                          src="/icons/work-star-yellow.svg"
+                          alt="not working"
+                        />
+                      </button>
+                    )}{" "}
+                  </>
                 )}
 
                 <Link
@@ -239,6 +254,14 @@ export default function WorksContractDetails() {
         <RateShowModal
           showModal={showRateReadOnlyModal}
           setShowModal={setShowRateReadOnlyModal}
+          contract={contractDetails}
+        />
+      )}
+
+      {contractDetails?.renew_status !== "pending" && (
+        <RenewContractModal
+          showModal={showRenewModal}
+          setShowModal={setShowRenewModal}
           contract={contractDetails}
         />
       )}
