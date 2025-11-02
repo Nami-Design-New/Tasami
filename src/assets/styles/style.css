@@ -9932,6 +9932,27 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
   font-weight: 700;
 }
 
+.show-rate-modal .notes {
+  padding: 16px;
+  border-radius: 12px;
+  background-color: rgba(13, 13, 13, 0.0196078431);
+  border: 1px solid rgba(13, 13, 13, 0.0941176471);
+}
+.show-rate-modal .rate-summary {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.show-rate-modal .rate-summary p {
+  font-size: 48px;
+  font-weight: bold;
+  color: #0d0d0d;
+}
+.show-rate-modal .rate-summary .rate-count {
+  font-size: 14px;
+  color: rgba(13, 13, 13, 0.5607843137);
+}
+
 .community-header {
   display: flex;
   flex-direction: column;

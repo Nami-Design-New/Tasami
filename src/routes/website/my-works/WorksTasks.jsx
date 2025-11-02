@@ -202,21 +202,22 @@ export default function WorksTasks() {
         {/* Buttons */}
         {workDetails.status !== "completed" && (
           <div className="buttons mt-3 justify-content-end">
-            <CustomButton
-              style={{ whiteSpace: "nowrap" }}
-              size="large"
-              variant="outlined"
-              loading={isPending}
-              onClick={() => {
-                if (!workDetails?.goal?.is_paused) setShowAlertModal(true);
-                else handleToggleTaskExe(workDetails?.goal?.id);
-              }}
-            >
-              {workDetails?.goal?.is_paused
-                ? t("works.myTasks.startExecutionBtn")
-                : t("works.myTasks.pauseExecutionBtn")}
-            </CustomButton>
-
+            {workDetails?.helper === null && (
+              <CustomButton
+                style={{ whiteSpace: "nowrap" }}
+                size="large"
+                variant="outlined"
+                loading={isPending}
+                onClick={() => {
+                  if (!workDetails?.goal?.is_paused) setShowAlertModal(true);
+                  else handleToggleTaskExe(workDetails?.goal?.id);
+                }}
+              >
+                {workDetails?.goal?.is_paused
+                  ? t("works.myTasks.startExecutionBtn")
+                  : t("works.myTasks.pauseExecutionBtn")}
+              </CustomButton>
+            )}
             <CustomButton
               style={{ whiteSpace: "nowrap" }}
               size="large"

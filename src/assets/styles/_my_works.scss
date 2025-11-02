@@ -572,3 +572,27 @@
     }
   }
 }
+
+.show-rate-modal {
+  .notes {
+    padding: 16px;
+    border-radius: 12px;
+    background-color: $InputBG;
+    border: 1px solid $InputStroke;
+  }
+
+  .rate-summary {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    p {
+      font-size: 48px;
+      font-weight: bold;
+      color: $dark;
+    }
+    .rate-count {
+      font-size: 14px;
+      color: $gray;
+    }
+  }
+}

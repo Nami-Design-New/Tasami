@@ -11,12 +11,14 @@ import RoundedBackButton from "../../../ui/website-auth/shared/RoundedBackButton
 import CancelContractModal from "../../../ui/website/my-works/CancelContractModal";
 import ContractRateModal from "../../../ui/website/my-works/ContractRateModal";
 import AssistantWorkCard from "../../../ui/website/my-works/work-offers/AssistantWorkCard";
+import RateShowModal from "../../../ui/website/my-works/work-offers/RateShowModal";
 
 export default function WorksContractDetails() {
   const { t } = useTranslation();
   const { id } = useParams();
   const navigate = useNavigate();
   const [showCancelModal, setShowCancelModal] = useState(false);
+  const [showRateReadOnlyModal, setShowRateReadOnlyModal] = useState(false);
   const [showRateMdoal, setShowRateModal] = useState();
   const { lang } = useSelector((state) => state.language);
   const [menuOpen, setMenuOpen] = useState(false);
@@ -55,24 +57,26 @@ export default function WorksContractDetails() {
             <header>
               <RoundedBackButton onClick={() => navigate(-1)} />
               <div className="work-actions">
-                <button
-                  className={`action-buttons ${
-                    contractDetails.status === "working" ? "" : "yellow"
-                  }`}
-                  onClick={() => {
-                    if (contractDetails.status === "working") {
+                {contractDetails.status === "working" &&
+                contractDetails.rate === null ? (
+                  <button
+                    className="action-buttons"
+                    onClick={() => {
                       setShowRateModal(true);
-                    } else {
-                      return;
-                    }
-                  }}
-                >
-                  {contractDetails.status === "working" ? (
+                    }}
+                  >
                     <img src="/icons/work-star.svg" alt="working" />
-                  ) : (
+                  </button>
+                ) : (
+                  <button
+                    className={`action-buttons yellow`}
+                    onClick={() => {
+                      setShowRateReadOnlyModal(true);
+                    }}
+                  >
                     <img src="/icons/work-star-yellow.svg" alt="not working" />
-                  )}
-                </button>
+                  </button>
+                )}
 
                 <Link
                   className={`action-buttons ${
@@ -229,7 +233,15 @@ export default function WorksContractDetails() {
       <ContractRateModal
         showModal={showRateMdoal}
         setShowModal={setShowRateModal}
+        contract={contractDetails}
       />
+      {contractDetails.rate !== null && (
+        <RateShowModal
+          showModal={showRateReadOnlyModal}
+          setShowModal={setShowRateReadOnlyModal}
+          contract={contractDetails}
+        />
+      )}
     </section>
   );
 }
