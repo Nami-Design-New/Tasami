@@ -1,5 +1,7 @@
 {
   "chats": "chats",
+  "block": "Block",
+  "unblock": "Unblock",
   "hello": "Hello",
   "loading": "Loading...",
   "select": "Select",
@@ -496,6 +498,8 @@
     "offerDetails": {
       "title": "Offer Details",
       "goalHeader": "Goal Details",
+      "beneficiaries": "Beneficiaries",
+      "totalRate": "Total Rate",
       "edit": "Edit",
       "archive": "Archive",
       "youSendOffer": "You submitted an offer already",
@@ -578,6 +582,7 @@
       "description1": "Your personal assistant account allows you to publish assistance programs and offer services to others. You can also create workgroups as virtual spaces for social learning, as well as activate your own channels to publish exclusive content and receive membership subscriptions within the 'Personal Assistant Community'!",
       "description2": "By continuing, you commit that the assistance services you provide through the Tasami platform will not violate the regulations and laws in the country of operation, and you also commit to fulfilling all regulatory requirements determined by the relevant authorities whenever required.",
       "subscribe": "Subscribe",
+      "noClients": "There is No CLients Yet",
       "menu": {
         "subscriptions": "Subscription Management",
         "cv": "My CV",
