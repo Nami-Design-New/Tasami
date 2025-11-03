@@ -13,6 +13,7 @@ import ContractRateModal from "../../../ui/website/my-works/ContractRateModal";
 import AssistantWorkCard from "../../../ui/website/my-works/work-offers/AssistantWorkCard";
 import RateShowModal from "../../../ui/website/my-works/work-offers/RateShowModal";
 import RenewContractModal from "../../../ui/website/my-works/RenewContractModal";
+import RenewContractDetailsModal from "../../../ui/website/my-works/RenewContractDetailsModal";
 
 export default function WorksContractDetails() {
   const { t } = useTranslation();
@@ -20,6 +21,7 @@ export default function WorksContractDetails() {
   const navigate = useNavigate();
   const [showCancelModal, setShowCancelModal] = useState(false);
   const [showRenewModal, setShowRenewModal] = useState(false);
+  const [showRenewDetailsModal, setShowRenewDetailsModal] = useState(false);
   const [showRateReadOnlyModal, setShowRateReadOnlyModal] = useState(false);
   const [showRateMdoal, setShowRateModal] = useState();
   const { lang } = useSelector((state) => state.language);
@@ -27,7 +29,6 @@ export default function WorksContractDetails() {
   const menuRef = useRef(null);
 
   const toggleMenu = () => setMenuOpen(!menuOpen);
-  let options;
 
   const { contractDetails, isLoading } = useGetContractDetails(id);
 
@@ -42,22 +43,29 @@ export default function WorksContractDetails() {
   }, []);
 
   if (isLoading) return <Loading />;
-  if (contractDetails?.renew_status !== "pending") {
-    options = [
-      {
-        id: 1,
-        label: t("works.contractDetails.renewContract"),
-        className: "text-green",
-        onClick: () => setShowRenewModal(true),
+
+  const options = [
+    {
+      id: 1,
+      label:
+        contractDetails?.renew_status === "pending"
+          ? t("works.contractDetails.withDrawContract")
+          : t("works.contractDetails.renewContract"),
+      className: "text-green",
+      onClick: () => {
+        contractDetails?.renew_status === "pending"
+          ? setShowRenewDetailsModal(true)
+          : setShowRenewModal(true);
       },
-      {
-        id: 1,
-        label: t("works.contractDetails.endContract"),
-        className: "text-fire",
-        onClick: () => setShowCancelModal(true),
-      },
-    ];
-  }
+    },
+    {
+      id: 1,
+      label: t("works.contractDetails.endContract"),
+      className: "text-fire",
+      onClick: () => setShowCancelModal(true),
+    },
+  ];
+
   return (
     <section className="work-contract-details page">
       <div className="container">
@@ -262,6 +270,13 @@ export default function WorksContractDetails() {
         <RenewContractModal
           showModal={showRenewModal}
           setShowModal={setShowRenewModal}
+          contract={contractDetails}
+        />
+      )}
+      {contractDetails?.renew_status === "pending" && (
+        <RenewContractDetailsModal
+          showModal={showRenewDetailsModal}
+          setShowModal={setShowRenewDetailsModal}
           contract={contractDetails}
         />
       )}

@@ -441,6 +441,8 @@
     "contractDetails": {
       "endContract": "End Contract",
       "renewContract": "Renew COntract",
+      "withDrawContract": "withDraw Contract",
+
       "cv": "Resume",
       "payments": "Payments",
       "contractValue": "Contract Value",

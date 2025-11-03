@@ -9931,6 +9931,37 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
   color: #0d0d0d;
   font-weight: 700;
 }
+.work-contract-details .renew-details {
+  border-radius: 12px;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  background-color: rgba(253, 203, 47, 0.1019607843);
+}
+.work-contract-details .renew-details h6 {
+  color: #fdcb2f;
+}
+.work-contract-details .renew-details .renew-date {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  background-color: #fff;
+  flex: 1;
+  padding: 8px 12px;
+  border-radius: 12px;
+}
+.work-contract-details .renew-details .renew-date span {
+  font-size: 14px;
+}
+.work-contract-details .renew-details .renew-date span:first-child {
+  color: #5fcafa;
+  font-weight: 500;
+}
+.work-contract-details .renew-details .renew-date span:last-child {
+  color: #0d0d0d;
+  font-weight: 700;
+}
 
 .show-rate-modal .notes {
   padding: 16px;
@@ -9951,6 +9982,21 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
 .show-rate-modal .rate-summary .rate-count {
   font-size: 14px;
   color: rgba(13, 13, 13, 0.5607843137);
+}
+
+.withdraw-modal h1 {
+  color: #214b92;
+}
+.withdraw-modal .renew-date {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.withdraw-modal .renew-date span:first-child {
+  color: #0d0d0d;
+}
+.withdraw-modal .renew-date span:last-child {
+  color: #5fcafa;
 }
 
 .community-header {

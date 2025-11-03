@@ -81,7 +81,6 @@ export default function RenewContractModal({
     handleSubmit,
     watch,
     reset,
-    setValue,
     formState: { errors },
   } = useForm({
     resolver: yupResolver(getSchema(t)),
@@ -105,7 +104,7 @@ export default function RenewContractModal({
   }, [durationInDays, contract]);
 
   const { renewContract, isPending } = useRenewContract();
-  const onSubmit = async (data) => {
+  const onSubmit = async () => {
     const renew_to_date = calculateRenewDate(
       contract.expected_end_date,
       durationInDays
