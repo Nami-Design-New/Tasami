@@ -13,7 +13,6 @@ export default function CommunityDetails() {
   const { communityDetails, isLoading } = useGetCommunityDetails();
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const { lang } = useSelector((state) => state.language);
   const { user } = useSelector((state) => state.authRole);
   if (isLoading) return <Loading />;
   return (

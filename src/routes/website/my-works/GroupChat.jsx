@@ -1,18 +1,18 @@
+import { yupResolver } from "@hookform/resolvers/yup";
 import { useQueryClient } from "@tanstack/react-query";
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router";
+import * as yup from "yup";
 import useGetGroupChats from "../../../hooks/website/MyWorks/groups/chat/useGetGroupChat";
 import useSendGroupMessage from "../../../hooks/website/MyWorks/groups/chat/useSendGroupMessage";
-import { ChatSocketService } from "../../../utils/ChatSocketService";
-import { getToken } from "firebase/messaging";
-import { yupResolver } from "@hookform/resolvers/yup";
-import { useForm } from "react-hook-form";
 import Message from "../../../ui/chat/Message";
 import InfiniteScroll from "../../../ui/loading/InfiniteScroll";
 import RoundedBackButton from "../../../ui/website-auth/shared/RoundedBackButton";
-import * as yup from "yup";
+import { GroupChatSocketService } from "../../../utils/GroupChatService";
+import { getToken } from "../../../utils/token";
 
 const getMessageType = (file) => {
   if (!file) return "text";
@@ -57,6 +57,7 @@ export default function GroupChat() {
   const [recordingTime, setRecordingTime] = useState(0);
   const [audioBlob, setAudioBlob] = useState(null);
   const [micPermission, setMicPermission] = useState(false);
+  const [socketStatus, setSocketStatus] = useState("connecting");
 
   const mediaRecorderRef = useRef(null);
   const audioChunksRef = useRef([]);
@@ -88,33 +89,41 @@ export default function GroupChat() {
 
   // ===== SOCKET CONNECTION =====
   useEffect(() => {
-    const socket = new ChatSocketService();
+    const socket = new GroupChatSocketService();
     const token = getToken();
-    socket.connectPrivate({
-      token,
-      communityId: id,
+    console.log("fuckkkkkkkkkkkkkkkkkkkkk the chat", token);
+
+    console.log(token);
+
+    socket.onStatusChange((status) => {
+      console.log("🔔 Socket status changed:", status);
+      setSocketStatus(status);
     });
 
     socket.onMessage((message) => {
-      console.log("message from the calback", message);
+      console.log("Incoming message:", message);
+      queryClient.setQueryData(["group-chat", id], (oldData) => {
+        if (!oldData) return oldData;
+        const updatedPages = oldData.pages.map((page, idx) =>
+          idx === 0 ? { ...page, data: [message, ...page.data] } : page
+        );
+        return { ...oldData, pages: updatedPages };
+      });
 
-      //   queryClient.setQueryData(["community-chat", id], (oldData) => {
-      //     if (!oldData) return oldData;
-      //     const updatedPages = [...oldData.pages];
-      //     console.log(oldData);
-
-      //     // Assuming the latest messages are in the first page
-      //     updatedPages[0] = {
-      //       ...updatedPages[0],
-      //       data: [...updatedPages[0].data, message],
-      //     };
-      //     return { ...oldData, pages: updatedPages };
-      //   });
+      requestAnimationFrame(() => {
+        const container = chatContainerRef.current;
+        if (!container) return;
+        const isNearBottom =
+          container.scrollHeight -
+            container.scrollTop -
+            container.clientHeight <
+          150;
+        if (isNearBottom) container.scrollTop = container.scrollHeight;
+      });
     });
 
-    return () => {
-      socket.disconnect();
-    };
+    socket.connectPrivate({ token, groupId: id });
+    return () => socket.disconnect();
   }, [id, queryClient]);
 
   // ===== FORM HOOK =====
@@ -264,8 +273,6 @@ export default function GroupChat() {
     const formData = new FormData();
     let type = "text";
 
-    console.log(formData);
-
     if (data.audio instanceof Blob) {
       formData.append("file_path", data.audio, "recording.webm");
       type = "audio";
@@ -280,7 +287,7 @@ export default function GroupChat() {
     }
 
     formData.append("type", type);
-    formData.append("community_id", id);
+    formData.append("group_id", id);
 
     sendMessage(formData);
 
@@ -295,10 +302,26 @@ export default function GroupChat() {
       <div className="community-chat-window">
         <div className="chat-window">
           {/* ===== Header ===== */}
-          <div className="chat-window__info">
-            <RoundedBackButton onClick={() => navigate(-1)}></RoundedBackButton>
-
-            <h4 className="chat-window__name">{t("chats")}</h4>
+          <div className="chat-window__info d-flex align-items-center justify-content-between">
+            <div className="d-flex align-items-center gap-2">
+              <RoundedBackButton onClick={() => navigate(-1)} />
+              <h4 className="chat-window__name mb-0">{t("chats")}</h4>
+            </div>
+            {/* ✅ Live socket status indicator */}
+            <div className="socket-status d-flex align-items-center gap-2">
+              {socketStatus === "connected" && (
+                <span className="text-success">🟢 Connected</span>
+              )}
+              {socketStatus === "connecting" && (
+                <span className="text-warning">🟡 Connecting...</span>
+              )}
+              {socketStatus === "disconnected" && (
+                <span className="text-danger">🔴 Disconnected</span>
+              )}
+              {socketStatus === "error" && (
+                <span className="text-danger">⚠️ Error</span>
+              )}
+            </div>
           </div>
 
           <div className="chat-window__hint">

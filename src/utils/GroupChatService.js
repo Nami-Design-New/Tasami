@@ -4,7 +4,7 @@ import axios from "axios";
 
 window.Pusher = Pusher;
 
-export class ChatSocketService {
+export class GroupChatSocketService {
   constructor() {
     this.echo = null;
     this.messageCallback = null;
@@ -19,7 +19,9 @@ export class ChatSocketService {
     this.statusCallback = callback;
   }
 
-  connectPrivate({ token, communityId }) {
+  connectPrivate({ token, groupId }) {
+    console.log(token);
+
     const api = axios.create({
       baseURL: import.meta.env.VITE_API_URL_SOCKET,
       headers: {
@@ -40,6 +42,7 @@ export class ChatSocketService {
       cluster: "mt1",
       authorizer: (channel) => ({
         authorize: (socketId, callback) => {
+          console.log(channel.name);
           api
             .post("/broadcasting/auth", {
               socket_id: socketId,
@@ -80,13 +83,13 @@ export class ChatSocketService {
 
     // --- Listen to channel messages ---
     this.echo
-      .private(`communitychat.${communityId}`)
-      .listen("CommunityMessageSent", (event) => {
+      .private(`groupchat.${groupId}`)
+      .listen("GroupMessageSent", (event) => {
         console.log("📨 New message received via socket:", event.message);
         this.messageCallback?.(event.message);
       });
 
-    console.log(`✅ Subscribed to private-communitychat.${communityId}`);
+    console.log(`✅ Subscribed to private-groupchat.${groupId}`);
   }
 
   disconnect() {
