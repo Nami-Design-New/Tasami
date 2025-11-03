@@ -102,6 +102,7 @@ export default function WorksContractDetails() {
                 )}
 
                 <Link
+                  to={`/user-chat/${contractDetails?.id}`}
                   className={`action-buttons ${
                     contractDetails.status === "working" ? "" : "yellow"
                   }`}

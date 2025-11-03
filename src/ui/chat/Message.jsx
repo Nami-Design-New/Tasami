@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useLocation } from "react-router";
 
 const Message = ({
   sender,
@@ -12,16 +13,25 @@ const Message = ({
 }) => {
   const [imageLoaded, setImageLoaded] = useState(false);
   const [videoLoaded, setVideoLoaded] = useState(false);
+  const { pathname } = useLocation();
+
+  const isContractChat = pathname.includes("user-chat");
 
   const isSender = from === "sender";
 
   const baseClass = isSender ? "message--sender" : "message--receiver";
 
   let colorClass = "";
-  if (isSender) {
-    colorClass = sender?.id === creatorId ? "message--main" : "message--second";
+
+  if (isContractChat) {
+    colorClass = isSender ? "message--main" : "message--gray";
   } else {
-    colorClass = sender?.id === creatorId ? "message--main" : "message--gray";
+    if (isSender) {
+      colorClass =
+        sender?.id === creatorId ? "message--main" : "message--second";
+    } else {
+      colorClass = sender?.id === creatorId ? "message--main" : "message--gray";
+    }
   }
 
   const messageClass = `message ${baseClass} ${colorClass}`;

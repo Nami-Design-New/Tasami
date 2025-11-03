@@ -50,7 +50,7 @@ export default function WorksDetailsLayout() {
     });
   };
 
-  const handleCancelOfferOffer = (id) => {
+  const handleCancelOffer = (id) => {
     cancelRequestOffer(id, {
       onSuccess: (res) => {
         toast.success(res?.message);
@@ -214,7 +214,7 @@ export default function WorksDetailsLayout() {
         confirmButtonText={t("confirm")}
         showModal={showAlertModal}
         setShowModal={setShowAlertModal}
-        onConfirm={() => handleCancelOfferOffer(workDetails.id)}
+        onConfirm={() => handleCancelOffer(workDetails.id)}
         loading={isCanceling}
       >
         {t("works.withdrawWarning")}

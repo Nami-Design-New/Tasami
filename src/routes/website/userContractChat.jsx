@@ -13,6 +13,7 @@ import InfiniteScroll from "../../ui/loading/InfiniteScroll";
 import Message from "../../ui/chat/Message";
 import { ContractChatService } from "../../utils/ContractChatService";
 import { getToken } from "../../utils/token";
+import useGetContractDetails from "../../hooks/website/MyWorks/assistants/useGetContractDetails";
 
 const getMessageType = (file) => {
   if (!file) return "text";
@@ -49,6 +50,8 @@ export default function UserContractChat() {
   const queryClient = useQueryClient();
   //   const { lang } = useSelector((state) => state.language);
   const { user } = useSelector((state) => state.authRole);
+  const { contractDetails, isLoading: contractDetailsLoading } =
+    useGetContractDetails(id);
 
   // ===== States =====
   const [selectedFile, setSelectedFile] = useState(null);
@@ -292,17 +295,22 @@ export default function UserContractChat() {
     reset();
     setSelectedFile(null);
   };
+
   return (
     <div className="container">
-      <div className="community-chat-window">
+      <div className="community-chat-window page">
         <div className="chat-window">
           {/* ===== Header ===== */}
           <div className="chat-window__info d-flex align-items-center justify-content-between">
             <div className="d-flex align-items-center gap-2">
               <RoundedBackButton onClick={() => navigate(-1)} />
-              <h4 className="chat-window__name mb-0">{t("chats")}</h4>
+              <h4 className="chat-window__name mb-0">
+                {user?.id === contractDetails?.helper?.id
+                  ? contractDetails?.user?.name
+                  : contractDetails?.helper?.name}
+              </h4>
             </div>
-            {/* ✅ Live socket status indicator */}
+            {/* Live socket status indicator */}
             <div className="socket-status d-flex align-items-center gap-2">
               {socketStatus === "connected" && (
                 <span className="text-success">🟢 Connected</span>
@@ -317,10 +325,6 @@ export default function UserContractChat() {
                 <span className="text-danger">⚠️ Error</span>
               )}
             </div>
-          </div>
-
-          <div className="chat-window__hint">
-            <p>هذه محادثة جماعية، رسائلك مرئية للجميع</p>
           </div>
 
           {/* ===== Messages ===== */}
@@ -364,114 +368,120 @@ export default function UserContractChat() {
           </div>
 
           {/* ===== Footer Form ===== */}
-          <form
-            className="chat-window__footer"
-            onSubmit={handleSubmit(onSubmit)}
-          >
-            <div className="preview-section">
-              {isRecording ? (
-                <div className={`recording-bar ${isPaused ? "paused" : ""}`}>
-                  <button
-                    type="button"
-                    className="delete-btn"
-                    onClick={cancelRecording}
-                  >
-                    <i className="fa-solid fa-stop"></i>
-                  </button>
-
-                  {!isPaused ? (
-                    <button type="button" onClick={pauseRecording}>
-                      <i className="fa-solid fa-pause"></i>
+          {contractDetails?.status === "working" ? (
+            <form
+              className="chat-window__footer"
+              onSubmit={handleSubmit(onSubmit)}
+            >
+              <div className="preview-section">
+                {isRecording ? (
+                  <div className={`recording-bar ${isPaused ? "paused" : ""}`}>
+                    <button
+                      type="button"
+                      className="delete-btn"
+                      onClick={cancelRecording}
+                    >
+                      <i className="fa-solid fa-stop"></i>
                     </button>
-                  ) : (
-                    <button type="button" onClick={resumeRecording}>
-                      <i className="fa-solid fa-play"></i>
-                    </button>
-                  )}
 
-                  <div className="wave"></div>
-                  <span className="timer">{formatTime(recordingTime)}</span>
-                </div>
-              ) : audioBlob ? (
-                <div className="audio-preview d-flex align-items-center gap-2">
-                  <audio controls src={URL.createObjectURL(audioBlob)} />
-                  <button
-                    type="button"
-                    className="cancel-audio"
-                    onClick={cancelRecording}
-                  >
-                    <i className="fa-solid fa-xmark"></i>
-                  </button>
-                </div>
-              ) : selectedFile ? (
-                <div className="file-chat-preview">
-                  <div className="file-info">
-                    <i className="fa-solid fa-paperclip"></i>
-                    <span className="file-name">{selectedFile.name}</span>
+                    {!isPaused ? (
+                      <button type="button" onClick={pauseRecording}>
+                        <i className="fa-solid fa-pause"></i>
+                      </button>
+                    ) : (
+                      <button type="button" onClick={resumeRecording}>
+                        <i className="fa-solid fa-play"></i>
+                      </button>
+                    )}
+
+                    <div className="wave"></div>
+                    <span className="timer">{formatTime(recordingTime)}</span>
                   </div>
-                  <button
-                    type="button"
-                    className="cancel-file"
-                    onClick={() => {
-                      setSelectedFile(null);
-                      setValue("file", null);
-                    }}
-                  >
-                    <i className="fa-solid fa-xmark"></i>
-                  </button>
-                </div>
-              ) : (
+                ) : audioBlob ? (
+                  <div className="audio-preview d-flex align-items-center gap-2">
+                    <audio controls src={URL.createObjectURL(audioBlob)} />
+                    <button
+                      type="button"
+                      className="cancel-audio"
+                      onClick={cancelRecording}
+                    >
+                      <i className="fa-solid fa-xmark"></i>
+                    </button>
+                  </div>
+                ) : selectedFile ? (
+                  <div className="file-chat-preview">
+                    <div className="file-info">
+                      <i className="fa-solid fa-paperclip"></i>
+                      <span className="file-name">{selectedFile.name}</span>
+                    </div>
+                    <button
+                      type="button"
+                      className="cancel-file"
+                      onClick={() => {
+                        setSelectedFile(null);
+                        setValue("file", null);
+                      }}
+                    >
+                      <i className="fa-solid fa-xmark"></i>
+                    </button>
+                  </div>
+                ) : (
+                  <input
+                    type="text"
+                    className="text-input"
+                    placeholder="اكتب رسالتك هنا..."
+                    {...register("message")}
+                    disabled={isRecording}
+                  />
+                )}
+              </div>
+
+              <div className="chat-actions">
+                <label htmlFor="fileInput">
+                  <i className="fa-solid fa-paperclip"></i>
+                </label>
                 <input
-                  type="text"
-                  className="text-input"
-                  placeholder="اكتب رسالتك هنا..."
-                  {...register("message")}
-                  disabled={isRecording}
+                  id="fileInput"
+                  type="file"
+                  accept="image/*,video/*"
+                  hidden
+                  {...register("file")}
+                  onChange={(e) => {
+                    const file = e.target.files[0];
+
+                    if (!file) return;
+                    //  validate type (safety check)
+                    const isImage = file.type.startsWith("image/");
+                    const isVideo = file.type.startsWith("video/");
+
+                    if (isImage || isVideo) {
+                      setValue("message", "");
+                      setAudioBlob(null);
+                      cancelRecording();
+                      setSelectedFile(file);
+                      setValue("file", file);
+                    } else {
+                      e.target.value = "";
+                    }
+                  }}
                 />
-              )}
+                <button
+                  type="button"
+                  onClick={startRecording}
+                  disabled={selectedFile || isRecording}
+                >
+                  <i className="fa-solid fa-microphone"></i>
+                </button>
+                <button type="submit" className="chat-window__footer--send">
+                  <i className="fa-solid fa-paper-plane"></i>
+                </button>
+              </div>
+            </form>
+          ) : (
+            <div>
+              لا يمكنك الرد علي هذة المحادثة لنتهاء التعاقد بينك وبين المساعد
             </div>
-
-            <div className="chat-actions">
-              <label htmlFor="fileInput">
-                <i className="fa-solid fa-paperclip"></i>
-              </label>
-              <input
-                id="fileInput"
-                type="file"
-                accept="image/*,video/*"
-                hidden
-                {...register("file")}
-                onChange={(e) => {
-                  const file = e.target.files[0];
-
-                  if (!file) return;
-                  //  validate type (safety check)
-                  const isImage = file.type.startsWith("image/");
-                  const isVideo = file.type.startsWith("video/");
-
-                  if (isImage || isVideo) {
-                    setValue("message", "");
-                    setAudioBlob(null);
-                    cancelRecording();
-                    setSelectedFile(file);
-                    setValue("file", file);
-                  } else {
-                    e.target.value = "";
-                  }
-                }}
-              />
-              <button
-                type="button"
-                onClick={startRecording}
-                disabled={selectedFile || isRecording}
-              >
-                <i className="fa-solid fa-microphone"></i>
-              </button>
-              <button type="submit" className="chat-window__footer--send">
-                <i className="fa-solid fa-paper-plane"></i>
-              </button>
-            </div>
-          </form>
+          )}
         </div>
       </div>
     </div>

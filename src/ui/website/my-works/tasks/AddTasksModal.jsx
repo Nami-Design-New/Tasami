@@ -63,28 +63,29 @@ export default function AddTasksModal({
   // Handle Add / Update logic
   const onSubmit = (data) => {
     const payloadId = taskId || id;
-    // let payload;
-    // if (reminderNotifications) {
-    const payload = {
-      task_category_id: data.taskCategory,
-      title: data.taskDescription,
-      expected_end_date: formatYMD(data.expected_end_date),
-      notification_repeat: data.notification_repeat,
-      notification_day:
-        data.notification_day === "" ? undefined : data.notification_day,
-      notification_time: data.notification_time,
-      notes: data.notes,
-      work_id: payloadId,
-    };
-    // } else {
-    //   payload = {
-    //     task_category_id: data.taskCategory,
-    //     title: data.taskDescription,
-    //     expected_end_date: formatYMD(data.expected_end_date),
-    //     notes: data.notes,
-    //     work_id: payloadId,
-    //   };
-    // }
+    let payload;
+    if (reminderNotifications) {
+      payload = {
+        task_category_id: data.taskCategory,
+        title: data.taskDescription,
+        expected_end_date: formatYMD(data.expected_end_date),
+        notification_repeat: data.notification_repeat,
+        notification_day:
+          data.notification_day === "" ? undefined : data.notification_day,
+        notification_time: data.notification_time,
+        notes: data.notes,
+        work_id: payloadId,
+      };
+    } else {
+      payload = {
+        task_category_id: data.taskCategory,
+        title: data.taskDescription,
+        expected_end_date: formatYMD(data.expected_end_date),
+        notification_repeat: "none",
+        notes: data.notes,
+        work_id: payloadId,
+      };
+    }
 
     if (taskData) {
       // UPDATE MODE

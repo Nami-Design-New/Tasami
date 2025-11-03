@@ -33,7 +33,7 @@ export default function CancelContractModal({
   const isMyWorksTab = pathname.includes("my-works");
   const navigate = useNavigate();
   const queryClient = useQueryClient();
-  const { cancelReasons, isLoading } = useGetCancelReasons();
+  const { cancelReasons } = useGetCancelReasons();
   const { cancelContract, isPending } = useCancelContract();
 
   const {
@@ -64,11 +64,12 @@ export default function CancelContractModal({
         reset();
         setShowModal(false);
         toast.success(res?.message);
-        if (isMyWorksTab) navigate(`/my-works/${workId}/assistants`);
+        // navigate(`/my-works/${workId}/assistants`);
         queryClient.refetchQueries({ queryKey: ["assistants"] });
         queryClient.refetchQueries({ queryKey: ["work-group"] });
         queryClient.refetchQueries({ queryKey: ["work-details"] });
         queryClient.refetchQueries({ queryKey: ["my-contracts"] });
+        queryClient.refetchQueries({ queryKey: ["contract-details"] });
       },
     });
   };
