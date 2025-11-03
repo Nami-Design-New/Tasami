@@ -68,7 +68,7 @@ export default function ContractDetails() {
       </div>
 
       <div className="mb-3">
-        <AssistantWorkCard helper={workDetails?.user} />
+        <AssistantWorkCard helper={workDetails?.user} chat={false} />
       </div>
 
       <div className="my-3 work-description">
