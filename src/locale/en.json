@@ -261,6 +261,8 @@
     "maxMonths": "Months must not exceed {{max}}",
     "maxDays": "Days must not exceed {{max}}",
     "atLeastOne": "At least one of the fields (month or day) must be filled",
+    "firstNameMin": "First name must be at least {{min}} characters",
+    "middleNameMin": "Middle name must be at least {{min}} character",
 
     "maxTotal": "The total number of days must not exceed {{max}}",
     "titleRequired": "Title is required",
@@ -569,6 +571,7 @@
     },
     "platform": {
       "platform": "platform",
+      "profiel": "My Profile",
       "hint": "This platform provides a set of tools to manage your business and activities as a personal assistant professionally, and to deliver the best experience for your clients.",
       "header": "Create a Basic Personal Assistant Account - (Free)",
       "title": "Welcome to the Community of Inspirers at 'Tasami'",
