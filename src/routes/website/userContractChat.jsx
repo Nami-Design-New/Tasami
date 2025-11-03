@@ -6,13 +6,13 @@ import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router";
 import * as yup from "yup";
-import useGetGroupChats from "../../../hooks/website/MyWorks/groups/chat/useGetGroupChat";
-import useSendGroupMessage from "../../../hooks/website/MyWorks/groups/chat/useSendGroupMessage";
-import Message from "../../../ui/chat/Message";
-import InfiniteScroll from "../../../ui/loading/InfiniteScroll";
-import RoundedBackButton from "../../../ui/website-auth/shared/RoundedBackButton";
-import { GroupChatSocketService } from "../../../utils/GroupChatService";
-import { getToken } from "../../../utils/token";
+import useGetAssistantChats from "../../hooks/website/MyWorks/assistants/chats/useGetAssistantChats";
+import useSendAssistantMessage from "../../hooks/website/MyWorks/assistants/chats/useSendAssistantMessage";
+import RoundedBackButton from "../../ui/website-auth/shared/RoundedBackButton";
+import InfiniteScroll from "../../ui/loading/InfiniteScroll";
+import Message from "../../ui/chat/Message";
+import { ContractChatService } from "../../utils/ContractChatService";
+import { getToken } from "../../utils/token";
 
 const getMessageType = (file) => {
   if (!file) return "text";
@@ -42,7 +42,7 @@ const schema = yup.object().shape({
   audio: yup.mixed().nullable(),
 });
 
-export default function GroupChat() {
+export default function UserContractChat() {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const { id } = useParams();
@@ -64,10 +64,10 @@ export default function GroupChat() {
   const timerRef = useRef(null);
 
   const { chats, isLoading, hasNextPage, fetchNextPage, isFetchingNextPage } =
-    useGetGroupChats();
+    useGetAssistantChats();
   const allChats = chats?.pages?.flatMap((page) => page?.data).reverse() ?? [];
 
-  const { sendMessage } = useSendGroupMessage();
+  const { sendMessage } = useSendAssistantMessage();
 
   //   const messagesEndRef = useRef(null);
   const chatContainerRef = useRef(null);
@@ -89,7 +89,7 @@ export default function GroupChat() {
 
   // ===== SOCKET CONNECTION =====
   useEffect(() => {
-    const socket = new GroupChatSocketService();
+    const socket = new ContractChatService();
     const token = getToken();
 
     socket.onStatusChange((status) => {
@@ -99,7 +99,7 @@ export default function GroupChat() {
 
     socket.onMessage((message) => {
       console.log("Incoming message:", message);
-      queryClient.setQueryData(["group-chat", id], (oldData) => {
+      queryClient.setQueryData(["contract-chat", id], (oldData) => {
         if (!oldData) return oldData;
         const updatedPages = oldData.pages.map((page, idx) =>
           idx === 0 ? { ...page, data: [message, ...page.data] } : page
@@ -119,7 +119,7 @@ export default function GroupChat() {
       });
     });
 
-    socket.connectPrivate({ token, groupId: id });
+    socket.connectPrivate({ token, contractId: id });
     return () => socket.disconnect();
   }, [id, queryClient]);
 
@@ -284,7 +284,7 @@ export default function GroupChat() {
     }
 
     formData.append("type", type);
-    formData.append("group_id", id);
+    formData.append("contract_id", id);
 
     sendMessage(formData);
 
@@ -292,8 +292,6 @@ export default function GroupChat() {
     reset();
     setSelectedFile(null);
   };
-
-  // ===== RENDER =====
   return (
     <div className="container">
       <div className="community-chat-window">
