@@ -1,20 +1,20 @@
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router";
 import useAddOrRemoveBookmark from "../../hooks/website/personal-assistances/useAddOrRemoveBookmark";
 import useGetPersonalOfferDetails from "../../hooks/website/personal-assistances/useGetPersonalOfferDetails";
 import CustomButton from "../../ui/CustomButton";
+import CustomLink from "../../ui/CustomLink";
 import Loading from "../../ui/loading/Loading";
 import ContractReq from "../../ui/modals/ContractReqModal";
 import ReportModal from "../../ui/modals/ReportModal";
-import ReviewsModal from "../../ui/modals/ReviewsModal";
 import OptionsMenu from "../../ui/website/OptionsMenu";
 import SectionHeader from "../../ui/website/SectionHeader";
 import InquiryModal from "../../ui/website/my-notifications/inquiryModal";
 import OfferInfoGrid from "../../ui/website/offers/OfferInfoGrid";
 import TopInfo from "../../ui/website/offers/TopInfo";
 import { shareContent } from "../../utils/shared";
-import { useNavigate } from "react-router";
 
 export default function PersonalOffersDetails() {
   const { t } = useTranslation();
@@ -27,7 +27,7 @@ export default function PersonalOffersDetails() {
   const [showHelpModal, setShowHelpModal] = useState(false);
   const [showReportModal, setShowReportModal] = useState(false);
   const [showInquiryModal, setShowInquiryModal] = useState(false);
-  const [showReviewsModal, setShowReviewsModal] = useState(false);
+  // const [showReviewsModal, setShowReviewsModal] = useState(false);
 
   useEffect(() => {
     setBookmarked(offerDetails?.is_saved || false);
@@ -48,16 +48,11 @@ export default function PersonalOffersDetails() {
       },
     });
   };
-  const closeModals = () => {
-    setShowHelpModal(false);
-    setShowReportModal(false);
-    setShowInquiryModal(false);
-    setShowReviewsModal(false);
-  };
+
   if (isLoading) return <Loading />;
   const isMyOffer = user?.id === offerDetails?.user?.id;
 
-  console.log("personal offers details", user, offerDetails , isMyOffer);
+  console.log("personal offers details", user, offerDetails, isMyOffer);
 
   return (
     <section className="page offer-details-section">
@@ -84,8 +79,9 @@ export default function PersonalOffersDetails() {
                 className="toggle-bookmark-button"
               >
                 <i
-                  className={`fa-solid fa-bookmark ${bookmarked ? "active" : ""
-                    } ${isPending ? "opacity-50" : ""}`}
+                  className={`fa-solid fa-bookmark ${
+                    bookmarked ? "active" : ""
+                  } ${isPending ? "opacity-50" : ""}`}
                 ></i>
               </button>
 
@@ -120,11 +116,7 @@ export default function PersonalOffersDetails() {
             </div>
             <p className="desc">{offerDetails?.title}</p>
 
-            <OfferInfoGrid
-              offer={offerDetails}
-              onShowHelpModal={() => setShowHelpModal(true)}
-              onShowReviewsModal={() => setShowReviewsModal(true)}
-            />
+            <OfferInfoGrid offer={offerDetails} />
 
             {offerDetails.help_service?.notes && (
               <div className="extra-terms">
@@ -195,19 +187,18 @@ export default function PersonalOffersDetails() {
 
             {user && (
               <div className="buttons justify-content-end mt-2">
-                <CustomButton
-                  variant="outlined"
+                <CustomLink
+                  type="outlined"
                   color="primary"
-                  onClick={() => setShowReviewsModal(true)}
+                  to={`/offers/${offerDetails?.id}/rates`}
                 >
                   {t("website.offerDetails.showReviews")}
-                </CustomButton>
+                </CustomLink>
                 {offerDetails.can_send_request && !isMyOffer && (
                   <CustomButton onClick={() => setShowHelpModal(true)}>
                     {t("website.offerDetails.sendContract")}
                   </CustomButton>
                 )}
-
               </div>
             )}
           </div>
@@ -231,11 +222,11 @@ export default function PersonalOffersDetails() {
               setShowModal={setShowInquiryModal}
             />
 
-            <ReviewsModal
+            {/* <ReviewsModal
               showModal={showReviewsModal}
               setShowModal={setShowReviewsModal}
               reviews={[]}
-            />
+            /> */}
           </>
         )}
       </div>
