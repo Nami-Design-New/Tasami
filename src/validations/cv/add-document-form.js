@@ -8,7 +8,16 @@ const getDocSchema = (t) => {
     field: yup.string().required(t("validation.required")),
     specialization: yup.string().required(t("validation.required")),
     documentType: yup.string().required(t("validation.required")),
-    issuingAuthority: yup.string().required(t("validation.required")),
+    issuingAuthority: yup
+      .string()
+      .required(t("validation.required"))
+      .min(
+        6,
+        t("validation.min", {
+          field: t("website.platform.cv.issuingAuthority"),
+          min: 6,
+        })
+      ),
     documentNumber: yup.string().required(t("validation.required")),
     expiryDate: yup
       .date()

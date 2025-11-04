@@ -2,14 +2,45 @@ import { ProgressBar } from "react-bootstrap";
 import { useOutletContext } from "react-router";
 import useGetContractDetails from "../../../../hooks/website/MyWorks/assistants/useGetContractDetails";
 import Currency from "../../../../ui/Currency";
-import CustomLink from "../../../../ui/CustomLink";
+import CustomButton from "../../../../ui/CustomButton";
 import Loading from "../../../../ui/loading/Loading";
 import AssistantWorkCard from "../../../../ui/website/my-works/work-offers/AssistantWorkCard";
+import { useTranslation } from "react-i18next";
+import { toast } from "sonner";
+import useAcceptOrRefuseRenewRequest from "../../../../hooks/website/contracts/useAcceptOrRefuseRenewRequest";
+import { useQueryClient } from "@tanstack/react-query";
 
 export default function ContractsBeneficiaries() {
+  const { t } = useTranslation();
   const { contractId } = useOutletContext();
-
   const { contractDetails, isLoading } = useGetContractDetails(contractId);
+  const queryClient = useQueryClient();
+  const { acceptMutation, isAccepting, refuseMutation, isRefusing } =
+    useAcceptOrRefuseRenewRequest();
+
+  const handleReject = () => {
+    refuseMutation(contractDetails.id, {
+      onSuccess: () => {
+        toast.success(t("Renew request refused successfully"));
+        queryClient.invalidateQueries({ queryKey: ["contract-details"] });
+      },
+      onError: (err) => {
+        toast.error(err.message || t("Failed to refuse renew request"));
+      },
+    });
+  };
+
+  const handleAccept = () => {
+    acceptMutation(contractDetails.id, {
+      onSuccess: () => {
+        toast.success(t("Renew request accepted successfully"));
+        queryClient.invalidateQueries({ queryKey: ["contract-details"] });
+      },
+      onError: (err) => {
+        toast.error(err.message || t("Failed to accept renew request"));
+      },
+    });
+  };
 
   if (isLoading) return <Loading />;
   return (
@@ -23,14 +54,48 @@ export default function ContractsBeneficiaries() {
                 chat={false}
                 prevAssistant={contractDetails?.status !== "working"}
               />
-              <CustomLink
-                type="outlined"
-                fullWidth
-                size="large"
-                to={`/helper/${contractDetails.helper.id}`}
-              >
-                السيرة الذاتية
-              </CustomLink>
+
+              {contractDetails?.renew_to_date !== "" &&
+                contractDetails?.renew_price !== "" && (
+                  <div className="renew-details">
+                    <h6> طلب تمديد تعاقد </h6>
+                    <div className="d-flex align-items-center gap-2">
+                      <p className="renew-date">
+                        <span> تاريخ التمديد : </span>
+                        <span>{contractDetails?.renew_to_date}</span>
+                      </p>
+
+                      <p className="renew-date">
+                        <span>سعر التمديد:</span>
+                        <span>
+                          {contractDetails?.renew_price} <Currency />
+                        </span>
+                      </p>
+                    </div>
+                    <div className="d-flex align-content-center gap-1">
+                      <CustomButton
+                        color="fire"
+                        size="large"
+                        variant="outlined"
+                        onClick={handleReject}
+                        disabled={isRefusing}
+                        loading={isRefusing}
+                      >
+                        {t("reject")}
+                      </CustomButton>
+                      <CustomButton
+                        fullWidth
+                        color="success"
+                        size="large"
+                        onClick={handleAccept}
+                        disabled={isAccepting}
+                        loading={isAccepting}
+                      >
+                        {t("accept")}
+                      </CustomButton>
+                    </div>
+                  </div>
+                )}
             </div>
           </div>
           <div className="col-8 p-2">

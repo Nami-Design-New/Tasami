@@ -1,6 +1,4 @@
-import React from "react";
-
-export default function StarRate({ rating }) {
+export default function StarRate({ rating, isRating = true }) {
   const fullStars = Math.floor(rating);
   const halfStar = rating % 1 >= 0.5;
   return (
@@ -12,7 +10,7 @@ export default function StarRate({ rating }) {
       {[...Array(5 - fullStars - (halfStar ? 1 : 0))].map((_, i) => (
         <i key={i} className="far fa-star"></i>
       ))}
-      <span className="rating-number">({rating.toFixed(1)})</span>
+      {isRating && <span className="rating-number">({rating.toFixed(1)})</span>}
     </div>
   );
 }

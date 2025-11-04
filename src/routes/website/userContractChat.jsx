@@ -6,13 +6,14 @@ import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router";
 import * as yup from "yup";
-import useGetGroupChats from "../../../hooks/website/MyWorks/groups/chat/useGetGroupChat";
-import useSendGroupMessage from "../../../hooks/website/MyWorks/groups/chat/useSendGroupMessage";
-import Message from "../../../ui/chat/Message";
-import InfiniteScroll from "../../../ui/loading/InfiniteScroll";
-import RoundedBackButton from "../../../ui/website-auth/shared/RoundedBackButton";
-import { GroupChatSocketService } from "../../../utils/GroupChatService";
-import { getToken } from "../../../utils/token";
+import useGetAssistantChats from "../../hooks/website/MyWorks/assistants/chats/useGetAssistantChats";
+import useSendAssistantMessage from "../../hooks/website/MyWorks/assistants/chats/useSendAssistantMessage";
+import RoundedBackButton from "../../ui/website-auth/shared/RoundedBackButton";
+import InfiniteScroll from "../../ui/loading/InfiniteScroll";
+import Message from "../../ui/chat/Message";
+import { ContractChatService } from "../../utils/ContractChatService";
+import { getToken } from "../../utils/token";
+import useGetContractDetails from "../../hooks/website/MyWorks/assistants/useGetContractDetails";
 
 const getMessageType = (file) => {
   if (!file) return "text";
@@ -42,13 +43,15 @@ const schema = yup.object().shape({
   audio: yup.mixed().nullable(),
 });
 
-export default function GroupChat() {
+export default function UserContractChat() {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const { id } = useParams();
   const queryClient = useQueryClient();
   //   const { lang } = useSelector((state) => state.language);
   const { user } = useSelector((state) => state.authRole);
+  const { contractDetails, isLoading: contractDetailsLoading } =
+    useGetContractDetails(id);
 
   // ===== States =====
   const [selectedFile, setSelectedFile] = useState(null);
@@ -64,10 +67,10 @@ export default function GroupChat() {
   const timerRef = useRef(null);
 
   const { chats, isLoading, hasNextPage, fetchNextPage, isFetchingNextPage } =
-    useGetGroupChats();
+    useGetAssistantChats();
   const allChats = chats?.pages?.flatMap((page) => page?.data).reverse() ?? [];
 
-  const { sendMessage } = useSendGroupMessage();
+  const { sendMessage } = useSendAssistantMessage();
 
   //   const messagesEndRef = useRef(null);
   const chatContainerRef = useRef(null);
@@ -89,7 +92,7 @@ export default function GroupChat() {
 
   // ===== SOCKET CONNECTION =====
   useEffect(() => {
-    const socket = new GroupChatSocketService();
+    const socket = new ContractChatService();
     const token = getToken();
 
     socket.onStatusChange((status) => {
@@ -99,7 +102,7 @@ export default function GroupChat() {
 
     socket.onMessage((message) => {
       console.log("Incoming message:", message);
-      queryClient.setQueryData(["group-chat", id], (oldData) => {
+      queryClient.setQueryData(["contract-chat", id], (oldData) => {
         if (!oldData) return oldData;
         const updatedPages = oldData.pages.map((page, idx) =>
           idx === 0 ? { ...page, data: [message, ...page.data] } : page
@@ -119,7 +122,7 @@ export default function GroupChat() {
       });
     });
 
-    socket.connectPrivate({ token, groupId: id });
+    socket.connectPrivate({ token, contractId: id });
     return () => socket.disconnect();
   }, [id, queryClient]);
 
@@ -284,7 +287,7 @@ export default function GroupChat() {
     }
 
     formData.append("type", type);
-    formData.append("group_id", id);
+    formData.append("contract_id", id);
 
     sendMessage(formData);
 
@@ -293,18 +296,21 @@ export default function GroupChat() {
     setSelectedFile(null);
   };
 
-  // ===== RENDER =====
   return (
     <div className="container">
-      <div className="community-chat-window">
+      <div className="community-chat-window page">
         <div className="chat-window">
           {/* ===== Header ===== */}
           <div className="chat-window__info d-flex align-items-center justify-content-between">
             <div className="d-flex align-items-center gap-2">
               <RoundedBackButton onClick={() => navigate(-1)} />
-              <h4 className="chat-window__name mb-0">{t("chats")}</h4>
+              <h4 className="chat-window__name mb-0">
+                {user?.id === contractDetails?.helper?.id
+                  ? contractDetails?.user?.name
+                  : contractDetails?.helper?.name}
+              </h4>
             </div>
-            {/* ✅ Live socket status indicator */}
+            {/* Live socket status indicator */}
             <div className="socket-status d-flex align-items-center gap-2">
               {socketStatus === "connected" && (
                 <span className="text-success">🟢 Connected</span>
@@ -319,10 +325,6 @@ export default function GroupChat() {
                 <span className="text-danger">⚠️ Error</span>
               )}
             </div>
-          </div>
-
-          <div className="chat-window__hint">
-            <p>هذه محادثة جماعية، رسائلك مرئية للجميع</p>
           </div>
 
           {/* ===== Messages ===== */}
@@ -366,114 +368,120 @@ export default function GroupChat() {
           </div>
 
           {/* ===== Footer Form ===== */}
-          <form
-            className="chat-window__footer"
-            onSubmit={handleSubmit(onSubmit)}
-          >
-            <div className="preview-section">
-              {isRecording ? (
-                <div className={`recording-bar ${isPaused ? "paused" : ""}`}>
-                  <button
-                    type="button"
-                    className="delete-btn"
-                    onClick={cancelRecording}
-                  >
-                    <i className="fa-solid fa-stop"></i>
-                  </button>
-
-                  {!isPaused ? (
-                    <button type="button" onClick={pauseRecording}>
-                      <i className="fa-solid fa-pause"></i>
+          {contractDetails?.status === "working" ? (
+            <form
+              className="chat-window__footer"
+              onSubmit={handleSubmit(onSubmit)}
+            >
+              <div className="preview-section">
+                {isRecording ? (
+                  <div className={`recording-bar ${isPaused ? "paused" : ""}`}>
+                    <button
+                      type="button"
+                      className="delete-btn"
+                      onClick={cancelRecording}
+                    >
+                      <i className="fa-solid fa-stop"></i>
                     </button>
-                  ) : (
-                    <button type="button" onClick={resumeRecording}>
-                      <i className="fa-solid fa-play"></i>
-                    </button>
-                  )}
 
-                  <div className="wave"></div>
-                  <span className="timer">{formatTime(recordingTime)}</span>
-                </div>
-              ) : audioBlob ? (
-                <div className="audio-preview d-flex align-items-center gap-2">
-                  <audio controls src={URL.createObjectURL(audioBlob)} />
-                  <button
-                    type="button"
-                    className="cancel-audio"
-                    onClick={cancelRecording}
-                  >
-                    <i className="fa-solid fa-xmark"></i>
-                  </button>
-                </div>
-              ) : selectedFile ? (
-                <div className="file-chat-preview">
-                  <div className="file-info">
-                    <i className="fa-solid fa-paperclip"></i>
-                    <span className="file-name">{selectedFile.name}</span>
+                    {!isPaused ? (
+                      <button type="button" onClick={pauseRecording}>
+                        <i className="fa-solid fa-pause"></i>
+                      </button>
+                    ) : (
+                      <button type="button" onClick={resumeRecording}>
+                        <i className="fa-solid fa-play"></i>
+                      </button>
+                    )}
+
+                    <div className="wave"></div>
+                    <span className="timer">{formatTime(recordingTime)}</span>
                   </div>
-                  <button
-                    type="button"
-                    className="cancel-file"
-                    onClick={() => {
-                      setSelectedFile(null);
-                      setValue("file", null);
-                    }}
-                  >
-                    <i className="fa-solid fa-xmark"></i>
-                  </button>
-                </div>
-              ) : (
+                ) : audioBlob ? (
+                  <div className="audio-preview d-flex align-items-center gap-2">
+                    <audio controls src={URL.createObjectURL(audioBlob)} />
+                    <button
+                      type="button"
+                      className="cancel-audio"
+                      onClick={cancelRecording}
+                    >
+                      <i className="fa-solid fa-xmark"></i>
+                    </button>
+                  </div>
+                ) : selectedFile ? (
+                  <div className="file-chat-preview">
+                    <div className="file-info">
+                      <i className="fa-solid fa-paperclip"></i>
+                      <span className="file-name">{selectedFile.name}</span>
+                    </div>
+                    <button
+                      type="button"
+                      className="cancel-file"
+                      onClick={() => {
+                        setSelectedFile(null);
+                        setValue("file", null);
+                      }}
+                    >
+                      <i className="fa-solid fa-xmark"></i>
+                    </button>
+                  </div>
+                ) : (
+                  <input
+                    type="text"
+                    className="text-input"
+                    placeholder="اكتب رسالتك هنا..."
+                    {...register("message")}
+                    disabled={isRecording}
+                  />
+                )}
+              </div>
+
+              <div className="chat-actions">
+                <label htmlFor="fileInput">
+                  <i className="fa-solid fa-paperclip"></i>
+                </label>
                 <input
-                  type="text"
-                  className="text-input"
-                  placeholder="اكتب رسالتك هنا..."
-                  {...register("message")}
-                  disabled={isRecording}
+                  id="fileInput"
+                  type="file"
+                  accept="image/*,video/*"
+                  hidden
+                  {...register("file")}
+                  onChange={(e) => {
+                    const file = e.target.files[0];
+
+                    if (!file) return;
+                    //  validate type (safety check)
+                    const isImage = file.type.startsWith("image/");
+                    const isVideo = file.type.startsWith("video/");
+
+                    if (isImage || isVideo) {
+                      setValue("message", "");
+                      setAudioBlob(null);
+                      cancelRecording();
+                      setSelectedFile(file);
+                      setValue("file", file);
+                    } else {
+                      e.target.value = "";
+                    }
+                  }}
                 />
-              )}
+                <button
+                  type="button"
+                  onClick={startRecording}
+                  disabled={selectedFile || isRecording}
+                >
+                  <i className="fa-solid fa-microphone"></i>
+                </button>
+                <button type="submit" className="chat-window__footer--send">
+                  <i className="fa-solid fa-paper-plane"></i>
+                </button>
+              </div>
+            </form>
+          ) : (
+            <div>
+              لا يمكنك الرد علي هذة المحادثة لنتهاء التعاقد بينك وبين المساعد
             </div>
-
-            <div className="chat-actions">
-              <label htmlFor="fileInput">
-                <i className="fa-solid fa-paperclip"></i>
-              </label>
-              <input
-                id="fileInput"
-                type="file"
-                accept="image/*,video/*"
-                hidden
-                {...register("file")}
-                onChange={(e) => {
-                  const file = e.target.files[0];
-
-                  if (!file) return;
-                  //  validate type (safety check)
-                  const isImage = file.type.startsWith("image/");
-                  const isVideo = file.type.startsWith("video/");
-
-                  if (isImage || isVideo) {
-                    setValue("message", "");
-                    setAudioBlob(null);
-                    cancelRecording();
-                    setSelectedFile(file);
-                    setValue("file", file);
-                  } else {
-                    e.target.value = "";
-                  }
-                }}
-              />
-              <button
-                type="button"
-                onClick={startRecording}
-                disabled={selectedFile || isRecording}
-              >
-                <i className="fa-solid fa-microphone"></i>
-              </button>
-              <button type="submit" className="chat-window__footer--send">
-                <i className="fa-solid fa-paper-plane"></i>
-              </button>
-            </div>
-          </form>
+          )}
         </div>
       </div>
     </div>

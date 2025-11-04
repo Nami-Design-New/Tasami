@@ -21,7 +21,11 @@ const getRefundRequestSchema = (t) =>
       .required(t("validation.required", { field: t("profile.bankName") })),
     branchCode: yup
       .string()
-      .required(t("validation.required", { field: t("profile.branchCode") })),
+      .required(t("validation.required", { field: t("profile.branchCode") }))
+      .matches(
+        /^[A-Za-z0-9]{3,11}$/,
+        t("validation.pattern", { field: t("profile.branchCode") })
+      ),
     price: yup
       .number()
       .typeError(t("validation.number", { field: t("profile.price") }))

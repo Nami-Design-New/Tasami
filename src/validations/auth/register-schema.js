@@ -18,8 +18,14 @@ const registerSchema = (t) => {
         if (typeof file === "string") return true;
         return file.type.startsWith("image/");
       }),
-    firstName: yup.string().required(t("validation.required")),
-    middleName: yup.string().required(t("validation.required")),
+    firstName: yup
+      .string()
+      .min(2, t("validation.firstNameMin", { min: 2 }))
+      .required(t("validation.required")),
+    middleName: yup
+      .string()
+      .min(1, t("validation.middleNameMin", { min: 1 }))
+      .required(t("validation.required")),
     dateOfBirth: yup
       .date()
       .typeError(t("validation.date"))

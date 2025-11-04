@@ -1,16 +1,30 @@
 import { Link } from "react-router";
+import CustomButton from "../../../CustomButton";
+import { useTranslation } from "react-i18next";
+import useBlockAssistant from "../../../../hooks/website/my-clients/useBlockAssistant";
+import { toast } from "sonner";
+import { useQueryClient } from "@tanstack/react-query";
 
-export default function AssistantWorkCard({
-  helper,
-  contractId,
-  chat = true,
-  prevAssistant = false,
-}) {
+export default function ClientsCard({ helper }) {
+  const { t } = useTranslation();
+  const queryClient = useQueryClient();
+
+  const { blockAssistant, isPending } = useBlockAssistant();
+  const handleBlock = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    blockAssistant(helper?.id, {
+      onSuccess: (res) => {
+        toast.success(res.message);
+        queryClient.invalidateQueries({ queryKey: ["clients"] });
+      },
+      onError: (err) => {
+        toast.error(err.message);
+      },
+    });
+  };
   return (
-    <Link
-      to={`/assisatant/contarct/${contractId}`}
-      className={`helper-card  ${prevAssistant ? "yellow" : ""}`}
-    >
+    <Link to={`/helper/${helper.id}`} className="helper-card">
       <figure className="image-wrapper">
         <img
           src={helper.image}
@@ -48,16 +62,14 @@ export default function AssistantWorkCard({
             </span>
           )}
 
-          {chat && (
-            <Link to={`/user-chat/${contractId}`} className="chat">
-              <img
-                src="/icons/chat-white-icon.svg"
-                alt="chat"
-                className="flag-icon "
-                loading="lazy"
-              />
-            </Link>
-          )}
+          <CustomButton
+            onClick={handleBlock}
+            variant={helper.blocked ? "outlined" : "default"}
+            color="fire"
+            loading={isPending}
+          >
+            {helper.blocked ? t("unblock") : t("block")}
+          </CustomButton>
         </footer>
       </section>
     </Link>
