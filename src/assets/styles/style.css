@@ -9408,6 +9408,52 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
   border-color: #214b92;
 }
 
+.avg-rates {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.avg-rates .avg-value {
+  font-size: 64px;
+  color: #0d0d0d;
+  font-weight: 700;
+}
+
+.rate-card {
+  background-color: rgba(13, 13, 13, 0.0196078431);
+  border-radius: 1rem;
+  padding: 1rem 1.5rem;
+}
+.rate-card__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  margin-bottom: 0.5rem;
+}
+.rate-card__user {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #222;
+  margin: 0;
+}
+.rate-card__rating {
+  display: flex;
+  align-items: center;
+}
+.rate-card__date {
+  display: block;
+  font-size: 0.85rem;
+  color: rgba(13, 13, 13, 0.5607843137);
+  margin-bottom: 0.75rem;
+}
+.rate-card__notes {
+  font-size: 1rem;
+  line-height: 1.5;
+  color: #0d0d0d;
+  border-radius: 0.5rem;
+}
+
 .myworks .tab-nav {
   display: flex;
   gap: 0.25rem;

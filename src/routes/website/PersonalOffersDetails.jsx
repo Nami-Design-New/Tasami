@@ -185,8 +185,8 @@ export default function PersonalOffersDetails() {
               </div>
             </div>
 
-            {user && (
-              <div className="buttons justify-content-end mt-2">
+            <div className="buttons justify-content-end mt-2">
+              {offerDetails.rate && (
                 <CustomLink
                   type="outlined"
                   color="primary"
@@ -194,13 +194,13 @@ export default function PersonalOffersDetails() {
                 >
                   {t("website.offerDetails.showReviews")}
                 </CustomLink>
-                {offerDetails.can_send_request && !isMyOffer && (
-                  <CustomButton onClick={() => setShowHelpModal(true)}>
-                    {t("website.offerDetails.sendContract")}
-                  </CustomButton>
-                )}
-              </div>
-            )}
+              )}
+              {user && offerDetails.can_send_request && !isMyOffer && (
+                <CustomButton onClick={() => setShowHelpModal(true)}>
+                  {t("website.offerDetails.sendContract")}
+                </CustomButton>
+              )}
+            </div>
           </div>
         </div>
 
@@ -221,12 +221,6 @@ export default function PersonalOffersDetails() {
               showModal={showInquiryModal}
               setShowModal={setShowInquiryModal}
             />
-
-            {/* <ReviewsModal
-              showModal={showReviewsModal}
-              setShowModal={setShowReviewsModal}
-              reviews={[]}
-            /> */}
           </>
         )}
       </div>
