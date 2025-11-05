@@ -12557,23 +12557,6 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
   flex-wrap: wrap;
   flex-direction: column;
 }
-.personal-assiatant-details-card .exp-info .exp-info-tabs .tab-button {
-  font-size: 14px;
-  color: #5fcafa;
-  padding: 12px 16px;
-  border: 1px solid #5fcafa;
-  border-radius: 8px;
-  background-color: #fff;
-  cursor: pointer;
-  transition: 0.3s ease;
-  width: -moz-fit-content;
-  width: fit-content;
-}
-.personal-assiatant-details-card .exp-info .exp-info-tabs .tab-button.active {
-  background-color: #5fcafa;
-  color: #fff;
-  border-color: #5fcafa;
-}
 .personal-assiatant-details-card .more-offers h6 {
   margin-bottom: 12px;
   font-size: 1rem;
@@ -12658,9 +12641,6 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
   background: #63c5f9;
 }
 @media (max-width: 576px) {
-  .personal-assiatant-details-card {
-    padding: 1rem;
-  }
   .personal-assiatant-details-card .top-info {
     flex-direction: column;
     align-items: center;
@@ -12693,6 +12673,22 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
   .personal-assiatant-details-card .stats {
     flex-direction: column;
   }
+}
+
+.tab-button {
+  font-size: 14px;
+  color: #5fcafa;
+  padding: 12px 16px;
+  border: 1px solid #5fcafa;
+  border-radius: 8px;
+  background-color: #fff;
+  cursor: pointer;
+  width: 100%;
+}
+.tab-button.active {
+  background-color: #5fcafa;
+  color: #fff;
+  border-color: #5fcafa;
 }
 
 .exp-info-grid {

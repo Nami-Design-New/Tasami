@@ -20,7 +20,6 @@ export default function HelpersDetails() {
   const navigate = useNavigate();
   const { t } = useTranslation();
   const { user } = useSelector((state) => state.authRole);
-  const { lang } = useSelector((state) => state.language);
   const { assistantDetails, isLoading } = useGetAssistantDetails();
   const queryClient = useQueryClient();
   const [optimisticFollow, setOptimisticFollow] = useState(
