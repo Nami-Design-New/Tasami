@@ -46,7 +46,7 @@ export default function PersonalHelperDoc({ tabs = [] }) {
           </div>
           <div className="exp-info-box">
             <h5>{t("website.assistants.issuer")}</h5>
-            <p>{currentTab.document_auth_title}</p>
+            <p>{currentTab.document_auth}</p>
           </div>
           <div className="exp-info-box">
             <h5>{t("website.assistants.number")}</h5>
