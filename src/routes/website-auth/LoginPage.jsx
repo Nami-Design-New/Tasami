@@ -6,7 +6,7 @@ import useGoogleAuth from "../../hooks/auth/useGoogleAuth";
 const LoginPage = () => {
   const { t } = useTranslation();
   const location = useLocation();
-  const { handleGoogleLogin, isPending } = useGoogleAuth();
+  const { handleGoogleLogin, loading } = useGoogleAuth();
 
   return (
     <section className="login-wrapper">
@@ -27,7 +27,7 @@ const LoginPage = () => {
       </div>
       <div className="seperator">{t("auth.or")}</div>
       <div className="social-login-buttons">
-        <button onClick={handleGoogleLogin} disabled={isPending}>
+        <button onClick={handleGoogleLogin} disabled={loading}>
           <img src="/icons/google-icon.svg" alt="Google" />
           <span>{t("auth.continueWithGoogle")}</span>
         </button>

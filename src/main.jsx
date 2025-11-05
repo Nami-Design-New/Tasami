@@ -41,6 +41,7 @@ const queryClient = new QueryClient({
       refetchOnMount: false,
       refetchOnReconnect: false,
       staleTime: 0,
+      gcTime: 0,
     },
   },
 });

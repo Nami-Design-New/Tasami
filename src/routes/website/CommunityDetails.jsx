@@ -17,7 +17,6 @@ export default function CommunityDetails() {
   if (isLoading) return <Loading />;
   return (
     <div className="container page">
-      {" "}
       <div className="my-2">
         <RoundedBackButton onClick={() => navigate(-1)}></RoundedBackButton>
       </div>
