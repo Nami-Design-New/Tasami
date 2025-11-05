@@ -31,7 +31,7 @@ export default function WorkOffersCard({ helper, price, offerId }) {
                 className="rating-icon"
                 loading="lazy"
               />
-              <span>{helper.contract_numbers}</span>
+              <span>{helper.experience_level}</span>
             </div>
           </header>
 

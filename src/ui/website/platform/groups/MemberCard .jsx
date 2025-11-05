@@ -26,7 +26,7 @@ export default function MemberCard({ member, exePercentage }) {
           <p className="member-name">{member?.user?.name}</p>
           <div className="d-flex gap-1 align-content-center">
             <img src="/icons/medal.svg" />
-            <span>{member?.user?.contract_numbers}</span>
+            <span>{member?.user?.experience_level}</span>
           </div>
         </div>
       </div>

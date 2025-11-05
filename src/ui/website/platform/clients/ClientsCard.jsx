@@ -45,7 +45,7 @@ export default function ClientsCard({ helper }) {
               className="rating-icon"
               loading="lazy"
             />
-            <span>{helper.contract_numbers}</span>
+            <span>{helper.experience_level}</span>
           </div>
         </header>
 
