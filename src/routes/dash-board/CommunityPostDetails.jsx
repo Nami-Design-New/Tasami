@@ -1,18 +1,18 @@
+import { useTranslation } from "react-i18next";
 import { Link, useNavigate } from "react-router";
 import useGetPostDetails from "../../hooks/website/communities/posts/useGetPostDetails";
 import Loading from "../../ui/loading/Loading";
-import PostMedia from "../../ui/website/communities/posts/MyProductSlider";
-import PostsComments from "../../ui/website/communities/posts/PostsComments";
 import RoundedBackButton from "../../ui/website-auth/shared/RoundedBackButton";
-import { useSelector } from "react-redux";
+import PostMedia from "../../ui/website/communities/posts/MyProductSlider";
 import PostsActions from "../../ui/website/communities/posts/PostsActions";
-import { useTranslation } from "react-i18next";
+import PostsComments from "../../ui/website/communities/posts/PostsComments";
+import { useSelector } from "react-redux";
 
 export default function CommunityPostDetails() {
   const { t } = useTranslation();
+  const { user } = useSelector((state) => state.authRole);
   const { postDetails, isLoading } = useGetPostDetails();
   const navigate = useNavigate();
-  const { lang } = useSelector((state) => state.language);
   const handleBack = () => {
     navigate(-1);
   };
@@ -57,7 +57,10 @@ export default function CommunityPostDetails() {
           </div>
           <div className="col-12 p-2">
             {" "}
-            <PostsComments isSubscribed={postDetails?.is_subscribed} />
+            <PostsComments
+              isSubscribed={postDetails?.is_subscribed}
+              isMyCommunity={user?.id === postDetails?.helper?.id}
+            />
           </div>
         </div>
       </div>

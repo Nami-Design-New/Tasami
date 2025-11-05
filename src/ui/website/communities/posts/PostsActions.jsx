@@ -1,7 +1,7 @@
+import { useQueryClient } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import useHandelToggleLikePosts from "../../../../hooks/website/communities/posts/useHandelToggleLikePosts";
 import useSharePost from "../../../../hooks/website/communities/posts/useSharePost";
-import { useQueryClient } from "@tanstack/react-query";
 
 export default function PostsActions({ post }) {
   const { toggleLike, isPending: likePending } = useHandelToggleLikePosts();
