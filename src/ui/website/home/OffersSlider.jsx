@@ -29,7 +29,6 @@ export default function OffersSlider({ offers }) {
         loop={true}
         autoplay={{ delay: 3000, disableOnInteraction: false }}
         modules={[Autoplay]}
-        // 👇 optimizations
         observer={false}
         observeParents={false}
         watchOverflow={true}

@@ -198,7 +198,7 @@
         background-color: $white;
         cursor: pointer;
         transition: 0.3s ease;
-        width: fit-content;
+        // width: fit-content;
 
         &.active {
           background-color: $second;
@@ -308,7 +308,7 @@
   }
 
   @media (max-width: 576px) {
-    padding: 1rem;
+    // padding: 1rem;
 
     .top-info {
       flex-direction: column;

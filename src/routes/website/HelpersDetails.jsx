@@ -105,10 +105,8 @@ export default function HelpersDetails() {
               )}
             </div>
           </div>
-        </div>
 
-        <div className="row">
-          <div className="col-lg-4 col-12">
+          <div className="col-lg-4 col-12 p-2">
             <div className="goal-details-card">
               <div className="user-profile">
                 <img
@@ -162,7 +160,7 @@ export default function HelpersDetails() {
             </div>
           </div>
 
-          <div className="col-lg-8 col-12">
+          <div className="col-lg-8 col-12 p-2">
             <div className="personal-assiatant-details-card">
               <div className="exp-info-grid">
                 <div className="exp-info-box">
@@ -195,7 +193,7 @@ export default function HelpersDetails() {
                 <div className="row">
                   <Swiper
                     slidesPerView={1}
-                    spaceBetween={16}
+                    spaceBetween={0}
                     breakpoints={{
                       768: { slidesPerView: 2, spaceBetween: 12 },
                       1024: { slidesPerView: 2, spaceBetween: 16 },
