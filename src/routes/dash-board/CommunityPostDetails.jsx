@@ -57,7 +57,7 @@ export default function CommunityPostDetails() {
           </div>
           <div className="col-12 p-2">
             {" "}
-            <PostsComments />
+            <PostsComments isSubscribed={postDetails?.is_subscribed} />
           </div>
         </div>
       </div>

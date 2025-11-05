@@ -586,3 +586,64 @@
     border-color: $main;
   }
 }
+
+.avg-rates {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  .avg-value {
+    font-size: 64px;
+    color: $dark;
+    font-weight: 700;
+  }
+}
+
+// .rate-card {
+//   background-color: $InputBG;
+//   padding: 1rem;
+//   border-radius: 12px;
+
+//   .user {
+//     display: flex;
+//   }
+// }
+.rate-card {
+  background-color: $InputBG;
+  border-radius: 1rem;
+  padding: 1rem 1.5rem;
+
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    margin-bottom: 0.5rem;
+  }
+
+  &__user {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #222;
+    margin: 0;
+  }
+
+  &__rating {
+    display: flex;
+    align-items: center;
+  }
+
+  &__date {
+    display: block;
+    font-size: 0.85rem;
+    color: $gray;
+    margin-bottom: 0.75rem;
+  }
+
+  &__notes {
+    font-size: 1rem;
+    line-height: 1.5;
+    color: $dark;
+
+    border-radius: 0.5rem;
+  }
+}

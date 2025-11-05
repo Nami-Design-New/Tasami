@@ -60,7 +60,7 @@ export default function WorksDetails() {
         </div>{" "}
         {workDetails.helper && (
           <div className="mb-3">
-            <AssistantWorkCard helper={workDetails?.helper} />
+            <AssistantWorkCard helper={workDetails?.helper} chat={false} />
           </div>
         )}
         <p className="value">{workDetails?.title}</p>

@@ -16,7 +16,7 @@ export default function useGetPosts() {
       const res = await axiosInstance.get("posts", {
         params: {
           page: pageParam,
-          communty_id: id,
+          community_id: id,
         },
       });
 

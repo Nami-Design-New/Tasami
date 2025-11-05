@@ -14,7 +14,7 @@ export default function useCancelContract() {
         throw new Error(res.data.message || "Error Fetching Data");
       }
 
-      return res.data.data;
+      return res.data;
     },
   });
   return { cancelContract, isPending };

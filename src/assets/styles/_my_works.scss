@@ -571,4 +571,80 @@
       }
     }
   }
+
+  .renew-details {
+    border-radius: 12px;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    background-color: #fdcb2f1a;
+    h6 {
+      color: $clientYellow;
+    }
+    .renew-date {
+      display: flex;
+      flex-direction: column;
+      // align-items: center;
+      gap: 4px;
+      background-color: $white;
+      flex: 1;
+      padding: 8px 12px;
+      border-radius: 12px;
+      span {
+        font-size: 14px;
+        &:first-child {
+          color: $second;
+          font-weight: 500;
+        }
+        &:last-child {
+          color: $dark;
+          font-weight: 700;
+        }
+      }
+    }
+  }
+}
+
+.show-rate-modal {
+  .notes {
+    padding: 16px;
+    border-radius: 12px;
+    background-color: $InputBG;
+    border: 1px solid $InputStroke;
+  }
+
+  .rate-summary {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    p {
+      font-size: 48px;
+      font-weight: bold;
+      color: $dark;
+    }
+    .rate-count {
+      font-size: 14px;
+      color: $gray;
+    }
+  }
+}
+
+.withdraw-modal {
+  h1 {
+    color: $main;
+  }
+  .renew-date {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    span {
+      &:first-child {
+        color: $dark;
+      }
+      &:last-child {
+        color: $second;
+      }
+    }
+  }
 }

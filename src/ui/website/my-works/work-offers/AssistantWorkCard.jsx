@@ -49,7 +49,7 @@ export default function AssistantWorkCard({
           )}
 
           {chat && (
-            <Link to={"/user-chat"} className="chat">
+            <Link to={`/user-chat/${contractId}`} className="chat">
               <img
                 src="/icons/chat-white-icon.svg"
                 alt="chat"

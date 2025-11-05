@@ -2,9 +2,11 @@ import { useState } from "react";
 import { useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router";
 import useAddOrRemoveBookmark from "../../hooks/website/personal-assistances/useAddOrRemoveBookmark";
+import { useTranslation } from "react-i18next";
 
 const OfferCard = ({ offer }) => {
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const { user } = useSelector((state) => state.authRole);
   const { toggleBookmark, isPending } = useAddOrRemoveBookmark();
   const [bookmarked, setBookmarked] = useState(offer?.is_saved || false);
@@ -46,7 +48,7 @@ const OfferCard = ({ offer }) => {
           <h3>{offer.user.name}</h3>
           <span className="rating">
             <i className="fa-solid fa-star text-warning"></i>{" "}
-            {offer.help_service.rate}
+            {offer.rate !== "" ? offer.rate : t("new")}
           </span>
         </div>
         <p className="title ellipsis " style={{ maxWidth: "240px" }}>

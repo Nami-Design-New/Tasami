@@ -112,6 +112,20 @@ export default function ContractDetailsLayout() {
       },
       { id: 2, label: t("works.beneficiary"), link: "beneficiaries" },
     ];
+  } else if (
+    workDetails?.helper === null &&
+    (workDetails?.status === "planning" || workDetails?.status === "execution")
+  ) {
+    tabs = [
+      {
+        id: 1,
+        label: t("works.details"),
+        end: true,
+      },
+      // { id: 3, label: t("works.myGroup"), link: "group" },
+      // { id: 4, label: t("works.tasks"), link: "tasks" },
+      { id: 5, label: t("works.beneficiary"), link: "beneficiaries" },
+    ];
   } else {
     tabs = [
       {
@@ -138,7 +152,8 @@ export default function ContractDetailsLayout() {
                 <h1>{workDetails?.code}</h1>
               </div>
               {workDetails?.rectangle === "help_service_from_helper" &&
-              workDetails?.status === "wait_helper_to_accept" ? (
+              workDetails?.status === "wait_helper_to_accept" &&
+              workDetails.status !== "completed" ? (
                 <></>
               ) : (
                 <div className={`work-actions `}>

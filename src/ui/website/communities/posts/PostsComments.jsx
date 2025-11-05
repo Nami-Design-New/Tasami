@@ -12,7 +12,7 @@ import { toast } from "sonner";
 import { useQueryClient } from "@tanstack/react-query";
 import useDeletePostComment from "../../../../hooks/website/communities/posts/useDeletePostComment";
 
-export default function PostsComments() {
+export default function PostsComments({ isSubscribed }) {
   const { t } = useTranslation();
   const [showModal, setShowModal] = useState(false);
   const queryClient = useQueryClient();
@@ -65,9 +65,12 @@ export default function PostsComments() {
     <div className="comments">
       <div className="comments-header">
         <h2>{t("community.comments")}</h2>
-        <CustomButton size="medium" onClick={() => setShowModal(true)}>
-          {t("community.addComment")}
-        </CustomButton>
+
+        {isSubscribed && (
+          <CustomButton size="medium" onClick={() => setShowModal(true)}>
+            {t("community.addComment")}
+          </CustomButton>
+        )}
       </div>
 
       <div className="row">

@@ -121,7 +121,11 @@ export default function TaskCard({ task, isDragging = false }) {
                     variant="outlined"
                     fullWidth
                   >
-                    تأكيد الاداء
+                    {task?.rate === null ||
+                    task.rate.guidance === "" ||
+                    task.rate.verification === ""
+                      ? "تأكيد الاداء"
+                      : "تم التأكيد"}
                   </CustomButton>
                 </div>
               )
@@ -136,7 +140,7 @@ export default function TaskCard({ task, isDragging = false }) {
                   variant="outlined"
                   fullWidth
                 >
-                  تأكيد الاداء
+                  {task?.rate === null ? "تأكيد الاداء" : "تم التأكيد"}
                 </CustomButton>
               </div>
             )}

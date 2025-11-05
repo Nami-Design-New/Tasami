@@ -14,7 +14,7 @@ const getSchema = (t) =>
       }),
     firstName: yup.string().required(t("validation.required")),
     lastName: yup.string().required(t("validation.required")),
-    date: yup.string().required(t("validation.required")),
+    date: yup.string(),
     gender: yup.string().required(t("validation.required")),
     nationality: yup.string().required(t("validation.required")),
     country: yup.string().required(t("validation.required")),

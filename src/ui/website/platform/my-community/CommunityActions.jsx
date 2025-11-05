@@ -113,11 +113,16 @@ export default function CommunityActions({ community, isMyCommunity = true }) {
             </button>
           )}
         </li>
-        <li>
-          <Link to={`/community/${community?.id}/chats`} className="chat-link">
-            <img src="/icons/chat.svg" />
-          </Link>
-        </li>
+        {(community?.is_subscribed === true || isMyCommunity) && (
+          <li>
+            <Link
+              to={`/community/${community?.id}/chats`}
+              className="chat-link"
+            >
+              <img src="/icons/chat.svg" />
+            </Link>
+          </li>
+        )}
         <li>
           {isMyCommunity && (
             <Dropdown className="custom-dropdown">

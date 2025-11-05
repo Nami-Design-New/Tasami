@@ -7,6 +7,7 @@ import useLogout from "../../hooks/auth/useLogout";
 import { clearAuth } from "../../redux/slices/authRole";
 import CustomButton from "../../ui/CustomButton";
 import Loading from "../../ui/loading/Loading";
+import RoundedBackButton from "../../ui/website-auth/shared/RoundedBackButton";
 import UserCard from "../../ui/website/profile/UserCard";
 import { removeToken } from "../../utils/token";
 
@@ -47,6 +48,17 @@ export default function Profile() {
     <section className="profile_section page ">
       <div className="container">
         <div className="row">
+          {" "}
+          <div className="col-12 p-2 mb-4">
+            <div className="platform-header">
+              <RoundedBackButton
+                onClick={() => navigate("/")}
+              ></RoundedBackButton>
+              <h2 className="platform-header__title">
+                {t("website.platform.profile")}
+              </h2>
+            </div>
+          </div>
           <div className="col-lg-3 col-md-4 col-12 p-2">
             <div className="profile_sidebar">
               <UserCard user={user} />
@@ -98,7 +110,6 @@ export default function Profile() {
               </div>
             </div>
           </div>
-
           <div className="col-lg-9 col-md-8 col-12 p-2">
             <Outlet />
           </div>

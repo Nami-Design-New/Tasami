@@ -41,7 +41,7 @@ export default function ActiveOffersList() {
             </div>
           ))}
         </div>
-      </InfiniteScroll>{" "}
+      </InfiniteScroll>
       {!isLoading && activeAssistances.length === 0 && (
         <EmptySection
           height="500px"

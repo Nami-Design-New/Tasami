@@ -3,11 +3,11 @@ import { useState } from "react";
 import { Modal } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
+import { useNavigate, useParams } from "react-router";
 import { toast } from "sonner";
 import useAcceptOrRemoveWorkOffer from "../../../../hooks/website/MyWorks/offers/useAcceptOrRemoveWorkOffer";
 import Currency from "../../../Currency";
 import CustomButton from "../../../CustomButton";
-import { useNavigation, useParams } from "react-router";
 
 export default function OfferPaymentModal({
   plan,
@@ -18,7 +18,7 @@ export default function OfferPaymentModal({
   const { t } = useTranslation();
   const { user } = useSelector((state) => state.authRole);
   const { id: workId } = useParams();
-  const navigate = useNavigation();
+  const navigate = useNavigate();
   const [selectedMethod, setSelectedMethod] = useState("online");
   const { acceptOrRemoveWorkOffer, isPending } = useAcceptOrRemoveWorkOffer();
   const queryClient = useQueryClient();
@@ -31,16 +31,16 @@ export default function OfferPaymentModal({
     };
     acceptOrRemoveWorkOffer(payload, {
       onSuccess: (res) => {
-        toast.success(res.message);
+        toast.success(res?.message);
+        setShowModal(false);
         console.log("payment success");
-        navigate(`/my-works/${workId}/group`);
+        setSelectedMethod("online");
+        setShowOfferModal(false);
         queryClient.invalidateQueries({ queryKey: ["work-offers"] });
         queryClient.refetchQueries({ queryKey: ["work-details"] });
         queryClient.refetchQueries({ queryKey: ["assistants"] });
         queryClient.refetchQueries({ queryKey: ["work-group"] });
-        setShowModal(false);
-        setShowOfferModal(false);
-        setSelectedMethod("online");
+        navigate(`/my-works/${workId}/group`);
       },
     });
   };
