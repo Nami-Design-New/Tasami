@@ -1,5 +1,8 @@
-
-export default function GenderSelect({ value, onChange }) {
+export default function GenderSelect({
+  value,
+  onChange,
+  disabled = ({ disabled } = false),
+}) {
   return (
     <div className="gender_select">
       <label>الهوية</label>
@@ -13,6 +16,7 @@ export default function GenderSelect({ value, onChange }) {
             type="radio"
             name="gender"
             id="female"
+            disabled={disabled}
             checked={value === "female"}
           />
           <img src="/icons/femal.svg" alt="female" /> أنثي
@@ -27,6 +31,7 @@ export default function GenderSelect({ value, onChange }) {
             type="radio"
             name="gender"
             id="male"
+            disabled={disabled}
             checked={value === "male"}
           />
           <img src="/icons/mal.svg" alt="male" /> ذكر
@@ -35,4 +40,3 @@ export default function GenderSelect({ value, onChange }) {
     </div>
   );
 }
-

@@ -198,6 +198,7 @@ export default function EditProfile() {
             <InputField
               label={t("profile.firstName")}
               id="firstName"
+              disabled
               {...register("firstName", {
                 required: t("validation.required"),
               })}
@@ -220,6 +221,7 @@ export default function EditProfile() {
             <DatePicker
               label={t("profile.date")}
               id="date"
+              disabled
               {...register("date", {
                 required: t("validation.required"),
               })}
@@ -231,6 +233,7 @@ export default function EditProfile() {
             <GenderSelect
               value={gender}
               onChange={(val) => setValue("gender", val)}
+              disabled
             />
           </div>
 
@@ -314,6 +317,7 @@ export default function EditProfile() {
               label={t("profile.email")}
               id="email"
               type="email"
+              disabled
               {...register("email", {
                 required: t("validation.required"),
               })}
