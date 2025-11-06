@@ -1,5 +1,5 @@
 import { useQueryClient } from "@tanstack/react-query";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import { Modal } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
 import { toast } from "sonner";
@@ -12,13 +12,21 @@ import InputField from "../../forms/InputField";
 import SelectField from "../../forms/SelectField";
 import useGenerateDes from "../../../hooks/website/my-assistances/useGenerateDes";
 import TextField from "../../forms/TextField";
+import useEditAssistance from "../../../hooks/website/my-assistances/useEditAssistance";
 
-export default function AddAssistanceModal({ showModal, setShowModal }) {
+export default function AddAssistanceModal({
+  showModal,
+  setShowModal,
+  offer,
+  isEdit = false,
+}) {
   const { t } = useTranslation();
   const { categories, isLoading } = useGetcategories();
   const { helpMechanisms, isLoading: helpLoading } = useGetHelpMechanisms();
   const { generateDes, isPending: isGenerating } = useGenerateDes();
   const { addNewAssistance, isPending } = useAddNewAssistance();
+  const { editYourAssistance, isPending: isEditing } = useEditAssistance();
+
   const queryClient = useQueryClient();
   const inputFileRef = useRef();
   const {
@@ -39,6 +47,9 @@ export default function AddAssistanceModal({ showModal, setShowModal }) {
   const durationInDays = Number(month) * 30 + Number(day);
 
   const selectedHelpMechanism = watch("helpMechanism") || [];
+
+  console.log(selectedHelpMechanism, helpMechanisms);
+
   const subCategories =
     categories?.find((cat) => String(cat.id) === String(selectedFieldId))
       ?.sub_categories || [];
@@ -48,16 +59,50 @@ export default function AddAssistanceModal({ showModal, setShowModal }) {
     setValue("profilePicture", file);
   };
 
-  const onSubmit = async (data) => {
-    console.log("Form Submitted: ", data);
-    const formData = new FormData();
-    if (data.profilePicture instanceof File) {
-      formData.append("image", data.profilePicture);
+  /**  Prefill form when editing */
+  useEffect(() => {
+    if (isEdit && offer) {
+      const months = offer?.help_service?.duration
+        ? Math.floor(offer?.help_service?.duration / 30)
+        : "";
+      const days = offer?.help_service?.duration
+        ? offer?.help_service?.duration % 30
+        : "";
+
+      reset({
+        field: String(offer?.category_id) || "",
+        specialization: String(offer?.sub_category_id) || "",
+        title: offer?.title || "",
+        price: offer?.help_service?.price || "",
+        gender: offer?.help_service?.preferred_gender || "both",
+        ageOption:
+          offer?.help_service?.from_age || offer?.help_service?.to_age
+            ? "defined"
+            : "notDefined",
+        fromAge: offer?.help_service?.from_age || "",
+        toAge: offer?.help_service?.to_age || "",
+        month: months,
+        day: days,
+        extraTerms: offer?.help_service?.notes || "",
+        helpMechanism: offer?.mechanisms?.map((m) => String(m.id)) || [],
+        profilePicture: offer.help_service.image || "",
+      });
     }
+  }, [isEdit, offer, reset]);
+
+  /**  Submit Handler */
+  const onSubmit = async (data) => {
+    const formData = new FormData();
+
+    if (data?.profilePicture instanceof File) {
+      formData.append("image", data?.profilePicture);
+    }
+
     if (data.ageOption === "defined") {
       formData.append("from_age", data.fromAge);
       formData.append("to_age", data.toAge);
     }
+
     formData.append("category_id", data.field);
     formData.append("sub_category_id", data.specialization);
     formData.append("title", data.title);
@@ -65,26 +110,42 @@ export default function AddAssistanceModal({ showModal, setShowModal }) {
     formData.append("price", data.price);
     formData.append("preferred_gender", data.gender);
     formData.append("notes", data.extraTerms);
+
     data.helpMechanism.forEach((id) => {
       formData.append("help_mechanism_ids[]", id);
     });
-    addNewAssistance(formData, {
-      onSuccess: (res) => {
-        reset();
-        setShowModal(false);
-        queryClient.invalidateQueries({
-          queryKey: ["my-assistances"],
-        });
-        queryClient.invalidateQueries({
-          queryKey: ["personal-assistants"],
-        });
-        queryClient.refetchQueries({ queryKey: ["homeData"] });
-        toast.success(res?.message);
-      },
-      onError: (error) => {
-        toast.error(error?.message);
-      },
-    });
+
+    const commonSuccess = (res) => {
+      reset();
+
+      setShowModal(false);
+      queryClient.invalidateQueries({ queryKey: ["my-assistances"] });
+      queryClient.invalidateQueries({ queryKey: ["offer-details"] });
+      queryClient.invalidateQueries({ queryKey: ["personal-assistants"] });
+      queryClient.refetchQueries({ queryKey: ["homeData"] });
+      toast.success(res?.message);
+    };
+
+    const commonError = (error) => {
+      toast.error(error?.message);
+    };
+
+    if (isEdit && offer?.id) {
+      formData.append("_method", "PUT");
+      editYourAssistance(
+        { id: offer?.id, body: formData },
+        {
+          onSuccess: commonSuccess,
+          onError: commonError,
+        }
+      );
+    } else {
+      // Add Mode
+      addNewAssistance(formData, {
+        onSuccess: commonSuccess,
+        onError: commonError,
+      });
+    }
   };
 
   const handleGeneratDes = async () => {
@@ -99,8 +160,6 @@ export default function AddAssistanceModal({ showModal, setShowModal }) {
       { text: title, page: "help_service" },
       {
         onSuccess: (res) => {
-          console.log(res.text);
-
           setValue("title", res?.text || "");
         },
         onError: (error) => {
@@ -109,7 +168,6 @@ export default function AddAssistanceModal({ showModal, setShowModal }) {
       }
     );
   };
-  console.log(errors);
 
   return (
     <Modal
@@ -122,7 +180,12 @@ export default function AddAssistanceModal({ showModal, setShowModal }) {
       size="lg"
     >
       <Modal.Header closeButton>
-        <h6>{t("website.platform.myAssistance.addNewOffer")}</h6>
+        <h6>
+          {/* {t("website.platform.myAssistance.addNewOffer")} */}
+          {isEdit
+            ? t("website.platform.myAssistance.editOffer")
+            : t("website.platform.myAssistance.addNewOffer")}
+        </h6>
       </Modal.Header>
       <Modal.Body>
         <form className="form_ui" onSubmit={handleSubmit(onSubmit)}>
@@ -137,7 +200,11 @@ export default function AddAssistanceModal({ showModal, setShowModal }) {
                 <div className="image-input-wrapper community-cover">
                   {profilePicture ? (
                     <img
-                      src={URL.createObjectURL(profilePicture)}
+                      src={
+                        profilePicture instanceof File
+                          ? URL.createObjectURL(profilePicture)
+                          : profilePicture
+                      }
                       alt="preview"
                       className="preview-img"
                     />
@@ -372,11 +439,11 @@ export default function AddAssistanceModal({ showModal, setShowModal }) {
               <div className="buttons">
                 <CustomButton
                   type="submit"
-                  loading={isPending}
+                  loading={isEdit ? isEditing : isPending}
                   size="large"
                   fullWidth
                 >
-                  {t("add")}
+                  {isEdit ? t("saveChanges") : t("add")}
                 </CustomButton>
               </div>
             </div>

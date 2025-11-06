@@ -48,7 +48,7 @@ const OfferCard = ({ offer }) => {
           <h3>{offer.user.name}</h3>
           <span className="rating">
             <i className="fa-solid fa-star text-warning"></i>{" "}
-            {offer.rate !== "" ? offer.rate : t("new")}
+            {offer.help_service.rate !== 0 ? offer.help_service.rate : t("new")}
           </span>
         </div>
         <p className="title ellipsis " style={{ maxWidth: "240px" }}>

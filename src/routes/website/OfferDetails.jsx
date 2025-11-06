@@ -7,10 +7,38 @@ import OfferInfoGrid from "../../ui/website/offers/OfferInfoGrid";
 import TopInfo from "../../ui/website/offers/TopInfo";
 import { useSelector } from "react-redux";
 import CustomLink from "../../ui/CustomLink";
+import { useState } from "react";
+import AddAssistanceModal from "../../ui/website/offers/AddAssistanceModal";
+import AlertModal from "../../ui/website/platform/my-community/AlertModal";
+import useDeleteAssistance from "../../hooks/website/my-assistances/useDeleteAssistance";
+import { toast } from "sonner";
+import { useNavigate } from "react-router";
+import { useQueryClient } from "@tanstack/react-query";
 export default function OfferDetails() {
   const { t } = useTranslation();
+  const navigate = useNavigate();
+  const queryClient = useQueryClient();
+
   const { lang } = useSelector((state) => state.language);
+  const [showEditModal, setShowEditModal] = useState(false);
+  const [showAlertModal, setShowAlertModal] = useState(false);
+  const [showArchiveModal, setShowArchiveModal] = useState(false);
   const { offerDetails, isLoading } = useGetOfferDetials();
+  const { deleteAssistance, isPending: isDeleting } = useDeleteAssistance();
+
+  const handleDeleteAssistance = (id) => {
+    deleteAssistance(id, {
+      onSuccess: (res) => {
+        toast.success(res?.message);
+        navigate("/my-platform/my-assistances?tab=active");
+        queryClient.refetchQueries({ queryKey: ["my-assistances"] });
+      },
+      onError: (err) => {
+        toast.error(err.message);
+        console.log(err.message);
+      },
+    });
+  };
 
   if (isLoading) return <Loading />;
 
@@ -24,15 +52,15 @@ export default function OfferDetails() {
               options={[
                 {
                   label: t("website.offerDetails.edit"),
-                  onClick: () => console.log("edit"),
+                  onClick: () => setShowEditModal(true),
                 },
                 {
                   label: t("website.offerDetails.archive"),
-                  onClick: () => console.log("Archive"),
+                  onClick: () => setShowArchiveModal(true),
                 },
                 {
                   label: t("website.offerDetails.delete"),
-                  onClick: () => console.log("Delete"),
+                  onClick: () => setShowAlertModal(true),
                   className: "text-danger",
                 },
               ]}
@@ -127,6 +155,23 @@ export default function OfferDetails() {
           </div>
         </div>
       </div>
+
+      <AddAssistanceModal
+        showModal={showEditModal}
+        setShowModal={setShowEditModal}
+        offer={offerDetails}
+        isEdit={true}
+      />
+
+      <AlertModal
+        confirmButtonText={t("confirm")}
+        showModal={showAlertModal}
+        setShowModal={setShowAlertModal}
+        onConfirm={() => handleDeleteAssistance(offerDetails?.id)}
+        loading={isDeleting}
+      >
+        سيتم حذف هذة المساعدة
+      </AlertModal>
     </section>
   );
 }

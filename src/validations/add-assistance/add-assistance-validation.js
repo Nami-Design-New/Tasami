@@ -8,14 +8,23 @@ const getSchema = (t) =>
     .object({
       profilePicture: yup
         .mixed()
-        .required(t("validation.required"))
+        .test("requiredOrExisting", t("validation.required"), (value) => {
+          //  CASE 1: User uploaded new file → valid
+          if (value instanceof File) return true;
+
+          //  CASE 2: Existing image URL from backend → valid
+          if (typeof value === "string" && value.trim() !== "") return true;
+
+          // CASE 3: No image at all → invalid
+          return false;
+        })
         .test("fileSize", t("validation.fileSize"), (file) => {
-          if (!file) return false;
+          if (!file) return true; // allow existing image string
           if (typeof file === "string") return true;
           return file.size <= 2 * 1024 * 1024;
         })
         .test("fileType", t("validation.fileType"), (file) => {
-          if (!file) return false;
+          if (!file) return true;
           if (typeof file === "string") return true;
           return file.type.startsWith("image/");
         }),
