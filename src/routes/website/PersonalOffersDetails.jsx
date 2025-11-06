@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
-import { useNavigate } from "react-router";
+import { Link, useNavigate } from "react-router";
 import useAddOrRemoveBookmark from "../../hooks/website/personal-assistances/useAddOrRemoveBookmark";
 import useGetPersonalOfferDetails from "../../hooks/website/personal-assistances/useGetPersonalOfferDetails";
 import CustomButton from "../../ui/CustomButton";
@@ -27,7 +27,6 @@ export default function PersonalOffersDetails() {
   const [showHelpModal, setShowHelpModal] = useState(false);
   const [showReportModal, setShowReportModal] = useState(false);
   const [showInquiryModal, setShowInquiryModal] = useState(false);
-  // const [showReviewsModal, setShowReviewsModal] = useState(false);
 
   useEffect(() => {
     setBookmarked(offerDetails?.is_saved || false);
@@ -106,7 +105,9 @@ export default function PersonalOffersDetails() {
 
         <div className="goal-details-card mt-3 row">
           <div className="col-12 col-lg-4 p-2">
-            <TopInfo offer={offerDetails} />
+            <Link to={`/helper/${offerDetails?.user?.id}`}>
+              <TopInfo offer={offerDetails} />
+            </Link>
           </div>
 
           <div className="col-lg-8 col-12 p-2">
@@ -186,7 +187,7 @@ export default function PersonalOffersDetails() {
             </div>
 
             <div className="buttons justify-content-end mt-2">
-              {offerDetails.rate && (
+              {offerDetails.rate > 0 && (
                 <CustomLink
                   type="outlined"
                   color="primary"

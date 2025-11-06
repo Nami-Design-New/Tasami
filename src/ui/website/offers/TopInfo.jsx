@@ -6,7 +6,7 @@ export default function TopInfo({ offer }) {
         {offer.status && <span className="status-dot"></span>}
       </div>
 
-      <div className="details">
+      <div className="details p-2">
         <div className="d-flex flex-1 justify-content-between ">
           <div className="personal-info">
             <h5>{offer.user.name}</h5>
