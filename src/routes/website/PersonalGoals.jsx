@@ -1,13 +1,15 @@
 import { useTranslation } from "react-i18next";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import useGetGoals from "../../hooks/website/goals/useGetGoals";
 import GoalCard from "../../ui/cards/GoalCard";
 import EmptySection from "../../ui/EmptySection";
 import AudienceCardLoader from "../../ui/loading/AudienceCardLoader";
 import InfiniteScroll from "../../ui/loading/InfiniteScroll";
 import AssistantsSidebar from "../../ui/website/helpers/AssistantsSidebar";
+import RoundedBackButton from "../../ui/website-auth/shared/RoundedBackButton";
 export default function PersonalGoals() {
   const { t } = useTranslation();
+  const navigate = useNavigate();
   const { goals, isLoading, hasNextPage, fetchNextPage, isFetchingNextPage } =
     useGetGoals();
   const allGoals = goals?.pages?.flatMap((page) => page?.data) ?? [];
@@ -19,12 +21,11 @@ export default function PersonalGoals() {
           <div className="col-12 p-2">
             <div className="section-header">
               <div className="page-header ">
-                {
-                  <Link to="/" className="back-btn">
-                    <i className="fa-solid fa-angle-right"></i>
-                  </Link>
-                }
-                <h1> {t("website.assistants.goals")} </h1>
+                <RoundedBackButton
+                  onClick={() => navigate("/")}
+                ></RoundedBackButton>
+
+                <h1> {t("website.assistants.my_goals")} </h1>
               </div>
             </div>
           </div>

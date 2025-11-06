@@ -1,23 +1,31 @@
 import React, { useState } from "react";
+import { useTranslation } from "react-i18next";
 import TextField from "../../ui/forms/TextField";
 import SubmitButton from "../../ui/forms/SubmitButton";
 import InputField from "../../ui/forms/InputField";
+
 export default function Contact() {
+  const { t } = useTranslation();
   const [activeOption, setActiveOption] = useState(null);
 
   const socialLinks = [
-    { href: "#", src: "/icons/insta.svg", label: "إنستجرام" },
-    { href: "#", src: "/icons/watsapp.svg", label: "واتساب" },
-    { href: "#", src: "/icons/tiktok.svg", label: "تيك توك" },
-    { href: "#", src: "/icons/snap.svg", label: "سناب شات" },
+    { href: "#", src: "/icons/insta.svg", label: t("contact_insta") },
+    { href: "#", src: "/icons/watsapp.svg", label: t("contact_whatsapp") },
+    { href: "#", src: "/icons/tiktok.svg", label: t("contact_tiktok") },
+    { href: "#", src: "/icons/snap.svg", label: t("contact_snapchat") },
   ];
 
-  const options = ["استفسار", "اقتراح", "تصنيف جديد"];
+  const options = [
+    t("contact_option_inquiry"),
+    t("contact_option_suggestion"),
+    t("contact_option_new_category"),
+  ];
 
   return (
-    <section className="contact-page  page">
+    <section className="contact-page page">
       <div className="container">
-        <div className="row  mb-4 social-links">
+        {/* Social Links */}
+        <div className="row mb-4 social-links">
           {socialLinks.map((link, index) => (
             <div className="col-6 col-md-3 p-2" key={index}>
               <a href={link.href} className="social-box">
@@ -28,17 +36,15 @@ export default function Contact() {
           ))}
         </div>
 
-        <div className="row ">
+        <div className="row">
           <div className="col-12 col-md-6 p-2">
             <div className="contact-form-wrapper">
-              <h3 className="title">اتصل بنا</h3>
-              <p className="desc">
-                يمكنك التواصل معنا مباشرة من خلال ملء النموذج التالي:
-              </p>
+              <h3 className="title">{t("contact_title")}</h3>
+              <p className="desc">{t("contact_description")}</p>
 
               <form className="form_ui">
                 <div className="mb-3">
-                  <label className="form-label">الموضوع</label>
+                  <label className="form-label">{t("contact_subject")}</label>
                   <div className="options">
                     {options.map((opt) => (
                       <button
@@ -55,36 +61,40 @@ export default function Contact() {
 
                 <div className="mb-3">
                   <InputField
-                    label="عنوان الرسالة"
-                    placeholder="اكتب هنا ..."
+                    label={t("contact_field_title")}
+                    placeholder={t("contact_placeholder_title")}
                   />
                 </div>
 
                 <div className="mb-3">
-                  <InputField label="الاسم" placeholder="اكتب اسمك ..." />
+                  <InputField
+                    label={t("contact_field_name")}
+                    placeholder={t("contact_placeholder_name")}
+                  />
                 </div>
 
                 <div className="mb-3">
                   <InputField
-                    label="البريد الإلكتروني"
-                    placeholder="name@example.com"
+                    label={t("contact_field_email")}
+                    placeholder={t("contact_placeholder_email")}
                     type="email"
                   />
                 </div>
 
                 <div className="mb-3">
                   <TextField
-                    label="الرسالة"
-                    placeholder="اكتب رسالتك ..."
+                    label={t("contact_field_message")}
+                    placeholder={t("contact_placeholder_message")}
                     id="commentText"
                     rows={4}
                   />
                 </div>
 
-                <SubmitButton text="إرسال" />
+                <SubmitButton text={t("contact_submit")} />
               </form>
             </div>
           </div>
+
           <div className="col-12 col-md-6 p-2">
             <div className="map-wrapper">
               <iframe

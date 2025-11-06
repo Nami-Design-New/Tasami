@@ -1,31 +1,34 @@
+import { useTranslation } from "react-i18next";
 import FAQsSection from "./Faqs";
 
 export default function Steps() {
+  const { t } = useTranslation();
+
   const steps = [
     {
       icon: "fa-search",
-      title: "استعرض أهدافك",
-      desc: "تصفّح المهام والخدمات المتاحة وتعرف على ما تحتاجه بدقة.",
+      title: t("steps_browse_title"),
+      desc: t("steps_browse_desc"),
     },
     {
       icon: "fa-pencil-alt",
-      title: "اطلب المساعدة",
-      desc: "اكتب هدفك بالتفصيل وحدد متطلباتك بوضوح.",
+      title: t("steps_request_title"),
+      desc: t("steps_request_desc"),
     },
     {
       icon: "fa-users",
-      title: "اختر المساعد",
-      desc: "احصل على عروض من مساعدين مؤهلين واختر الأنسب لك.",
+      title: t("steps_choose_title"),
+      desc: t("steps_choose_desc"),
     },
     {
       icon: "fa-flag-checkered",
-      title: "ابدأ رحلة الإنجاز",
-      desc: "ابدأ تنفيذ خطتك وحقق أهدافك بدعم مستمر.",
+      title: t("steps_start_title"),
+      desc: t("steps_start_desc"),
     },
     {
       icon: "fa-star",
-      title: "قيم وشارك",
-      desc: "ولا تنسى أن تقيم تجربتك وتشارك قصة نجاحك مع أصدقائك.",
+      title: t("steps_review_title"),
+      desc: t("steps_review_desc"),
     },
   ];
 
@@ -33,14 +36,11 @@ export default function Steps() {
     <>
       <section className="steps-section page">
         <div className="section-head text-center mb-5">
-          <span className="sub-title d-block mb-2">الخطوات ببساطة</span>
+          <span className="sub-title d-block mb-2">{t("steps_subtitle")}</span>
           <h2 className="main-title mb-3">
-            كيف تعمل <span>تسامي</span>؟
+            {t("steps_title")} <span>{t("brand_name")}</span>؟
           </h2>
-          <p className="desc">
-            من البداية حتى تحقيق هدفك — "تسامي" تساعدك على تحديد أهدافك، التواصل
-            مع المساعد الأنسب، والمتابعة حتى تصل للنتيجة التي تطمح إليها.
-          </p>
+          <p className="desc">{t("steps_description")}</p>
         </div>
 
         <div className="steps-container">
@@ -59,14 +59,11 @@ export default function Steps() {
 
       <section className="aim-section page">
         <div className="section-head text-center mb-3 mb-lg-5">
-          <span className="sub-title">صممت من أجلك</span>
+          <span className="sub-title">{t("aim_subtitle")}</span>
           <h2 className="main-title mb-3">
-            ما الذي تقدمه لك <span>تسامي</span>؟
+            {t("aim_title")} <span>{t("brand_name")}</span>؟
           </h2>
-          <p className="desc">
-            منصتنا تلبي احتياجاتك، سواء كنت مستفيدًا تسعى لتحقيق أهدافك، أو
-            مساعدًا شخصيًا يدعم الآخرين لتحقيق النجاح.
-          </p>
+          <p className="desc">{t("aim_description")}</p>
         </div>
 
         <div className="container">
@@ -74,27 +71,21 @@ export default function Steps() {
             <div className="col-12 col-md-6 text-center">
               <img
                 src="/images/1.jpg"
-                alt="مستفيد"
+                alt={t("aim_beneficiary_alt")}
                 className="img-fluid mb-3"
               />
-              <h3>كمستفيد</h3>
-              <p>
-                منصة لا غنى عنها لتحقيق أهدافك بكفاءة وفعالية ضمن مجتمع داعم
-                ومتحفز.
-              </p>
+              <h3>{t("aim_beneficiary_title")}</h3>
+              <p>{t("aim_beneficiary_desc")}</p>
             </div>
 
             <div className="col-12 col-md-6 text-center">
               <img
                 src="/images/2.jpg"
-                alt="مساعد شخصي"
+                alt={t("aim_assistant_alt")}
                 className="img-fluid mb-3"
               />
-              <h3>كمساعد شخصي</h3>
-              <p>
-                منصة مميزة لدعم الطموحين ومساعدتهم على تخطي التحديات والوصول إلى
-                أهدافهم.
-              </p>
+              <h3>{t("aim_assistant_title")}</h3>
+              <p>{t("aim_assistant_desc")}</p>
             </div>
           </div>
         </div>

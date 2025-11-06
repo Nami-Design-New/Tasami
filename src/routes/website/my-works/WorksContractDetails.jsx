@@ -215,7 +215,10 @@ export default function WorksContractDetails() {
                       {t("works.contractDetails.day")}
                     </span>
                   </div>
-                  <ProgressBar label="" now={60} />
+                  <ProgressBar
+                    label=""
+                    now={contractDetails?.progress_percent}
+                  />
                 </div>
               </div>
             </div>

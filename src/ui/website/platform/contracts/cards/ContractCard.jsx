@@ -70,7 +70,7 @@ export default function ContractCard({ contract, withoutStatus = true }) {
               <img src="icons/title.svg" />
               <p> {contract.category_title} </p>
             </div>
-          </div>{" "}
+          </div>
           <div className="col-6 p-1">
             <div className="info-item">
               <i className="fa-light fa-calendar"></i>{" "}
@@ -78,7 +78,7 @@ export default function ContractCard({ contract, withoutStatus = true }) {
             </div>
           </div>
         </div>
-      </div>{" "}
+      </div>
       {withoutStatus && <WorkProgress steps={progressSteps} />}
     </Link>
   );

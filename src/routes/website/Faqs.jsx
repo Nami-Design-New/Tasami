@@ -1,9 +1,11 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { useState } from "react";
 import useGetFAQs from "../../hooks/website/settings/useGetFAQs";
-import PaginationCustom from "../../ui/PaginationCustom ";
+import { useTranslation } from "react-i18next";
+// import PaginationCustom from "../../ui/PaginationCustom";
 
 export default function FAQsSection() {
+  const { t } = useTranslation();
   const [page, setPage] = useState(1);
   const { data, isLoading } = useGetFAQs(page);
 
@@ -28,12 +30,12 @@ export default function FAQsSection() {
         >
           <h2 className="main-title">
             <i className="fa-solid fa-circle-question me-2"></i>
-            الأسئلة <span>الشائعة</span>
+            {t("faqs_title_main")} <span>{t("faqs_title_span")}</span>{" "}
           </h2>
         </motion.div>
 
         {isLoading ? (
-          <p>Loading...</p>
+          <></>
         ) : (
           <>
             <div className="faq-list">
@@ -74,11 +76,11 @@ export default function FAQsSection() {
             </div>
 
             {/* Reusable Pagination */}
-            <PaginationCustom
+            {/* <PaginationCustom
               currentPage={currentPage}
               totalPages={lastPage}
               onPageChange={setPage}
-            />
+            /> */}
           </>
         )}
       </div>
