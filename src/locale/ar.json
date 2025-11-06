@@ -6,6 +6,9 @@
   "loading": "جار التحميل...",
   "select": "اختر",
   "create": "انشاء",
+  "unarchive": "إلغاء الأرشفة",
+  "archivedSuccessfully": "تمت أرشفة العرض بنجاح",
+  "unarchivedSuccessfully": "تم إلغاء أرشفة العرض بنجاح",
   "edit": "تعديل",
   "save": "حفظ",
   "cancel": "الغاء",
@@ -685,6 +688,7 @@
       "myAssistance": {
         "activeOffers": "العروض النشطة",
         "archivedOffers": "العروض المؤرشفة",
+        "editOffer": "تعديل عرض المساعدة",
         "noActiveAssiatances": "ليس لديك أي مساعدات نشطة حالياً.",
         "noArcivedAssiatances": "ليس لديك أي مساعدات مؤرشفة بعد.",
         "addNewOffer": "إضافة عرض مساعدة جديد",

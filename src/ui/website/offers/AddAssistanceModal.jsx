@@ -84,7 +84,8 @@ export default function AddAssistanceModal({
         month: months,
         day: days,
         extraTerms: offer?.help_service?.notes || "",
-        helpMechanism: offer?.mechanisms?.map((m) => String(m.id)) || [],
+        helpMechanism:
+          offer?.mechanisms?.map((m) => String(m.mechanism_id)) || [],
         profilePicture: offer.help_service.image || "",
       });
     }
@@ -443,7 +444,7 @@ export default function AddAssistanceModal({
                   size="large"
                   fullWidth
                 >
-                  {isEdit ? t("saveChanges") : t("add")}
+                  {isEdit ? t("edit") : t("add")}
                 </CustomButton>
               </div>
             </div>

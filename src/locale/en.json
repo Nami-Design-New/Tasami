@@ -1,6 +1,7 @@
 {
   "chats": "chats",
   "block": "Block",
+  "unarchive": "Unarchive",
   "unblock": "Unblock",
   "hello": "Hello",
   "loading": "Loading...",
@@ -9,6 +10,8 @@
   "save": "save",
   "edit": "Edit",
   "deactive": "Deactive",
+  "archivedSuccessfully": "Offer archived successfully",
+  "unarchivedSuccessfully": "Offer unarchived successfully",
   "active": "Active",
   "cancel": "Cancel",
   "add": "Add",
@@ -681,6 +684,7 @@
       "myAssistance": {
         "activeOffers": "Active Offers",
         "archivedOffers": "Archived Offers",
+        "editOffer": "Edit Assistance Offer",
         "noActiveAssiatances": "You don’t have any active assistances at the moment.",
         "noArcivedAssiatances": "You don’t have any archived assistances yet.",
         "addNewOffer": "Add new offer",

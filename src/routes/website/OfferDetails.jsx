@@ -1,19 +1,20 @@
+import { useQueryClient } from "@tanstack/react-query";
+import { useState } from "react";
 import { useTranslation } from "react-i18next";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router";
+import { toast } from "sonner";
+import useArchiveAssistance from "../../hooks/website/my-assistances/useArchiveAssistance";
+import useDeleteAssistance from "../../hooks/website/my-assistances/useDeleteAssistance";
 import useGetOfferDetials from "../../hooks/website/my-assistances/useGetOfferDetials";
+import CustomLink from "../../ui/CustomLink";
 import Loading from "../../ui/loading/Loading";
 import OptionsMenu from "../../ui/website/OptionsMenu";
 import SectionHeader from "../../ui/website/SectionHeader";
+import AddAssistanceModal from "../../ui/website/offers/AddAssistanceModal";
 import OfferInfoGrid from "../../ui/website/offers/OfferInfoGrid";
 import TopInfo from "../../ui/website/offers/TopInfo";
-import { useSelector } from "react-redux";
-import CustomLink from "../../ui/CustomLink";
-import { useState } from "react";
-import AddAssistanceModal from "../../ui/website/offers/AddAssistanceModal";
 import AlertModal from "../../ui/website/platform/my-community/AlertModal";
-import useDeleteAssistance from "../../hooks/website/my-assistances/useDeleteAssistance";
-import { toast } from "sonner";
-import { useNavigate } from "react-router";
-import { useQueryClient } from "@tanstack/react-query";
 export default function OfferDetails() {
   const { t } = useTranslation();
   const navigate = useNavigate();
@@ -22,9 +23,10 @@ export default function OfferDetails() {
   const { lang } = useSelector((state) => state.language);
   const [showEditModal, setShowEditModal] = useState(false);
   const [showAlertModal, setShowAlertModal] = useState(false);
-  const [showArchiveModal, setShowArchiveModal] = useState(false);
   const { offerDetails, isLoading } = useGetOfferDetials();
   const { deleteAssistance, isPending: isDeleting } = useDeleteAssistance();
+  const { archiveYourAssistance, isPending: isArchiving } =
+    useArchiveAssistance();
 
   const handleDeleteAssistance = (id) => {
     deleteAssistance(id, {
@@ -36,6 +38,34 @@ export default function OfferDetails() {
       onError: (err) => {
         toast.error(err.message);
         console.log(err.message);
+      },
+    });
+  };
+
+  const handleArchive = (id, isCurrentlyArchived) => {
+    const payload = {
+      id,
+      body: {
+        is_archived: isCurrentlyArchived ? 0 : 1,
+        _method: "PUT",
+      },
+    };
+
+    archiveYourAssistance(payload, {
+      onSuccess: () => {
+        toast.success(
+          isCurrentlyArchived
+            ? t("unarchivedSuccessfully")
+            : t("archivedSuccessfully")
+        );
+        isCurrentlyArchived
+          ? navigate("/my-platform/my-assistances?tab=active")
+          : navigate("/my-platform/my-assistances?tab=archived");
+
+        queryClient.refetchQueries({ queryKey: ["my-assistances"] });
+      },
+      onError: (err) => {
+        toast.error(err.message || "Something went wrong");
       },
     });
   };
@@ -55,8 +85,17 @@ export default function OfferDetails() {
                   onClick: () => setShowEditModal(true),
                 },
                 {
-                  label: t("website.offerDetails.archive"),
-                  onClick: () => setShowArchiveModal(true),
+                  label: offerDetails?.help_service?.is_archived
+                    ? t("unarchive")
+                    : t("website.offerDetails.archive"),
+                  onClick: () =>
+                    handleArchive(
+                      offerDetails?.id,
+                      offerDetails?.help_service?.is_archived
+                    ),
+                  props: {
+                    disabled: isArchiving,
+                  },
                 },
                 {
                   label: t("website.offerDetails.delete"),
