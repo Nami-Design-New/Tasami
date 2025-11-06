@@ -134,7 +134,10 @@ export default function ContractsBeneficiaries() {
                     <span>{contractDetails?.progress_days} ايام</span>
                     <span>{contractDetails?.total_days} يوم</span>
                   </div>
-                  <ProgressBar label="" now={60} />
+                  <ProgressBar
+                    label=""
+                    now={contractDetails?.progress_percent}
+                  />
                 </div>
               </div>
             </div>
