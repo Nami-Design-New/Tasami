@@ -227,7 +227,7 @@ export default function WorksDetailsLayout() {
         onConfirm={() => handleDeleteGoal(workDetails.id)}
         loading={isdeletingWork}
       >
-        سيتم حذف الهدف نهائيًا من قاءمة اعمالك
+        {t("goalDeleteWarning")}
       </AlertModal>
     </section>
   );

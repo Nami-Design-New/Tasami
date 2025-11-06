@@ -119,6 +119,7 @@
   "stop_recording": "إيقاف التسجيل",
   "cancel_audio": "إلغاء التسجيل الصوتي",
   "remove_file": "إزالة الملف",
+  "goalDeleteWarning": "سيتم حذف الهدف نهائيًا من قائمة أعمالك",
   "pageHeaders": {
     "Notifications": " التنبيهات ",
     "Dashboard": " لوحة التحكم ",

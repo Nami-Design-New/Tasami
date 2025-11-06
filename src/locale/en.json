@@ -117,6 +117,7 @@
   "cancel_audio": "Cancel audio recording",
   "remove_file": "Remove file",
   "enable_mic_permission": "Please enable microphone permission for audio recording",
+  "goalDeleteWarning": "The goal will be permanently deleted from your task list",
   "pageHeaders": {
     "Notifications": "Notifications",
     "Dashboard": "Dashboard",
