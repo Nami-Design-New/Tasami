@@ -148,6 +148,10 @@
   "renewRequestRefused": "Renew request refused successfully",
   "failedAcceptRenew": "Failed to accept renew request",
   "failedRefuseRenew": "Failed to refuse renew request",
+  "enableMicPermission": "Please enable microphone permission to record audio",
+  "groupChatNotice": "This is a group chat — your messages are visible to everyone",
+  "writeYourMessage": "Type your message here...",
+  "messageOrFileRequired": "You must write a message or attach a file",
   "pageHeaders": {
     "Notifications": "Notifications",
     "Dashboard": "Dashboard",

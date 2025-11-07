@@ -51,7 +51,9 @@ export default function ChangeGroupModal({ showModal, setShowModal }) {
       size="md"
     >
       <Modal.Header closeButton>
-        <Modal.Title>تغيير المجموعة</Modal.Title>
+        <Modal.Title>
+          <h6>{t("changeGroup")}</h6>
+        </Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <form onSubmit={handleSubmit(onSubmit)} className="form_ui">

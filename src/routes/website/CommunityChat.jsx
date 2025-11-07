@@ -22,34 +22,32 @@ const getMessageType = (file) => {
   return "file";
 };
 
-// Validation schema
-const schema = yup.object().shape({
-  message: yup
-    .string()
-    .nullable()
-    .test(
-      "message-or-file-or-audio",
-      "يجب كتابة رسالة أو إرفاق ملف",
-      function (value) {
-        const { file, audio } = this.parent;
-        const hasMessage = value?.trim()?.length > 0;
-        const hasFile = file instanceof File;
-        const hasAudio = audio instanceof Blob;
-        return hasMessage || hasFile || hasAudio;
-      }
-    ),
-  file: yup.mixed().nullable(),
-  audio: yup.mixed().nullable(),
-});
-
 export default function CommunityChat() {
-  const { t } = useTranslation();
+  const { t } = useTranslation(); // Validation schema
+  const schema = yup.object().shape({
+    message: yup
+      .string()
+      .nullable()
+      .test(
+        "message-or-file-or-audio",
+        t("messageOrFileRequired"),
+        function (value) {
+          const { file, audio } = this.parent;
+          const hasMessage = value?.trim()?.length > 0;
+          const hasFile = file instanceof File;
+          const hasAudio = audio instanceof Blob;
+          return hasMessage || hasFile || hasAudio;
+        }
+      ),
+    file: yup.mixed().nullable(),
+    audio: yup.mixed().nullable(),
+  });
   const navigate = useNavigate();
   const { id } = useParams();
   const queryClient = useQueryClient();
   // const { lang } = useSelector((state) => state.language);
   const { user } = useSelector((state) => state.authRole);
-  const [socketStatus, setSocketStatus] = useState("connecting");
+  const [, setSocketStatus] = useState("connecting");
 
   // ===== States =====
   const [selectedFile, setSelectedFile] = useState(null);
@@ -142,7 +140,7 @@ export default function CommunityChat() {
       setMicPermission(true);
       return true;
     } catch {
-      alert("من فضلك فعّل إذن الميكروفون للتسجيل الصوتي");
+      alert(t("enableMicPermission"));
       return false;
     }
   };
@@ -318,7 +316,7 @@ export default function CommunityChat() {
           </div>
 
           <div className="chat-window__hint">
-            <p>هذه محادثة جماعية، رسائلك مرئية للجميع</p>
+            <p>{t("groupChatNotice")}</p>
           </div>
 
           {/* ===== Messages ===== */}
@@ -422,7 +420,7 @@ export default function CommunityChat() {
                 <input
                   type="text"
                   className="text-input"
-                  placeholder="اكتب رسالتك هنا..."
+                  placeholder={t("writeYourMessage")}
                   {...register("message")}
                   disabled={isRecording}
                 />

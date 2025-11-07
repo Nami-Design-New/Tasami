@@ -22,28 +22,27 @@ const getMessageType = (file) => {
   return "file";
 };
 
-// Validation schema
-const schema = yup.object().shape({
-  message: yup
-    .string()
-    .nullable()
-    .test(
-      "message-or-file-or-audio",
-      "يجب كتابة رسالة أو إرفاق ملف",
-      function (value) {
-        const { file, audio } = this.parent;
-        const hasMessage = value?.trim()?.length > 0;
-        const hasFile = file instanceof File;
-        const hasAudio = audio instanceof Blob;
-        return hasMessage || hasFile || hasAudio;
-      }
-    ),
-  file: yup.mixed().nullable(),
-  audio: yup.mixed().nullable(),
-});
-
 export default function GroupChat() {
   const { t } = useTranslation();
+  // Validation schema
+  const schema = yup.object().shape({
+    message: yup
+      .string()
+      .nullable()
+      .test(
+        "message-or-file-or-audio",
+        t("messageOrFileRequired"),
+        function (value) {
+          const { file, audio } = this.parent;
+          const hasMessage = value?.trim()?.length > 0;
+          const hasFile = file instanceof File;
+          const hasAudio = audio instanceof Blob;
+          return hasMessage || hasFile || hasAudio;
+        }
+      ),
+    file: yup.mixed().nullable(),
+    audio: yup.mixed().nullable(),
+  });
   const navigate = useNavigate();
   const { id } = useParams();
   const queryClient = useQueryClient();
@@ -57,7 +56,7 @@ export default function GroupChat() {
   const [recordingTime, setRecordingTime] = useState(0);
   const [audioBlob, setAudioBlob] = useState(null);
   const [micPermission, setMicPermission] = useState(false);
-  const [socketStatus, setSocketStatus] = useState("connecting");
+  const [, setSocketStatus] = useState("connecting");
 
   const mediaRecorderRef = useRef(null);
   const audioChunksRef = useRef([]);
@@ -93,7 +92,7 @@ export default function GroupChat() {
     const token = getToken();
 
     socket.onStatusChange((status) => {
-      console.log("🔔 Socket status changed:", status);
+      console.log("Socket status changed:", status);
       setSocketStatus(status);
     });
 
@@ -148,7 +147,7 @@ export default function GroupChat() {
       setMicPermission(true);
       return true;
     } catch {
-      alert("من فضلك فعّل إذن الميكروفون للتسجيل الصوتي");
+      alert(t("enableMicPermission"));
       return false;
     }
   };
@@ -304,8 +303,8 @@ export default function GroupChat() {
               <RoundedBackButton onClick={() => navigate(-1)} />
               <h4 className="chat-window__name mb-0">{t("chats")}</h4>
             </div>
-            {/* ✅ Live socket status indicator */}
-            <div className="socket-status d-flex align-items-center gap-2">
+            {/* Live socket status indicator */}
+            {/* <div className="socket-status d-flex align-items-center gap-2">
               {socketStatus === "connected" && (
                 <span className="text-success">🟢 Connected</span>
               )}
@@ -318,11 +317,11 @@ export default function GroupChat() {
               {socketStatus === "error" && (
                 <span className="text-danger">⚠️ Error</span>
               )}
-            </div>
+            </div> */}
           </div>
 
           <div className="chat-window__hint">
-            <p>هذه محادثة جماعية، رسائلك مرئية للجميع</p>
+            <p>{t("groupChatNotice")}</p>
           </div>
 
           {/* ===== Messages ===== */}
@@ -426,7 +425,7 @@ export default function GroupChat() {
                 <input
                   type="text"
                   className="text-input"
-                  placeholder="اكتب رسالتك هنا..."
+                  placeholder={t("writeYourMessage")}
                   {...register("message")}
                   disabled={isRecording}
                 />

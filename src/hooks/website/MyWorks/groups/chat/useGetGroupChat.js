@@ -1,9 +1,12 @@
 import { useInfiniteQuery } from "@tanstack/react-query";
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import { axiosInstance } from "../../../../../lib/axios";
+import { useEffect } from "react";
 
 export default function useGetGroupChats() {
   const { id } = useParams();
+  const navigate = useNavigate();
+
   const {
     data: chats,
     isLoading,
@@ -22,7 +25,13 @@ export default function useGetGroupChats() {
         },
       });
       if (res?.data?.code !== 200) {
-        throw new Error(res.data.message || "Error Fetching Chats");
+        if (res.data.code === 404) {
+          const err = new Error("Not Found");
+          err.status = 404;
+          throw err;
+        } else {
+          throw new Error(res.data.message || "Error Fetching Chats");
+        }
       }
       return res.data;
     },
@@ -32,6 +41,12 @@ export default function useGetGroupChats() {
         : undefined;
     },
   });
+
+  useEffect(() => {
+    if (error && error.status === 404) {
+      navigate(-1, { replace: true });
+    }
+  }, [error, navigate]);
   return {
     chats,
     isLoading,

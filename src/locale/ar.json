@@ -151,6 +151,10 @@
   "renewRequestRefused": "تم رفض طلب التمديد بنجاح",
   "failedAcceptRenew": "فشل في قبول طلب التمديد",
   "failedRefuseRenew": "فشل في رفض طلب التمديد",
+  "enableMicPermission": "من فضلك فعّل إذن الميكروفون للتسجيل الصوتي",
+  "groupChatNotice": "هذه محادثة جماعية، رسائلك مرئية للجميع",
+  "writeYourMessage": "اكتب رسالتك هنا...",
+  "messageOrFileRequired": "يجب كتابة رسالة أو إرفاق ملف",
   "pageHeaders": {
     "Notifications": " التنبيهات ",
     "Dashboard": " لوحة التحكم ",
