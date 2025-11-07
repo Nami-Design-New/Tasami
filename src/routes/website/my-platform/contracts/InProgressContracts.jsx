@@ -41,7 +41,7 @@ export default function InProgressContracts() {
             );
           })}
           {!isLoading && allMyContracts?.length === 0 && (
-            <EmptySection height="300px" message={t("works.noWorks")} />
+            <EmptySection height="300px" message={t("noInprogressContracts")} />
           )}
         </InfiniteScroll>
       </div>

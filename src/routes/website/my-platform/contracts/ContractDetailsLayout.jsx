@@ -133,8 +133,9 @@ export default function ContractDetailsLayout() {
         label: t("works.details"),
         end: true,
       },
-      { id: 3, label: t("works.myGroup"), link: "group" },
       { id: 4, label: t("works.tasks"), link: "tasks" },
+      { id: 3, label: t("works.myGroup"), link: "group" },
+
       { id: 5, label: t("works.beneficiary"), link: "beneficiaries" },
     ];
   }
@@ -147,7 +148,7 @@ export default function ContractDetailsLayout() {
             <div className="header">
               <div className="d-flex align-items-center gap-2">
                 <RoundedBackButton
-                  onClick={() => navigate(`/my-contracts`)}
+                  onClick={() => navigate(-1)}
                 ></RoundedBackButton>
                 <h1>{workDetails?.code}</h1>
               </div>

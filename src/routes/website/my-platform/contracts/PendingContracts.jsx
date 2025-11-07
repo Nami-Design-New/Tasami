@@ -41,7 +41,7 @@ export default function PendingContracts() {
             );
           })}
           {!isLoading && allMyContracts?.length === 0 && (
-            <EmptySection height="300px" message={t("works.noWorks")} />
+            <EmptySection height="300px" message={t("noPendingContracts")} />
           )}
         </InfiniteScroll>
       </div>

@@ -25,7 +25,7 @@ export default function ContractsGroup() {
             <div className="col-12 p-2">
               <header className="d-flex justify-content-between align-items-center">
                 <h1>
-                  <span>مجموعة</span>
+                  <span>{t("group")}</span>
                   <span>{workGroup.group.title}</span>
                 </h1>
                 <CustomButton
@@ -33,7 +33,7 @@ export default function ContractsGroup() {
                   color="secondary-website"
                   onClick={() => setShowModal(true)}
                 >
-                  تغيير المجموعة
+                  {t("changeGroup")}
                 </CustomButton>
               </header>
             </div>
@@ -44,14 +44,14 @@ export default function ContractsGroup() {
 
             <div className="col-12 p-2">
               <div className="info-grid">
-                <div className="info-box">
+                <div className="info-box info-box-grow-min-width">
                   <div className="label">{t("website.offerDetails.field")}</div>
                   <div className="value">
                     {workGroup?.group?.category_title}
                   </div>
                 </div>
-                <div className="info-box">
-                  <div className="label">مؤشر قوة المجموعة</div>
+                <div className="info-box info-box-grow-min-width">
+                  <div className="label">{t("groupStrengthIndex")}</div>
                   <div className="value">
                     {workGroup?.group?.strength_indicator} %
                   </div>
@@ -67,7 +67,7 @@ export default function ContractsGroup() {
                 size="large"
                 type="outlined"
               >
-                محادثات المجموعة
+                {t("groupChats")}
               </CustomLink>
             </div>
 

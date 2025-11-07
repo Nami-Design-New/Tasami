@@ -67,7 +67,7 @@ export default function ContractCard({ contract, withoutStatus = true }) {
           {" "}
           <div className="col-6 p-1">
             <div className="info-item">
-              <img src="icons/title.svg" />
+              <img src="/icons/title.svg" />
               <p> {contract.category_title} </p>
             </div>
           </div>

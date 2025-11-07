@@ -36,7 +36,7 @@ export default function GoalDetailsModal({
             <div className="col-12 p-2">
               {" "}
               <div className="info-box flex-grow-1 w-100 white-space-nowrap ">
-                <div className="label">{t("الهدف")}</div>{" "}
+                <div className="label">{t("goal")}</div>{" "}
                 <div className="value">{title}</div>
               </div>
             </div>

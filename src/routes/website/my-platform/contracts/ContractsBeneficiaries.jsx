@@ -21,11 +21,11 @@ export default function ContractsBeneficiaries() {
   const handleReject = () => {
     refuseMutation(contractDetails.id, {
       onSuccess: () => {
-        toast.success(t("Renew request refused successfully"));
+        toast.success(t("renewRequestAccepted"));
         queryClient.invalidateQueries({ queryKey: ["contract-details"] });
       },
       onError: (err) => {
-        toast.error(err.message || t("Failed to refuse renew request"));
+        toast.error(err.message || toast.error(t("failedAcceptRenew")));
       },
     });
   };
@@ -52,26 +52,23 @@ export default function ContractsBeneficiaries() {
               <AssistantWorkCard
                 helper={contractDetails?.user}
                 chat={false}
-                prevAssistant={contractDetails?.status !== "working"}
+                canNavigate={false}
               />
 
               {contractDetails?.renew_to_date !== "" &&
                 contractDetails?.renew_price !== "" && (
                   <div className="renew-details">
-                    <h6> طلب تمديد تعاقد </h6>
-                    <div className="d-flex align-items-center gap-2">
-                      <p className="renew-date">
-                        <span> تاريخ التمديد : </span>
-                        <span>{contractDetails?.renew_to_date}</span>
-                      </p>
-
-                      <p className="renew-date">
-                        <span>سعر التمديد:</span>
-                        <span>
-                          {contractDetails?.renew_price} <Currency />
-                        </span>
-                      </p>
-                    </div>
+                    <h6>{t("renewContractRequest")}</h6>{" "}
+                    <p className="renew-date">
+                      <span>{t("renewDate")}:</span>
+                      <span>{contractDetails?.renew_to_date}</span>
+                    </p>
+                    <p className="renew-date">
+                      <span>{t("renewPrice")}:</span>
+                      <span>
+                        {contractDetails?.renew_price} <Currency />
+                      </span>
+                    </p>
                     <div className="d-flex align-content-center gap-1">
                       <CustomButton
                         color="fire"
@@ -100,24 +97,23 @@ export default function ContractsBeneficiaries() {
           </div>
           <div className="col-8 p-2">
             <div className="contract-data">
-              <h2>المدفوعات</h2>
+              <h2>{t("payments")}</h2>
               <div className="goal-info">
                 <div className="info-grid">
                   <div className="info-box flex-grow-1">
-                    <div className="label">قيمة العقد</div>
+                    <div className="label">{t("contractValue")}</div>
                     <div className="value">
                       {contractDetails?.total_price}
                       <Currency />
                     </div>
                   </div>
                   <div className="info-box flex-grow-1">
-                    <div className="label">مدة العقد</div>
+                    <div className="label">{t("contractDuration")}</div>
                     <div className="value">{contractDetails?.total_days}</div>
                   </div>
                   <div className="info-box flex-grow-1">
-                    <div className="label">
-                      قيمة الاستحقاق اليومي للمساعد الشخصي
-                    </div>
+                    <div className="label">{t("dailyEarning")}</div>
+
                     <div className="value">
                       {contractDetails?.day_price}
                       <Currency />
@@ -129,10 +125,14 @@ export default function ContractsBeneficiaries() {
             <div className="goal-info mt-2">
               <div className="info-grid">
                 <div className="info-box flex-grow-1">
-                  <div className="label">التقدم </div>
+                  <div className="label">{t("progress")}</div>
                   <div className="progress-bar-label">
-                    <span>{contractDetails?.progress_days} ايام</span>
-                    <span>{contractDetails?.total_days} يوم</span>
+                    <span>
+                      {contractDetails?.progress_days} {t("days")}
+                    </span>
+                    <span>
+                      {contractDetails?.total_days} {t("day")}
+                    </span>
                   </div>
                   <ProgressBar
                     label=""
@@ -144,14 +144,14 @@ export default function ContractsBeneficiaries() {
             <div className="goal-info mt-2">
               <div className="info-grid">
                 <div className="info-box flex-grow-1">
-                  <div className="label">القيمة المستحقة للمساعد</div>
+                  <div className="label">{t("assistantEarnings")}</div>
                   <div className="value">
                     {contractDetails?.received_money}
                     <Currency />
                   </div>
                 </div>
                 <div className="info-box flex-grow-1">
-                  <div className="label">رصيد الضمان المتبقي</div>{" "}
+                  <div className="label">{t("remainingGuarantee")}</div>
                   <div className="value">
                     {contractDetails?.reminder_money} <Currency />
                   </div>

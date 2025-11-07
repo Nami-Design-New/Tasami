@@ -1,17 +1,17 @@
+import { useQueryClient } from "@tanstack/react-query";
+import { useState } from "react";
 import { useTranslation } from "react-i18next";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router";
+import { toast } from "sonner";
+import useAcceptOrRefuseContract from "../../../../hooks/website/contracts/useAcceptOrRefuseContract";
 import useGetWorkDetails from "../../../../hooks/website/MyWorks/useGetWorkDetails";
+import CustomButton from "../../../../ui/CustomButton";
 import Loading from "../../../../ui/loading/Loading";
 import AssistantWorkCard from "../../../../ui/website/my-works/work-offers/AssistantWorkCard";
-import { useSelector } from "react-redux";
-import Currency from "../../../../ui/Currency";
-import CustomButton from "../../../../ui/CustomButton";
-import useAcceptOrRefuseContract from "../../../../hooks/website/contracts/useAcceptOrRefuseContract";
-import { toast } from "sonner";
-import { useQueryClient } from "@tanstack/react-query";
-import AlertModal from "../../../../ui/website/platform/my-community/AlertModal";
-import { useState } from "react";
-import { useNavigate } from "react-router";
 import AcceptModal from "../../../../ui/website/platform/contracts/AcceptModal";
+import AlertModal from "../../../../ui/website/platform/my-community/AlertModal";
+import Currency from "../../../../ui/Currency";
 
 export default function ContractDetails() {
   const { t } = useTranslation();
@@ -91,15 +91,43 @@ export default function ContractDetails() {
 
       <div className="goal-info">
         <div className="info-grid">
-          <div className="info-box">
+          <div className="info-box info-box-grow-min-width">
             <div className="label">{t("website.offerDetails.field")}</div>
             <div className="value">{workDetails?.category_title}</div>
           </div>
-          <div className="info-box">
+          <div className="info-box info-box-grow-min-width">
             <div className="label">{t("website.offerDetails.specialty")}</div>
             <div className="value">{workDetails?.sub_category_title}</div>
-          </div>
-          <div className="info-box">
+          </div>{" "}
+          {workDetails.rectangle === "help_service_from_helper" && (
+            <>
+              <div className="info-box info-box-grow-min-width">
+                <div className="label">{t("assistanceValue")}</div>
+                <div className="value">
+                  {workDetails?.creator_help_service?.price} <Currency />
+                </div>
+              </div>
+              <div className="info-box info-box-grow-min-width">
+                <div className="label">
+                  {t("beneficiaryIdentityPreference")}
+                </div>
+                <div className="value">
+                  {t(`${workDetails?.creator_help_service?.preferred_gender}`)}
+                </div>
+              </div>
+              <div className="info-box info-box-grow-min-width">
+                <div className="label">{t("beneficiaryAgeGroup")}</div>
+                <div className="value">
+                  {workDetails?.creator_help_service?.from_age === 0 ||
+                  workDetails?.creator_help_service?.to_age === 0
+                    ? t("undefined")
+                    : `${workDetails?.creator_help_service?.from_age} -
+                      ${workDetails?.creator_help_service?.to_age}`}{" "}
+                </div>
+              </div>
+            </>
+          )}
+          <div className="info-box info-box-grow-min-width">
             <div className="label">
               {t("website.offerDetails.expectedData")}
             </div>
@@ -107,16 +135,25 @@ export default function ContractDetails() {
               {workDetails?.goal?.expected_duration_human}
             </div>
           </div>
-          <div className="info-box">
-            <div className="label">{t("website.offerDetails.startDate")}</div>
-            <div className="value">{workDetails?.goal?.start_date}</div>
-          </div>
+          {workDetails.rectangle === "personal_goal_with_helper" && (
+            <div className="info-box info-box-grow-min-width">
+              <div className="label">{t("website.offerDetails.startDate")}</div>
+              <div className="value">{workDetails?.start_date}</div>
+            </div>
+          )}
         </div>
       </div>
 
-      {workDetails?.goal?.notes && (
+      {workDetails.rectangle === "help_service_from_helper" ? (
+        workDetails?.notes_from_helper !== "" && (
+          <div className="notse-box my-3">
+            <div className="label">{t("website.offerDetails.extraTerms")}</div>
+            <div className="value"> {workDetails?.notes_from_helper}</div>
+          </div>
+        )
+      ) : (
         <div className="notse-box my-3">
-          <div className="label">{t("website.offerDetails.extraTerms")}</div>
+          <div className="label">{t("website.offerDetails.extraTerms")}</div>{" "}
           <div className="value">{workDetails?.goal.notes}</div>
         </div>
       )}
@@ -137,13 +174,17 @@ export default function ContractDetails() {
         </div>
       )}
 
-      {workDetails?.offer_price >= 0 && (
-        <div className="notse-box my-3" style={{ width: "fit-content" }}>
-          <div className="label">{t("website.offerDetails.price")}</div>
-          <div className="value">
-            {workDetails?.offer_price} <Currency />
-          </div>
-        </div>
+      {workDetails.rectangle === "help_service_from_helper" ? (
+        workDetails?.goal?.notes && (
+          <>
+            <div className="notse-box my-3">
+              <div className="label">{t("additionalBeneficiaryTerms")}</div>
+              <div className="value">{workDetails?.goal.notes}</div>
+            </div>
+          </>
+        )
+      ) : (
+        <></>
       )}
 
       {workDetails.status === "wait_helper_to_accept" && (

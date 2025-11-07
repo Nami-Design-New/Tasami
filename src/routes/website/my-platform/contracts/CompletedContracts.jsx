@@ -39,7 +39,7 @@ export default function CompletedContracts() {
             );
           })}
           {!isLoading && allMyContracts?.length === 0 && (
-            <EmptySection height="300px" message={t("website.noWorks")} />
+            <EmptySection height="300px" message={t("noCompletedContracts")} />
           )}
         </InfiniteScroll>
       </div>
