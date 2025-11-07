@@ -30,10 +30,25 @@ export default function OfferRequestPaymentModal({
     };
     offerRequestPayment(payload, {
       onSuccess: (res) => {
-        toast.success(res.message);
-        setShowModal(false);
-        queryClient.refetchQueries({ queryKey: ["work-details"] });
-        setSelectedMethod("online");
+        if (selectedMethod === "online") {
+          if (res?.data?.redirect_url) {
+            const width = 800;
+            const height = 600;
+            const left = window.screenX + (window.outerWidth - width) / 2;
+            const top = window.screenY + (window.outerHeight - height) / 2;
+
+            window.open(
+              res.data.redirect_url,
+              "ChargeWalletPopup",
+              `width=${width},height=${height},left=${left},top=${top},resizable=yes,scrollbars=yes,status=no`
+            );
+          }
+        } else if (selectedMethod === "wallet") {
+          toast.success(res.message);
+          setShowModal(false);
+          queryClient.refetchQueries({ queryKey: ["work-details"] });
+          setSelectedMethod("online");
+        }
       },
       onError: (error) => {
         toast.error(error.message);

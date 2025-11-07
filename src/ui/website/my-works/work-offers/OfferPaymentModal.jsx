@@ -31,16 +31,31 @@ export default function OfferPaymentModal({
     };
     acceptOrRemoveWorkOffer(payload, {
       onSuccess: (res) => {
-        toast.success(res?.message);
-        setShowModal(false);
-        console.log("payment success");
-        setSelectedMethod("online");
-        setShowOfferModal(false);
-        queryClient.invalidateQueries({ queryKey: ["work-offers"] });
-        queryClient.refetchQueries({ queryKey: ["work-details"] });
-        queryClient.refetchQueries({ queryKey: ["assistants"] });
-        queryClient.refetchQueries({ queryKey: ["work-group"] });
-        navigate(`/my-works/${workId}/group`);
+        if (selectedMethod === "online") {
+          if (res?.data?.redirect_url) {
+            const width = 800;
+            const height = 600;
+            const left = window.screenX + (window.outerWidth - width) / 2;
+            const top = window.screenY + (window.outerHeight - height) / 2;
+
+            window.open(
+              res.data.redirect_url,
+              "ChargeWalletPopup",
+              `width=${width},height=${height},left=${left},top=${top},resizable=yes,scrollbars=yes,status=no`
+            );
+          }
+        } else if (selectedMethod === "wallet") {
+          toast.success(res?.message);
+          setShowModal(false);
+          console.log("payment success");
+          setSelectedMethod("online");
+          setShowOfferModal(false);
+          queryClient.invalidateQueries({ queryKey: ["work-offers"] });
+          queryClient.refetchQueries({ queryKey: ["work-details"] });
+          queryClient.refetchQueries({ queryKey: ["assistants"] });
+          queryClient.refetchQueries({ queryKey: ["work-group"] });
+          navigate(`/my-works/${workId}/group`);
+        }
       },
     });
   };

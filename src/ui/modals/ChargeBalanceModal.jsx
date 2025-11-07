@@ -45,7 +45,16 @@ const ChargeBalanceModal = ({ showModal, setShowModal }) => {
         setShowModal(false);
         toast.success("profile.chargeSuccess");
         if (res?.data?.redirect_url) {
-          window.open(res.data.redirect_url, "_blank");
+          const width = 800;
+          const height = 600;
+          const left = window.screenX + (window.outerWidth - width) / 2;
+          const top = window.screenY + (window.outerHeight - height) / 2;
+
+          window.open(
+            res.data.redirect_url,
+            "ChargeWalletPopup",
+            `width=${width},height=${height},left=${left},top=${top},resizable=yes,scrollbars=yes,status=no`
+          );
         }
         reset();
       },

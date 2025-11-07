@@ -8223,7 +8223,6 @@ input[type=file] {
   display: flex;
   gap: 10px;
   align-items: center;
-  margin-bottom: 1rem;
 }
 .section-header .page-header h1 {
   font-size: 1.5rem;
