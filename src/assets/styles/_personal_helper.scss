@@ -347,6 +347,7 @@
   cursor: pointer;
   // transition: 0.3s ease;
   // width: fit-content;
+  white-space: nowrap;
   width: 100%;
 
   &.active {

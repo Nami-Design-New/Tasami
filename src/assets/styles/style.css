@@ -9082,13 +9082,6 @@ input[type=file] {
   .helper-details-section .goal-details-card {
     padding: 1rem;
   }
-  .goal-details-section .goal-details-card .top-info,
-  .offer-details-section .goal-details-card .top-info,
-  .helper-details-section .goal-details-card .top-info {
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-  }
   .goal-details-section .goal-details-card .top-info .avatar,
   .offer-details-section .goal-details-card .top-info .avatar,
   .helper-details-section .goal-details-card .top-info .avatar {
@@ -12690,6 +12683,7 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
   border-radius: 8px;
   background-color: #fff;
   cursor: pointer;
+  white-space: nowrap;
   width: 100%;
 }
 .tab-button.active {
