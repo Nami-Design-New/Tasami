@@ -332,7 +332,7 @@ export default function AddGoalModal({ showModal, setShowModal }) {
                 size="large"
                 fullWidth
               >
-                {t("add")}
+                {t("create")}
               </CustomButton>
             </div>
           </div>

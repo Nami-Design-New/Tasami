@@ -1,7 +1,9 @@
 {
   "chats": "المحادثات",
   "block": "حظر",
+  "monthly": "شهريا",
   "unblock": "الغاء الحظر",
+  "new": "جديد",
   "hello": "مرحبا",
   "loading": "جار التحميل...",
   "select": "اختر",
@@ -705,6 +707,7 @@
       },
       "cv": {
         "addDocument": "إضافة وثيقة",
+        "editDocument": "تعديل وثيقة ",
         "field": "المجال",
         "specialization": "التخصص",
         "specializationHint": "إذا لم تجد المجال والتخصص المطلوب، تواصل مع خدمة العملاء لإضافة تصنيف جديد",
@@ -712,7 +715,7 @@
         "issuingAuthority": "جهة الإصدار",
         "documentNumber": "رقم الوثيقة / الاعتماد",
         "expiryDate": "تاريخ الانتهاء",
-        "addExperience": "إضافة خبرة",
+        "addExperience": "إضافة خبرة عملية",
         "description": "الوصف",
         "yearsOfExperience": "سنوات الخبرة",
         "qualification": "المؤهل",
@@ -729,7 +732,7 @@
         "master": "ماجستير",
         "doctorate": "دكتوراه",
         "other": "أخرى",
-        "editExperience": "تعديل الخبرة",
+        "editExperience": "تعديل خبرة عملية",
         "deleteExperience": "حذف ",
         "update": "تعديل",
         "save": "حفظ"

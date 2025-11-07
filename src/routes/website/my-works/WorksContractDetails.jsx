@@ -144,7 +144,7 @@ export default function WorksContractDetails() {
           </div>
 
           {/* Assistant Details */}
-          <div className="col-4 p-2">
+          <div className="col-12 col-md-4 p-2">
             <div className="d-flex flex-column gap-3">
               <AssistantWorkCard
                 helper={contractDetails?.helper}
@@ -163,7 +163,7 @@ export default function WorksContractDetails() {
           </div>
 
           {/* Contract Info */}
-          <div className="col-8 p-2">
+          <div className="col-12 col-md-8 p-2">
             <div className="contract-data">
               <h2>{t("works.contractDetails.payments")}</h2>
               <div className="goal-info">

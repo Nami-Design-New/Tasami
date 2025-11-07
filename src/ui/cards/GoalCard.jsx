@@ -34,50 +34,43 @@ const GoalCard = ({ goal }) => {
   };
 
   return (
-    <div className="goal-card d-flex flex-column text-dark">
-      <div className="d-flex gap-2">
-        <Link
-          to={`/goal/${goal.id}`}
-          className="text-decoration-none text-dark flex-grow-1"
-        >
-          <div className="d-flex gap-2">
-            <div className="image-wrapper">
-              <img src={goal.user.image} alt={goal.name} className="avatar" />
-              {goal.status && <span className="status-dot"></span>}
+    <Link
+      to={`/goal/${goal.id}`}
+      className="goal-card d-flex flex-column gap-2"
+    >
+      <div className="d-flex align-items-center gap-2 px-2">
+        <div className="image-wrapper">
+          <img src={goal.user.image} alt={goal.name} className="avatar" />
+          {goal.status && <span className="status-dot"></span>}
+        </div>
+        <div className="d-flex gap-2 flex-grow-1">
+          <div className="info">
+            <div className="d-flex align-items-center justify-content-between">
+              <h2 className="m-0">{goal.user.name}</h2>{" "}
+              <button
+                type="button"
+                className="btn btn-link like-button p-0"
+                disabled={isPending}
+                onClick={handleToggle}
+              >
+                <motion.i
+                  key={isActive}
+                  initial={{ scale: 0.8, rotate: 0 }}
+                  animate={{
+                    scale: [1, 0.85, 1.15, 1],
+                    rotate: isActive ? [0, -20, 20, 0] : 0,
+                    color: isActive ? "#01C7FB" : "#0D0D0D59",
+                  }}
+                  transition={{ duration: 0.6, ease: "easeInOut" }}
+                  className="fa-solid fa-heart"
+                />
+              </button>
             </div>
-            <div className="info">
-              <div className="d-flex align-items-center justify-content-between">
-                <h2 className="m-0">{goal.user.name}</h2>
-              </div>
-              <p>{goal.title}</p>
-            </div>
+            <p>{goal.title}</p>
           </div>
-        </Link>
-
-        <button
-          type="button"
-          className="btn btn-link like-button p-0"
-          disabled={isPending}
-          onClick={handleToggle}
-        >
-          <motion.i
-            key={isActive}
-            initial={{ scale: 0.8, rotate: 0 }}
-            animate={{
-              scale: [1, 0.85, 1.15, 1],
-              rotate: isActive ? [0, -20, 20, 0] : 0,
-              color: isActive ? "#01C7FB" : "#0D0D0D59",
-            }}
-            transition={{ duration: 0.6, ease: "easeInOut" }}
-            className="fa-solid fa-heart"
-          />
-        </button>
+        </div>
       </div>
-
-      <Link
-        to={`/goal/${goal.id}`}
-        className="meta text-decoration-none text-dark mt-2"
-      >
+      <div className="meta text-decoration-none text-dark ">
         <span>
           <img src="/icons/title.svg" alt="type" /> {goal.category_title}
         </span>
@@ -85,8 +78,8 @@ const GoalCard = ({ goal }) => {
           <img src="/icons/offers-icon.svg" alt="offers" />{" "}
           {goal.goal.offers_count} {t("website.offerDetails.submittedOffer")}
         </span>
-      </Link>
-    </div>
+      </div>
+    </Link>
   );
 };
 

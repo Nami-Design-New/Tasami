@@ -69,19 +69,19 @@ export default function WorksDetails() {
       {/* ---- Info Grid ---- */}
       <div className="goal-info">
         <div className="info-grid">
-          <div className="info-box">
+          <div className="info-box info-box-grow-min-width ">
             <div className="label">{t("website.offerDetails.field")}</div>
             <div className="value">{workDetails.category_title}</div>
           </div>
 
-          <div className="info-box">
+          <div className="info-box info-box-grow-min-width ">
             <div className="label">{t("website.offerDetails.specialty")}</div>
             <div className="value">{workDetails.sub_category_title}</div>
           </div>
 
           {/* Start Date (not shown for helper service) */}
           {workDetails.rectangle !== "help_service_from_helper" && (
-            <div className="info-box">
+            <div className="info-box info-box-grow-min-width ">
               <div className="label">{t("website.offerDetails.startDate")}</div>
               <div className="value">{workDetails?.goal?.start_date}</div>
             </div>
@@ -89,17 +89,17 @@ export default function WorksDetails() {
 
           {/* Price */}
           {workDetails?.offer_price >= 0 && (
-            <div className="info-box">
+            <div className="info-box info-box-grow-min-width ">
               <div className="label">{t("website.offerDetails.price")}</div>
               <div className="value">
-                {workDetails?.offer_price} <Currency />
+                {workDetails?.help_price} <Currency />
               </div>
             </div>
           )}
 
           {/* Notes */}
           {workDetails.goal?.notes && (
-            <div className="info-box">
+            <div className="info-box info-box-grow-min-width ">
               <div className="label">
                 {t("website.offerDetails.extraTerms")}
               </div>
@@ -110,7 +110,7 @@ export default function WorksDetails() {
           {/* Helper Service Only Fields */}
           {workDetails.rectangle === "help_service_from_helper" && (
             <>
-              <div className="info-box">
+              <div className="info-box info-box-grow-min-width ">
                 <div className="label">
                   {t("website.offerDetails.preferredGender")}
                 </div>
@@ -119,7 +119,7 @@ export default function WorksDetails() {
                 </div>
               </div>
 
-              <div className="info-box">
+              <div className="info-box info-box-grow-min-width ">
                 <div className="label">
                   {t("website.offerDetails.ageRange")}
                 </div>
@@ -129,7 +129,7 @@ export default function WorksDetails() {
                 </div>
               </div>
 
-              <div className="info-box">
+              <div className="info-box info-box-grow-min-width ">
                 <div className="label">
                   {t("website.offerDetails.expectedDuration")}
                 </div>
@@ -142,7 +142,7 @@ export default function WorksDetails() {
 
           {/* Personal Goal Only */}
           {workDetails.rectangle !== "help_service_from_helper" && (
-            <div className="info-box">
+            <div className="info-box info-box-grow-min-width ">
               <div className="label">
                 {t("website.offerDetails.expectedDuration")}
               </div>

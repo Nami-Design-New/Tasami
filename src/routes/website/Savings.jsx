@@ -3,6 +3,7 @@ import useGetBookmarkedOffers from "../../hooks/website/personal-assistances/use
 import OfferCard from "../../ui/cards/OfferCard";
 import EmptySection from "../../ui/EmptySection";
 import InfiniteScroll from "../../ui/loading/InfiniteScroll";
+import OfferCardSkeleton from "../../ui/loading/OfferCardSkeleton";
 
 export default function SavingsPage() {
   const { t } = useTranslation();
@@ -35,7 +36,16 @@ export default function SavingsPage() {
               <div className="col-md-6 col-lg-4 p-2" key={offer.id}>
                 <OfferCard offer={offer} />
               </div>
-            ))}
+            ))}{" "}
+            {(isLoading || isFetchingNextPage) && (
+              <div className="row">
+                {[1, 2, 3].map((i) => (
+                  <div className="col-md-6 col-lg-4 p-2" key={i}>
+                    <OfferCardSkeleton />
+                  </div>
+                ))}
+              </div>
+            )}
           </InfiniteScroll>
         </div>
       </>

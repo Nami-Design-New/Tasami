@@ -3,10 +3,13 @@ import { useTranslation } from "react-i18next";
 import TextField from "../../ui/forms/TextField";
 import SubmitButton from "../../ui/forms/SubmitButton";
 import InputField from "../../ui/forms/InputField";
+import { useSelector } from "react-redux";
 
 export default function Contact() {
   const { t } = useTranslation();
   const [activeOption, setActiveOption] = useState(null);
+  const { user } = useSelector((state) => state.authRole);
+  let options;
 
   const socialLinks = [
     { href: "#", src: "/icons/insta.svg", label: t("contact_insta") },
@@ -14,13 +17,15 @@ export default function Contact() {
     { href: "#", src: "/icons/tiktok.svg", label: t("contact_tiktok") },
     { href: "#", src: "/icons/snap.svg", label: t("contact_snapchat") },
   ];
-
-  const options = [
-    t("contact_option_inquiry"),
-    t("contact_option_suggestion"),
-    t("contact_option_new_category"),
-  ];
-
+  if (user) {
+    options = [
+      t("contact_option_inquiry"),
+      t("contact_option_suggestion"),
+      t("contact_option_new_category"),
+    ];
+  } else {
+    options = [t("contact_option_inquiry")];
+  }
   return (
     <section className="contact-page page">
       <div className="container">

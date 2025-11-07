@@ -55,8 +55,13 @@ export default function ExperienceModal({
 
   const subCategories =
     categories?.find((cat) => String(cat.id) === String(selectedFieldId))
-      ?.sub_categories || [];
-
+      ?.sub_categories ||
+    categories
+      ?.flatMap((cat) => cat.sub_categories)
+      ?.filter(
+        (sub) => String(sub.id) === String(selectedExp?.sub_category_id)
+      ) ||
+    [];
   const onSubmit = async (data) => {
     const payload = {
       category_id: data.field,
@@ -123,7 +128,9 @@ export default function ExperienceModal({
   };
 
   useEffect(() => {
-    if (selectedExp !== null) {
+    if (!categories || isLoading) return;
+
+    if (selectedExp) {
       reset({
         field: selectedExp.category_id || "",
         specialization: selectedExp.sub_category_id || "",
@@ -140,7 +147,7 @@ export default function ExperienceModal({
         qualification: "",
       });
     }
-  }, [selectedExp, reset]);
+  }, [selectedExp, reset, categories, isLoading]);
 
   return (
     <Modal
@@ -155,9 +162,11 @@ export default function ExperienceModal({
     >
       <Modal.Header closeButton>
         <Modal.Title id="add-experience-title">
-          {selectedExp
-            ? t("website.platform.cv.editExperience")
-            : t("website.platform.cv.addExperience")}
+          <h6>
+            {selectedExp
+              ? t("website.platform.cv.editExperience")
+              : t("website.platform.cv.addExperience")}
+          </h6>
         </Modal.Title>
       </Modal.Header>
 

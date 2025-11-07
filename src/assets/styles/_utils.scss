@@ -2,6 +2,11 @@
 @use "./mixins" as *;
 @use "./variables" as *;
 
+.info-box-grow-min-width {
+  flex: 1;
+  min-width: 150px;
+}
+
 .link-styles {
   text-decoration: underline;
   color: $main;

@@ -146,7 +146,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-bottom: 20px;
+    // margin-bottom: 20px;
     h1 {
       font-size: 1.5rem;
       color: $second;
@@ -416,7 +416,7 @@
     .meta-info {
       display: flex;
       align-items: center;
-      gap: 1rem;
+      gap: 6px;
       .item {
         display: flex;
         align-items: center;
@@ -501,7 +501,7 @@
     align-items: center;
     justify-content: space-between;
     p {
-      font-size: 1rem;
+      font-size: 14px;
       color: $dark;
       font-weight: 700;
     }

@@ -1,7 +1,8 @@
 {
   "notDefined": "Not Defined",
-  "defined": "Defined",
   "chats": "chats",
+  "monthly": "Monthly",
+  "new": "new",
   "block": "Block",
   "unarchive": "Unarchive",
   "unblock": "Unblock",
@@ -703,6 +704,7 @@
       },
       "cv": {
         "addDocument": "Add Document",
+        "editDocument": "Edit Document",
         "field": "Field",
         "specialization": "Specialization",
         "specializationHint": "If you can’t find the required field or specialization, please contact customer support to add a new category.",
@@ -710,7 +712,7 @@
         "issuingAuthority": "Issuing Authority",
         "documentNumber": "Document / Accreditation Number",
         "expiryDate": "Expiry Date",
-        "addExperience": "Add Expericences",
+        "addExperience": "Adding practical experience",
         "description": "Description",
         "yearsOfExperience": "Years of Experience",
         "qualification": "Qualification",
@@ -727,7 +729,7 @@
         "master": "Master",
         "doctorate": "Doctorate",
         "other": "Other",
-        "editExperience": "Edit Experience",
+        "editExperience": "Edit practical experience",
         "deleteExperience": "Delete",
         "update": "Update",
         "save": "Save"

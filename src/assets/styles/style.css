@@ -469,6 +469,11 @@ li[data-sonner-toast=""] {
   color: #214b92;
 }
 
+.info-box-grow-min-width {
+  flex: 1;
+  min-width: 150px;
+}
+
 .link-styles {
   text-decoration: underline;
   color: #214b92;
@@ -7644,7 +7649,6 @@ input[type=file] {
   width: 100%;
   border-radius: 12px;
   overflow: hidden;
-  aspect-ratio: 16/9; /* 👈 maintain ratio */
 }
 .hero-section img {
   width: 100%;
@@ -7904,8 +7908,8 @@ input[type=file] {
 }
 .goal-card .image-wrapper {
   position: relative;
-  width: 64px;
-  height: 64px;
+  width: 60px;
+  height: 60px;
 }
 .goal-card .image-wrapper .avatar {
   width: 100%;
@@ -7926,7 +7930,6 @@ input[type=file] {
 }
 .goal-card .info {
   flex: 1;
-  padding: 8px 0;
 }
 .goal-card .info h2 {
   font-size: 1.1rem;
@@ -9582,7 +9585,6 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 20px;
 }
 .work-details-layout .header h1 {
   font-size: 1.5rem;
@@ -9843,7 +9845,7 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
 .task-card .card-body .meta-info {
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: 6px;
 }
 .task-card .card-body .meta-info .item {
   display: flex;
@@ -9915,7 +9917,7 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
   justify-content: space-between;
 }
 .work-group-section .share-goal p {
-  font-size: 1rem;
+  font-size: 14px;
   color: #0d0d0d;
   font-weight: 700;
 }
@@ -11293,7 +11295,7 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
   padding: 1.5rem;
   border-radius: 12px;
   border: 1px solid rgba(13, 13, 13, 0.0941176471);
-  margin-bottom: 1.5rem;
+  margin-bottom: 1rem;
 }
 .wallet-page .wallet-balance .wallet-header {
   display: flex;
@@ -11481,15 +11483,16 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 12px;
-  padding: 16px;
+  gap: 8px;
+  padding: 4px;
+  padding-left: 16px;
   margin-bottom: 16px;
   background: rgba(95, 202, 250, 0.1215686275);
   border-radius: 10px;
 }
 .user-profile .avatar {
-  width: 64px;
-  height: 64px;
+  width: 80px;
+  height: 80px;
   border-radius: 50%;
   -o-object-fit: cover;
      object-fit: cover;
@@ -11500,14 +11503,14 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
   flex-direction: column;
 }
 .user-profile .content h6 {
-  font-size: 18px;
+  font-size: 16px;
   color: #0d0d0d;
   margin-bottom: 4px;
   font-weight: bold;
 }
 .user-profile .content span {
   font-size: 14px;
-  color: rgba(13, 13, 13, 0.5607843137);
+  color: #0d0d0d;
 }
 .user-profile .content .rating {
   display: flex;
@@ -12346,13 +12349,12 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
   border-radius: 12px;
   background-color: rgba(1, 199, 251, 0.0392156863);
   overflow: hidden;
-  flex: 1;
   max-width: 180px;
   position: relative;
 }
 @media (max-width: 475px) {
   .member-card {
-    min-width: 140px;
+    width: 81.5px;
   }
 }
 .member-card .member-card__avatar {
@@ -12360,7 +12362,7 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
   aspect-ratio: 1/1;
 }
 .member-card .info {
-  padding: 8px 12px;
+  padding: 8px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -12372,6 +12374,11 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
 }
 .member-card .info .member-name {
   font-size: 16px;
+}
+@media (max-width: 475px) {
+  .member-card .info .member-name {
+    font-size: 12px;
+  }
 }
 .member-card .exe-padge {
   position: absolute;

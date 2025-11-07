@@ -89,7 +89,7 @@ export default function Cv() {
             loading={isPending}
             size="large"
           >
-            {t("website.platform.cv.save")}
+            {t("edit")}
           </CustomButton>
         </div>
       </div>

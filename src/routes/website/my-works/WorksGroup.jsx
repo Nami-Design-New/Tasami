@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import useWorkWithoutAssistant from "../../../hooks/website/MyWorks/assistants/useWorkWithoutAssistant";
@@ -31,8 +31,14 @@ export default function WorksGroup() {
 
   const { showMyGoal, isPending } = useShowMyGoal();
   const [shareGoal, setShareGoal] = useState(
-    workDetails?.i_show_goal === true ? "yes" : "no"
+    workGroup?.group.i_show_goal === true ? "yes" : "no"
   );
+
+  useEffect(() => {
+    if (workGroup?.group.i_show_goal !== undefined) {
+      setShareGoal(workGroup.group.i_show_goal ? "yes" : "no");
+    }
+  }, [workGroup?.group.i_show_goal]);
 
   if (isLoading || groupLoading) return <Loading height="500px" />;
 
@@ -75,13 +81,13 @@ export default function WorksGroup() {
 
             <div className="col-12 p-2">
               <div className="info-grid">
-                <div className="info-box">
+                <div className="info-box info-box-grow-min-width">
                   <div className="label">{t("works.group.field")}</div>
                   <div className="value">
                     {workGroup?.group?.category_title}
                   </div>
                 </div>
-                <div className="info-box">
+                <div className="info-box info-box-grow-min-width">
                   <div className="label">{t("works.group.strengthIndex")}</div>
                   <div className="value">
                     {workGroup?.group?.strength_indicator} %

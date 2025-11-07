@@ -37,7 +37,7 @@ export default function PlanCard({ plan, setSelectedPlan, setShowModal }) {
                 ? Number(plan?.price / 6).toFixed(0)
                 : Number(plan?.price / 12).toFixed(0)}
             </span>
-            <Currency /> <span>شهريا</span>
+            <Currency /> <span>{t("monthly")}</span>
           </p>
         </div>
       </div>

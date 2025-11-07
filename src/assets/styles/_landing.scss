@@ -8,7 +8,6 @@
     width: 100%;
     border-radius: 12px;
     overflow: hidden;
-    aspect-ratio: 16 / 9; /* 👈 maintain ratio */
   }
 
   img {
@@ -287,8 +286,8 @@
 
   .image-wrapper {
     position: relative;
-    width: 64px;
-    height: 64px;
+    width: 60px;
+    height: 60px;
     .avatar {
       width: 100%;
       height: 100%;
@@ -310,7 +309,7 @@
 
   .info {
     flex: 1;
-    padding: 8px 0;
+    // padding: 8px 0;
 
     h2 {
       font-size: 1.1rem;
@@ -476,17 +475,6 @@
       object-fit: cover;
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     }
-
-    // .status-dot {
-    //   position: absolute;
-    //   bottom: 6px;
-    //   left: 6px;
-    //   width: 16px;
-    //   height: 16px;
-    //   background: $online;
-    //   border: 2px solid $white;
-    //   border-radius: 50%;
-    // }
   }
 
   // --- Info container

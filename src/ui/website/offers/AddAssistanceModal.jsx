@@ -444,7 +444,7 @@ export default function AddAssistanceModal({
                   size="large"
                   fullWidth
                 >
-                  {isEdit ? t("edit") : t("add")}
+                  {isEdit ? t("edit") : t("create")}
                 </CustomButton>
               </div>
             </div>

@@ -1,7 +1,7 @@
 import { useQueryClient } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
-import { NavLink, Outlet, useNavigate } from "react-router";
+import { NavLink, Outlet, useLocation, useNavigate } from "react-router";
 import { toast } from "sonner";
 import useLogout from "../../hooks/auth/useLogout";
 import { clearAuth } from "../../redux/slices/authRole";
@@ -16,6 +16,11 @@ export default function Profile() {
   const dispatch = useDispatch();
   const queryClient = useQueryClient();
   const navigate = useNavigate();
+  const { pathname } = useLocation();
+
+  const isSavings = pathname.split("/").includes("savings");
+  const isFollowings = pathname.split("/").includes("followings");
+  console.log(isSavings);
 
   const { user } = useSelector((state) => state.authRole);
 
@@ -59,7 +64,7 @@ export default function Profile() {
               </h2>
             </div>
           </div>
-          <div className="col-lg-3 col-md-4 col-12 p-2">
+          <div className={`col-lg-3 col-md-4 col-12 p-2`}>
             <div className="profile_sidebar">
               <UserCard user={user} />
               <div className="nav_links">
@@ -110,7 +115,11 @@ export default function Profile() {
               </div>
             </div>
           </div>
-          <div className="col-lg-9 col-md-8 col-12 p-2">
+          <div
+            className={`col-lg-9 col-md-8 col-12 ${
+              (isSavings || isFollowings) === true ? "p-0" : "p-2"
+            }`}
+          >
             <Outlet />
           </div>
         </div>

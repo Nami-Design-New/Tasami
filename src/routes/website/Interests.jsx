@@ -1,12 +1,13 @@
-import { useEffect, useState } from "react";
-import CustomButton from "../../ui/CustomButton";
-import { Accordion, AccordionBody, Placeholder } from "react-bootstrap";
-import useUpdateUserCategories from "../../hooks/area-of-interests/useUpdateUserCategories";
-import { useTranslation } from "react-i18next";
-import useGetMyInterests from "../../hooks/area-of-interests/useGetMyInterests";
-import TagItem from "../../ui/website-auth/TagItem";
-import { useNavigate } from "react-router";
 import { useQueryClient } from "@tanstack/react-query";
+import { useEffect, useState } from "react";
+import { Accordion, AccordionBody } from "react-bootstrap";
+import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router";
+import useGetMyInterests from "../../hooks/area-of-interests/useGetMyInterests";
+import useUpdateUserCategories from "../../hooks/area-of-interests/useUpdateUserCategories";
+import CustomButton from "../../ui/CustomButton";
+import InterestsLoading from "../../ui/loading/InterestsLoading";
+import TagItem from "../../ui/website-auth/TagItem";
 
 export default function Interests() {
   const navigate = useNavigate();
@@ -65,33 +66,7 @@ export default function Interests() {
               {isInterestsLoading ? (
                 <div>
                   {Array.from({ length: 3 }, (_, i) => (
-                    <div
-                      key={i}
-                      className="d-flex align-items-center justify-content-between"
-                      style={{
-                        backgroundColor: "rgba(13, 13, 13, 0.0196078431)",
-                        color: "#0d0d0d",
-                        borderRadius: "12px",
-                        padding: "0.75rem 1rem",
-                        marginBottom: "12px",
-                      }}
-                    >
-                      <Placeholder xs={10} animation="glow">
-                        <Placeholder xs={3} />
-                      </Placeholder>
-                      <Placeholder
-                        xs={12}
-                        animation="glow"
-                        style={{
-                          width: "16px",
-                          height: "16px",
-                          borderRadius: "50%",
-                          display: "block",
-                        }}
-                      >
-                        <Placeholder xs={12} />
-                      </Placeholder>
-                    </div>
+                    <InterestsLoading key={i} />
                   ))}
                 </div>
               ) : (

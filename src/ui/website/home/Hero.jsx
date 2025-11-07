@@ -3,16 +3,16 @@ import { Autoplay, EffectFade } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 
 export default function Hero({ sliders }) {
-  useEffect(() => {
-    if (sliders?.length > 0) {
-      const link = document.createElement("link");
-      link.rel = "preload";
-      link.as = "image";
-      link.href = sliders[0].image; // preload first hero image
-      link.fetchPriority = "high";
-      document.head.appendChild(link);
-    }
-  }, [sliders]);
+  // useEffect(() => {
+  //   if (sliders?.length > 0) {
+  //     const link = document.createElement("link");
+  //     link.rel = "preload";
+  //     link.as = "image";
+  //     link.href = sliders[0].image;
+  //     link.fetchPriority = "high";
+  //     document.head.appendChild(link);
+  //   }
+  // }, [sliders]);
   return (
     <div className="hero-section">
       <Swiper
@@ -38,11 +38,16 @@ export default function Hero({ sliders }) {
               <img
                 src={slide.image}
                 alt={slide.title}
-                width="1920" // ✅ set intrinsic size to prevent CLS
-                height="1080"
+                // width="1920"
+                // height="1080"
                 loading={index === 0 ? "eager" : "lazy"}
-                fetchpriority={"high"}
-                style={{ width: "100%", height: "auto", objectFit: "cover" }}
+                fetchPriority={"high"}
+                style={{
+                  width: "100%",
+                  height: "auto",
+                  objectFit: "cover",
+                  aspectRatio: "375 / 178",
+                }}
               />
             </div>
           </SwiperSlide>

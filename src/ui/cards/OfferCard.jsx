@@ -51,7 +51,7 @@ const OfferCard = ({ offer }) => {
             {offer.help_service.rate !== 0 ? offer.help_service.rate : t("new")}
           </span>
         </div>
-        <p className="title ellipsis " style={{ maxWidth: "240px" }}>
+        <p className="title ellipsis" style={{ maxWidth: "240px" }}>
           {offer.title}
         </p>
       </div>

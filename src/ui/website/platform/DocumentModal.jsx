@@ -21,6 +21,8 @@ export default function DocumentModal({
   selectedDoc,
   setSelectedDoc,
 }) {
+  console.log(selectedDoc);
+
   const { t } = useTranslation();
   const queryClient = useQueryClient();
   const { categories, isLoading } = useGetcategories();
@@ -40,8 +42,13 @@ export default function DocumentModal({
   const selectedFieldId = watch("field");
   const subCategories =
     categories?.find((cat) => String(cat.id) === String(selectedFieldId))
-      ?.sub_categories || [];
-
+      ?.sub_categories ||
+    categories
+      ?.flatMap((cat) => cat.sub_categories)
+      ?.filter(
+        (sub) => String(sub.id) === String(selectedDoc?.sub_category_id)
+      ) ||
+    [];
   const onSubmit = async (data) => {
     const payload = {
       category_id: data.field,
@@ -105,12 +112,13 @@ export default function DocumentModal({
   };
 
   useEffect(() => {
-    if (selectedDoc !== null) {
+    if (!categories || isLoading) return;
+    if (selectedDoc) {
       reset({
         field: selectedDoc.category_id || "",
         specialization: selectedDoc.sub_category_id || "",
         documentType: selectedDoc.document_type_id || "",
-        issuingAuthority: selectedDoc.document_auth_id || "",
+        issuingAuthority: selectedDoc.document_auth || "",
         documentNumber: selectedDoc.document_number || "",
         expiryDate: selectedDoc.end_date || "",
       });
@@ -124,7 +132,7 @@ export default function DocumentModal({
         expiryDate: "",
       });
     }
-  }, [selectedDoc, reset]);
+  }, [selectedDoc, reset, categories, isLoading]);
 
   return (
     <Modal
@@ -139,7 +147,11 @@ export default function DocumentModal({
     >
       <Modal.Header closeButton>
         <Modal.Title id="add-document-title">
-          <h6>{t("website.platform.cv.addDocument")}</h6>
+          <h6>
+            {selectedDoc
+              ? t("website.platform.cv.editDocument")
+              : t("website.platform.cv.addDocument")}
+          </h6>
         </Modal.Title>
       </Modal.Header>
 
