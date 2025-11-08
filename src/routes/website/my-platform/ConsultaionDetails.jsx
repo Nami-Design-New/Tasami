@@ -58,7 +58,12 @@ export default function ConsultaionDetails() {
           </div>
         )}
 
-        {hasAnswer && <ConsultaionComments />}
+        {hasAnswer && (
+          <ConsultaionComments
+            isSubscribed={consultaionDetails?.is_subscribed}
+            isMyCommunity={user?.id === consultaionDetails?.to_user_id}
+          />
+        )}
       </div>
 
       <AnswerModal showModal={showModal} setShowModal={setShowModal} />

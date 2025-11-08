@@ -125,7 +125,7 @@ export default function AddPostModal({ showModal, setShowModal }) {
             <div className="col-12 p-2">
               <InputField
                 label={t("community.meetingTitle")}
-                placeholder={t("community.meetingTitlePlaceholder")}
+                placeholder={t("community.meetingTitle")}
                 {...register("title")}
                 error={errors.title?.message}
               />
@@ -192,7 +192,7 @@ export default function AddPostModal({ showModal, setShowModal }) {
                   >
                     <InputField
                       type="text"
-                      placeholder={t("community.linkPlaceholder")}
+                      placeholder={t("community.link")}
                       // label={t("community.linkLabel")}
                       {...register(`links.${index}`)}
                     />
@@ -218,7 +218,7 @@ export default function AddPostModal({ showModal, setShowModal }) {
             </div>
 
             {/* Post Type */}
-            <div className="col-12 col-md-6 p-2">
+            <div className="col-12  p-2">
               <p className="label">{t("community.visibility")}</p>
               <div className="identity-container">
                 <label

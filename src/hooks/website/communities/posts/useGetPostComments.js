@@ -27,6 +27,7 @@ export default function useGetPostComments() {
         ? new URL(lastPage.next_page_url).searchParams.get("page")
         : undefined;
     },
+    // gcTime: 3 * 60 * 1000,
   });
   return {
     postComments,

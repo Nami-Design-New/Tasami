@@ -1,11 +1,11 @@
-import { Modal } from "react-bootstrap";
+import { Modal, Spinner } from "react-bootstrap";
+import { useTranslation } from "react-i18next";
 import useGetMeetingDetails from "../../../../hooks/website/communities/mettings/useGetMeetingDetails";
+import { handleCopy } from "../../../../utils/helper";
 
 export default function EncounterDetailsModal({ show, setShow, meetingId }) {
-  const { meetingDetails } = useGetMeetingDetails(meetingId);
-  const handleCopy = () => {
-    navigator.clipboard.writeText(window.location.href);
-  };
+  const { t } = useTranslation();
+  const { meetingDetails, isLoading } = useGetMeetingDetails(meetingId);
 
   return (
     <Modal
@@ -20,38 +20,55 @@ export default function EncounterDetailsModal({ show, setShow, meetingId }) {
       </Modal.Header>
 
       <Modal.Body>
-        <p className="desc">{meetingDetails?.desc}</p>
-
-        <div className="info-grid mt-3">
-          <div>
-            <strong>المجال:</strong>
-            <span>{meetingDetails?.category_title}</span>
+        {isLoading ? (
+          <div
+            className="d-flex justify-content-center align-items-center"
+            style={{ height: "200px" }}
+          >
+            <Spinner animation="border" role="status">
+              <span className="visually-hidden">Loading...</span>
+            </Spinner>
           </div>
-          <div>
-            <strong>التخصص:</strong>
-            <span>{meetingDetails?.sub_category_title}</span>
-          </div>
-          <div>
-            <strong>رابط اللقاء:</strong>
-            <span className="url">{meetingDetails?.link}</span>
-            <button onClick={handleCopy} className="copy-btn">
-              <i className="fa-light fa-copy"></i>
-            </button>
-          </div>
-        </div>
-        <div className="meta">
-          <span>
-            <i className="fa-light fa-calendar-days"></i>{" "}
-            {meetingDetails?.start_date}
-          </span>
-          <span>
-            <i className="fa-light fa-clock"></i> {meetingDetails?.start_time}
-          </span>
-          <span>
-            <i className="fa-solid fa-rotate-left"></i>{" "}
-            {meetingDetails?.duration}
-          </span>
-        </div>
+        ) : (
+          <>
+            {" "}
+            <p className="desc">{meetingDetails?.desc}</p>
+            <div className="info-grid mt-3">
+              <div>
+                <strong>{t("field")}:</strong>
+                <span>{meetingDetails?.category_title}</span>
+              </div>
+              <div>
+                <strong>{t("specialty")}:</strong>
+                <span>{meetingDetails?.sub_category_title}</span>
+              </div>
+              <div>
+                <strong>{t("meetingLink")}:</strong>
+                <span className="url">{meetingDetails?.link}</span>
+                <button
+                  onClick={() => handleCopy(meetingDetails?.link)}
+                  className="copy-btn"
+                >
+                  <i className="fa-light fa-copy"></i>
+                </button>
+              </div>
+            </div>
+            <div className="meta">
+              <span>
+                <i className="fa-light fa-calendar-days"></i>{" "}
+                {meetingDetails?.start_date}
+              </span>
+              <span>
+                <i className="fa-light fa-clock"></i>{" "}
+                {meetingDetails?.start_time}
+              </span>
+              <span>
+                <i className="fa-solid fa-rotate-left"></i>{" "}
+                {meetingDetails?.duration}
+              </span>
+            </div>
+          </>
+        )}
       </Modal.Body>
     </Modal>
   );

@@ -11,10 +11,21 @@ export default function ConsultationCommentsCard({
 
   return (
     <div className="consultation-comments-card">
-      <h5 className="d-flex justify-content-between align-items-center">
-        <span>{comment.user_name}</span>
+      {" "}
+      <h5 className="d-flex gap-2 justify-content-between align-items-center">
+        <div className="d-flex gap-2 align-items-center">
+          {comment?.user_image && (
+            <img className="comment-user-image" src={comment?.user_image} />
+          )}
+          <span>{comment.user_name}</span>
+        </div>
+
         {(isCommentOwner || isMyCommunity) && (
-          <button disabled={isDeleting} onClick={() => onDelete?.(comment.id)}>
+          <button
+            // className="flex-grow-1"
+            disabled={isDeleting}
+            onClick={() => onDelete?.(comment.id)}
+          >
             <i className="fa-regular fa-trash text-danger"></i>{" "}
           </button>
         )}

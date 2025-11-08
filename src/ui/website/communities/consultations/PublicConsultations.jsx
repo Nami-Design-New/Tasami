@@ -3,6 +3,7 @@ import useGetPublicConsultations from "../../../../hooks/website/communities/use
 import CustomButton from "../../../CustomButton";
 import AudienceCardLoader from "../../../loading/AudienceCardLoader";
 import ConsultationCard from "./ConsultationCard";
+import EmptySection from "../../../EmptySection";
 
 export default function PublicConsultations() {
   const { t } = useTranslation();
@@ -23,6 +24,12 @@ export default function PublicConsultations() {
   }
 
   console.log("allPublicConsultaions", allPublicConsultaions);
+
+  if (!isLoading && allPublicConsultaions.length === 0) {
+    return (
+      <EmptySection height="500px" message={t("community.noConsultaion")} />
+    );
+  }
 
   return (
     <div className="row">

@@ -58,6 +58,7 @@ export default function CommunityDetails() {
             <CommunityTabs
               isMyCommunity={false}
               communityId={communityDetails?.id}
+              community={communityDetails}
             />
           </div>
           <div className="col-12 col-md-8 p-0">

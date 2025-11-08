@@ -14,7 +14,7 @@ import { toast } from "sonner";
 export default function AddConsultationModal({ showModal, setShowModal }) {
   const { t } = useTranslation();
   const { id } = useParams();
-  // ✅ Schema with radio validation
+  // Schema with radio validation
   const schema = yup.object().shape({
     title: yup
       .string()
@@ -45,7 +45,6 @@ export default function AddConsultationModal({ showModal, setShowModal }) {
 
   const { addConsultaion, isPending } = useAddConsultation();
   const selectedConsultationType = watch("consultationType");
-  console.log("Selected Type:", selectedConsultationType);
   const onSubmit = (data) => {
     const payload = {
       community_id: id,
@@ -115,7 +114,7 @@ export default function AddConsultationModal({ showModal, setShowModal }) {
                 >
                   <input
                     type="radio"
-                    value="0" // ✅ add value
+                    value="0" //  add value
                     {...register("consultationType")}
                   />
                   <span>{t("public")}</span>
@@ -128,7 +127,7 @@ export default function AddConsultationModal({ showModal, setShowModal }) {
                 >
                   <input
                     type="radio"
-                    value="1" // ✅ add value
+                    value="1" // add value
                     {...register("consultationType")}
                   />
                   <span>{t("private")}</span>

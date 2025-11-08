@@ -1,37 +1,40 @@
 import Currency from "../../Currency";
 import { CommunityStat } from "./CommunityStat";
+import { useTranslation } from "react-i18next";
 
 export default function CommunityStats({ community }) {
+  const { t } = useTranslation();
+
   return (
     <div className="community-stats">
       <CommunityStat
-        title="الاعضاء"
+        title={t("members")}
         icon="/icons/group-second.svg"
         value={community?.members_count}
-        label="عضو"
+        label={t("member")}
       />
       <CommunityStat
-        title="الإعجابات"
+        title={t("likes")}
         icon="/icons/heart-fill.svg"
         value={community?.likes_count}
-        label="إعجاب"
+        label={t("like")}
       />
       <CommunityStat
-        title="قيمة العضوية"
+        title={t("membershipValue")}
         icon="/icons/wallet-second.svg"
         value={
           community?.price === 0 ? (
-            "مجاني"
+            t("free")
           ) : (
             <>
-              {community?.price} {<Currency />}
+              {community?.price} <Currency />
             </>
           )
         }
-        label={community?.price === 0 ? "" : "شهريا"}
+        label={community?.price === 0 ? "" : t("perMonth")}
       />
       <CommunityStat
-        title="قيمة العضوية"
+        title={t("activityLevel")}
         icon="/icons/active-index.svg"
         label={community?.activity_level}
       />

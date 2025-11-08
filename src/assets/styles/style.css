@@ -10172,6 +10172,19 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
   background: #5fcafa;
   color: #fff;
 }
+.community-tabs .tabs a .tab-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+}
+.community-tabs .tabs a .badge {
+  background-color: #fff !important;
+  color: #0d0d0d;
+  font-weight: 700;
+  border-radius: 100px;
+  min-width: 16px;
+}
 
 .consultations-section .consultations-header {
   display: flex;
@@ -10302,11 +10315,14 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
 
 .comments {
   margin-top: 1rem;
+  border: 1px solid rgba(13, 13, 13, 0.0941176471);
+  border-radius: 12px;
 }
 .comments .comments-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  border-bottom: 1px solid rgba(13, 13, 13, 0.0941176471);
 }
 .comments .comments-header h2 {
   font-size: 1.125rem;
@@ -10321,6 +10337,13 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
   flex-direction: column;
   gap: 12px;
   height: 100%;
+}
+.consultation-comments-card .comment-user-image {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  -o-object-fit: contain;
+     object-fit: contain;
 }
 .consultation-comments-card h5 {
   color: rgba(13, 13, 13, 0.5607843137);
@@ -10461,6 +10484,7 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
 .post-card .image-wrapper {
   width: 100%;
   overflow: hidden;
+  border-radius: 12px;
 }
 .post-card .image-wrapper .image {
   width: 100%;
@@ -10468,10 +10492,10 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
   display: block;
   -o-object-fit: cover;
      object-fit: cover;
-  aspect-ratio: 3/2;
+  aspect-ratio: 1/1;
 }
 .post-card .date {
-  font-size: 12px;
+  font-size: 16px;
   color: rgba(13, 13, 13, 0.5607843137);
   margin: 8px 12px 0;
   display: flex;
@@ -10489,7 +10513,7 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
   padding: 8px 12px;
 }
 .post-card .info h2 {
-  font-size: 16px;
+  font-size: 1.25rem;
   font-weight: 600;
   margin-bottom: 4px;
   line-height: 1.4;
@@ -10501,7 +10525,7 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
   text-overflow: ellipsis;
 }
 .post-card .info p {
-  font-size: 14px;
+  font-size: 1rem;
   color: rgba(13, 13, 13, 0.5607843137);
   line-height: 1.4;
   display: -webkit-box;

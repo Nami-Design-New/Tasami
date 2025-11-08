@@ -7,6 +7,7 @@ import PostMedia from "../../ui/website/communities/posts/MyProductSlider";
 import PostsActions from "../../ui/website/communities/posts/PostsActions";
 import PostsComments from "../../ui/website/communities/posts/PostsComments";
 import { useSelector } from "react-redux";
+import { handleCopy } from "../../utils/helper";
 
 export default function CommunityPostDetails() {
   const { t } = useTranslation();
@@ -16,7 +17,6 @@ export default function CommunityPostDetails() {
   const handleBack = () => {
     navigate(-1);
   };
-  const handleCopy = () => {};
   if (isLoading) return <Loading />;
   return (
     <section className="community-post-details page">
@@ -28,7 +28,6 @@ export default function CommunityPostDetails() {
         <PostMedia post={postDetails} />
         <div className="post-image row">
           <div className="col-12 p-2">
-            {" "}
             {/* Title */}
             <h1 className="post-title">{postDetails.title}</h1>
           </div>
@@ -36,27 +35,27 @@ export default function CommunityPostDetails() {
             {/* Description */}
             <p className="post-description ">{postDetails.desc} </p>
           </div>
-          <div className="col-12 p-2">
-            {" "}
-            <div className="post-links">
-              <h3 className="links-title">الروابط</h3>
-              {postDetails.links.map((link) => (
-                <Link className="post-link" key={link.id}>
-                  <img
-                    onClick={handleCopy}
-                    src="/icons/file-icon.svg"
-                    alt="file"
-                  />
-                  <span>{link.link}</span>
-                </Link>
-              ))}
+          {postDetails.links.length > 0 && (
+            <div className="col-12 p-2">
+              <div className="post-links">
+                <h3 className="links-title">{t("links")}</h3>
+                {postDetails?.links.map((link) => (
+                  <Link className="post-link" key={link.id}>
+                    <img
+                      onClick={() => handleCopy(link.link)}
+                      src="/icons/file-icon.svg"
+                      alt="file"
+                    />
+                    <span>{link.link}</span>
+                  </Link>
+                ))}
+              </div>
             </div>
-          </div>
+          )}
           <div className="col-12 p-2">
             <PostsActions post={postDetails} />
           </div>
           <div className="col-12 p-2">
-            {" "}
             <PostsComments
               isSubscribed={postDetails?.is_subscribed}
               isMyCommunity={user?.id === postDetails?.helper?.id}
