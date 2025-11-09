@@ -1,13 +1,12 @@
-import { Modal } from "react-bootstrap";
-import InputField from "../forms/InputField";
-import CustomButton from "../CustomButton";
-import { useTranslation } from "react-i18next";
-import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { Modal } from "react-bootstrap";
+import { useForm } from "react-hook-form";
+import { useTranslation } from "react-i18next";
+import { toast } from "sonner";
 import * as yup from "yup";
 import useChargeWallet from "../../hooks/website/wallet/useChargeWallet";
-import { toast } from "sonner";
-import { useSelector } from "react-redux";
+import CustomButton from "../CustomButton";
+import InputField from "../forms/InputField";
 
 const getChargeBalanceSchema = (t) =>
   yup.object().shape({
@@ -42,6 +41,8 @@ const ChargeBalanceModal = ({ showModal, setShowModal }) => {
     const price = data.charge;
     charge(price, {
       onSuccess: (res) => {
+        console.log("ddddddddd");
+
         setShowModal(false);
         toast.success("profile.chargeSuccess");
         if (res?.data?.redirect_url) {

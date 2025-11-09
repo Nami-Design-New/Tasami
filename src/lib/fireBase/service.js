@@ -74,10 +74,10 @@ const listenToMessages = (refetchSettings, refetchNotifications) => {
         data: payload.data,
       };
 
-      // ✅ Create the notification
+      //  Create the notification
       const notif = new Notification(title, options);
 
-      // ✅ Make it clickable (added this part only)
+      //  Make it clickable (added this part only)
       notif.onclick = (event) => {
         event.preventDefault();
         const data = event.target.data || {};

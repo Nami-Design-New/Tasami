@@ -114,13 +114,17 @@ self.addEventListener("notificationclick", (event) => {
   }
 
   event.waitUntil(
+    console.log(" i was clicked");
     clients
       .matchAll({ type: "window", includeUncontrolled: true })
       .then((windowClients) => {
         // Check if an app tab is already open
+        console.log(" i was clicked");
         for (const client of windowClients) {
           if (client.url.includes(self.location.origin)) {
             client.focus();
+            console.log(" i was clicked");
+
             // You can also communicate to your React app if needed:
             // client.postMessage({ action: "navigate", url });
             return client.navigate(url);

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Modal } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
 import { toast } from "sonner";
@@ -14,6 +14,21 @@ export default function PaymentModal({ plan, showModal, setShowModal }) {
   const [selectedMethod, setSelectedMethod] = useState("online");
   const { subscribe, isPending } = useSubscripePackage();
   const queryClient = useQueryClient();
+
+  useEffect(() => {
+    const handleMessage = (event) => {
+      if (!event.data?.status) return;
+      if (event.data.status === "success") {
+        queryClient.invalidateQueries({ queryKey: ["current-package"] });
+        queryClient.invalidateQueries({ queryKey: ["get-packages"] });
+      } else if (event.data.status === "failed") {
+        console.log("failed");
+      }
+    };
+
+    window.addEventListener("message", handleMessage);
+    return () => window.removeEventListener("message", handleMessage);
+  }, [queryClient]);
 
   async function handleSubscribe() {
     subscribe(

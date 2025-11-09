@@ -1,5 +1,5 @@
 import { useQueryClient } from "@tanstack/react-query";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Modal } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
@@ -22,7 +22,23 @@ export default function OfferPaymentModal({
   const [selectedMethod, setSelectedMethod] = useState("online");
   const { acceptOrRemoveWorkOffer, isPending } = useAcceptOrRemoveWorkOffer();
   const queryClient = useQueryClient();
+  useEffect(() => {
+    const handleMessage = (event) => {
+      if (!event.data?.status) return;
 
+      if (event.data.status === "success") {
+        queryClient.invalidateQueries({ queryKey: ["work-offers"] });
+        queryClient.refetchQueries({ queryKey: ["work-details"] });
+        queryClient.refetchQueries({ queryKey: ["assistants"] });
+        queryClient.refetchQueries({ queryKey: ["work-group"] });
+      } else if (event.data.status === "failed") {
+        console.log("failed");
+      }
+    };
+
+    window.addEventListener("message", handleMessage);
+    return () => window.removeEventListener("message", handleMessage);
+  }, [queryClient]);
   const handleAcceptOffers = () => {
     const payload = {
       status: "accepted",

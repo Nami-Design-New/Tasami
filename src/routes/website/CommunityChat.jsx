@@ -91,7 +91,7 @@ export default function CommunityChat() {
     const token = getToken();
 
     socket.onStatusChange((status) => {
-      console.log("🔔 Socket status changed:", status);
+      console.log("Socket status changed:", status);
       setSocketStatus(status);
     });
 

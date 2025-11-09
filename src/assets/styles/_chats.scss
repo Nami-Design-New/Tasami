@@ -292,7 +292,7 @@
 .message {
   display: flex;
   gap: 0.75rem;
-  align-items: flex-start;
+  align-items: flex-end;
 
   &--sender {
     flex-direction: row;
@@ -350,6 +350,17 @@
       color: #777;
       font-size: 0.9rem;
       background: #e6e6e6;
+    }
+
+    .message__video-container {
+      position: relative;
+      border-radius: 16px;
+      overflow: hidden;
+      aspect-ratio: 16/9;
+      object-fit: contain;
+      background-color: #f2f2f2;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
     }
 
     /* shimmer loading effect */

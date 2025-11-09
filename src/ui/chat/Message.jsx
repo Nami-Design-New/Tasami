@@ -36,6 +36,8 @@ const Message = ({
 
   const messageClass = `message ${baseClass} ${colorClass}`;
 
+  console.log(filePath);
+
   const renderMessageContent = () => {
     switch (type) {
       case "text":
@@ -45,11 +47,11 @@ const Message = ({
         return (
           <div className="message__content-wrapper">
             <div className="message__image-container">
-              {!imageLoaded && (
+              {/* {!imageLoaded && (
                 <div className="message__image-loading shimmer">
                   <span>جارٍ تحميل الصورة...</span>
                 </div>
-              )}
+              )} */}
               <img
                 src={filePath}
                 alt="Shared image"
@@ -73,7 +75,14 @@ const Message = ({
                 src={filePath}
                 controls
                 className={`message__video ${videoLoaded ? "loaded" : ""}`}
-                onLoadedData={() => setVideoLoaded(true)}
+                onLoadedData={() => {
+                  setVideoLoaded(true);
+                }}
+                onCanPlayThrough={() => {
+                  console.log("🎬 Video fully ready to play");
+                  setVideoLoaded(true);
+                }}
+                onError={(e) => console.error("❌ Video failed to load", e)}
               />
             </div>
           </div>

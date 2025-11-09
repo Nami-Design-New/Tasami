@@ -3,12 +3,74 @@ import { useTranslation } from "react-i18next";
 import useMarkAsRead from "../../../hooks/website/notification/useMarkAsRead";
 import { useQueryClient } from "@tanstack/react-query";
 import useDeleteNotification from "../../../hooks/website/notification/useDeleteNotification";
+import { Link } from "react-router";
 
 export default function NotificationCard({ item }) {
   const { t } = useTranslation();
   const queryClient = useQueryClient();
   const { markAsRead, isPending } = useMarkAsRead();
   const { deleteNotification, isPending: isDeleting } = useDeleteNotification();
+
+  let url = "/";
+
+  switch (item.notification_type) {
+    case "wallet":
+      url = `/my-profile/my-wallet`;
+      break;
+    case "package":
+      url = `/my-platform`;
+      break;
+    case "offer_accepted":
+      url = `/my-works/${item?.operation_id}`;
+      break;
+    case "contract_request":
+      url = `/my-contracts/${item?.operation_id}`;
+      break;
+    case "help_service ":
+      url = `/offers/${item?.operation_id}`;
+      break;
+    case "goal":
+      url = `/goal/${item?.operation_id}`;
+      break;
+    case "follow":
+      url = `/my-audience`;
+      break;
+    case "community_new_member":
+      url = `/my-audience`;
+      break;
+    case "consultation":
+      url = `/consultaion-details/${item.operation_id}`;
+      break;
+    case "inquiry":
+      url = `/notifications?tab=inquries`;
+      break;
+    case "meeting":
+      url = `my-community/meetings`;
+      break;
+    case "post":
+      url = `/posts/${item.operation_id}`;
+      break;
+    case "comment":
+      url = `/posts/${item.operation_id}`;
+      break;
+    case "offer":
+      url = `/goal/${item?.operation_id}`;
+      break;
+    case "work":
+      url = `/goal/${item?.operation_id}`;
+      break;
+    case "general":
+      url = `/notifications`;
+      break;
+    case "community_chat":
+      url = `/community/${item.operation_id}/chats/`;
+      break;
+    case "group_chat":
+      url = `/chat/${item.operation_id}`;
+      break;
+    default:
+      url = "/ ";
+  }
 
   const handleMarkAsRead = (id) => {
     markAsRead(id, {
@@ -29,7 +91,8 @@ export default function NotificationCard({ item }) {
   };
 
   return (
-    <div
+    <Link
+      to={url}
       className={`notification-web-card ${item.is_read === true ? "read" : ""}`}
       key={item.id}
     >
@@ -66,6 +129,6 @@ export default function NotificationCard({ item }) {
         </div>
         <p className="notification-message">{item.desc}</p>
       </div>
-    </div>
+    </Link>
   );
 }
