@@ -353,9 +353,22 @@
   flex-direction: column;
   gap: 1rem;
   margin-top: 1rem;
-  & > .task-card {
+  & > div {
     transition: transform 0.2s ease;
     cursor: grab;
+
+    // Handle the connector line visibility
+    &:first-child {
+      .task-card .check::before {
+        display: none;
+      }
+    }
+
+    &:last-child {
+      .check::after {
+        display: none;
+      }
+    }
   }
   & > .task-card:active {
     cursor: grabbing;
@@ -380,6 +393,7 @@
     &.progress {
       background-color: $main;
     }
+
     &::after {
       content: "";
       position: absolute;
@@ -389,13 +403,14 @@
       transform: translateY(14px);
       right: 13px;
     }
-  }
-
-  &:last-child {
-    .check::after {
-      top: auto;
-      bottom: 50%;
-      transform: translateY(-14px);
+    &::before {
+      content: "";
+      position: absolute;
+      height: calc(50% - 14px + 8px);
+      border: 1px dashed $main08;
+      bottom: 100%;
+      transform: translateY(14px);
+      right: 13px;
     }
   }
 

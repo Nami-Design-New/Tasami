@@ -9775,9 +9775,15 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
   gap: 1rem;
   margin-top: 1rem;
 }
-.tasks-list > .task-card {
+.tasks-list > div {
   transition: transform 0.2s ease;
   cursor: grab;
+}
+.tasks-list > div:first-child .task-card .check::before {
+  display: none;
+}
+.tasks-list > div:last-child .check::after {
+  display: none;
 }
 .tasks-list > .task-card:active {
   cursor: grabbing;
@@ -9815,10 +9821,14 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
   transform: translateY(14px);
   right: 13px;
 }
-.task-card:last-child .check::after {
-  top: auto;
-  bottom: 50%;
-  transform: translateY(-14px);
+.task-card .check::before {
+  content: "";
+  position: absolute;
+  height: calc(50% - 14px + 8px);
+  border: 1px dashed rgba(33, 75, 146, 0.08);
+  bottom: 100%;
+  transform: translateY(14px);
+  right: 13px;
 }
 .task-card img {
   height: 16px;
