@@ -540,6 +540,14 @@ button.back {
   }
 }
 .personal-info-form {
+  max-width: 500px;
+  margin: 0 auto;
+  .customize-platform-services-title {
+    font-size: 22px;
+    margin-bottom: 4px;
+    color: $second;
+    font-weight: 700px;
+  }
   .form-head {
     margin-bottom: 24px;
     font-weight: 400;

@@ -113,7 +113,17 @@ export default function Header() {
               className="d-none d-sm-flex"
               style={{ whiteSpace: "nowrap" }}
               onClick={() => {
-                user.about ? navigate("my-platform") : setShowModal(true);
+                if (user) {
+                  if (
+                    user?.country !== null &&
+                    user?.city !== null &&
+                    user?.nationality !== null
+                  ) {
+                    user.about ? navigate("my-platform") : setShowModal(true);
+                  } else {
+                    navigate("/customize-services");
+                  }
+                }
               }}
             >
               <i className="fa-regular fa-robot"></i>

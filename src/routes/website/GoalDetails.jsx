@@ -16,12 +16,14 @@ import InquiryModal from "../../ui/website/my-notifications/inquiryModal";
 import TopInfo from "../../ui/website/offers/TopInfo";
 import { shareContent } from "../../utils/shared";
 import { useNavigate } from "react-router";
+import PlatformModal from "../../ui/website/platform/PlatformModal";
 
 export default function GoalDetails() {
   const { t } = useTranslation();
   const navigate = useNavigate();
 
   const [showHelpModal, setShowHelpModal] = useState(false);
+  const [showAgreeModal, setShowAgreeModal] = useState();
   const [showReportModal, setShowReportModal] = useState(false);
   const [showInquiryModal, setShowInquiryModal] = useState(false);
 
@@ -168,7 +170,21 @@ export default function GoalDetails() {
                         )}
                       </div>
                     </div>
-                    <CustomButton onClick={() => setShowHelpModal(true)}>
+                    <CustomButton
+                      onClick={() => {
+                        if (
+                          user?.country === null &&
+                          user?.city === null &&
+                          user?.nationality === null
+                        ) {
+                          navigate("/customize-services");
+                        } else if (user.about) {
+                          setShowHelpModal(true);
+                        } else {
+                          setShowAgreeModal(true);
+                        }
+                      }}
+                    >
                       {t("website.offerDetails.offerHelp")}{" "}
                     </CustomButton>
                   </>
@@ -201,6 +217,11 @@ export default function GoalDetails() {
             workid={goalDetails?.id}
           />
         )}
+
+        <PlatformModal
+          showModal={showAgreeModal}
+          setShowModal={setShowAgreeModal}
+        />
       </div>
     </section>
   );

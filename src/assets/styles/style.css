@@ -3682,6 +3682,16 @@ button.back:hover {
   filter: brightness(0) invert(1);
 }
 
+.personal-info-form {
+  max-width: 500px;
+  margin: 0 auto;
+}
+.personal-info-form .customize-platform-services-title {
+  font-size: 22px;
+  margin-bottom: 4px;
+  color: #5fcafa;
+  font-weight: 700px;
+}
 .personal-info-form .form-head {
   margin-bottom: 24px;
   font-weight: 400;

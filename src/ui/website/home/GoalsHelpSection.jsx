@@ -11,13 +11,27 @@ export default function GoalsHelpSection() {
   const navigate = useNavigate();
   const { lang } = useSelector((state) => state.language);
   const { user } = useSelector((state) => state.authRole);
+  console.log(user);
+
   const [showModal, setShowModal] = useState(false);
   const [showGoalModal, setShowGoalModal] = useState(false);
   return (
     <section className={`goals-help-section ${lang === "en" && "en"}  `}>
       <CustomButton
         onClick={() => {
-          user ? setShowGoalModal(true) : navigate("/login");
+          if (user) {
+            if (
+              user?.country !== null &&
+              user?.city !== null &&
+              user?.nationality !== null
+            ) {
+              setShowGoalModal(true);
+            } else {
+              navigate("/customize-services");
+            }
+          } else {
+            navigate("/login");
+          }
         }}
         className="goal-btn personal-goal"
       >
@@ -27,7 +41,19 @@ export default function GoalsHelpSection() {
 
       <button
         onClick={() => {
-          user ? setShowModal(true) : navigate("/login");
+          if (user) {
+            if (
+              user?.country !== null &&
+              user?.city !== null &&
+              user?.nationality !== null
+            ) {
+              setShowModal(true);
+            } else {
+              navigate("/customize-services");
+            }
+          } else {
+            navigate("/login");
+          }
         }}
         className="goal-btn offer-help"
       >

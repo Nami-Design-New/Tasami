@@ -20,7 +20,6 @@ export default function Profile() {
 
   const isSavings = pathname.split("/").includes("savings");
   const isFollowings = pathname.split("/").includes("followings");
-  console.log(isSavings);
 
   const { user } = useSelector((state) => state.authRole);
 

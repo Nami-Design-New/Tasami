@@ -132,6 +132,7 @@ import ContractsBeneficiaries from "../routes/website/my-platform/contracts/Cont
 import GroupChat from "../routes/website/my-works/GroupChat";
 import UserContractChat from "../routes/website/userContractChat";
 import PersonalOffersRates from "../routes/website/PersonalOffersRates";
+import CustomizeServicesPage from "../routes/website-auth/CustomizeServicesPage";
 
 export const router = createBrowserRouter([
   /* WEBSITE AUTH */
@@ -217,6 +218,14 @@ export const router = createBrowserRouter([
       {
         path: "reels",
         element: <Reels />,
+      },
+      {
+        path: "/customize-services",
+        element: (
+          <ProtectedRoute>
+            <CustomizeServicesPage />
+          </ProtectedRoute>
+        ),
       },
 
       {
