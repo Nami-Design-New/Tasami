@@ -12,8 +12,7 @@ export default function NotificationCard({ item }) {
   const { deleteNotification, isPending: isDeleting } = useDeleteNotification();
 
   let url = "/";
-
-  switch (item.notification_type) {
+  switch (item.type) {
     case "wallet":
       url = `/my-profile/my-wallet`;
       break;
@@ -89,6 +88,7 @@ export default function NotificationCard({ item }) {
       },
     });
   };
+  console.log(url);
 
   return (
     <Link
