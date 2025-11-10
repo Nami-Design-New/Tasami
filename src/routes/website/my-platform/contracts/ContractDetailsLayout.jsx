@@ -26,7 +26,12 @@ export default function ContractDetailsLayout() {
   // Optins menu Logic
 
   if (workDetails?.rectangle === "personal_goal_with_helper") {
-    if (workDetails?.status === "offer_sent") {
+    if (
+      workDetails?.status === "offer_sent" ||
+      workDetails?.status === "payment"
+    ) {
+      options = [];
+    } else {
       options = [
         {
           id: 1,
@@ -112,11 +117,7 @@ export default function ContractDetailsLayout() {
                 ></RoundedBackButton>
                 <h1>{workDetails?.code}</h1>
               </div>
-              {workDetails?.rectangle === "help_service_from_helper" &&
-              workDetails?.status === "wait_helper_to_accept" &&
-              workDetails.status !== "completed" ? (
-                <></>
-              ) : (
+              {workDetails.helper !== null && (
                 <div className={`work-actions `}>
                   <div className="options-menu" ref={menuRef}>
                     <button className="action-buttons" onClick={toggleMenu}>
@@ -128,7 +129,7 @@ export default function ContractDetailsLayout() {
                           lang === "en" ? "en" : ""
                         } `}
                       >
-                        {options.map((option, index) => (
+                        {options?.map((option, index) => (
                           <button
                             key={index}
                             className={`options-item ${option.className || ""}`}
