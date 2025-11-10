@@ -1,25 +1,19 @@
+import { useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { useSelector } from "react-redux";
 import { NavLink, Outlet, useNavigate } from "react-router";
 import useGetWorkDetails from "../../../../hooks/website/MyWorks/useGetWorkDetails";
 import Loading from "../../../../ui/loading/Loading";
 import RoundedBackButton from "../../../../ui/website-auth/shared/RoundedBackButton";
-import { useRef, useState } from "react";
-import { useSelector } from "react-redux";
 import CancelContractModal from "../../../../ui/website/my-works/CancelContractModal";
-import useWithdrawOfferHelp from "../../../../hooks/website/contracts/useWithdrawOfferHelp";
-import { toast } from "sonner";
-import { useQueryClient } from "@tanstack/react-query";
-import AlertModal from "../../../../ui/website/platform/my-community/AlertModal";
 
 export default function ContractDetailsLayout() {
   const navigate = useNavigate();
   const menuRef = useRef(null);
-  const queryClient = useQueryClient();
   const { t } = useTranslation();
   const { lang } = useSelector((state) => state.language);
   const [showCancelModal, setShowCancelModal] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
-  const [showAlertModal, setShowAlertModal] = useState(false);
 
   const toggleMenu = () => setMenuOpen(!menuOpen);
   const { workDetails, isLoading } = useGetWorkDetails();
@@ -36,15 +30,6 @@ export default function ContractDetailsLayout() {
       options = [
         {
           id: 1,
-          label: t("works.contractDetails.withDraw"),
-          className: "text-fire",
-          onClick: () => setShowAlertModal(true),
-        },
-      ];
-    } else {
-      options = [
-        {
-          id: 1,
           label: t("works.contractDetails.endContract"),
           className: "text-fire",
           onClick: () => setShowCancelModal(true),
@@ -53,18 +38,9 @@ export default function ContractDetailsLayout() {
     }
   } else if (workDetails?.rectangle === "help_service_from_helper") {
     if (
-      workDetails?.status === "wait_for_user_payment" ||
-      workDetails?.status === "wait_helper_to_accept"
+      workDetails?.status !== "wait_for_user_payment" ||
+      workDetails?.status !== "wait_helper_to_accept"
     ) {
-      options = [
-        {
-          id: 1,
-          label: t("works.cancelRequest"),
-          className: "text-fire",
-          onClick: () => setShowAlertModal(true),
-        },
-      ];
-    } else {
       options = [
         {
           id: 1,
@@ -108,8 +84,6 @@ export default function ContractDetailsLayout() {
         label: t("works.details"),
         end: true,
       },
-      // { id: 3, label: t("works.myGroup"), link: "group" },
-      // { id: 4, label: t("works.tasks"), link: "tasks" },
       { id: 5, label: t("works.beneficiary"), link: "beneficiaries" },
     ];
   } else {
@@ -207,15 +181,6 @@ export default function ContractDetailsLayout() {
         workId={workDetails?.id}
         contractId={workDetails?.helper_last_contract_id}
       />
-      <AlertModal
-        confirmButtonText={t("confirm")}
-        showModal={showAlertModal}
-        setShowModal={setShowAlertModal}
-        onConfirm={() => handleWithdrawOffer(workDetails.id)}
-        loading={isWithdrawing}
-      >
-        {t("works.withdrawWarning")}
-      </AlertModal>
     </section>
   );
 }
