@@ -50,9 +50,6 @@ export default function TaskCard({ task, isDragging = false }) {
       navigate(`/tasks/${task?.id}`);
     }
   };
-  console.log(task);
-  console.log(task.id, isContracts && task?.rate !== null);
-  console.log(isContracts, task?.rate);
 
   return (
     <div
@@ -105,11 +102,34 @@ export default function TaskCard({ task, isDragging = false }) {
             <span>{task?.notification_repeat}</span>
           </div>
         </div>
-        {(task.status === "completed" || task.status === "confirmed") && (
-          <>
-            {isContracts ? (
-              task?.rate === null ? (
-                <></>
+
+        {task?.helper === null ? (
+          <></>
+        ) : (
+          (task.status === "completed" || task.status === "confirmed") && (
+            <>
+              {isContracts ? (
+                task?.rate === null ? (
+                  <></>
+                ) : (
+                  <div className="mt-3">
+                    <CustomButton
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setShowModal(true);
+                      }}
+                      size="large"
+                      variant="outlined"
+                      fullWidth
+                    >
+                      {task?.rate === null ||
+                      task.rate.guidance === "" ||
+                      task.rate.verification === ""
+                        ? "تأكيد الاداء"
+                        : "تم التأكيد"}
+                    </CustomButton>
+                  </div>
+                )
               ) : (
                 <div className="mt-3">
                   <CustomButton
@@ -121,30 +141,12 @@ export default function TaskCard({ task, isDragging = false }) {
                     variant="outlined"
                     fullWidth
                   >
-                    {task?.rate === null ||
-                    task.rate.guidance === "" ||
-                    task.rate.verification === ""
-                      ? "تأكيد الاداء"
-                      : "تم التأكيد"}
+                    {task?.rate === null ? "تأكيد الاداء" : "تم التأكيد"}
                   </CustomButton>
                 </div>
-              )
-            ) : (
-              <div className="mt-3">
-                <CustomButton
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    setShowModal(true);
-                  }}
-                  size="large"
-                  variant="outlined"
-                  fullWidth
-                >
-                  {task?.rate === null ? "تأكيد الاداء" : "تم التأكيد"}
-                </CustomButton>
-              </div>
-            )}
-          </>
+              )}
+            </>
+          )
         )}
       </div>
       <ConfirmPerformanceModal

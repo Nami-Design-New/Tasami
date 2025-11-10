@@ -68,7 +68,7 @@ export default function NotificationCard({ item }) {
       url = `/chat/${item.operation_id}`;
       break;
     default:
-      url = "/ ";
+      url = "/";
   }
 
   const handleMarkAsRead = (id) => {

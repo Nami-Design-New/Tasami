@@ -23,20 +23,6 @@ export default function ContractDetailsLayout() {
 
   const toggleMenu = () => setMenuOpen(!menuOpen);
   const { workDetails, isLoading } = useGetWorkDetails();
-  const { withdrawOffer, isPending: isWithdrawing } = useWithdrawOfferHelp();
-
-  const handleWithdrawOffer = (id) => {
-    withdrawOffer(id, {
-      onSuccess: (res) => {
-        toast.success(res?.message);
-        navigate("/my-contracts");
-        queryClient.refetchQueries("my-contracts");
-      },
-      onError: (error) => {
-        toast.error(error.message || t("works.errorOccurred"));
-      },
-    });
-  };
 
   let options;
   let tabs = [];
@@ -220,7 +206,7 @@ export default function ContractDetailsLayout() {
         setShowModal={setShowCancelModal}
         workId={workDetails?.id}
         contractId={workDetails?.helper_last_contract_id}
-      />{" "}
+      />
       <AlertModal
         confirmButtonText={t("confirm")}
         showModal={showAlertModal}
