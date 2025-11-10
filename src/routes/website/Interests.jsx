@@ -58,9 +58,12 @@ export default function Interests() {
   };
 
   return (
-    <section className="auth_section">
-      <div className="form_container p-0 justify-content-start align-items-stretch h-auto">
-        <section className="personal-info-form">
+    <section className="auth_section h-auto">
+      <div className="form_container p-0 justify-content-start align-items-stretch ">
+        <section
+          className="personal-info-form w-100  m-0"
+          style={{ maxWidth: "100%" }}
+        >
           <div className="area-of-interest w-100 ">
             <Accordion defaultActiveKey="0">
               {isInterestsLoading ? (

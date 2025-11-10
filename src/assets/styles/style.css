@@ -622,6 +622,15 @@ li[data-sonner-toast=""] {
   font-size: 0.75rem;
 }
 
+.media-style {
+  max-height: 500px;
+  width: 100%;
+  border-radius: 0.75rem;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+}
+
 .main-header {
   position: sticky;
   top: 0;
@@ -11362,6 +11371,7 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
   gap: 4px;
 }
 .wallet-page .wallet-balance .balance-amount span {
+  min-height: 56px;
   color: #214b92;
   font-size: 40px;
   font-weight: bold;
@@ -12792,5 +12802,5 @@ body main {
 }
 body.en {
   direction: ltr;
-  font-family: "Roboto", sans-serif;
+  font-family: "Dubai";
 }/*# sourceMappingURL=style.css.map */

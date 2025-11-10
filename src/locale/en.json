@@ -172,6 +172,25 @@
     "failed": "Payment failed",
     "waiting": "Waiting for payment confirmation..."
   },
+  "footer": {
+    "description": "We are an Arabic platform aiming to connect ideas with skilled professionals in a trusted and supportive environment. Our goal is to help you complete your project with the highest quality and least effort.",
+    "quickLinks": {
+      "title": "Quick Links",
+      "faqs": "FAQs",
+      "contact": "Contact Us",
+      "terms": "Terms & Conditions",
+      "privacy": "Privacy Policy"
+    },
+    "services": {
+      "title": "Our Services",
+      "howItWorks": "How It Works",
+      "about": "About Tasami"
+    },
+    "copyright": {
+      "text": "All rights reserved © {{year}} to",
+      "brand": "Tasami"
+    }
+  },
   "pageHeaders": {
     "Notifications": "Notifications",
     "Dashboard": "Dashboard",
@@ -291,7 +310,7 @@
   },
   "profile": {
     "myInfo": "My Info",
-    "notificationsSys": "ٍSystem Notifications",
+    "notificationsSys": "System Notifications",
     "wallet": "My Wallet",
     "interests": "My Interests",
     "savings": "My Savings",

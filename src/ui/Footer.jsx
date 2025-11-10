@@ -1,78 +1,67 @@
 import { Link } from "react-router";
+import { useTranslation } from "react-i18next";
 
 export default function Footer() {
+  const { t } = useTranslation();
+
   return (
     <footer className="footer2">
       <div className="container-lg p-0">
-        <div className="row justify-content-center">
+        <div className="row">
+          {/* Logo + Description */}
           <div className="col-lg-4 col-md-6 col-12 p-2">
             <Link to="/" className="logo">
               <img src="/images/logo.svg" alt="logo" width="150" height="60" />
             </Link>
-            <p className="description">
-              نحن منصة عربية نسعى لربط الأفكار بأصحاب المهارات والخبرات من خلال
-              بيئة داعمة وموثوقة. هدفنا تمكينك من إنجاز مشروعك بأعلى جودة وأقل
-              جهد.
-            </p>
+            <p className="description">{t("footer.description")}</p>
           </div>
 
+          {/* Quick Links */}
           <div className="col-lg-2 col-md-6 col-12 p-2">
-            <h4 className="title">روابط سريعة</h4>
+            <h4 className="title">{t("footer.quickLinks.title")}</h4>
             <ul className="links_list">
               <li>
-                <Link to="/faqs">الأسئلة الشائعة</Link>
+                <Link to="/faqs">{t("footer.quickLinks.faqs")}</Link>
               </li>
               <li>
-                <Link to="/contact">اتصل بنا</Link>
+                <Link to="/contact">{t("footer.quickLinks.contact")}</Link>
               </li>
               <li>
-                <Link to="/terms-conditions">الشروط والأحكام</Link>
+                <Link to="/terms-conditions">
+                  {t("footer.quickLinks.terms")}
+                </Link>
               </li>
               <li>
-                <Link to="/privacy-policy">سياسة الخصوصية</Link>
+                <Link to="/privacy-policy">
+                  {t("footer.quickLinks.privacy")}
+                </Link>
               </li>
             </ul>
           </div>
 
+          {/* Services */}
           <div className="col-lg-3 col-md-6 col-12 p-2">
-            <h4 className="title">خدماتنا</h4>
+            <h4 className="title">{t("footer.services.title")}</h4>
             <ul className="links_list">
               <li>
-                <Link to="/how-it-works">كيف تعمل المنصة؟</Link>
+                <Link to="/how-it-works">
+                  {t("footer.services.howItWorks")}
+                </Link>
               </li>
               <li>
-                <Link to="/about"> عن تسامي</Link>
-              </li>
-              <li>
-                <Link to="/package-consolidation">تجميع المشاريع</Link>
-              </li>
-              <li>
-                <Link to="/shipping-calculator"> الخدمات</Link>
+                <Link to="/about">{t("footer.services.about")}</Link>
               </li>
             </ul>
           </div>
 
-          <div className="col-lg-3 col-md-6 col-12 p-2">
-            <h4 className="title">تواصل معنا</h4>
-            <ul className="links_list">
-              <li>
-                الهاتف: <a href="tel:+20123456789">+20 123 456 789</a>
-              </li>
-              <li>
-                الإيميل:{" "}
-                <a href="mailto:support@example.com">support@example.com</a>
-              </li>
-              <li>
-                العنوان: <a href="https://www.google.com/maps">جدة,السعودية</a>
-              </li>
-            </ul>
-          </div>
-
+          {/* Copyright */}
           <div className="col-12">
             <div className="copyright">
               <p>
-                جميع الحقوق محفوظة © {new Date().getFullYear()} إلى{" "}
-                <span>تسامي</span>
+                {t("footer.copyright.text", {
+                  year: new Date().getFullYear(),
+                })}{" "}
+                <span>{t("footer.copyright.brand")}</span>
               </p>
               <div className="socials">
                 <Link>

@@ -146,6 +146,7 @@
       @include centerFlex();
       gap: 4px;
       span {
+        min-height: 56px;
         color: $main;
         font-size: 40px;
         font-weight: bold;
