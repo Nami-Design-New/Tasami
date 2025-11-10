@@ -4,10 +4,12 @@ import { Badge } from "react-bootstrap";
 import { Link } from "react-router";
 import ReusableDataTable from "../../../ui/table/ReusableDataTable";
 import ReassignTaskModal from "./ReassignTaskModal";
+import { useTranslation } from "react-i18next";
 
 const columnHelper = createColumnHelper();
 
 const TasksTable = () => {
+  const { t } = useTranslation();
   const [showReassignModal, setShowReassignModal] = useState(false);
   const data = useMemo(
     () => [
@@ -130,99 +132,75 @@ const TasksTable = () => {
   const columns = useMemo(
     () => [
       columnHelper.accessor("system", {
-        header: "النظام",
+        header: t("dashboard.tasks.table.system"),
         cell: (info) => info.getValue(),
-        enableSorting: false,
       }),
-
       columnHelper.accessor("subject", {
-        header: "الموضوع",
+        header: t("dashboard.tasks.table.subject"),
         cell: (info) => info.getValue(),
-        enableSorting: false,
       }),
       columnHelper.accessor("model", {
-        header: "النموذج",
+        header: t("dashboard.tasks.table.model"),
         cell: (info) => (
-          <Link
-            to={`/dashboard/model/${info.getValue()}`}
-            className="link-styles"
-            style={{ textDecoration: "underline" }}
-          >
+          <Link to={`/dashboard/model/${info.getValue()}`}>
             {info.getValue()}
           </Link>
         ),
-        enableSorting: false,
       }),
       columnHelper.accessor("date", {
-        header: "التاريخ",
+        header: t("dashboard.tasks.table.date"),
         cell: (info) => info.getValue(),
-        enableSorting: false,
       }),
       columnHelper.accessor("time", {
-        header: " الوقت ",
+        header: t("dashboard.tasks.table.time"),
         cell: (info) => info.getValue(),
       }),
       columnHelper.accessor("service", {
-        header: " الخدمه ",
+        header: t("dashboard.tasks.table.service"),
         cell: (info) => (
-          <Link
-            to={`/service-details/${info.getValue()}`}
-            className="link-styles"
-            style={{ textDecoration: "underline" }}
-          >
+          <Link to={`/service-details/${info.getValue()}`}>
             {info.getValue()}
           </Link>
         ),
       }),
       columnHelper.accessor("userAccount", {
-        header: "حساب المستخدم ",
+        header: t("dashboard.tasks.table.userAccount"),
         cell: (info) => (
-          <Link
-            to={`/dashboard/user-details/${info.getValue()}`}
-            className="link-styles"
-          >
+          <Link to={`/dashboard/user-details/${info.getValue()}`}>
             {info.getValue()}
           </Link>
         ),
       }),
       columnHelper.accessor("accountType", {
-        header: "نوع الحساب",
+        header: t("dashboard.tasks.table.accountType"),
         cell: (info) => info.getValue(),
-        enableSorting: false,
       }),
       columnHelper.accessor("idNumber", {
-        header: "رقم التعريف",
+        header: t("dashboard.tasks.table.idNumber"),
         cell: (info) => info.getValue(),
-        enableSorting: false,
       }),
       columnHelper.accessor("group", {
-        header: "المجموعه",
+        header: t("dashboard.tasks.table.group"),
         cell: (info) => (
-          <Link
-            to={`/dashboard/working-group/${info.getValue()}`}
-            className="link-styles"
-          >
+          <Link to={`/dashboard/working-group/${info.getValue()}`}>
             {info.getValue()}
           </Link>
         ),
-        enableSorting: false,
       }),
-
       columnHelper.accessor("region", {
-        header: "  الاقليم ",
+        header: t("dashboard.tasks.table.region"),
         cell: (info) => info.getValue(),
       }),
       columnHelper.accessor("location", {
-        header: "  القطاع ",
+        header: t("dashboard.tasks.table.location"),
         cell: (info) => info.getValue(),
       }),
       columnHelper.accessor("city", {
-        header: "  المدينه ",
+        header: t("dashboard.tasks.table.city"),
         cell: (info) => info.getValue(),
       }),
-
       columnHelper.accessor("status", {
-        header: " الحالة ",
+        header: t("dashboard.tasks.table.status"),
         cell: (info) => {
           let badgeColor;
           switch (info.getValue()) {
@@ -239,7 +217,6 @@ const TasksTable = () => {
               badgeColor = "#E5E7EB";
               break;
           }
-
           return (
             <Badge
               pill
@@ -250,44 +227,37 @@ const TasksTable = () => {
                 fontWeight: "500",
               }}
             >
-              {info.getValue()}
+              {" "}
+              {info.getValue()}{" "}
             </Badge>
           );
         },
       }),
-
+      ,
       columnHelper.accessor("actionLevel", {
-        header: " مستوي الاجراء ",
+        header: t("dashboard.tasks.table.actionLevel"),
         cell: (info) => info.getValue(),
       }),
       columnHelper.accessor("completionDate", {
-        header: " تاريخ الاكمال ",
+        header: t("dashboard.tasks.table.completionDate"),
         cell: (info) => info.getValue(),
       }),
       columnHelper.accessor("rate", {
-        header: " التقييم ",
-        cell: (info) => {
-          return (
-            <div>
-              {info.getValue() === null ? "لا يوجد تقييم" : info.getValue()}
-            </div>
-          );
-        },
+        header: t("dashboard.tasks.table.rate"),
+        cell: (info) =>
+          info.getValue() ?? t("dashboard.tasks.statusLabels.noRate"),
       }),
       columnHelper.accessor("assign", {
-        header: "تعيين",
-        cell: (info) => {
-          return (
+        header: t("dashboard.tasks.table.assign"),
+        cell: (info) =>
+          info.getValue() ? null : (
             <button onClick={() => setShowReassignModal(true)}>
-              {info.getValue() === false ? (
-                <i className="fa-solid fa-repeat"></i>
-              ) : null}
+              <i className="fa-solid fa-repeat"></i>
             </button>
-          );
-        },
+          ),
       }),
     ],
-    []
+    [t]
   );
 
   return (
@@ -296,8 +266,8 @@ const TasksTable = () => {
         columns={columns}
         data={data}
         filter={false}
-        title="المهام"
-        searchPlaceholder="بحث في المهام ..."
+        title={t("dashboard.tasks.table.subject")}
+        searchPlaceholder={t("dashboard.tasks.searchPlaceholder")}
       />
       <ReassignTaskModal
         showModal={showReassignModal}

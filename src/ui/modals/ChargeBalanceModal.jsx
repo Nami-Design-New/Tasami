@@ -1,9 +1,11 @@
 import { yupResolver } from "@hookform/resolvers/yup";
+import { useQueryClient } from "@tanstack/react-query";
 import { Modal } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { toast } from "sonner";
 import * as yup from "yup";
+import useMessagePaymentListener from "../../hooks/shared/useMessagePaymentListener";
 import useChargeWallet from "../../hooks/website/wallet/useChargeWallet";
 import CustomButton from "../CustomButton";
 import InputField from "../forms/InputField";
@@ -26,6 +28,7 @@ const getChargeBalanceSchema = (t) =>
 const ChargeBalanceModal = ({ showModal, setShowModal }) => {
   const { t } = useTranslation();
   const { charge, isPending } = useChargeWallet();
+  const queryClient = useQueryClient();
 
   const {
     register,
@@ -37,20 +40,26 @@ const ChargeBalanceModal = ({ showModal, setShowModal }) => {
     resolver: yupResolver(getChargeBalanceSchema(t)),
   });
 
+  useMessagePaymentListener({
+    onSuccess: () => {
+      toast.success(t("payment.success"));
+      queryClient.invalidateQueries({ queryKey: ["wallet-balance"] });
+    },
+    onFail: () => {
+      toast.error(t("payment.failed"));
+    },
+  });
+
   const onSubmit = (data) => {
     const price = data.charge;
     charge(price, {
       onSuccess: (res) => {
-        console.log("ddddddddd");
-
         setShowModal(false);
-        toast.success("profile.chargeSuccess");
         if (res?.data?.redirect_url) {
           const width = 800;
           const height = 600;
           const left = window.screenX + (window.outerWidth - width) / 2;
           const top = window.screenY + (window.outerHeight - height) / 2;
-
           window.open(
             res.data.redirect_url,
             "ChargeWalletPopup",

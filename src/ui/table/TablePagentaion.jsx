@@ -1,6 +1,10 @@
+import { useTranslation } from "react-i18next";
+
 const TablePagentaion = ({ table }) => {
+  const { t } = useTranslation();
+
   return (
-    <div className="pagination-container  d-flex justify-content-between">
+    <div className="pagination-container d-flex justify-content-between">
       <div className="pagination-buttons">
         <button
           onClick={() => table.previousPage()}
@@ -10,7 +14,7 @@ const TablePagentaion = ({ table }) => {
             cursor: !table.getCanPreviousPage() ? "not-allowed" : "pointer",
           }}
         >
-          السابق
+          {t("dashboard.table.previous")}
         </button>
 
         <div className="page-numbers d-flex gap-2">
@@ -31,17 +35,16 @@ const TablePagentaion = ({ table }) => {
           onClick={() => table.nextPage()}
           disabled={!table.getCanNextPage()}
           style={{
-            cursor: !table.getCanPreviousPage() ? "not-allowed" : "pointer",
+            cursor: !table.getCanNextPage() ? "not-allowed" : "pointer",
           }}
         >
-          التالي
+          {t("dashboard.table.next")}
         </button>
       </div>
 
       <div className="pagination-info">
-        {`صفحة ${
-          table.getState().pagination.pageIndex + 1
-        } من ${table.getPageCount()}`}
+        {t("dashboard.table.page")} {table.getState().pagination.pageIndex + 1}{" "}
+        {t("dashboard.table.of")} {table.getPageCount()}
       </div>
     </div>
   );

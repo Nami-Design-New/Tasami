@@ -65,3 +65,27 @@ export function formatDate(dateString) {
 
   return `${day} ${month} ${year} | ${hours}:${minutes}`;
 }
+
+// add aspected ratio
+
+export async function getAspectRatio(file) {
+  return new Promise((resolve) => {
+    if (file.type.startsWith("image/")) {
+      const img = new Image();
+      img.onload = () => resolve((img.width / img.height).toFixed(2));
+      img.onerror = () => resolve(null);
+      img.src = URL.createObjectURL(file);
+    } else if (file.type.startsWith("video/")) {
+      const video = document.createElement("video");
+      video.preload = "metadata";
+      video.onloadedmetadata = () => {
+        window.URL.revokeObjectURL(video.src);
+        resolve((video.videoWidth / video.videoHeight).toFixed(2));
+      };
+      video.onerror = () => resolve(null);
+      video.src = URL.createObjectURL(file);
+    } else {
+      resolve(null);
+    }
+  });
+}

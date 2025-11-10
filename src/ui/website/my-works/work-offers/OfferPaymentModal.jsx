@@ -1,10 +1,11 @@
 import { useQueryClient } from "@tanstack/react-query";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Modal } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router";
 import { toast } from "sonner";
+import useMessagePaymentListener from "../../../../hooks/shared/useMessagePaymentListener";
 import useAcceptOrRemoveWorkOffer from "../../../../hooks/website/MyWorks/offers/useAcceptOrRemoveWorkOffer";
 import Currency from "../../../Currency";
 import CustomButton from "../../../CustomButton";
@@ -22,23 +23,23 @@ export default function OfferPaymentModal({
   const [selectedMethod, setSelectedMethod] = useState("online");
   const { acceptOrRemoveWorkOffer, isPending } = useAcceptOrRemoveWorkOffer();
   const queryClient = useQueryClient();
-  useEffect(() => {
-    const handleMessage = (event) => {
-      if (!event.data?.status) return;
 
-      if (event.data.status === "success") {
-        queryClient.invalidateQueries({ queryKey: ["work-offers"] });
-        queryClient.refetchQueries({ queryKey: ["work-details"] });
-        queryClient.refetchQueries({ queryKey: ["assistants"] });
-        queryClient.refetchQueries({ queryKey: ["work-group"] });
-      } else if (event.data.status === "failed") {
-        console.log("failed");
-      }
-    };
+  useMessagePaymentListener({
+    onSuccess: () => {
+      toast.success(t("payment.success"));
+      queryClient.invalidateQueries({ queryKey: ["work-offers"] });
+      queryClient.refetchQueries({ queryKey: ["work-details"] });
+      queryClient.refetchQueries({ queryKey: ["assistants"] });
+      queryClient.refetchQueries({ queryKey: ["work-group"] });
+      setSelectedMethod("online");
+      setShowOfferModal(false);
+      navigate(`/my-works/${workId}/group`);
+    },
+    onFail: () => {
+      toast.error(t("payment.failed"));
+    },
+  });
 
-    window.addEventListener("message", handleMessage);
-    return () => window.removeEventListener("message", handleMessage);
-  }, [queryClient]);
   const handleAcceptOffers = () => {
     const payload = {
       status: "accepted",

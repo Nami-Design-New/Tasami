@@ -1,13 +1,29 @@
+import { useState } from "react";
+import ProfileImageUploader from "../../ProfileImageUploader";
+
 const UserProfileCard = () => {
+  const [showMapModal, setShowMapModal] = useState(false);
+  const [image, setImage] = useState(
+    "https://randomuser.me/api/portraits/men/12.jpg"
+  );
+
+  const handleUpload = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const imageUrl = URL.createObjectURL(file);
+      setImage(imageUrl);
+    }
+  };
   return (
     <div className="profile-card">
       <div className="profile-card__header">
-        <img
+        <ProfileImageUploader imageUrl={image} onChange={handleUpload} />
+        {/* <img
           className="profile-card__avatar"
           src="https://randomuser.me/api/portraits/men/12.jpg"
           alt="Mohamed Radwan"
-        />
-        <span className="profile-card__status"></span>
+        /> */}
+        {/* <span className="profile-card__status"></span> */}
       </div>
 
       <div className="profile-card__body">
@@ -20,10 +36,10 @@ const UserProfileCard = () => {
             <i className="fa-solid fa-envelope"></i>
             <span>Mohamed.Radwan@tasami.com</span>
           </div>
-          <div className="profile-card__info-item">
+          {/* <div className="profile-card__info-item">
             <i className="fa-solid fa-phone"></i>
             <span>+966 551234567</span>
-          </div>
+          </div> */}
           <div className="profile-card__info-item">
             <i className="fa-solid fa-location-dot"></i>
             <span> السعوديه , الرياض </span>

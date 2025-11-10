@@ -111,40 +111,6 @@ export default function ReelCard({ reel }) {
     });
   };
 
-  // handle share post
-  //   const handleShare = () => {
-  //   if (navigator.share) {
-  //     navigator
-  //       .share({
-  //         title: post.title,
-  //         text: post.desc,
-  //         url: window.location.href,
-  //       })
-  //       .then(() => {
-  //         // Optimistically update UI
-  //         setSharesCount((prev) => prev + 1);
-  //         sharePost(post.id, {
-  //           onSuccess: () => {
-  //             queryClient.refetchQueries({ queryKey: ["community-posts"] });
-  //             queryClient.refetchQueries({ queryKey: ["reels"] });
-  //             queryClient.invalidateQueries({ queryKey: ["post-details"] });
-  //           },
-  //           onError: () => setSharesCount((prev) => prev - 1),
-  //         });
-  //       })
-  //       .catch((error) => console.error("Share failed:", error));
-  //   } else {
-  //     // fallback → copy link
-  //     navigator.clipboard.writeText(window.location.href);
-  //     alert("Link copied to clipboard!");
-
-  //     setSharesCount((prev) => prev + 1);
-  //     sharePost(post.id, {
-  //       onError: () => setSharesCount((prev) => prev - 1),
-  //     });
-  //   }
-  // };
-
   return (
     <div className="social-card">
       {/* Header */}
@@ -176,7 +142,7 @@ export default function ReelCard({ reel }) {
           {reel?.type === "image" && (
             <img
               src={reel?.file}
-              style={{ aspectRatio: "0.5625 / 1" }}
+              style={{ aspectRatio: reel?.aspect_ratio }}
               className="social-card__image"
             />
           )}
@@ -194,7 +160,7 @@ export default function ReelCard({ reel }) {
                 controlsList="nodownload nofullscreen noremoteplayback"
                 onContextMenu={(e) => e.preventDefault()}
                 className="social-card__video"
-                style={{ aspectRatio: "0.5625 / 1" }}
+                style={{ aspectRatio: reel?.aspect_ratio }}
               ></video>
 
               {/* Custom play button overlay */}

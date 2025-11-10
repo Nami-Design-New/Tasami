@@ -1,12 +1,13 @@
-import { useEffect, useState } from "react";
+import { useQueryClient } from "@tanstack/react-query";
+import { useState } from "react";
 import { Modal } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
+import { useSelector } from "react-redux";
 import { toast } from "sonner";
+import useMessagePaymentListener from "../../../hooks/shared/useMessagePaymentListener";
+import useSubscripePackage from "../../../hooks/website/subscribe/useSubscripePackage";
 import Currency from "../../Currency";
 import CustomButton from "../../CustomButton";
-import { useQueryClient } from "@tanstack/react-query";
-import useSubscripePackage from "../../../hooks/website/subscribe/useSubscripePackage";
-import { useSelector } from "react-redux";
 
 export default function PaymentModal({ plan, showModal, setShowModal }) {
   const { t } = useTranslation();
@@ -15,20 +16,18 @@ export default function PaymentModal({ plan, showModal, setShowModal }) {
   const { subscribe, isPending } = useSubscripePackage();
   const queryClient = useQueryClient();
 
-  useEffect(() => {
-    const handleMessage = (event) => {
-      if (!event.data?.status) return;
-      if (event.data.status === "success") {
-        queryClient.invalidateQueries({ queryKey: ["current-package"] });
-        queryClient.invalidateQueries({ queryKey: ["get-packages"] });
-      } else if (event.data.status === "failed") {
-        console.log("failed");
-      }
-    };
-
-    window.addEventListener("message", handleMessage);
-    return () => window.removeEventListener("message", handleMessage);
-  }, [queryClient]);
+  useMessagePaymentListener({
+    onSuccess: () => {
+      toast.success(t("payment.success"));
+      queryClient.invalidateQueries({ queryKey: ["current-package"] });
+      queryClient.invalidateQueries({ queryKey: ["get-packages"] });
+      setSelectedMethod("online");
+      setShowModal(false);
+    },
+    onFail: () => {
+      toast.error(t("payment.failed"));
+    },
+  });
 
   async function handleSubscribe() {
     subscribe(
@@ -36,16 +35,23 @@ export default function PaymentModal({ plan, showModal, setShowModal }) {
       {
         onSuccess: (res) => {
           if (selectedMethod === "online") {
-            const url = res.data.redirect_url;
-            window.open(url, "_blank", "noopener,noreferrer");
-          }
-          queryClient.invalidateQueries({ queryKey: ["current-package"] });
-          queryClient.invalidateQueries({ queryKey: ["get-packages"] });
-          setSelectedMethod("online");
-          setShowModal(false);
-
-          if (selectedMethod === "wallet") {
+            if (res?.data?.redirect_url) {
+              const width = 800;
+              const height = 600;
+              const left = window.screenX + (window.outerWidth - width) / 2;
+              const top = window.screenY + (window.outerHeight - height) / 2;
+              window.open(
+                res.data.redirect_url,
+                "ChargeWalletPopup",
+                `width=${width},height=${height},left=${left},top=${top},resizable=yes,scrollbars=yes,status=no`
+              );
+            }
+          } else if (selectedMethod === "wallet") {
             toast.success(res?.message);
+            queryClient.invalidateQueries({ queryKey: ["current-package"] });
+            queryClient.invalidateQueries({ queryKey: ["get-packages"] });
+            setSelectedMethod("online");
+            setShowModal(false);
           }
         },
         onError: (error) => {

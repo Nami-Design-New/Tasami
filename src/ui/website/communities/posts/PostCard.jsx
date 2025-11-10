@@ -8,11 +8,17 @@ export default function PostCard({ post }) {
           {post.type === "image" && (
             <img
               src={post.file}
-              style={{ aspectRatio: `${1.5}` }}
+              style={{ aspectRatio: post?.aspect_ratio }}
               className="image"
             />
           )}
-          {post.type === "video" && <video src={post.file} className="image" />}
+          {post.type === "video" && (
+            <video
+              src={post.file}
+              style={{ aspectRatio: post?.aspect_ratio }}
+              className="image"
+            />
+          )}
         </div>
       )}
       <div className="date">

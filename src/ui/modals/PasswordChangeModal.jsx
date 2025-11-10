@@ -1,9 +1,11 @@
 import { Modal } from "react-bootstrap";
+import { useTranslation } from "react-i18next";
 import InputField from "../forms/InputField";
-import SubmitButton from "../forms/SubmitButton";
 import CustomButton from "../CustomButton";
 
 const PasswordChangeModal = ({ showModal, setShowModal }) => {
+  const { t } = useTranslation();
+
   return (
     <Modal
       show={showModal}
@@ -12,36 +14,41 @@ const PasswordChangeModal = ({ showModal, setShowModal }) => {
       centered
     >
       <Modal.Header closeButton>
-        <h6> تغيير كلمه المرور</h6>
+        <h6>{t("dashboard.employeeProfile.passwordChange.title")}</h6>
       </Modal.Header>
 
       <Modal.Body>
-        <form className="form_ui ">
-          <div className="row gy-3">
-            <div className="col-12">
+        <form className="form_ui">
+          <div className="row">
+            <div className="col-12 p-2">
               <InputField
-                label="كلمه المرور القديمه"
+                label={t(
+                  "dashboard.employeeProfile.passwordChange.oldPassword"
+                )}
                 type="password"
-                // placeholder="كلمه المرور القديمه"
               />
             </div>
-            <div className="col-12">
+            <div className="col-12 p-2">
               <InputField
-                label="كلمه المرور الجديده"
+                label={t(
+                  "dashboard.employeeProfile.passwordChange.newPassword"
+                )}
                 type="password"
-                // placeholder="كلمه المرور الجديده"
               />
             </div>
-            <div className="col-12">
+            <div className="col-12 p-2">
               <InputField
-                label="تاكيد كلمه المرور"
+                label={t(
+                  "dashboard.employeeProfile.passwordChange.confirmPassword"
+                )}
                 type="password"
-                // placeholder="تاكيد كلمه المرور"
               />
+            </div>{" "}
+            <div className="col-12 p-2">
+              <CustomButton size="large" fullWidth>
+                {t("dashboard.employeeProfile.passwordChange.confirm")}
+              </CustomButton>
             </div>
-            <CustomButton size="large" fullWidth>
-              تأكيد
-            </CustomButton>
           </div>
         </form>
       </Modal.Body>

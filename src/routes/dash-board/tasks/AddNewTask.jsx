@@ -37,11 +37,19 @@ const AddNewTask = ({ showModal, setShowModal, title }) => {
                 label="عنوان الموضوع"
                 placeholder="اضف عنوان للموضوع"
               />
+            </div>{" "}
+            <div className="col-12 col-md-6 py-2">
+              <SelectField
+                label="نوع النموذج"
+                options={[
+                  { value: "1", name: "S-111111-0111111" },
+                  { value: "2", name: "S-111111-0111111" },
+                ]}
+              />
             </div>
             <div className="col-12 py-2">
               <TextField label="الوصف" placeholder="اضف وصف الطلب" />
             </div>
-
             <div>
               <FileUploader
                 files={files}

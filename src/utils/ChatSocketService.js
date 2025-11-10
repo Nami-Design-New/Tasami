@@ -83,6 +83,7 @@ export class ChatSocketService {
       .private(`communitychat.${communityId}`)
       .listen("CommunityMessageSent", (event) => {
         console.log("📨 New message received via socket:", event.message);
+        console.log("📨 Event received via socket:", event);
         this.messageCallback?.(event.message);
       });
 

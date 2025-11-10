@@ -1,12 +1,13 @@
 import { useQueryClient } from "@tanstack/react-query";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Modal } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
+import { toast } from "sonner";
+import useMessagePaymentListener from "../../../../hooks/shared/useMessagePaymentListener";
 import useOfferRequestPayment from "../../../../hooks/website/contracts/useOfferRequestPayment";
 import Currency from "../../../Currency";
 import CustomButton from "../../../CustomButton";
-import { toast } from "sonner";
 
 export default function OfferRequestPaymentModal({
   plan,
@@ -15,27 +16,25 @@ export default function OfferRequestPaymentModal({
   setShowModal,
 }) {
   const queryClient = useQueryClient();
-  console.log(plan);
 
   const [selectedMethod, setSelectedMethod] = useState("online");
   const { t } = useTranslation();
   const { user } = useSelector((state) => state.authRole);
 
   const { offerRequestPayment, isPending } = useOfferRequestPayment();
-  useEffect(() => {
-    const handleMessage = (event) => {
-      if (!event.data?.status) return;
 
-      if (event.data.status === "success") {
-        queryClient.refetchQueries({ queryKey: ["work-details"] });
-      } else if (event.data.status === "failed") {
-        console.log("failed");
-      }
-    };
+  useMessagePaymentListener({
+    onSuccess: () => {
+      toast.success(t("payment.success"));
+      setShowModal(false);
+      setSelectedMethod("online");
+      queryClient.refetchQueries({ queryKey: ["work-details"] });
+    },
+    onFail: () => {
+      toast.error(t("payment.failed"));
+    },
+  });
 
-    window.addEventListener("message", handleMessage);
-    return () => window.removeEventListener("message", handleMessage);
-  }, [queryClient]);
   const handelPayment = () => {
     const payload = {
       method: selectedMethod,
@@ -68,6 +67,7 @@ export default function OfferRequestPaymentModal({
       },
     });
   };
+
   return (
     <Modal
       centered

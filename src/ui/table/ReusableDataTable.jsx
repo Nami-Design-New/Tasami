@@ -26,12 +26,11 @@ import { CSS } from "@dnd-kit/utilities";
 import { useMemo, useState } from "react";
 import TableFilter from "./TableFilter";
 import TablePagentaion from "./TablePagentaion";
+import { useTranslation } from "react-i18next";
 
 // Cell Component
 const RowDragHandleCell = ({ rowId }) => {
   const { attributes, listeners } = useSortable({ id: String(rowId) });
-  console.log(rowId);
-
   return (
     <button {...attributes} {...listeners}>
       <i className="fa-regular fa-bars"> </i>
@@ -77,18 +76,18 @@ const ReusableDataTable = ({
   lang = "en",
   rowDnD = false,
 }) => {
+  const { t } = useTranslation();
   const isRTL = lang === "ar";
+
   const [globalFilter, setGlobalFilter] = useState("");
   const [columnFilters, setColumnFilters] = useState([]);
   const columnIds = useMemo(() => columns.map((c) => c.header), [columns]);
-
   const columnInitialVisibility = useMemo(() => {
     return columnIds.reduce((acc, id) => {
       acc[id] = true;
       return acc;
     }, {});
   }, [columnIds]);
-
   const [columnVisibility, setColumnVisibility] = useState(
     columnInitialVisibility
   );
@@ -101,19 +100,11 @@ const ReusableDataTable = ({
   };
 
   const [dragData, setDragData] = useState(data);
-
   const dataIds = useMemo(() => dragData?.map(({ id }) => id), [dragData]);
 
-  console.log("[ReusableDataTable] Current dataIds:", dataIds);
-
-  function handleDragEnd(event) {
+  const handleDragEnd = (event) => {
     const { active, over } = event;
-
-    console.log("[DragEnd] active.id:", active?.id);
-    console.log("[DragEnd] over?.id:", over?.id);
-
     if (!over || active.id === over.id) return;
-
     setDragData((items) => {
       const oldIndex = items.findIndex(
         (item) => String(item.id) === String(active.id)
@@ -121,16 +112,10 @@ const ReusableDataTable = ({
       const newIndex = items.findIndex(
         (item) => String(item.id) === String(over.id)
       );
-
-      if (oldIndex === -1 || newIndex === -1) {
-        console.warn("Invalid indices for drag");
-        return items;
-      }
-
-      console.log(`[Moving] ${active.id} from ${oldIndex} to ${newIndex}`);
+      if (oldIndex === -1 || newIndex === -1) return items;
       return arrayMove(items, oldIndex, newIndex);
     });
-  }
+  };
 
   const sensors = useSensors(
     useSensor(MouseSensor),
@@ -144,7 +129,7 @@ const ReusableDataTable = ({
       ? [
           {
             id: "drag-handle",
-            header: "تحريك",
+            header: t("dashboard.table.drag"),
             cell: ({ row }) => <RowDragHandleCell rowId={row.id} />,
             size: 20,
           },
@@ -171,11 +156,16 @@ const ReusableDataTable = ({
     },
   });
 
+  const sortLabels = {
+    asc: t("dashboard.table.sortAsc"),
+    desc: t("dashboard.table.sortDesc"),
+  };
+
   return (
     <div className="card__custom">
       {header && (
         <div className="header d-flex justify-content-between">
-          <h3 className="header__title">{title}</h3>
+          <h3 className="header__title">{t(title)}</h3>
           <TableFilter
             table={table}
             setColumnVisibility={setColumnVisibility}
@@ -185,8 +175,8 @@ const ReusableDataTable = ({
             setColumnFilters={setColumnFilters}
             activeFilters={activeFilters}
             filterOptions={filterOptions}
-            filterButtonText={isRTL ? "فرز" : "Filter"}
-            searchPlaceholder={searchPlaceholder}
+            filterButtonText={t("dashboard.table.filter")}
+            searchPlaceholder={t(searchPlaceholder)}
             filter={filter}
             search={search}
           />
@@ -194,71 +184,64 @@ const ReusableDataTable = ({
       )}
       <div className="card__body">
         <div className="table-container table-responsive border">
-          <>
-            {" "}
-            <DndContext
-              collisionDetection={closestCenter}
-              modifiers={[restrictToVerticalAxis]}
-              onDragEnd={handleDragEnd}
-              sensors={sensors}
+          <DndContext
+            collisionDetection={closestCenter}
+            modifiers={[restrictToVerticalAxis]}
+            onDragEnd={handleDragEnd}
+            sensors={sensors}
+          >
+            <table
+              width={table.getTotalSize()}
+              className="custom-table table table-bordered text-center align-middle mb-0"
             >
-              <table
-                width={table.getTotalSize()}
-                className="custom-table table table-bordered text-center align-middle mb-0"
-              >
-                <thead className="table-light">
-                  {table.getHeaderGroups().map((headerGroup) => (
-                    <tr key={headerGroup.id}>
-                      {headerGroup.headers.map((header) => (
-                        <th key={header.id} width={header.getSize()}>
-                          {header.column.columnDef.header}
-                          {header.column.getCanSort() && (
-                            <i
-                              className="fa-solid fa-arrow-up-short-wide"
-                              onClick={header.column.getToggleSortingHandler()}
-                            ></i>
+              <thead className="table-light">
+                {table.getHeaderGroups().map((headerGroup) => (
+                  <tr key={headerGroup.id}>
+                    {headerGroup.headers.map((header) => (
+                      <th key={header.id} width={header.getSize()}>
+                        {flexRender(
+                          header.column.columnDef.header,
+                          header.getContext()
+                        )}
+                        {header.column.getCanSort() && (
+                          <i
+                            className="fa-solid fa-arrow-up-short-wide"
+                            onClick={header.column.getToggleSortingHandler()}
+                          ></i>
+                        )}
+                        {sortLabels[header.column.getIsSorted()] || ""}
+                      </th>
+                    ))}
+                  </tr>
+                ))}
+              </thead>
+              <tbody>
+                {rowDnD ? (
+                  <SortableContext
+                    items={dataIds}
+                    strategy={verticalListSortingStrategy}
+                  >
+                    {table.getRowModel().rows.map((row) => (
+                      <DraggableRow key={row.id} row={row} />
+                    ))}
+                  </SortableContext>
+                ) : (
+                  table.getRowModel().rows.map((row) => (
+                    <tr key={row.id}>
+                      {row.getVisibleCells().map((cell) => (
+                        <td key={cell.id} width={cell.column.getSize()}>
+                          {flexRender(
+                            cell.column.columnDef.cell,
+                            cell.getContext()
                           )}
-                          {
-                            {
-                              asc: "تصاعديا",
-                              desc: "تنازليا",
-                            }[header.column.getIsSorted()]
-                          }
-                        </th>
+                        </td>
                       ))}
                     </tr>
-                  ))}
-                </thead>
-                <tbody>
-                  {rowDnD ? (
-                    <SortableContext
-                      items={dataIds}
-                      strategy={verticalListSortingStrategy}
-                    >
-                      {table.getRowModel().rows.map((row) => (
-                        <DraggableRow key={row.id} row={row} />
-                      ))}
-                    </SortableContext>
-                  ) : (
-                    <>
-                      {table.getRowModel().rows.map((row) => (
-                        <tr key={row.id}>
-                          {row.getVisibleCells().map((cell) => (
-                            <td key={cell.id} width={cell.column.getSize()}>
-                              {flexRender(
-                                cell.column.columnDef.cell,
-                                cell.getContext()
-                              )}
-                            </td>
-                          ))}
-                        </tr>
-                      ))}
-                    </>
-                  )}
-                </tbody>
-              </table>
-            </DndContext>
-          </>
+                  ))
+                )}
+              </tbody>
+            </table>
+          </DndContext>
         </div>
       </div>
       <div className="card--footer">

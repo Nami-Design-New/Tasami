@@ -293,7 +293,12 @@
     "withoutLogin": "بدون تسجيل ",
     "email": "البريد الإلكتروني",
     "both": "الكل",
-    "all": "الكل"
+    "all": "الكل",
+    "payment": {
+      "success": "تمت عملية الدفع بنجاح",
+      "failed": "فشلت عملية الدفع",
+      "waiting": "في انتظار تأكيد الدفع..."
+    }
   },
   "profile": {
     "myInfo": "معلوماتي",
@@ -899,5 +904,192 @@
       "noOpportunities": "لا توجد معلومات متاحة"
     },
     "payment": "الدفع"
+  },
+  "dashboard": {
+    "welcome_back": "مرحبًا بك مرة أخرى،",
+    "welcome_message": "قم بتتبع نشاط المبيعات لديك، والعملاء المحتملين والصفقات هنا.",
+
+    "assistant_requests": "عدد طلبات المساعد",
+    "help_offers": "عدد عروض المساعدة",
+    "basic_accounts": "عدد الحسابات الاساسيه",
+    "leader_accounts": "عدد حسابات القادة",
+    "pioneer_accounts": "عدد حسابات الرواد",
+    "this_month": "هذا الشهر",
+
+    "urgent_actions": "اجراءات عاجله",
+    "create_employee": "انشاء موظف",
+    "create_group": "انشاء مجموعه",
+    "suspend_employee": "ايقاف موظف",
+    "add_field": "اضافه مجال جديد",
+
+    "employees": "عدد الموظفين",
+    "revenue_analytics": "تحليلات الإيرادات",
+    "user_growth": "نمو المستخدمين",
+
+    "executives": "التنفيذيين",
+    "leaders": "القادة",
+    "managers": "المدراء",
+    "supervisors": "المشرفين",
+    "workers": "الموظفين",
+    "total": "الكلي",
+    "revenue_6_months": "عائد باقة 6 أشهر",
+    "revenue_12_months": "عائد باقة 12 شهر",
+
+    "users": "المستخدمين",
+    "task_status": "حاله المهام",
+    "compared_last_week": "مقارنة بالاسبوع الماضي",
+    "completed_tasks": "المهام المكتمله",
+    "in_progress_tasks": "المهام قيد التنفيذ",
+    "unassigned_tasks": "المهام الغير معينه",
+    "task_label": "مهمة",
+    "subscribers_and_team": "المشتركون و فريق العمل",
+    "subscribers": "المشتركون",
+    "team": "فريق العمل",
+
+    "list_management": "اداره القوائم",
+    "operating_areas": "مناطق التشغيل",
+    "working_groups": "مجموعات العمل",
+    "fields_specializations": "المجالات والتخصصات",
+    "admin_systems": "الانظمه الاداريه",
+
+    "website_management": "اداره الموقع",
+    "violations": "المخالفات",
+    "social_links": "روابط وسائل التواصل",
+    "content_management": "إدارة المحتوى",
+    "faq": "الأسئلة الشائعة",
+    "task_categories": "تصنيف المهمات",
+    "subscription_management": "ادارة الاشتراكات",
+    "ad_banners": "لافتات اعلانية",
+    "main": "الرئيسية",
+    "my_tasks": "المهام",
+    "employment_data": "البيانات الوظيفيه",
+    "performance_reports": "تقارير الاداء",
+    "brand": "تسامي",
+    "notifications": {
+      "title": "التنبيهات",
+      "searchPlaceholder": "البحث في قائمة التنبيهات",
+      "system": "النظام",
+      "subject": "الموضوع",
+      "model": "النموذج",
+      "date": "التاريخ",
+      "time": "الوقت",
+      "service": "الخدمة",
+      "userAccount": "حساب المستخدم",
+      "accountType": "نوع الحساب",
+      "idNumber": "رقم التعريف",
+      "group": "المجموعة",
+      "region": "الإقليم",
+      "location": "القطاع",
+      "city": "المدينة"
+    },
+    "table": {
+      "drag": "تحريك",
+      "filter": "فرز",
+      "sortAsc": "تصاعديا",
+      "sortDesc": "تنازليا",
+      "searchPlaceholder": "البحث",
+      "next": "التالي",
+      "page": "صفحة",
+      "of": "من"
+    },
+    "tasks": {
+      "totalTasks": "المهام",
+      "completedTasks": "المهام المكتملة",
+      "pendingTasks": "المهام غير المكتملة",
+      "completionRate": "نسبة الإنجاز",
+      "monthlyCompletion": "معدل الإكمال الشهري",
+      "avgCompletionTime": "متوسط مدة الإنجاز",
+      "days": "أيام",
+      "newTaskForm": "نموذج عمل جديد",
+      "generalTaskStats": "مؤشرات عامه للمهام",
+      "executiveTask": "مهمة تنفيذية",
+      "table": {
+        "system": "النظام",
+        "subject": "الموضوع",
+        "model": "النموذج",
+        "date": "التاريخ",
+        "time": "الوقت",
+        "service": "الخدمة",
+        "userAccount": "حساب المستخدم",
+        "accountType": "نوع الحساب",
+        "idNumber": "رقم التعريف",
+        "group": "المجموعة",
+        "region": "الإقليم",
+        "location": "القطاع",
+        "city": "المدينة",
+        "status": "الحالة",
+        "actionLevel": "مستوى الإجراء",
+        "completionDate": "تاريخ الإكمال",
+        "rate": "التقييم",
+        "assign": "تعيين"
+      },
+      "statusLabels": {
+        "completed": "مكتمل",
+        "pending": "غير مكتمل",
+        "notAdded": "غير مضاف",
+        "noRate": "لا يوجد تقييم"
+      },
+      "reassignModal": {
+        "title": "اعادة تعيين مهمة",
+        "employeeLabel": "اسم الموظف",
+        "reassignButton": "اعادة تعيين"
+      },
+      "searchPlaceholder": "بحث في المهام ..."
+    },
+    "employeeProfile": {
+      "tabs": {
+        "jobData": "البيانات الوظيفيه",
+        "personalData": "البيانات الشخصية",
+        "permissions": "الصلاحيات",
+        "sharedGroups": "المجموعات المشتركه"
+      },
+      "quickActions": {
+        "title": "إجراءات سريعة",
+        "changePassword": "تغيير كلمة المرور"
+      },
+      "passwordChange": {
+        "title": "تغيير كلمة المرور",
+        "oldPassword": "كلمة المرور القديمة",
+        "newPassword": "كلمة المرور الجديدة",
+        "confirmPassword": "تأكيد كلمة المرور",
+        "confirm": "تأكيد"
+      },
+      "employeeData": {
+        "title": "البيانات الوظيفية",
+        "description": "الوصف",
+        "account": "الحساب",
+        "idNumber": "رقم التعريف",
+        "groupNumber": "رقم المجموعة",
+        "region": "الإقليم",
+        "location": "القطاع",
+        "city": "المدينة",
+        "hireDate": "تاريخ التعيين",
+        "accountStatus": "حالة الحساب",
+        "accountStatusDate": "تاريخ حالة الحساب",
+        "accountStatusTime": "وقت حالة الحساب"
+      },
+      "employeePersonalData": {
+        "title": "البيانات الشخصية",
+        "firstName": "الاسم الأول",
+        "fatherName": "اسم الأب",
+        "familyName": "اسم العائلة",
+        "birthDate": "تاريخ الميلاد",
+        "gender": "الجنس",
+        "nationality": "الجنسية",
+        "residenceCountry": "بلد الإقامة",
+        "city": "المدينة",
+        "idNumber": "رقم الهوية أو الجواز",
+        "personalEmail": "البريد الإلكتروني الشخصي",
+        "address": "العنوان",
+        "nationalAddress": "العنوان الوطني",
+        "attachments": "المرفقات",
+        "attachmentDate": "التاريخ",
+        "attachmentTime": "الوقت",
+        "attachmentFile": "الملف المرفق",
+        "updateDataRequest": "طلب تحديث البيانات",
+        "mapTitle": "العنوان على الخريطة",
+        "updateDataTitle": "طلب تحديث البيانات"
+      }
+    }
   }
 }

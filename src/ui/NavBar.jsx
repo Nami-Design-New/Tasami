@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { Link } from "react-router";
 import LanguageDropDown from "./LanguageDropDown";
 import ProfileMenu from "./ProfileMenu";
 
@@ -25,12 +24,6 @@ export default function NavBar({ collapsed, setCollapsed }) {
               <i className="fa-sharp fa-regular fa-globe"></i>
             </div>
             <LanguageDropDown setIsOpen={setIsLangOpen} isOpen={isLangOpen} />
-          </li>
-
-          <li className="settings-gear">
-            <Link className="btn" to="/dashboard/chats">
-              <i className="fa-light fa-comments"></i>
-            </Link>
           </li>
 
           <li className="profile">

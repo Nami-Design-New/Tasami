@@ -27,16 +27,14 @@ const Message = ({
     colorClass = isSender ? "message--main" : "message--gray";
   } else {
     if (isSender) {
+      colorClass = sender?.id === creatorId ? "message--main" : "message--gray";
+    } else {
       colorClass =
         sender?.id === creatorId ? "message--main" : "message--second";
-    } else {
-      colorClass = sender?.id === creatorId ? "message--main" : "message--gray";
     }
   }
 
   const messageClass = `message ${baseClass} ${colorClass}`;
-
-  console.log(filePath);
 
   const renderMessageContent = () => {
     switch (type) {

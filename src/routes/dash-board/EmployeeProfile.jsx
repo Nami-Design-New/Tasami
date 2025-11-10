@@ -1,4 +1,5 @@
 import { useSearchParams } from "react-router";
+import { useTranslation } from "react-i18next";
 import QuickActionsCard from "../../ui/dash-board/cards/QuickActionsCard";
 import UserProfileCard from "../../ui/dash-board/cards/UserProfileCard";
 import EmployeeData from "../../ui/dash-board/EmploymentData/EmployeeData";
@@ -8,28 +9,29 @@ import WorkingGroups from "../../ui/dash-board/EmploymentData/WorkingGroups";
 import PageHeader from "../../ui/PageHeader";
 import TabsHorizontal from "../../ui/TabsHorizontal";
 
-const tabs = [
-  {
-    id: 1,
-    title: "البيانات الوظيفيه",
-  },
-  {
-    id: 2,
-    title: "البيانات الشخصية",
-  },
-  {
-    id: 3,
-    title: "الصلاحيات",
-  },
-  {
-    id: 4,
-    title: " المجموعات المشتركه ",
-  },
-];
-
 const EmployeeProfile = () => {
+  const { t } = useTranslation();
   const [searchParams] = useSearchParams();
   const activeTab = searchParams.get("tab") || "1";
+
+  const tabs = [
+    {
+      id: 1,
+      title: t("dashboard.employeeProfile.tabs.jobData"),
+    },
+    {
+      id: 2,
+      title: t("dashboard.employeeProfile.tabs.personalData"),
+    },
+    {
+      id: 3,
+      title: t("dashboard.employeeProfile.tabs.permissions"),
+    },
+    {
+      id: 4,
+      title: t("dashboard.employeeProfile.tabs.sharedGroups"),
+    },
+  ];
 
   return (
     <section className="employee__profile">

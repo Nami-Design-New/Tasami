@@ -1,8 +1,11 @@
 import { Modal } from "react-bootstrap";
 import CustomButton from "../../../ui/CustomButton";
 import SelectField from "../../../ui/forms/SelectField";
+import { useTranslation } from "react-i18next";
 
 export default function ReassignTaskModal({ showModal, setShowModal }) {
+  const { t } = useTranslation();
+
   return (
     <Modal
       centered
@@ -11,14 +14,14 @@ export default function ReassignTaskModal({ showModal, setShowModal }) {
       onHide={() => setShowModal(false)}
     >
       <Modal.Header closeButton>
-        <h6>اعادة تعيين مهمة</h6>
+        <h6>{t("dashboard.tasks.reassignModal.title")}</h6>
       </Modal.Header>
       <Modal.Body>
         <form className="form_ui">
           <div className="row">
             <div className="col-12 p-2">
               <SelectField
-                label="اسم الموظف"
+                label={t("dashboard.tasks.reassignModal.employeeLabel")}
                 options={[
                   { value: "1", name: "E-020324-000001" },
                   { value: "2", name: "E-020324-000002" },
@@ -28,7 +31,7 @@ export default function ReassignTaskModal({ showModal, setShowModal }) {
             </div>
             <div className="col-12 p-2">
               <CustomButton fullWidth size="large">
-                اعادة تعيين
+                {t("dashboard.tasks.reassignModal.reassignButton")}
               </CustomButton>
             </div>
           </div>

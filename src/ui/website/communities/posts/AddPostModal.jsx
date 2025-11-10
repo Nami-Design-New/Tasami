@@ -11,6 +11,7 @@ import SelectField from "../../../forms/SelectField";
 import TextField from "../../../forms/TextField";
 import useAddPost from "../../../../hooks/website/communities/posts/useAddPost";
 import { toast } from "sonner";
+import { getAspectRatio } from "../../../../utils/helper";
 
 export default function AddPostModal({ showModal, setShowModal }) {
   const { t } = useTranslation();
@@ -40,7 +41,7 @@ export default function AddPostModal({ showModal, setShowModal }) {
     name: "links",
   });
 
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
     const formData = new FormData();
 
     formData.append("category_id", data.field);
@@ -49,13 +50,16 @@ export default function AddPostModal({ showModal, setShowModal }) {
     formData.append("desc", data.description);
     formData.append("is_private", data.postType);
 
-    if (data.files && data.files.length > 0) {
-      data.files.forEach((file) => {
-        formData.append("file", file);
-        formData.append("type", file.type.split("/")[0]);
-      });
+    let aspectRatio = null;
 
-      formData.append("aspect_ratio", "1.5");
+    if (data.files && data.files.length > 0) {
+      const file = data.files[0]; // since multiple={false}
+      formData.append("file", file);
+      formData.append("type", file.type.split("/")[0]);
+
+      // calculate aspect ratio before sending
+      aspectRatio = await getAspectRatio(file);
+      if (aspectRatio) formData.append("aspect_ratio", aspectRatio);
     }
 
     if (data.links && data.links.length > 0) {
@@ -65,6 +69,7 @@ export default function AddPostModal({ showModal, setShowModal }) {
         }
       });
     }
+
     addPost(formData, {
       onSuccess: (res) => {
         queryClient.invalidateQueries(["community-posts"]);
@@ -77,7 +82,6 @@ export default function AddPostModal({ showModal, setShowModal }) {
       },
     });
   };
-
   return (
     <Modal
       show={showModal}

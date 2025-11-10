@@ -167,6 +167,11 @@
   "activityLevel": "Activity Level",
   "public": "Public",
   "private": "Private",
+  "payment": {
+    "success": "Payment completed successfully",
+    "failed": "Payment failed",
+    "waiting": "Waiting for payment confirmation..."
+  },
   "pageHeaders": {
     "Notifications": "Notifications",
     "Dashboard": "Dashboard",
@@ -934,5 +939,196 @@
     },
 
     "payment": "Payment"
+  },
+
+  "dashboard": {
+    "welcome_back": "Welcome back,",
+    "welcome_message": "Track your sales activity, leads, and deals here.",
+
+    "assistant_requests": "Assistant Requests",
+    "help_offers": "Help Offers",
+    "basic_accounts": "Basic Accounts",
+    "leader_accounts": "Leader Accounts",
+    "pioneer_accounts": "Pioneer Accounts",
+    "this_month": "This Month",
+
+    "urgent_actions": "Urgent Actions",
+    "create_employee": "Create Employee",
+    "create_group": "Create Group",
+    "suspend_employee": "Suspend Employee",
+    "add_field": "Add New Field",
+
+    "employees": "Number of Employees",
+    "revenue_analytics": "Revenue Analytics",
+    "user_growth": "User Growth",
+
+    "executives": "Executives",
+    "leaders": "Leaders",
+    "managers": "Managers",
+    "supervisors": "Supervisors",
+    "workers": "Employees",
+    "total": "Total",
+
+    "users": "Users",
+    "revenue_6_months": "6-Month Package Revenue",
+    "revenue_12_months": "12-Month Package Revenue",
+
+    "task_status": "Task Status",
+    "compared_last_week": "Compared to last week",
+    "completed_tasks": "Completed Tasks",
+    "in_progress_tasks": "Tasks In Progress",
+    "unassigned_tasks": "Unassigned Tasks",
+    "task_label": "Task",
+    "subscribers_and_team": "Subscribers & Team",
+    "subscribers": "Subscribers",
+    "team": "Team",
+
+    "list_management": "List Management",
+    "operating_areas": "Operating Areas",
+    "working_groups": "Working Groups",
+    "fields_specializations": "Fields & Specializations",
+    "admin_systems": "Administrative Systems",
+
+    "website_management": "Website Management",
+    "violations": "Violations",
+    "social_links": "Social Media Links",
+    "content_management": "Content Management",
+    "faq": "FAQs",
+    "task_categories": "Task Categories",
+    "subscription_management": "Subscription Management",
+    "ad_banners": "Advertising Banners",
+    "my_tasks": "Tasks",
+    "main": "Main",
+    "employment_data": "Employment Data",
+    "performance_reports": "Performance Reports",
+    "brand": "Tasami",
+    "notifications": {
+      "title": "Notifications",
+      "searchPlaceholder": "Search notifications list",
+      "system": "System",
+      "subject": "Subject",
+      "model": "Model",
+      "date": "Date",
+      "time": "Time",
+      "service": "Service",
+      "userAccount": "User Account",
+      "accountType": "Account Type",
+      "idNumber": "ID Number",
+      "group": "Group",
+      "region": "Region",
+      "location": "Sector",
+      "city": "City"
+    },
+    "table": {
+      "drag": "Drag",
+      "filter": "Filter",
+      "sortAsc": "Ascending",
+      "sortDesc": "Descending",
+      "searchPlaceholder": "Search",
+      "previous": "Previous",
+      "next": "Next",
+      "page": "Page",
+      "of": "of",
+      "rowsPerPage": "Rows per page"
+    },
+    "tasks": {
+      "totalTasks": "Tasks",
+      "completedTasks": "Completed Tasks",
+      "pendingTasks": "Pending Tasks",
+      "completionRate": "Completion Rate",
+      "monthlyCompletion": "Monthly Completion Rate",
+      "avgCompletionTime": "Average Completion Time",
+      "days": "Days",
+      "newTaskForm": "New Task Form",
+      "generalTaskStats": "General Task Stats",
+      "executiveTask": "Executive Task",
+      "table": {
+        "system": "System",
+        "subject": "Subject",
+        "model": "Model",
+        "date": "Date",
+        "time": "Time",
+        "service": "Service",
+        "userAccount": "User Account",
+        "accountType": "Account Type",
+        "idNumber": "ID Number",
+        "group": "Group",
+        "region": "Region",
+        "location": "Location",
+        "city": "City",
+        "status": "Status",
+        "actionLevel": "Action Level",
+        "completionDate": "Completion Date",
+        "rate": "Rate",
+        "assign": "Assign"
+      },
+      "statusLabels": {
+        "completed": "Completed",
+        "pending": "Pending",
+        "notAdded": "Not Added",
+        "noRate": "No Rate"
+      },
+      "reassignModal": {
+        "title": "Reassign Task",
+        "employeeLabel": "Employee Name",
+        "reassignButton": "Reassign"
+      },
+      "searchPlaceholder": "Search tasks..."
+    },
+    "employeeProfile": {
+      "tabs": {
+        "jobData": "Job Data",
+        "personalData": "Personal Data",
+        "permissions": "Permissions",
+        "sharedGroups": "Shared Groups"
+      },
+      "quickActions": {
+        "title": "Quick Actions",
+        "changePassword": "Change Password"
+      },
+      "passwordChange": {
+        "title": "Change Password",
+        "oldPassword": "Old Password",
+        "newPassword": "New Password",
+        "confirmPassword": "Confirm Password",
+        "confirm": "Confirm"
+      },
+      "employeeData": {
+        "title": "Employee Data",
+        "description": "Description",
+        "account": "Account",
+        "idNumber": "ID Number",
+        "groupNumber": "Group Number",
+        "region": "Region",
+        "location": "Location",
+        "city": "City",
+        "hireDate": "Hire Date",
+        "accountStatus": "Account Status",
+        "accountStatusDate": "Account Status Date",
+        "accountStatusTime": "Account Status Time"
+      },
+      "employeePersonalData": {
+        "title": "Personal Data",
+        "firstName": "First Name",
+        "fatherName": "Father Name",
+        "familyName": "Family Name",
+        "birthDate": "Birth Date",
+        "gender": "Gender",
+        "nationality": "Nationality",
+        "residenceCountry": "Residence Country",
+        "city": "City",
+        "idNumber": "ID / Passport Number",
+        "personalEmail": "Personal Email",
+        "address": "Address",
+        "nationalAddress": "National Address",
+        "attachments": "Attachments",
+        "attachmentDate": "Date",
+        "attachmentTime": "Time",
+        "attachmentFile": "File",
+        "updateDataRequest": "Request Data Update",
+        "mapTitle": "Address on Map",
+        "updateDataTitle": "Request Data Update"
+      }
+    }
   }
 }

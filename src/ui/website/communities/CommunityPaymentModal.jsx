@@ -7,6 +7,7 @@ import { toast } from "sonner";
 import useJoinCommunity from "../../../hooks/website/communities/useJoinCommunity";
 import Currency from "../../Currency";
 import CustomButton from "../../CustomButton";
+import useMessagePaymentListener from "../../../hooks/shared/useMessagePaymentListener";
 
 export default function CommunityPaymentModal({
   community,
@@ -19,27 +20,44 @@ export default function CommunityPaymentModal({
   const { joinCommunity, isPending: isJoinPending } = useJoinCommunity();
   const queryClient = useQueryClient();
 
+  useMessagePaymentListener({
+    onSuccess: () => {
+      toast.success(t("payment.success"));
+      setShowModal(false);
+      setSelectedMethod("online");
+      queryClient.invalidateQueries({
+        queryKey: ["community-details"],
+      });
+    },
+    onFail: () => {
+      toast.error(t("payment.failed"));
+    },
+  });
+
   async function handleSubscribe() {
     joinCommunity(
       { community_id: community?.id, payment_method: selectedMethod },
       {
         onSuccess: (res) => {
           if (selectedMethod === "online") {
-            const url = res.data.redirect_url;
-            window.open(url, "_blank", "noopener,noreferrer");
-          }
-          queryClient.invalidateQueries({
-            queryKey: ["community-details"],
-          });
-          // queryClient.invalidateQueries({ queryKey: ["get-packages"] });
-          setSelectedMethod("online");
-          setShowModal(false);
+            if (res?.data?.redirect_url) {
+              const width = 800;
+              const height = 600;
+              const left = window.screenX + (window.outerWidth - width) / 2;
+              const top = window.screenY + (window.outerHeight - height) / 2;
 
-          if (selectedMethod === "wallet") {
+              window.open(
+                res.data.redirect_url,
+                "ChargeWalletPopup",
+                `width=${width},height=${height},left=${left},top=${top},resizable=yes,scrollbars=yes,status=no`
+              );
+            }
+          } else if (selectedMethod === "wallet") {
             toast.success(res?.message);
             queryClient.invalidateQueries({
               queryKey: ["community-details"],
             });
+            setShowModal(false);
           }
         },
         onError: (error) => {

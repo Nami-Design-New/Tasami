@@ -1,5 +1,4 @@
 import { useQuery } from "@tanstack/react-query";
-import React from "react";
 import { axiosInstance } from "../../../lib/axios";
 
 export default function useGetWallaetBalance(id) {
@@ -14,7 +13,6 @@ export default function useGetWallaetBalance(id) {
       return res.data.data;
     },
     enabled: !!id,
-    refetchOnWindowFocus: true,
   });
   return { balance, isLoading };
 }

@@ -50,14 +50,16 @@ export default function PostMedia({ post }) {
               disablePictureInPicture
               controlsList="nodownload nofullscreen noremoteplayback"
               onContextMenu={(e) => e.preventDefault()}
-              className="max-h-[500px] w-full rounded-xl mx-auto"
+              className="media-style"
+              style={{ aspectRatio: post.aspect_ratio }}
             />
           </>
         ) : (
           <img
             src={media}
+            style={{ aspectRatio: post.aspect_ratio }}
             alt={post?.title || "post media"}
-            className="max-h-[500px] w-full rounded-xl object-contain mx-auto"
+            className="media-style"
           />
         )}
       </a>
