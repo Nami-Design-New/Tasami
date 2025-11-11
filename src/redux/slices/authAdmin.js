@@ -1,10 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-export const authRole = createSlice({
-  name: "authRole",
-
+export const adminAuth = createSlice({
+  name: "adminAuth",
   initialState: {
     user: null,
+    role: null,
     isAuthed: false,
   },
 
@@ -20,8 +20,13 @@ export const authRole = createSlice({
       state.user = null;
       state.isAuthed = false;
     },
+    setRole: (state, action) => {
+      console.log("role", state);
+
+      state.role = action.payload;
+    },
   },
 });
 
-export const { setUser, setAuthed, clearAuth } = authRole.actions;
-export default authRole.reducer;
+export const { setUser, setAuthed, clearAuth, setRole } = adminAuth.actions;
+export default adminAuth.reducer;

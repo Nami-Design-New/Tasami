@@ -1,7 +1,7 @@
 import axios from "axios";
 import { getToken } from "../utils/token";
 
-export const axiosInstance = axios.create({
+export const adminAxiosInstance = axios.create({
   baseURL: import.meta.env.VITE_API_URL,
   headers: {
     "Content-Type": "application/json",
@@ -9,8 +9,8 @@ export const axiosInstance = axios.create({
   },
 });
 
-axiosInstance.interceptors.request.use((config) => {
-  const token = getToken();
+adminAxiosInstance.interceptors.request.use((config) => {
+  const token = getToken("admin_token");
   const lang = localStorage.getItem("i18nextLng") || "ar";
   config.headers["Accept-Language"] = lang;
   if (token) {
@@ -21,16 +21,16 @@ axiosInstance.interceptors.request.use((config) => {
   return config;
 });
 
-axiosInstance.interceptors.response.use(
+adminAxiosInstance.interceptors.response.use(
   (response) => response,
   (error) => {
     const status = error.response?.status;
 
     switch (status) {
       // case 401:
-      //   removeToken();
+      //   removeToken("admin_token");
       //   toast.error("you Should login");
-      //   window.location.href = "/login";
+      //   window.location.href = "/dashboard/login";
       //   break;
 
       case 403:

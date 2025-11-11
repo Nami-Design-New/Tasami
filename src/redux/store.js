@@ -1,6 +1,7 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import languageSlice from "./slices/languageSlice";
 import authRole from "./slices/authRole";
+import adminAuth from "./slices/authAdmin";
 import filterReducer from "./slices/performanceFilter";
 import phoneReducer from "./slices/phoneSlice";
 import storage from "redux-persist/lib/storage";
@@ -15,6 +16,7 @@ const persistConfig = {
 const rootReducer = combineReducers({
   language: languageSlice,
   authRole,
+  adminAuth,
   filter: filterReducer,
   phone: phoneReducer,
 });

@@ -34,7 +34,7 @@ const WebsiteAuthLayout = () => {
   const { t } = useTranslation();
   const location = useLocation();
   const route = location.pathname;
-  const [searchParmas, setSearchParams] = useSearchParams();
+  const [searchParmas] = useSearchParams();
   const step = searchParmas.get("step");
 
   const { isAuthed } = useAuth();

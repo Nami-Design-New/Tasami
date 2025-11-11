@@ -137,6 +137,7 @@ import TeamsSection from "../routes/dash-board/teams/WorkGroups";
 import DashboardConsultaions from "../routes/dash-board/DashboardConsultaions";
 import DashboardMeetings from "../routes/dash-board/DashboardMeetings";
 import DashboardPosts from "../routes/dash-board/DashboardPosts";
+import ProtectedAdminRoutes from "./ProtectedAdminRoutes";
 
 export const router = createBrowserRouter([
   /* WEBSITE AUTH */
@@ -490,11 +491,12 @@ export const router = createBrowserRouter([
     path: "/dashboard",
     element: (
       <Suspense fallback={<Loading />}>
-        <DashboardLayout />
+        <ProtectedAdminRoutes>
+          <DashboardLayout />
+        </ProtectedAdminRoutes>
       </Suspense>
     ),
     errorElement: <ErrorFallback />,
-
     children: [
       {
         index: true,
