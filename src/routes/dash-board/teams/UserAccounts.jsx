@@ -4,73 +4,65 @@ import { Badge } from "react-bootstrap";
 import { Link } from "react-router";
 import ColumnChart from "../../../ui/dash-board/charts/ColumnChart";
 import ReusableDataTable from "../../../ui/table/ReusableDataTable";
-
-// column Chart
-
-const series = [
-  { name: "عدد الحسابات", data: ["5000", "1000", "800", "500"] },
-  { name: "الحسابات النشطه", data: ["3000", "800", "700", "400"] },
-  { name: " الحسابات الغير نشطه ", data: ["1200", "150", "80", "60"] },
-  { name: "الحسابات الموقوفه", data: ["800", "50", "20", "40"] },
-];
-
-const usersCategories = [
-  "مستفيد",
-  "(اساسي) مقدم برامج",
-  "(متميز) مقدم برامج",
-  "(رواد  ) مقدم برامج",
-];
-
-const UseresAccountsOptions = {
-  chart: {
-    type: "bar",
-    height: 350,
-    toolbar: { show: true },
-  },
-  plotOptions: {
-    bar: {
-      horizontal: false,
-      columnWidth: "12%",
-      barHeight: "100%",
-      endingShape: "rounded",
-      borderRadius: 5,
-      borderRadiusApplication: "end",
-      distributed: false,
-    },
-  },
-  dataLabels: {
-    enabled: false,
-  },
-  xaxis: {
-    categories: usersCategories,
-    labels: {
-      style: {
-        fontSize: "14px",
-      },
-    },
-  },
-  yaxis: {
-    labels: {
-      style: {
-        fontSize: "12px",
-      },
-    },
-  },
-  colors: ["#8c137e", "#28A745", "#007BFF", "#DC3545"],
-  tooltip: {
-    y: {
-      formatter: (val) => `${val} برامج`,
-    },
-  },
-  legend: {
-    position: "top",
-    horizontalAlign: "center",
-  },
-};
+import { useTranslation } from "react-i18next";
 
 const columnHelper = createColumnHelper();
 
 const UserAccounts = () => {
+  const { t } = useTranslation();
+
+  // localized chart data
+  const series = [
+    {
+      name: t("dashboard.userAccounts.totalAccounts"),
+      data: ["5000", "1000", "800", "500"],
+    },
+    {
+      name: t("dashboard.userAccounts.activeAccounts"),
+      data: ["3000", "800", "700", "400"],
+    },
+    {
+      name: t("dashboard.userAccounts.inactiveAccounts"),
+      data: ["1200", "150", "80", "60"],
+    },
+    {
+      name: t("dashboard.userAccounts.suspendedAccounts"),
+      data: ["800", "50", "20", "40"],
+    },
+  ];
+
+  const usersCategories = [
+    t("dashboard.userAccounts.category.beneficiary"),
+    t("dashboard.userAccounts.category.basic"),
+    t("dashboard.userAccounts.category.premium"),
+    t("dashboard.userAccounts.category.royal"),
+  ];
+
+  const UseresAccountsOptions = {
+    chart: { type: "bar", height: 350, toolbar: { show: true } },
+    plotOptions: {
+      bar: {
+        horizontal: false,
+        columnWidth: "12%",
+        endingShape: "rounded",
+        borderRadius: 5,
+        borderRadiusApplication: "end",
+      },
+    },
+    dataLabels: { enabled: false },
+    xaxis: {
+      categories: usersCategories,
+      labels: { style: { fontSize: "14px" } },
+    },
+    yaxis: { labels: { style: { fontSize: "12px" } } },
+    colors: ["#8c137e", "#28A745", "#007BFF", "#DC3545"],
+    tooltip: {
+      y: {
+        formatter: (val) => `${val} ${t("dashboard.userAccounts.programs")}`,
+      },
+    },
+    legend: { position: "top", horizontalAlign: "center" },
+  };
   const data = useMemo(
     () => [
       {
@@ -350,14 +342,11 @@ const UserAccounts = () => {
   const columns = useMemo(
     () => [
       columnHelper.accessor("name", {
-        header: "الاسم",
+        header: t("dashboard.userAccounts.name"),
         cell: (info) => info.getValue(),
-        enableSorting: false,
       }),
-
       columnHelper.accessor("accountNumber", {
-        header: "رقم الحساب",
-
+        header: t("dashboard.userAccounts.accountNumber"),
         cell: (info) => (
           <Link
             to={`/dashboard/user-details/${info.getValue()}`}
@@ -367,59 +356,45 @@ const UserAccounts = () => {
             {info.getValue()}
           </Link>
         ),
-        enableSorting: false,
       }),
       columnHelper.accessor("accountType", {
-        header: "نوع الحساب",
-        cell: (info) => info.getValue(),
-        enableSorting: false,
+        header: t("dashboard.userAccounts.accountType"),
       }),
       columnHelper.accessor("date", {
-        header: " التاريخ ",
-        cell: (info) => info.getValue(),
+        header: t("dashboard.userAccounts.date"),
       }),
       columnHelper.accessor("gender", {
-        header: "الجنس",
-        cell: (info) => info.getValue(),
+        header: t("dashboard.userAccounts.gender"),
       }),
       columnHelper.accessor("beneficiaryPoints", {
-        header: "نقاط المستفيد",
-        cell: (info) => info.getValue(),
+        header: t("dashboard.userAccounts.beneficiaryPoints"),
       }),
       columnHelper.accessor("assistanceProviderPoints", {
-        header: "نقاط المساعد",
-        cell: (info) => info.getValue(),
+        header: t("dashboard.userAccounts.assistanceProviderPoints"),
       }),
       columnHelper.accessor("nationality", {
-        header: "الجنسيه",
-        cell: (info) => info.getValue(),
-        enableSorting: false,
+        header: t("dashboard.userAccounts.nationality"),
       }),
       columnHelper.accessor("region", {
-        header: " الاقليم ",
-        cell: (info) => info.getValue(),
+        header: t("dashboard.userAccounts.region"),
       }),
       columnHelper.accessor("location", {
-        header: " القطاع ",
-        cell: (info) => info.getValue(),
+        header: t("dashboard.userAccounts.sector"),
       }),
       columnHelper.accessor("city", {
-        header: " المدينه ",
-        cell: (info) => info.getValue(),
+        header: t("dashboard.userAccounts.city"),
       }),
       columnHelper.accessor("subscriptionEntity", {
-        header: " بدء الاشتراك",
-        cell: (info) => info.getValue(),
+        header: t("dashboard.userAccounts.subscriptionStart"),
       }),
       columnHelper.accessor("subscriptionEnd", {
-        header: " انتهاء الاشتراك",
-        cell: (info) => info.getValue(),
+        header: t("dashboard.userAccounts.subscriptionEnd"),
       }),
-
       columnHelper.accessor("status", {
-        header: " الحاله ",
+        header: t("dashboard.userAccounts.status"),
         cell: (info) => {
           let badgeColor;
+          const value = info.getValue();
 
           switch (info.getValue()) {
             case "نشط":
@@ -435,6 +410,7 @@ const UserAccounts = () => {
               badgeColor = "#6c757d";
               break;
           }
+
           return (
             <Badge
               pill
@@ -445,50 +421,49 @@ const UserAccounts = () => {
                 fontWeight: "400",
               }}
             >
-              {info.getValue()}
+              {value}
             </Badge>
           );
         },
       }),
-
       columnHelper.accessor("accountStatusDate", {
-        header: " تاريخ حاله الحساب  ",
-        cell: (info) => info.getValue(),
+        header: t("dashboard.userAccounts.statusDate"),
       }),
       columnHelper.accessor("time", {
-        header: " وقت حاله الحساب ",
-        cell: (info) => {
-          return (
-            <div>
-              {info.getValue() === null ? "لا يوجد تقييم" : info.getValue()}
-            </div>
-          );
-        },
+        header: t("dashboard.userAccounts.statusTime"),
+        cell: (info) => (
+          <div>
+            {info.getValue() === null
+              ? t("dashboard.userAccounts.noEvaluation")
+              : info.getValue()}
+          </div>
+        ),
       }),
     ],
-    []
+    [t]
   );
 
   return (
     <section className="mt-5">
       <div className="row">
-        <div className="col-12 p-2">  
+        <div className="col-12 p-2">
           <ColumnChart
             series={series}
             options={UseresAccountsOptions}
-            title="تحليلات المستخدمين"
+            title={t("dashboard.userAccounts.usersAnalytics")}
             height={285}
           />
         </div>
+
         <div className="col-12 p-2">
           <ReusableDataTable
-            title="الحسابات"
+            title={t("dashboard.userAccounts.accounts")}
             filter={false}
             data={data}
             columns={columns}
             lang="ar"
             initialPageSize={10}
-            searchPlaceholder="البحث في الحسابات"
+            searchPlaceholder={t("dashboard.userAccounts.searchPlaceholder")}
           />
         </div>
       </div>

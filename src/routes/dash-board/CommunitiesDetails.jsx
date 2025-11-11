@@ -3,11 +3,14 @@ import { useMemo } from "react";
 import CommunityBio from "../../ui/dash-board/communities-details/CommunityBio";
 import CommunityStats from "../../ui/dash-board/communities-details/CommunityStats";
 import ReusableDataTable from "../../ui/table/ReusableDataTable";
-import { Link } from "react-router";
+import { Link, Outlet } from "react-router";
+import CommunityTabs from "../../ui/dash-board/communities-details/CommunityTabs";
+import { useTranslation } from "react-i18next";
 
 const columnHelper = createColumnHelper();
 
 export default function CommunitiesDetails() {
+  const { t } = useTranslation();
   const editData = useMemo(
     () => [
       {
@@ -92,16 +95,17 @@ export default function CommunitiesDetails() {
 
   return (
     <section className="communities-details">
-      <div className="communities-image-wrapper">
-        <img
-          className="communities-image"
-          src="/images/dashboard/communities-image.png"
-          alt="communities-details"
-        />
-      </div>
-
       <div className="container mt-3">
         <div className="row">
+          <div className="col-12 p-2">
+            <div className="communities-image-wrapper">
+              <img
+                className="communities-image"
+                src="/images/dashboard/communities-image.png"
+                alt="communities-details"
+              />
+            </div>
+          </div>
           <div className="col-12 p-2">
             <CommunityBio />
           </div>
@@ -125,6 +129,15 @@ export default function CommunitiesDetails() {
               data={subData}
               columns={subColumns}
             />
+          </div>
+        </div>
+        <div className="row p-0">
+          <h4 className="chanels">{t("community.channels")}</h4>
+          <div className="col-12 col-md-4 p-2">
+            <CommunityTabs />
+          </div>
+          <div className="col-12 col-md-8 p-0">
+            <Outlet />
           </div>
         </div>
       </div>

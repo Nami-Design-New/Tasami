@@ -132,6 +132,11 @@ import Reels from "../routes/website/Reels";
 import UserContractChat from "../routes/website/userContractChat";
 import ErrorFallback from "../ui/ErrorFallback";
 import ProtectedRoute from "./ProtectedRoute";
+import DashboardContractDetails from "../routes/dash-board/ContractDetails";
+import TeamsSection from "../routes/dash-board/teams/WorkGroups";
+import DashboardConsultaions from "../routes/dash-board/DashboardConsultaions";
+import DashboardMeetings from "../routes/dash-board/DashboardMeetings";
+import DashboardPosts from "../routes/dash-board/DashboardPosts";
 
 export const router = createBrowserRouter([
   /* WEBSITE AUTH */
@@ -528,6 +533,20 @@ export const router = createBrowserRouter([
       {
         path: "communities-details/:id",
         element: <CommunitiesDetails />,
+        children: [
+          {
+            index: true,
+            element: <DashboardConsultaions />,
+          },
+          {
+            path: "meetings",
+            element: <DashboardMeetings />,
+          },
+          {
+            path: "posts",
+            element: <DashboardPosts />,
+          },
+        ],
       },
 
       {
@@ -561,7 +580,6 @@ export const router = createBrowserRouter([
               { path: "documents", element: <Documents /> },
             ],
           },
-
           {
             path: "teams",
             element: <Teams />,
@@ -576,11 +594,15 @@ export const router = createBrowserRouter([
         path: "employee-details/:id",
         element: <CreateEmployee />,
       },
+      {
+        path: "shared-groups",
+        element: <TeamsSection />,
+      },
       { path: "resuems/:id", element: <ResuemeDetails /> },
-      // {
-      //   path: "contracts/:id",
-      //   element: <ContractDetails />,
-      // },
+      {
+        path: "contracts/:id",
+        element: <DashboardContractDetails />,
+      },
       {
         path: "community-post-details/:id",
         element: <CommunityPostDetails />,

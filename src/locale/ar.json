@@ -1123,8 +1123,119 @@
       }
     },
     "subscribersTeams": {
-      "employeeDetails": "Employee Details",
-      "createEmployee": "Create Employee"
+      "employeeDetails": "تفاصيل الموظف",
+      "createEmployee": "إنشاء موظف",
+      "tabs": {
+        "userAccounts": "الحسابات",
+        "personalGoals": "الأهداف الشخصية",
+        "assistanceRequests": "طلبات المساعدة",
+        "assistantOffers": "عروض المساعد",
+        "communities": "المجتمعات",
+        "resumes": "السير الذاتية"
+      }
+    },
+    "workModel": {
+      "title": "إضافة مهمة جديدة",
+      "employee": "الموظف الموجه إليه الطلب",
+      "subjectTitle": "عنوان الموضوع",
+      "addSubjectPlaceholder": "أضف عنوانًا للموضوع",
+      "formType": "نوع النموذج",
+      "description": "الوصف",
+      "addDescriptionPlaceholder": "أضف وصف الطلب",
+      "addAttachments": "أضف المرفقات",
+      "cancel": "إلغاء",
+      "send": "إرسال"
+    },
+    "userAccounts": {
+      "totalAccounts": "عدد الحسابات",
+      "activeAccounts": "الحسابات النشطة",
+      "inactiveAccounts": "الحسابات غير النشطة",
+      "suspendedAccounts": "الحسابات الموقوفة",
+      "programs": "برامج",
+      "category": {
+        "beneficiary": "مستفيد",
+        "basic": "(أساسي) مقدم برامج",
+        "premium": "(متميز) مقدم برامج",
+        "royal": "(رواد) مقدم برامج"
+      },
+      "usersAnalytics": "تحليلات المستخدمين",
+      "accounts": "الحسابات",
+      "searchPlaceholder": "البحث في الحسابات",
+      "name": "الاسم",
+      "accountNumber": "رقم الحساب",
+      "accountType": "نوع الحساب",
+      "date": "التاريخ",
+      "gender": "الجنس",
+      "beneficiaryPoints": "نقاط المستفيد",
+      "assistanceProviderPoints": "نقاط المساعد",
+      "nationality": "الجنسية",
+      "region": "الإقليم",
+      "sector": "القطاع",
+      "city": "المدينة",
+      "subscriptionStart": "بدء الاشتراك",
+      "subscriptionEnd": "انتهاء الاشتراك",
+      "status": "الحالة",
+      "statusDate": "تاريخ حالة الحساب",
+      "statusTime": "وقت حالة الحساب",
+      "noEvaluation": "لا يوجد تقييم",
+      "active": "نشط",
+      "inactive": "غير نشطة",
+      "suspended": "موقوفة",
+      "male": "ذكر",
+      "saudi": "السعودية",
+      "saudiArabia": "المملكة العربية السعودية"
+    },
+    "personalGoals": {
+      "title": "الأهداف الشخصية",
+      "tableTitle": "الخدمات",
+      "chart": {
+        "users": "المستخدمين",
+        "goalUnit": "هدف",
+        "categories": {
+          "personalGoals": "الأهداف الشخصية",
+          "pending": "بانتظار التنفيذ",
+          "inProgress": "قيد التنفيذ",
+          "completed": "مكتملة",
+          "deleted": "محذوفة"
+        }
+      },
+      "table": {
+        "serviceNumber": "الخدمة",
+        "date": "التاريخ",
+        "accountNumber": "رقم الحساب",
+        "accountType": "نوع الحساب",
+        "offers": "العروض المقدمة",
+        "status": "المرحلة",
+        "idNumber": "رقم التعريف",
+        "region": "الإقليم",
+        "location": "القطاع",
+        "city": "المدينة",
+        "field": "المجال",
+        "specialization": "التخصص",
+        "numberOfUsers": "القيمة",
+        "rate": "التقييم"
+      },
+      "status": {
+        "completed": "مكتمل",
+        "pending": "بانتظار التنفيذ",
+        "inProgress": "قيد التنفيذ",
+        "deleted": "محذوف"
+      },
+      "accountTypes": {
+        "beneficiary": "مستفيد",
+        "roa'd": "رواد"
+      },
+      "field": {
+        "engineering": "الهندسة",
+        "finance": "المالية"
+      },
+      "specialization": {
+        "civil": "مدني",
+        "accounting": "محاسبة"
+      },
+      "region": "الشرق الأوسط",
+      "location": "المملكة العربية السعودية",
+      "city": "الرياض"
     }
   }
 }
