@@ -16,8 +16,6 @@ export default function AddGroupModal({
   setShowModal,
   group = null,
 }) {
-  console.log(group);
-
   const { categories, isLoading } = useGetcategories();
   const { t } = useTranslation();
   const queryClient = useQueryClient();

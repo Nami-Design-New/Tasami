@@ -13,6 +13,7 @@ import AlertModal from "../../../ui/website/platform/my-community/AlertModal";
 import useDeleteGroup from "../../../hooks/website/my-groups/useDeleteGroup";
 import { useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
+import CustomLink from "../../../ui/CustomLink";
 
 export default function GroupDetails() {
   const navigate = useNavigate();
@@ -109,6 +110,17 @@ export default function GroupDetails() {
                 data={groupDetails.strength_indicator}
               />
             </div>
+          </div>{" "}
+          <div className="col-12 p-2">
+            <CustomLink
+              to={`/group/chat/${groupDetails?.id}`}
+              fullWidth
+              color="main"
+              size="large"
+              type="outlined"
+            >
+              {t("groupChats")}
+            </CustomLink>
           </div>
           <div className="col-12 p-2">
             <h2 className="group-label">

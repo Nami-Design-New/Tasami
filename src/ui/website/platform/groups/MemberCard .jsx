@@ -4,8 +4,6 @@ import GoalDetailsModal from "./GoalDetailsModal";
 export default function MemberCard({ member, exePercentage }) {
   const [showGoalDetails, setShowGoalDetails] = useState();
 
-  console.log(member?.show_goal);
-
   return (
     <>
       <div
