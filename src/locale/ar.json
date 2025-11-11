@@ -1121,6 +1121,10 @@
         "cancel": "إلغاء",
         "send": "إرسال"
       }
+    },
+    "subscribersTeams": {
+      "employeeDetails": "Employee Details",
+      "createEmployee": "Create Employee"
     }
   }
 }
