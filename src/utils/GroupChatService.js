@@ -20,8 +20,6 @@ export class GroupChatSocketService {
   }
 
   connectPrivate({ token, groupId }) {
-    console.log(token);
-
     const api = axios.create({
       baseURL: import.meta.env.VITE_API_URL_SOCKET,
       headers: {

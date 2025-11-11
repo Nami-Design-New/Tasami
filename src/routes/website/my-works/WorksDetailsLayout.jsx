@@ -34,8 +34,15 @@ export default function WorksDetailsLayout() {
   const { withdrawOffer, isPending: isWithdrawing } = useWithdrawOfferHelp();
 
   // Destructure safely
-  const { id, code, status, helper, rectangle, offers_count } =
-    workDetails || {};
+  const {
+    id,
+    code,
+    status,
+    helper,
+    rectangle,
+    offers_count,
+    has_working_contract,
+  } = workDetails || {};
 
   // === Handlers (must be declared before conditional returns) ===
   const handleCompleteGoal = useCallback(
@@ -151,11 +158,6 @@ export default function WorksDetailsLayout() {
       { id: 4, label: t("works.assistants"), link: "assistants" },
     ];
   }, [rectangle, helper, status, t, workDetails]);
-  console.log(
-    rectangle === "help_service_from_helper" &&
-      status === "wait_helper_to_accept" &&
-      status !== "completed"
-  );
 
   // === Option menu configs ===
   const deleteOption = {
@@ -195,12 +197,7 @@ export default function WorksDetailsLayout() {
       );
     }
 
-    if (
-      rectangle === "help_service_from_helper" &&
-      (status === "wait_helper_to_accept" ||
-        status === "wait_for_user_payment") &&
-      status !== "completed"
-    ) {
+    if (has_working_contract) {
       return (
         <OptionsMenu
           toggleButton="fa-regular fa-flag"

@@ -58,11 +58,16 @@ export default function WorksDetails() {
             </>
           )}
         </div>{" "}
-        {workDetails.helper && (
-          <div className="mb-3">
-            <AssistantWorkCard helper={workDetails?.helper} chat={false} />
-          </div>
-        )}
+        {workDetails.rectangle === "help_service_from_helper" &&
+          workDetails.helper && (
+            <div className="mb-3">
+              <AssistantWorkCard
+                helper={workDetails?.helper}
+                canNavigate={false}
+                chat={false}
+              />
+            </div>
+          )}
         <p className="value">{workDetails?.title}</p>
       </div>
 

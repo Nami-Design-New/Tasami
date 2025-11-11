@@ -679,7 +679,7 @@
       "field": "Field",
       "specialty": "Specialty",
       "helpValue": "Help Value",
-      "preferredGender": "Preferred Beneficiary Gender",
+      "preferredGender": "Preferred Gender",
       "ageRange": "Beneficiary Age Range",
       "duration": "Expected Duration of Assistance (days)",
       "expectedData": "Expected duration of goal  ",
