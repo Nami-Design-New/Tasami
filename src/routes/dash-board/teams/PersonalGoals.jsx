@@ -4,85 +4,47 @@ import { createColumnHelper } from "@tanstack/react-table";
 import { Link } from "react-router";
 import { Badge } from "react-bootstrap";
 import ColumnChart from "../../../ui/dash-board/charts/ColumnChart";
+import { useTranslation } from "react-i18next";
 
-const userGrowthSeries = [
-  {
-    name: "المستخدمين",
-    data: [4000, 600, 1000, 2000, 400],
-  },
-];
-const userGrowthCategories = [
-  " الاهداف الشخصيه",
-  "بانتظار التنفيذ",
-  "قيد التنفيذ",
-  "مكتمله",
-  "محذوفه",
-];
-const userGrowthOptions = {
-  chart: {
-    type: "bar",
-    height: 350,
-    toolbar: { show: true },
-  },
-  plotOptions: {
-    bar: {
-      borderRadius: 4,
-      columnWidth: "10%",
-      endingShape: "rounded",
-      distributed: true,
-    },
-  },
-  dataLabels: { enabled: false },
-  xaxis: {
-    categories: userGrowthCategories,
-  },
-  yaxis: {},
-  colors: ["#8c137e", "#007BFF", "#FFC107", "#28A745", "#DC3545"],
-  tooltip: {
-    y: {
-      formatter: (val) => `${val} مستخدم`,
-    },
-  },
-};
 const columnHelper = createColumnHelper();
 const PersonalGoals = () => {
-  // const data = useMemo(
-  //   () => [
-  //     {
-  //       serviceNumber: "PRG-001",
-  //       date: "25-Apr-2020",
-  //       status: "مكتمل",
-  //       accountNumber: "U-020522-00215a",
-  //       accountType: "مستفيد",
-  //       IdNumber: "ID-123456",
-  //       region: "014-الشرق الاوسط ",
-  //       location: "المملكة العربية السعودية",
-  //       city: "الرياض-001",
-  //       field: "الهندسة",
-  //       Specialization: "مدني",
-  //       offers: 4,
-  //       numbrOfUseres: 120,
-  //       rate: 4.5,
-  //     },
-  //     {
-  //       serviceNumber: "PRG-002",
-  //       date: "25-Apr-2020",
-  //       status: "محذوف",
-  //       accountNumber: "U-020522-00215b",
-  //       accountType: "رواد",
-  //       IdNumber: "ID-123457",
-  //       region: "014-الشرق الاوسط ",
-  //       location: "المملكة العربية السعودية",
-  //       city: "الرياض-001",
-  //       field: "المالية",
-  //       Specialization: "محاسبة",
-  //       offers: 4,
-  //       numbrOfUseres: 45,
-  //       rate: 4.2,
-  //     },
-  //   ],
-  //   []
-  // );
+  const { t } = useTranslation();
+
+  const userGrowthSeries = [
+    {
+      name: t("dashboard.personalGoals.chart.users"),
+      data: [4000, 600, 1000, 2000, 400],
+    },
+  ];
+
+  const userGrowthCategories = [
+    t("dashboard.personalGoals.chart.categories.personalGoals"),
+    t("dashboard.personalGoals.chart.categories.pending"),
+    t("dashboard.personalGoals.chart.categories.inProgress"),
+    t("dashboard.personalGoals.chart.categories.completed"),
+    t("dashboard.personalGoals.chart.categories.deleted"),
+  ];
+
+  const userGrowthOptions = {
+    chart: { type: "bar", height: 350, toolbar: { show: true } },
+    plotOptions: {
+      bar: {
+        borderRadius: 4,
+        columnWidth: "10%",
+        endingShape: "rounded",
+        distributed: true,
+      },
+    },
+    dataLabels: { enabled: false },
+    xaxis: { categories: userGrowthCategories },
+    colors: ["#8c137e", "#007BFF", "#FFC107", "#28A745", "#DC3545"],
+    tooltip: {
+      y: {
+        formatter: (val) =>
+          `${val} ${t("dashboard.personalGoals.chart.goalUnit")}`,
+      },
+    },
+  };
 
   const data = useMemo(
     () => [
@@ -156,21 +118,18 @@ const PersonalGoals = () => {
   const columns = useMemo(
     () => [
       columnHelper.accessor("serviceNumber", {
-        header: "الخدمه",
+        header: t("dashboard.personalGoals.table.serviceNumber"),
         cell: (info) => (
           <Link to={`/model/${info.getValue()}`} className="link-styles">
             {info.getValue()}
           </Link>
         ),
-        enableSorting: false,
       }),
       columnHelper.accessor("date", {
-        header: " التاريخ ",
-        cell: (info) => info.getValue(),
+        header: t("dashboard.personalGoals.table.date"),
       }),
-
       columnHelper.accessor("accountNumber", {
-        header: "رقم الحساب",
+        header: t("dashboard.personalGoals.table.accountNumber"),
         cell: (info) => (
           <Link
             to={`/dashboard/user-details/${info.getValue()}`}
@@ -179,17 +138,12 @@ const PersonalGoals = () => {
             {info.getValue()}
           </Link>
         ),
-        enableSorting: false,
       }),
       columnHelper.accessor("accountType", {
-        header: "نوع الحساب",
-        cell: (info) => info.getValue(),
-        enableSorting: false,
+        header: t("dashboard.personalGoals.table.accountType"),
       }),
       columnHelper.accessor("offers", {
-        header: " العروض المقدمه",
-        cell: (info) => info.getValue(),
-        enableSorting: false,
+        header: t("dashboard.personalGoals.table.offers"),
       }),
       columnHelper.accessor("status", {
         header: " المرحله ",
@@ -228,43 +182,29 @@ const PersonalGoals = () => {
         },
       }),
 
-      columnHelper.accessor("IdNumber", {
-        header: "رقم التعريف",
-        cell: (info) => info.getValue(),
-        // cell: (info) => (
-        //   <Link to={`/model/${info.getValue()}`} className="link-styles">
-        //     {info.getValue()}
-        //   </Link>
-        // ),
+      columnHelper.accessor("idNumber", {
+        header: t("dashboard.personalGoals.table.idNumber"),
       }),
       columnHelper.accessor("region", {
-        header: "الاقليم",
-        cell: (info) => info.getValue(),
+        header: t("dashboard.personalGoals.table.region"),
       }),
       columnHelper.accessor("location", {
-        header: "القطاع",
-        cell: (info) => info.getValue(),
+        header: t("dashboard.personalGoals.table.location"),
       }),
       columnHelper.accessor("city", {
-        header: "المدينه",
-        cell: (info) => info.getValue(),
+        header: t("dashboard.personalGoals.table.city"),
       }),
       columnHelper.accessor("field", {
-        header: "المجال",
-        cell: (info) => info.getValue(),
+        header: t("dashboard.personalGoals.table.field"),
       }),
-      columnHelper.accessor("Specialization", {
-        header: " التخصص ",
-        cell: (info) => info.getValue(),
+      columnHelper.accessor("specialization", {
+        header: t("dashboard.personalGoals.table.specialization"),
       }),
-
-      columnHelper.accessor("numbrOfUseres", {
-        header: "القيمه",
-        cell: (info) => info.getValue(),
+      columnHelper.accessor("numberOfUsers", {
+        header: t("dashboard.personalGoals.table.numberOfUsers"),
       }),
       columnHelper.accessor("rate", {
-        header: "التقييم",
-        cell: (info) => info.getValue(),
+        header: t("dashboard.personalGoals.table.rate"),
       }),
     ],
     []
@@ -272,16 +212,16 @@ const PersonalGoals = () => {
   return (
     <section className="mt-5">
       <div className="row">
-        <div className="col-12">
+        <div className="col-12 p-2">
           <ColumnChart
             series={userGrowthSeries}
             options={userGrowthOptions}
-            title={" الاهداف الشخصيه "}
+            title={t("dashboard.personalGoals.title")}
           />
         </div>
-        <div className="col-12">
+        <div className="col-12 p-2">
           <ReusableDataTable
-            title="الخدمات"
+            title={t("dashboard.personalGoals.tableTitle")}
             filter={false}
             data={data}
             columns={columns}

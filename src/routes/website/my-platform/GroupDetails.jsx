@@ -1,23 +1,21 @@
+import { useQueryClient } from "@tanstack/react-query";
+import { useState } from "react";
+import { Dropdown } from "react-bootstrap";
+import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router";
+import { toast } from "sonner";
+import useDeleteGroup from "../../../hooks/website/my-groups/useDeleteGroup";
 import useGetGroupDetails from "../../../hooks/website/my-groups/useGetGroupDetails";
+import InfoCard from "../../../ui/cards/InfoCard";
+import CustomLink from "../../../ui/CustomLink";
 import Loading from "../../../ui/loading/Loading";
 import RoundedBackButton from "../../../ui/website-auth/shared/RoundedBackButton";
-import { useSelector } from "react-redux";
-import { useTranslation } from "react-i18next";
-import { Dropdown } from "react-bootstrap";
-import InfoCard from "../../../ui/cards/InfoCard";
-import GroupMembersList from "../../../ui/website/platform/groups/GroupMembersList";
 import AddGroupModal from "../../../ui/website/platform/groups/AddGroupModal";
-import { useState } from "react";
+import GroupMembersList from "../../../ui/website/platform/groups/GroupMembersList";
 import AlertModal from "../../../ui/website/platform/my-community/AlertModal";
-import useDeleteGroup from "../../../hooks/website/my-groups/useDeleteGroup";
-import { useQueryClient } from "@tanstack/react-query";
-import { toast } from "sonner";
-import CustomLink from "../../../ui/CustomLink";
 
 export default function GroupDetails() {
   const navigate = useNavigate();
-  const { lang } = useSelector((state) => state.language);
   const { t } = useTranslation();
   const { groupDetails, isLoading } = useGetGroupDetails();
   const [showAddGroupModal, setShowAddGroupModal] = useState(false);

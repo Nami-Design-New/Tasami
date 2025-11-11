@@ -32,12 +32,32 @@ export const CONSULTATION_TYPE = [
 ];
 
 export const SUB_TABS = [
-  { id: 1, label: "الحسابات", to: "user-accounts" },
-  { id: 2, label: "الاهداف الشخصيه", to: "personal-goals" },
-  { id: 3, label: "طلبات المساعده", to: "services" },
-  { id: 4, label: "عروض المساعد ", to: "programs" },
-  { id: 4, label: " المجتمعات ", to: "communities" },
-  { id: 5, label: "السير الذاتيه", to: "resuems" },
+  {
+    id: 1,
+    label: "dashboard.subscribersTeams.tabs.userAccounts",
+    to: "user-accounts",
+  },
+  {
+    id: 2,
+    label: "dashboard.subscribersTeams.tabs.personalGoals",
+    to: "personal-goals",
+  },
+  {
+    id: 3,
+    label: "dashboard.subscribersTeams.tabs.assistanceRequests",
+    to: "services",
+  },
+  {
+    id: 4,
+    label: "dashboard.subscribersTeams.tabs.assistantOffers",
+    to: "programs",
+  },
+  {
+    id: 5,
+    label: "dashboard.subscribersTeams.tabs.communities",
+    to: "communities",
+  },
+  { id: 6, label: "dashboard.subscribersTeams.tabs.resumes", to: "resuems" },
 ];
 export const REPORT_TABS = [
   { id: 1, label: "المستخدمون", to: "/dashboard/reports/users" },

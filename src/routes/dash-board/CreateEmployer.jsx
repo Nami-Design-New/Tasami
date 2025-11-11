@@ -1,14 +1,13 @@
 import { useMemo, useState } from "react";
 import { useParams, useSearchParams } from "react-router";
+import CustomButton from "../../ui/CustomButton";
 import PageHeader from "../../ui/PageHeader";
 import Tabs from "../../ui/Tabs";
 import EmployerDataForm from "../../ui/dash-board/create-employee/EmployerDataForm";
 import PerformanceIndicators from "../../ui/dash-board/create-employee/PerformanceIndicators";
 import PermissionBoard from "../../ui/dash-board/create-employee/PermissionBoard";
-import WorkGroups from "./teams/WorkGroups";
-import AddNewTask from "./tasks/AddNewTask";
 import SuspensionModel from "../../ui/modals/SuspensionModel";
-import CustomButton from "../../ui/CustomButton";
+import AddNewTask from "./tasks/AddNewTask";
 
 const CreateEmployee = () => {
   const { id } = useParams();
@@ -28,11 +27,11 @@ const CreateEmployee = () => {
       icon: <i className="fa-regular fa-shield-halved"></i>,
       title: "الصلاحيات",
     },
-    {
-      id: 3,
-      icon: <i className="fa-regular fa-users"></i>,
-      title: "المجموعات المشتركه",
-    },
+    // {
+    //   id: 3,
+    //   icon: <i className="fa-regular fa-users"></i>,
+    //   title: "المجموعات المشتركه",
+    // },
     {
       id: 4,
       icon: <i className="fa-solid fa-chart-waterfall"></i>,
@@ -60,7 +59,7 @@ const CreateEmployee = () => {
   const tabComponents = {
     1: <EmployerDataForm isEdit={isEditMode} />,
     2: <PermissionBoard isEdit={isEditMode} />,
-    3: <WorkGroups />,
+    // 3: <WorkGroups />,
     4: <PerformanceIndicators />,
     // 5: <DataUpdateRequest />,
   };
