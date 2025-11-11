@@ -38,7 +38,6 @@ import Savings from "../routes/website/Savings";
 /* ---------------- AUTH ROUTES ---------------- */
 import WebsiteAuthLayout from "../layout/WebsiteAuthLayout";
 import ChatPage from "../routes/ChatPage";
-import ActionsLogModel from "../routes/dash-board/ActionsLogModel";
 import CommunitiesDetails from "../routes/dash-board/CommunitiesDetails";
 import CommunityPostDetails from "../routes/dash-board/CommunityPostDetails";
 import CreateEmployee from "../routes/dash-board/CreateEmployer";
@@ -96,15 +95,25 @@ import DashBoardResetPassword from "../routes/dashboard-auth/DashBoardResetPassw
 /* ---------------- ERROR / EXTRA ---------------- */
 
 import Forbidden from "../routes/Forbidden";
+import CustomizeServicesPage from "../routes/website-auth/CustomizeServicesPage";
 import CommunityChat from "../routes/website/CommunityChat";
 import CommunityDetails from "../routes/website/CommunityDetails";
 import Followings from "../routes/website/Followings";
 import Meetings from "../routes/website/Meetings";
 import ConsultaionDetails from "../routes/website/my-platform/ConsultaionDetails";
+import CompletedContracts from "../routes/website/my-platform/contracts/CompletedContracts";
+import ContractDetails from "../routes/website/my-platform/contracts/ContractDetails";
+import ContractDetailsLayout from "../routes/website/my-platform/contracts/ContractDetailsLayout";
+import ContractsBeneficiaries from "../routes/website/my-platform/contracts/ContractsBeneficiaries";
+import ContractsGroup from "../routes/website/my-platform/contracts/ContractsGroup";
+import ContractTasks from "../routes/website/my-platform/contracts/ContractTasks";
+import InProgressContracts from "../routes/website/my-platform/contracts/InProgressContracts";
+import PendingContracts from "../routes/website/my-platform/contracts/PendingContracts";
 import GroupDetails from "../routes/website/my-platform/GroupDetails";
 import MyCommunityConsultations from "../routes/website/my-platform/MyCommunityConsultations";
 import MyContracts from "../routes/website/my-platform/MyContracts";
 import CompletedWorks from "../routes/website/my-works/CompletedWorks";
+import GroupChat from "../routes/website/my-works/GroupChat";
 import InProgressWorks from "../routes/website/my-works/InProgressWorks";
 import PendingWorks from "../routes/website/my-works/PendingWorks";
 import TaskDetails from "../routes/website/my-works/TaskDetails";
@@ -117,22 +126,12 @@ import WorksOffers from "../routes/website/my-works/WorksOffers";
 import WorksTasks from "../routes/website/my-works/WorksTasks";
 import PersonalOffers from "../routes/website/PersonalOffers";
 import PersonalOffersDetails from "../routes/website/PersonalOffersDetails";
+import PersonalOffersRates from "../routes/website/PersonalOffersRates";
 import MyCommunities from "../routes/website/profile/MyCommunities";
 import Reels from "../routes/website/Reels";
+import UserContractChat from "../routes/website/userContractChat";
 import ErrorFallback from "../ui/ErrorFallback";
 import ProtectedRoute from "./ProtectedRoute";
-import PendingContracts from "../routes/website/my-platform/contracts/PendingContracts";
-import InProgressContracts from "../routes/website/my-platform/contracts/InProgressContracts";
-import CompletedContracts from "../routes/website/my-platform/contracts/CompletedContracts";
-import ContractDetailsLayout from "../routes/website/my-platform/contracts/ContractDetailsLayout";
-import ContractDetails from "../routes/website/my-platform/contracts/ContractDetails";
-import ContractTasks from "../routes/website/my-platform/contracts/ContractTasks";
-import ContractsGroup from "../routes/website/my-platform/contracts/ContractsGroup";
-import ContractsBeneficiaries from "../routes/website/my-platform/contracts/ContractsBeneficiaries";
-import GroupChat from "../routes/website/my-works/GroupChat";
-import UserContractChat from "../routes/website/userContractChat";
-import PersonalOffersRates from "../routes/website/PersonalOffersRates";
-import CustomizeServicesPage from "../routes/website-auth/CustomizeServicesPage";
 
 export const router = createBrowserRouter([
   /* WEBSITE AUTH */
@@ -496,30 +495,9 @@ export const router = createBrowserRouter([
         index: true,
         element: <DashboardHome />,
       },
-
-      {
-        path: "chats",
-        element: <ChatPage />,
-      },
       {
         path: "notifications",
         element: <Notifications />,
-      },
-      {
-        path: "model/:id",
-        element: <ModelComponent />,
-      },
-      {
-        path: "actions-log",
-        element: <ActionsLogModel />,
-      },
-      {
-        path: "working-group/:id",
-        element: <WokingGroupDetails />,
-      },
-      {
-        path: "user-details/:id",
-        element: <UserProfile />,
       },
       {
         path: "tasks",
@@ -529,6 +507,24 @@ export const router = createBrowserRouter([
         path: "profile",
         element: <EmployeeProfile />,
       },
+      {
+        path: "model/:id",
+        element: <ModelComponent />,
+      },
+
+      {
+        path: "working-group/:id",
+        element: <WokingGroupDetails />,
+      },
+      {
+        path: "user-details/:id",
+        element: <UserProfile />,
+      },
+      {
+        path: "chats",
+        element: <ChatPage />,
+      },
+
       {
         path: "communities-details/:id",
         element: <CommunitiesDetails />,

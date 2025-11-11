@@ -5,10 +5,11 @@ import FileUploader from "../../../ui/forms/FileUPloader";
 import InputField from "../../../ui/forms/InputField";
 import SelectField from "../../../ui/forms/SelectField";
 import TextField from "../../../ui/forms/TextField";
+import { useTranslation } from "react-i18next";
 
 const AddNewTask = ({ showModal, setShowModal, title }) => {
   const [files, setFiles] = useState([]);
-
+  const { t } = useTranslation();
   const handleFilesChange = (updatedFiles) => {
     setFiles(updatedFiles);
   };
@@ -25,51 +26,59 @@ const AddNewTask = ({ showModal, setShowModal, title }) => {
           <div className="row">
             <div className="col-12 col-md-6 py-2">
               <SelectField
-                label="الموظف الموجه اليه الطلب"
+                label={t("dashboard.workModel.employee")}
                 options={[
                   { value: "1", name: "S-111111-0111111" },
                   { value: "2", name: "S-111111-0111111" },
                 ]}
               />
             </div>
+
             <div className="col-12 col-md-6 py-2">
               <InputField
-                label="عنوان الموضوع"
-                placeholder="اضف عنوان للموضوع"
+                label={t("dashboard.workModel.subjectTitle")}
+                placeholder={t("dashboard.workModel.addSubjectPlaceholder")}
               />
-            </div>{" "}
+            </div>
+
             <div className="col-12 col-md-6 py-2">
               <SelectField
-                label="نوع النموذج"
+                label={t("dashboard.workModel.formType")}
                 options={[
-                  { value: "1", name: "S-111111-0111111" },
-                  { value: "2", name: "S-111111-0111111" },
+                  { value: "1", name: "استفسار" },
+                  { value: "2", name: "اقتراح" },
                 ]}
               />
             </div>
+
             <div className="col-12 py-2">
-              <TextField label="الوصف" placeholder="اضف وصف الطلب" />
+              <TextField
+                label={t("dashboard.workModel.description")}
+                placeholder={t("dashboard.workModel.addDescriptionPlaceholder")}
+              />
             </div>
+
             <div>
               <FileUploader
                 files={files}
                 onFilesChange={handleFilesChange}
-                label=" اضف المرفقات "
+                label={t("dashboard.workModel.addAttachments")}
               />
             </div>
           </div>
-          <div className="col-12 py-2 ">
-            <div className="col-12 mt-3 d-flex align-items-center  justify-content-end gap-2">
+
+          <div className="col-12 py-2">
+            <div className="col-12 mt-3 d-flex align-items-center justify-content-end gap-2">
               <CustomButton
                 size="meduim"
                 type="button"
                 color="secondary"
                 onClick={() => setShowModal(false)}
               >
-                الغاء
+                {t("dashboard.workModel.cancel")}
               </CustomButton>
               <CustomButton size="meduim" color="primary">
-                ارسال{" "}
+                {t("dashboard.workModel.send")}
               </CustomButton>
             </div>
           </div>

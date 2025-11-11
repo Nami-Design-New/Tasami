@@ -1007,6 +1007,7 @@
       "sortDesc": "تنازليا",
       "searchPlaceholder": "البحث",
       "next": "التالي",
+      "previous": "السابق",
       "page": "صفحة",
       "of": "من"
     },
@@ -1107,6 +1108,18 @@
         "updateDataRequest": "طلب تحديث البيانات",
         "mapTitle": "العنوان على الخريطة",
         "updateDataTitle": "طلب تحديث البيانات"
+      },
+      "workModel": {
+        "title": "إضافة مهمة جديدة",
+        "employee": "الموظف الموجه إليه الطلب",
+        "subjectTitle": "عنوان الموضوع",
+        "addSubjectPlaceholder": "أضف عنوانًا للموضوع",
+        "formType": "نوع النموذج",
+        "description": "الوصف",
+        "addDescriptionPlaceholder": "أضف وصف الطلب",
+        "addAttachments": "أضف المرفقات",
+        "cancel": "إلغاء",
+        "send": "إرسال"
       }
     }
   }

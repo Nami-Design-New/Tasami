@@ -1148,6 +1148,18 @@
         "mapTitle": "Address on Map",
         "updateDataTitle": "Request Data Update"
       }
+    },
+    "workModel": {
+      "title": "Add New Task",
+      "employee": "Assigned Employee",
+      "subjectTitle": "Subject Title",
+      "addSubjectPlaceholder": "Enter subject title",
+      "formType": "Form Type",
+      "description": "Description",
+      "addDescriptionPlaceholder": "Enter task description",
+      "addAttachments": "Add Attachments",
+      "cancel": "Cancel",
+      "send": "Send"
     }
   }
 }

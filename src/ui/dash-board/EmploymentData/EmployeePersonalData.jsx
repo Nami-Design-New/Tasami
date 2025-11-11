@@ -1,11 +1,9 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
+import AddNewTask from "../../../routes/dash-board/tasks/AddNewTask";
 import CustomButton from "../../CustomButton";
 import FormWrapper from "../../forms/FormWrapper";
 import MapModal from "../../modals/MapModal";
-import UpdateDataModal from "../../modals/UpdateDataModal";
-import AddTasksModal from "../../website/my-works/tasks/AddTasksModal";
-import AddNewTask from "../../../routes/dash-board/tasks/AddNewTask";
 
 const EmployeePersonalData = () => {
   const { t } = useTranslation();
@@ -231,6 +229,9 @@ const EmployeePersonalData = () => {
         <AddNewTask
           setShowModal={setShowUpdateDataModal}
           showModal={showUpdateDataModal}
+          title={t(
+            "dashboard.employeeProfile.employeePersonalData.updateDataTitle"
+          )}
         />
       </FormWrapper>
     </>
