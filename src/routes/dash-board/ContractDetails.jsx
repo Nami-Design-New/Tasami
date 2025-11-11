@@ -3,7 +3,7 @@ import ChatHistory from "../../ui/dash-board/contractDetails/ChatHistory";
 import ContractDescription from "../../ui/dash-board/contractDetails/ContractDescription";
 import PaymentContractData from "../../ui/dash-board/contractDetails/PaymentContractData";
 
-export default function ContractDetails() {
+export default function DashboardContractDetails() {
   return (
     <section>
       <div className="row">

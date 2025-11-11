@@ -1148,6 +1148,121 @@
         "mapTitle": "Address on Map",
         "updateDataTitle": "Request Data Update"
       }
+    },
+    "subscribersTeams": {
+      "employeeDetails": "Employee Details",
+      "createEmployee": "Create Employee",
+      "tabs": {
+        "userAccounts": "User Accounts",
+        "personalGoals": "Personal Goals",
+        "assistanceRequests": "Assistance Requests",
+        "assistantOffers": "Assistant Offers",
+        "communities": "Communities",
+        "resumes": "Resumes"
+      }
+    },
+    "workModel": {
+      "title": "Add New Task",
+      "employee": "Assigned Employee",
+      "subjectTitle": "Subject Title",
+      "addSubjectPlaceholder": "Enter subject title",
+      "formType": "Form Type",
+      "description": "Description",
+      "addDescriptionPlaceholder": "Enter task description",
+      "addAttachments": "Add Attachments",
+      "cancel": "Cancel",
+      "send": "Send"
+    },
+    "userAccounts": {
+      "totalAccounts": "Total Accounts",
+      "activeAccounts": "Active Accounts",
+      "inactiveAccounts": "Inactive Accounts",
+      "suspendedAccounts": "Suspended Accounts",
+      "programs": "Programs",
+      "category": {
+        "beneficiary": "Beneficiary",
+        "basic": "(Basic) Program Provider",
+        "premium": "(Premium) Program Provider",
+        "royal": "(Royal) Program Provider"
+      },
+      "usersAnalytics": "User Analytics",
+      "accounts": "Accounts",
+      "searchPlaceholder": "Search accounts",
+      "name": "Name",
+      "accountNumber": "Account Number",
+      "accountType": "Account Type",
+      "date": "Date",
+      "gender": "Gender",
+      "beneficiaryPoints": "Beneficiary Points",
+      "assistanceProviderPoints": "Assistant Points",
+      "nationality": "Nationality",
+      "region": "Region",
+      "sector": "Sector",
+      "city": "City",
+      "subscriptionStart": "Subscription Start",
+      "subscriptionEnd": "Subscription End",
+      "status": "Status",
+      "statusDate": "Account Status Date",
+      "statusTime": "Account Status Time",
+      "noEvaluation": "No Evaluation",
+      "active": "Active",
+      "inactive": "Inactive",
+      "suspended": "Suspended",
+      "male": "Male",
+      "saudi": "Saudi Arabia",
+      "saudiArabia": "Kingdom of Saudi Arabia"
+    },
+    "personalGoals": {
+      "title": "Personal Goals",
+      "tableTitle": "Services",
+      "chart": {
+        "users": "Users",
+        "goalUnit": "Goal",
+        "categories": {
+          "personalGoals": "Personal Goals",
+          "pending": "Pending Execution",
+          "inProgress": "In Progress",
+          "completed": "Completed",
+          "deleted": "Deleted"
+        }
+      },
+      "table": {
+        "serviceNumber": "Service",
+        "date": "Date",
+        "accountNumber": "Account Number",
+        "accountType": "Account Type",
+        "offers": "Offers",
+        "status": "Stage",
+        "idNumber": "ID Number",
+        "region": "Region",
+        "location": "Sector",
+        "city": "City",
+        "field": "Field",
+        "specialization": "Specialization",
+        "numberOfUsers": "Value",
+        "rate": "Rating"
+      },
+      "status": {
+        "completed": "Completed",
+        "pending": "Pending",
+        "inProgress": "In Progress",
+        "deleted": "Deleted"
+      },
+      "accountTypes": {
+        "beneficiary": "Beneficiary",
+        "roa'd": "Roa'd"
+      },
+      "field": {
+        "engineering": "Engineering",
+        "finance": "Finance"
+      },
+      "specialization": {
+        "civil": "Civil",
+        "accounting": "Accounting"
+      },
+      "region": "Middle East",
+      "location": "Kingdom of Saudi Arabia",
+      "city": "Riyadh"
     }
   }
 }

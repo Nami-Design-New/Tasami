@@ -51,7 +51,6 @@ const statsPerformanceData = [
   },
 ];
 const PerformanceIndicators = () => {
-  const isRTL = true;
   return (
     <>
       <section className="performance-indicators">
@@ -74,7 +73,7 @@ const PerformanceIndicators = () => {
                 <div className="col=12 col-md-4">
                   <InputField type="date" label="الي تاريخ" />
                 </div>
-                <div className="col=12 col-md-4">
+                {/* <div className="col=12 col-md-4">
                   <SelectField
                     label="نوع التقرير"
                     options={[
@@ -82,7 +81,7 @@ const PerformanceIndicators = () => {
                       { value: " total ", name: " اجمالي " },
                     ]}
                   />
-                </div>
+                </div> */}
                 <div className="col-12">
                   <div className="d-flex  mt-3 justify-content-end">
                     <CustomButton> تطبيق </CustomButton>

@@ -2,9 +2,11 @@ import { useState } from "react";
 import InfoCard from "../cards/InfoCard";
 import CummunityRecordModal from "./CummunityRecordModal";
 import ContractRecordModal from "./ContractRecordModal";
+import { useNavigate } from "react-router";
 
 const AssistantPresenter = () => {
   const [showModal, setShowModal] = useState(false);
+  const navigate = useNavigate();
   const [showContractModal, setShowContractModal] = useState(false);
   function handleOpenModal() {
     console.log("modal Open");
@@ -15,7 +17,11 @@ const AssistantPresenter = () => {
     <>
       <div className="row">
         <div className="col-12 col-md-6  p-1">
-          <InfoCard title="حساب المساعد " link={"السيره الذاتيه"}>
+          <InfoCard
+            title="حساب المساعد "
+            link={"السيره الذاتيه"}
+            event={() => navigate("/dashboard/resuems/1")}
+          >
             <p>
               <span>نوع الحساب:</span>
               <span>أساسي</span>
@@ -39,7 +45,7 @@ const AssistantPresenter = () => {
           </InfoCard>{" "}
           <InfoCard
             title="مجتمع المساعد"
-            event={handleOpenModal}
+            event={() => navigate("/dashboard/communities-details/1")}
             link={"سجل مجتمع المساعد "}
           >
             <p>

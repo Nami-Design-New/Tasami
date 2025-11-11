@@ -19,7 +19,6 @@ export default function Meetings({ isMyCommuntiy = true }) {
   return (
     <section className="meeting-section">
       <div className="row">
-        {" "}
         {isMyCommuntiy && (
           <div className="col-12 p-2">
             <div className="d-flex align-items-center justify-content-end">
@@ -32,7 +31,6 @@ export default function Meetings({ isMyCommuntiy = true }) {
       </div>
       <div className="mettings-list">
         <div className="row">
-          {" "}
           {!isLoading && allMeetings.length === 0 && (
             <EmptySection height="500px" message={t("community.noMeetings")} />
           )}

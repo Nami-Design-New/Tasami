@@ -213,10 +213,9 @@ const WorkingGroups = () => {
 
         cell: () => (
           <div className="table__actions">
-            {/* <i
-              className="fa-solid fa-eye  table__actions--details"
-              onClick={() => alert("data")}
-            ></i> */}
+            <Link to={"/dashboard/shared-groups"}>
+              <i className="fa-solid fa-user-friends  table__actions--details"></i>
+            </Link>
             <i
               className="fa-solid fa-edit  table__actions--edit"
               onClick={() => setShowModal(true)}
