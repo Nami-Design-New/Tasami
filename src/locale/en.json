@@ -1263,6 +1263,16 @@
       "region": "Middle East",
       "location": "Kingdom of Saudi Arabia",
       "city": "Riyadh"
+    },
+    "profile": {
+      "hello": "Hello",
+      "logout": "Logout",
+      "logoutSuccess": "Logged out successfully",
+      "logoutError": "Failed to log out",
+      "groupNumber": "Group Number",
+      "avatarAlt": "Profile avatar",
+      "editProfile": "Edit profile",
+      "edit": "Edit"
     }
   }
 }

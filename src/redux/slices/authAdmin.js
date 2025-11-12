@@ -1,11 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { getToken } from "../../utils/token";
 
 export const adminAuth = createSlice({
   name: "adminAuth",
   initialState: {
     user: null,
     role: null,
-    isAuthed: false,
+    isAuthed: !!getToken("admin_token"),
   },
 
   reducers: {

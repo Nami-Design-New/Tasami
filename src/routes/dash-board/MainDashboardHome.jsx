@@ -6,9 +6,12 @@ import ColumnChart from "../../ui/dash-board/charts/ColumnChart";
 import DounutCharts from "../../ui/dash-board/charts/DounutCharts";
 import LineAnalyticsChart from "../../ui/dash-board/charts/LineAnalyticsChart";
 import TaskStatus from "../../ui/dash-board/home/TaskStatus";
+import { useSelector } from "react-redux";
 
 export default function DashboardHome() {
   const { t } = useTranslation();
+  const { user } = useSelector((state) => state.adminAuth);
+
   // ===== Line chart =====
   const series = [
     {
@@ -156,7 +159,10 @@ export default function DashboardHome() {
     <section className="dashboard--home">
       <div className="dashboard--home__header">
         <div className="welcome">
-          <h3> محمود عباس {t("dashboard.welcome_back")}</h3>
+          <h3>
+            {" "}
+            {user?.first_name} {t("dashboard.welcome_back")}
+          </h3>
           <p>{t("dashboard.welcome_message")}</p>
         </div>
       </div>

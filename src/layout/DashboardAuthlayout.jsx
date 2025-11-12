@@ -25,7 +25,7 @@ const DashboardAuthlayout = () => {
   const { isAuthed } = useAdminAuth();
 
   if (isAuthed) {
-    return <Navigate to="/" replace />;
+    return <Navigate to="/dashboard" replace />;
   }
   return (
     <section className="auth_section">
