@@ -130,7 +130,7 @@ export default function PersonalInfoForm({ setFormType, setRegisterStep }) {
       </div>
       <div className="col-12 p-2">
         <div className="buttons">
-          <BackButton onClick={() => setRegisterStep(1)} />
+          <BackButton onClick={() => setRegisterStep(2)} />
           <CustomButton
             type="button"
             fullWidth
