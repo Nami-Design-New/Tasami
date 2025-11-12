@@ -1,6 +1,5 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useLocation } from "react-router";
 import {
   clearAuth,
   setAuthed,
@@ -13,9 +12,6 @@ import useGetAdminProfile from "./profile/useGetAdminProfile";
 export default function useAdminAuth() {
   const dispatch = useDispatch();
   const { isAuthed, user } = useSelector((s) => s.adminAuth);
-  const { pathname } = useLocation();
-
-  console.log(pathname);
 
   const token = getToken("admin_token");
 

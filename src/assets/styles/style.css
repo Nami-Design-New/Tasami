@@ -469,6 +469,24 @@ li[data-sonner-toast=""] {
   color: #214b92;
 }
 
+.react-select__control {
+  border-radius: 12px !important;
+  height: 54px !important;
+}
+
+.react-select__input-container {
+  height: 44px !important;
+}
+
+.react-select__menu {
+  z-index: 1050 !important;
+}
+
+.css-nhoipr-menu {
+  z-index: 1050 !important;
+  max-height: 200px !important;
+}
+
 .info-box-grow-min-width {
   flex: 1;
   min-width: 150px;
@@ -1104,6 +1122,19 @@ li[data-sonner-toast=""] {
   }
 }
 
+::picker(select) {
+  -webkit-appearance: base-select;
+     -moz-appearance: base-select;
+          appearance: base-select;
+  border: 1px solid rgba(13, 13, 13, 0.0941176471);
+  border-radius: 4px;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+::picker(select)::-webkit-scrollbar {
+  display: none;
+}
+
 .form_ui {
   width: 100%;
 }
@@ -1213,6 +1244,18 @@ li[data-sonner-toast=""] {
 .form_ui .input-field select {
   color: #0d0d0d;
   cursor: pointer;
+}
+.form_ui .input-field select .form_ui .input-field select.form-select {
+  -webkit-appearance: base-select !important;
+     -moz-appearance: base-select !important;
+          appearance: base-select !important;
+}
+.form_ui .input-field select::picker-icon {
+  color: #999999;
+  transition: 0.4s rotate;
+}
+.form_ui .input-field select:open::picker-icon {
+  rotate: 180deg;
 }
 .form_ui .input-field select.disable {
   pointer-events: none;
@@ -10880,7 +10923,7 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
   border-radius: 12px;
   overflow: hidden;
   max-width: 1500px;
-  margin: auto 0;
+  margin: 0 auto;
 }
 .communities-details .communities-image-wrapper img {
   width: 100%;
@@ -12803,4 +12846,11 @@ body main {
 body.en {
   direction: ltr;
   font-family: "Dubai";
+}
+
+select,
+::picker(select) {
+  -webkit-appearance: base-select;
+     -moz-appearance: base-select;
+          appearance: base-select;
 }/*# sourceMappingURL=style.css.map */

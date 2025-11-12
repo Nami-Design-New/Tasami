@@ -63,19 +63,30 @@ const ListManagement = () => {
           </div>
         </div>
       </section>
-      <EditWorkGroupModal setShowModal={setShowModal} showModal={showModal} />
-      <OperatingSectorsModal
-        setShowModal={setAddSectorShowModal}
-        showModal={showAddSectorModal}
-      />
-      <FiledsAndSpecialzationsModal
-        setShowModal={setShowAddFiledsModal}
-        showModal={showAddFiledsModal}
-      />
-      <SubjectModal
-        showModal={showSubjectModal}
-        setShowModal={setShowSubjectModal}
-      />
+      {showModal && (
+        <EditWorkGroupModal setShowModal={setShowModal} showModal={showModal} />
+      )}
+
+      {showAddSectorModal && (
+        <OperatingSectorsModal
+          setShowModal={setAddSectorShowModal}
+          showModal={showAddSectorModal}
+        />
+      )}
+
+      {showAddFiledsModal && (
+        <FiledsAndSpecialzationsModal
+          setShowModal={setShowAddFiledsModal}
+          showModal={showAddFiledsModal}
+        />
+      )}
+
+      {showSubjectModal && (
+        <SubjectModal
+          showModal={showSubjectModal}
+          setShowModal={setShowSubjectModal}
+        />
+      )}
     </>
   );
 };

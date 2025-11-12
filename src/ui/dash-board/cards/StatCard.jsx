@@ -1,5 +1,4 @@
 import ReactApexChart from "react-apexcharts";
-import { Link } from "react-router";
 
 const StatCard = ({
   icon,

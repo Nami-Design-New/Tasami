@@ -471,3 +471,18 @@ li[data-sonner-toast=""] {
     color: $main;
   }
 }
+
+.react-select__control {
+  border-radius: 12px !important;
+  height: 54px !important;
+}
+.react-select__input-container {
+  height: 44px !important;
+}
+.react-select__menu {
+  z-index: 1050 !important;
+}
+.css-nhoipr-menu {
+  z-index: 1050 !important;
+  max-height: 200px !important;
+}
