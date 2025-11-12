@@ -1,24 +1,32 @@
-import { useQuery } from "@tanstack/react-query";
+import { useInfiniteQuery } from "@tanstack/react-query";
 import { axiosInstance } from "../../lib/axios";
 
 export default function useGetCountries({ search, pagenation = "on" } = {}) {
-  const { data: countries, isLoading } = useQuery({
-    queryKey: ["countries", search, pagenation],
-    queryFn: async () => {
-      const res = await axiosInstance.get("/countries", {
-        params: {
-          search,
-          pagenation,
-        },
-      });
+  const { data, isLoading, isError, fetchNextPage, hasNextPage } =
+    useInfiniteQuery({
+      queryKey: ["countries", search, pagenation],
+      queryFn: async ({ pageParam = 1 }) => {
+        const res = await axiosInstance.get("/countries", {
+          params: {
+            search,
+            pagenation,
+            page: pageParam,
+          },
+        });
 
-      if (res.data.code !== 200) {
-        throw new Error(res.data.message || "Failed to fetch countries");
-      }
+        if (res.data.code !== 200) {
+          throw new Error(res.data.message || "Failed to fetch countries");
+        }
 
-      return res.data;
-    },
-  });
+        return res.data;
+      },
+      getNextPageParam: (lastPage) => {
+        return lastPage?.next_page_url
+          ? new URL(lastPage.next_page_url).searchParams.get("page")
+          : undefined;
+      },
+    });
+  const countries = data?.pages?.flatMap((page) => page.data || []) || [];
 
-  return { countries, isLoading };
+  return { data: countries, isLoading, isError, fetchNextPage, hasNextPage };
 }

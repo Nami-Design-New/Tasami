@@ -1,18 +1,17 @@
-import { yupResolver } from "@hookform/resolvers/yup";
 import { Controller, useForm } from "react-hook-form";
-import { useTranslation } from "react-i18next";
-import PhoneInput from "react-phone-input-2";
-import { useDispatch } from "react-redux";
-import { Link, useNavigate } from "react-router";
-import { toast } from "sonner";
+import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import { useTranslation } from "react-i18next";
+import { useNavigate, Link } from "react-router";
+import { useDispatch } from "react-redux";
+import { toast } from "sonner";
 import usePhoneRegister from "../../hooks/auth/useSendOtpCode";
 import { setPhoneData } from "../../redux/slices/phoneSlice";
 import CustomButton from "../../ui/CustomButton";
 import BackButton from "../../ui/forms/BackButton";
 import useGetCountries from "../../hooks/countries/useGetCountries";
+import CustomPhoneInput from "../forms/CustomPhoneInput";
 
-// validation schema
 const registerSchema = (t) =>
   yup.object().shape({
     fullPhone: yup.string().required(t("validation.fullPhoneRequired")),
@@ -21,22 +20,25 @@ const registerSchema = (t) =>
   });
 
 const RegisterPage = ({ setRegisterStep }) => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { t } = useTranslation();
   const { sendCode, isPending } = usePhoneRegister();
-  const { countries, isLoading } = useGetCountries();
+
+  const { data: countries, fetchNextPage, hasNextPage } = useGetCountries();
+  console.log(hasNextPage);
+
   const {
     handleSubmit,
     control,
     setValue,
+    getValues,
     formState: { errors },
   } = useForm({
     resolver: yupResolver(registerSchema(t)),
     defaultValues: { phone: "", code: "", fullPhone: "" },
   });
 
-  // Submit
   const onSubmit = ({ phone, code, fullPhone }) => {
     sendCode(
       { phone, code, type: "register" },
@@ -54,45 +56,40 @@ const RegisterPage = ({ setRegisterStep }) => {
   };
 
   return (
-    <div className="form_wrapper  register">
+    <div className="form_wrapper register">
       <p className="text-header">{t("auth.registerHeader")}</p>
-      <form
-        className="form_ui register-form "
-        onSubmit={handleSubmit(onSubmit)}
-      >
+
+      <form className="form_ui register-form" onSubmit={handleSubmit(onSubmit)}>
         <label>{t("auth.phoneLabel")}</label>
 
-        {/* Controlled phone input */}
+        {/*  Our Custom Bootstrap Phone Input */}
         <Controller
           name="fullPhone"
           control={control}
           render={({ field }) => (
-            <PhoneInput
-              country={"sa"}
-              value={field.value}
-              onChange={(value, country) => {
-                field.onChange(value);
-                const dialCode = `+${country.dialCode}`;
-                const localPhone = value.replace(country.dialCode, "");
-                setValue("code", dialCode);
-                setValue("phone", localPhone);
+            <CustomPhoneInput
+              countries={countries || []}
+              onScrollEnd={() => {
+                // if (hasNextPage)
+                fetchNextPage();
               }}
-              enableSearch
-              preferredCountries={["us", "gb", "fr", "de"]}
-              placeholder={t("auth.phoneInputPlaceholder")}
-              inputProps={{
-                name: "fullPhone",
-                required: true,
-                autoFocus: true,
+              value={{
+                phone: getValues("phone"),
+                code: getValues("code"),
+                fullPhone: getValues("fullPhone"),
               }}
+              onChange={(val) => {
+                setValue("phone", val.phone);
+                setValue("code", val.code);
+                setValue("fullPhone", val.fullPhone);
+              }}
+              error={errors.phone?.message || errors.code?.message}
+              t={t}
             />
           )}
         />
 
-        {/* Show errors */}
-        {errors.phone && <p className="error-text">{errors.phone.message}</p>}
-        {errors.code && <p className="error-text">{errors.code.message}</p>}
-
+        {/* Terms */}
         <p className="terms-text">
           <span>{t("auth.termsPrefix")}</span>
           <span>
@@ -101,6 +98,8 @@ const RegisterPage = ({ setRegisterStep }) => {
             <Link to={"/terms-conditions"}>{t("auth.termsConditions")}</Link>
           </span>
         </p>
+
+        {/* Buttons */}
         <div className="buttons">
           <BackButton onClick={() => navigate(-1)} />
           <CustomButton
@@ -112,6 +111,8 @@ const RegisterPage = ({ setRegisterStep }) => {
             {t("auth.sendButton")}
           </CustomButton>
         </div>
+
+        {/* Already have account */}
         <div className="account-link mt-4">
           {location.pathname === "/register" && (
             <h6>
@@ -121,7 +122,10 @@ const RegisterPage = ({ setRegisterStep }) => {
           )}
         </div>
       </form>
+
       <div className="seperator">{t("auth.or")}</div>
+
+      {/* Social Login */}
       <div className="social-login-buttons">
         <button>
           <img src="/icons/google-icon.svg" alt="Google" />

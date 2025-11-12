@@ -10880,7 +10880,7 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
   border-radius: 12px;
   overflow: hidden;
   max-width: 1500px;
-  margin: auto 0;
+  margin: 0 auto;
 }
 .communities-details .communities-image-wrapper img {
   width: 100%;
