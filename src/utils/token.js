@@ -4,10 +4,10 @@ export function setToken(token, title = "token") {
   Cookies.set(title, token, { expires: 7 });
 }
 
-export function getToken(title = "token") {
-  return Cookies.get(title);
+export function getToken(key = "token") {
+  return Cookies.get(key);
 }
 
-export function removeToken(title = "token") {
-  Cookies.remove(title);
+export function removeToken(key = "token") {
+  Cookies.remove(key);
 }

@@ -67,7 +67,6 @@ const FiledsAndSpecialzationsModal = ({ showModal, setShowModal }) => {
   }, [isNewField, setValue]);
 
   const onSubmit = (data) => {
-    console.log("Submitted data:", data);
     setShowModal(false);
     reset();
   };

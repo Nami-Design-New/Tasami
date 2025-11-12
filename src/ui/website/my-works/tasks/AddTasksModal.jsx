@@ -105,7 +105,6 @@ export default function AddTasksModal({
       // ADD MODE
       addNewTask(payload, {
         onSuccess: (res) => {
-          console.log("iam in success");
           reset();
           toast.success(res?.message || t("works.task_added"));
           queryClient.refetchQueries({ queryKey: ["work-tasks"] });

@@ -4,8 +4,6 @@ import HelperCard from "../../../../cards/HelperCard";
 import WorkProgress from "../../../my-works/WorkProgress";
 
 export default function ContractCard({ contract, withoutStatus = true }) {
-  console.log(contract.id, contract.status);
-
   let steps;
   const { t } = useTranslation();
   if (contract.rectangle === "personal_goal") {

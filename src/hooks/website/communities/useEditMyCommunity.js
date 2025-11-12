@@ -7,7 +7,6 @@ const editMyCommunity = async ({ communityId, formData }) => {
       "Content-Type": "multipart/form-data",
     },
   });
-  console.log(res.data);
 
   if (res.data.code !== 200) {
     throw new Error(res.data.message || "Something went wrong");

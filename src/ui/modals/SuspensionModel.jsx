@@ -62,7 +62,6 @@ const SuspensionModel = ({ showModal, setShowModal }) => {
       files: [],
     },
   });
-  console.log(errors);
 
   const duration = watch("duration");
   useEffect(() => {
@@ -71,9 +70,7 @@ const SuspensionModel = ({ showModal, setShowModal }) => {
       setValue("startDate", null);
     }
   }, [duration, setValue]);
-  const onSubmit = (data) => {
-    console.log(data);
-  };
+  const onSubmit = (data) => {};
 
   return (
     <Modal

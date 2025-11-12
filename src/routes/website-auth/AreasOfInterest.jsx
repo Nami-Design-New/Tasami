@@ -8,8 +8,6 @@ import useGetcategories from "../../hooks/area-of-interests/useGetcategories";
 import useUpdateUserCategories from "../../hooks/area-of-interests/useUpdateUserCategories";
 
 export default function AreasOfInterest() {
-  console.log("AreasOfInterest-----------------------------");
-
   const navigate = useNavigate();
   const { categories, isLoading } = useGetcategories();
   const { t } = useTranslation();

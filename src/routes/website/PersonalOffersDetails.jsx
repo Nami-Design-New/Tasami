@@ -51,8 +51,6 @@ export default function PersonalOffersDetails() {
   if (isLoading) return <Loading />;
   const isMyOffer = user?.id === offerDetails?.user?.id;
 
-  console.log("personal offers details", user, offerDetails, isMyOffer);
-
   return (
     <section className="page offer-details-section">
       <div className="container">

@@ -7,8 +7,6 @@ export default function useGetCV() {
     queryFn: async () => {
       const res = await axiosInstance.get("user-cv");
       if (res.data.code !== 200) {
-        console.log(res.data.message);
-
         throw new Error("Failed to fetch CV");
       }
 

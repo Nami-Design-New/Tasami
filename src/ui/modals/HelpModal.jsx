@@ -42,7 +42,6 @@ const HelpModal = ({ showModal, setShowModal, goal }) => {
 
   //  Handle form submission
   const onSubmit = (data) => {
-    console.log("Form submitted:", data);
     const payload = {
       work_id: goal?.id,
       price: data.price,

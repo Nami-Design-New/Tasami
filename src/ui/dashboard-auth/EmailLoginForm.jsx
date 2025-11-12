@@ -43,8 +43,6 @@ export default function EmailLoginForm() {
       { email: data.email, password: data.password },
       {
         onSuccess: (res) => {
-          console.log(res);
-
           setToken(res.data.token, "admin_token");
           dispatch(setAuthed(true));
           dispatch(setRole(res.data.role.title));

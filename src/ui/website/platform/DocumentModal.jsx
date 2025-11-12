@@ -21,8 +21,6 @@ export default function DocumentModal({
   selectedDoc,
   setSelectedDoc,
 }) {
-  console.log(selectedDoc);
-
   const { t } = useTranslation();
   const queryClient = useQueryClient();
   const { categories, isLoading } = useGetcategories();
@@ -65,7 +63,6 @@ export default function DocumentModal({
           onSuccess: (res) => {
             setShowDocumentModal(false);
             setSelectedDoc(null);
-            console.log("i am in success Update");
 
             toast.success(
               res.data.message || t("website.platform.cv.updateSuccess")
@@ -81,7 +78,6 @@ export default function DocumentModal({
       addDoc(payload, {
         onSuccess: (res) => {
           setShowDocumentModal(false);
-          console.log("i am in success Add");
 
           reset();
           toast.success(
@@ -105,7 +101,6 @@ export default function DocumentModal({
         queryClient.invalidateQueries({ queryKey: ["cv"] });
       },
       onError: (err) => {
-        console.log(err);
         toast.error(err.message || t("website.platform.cv.deleteError"));
       },
     });

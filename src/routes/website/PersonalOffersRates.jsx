@@ -15,7 +15,6 @@ export default function PersonalOffersRates() {
     useGetRates(id);
 
   const allRates = rates?.pages?.flatMap((page) => page?.data) ?? [];
-  console.log(allRates);
 
   return (
     <section className="personal-assistant-rates page">

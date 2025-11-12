@@ -9,8 +9,6 @@ import AddPostModal from "../../ui/website/communities/posts/AddPostModal";
 import PostCard from "../../ui/website/communities/posts/PostCard";
 
 export default function Posts({ isMyCommuntiy = true }) {
-  console.log(isMyCommuntiy);
-
   const { t } = useTranslation();
   const [showModal, setShowModal] = useState(false);
   const { posts, isLoading, hasNextPage, fetchNextPage, isFetchingNextPage } =

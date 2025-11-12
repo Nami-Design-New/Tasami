@@ -29,13 +29,10 @@ export default function OtpConfirmationPage({ setRegisterStep }) {
   });
 
   const onSubmit = async ({ code }) => {
-    console.log(code);
     setRegisterStep("s3");
   };
 
-  const handleResend = () => {
-    console.log("Resend code");
-  };
+  const handleResend = () => {};
   return (
     <div className="reset-container">
       <div className="subTitle">

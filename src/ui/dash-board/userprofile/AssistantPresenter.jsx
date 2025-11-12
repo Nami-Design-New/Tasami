@@ -8,11 +8,7 @@ const AssistantPresenter = () => {
   const [showModal, setShowModal] = useState(false);
   const navigate = useNavigate();
   const [showContractModal, setShowContractModal] = useState(false);
-  function handleOpenModal() {
-    console.log("modal Open");
 
-    setShowModal(true);
-  }
   return (
     <>
       <div className="row">

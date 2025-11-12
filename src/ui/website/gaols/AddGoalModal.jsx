@@ -91,8 +91,6 @@ export default function AddGoalModal({ showModal, setShowModal }) {
       { text: title, page: "help_service" },
       {
         onSuccess: (res) => {
-          console.log(res.text);
-
           setValue("title", res?.text || "");
         },
         onError: (error) => {
@@ -101,8 +99,6 @@ export default function AddGoalModal({ showModal, setShowModal }) {
       }
     );
   };
-
-  console.log(selecteAssistnsOption);
 
   return (
     <Modal

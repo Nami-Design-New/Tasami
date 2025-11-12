@@ -11,7 +11,6 @@ export default function GoalsHelpSection() {
   const navigate = useNavigate();
   const { lang } = useSelector((state) => state.language);
   const { user } = useSelector((state) => state.authRole);
-  console.log(user);
 
   const [showModal, setShowModal] = useState(false);
   const [showGoalModal, setShowGoalModal] = useState(false);

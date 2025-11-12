@@ -33,7 +33,6 @@ export default function AnswerModal({ shwModal, setShowModal, item }) {
   });
 
   const onSubmit = (data) => {
-    console.log(data);
     answer(
       { work_id: item?.id, answer: data.answer },
       {

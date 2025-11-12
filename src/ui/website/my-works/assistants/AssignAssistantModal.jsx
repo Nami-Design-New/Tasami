@@ -20,7 +20,6 @@ export default function AssignAssistantModal({ showModal, setShowModal }) {
     handleSubmit,
     watch,
     reset,
-    setValue,
     formState: { errors },
   } = useAssignAssistantForm();
   const { helpMechanisms, isLoading: helpLoading } = useGetHelpMechanisms();
@@ -29,13 +28,10 @@ export default function AssignAssistantModal({ showModal, setShowModal }) {
   const month = watch("month");
   const day = watch("day");
   const durationInDays = Number(month) * 30 + Number(day);
-  const selecteAssistnsOption = watch("assistantOption");
   const selectedHelpMechanism = watch("helpMechanism") || [];
   const selectedGender = watch("gender");
-  console.log(errors);
 
   const onSubmit = (data) => {
-    console.log(data);
     const formData = new FormData();
 
     formData.append("preferred_gender", data.gender);

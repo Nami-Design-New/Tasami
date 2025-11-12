@@ -77,7 +77,6 @@ const Message = ({
                   setVideoLoaded(true);
                 }}
                 onCanPlayThrough={() => {
-                  console.log("🎬 Video fully ready to play");
                   setVideoLoaded(true);
                 }}
                 onError={(e) => console.error("❌ Video failed to load", e)}

@@ -258,11 +258,8 @@ export default function CommunityChat() {
 
   // ===== SEND MESSAGE =====
   const onSubmit = async (data) => {
-    console.log(data);
     const formData = new FormData();
     let type = "text";
-
-    console.log(formData);
 
     if (data.audio instanceof Blob) {
       formData.append("file_path", data.audio, "recording.webm");

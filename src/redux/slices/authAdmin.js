@@ -21,8 +21,6 @@ export const adminAuth = createSlice({
       state.isAuthed = false;
     },
     setRole: (state, action) => {
-      console.log("role", state);
-
       state.role = action.payload;
     },
   },

@@ -3,7 +3,6 @@ import { Link } from "react-router";
 
 export default function AudienceCard({ data }) {
   const { t } = useTranslation();
-  console.log(data);
 
   return (
     <Link to={`/helper/${data.user.id}`} className="audience-card">

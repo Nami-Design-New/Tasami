@@ -92,12 +92,10 @@ export default function GroupChat() {
     const token = getToken();
 
     socket.onStatusChange((status) => {
-      console.log("Socket status changed:", status);
       setSocketStatus(status);
     });
 
     socket.onMessage((message) => {
-      console.log("Incoming message:", message);
       queryClient.setQueryData(["group-chat", id], (oldData) => {
         if (!oldData) return oldData;
         const updatedPages = oldData.pages.map((page, idx) =>
@@ -236,13 +234,6 @@ export default function GroupChat() {
     }
   };
 
-  //   const stopRecording = () => {
-  //     const recorder = mediaRecorderRef.current;
-  //     if (recorder && recorder.state !== "inactive") {
-  //       recorder.stop(); // will trigger onstop()
-  //     }
-  //   };
-
   const cancelRecording = () => {
     const recorder = mediaRecorderRef.current;
 
@@ -265,7 +256,6 @@ export default function GroupChat() {
 
   // ===== SEND MESSAGE =====
   const onSubmit = async (data) => {
-    console.log(data);
     const formData = new FormData();
     let type = "text";
 

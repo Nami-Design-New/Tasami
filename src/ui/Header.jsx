@@ -17,8 +17,6 @@ export default function Header() {
   const [openMenu, setOpenMenu] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const { isAuthed, user } = useSelector((state) => state.authRole);
-  const userSlice = useSelector((state) => state.authRole);
-  console.log(userSlice);
 
   useEffect(() => {
     const handleOutsideClick = (e) => {

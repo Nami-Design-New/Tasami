@@ -88,7 +88,6 @@ export default function NotificationCard({ item }) {
       },
     });
   };
-  console.log(url);
 
   return (
     <Link

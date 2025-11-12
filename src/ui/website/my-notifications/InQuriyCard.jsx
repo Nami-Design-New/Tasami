@@ -5,8 +5,6 @@ import { useState } from "react";
 import AnswerModal from "./AnswerModal";
 
 export default function InQuriyCard({ item }) {
-  console.log(item);
-
   const [showModal, setShowModal] = useState(false);
   const { user } = useSelector((state) => state.authRole);
   const isMyInquriy = item?.from_user_id === user?.id;

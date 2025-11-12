@@ -37,7 +37,6 @@ const AddActionModal = ({ showModal, setShowModal }) => {
   const actionType = watch("actionType");
 
   const onSubmit = (data) => {
-    console.log("Form Submitted:", data);
     setShowModal(false);
     reset();
   };

@@ -19,7 +19,6 @@ export default function ConfirmPerformanceModal({ show, setShowModal, task }) {
   const { pathname } = useLocation();
   const isContracts = pathname.includes("my-contracts");
   const isWorks = pathname.includes("my-works");
-  console.log(isContracts, isWorks);
 
   const schema = yup.object().shape({
     difficulty: isWorks
@@ -76,12 +75,6 @@ export default function ConfirmPerformanceModal({ show, setShowModal, task }) {
       },
     });
   };
-  console.log(
-    task.rate !== null &&
-      task?.rate?.guidance === "" &&
-      !task?.rate?.verification === ""
-  );
-  console.log("errors", errors);
 
   return (
     <Modal

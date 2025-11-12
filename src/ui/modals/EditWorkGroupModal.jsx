@@ -29,7 +29,6 @@ const EditWorkGroupModal = ({ showModal, setShowModal }) => {
   });
 
   const onSubmit = (data) => {
-    console.log(data);
     setShowModal(false);
     reset(defaultValues);
   };

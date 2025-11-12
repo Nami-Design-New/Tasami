@@ -25,7 +25,6 @@ export default function useGetCommunityChats() {
         },
       });
       if (res?.data?.code !== 200) {
-        console.log("iam in not 200");
         if (res.data.code === 404) {
           const err = new Error("Not Found");
           err.status = 404;

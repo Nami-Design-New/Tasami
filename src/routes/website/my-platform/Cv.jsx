@@ -50,7 +50,6 @@ export default function Cv() {
         queryClient.invalidateQueries({ queryKey: ["authedUser"] });
       },
       onError: (error) => {
-        console.log(error);
         toast.error(error.message);
       },
     });
