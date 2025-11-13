@@ -98,13 +98,9 @@ export default function DashboardHome() {
   };
 
   // ===== Employees Donut Chart =====
-  const employeesSeries = [
-    homeStatistics.employees_counts.roles.executive.count,
-    homeStatistics.employees_counts.roles.leader.count,
-    homeStatistics.employees_counts.roles.manager.count,
-    homeStatistics.employees_counts.roles.supervisor.count,
-    homeStatistics.employees_counts.roles.customerService.count,
-  ];
+  const employeesSeries = homeStatistics.employees_counts.roles.map(
+    (role) => role?.count
+  );
   const employeesOptions = {
     labels: [
       t("dashboard.executives"),

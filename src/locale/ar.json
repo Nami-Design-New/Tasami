@@ -1246,6 +1246,86 @@
       "avatarAlt": "الصورة الشخصية",
       "editProfile": "تعديل الملف الشخصي",
       "edit": "تعديل"
+    },
+    "workGroup": {
+      "title": "مجموعه جديده",
+      "groupType": "تصنيف المجموعه",
+      "operational": "تشغيليه",
+      "managerial": "ادارية",
+      "region": "الإقليم",
+      "location": "القطاع",
+      "country": "الدولة",
+      "city": "المدينة",
+      "add": "إضافة",
+      "validation": {
+        "groupType": "تصنيف المجموعة مطلوب",
+        "region": "الإقليم مطلوب",
+        "location": "القطاع مطلوب",
+        "country": "الدولة مطلوبة",
+        "city": "المدينة مطلوبة"
+      },
+      "stats": {
+        "title": "احصائيات مجموعات العمل",
+        "groups": "المجموعات",
+        "executives": "التنفيذيون",
+        "leaders": "القاده",
+        "managers": "المدراء",
+        "supervisors": "المشرفين",
+        "employees": "الموظفين"
+      },
+      "table": {
+        "title": "مجموعات العمل",
+        "groupNumber": "رقم المجموعة",
+        "classification": "تصنيف المجموعة",
+        "region": "الإقليم",
+        "location": "القطاع",
+        "city": "المدينة",
+        "createDate": "تاريخ الإنشاء",
+        "executives": "عدد التنفيذيين",
+        "leaders": "عدد القادة",
+        "managers": "عدد المدراء",
+        "supervisors": "عدد المشرفين",
+        "employees": "عدد الموظفين",
+        "actions": "الإجراءات",
+        "searchPlaceholder": "البحث في مجموعات العمل ..."
+      },
+      "centralRegion": "المنطقة الوسطى",
+      "saudiArabia": "المملكة العربية السعودية"
+    },
+    "workGroupDetails": {
+      "title": "تفاصيل فريق العمل رقم {{id}}",
+      "tableTitle": "حسابات فريق العمل رقم {{id}}",
+      "searchPlaceholder": "بحث في المجموعة",
+      "columns": {
+        "firstName": "الاسم",
+        "familyName": "اسم العائلة",
+        "code": "رقم الحساب",
+        "jobTitle": "المستوى الوظيفي",
+        "nationality": "الجنسية",
+        "region": "الإقليم",
+        "country": "الدولة",
+        "city": "المدينة",
+        "status": "الحالة",
+        "statusDate": "تاريخ الحالة",
+        "statusTime": "وقت الحالة"
+      },
+      "charts": {
+        "executives": "التنفيذيين",
+        "leaders": "القادة",
+        "managers": "المدراء",
+        "supervisors": "المشرفين",
+        "customerService": "خدمة العملاء",
+        "total": "الإجمالي",
+        "active": "نشط",
+        "inactive": "غير نشط",
+        "stopped": "موقوف"
+      },
+      "status": {
+        "active": "نشط",
+        "inactive": "غير نشط",
+        "stopped": "موقوف",
+        "pending": "قيد الانتظار"
+      }
     }
   }
 }

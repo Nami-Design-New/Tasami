@@ -24,7 +24,7 @@ const SelectFieldReactSelect = ({
   isMulti = false,
   isClearable = true,
   isSearchable = true,
-  closeMenuOnSelect = false,
+  closeMenuOnSelect = true,
   hideSelectedOptions = true,
 
   // Optional: name for accessibility
@@ -96,14 +96,18 @@ const SelectFieldReactSelect = ({
       boxShadow: "0 4px 12px rgba(0, 0, 0, 0.15)",
       zIndex: 1050,
     }),
+    menuPortal: (base) => ({
+      ...base,
+      zIndex: 9999,
+    }),
     menuList: (base) => ({
       ...base,
       maxHeight: 200,
       padding: 0,
-      "::-webkit-scrollbar": { width: "8px" },
-      "::-webkit-scrollbar-thumb": {
-        backgroundColor: isDark ? "#555" : "#ccc",
-        borderRadius: "4px",
+      scrollbarWidth: "none", // Firefox
+      msOverflowStyle: "none", // IE/Edge
+      "&::-webkit-scrollbar": {
+        display: "none", // Chrome, Safari
       },
     }),
     option: (base, state) => ({
@@ -218,6 +222,7 @@ const SelectFieldReactSelect = ({
           ClearIndicator,
         }}
         classNamePrefix="react-select"
+        menuPortalTarget={document.body}
       />
 
       {hint && <small className="form-text text-muted d-block">{hint}</small>}

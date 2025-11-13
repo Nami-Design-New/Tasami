@@ -27,7 +27,7 @@ TabRadioGroup.propTypes = {
     PropTypes.shape({
       label: PropTypes.node.isRequired,
       value: PropTypes.string.isRequired,
-      id: PropTypes.string, // optional
+      id: PropTypes.string,
     })
   ).isRequired,
   register: PropTypes.func.isRequired,

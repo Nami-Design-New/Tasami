@@ -1273,6 +1273,86 @@
       "avatarAlt": "Profile avatar",
       "editProfile": "Edit profile",
       "edit": "Edit"
+    },
+    "workGroup": {
+      "title": "New Work Group",
+      "groupType": "Group Classification",
+      "operational": "Operational",
+      "managerial": "Managerial",
+      "region": "Region",
+      "location": "Sector",
+      "country": "Country",
+      "city": "City",
+      "add": "Add",
+      "validation": {
+        "groupType": "Group type is required",
+        "region": "Region is required",
+        "location": "Sector is required",
+        "country": "Country is required",
+        "city": "City is required"
+      },
+      "stats": {
+        "title": "Work Groups Statistics",
+        "groups": "Groups",
+        "executives": "Executives",
+        "leaders": "Leaders",
+        "managers": "Managers",
+        "supervisors": "Supervisors",
+        "employees": "Employees"
+      },
+      "table": {
+        "title": "Work Groups",
+        "groupNumber": "Group Number",
+        "classification": "Classification",
+        "region": "Region",
+        "location": "Sector",
+        "city": "City",
+        "createDate": "Creation Date",
+        "executives": "Executives",
+        "leaders": "Leaders",
+        "managers": "Managers",
+        "supervisors": "Supervisors",
+        "employees": "Employees",
+        "actions": "Actions",
+        "searchPlaceholder": "Search work groups..."
+      },
+      "centralRegion": "Central Region",
+      "saudiArabia": "Saudi Arabia"
+    },
+    "workGroupDetails": {
+      "title": "Work Group Details No. {{id}}",
+      "tableTitle": "Work Group Accounts No. {{id}}",
+      "searchPlaceholder": "Search in group...",
+      "columns": {
+        "firstName": "First Name",
+        "familyName": "Family Name",
+        "code": "Account Number",
+        "jobTitle": "Job Title",
+        "nationality": "Nationality",
+        "region": "Region",
+        "country": "Country",
+        "city": "City",
+        "status": "Status",
+        "statusDate": "Status Date",
+        "statusTime": "Status Time"
+      },
+      "charts": {
+        "executives": "Executives",
+        "leaders": "Leaders",
+        "managers": "Managers",
+        "supervisors": "Supervisors",
+        "customerService": "Customer Service",
+        "total": "Total",
+        "active": "Active",
+        "inactive": "Inactive",
+        "stopped": "Suspended"
+      },
+      "status": {
+        "active": "Active",
+        "inactive": "Inactive",
+        "stopped": "Suspended",
+        "pending": "Pending"
+      }
     }
   }
 }

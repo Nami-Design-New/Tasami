@@ -124,6 +124,6 @@ export const tasksStatus = [
   },
 ];
 
-export const WORKING_GROPUS_CALSSIFICATIONS = ["operational", "administrative"];
+export const WORKING_GROPUS_CALSSIFICATIONS = ["operational", "managerial"];
 
 export const TASKS_STATUS = ["pending", "progress", "completed"];

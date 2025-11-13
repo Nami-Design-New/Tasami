@@ -1,246 +1,172 @@
 import { createColumnHelper } from "@tanstack/react-table";
 import { useMemo, useState } from "react";
-import ReusableDataTable from "../../../ui/table/ReusableDataTable";
+import { useTranslation } from "react-i18next";
 import { Link } from "react-router";
-import EditWorkGroupModal from "../../../ui/modals/EditWorkGroupModal";
-import ConfirmDeleteModal from "../../../ui/modals/ConfirmationDeleteModal";
-import StatisticsCard from "../../../ui/dash-board/cards/StatisticsCard";
+import useGetWorkingGroups from "../../../hooks/dashboard/workingGroups/useGetWorkingGroups";
 import ChartCard from "../../../ui/dash-board/cards/ChartCard";
+import StatisticsCard from "../../../ui/dash-board/cards/StatisticsCard";
+import ConfirmDeleteModal from "../../../ui/modals/ConfirmationDeleteModal";
+import EditWorkGroupModal from "../../../ui/modals/EditWorkGroupModal";
+import ReusableDataTable from "../../../ui/table/ReusableDataTable";
+import TablePagination from "../../../ui/table/TablePagentaion";
 
 const columnHelper = createColumnHelper();
 
-const statsData = [
-  {
-    label: "المجموعات",
-    value: 25,
-    icon: "fa-users",
-    color: "#ffffff",
-    bgColor: "#007bff",
-  },
-  {
-    label: "التنفيذيون",
-    value: 10,
-    icon: "fa-user-tie",
-    color: "#ffffff",
-    bgColor: "#28a745",
-  },
-  {
-    label: "القاده",
-    value: 15,
-    icon: "fa-chess-king",
-    color: "#ffffff",
-    bgColor: "#ffc107",
-  },
-  {
-    label: "المدراء",
-    value: 20,
-    icon: "fa-briefcase",
-    color: "#ffffff",
-    bgColor: "#17a2b8",
-  },
-  {
-    label: "المشرفين",
-    value: 18,
-    icon: "fa-user-check",
-    color: "#ffffff",
-    bgColor: "#6f42c1",
-  },
-  {
-    label: "الموظفين",
-    value: 50,
-    icon: "fa-id-badge",
-    color: "#ffffff",
-    bgColor: "#dc3545",
-  },
-];
-
 const WorkingGroups = () => {
+  const { t } = useTranslation();
+
+  // -----------------------------
+  // Pagination state
+  // -----------------------------
+  const [page, setPage] = useState(1);
+  const [pageSize, setPageSize] = useState(4);
+
+  // -----------------------------
+  // Fetch working groups via hook
+  // -----------------------------
+  const { workingGroups, stats, currentPage, lastPage, isLoading } =
+    useGetWorkingGroups("", page, pageSize);
+
   const [showModal, setShowModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
-  const data = useMemo(
-    () => [
-      {
-        groupNumber: "GN-000001",
-        groupClassifications: "تشغيليه",
-        region: "014-المنطقة الوسطى",
-        location: "المملكة العربية السعودية",
-        city: "الرياض-001",
-        createDate: "25-Apr-2020",
-        employeeCount: "50",
-        supervisorsCount: "7",
-        excutives: "3",
-        leaders: "4",
-        managers: "20",
-        actions: "",
-      },
-      {
-        groupNumber: "GN-000001",
-        groupClassifications: "تشغيليه",
-        region: "014-المنطقة الوسطى",
-        location: "المملكة العربية السعودية",
-        city: "الرياض-001",
-        createDate: "25-Apr-2020",
-        excutives: "3",
-        leaders: "4",
-        managers: "20",
-        supervisorsCount: "7",
-        employeeCount: "50",
-        actions: "",
-      },
-      {
-        groupNumber: "GN-000001",
-        groupClassifications: "إدارية",
-        region: "014-المنطقة الوسطى",
-        location: "المملكة العربية السعودية",
-        city: "الرياض-001",
-        createDate: "25-Apr-2020",
-        employeeCount: "50",
-        supervisorsCount: "7",
-        excutives: "3",
-        leaders: "4",
-        managers: "20",
-        actions: "",
-      },
-      {
-        groupNumber: "GN-000001",
-        groupClassifications: "تشغيليه",
-        region: "014-المنطقة الوسطى",
-        location: "المملكة العربية السعودية",
-        city: "الرياض-001",
-        createDate: "25-Apr-2020",
-        employeeCount: "50",
-        supervisorsCount: "7",
-        excutives: "3",
-        leaders: "4",
-        managers: "20",
-        actions: "",
-      },
-      {
-        groupNumber: "GN-000001",
-        groupClassifications: "إدارية",
 
-        region: "014-المنطقة الوسطى",
-        location: "المملكة العربية السعودية",
-        city: "الرياض-001",
-        createDate: "25-Apr-2020",
-        employeeCount: "50",
-        supervisorsCount: "7",
-        excutives: "3",
-        leaders: "4",
-        managers: "20",
+  const statsData = [
+    {
+      label: t("dashboard.workGroup.stats.groups"),
+      value: stats?.group_count,
+      icon: "fa-users",
+      color: "#fff",
+      bgColor: "#007bff",
+    },
+    {
+      label: t("dashboard.workGroup.stats.executives"),
+      value: stats?.executive_count,
+      icon: "fa-user-tie",
+      color: "#fff",
+      bgColor: "#28a745",
+    },
+    {
+      label: t("dashboard.workGroup.stats.leaders"),
+      value: stats?.leader_count,
+      icon: "fa-chess-king",
+      color: "#fff",
+      bgColor: "#ffc107",
+    },
+    {
+      label: t("dashboard.workGroup.stats.managers"),
+      value: stats?.manager_count,
+      icon: "fa-briefcase",
+      color: "#fff",
+      bgColor: "#17a2b8",
+    },
+    {
+      label: t("dashboard.workGroup.stats.supervisors"),
+      value: stats?.group_count,
+      icon: "fa-user-check",
+      color: "#fff",
+      bgColor: "#6f42c1",
+    },
+    {
+      label: t("dashboard.workGroup.stats.employees"),
+      value: stats?.group_count,
+      icon: "fa-id-badge",
+      color: "#fff",
+      bgColor: "#dc3545",
+    },
+  ];
 
-        actions: "",
-      },
-      {
-        groupNumber: "GN-000001",
-        groupClassifications: "إدارية",
-
-        region: "014-المنطقة الوسطى",
-        location: "المملكة العربية السعودية",
-        city: "الرياض-001",
-        createDate: "25-Apr-2020",
-        employeeCount: "50",
-        supervisorsCount: "7",
-        excutives: "3",
-        leaders: "4",
-        managers: "20",
-
-        actions: "",
-      },
-    ],
-    []
+  const tableData = useMemo(
+    () =>
+      workingGroups.map((wg) => ({
+        groupNumber: wg?.name,
+        groupClassifications: wg?.type,
+        region: wg?.region?.title,
+        location: wg?.country?.title,
+        city: wg?.city?.title,
+        createDate: wg?.created_at,
+        excutives: wg?.executive_count,
+        leaders: wg?.leader_count,
+        managers: wg?.manager_count,
+        supervisorsCount: wg?.supervisor_count,
+        employeeCount: wg?.customer_service_count,
+      })),
+    [workingGroups, t]
   );
 
   const columns = useMemo(
     () => [
       columnHelper.accessor("groupNumber", {
-        header: "رقم المجموعه",
+        header: t("dashboard.workGroup.table.groupNumber"),
         cell: (info) => (
           <Link
             to={`/dashboard/working-group/${info.getValue()}`}
             className="link-styles"
-            style={{ textDecoration: "underline" }}
           >
             {info.getValue()}
           </Link>
         ),
-        enableSorting: false,
       }),
       columnHelper.accessor("groupClassifications", {
-        header: " تصنيف المجموعه ",
-        cell: (info) => info.getValue(),
+        header: t("dashboard.workGroup.table.classification"),
       }),
       columnHelper.accessor("region", {
-        header: " الاقليم ",
-        cell: (info) => info.getValue(),
+        header: t("dashboard.workGroup.table.region"),
       }),
       columnHelper.accessor("location", {
-        header: " القطاع ",
-        cell: (info) => info.getValue(),
+        header: t("dashboard.workGroup.table.location"),
       }),
       columnHelper.accessor("city", {
-        header: " المدينه ",
-        cell: (info) => info.getValue(),
+        header: t("dashboard.workGroup.table.city"),
       }),
       columnHelper.accessor("createDate", {
-        header: "تاريخ الانشاء",
-        cell: (info) => info.getValue(),
+        header: t("dashboard.workGroup.table.createDate"),
       }),
       columnHelper.accessor("excutives", {
-        header: "عدد التنفيذين",
-        cell: (info) => info.getValue(),
+        header: t("dashboard.workGroup.table.executives"),
       }),
       columnHelper.accessor("leaders", {
-        header: "عدد القادة",
-        cell: (info) => info.getValue(),
+        header: t("dashboard.workGroup.table.leaders"),
       }),
-
       columnHelper.accessor("managers", {
-        header: "عدد المدراء",
-        cell: (info) => info.getValue(),
+        header: t("dashboard.workGroup.table.managers"),
       }),
       columnHelper.accessor("supervisorsCount", {
-        header: "عدد المشرفين",
-        cell: (info) => info.getValue(),
+        header: t("dashboard.workGroup.table.supervisors"),
       }),
-
       columnHelper.accessor("employeeCount", {
-        header: "عدد الموظفين",
-        cell: (info) => info.getValue(),
+        header: t("dashboard.workGroup.table.employees"),
       }),
       columnHelper.accessor("actions", {
-        header: " الاجراءات",
-
+        header: t("dashboard.workGroup.table.actions"),
         cell: () => (
           <div className="table__actions">
             <Link to={"/dashboard/shared-groups"}>
-              <i className="fa-solid fa-user-friends  table__actions--details"></i>
+              <i className="fa-solid fa-user-friends table__actions--details"></i>
             </Link>
             <i
-              className="fa-solid fa-edit  table__actions--edit"
+              className="fa-solid fa-edit table__actions--edit"
               onClick={() => setShowModal(true)}
             ></i>
             <i
-              className="fa-solid fa-trash  table__actions--delete"
+              className="fa-solid fa-trash table__actions--delete"
               onClick={() => setShowDeleteModal(true)}
             ></i>
           </div>
         ),
-        enableSorting: false,
       }),
     ],
-    []
+    [t]
   );
 
   return (
     <section>
       <div className="row">
         <div className="col-12 p-2">
-          <ChartCard title={"احصائيات مجموعات العمل"}>
+          <ChartCard title={t("dashboard.workGroup.stats.title")}>
             <div className="row">
               {statsData.map((item, index) => (
                 <div
-                  className="col-12 col-sm-6  col-md-4 col-lg-3 col-xxl-2 p-2"
+                  className="col-12 col-sm-6 col-md-4 col-lg-3 col-xxl-2 p-2"
                   key={index}
                 >
                   <StatisticsCard item={item} />
@@ -249,18 +175,32 @@ const WorkingGroups = () => {
             </div>
           </ChartCard>
         </div>
+
         <div className="col-12 p-2">
           <ReusableDataTable
-            title="مجموعات العمل"
-            data={data}
+            title={t("dashboard.workGroup.table.title")}
+            data={tableData}
             columns={columns}
+            currentPage={currentPage}
+            lastPage={lastPage}
+            setPage={setPage}
+            pageSize={pageSize}
+            setPageSize={setPageSize}
             lang="ar"
-            initialPageSize={10}
             filter={false}
-            searchPlaceholder="البحث في مجموعات العمل ..."
-          />
+            searchPlaceholder={t("dashboard.workGroup.table.searchPlaceholder")}
+            loading={isLoading}
+          >
+            <TablePagination
+              currentPage={page}
+              lastPage={lastPage}
+              onPageChange={setPage}
+              isLoading={isLoading}
+            />
+          </ReusableDataTable>
         </div>
       </div>
+
       <EditWorkGroupModal setShowModal={setShowModal} showModal={showModal} />
       <ConfirmDeleteModal
         setShowDeleteModal={setShowDeleteModal}

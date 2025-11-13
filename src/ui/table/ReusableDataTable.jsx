@@ -1,17 +1,9 @@
 import {
-  flexRender,
-  getCoreRowModel,
-  getFilteredRowModel,
-  getPaginationRowModel,
-  getSortedRowModel,
-  useReactTable,
-} from "@tanstack/react-table";
-import {
+  closestCenter,
   DndContext,
   KeyboardSensor,
   MouseSensor,
   TouchSensor,
-  closestCenter,
   useSensor,
   useSensors,
 } from "@dnd-kit/core";
@@ -19,16 +11,25 @@ import { restrictToVerticalAxis } from "@dnd-kit/modifiers";
 import {
   arrayMove,
   SortableContext,
+  useSortable,
   verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
-import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
+import {
+  flexRender,
+  getCoreRowModel,
+  getFilteredRowModel,
+  getPaginationRowModel,
+  getSortedRowModel,
+  useReactTable,
+} from "@tanstack/react-table";
 import { useMemo, useState } from "react";
-import TableFilter from "./TableFilter";
-import TablePagentaion from "./TablePagentaion";
 import { useTranslation } from "react-i18next";
+import TableFilter from "./TableFilter";
 
-// Cell Component
+// -----------------------------
+// DnD Row Handle Component
+// -----------------------------
 const RowDragHandleCell = ({ rowId }) => {
   const { attributes, listeners } = useSortable({ id: String(rowId) });
   return (
@@ -38,6 +39,9 @@ const RowDragHandleCell = ({ rowId }) => {
   );
 };
 
+// -----------------------------
+// Draggable Row Component
+// -----------------------------
 function DraggableRow({ row }) {
   const { transform, transition, setNodeRef, isDragging } = useSortable({
     id: String(row.original.id),
@@ -62,6 +66,9 @@ function DraggableRow({ row }) {
   );
 }
 
+// -----------------------------
+// ReusableDataTable Component
+// -----------------------------
 const ReusableDataTable = ({
   title = "Table",
   filter = true,
@@ -69,16 +76,23 @@ const ReusableDataTable = ({
   header = true,
   data = [],
   columns = [],
+  currentPage = 1, // server page index (1-based)
+  lastPage = 1, // total pages from server
+  setPage, // function to update page in parent
+  pageSize = 10, // current page size
+  setPageSize, // function to update pageSize in parent
   filterOptions = {},
   activeFilters = [],
-  initialPageSize = 5,
   searchPlaceholder = "Search",
   lang = "en",
   rowDnD = false,
+  children,
 }) => {
   const { t } = useTranslation();
-  const isRTL = lang === "ar";
 
+  // -----------------------------
+  // Table Filters
+  // -----------------------------
   const [globalFilter, setGlobalFilter] = useState("");
   const [columnFilters, setColumnFilters] = useState([]);
   const columnIds = useMemo(() => columns.map((c) => c.header), [columns]);
@@ -99,6 +113,9 @@ const ReusableDataTable = ({
     );
   };
 
+  // -----------------------------
+  // DnD setup
+  // -----------------------------
   const [dragData, setDragData] = useState(data);
   const dataIds = useMemo(() => dragData?.map(({ id }) => id), [dragData]);
 
@@ -123,6 +140,9 @@ const ReusableDataTable = ({
     useSensor(KeyboardSensor)
   );
 
+  // -----------------------------
+  // Initialize TanStack Table
+  // -----------------------------
   const table = useReactTable({
     data: rowDnD ? dragData : data,
     columns: rowDnD
@@ -140,7 +160,13 @@ const ReusableDataTable = ({
       globalFilter,
       columnFilters,
       columnVisibility,
+      pagination: {
+        pageIndex: currentPage - 1, // 0-indexed
+        pageSize: pageSize,
+      },
     },
+    manualPagination: true, //  server-side pagination
+    pageCount: lastPage, //  total pages from API
     globalFilterFn: customGlobalFilterFn,
     getCoreRowModel: getCoreRowModel(),
     getRowId: (row) => String(row.id),
@@ -149,9 +175,14 @@ const ReusableDataTable = ({
     getPaginationRowModel: getPaginationRowModel(),
     columnResizeMode: "onChange",
     onColumnVisibilityChange: setColumnVisibility,
+    onPaginationChange: ({ pageIndex, pageSize }) => {
+      setPage(pageIndex + 1); // update parent state to trigger API fetch
+      setPageSize(pageSize); // update pageSize if changed
+    },
     initialState: {
       pagination: {
-        pageSize: initialPageSize,
+        pageIndex: 0,
+        pageSize: pageSize,
       },
     },
   });
@@ -161,8 +192,12 @@ const ReusableDataTable = ({
     desc: t("dashboard.table.sortDesc"),
   };
 
+  // -----------------------------
+  // Render Table
+  // -----------------------------
   return (
     <div className="card__custom">
+      {/* Header + Filter */}
       {header && (
         <div className="header d-flex justify-content-between">
           <h3 className="header__title">{t(title)}</h3>
@@ -182,6 +217,8 @@ const ReusableDataTable = ({
           />
         </div>
       )}
+
+      {/* Table Body */}
       <div className="card__body">
         <div className="table-container table-responsive border">
           <DndContext
@@ -194,6 +231,7 @@ const ReusableDataTable = ({
               width={table.getTotalSize()}
               className="custom-table table table-bordered text-center align-middle mb-0"
             >
+              {/* Table Header */}
               <thead className="table-light">
                 {table.getHeaderGroups().map((headerGroup) => (
                   <tr key={headerGroup.id}>
@@ -215,6 +253,8 @@ const ReusableDataTable = ({
                   </tr>
                 ))}
               </thead>
+
+              {/* Table Body Rows */}
               <tbody>
                 {rowDnD ? (
                   <SortableContext
@@ -244,8 +284,15 @@ const ReusableDataTable = ({
           </DndContext>
         </div>
       </div>
+
+      {/* Pagination */}
       <div className="card--footer">
-        <TablePagentaion table={table} />
+        {children}
+        {/* <TablePagentaion
+          currentPage={currentPage}
+          lastPage={lastPage}
+          onPageChange={setPage}
+        /> */}
       </div>
     </div>
   );

@@ -8,7 +8,6 @@ export default function useAddNewGroup() {
       if (res.data.code !== 200) {
         throw new Error(res.data.message || "Error Add new working group");
       }
-
       return res.data;
     },
   });
