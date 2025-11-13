@@ -189,24 +189,6 @@
           display: none;
         }
       }
-      .lang_dropdown {
-        height: 32px;
-        width: 32px;
-        border-radius: 50%;
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background-color: transparent;
-        border: none;
-        padding: 0;
-
-        i {
-          font-size: 24px;
-          margin: 0 8px;
-          color: $main;
-        }
-      }
 
       .communites-link {
         background-color: $green;
@@ -221,30 +203,64 @@
         }
       }
     }
-
-    .toggle_menu {
-      display: none;
-      font-size: 22px;
-      color: #333;
-      cursor: pointer;
-
-      &:hover {
-        color: $main;
-      }
-      i {
-        width: 22px;
-        height: 22px;
-      }
-
-      @media (max-width: 992px) {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      }
-    }
   }
 }
+.lang_dropdown {
+  height: 32px;
+  width: 32px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: transparent;
+  border: none;
+  padding: 0;
 
+  i {
+    font-size: 24px;
+    margin: 0 8px;
+    color: $main;
+  }
+}
+.auth_lang_deropdown {
+  border-radius: 100px !important;
+  background-color: #5fcafa !important;
+  color: white !important;
+  border: 1px solid white !important;
+  &:hover {
+    border-radius: 100px !important;
+    background-color: #5fcafa !important;
+    color: white !important;
+    border: 1px solid white !important;
+  }
+  &:active {
+    border-radius: 100px !important;
+    background-color: #5fcafa !important;
+    color: white !important;
+    border: 1px solid white !important;
+  }
+}
+.toggle_menu {
+  display: none;
+  font-size: 22px;
+  color: #333;
+  cursor: pointer;
+
+  &:hover {
+    color: $main;
+  }
+  i {
+    width: 22px;
+    height: 22px;
+  }
+
+  @media (max-width: 992px) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
 .custom-dropdown-menu {
   border-radius: 16px;
   padding: 10px;

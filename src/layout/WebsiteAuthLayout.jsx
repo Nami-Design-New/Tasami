@@ -7,6 +7,7 @@ import {
   useSearchParams,
 } from "react-router";
 import useAuth from "../hooks/auth/useAuth";
+import LangDropdown from "../ui/website/LangDropdown";
 
 const getHeadingText = (route, step, t) => {
   if (route === "/login") {
@@ -45,7 +46,7 @@ const WebsiteAuthLayout = () => {
   return (
     <section className="auth_section">
       <div className="form_container">
-        <div className="form-header">
+        <div className="form-header d-flex align-items-center justify-content-between">
           <div className="logo">
             <Link to="/">
               <img src="/images/logo.svg" alt="logo" />
@@ -53,6 +54,7 @@ const WebsiteAuthLayout = () => {
             <span />
             <h1>{getHeadingText(route, step, t)}</h1>
           </div>
+          <LangDropdown isAuthPage={true} />
         </div>
         <Outlet />
       </div>
