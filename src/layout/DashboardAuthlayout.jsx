@@ -1,5 +1,4 @@
 import { useTranslation } from "react-i18next";
-import { Link, Outlet, useLocation, useSearchParams } from "react-router";
 import LangDropdown from "../ui/website/LangDropdown";
 import {
   Link,

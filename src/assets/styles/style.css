@@ -483,7 +483,7 @@ li[data-sonner-toast=""] {
 }
 
 .css-nhoipr-menu {
-  z-index: 1050 !important;
+  z-index: 9999999 !important;
   max-height: 200px !important;
 }
 
