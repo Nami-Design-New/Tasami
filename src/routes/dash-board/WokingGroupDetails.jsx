@@ -1,47 +1,59 @@
 import { createColumnHelper } from "@tanstack/react-table";
-import { useMemo, useState, useEffect } from "react";
-import ReusableDataTable from "../../ui/table/ReusableDataTable";
+import { useMemo, useState } from "react";
 import { Badge } from "react-bootstrap";
+import { useTranslation } from "react-i18next";
 import { Link, useParams } from "react-router";
+import useGetWorkingGroupdetails from "../../hooks/dashboard/workingGroups/useGetWorkingGroupdetails";
 import ColumnChart from "../../ui/dash-board/charts/ColumnChart";
 import Header from "../../ui/ModelComponent/Header";
-import useGetWorkingGroupdetails from "../../hooks/dashboard/workingGroups/useGetWorkingGroupdetails";
+import ReusableDataTable from "../../ui/table/ReusableDataTable";
 import TablePagination from "../../ui/table/TablePagentaion";
-
-const usersCategories = ["الإجمالي", "نشط", "غير نشط", "موقوف"];
-const activeAccountsoptions = {
-  chart: { type: "bar", height: 250, toolbar: { show: true } },
-  grid: { show: false },
-  plotOptions: {
-    bar: {
-      horizontal: false,
-      columnWidth: "20%",
-      borderRadius: 5,
-      borderRadiusApplication: "around",
-      distributed: true,
-    },
-  },
-  dataLabels: { enabled: false },
-  xaxis: {
-    categories: usersCategories,
-    labels: { style: { fontSize: "14px" } },
-  },
-  yaxis: { labels: { style: { fontSize: "12px" } } },
-  colors: ["#8c137e", "#007BFF", "#FFC107", "#28A745"],
-  tooltip: { y: { formatter: (val) => `${val} حساب` } },
-  legend: { position: "top", horizontalAlign: "center" },
-};
 
 const columnHelper = createColumnHelper();
 
 const WokingGroupDetails = () => {
+  const { t } = useTranslation();
   const { id } = useParams();
+  // Chart categories
+  const usersCategories = [
+    t("dashboard.workGroupDetails.charts.total"),
+    t("dashboard.workGroupDetails.charts.active"),
+    t("dashboard.workGroupDetails.charts.inactive"),
+    t("dashboard.workGroupDetails.charts.stopped"),
+  ];
 
+  const activeAccountsoptions = {
+    chart: { type: "bar", height: 250, toolbar: { show: true } },
+    grid: { show: false },
+    plotOptions: {
+      bar: {
+        horizontal: false,
+        columnWidth: "20%",
+        borderRadius: 5,
+        borderRadiusApplication: "around",
+        distributed: true,
+      },
+    },
+    dataLabels: { enabled: false },
+    xaxis: {
+      categories: usersCategories,
+      labels: { style: { fontSize: "14px" } },
+    },
+    yaxis: { labels: { style: { fontSize: "12px" } } },
+    colors: ["#8c137e", "#007BFF", "#FFC107", "#28A745"],
+    tooltip: {
+      y: {
+        formatter: (val) =>
+          `${val} ${t("dashboard.workGroupDetails.charts.total")}`,
+      },
+    },
+    legend: { position: "top", horizontalAlign: "center" },
+  };
   // -----------------------------
   // Pagination State
   // -----------------------------
   const [page, setPage] = useState(1);
-  const pageSize = 10;
+  const [pageSize, setPageSize] = useState(1);
 
   // -----------------------------
   // Data Fetch
@@ -64,10 +76,10 @@ const WokingGroupDetails = () => {
 
     chartData = [
       {
-        title: "التنفيذيين",
+        title: t("dashboard.workGroupDetails.charts.executives"),
         series: [
           {
-            name: "التنفيذيين",
+            name: t("dashboard.workGroupDetails.charts.executives"),
             data: [
               executives.total,
               executives.active,
@@ -78,10 +90,10 @@ const WokingGroupDetails = () => {
         ],
       },
       {
-        title: "القادة",
+        title: t("dashboard.workGroupDetails.charts.leaders"),
         series: [
           {
-            name: "القادة",
+            name: t("dashboard.workGroupDetails.charts.leaders"),
             data: [
               leaders.total,
               leaders.active,
@@ -92,10 +104,10 @@ const WokingGroupDetails = () => {
         ],
       },
       {
-        title: "المدراء",
+        title: t("dashboard.workGroupDetails.charts.managers"),
         series: [
           {
-            name: "المدراء",
+            name: t("dashboard.workGroupDetails.charts.managers"),
             data: [
               managers.total,
               managers.active,
@@ -106,10 +118,10 @@ const WokingGroupDetails = () => {
         ],
       },
       {
-        title: "المشرفين",
+        title: t("dashboard.workGroupDetails.charts.supervisors"),
         series: [
           {
-            name: "المشرفين",
+            name: t("dashboard.workGroupDetails.charts.supervisors"),
             data: [
               supervisors.total,
               supervisors.active,
@@ -120,10 +132,10 @@ const WokingGroupDetails = () => {
         ],
       },
       {
-        title: "خدمة العملاء",
+        title: t("dashboard.workGroupDetails.charts.customerService"),
         series: [
           {
-            name: "خدمة العملاء",
+            name: t("dashboard.workGroupDetails.charts.customerService"),
             data: [
               customer_services.total,
               customer_services.active,
@@ -142,15 +154,13 @@ const WokingGroupDetails = () => {
   const columns = useMemo(
     () => [
       columnHelper.accessor("first_name", {
-        header: "الاسم",
-        cell: (info) => info.getValue(),
+        header: t("dashboard.workGroupDetails.columns.firstName"),
       }),
       columnHelper.accessor("family_name", {
-        header: "اسم العائلة",
-        cell: (info) => info.getValue(),
+        header: t("dashboard.workGroupDetails.columns.familyName"),
       }),
       columnHelper.accessor("code", {
-        header: "رقم الحساب",
+        header: t("dashboard.workGroupDetails.columns.code"),
         cell: (info) => (
           <Link
             to={`/dashboard/employee-details/${info.getValue()}`}
@@ -161,27 +171,22 @@ const WokingGroupDetails = () => {
         ),
       }),
       columnHelper.accessor("job_title", {
-        header: "المستوى الوظيفي",
-        cell: (info) => info.getValue(),
+        header: t("dashboard.workGroupDetails.columns.jobTitle"),
       }),
       columnHelper.accessor("nationality.title", {
-        header: "الجنسية",
-        cell: (info) => info.getValue(),
+        header: t("dashboard.workGroupDetails.columns.nationality"),
       }),
       columnHelper.accessor("region_id.title", {
-        header: "الإقليم",
-        cell: (info) => info.getValue(),
+        header: t("dashboard.workGroupDetails.columns.region"),
       }),
       columnHelper.accessor("country_id.title", {
-        header: "الدولة",
-        cell: (info) => info.getValue(),
+        header: t("dashboard.workGroupDetails.columns.country"),
       }),
       columnHelper.accessor("city_id.title", {
-        header: "المدينة",
-        cell: (info) => info.getValue(),
+        header: t("dashboard.workGroupDetails.columns.city"),
       }),
       columnHelper.accessor("status", {
-        header: "الحالة",
+        header: t("dashboard.workGroupDetails.columns.status"),
         cell: (info) => {
           const value = info.getValue();
           const colorMap = {
@@ -199,21 +204,19 @@ const WokingGroupDetails = () => {
                 color: "#fff",
               }}
             >
-              {value}
+              {t(`dashboard.workGroupDetails.status.${value}`)}
             </Badge>
           );
         },
       }),
       columnHelper.accessor("status_date", {
-        header: "تاريخ الحالة",
-        cell: (info) => info.getValue(),
+        header: t("dashboard.workGroupDetails.columns.statusDate"),
       }),
       columnHelper.accessor("status_time", {
-        header: "وقت الحالة",
-        cell: (info) => info.getValue(),
+        header: t("dashboard.workGroupDetails.columns.statusTime"),
       }),
     ],
-    []
+    [t]
   );
 
   // -----------------------------
@@ -222,7 +225,7 @@ const WokingGroupDetails = () => {
   return (
     <section>
       <div className="d-flex align-items-center w-100 px-2 justify-content-between">
-        <Header title={`تفاصيل فريق العمل رقم ${id}`} />
+        <Header title={t("dashboard.workGroupDetails.title", { id })} />{" "}
       </div>
 
       <div className="row">
@@ -243,20 +246,26 @@ const WokingGroupDetails = () => {
           <ReusableDataTable
             data={workingMembers || []}
             columns={columns}
-            initialPageSize={pageSize}
-            title={`حسابات فريق العمل رقم ${id}`}
-            searchPlaceholder="بحث في المجموعة"
-            filter={false}
-            isLoading={isLoading}
-          />
-
-          {/*  Pagination for Server Data */}
-          <TablePagination
             currentPage={currentPage}
             lastPage={lastPage}
-            onPageChange={setPage}
+            setPage={setPage}
+            pageSize={pageSize}
+            setPageSize={setPageSize}
+            title={t("dashboard.workGroupDetails.tableTitle", { id })}
+            searchPlaceholder={t(
+              "dashboard.workGroupDetails.searchPlaceholder"
+            )}
+            filter={false}
             isLoading={isLoading}
-          />
+          >
+            {/*  Pagination for Server Data */}
+            <TablePagination
+              currentPage={currentPage}
+              lastPage={lastPage}
+              onPageChange={setPage}
+              isLoading={isLoading}
+            />
+          </ReusableDataTable>
         </div>
       </div>
     </section>
