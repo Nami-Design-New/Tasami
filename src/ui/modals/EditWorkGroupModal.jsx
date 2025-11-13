@@ -241,7 +241,7 @@ import { toast } from "sonner";
 import { useQueryClient } from "@tanstack/react-query";
 import useEditWorkingGroup from "../../hooks/dashboard/workingGroups/useEditWorkingGroup";
 import { useEffect } from "react";
-import useGetWorkingGroupdetails from "../../hooks/dashboard/workingGroups/useGetWorkingGroupdetails";
+import useGetWorkingGroupdetails from "../../hooks/dashboard/workingGroups/useGetWorkingGroupDetails";
 
 const defaultValues = {
   groupType: WORKING_GROPUS_CALSSIFICATIONS[0],

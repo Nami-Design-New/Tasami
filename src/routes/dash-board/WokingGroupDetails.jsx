@@ -3,11 +3,11 @@ import { useMemo, useState } from "react";
 import { Badge } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
 import { Link, useParams } from "react-router";
-import useGetWorkingGroupdetails from "../../hooks/dashboard/workingGroups/useGetWorkingGroupdetails";
 import ColumnChart from "../../ui/dash-board/charts/ColumnChart";
 import Header from "../../ui/ModelComponent/Header";
 import ReusableDataTable from "../../ui/table/ReusableDataTable";
 import TablePagination from "../../ui/table/TablePagentaion";
+import useGetWorkingGroupdetails from "../../hooks/dashboard/workingGroups/useGetWorkingGroupDetails";
 
 const columnHelper = createColumnHelper();
 
