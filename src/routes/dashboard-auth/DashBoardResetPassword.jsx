@@ -4,6 +4,7 @@ import { Link } from "react-router";
 import ResetForm from "../../ui/dashboard-auth/ResetForm";
 import OtpConfirmationPage from "./OtpConfirmationPage";
 import NewPassword from "./NewPassword";
+import LangDropdown from "../../ui/website/LangDropdown";
 
 export default function DashBoardResetPassword() {
   const [resetPasswordStep, setResetPasswordStep] = useState("s1");
@@ -22,10 +23,11 @@ export default function DashBoardResetPassword() {
   }
   return (
     <section className="reset_section">
-      <div className="header">
+      <div className="header d-flex align-items-center justify-content-between gap-3">
         <Link to="/" className="logo">
           <img src="/images/logo.svg" alt="logo" />
-        </Link>
+        </Link>{" "}
+        <LangDropdown isAuthPage={true} />
       </div>
       <div className="reset-container">
         <h1 className="title">{title}</h1>
