@@ -21,8 +21,8 @@ export default function WorksDetailsLayout() {
   const queryClient = useQueryClient();
 
   const [showAlertModal, setShowAlertModal] = useState(false);
-  const [showAlertWithdrawOfferModal, setShowAlertWithdrawOfferModal] =
-    useState(false);
+  // const [showAlertWithdrawOfferModal, setShowAlertWithdrawOfferModal] =
+  //   useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [tasksSummary, setTasksSummary] = useState(null);
 
@@ -31,7 +31,7 @@ export default function WorksDetailsLayout() {
   const { deleteWork, isPending: isDeleting } = useDeleteWork();
   const { cancelRequestOffer, isPending: isCanceling } =
     useCancelRequestOffer();
-  const { withdrawOffer, isPending: isWithdrawing } = useWithdrawOfferHelp();
+  // const { withdrawOffer, isPending: isWithdrawing } = useWithdrawOfferHelp();
 
   // Destructure safely
   const {
@@ -88,20 +88,20 @@ export default function WorksDetailsLayout() {
     [cancelRequestOffer, navigate, queryClient, t]
   );
 
-  const handleWithdrawOffer = useCallback(
-    (offerId) => {
-      withdrawOffer(offerId, {
-        onSuccess: (res) => {
-          toast.success(res?.message);
-          navigate("/my-contracts");
-          queryClient.refetchQueries("my-contracts");
-        },
-        onError: (error) =>
-          toast.error(error.message || t("works.errorOccurred")),
-      });
-    },
-    [withdrawOffer, navigate, queryClient, t]
-  );
+  // const handleWithdrawOffer = useCallback(
+  //   (offerId) => {
+  //     withdrawOffer(offerId, {
+  //       onSuccess: (res) => {
+  //         toast.success(res?.message);
+  //         navigate("/my-contracts");
+  //         queryClient.refetchQueries("my-contracts");
+  //       },
+  //       onError: (error) =>
+  //         toast.error(error.message || t("works.errorOccurred")),
+  //     });
+  //   },
+  //   [withdrawOffer, navigate, queryClient, t]
+  // );
 
   // === Tabs Computation (memoized) ===
   const tabs = useMemo(() => {
@@ -177,7 +177,7 @@ export default function WorksDetailsLayout() {
   const cancelOption = {
     label: t("works.cancelRequest"),
     className: "text-fire",
-    onClick: () => setShowAlertWithdrawOfferModal(true),
+    onClick: () => setShowAlertModal(true),
     props: { disabled: isCompleting },
   };
 
@@ -197,7 +197,10 @@ export default function WorksDetailsLayout() {
       );
     }
 
-    if (has_working_contract) {
+    if (
+      rectangle === "help_service_from_helper" &&
+      (status === "wait_helper_to_accept" || status === "wait_for_user_payment")
+    ) {
       return (
         <OptionsMenu
           toggleButton="fa-regular fa-flag"
@@ -277,7 +280,7 @@ export default function WorksDetailsLayout() {
         {t("goalDeleteWarning")}
       </AlertModal>
 
-      <AlertModal
+      {/* <AlertModal
         confirmButtonText={t("confirm")}
         showModal={showAlertWithdrawOfferModal}
         setShowModal={setShowAlertWithdrawOfferModal}
@@ -285,7 +288,7 @@ export default function WorksDetailsLayout() {
         loading={isWithdrawing}
       >
         {t("works.withdrawWarning")}
-      </AlertModal>
+      </AlertModal> */}
     </section>
   );
 }

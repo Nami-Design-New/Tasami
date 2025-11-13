@@ -35,22 +35,22 @@ export default function RenewContractDetailsModal({
       className="withdraw-modal"
     >
       <Modal.Header closeButton>
-        <h5> تفاصيل تمديد العقد </h5>
+        <h6>{t("renew_title")}</h6>
       </Modal.Header>
       <Modal.Body>
         <div className="row">
           <div className="col-12 p-1">
-            <h6> لقد قمت بطلب تمديد التعاقد </h6>
+            <h6>{t("renew_message")}</h6>
           </div>
           <div className="col-12 p-1">
             <p className="renew-date">
-              <span> تاريخ التمديد : </span>
+              <span>{t("renew_date")} </span>
               <span>{contract?.renew_to_date}</span>
             </p>
           </div>
           <div className="col-12 p-1">
             <p className="renew-date">
-              <span>سعر التمديد:</span>
+              <span>{t("renew_price")}</span>
               <span>{contract?.renew_price}</span> <Currency />
             </p>
           </div>

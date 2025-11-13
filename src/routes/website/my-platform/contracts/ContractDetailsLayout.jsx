@@ -117,7 +117,7 @@ export default function ContractDetailsLayout() {
                 ></RoundedBackButton>
                 <h1>{workDetails?.code}</h1>
               </div>
-              {workDetails.helper !== null && (
+              {workDetails?.has_working_contract && (
                 <div className={`work-actions `}>
                   <div className="options-menu" ref={menuRef}>
                     <button className="action-buttons" onClick={toggleMenu}>
@@ -181,7 +181,7 @@ export default function ContractDetailsLayout() {
         setShowModal={setShowCancelModal}
         workId={workDetails?.id}
         contractId={workDetails?.helper_last_contract_id}
-      />
+      />{" "}
     </section>
   );
 }

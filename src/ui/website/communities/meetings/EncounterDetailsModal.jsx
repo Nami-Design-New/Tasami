@@ -16,7 +16,7 @@ export default function EncounterDetailsModal({ show, setShow, meetingId }) {
       className="encounter-modal"
     >
       <Modal.Header closeButton className="m-2">
-        <h5 className="fw-bold">{meetingDetails?.title}</h5>
+        <h6 className="fw-bold">{meetingDetails?.title}</h6>
       </Modal.Header>
 
       <Modal.Body>

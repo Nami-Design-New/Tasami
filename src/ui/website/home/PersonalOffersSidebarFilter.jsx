@@ -18,7 +18,7 @@ export default function PersonalOffersSidebarFilter() {
   const { helpMechanisms, isLoading: helpLoading } = useGetHelpMechanisms();
   const { cities, isCitiesLoading } = useGetCities({
     search: "",
-    pagenation: "off",
+    pagination: "off",
   });
   const { nationalities, isLoading: isNationaliesLoading } =
     useGetNationalities("", "off");

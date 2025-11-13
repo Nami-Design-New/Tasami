@@ -1,19 +1,18 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Controller, useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
+import { toast } from "sonner";
+import * as yup from "yup";
+import useGetCities from "../../hooks/countries/useGetCities";
+import useGetCountries from "../../hooks/countries/useGetCountries";
+import useGetNationalities from "../../hooks/countries/useGetNationalities";
+import useEditProfile from "../../hooks/website/profile/useEditProfile";
+import { setUser } from "../../redux/slices/authRole";
 import CustomButton from "../../ui/CustomButton";
 import BackButton from "../../ui/forms/BackButton";
 import SelectField from "../../ui/forms/SelectField";
-import * as yup from "yup";
-import useGetNationalities from "../../hooks/countries/useGetNationalities";
-import useGetCities from "../../hooks/countries/useGetCities";
-import useGetCountries from "../../hooks/countries/useGetCountries";
-import useEditProfile from "../../hooks/website/profile/useEditProfile";
-import { setUser } from "../../redux/slices/authRole";
-import { useDispatch } from "react-redux";
-import { isPending } from "@reduxjs/toolkit";
-import { toast } from "sonner";
 
 const getSchema = (t) =>
   yup.object().shape({
@@ -48,15 +47,15 @@ export default function CustomizeServicesPage() {
 
   const countryId = watch("country");
 
-  const { countries, isLoading: isCountriesLoading } = useGetCountries({
+  const { data, isLoading: isCountriesLoading } = useGetCountries({
     search: "",
-    pagenation: "off",
+    pagination: "off",
   });
   const { nationalities, isLoading: isNationaliesLoading } =
     useGetNationalities("", "off");
   const { cities, isCitiesLoading } = useGetCities({
     search: "",
-    pagenation: "off",
+    pagination: "off",
     countryId,
   });
 
@@ -116,7 +115,7 @@ export default function CustomizeServicesPage() {
                   label={t("profile.country")}
                   loading={isCountriesLoading}
                   id="country"
-                  options={countries?.data?.map((country) => ({
+                  options={data?.map((country) => ({
                     value: country.id,
                     name: country.title,
                   }))}

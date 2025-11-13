@@ -48,15 +48,16 @@ export default function EditProfile() {
   const gender = watch("gender");
   const countryId = watch("country");
 
-  const { countries, isLoading: isCountriesLoading } = useGetCountries({
+  const { data, isLoading: isCountriesLoading } = useGetCountries({
     search: "",
-    pagenation: "off",
+    pagination: "off",
   });
+
   const { nationalities, isLoading: isNationaliesLoading } =
     useGetNationalities("", "off");
   const { cities, isCitiesLoading } = useGetCities({
     search: "",
-    pagenation: "off",
+    pagination: "off",
     countryId,
   });
 
@@ -88,7 +89,6 @@ export default function EditProfile() {
       formData.append("password", data.newPassword || "");
       formData.append("password_confirmation", data.confirmPassword || "");
     }
-    console.log(data.profilePicture, typeof data.profilePicture !== "string");
 
     // Optional profile picture
     if (data.profilePicture && typeof data.profilePicture !== "string") {
@@ -100,9 +100,11 @@ export default function EditProfile() {
     editProfile(formData, {
       onSuccess: (res) => {
         dispatch(setUser(res.data));
+        toast.success(res?.message);
       },
       onError: (err) => {
         console.error("Failed to update profile:", err.message);
+        toast.success(err.message);
       },
     });
   };
@@ -267,7 +269,7 @@ export default function EditProfile() {
                   label={t("profile.country")}
                   loading={isCountriesLoading}
                   id="country"
-                  options={countries?.data?.map((country) => ({
+                  options={data?.map((country) => ({
                     value: country.id,
                     name: country.title,
                   }))}

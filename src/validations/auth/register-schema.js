@@ -45,7 +45,11 @@ const registerSchema = (t) => {
       .required(t("validation.required")),
     password: yup
       .string()
-      .min(6, t("validation.passwordMin"))
+      .min(6, t("validation.passwordLength"))
+      .matches(
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).+$/,
+        t("validation.passwordStrength")
+      )
       .required(t("validation.required")),
     confirmPassword: yup
       .string()

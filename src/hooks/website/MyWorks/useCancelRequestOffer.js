@@ -4,7 +4,7 @@ import { axiosInstance } from "../../../lib/axios";
 export default function useCancelRequestOffer() {
   const { mutate: cancelRequestOffer, isPending } = useMutation({
     mutationFn: async (id) => {
-      const res = await axiosInstance.delete(`cancel-request/${id}`);
+      const res = await axiosInstance.delete(`contract-request/${id}`);
 
       if (res.data.code !== 200) {
         throw new Error(res.data.message || "Error canceling request");

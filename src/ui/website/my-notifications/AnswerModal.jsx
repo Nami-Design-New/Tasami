@@ -58,7 +58,7 @@ export default function AnswerModal({ shwModal, setShowModal, item }) {
       size="md"
     >
       <Modal.Header closeButton className="m-2">
-        <h5 className="fw-bold">{t("website.inquiry.answer.title")}</h5>
+        <h6 className="fw-bold">{t("website.inquiry.answer.title")}</h6>
       </Modal.Header>
       <Modal.Body>
         <form className="form_ui" onSubmit={handleSubmit(onSubmit)}>

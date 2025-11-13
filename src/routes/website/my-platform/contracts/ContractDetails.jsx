@@ -12,17 +12,22 @@ import AssistantWorkCard from "../../../../ui/website/my-works/work-offers/Assis
 import AcceptModal from "../../../../ui/website/platform/contracts/AcceptModal";
 import AlertModal from "../../../../ui/website/platform/my-community/AlertModal";
 import Currency from "../../../../ui/Currency";
+import useWithdrawOfferHelp from "../../../../hooks/website/contracts/useWithdrawOfferHelp";
 
 export default function ContractDetails() {
   const { t } = useTranslation();
   const [showAcceptModal, setShowAcceptModal] = useState(false);
   const [showAlertModal, setShowAlertModal] = useState(false);
+  const [showAlertWithdrawOfferModal, setShowAlertWithdrawOfferModal] =
+    useState(false);
   const queryClient = useQueryClient();
   const navigate = useNavigate();
 
   const { lang } = useSelector((state) => state.language);
   const { acceptOrRefuse, isPending } = useAcceptOrRefuseContract();
   const { workDetails, isLoading } = useGetWorkDetails();
+  const { withdrawOffer, isPending: isWithdrawing } = useWithdrawOfferHelp();
+
   if (isLoading) return <Loading />;
 
   const handleRefuseAction = (status) => {
@@ -43,6 +48,17 @@ export default function ContractDetails() {
         },
       }
     );
+  };
+  const handleWithdrawOffer = (offerId) => {
+    withdrawOffer(offerId, {
+      onSuccess: (res) => {
+        toast.success(res?.message);
+        navigate("/my-contracts");
+        queryClient.refetchQueries("my-contracts");
+      },
+      onError: (error) =>
+        toast.error(error.message || t("works.errorOccurred")),
+    });
   };
 
   // const statusText = {
@@ -68,7 +84,11 @@ export default function ContractDetails() {
       </div>
 
       <div className="mb-3">
-        <AssistantWorkCard helper={workDetails?.user} chat={false} />
+        <AssistantWorkCard
+          helper={workDetails?.user}
+          chat={false}
+          canNavigate={false}
+        />
       </div>
 
       <div className="my-3 work-description">
@@ -188,7 +208,7 @@ export default function ContractDetails() {
       )}
 
       {workDetails.status === "wait_helper_to_accept" && (
-        <div className="buttons d-flex align-items-center justify-content-end gap-2 ">
+        <div className="buttons d-flex align-items-center justify-content-end mt-3 gap-2 ">
           <CustomButton
             size="large"
             color="fire"
@@ -211,6 +231,20 @@ export default function ContractDetails() {
         </div>
       )}
 
+      {workDetails.status === "offer_sent" && (
+        <div className="buttons d-flex align-items-center justify-content-end mt-3 gap-2 ">
+          <CustomButton
+            size="large"
+            color="fire"
+            disabled={isPending}
+            onClick={() => setShowAlertWithdrawOfferModal(true)}
+          >
+            {/* {t("withdraw_offer")} */}
+            {t("withdraw_offer")}
+          </CustomButton>
+        </div>
+      )}
+
       <AlertModal
         confirmButtonText={t("common.confirm")}
         showModal={showAlertModal}
@@ -226,6 +260,16 @@ export default function ContractDetails() {
         showModal={showAcceptModal}
         setShowModal={setShowAcceptModal}
       />
+
+      <AlertModal
+        confirmButtonText={t("confirm")}
+        showModal={showAlertWithdrawOfferModal}
+        setShowModal={setShowAlertWithdrawOfferModal}
+        onConfirm={() => handleWithdrawOffer(workDetails.id)}
+        loading={isWithdrawing}
+      >
+        {t("withdraw_offer_warning")}
+      </AlertModal>
     </section>
   );
 }

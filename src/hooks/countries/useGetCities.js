@@ -3,16 +3,16 @@ import { axiosInstance } from "../../lib/axios";
 
 export default function useGetCities({
   search,
-  pagenation = "on",
+  pagination = "on",
   countryId,
 } = {}) {
   const { data: cities, isLoading: isCitiesLoading } = useQuery({
-    queryKey: ["cities", search, pagenation, countryId],
+    queryKey: ["cities", search, pagination, countryId],
     queryFn: async () => {
       const res = await axiosInstance.get("/cities", {
         params: {
           search,
-          pagenation,
+          pagination,
           country_id: countryId,
         },
       });

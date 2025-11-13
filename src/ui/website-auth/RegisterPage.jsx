@@ -15,7 +15,11 @@ import CustomPhoneInput from "../forms/CustomPhoneInput";
 const registerSchema = (t) =>
   yup.object().shape({
     fullPhone: yup.string().required(t("validation.fullPhoneRequired")),
-    phone: yup.string().required(t("validation.phoneRequired")),
+    phone: yup
+      .string()
+      .required(t("validation.phoneRequired"))
+      .min(7, t("validation.phoneMinLength"))
+      .max(15, t("validation.phoneMaxLength")),
     code: yup.string().required(t("validation.countryCodeRequired")),
   });
 

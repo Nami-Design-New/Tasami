@@ -84,7 +84,7 @@ export default function AssignAssistantModal({ showModal, setShowModal }) {
       size="lg"
     >
       <Modal.Header closeButton>
-        <h6>تعين مساعد شخصي</h6>
+        <h6>{t("assistant_modal_title")}</h6>
       </Modal.Header>
       <Modal.Body>
         <form className="form_ui" onSubmit={handleSubmit(onSubmit)}>
@@ -92,14 +92,15 @@ export default function AssignAssistantModal({ showModal, setShowModal }) {
             {/* Offer Title */}
             <div className="col-12 p-2">
               <TextField
-                label={"ملاحظات إضافية"}
+                label={t("assistant_notes_label")}
+                placeholder={t("assistant_notes_placeholder")}
                 {...register("notes")}
                 error={errors.notes?.message}
               />
             </div>{" "}
             <div className="col-12 col-lg-6 p-2">
               <InputField
-                label={"تاريخ بدء طلب المساعدة"}
+                label={t("assistant_start_date")}
                 type="date"
                 {...register("startDate")}
                 error={errors?.startDate?.message}
@@ -112,7 +113,7 @@ export default function AssignAssistantModal({ showModal, setShowModal }) {
                 style={{ whiteSpace: "noWrap" }}
               >
                 <InputField
-                  label={"المدة المتوفعة للانتهاء من المساعدة"}
+                  label={t("assistant_duration_label")}
                   placeholder="00"
                   {...register("month")}
                   icon={"/icons/month.svg"}

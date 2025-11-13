@@ -34,13 +34,13 @@ export default function AcceptModal({ workId, showModal, setShowModal }) {
     const payload = { groupId: data?.group, id: workId, status: "accepted" };
     acceptOrRefuse(payload, {
       onSuccess: (res) => {
-        toast.success("تم قبول العقد بنجاح ✅");
+        toast.success(t("contract_accept_success"));
         queryClient.invalidateQueries(["workDetails"]);
         queryClient.refetchQueries(["my-contracts"]);
         reset();
       },
       onError: (error) => {
-        toast.error(error.message || "حدث خطأ أثناء تنفيذ العملية");
+        toast.error(error.message || t("error_default"));
       },
     });
   };
@@ -54,7 +54,10 @@ export default function AcceptModal({ workId, showModal, setShowModal }) {
       centered
       size="md"
     >
-      <Modal.Header closeButton>اختيار المجموعه</Modal.Header>
+      <Modal.Header closeButton>
+        {" "}
+        <h6>{t("select_group")}</h6>
+      </Modal.Header>
       <Modal.Body>
         <form onSubmit={handleSubmit(onSubmit)} className="form_ui">
           <div className="row">

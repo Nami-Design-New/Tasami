@@ -15,7 +15,7 @@ export default function PlatformModal({ showModal, setShowModal }) {
       onHide={() => setShowModal(false)}
     >
       <Modal.Header closeButton className="platform-modal-header">
-        {t("website.platform.header")}
+        <h6> {t("website.platform.header")}</h6>
       </Modal.Header>
 
       <Modal.Body className="platform-modal-body">

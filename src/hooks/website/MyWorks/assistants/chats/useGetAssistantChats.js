@@ -20,7 +20,7 @@ export default function useGetAssistantChats() {
       const res = await axiosInstance.get("contract-chat", {
         params: {
           contract_id: id,
-          pagenation: "on",
+          pagination: "on",
           page: pageParam,
         },
       });

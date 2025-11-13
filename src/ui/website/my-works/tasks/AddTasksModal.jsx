@@ -128,7 +128,7 @@ export default function AddTasksModal({
       size="lg"
     >
       <Modal.Header closeButton>
-        <h5>{taskData ? t("works.updateTask") : t("works.newTask")}</h5>
+        <h6>{taskData ? t("works.updateTask") : t("works.newTask")}</h6>
       </Modal.Header>
 
       <Modal.Body>
