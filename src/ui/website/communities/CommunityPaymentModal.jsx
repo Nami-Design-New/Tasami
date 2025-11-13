@@ -78,7 +78,7 @@ export default function CommunityPaymentModal({
       }}
     >
       <Modal.Header closeButton className="payment-modal-header">
-        {t("website.payment")}
+        <h6> {t("website.payment")}</h6>
       </Modal.Header>
 
       <Modal.Body className="payment-modal-body">

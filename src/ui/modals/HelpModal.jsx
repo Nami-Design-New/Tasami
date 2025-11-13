@@ -72,9 +72,9 @@ const HelpModal = ({ showModal, setShowModal, goal }) => {
         centered
       >
         <Modal.Header closeButton className="m-2">
-          <h5 className="fw-bold">
+          <h6 className="fw-bold">
             {t("website.offerDetails.submitHelpOffer")}
-          </h5>
+          </h6>
         </Modal.Header>
 
         <Modal.Body>

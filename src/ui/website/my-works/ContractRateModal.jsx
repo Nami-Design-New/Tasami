@@ -9,27 +9,7 @@ import ContractStarRating from "../../ContractStarRating";
 import useRateContract from "../../../hooks/website/MyWorks/useRateContract";
 import { toast } from "sonner";
 import { useQueryClient } from "@tanstack/react-query";
-
-//  Validation Schema
-const schema = yup.object().shape({
-  experience_and_knowledge: yup
-    .number()
-    .min(1, "الرجاء اختيار تقييم الخبرة والمعرفة")
-    .required("الرجاء اختيار تقييم الخبرة والمعرفة"),
-  commitment_to_time: yup
-    .number()
-    .min(1, "الرجاء اختيار تقييم الالتزام بالوقت")
-    .required("الرجاء اختيار تقييم الالتزام بالوقت"),
-  quality_of_performance: yup
-    .number()
-    .min(1, "الرجاء اختيار تقييم جودة الأداء")
-    .required("الرجاء اختيار تقييم جودة الأداء"),
-  respect_and_treatment: yup
-    .number()
-    .min(1, "الرجاء اختيار تقييم الاحترام والتعامل")
-    .required("الرجاء اختيار تقييم الاحترام والتعامل"),
-  notes: yup.string().nullable(),
-});
+import { useTranslation } from "react-i18next";
 
 export default function ContractRateModal({
   showModal,
@@ -37,8 +17,31 @@ export default function ContractRateModal({
   contract,
   contractDetails,
 }) {
+  const { t } = useTranslation();
+
   const isRated = !!contractDetails?.rate;
   const rateData = contractDetails?.rate;
+
+  // Validation Schema
+  const schema = yup.object().shape({
+    experience_and_knowledge: yup
+      .number()
+      .min(1, t("rate_validation_experience"))
+      .required(t("rate_validation_experience")),
+    commitment_to_time: yup
+      .number()
+      .min(1, t("rate_validation_commitment"))
+      .required(t("rate_validation_commitment")),
+    quality_of_performance: yup
+      .number()
+      .min(1, t("rate_validation_quality"))
+      .required(t("rate_validation_quality")),
+    respect_and_treatment: yup
+      .number()
+      .min(1, t("rate_validation_respect"))
+      .required(t("rate_validation_respect")),
+    notes: yup.string().nullable(),
+  });
 
   const {
     handleSubmit,
@@ -82,13 +85,13 @@ export default function ContractRateModal({
 
     rateContract(payload, {
       onSuccess: (res) => {
-        toast.success(res.message);
+        toast.success(res.message || t("rate_success"));
         reset();
         setShowModal(false);
         queryClient.refetchQueries({ queryKey: ["contract-details"] });
       },
       onError: (err) => {
-        toast.error(err.message);
+        toast.error(err.message || t("rate_error"));
       },
     });
   };
@@ -101,7 +104,7 @@ export default function ContractRateModal({
       size="md"
     >
       <Modal.Header closeButton>
-        <h5>تقييم</h5>
+        <h6>{t("rate_title")}</h6>{" "}
       </Modal.Header>
 
       <Modal.Body>
@@ -110,7 +113,7 @@ export default function ContractRateModal({
             {/* Experience and Knowledge */}
             <div className="col-12 p-2">
               <div className="d-flex align-items-center justify-content-between">
-                <span>الخبرة والمعرفة</span>
+                <span>{t("rate_experience")}</span>
                 <Controller
                   name="experience_and_knowledge"
                   control={control}
@@ -133,7 +136,7 @@ export default function ContractRateModal({
             {/* Commitment to Time */}
             <div className="col-12 p-2">
               <div className="d-flex align-items-center justify-content-between">
-                <span>الإلتزام بالوقت</span>
+                <span>{t("rate_commitment")}</span>
                 <Controller
                   name="commitment_to_time"
                   control={control}
@@ -156,7 +159,7 @@ export default function ContractRateModal({
             {/* Quality of Performance */}
             <div className="col-12 p-2">
               <div className="d-flex align-items-center justify-content-between">
-                <span>جودة الأداء</span>
+                <span>{t("rate_quality")}</span>
                 <Controller
                   name="quality_of_performance"
                   control={control}
@@ -179,7 +182,7 @@ export default function ContractRateModal({
             {/* Respect and Treatment */}
             <div className="col-12 p-2">
               <div className="d-flex align-items-center justify-content-between">
-                <span>الاحترام والتعامل</span>
+                <span>{t("rate_respect")}</span>
                 <Controller
                   name="respect_and_treatment"
                   control={control}
@@ -202,8 +205,8 @@ export default function ContractRateModal({
             {/* Notes */}
             <div className="col-12 p-2">
               <TextField
-                label="ملاحظات"
-                placeholder="اكتب ملاحظاتك هنا..."
+                label={t("rate_notes")}
+                placeholder={t("rate_notes_placeholder")}
                 {...register("notes")}
                 error={!isRated ? errors.notes?.message : ""}
                 disabled={isRated}
@@ -223,7 +226,7 @@ export default function ContractRateModal({
                       reset();
                     }}
                   >
-                    إلغاء
+                    {t("rate_cancel")}
                   </CustomButton>
                   <CustomButton
                     type="submit"
@@ -231,7 +234,7 @@ export default function ContractRateModal({
                     size="large"
                     fullWidth
                   >
-                    إرسال
+                    {t("rate_submit")}
                   </CustomButton>
                 </div>
               </div>

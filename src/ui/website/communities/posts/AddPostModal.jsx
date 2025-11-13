@@ -93,7 +93,7 @@ export default function AddPostModal({ showModal, setShowModal }) {
       size="lg"
     >
       <Modal.Header closeButton>
-        <h5>{t("community.addPost")}</h5>
+        <h6>{t("community.addPost")}</h6>
       </Modal.Header>
       <Modal.Body>
         <form className="form_ui" onSubmit={handleSubmit(onSubmit)}>

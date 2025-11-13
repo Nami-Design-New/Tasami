@@ -1,17 +1,23 @@
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { axiosInstance } from "../../lib/axios";
 
-export default function useGetCountries({ search, pagenation = "on" } = {}) {
+export default function useGetCountries({ search, pagination = "on" } = {}) {
   const { data, isLoading, isError, fetchNextPage, hasNextPage } =
     useInfiniteQuery({
-      queryKey: ["countries", search, pagenation],
+      queryKey: ["countries", search, pagination],
       queryFn: async ({ pageParam = 1 }) => {
         const res = await axiosInstance.get("/countries", {
-          params: {
-            search,
-            pagenation,
-            page: pageParam,
-          },
+          params:
+            pagination === "off"
+              ? {
+                  search,
+                  pagination,
+                }
+              : {
+                  search,
+                  pagination,
+                  page: pageParam,
+                },
         });
 
         if (res.data.code !== 200) {
@@ -26,7 +32,10 @@ export default function useGetCountries({ search, pagenation = "on" } = {}) {
           : undefined;
       },
     });
+
   const countries = data?.pages?.flatMap((page) => page.data || []) || [];
+
+  console.log("countries hook", countries);
 
   return { data: countries, isLoading, isError, fetchNextPage, hasNextPage };
 }

@@ -21,9 +21,7 @@ export default function NotificationPageHeader() {
   return (
     <div className="d-flex justify-content-between align-items-center mb-3">
       <div className="platform-header m-0">
-        <RoundedBackButton onClick={() => navigate("/")}>
-          <i className="fa-solid fa-angle-right"></i>
-        </RoundedBackButton>
+        <RoundedBackButton onClick={() => navigate("/")}></RoundedBackButton>
         <h2 className="platform-header__title">{t("notification.title")}</h2>
       </div>
       <CustomButton

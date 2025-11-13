@@ -20,7 +20,7 @@ export default function useGetCommunityChats() {
       const res = await axiosInstance.get("community-chat", {
         params: {
           community_id: id,
-          pagenation: "on",
+          pagination: "on",
           page: pageParam,
         },
       });

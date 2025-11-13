@@ -17,7 +17,7 @@ export default function AssistantsSidebar({ isGoal = false }) {
   const { categories, isLoading } = useGetcategories();
   const { cities, isCitiesLoading } = useGetCities({
     search: "",
-    pagenation: "off",
+    pagination: "off",
   });
   const { nationalities, isLoading: isNationaliesLoading } =
     useGetNationalities("", "off");

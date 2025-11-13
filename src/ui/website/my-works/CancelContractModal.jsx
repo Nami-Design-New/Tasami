@@ -87,7 +87,7 @@ export default function CancelContractModal({
   return (
     <Modal show={showModal} onHide={handleCancel} centered>
       <Modal.Header closeButton>
-        <h5>{t("cancelContract")}</h5>
+        <h6>{t("cancelContract")}</h6>
       </Modal.Header>
       <Modal.Body>
         <form className="form_ui" onSubmit={handleSubmit(onSubmit)}>

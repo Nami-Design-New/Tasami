@@ -48,7 +48,7 @@ export default function WorkOfferDetails({ showModal, setShowModal, offerId }) {
     <>
       <Modal show={showModal} onHide={() => setShowModal(false)} centered>
         <Modal.Header closeButton>
-          <h5>{t("works.myOffers.details.title")}</h5>
+          <h6>{t("works.myOffers.details.title")}</h6>
         </Modal.Header>
         <Modal.Body>
           {isLoading ? (

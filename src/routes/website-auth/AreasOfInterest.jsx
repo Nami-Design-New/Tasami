@@ -6,6 +6,7 @@ import TagItem from "../../ui/website-auth/TagItem";
 import CustomButton from "../../ui/CustomButton";
 import useGetcategories from "../../hooks/area-of-interests/useGetcategories";
 import useUpdateUserCategories from "../../hooks/area-of-interests/useUpdateUserCategories";
+import InterestsLoading from "../../ui/loading/InterestsLoading";
 
 export default function AreasOfInterest() {
   const navigate = useNavigate();
@@ -64,21 +65,11 @@ export default function AreasOfInterest() {
           <div className="area-of-interest">
             <Accordion defaultActiveKey="0">
               {isLoading ? (
-                <Accordion.Item eventKey="skeleton" key="skeleton">
-                  <Accordion.Header>
-                    <span>loading</span>
-                    <span className="arrow-icon">
-                      <i className="fa-solid fa-angle-left"></i>
-                    </span>
-                  </Accordion.Header>
-                  <AccordionBody>
-                    <div className="tag-list">
-                      {[...Array(5)].map((_, i) => (
-                        <div key={i} style={{ margin: "5px 0" }}></div>
-                      ))}
-                    </div>
-                  </AccordionBody>
-                </Accordion.Item>
+                <div>
+                  {Array.from({ length: 3 }, (_, i) => (
+                    <InterestsLoading key={i} />
+                  ))}
+                </div>
               ) : (
                 // Real Accordion Content
                 categories.map((category, index) => (

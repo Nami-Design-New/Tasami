@@ -20,7 +20,7 @@ export default function useGetGroupChats() {
       const res = await axiosInstance.get("group-chat", {
         params: {
           group_id: id,
-          pagenation: "on",
+          pagination: "on",
           page: pageParam,
         },
       });

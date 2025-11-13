@@ -88,7 +88,7 @@ export default function ConfirmPerformanceModal({ show, setShowModal, task }) {
       onClick={(e) => e.stopPropagation()}
     >
       <Modal.Header closeButton>
-        <h5>{t("confirmPerformance")}</h5>
+        <h6>{t("confirmPerformance")}</h6>
       </Modal.Header>
 
       <Modal.Body>

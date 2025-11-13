@@ -38,7 +38,11 @@ const getSchema = (t) =>
       then: (schema) =>
         schema
           .required(t("validation.required"))
-          .min(6, t("validation.passwordMin")),
+          .min(6, t("validation.passwordMin"))
+          .matches(
+            /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).+$/,
+            t("validation.passwordStrength")
+          ),
     }),
 
     confirmPassword: yup.string().when("wantChangePassword", {

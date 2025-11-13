@@ -1,7 +1,9 @@
 import { Modal } from "react-bootstrap";
 import StarRate from "../../../ModelComponent/common/StarRate";
+import { useTranslation } from "react-i18next";
 
 export default function RateShowModal({ showModal, setShowModal, contract }) {
+  const { t } = useTranslation();
   return (
     <Modal
       className="show-rate-modal"
@@ -11,7 +13,7 @@ export default function RateShowModal({ showModal, setShowModal, contract }) {
       size="md"
     >
       <Modal.Header closeButton>
-        <h5>عرض التقييم</h5>
+        <h6>{t("rate_view_title")}</h6>
       </Modal.Header>
       <Modal.Body>
         <div className="row">
@@ -27,25 +29,25 @@ export default function RateShowModal({ showModal, setShowModal, contract }) {
           </div>
           <div className="col-12 p-2">
             <div className="d-flex align-items-center justify-content-between">
-              <span>الخبرة والمعرفة</span>
+              <span>{t("rate_experience")}</span>
               <StarRate rating={contract?.rate?.experience_and_knowledge} />
             </div>
           </div>
           <div className="col-12 p-2">
             <div className="d-flex align-items-center justify-content-between">
-              <span>الإلتزام بالوقت</span>
+              <span>{t("rate_commitment")}</span>
               <StarRate rating={contract?.rate?.commitment_to_time} />
             </div>
           </div>
           <div className="col-12 p-2">
             <div className="d-flex align-items-center justify-content-between">
-              <span>جودة الأداء</span>
+              <span>{t("rate_quality")}</span>
               <StarRate rating={contract?.rate?.quality_of_performance} />
             </div>
           </div>
           <div className="col-12 p-2">
             <div className="d-flex align-items-center justify-content-between">
-              <span>الاحترام والتعامل</span>
+              <span>{t("rate_respect")}</span>
               <StarRate rating={contract?.rate?.respect_and_treatment} />
             </div>
           </div>

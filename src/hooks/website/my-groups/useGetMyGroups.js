@@ -1,7 +1,7 @@
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { axiosInstance } from "../../../lib/axios";
 
-export default function useGetMyGroups({ pagenation = "on" }) {
+export default function useGetMyGroups({ pagination = "on" }) {
   const {
     data: myGroups,
     isLoading,
@@ -15,7 +15,7 @@ export default function useGetMyGroups({ pagenation = "on" }) {
       const res = await axiosInstance.get("helper-groups", {
         params: {
           page: pageParam,
-          pagenation,
+          pagination,
         },
       });
 

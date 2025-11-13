@@ -70,7 +70,7 @@ export default function AddMeetingModal({ showModal, setShowModal }) {
       size="lg"
     >
       <Modal.Header closeButton>
-        <h5>{t("community.addMeeting")}</h5>
+        <h6>{t("community.addMeeting")}</h6>
       </Modal.Header>
 
       <Modal.Body>

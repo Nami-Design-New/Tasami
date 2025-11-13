@@ -128,7 +128,9 @@ export default function RenewContractModal({
   };
   return (
     <Modal show={showModal} onHide={() => setShowModal(false)} centered>
-      <Modal.Header closeButton>تمديد التعاقد</Modal.Header>
+      <Modal.Header closeButton>
+        <h6>{t("renew_modal_title")}</h6>
+      </Modal.Header>
       <Modal.Body>
         <form onSubmit={handleSubmit(onSubmit)} className="form_ui">
           <div className="row">
@@ -138,21 +140,20 @@ export default function RenewContractModal({
                 style={{ whiteSpace: "noWrap" }}
               >
                 <InputField
-                  label={"عدد ايام تمديد التعاقد"}
-                  placeholder="00"
+                  label={t("renew_month_label")}
+                  placeholder={t("renew_placeholder")}
                   {...register("month")}
                   icon={"/icons/month.svg"}
                 />
                 <InputField
-                  placeholder="00"
+                  label={t("renew_day_label")}
+                  placeholder={t("renew_placeholder")}
                   {...register("day")}
                   icon={"/icons/day.svg"}
                 />
               </div>
               <p className="mt-2" style={{ color: "gray" }}>
-                {t("website.platform.myAssistance.totalDuration", {
-                  duration: durationInDays,
-                })}
+                {t("renew_total_duration", { duration: durationInDays })}
               </p>
               <p className="error-text d-block">
                 {errors?.month?.message}
@@ -161,13 +162,12 @@ export default function RenewContractModal({
             </div>
 
             <div className="col-12 p-2">
-              <sapn>المبلغ المطلوب</sapn>
-              <span>{price}</span>
+              <sapn>{t("renew_total_amount")}</sapn> <span>{price}</span>{" "}
               <Currency />
             </div>
             <div className="col-12 p-2">
               <CustomButton loading={isPending} fullWidth size="large">
-                {t("send")}
+                {t("renew_send_button")}
               </CustomButton>{" "}
             </div>
           </div>
