@@ -9,11 +9,14 @@ import ConfirmDeleteModal from "../../../ui/modals/ConfirmationDeleteModal";
 import EditWorkGroupModal from "../../../ui/modals/EditWorkGroupModal";
 import ReusableDataTable from "../../../ui/table/ReusableDataTable";
 import TablePagination from "../../../ui/table/TablePagentaion";
+import { original } from "@reduxjs/toolkit";
 
 const columnHelper = createColumnHelper();
 
 const WorkingGroups = () => {
   const { t } = useTranslation();
+  const [workingGroupId, setWorkingGroupId] = useState();
+  const [workingGroupName, setWorkingGroupName] = useState();
 
   // -----------------------------
   // Pagination state
@@ -78,6 +81,7 @@ const WorkingGroups = () => {
   const tableData = useMemo(
     () =>
       workingGroups.map((wg) => ({
+        id: wg?.id,
         groupNumber: wg?.name,
         groupClassifications: wg?.type,
         region: wg?.region?.title,
@@ -138,21 +142,29 @@ const WorkingGroups = () => {
       }),
       columnHelper.accessor("actions", {
         header: t("dashboard.workGroup.table.actions"),
-        cell: () => (
-          <div className="table__actions">
-            <Link to={"/dashboard/shared-groups"}>
-              <i className="fa-solid fa-user-friends table__actions--details"></i>
-            </Link>
-            <i
-              className="fa-solid fa-edit table__actions--edit"
-              onClick={() => setShowModal(true)}
-            ></i>
-            <i
-              className="fa-solid fa-trash table__actions--delete"
-              onClick={() => setShowDeleteModal(true)}
-            ></i>
-          </div>
-        ),
+        cell: (info) => {
+          console.log(info);
+
+          return (
+            <div className="table__actions">
+              <Link to={"/dashboard/shared-groups"}>
+                <i className="fa-solid fa-user-friends table__actions--details"></i>
+              </Link>
+              <i
+                className="fa-solid fa-edit table__actions--edit"
+                onClick={() => {
+                  setShowModal(true);
+                  setWorkingGroupId(info?.row?.original?.id);
+                  setWorkingGroupName(info?.row?.original?.groupNumber);
+                }}
+              ></i>
+              <i
+                className="fa-solid fa-trash table__actions--delete"
+                onClick={() => setShowDeleteModal(true)}
+              ></i>
+            </div>
+          );
+        },
       }),
     ],
     [t]
@@ -201,7 +213,12 @@ const WorkingGroups = () => {
         </div>
       </div>
 
-      <EditWorkGroupModal setShowModal={setShowModal} showModal={showModal} />
+      <EditWorkGroupModal
+        setShowModal={setShowModal}
+        showModal={showModal}
+        workingGroupId={workingGroupId}
+        workingGroupName={workingGroupName}
+      />
       <ConfirmDeleteModal
         setShowDeleteModal={setShowDeleteModal}
         showDeleteModal={showDeleteModal}

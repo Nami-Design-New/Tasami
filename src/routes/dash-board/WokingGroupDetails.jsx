@@ -64,7 +64,7 @@ const WokingGroupDetails = () => {
     currentPage,
     lastPage,
     isLoading,
-  } = useGetWorkingGroupdetails("", page, pageSize);
+  } = useGetWorkingGroupdetails(id, "", page, pageSize);
 
   // -----------------------------
   // Chart Data Mappings

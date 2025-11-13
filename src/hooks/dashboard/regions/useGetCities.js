@@ -2,8 +2,6 @@ import { useInfiniteQuery } from "@tanstack/react-query";
 import { adminAxiosInstance } from "../../../lib/adminAxios";
 
 export default function useGetCities(countryId, enabled = true) {
-  console.log(countryId, enabled);
-
   const {
     data,
     isLoading: isCitiesLaoding,

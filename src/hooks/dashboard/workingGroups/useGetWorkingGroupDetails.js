@@ -1,17 +1,19 @@
 import { useQuery } from "@tanstack/react-query";
-import { useParams } from "react-router";
 import { adminAxiosInstance } from "../../../lib/adminAxios";
 
 export default function useGetWorkingGroupdetails(
+  workingGroupId,
   search = "",
   page = 1,
-  pageSize = 10
+  pageSize = 10,
+  enabled = true
 ) {
-  const { id } = useParams();
   const { data, isLoading, isError, refetch } = useQuery({
-    queryKey: ["working-group-detais", id, search, page, pageSize],
+    queryKey: ["working-group-detais", workingGroupId, search, page, pageSize],
     queryFn: async () => {
-      const res = await adminAxiosInstance.get(`dh-working-groups/${id}`);
+      const res = await adminAxiosInstance.get(
+        `dh-working-groups/${workingGroupId}`
+      );
       if (res.data.code !== 200) {
         throw new Error(res.data.error || "Error fetching Group Details");
       }
@@ -19,6 +21,7 @@ export default function useGetWorkingGroupdetails(
       return res.data;
     },
     keepPreviousData: true,
+    enabled,
   });
   console.log(data);
 
