@@ -33,6 +33,7 @@ import {
 } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import Loading from "../../../ui/loading/Loading";
+import useAddTaskWithAi from "../../../hooks/website/MyWorks/tasks/useAddTaskWithAi";
 
 // Sortable wrapper for TaskCard
 function SortableTask({ task }) {
@@ -75,6 +76,20 @@ export default function WorksTasks() {
   const { workDetails } = useGetWorkDetails(id);
   const { toggleGoalExe, isPending } = useGetToggleGoalExe();
   const { reorderTasks } = useReorderTasks();
+  const { addTaskWithAi, isAdding } = useAddTaskWithAi();
+
+  const handleAddTaskWithAi = (id) => {
+    addTaskWithAi(id, {
+      onSuccess: (res) => {
+        toast.success(res.message);
+        queryClient.refetchQueries({ queryKey: ["work-tasks"] });
+        queryClient.refetchQueries({ queryKey: ["work-details"] });
+      },
+      onError: (err) => {
+        toast.error(err?.message);
+      },
+    });
+  };
 
   useEffect(() => {
     if (goalTasks?.data) {
@@ -236,7 +251,6 @@ export default function WorksTasks() {
                 )}
               </>
             )}
-
             <CustomButton
               style={{ whiteSpace: "nowrap" }}
               size="large"
@@ -244,7 +258,22 @@ export default function WorksTasks() {
               onClick={() => setShowModal(true)}
             >
               {t("works.myTasks.addNew")}
-            </CustomButton>
+            </CustomButton>{" "}
+            {!workDetails?.goal?.ai_used_in_tasks && (
+              <CustomButton
+                type="button"
+                size="large"
+                onClick={() => handleAddTaskWithAi(workDetails?.id)}
+                loading={isAdding}
+                icon={<i className="fa-solid fa-sparkles"></i>}
+                style={{
+                  backgroundColor: "#FDCB2F",
+                  // marginTop: "12px",
+                }}
+              >
+                {t("generate")}
+              </CustomButton>
+            )}
           </div>
         )}
 
