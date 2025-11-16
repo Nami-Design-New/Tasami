@@ -24,13 +24,8 @@ const getSchema = (t) =>
     ),
     links: yup
       .array()
-      .of(
-        yup
-          .string()
-          .required(t("validation.required"))
-          .url(t("validation.invalidUrl"))
-      )
-      .min(1, t("validation.atLeastOneLink")),
+      .of(yup.string().url(t("validation.invalidUrl")))
+      .optional(),
     postType: yup.string().required(t("validation.typeRequired")),
   });
 

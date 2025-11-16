@@ -248,6 +248,11 @@
       "brand": "تسامي"
     }
   },
+  "nav": {
+    "start": "الانطلاق",
+    "myWorks": "أعمالي",
+    "myProfile": "حسابي"
+  },
   "pageHeaders": {
     "Notifications": " التنبيهات ",
     "Dashboard": " لوحة التحكم ",

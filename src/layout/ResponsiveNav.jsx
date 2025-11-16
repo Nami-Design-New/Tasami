@@ -8,20 +8,25 @@ function ResponsiveNav() {
 
   return (
     <div className="small_menu">
-      {" "}
       <NavLink to="/" className="menu_item">
         <img src="/icons/navlogo.svg" alt="fav" />
-        <span>الانطلاق</span>
+        <span>{t("nav.start")}</span>
       </NavLink>
+
       {user && (
         <>
-          <NavLink aria-label="My Works" to="/my-works" className="menu_item">
+          <NavLink
+            aria-label={t("nav.myWorks")}
+            to="/my-works"
+            className="menu_item"
+          >
             <i className="fa-solid fa-file-lines"></i>
-            <span>أعمالي </span>
+            <span>{t("nav.myWorks")}</span>
           </NavLink>
+
           <NavLink to="/my-profile" className="menu_item">
             <i className="fa-regular fa-user"></i>
-            <span>حسابي </span>
+            <span>{t("nav.myProfile")}</span>
           </NavLink>
         </>
       )}
