@@ -80,10 +80,11 @@ export default function Header() {
               style={{ whiteSpace: "nowrap" }}
               onClick={() => {
                 user.about ? navigate("my-platform") : setShowModal(true);
+                setOpenMenu(false);
               }}
               className="mobile-only"
             >
-              <i className="fa-regular fa-robot"></i>
+              <i className="fa-regular fa-robot mx-1"></i>
               {t("profile.assistant")}
             </CustomButton>
           )}

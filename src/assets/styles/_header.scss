@@ -165,9 +165,9 @@
             transform: translate(-50%, -50%);
           }
         }
-        @media (max-width: 992px) {
-          display: none;
-        }
+        // @media (max-width: 992px) {
+        //   display: none;
+        // }
       }
       .user_dropdown {
         width: 50px;
@@ -334,9 +334,8 @@
       }
       img {
         display: inline-block;
-        background-color: $second;
-        -webkit-mask: url("/icons/navlogo.svg") no-repeat center / contain;
-        mask: url("/icons/navlogo.svg") no-repeat center / contain;
+        filter: brightness(0) saturate(100%) invert(69%) sepia(37%)
+          saturate(1883%) hue-rotate(165deg) brightness(100%) contrast(102%);
       }
     }
 

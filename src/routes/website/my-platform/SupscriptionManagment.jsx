@@ -16,6 +16,7 @@ export default function SupscriptionManagment() {
   const [showModal, setShowModal] = useState(false);
   const [selectedDuration, setSelectedDuration] = useState("half_yearly");
   const [selectedPlan, setSelectedPlan] = useState(null);
+  console.log(selectedDuration);
 
   return (
     <section className="subscription-section">
@@ -27,11 +28,11 @@ export default function SupscriptionManagment() {
         options={[
           {
             label: t("website.platform.subscription.yearly"),
-            value: "half_yearly",
+            value: "yearly",
           },
           {
             label: t("website.platform.subscription.halfYearly"),
-            value: "yearly",
+            value: "half_yearly",
           },
         ]}
         value={selectedDuration}
