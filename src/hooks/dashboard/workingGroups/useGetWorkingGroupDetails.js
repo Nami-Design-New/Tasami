@@ -26,6 +26,7 @@ export default function useGetWorkingGroupdetails(
   console.log(data);
 
   return {
+    workinGroupData: data?.group,
     workingGoupDetails: data
       ? [
           data.customer_services,

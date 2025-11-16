@@ -26,6 +26,7 @@ import {
 import { useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import TableFilter from "./TableFilter";
+import { Placeholder } from "react-bootstrap";
 
 // -----------------------------
 // DnD Row Handle Component
@@ -87,6 +88,7 @@ const ReusableDataTable = ({
   lang = "en",
   rowDnD = false,
   children,
+  isLoading = false,
 }) => {
   const { t } = useTranslation();
 
@@ -253,10 +255,55 @@ const ReusableDataTable = ({
                   </tr>
                 ))}
               </thead>
-
               {/* Table Body Rows */}
-              <tbody>
+              {/* <tbody> {
+                }
                 {rowDnD ? (
+                  <SortableContext
+                    items={dataIds}
+                    strategy={verticalListSortingStrategy}
+                  >
+                    {table.getRowModel().rows.map((row) => (
+                      <DraggableRow key={row.id} row={row} />
+                    ))}
+                  </SortableContext>
+                ) : (
+                  table.getRowModel().rows.map((row) => (
+                    <tr key={row.id}>
+                      {row.getVisibleCells().map((cell) => (
+                        <td key={cell.id} width={cell.column.getSize()}>
+                          {flexRender(
+                            cell.column.columnDef.cell,
+                            cell.getContext()
+                          )}
+                        </td>
+                      ))}
+                    </tr>
+                  ))
+                )}
+              </tbody> */}{" "}
+              <tbody>
+                {isLoading ? (
+                  // Skeleton rows using React-Bootstrap
+                  Array.from({ length: pageSize }).map((_, rowIndex) => (
+                    <tr key={rowIndex}>
+                      {rowDnD && (
+                        <td className="text-center">
+                          <Placeholder as="span" animation="glow">
+                            <Placeholder xs={2} />
+                          </Placeholder>
+                        </td>
+                      )}
+                      {columns.map((col, colIndex) => (
+                        <td key={colIndex}>
+                          <Placeholder as="span" animation="glow">
+                            <Placeholder xs={12} />
+                          </Placeholder>
+                        </td>
+                      ))}
+                    </tr>
+                  ))
+                ) : rowDnD ? (
                   <SortableContext
                     items={dataIds}
                     strategy={verticalListSortingStrategy}

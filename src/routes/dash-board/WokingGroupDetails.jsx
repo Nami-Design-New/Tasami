@@ -8,13 +8,18 @@ import Header from "../../ui/ModelComponent/Header";
 import ReusableDataTable from "../../ui/table/ReusableDataTable";
 import TablePagination from "../../ui/table/TablePagentaion";
 import useGetWorkingGroupdetails from "../../hooks/dashboard/workingGroups/useGetWorkingGroupDetails";
+import Loading from "../../ui/loading/Loading";
+import { PAGE_SIZE } from "../../utils/constants";
 
 const columnHelper = createColumnHelper();
 
 const WokingGroupDetails = () => {
   const { t } = useTranslation();
   const { id } = useParams();
+
+  // -----------------------------
   // Chart categories
+  // -----------------------------
   const usersCategories = [
     t("dashboard.workGroupDetails.charts.total"),
     t("dashboard.workGroupDetails.charts.active"),
@@ -53,18 +58,92 @@ const WokingGroupDetails = () => {
   // Pagination State
   // -----------------------------
   const [page, setPage] = useState(1);
-  const [pageSize, setPageSize] = useState(1);
+  const [pageSize, setPageSize] = useState(PAGE_SIZE);
 
   // -----------------------------
   // Data Fetch
   // -----------------------------
   const {
+    workinGroupData,
     workingGoupDetails,
     workingMembers,
     currentPage,
     lastPage,
     isLoading,
   } = useGetWorkingGroupdetails(id, "", page, pageSize);
+
+  // -----------------------------
+  // Table Columns
+  // -----------------------------
+  const columns = useMemo(
+    () => [
+      columnHelper.accessor("first_name", {
+        header: t("dashboard.workGroupDetails.columns.firstName"),
+      }),
+      columnHelper.accessor("family_name", {
+        header: t("dashboard.workGroupDetails.columns.familyName"),
+      }),
+      columnHelper.accessor("code", {
+        header: t("dashboard.workGroupDetails.columns.code"),
+        cell: (info) => (
+          <Link
+            to={`/dashboard/employee-details/${info.getValue()}`}
+            className="link-styles"
+          >
+            {info.getValue()}
+          </Link>
+        ),
+      }),
+      columnHelper.accessor("job_title", {
+        header: t("dashboard.workGroupDetails.columns.jobTitle"),
+      }),
+      columnHelper.accessor("nationality.title", {
+        header: t("dashboard.workGroupDetails.columns.nationality"),
+      }),
+      columnHelper.accessor("region_id.title", {
+        header: t("dashboard.workGroupDetails.columns.region"),
+      }),
+      columnHelper.accessor("country_id.title", {
+        header: t("dashboard.workGroupDetails.columns.country"),
+      }),
+      columnHelper.accessor("city_id.title", {
+        header: t("dashboard.workGroupDetails.columns.city"),
+      }),
+      columnHelper.accessor("status", {
+        header: t("dashboard.workGroupDetails.columns.status"),
+        cell: (info) => {
+          const value = info.getValue();
+          const colorMap = {
+            active: "#28a745",
+            inactive: "#007bff",
+            stopped: "#dc3545",
+            pending: "#ffc107",
+          };
+          return (
+            <Badge
+              pill
+              className="custom-badge"
+              style={{
+                backgroundColor: colorMap[value] || "#6c757d",
+                color: "#fff",
+              }}
+            >
+              {t(`dashboard.workGroupDetails.status.${value}`)}
+            </Badge>
+          );
+        },
+      }),
+      columnHelper.accessor("status_date", {
+        header: t("dashboard.workGroupDetails.columns.statusDate"),
+      }),
+      columnHelper.accessor("status_time", {
+        header: t("dashboard.workGroupDetails.columns.statusTime"),
+      }),
+    ],
+    [t]
+  );
+
+  if (isLoading) return <Loading />;
 
   // -----------------------------
   // Chart Data Mappings
@@ -148,76 +227,10 @@ const WokingGroupDetails = () => {
     ];
   }
 
-  // -----------------------------
-  // Table Columns
-  // -----------------------------
-  const columns = useMemo(
-    () => [
-      columnHelper.accessor("first_name", {
-        header: t("dashboard.workGroupDetails.columns.firstName"),
-      }),
-      columnHelper.accessor("family_name", {
-        header: t("dashboard.workGroupDetails.columns.familyName"),
-      }),
-      columnHelper.accessor("code", {
-        header: t("dashboard.workGroupDetails.columns.code"),
-        cell: (info) => (
-          <Link
-            to={`/dashboard/employee-details/${info.getValue()}`}
-            className="link-styles"
-          >
-            {info.getValue()}
-          </Link>
-        ),
-      }),
-      columnHelper.accessor("job_title", {
-        header: t("dashboard.workGroupDetails.columns.jobTitle"),
-      }),
-      columnHelper.accessor("nationality.title", {
-        header: t("dashboard.workGroupDetails.columns.nationality"),
-      }),
-      columnHelper.accessor("region_id.title", {
-        header: t("dashboard.workGroupDetails.columns.region"),
-      }),
-      columnHelper.accessor("country_id.title", {
-        header: t("dashboard.workGroupDetails.columns.country"),
-      }),
-      columnHelper.accessor("city_id.title", {
-        header: t("dashboard.workGroupDetails.columns.city"),
-      }),
-      columnHelper.accessor("status", {
-        header: t("dashboard.workGroupDetails.columns.status"),
-        cell: (info) => {
-          const value = info.getValue();
-          const colorMap = {
-            active: "#28a745",
-            inactive: "#007bff",
-            stopped: "#dc3545",
-            pending: "#ffc107",
-          };
-          return (
-            <Badge
-              pill
-              className="custom-badge"
-              style={{
-                backgroundColor: colorMap[value] || "#6c757d",
-                color: "#fff",
-              }}
-            >
-              {t(`dashboard.workGroupDetails.status.${value}`)}
-            </Badge>
-          );
-        },
-      }),
-      columnHelper.accessor("status_date", {
-        header: t("dashboard.workGroupDetails.columns.statusDate"),
-      }),
-      columnHelper.accessor("status_time", {
-        header: t("dashboard.workGroupDetails.columns.statusTime"),
-      }),
-    ],
-    [t]
-  );
+  console.log(workingMembers);
+  console.log(workingGoupDetails);
+  console.log(workinGroupData);
+  const { name } = workinGroupData;
 
   // -----------------------------
   // Render
@@ -225,7 +238,7 @@ const WokingGroupDetails = () => {
   return (
     <section>
       <div className="d-flex align-items-center w-100 px-2 justify-content-between">
-        <Header title={t("dashboard.workGroupDetails.title", { id })} />{" "}
+        <Header title={t("dashboard.workGroupDetails.title", { name })} />{" "}
       </div>
 
       <div className="row">
@@ -251,7 +264,7 @@ const WokingGroupDetails = () => {
             setPage={setPage}
             pageSize={pageSize}
             setPageSize={setPageSize}
-            title={t("dashboard.workGroupDetails.tableTitle", { id })}
+            title={t("dashboard.workGroupDetails.tableTitle", { name })}
             searchPlaceholder={t(
               "dashboard.workGroupDetails.searchPlaceholder"
             )}

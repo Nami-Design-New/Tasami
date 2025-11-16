@@ -9,12 +9,16 @@ import ConfirmDeleteModal from "../../../ui/modals/ConfirmationDeleteModal";
 import EditWorkGroupModal from "../../../ui/modals/EditWorkGroupModal";
 import ReusableDataTable from "../../../ui/table/ReusableDataTable";
 import TablePagination from "../../../ui/table/TablePagentaion";
-import { original } from "@reduxjs/toolkit";
+import useDeleteGroup from "../../../hooks/dashboard/workingGroups/useDeleteGroup";
+import { toast } from "sonner";
+import { useQueryClient } from "@tanstack/react-query";
+import { PAGE_SIZE } from "../../../utils/constants";
 
 const columnHelper = createColumnHelper();
 
 const WorkingGroups = () => {
   const { t } = useTranslation();
+  const queryClient = useQueryClient();
   const [workingGroupId, setWorkingGroupId] = useState();
   const [workingGroupName, setWorkingGroupName] = useState();
 
@@ -22,7 +26,13 @@ const WorkingGroups = () => {
   // Pagination state
   // -----------------------------
   const [page, setPage] = useState(1);
-  const [pageSize, setPageSize] = useState(4);
+  const [pageSize, setPageSize] = useState(PAGE_SIZE);
+
+  // -----------------------------
+  // Modal state
+  // -----------------------------
+  const [showModal, setShowModal] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
 
   // -----------------------------
   // Fetch working groups via hook
@@ -30,8 +40,10 @@ const WorkingGroups = () => {
   const { workingGroups, stats, currentPage, lastPage, isLoading } =
     useGetWorkingGroups("", page, pageSize);
 
-  const [showModal, setShowModal] = useState(false);
-  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  // -----------------------------
+  // delete working group
+  // -----------------------------
+  const { deleteWorkingGroup, isDeleting } = useDeleteGroup();
 
   const statsData = [
     {
@@ -103,7 +115,7 @@ const WorkingGroups = () => {
         header: t("dashboard.workGroup.table.groupNumber"),
         cell: (info) => (
           <Link
-            to={`/dashboard/working-group/${info.getValue()}`}
+            to={`/dashboard/working-group/${info?.row?.original?.id}`}
             className="link-styles"
           >
             {info.getValue()}
@@ -147,7 +159,7 @@ const WorkingGroups = () => {
 
           return (
             <div className="table__actions">
-              <Link to={"/dashboard/shared-groups"}>
+              <Link to={`/dashboard/shared-groups/${info?.row?.original?.id}`}>
                 <i className="fa-solid fa-user-friends table__actions--details"></i>
               </Link>
               <i
@@ -158,10 +170,15 @@ const WorkingGroups = () => {
                   setWorkingGroupName(info?.row?.original?.groupNumber);
                 }}
               ></i>
-              <i
-                className="fa-solid fa-trash table__actions--delete"
-                onClick={() => setShowDeleteModal(true)}
-              ></i>
+              {
+                <i
+                  className="fa-solid fa-trash table__actions--delete"
+                  onClick={() => {
+                    setShowDeleteModal(true);
+                    setWorkingGroupId(info?.row?.original?.id);
+                  }}
+                ></i>
+              }
             </div>
           );
         },
@@ -201,7 +218,7 @@ const WorkingGroups = () => {
             lang="ar"
             filter={false}
             searchPlaceholder={t("dashboard.workGroup.table.searchPlaceholder")}
-            loading={isLoading}
+            isLoading={isLoading}
           >
             <TablePagination
               currentPage={page}
@@ -222,6 +239,21 @@ const WorkingGroups = () => {
       <ConfirmDeleteModal
         setShowDeleteModal={setShowDeleteModal}
         showDeleteModal={showDeleteModal}
+        onConfirm={() =>
+          deleteWorkingGroup(workingGroupId, {
+            onSuccess: (res) => {
+              toast.success(res?.message);
+              queryClient.invalidateQueries({
+                queryKey: ["dashboard-working-group"],
+              });
+              setShowDeleteModal(false);
+            },
+            onError: (err) => {
+              toast.error(err?.message);
+            },
+          })
+        }
+        loading={isDeleting}
       />
     </section>
   );

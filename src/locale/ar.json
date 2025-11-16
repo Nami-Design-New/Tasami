@@ -1050,6 +1050,13 @@
     "employment_data": "البيانات الوظيفيه",
     "performance_reports": "تقارير الاداء",
     "brand": "تسامي",
+    "noPermissions": "لا توجد صلاحيات متاحة",
+    "noSharedGroups": "لا توجد مجموعات مشتركة",
+    "confirmModal": {
+      "message": "أنت على وشك الحذف. عند المتابعة، لن تتمكن من العودة. هل تريد تأكيد الحذف؟",
+      "cancel": "إلغاء",
+      "delete": "حذف"
+    },
     "notifications": {
       "title": "التنبيهات",
       "searchPlaceholder": "البحث في قائمة التنبيهات",
@@ -1314,8 +1321,15 @@
       "editProfile": "تعديل الملف الشخصي",
       "edit": "تعديل"
     },
+    "listManagement": {
+      "newGroup": "مجموعة جديدة",
+      "newSector": "قطاع جديد",
+      "newField": "مجال جديد",
+      "newSubject": "موضوع جديد"
+    },
     "workGroup": {
-      "title": "مجموعه جديده",
+      "addTitle": "مجموعه جديده",
+      "editTitle": "تعديل المجموعة",
       "groupType": "تصنيف المجموعه",
       "operational": "تشغيليه",
       "managerial": "ادارية",
@@ -1324,6 +1338,7 @@
       "country": "الدولة",
       "city": "المدينة",
       "add": "إضافة",
+      "update": "تحديث",
       "validation": {
         "groupType": "تصنيف المجموعة مطلوب",
         "region": "الإقليم مطلوب",
@@ -1360,8 +1375,8 @@
       "saudiArabia": "المملكة العربية السعودية"
     },
     "workGroupDetails": {
-      "title": "تفاصيل فريق العمل رقم {{id}}",
-      "tableTitle": "حسابات فريق العمل رقم {{id}}",
+      "title": "تفاصيل فريق العمل رقم {{name}}",
+      "tableTitle": "حسابات فريق العمل رقم {{name}}",
       "searchPlaceholder": "بحث في المجموعة",
       "columns": {
         "firstName": "الاسم",
@@ -1392,6 +1407,35 @@
         "inactive": "غير نشط",
         "stopped": "موقوف",
         "pending": "قيد الانتظار"
+      }
+    },
+    "sharedGroups": {
+      "title": "المجموعات المشتركة",
+      "searchPlaceholder": "البحث عن مجموعة ...",
+      "employeesCount": "عدد الموظفين",
+      "supervisorsCount": "عدد المشرفين",
+      "executivesCount": "عدد التنفيذيين",
+      "leadersCount": "عدد القادة",
+      "managersCount": "عدد المدراء",
+      "tasksProgress": "إنجاز المهام",
+      "creationDate": "تاريخ الإنشاء"
+    },
+    "availableGroups": {
+      "title": "المجموعات المتاحة للإضافة",
+      "searchPlaceholder": "البحث في مجموعات العمل ...",
+      "columns": {
+        "groupNumber": "رقم المجموعة",
+        "classification": "تصنيف المجموعة",
+        "region": "الإقليم",
+        "location": "القطاع",
+        "city": "المدينة",
+        "createDate": "تاريخ الإنشاء",
+        "executives": "عدد التنفيذيين",
+        "leaders": "عدد القادة",
+        "managers": "عدد المدراء",
+        "supervisors": "عدد المشرفين",
+        "employees": "عدد الموظفين",
+        "actions": "الإجراءات"
       }
     }
   }

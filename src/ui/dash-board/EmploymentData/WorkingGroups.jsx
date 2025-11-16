@@ -1,22 +1,32 @@
+import { useSelector } from "react-redux";
 import { Link } from "react-router";
-
-const groups = ["AG-000254", "AG-000254", "AG-000254"];
+import EmptySection from "../../EmptySection";
+import { useTranslation } from "react-i18next";
 
 const WorkingGroups = () => {
+  const { t } = useTranslation();
+  const { user } = useSelector((state) => state.adminAuth);
+
   return (
-    <ul className="permission-list">
-      {groups.map((permission, index) => (
-        <li className="permission-list__item" key={index}>
-          <i className="fa-solid fa-badge-check permission-list__icon"></i>
-          <Link
-            to={`/dashboard/working-group/${permission}`}
-            className="permission-list__label group "
-          >
-            {permission}
-          </Link>
-        </li>
-      ))}
-    </ul>
+    <>
+      {user.shared_groups.length > 0 ? (
+        <ul className="permission-list">
+          {user?.shared_groups?.map((group, index) => (
+            <li className="permission-list__item" key={index}>
+              <i className="fa-solid fa-badge-check permission-list__icon"></i>
+              <Link
+                to={`/dashboard/working-group/${group}`}
+                className="permission-list__label group"
+              >
+                {group}
+              </Link>
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <EmptySection message={t("dashboard.noSharedGroups")} />
+      )}
+    </>
   );
 };
 

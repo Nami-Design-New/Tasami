@@ -1088,6 +1088,13 @@
     "employment_data": "Employment Data",
     "performance_reports": "Performance Reports",
     "brand": "Tasami",
+    "noPermissions": "No permissions available",
+    "noSharedGroups": "No shared groups available",
+    "confirmModal": {
+      "message": "You are about to delete this item. Once you continue, you will not be able to undo this action. Do you want to confirm the deletion?",
+      "cancel": "Cancel",
+      "delete": "Delete"
+    },
     "notifications": {
       "title": "Notifications",
       "searchPlaceholder": "Search notifications list",
@@ -1341,8 +1348,15 @@
       "editProfile": "Edit profile",
       "edit": "Edit"
     },
+    "listManagement": {
+      "newGroup": "New Group",
+      "newSector": "New Sector",
+      "newField": "New Field",
+      "newSubject": "New Subject"
+    },
     "workGroup": {
-      "title": "New Work Group",
+      "addTitle": "New Work Group",
+      "editTitle": "Edit Work Group",
       "groupType": "Group Classification",
       "operational": "Operational",
       "managerial": "Managerial",
@@ -1351,6 +1365,7 @@
       "country": "Country",
       "city": "City",
       "add": "Add",
+      "update": "Update",
       "validation": {
         "groupType": "Group type is required",
         "region": "Region is required",
@@ -1387,8 +1402,8 @@
       "saudiArabia": "Saudi Arabia"
     },
     "workGroupDetails": {
-      "title": "Work Group Details No. {{id}}",
-      "tableTitle": "Work Group Accounts No. {{id}}",
+      "title": "Work Group Details No. {{name}}",
+      "tableTitle": "Work Group Accounts No. {{name}}",
       "searchPlaceholder": "Search in group...",
       "columns": {
         "firstName": "First Name",
@@ -1419,6 +1434,36 @@
         "inactive": "Inactive",
         "stopped": "Suspended",
         "pending": "Pending"
+      }
+    },
+    "sharedGroups": {
+      "title": "Shared Groups",
+      "searchPlaceholder": "Search for a group...",
+      "employeesCount": "Employees",
+      "supervisorsCount": "Supervisors",
+      "executivesCount": "Executives",
+      "leadersCount": "Leaders",
+      "managersCount": "Managers",
+      "tasksProgress": "Task Progress",
+      "creationDate": "Creation Date"
+    },
+    "availableGroups": {
+      "title": "Available Groups for Addition",
+      "searchPlaceholder": "Search in working groups...",
+
+      "columns": {
+        "groupNumber": "Group Number",
+        "classification": "Classification",
+        "region": "Region",
+        "location": "Location",
+        "city": "City",
+        "createDate": "Creation Date",
+        "executives": "Executives",
+        "leaders": "Leaders",
+        "managers": "Managers",
+        "supervisors": "Supervisors",
+        "employees": "Employees",
+        "actions": "Actions"
       }
     }
   }

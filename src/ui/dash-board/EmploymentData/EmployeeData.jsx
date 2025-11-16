@@ -1,8 +1,10 @@
 import { useTranslation } from "react-i18next";
 import FormWrapper from "../../forms/FormWrapper";
+import { useSelector } from "react-redux";
 
 const EmployeeData = () => {
   const { t } = useTranslation();
+  const { user } = useSelector((state) => state.adminAuth);
 
   return (
     <FormWrapper title={t("dashboard.employeeProfile.employeeData.title")}>
@@ -13,19 +15,19 @@ const EmployeeData = () => {
               <h6>
                 {t("dashboard.employeeProfile.employeeData.description")}:
               </h6>
-              <p>تنفيذي</p>
+              <p>{user?.role?.title}</p>
             </div>
           </div>
           <div className="col-12 col-md-6 col-xxl-4 p-2">
             <div className="employee__data--item">
               <h6>{t("dashboard.employeeProfile.employeeData.account")}:</h6>
-              <p>S-120122-000001</p>
+              <p>{user?.code}</p>
             </div>
           </div>
           <div className="col-12 col-md-6 col-xxl-4 p-2">
             <div className="employee__data--item">
               <h6>{t("dashboard.employeeProfile.employeeData.idNumber")}:</h6>
-              <p>01-014-005</p>
+              <p>{user?.id_number}</p>
             </div>
           </div>
           <div className="col-12 col-md-6 col-xxl-4 p-2">
@@ -33,25 +35,25 @@ const EmployeeData = () => {
               <h6>
                 {t("dashboard.employeeProfile.employeeData.groupNumber")}:
               </h6>
-              <p>01-014-005</p>
+              <p>{user?.id_number}</p>
             </div>
           </div>
           <div className="col-12 col-md-6 col-xxl-4 p-2">
             <div className="employee__data--item">
               <h6>{t("dashboard.employeeProfile.employeeData.region")}:</h6>
-              <p>الشرق الأوسط</p>
+              <p>{user?.region_id?.title}</p>
             </div>
           </div>
           <div className="col-12 col-md-6 col-xxl-4 p-2">
             <div className="employee__data--item">
               <h6>{t("dashboard.employeeProfile.employeeData.location")}:</h6>
-              <p>السعودية</p>
+              <p>{user?.country_id?.title}</p>
             </div>
           </div>
           <div className="col-12 col-md-6 col-xxl-4 p-2">
             <div className="employee__data--item">
               <h6>{t("dashboard.employeeProfile.employeeData.city")}:</h6>
-              <p>الرياض</p>
+              <p>{user?.city_id?.title}</p>
             </div>
           </div>
           <div className="col-12 col-md-6 col-xxl-4 p-2">
@@ -65,7 +67,7 @@ const EmployeeData = () => {
               <h6>
                 {t("dashboard.employeeProfile.employeeData.accountStatus")}:
               </h6>
-              <p>نشط</p>
+              <p>{user?.status}</p>
             </div>
           </div>
           <div className="col-12 col-md-6 col-xxl-4 p-2">
@@ -73,7 +75,7 @@ const EmployeeData = () => {
               <h6>
                 {t("dashboard.employeeProfile.employeeData.accountStatusDate")}:
               </h6>
-              <p>15-07-2024</p>
+              <p>{user?.status_date}</p>
             </div>
           </div>
           <div className="col-12 col-md-6 col-xxl-4 p-2">
@@ -81,7 +83,7 @@ const EmployeeData = () => {
               <h6>
                 {t("dashboard.employeeProfile.employeeData.accountStatusTime")}:
               </h6>
-              <p>08:55</p>
+              <p>{user?.status_time}</p>
             </div>
           </div>
         </div>

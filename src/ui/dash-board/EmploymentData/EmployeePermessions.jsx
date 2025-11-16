@@ -1,13 +1,21 @@
+import { useSelector } from "react-redux";
 import PermissionList from "./PermissionList";
+import EmptySection from "../../EmptySection";
+import { useTranslation } from "react-i18next";
 
 const EmployeePermissions = () => {
-  const permissions = [
-    "ايقاف حسابات المستخدمين",
-    "ايقاف حسابات الموظفين",
-    "التواصل مع المستخدمين (المحادثات)",
-  ];
+  const { t } = useTranslation();
+  const { user } = useSelector((state) => state.adminAuth);
 
-  return <PermissionList permissions={permissions} />;
+  return (
+    <>
+      {user?.permissions.length > 0 ? (
+        <PermissionList permissions={user?.permissions} />
+      ) : (
+        <EmptySection message={t("dashboard.noPermissions")} />
+      )}
+    </>
+  );
 };
 
 export default EmployeePermissions;

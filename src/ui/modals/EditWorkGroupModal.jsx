@@ -225,23 +225,24 @@
 // export default EditWorkGroupModal;
 // src/ui/modals/EditWorkGroupModal.jsx
 import { yupResolver } from "@hookform/resolvers/yup";
+import { useQueryClient } from "@tanstack/react-query";
 import { Modal } from "react-bootstrap";
-import { useForm, Controller } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
+import { useTranslation } from "react-i18next";
+import { toast } from "sonner";
 import * as yup from "yup";
+import useGetCities from "../../hooks/dashboard/regions/useGetCities";
+import useGetCountries from "../../hooks/dashboard/regions/useGetCountries";
+import useGetRegions from "../../hooks/dashboard/regions/useGetRegions";
+import useAddNewGroup from "../../hooks/dashboard/workingGroups/useAddNewGroup";
+import useEditWorkingGroup from "../../hooks/dashboard/workingGroups/useEditWorkingGroup";
+import useGetWorkingGroupdetails from "../../hooks/dashboard/workingGroups/useGetWorkingGroupDetails";
 import { WORKING_GROPUS_CALSSIFICATIONS } from "../../utils/constants";
 import CustomButton from "../CustomButton";
-import TabRadioGroup from "../TabRadioGroup";
-import useGetRegions from "../../hooks/dashboard/regions/useGetRegions";
 import SelectFieldReactSelect from "../forms/SelectFieldReactSelect";
-import useGetCountries from "../../hooks/dashboard/regions/useGetCountries";
-import { useTranslation } from "react-i18next";
-import useGetCities from "../../hooks/dashboard/regions/useGetCities";
-import useAddNewGroup from "../../hooks/dashboard/workingGroups/useAddNewGroup";
-import { toast } from "sonner";
-import { useQueryClient } from "@tanstack/react-query";
-import useEditWorkingGroup from "../../hooks/dashboard/workingGroups/useEditWorkingGroup";
+import TabRadioGroup from "../TabRadioGroup";
 import { useEffect } from "react";
-import useGetWorkingGroupdetails from "../../hooks/dashboard/workingGroups/useGetWorkingGroupDetails";
+import SpinnerLoader from "../loading/SpinnerLoader";
 
 const defaultValues = {
   groupType: WORKING_GROPUS_CALSSIFICATIONS[0],
@@ -286,13 +287,11 @@ const EditWorkGroupModal = ({
 
   // Fetch working group details in edit mode
   const {
-    workingGoupDetails,
+    workinGroupData,
     workingMembers,
-    isError,
-    refetch,
     isLoading: isGroupLoading,
   } = useGetWorkingGroupdetails(
-    workingGroupName,
+    workingGroupId,
     "",
     1,
     10,
@@ -300,19 +299,19 @@ const EditWorkGroupModal = ({
   );
   console.log(workingMembers);
 
-  // // Prefill form when editing
-  // useEffect(() => {
-  //   if (isEditMode && workingGroupData) {
-  //     reset({
-  //       groupType: workingGroupData?.type || WORKING_GROPUS_CALSSIFICATIONS[0],
-  //       region: workingGroupData?.region_id || "",
-  //       country: workingGroupData?.country_id || "",
-  //       city: workingGroupData?.city_id || "",
-  //     });
-  //   } else if (!isEditMode) {
-  //     reset(defaultValues);
-  //   }
-  // }, [workingGroupData, isEditMode, reset]);
+  // Prefill form when editing
+  useEffect(() => {
+    if (isEditMode && workinGroupData) {
+      reset({
+        groupType: workinGroupData?.type || WORKING_GROPUS_CALSSIFICATIONS[0],
+        region: workinGroupData?.region?.id || "",
+        country: workinGroupData?.country?.id || "",
+        city: workinGroupData?.city?.id || "",
+      });
+    } else if (!isEditMode) {
+      reset(defaultValues);
+    }
+  }, [workinGroupData, isEditMode, reset]);
 
   // Fetch region/country/city lists
   const { regions, isLoading, fetchNextPage, hasNextPage, isFetchingNextPage } =
@@ -334,13 +333,13 @@ const EditWorkGroupModal = ({
     isFetchingCitiesNextPage,
   } = useGetCities(selectedCountry, showModal && !!selectedCountry);
 
-  // ✅ Mutations
+  //  Mutations
   const { addNewWorkingGroup, isPending } = useAddNewGroup();
   const { editWorkingGroup, isPending: isEditing } = useEditWorkingGroup();
 
-  // ✅ Submit handler
+  // Submit handler
   const onSubmit = (data) => {
-    const payload = {
+    let payload = {
       type: data.groupType,
       region_id: data.region,
       country_id: data.country,
@@ -348,7 +347,7 @@ const EditWorkGroupModal = ({
     };
 
     const onSuccess = (res) => {
-      toast.success(res.data.message);
+      toast.success(res?.message);
       setShowModal(false);
       reset(defaultValues);
       queryClient.invalidateQueries({
@@ -361,7 +360,12 @@ const EditWorkGroupModal = ({
     };
 
     if (isEditMode) {
-      editWorkingGroup({ id: workingGroupId, payload }, { onSuccess, onError });
+      payload = {
+        ...payload,
+        _method: "put",
+        id: workingGroupId,
+      };
+      editWorkingGroup(payload, { onSuccess, onError });
     } else {
       addNewWorkingGroup(payload, { onSuccess, onError });
     }
@@ -386,7 +390,7 @@ const EditWorkGroupModal = ({
 
       <Modal.Body>
         {isEditMode && isGroupLoading ? (
-          <div className="text-center py-4">{t("loading")}</div>
+          <SpinnerLoader />
         ) : (
           <form className="form_ui" onSubmit={handleSubmit(onSubmit)}>
             <div className="row g-3">

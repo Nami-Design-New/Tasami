@@ -4,9 +4,11 @@ import { adminAxiosInstance } from "../../../lib/adminAxios";
 export default function useEditWorkingGroup() {
   const { mutate: editWorkingGroup, isPending } = useMutation({
     mutationFn: async (payload) => {
+      console.log(payload);
+
       const res = await adminAxiosInstance.post(
         `/dh-working-groups/${payload?.id}`,
-        payload.body
+        payload
       );
       if (res.data.code !== 200) {
         throw new Error(res.data.message || "Error Editing working group");
