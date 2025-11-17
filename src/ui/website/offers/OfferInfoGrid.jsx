@@ -23,7 +23,7 @@ export default function OfferInfoGrid({ offer }) {
 
       <div className="info-box info-box-grow-min-width">
         <div className="label">{t("beneficiaryIdentityPreference")}</div>
-        <div className="value">{offer.preferred_gender}</div>
+        <div className="value">{t(`${offer.preferred_gender}`)}</div>
       </div>
 
       <div className="info-box info-box-grow-min-width">

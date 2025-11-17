@@ -17,7 +17,7 @@ export default function TopInfo({ offer }) {
           </div>
           <div className="rating">
             <img src="/icons/medal.svg" />
-            <span>11</span>
+            <span>{offer.user.experience_level}</span>
           </div>
         </div>
       </div>

@@ -179,7 +179,7 @@ export default function OfferDetails() {
                 </ul>
               </div>
             </div>
-            {offerDetails.rate && (
+            {offerDetails.rate ? (
               <div className="buttons justify-content-end mt-2">
                 <CustomLink
                   type="outlined"
@@ -189,6 +189,8 @@ export default function OfferDetails() {
                   {t("website.offerDetails.showReviews")}
                 </CustomLink>
               </div>
+            ) : (
+              <></>
             )}
           </div>
         </div>
