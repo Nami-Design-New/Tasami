@@ -479,6 +479,10 @@ li[data-sonner-toast=""] {
   color: #4ecdc4 !important;
 }
 
+.color-main {
+  color: #214b92 !important;
+}
+
 .text-fire {
   color: #ff7a59 !important;
 }
@@ -7950,10 +7954,11 @@ input[type=file] {
   position: relative;
   width: 60px;
   height: 60px;
+  flex: 1;
 }
 .goal-card .image-wrapper .avatar {
-  width: 100%;
-  height: 100%;
+  width: 60px;
+  height: 60px;
   border-radius: 10px;
   -o-object-fit: cover;
      object-fit: cover;
@@ -8130,6 +8135,14 @@ input[type=file] {
   -o-object-fit: cover;
      object-fit: cover;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+.helper-card.en {
+  padding: 16px 16px 16px 40px;
+  margin: 0 0 0 40px;
+}
+.helper-card.en .image-wrapper {
+  right: auto;
+  left: -40px;
 }
 .helper-card .info {
   display: flex;

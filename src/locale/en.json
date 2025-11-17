@@ -3,6 +3,10 @@
   "withdraw_offer": "Withdraw Offer",
   "contractReq_title": "Send Contract Request",
   "contractReq_helpDate": "Help Date",
+  "confirmPerformance": "Confirm Performance",
+  "daily": "Daily",
+  "weakly": "ًWeekly",
+  "none": "None",
   "contractReq_defined": "Specified",
   "contractReq_undefined": "Unspecified",
   "contractReq_startDate": "Start Date",
@@ -17,6 +21,8 @@
   "rate_experience": "Experience & Knowledge",
   "rate_commitment": "Commitment to Time",
   "rate_quality": "Quality of Performance",
+  "confirm_performance": "Confirm Performance",
+  "performance_confirmed": "Confirmed",
   "rate_respect": "Respect & Treatment",
   "rate_notes": "Notes",
   "rate_notes_placeholder": "Write your notes here...",
@@ -66,7 +72,7 @@
   "both": "Both",
   "male": "Male",
   "female": "Female",
-  "undefined": "Not defined",
+  "undefined": "unspecified",
   "monthly": "Monthly",
   "new": "new",
   "block": "Block",
@@ -228,6 +234,47 @@
   "activityLevel": "Activity Level",
   "public": "Public",
   "private": "Private",
+  "performanceModal": {
+    "confirmPerformance": "Confirm Performance",
+    "execution": "Execution",
+    "benefit": "Benefit",
+    "guidance": "Guidance",
+    "verification": "Verification",
+
+    "difficulty": {
+      "easy": "Easy",
+      "medium": "Medium",
+      "hard": "Hard"
+    },
+
+    "benefitLevel": {
+      "high": "High",
+      "medium": "Medium",
+      "low": "Low"
+    },
+
+    "guidanceLevel": {
+      "easy": "Basic",
+      "medium": "Intermediate",
+      "advanced": "Advanced"
+    },
+
+    "verificationStatus": {
+      "full": "Fully Achieved",
+      "partial": "Partially Achieved",
+      "retry": "Needs Retry"
+    },
+
+    "cancel": "Cancel",
+    "send": "Send",
+
+    "validation": {
+      "selectDifficulty": "Please select execution level",
+      "selectBenefit": "Please select benefit level",
+      "selectGuidance": "Please select guidance level",
+      "selectVerification": "Please select verification level"
+    }
+  },
   "nav": {
     "start": "Start",
     "myWorks": "My Works",

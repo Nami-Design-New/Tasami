@@ -36,7 +36,7 @@ import Loading from "../../../ui/loading/Loading";
 import useAddTaskWithAi from "../../../hooks/website/MyWorks/tasks/useAddTaskWithAi";
 
 // Sortable wrapper for TaskCard
-function SortableTask({ task }) {
+function SortableTask({ task, workDetails }) {
   const {
     attributes,
     listeners,
@@ -45,12 +45,13 @@ function SortableTask({ task }) {
     transition,
     isDragging,
   } = useSortable({ id: String(task.id) });
+  console.log("workDetails:", workDetails);
 
   const style = {
     transform: CSS.Transform.toString(transform),
     transition,
     marginBottom: "10px",
-    cursor: "grab",
+    cursor: `${workDetails.status === "complete" ? "pointer" : "grab"}`,
     opacity: isDragging ? 0.7 : 1,
   };
 
@@ -164,7 +165,8 @@ export default function WorksTasks() {
   };
 
   if (isLoading) return <Loading />;
-  if (goalTasks?.data?.length === 0) return <NoTasks />;
+  if (goalTasks?.data?.length === 0)
+    return <NoTasks workDetails={workDetails} />;
 
   return (
     <section className="tasks-page">
@@ -185,7 +187,7 @@ export default function WorksTasks() {
         <div className="info-box flex-grow-1">
           <div className="label">{t("works.myTasks.executionRate")}</div>
           <div className="value">
-            {goalTasks["additional-data"]?.execution_percentage}
+            {goalTasks["additional-data"]?.execution_percentage} %
           </div>
         </div>
       </div>
@@ -196,7 +198,6 @@ export default function WorksTasks() {
           <h1>{t("works.myTasks.title")}</h1>
           <p>{t("works.myTasks.dragInstruction")}</p>
         </div>
-
         <DndContext
           sensors={sensors}
           collisionDetection={closestCenter}
@@ -208,12 +209,22 @@ export default function WorksTasks() {
           >
             <div className="tasks-list">
               {tasks.map((task) => (
-                <SortableTask key={task.id} task={task} />
+                <>
+                  {" "}
+                  {workDetails.status === "completed" ? (
+                    <TaskCard task={task} isDragable={false} />
+                  ) : (
+                    <SortableTask
+                      key={task.id}
+                      task={task}
+                      workDetails={workDetails}
+                    />
+                  )}
+                </>
               ))}
             </div>
           </SortableContext>
         </DndContext>
-
         {/* Buttons */}
         {workDetails.status !== "completed" && (
           <div className="buttons mt-3 justify-content-end">
@@ -276,7 +287,6 @@ export default function WorksTasks() {
             )}
           </div>
         )}
-
         {/* Modals */}
         <AddTasksModal showModal={showModal} setShowModal={setShowModal} />
         <AlertModal

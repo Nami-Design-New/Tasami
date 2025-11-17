@@ -25,7 +25,7 @@ export default function OptionsMenu({ toggleButton, options = [] }) {
       <i
         className={`${
           toggleButton ? toggleButton : "fas fa-ellipsis-v"
-        } options-toggle`}
+        } options-toggle rouded-back-button`}
         onClick={toggleMenu}
       ></i>
 

@@ -73,6 +73,7 @@ export default function TaskDetails() {
 
           {taskDetails?.work_status !== "completed" && (
             <OptionsMenu
+              toggleButton={"fas fa-ellipsis-h"}
               options={[
                 {
                   label: t("works.myTasks.edit"),
@@ -96,7 +97,7 @@ export default function TaskDetails() {
               <div className="info-box flex-grow-1">
                 <div className="label">{t("works.myTasks.taskTitle")}</div>
                 <div className="value white-space-wrap">
-                  {taskDetails.title}
+                  {taskDetails?.title}
                 </div>
               </div>
             </div>
@@ -117,7 +118,11 @@ export default function TaskDetails() {
             <div className="info-grid w-100">
               <div className="info-box flex-grow-1">
                 <div className="label">{t("works.myTasks.category")}</div>
-                <div className="value">{taskDetails?.task_category?.title}</div>
+                <div className="value">
+                  {" "}
+                  <img src={"/icons/mission-class.svg"} />{" "}
+                  {taskDetails?.task_category?.title}
+                </div>
               </div>
             </div>
           </div>
@@ -126,7 +131,10 @@ export default function TaskDetails() {
             <div className="info-grid w-100">
               <div className="info-box flex-grow-1">
                 <div className="label">{t("works.myTasks.reminder")}</div>
-                <div className="value">{taskDetails?.notification_repeat}</div>
+                <div className="value">
+                  <img src={"/icons/bell.svg"} />
+                  {t(`${taskDetails?.notification_repeat}`)}
+                </div>
               </div>
             </div>
           </div>
@@ -135,7 +143,9 @@ export default function TaskDetails() {
             <div className="info-grid w-100">
               <div className="info-box flex-grow-1">
                 <div className="label">{t("works.myTasks.date")}</div>
-                <div className="value">{taskDetails?.expected_end_date}</div>
+                <div className="value text-fire">
+                  {taskDetails?.expected_end_date}
+                </div>
               </div>
             </div>
           </div>
@@ -147,7 +157,7 @@ export default function TaskDetails() {
                   <h6 className="identity-title m-0">
                     {t("works.myTasks.status")}
                   </h6>
-                  {taskDetails.is_paused && (
+                  {taskDetails?.is_paused && (
                     <p className="hint">{t("works.myTasks.pausedHint")}</p>
                   )}
                 </div>
@@ -167,7 +177,7 @@ export default function TaskDetails() {
                         value={status}
                         checked={selectedStatus === status}
                         onChange={handleChange}
-                        disabled={taskDetails.is_paused}
+                        disabled={taskDetails?.is_paused}
                       />
                     </label>
                   ))}

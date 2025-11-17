@@ -22,7 +22,14 @@ const getSchema = (t) =>
         .date()
         .typeError(t("validation.mustBeDate"))
         .required(t("validation.required"))
-        .min(new Date(), t("validation.startDateMustBeFuture")),
+        .transform((value, originalValue) => {
+          // If original value is a string, convert to Date
+          return originalValue ? new Date(originalValue) : value;
+        })
+        .min(
+          new Date().setHours(0, 0, 0, 0),
+          t("validation.startDateMustBeFuture")
+        ),
       month: yup
         .number()
         .transform((value, originalValue) => {

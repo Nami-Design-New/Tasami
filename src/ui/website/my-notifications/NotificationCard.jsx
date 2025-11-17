@@ -45,7 +45,7 @@ export default function NotificationCard({ item }) {
       url = `/notifications?tab=inquries`;
       break;
     case "meeting":
-      url = `my-community/meetings`;
+      url = `/my-community/meetings`;
       break;
     case "post":
       url = `/posts/${item.operation_id}`;
@@ -64,6 +64,9 @@ export default function NotificationCard({ item }) {
       break;
     case "community_chat":
       url = `/community/${item.operation_id}/chats/`;
+      break;
+    case "task":
+      url = `/tasks/${item.operation_id}/`;
       break;
     case "group_chat":
       url = `/chat/${item.operation_id}`;

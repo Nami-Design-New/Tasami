@@ -1,4 +1,4 @@
-import { useParams } from "react-router";
+import { useOutletContext, useParams } from "react-router";
 import useGetTasks from "../../../../hooks/website/MyWorks/tasks/useGetTasks";
 import TaskCard from "../../../../ui/website/my-works/tasks/TaskCard";
 import Loading from "../../../../ui/loading/Loading";
@@ -9,6 +9,7 @@ export default function ContractTasks() {
   const { id } = useParams();
   const { t } = useTranslation();
   const { goalTasks, isLoading } = useGetTasks(id);
+  const { user } = useOutletContext();
 
   // Handle loading state
   if (isLoading || !goalTasks) {
@@ -51,7 +52,7 @@ export default function ContractTasks() {
         </div>
         <div className="tasks-list">
           {goalTasks.data.map((task) => (
-            <TaskCard key={task.id} task={task} />
+            <TaskCard key={task.id} task={task} user={user} />
           ))}
         </div>
       </div>
