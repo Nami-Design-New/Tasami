@@ -1,14 +1,25 @@
 // TaskCard.jsx
 import { useRef, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useLocation, useNavigate } from "react-router";
 import CustomButton from "../../../CustomButton";
 import ConfirmPerformanceModal from "./ConfirmPerformanceModal";
 
-export default function TaskCard({ task, isDragging = false }) {
+export default function TaskCard({
+  task,
+  user,
+  isDragable = true,
+  isDragging = false,
+}) {
   const navigate = useNavigate();
+  console.log(isDragable);
+
   const [showModal, setShowModal] = useState(false);
   const { pathname } = useLocation();
-  const isContracts = pathname.includes("my-contracts");
+  const isContracts = pathname.includes("my-contracts") || !isDragable;
+  console.log(isContracts);
+
+  const { t } = useTranslation();
   // persistent refs across renders
   const pointerStart = useRef({ x: 0, y: 0 });
   const moved = useRef(false);
@@ -99,7 +110,7 @@ export default function TaskCard({ task, isDragging = false }) {
           </div>
           <div className="item">
             <i className="fa-regular fa-bell" aria-hidden />
-            <span>{task?.notification_repeat}</span>
+            <span>{t(`${task?.notification_repeat}`)}</span>
           </div>
         </div>
 
@@ -125,8 +136,8 @@ export default function TaskCard({ task, isDragging = false }) {
                       {task?.rate === null ||
                       task.rate.guidance === "" ||
                       task.rate.verification === ""
-                        ? "تأكيد الاداء"
-                        : "تم التأكيد"}
+                        ? t("confirm_performance")
+                        : t("performance_confirmed")}
                     </CustomButton>
                   </div>
                 )
@@ -141,7 +152,9 @@ export default function TaskCard({ task, isDragging = false }) {
                     variant="outlined"
                     fullWidth
                   >
-                    {task?.rate === null ? "تأكيد الاداء" : "تم التأكيد"}
+                    {task?.rate === null
+                      ? t("confirm_performance")
+                      : t("performance_confirmed")}{" "}
                   </CustomButton>
                 </div>
               )}
@@ -153,6 +166,7 @@ export default function TaskCard({ task, isDragging = false }) {
         show={showModal}
         setShowModal={setShowModal}
         task={task}
+        workUser={user}
       />
     </div>
   );

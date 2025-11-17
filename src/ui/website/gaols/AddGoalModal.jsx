@@ -88,7 +88,7 @@ export default function AddGoalModal({ showModal, setShowModal }) {
     }
 
     generateDes(
-      { text: title, page: "help_service" },
+      { text: title, page: "goal" },
       {
         onSuccess: (res) => {
           setValue("title", res?.text || "");

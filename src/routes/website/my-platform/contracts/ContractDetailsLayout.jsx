@@ -12,50 +12,50 @@ export default function ContractDetailsLayout() {
   const menuRef = useRef(null);
   const { t } = useTranslation();
   const { lang } = useSelector((state) => state.language);
-  const [showCancelModal, setShowCancelModal] = useState(false);
+  // const [showCancelModal, setShowCancelModal] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
 
   const toggleMenu = () => setMenuOpen(!menuOpen);
   const { workDetails, isLoading } = useGetWorkDetails();
 
-  let options;
+  // let options;
   let tabs = [];
 
   if (isLoading) return <Loading />;
 
   // Optins menu Logic
 
-  if (workDetails?.rectangle === "personal_goal_with_helper") {
-    if (
-      workDetails?.status === "offer_sent" ||
-      workDetails?.status === "payment"
-    ) {
-      options = [];
-    } else {
-      options = [
-        {
-          id: 1,
-          label: t("works.contractDetails.endContract"),
-          className: "text-fire",
-          onClick: () => setShowCancelModal(true),
-        },
-      ];
-    }
-  } else if (workDetails?.rectangle === "help_service_from_helper") {
-    if (
-      workDetails?.status !== "wait_for_user_payment" ||
-      workDetails?.status !== "wait_helper_to_accept"
-    ) {
-      options = [
-        {
-          id: 1,
-          label: t("works.contractDetails.endContract"),
-          className: "text-fire",
-          onClick: () => setShowCancelModal(true),
-        },
-      ];
-    }
-  }
+  // if (workDetails?.rectangle === "personal_goal_with_helper") {
+  //   if (
+  //     workDetails?.status === "offer_sent" ||
+  //     workDetails?.status === "payment"
+  //   ) {
+  //     options = [];
+  //   } else {
+  //     options = [
+  //       {
+  //         id: 1,
+  //         label: t("works.contractDetails.endContract"),
+  //         className: "text-fire",
+  //         onClick: () => setShowCancelModal(true),
+  //       },
+  //     ];
+  //   }
+  // } else if (workDetails?.rectangle === "help_service_from_helper") {
+  //   if (
+  //     workDetails?.status !== "wait_for_user_payment" ||
+  //     workDetails?.status !== "wait_helper_to_accept"
+  //   ) {
+  //     options = [
+  //       {
+  //         id: 1,
+  //         label: t("works.contractDetails.endContract"),
+  //         className: "text-fire",
+  //         onClick: () => setShowCancelModal(true),
+  //       },
+  //     ];
+  //   }
+  // }
 
   // Tabs Logic
   if (
@@ -117,7 +117,7 @@ export default function ContractDetailsLayout() {
                 ></RoundedBackButton>
                 <h1>{workDetails?.code}</h1>
               </div>
-              {workDetails?.has_working_contract && (
+              {/* {workDetails?.has_working_contract && (
                 <div className={`work-actions `}>
                   <div className="options-menu" ref={menuRef}>
                     <button className="action-buttons" onClick={toggleMenu}>
@@ -145,7 +145,7 @@ export default function ContractDetailsLayout() {
                     )}
                   </div>
                 </div>
-              )}
+              )} */}
             </div>
           </div>
           <div className="col-12 p-2">
@@ -171,17 +171,18 @@ export default function ContractDetailsLayout() {
             <Outlet
               context={{
                 contractId: workDetails?.helper_last_contract_id,
+                user: workDetails?.user,
               }}
             />
           </div>
         </div>
       </div>{" "}
-      <CancelContractModal
+      {/* <CancelContractModal
         showModal={showCancelModal}
         setShowModal={setShowCancelModal}
         workId={workDetails?.id}
         contractId={workDetails?.helper_last_contract_id}
-      />{" "}
+      /> */}
     </section>
   );
 }

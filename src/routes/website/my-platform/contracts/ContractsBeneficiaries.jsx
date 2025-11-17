@@ -58,7 +58,7 @@ export default function ContractsBeneficiaries() {
               {contractDetails?.renew_to_date !== "" &&
                 contractDetails?.renew_price !== "" && (
                   <div className="renew-details">
-                    <h6>{t("renewContractRequest")}</h6>{" "}
+                    <h6>{t("renewContractRequest")}</h6>
                     <p className="renew-date">
                       <span>{t("renewDate")}:</span>
                       <span>{contractDetails?.renew_to_date}</span>
@@ -109,7 +109,9 @@ export default function ContractsBeneficiaries() {
                   </div>
                   <div className="info-box flex-grow-1">
                     <div className="label">{t("contractDuration")}</div>
-                    <div className="value">{contractDetails?.total_days}</div>
+                    <div className="value">
+                      {contractDetails?.total_days} {t("day")}
+                    </div>
                   </div>
                   <div className="info-box flex-grow-1">
                     <div className="label">{t("dailyEarning")}</div>

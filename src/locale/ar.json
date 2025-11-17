@@ -2,6 +2,10 @@
   "withdraw_offer_warning": "سيؤدي هذا الإجراء إلى سحب العرض المقدم للمستفيد",
   "withdraw_offer": "سحب العرض",
   "contractReq_title": "إرسال طلب تعاقد",
+  "confirmPerformance": "تأكيد الاداء",
+  "daily": "يوميا",
+  "weakly": "اسبوعيا",
+  "none": "لايوجد",
   "contractReq_helpDate": "تاريخ المساعدة",
   "contractReq_defined": "محدد",
   "contractReq_undefined": "غير محدد",
@@ -15,6 +19,8 @@
   "messages_error": "حدث خطأ، يرجى المحاولة مرة أخرى.",
   "rate_title": "تقييم العقد",
   "rate_experience": "الخبرة والمعرفة",
+  "confirm_performance": "تأكيد الأداء",
+  "performance_confirmed": "تم التأكيد",
   "rate_commitment": "الالتزام بالوقت",
   "rate_quality": "جودة الأداء",
   "rate_respect": "الاحترام والتعامل",
@@ -229,6 +235,47 @@
   "free": "مجاني",
   "perMonth": "شهريًا",
   "activityLevel": "مستوى النشاط",
+  "performanceModal": {
+    "confirmPerformance": "تأكيد الأداء",
+    "execution": "التنفيذ",
+    "benefit": "الفائدة",
+    "guidance": "الإرشاد",
+    "verification": "التحقق",
+
+    "difficulty": {
+      "easy": "سهلة",
+      "medium": "متوسطة",
+      "hard": "صعبة"
+    },
+
+    "benefitLevel": {
+      "high": "عالية",
+      "medium": "متوسطة",
+      "low": "منخفضة"
+    },
+
+    "guidanceLevel": {
+      "easy": "تمهيدي",
+      "medium": "متوسط",
+      "advanced": "متقدم"
+    },
+
+    "verificationStatus": {
+      "full": "تم تحقيقه بالكامل",
+      "partial": "تم تحقيقه جزئيًا",
+      "retry": "بحاجة لإعادة المحاولة"
+    },
+
+    "cancel": "إلغاء",
+    "send": "إرسال",
+
+    "validation": {
+      "selectDifficulty": "الرجاء اختيار مستوى التنفيذ",
+      "selectBenefit": "الرجاء اختيار مستوى الفائدة",
+      "selectGuidance": "الرجاء اختيار مستوى الإرشاد",
+      "selectVerification": "الرجاء اختيار مستوى التحقق"
+    }
+  },
   "footer": {
     "description": "نحن منصة عربية نسعى لربط الأفكار بأصحاب المهارات والخبرات من خلال بيئة داعمة وموثوقة. هدفنا تمكينك من إنجاز مشروعك بأعلى جودة وأقل جهد.",
     "quickLinks": {

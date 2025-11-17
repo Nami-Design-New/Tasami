@@ -1,14 +1,13 @@
 import { useQueryClient } from "@tanstack/react-query";
-import { useState, useMemo, useCallback } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { NavLink, Outlet, useNavigate } from "react-router";
 import { toast } from "sonner";
 
 import useCancelRequestOffer from "../../../hooks/website/MyWorks/useCancelRequestOffer";
 import useCompleteGoal from "../../../hooks/website/MyWorks/useCompleteGoal";
-import useGetWorkDetails from "../../../hooks/website/MyWorks/useGetWorkDetails";
 import useDeleteWork from "../../../hooks/website/MyWorks/useDeleteWork";
-import useWithdrawOfferHelp from "../../../hooks/website/contracts/useWithdrawOfferHelp";
+import useGetWorkDetails from "../../../hooks/website/MyWorks/useGetWorkDetails";
 
 import Loading from "../../../ui/loading/Loading";
 import RoundedBackButton from "../../../ui/website-auth/shared/RoundedBackButton";
@@ -42,6 +41,7 @@ export default function WorksDetailsLayout() {
     rectangle,
     offers_count,
     has_working_contract,
+    had_helpers,
   } = workDetails || {};
 
   // === Handlers (must be declared before conditional returns) ===
@@ -108,10 +108,18 @@ export default function WorksDetailsLayout() {
     if (!workDetails) return [];
 
     if (status === "completed") {
-      return [
-        { id: 1, label: t("works.details"), end: true },
-        { id: 2, label: t("works.assistants"), link: "assistants" },
-      ];
+      if (had_helpers > 0) {
+        return [
+          { id: 1, label: t("works.details"), end: true },
+          { id: 2, label: t("works.tasks"), link: "tasks" },
+          { id: 2, label: t("works.assistants"), link: "assistants" },
+        ];
+      } else {
+        return [
+          { id: 1, label: t("works.details"), end: true },
+          { id: 2, label: t("works.tasks"), link: "tasks" },
+        ];
+      }
     }
 
     if (rectangle === "personal_goal_with_helper") {
@@ -190,7 +198,7 @@ export default function WorksDetailsLayout() {
           : [deleteOption];
       return (
         <OptionsMenu
-          toggleButton="fa-light fa-shield-exclamation"
+          toggleButton="fa-regular fa-shield-exclamation color-main"
           options={options}
           aria-label="work options"
         />

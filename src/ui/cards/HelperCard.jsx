@@ -1,8 +1,13 @@
+import { useSelector } from "react-redux";
 import { Link } from "react-router";
 
 export default function HelperCard({ helper }) {
+  const { lang } = useSelector((state) => state.language);
   return (
-    <Link to={`/helper/${helper.id}`} className="helper-card">
+    <Link
+      to={`/helper/${helper.id}`}
+      className={`${lang === "en" ? "en" : ""} helper-card`}
+    >
       <figure className="image-wrapper">
         <img
           src={helper.image}

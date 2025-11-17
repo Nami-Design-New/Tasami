@@ -1,18 +1,18 @@
+import { useQueryClient } from "@tanstack/react-query";
 import { useEffect } from "react";
 import { Form, Modal } from "react-bootstrap";
-import InputField from "../../../forms/InputField";
-import TextField from "../../../forms/TextField";
 import { useTranslation } from "react-i18next";
-import useAddTasksForm from "../../../../validations/works/add-tasks-form";
-import SelectField from "../../../forms/SelectField";
-import CustomButton from "../../../CustomButton";
-import useGetTasksCategories from "../../../../hooks/website/MyWorks/tasks/useGetTasksCategories";
-import useAddTasks from "../../../../hooks/website/MyWorks/tasks/useAddTasks";
-import useUpdateTask from "../../../../hooks/website/MyWorks/tasks/useUpdateTask";
 import { toast } from "sonner";
-import { useQueryClient } from "@tanstack/react-query";
-import { useParams } from "react-router";
+import useAddTasks from "../../../../hooks/website/MyWorks/tasks/useAddTasks";
+import useGetTasksCategories from "../../../../hooks/website/MyWorks/tasks/useGetTasksCategories";
+import useUpdateTask from "../../../../hooks/website/MyWorks/tasks/useUpdateTask";
 import { formatYMD } from "../../../../utils/helper";
+import useAddTasksForm from "../../../../validations/works/add-tasks-form";
+import CustomButton from "../../../CustomButton";
+import InputField from "../../../forms/InputField";
+import SelectField from "../../../forms/SelectField";
+import TextField from "../../../forms/TextField";
+import { useParams } from "react-router";
 
 export default function AddTasksModal({
   showModal,
@@ -21,9 +21,8 @@ export default function AddTasksModal({
   taskData,
 }) {
   const { t } = useTranslation();
-  const { id } = useParams();
   const queryClient = useQueryClient();
-
+  const { id } = useParams();
   const { taskaCategories, isLoading } = useGetTasksCategories();
   const { addNewTask, isPending } = useAddTasks();
   const { updateTask, isPending: updatingTask } = useUpdateTask();
@@ -50,7 +49,8 @@ export default function AddTasksModal({
           ? formatYMD(taskData.expected_end_date)
           : "",
         notes: taskData.notes || "",
-        reminderNotifications: !!taskData.notification_repeat,
+        reminderNotifications:
+          taskData.notification_repeat === "none" ? false : true,
         notification_repeat: taskData.notification_repeat || "",
         notification_day: taskData.notification_day || "",
         notification_time: taskData.notification_time || "",
@@ -59,38 +59,38 @@ export default function AddTasksModal({
       reset(); // Clear form when switching to add mode
     }
   }, [taskData, reset]);
+  console.log(taskId);
 
   // Handle Add / Update logic
   const onSubmit = (data) => {
-    const payloadId = taskId || id;
-    let payload;
+    // Base payload (shared fields)
+    const payload = {
+      task_category_id: data.taskCategory,
+      title: data.taskDescription,
+      expected_end_date: formatYMD(data.expected_end_date),
+      notes: data.notes,
+    };
+
     if (reminderNotifications) {
-      payload = {
-        task_category_id: data.taskCategory,
-        title: data.taskDescription,
-        expected_end_date: formatYMD(data.expected_end_date),
-        notification_repeat: data.notification_repeat,
-        notification_day:
-          data.notification_day === "" ? undefined : data.notification_day,
-        notification_time: data.notification_time,
-        notes: data.notes,
-        work_id: payloadId,
-      };
+      payload.notification_repeat = data.notification_repeat;
+      payload.notification_day =
+        data.notification_day === "" ? undefined : data.notification_day;
+      payload.notification_time = data.notification_time;
     } else {
-      payload = {
-        task_category_id: data.taskCategory,
-        title: data.taskDescription,
-        expected_end_date: formatYMD(data.expected_end_date),
-        notification_repeat: "none",
-        notes: data.notes,
-        work_id: payloadId,
-      };
+      payload.notification_repeat = "none";
     }
 
+    // ADD MODE → include work_id
+    console.log(!taskData);
+
+    if (!taskData) {
+      payload.work_id = id; // (if you're passing work_id this way)
+    }
+
+    // UPDATE MODE
     if (taskData) {
-      // UPDATE MODE
       updateTask(
-        { id: taskData.id, ...payload },
+        { id: taskId, ...payload }, // note: work_id NOT included
         {
           onSuccess: (res) => {
             toast.success(res?.message || t("works.task_updated"));
@@ -101,19 +101,19 @@ export default function AddTasksModal({
           onError: (err) => toast.error(err.message),
         }
       );
-    } else {
-      // ADD MODE
-      addNewTask(payload, {
-        onSuccess: (res) => {
-          reset();
-          toast.success(res?.message || t("works.task_added"));
-          queryClient.refetchQueries({ queryKey: ["work-tasks"] });
-          // queryClient.invalidateQueries({ queryKey: ["works-tasks"] });
-          setShowModal(false);
-        },
-        onError: (err) => toast.error(err.message),
-      });
+      return;
     }
+
+    // ADD MODE
+    addNewTask(payload, {
+      onSuccess: (res) => {
+        reset();
+        toast.success(res?.message || t("works.task_added"));
+        queryClient.refetchQueries({ queryKey: ["work-tasks"] });
+        setShowModal(false);
+      },
+      onError: (err) => toast.error(err.message),
+    });
   };
 
   return (

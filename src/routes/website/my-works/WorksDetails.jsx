@@ -41,8 +41,17 @@ export default function WorksDetails() {
         <span>{workDetails.status_text}</span>
         <span>{workDetails.status_date}</span>
       </div>
-
-      {/* ---- Description Section ---- */}
+      {/* ---- Description Section ---- */}{" "}
+      {workDetails.rectangle === "help_service_from_helper" &&
+        workDetails.helper && (
+          <div className="mb-3">
+            <AssistantWorkCard
+              helper={workDetails?.helper}
+              canNavigate={false}
+              chat={false}
+            />
+          </div>
+        )}
       <div className="my-3 work-description">
         <div className="label">
           {workDetails.rectangle === "personal_goal_with_helper" && (
@@ -57,32 +66,33 @@ export default function WorksDetails() {
               {t("website.offerDetails.offer")}
             </>
           )}
-        </div>{" "}
-        {workDetails.rectangle === "help_service_from_helper" &&
-          workDetails.helper && (
-            <div className="mb-3">
-              <AssistantWorkCard
-                helper={workDetails?.helper}
-                canNavigate={false}
-                chat={false}
-              />
-            </div>
+          {workDetails.rectangle === "help_service_from_helper" && (
+            <>
+              <img src="/icons/help_service_from_helper.svg" alt="" />
+              {t("website.offerDetails.offer")}
+            </>
           )}
+        </div>{" "}
         <p className="value">{workDetails?.title}</p>
       </div>
-
       {/* ---- Info Grid ---- */}
       <div className="goal-info">
         <div className="info-grid">
-          <div className="info-box info-box-grow-min-width ">
+          <div className="info-box info-box-grow-min-width">
             <div className="label">{t("website.offerDetails.field")}</div>
             <div className="value">{workDetails.category_title}</div>
           </div>
 
-          <div className="info-box info-box-grow-min-width ">
+          <div className="info-box info-box-grow-min-width">
             <div className="label">{t("website.offerDetails.specialty")}</div>
             <div className="value">{workDetails.sub_category_title}</div>
           </div>
+          {/* {workDetails.rectangle !== "personal_helper" && (
+            <div className="info-box">
+              <div className="label">{t("website.offerDetails.goal")}</div>
+              <div className="value">{workDetails?.title}</div>
+            </div>
+          )} */}
 
           {/* Start Date (not shown for helper service) */}
           {workDetails.rectangle !== "help_service_from_helper" && (
@@ -93,14 +103,15 @@ export default function WorksDetails() {
           )}
 
           {/* Price */}
-          {workDetails?.offer_price >= 0 && (
-            <div className="info-box info-box-grow-min-width ">
-              <div className="label">{t("website.offerDetails.price")}</div>
-              <div className="value">
-                {workDetails?.help_price} <Currency />
+          {workDetails.rectangle === "help_service_from_helper" &&
+            workDetails?.offer_price >= 0 && (
+              <div className="info-box info-box-grow-min-width ">
+                <div className="label">{t("website.offerDetails.price")}</div>
+                <div className="value">
+                  {workDetails?.help_price} <Currency />
+                </div>
               </div>
-            </div>
-          )}
+            )}
 
           {/* Notes */}
           {workDetails.goal?.notes && (
@@ -129,8 +140,11 @@ export default function WorksDetails() {
                   {t("website.offerDetails.ageRange")}
                 </div>
                 <div className="value">
-                  {workDetails?.creator_help_service?.from_age} -{" "}
-                  {workDetails?.creator_help_service?.to_age}
+                  {workDetails?.creator_help_service?.from_age === 0 ||
+                  workDetails?.creator_help_service?.to_age === 0
+                    ? t("undefined")
+                    : `${workDetails?.creator_help_service?.from_age} -
+                      ${workDetails?.creator_help_service?.to_age}`}{" "}
                 </div>
               </div>
 
@@ -158,7 +172,6 @@ export default function WorksDetails() {
           )}
         </div>
       </div>
-
       {/* ---- Mechanisms ---- */}
       {workDetails?.help_mechanisms?.length > 0 && (
         <div className="extra-terms">
@@ -175,7 +188,6 @@ export default function WorksDetails() {
           </ul>
         </div>
       )}
-
       {/* ---- Payment Section ---- */}
       {workDetails?.status === "wait_for_user_payment" && (
         <>
