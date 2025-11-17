@@ -184,36 +184,38 @@ export default function HelpersDetails() {
                 <PersonalHelperDoc tabs={assistantDetails.user_documents} />
               </div>
 
-              <div className="more-offers">
-                <h6>
-                  {t("website.assistants.offers")}{" "}
-                  <span> &quot;{assistantDetails.name}&quot;</span>{" "}
-                </h6>
-                <div className="row">
-                  <Swiper
-                    slidesPerView={1}
-                    spaceBetween={0}
-                    breakpoints={{
-                      768: { slidesPerView: 2, spaceBetween: 12 },
-                      1024: { slidesPerView: 2, spaceBetween: 16 },
-                      1200: { slidesPerView: 3, spaceBetween: 16 },
-                    }}
-                    loop={true}
-                    autoplay={{ delay: 3000, disableOnInteraction: false }}
-                    modules={[Autoplay]}
-                    observer={false}
-                    observeParents={false}
-                    watchOverflow={true}
-                    resizeObserver={false}
-                  >
-                    {assistantDetails.user_services.map((offer) => (
-                      <SwiperSlide key={offer.id}>
-                        <OfferCard offer={offer} />
-                      </SwiperSlide>
-                    ))}
-                  </Swiper>
+              {assistantDetails.user_services.length > 0 && (
+                <div className="more-offers">
+                  <h6>
+                    {t("website.assistants.offers")}{" "}
+                    <span> &quot;{assistantDetails.name}&quot;</span>{" "}
+                  </h6>
+                  <div className="row">
+                    <Swiper
+                      slidesPerView={1}
+                      spaceBetween={0}
+                      breakpoints={{
+                        768: { slidesPerView: 2, spaceBetween: 12 },
+                        1024: { slidesPerView: 2, spaceBetween: 16 },
+                        1200: { slidesPerView: 3, spaceBetween: 16 },
+                      }}
+                      loop={true}
+                      autoplay={{ delay: 3000, disableOnInteraction: false }}
+                      modules={[Autoplay]}
+                      observer={false}
+                      observeParents={false}
+                      watchOverflow={true}
+                      resizeObserver={false}
+                    >
+                      {assistantDetails.user_services.map((offer) => (
+                        <SwiperSlide key={offer.id}>
+                          <OfferCard offer={offer} />
+                        </SwiperSlide>
+                      ))}
+                    </Swiper>
+                  </div>
                 </div>
-              </div>
+              )}
             </div>
           </div>
         </div>

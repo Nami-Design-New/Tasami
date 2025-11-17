@@ -42,6 +42,13 @@ export default function PersonalHelperExperiences({ tabs }) {
         ))}
       </Swiper>
       <div className="exp-info-grid">
+        <div
+          className="exp-info-box flex-grow-1 w-100"
+          style={{ minWidth: "100%" }}
+        >
+          <h5>{t("community.description")}</h5>
+          <p>{currentTab.desc}</p>
+        </div>
         <div className="exp-info-box">
           <h5>{t("website.assistants.qualification")}</h5>
           <p>{currentTab.qualification_text}</p>

@@ -70,7 +70,7 @@
   "block": "حظر",
   "monthly": "شهريا",
   "lang": "اللغة",
-  "both": "غير محدد",
+  "both": "الكل",
   "undefined": "غير محدد",
   "male": "ذكر",
   "female": "أنثى",
@@ -234,6 +234,7 @@
   "membershipValue": "قيمة العضوية",
   "free": "مجاني",
   "perMonth": "شهريًا",
+  "goal": "الهدف",
   "activityLevel": "مستوى النشاط",
   "performanceModal": {
     "confirmPerformance": "تأكيد الأداء",

@@ -617,11 +617,14 @@
   .member-card__avatar {
     width: 100%;
     aspect-ratio: 1/1;
+    object-fit: contain;
   }
   .info {
     padding: 8px;
-    @include centerFlex();
-    flex-direction: column;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: row;
     gap: 6px;
     text-align: center;
     font-weight: 700;
