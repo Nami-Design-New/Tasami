@@ -9,7 +9,7 @@ const WorkingGroups = () => {
 
   return (
     <>
-      {user.shared_groups.length > 0 ? (
+      {user?.shared_groups.length > 0 ? (
         <ul className="permission-list">
           {user?.shared_groups?.map((group, index) => (
             <li className="permission-list__item" key={index}>
