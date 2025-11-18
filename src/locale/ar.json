@@ -9,6 +9,8 @@
   "contractReq_helpDate": "تاريخ المساعدة",
   "contractReq_defined": "محدد",
   "contractReq_undefined": "غير محدد",
+  "specified": "محدد",
+  "unspecified": "غير محدد",
   "contractReq_startDate": "تاريخ البدء",
   "contractReq_pickDate": "اختر التاريخ...",
   "contractReq_additionalTerms": "بنود إضافية",
@@ -236,6 +238,12 @@
   "perMonth": "شهريًا",
   "goal": "الهدف",
   "activityLevel": "مستوى النشاط",
+  "offline": {
+    "title": "لا يوجد اتصال بالإنترنت",
+    "message": "يرجى التحقق من اتصالك بالإنترنت ثم المحاولة مرة أخرى.",
+    "retry": "إعادة المحاولة",
+    "noWifiIcon": "أيقونة عدم وجود واي فاي"
+  },
   "performanceModal": {
     "confirmPerformance": "تأكيد الأداء",
     "execution": "التنفيذ",
@@ -603,6 +611,7 @@
     "yourAnswer": "رأيك",
     "assistantAnswer": "رأي المساعد",
     "answer": "قم بالرد",
+    "response": "الرد",
     "addCommentTitle": "إضافة تعليق",
     "commentLabel": "نص التعليق",
     "commentPlaceholder": "اكتب تعليقك هنا...",

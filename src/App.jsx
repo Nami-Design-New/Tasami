@@ -5,8 +5,13 @@ import { Toaster } from "sonner";
 import { router } from "./providers/router";
 
 import i18n from "./utils/i18n";
+import useNetworkStatus from "./hooks/shared/useNetworkStatus";
+import OfflineBanner from "./ui/common/OfflineBanner";
 
 export default function App() {
+  const isOnline = useNetworkStatus();
+  console.log(isOnline);
+
   const lang = useSelector((state) => state.language.lang);
   useEffect(() => {
     const body = document.querySelector("body");
@@ -16,14 +21,21 @@ export default function App() {
 
   return (
     <>
-      <Toaster
-        expand={false}
-        duration={2000}
-        richColors
-        position="bottom-right"
-      />
-
-      <RouterProvider router={router} />
+      {" "}
+      {!isOnline ? (
+        <OfflineBanner onRetry={() => window.location.reload()} />
+      ) : (
+        <>
+          {" "}
+          <Toaster
+            expand={false}
+            duration={2000}
+            richColors
+            position="bottom-right"
+          />
+          <RouterProvider router={router} />
+        </>
+      )}
     </>
   );
 }

@@ -3,9 +3,10 @@ import HelperCard from "../../cards/HelperCard";
 import CustomButton from "../../CustomButton";
 import { useState } from "react";
 import AnswerModal from "./AnswerModal";
+import { useTranslation } from "react-i18next";
 
 export default function InQuriyCard({ item }) {
-  console.log(item);
+  const { t } = useTranslation();
 
   const [showModal, setShowModal] = useState(false);
   const { user } = useSelector((state) => state.authRole);
@@ -37,7 +38,7 @@ export default function InQuriyCard({ item }) {
       {item.answer && (
         <div className="inquriy-data">
           <div className="inquriy-header">
-            <h2>الرد</h2>
+            <h2>{t("answer")}</h2>
           </div>
           <p>{item.answer} </p>
           <small>{item.updated_at}</small>

@@ -29,6 +29,7 @@ export default function AssistantsSidebar({ isGoal = false }) {
     watch,
     formState: { errors },
   } = useAssistantsFilterForm();
+  console.log(errors);
 
   const selectedFieldId = watch("field");
   const selectedHelpMechanism = watch("helpMechanism") || [];
@@ -48,7 +49,7 @@ export default function AssistantsSidebar({ isGoal = false }) {
       setSearchParams(paramsObj);
     }
     if (!paramsObj.dateOptions) {
-      paramsObj.dateOptions = "notDefined";
+      paramsObj.dateOptions = "unspecified";
       setSearchParams(paramsObj);
     }
 
@@ -96,7 +97,7 @@ export default function AssistantsSidebar({ isGoal = false }) {
       field: "",
       specialization: "",
       gender: "both",
-      dateOptions: "notDefined",
+      dateOptions: "unspecified",
     };
     reset(resetValues);
     setSearchParams(resetValues);
@@ -200,7 +201,7 @@ export default function AssistantsSidebar({ isGoal = false }) {
                     {t("website.platform.myAssistance.startDate")}
                   </h6>
                   <div className="identity-container  flex-wrap">
-                    {["defined", "notDefined"].map((g) => (
+                    {["specified", "unspecified"].map((g) => (
                       <label
                         key={g}
                         className={`identity-option ${
@@ -219,7 +220,7 @@ export default function AssistantsSidebar({ isGoal = false }) {
                   <p className="error-text">{errors.gender?.message}</p>
                 </div>
               </div>
-              {selectedDateOptions === "defined" && (
+              {selectedDateOptions === "specified" && (
                 <div className="col-12 py-2 px-0">
                   <InputField
                     type="date"
