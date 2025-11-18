@@ -66,12 +66,6 @@ export default function WorksDetails() {
               {t("website.offerDetails.offer")}
             </>
           )}
-          {workDetails.rectangle === "help_service_from_helper" && (
-            <>
-              <img src="/icons/help_service_from_helper.svg" alt="" />
-              {t("website.offerDetails.offer")}
-            </>
-          )}
         </div>{" "}
         <p className="value">{workDetails?.title}</p>
       </div>

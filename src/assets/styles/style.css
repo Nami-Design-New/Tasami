@@ -2803,7 +2803,6 @@ body.en .show-pass {
   justify-content: center;
   cursor: pointer;
   font-size: 14px;
-  font-weight: 600;
   text-align: center;
   color: #0d0d0d;
   background-color: rgba(2, 72, 150, 0.0392156863);
@@ -6525,12 +6524,12 @@ input[type=file] {
   align-items: flex-end;
 }
 .message--sender {
-  flex-direction: row;
-  text-align: right;
-}
-.message--receiver {
   flex-direction: row-reverse;
   text-align: left;
+}
+.message--receiver {
+  flex-direction: row;
+  text-align: right;
 }
 .message__avatar {
   width: 36px;
@@ -6585,7 +6584,6 @@ input[type=file] {
   aspect-ratio: 16/9;
   -o-object-fit: contain;
      object-fit: contain;
-  background-color: #f2f2f2;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
   transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
@@ -6611,13 +6609,49 @@ input[type=file] {
   background-color: #214b92;
   color: #fff;
 }
+.message--main .message__image-container {
+  background-color: #214b92;
+  color: #fff;
+}
+.message--main .message__video-container {
+  background-color: #214b92;
+  color: #fff;
+}
+.message--main .message__audio {
+  background-color: #214b92;
+  color: #fff;
+}
 .message--second .message__text {
   background-color: #5fcafa;
   color: #fff;
 }
+.message--second .message__image-container {
+  background-color: #5fcafa;
+  color: #fff;
+}
+.message--second .message__video-container {
+  background-color: #5fcafa;
+  color: #fff;
+}
+.message--second .message__audio {
+  background-color: #5fcafa;
+  color: #fff;
+}
 .message--gray .message__text {
-  background-color: #ccc;
-  color: #222;
+  background-color: rgba(13, 13, 13, 0.0941176471);
+  color: #0d0d0d;
+}
+.message--gray .message__image-container {
+  background-color: rgba(13, 13, 13, 0.0941176471);
+  color: #0d0d0d;
+}
+.message--gray .message__video-container {
+  background-color: rgba(13, 13, 13, 0.0941176471);
+  color: #0d0d0d;
+}
+.message--gray .message__audio {
+  background-color: rgba(13, 13, 13, 0.0941176471);
+  color: #0d0d0d;
 }
 .message__time {
   font-size: 0.75rem;
@@ -7997,7 +8031,6 @@ input[type=file] {
   position: relative;
   width: 60px;
   height: 60px;
-  flex: 1;
 }
 .goal-card .image-wrapper .avatar {
   width: 60px;

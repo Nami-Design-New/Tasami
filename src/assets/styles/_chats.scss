@@ -295,13 +295,13 @@
   align-items: flex-end;
 
   &--sender {
-    flex-direction: row;
-    text-align: right;
+    flex-direction: row-reverse;
+    text-align: left;
   }
 
   &--receiver {
-    flex-direction: row-reverse;
-    text-align: left;
+    flex-direction: row;
+    text-align: right;
   }
 
   &__avatar {
@@ -358,7 +358,7 @@
       overflow: hidden;
       aspect-ratio: 16/9;
       object-fit: contain;
-      background-color: #f2f2f2;
+      // background-color: #f2f2f2;
       box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
       transition: transform 0.25s ease, box-shadow 0.25s ease;
     }
@@ -390,15 +390,56 @@
     background-color: $main;
     color: $white;
   }
+  &--main .message__image-container {
+    background-color: $main;
+    color: $white;
+  }
+  &--main .message__video-container {
+    background-color: $main;
+    color: $white;
+  }
+
+  &--main .message__audio {
+    background-color: $main;
+    color: $white;
+  }
 
   &--second .message__text {
     background-color: $second;
     color: $white;
   }
+  &--second .message__image-container {
+    background-color: $second;
+    color: $white;
+  }
+
+  &--second .message__video-container {
+    background-color: $second;
+    color: $white;
+  }
+
+  &--second .message__audio {
+    background-color: $second;
+    color: $white;
+  }
 
   &--gray .message__text {
-    background-color: #ccc;
-    color: #222;
+    background-color: $InputStroke;
+    color: $dark;
+  }
+
+  &--gray .message__image-container {
+    background-color: $InputStroke;
+    color: $dark;
+  }
+
+  &--gray .message__video-container {
+    background-color: $InputStroke;
+    color: $dark;
+  }
+  &--gray .message__audio {
+    background-color: $InputStroke;
+    color: $dark;
   }
 
   &__time {

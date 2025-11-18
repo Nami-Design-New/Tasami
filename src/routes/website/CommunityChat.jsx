@@ -65,7 +65,7 @@ export default function CommunityChat() {
     useGetCommunityChats();
   const allChats = chats?.pages?.flatMap((page) => page?.data).reverse() ?? [];
 
-  const { sendMessage } = useSendMessage();
+  const { isPending, sendMessage } = useSendMessage();
 
   // const messagesEndRef = useRef(null);
   const chatContainerRef = useRef(null);
@@ -461,7 +461,11 @@ export default function CommunityChat() {
                 <i className="fa-solid fa-microphone"></i>
               </button>
               <button type="submit" className="chat-window__footer--send">
-                <i className="fa-solid fa-paper-plane"></i>
+                {isPending ? (
+                  <i className="fas fa-spinner fa-spin btn__spinner"></i>
+                ) : (
+                  <i className="fa-solid fa-paper-plane"></i>
+                )}
               </button>
             </div>
           </form>
