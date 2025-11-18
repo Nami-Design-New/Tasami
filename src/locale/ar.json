@@ -1499,6 +1499,87 @@
         "employees": "عدد الموظفين",
         "actions": "الإجراءات"
       }
+    },
+    "createEmployee": {
+      "accountData": "بيانات الحساب",
+      "permissions": "الصلاحيات",
+      "performanceIndicators": "مؤشرات الأداء",
+      "employeeAccountDetails": "تفاصيل حساب الموظف",
+      "completionRateTitle": "نسبة إكمال بيانات حساب الموظف:",
+      "completionRateValue": "٥٥",
+      "requestSuspendAccount": "طلب إيقاف الحساب",
+      "suspendAccount": "إيقاف الحساب",
+      "activateAccount": "تنشيط الحساب",
+      "contentNotAvailable": "المحتوى غير متوفر لهذا التبويب",
+
+      "requestSuspendAccountModalTitle": "طلب إيقاف الحساب",
+      "form": {
+        "employmentData": "البيانات الوظيفية",
+
+        "jobLevel": "المستوى الوظيفي",
+        "selectJobLevel": "اختر المستوى الوظيفي",
+        "jobLevel_executive": "تنفيذي",
+        "jobLevel_leader": "قائد",
+        "jobLevel_manager": "مدير",
+        "jobLevel_supervisor": "مشرف",
+        "jobLevel_customerService": "موظف خدمة العملاء",
+
+        "jobTitle": "المسمى الوظيفي",
+        "jobTitle_placeholder": "مثال: أخصائي قانوني",
+
+        "accountNumber": "رقم الحساب",
+        "date": "التاريخ",
+
+        "group": "المجموعة",
+        "selectGroup": "اختر المجموعة",
+
+        "region": "الإقليم",
+        "region_middleEast": "الشرق الأوسط",
+        "region_europe": "أوروبا",
+        "region_northAmerica": "أمريكا الشمالية",
+
+        "sector": "القطاع",
+
+        "country_sa": "السعودية",
+        "country_egypt": "مصر",
+        "country_morocco": "المغرب",
+
+        "city": "المدينة",
+        "city_jeddah": "جدة",
+        "city_riyadh": "الرياض",
+        "city_madina": "المدينة",
+
+        "personalData": "البيانات الشخصية",
+
+        "firstName": "الاسم الأول",
+        "firstName_placeholder": "مثال: محمود",
+
+        "fatherName": "اسم الأب",
+        "fatherName_placeholder": "مثال: عباس",
+
+        "familyName": "اسم العائلة",
+        "familyName_placeholder": "مثال: عباس",
+
+        "birthDate": "تاريخ الميلاد",
+
+        "email": "البريد الإلكتروني",
+        "email_placeholder": "مثال: mahmoud@gmail.com",
+
+        "gender": "الجنس",
+        "gender_male": "ذكر",
+        "gender_female": "أنثى",
+
+        "residentCountry": "بلد الإقامة",
+        "residentCity": "مدينة الإقامة",
+
+        "nationality": "الجنسية",
+
+        "attachFiles": "أضف المرفقات",
+
+        "cancel": "إلغاء",
+        "save": "حفظ",
+        "edit": "تعديل"
+      }
     }
   }
 }

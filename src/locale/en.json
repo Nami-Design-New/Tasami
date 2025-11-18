@@ -1529,6 +1529,86 @@
         "employees": "Employees",
         "actions": "Actions"
       }
+    },
+    "createEmployee": {
+      "accountData": "Account Data",
+      "permissions": "Permissions",
+      "performanceIndicators": "Performance Indicators",
+      "employeeAccountDetails": "Employee Account Details",
+      "completionRateTitle": "Employee Account Completion Rate:",
+      "completionRateValue": "55",
+      "requestSuspendAccount": "Request Account Suspension",
+      "suspendAccount": "Suspend Account",
+      "activateAccount": "Activate Account",
+      "contentNotAvailable": "Content is not available for this tab",
+      "requestSuspendAccountModalTitle": "Request Account Suspension",
+      "form": {
+        "employmentData": "Employment Data",
+
+        "jobLevel": "Job Level",
+        "selectJobLevel": "Select Job Level",
+        "jobLevel_executive": "Executive",
+        "jobLevel_leader": "Leader",
+        "jobLevel_manager": "Manager",
+        "jobLevel_supervisor": "Supervisor",
+        "jobLevel_customerService": "Customer Service",
+
+        "jobTitle": "Job Title",
+        "jobTitle_placeholder": "Example: Legal Specialist",
+
+        "accountNumber": "Account Number",
+        "date": "Date",
+
+        "group": "Group",
+        "selectGroup": "Select Group",
+
+        "region": "Region",
+        "region_middleEast": "Middle East",
+        "region_europe": "Europe",
+        "region_northAmerica": "North America",
+
+        "sector": "Sector",
+
+        "country_sa": "Saudi Arabia",
+        "country_egypt": "Egypt",
+        "country_morocco": "Morocco",
+
+        "city": "City",
+        "city_jeddah": "Jeddah",
+        "city_riyadh": "Riyadh",
+        "city_madina": "Al-Madinah",
+
+        "personalData": "Personal Information",
+
+        "firstName": "First Name",
+        "firstName_placeholder": "Example: Mahmoud",
+
+        "fatherName": "Father Name",
+        "fatherName_placeholder": "Example: Abbas",
+
+        "familyName": "Family Name",
+        "familyName_placeholder": "Example: Abbas",
+
+        "birthDate": "Birth Date",
+
+        "email": "Email",
+        "email_placeholder": "Example: mahmoud@gmail.com",
+
+        "gender": "Gender",
+        "gender_male": "Male",
+        "gender_female": "Female",
+
+        "residentCountry": "Country of Residence",
+        "residentCity": "City of Residence",
+
+        "nationality": "Nationality",
+
+        "attachFiles": "Add Attachments",
+
+        "cancel": "Cancel",
+        "save": "Save",
+        "edit": "Edit"
+      }
     }
   }
 }

@@ -1,5 +1,7 @@
 import { useMemo, useState } from "react";
 import { useParams, useSearchParams } from "react-router";
+import { useTranslation } from "react-i18next";
+
 import CustomButton from "../../ui/CustomButton";
 import PageHeader from "../../ui/PageHeader";
 import Tabs from "../../ui/Tabs";
@@ -16,35 +18,30 @@ const CreateEmployee = () => {
   const [showTaskModal, setShowTaskModal] = useState(false);
   const isEditMode = !!id;
 
+  const { t } = useTranslation();
+
   const allTabs = [
     {
       id: 1,
       icon: <i className="fa-regular fa-user"></i>,
-      title: "بيانات الحساب",
+      title: t("dashboard.createEmployee.accountData"),
     },
     {
       id: 2,
       icon: <i className="fa-regular fa-shield-halved"></i>,
-      title: "الصلاحيات",
+      title: t("dashboard.createEmployee.permissions"),
     },
-    // {
-    //   id: 3,
-    //   icon: <i className="fa-regular fa-users"></i>,
-    //   title: "المجموعات المشتركه",
-    // },
     {
-      id: 4,
+      id: 3,
       icon: <i className="fa-solid fa-chart-waterfall"></i>,
-      title: "مؤشرات الاداء",
+      title: t("dashboard.createEmployee.performanceIndicators"),
       visibleInEditMode: true,
     },
   ];
 
   const tabs = useMemo(() => {
-    return allTabs.filter((tab) => {
-      return !tab.visibleInEditMode || isEditMode;
-    });
-  }, [isEditMode]);
+    return allTabs.filter((tab) => !tab.visibleInEditMode || isEditMode);
+  }, [isEditMode, t]);
 
   const [activeTab, setActiveTab] = useState(() => {
     const tabParam = searchParams.get("tab");
@@ -59,9 +56,7 @@ const CreateEmployee = () => {
   const tabComponents = {
     1: <EmployerDataForm isEdit={isEditMode} />,
     2: <PermissionBoard isEdit={isEditMode} />,
-    // 3: <WorkGroups />,
-    4: <PerformanceIndicators />,
-    // 5: <DataUpdateRequest />,
+    3: <PerformanceIndicators />,
   };
 
   return (
@@ -69,22 +64,29 @@ const CreateEmployee = () => {
       <div className="row g-3">
         <PageHeader
           removeLast={isEditMode === true}
-          name={isEditMode === true ? " تفاصيل حساب الموظف" : null}
+          name={
+            isEditMode
+              ? t("dashboard.createEmployee.employeeAccountDetails")
+              : null
+          }
         />
-        <div className="col-12 col-md-3 ">
+
+        <div className="col-12 col-md-3">
           <div className="side-tabs-wrapper">
             <Tabs
               tabs={tabs}
               activeTab={activeTab}
               onTabChange={handleTabClick}
             />
+
             {!isEditMode && (
               <div className="completion-card">
                 <div className="completion-card__title">
-                  نسبة إكمال بيانات حساب الموظف:
+                  {t("dashboard.createEmployee.completionRateTitle")}
                 </div>
                 <div className="completion-card__value">
-                  <sup>%</sup>55
+                  <sup>%</sup>
+                  {t("dashboard.createEmployee.completionRateValue")}
                 </div>
               </div>
             )}
@@ -98,40 +100,45 @@ const CreateEmployee = () => {
                     fullWidth
                     onClick={() => setShowTaskModal(true)}
                   >
-                    طلب ايقاف الحساب
+                    {t("dashboard.createEmployee.requestSuspendAccount")}
                   </CustomButton>
+
                   <CustomButton
                     color="secondary"
                     size="large"
                     fullWidth
                     onClick={() => setOpenSuspensionModel(true)}
                   >
-                    ايقاف الحساب
+                    {t("dashboard.createEmployee.suspendAccount")}
                   </CustomButton>
                 </>
               ) : (
                 <CustomButton color="secondary" size="large" fullWidth>
-                  تنشيط الحساب
+                  {t("dashboard.createEmployee.activateAccount")}
                 </CustomButton>
               )}
             </div>
           </div>
         </div>
+
         <div className="col-12 col-md-9">
           {tabComponents[activeTab] || (
-            <div> المحتوى غير متوفر لهذا التبويب</div>
+            <div>{t("dashboard.createEmployee.contentNotAvailable")}</div>
           )}
         </div>
       </div>
+
+      {/* Modals */}
       <AddNewTask
         showModal={showTaskModal}
         setShowModal={setShowTaskModal}
-        title="طلب ايقاف الحساب"
+        title={t("dashboard.createEmployee.requestSuspendAccountModalTitle")}
       />
+
       <SuspensionModel
         showModal={openSuspensionModel}
         setShowModal={setOpenSuspensionModel}
-      />{" "}
+      />
     </section>
   );
 };
