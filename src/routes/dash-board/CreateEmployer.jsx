@@ -71,57 +71,59 @@ const CreateEmployee = () => {
           }
         />
 
-        <div className="col-12 col-md-3">
-          <div className="side-tabs-wrapper">
-            <Tabs
-              tabs={tabs}
-              activeTab={activeTab}
-              onTabChange={handleTabClick}
-            />
+        {isEditMode && (
+          <div className="col-12 col-md-3">
+            <div className="side-tabs-wrapper">
+              <Tabs
+                tabs={tabs}
+                activeTab={activeTab}
+                onTabChange={handleTabClick}
+              />
 
-            {!isEditMode && (
-              <div className="completion-card">
-                <div className="completion-card__title">
-                  {t("dashboard.createEmployee.completionRateTitle")}
+              {!isEditMode && (
+                <div className="completion-card">
+                  <div className="completion-card__title">
+                    {t("dashboard.createEmployee.completionRateTitle")}
+                  </div>
+                  <div className="completion-card__value">
+                    <sup>%</sup>
+                    {t("dashboard.createEmployee.completionRateValue")}
+                  </div>
                 </div>
-                <div className="completion-card__value">
-                  <sup>%</sup>
-                  {t("dashboard.createEmployee.completionRateValue")}
-                </div>
-              </div>
-            )}
-
-            <div className="submit-actions">
-              {isEditMode ? (
-                <>
-                  <CustomButton
-                    color="primary"
-                    size="large"
-                    fullWidth
-                    onClick={() => setShowTaskModal(true)}
-                  >
-                    {t("dashboard.createEmployee.requestSuspendAccount")}
-                  </CustomButton>
-
-                  <CustomButton
-                    color="secondary"
-                    size="large"
-                    fullWidth
-                    onClick={() => setOpenSuspensionModel(true)}
-                  >
-                    {t("dashboard.createEmployee.suspendAccount")}
-                  </CustomButton>
-                </>
-              ) : (
-                <CustomButton color="secondary" size="large" fullWidth>
-                  {t("dashboard.createEmployee.activateAccount")}
-                </CustomButton>
               )}
+
+              <div className="submit-actions">
+                {isEditMode ? (
+                  <>
+                    <CustomButton
+                      color="primary"
+                      size="large"
+                      fullWidth
+                      onClick={() => setShowTaskModal(true)}
+                    >
+                      {t("dashboard.createEmployee.requestSuspendAccount")}
+                    </CustomButton>
+
+                    <CustomButton
+                      color="secondary"
+                      size="large"
+                      fullWidth
+                      onClick={() => setOpenSuspensionModel(true)}
+                    >
+                      {t("dashboard.createEmployee.suspendAccount")}
+                    </CustomButton>
+                  </>
+                ) : (
+                  <CustomButton color="secondary" size="large" fullWidth>
+                    {t("dashboard.createEmployee.activateAccount")}
+                  </CustomButton>
+                )}
+              </div>
             </div>
           </div>
-        </div>
+        )}
 
-        <div className="col-12 col-md-9">
+        <div className={isEditMode ? "col-12 col-md-9" : "col-12 "}>
           {tabComponents[activeTab] || (
             <div>{t("dashboard.createEmployee.contentNotAvailable")}</div>
           )}

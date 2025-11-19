@@ -297,7 +297,6 @@ const EditWorkGroupModal = ({
     10,
     showModal && isEditMode
   );
-  console.log(workingMembers);
 
   // Prefill form when editing
   useEffect(() => {

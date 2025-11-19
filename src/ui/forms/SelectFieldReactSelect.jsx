@@ -186,7 +186,7 @@ const SelectFieldReactSelect = ({
   return (
     <div className="input-field">
       {label && (
-        <div className="d-flex align-items-center justify-content-between mb-1">
+        <div className="d-flex align-items-center justify-content-between mb-0">
           <label className="form-label mb-0">{label}</label>
           {labelHint && <small className="text-muted">{labelHint}</small>}
         </div>
