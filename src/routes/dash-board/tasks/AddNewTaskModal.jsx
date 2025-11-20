@@ -11,7 +11,7 @@ import { toast } from "sonner";
 import { useQueryClient } from "@tanstack/react-query";
 import { Controller } from "react-hook-form";
 import { useState } from "react";
-import useAddTasksForm from "../../../validations/works/add-tasks-form";
+import useAddTasksForm from "./useAddTaskForm";
 
 const AddNewTask = ({ showModal, setShowModal, title }) => {
   const { t } = useTranslation();
@@ -34,9 +34,11 @@ const AddNewTask = ({ showModal, setShowModal, title }) => {
   const handleClose = () => {
     setShowModal(false);
   };
+  console.log(errors);
 
   const onSubmit = async (data) => {
     const formData = new FormData();
+    console.log(data);
 
     formData.append("employee_id", data.employee_id);
     formData.append("task_system_id", data.task_system_id);
@@ -45,8 +47,8 @@ const AddNewTask = ({ showModal, setShowModal, title }) => {
 
     // Handle file
     if (data.files && data.files.length > 0) {
-      files.forEach((file ,index) => {
-        formData.append(`files[${index}]` , file)
+      files.forEach((file, index) => {
+        formData.append(`files[${index}]`, file);
       });
     }
 
