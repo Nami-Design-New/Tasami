@@ -75,9 +75,8 @@
   &__item {
     display: flex;
     align-items: center;
-
-    input[type="checkbox"] {
-      margin-left: 0.5rem;
+    label {
+      cursor: pointer;
     }
   }
 

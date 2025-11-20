@@ -1,27 +1,29 @@
 import { useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 
+import { yupResolver } from "@hookform/resolvers/yup";
+import { useQueryClient } from "@tanstack/react-query";
+import { Controller, useForm } from "react-hook-form";
+import { useNavigate } from "react-router";
+import { toast } from "sonner";
+import * as yup from "yup";
+import useGetCities from "../../../hooks/countries/useGetCities";
+import useGetCountries from "../../../hooks/countries/useGetCountries";
+import useGetNationalities from "../../../hooks/countries/useGetNationalities";
+import useCreateEmployee from "../../../hooks/dashboard/employee/useCreateEmployee";
+import useDeleteEmployeeAttachment from "../../../hooks/dashboard/employee/useDeleteEmployeeAttachment";
+import useGetEmployee from "../../../hooks/dashboard/employee/useGetEmployee";
+import useUpdateEmployee from "../../../hooks/dashboard/employee/useUpdateEmployee";
+import useGetRoles from "../../../hooks/dashboard/shared/useGetRoles";
+import useInfiniteWorkingGroups from "../../../hooks/dashboard/workingGroups/useInfiniteWorkingGroups";
+import { flattenPages, formatYMD } from "../../../utils/helper";
+import CustomButton from "../../CustomButton";
 import FileUploader from "../../forms/FileUPloader";
 import FormWrapper from "../../forms/FormWrapper";
 import InputField from "../../forms/InputField";
 import SelectField from "../../forms/SelectField";
-import ProfileImageUploader from "../../ProfileImageUploader";
-import CustomButton from "../../CustomButton";
-import useInfiniteWorkingGroups from "../../../hooks/dashboard/workingGroups/useInfiniteWorkingGroups";
-import { Controller, useForm } from "react-hook-form";
 import SelectFieldReactSelect from "../../forms/SelectFieldReactSelect";
-import * as yup from "yup";
-import { yupResolver } from "@hookform/resolvers/yup";
-import useGetCountries from "../../../hooks/countries/useGetCountries";
-import useGetCities from "../../../hooks/countries/useGetCities";
-import useGetNationalities from "../../../hooks/countries/useGetNationalities";
-import useCreateEmployee from "../../../hooks/dashboard/employee/useCreateEmployee";
-import { flattenPages, formatYMD } from "../../../utils/helper";
-import { toast } from "sonner";
-import useGetRoles from "../../../hooks/dashboard/shared/useGetRoles";
-import { useNavigate, useParams } from "react-router";
-import { useQueryClient } from "@tanstack/react-query";
-import useGetEmployee from "../../../hooks/dashboard/employee/useGetEmployee";
+import ProfileImageUploader from "../../ProfileImageUploader";
 
 const createEmployeeSchema = (t) =>
   yup.object().shape({
@@ -73,10 +75,13 @@ const EmployerDataForm = ({ isEdit }) => {
   const [image, setImage] = useState(
     "/images/dashboard/avatar-placeholder.jpg"
   );
+  const { updateEmployee, isPending } = useUpdateEmployee();
   const { roles, rolesLoading } = useGetRoles();
   const { createEmployee, isCreatingEmployee } = useCreateEmployee();
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading } =
     useInfiniteWorkingGroups();
+  const { deleteEmployeeFiles, isPending: isDeleting } =
+    useDeleteEmployeeAttachment();
 
   const { employee, isLoading: employeeLoading } = useGetEmployee();
 
@@ -131,10 +136,8 @@ const EmployerDataForm = ({ isEdit }) => {
 
   useEffect(() => {
     if (!selectedGroupId) return;
-    console.log(flattened);
 
     const selected = flattened.find((g) => g.id === selectedGroupId);
-    console.log(selected);
 
     if (!selected) return;
 
@@ -169,7 +172,7 @@ const EmployerDataForm = ({ isEdit }) => {
       setImage(employee.data.image);
 
       // Load attachments into state
-      setFiles(employee.data.attachments || []);
+      setFiles(employee.data.files || []);
     }
   }, [isEdit, employee, reset]);
 
@@ -211,33 +214,94 @@ const EmployerDataForm = ({ isEdit }) => {
     }
   };
 
+  const handleDeletefile = (fileId) => {
+    deleteEmployeeFiles(fileId, {
+      onSuccess: (res) => {
+        toast.success(res.message);
+        queryClient.invalidateQueries({
+          queryKey: ["dashboard-employee-details"],
+        });
+      },
+      onError: (error) => {
+        toast.error(error?.message);
+      },
+    });
+  };
+
   const onSubmit = (formData) => {
     const payload = new FormData();
-    // Append text/number fields
-    payload.append("role_id", 4); // or map from jobLevel
-    payload.append("job_title", formData.jobTitle);
-    payload.append("group_id", formData.group);
-    payload.append("first_name", formData.firstName);
-    payload.append("last_name", formData.fatherName || "");
-    payload.append("family_name", formData.familyName || "");
-    payload.append("birthdate", formatYMD(formData.birthdate));
-    payload.append("email", formData.email);
-    payload.append("gender", formData.gender || "");
-    payload.append("country_id", formData.residentCountry || "");
-    payload.append("city_id", formData.residentCity || "");
-    payload.append("nationality_id", formData.nationality || "");
-    // Append profile image if selected
-    if (formData?.profileImage && formData?.profileImage instanceof File) {
-      payload.append("image", formData?.profileImage);
-    }
-    // Append attachments if any
-    files.forEach((file, index) => {
-      payload.append(`files[${index}]`, file);
-    });
+
     // Call mutation
     if (isEdit) {
-      // updateEmployee({ id, payload });
+      payload.append("_method", "put");
+
+      // Compare each field with original employee data
+      payload.append("role_id", formData.jobLevel);
+      payload.append("job_title", formData.jobTitle);
+      payload.append("group_id", formData.group);
+      payload.append("first_name", formData.firstName);
+      payload.append("last_name", formData.fatherName || "");
+      payload.append("family_name", formData.familyName || "");
+      payload.append("birthdate", formatYMD(formData.birthdate));
+      payload.append("email", formData.email);
+      payload.append("gender", formData.gender || "");
+      payload.append("country_id", formData.residentCountry || "");
+      payload.append("city_id", formData.residentCity || "");
+      payload.append("nationality_id", formData.nationality || "");
+
+      // Profile image
+      if (formData.profileImage instanceof File) {
+        payload.append("image", formData.profileImage);
+      }
+
+      // Only append attachments if changed
+      const originalFiles = employee.data.attachments || [];
+      const newFiles = files.filter((f) => !originalFiles.includes(f));
+      newFiles.forEach((file, index) => {
+        payload.append(`files[${index}]`, file);
+      });
+
+      // Call update mutation
+      updateEmployee(
+        { employeeId: employee.data.id, payload },
+        {
+          onSuccess: (res) => {
+            console.log("Edit employee profile");
+
+            toast.success(res?.message);
+            queryClient.refetchQueries({ queryKey: ["dashboard-team"] });
+            queryClient.invalidateQueries({
+              queryKey: ["dashboard-employee-details"],
+            });
+          },
+          onError: (err) => {
+            toast.error(err.message);
+            console.error("Error updating employee:", err);
+          },
+        }
+      );
     } else {
+      // Append text/number fields
+      payload.append("role_id", formData.jobLevel); // or map from jobLevel
+      payload.append("job_title", formData.jobTitle);
+      payload.append("group_id", formData.group);
+      payload.append("first_name", formData.firstName);
+      payload.append("last_name", formData.fatherName || "");
+      payload.append("family_name", formData.familyName || "");
+      payload.append("birthdate", formatYMD(formData.birthdate));
+      payload.append("email", formData.email);
+      payload.append("gender", formData.gender || "");
+      payload.append("country_id", formData.residentCountry || "");
+      payload.append("city_id", formData.residentCity || "");
+      payload.append("nationality_id", formData.nationality || "");
+      // Append profile image if selected
+      if (formData?.profileImage && formData?.profileImage instanceof File) {
+        payload.append("image", formData?.profileImage);
+      }
+      // Append attachments if any
+      files.forEach((file, index) => {
+        payload.append(`files[${index}]`, file);
+      });
       createEmployee(payload, {
         onSuccess: (res) => {
           toast.success(res?.message);
@@ -541,6 +605,7 @@ const EmployerDataForm = ({ isEdit }) => {
                 files={files}
                 onFilesChange={handleFilesChange}
                 label={t("dashboard.createEmployee.form.attachFiles")}
+                onDelete={handleDeletefile}
               />
             </div>
             {/* Buttons */}
@@ -548,10 +613,10 @@ const EmployerDataForm = ({ isEdit }) => {
               <div className="buttons w-full justify-content-end">
                 {isEdit ? (
                   <CustomButton
+                    loading={isPending}
                     type="submit"
                     color={allFieldsFilled ? "success" : "primary"}
                     size="large"
-                    loading={isCreatingEmployee}
                   >
                     {t("dashboard.createEmployee.form.edit")}
                   </CustomButton>

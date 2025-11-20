@@ -1,13 +1,14 @@
+import { AnimatePresence, motion } from "framer-motion";
 import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { useTranslation } from "react-i18next";
 import PermissionItem from "./PermissionItem";
 
 const PermissionGroup = ({ title, permissions, groupId }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const { t } = useTranslation();
   const [checkedItems, setCheckedItems] = useState(
     Array(permissions.length).fill(false)
   );
-
   const toggleAccordion = () => {
     setIsOpen(!isOpen);
   };
@@ -82,13 +83,14 @@ const PermissionGroup = ({ title, permissions, groupId }) => {
               exit="hidden"
               className="permission__item permission__select-all"
             >
-              <label>
+              <label className="d-flex align-items-center gap-2">
                 <input
                   type="checkbox"
                   checked={checkedItems.every(Boolean)}
                   onChange={toggleAll}
                 />
-                تحديد الكل
+
+                {t("dashboard.permissions.selectAll")}
               </label>
             </motion.div>
 
@@ -101,7 +103,7 @@ const PermissionGroup = ({ title, permissions, groupId }) => {
                 exit="hidden"
               >
                 <PermissionItem
-                  label={perm.trim()}
+                  label={perm.title.trim()}
                   id={`${groupId}-perm-${index}`}
                   checked={checkedItems[index]}
                   onChange={() => toggleItem(index)}

@@ -1174,8 +1174,8 @@
       "group": "Group",
       "region": "Region",
       "location": "Sector",
-      "city": "City", 
-      "added":"Added"
+      "city": "City",
+      "added": "Added"
     },
     "table": {
       "drag": "Drag",
@@ -1650,6 +1650,14 @@
           "canceled": "Canceled"
         }
       }
+    },
+    "permissions": {
+      "title": "Permissions",
+      "searchPlaceholder": "Search for a permission or task...",
+      "cancel": "Cancel",
+      "save": "Save",
+      "update": "Update",
+      "selectAll": "Select All"
     }
   }
 }

@@ -105,6 +105,7 @@ const Teams = () => {
   // -----------------------------------
   const data = useMemo(() => {
     return (team?.data ?? []).map((item) => ({
+      id: item?.id,
       first_name: item?.first_name,
       last_name: item?.last_name,
       employee_code: item?.code,
@@ -152,7 +153,7 @@ const Teams = () => {
         header: t("dashboard.team.columns.employee_code"),
         cell: (info) => (
           <Link
-            to={`/dashboard/employee-details/${info.getValue()}`}
+            to={`/dashboard/employee-details/${info?.row?.original?.id}`}
             className="link-styles"
           >
             {info.getValue()}
