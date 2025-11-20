@@ -5,128 +5,79 @@ import { Link } from "react-router";
 import ReusableDataTable from "../../../ui/table/ReusableDataTable";
 import ReassignTaskModal from "./ReassignTaskModal";
 import { useTranslation } from "react-i18next";
+import useGetTasksDashboard from "../../../hooks/dashboard/tasks/useGetTasksDashboard";
+import { PAGE_SIZE } from "../../../utils/constants";
+import TablePagination from "../../../ui/table/TablePagentaion";
 
 const columnHelper = createColumnHelper();
 
 const TasksTable = () => {
   const { t } = useTranslation();
   const [showReassignModal, setShowReassignModal] = useState(false);
-  const data = useMemo(
-    () => [
-      {
-        id: 1,
-        system: "دخلي ",
-        subject: "طلب خدمة",
-        model: "EVL-122201",
-        date: "2025-05-25",
-        time: "10:30",
-        service: "os-123",
-        userAccount: "U-010222-0000",
-        accountType: "اساسي",
-        idNumber: "01-014-0004",
-        group: "GN-000002",
-        region: "01-الشرق الاوسط",
-        location: "014 - السعوديه",
-        city: "0001 - الرياض",
-        employerName: "إياد محمد خالد",
+  const [selectedRow, setSelectedRow] = useState();
+  const [page, setPage] = useState(1);
+  const [pageSize, setPageSize] = useState(PAGE_SIZE);
+  const { tasks, currentPage, lastPage, isLoading } = useGetTasksDashboard(
+    "",
+    page,
+    PAGE_SIZE
+  );
 
-        completionDate: "2025-05-25",
-        status: "غير مكتمل",
-        actionLevel: "الموظف",
-        rate: null,
-        assign: true,
-      },
-      {
-        id: 2,
-        system: "دخلي ",
-        subject: "شكوى",
-        model: "EVL-122201",
-        date: "2025-05-25",
-        time: "10:30",
-        service: "خدمة العملاء",
-        userAccount: "U-010222-0000",
-        accountType: "متميز",
-        idNumber: "01-014-0004",
-        group: "GN-000002",
-        region: "01-الشرق الاوسط",
-        location: "014 - السعوديه",
-        city: "0001 - الرياض",
-        employerName: "أحمد سعيد محمود",
+  // const data = useMemo(
+  //   () => [
+  //     {
+  //       id: 1,
+  //       system: "دخلي ",
+  //       subject: "طلب خدمة",
+  //       model: "EVL-122201",
+  //       date: "2025-05-25",
+  //       time: "10:30",
+  //       service: "os-123",
+  //       userAccount: "U-010222-0000",
+  //       accountType: "اساسي",
+  //       idNumber: "01-014-0004",
+  //       group: "GN-000002",
+  //       region: "01-الشرق الاوسط",
+  //       location: "014 - السعوديه",
+  //       city: "0001 - الرياض",
+  //       employerName: "إياد محمد خالد",
 
-        completionDate: "2025-05-25",
-        status: "مكتمل",
-        actionLevel: "المشرف",
-        rate: null,
-        assign: true,
-      },
-      {
-        id: 3,
-        system: "دخلي ",
-        subject: "تحديث بيانات",
-        model: "PIN-122201",
-        date: "2025-05-25",
-        time: "10:30",
-        service: "الخدمات المصرفية",
-        userAccount: "U-010222-0000",
-        accountType: "رواد",
-        idNumber: "01-014-0004",
-        group: "GN-000002",
-        region: "01-الشرق الاوسط",
-        location: "014 - السعوديه",
-        city: "0001 - الرياض",
-        employerName: "سارة أحمد علي",
-        completionDate: "2025-05-25",
-        status: "غير مضاف",
-        actionLevel: "المشرف",
-        rate: null,
+  //       completionDate: "2025-05-25",
+  //       status: "غير مكتمل",
+  //       actionLevel: "الموظف",
+  //       rate: null,
+  //       assign: true,
+  //     },
+  //   ],
+  //   []
+  // );
+  const tableData = useMemo(
+    () =>
+      tasks.map((task) => ({
+        id: task?.id,
+        system: task.system_type.type || "-",
+        subject: task.system_type.title || "-",
+        model: task.reference_number || "-",
+        date: task.date || "-",
+        time: task.time || "-",
+        service: task.service || "-",
+        userAccount: task.account || "-",
+        accountType: task.account_type || "-",
+        idNumber: task.id_number || "-",
+        group: task.account_group || "-",
+        region: task.region.title || "-",
+        location: task.country.title || "-",
+        city: task.city.title || "-",
+
+        completionDate: task.finish_date || "-",
+        status: task.status || "-",
+        actionLevel: task.procedure_level || "-",
+        rate: task.rate || "-",
         assign: false,
-      },
-      {
-        id: 4,
-        system: "دخلي ",
-        subject: "فتح حساب",
-        model: "PIN-122201",
-        date: "2025-05-25",
-        time: "10:30",
-        service: "التمويل الشخصي",
-        userAccount: "U-010222-0000",
-        accountType: "اساسي",
-        idNumber: "01-014-0004",
-        group: "GN-000002",
-        region: "01-الشرق الاوسط",
-        location: "014 - السعوديه",
-        city: "0001 - الرياض",
-        employerName: "محمد خالد عبدالله",
-        completionDate: "2025-05-25",
-        status: "غير مكتمل",
-        actionLevel: "التنفيذي",
-        rate: null,
-        assign: true,
-      },
-      {
-        id: 5,
-        system: "دخلي ",
-        subject: "إغلاق حساب",
-        model: "PIN-122201",
-        date: "2025-05-25",
-        time: "10:30",
-        service: "الخدمات العامة",
-        userAccount: "U-010222-0000",
-        accountType: "متميز",
-        idNumber: "01-014-0004",
-        group: "GN-000002",
-        region: "01-الشرق الاوسط",
-        location: "014 - السعوديه",
-        city: "0001 - الرياض",
-        employerName: "فاطمة محمد سعيد",
-        completionDate: "2025-05-25",
-        status: "مكتمل",
-        actionLevel: "التنفيذي",
-        rate: "3.2",
-        assign: true,
-      },
-    ],
-    []
+        // is_added: task.is_added,
+        // employerName: "فاطمة محمد سعيد",
+      })),
+    [tasks, t]
   );
 
   const columns = useMemo(
@@ -204,7 +155,7 @@ const TasksTable = () => {
         cell: (info) => {
           let badgeColor;
           switch (info.getValue()) {
-            case "مكتمل":
+            case "completed":
               badgeColor = "#28a745";
               break;
             case "غير مكتمل":
@@ -233,7 +184,6 @@ const TasksTable = () => {
           );
         },
       }),
-      ,
       columnHelper.accessor("actionLevel", {
         header: t("dashboard.tasks.table.actionLevel"),
         cell: (info) => info.getValue(),
@@ -251,7 +201,12 @@ const TasksTable = () => {
         header: t("dashboard.tasks.table.assign"),
         cell: (info) =>
           info.getValue() ? null : (
-            <button onClick={() => setShowReassignModal(true)}>
+            <button
+              onClick={() => {
+                setSelectedRow(info.row.original.id);
+                setShowReassignModal(true);
+              }}
+            >
               <i className="fa-solid fa-repeat"></i>
             </button>
           ),
@@ -263,15 +218,30 @@ const TasksTable = () => {
   return (
     <>
       <ReusableDataTable
-        columns={columns}
-        data={data}
         filter={false}
         title={t("dashboard.tasks.table.subject")}
-        searchPlaceholder={t("dashboard.tasks.searchPlaceholder")}
-      />
+        data={tableData}
+        columns={columns}
+        currentPage={currentPage}
+        lastPage={lastPage}
+        setPage={setPage}
+        pageSize={pageSize}
+        setPageSize={setPageSize}
+        lang="ar"
+        searchPlaceholder={t("dashboard.workGroup.table.searchPlaceholder")}
+        isLoading={isLoading}
+      >
+        <TablePagination
+          currentPage={page}
+          lastPage={lastPage}
+          onPageChange={setPage}
+          isLoading={isLoading}
+        />
+      </ReusableDataTable>
       <ReassignTaskModal
         showModal={showReassignModal}
         setShowModal={setShowReassignModal}
+        selectedRow={selectedRow}
       />
     </>
   );
