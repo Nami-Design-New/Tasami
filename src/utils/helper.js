@@ -89,3 +89,7 @@ export async function getAspectRatio(file) {
     }
   });
 }
+
+// flatten pages
+export const flattenPages = (data) =>
+  data?.pages.flatMap((page) => page?.data || []) ?? [];
