@@ -24,16 +24,16 @@ export default function useGetNotificationsDashboard(
 
   return {
     notifications: data?.data || [],
-    stats: data
-      ? {
-          group_count: data.group_count,
-          executive_count: data.executive_count,
-          leader_count: data.leader_count,
-          manager_count: data.manager_count,
-          supervisor_count: data.supervisor_count,
-          customer_service_count: data.customer_service_count,
-        }
-      : {},
+    // stats: data
+    //   ? {
+    //       group_count: data.group_count,
+    //       executive_count: data.executive_count,
+    //       leader_count: data.leader_count,
+    //       manager_count: data.manager_count,
+    //       supervisor_count: data.supervisor_count,
+    //       customer_service_count: data.customer_service_count,
+    //     }
+    //   : {},
     currentPage: data?.current_page || 1,
     lastPage: data?.last_page || 1,
     isLoading,

@@ -3,33 +3,45 @@ import { useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import ReusableDataTable from "../../table/ReusableDataTable";
 import RateModal from "./RateModal";
-import useGetNotificationsDashboard from "../../../hooks/dashboard/workingGroups/useGetNotificationsDashboard";
+import useGetNotificationsDashboard from "../../../hooks/dashboard/notificatoins/useGetNotificationsDashboard";
 import { PAGE_SIZE } from "../../../utils/constants";
 import TablePagination from "../../table/TablePagentaion";
 import AlertModal from "../../website/platform/my-community/AlertModal";
-import usePostAddToTask from "../../../hooks/dashboard/workingGroups/usePostAddToTask";
+import usePostAddToTask from "../../../hooks/dashboard/notificatoins/usePostAddToTask";
 import { toast } from "sonner";
+import { useQueryClient } from "@tanstack/react-query";
 const columnHelper = createColumnHelper();
 
 const NotificationTable = () => {
   const { t } = useTranslation();
+  const queryClient = useQueryClient();
   const [showRateModal, setShowRateModal] = useState(false);
   const [notificationId, setNotificationId] = useState();
   const { addToTask, isAddingToTask } = usePostAddToTask();
+  const [page, setPage] = useState(1);
+  const [pageSize, setPageSize] = useState(PAGE_SIZE);
+
+  // -----------------------------
+  // Modal state
+  // -----------------------------
+  const [showModal, setShowModal] = useState(false);
+
+  // -----------------------------
+  // Fetch working groups via hook
+  // -----------------------------
+  const { notifications, currentPage, lastPage, isLoading } =
+    useGetNotificationsDashboard("", page, pageSize);
 
   const handleAddToTask = () => {
-    addToTask(notificationId, {
+    const payload = {
+      task_id: notificationId,
+    };
+    addToTask(payload, {
       onSuccess: (res) => {
-        // dispatch(clearAuth());
-        // removeToken();
-        // localStorage.removeItem("skipAreasOfInterest");
-        // queryClient.clear();
-        // queryClient.invalidateQueries();
-        // queryClient.removeQueries();
-
-        // navigate("/login");
-
         toast.success(res.message);
+        queryClient.invalidateQueries({
+          queryKey: ["dashboard-notifications"],
+        });
       },
       onError: (err) => {
         toast.error(err.message);
@@ -129,37 +141,25 @@ const NotificationTable = () => {
   // -----------------------------
   // Pagination state
   // -----------------------------
-  const [page, setPage] = useState(1);
-  const [pageSize, setPageSize] = useState(PAGE_SIZE);
-
-  // -----------------------------
-  // Modal state
-  // -----------------------------
-  const [showModal, setShowModal] = useState(false);
-
-  // -----------------------------
-  // Fetch working groups via hook
-  // -----------------------------
-  const { notifications, stats, currentPage, lastPage, isLoading } =
-    useGetNotificationsDashboard("", page, pageSize);
 
   const tableData = useMemo(
     () =>
       notifications.map((notify) => ({
         id: notify?.id,
-        system: notify.system_type.type,
-        subject: notify.system_type.title,
-        model: notify.reference_number,
-        date: notify.date,
-        time: notify.time,
-        service: "الخدمات العامة test",
-        userAccount: notify.account,
-        accountType: notify.account_type,
-        idNumber: notify.id_number,
-        group: notify.account_group,
-        region: notify.region.title,
-        location: notify.country.title,
-        city: notify.city.title,
+        system: notify.system_type.type || "-",
+        subject: notify.system_type.title || "-",
+        model: notify.reference_number || "-",
+        date: notify.date || "-",
+        time: notify.time || "-",
+        service: notify.service || "-",
+        userAccount: notify.account || "-",
+        accountType: notify.account_type || "-",
+        idNumber: notify.id_number || "-",
+        group: notify.account_group || "-",
+        region: notify.region.title || "-",
+        location: notify.country.title || "-",
+        city: notify.city.title || "-",
+        is_added: notify.is_added,
         // employerName: "فاطمة محمد سعيد",
       })),
     [notifications, t]
@@ -222,17 +222,21 @@ const NotificationTable = () => {
       columnHelper.accessor("actions", {
         header: t("dashboard.workGroup.table.actions"),
         cell: (info) => {
-          console.log("info notify aciton", info);
+          // console.log("info notify aciton", info?.row?.original  );
           return (
             <div className="table__actions">
-              <i
-                onClick={() => {
-                  setShowModal(true);
-                  setNotificationId(info?.row?.original?.id);
-                  // setWorkingGroupName(info?.row?.original?.groupNumber);
-                }}
-                className="fa-solid fa-plus"
-              ></i>
+              {info?.row?.original?.is_added ? (
+                t("dashboard.notifications.added")
+              ) : (
+                <i
+                  onClick={() => {
+                    setShowModal(true);
+                    setNotificationId(info?.row?.original?.id);
+                    // setWorkingGroupName(info?.row?.original?.groupNumber);
+                  }}
+                  className="fa-solid fa-plus"
+                ></i>
+              )}
             </div>
           );
         },
@@ -264,7 +268,13 @@ const NotificationTable = () => {
         />
       </ReusableDataTable>
       <RateModal showModal={showRateModal} setShowModal={setShowRateModal} />
-      <AlertModal setShowModal={setShowModal} showModal={showModal} onConfirm={handleAddToTask} notificationId={notificationId} confirmButtonText={t("confirm")}/>
+      <AlertModal
+        setShowModal={setShowModal}
+        showModal={showModal}
+        onConfirm={handleAddToTask}
+        notificationId={notificationId}
+        confirmButtonText={t("confirm")}
+      />
     </>
   );
 };
