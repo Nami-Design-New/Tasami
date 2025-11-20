@@ -1174,7 +1174,8 @@
       "group": "Group",
       "region": "Region",
       "location": "Sector",
-      "city": "City"
+      "city": "City", 
+      "added":"Added"
     },
     "table": {
       "drag": "Drag",

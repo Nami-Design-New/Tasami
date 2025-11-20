@@ -250,34 +250,28 @@
     "benefit": "الفائدة",
     "guidance": "الإرشاد",
     "verification": "التحقق",
-
     "difficulty": {
       "easy": "سهلة",
       "medium": "متوسطة",
       "hard": "صعبة"
     },
-
     "benefitLevel": {
       "high": "عالية",
       "medium": "متوسطة",
       "low": "منخفضة"
     },
-
     "guidanceLevel": {
       "easy": "تمهيدي",
       "medium": "متوسط",
       "advanced": "متقدم"
     },
-
     "verificationStatus": {
       "full": "تم تحقيقه بالكامل",
       "partial": "تم تحقيقه جزئيًا",
       "retry": "بحاجة لإعادة المحاولة"
     },
-
     "cancel": "إلغاء",
     "send": "إرسال",
-
     "validation": {
       "selectDifficulty": "الرجاء اختيار مستوى التنفيذ",
       "selectBenefit": "الرجاء اختيار مستوى الفائدة",
@@ -717,7 +711,6 @@
         "accept": "قبول",
         "reject": "استبعاد"
       },
-
       "doWithoutAssistant": "تنفيذ الهدف بدون مساعدة",
       "confirm": "تأكيد",
       "alertText": "سيتم استبعاد جميع العروض وإلغاء تعيين المساعدة لهذا الهدف!",
@@ -1055,24 +1048,20 @@
   "dashboard": {
     "welcome_back": "مرحبًا بك مرة أخرى،",
     "welcome_message": "قم بتتبع نشاط المبيعات لديك، والعملاء المحتملين والصفقات هنا.",
-
     "assistant_requests": "عدد طلبات المساعد",
     "help_offers": "عدد عروض المساعدة",
     "basic_accounts": "عدد الحسابات الاساسيه",
     "leader_accounts": "عدد حسابات القادة",
     "pioneer_accounts": "عدد حسابات الرواد",
     "this_month": "هذا الشهر",
-
     "urgent_actions": "اجراءات عاجله",
     "create_employee": "انشاء موظف",
     "create_group": "انشاء مجموعه",
     "suspend_employee": "ايقاف موظف",
     "add_field": "اضافه مجال جديد",
-
     "employees": "عدد الموظفين",
     "revenue_analytics": "تحليلات الإيرادات",
     "user_growth": "نمو المستخدمين",
-
     "executives": "التنفيذيين",
     "leaders": "القادة",
     "managers": "المدراء",
@@ -1081,7 +1070,6 @@
     "total": "الكلي",
     "revenue_6_months": "عائد باقة 6 أشهر",
     "revenue_12_months": "عائد باقة 12 شهر",
-
     "users": "المستخدمين",
     "task_status": "حاله المهام",
     "compared_last_week": "مقارنة بالاسبوع الماضي",
@@ -1092,13 +1080,11 @@
     "subscribers_and_team": "المشتركون و فريق العمل",
     "subscribers": "المشتركون",
     "myTeam": "فريق العمل",
-
     "list_management": "اداره القوائم",
     "operating_areas": "مناطق التشغيل",
     "working_groups": "مجموعات العمل",
     "fields_specializations": "المجالات والتخصصات",
     "admin_systems": "الانظمه الاداريه",
-
     "website_management": "اداره الموقع",
     "violations": "المخالفات",
     "social_links": "روابط وسائل التواصل",
@@ -1134,7 +1120,8 @@
       "group": "المجموعة",
       "region": "الإقليم",
       "location": "القطاع",
-      "city": "المدينة"
+      "city": "المدينة",
+      "added": "مضافه"
     },
     "table": {
       "drag": "تحريك",
@@ -1511,11 +1498,9 @@
       "suspendAccount": "إيقاف الحساب",
       "activateAccount": "تنشيط الحساب",
       "contentNotAvailable": "المحتوى غير متوفر لهذا التبويب",
-
       "requestSuspendAccountModalTitle": "طلب إيقاف الحساب",
       "form": {
         "employmentData": "البيانات الوظيفية",
-
         "jobLevel": "المستوى الوظيفي",
         "selectJobLevel": "اختر المستوى الوظيفي",
         "jobLevel_executive": "تنفيذي",
@@ -1523,59 +1508,41 @@
         "jobLevel_manager": "مدير",
         "jobLevel_supervisor": "مشرف",
         "jobLevel_customerService": "موظف خدمة العملاء",
-
         "jobTitle": "المسمى الوظيفي",
         "jobTitle_placeholder": "مثال: أخصائي قانوني",
-
         "accountNumber": "رقم الحساب",
         "date": "التاريخ",
-
         "group": "المجموعة",
         "selectGroup": "اختر المجموعة",
-
         "region": "الإقليم",
         "region_middleEast": "الشرق الأوسط",
         "region_europe": "أوروبا",
         "region_northAmerica": "أمريكا الشمالية",
-
         "country": "القطاع",
-
         "country_sa": "السعودية",
         "country_egypt": "مصر",
         "country_morocco": "المغرب",
-
         "city": "المدينة",
         "city_jeddah": "جدة",
         "city_riyadh": "الرياض",
         "city_madina": "المدينة",
-
         "personalData": "البيانات الشخصية",
-
         "firstName": "الاسم الأول",
         "firstName_placeholder": "مثال: محمود",
-
         "fatherName": "اسم الأب",
         "fatherName_placeholder": "مثال: عباس",
-
         "familyName": "اسم العائلة",
         "familyName_placeholder": "مثال: عباس",
-
         "birthDate": "تاريخ الميلاد",
-
         "email": "البريد الإلكتروني",
         "email_placeholder": "مثال: mahmoud@gmail.com",
-
         "gender": "الجنس",
         "gender_male": "ذكر",
         "gender_female": "أنثى",
-
         "residentCountry": "بلد الإقامة",
         "residentCity": "مدينة الإقامة",
-
         "nationality": "الجنسية",
-
         "attachFiles": "أضف المرفقات",
-
         "cancel": "إلغاء",
         "save": "حفظ",
         "add": "إضافة",
