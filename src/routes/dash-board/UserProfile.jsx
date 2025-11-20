@@ -6,7 +6,7 @@ import TabsHorizontal from "../../ui/TabsHorizontal";
 import AssistantPresenter from "../../ui/dash-board/userprofile/AssistantPresenter";
 import Beneficiary from "../../ui/dash-board/userprofile/Beneficiary";
 import SuspensionModel from "../../ui/modals/SuspensionModel";
-import AddNewTask from "./tasks/AddNewTask";
+import AddNewTask from "./tasks/AddNewTaskModal";
 import { useSearchParams } from "react-router";
 const tabs = [
   {

@@ -9,7 +9,7 @@ import EmployerDataForm from "../../ui/dash-board/create-employee/EmployerDataFo
 import PerformanceIndicators from "../../ui/dash-board/create-employee/PerformanceIndicators";
 import PermissionBoard from "../../ui/dash-board/create-employee/PermissionBoard";
 import SuspensionModel from "../../ui/modals/SuspensionModel";
-import AddNewTask from "./tasks/AddNewTask";
+import AddNewTask from "./tasks/AddNewTaskModal";
 
 const CreateEmployee = () => {
   const { id } = useParams();

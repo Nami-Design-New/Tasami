@@ -3,9 +3,9 @@ import { useTranslation } from "react-i18next";
 import StatisticsCard from "../../../ui/dash-board/cards/StatisticsCard";
 import PageHeader from "../../../ui/PageHeader";
 import TasksTable from "./TasksTable";
-import AddNewTask from "./AddNewTask";
 import CustomButton from "../../../ui/CustomButton";
 import ChartCard from "../../../ui/dash-board/cards/ChartCard";
+import AddNewTask from "./AddNewTaskModal";
 
 const Tasks = () => {
   const { t } = useTranslation();
