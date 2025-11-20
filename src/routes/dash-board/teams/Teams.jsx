@@ -1,166 +1,155 @@
+// export default Teams;
 import { createColumnHelper } from "@tanstack/react-table";
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { Badge } from "react-bootstrap";
 import { Link } from "react-router";
+import { useTranslation } from "react-i18next";
+
 import ColumnChart from "../../../ui/dash-board/charts/ColumnChart";
 import ReusableDataTable from "../../../ui/table/ReusableDataTable";
-
-// Column Chart
-const excutives = [
-  {
-    name: "التنفيذيين",
-    data: [112, 40, 20, 30, 12],
-  },
-];
-
-const leaders = [
-  {
-    name: "القاده",
-    data: [112, 40, 20, 30, 12],
-  },
-];
-const manager = [
-  {
-    name: "المدراء",
-    data: [112, 40, 20, 30, 12],
-  },
-];
-const supervisors = [
-  {
-    name: "المشرفين",
-    data: [112, 40, 20, 30, 12],
-  },
-];
-const customerService = [
-  {
-    name: "خدمه العملاء",
-    data: [112, 40, 20, 30, 12],
-  },
-];
-const usersCategories = ["الاجمالي", "نشط", "غير نشط", "موقوف", "ملغي"];
-const activeAccountsoptions = {
-  chart: {
-    type: "bar",
-    height: 250,
-    toolbar: { show: true },
-    distributed: true,
-  },
-  grid: {
-    show: false,
-  },
-  plotOptions: {
-    bar: {
-      horizontal: false,
-      columnWidth: "20%",
-      barHeight: "100%",
-      borderRadius: 5,
-      borderRadiusApplication: "around",
-      distributed: true,
-    },
-  },
-  dataLabels: {
-    enabled: false,
-  },
-  xaxis: {
-    categories: usersCategories,
-    labels: {
-      style: {
-        fontSize: "14px",
-      },
-    },
-  },
-  yaxis: {
-    labels: {
-      style: {
-        fontSize: "12px",
-      },
-    },
-  },
-  colors: ["#8c137e", "#007BFF", "#FFC107", "#28A745", "#DC3545"],
-  tooltip: {
-    y: {
-      formatter: (val) => `${val} حساب`,
-    },
-  },
-  legend: {
-    position: "top",
-    horizontalAlign: "center",
-  },
-};
+import useGetTeam from "../../../hooks/dashboard/teams/useGetTeam";
+import { PAGE_SIZE } from "../../../utils/constants";
 
 const columnHelper = createColumnHelper();
 
 const Teams = () => {
-  const data = useMemo(
-    () => [
-      {
-        name: "صالح",
-        lastname: "محمود",
-        accountNumber: "S-020522-00215a",
-        accountType: "مشرف",
-        gender: "ذكر",
-        nationality: "السعودية",
-        city: "الرياض-001",
-        region: "014-المنطقة الوسطى",
-        location: "المملكة العربية السعودية",
-        status: "موقوفة",
-        accountStatusDate: "20-Apr-2020",
-        time: "08:55 am",
-      },
-      {
-        name: "محمد",
-        lastname: "محمود",
+  const { t, i18n } = useTranslation();
 
-        accountNumber: "E-020522-00215b",
-        accountType: "موظف",
+  const lang = i18n.language; // "ar" or "en"
 
-        gender: "ذكر",
-        nationality: "السعودية",
-        city: "الرياض-002",
-        region: "014-المنطقة الوسطى",
-        location: "المملكة العربية السعودية",
+  // -----------------------------------
+  // Pagination
+  // -----------------------------------
+  const [page, setPage] = useState(1);
+  const [pageSize, setPageSize] = useState(PAGE_SIZE);
 
-        status: "غير نشط",
-        accountStatusDate: "20-Apr-2020",
-        time: "08:55 am",
-      },
-      {
-        name: "علي",
-        lastname: "محمود",
-
-        accountNumber: "E-020522-00215c",
-        accountType: "موظف",
-
-        gender: "ذكر",
-        nationality: "السعودية",
-        city: "الرياض-003",
-        region: "014-المنطقة الوسطى",
-        location: "المملكة العربية السعودية",
-
-        status: "نشط",
-        accountStatusDate: "20-Apr-2020",
-        time: "08:55 am",
-      },
-    ],
-    []
+  // -----------------------------------
+  // Fetch data
+  // -----------------------------------
+  const { currentPage, lastPage, team, isLoading } = useGetTeam(
+    "",
+    page,
+    pageSize
   );
 
+  // -----------------------------------
+  // Chart mapping (same logic)
+  // -----------------------------------
+  const usersCategories = [
+    t("dashboard.team.charts.categories.total"),
+    t("dashboard.team.charts.categories.active"),
+    t("dashboard.team.charts.categories.inactive"),
+    t("dashboard.team.charts.categories.stopped"),
+    t("dashboard.team.charts.categories.canceled"),
+  ];
+
+  const activeAccountsoptions = {
+    chart: {
+      type: "bar",
+      height: 250,
+      toolbar: { show: true },
+      distributed: true,
+    },
+    grid: { show: false },
+    plotOptions: {
+      bar: {
+        horizontal: false,
+        columnWidth: "20%",
+        borderRadius: 5,
+        distributed: true,
+      },
+    },
+    dataLabels: { enabled: false },
+    xaxis: { categories: usersCategories },
+    yaxis: { labels: { style: { fontSize: "12px" } } },
+    colors: ["#8c137e", "#007BFF", "#FFC107", "#28A745", "#DC3545"],
+  };
+
+  const mapChart = (obj, name) => [
+    {
+      name,
+      data: [
+        obj?.total ?? 0,
+        obj?.active ?? 0,
+        obj?.inactive ?? 0,
+        obj?.stopped ?? 0,
+        0, // canceled not supported by backend
+      ],
+    },
+  ];
+
+  const executives = mapChart(
+    team?.executive_count,
+    t("dashboard.team.charts.executives")
+  );
+  const leaders = mapChart(
+    team?.leader_count,
+    t("dashboard.team.charts.leaders")
+  );
+  const managers = mapChart(
+    team?.manager_count,
+    t("dashboard.team.charts.managers")
+  );
+  const supervisors = mapChart(
+    team?.supervisor_count,
+    t("dashboard.team.charts.supervisors")
+  );
+  const customerService = mapChart(
+    team?.customer_service_count,
+    t("dashboard.team.charts.customer_service")
+  );
+  console.log(team);
+
+  // -----------------------------------
+  // Table Data Mapping
+  // -----------------------------------
+  const data = useMemo(() => {
+    return (team?.data ?? []).map((item) => ({
+      first_name: item?.first_name,
+      last_name: item?.last_name,
+      employee_code: item?.code,
+      job_level: item?.role?.title,
+      nationality: item.nationality.title,
+      city: item.group.city.title,
+      region: item.group.region.title,
+      location: item.group.country.title,
+      status: item.status,
+      status_date: item.status_date,
+      status_time: item.status_time,
+    }));
+  }, [team]);
+
+  // -----------------------------------
+  // Localized Status Colors
+  // -----------------------------------
+  const statusColor = (status) => {
+    switch (status) {
+      case t("dashboard.team.statuses.active"):
+        return "#28a745";
+      case t("dashboard.team.statuses.inactive"):
+        return "#007bff";
+      case t("dashboard.team.statuses.stopped"):
+        return "#dc3545";
+      default:
+        return "#6c757d";
+    }
+  };
+
+  // -----------------------------------
+  // Table Columns (fully localized)
+  // -----------------------------------
   const columns = useMemo(
     () => [
-      columnHelper.accessor("name", {
-        header: "الاسم",
+      columnHelper.accessor("first_name", {
+        header: t("dashboard.team.columns.first_name"),
         cell: (info) => info.getValue(),
-        enableSorting: false,
       }),
-      columnHelper.accessor("lastname", {
-        header: "اسم العائله",
+      columnHelper.accessor("last_name", {
+        header: t("dashboard.team.columns.last_name"),
         cell: (info) => info.getValue(),
-        enableSorting: false,
       }),
-
-      columnHelper.accessor("accountNumber", {
-        header: "الحساب",
-
+      columnHelper.accessor("employee_code", {
+        header: t("dashboard.team.columns.employee_code"),
         cell: (info) => (
           <Link
             to={`/dashboard/employee-details/${info.getValue()}`}
@@ -169,136 +158,121 @@ const Teams = () => {
             {info.getValue()}
           </Link>
         ),
-        enableSorting: false,
       }),
-      columnHelper.accessor("accountType", {
-        header: "المستوي الوظيفي",
+      columnHelper.accessor("job_level", {
+        header: t("dashboard.team.columns.job_level"),
         cell: (info) => info.getValue(),
-        enableSorting: false,
       }),
-
       columnHelper.accessor("nationality", {
-        header: "الجنسيه",
+        header: t("dashboard.team.columns.nationality"),
         cell: (info) => info.getValue(),
-        enableSorting: false,
       }),
-
       columnHelper.accessor("region", {
-        header: " الاقليم ",
+        header: t("dashboard.team.columns.region"),
         cell: (info) => info.getValue(),
       }),
       columnHelper.accessor("location", {
-        header: " القطاع ",
+        header: t("dashboard.team.columns.location"),
         cell: (info) => info.getValue(),
       }),
       columnHelper.accessor("city", {
-        header: " المدينه ",
+        header: t("dashboard.team.columns.city"),
         cell: (info) => info.getValue(),
       }),
-
       columnHelper.accessor("status", {
-        header: " الحاله ",
+        header: t("dashboard.team.columns.status"),
         cell: (info) => {
-          let badgeColor;
-
-          switch (info.getValue()) {
-            case "نشط":
-              badgeColor = "#28a745";
-              break;
-            case "غير نشط":
-              badgeColor = "#007bff";
-              break;
-            case "موقوفة":
-              badgeColor = "#dc3545";
-              break;
-            default:
-              badgeColor = "#6c757d";
-              break;
-          }
           return (
             <Badge
               pill
               className="custom-badge"
               style={{
-                "--badge-color": badgeColor,
+                "--badge-color": statusColor(info.row.original.status),
                 "--text-color": "#fff",
-                fontWeight: "400",
               }}
             >
-              {info.getValue()}
+              {info.row.original.status}
             </Badge>
           );
         },
       }),
-
-      columnHelper.accessor("accountStatusDate", {
-        header: " تاريخ حاله الحساب  ",
+      columnHelper.accessor("status_date", {
+        header: t("dashboard.team.columns.status_date"),
         cell: (info) => info.getValue(),
       }),
-      columnHelper.accessor("time", {
-        header: " وقت حاله الحساب ",
-        cell: (info) => {
-          return (
-            <div>
-              {info.getValue() === null ? "لا يوجد تقييم" : info.getValue()}
-            </div>
-          );
-        },
+      columnHelper.accessor("status_time", {
+        header: t("dashboard.team.columns.status_time"),
+        cell: (info) => info.getValue() || "-",
       }),
     ],
-    []
+    [lang]
   );
 
+  // -----------------------------------
+  // Render
+  // -----------------------------------
   return (
     <section>
       <div className="row">
-        <div className="col-12 col-lg-6 col-xxl-4 p-2 ">
+        <div className="col-12 col-lg-6 col-xxl-4 p-2">
           <ColumnChart
-            title={"التنفيذين"}
-            series={excutives}
+            title={t("dashboard.team.charts.executives")}
+            series={executives}
             options={activeAccountsoptions}
             height={250}
           />
         </div>
-        <div className=" col-12 col-lg-6  col-xxl-4 p-2">
-          <ColumnChart
-            title={"القاده"}
-            series={leaders}
-            options={activeAccountsoptions}
-            height={"250px"}
-          />
-        </div>
+
         <div className="col-12 col-lg-6 col-xxl-4 p-2">
           <ColumnChart
-            title={" المدراء "}
-            series={manager}
+            title={t("dashboard.team.charts.leaders")}
+            series={leaders}
             options={activeAccountsoptions}
-            height={"250px"}
+            height={250}
           />
         </div>
+
+        <div className="col-12 col-lg-6 col-xxl-4 p-2">
+          <ColumnChart
+            title={t("dashboard.team.charts.managers")}
+            series={managers}
+            options={activeAccountsoptions}
+            height={250}
+          />
+        </div>
+
         <div className="col-12 col-lg-6 p-2">
           <ColumnChart
-            title={"المشرفين"}
+            title={t("dashboard.team.charts.supervisors")}
             series={supervisors}
             options={activeAccountsoptions}
-            height={"250px"}
+            height={250}
           />
         </div>
+
         <div className="col-12 col-xxl-6 p-2">
           <ColumnChart
-            title={"خدمه العملاء"}
+            title={t("dashboard.team.charts.customer_service")}
             series={customerService}
             options={activeAccountsoptions}
-            height={"250px"}
+            height={250}
           />
         </div>
+
         <div className="col-12 p-2">
           <ReusableDataTable
             data={data}
-            filter={false}
             columns={columns}
+            currentPage={currentPage}
+            lastPage={lastPage}
+            setPage={setPage}
+            pageSize={pageSize}
+            setPageSize={setPageSize}
             initialPageSize={8}
-            title="حسابات فريق العمل"
+            isLoading={isLoading}
+            searchPlaceholder={t("dashboard.team.searchPlaceholder")}
+            lang={lang}
+            title={t("dashboard.team.title")}
           />
         </div>
       </div>

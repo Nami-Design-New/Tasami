@@ -1079,7 +1079,7 @@
     "task_label": "مهمة",
     "subscribers_and_team": "المشتركون و فريق العمل",
     "subscribers": "المشتركون",
-    "team": "فريق العمل",
+    "myTeam": "فريق العمل",
     "list_management": "اداره القوائم",
     "operating_areas": "مناطق التشغيل",
     "working_groups": "مجموعات العمل",
@@ -1518,7 +1518,7 @@
         "region_middleEast": "الشرق الأوسط",
         "region_europe": "أوروبا",
         "region_northAmerica": "أمريكا الشمالية",
-        "sector": "القطاع",
+        "country": "القطاع",
         "country_sa": "السعودية",
         "country_egypt": "مصر",
         "country_morocco": "المغرب",
@@ -1545,7 +1545,49 @@
         "attachFiles": "أضف المرفقات",
         "cancel": "إلغاء",
         "save": "حفظ",
+        "add": "إضافة",
+        "saveDraft": "حفظ كمسودة",
         "edit": "تعديل"
+      }
+    },
+    "team": {
+      "title": "حسابات فريق العمل",
+      "searchPlaceholder": "البحث في فريق العمل",
+      "columns": {
+        "first_name": "الاسم",
+        "last_name": "اسم العائلة",
+        "employee_code": "رقم الحساب",
+        "job_level": "المستوى الوظيفي",
+        "nationality": "الجنسية",
+        "region": "الإقليم",
+        "location": "القطاع",
+        "city": "المدينة",
+        "status": "الحالة",
+        "status_date": "تاريخ حالة الحساب",
+        "status_time": "وقت حالة الحساب"
+      },
+
+      "statuses": {
+        "active": "نشط",
+        "inactive": "غير نشط",
+        "stopped": "موقوف",
+        "unknown": "غير معروف"
+      },
+
+      "charts": {
+        "executives": "التنفيذيين",
+        "leaders": "القادة",
+        "managers": "المدراء",
+        "supervisors": "المشرفين",
+        "customer_service": "خدمة العملاء",
+
+        "categories": {
+          "total": "الإجمالي",
+          "active": "نشط",
+          "inactive": "غير نشط",
+          "stopped": "موقوف",
+          "canceled": "ملغي"
+        }
       }
     }
   }

@@ -1131,7 +1131,7 @@
     "task_label": "Task",
     "subscribers_and_team": "Subscribers & Team",
     "subscribers": "Subscribers",
-    "team": "Team",
+    "myTeam": "Team",
 
     "list_management": "List Management",
     "operating_areas": "Operating Areas",
@@ -1567,13 +1567,10 @@
         "region_middleEast": "Middle East",
         "region_europe": "Europe",
         "region_northAmerica": "North America",
-
-        "sector": "Sector",
-
+        "country": "Country",
         "country_sa": "Saudi Arabia",
         "country_egypt": "Egypt",
         "country_morocco": "Morocco",
-
         "city": "City",
         "city_jeddah": "Jeddah",
         "city_riyadh": "Riyadh",
@@ -1608,7 +1605,50 @@
 
         "cancel": "Cancel",
         "save": "Save",
-        "edit": "Edit"
+        "edit": "Edit",
+        "add": "Add",
+        "saveDraft": "Save as Draft"
+      }
+    },
+    "team": {
+      "title": "Team Accounts",
+      "searchPlaceholder": "search in work team",
+
+      "columns": {
+        "first_name": "First Name",
+        "last_name": "Last Name",
+        "employee_code": "Account Number",
+        "job_level": "Job Level",
+        "nationality": "Nationality",
+        "region": "Region",
+        "location": "Location",
+        "city": "City",
+        "status": "Status",
+        "status_date": "Status Date",
+        "status_time": "Status Time"
+      },
+
+      "statuses": {
+        "active": "Active",
+        "inactive": "Inactive",
+        "stopped": "Stopped",
+        "unknown": "Unknown"
+      },
+
+      "charts": {
+        "executives": "Executives",
+        "leaders": "Leaders",
+        "managers": "Managers",
+        "supervisors": "Supervisors",
+        "customer_service": "Customer Service",
+
+        "categories": {
+          "total": "Total",
+          "active": "Active",
+          "inactive": "Inactive",
+          "stopped": "Stopped",
+          "canceled": "Canceled"
+        }
       }
     }
   }
