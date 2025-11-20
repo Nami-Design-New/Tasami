@@ -9,9 +9,9 @@ import useGetSharedEmployees from "../../../hooks/dashboard/tasks/useGetSharedEm
 import usePostAddTask from "../../../hooks/dashboard/tasks/usePostAddTask";
 import { toast } from "sonner";
 import { useQueryClient } from "@tanstack/react-query";
-import useAddTaskForm from "./addNewTask";
 import { Controller } from "react-hook-form";
 import { useState } from "react";
+import useAddTasksForm from "../../../validations/works/add-tasks-form";
 
 const AddNewTask = ({ showModal, setShowModal, title }) => {
   const { t } = useTranslation();
@@ -25,7 +25,7 @@ const AddNewTask = ({ showModal, setShowModal, title }) => {
     setValue,
     control,
     formState: { errors },
-  } = useAddTaskForm();
+  } = useAddTasksForm();
 
   const handleFilesChange = (updatedFiles) => {
     setFiles(updatedFiles);

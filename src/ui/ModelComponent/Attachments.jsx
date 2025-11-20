@@ -18,32 +18,32 @@ const Attachments = () => {
       filename: "FFNFCertificate.pdf",
     },
   ]);
-  const [files, setFiles] = useState();
+  // const [files, setFiles] = useState();
   const { addTaskFile } = usePostAddTaskFile();
 
 
-  const onSubmit = async (data) => {
-    const formData = new FormData();
-    // Handle file
-    if (data.files && data.files.length > 0) {
-      files.forEach((file, index) => {
-        formData.append(`files[${index}]`, file);
-      });
-    }
+  // const onSubmit = async (data) => {
+  //   const formData = new FormData();
+  //   // Handle file
+  //   if (data.files && data.files.length > 0) {
+  //     files.forEach((file, index) => {
+  //       formData.append(`files[${index}]`, file);
+  //     });
+  //   }
 
-    console.log("form data", formData);
+  //   console.log("form data", formData);
 
-    addTaskFile(formData, {
-      onSuccess: (res) => {
-        // queryClient.invalidateQueries(["dashboard-tasks"]);
-        // setShowModal(false);
-        toast.success(res.message);
-      },
-      onError: (err) => {
-        toast.error(err.message);
-      },
-    });
-  };
+  //   addTaskFile(formData, {
+  //     onSuccess: (res) => {
+  //       // queryClient.invalidateQueries(["dashboard-tasks"]);
+  //       // setShowModal(false);
+  //       toast.success(res.message);
+  //     },
+  //     onError: (err) => {
+  //       toast.error(err.message);
+  //     },
+  //   });
+  // };
   const fileInputRef = useRef();
 
   const handleFileChange = async (e) => {

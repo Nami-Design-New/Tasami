@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import AddNewTask from "../../../routes/dash-board/tasks/AddNewTask";
+import AddNewTask from "../../../routes/dash-board/tasks/AddNewTaskModal";
 import CustomButton from "../../CustomButton";
 import FormWrapper from "../../forms/FormWrapper";
 import MapModal from "../../modals/MapModal";
