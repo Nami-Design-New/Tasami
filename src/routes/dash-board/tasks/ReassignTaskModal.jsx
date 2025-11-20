@@ -2,9 +2,41 @@ import { Modal } from "react-bootstrap";
 import CustomButton from "../../../ui/CustomButton";
 import SelectField from "../../../ui/forms/SelectField";
 import { useTranslation } from "react-i18next";
+import useGetSharedEmployees from "../../../hooks/dashboard/tasks/useGetSharedEmployees";
+import usePostReassignTask from "../../../hooks/dashboard/tasks/usePostReassignTask";
+import { toast } from "sonner";
+import { useQueryClient } from "@tanstack/react-query";
+import { useState } from "react";
 
-export default function ReassignTaskModal({ showModal, setShowModal }) {
+export default function ReassignTaskModal({
+  showModal,
+  setShowModal,
+  selectedRow,
+}) {
   const { t } = useTranslation();
+  const [selectedEmployee, setSelectedEmployee] = useState("");
+  const { employees } = useGetSharedEmployees();
+  const { reassignTask } = usePostReassignTask();
+  const queryClient = useQueryClient();
+
+  const handleReassignTask = () => {
+    const payload = {
+      task_id: selectedRow,
+      employee_id: selectedEmployee,
+    };
+    reassignTask(payload, {
+      onSuccess: (res) => {
+        toast.success(res.message);
+        queryClient.invalidateQueries({
+          queryKey: ["dashboard-tasks"],
+        });
+        setShowModal(false);
+      },
+      onError: (err) => {
+        toast.error(err.message);
+      },
+    });
+  };
 
   return (
     <Modal
@@ -22,15 +54,21 @@ export default function ReassignTaskModal({ showModal, setShowModal }) {
             <div className="col-12 p-2">
               <SelectField
                 label={t("dashboard.tasks.reassignModal.employeeLabel")}
-                options={[
-                  { value: "1", name: "E-020324-000001" },
-                  { value: "2", name: "E-020324-000002" },
-                  { value: "3", name: "E-020324-000003" },
-                ]}
+                value={selectedEmployee}
+                onChange={(e) => setSelectedEmployee(e.target.value)}
+                options={employees.map((emp) => ({
+                  value: emp.id,
+                  name: `${emp.first_name} ${emp.family_name}`,
+                }))}
               />
             </div>
             <div className="col-12 p-2">
-              <CustomButton fullWidth size="large">
+              <CustomButton
+                type="button"
+                onClick={handleReassignTask}
+                fullWidth
+                size="large"
+              >
                 {t("dashboard.tasks.reassignModal.reassignButton")}
               </CustomButton>
             </div>

@@ -1,14 +1,14 @@
 import FormWrapper from "../forms/FormWrapper";
 import DataItem from "./common/DataItem";
 
-const EmployeeData = () => (
+const EmployeeData = ({taskData}) => (
   <FormWrapper title="معلومات مقدم الطلب ">
     <div className="model__employee-data">
       <div className="list">
-        <DataItem label="رقم الحساب" value="U-120122-000001" />
-        <DataItem label="رقم التعريف او مجموعه العمل" value="01-014-005" />
-        <DataItem label="التاريخ" value="20-01-2024" />
-        <DataItem label="الوقت" value="08:55 AM" />
+        <DataItem label="رقم الحساب" value={taskData?.task?.account} />
+        <DataItem label="رقم التعريف او مجموعه العمل" value={taskData?.task?.id_number} />
+        <DataItem label="التاريخ" value={taskData?.task?.date} />
+        <DataItem label="الوقت" value={taskData?.task?.time} />
       </div>
     </div>
   </FormWrapper>

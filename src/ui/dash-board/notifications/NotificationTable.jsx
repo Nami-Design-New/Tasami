@@ -17,7 +17,7 @@ const NotificationTable = () => {
   const queryClient = useQueryClient();
   const [showRateModal, setShowRateModal] = useState(false);
   const [notificationId, setNotificationId] = useState();
-  const { addToTask, isAddingToTask } = usePostAddToTask();
+  const { addToTask } = usePostAddToTask();
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(PAGE_SIZE);
 
