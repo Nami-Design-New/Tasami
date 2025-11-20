@@ -14,6 +14,8 @@ export default function useGetEmployee() {
       }
       return res.data;
     },
+    staleTime: undefined,
+    gcTime: undefined,
   });
   return { employee, isLoading };
 }

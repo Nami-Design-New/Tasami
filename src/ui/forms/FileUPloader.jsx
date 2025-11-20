@@ -12,6 +12,7 @@ export default function FileUploader({
   hint,
   label,
   files: initialFiles = [],
+  onDelete,
   onFilesChange,
   multiple = true,
 }) {
@@ -61,6 +62,8 @@ export default function FileUploader({
   });
 
   const removeFile = (index) => {
+    console.log("file removed");
+
     const updated = files.filter((_, i) => i !== index);
     setFiles(updated);
     onFilesChange?.(updated);
@@ -159,7 +162,12 @@ export default function FileUploader({
                   <button
                     type="button"
                     className="delete multiple"
-                    onClick={() => removeFile(i)}
+                    onClick={() => {
+                      console.log(file);
+
+                      removeFile(i);
+                      onDelete?.(file?.id);
+                    }}
                     aria-label={`Remove ${file?.name}`}
                   >
                     ✕

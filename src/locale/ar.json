@@ -1589,6 +1589,14 @@
           "canceled": "ملغي"
         }
       }
+    },
+    "permissions": {
+      "title": "الصلاحيات",
+      "searchPlaceholder": "البحث عن صلاحية أو مهمة...",
+      "cancel": "إلغاء",
+      "save": "حفظ",
+      "update": "تعديل",
+      "selectAll": "تحديد الكل"
     }
   }
 }

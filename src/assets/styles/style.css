@@ -5470,8 +5470,8 @@ input[type=file] {
   display: flex;
   align-items: center;
 }
-.permission__item input[type=checkbox] {
-  margin-left: 0.5rem;
+.permission__item label {
+  cursor: pointer;
 }
 .permission__select-all {
   font-weight: 600;
