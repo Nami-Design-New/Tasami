@@ -11,7 +11,6 @@ export default function NotificationLoader() {
         className="notification-icon"
       >
         <Placeholder
-          src={""}
           alt="icon"
           xs={12}
           style={{ height: "80px", width: "80px", borderRadius: "50%" }}

@@ -31,7 +31,7 @@ export default function InQuriyCard({ item }) {
             fullWidth
             style={{ backgroundColor: "#4ECDC4" }}
           >
-            رد
+            {t("addAnswer")}
           </CustomButton>
         </div>
       )}

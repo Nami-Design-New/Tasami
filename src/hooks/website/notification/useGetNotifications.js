@@ -1,7 +1,12 @@
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { axiosInstance } from "../../../lib/axios";
+import { useSelector } from "react-redux";
+import { useSearchParams } from "react-router";
 
-export default function useGetNotifications(searchWord = "") {
+export default function useGetNotifications() {
+  const [searchParams] = useSearchParams();
+  const searchWord = searchParams.get("search") || "";
+  const { user } = useSelector((state) => state.authRole);
   const {
     data: notifications,
     isLoading,
@@ -32,6 +37,7 @@ export default function useGetNotifications(searchWord = "") {
         ? new URL(lastPage.next_page_url).searchParams.get("page")
         : undefined;
     },
+    enabled: !!user,
   });
   return {
     notifications,

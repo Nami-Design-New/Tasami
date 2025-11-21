@@ -95,7 +95,7 @@ self.addEventListener("notificationclick", (event) => {
       url = `/posts/${data.operation_id}`;
       break;
     case "offer":
-      url = `/goal/${data?.operation_id}`;
+      url = `/my-works/${item?.operation_id}`;
       break;
     case "work":
       url = `/goal/${data?.operation_id}`;
@@ -114,26 +114,27 @@ self.addEventListener("notificationclick", (event) => {
   }
 
   event.waitUntil(
-    console.log(" i was clicked");
-    clients
-      .matchAll({ type: "window", includeUncontrolled: true })
-      .then((windowClients) => {
-        // Check if an app tab is already open
-        console.log(" i was clicked");
-        for (const client of windowClients) {
-          if (client.url.includes(self.location.origin)) {
-            client.focus();
-            console.log(" i was clicked");
+    (async () => {
+      console.log("i was clicked");
 
-            // You can also communicate to your React app if needed:
-            // client.postMessage({ action: "navigate", url });
-            return client.navigate(url);
-          }
+      const windowClients = await clients.matchAll({
+        type: "window",
+        includeUncontrolled: true,
+      });
+
+      console.log("i was clicked");
+
+      for (const client of windowClients) {
+        if (client.url.includes(self.location.origin)) {
+          await client.focus();
+          console.log("i was clicked");
+          return client.navigate(url);
         }
-        // Otherwise open a new tab
-        if (clients.openWindow) {
-          return clients.openWindow(url);
-        }
-      })
+      }
+
+      if (clients.openWindow) {
+        return clients.openWindow(url);
+      }
+    })()
   );
 });
