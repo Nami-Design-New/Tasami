@@ -13,6 +13,7 @@ import AcceptModal from "../../../../ui/website/platform/contracts/AcceptModal";
 import AlertModal from "../../../../ui/website/platform/my-community/AlertModal";
 import Currency from "../../../../ui/Currency";
 import useWithdrawOfferHelp from "../../../../hooks/website/contracts/useWithdrawOfferHelp";
+import HelperCard from "../../../../ui/cards/HelperCard";
 
 export default function ContractDetails() {
   const { t } = useTranslation();
@@ -87,7 +88,7 @@ export default function ContractDetails() {
         <AssistantWorkCard
           helper={workDetails?.user}
           chat={false}
-          canNavigate={false}
+          tohelper={true}
         />
       </div>
 
@@ -246,13 +247,13 @@ export default function ContractDetails() {
       )}
 
       <AlertModal
-        confirmButtonText={t("common.confirm")}
+        confirmButtonText={t("confirm")}
         showModal={showAlertModal}
         setShowModal={setShowAlertModal}
         onConfirm={() => handleRefuseAction("refused_by_helper")}
         loading={isPending}
       >
-        {t("contract.refuseWarning")}
+        {/* {t("contract.refuseWarning")} */}
       </AlertModal>
 
       <AcceptModal

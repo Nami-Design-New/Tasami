@@ -238,6 +238,7 @@
   "perMonth": "شهريًا",
   "goal": "الهدف",
   "activityLevel": "مستوى النشاط",
+  "addAnswer": "رد",
   "offline": {
     "title": "لا يوجد اتصال بالإنترنت",
     "message": "يرجى التحقق من اتصالك بالإنترنت ثم المحاولة مرة أخرى.",
@@ -1041,7 +1042,9 @@
       "clear": "مسح",
       "moreThan": "أكثر من",
       "ratingTitle": "التقييم",
-      "noOpportunities": "لا توجد معلومات متاحة"
+      "noOpportunities": "لا توجد معلومات متاحة",
+      "RegistrationDate": "تاريخ التسجيل",
+      "contractCompletionRate": "معدل اكمال العقود"
     },
     "payment": "الدفع"
   },

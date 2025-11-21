@@ -52,7 +52,7 @@ export default function ContractsBeneficiaries() {
               <AssistantWorkCard
                 contractId={contractDetails?.id}
                 helper={contractDetails?.user}
-                canNavigate={false}
+                tohelper={true}
               />
 
               {contractDetails?.renew_to_date !== "" &&

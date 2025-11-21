@@ -239,6 +239,7 @@
   "activityLevel": "Activity Level",
   "public": "Public",
   "private": "Private",
+  "addAnswer": "Answer",
   "performanceModal": {
     "confirmPerformance": "Confirm Performance",
     "execution": "Execution",
@@ -1085,7 +1086,9 @@
       "visibility": "Visibility",
       "add": "Add",
       "ratingTitle": "Rating",
-      "noOpportunities": "No opportunities yet"
+      "noOpportunities": "No opportunities yet",
+      "RegistrationDate": "Registration Date",
+      "contractCompletionRate": "Contract Completion Rate"
     },
 
     "payment": "Payment"

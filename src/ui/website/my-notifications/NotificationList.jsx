@@ -17,16 +17,16 @@ export default function NotificationList() {
   const [inputValue, setInputValue] = useState(
     searchParams.get("search") || ""
   );
-  const searchWord = searchParams.get("search") || "";
   const queryClient = useQueryClient();
   const {
     notifications,
     isLoading,
-    error,
     hasNextPage,
     fetchNextPage,
     isFetchingNextPage,
-  } = useGetNotifications(searchWord);
+  } = useGetNotifications();
+
+  console.log("is loading", isLoading);
 
   const allNotifications =
     notifications?.pages?.flatMap((page) => page?.data) ?? [];
@@ -35,7 +35,6 @@ export default function NotificationList() {
     const handler = setTimeout(() => {
       setSearchParams((prev) => {
         const params = new URLSearchParams(prev);
-
         if (inputValue.trim()) {
           params.set("search", inputValue.trim());
         } else {
@@ -49,9 +48,9 @@ export default function NotificationList() {
   }, [inputValue, setSearchParams]);
   const { deleteAllNotifications, isPending } = useDeleteAllNotifications();
   const handleDeleteAllNotifications = () => {
-    deleteAllNotifications({
+    deleteAllNotifications(null, {
       onSuccess: () => {
-        queryClient({
+        queryClient.refetchQueries({
           queryKey: ["notifications"],
         });
       },
@@ -73,14 +72,15 @@ export default function NotificationList() {
       </div>
       <div className="d-flex align-items-center justify-content-between">
         <h2>{t("notification.latest")}</h2>
-        <CustomButton
-          color="fire"
-          onClick={handleDeleteAllNotifications}
-          loading={isPending}
-        >
-          {" "}
-          {t("deleteAll")}{" "}
-        </CustomButton>
+        {allNotifications?.length > 0 && (
+          <CustomButton
+            color="fire"
+            onClick={handleDeleteAllNotifications}
+            loading={isPending}
+          >
+            {t("deleteAll")}{" "}
+          </CustomButton>
+        )}
       </div>{" "}
       <>
         {!isLoading && allNotifications.length === 0 && (

@@ -21,7 +21,7 @@ export default function NotificationCard({ item }) {
       url = `/my-platform`;
       break;
     case "offer_accepted":
-      url = `/my-works/${item?.operation_id}`;
+      url = `/my-contracts/${item?.operation_id}`;
       break;
     case "contract_request":
       url = `/my-contracts/${item?.operation_id}`;
@@ -54,7 +54,7 @@ export default function NotificationCard({ item }) {
       url = `/posts/${item.operation_id}`;
       break;
     case "offer":
-      url = `/goal/${item?.operation_id}`;
+      url = `/my-works/${item?.operation_id}`;
       break;
     case "work":
       url = `/goal/${item?.operation_id}`;
@@ -78,15 +78,15 @@ export default function NotificationCard({ item }) {
   const handleMarkAsRead = (id) => {
     markAsRead(id, {
       onSuccess: () => {
-        queryClient.invalidateQueries({ queryKey: ["notifications"] });
-        queryClient.invalidateQueries({ queryKey: ["settings"] });
+        queryClient.refetchQueries({ queryKey: ["notifications"] });
+        queryClient.refetchQueries({ queryKey: ["settings"] });
       },
     });
   };
   const handleDeleteNotification = (id) => {
     deleteNotification(id, {
       onSuccess: () => {
-        queryClient.invalidateQueries({
+        queryClient.refetchQueries({
           queryKey: ["notifications"],
         });
       },
@@ -95,7 +95,13 @@ export default function NotificationCard({ item }) {
 
   return (
     <div
-      onClick={() => navigate(url)}
+      onClick={() => {
+        if (item.is_read === false) {
+          handleMarkAsRead(item?.id);
+        }
+
+        navigate(url);
+      }}
       style={{ cursor: "pointer" }}
       className={`notification-web-card  ${
         item.is_read === true ? "read" : ""

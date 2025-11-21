@@ -1,3 +1,4 @@
+// export default WebsiteLayout;
 import AOS from "aos";
 import "aos/dist/aos.css";
 import { useEffect } from "react";
@@ -45,10 +46,7 @@ const WebsiteLayout = () => {
     const initializeNotifications = async () => {
       try {
         await requestPermission();
-        unsubscribe = listenToMessages(() => {
-          refetchSettings();
-          refetchNotifications();
-        });
+        unsubscribe = listenToMessages(refetchSettings, refetchNotifications);
       } catch (error) {
         console.error("Error initializing notifications:", error);
       }

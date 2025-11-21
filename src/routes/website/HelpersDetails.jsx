@@ -76,6 +76,8 @@ export default function HelpersDetails() {
 
   if (isLoading) return <Loading />;
   const thisIsMe = user?.id === assistantDetails?.id;
+  const isHelper = assistantDetails?.about !== "";
+  console.log(isHelper);
 
   return (
     <section className="page helper-details-section">
@@ -84,7 +86,7 @@ export default function HelpersDetails() {
           <div className="col-12 p-2">
             <div className="header">
               <RoundedBackButton onClick={handleBack}></RoundedBackButton>
-              {!thisIsMe && (
+              {!thisIsMe && isHelper && (
                 <button
                   className={`follow-btn  ${
                     optimisticFollow ? "unfollow" : ""
@@ -116,20 +118,27 @@ export default function HelpersDetails() {
                 <div className="content">
                   <h6>{assistantDetails.name}</h6>
                   <div className="d-flex gap-2 align-items-center">
-                    <img src="/icons/flag.svg" />
-                    <span>{assistantDetails?.country?.title}</span>
+                    {assistantDetails?.country?.title && (
+                      <>
+                        {" "}
+                        <img src="/icons/flag.svg" />
+                        <span>{assistantDetails?.country?.title}</span>
+                      </>
+                    )}
                   </div>
                 </div>
                 <div className="rating">
                   <img src="/icons/medal.svg" />
-                  <span>{assistantDetails.completed_contract}</span>
+                  <span>{assistantDetails.experience_level}</span>
                 </div>
               </div>
 
-              <div className="about">
-                <h6>{t("website.assistants.about")}</h6>
-                <p>{assistantDetails.about}</p>
-              </div>
+              {isHelper && (
+                <div className="about">
+                  <h6>{t("website.assistants.about")}</h6>
+                  <p>{assistantDetails.about}</p>
+                </div>
+              )}
               {assistantDetails.community_id !== null && !thisIsMe && (
                 <CustomLink
                   to={
@@ -161,29 +170,45 @@ export default function HelpersDetails() {
 
           <div className="col-lg-8 col-12 p-2">
             <div className="personal-assiatant-details-card">
-              <div className="exp-info-grid">
-                <div className="exp-info-box">
-                  <h5>{t("website.assistants.completed_contracts")}</h5>
-                  <p>{assistantDetails.completed_contract}</p>
+              {isHelper ? (
+                <div className="exp-info-grid">
+                  <div className="exp-info-box">
+                    <h5>{t("website.assistants.completed_contracts")}</h5>
+                    <p>{assistantDetails.completed_contract}</p>
+                  </div>
+                  <div className="exp-info-box">
+                    <h5>{t("website.assistants.progress_contracts")}</h5>
+                    <p>{assistantDetails.progress_contract}</p>
+                  </div>
                 </div>
-                <div className="exp-info-box">
-                  <h5>{t("website.assistants.progress_contracts")}</h5>
-                  <p>{assistantDetails.progress_contract}</p>
+              ) : (
+                <div className="exp-info-grid">
+                  <div className="exp-info-box">
+                    <h5>{t("website.assistants.contractCompletionRate")}</h5>
+                    <p>{assistantDetails.contract_completion_rate} %</p>
+                  </div>
+                  <div className="exp-info-box">
+                    <h5>{t("website.assistants.RegistrationDate")}</h5>
+                    <p>{assistantDetails.created_at}</p>
+                  </div>
                 </div>
-              </div>
+              )}
 
-              <div className="exp-info">
-                <h6>{t("website.assistants.experiences")}</h6>
-                <PersonalHelperExperiences
-                  tabs={assistantDetails.user_experiences}
-                />
-              </div>
-
-              <div className="exp-info">
-                <h6>{t("website.assistants.documents")} </h6>
-                <PersonalHelperDoc tabs={assistantDetails.user_documents} />
-              </div>
-
+              {isHelper && (
+                <>
+                  {" "}
+                  <div className="exp-info">
+                    <h6>{t("website.assistants.experiences")}</h6>
+                    <PersonalHelperExperiences
+                      tabs={assistantDetails.user_experiences}
+                    />
+                  </div>
+                  <div className="exp-info">
+                    <h6>{t("website.assistants.documents")} </h6>
+                    <PersonalHelperDoc tabs={assistantDetails.user_documents} />
+                  </div>
+                </>
+              )}
               {assistantDetails.user_services.length > 0 && (
                 <div className="more-offers">
                   <h6>

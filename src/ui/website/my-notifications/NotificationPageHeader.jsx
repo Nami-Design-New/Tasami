@@ -33,6 +33,7 @@ export default function NotificationPageHeader() {
         className="ripple-animation"
         onClick={handleMarkAllAsRead}
         disabled={isPending}
+        loading={isPending}
       >
         {t("notification.mark_all_read")}
       </CustomButton>
