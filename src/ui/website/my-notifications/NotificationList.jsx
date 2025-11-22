@@ -26,8 +26,6 @@ export default function NotificationList() {
     isFetchingNextPage,
   } = useGetNotifications();
 
-  console.log("is loading", isLoading);
-
   const allNotifications =
     notifications?.pages?.flatMap((page) => page?.data) ?? [];
   // Debounce input before updating search params
@@ -52,6 +50,9 @@ export default function NotificationList() {
       onSuccess: () => {
         queryClient.refetchQueries({
           queryKey: ["notifications"],
+        });
+        queryClient.refetchQueries({
+          queryKey: ["settings"],
         });
       },
     });
