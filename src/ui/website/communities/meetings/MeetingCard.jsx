@@ -3,7 +3,6 @@ import EncounterDetailsModal from "./EncounterDetailsModal";
 
 export default function MeetingCard({ item }) {
   const [showDetails, setShowDetails] = useState(false);
-  console.log(item);
 
   return (
     <>
@@ -23,11 +22,13 @@ export default function MeetingCard({ item }) {
         </div>
       </div>
 
-      <EncounterDetailsModal
-        show={showDetails}
-        setShow={setShowDetails}
-        meetingId={item?.id}
-      />
+      {setShowDetails && (
+        <EncounterDetailsModal
+          show={showDetails}
+          setShow={setShowDetails}
+          meetingId={item?.id}
+        />
+      )}
     </>
   );
 }

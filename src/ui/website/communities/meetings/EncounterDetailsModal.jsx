@@ -5,7 +5,7 @@ import { handleCopy } from "../../../../utils/helper";
 
 export default function EncounterDetailsModal({ show, setShow, meetingId }) {
   const { t } = useTranslation();
-  const { meetingDetails, isLoading } = useGetMeetingDetails(meetingId);
+  const { meetingDetails, isLoading } = useGetMeetingDetails(meetingId, show);
 
   return (
     <Modal

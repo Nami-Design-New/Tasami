@@ -50,7 +50,8 @@ export default function CommunityActions({ community, isMyCommunity = true }) {
       unjoinCommunity(id, {
         onSuccess: (res) => {
           toast.success(res.message);
-          // queryClient.invalidateQueries(["community-details"]);
+          queryClient.invalidateQueries({ queryKey: ["community-details"] });
+          queryClient.invalidateQueries({ queryKey: ["consultaions"] });
         },
         onError: (err) => {
           setOptimisticJoin(true);
@@ -69,7 +70,12 @@ export default function CommunityActions({ community, isMyCommunity = true }) {
           {
             onSuccess: (res) => {
               toast.success(res.message);
-              // queryClient.invalidateQueries(["my-community"]);
+              queryClient.invalidateQueries({
+                queryKey: ["community-details"],
+              });
+              queryClient.invalidateQueries({
+                queryKey: ["consultaions"],
+              });
             },
             onError: (err) => {
               setOptimisticJoin(false); // rollback
