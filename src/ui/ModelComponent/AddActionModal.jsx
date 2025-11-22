@@ -6,18 +6,24 @@ import CustomButton from "../CustomButton";
 import SelectField from "../forms/SelectField";
 import TextField from "../forms/TextField";
 import TabRadioGroup from "../TabRadioGroup";
+import usePostAddAction from "../../hooks/dashboard/tasks/usePostAddAction";
+import useGetSharedEmployees from "../../hooks/dashboard/tasks/useGetSharedEmployees";
+import { toast } from "sonner";
 
 const schema = yup.object().shape({
   actionType: yup.string().required("نوع الاجراء مطلوب"),
   description: yup.string().required("الوصف مطلوب"),
   employee: yup.string().when("actionType", {
-    is: "redirect",
+    is: "send",
     then: yup.string().required("اختر الموظف للتوجيه"),
   }),
   sendNotification: yup.boolean(),
 });
 
-const AddActionModal = ({ showModal, setShowModal }) => {
+const AddActionModal = ({ showModal, setShowModal, taskData }) => {
+  const { addAction } = usePostAddAction();
+  const { employees } = useGetSharedEmployees();
+
   const {
     register,
     handleSubmit,
@@ -37,8 +43,29 @@ const AddActionModal = ({ showModal, setShowModal }) => {
   const actionType = watch("actionType");
 
   const onSubmit = (data) => {
-    setShowModal(false);
-    reset();
+    const payload = {
+      task_id: taskData?.task?.id,
+      type:
+        data.actionType === "complete"
+          ? "finish"
+          : data.actionType === "redirect"
+          ? "send"
+          : "return",
+      employee_id:
+        data.actionType === "redirect" ? Number(data.employee) : null,
+      note: data.description,
+    };
+
+    addAction(payload, {
+      onSuccess: () => {
+        setShowModal(false);
+        reset();
+        toast.success("تم تنفيذ الإجراء بنجاح");
+      },
+      onError: (error) => {
+        toast.error(error.message);
+      },
+    });
   };
 
   const handleCLose = () => {
@@ -76,10 +103,10 @@ const AddActionModal = ({ showModal, setShowModal }) => {
                       {...field}
                       label="اختر الموظف المراد توجيه الطلب له"
                       disableFiledValue="اختر الموظف"
-                      options={[
-                        { value: "1", name: "موظف 1" },
-                        { value: "2", name: "موظف 2" },
-                      ]}
+                      options={employees.map((emp) => ({
+                        value: emp.id,
+                        name: `${emp.first_name} ${emp.family_name}`,
+                      }))}
                       error={errors.employee?.message}
                     />
                   )}
@@ -97,14 +124,14 @@ const AddActionModal = ({ showModal, setShowModal }) => {
 
             <div className="col-12 py-2 ">
               <div className="d-flex align-items-center justify-content-end gap-2">
-                <CustomButton
+                {/* <CustomButton
                   onClick={handleCLose}
                   type="button"
                   color="secondary"
                   size="large"
                 >
                   حفظ و اغلاق
-                </CustomButton>
+                </CustomButton> */}
                 <CustomButton type="submit" color="primary" size="large">
                   تنفيذ
                 </CustomButton>

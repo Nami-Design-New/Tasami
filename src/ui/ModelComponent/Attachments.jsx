@@ -4,7 +4,7 @@ import AttachmentsModal from "./AttachmentsModal";
 import usePostAddTaskFile from "../../hooks/dashboard/tasks/usePostAddTaskFile";
 import { toast } from "sonner";
 
-const Attachments = () => {
+const Attachments = ({ taskData }) => {
   const [showModal, setShowModal] = useState(false);
   const [titleInput, setTitleInput] = useState("");
   const [attachments, setAttachments] = useState([
@@ -20,7 +20,6 @@ const Attachments = () => {
   ]);
   // const [files, setFiles] = useState();
   const { addTaskFile } = usePostAddTaskFile();
-
 
   // const onSubmit = async (data) => {
   //   const formData = new FormData();
@@ -49,7 +48,7 @@ const Attachments = () => {
   const handleFileChange = async (e) => {
     const file = e.target.files[0];
     if (!file) return;
-console.log("file" , file);
+    console.log("file", file);
 
     const formData = new FormData();
     formData.append("task_id", "1");
@@ -114,23 +113,23 @@ console.log("file" , file);
               </tr>
             </thead>
             <tbody>
-              {attachments.map((item) => (
+              {taskData?.task?.files.map((item) => (
                 <tr key={item.id}>
                   <td>{item.date}</td>
                   <td>{item.time}</td>
-                  <td>{item.name}</td>
+                  <td>{`${item.employee.first_name} ${item.employee.family_name}`}</td>
                   <td>
                     <Link
                       to={`/dashboard/employee-details/${item.account}`}
                       className="link-styles"
                     >
-                      {item.account}
+                      {item.employee.id_number}
                     </Link>
                   </td>
                   {/* <td>{item.title}</td> */}
                   <td>
                     {/* <Link to="/dashboard/emplo" className="file-link"> */}
-                    {item.filename}
+                    {item.file}
                     {/* </Link> */}
                   </td>
                 </tr>

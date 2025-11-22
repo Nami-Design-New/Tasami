@@ -12,6 +12,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import { Controller } from "react-hook-form";
 import { useState } from "react";
 import useAddTasksForm from "../../../validations/works/add-tasks-form";
+import useAddTaskForm from "../../../hooks/dashboard/tasks/useAddTaskForm";
 
 const AddNewTask = ({ showModal, setShowModal, title }) => {
   const { t } = useTranslation();
@@ -25,7 +26,7 @@ const AddNewTask = ({ showModal, setShowModal, title }) => {
     setValue,
     control,
     formState: { errors },
-  } = useAddTasksForm();
+  } = useAddTaskForm();
 
   const handleFilesChange = (updatedFiles) => {
     setFiles(updatedFiles);

@@ -7,8 +7,12 @@ import FormWrapper from "../forms/FormWrapper";
 import AddActionModal from "./AddActionModal";
 const columnHelper = createColumnHelper();
 
-const Notes = () => {
+const Notes = ({ taskData }) => {
   const [showModal, setShowModal] = useState("");
+
+console.log("notes task data" , taskData);
+
+
   const data = useMemo(
     () => [
       {
@@ -146,7 +150,11 @@ const Notes = () => {
             <i className="fa-solid fa-circle-plus"></i> إضافة افادة
           </button>
         </div>
-        <AddActionModal showModal={showModal} setShowModal={setShowModal} />
+        <AddActionModal
+          showModal={showModal}
+          setShowModal={setShowModal}
+          taskData={taskData}
+        />
       </FormWrapper>
     </>
   );

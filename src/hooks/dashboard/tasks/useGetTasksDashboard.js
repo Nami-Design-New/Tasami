@@ -23,7 +23,7 @@ export default function useGetTasksDashboard(
   });
 
   return {
-    tasks: data?.data || [],
+    tasks: data || [],
     // stats: data
     //   ? {
     //       group_count: data.group_count,
