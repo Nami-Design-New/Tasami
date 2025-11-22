@@ -17,7 +17,6 @@ export default function useGetMyFollowings() {
           page: pageParam,
         },
       });
-      console.log(res);
 
       if (res.data.code !== 200) {
         throw new Error(res.data.message || "error fetching data");

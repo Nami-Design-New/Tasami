@@ -203,32 +203,7 @@ export default function PersonalOffersSidebarFilter() {
               <div className="identity-container flex-wrap">
                 {!helpLoading && (
                   <>
-                    {/* <label
-                      style={{
-                        padding: "8px",
-                        fontSize: "12px",
-                        height: "46px",
-                        borderRadius: "8px",
-                        flex: "1",
-                      }}
-                      className={`identity-option d-flex align-items-center justify-contnet-center gap-0 ${
-                        selectedHelpMechanism.includes(String("all"))
-                          ? "active"
-                          : ""
-                      }`}
-                    >
-                      <span>الكل</span>
-                      <input
-                        type="checkbox"
-                        value={"all"}
-                        {...register("helpMechanism")}
-                      />
-                    </label> */}
                     {helpMechanisms.map((option) => {
-                      console.log(
-                        selectedHelpMechanism.includes(String(option.id))
-                      );
-
                       return (
                         <label
                           style={{

@@ -55,11 +55,7 @@ const Message = ({
             download: {
               tpl: '<button class="f-button" title="Download"><svg><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2M7 11l5 5 5-5M12 4v12"/></svg></button>',
               click: (event, carousel) => {
-                console.log("event", event);
-                console.log("carousel", carousel);
-
                 const currentSlide = event.getSlides()[event.getPageIndex()];
-                console.log(currentSlide);
 
                 // Use the src attribute of the slide (which comes from the href attribute)
                 const imageSrc = currentSlide.src;

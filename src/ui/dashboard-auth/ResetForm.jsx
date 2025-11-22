@@ -30,7 +30,6 @@ export default function ResetForm({ setResetPasswordStep }) {
 
   // Submit
   const onSubmit = (data) => {
-    console.log(data);
     setResetPasswordStep("s2");
   };
   return (

@@ -8,12 +8,10 @@ export default function useGetCommunityDetails() {
     queryKey: ["community-details", id],
     queryFn: async () => {
       const res = await axiosInstance.get(`my-communities/${id}`);
-      console.log(res.data);
 
       if (res.data.code !== 200) {
         throw new Error(res.data.message);
       }
-      console.log(res.data);
 
       return res.data.data;
     },

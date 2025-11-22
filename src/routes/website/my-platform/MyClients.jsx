@@ -19,7 +19,6 @@ export default function MyClients() {
     myClients?.pages?.flatMap((page) => page?.data?.clients) ?? [];
   const totalRate = myClients?.pages?.[0]?.data?.total_rate;
   const totalCount = myClients?.pages?.[0]?.data?.count_of_clients;
-  console.log(allClients);
 
   return (
     <section className="followers-list ">

@@ -45,7 +45,6 @@ function SortableTask({ task, workDetails }) {
     transition,
     isDragging,
   } = useSortable({ id: String(task.id) });
-  console.log("workDetails:", workDetails);
 
   const style = {
     transform: CSS.Transform.toString(transform),

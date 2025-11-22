@@ -59,7 +59,6 @@ export default function AddTasksModal({
       reset(); // Clear form when switching to add mode
     }
   }, [taskData, reset]);
-  console.log(taskId);
 
   // Handle Add / Update logic
   const onSubmit = (data) => {
@@ -81,7 +80,6 @@ export default function AddTasksModal({
     }
 
     // ADD MODE → include work_id
-    console.log(!taskData);
 
     if (!taskData) {
       payload.work_id = id; // (if you're passing work_id this way)

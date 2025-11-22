@@ -37,7 +37,6 @@ export default function OfferDetails() {
       },
       onError: (err) => {
         toast.error(err.message);
-        console.log(err.message);
       },
     });
   };

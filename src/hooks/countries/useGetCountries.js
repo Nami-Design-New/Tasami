@@ -35,7 +35,5 @@ export default function useGetCountries({ search, pagination = "on" } = {}) {
 
   const countries = data?.pages?.flatMap((page) => page.data || []) || [];
 
-  console.log("countries hook", countries);
-
   return { data: countries, isLoading, isError, fetchNextPage, hasNextPage };
 }

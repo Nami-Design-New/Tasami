@@ -32,10 +32,8 @@ export default function AssignAssistantModal({ showModal, setShowModal }) {
   const selecteAssistnsOption = watch("assistantOption");
   const selectedHelpMechanism = watch("helpMechanism") || [];
   const selectedGender = watch("gender");
-  console.log(errors);
 
   const onSubmit = (data) => {
-    console.log(data);
     const formData = new FormData();
 
     formData.append("preferred_gender", data.gender);

@@ -48,7 +48,6 @@ const PermissionGroup = ({ title, permissions, groupId }) => {
       <div
         className="permission__header"
         onClick={() => {
-          console.log("change from header", isOpen);
           toggleAccordion();
         }}
       >
@@ -60,7 +59,7 @@ const PermissionGroup = ({ title, permissions, groupId }) => {
             onChange={toggleAccordion}
             onClick={(e) => {
               e.stopPropagation();
-              console.log("change from switch", isOpen);
+
               toggleAccordion();
             }}
           />

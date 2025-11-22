@@ -5,7 +5,6 @@ const TabsHorizontal = ({ tabs = [] }) => {
   const [searchParams, setSearchParams] = useSearchParams();
 
   const tabFromUrl = searchParams.get("tab") || tabs[0]?.id;
-  console.log(tabFromUrl);
 
   useEffect(() => {
     if (!searchParams.get("tab") && tabs.length > 0) {

@@ -26,7 +26,6 @@ export default function AddNewSubscriptoinsModal({
       ...prev,
       [name]: value,
     }));
-    console.log(name, value);
   };
   const handleImageChange = (e) => {
     const file = e.target.files[0];

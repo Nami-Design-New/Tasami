@@ -34,9 +34,7 @@ export default function EmailLoginForm() {
     mode: "onBlur",
   });
 
-  const onSubmit = async (data) => {
-    console.log(data);
-  };
+  const onSubmit = async (data) => {};
 
   return (
     <form className="form_ui" onSubmit={handleSubmit(onSubmit)}>

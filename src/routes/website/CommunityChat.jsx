@@ -91,12 +91,12 @@ export default function CommunityChat() {
     const token = getToken();
 
     socket.onStatusChange((status) => {
-      console.log("Socket status changed:", status);
+      // console.log("Socket status changed:", status);
       setSocketStatus(status);
     });
 
     socket.onMessage((message) => {
-      console.log("Incoming message:", message);
+      // console.log("Incoming message:", message);
       queryClient.setQueryData(["community-chat", id], (oldData) => {
         if (!oldData) return oldData;
         const updatedPages = oldData.pages.map((page, idx) =>
@@ -258,11 +258,8 @@ export default function CommunityChat() {
 
   // ===== SEND MESSAGE =====
   const onSubmit = async (data) => {
-    console.log(data);
     const formData = new FormData();
     let type = "text";
-
-    console.log(formData);
 
     if (data.audio instanceof Blob) {
       formData.append("file_path", data.audio, "recording.webm");

@@ -64,7 +64,6 @@ export default function OfferPaymentModal({
         } else if (selectedMethod === "wallet") {
           toast.success(res?.message);
           setShowModal(false);
-          console.log("payment success");
           setSelectedMethod("online");
           setShowOfferModal(false);
           queryClient.invalidateQueries({ queryKey: ["work-offers"] });

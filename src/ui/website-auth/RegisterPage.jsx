@@ -30,7 +30,6 @@ const RegisterPage = ({ setRegisterStep }) => {
   const { sendCode, isPending } = usePhoneRegister();
 
   const { data: countries, fetchNextPage, hasNextPage } = useGetCountries();
-  console.log(hasNextPage);
 
   const {
     handleSubmit,

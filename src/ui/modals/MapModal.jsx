@@ -69,7 +69,6 @@ const MapModal = ({
         lng: coord.lng.toFixed(6),
       });
     }
-    console.log(coord);
     reverseGeocodeMarkerPosition(coord);
   };
 

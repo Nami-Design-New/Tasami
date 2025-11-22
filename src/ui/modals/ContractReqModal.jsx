@@ -40,7 +40,6 @@ const ContractReq = ({ showModal, setShowModal }) => {
       notes: data.groupAdditionalTerms || "",
     };
 
-    console.log("Form submitted:", payload);
     contractOffer(payload, {
       onSuccess: (res) => {
         toast.success(res.message || t("messages_success"));

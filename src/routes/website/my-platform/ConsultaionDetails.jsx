@@ -22,7 +22,6 @@ export default function ConsultaionDetails() {
 
   const isOwner = user.id === consultaionDetails.to_user_id;
   const hasAnswer = Boolean(consultaionDetails.answer);
-  console.log(hasAnswer);
 
   return (
     <section className="consultaion-details page">

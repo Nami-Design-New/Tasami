@@ -67,8 +67,6 @@ export default function CustomizeServicesPage() {
 
     editProfile(formData, {
       onSuccess: (res) => {
-        console.log("res ////////////////////////////////////////////", res);
-
         toast.success(res.message);
         dispatch(setUser(res.data));
         navigate("/");

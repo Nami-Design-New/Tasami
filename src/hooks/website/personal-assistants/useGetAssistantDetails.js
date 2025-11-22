@@ -8,12 +8,10 @@ export default function useGetAssistantDetails() {
     queryKey: ["assistant-details", id],
     queryFn: async () => {
       const res = await axiosInstance.get(`helpers/${id}`);
-      console.log(res);
 
       if (res.data.code !== 200) {
         throw new Error(res.data.message || "Error Fetching Assistant Data");
       }
-      console.log(res.data);
 
       return res.data.data;
     },

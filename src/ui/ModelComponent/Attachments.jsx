@@ -34,7 +34,6 @@ const Attachments = () => {
       filename: file.name,
     };
     setAttachments((prev) => [...prev, newAttachment]);
-    console.log(" added succussfully!");
   };
 
   const handleSave = () => {

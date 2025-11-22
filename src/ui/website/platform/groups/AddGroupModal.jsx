@@ -38,7 +38,6 @@ export default function AddGroupModal({
       ?.sub_categories || [];
 
   const onSubmit = async (data) => {
-    console.log(data);
     const payload = {
       category_id: data.field,
       sub_category_id: data.specialization,

@@ -24,7 +24,6 @@ export default function useGetMeetings() {
       if (res.data.code !== 200) {
         throw new Error("Error fetching meetings");
       }
-      console.log(res.data);
 
       return res.data;
     },

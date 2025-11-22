@@ -11,7 +11,6 @@ export default function useGenerateDes() {
       if (res.data.code !== 200) {
         throw new Error(res.data.message);
       }
-      console.log(res.data);
 
       return res.data.data;
     },

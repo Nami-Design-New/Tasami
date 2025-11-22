@@ -48,8 +48,6 @@ export default function AddAssistanceModal({
 
   const selectedHelpMechanism = watch("helpMechanism") || [];
 
-  console.log(selectedHelpMechanism, helpMechanisms);
-
   const subCategories =
     categories?.find((cat) => String(cat.id) === String(selectedFieldId))
       ?.sub_categories || [];
@@ -414,7 +412,7 @@ export default function AddAssistanceModal({
                 </h6>
                 <div className="identity-container">
                   {!helpLoading &&
-                    helpMechanisms.map((option) => (
+                    helpMechanisms?.map((option) => (
                       <label
                         key={option.id}
                         className={`identity-option ${

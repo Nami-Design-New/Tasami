@@ -77,7 +77,6 @@ export default function HelpersDetails() {
   if (isLoading) return <Loading />;
   const thisIsMe = user?.id === assistantDetails?.id;
   const isHelper = assistantDetails?.about !== "";
-  console.log(isHelper);
 
   return (
     <section className="page helper-details-section">

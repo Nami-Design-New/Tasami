@@ -79,7 +79,6 @@ export default function ExperienceModal({
           onSuccess: (res) => {
             setShowExperienceModal(false);
             setSelectedExp(null);
-            console.log("i am in success Update");
 
             toast.success(
               res.data.message || t("website.platform.cv.updateSuccess")
@@ -96,7 +95,6 @@ export default function ExperienceModal({
       addExp(payload, {
         onSuccess: (res) => {
           setShowExperienceModal(false);
-          console.log("i am in success Add");
 
           reset();
           toast.success(
@@ -120,8 +118,6 @@ export default function ExperienceModal({
         queryClient.invalidateQueries({ queryKey: ["cv"] });
       },
       onError: (err) => {
-        console.log(err);
-
         toast.error(err.message || t("website.platform.cv.deleteError"));
       },
     });

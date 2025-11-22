@@ -38,8 +38,6 @@ messaging.onBackgroundMessage(function (payload) {
     ],
   };
 
-  console.log("[SW] Showing notification with options:", notificationOptions);
-
   self.registration
     .showNotification(title, options)
     .then(() => console.log("[SW] showNotification SUCCESS"))
@@ -47,8 +45,6 @@ messaging.onBackgroundMessage(function (payload) {
 });
 
 self.addEventListener("notificationclick", (event) => {
-  console.log("[SW] Notification clicked:", event.notification);
-
   event.notification.close();
 
   const data = event.notification.data || {};
@@ -118,19 +114,14 @@ self.addEventListener("notificationclick", (event) => {
 
   event.waitUntil(
     (async () => {
-      console.log("i was clicked");
-
       const windowClients = await clients.matchAll({
         type: "window",
         includeUncontrolled: true,
       });
 
-      console.log("i was clicked");
-
       for (const client of windowClients) {
         if (client.url.includes(self.location.origin)) {
           await client.focus();
-          console.log("i was clicked");
           return client.navigate(url);
         }
       }

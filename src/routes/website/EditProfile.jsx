@@ -95,8 +95,6 @@ export default function EditProfile() {
       formData.append("image", data.profilePicture);
     }
 
-    console.log(formData);
-
     editProfile(formData, {
       onSuccess: (res) => {
         dispatch(setUser(res.data));
@@ -126,7 +124,6 @@ export default function EditProfile() {
         toast.success(res.message);
       },
       onError: (err) => {
-        console.log(err);
         toast.error(err.message);
       },
     });

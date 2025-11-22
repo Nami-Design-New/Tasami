@@ -57,7 +57,6 @@ const listenToMessages = (refetchSettings, refetchNotifications) => {
   const unsubscribe = onMessage(messaging, (payload) => {
     try {
       const { notification } = payload;
-      console.log(notification);
 
       if (!notification || Notification.permission !== "granted") {
         return;

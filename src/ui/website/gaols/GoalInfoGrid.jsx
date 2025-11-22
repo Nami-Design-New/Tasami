@@ -2,7 +2,6 @@ import { useTranslation } from "react-i18next";
 
 export default function GoalInfoGrid({ goal }) {
   const { t } = useTranslation();
-  console.log(goal);
 
   return (
     <div className="info-grid ">

@@ -87,8 +87,6 @@ export default function ReelCard({ reel }) {
 
     toggleFollow(id, {
       onSuccess: (res) => {
-        console.log(res);
-
         if (res?.data?.i_follow_him !== undefined) {
           setOptimisticFollow(res.data.i_follow_him);
         }
