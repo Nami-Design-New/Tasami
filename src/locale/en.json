@@ -873,6 +873,7 @@
       "subscribe": "Subscribe",
       "button": "Agree & Continue",
       "noClients": "There is No CLients Yet",
+      "alertMessage": "Please complete your CV to activate the account.",
       "menu": {
         "subscriptions": "Subscription Management",
         "cv": "My CV",

@@ -15,7 +15,7 @@ import GoalInfoGrid from "../../ui/website/gaols/GoalInfoGrid";
 import InquiryModal from "../../ui/website/my-notifications/inquiryModal";
 import TopInfo from "../../ui/website/offers/TopInfo";
 import { shareContent } from "../../utils/shared";
-import { useNavigate } from "react-router";
+import { Link, useNavigate } from "react-router";
 import PlatformModal from "../../ui/website/platform/PlatformModal";
 
 export default function GoalDetails() {
@@ -127,7 +127,9 @@ export default function GoalDetails() {
 
         <div className="goal-details-card mt-3 row ">
           <div className="col-12 col-lg-4 p-2">
-            <TopInfo offer={goalDetails} />
+            <Link to={`/helper/${goalDetails?.user?.id}`}>
+              <TopInfo offer={goalDetails} />
+            </Link>
           </div>
           <div className="col-lg-8 col-12 p-2 ">
             <div className="hed">

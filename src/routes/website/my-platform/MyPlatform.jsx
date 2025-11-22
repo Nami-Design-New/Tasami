@@ -33,6 +33,14 @@ export default function MyPlatform() {
               <i className="fa-regular fa-circle-info"></i>
               <p>{t("website.platform.hint")}</p>
             </div>
+            {user.about === "" && (
+              <div className="platform-hint">
+                <i className="fa-regular fa-lightbulb-exclamation  fs-5 text-fire"></i>
+                <p className="text-fire">
+                  {t("website.platform.alertMessage")}
+                </p>
+              </div>
+            )}
 
             <AssistantStat />
           </div>

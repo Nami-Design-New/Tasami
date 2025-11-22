@@ -34,7 +34,7 @@ export default function PlatformModal({ showModal, setShowModal }) {
         </div>
         <CustomButton
           onClick={() => {
-            navigate("/my-platform");
+            navigate("/my-platform/my-cv");
             setShowModal(false);
           }}
           fullWidth
