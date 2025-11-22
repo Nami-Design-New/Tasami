@@ -55,45 +55,45 @@ export class ChatSocketService {
     const connection = this.echo.connector.pusher.connection;
 
     connection.bind("connecting", () => {
-      console.log("🟡 Connecting to socket...");
+      // console.log("🟡 Connecting to socket...");
       this.statusCallback?.("connecting");
     });
 
     connection.bind("connected", () => {
-      console.log("🟢 Socket connected successfully!");
+      // console.log("🟢 Socket connected successfully!");
       this.statusCallback?.("connected");
     });
 
     connection.bind("disconnected", () => {
-      console.log("🔴 Socket disconnected!");
+      // console.log("🔴 Socket disconnected!");
       this.statusCallback?.("disconnected");
     });
 
     connection.bind("error", (error) => {
-      console.error("⚠️ Socket connection error:", error);
+      // console.error("⚠️ Socket connection error:", error);
       this.statusCallback?.("error");
     });
 
     connection.bind("state_change", (state) => {
-      console.log("🔄 Socket state change:", state);
+      // console.log("🔄 Socket state change:", state);
     });
 
     // --- Listen to channel messages ---
     this.echo
       .private(`communitychat.${communityId}`)
       .listen("CommunityMessageSent", (event) => {
-        console.log("📨 New message received via socket:", event.message);
-        console.log("📨 Event received via socket:", event);
+        // console.log("📨 New message received via socket:", event.message);
+        // console.log("📨 Event received via socket:", event);
         this.messageCallback?.(event.message);
       });
 
-    console.log(`✅ Subscribed to private-communitychat.${communityId}`);
+    // console.log(`✅ Subscribed to private-communitychat.${communityId}`);
   }
 
   disconnect() {
     if (this.echo) {
       this.echo.disconnect();
-      console.log("🔌 Socket manually disconnected");
+      // console.log("🔌 Socket manually disconnected");
     }
   }
 }

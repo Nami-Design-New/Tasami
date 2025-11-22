@@ -24,7 +24,6 @@ export default function useGoogleAuth() {
       navigate("/");
     },
     onError: (error) => {
-      console.log("Login error:", error);
       toast.error(error.message || t("auth.loginErorr"));
     },
   });
@@ -33,12 +32,9 @@ export default function useGoogleAuth() {
     if (loading) return; // prevent multiple popups
     setLoading(true);
 
-    console.log(auth, googleProvider, window.location.origin);
-
     try {
       const result = await signInWithPopup(auth, googleProvider);
       const user = result.user;
-      console.log(user);
 
       // send to API
       socialLogin({
@@ -49,7 +45,6 @@ export default function useGoogleAuth() {
       });
     } catch (error) {
       if (error.code !== "auth/cancelled-popup-request") {
-        console.log("Google Login Error:", error);
         toast.error(t(error.message));
       } else {
         console.error("Google login popup canceled (duplicate click)", error);

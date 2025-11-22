@@ -11,9 +11,9 @@ export default function useAcceptOrRemoveWorkOffer() {
           params: payload,
         }
       );
+
       if (res.data.code !== 200) {
-        console.log("From Error", res.data);
-        // throw new Error(res.data.message, "Error Handle offer");
+        throw new Error(res.data.message || "Error Handle offer");
       }
       return res.data;
     },

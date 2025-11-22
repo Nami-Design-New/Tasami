@@ -21,7 +21,6 @@ const Attachments = () => {
   // const [files, setFiles] = useState();
   const { addTaskFile } = usePostAddTaskFile();
 
-
   // const onSubmit = async (data) => {
   //   const formData = new FormData();
   //   // Handle file
@@ -49,7 +48,7 @@ const Attachments = () => {
   const handleFileChange = async (e) => {
     const file = e.target.files[0];
     if (!file) return;
-console.log("file" , file);
+    console.log("file", file);
 
     const formData = new FormData();
     formData.append("task_id", "1");

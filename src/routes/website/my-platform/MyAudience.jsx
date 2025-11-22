@@ -16,10 +16,7 @@ export default function MyAudience() {
   // keep URL in sync when tab changes
   useEffect(() => {
     setSearchParams((prev) => {
-      console.log("prev", prev);
-
       const params = new URLSearchParams(prev);
-      console.log("params", params);
 
       if (selectedTab) {
         params.set("tab", selectedTab);

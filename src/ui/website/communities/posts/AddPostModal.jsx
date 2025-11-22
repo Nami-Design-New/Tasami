@@ -72,7 +72,7 @@ export default function AddPostModal({ showModal, setShowModal }) {
 
     addPost(formData, {
       onSuccess: (res) => {
-        queryClient.invalidateQueries(["community-posts"]);
+        queryClient.invalidateQueries({ queryKey: ["community-posts"] });
         reset();
         setShowModal(false);
         toast.success(res.message);
@@ -227,19 +227,19 @@ export default function AddPostModal({ showModal, setShowModal }) {
               <div className="identity-container">
                 <label
                   className={`identity-option ${
-                    selectedPostType === "0" ? "active" : ""
+                    selectedPostType === "1" ? "active" : ""
                   }`}
                 >
-                  <input type="radio" value="0" {...register("postType")} />
+                  <input type="radio" value="1" {...register("postType")} />
                   <span>{t("membersOnly")}</span>
                 </label>
 
                 <label
                   className={`identity-option ${
-                    selectedPostType === "1" ? "active" : ""
+                    selectedPostType === "0" ? "active" : ""
                   }`}
                 >
-                  <input type="radio" value="1" {...register("postType")} />
+                  <input type="radio" value="0" {...register("postType")} />
                   <span>{t("public")}</span>
                 </label>
               </div>

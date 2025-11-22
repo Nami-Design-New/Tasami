@@ -7,6 +7,7 @@ export default function useGetNotifications() {
   const [searchParams] = useSearchParams();
   const searchWord = searchParams.get("search") || "";
   const { user } = useSelector((state) => state.authRole);
+
   const {
     data: notifications,
     isLoading,
@@ -20,8 +21,8 @@ export default function useGetNotifications() {
     queryFn: async ({ pageParam = 1 }) => {
       const res = await axiosInstance.get("notifications", {
         params: {
-          pagination: "on",
           page: pageParam,
+          pagination: "on",
           search_word: searchWord,
         },
       });
@@ -38,6 +39,10 @@ export default function useGetNotifications() {
         : undefined;
     },
     enabled: !!user,
+    gcTime: 0,
+    staleTime: 0,
+    cacheTime: 0,
+    refetchOnMount: "always",
   });
   return {
     notifications,

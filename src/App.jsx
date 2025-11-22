@@ -10,7 +10,6 @@ import OfflineBanner from "./ui/common/OfflineBanner";
 
 export default function App() {
   const isOnline = useNetworkStatus();
-  console.log(isOnline);
 
   const lang = useSelector((state) => state.language.lang);
   useEffect(() => {

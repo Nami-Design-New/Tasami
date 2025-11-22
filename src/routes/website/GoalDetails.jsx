@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
 import { toast } from "sonner";
@@ -54,6 +54,9 @@ export default function GoalDetails() {
       },
     });
   };
+  useEffect(() => {
+    setIsActive(goalDetails?.is_saved);
+  }, [goalDetails]);
 
   if (isLoading) return <Loading />;
   const isMyGoal = user?.id === goalDetails?.user?.id;

@@ -78,6 +78,7 @@ export default function NotificationCard({ item }) {
   const handleMarkAsRead = (id) => {
     markAsRead(id, {
       onSuccess: () => {
+        navigate(url);
         queryClient.refetchQueries({ queryKey: ["notifications"] });
         queryClient.refetchQueries({ queryKey: ["settings"] });
       },
@@ -98,9 +99,11 @@ export default function NotificationCard({ item }) {
       onClick={() => {
         if (item.is_read === false) {
           handleMarkAsRead(item?.id);
+        } else {
+          navigate(url);
         }
 
-        navigate(url);
+        //
       }}
       style={{ cursor: "pointer" }}
       className={`notification-web-card  ${

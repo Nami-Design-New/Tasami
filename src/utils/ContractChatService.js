@@ -20,8 +20,6 @@ export class ContractChatService {
   }
 
   connectPrivate({ token, contractId }) {
-    console.log(token);
-
     const api = axios.create({
       baseURL: import.meta.env.VITE_API_URL_SOCKET,
       headers: {
@@ -42,7 +40,7 @@ export class ContractChatService {
       cluster: "mt1",
       authorizer: (channel) => ({
         authorize: (socketId, callback) => {
-          console.log(channel.name);
+          // console.log(channel.name);
           api
             .post("/broadcasting/auth", {
               socket_id: socketId,
@@ -58,44 +56,44 @@ export class ContractChatService {
     const connection = this.echo.connector.pusher.connection;
 
     connection.bind("connecting", () => {
-      console.log("🟡 Connecting to socket...");
+      // console.log("🟡 Connecting to socket...");
       this.statusCallback?.("connecting");
     });
 
     connection.bind("connected", () => {
-      console.log("🟢 Socket connected successfully!");
+      // console.log("🟢 Socket connected successfully!");
       this.statusCallback?.("connected");
     });
 
     connection.bind("disconnected", () => {
-      console.log("🔴 Socket disconnected!");
+      // console.log("🔴 Socket disconnected!");
       this.statusCallback?.("disconnected");
     });
 
     connection.bind("error", (error) => {
-      console.error("⚠️ Socket connection error:", error);
+      // console.error("⚠️ Socket connection error:", error);
       this.statusCallback?.("error");
     });
 
     connection.bind("state_change", (state) => {
-      console.log("🔄 Socket state change:", state);
+      // console.log("🔄 Socket state change:", state);
     });
 
     // --- Listen to channel messages ---
     this.echo
       .private(`contractchat.${contractId}`)
       .listen("ContractMessageSent", (event) => {
-        console.log("📨 New message received via socket:", event.message);
+        // console.log("📨 New message received via socket:", event.message);
         this.messageCallback?.(event.message);
       });
 
-    console.log(`Subscribed to private-groupchat.${contractId}`);
+    // console.log(`Subscribed to private-groupchat.${contractId}`);
   }
 
   disconnect() {
     if (this.echo) {
       this.echo.disconnect();
-      console.log("🔌 Socket manually disconnected");
+      // console.log("🔌 Socket manually disconnected");
     }
   }
 }

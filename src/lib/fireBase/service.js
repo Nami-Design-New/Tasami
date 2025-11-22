@@ -92,7 +92,7 @@ const listenToMessages = (refetchSettings, refetchNotifications) => {
             url = `/my-platform`;
             break;
           case "offer_accepted":
-            url = `/my-works/${data?.operation_id}`;
+            url = `/my-contracts/${data?.operation_id}`;
             break;
           case "contract_request":
             url = `/my-contracts/${data?.operation_id}`;
@@ -104,10 +104,10 @@ const listenToMessages = (refetchSettings, refetchNotifications) => {
             url = `/goal/${data?.operation_id}`;
             break;
           case "follow":
-            url = `/my-audience`;
+            url = `/my-platform/my-audience?tab=followers`;
             break;
           case "community_new_member":
-            url = `/my-audience`;
+            url = `/my-platform/my-audience?tab=members`;
             break;
           case "consultation":
             url = `/consultaion-details/${data.operation_id}`;
@@ -116,7 +116,7 @@ const listenToMessages = (refetchSettings, refetchNotifications) => {
             url = `/notifications?tab=inquries`;
             break;
           case "meeting":
-            url = `my-community/meetings`;
+            url = `/my-community/meetings`;
             break;
           case "post":
             url = `/posts/${data.operation_id}`;
@@ -125,7 +125,7 @@ const listenToMessages = (refetchSettings, refetchNotifications) => {
             url = `/posts/${data.operation_id}`;
             break;
           case "offer":
-            url = `/goal/${data?.operation_id}`;
+            url = `/my-works/${data?.operation_id}`;
             break;
           case "work":
             url = `/goal/${data?.operation_id}`;
@@ -136,11 +136,14 @@ const listenToMessages = (refetchSettings, refetchNotifications) => {
           case "community_chat":
             url = `/community/${data.operation_id}/chats/`;
             break;
+          case "task":
+            url = `/tasks/${data.operation_id}/`;
+            break;
           case "group_chat":
             url = `/chat/${data.operation_id}`;
             break;
           default:
-            url = "/ ";
+            url = "/";
         }
 
         // Open or focus the URL
