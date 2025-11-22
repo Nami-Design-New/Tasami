@@ -34,11 +34,9 @@ const AddNewTask = ({ showModal, setShowModal, title }) => {
   const handleClose = () => {
     setShowModal(false);
   };
-  console.log(errors);
 
   const onSubmit = async (data) => {
     const formData = new FormData();
-    console.log(data);
 
     formData.append("employee_id", data.employee_id);
     formData.append("task_system_id", data.task_system_id);
@@ -51,8 +49,6 @@ const AddNewTask = ({ showModal, setShowModal, title }) => {
         formData.append(`files[${index}]`, file);
       });
     }
-
-    console.log("form data", formData);
 
     addTask(formData, {
       onSuccess: (res) => {

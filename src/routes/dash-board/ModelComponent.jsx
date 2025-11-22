@@ -16,14 +16,12 @@ const ModelComponent = () => {
 
   const { taskData } = useGetShowTask("", page, PAGE_SIZE, id);
 
-  console.log("id task data", id, taskData);
-
   return (
     <section className="model">
       <Header title="نموذج خدمه العملاء" />
       <EmployeeData taskData={taskData} />
       <ModelInfo taskData={taskData} />
-      <Details taskData={taskData}  />
+      <Details taskData={taskData} />
       <Notes taskData={taskData} />
     </section>
   );

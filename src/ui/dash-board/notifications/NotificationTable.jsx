@@ -222,7 +222,6 @@ const NotificationTable = () => {
       columnHelper.accessor("actions", {
         header: t("dashboard.workGroup.table.actions"),
         cell: (info) => {
-          // console.log("info notify aciton", info?.row?.original  );
           return (
             <div className="table__actions">
               {info?.row?.original?.is_added ? (

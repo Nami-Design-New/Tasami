@@ -138,6 +138,7 @@ import ErrorFallback from "../ui/ErrorFallback";
 import ProtectedAdminRoutes from "./ProtectedAdminRoutes";
 import ProtectedRoute from "./ProtectedRoute";
 import SharedGroups from "../routes/dash-board/teams/SharedGroups";
+import CompleteDraftedUsers from "../routes/dash-board/list-management/CompleteDraftedUsers";
 
 export const router = createBrowserRouter([
   /* WEBSITE AUTH */
@@ -595,6 +596,10 @@ export const router = createBrowserRouter([
       {
         path: "employee-details/:id",
         element: <CreateEmployee />,
+      },
+      {
+        path: "complete-employee-data/:id",
+        element: <CompleteDraftedUsers />,
       },
       {
         path: "shared-groups/:id",

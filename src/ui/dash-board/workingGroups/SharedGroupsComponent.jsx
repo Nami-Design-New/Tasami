@@ -22,8 +22,6 @@ export default function SharedGroupsComponent() {
   const allSharedGroups =
     sharedGroups?.pages?.flatMap((page) => page?.data) ?? [];
 
-  console.log(allSharedGroups);
-
   const showNoData = !isLoading && !isError && allSharedGroups.length === 0;
 
   return (

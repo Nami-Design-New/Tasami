@@ -35,7 +35,7 @@ const PermissionBoard = ({ isEdit }) => {
   const groupsWithActivePermissions = useMemo(() => {
     if (!permissions?.data) return [];
 
-    const employeePermissions = employee?.permissions || [];
+    const employeePermissions = employee?.data?.permissions || [];
 
     return permissions.data.map((group) => ({
       ...group,
@@ -66,7 +66,7 @@ const PermissionBoard = ({ isEdit }) => {
                 <PermissionGroup
                   key={group.id}
                   title={group.title}
-                  permissions={group.permissions}
+                  permissions={groupsWithActivePermissions}
                   groupId={`group-${group.id}`}
                 />
               ))}

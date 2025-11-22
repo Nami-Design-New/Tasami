@@ -5,6 +5,7 @@ import ConfirmDeleteModal from "../../../ui/modals/ConfirmationDeleteModal";
 import FiledsAndSpecialzationsModal from "../../../ui/modals/FiledsAndSpecialzationsModal";
 import ReusableDataTable from "../../../ui/table/ReusableDataTable";
 import ChartCard from "../../../ui/dash-board/cards/ChartCard";
+import useGetMainCategories from "../../../hooks/dashboard/FiledsAndSpecialations/useGetMainCategories";
 const statsData = [
   {
     label: "المجالات",
@@ -26,12 +27,12 @@ const columnHelper = createColumnHelper();
 const FieldsAndSpecializations = () => {
   const [showModal, setShowModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const { mainCategories, isLoading } = useGetMainCategories();
   const data = useMemo(
     () => [
       {
         fields: "الانترنت و البرامج",
         specializations: "المواقع",
-
         actions: "",
       },
       {

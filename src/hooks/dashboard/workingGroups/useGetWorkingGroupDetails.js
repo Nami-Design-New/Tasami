@@ -23,7 +23,6 @@ export default function useGetWorkingGroupdetails(
     keepPreviousData: true,
     enabled,
   });
-  console.log(data);
 
   return {
     workinGroupData: data?.group,

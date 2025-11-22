@@ -12,7 +12,6 @@ const PerformanceIndicators = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const { id } = useParams();
   const { perfomanceIndicators, isLoading } = useGetPerformanceIndicators(id);
-  console.log(perfomanceIndicators);
 
   // Controlled inputs for date filters
   const [fromDate, setFromDate] = useState(searchParams.get("fromDate") || "");

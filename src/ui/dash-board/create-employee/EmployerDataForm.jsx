@@ -266,8 +266,6 @@ const EmployerDataForm = ({ isEdit }) => {
         { employeeId: employee.data.id, payload },
         {
           onSuccess: (res) => {
-            console.log("Edit employee profile");
-
             toast.success(res?.message);
             queryClient.refetchQueries({ queryKey: ["dashboard-team"] });
             queryClient.invalidateQueries({

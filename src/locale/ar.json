@@ -1502,6 +1502,7 @@
       "activateAccount": "تنشيط الحساب",
       "contentNotAvailable": "المحتوى غير متوفر لهذا التبويب",
       "requestSuspendAccountModalTitle": "طلب إيقاف الحساب",
+      "drafted": "موظفين قيد الانشاء",
       "form": {
         "employmentData": "البيانات الوظيفية",
         "jobLevel": "المستوى الوظيفي",
@@ -1600,6 +1601,27 @@
       "save": "حفظ",
       "update": "تعديل",
       "selectAll": "تحديد الكل"
+    },
+    "fieldsAndSpecialization": {
+      "modalTitle": "مجال جديد",
+      "newField": "مجال جديد",
+      "existingField": "مجال موجود",
+      "fieldLabel": "المجال",
+      "fieldPlaceholder": "مثال: تكنولوجيا المعلومات",
+      "existingFieldLabel": "اختر المجال",
+      "specializationLabel": "التخصص",
+      "specializationPlaceholder": "مثال: تحليل البيانات",
+      "addButton": "إضافة",
+
+      "errors": {
+        "actionRequired": "نوع الإجراء مطلوب",
+        "invalidValue": "قيمة غير صالحة",
+        "newFieldRequired": "اسم المجال الجديد مطلوب",
+        "newFieldShort": "اسم المجال قصير جدًا",
+        "existingFieldRequired": "اختيار المجال مطلوب",
+        "specializationRequired": "اسم التخصص مطلوب",
+        "specializationShort": "اسم التخصص قصير جدًا"
+      }
     }
   }
 }

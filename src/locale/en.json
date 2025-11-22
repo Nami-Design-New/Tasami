@@ -1546,6 +1546,7 @@
       "activateAccount": "Activate Account",
       "contentNotAvailable": "Content is not available for this tab",
       "requestSuspendAccountModalTitle": "Request Account Suspension",
+      "drafted": "Drafted Employees",
       "form": {
         "employmentData": "Employment Data",
 
@@ -1661,6 +1662,27 @@
       "save": "Save",
       "update": "Update",
       "selectAll": "Select All"
+    },
+    "fieldsAndSpecialization": {
+      "modalTitle": "New Field",
+      "newField": "New Field",
+      "existingField": "Existing Field",
+      "fieldLabel": "Field",
+      "fieldPlaceholder": "Example: Information Technology",
+      "existingFieldLabel": "Select Field",
+      "specializationLabel": "Specialization",
+      "specializationPlaceholder": "Example: Data Analysis",
+      "addButton": "Add",
+
+      "errors": {
+        "actionRequired": "Action type is required",
+        "invalidValue": "Invalid value",
+        "newFieldRequired": "New field name is required",
+        "newFieldShort": "Field name is too short",
+        "existingFieldRequired": "Please select a field",
+        "specializationRequired": "Specialization is required",
+        "specializationShort": "Specialization name is too short"
+      }
     }
   }
 }

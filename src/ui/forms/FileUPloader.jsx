@@ -62,8 +62,6 @@ export default function FileUploader({
   });
 
   const removeFile = (index) => {
-    console.log("file removed");
-
     const updated = files.filter((_, i) => i !== index);
     setFiles(updated);
     onFilesChange?.(updated);
@@ -163,8 +161,6 @@ export default function FileUploader({
                     type="button"
                     className="delete multiple"
                     onClick={() => {
-                      console.log(file);
-
                       removeFile(i);
                       onDelete?.(file?.id);
                     }}
