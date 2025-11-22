@@ -5,6 +5,7 @@ import { useNavigate } from "react-router";
 import CustomButton from "../../CustomButton";
 import AddGoalModal from "../gaols/AddGoalModal";
 import AddAssistanceModal from "../offers/AddAssistanceModal";
+import PlatformModal from "../platform/PlatformModal";
 
 export default function GoalsHelpSection() {
   const { t } = useTranslation();
@@ -14,6 +15,7 @@ export default function GoalsHelpSection() {
 
   const [showModal, setShowModal] = useState(false);
   const [showGoalModal, setShowGoalModal] = useState(false);
+  const [showPlatformModal, setShowPlatformModal] = useState(false);
   return (
     <section className={`goals-help-section ${lang === "en" && "en"}  `}>
       <CustomButton
@@ -37,7 +39,6 @@ export default function GoalsHelpSection() {
         <img src="/icons/add.svg" alt="icon" />
         {t("website.hero.personalGoal")}
       </CustomButton>
-
       <button
         onClick={() => {
           if (user) {
@@ -46,7 +47,11 @@ export default function GoalsHelpSection() {
               user?.city !== null &&
               user?.nationality !== null
             ) {
-              setShowModal(true);
+              if (user?.about === "") {
+                setShowPlatformModal(true);
+              } else {
+                setShowModal(true);
+              }
             } else {
               navigate("/customize-services");
             }
@@ -60,7 +65,14 @@ export default function GoalsHelpSection() {
         {t("website.hero.offerHelp")}
       </button>
       <AddAssistanceModal showModal={showModal} setShowModal={setShowModal} />
-      <AddGoalModal showModal={showGoalModal} setShowModal={setShowGoalModal} />
+      <AddGoalModal
+        showModal={showGoalModal}
+        setShowModal={setShowGoalModal}
+      />{" "}
+      <PlatformModal
+        showModal={showPlatformModal}
+        setShowModal={setShowPlatformModal}
+      />
     </section>
   );
 }

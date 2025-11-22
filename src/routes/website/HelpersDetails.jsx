@@ -154,7 +154,7 @@ export default function HelpersDetails() {
                   }`}
                 </CustomLink>
               )}
-              {thisIsMe && (
+              {thisIsMe && isHelper && (
                 <CustomLink
                   to="/my-community"
                   size="large"
