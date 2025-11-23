@@ -5,13 +5,13 @@ import { Controller, useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { useNavigate, useParams } from "react-router";
 import { toast } from "sonner";
+import * as yup from "yup";
 import useGetCities from "../../../hooks/countries/useGetCities";
 import useGetNationalities from "../../../hooks/countries/useGetNationalities";
 import useCreateEmployee from "../../../hooks/dashboard/employee/useCreateEmployee";
-import useDeleteEmployeeAttachment from "../../../hooks/dashboard/employee/useDeleteEmployeeAttachment";
-import useGetEmployee from "../../../hooks/dashboard/employee/useGetEmployee";
-import useUpdateEmployee from "../../../hooks/dashboard/employee/useUpdateEmployee";
-import useGetCountries from "../../../hooks/dashboard/regions/useGetCountries";
+import useDeleteDraftedUserFiles from "../../../hooks/dashboard/employee/useDeleteDraftedUserFiles";
+import useGetDraftedUser from "../../../hooks/dashboard/employee/useGetDraftedUser";
+import useUpdateDraftedUser from "../../../hooks/dashboard/employee/useUpdateDraftedUser";
 import useGetRoles from "../../../hooks/dashboard/shared/useGetRoles";
 import useInfiniteWorkingGroups from "../../../hooks/dashboard/workingGroups/useInfiniteWorkingGroups";
 import CustomButton from "../../../ui/CustomButton";
@@ -22,8 +22,8 @@ import SelectField from "../../../ui/forms/SelectField";
 import SelectFieldReactSelect from "../../../ui/forms/SelectFieldReactSelect";
 import ProfileImageUploader from "../../../ui/ProfileImageUploader";
 import { flattenPages, formatYMD } from "../../../utils/helper";
-import * as yup from "yup";
-import useUpdateDraftedUser from "../../../hooks/dashboard/employee/useUpdateDraftedUser";
+import useGetCountries from "../../../hooks/countries/useGetCountries";
+import Loading from "../../../ui/loading/Loading";
 
 const createEmployeeSchema = (t) =>
   yup.object().shape({
@@ -67,7 +67,7 @@ const createEmployeeSchema = (t) =>
     attachments: yup.array().nullable(),
   });
 
-export default function CompleteDraftedUsers({ isEdit = true }) {
+export default function CompleteDraftedUsers() {
   const { id } = useParams();
   const [files, setFiles] = useState([]);
   const navigate = useNavigate();
@@ -79,13 +79,13 @@ export default function CompleteDraftedUsers({ isEdit = true }) {
 
   const { updateDraftedUser, isPending } = useUpdateDraftedUser();
   const { roles, rolesLoading } = useGetRoles();
-  const { createEmployee, isCreatingEmployee } = useCreateEmployee();
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading } =
     useInfiniteWorkingGroups();
-  const { deleteEmployeeFiles, isPending: isDeleting } =
-    useDeleteEmployeeAttachment();
+  const { deleteDraftedUserFiles, isPending: isDeleting } =
+    useDeleteDraftedUserFiles();
 
-  const { employee, isLoading: employeeLoading } = useGetEmployee();
+  const { draftedUser, isLoading: employeeLoading } = useGetDraftedUser();
+  console.log(draftedUser);
 
   const {
     register,
@@ -118,6 +118,7 @@ export default function CompleteDraftedUsers({ isEdit = true }) {
     "email",
     "fatherName",
     "familyName",
+    "birthdate",
     "gender",
     "residentCountry",
     "residentCity",
@@ -125,8 +126,8 @@ export default function CompleteDraftedUsers({ isEdit = true }) {
     "profileImage",
     "attachments",
   ]);
-  // Flatten pages → items array
 
+  // Flatten pages → items array
   const flattened = flattenPages(data);
 
   const groups = useMemo(() => {
@@ -150,33 +151,35 @@ export default function CompleteDraftedUsers({ isEdit = true }) {
   }, [selectedGroupId, flattened, setValue]);
 
   useEffect(() => {
-    if (isEdit && employee) {
+    if (draftedUser) {
       reset({
-        jobLevel: employee.data.role?.id,
-        jobTitle: employee.data.job_title,
-        accountNumber: employee.data.code,
-        group: employee.data.group.id,
-        firstName: employee.data.first_name,
-        fatherName: employee.data.last_name,
-        familyName: employee.data.family_name,
-        birthdate: employee.data.birthdate,
-        email: employee.data.email,
-        gender: employee.data.gender,
-        region: employee.data.group.region?.id,
-        city: employee.data.group.city?.id,
-        sector: employee.data.group.sector?.id,
-        residentCountry: employee.data.country_id.id,
-        residentCity: employee.data.city_id.id,
-        nationality: employee.data.nationality.id,
+        jobLevel: draftedUser?.data?.role?.id,
+        jobTitle: draftedUser?.data?.job_title,
+        accountNumber: draftedUser?.data?.code,
+        group: draftedUser?.data?.group?.id,
+        firstName: draftedUser?.data?.first_name,
+        fatherName: draftedUser?.data?.last_name,
+        familyName: draftedUser?.data?.family_name,
+        birthdate: draftedUser?.data?.birthdate,
+        email: draftedUser?.data?.email,
+        gender: draftedUser?.data?.gender,
+        region: draftedUser?.data?.group?.region?.id,
+        city: draftedUser?.data?.group.city?.id,
+        sector: draftedUser.data?.group.sector?.id,
+        residentCountry: draftedUser?.data?.country_id?.id,
+        residentCity: draftedUser?.data?.city_id?.id,
+        nationality: draftedUser?.data?.nationality?.id,
+        profileImage: draftedUser?.data?.image,
+        attachments: draftedUser?.data?.files,
       });
 
       // Load image
-      setImage(employee.data.image);
+      setImage(draftedUser.data.image);
 
       // Load attachments into state
-      setFiles(employee.data.files || []);
+      setFiles(draftedUser.data.files || []);
     }
-  }, [isEdit, employee, reset]);
+  }, [draftedUser, reset]);
 
   const allFieldsFilled = allFields.every(
     (val) =>
@@ -217,11 +220,11 @@ export default function CompleteDraftedUsers({ isEdit = true }) {
   };
 
   const handleDeletefile = (fileId) => {
-    deleteEmployeeFiles(fileId, {
+    deleteDraftedUserFiles(fileId, {
       onSuccess: (res) => {
         toast.success(res.message);
         queryClient.invalidateQueries({
-          queryKey: ["dashboard-employee-details"],
+          queryKey: ["drafted-user-details"],
         });
       },
       onError: (error) => {
@@ -234,87 +237,67 @@ export default function CompleteDraftedUsers({ isEdit = true }) {
     const payload = new FormData();
 
     // Call mutation
-    if (isEdit) {
-      payload.append("_method", "put");
 
-      // Compare each field with original employee data
-      payload.append("role_id", formData.jobLevel);
-      payload.append("job_title", formData.jobTitle);
-      payload.append("group_id", formData.group);
-      payload.append("first_name", formData.firstName);
-      payload.append("last_name", formData.fatherName || "");
-      payload.append("family_name", formData.familyName || "");
-      payload.append("birthdate", formatYMD(formData.birthdate));
-      payload.append("email", formData.email);
-      payload.append("gender", formData.gender || "");
-      payload.append("country_id", formData.residentCountry || "");
-      payload.append("city_id", formData.residentCity || "");
-      payload.append("nationality_id", formData.nationality || "");
+    payload.append("_method", "put");
 
-      // Profile image
-      if (formData.profileImage instanceof File) {
-        payload.append("image", formData.profileImage);
-      }
+    // Compare each field with original employee data
+    payload.append("role_id", formData.jobLevel);
+    payload.append("job_title", formData.jobTitle);
+    payload.append("group_id", formData.group);
+    payload.append("first_name", formData.firstName);
+    payload.append("last_name", formData.fatherName || "");
+    payload.append("family_name", formData.familyName || "");
+    payload.append("birthdate", formatYMD(formData.birthdate));
+    payload.append("email", formData.email);
+    payload.append("gender", formData.gender || "");
+    payload.append("country_id", formData.residentCountry || "");
+    payload.append("city_id", formData.residentCity || "");
+    payload.append("nationality_id", formData.nationality || "");
 
-      // Only append attachments if changed
-      const originalFiles = employee.data.attachments || [];
-      const newFiles = files.filter((f) => !originalFiles.includes(f));
-      newFiles.forEach((file, index) => {
-        payload.append(`files[${index}]`, file);
-      });
+    // Profile image
+    if (formData.profileImage instanceof File) {
+      payload.append("image", formData.profileImage);
+    }
 
-      // Call update mutation
-      updateDraftedUser(
-        { employeeId: id, payload },
-        {
-          onSuccess: (res) => {
-            toast.success(res?.message);
-            queryClient.refetchQueries({ queryKey: ["dashboard-team"] });
-            queryClient.invalidateQueries({
-              queryKey: ["dashboard-employee-details"],
-            });
-          },
-          onError: (err) => {
-            toast.error(err.message);
-            console.error("Error updating employee:", err);
-          },
-        }
-      );
-    } else {
-      // Append text/number fields
-      payload.append("role_id", formData.jobLevel); // or map from jobLevel
-      payload.append("job_title", formData.jobTitle);
-      payload.append("group_id", formData.group);
-      payload.append("first_name", formData.firstName);
-      payload.append("last_name", formData.fatherName || "");
-      payload.append("family_name", formData.familyName || "");
-      payload.append("birthdate", formatYMD(formData.birthdate));
-      payload.append("email", formData.email);
-      payload.append("gender", formData.gender || "");
-      payload.append("country_id", formData.residentCountry || "");
-      payload.append("city_id", formData.residentCity || "");
-      payload.append("nationality_id", formData.nationality || "");
-      // Append profile image if selected
-      if (formData?.profileImage && formData?.profileImage instanceof File) {
-        payload.append("image", formData?.profileImage);
-      }
-      // Append attachments if any
-      files.forEach((file, index) => {
-        payload.append(`files[${index}]`, file);
-      });
-      createEmployee(payload, {
+    // Only append attachments if changed
+    const originalFiles = draftedUser?.data?.files || [];
+    const newFiles = files.filter((f) => !originalFiles.includes(f));
+    newFiles.forEach((file, index) => {
+      payload.append(`files[${index}]`, file);
+    });
+
+    // Call update mutation
+    updateDraftedUser(
+      { id, payload },
+      {
         onSuccess: (res) => {
           toast.success(res?.message);
-          navigate("/dashboard/teams");
-          queryClient.refetchQueries({ queryKey: ["dashboard-team"] });
+          queryClient.refetchQueries({
+            queryKey: ["dashboard-drafted-users"],
+          });
+          queryClient.refetchQueries({
+            queryKey: ["dashboard-team"],
+          });
+
+          if (!allFieldsFilled) {
+            queryClient.invalidateQueries({
+              queryKey: ["drafted-user-details"],
+            });
+          } else {
+            navigate("/dashboard/teams");
+          }
         },
-        onError: (error) => {
-          toast.error(error.message);
-          console.error("Error creating employee:", error);
+        onError: (err) => {
+          toast.error(err.message);
+          console.error("Error updating employee:", err);
         },
-      });
-    }
+      }
+    );
   };
+  console.log(allFields);
+  console.log(allFieldsFilled);
+
+  if (employeeLoading) return <Loading />;
 
   return (
     <form className="form_ui" onSubmit={handleSubmit(onSubmit)}>
@@ -351,29 +334,26 @@ export default function CompleteDraftedUsers({ isEdit = true }) {
           </div>
 
           {/* Account Number */}
-          {isEdit && (
-            <>
-              <div className="col-12 col-md-6 col-xxl-4 p-2">
-                <InputField
-                  label={t("dashboard.createEmployee.form.accountNumber")}
-                  placeholder="EX: D-140123-00001"
-                  disabled
-                  {...register("accountNumber")}
-                  error={errors.accountNumber?.message}
-                />
-              </div>
-              <div className="col-12 col-md-6 col-xxl-4 p-2">
-                <InputField
-                  label={t("dashboard.createEmployee.form.date")}
-                  type="date"
-                  disabled
-                  {...register("date")}
-                  error={errors.date?.message}
-                  value={new Date().toISOString().split("T")[0]}
-                />
-              </div>
-            </>
-          )}
+
+          <div className="col-12 col-md-6 col-xxl-4 p-2">
+            <InputField
+              label={t("dashboard.createEmployee.form.accountNumber")}
+              placeholder="EX: D-140123-00001"
+              disabled
+              {...register("accountNumber")}
+              error={errors.accountNumber?.message}
+            />
+          </div>
+          <div className="col-12 col-md-6 col-xxl-4 p-2">
+            <InputField
+              label={t("dashboard.createEmployee.form.date")}
+              type="date"
+              disabled
+              {...register("date")}
+              error={errors.date?.message}
+              value={new Date().toISOString().split("T")[0]}
+            />
+          </div>
 
           {/* Group */}
           <div className="col-12 col-md-6 col-xxl-4 p-2">
@@ -605,41 +585,16 @@ export default function CompleteDraftedUsers({ isEdit = true }) {
           {/* Buttons */}
           <div className="col-12 p-2">
             <div className="buttons w-full justify-content-end">
-              {isEdit ? (
-                <CustomButton
-                  loading={isPending}
-                  type="submit"
-                  color={allFieldsFilled ? "success" : "primary"}
-                  size="large"
-                >
-                  {t("dashboard.createEmployee.form.edit")}
-                </CustomButton>
-              ) : (
-                <>
-                  <CustomButton
-                    type="button"
-                    color="secondary"
-                    size="large"
-                    onClick={() => {
-                      reset(); // reset form fields
-                      setFiles([]); // reset attachments
-                      setImage("/images/dashboard/avatar-placeholder.jpg"); // reset profile image
-                    }}
-                  >
-                    {t("dashboard.createEmployee.form.cancel")}
-                  </CustomButton>
-                  <CustomButton
-                    type="submit"
-                    color={allFieldsFilled ? "success" : "primary"}
-                    size="large"
-                    loading={isCreatingEmployee}
-                  >
-                    {allFieldsFilled
-                      ? t("dashboard.createEmployee.form.add")
-                      : t("dashboard.createEmployee.form.saveDraft")}
-                  </CustomButton>
-                </>
-              )}
+              <CustomButton
+                loading={isPending}
+                color={allFieldsFilled ? "success" : "primary"}
+                type="submit"
+                size="large"
+              >
+                {allFieldsFilled
+                  ? t("dashboard.createEmployee.form.complete")
+                  : t("dashboard.createEmployee.form.edit")}
+              </CustomButton>
             </div>
           </div>
         </div>

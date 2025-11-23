@@ -6,7 +6,10 @@ export default function useUpdateDraftedUser() {
     mutationFn: async ({ id, payload }) => {
       const res = await adminAxiosInstance.post(
         `dh-draft-employees/${id}`,
-        payload
+        payload,
+        {
+          headers: { "Content-Type": "multipart/form-data" },
+        }
       );
 
       if (res.data.code !== 200) {

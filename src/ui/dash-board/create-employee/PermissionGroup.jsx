@@ -3,12 +3,15 @@ import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import PermissionItem from "./PermissionItem";
 
-const PermissionGroup = ({ title, permissions, groupId }) => {
+const PermissionGroup = ({ title, permissions, groupId, register }) => {
   const [isOpen, setIsOpen] = useState(false);
   const { t } = useTranslation();
+  console.log(permissions);
+
   const [checkedItems, setCheckedItems] = useState(
-    Array(permissions.length).fill(false)
+    permissions.map((p) => p.active)
   );
+
   const toggleAccordion = () => {
     setIsOpen(!isOpen);
   };
@@ -21,7 +24,7 @@ const PermissionGroup = ({ title, permissions, groupId }) => {
 
   const toggleAll = () => {
     const allSelected = checkedItems.every(Boolean);
-    setCheckedItems(Array(permissions.length).fill(!allSelected));
+    setCheckedItems(permissions.map(() => !allSelected));
   };
 
   const panelVariants = {
@@ -94,7 +97,7 @@ const PermissionGroup = ({ title, permissions, groupId }) => {
               </label>
             </motion.div>
 
-            {permissions.map((perm, index) => (
+            {permissions?.map((perm, index) => (
               <motion.div
                 key={index}
                 variants={itemVariants}
@@ -103,10 +106,11 @@ const PermissionGroup = ({ title, permissions, groupId }) => {
                 exit="hidden"
               >
                 <PermissionItem
-                  label={perm.title.trim()}
-                  id={`${groupId}-perm-${index}`}
+                  label={perm?.title.trim()}
+                  id={perm.id}
                   checked={checkedItems[index]}
                   onChange={() => toggleItem(index)}
+                  register={register}
                 />
               </motion.div>
             ))}
