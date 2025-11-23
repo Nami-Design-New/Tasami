@@ -7,17 +7,17 @@ import { toast } from "sonner";
 const Attachments = ({ taskData }) => {
   const [showModal, setShowModal] = useState(false);
   const [titleInput, setTitleInput] = useState("");
-  const [attachments, setAttachments] = useState([
-    {
-      id: 1,
-      date: "2025-05-25",
-      time: "14:45 PM",
-      name: "سلطان م",
-      account: "E-2202023-000125",
-      title: "شهادة تدريب",
-      filename: "FFNFCertificate.pdf",
-    },
-  ]);
+  // const [attachments, setAttachments] = useState([
+  //   {
+  //     id: 1,
+  //     date: "2025-05-25",
+  //     time: "14:45 PM",
+  //     name: "سلطان م",
+  //     account: "E-2202023-000125",
+  //     title: "شهادة تدريب",
+  //     filename: "FFNFCertificate.pdf",
+  //   },
+  // ]);
   // const [files, setFiles] = useState();
   const { addTaskFile } = usePostAddTaskFile();
 

@@ -5,13 +5,11 @@ import { Link } from "react-router";
 import ReusableDataTable from "../table/ReusableDataTable";
 import FormWrapper from "../forms/FormWrapper";
 import AddActionModal from "./AddActionModal";
+import TablePagination from "../table/TablePagentaion";
 const columnHelper = createColumnHelper();
 
-const Notes = ({ taskData }) => {
+const Notes = ({ taskData,page, setPage, setPageSize, pageSize ,  currentPage, lastPage, isLoading }) => {
   const [showModal, setShowModal] = useState("");
-
-console.log("notes task data" , taskData);
-
 
   const data = useMemo(
     () => [
@@ -82,23 +80,23 @@ console.log("notes task data" , taskData);
         cell: (info) => info.getValue(),
         enableSorting: false,
       }),
-      columnHelper.accessor("accountNumber", {
+      columnHelper.accessor("employee.code", {
         header: " رقم الحساب ",
         cell: (info) => <Link className="link-styles">{info.getValue()}</Link>,
         enableSorting: false,
       }),
-      columnHelper.accessor("action", {
+      columnHelper.accessor("type", {
         header: "الاجراء",
         cell: (info) => {
           let badgeColor;
           switch (info.getValue()) {
-            case "توجيه":
+            case "send":
               badgeColor = "#6EE7B7";
               break;
-            case "اعاده":
+            case "return":
               badgeColor = "#FDE68A";
               break;
-            case "اكمال":
+            case "finish":
               badgeColor = "#BFDBFE";
               break;
             default:
@@ -121,7 +119,7 @@ console.log("notes task data" , taskData);
         },
         enableSorting: false,
       }),
-      columnHelper.accessor("info_details", {
+      columnHelper.accessor("note", {
         header: " تفاصيل الافاده ",
         cell: (info) => info.getValue(),
         enableSorting: false,
@@ -136,12 +134,22 @@ console.log("notes task data" , taskData);
         <ReusableDataTable
           header={false}
           filter={false}
-          data={data}
+          data={taskData?.data || []}
           columns={columns}
-          lang="ar"
-          initialPageSize={10}
           searchPlaceholder=""
-        />
+          currentPage={currentPage}
+          lastPage={lastPage}
+          setPage={setPage}
+          setPageSize={setPageSize}
+          pageSize={pageSize}
+        >
+          <TablePagination
+            currentPage={page}
+            lastPage={lastPage}
+            onPageChange={setPage}
+            isLoading={isLoading}
+          />
+        </ReusableDataTable>
         <div className="add-btn-container">
           <button
             className="add-attachment-btn"

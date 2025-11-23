@@ -18,46 +18,45 @@ const Tasks = () => {
     page,
     PAGE_SIZE
   );
-  console.log("taskss", tasks);
   const statsData = [
     {
       label: t("dashboard.tasks.totalTasks"),
-      value: `${tasks?.total_count}`,
+      value: `${tasks?.total_count || ''}`,
       icon: "fa-tasks",
       color: "#007bff",
       bgColor: "#dceeff",
     },
     {
       label: t("dashboard.tasks.completedTasks"),
-      value: `${tasks?.completed_count}`,
+      value: `${tasks?.completed_count || ''}`,
       icon: "fa-check-circle",
       color: "#28a745",
       bgColor: "#d4edda",
     },
     {
       label: t("dashboard.tasks.pendingTasks"),
-      value: `${tasks?.not_completed_count}`,
+      value: `${tasks?.not_completed_count || ''}`,
       icon: "fa-times-circle",
       color: "#dc3545",
       bgColor: "#f8d7da",
     },
     {
       label: t("dashboard.tasks.completionRate"),
-      value: `${tasks?.completion_rate}%`,
+      value: `${tasks?.completion_rate || ''}%`,
       icon: "fa-percent",
       color: "#17a2b8",
       bgColor: "#d1ecf1",
     },
     {
       label: t("dashboard.tasks.monthlyCompletion"),
-      value: `${tasks?.monthly_completion_rate}`,
+      value: `${tasks?.monthly_completion_rate || ''}`,
       icon: "fa-calendar-check",
       color: "#6f42c1",
       bgColor: "#ede6f9",
     },
     {
       label: t("dashboard.tasks.avgCompletionTime"),
-      value: `${tasks?.average_completion_time}` + t("dashboard.tasks.days"),
+      value: `${tasks?.average_completion_time || ''}` + t("dashboard.tasks.days"),
       icon: "fa-clock",
       color: "#ffc107",
       bgColor: "#fff3cd",

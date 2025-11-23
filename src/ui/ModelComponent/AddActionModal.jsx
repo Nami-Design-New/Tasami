@@ -51,8 +51,9 @@ const AddActionModal = ({ showModal, setShowModal, taskData }) => {
           : data.actionType === "redirect"
           ? "send"
           : "return",
-      employee_id:
-        data.actionType === "redirect" ? Number(data.employee) : null,
+      ...(data.actionType === "redirect" && {
+        employee_id: Number(data.employee),
+      }),
       note: data.description,
     };
 

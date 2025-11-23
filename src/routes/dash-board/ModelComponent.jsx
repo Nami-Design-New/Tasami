@@ -12,19 +12,30 @@ const ModelComponent = () => {
 
   // const [selectedRow, setSelectedRow] = useState();
   const [page, setPage] = useState(1);
-  // const [pageSize, setPageSize] = useState(PAGE_SIZE);
-
-  const { taskData } = useGetShowTask("", page, PAGE_SIZE, id);
-
-  console.log("id task data", id, taskData);
-
+  const [pageSize, setPageSize] = useState(PAGE_SIZE);
+  const { taskData, currentPage, lastPage, isLoading } = useGetShowTask(
+    "",
+    page,
+    PAGE_SIZE,
+    id
+  );
+  
   return (
     <section className="model">
       <Header title="نموذج خدمه العملاء" />
       <EmployeeData taskData={taskData} />
       <ModelInfo taskData={taskData} />
-      <Details taskData={taskData}  />
-      <Notes taskData={taskData} />
+      <Details taskData={taskData} />
+      <Notes
+        taskData={taskData}
+        page={page}
+        setPage={setPage}
+        pageSize={pageSize}
+        setPageSize={setPageSize}
+        currentPage={currentPage}
+        lastPage={lastPage}
+        isLoading={isLoading}
+      />
     </section>
   );
 };
