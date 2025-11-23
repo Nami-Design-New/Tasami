@@ -4,9 +4,12 @@ import CustomButton from "../../CustomButton";
 import ExpDocItemLoader from "../../loading/ExpDocItemLoader";
 import DocumentModal from "./DocumentModal";
 import { useState } from "react";
+import { useSelector } from "react-redux";
 
 export default function DocumentsSection() {
   const { t } = useTranslation();
+  const { lang } = useSelector((state) => state.language);
+
   const { cv, isLoading } = useGetCV();
   const [showDocumentModal, setShowDocumentModal] = useState(false);
   const [selectedDoc, setSelectedDoc] = useState(null);
@@ -17,7 +20,7 @@ export default function DocumentsSection() {
         <h2 id="documents-title" className="cv__section-title">
           {t("website.platform.cv.documents")}
           <span className="cv__section-note">
-            ({t("website.platform.cv.optional")})
+            {t("website.platform.cv.optional")}
           </span>
         </h2>
         <CustomButton
@@ -59,7 +62,11 @@ export default function DocumentsSection() {
                 className="cv__item-action"
                 aria-label={t("website.platform.cv.viewDocument")}
               >
-                <i className="fa-solid fa-angle-left" aria-hidden="true"></i>
+                {lang === "en" ? (
+                  <i className="fa-solid fa-angle-right" aria-hidden="true"></i>
+                ) : (
+                  <i className="fa-solid fa-angle-left" aria-hidden="true"></i>
+                )}
               </button>
             </li>
           ))}

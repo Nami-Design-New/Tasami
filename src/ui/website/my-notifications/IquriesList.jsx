@@ -21,7 +21,7 @@ export default function IquriesList() {
       {" "}
       <div className="row">
         {!isLoading && allInquries.length === 0 && (
-          <EmptySection height="500px" message={t("notification.empty")} />
+          <EmptySection height="500px" message={t("notification.noInquriy")} />
         )}
         <InfiniteScroll
           onLoadMore={fetchNextPage}

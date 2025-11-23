@@ -4,6 +4,7 @@
   "contractReq_title": "إرسال طلب تعاقد",
   "confirmPerformance": "تأكيد الاداء",
   "daily": "يوميا",
+  "cancelContract": "سبب انهاء التعاقد",
   "weakly": "اسبوعيا",
   "none": "لايوجد",
   "contractReq_helpDate": "تاريخ المساعدة",
@@ -25,6 +26,8 @@
   "performance_confirmed": "تم التأكيد",
   "rate_commitment": "الالتزام بالوقت",
   "rate_quality": "جودة الأداء",
+  "generateTasks": "توليد جميع المهام بالذكاء الاصطناعي(اختياري)",
+
   "rate_respect": "الاحترام والتعامل",
   "rate_notes": "ملاحظات",
   "rate_notes_placeholder": "اكتب ملاحظاتك هنا...",
@@ -113,7 +116,7 @@
   "day": "يوم",
   "days": "أيام",
   "postDetails": "تفاصيل منشور",
-  "anotherReason": "سبب آخر",
+  "anotherReason": "اخرى",
   "accept": "قبول",
   "reject": "رفض",
   "brand_name": "تسامي",
@@ -253,9 +256,9 @@
     "verification": "التحقق",
 
     "difficulty": {
-      "easy": "سهلة",
-      "medium": "متوسطة",
-      "hard": "صعبة"
+      "easy": "سهل",
+      "medium": "متوسط",
+      "hard": "صعب"
     },
 
     "benefitLevel": {
@@ -265,15 +268,15 @@
     },
 
     "guidanceLevel": {
-      "easy": "تمهيدي",
+      "easy": "بسيط",
       "medium": "متوسط",
       "advanced": "متقدم"
     },
 
     "verificationStatus": {
-      "full": "تم تحقيقه بالكامل",
-      "partial": "تم تحقيقه جزئيًا",
-      "retry": "بحاجة لإعادة المحاولة"
+      "full": "متميز",
+      "partial": "جزئي",
+      "retry": "مقبول"
     },
 
     "cancel": "إلغاء",
@@ -515,6 +518,7 @@
     "days_ago": "منذ {{count}} أيام",
     "one_day_ago": "منذ يوم",
     "empty": "لا توجد إشعارات",
+    "noInquriy": "لا توجد استفسارات",
     "fetch_error": "فشل في تحميل الإشعارات. حاول مرة أخرى."
   },
   "settings": {
@@ -764,7 +768,7 @@
       "start": "بدء التنفيذ",
       "accOffer": "قبول العرض",
       "request": "قبول الطلب",
-      "waitAccept": "بانتظار قبول الطلب",
+      "waitAccept": "طلب تعاقد",
       "offerSent": "تم تقديم العرض",
       "requestOffer": "طلب تعاقد"
     }
@@ -851,7 +855,7 @@
       "myWroksSubtitle": "راجع وتابع اعمالك بسهولة"
     },
     "header": {
-      "home": "الرئيسية",
+      "home": "الانطلاق",
       "howitWorks": "كيف تعمل المنصة",
       "aboutUs": "عن تسامي",
       "contactUs": "اتصل بنا",
@@ -926,20 +930,25 @@
         "aboutLabel": "عرف عن نفسك",
         "aboutPlaceholder": "اكتب هنا",
         "experience": "الخبرات العلمية",
-        "optional": "اختياري",
+        "optional": "(اختياري)",
         "viewExperience": "تفاصيل الخبرة",
         "viewDocument": "تفاصيل الوثيقة",
         "documents": "الوثائق",
         "noExperience": "لا يوجد خبرات مضافة",
         "noDocuments": "لا توجد وثائق مضافة",
-        "bachelor": "بكالوريوس",
         "master": "ماجستير",
         "doctorate": "دكتوراه",
         "other": "أخرى",
         "editExperience": "تعديل خبرة عملية",
         "deleteExperience": "حذف ",
         "update": "تعديل",
-        "save": "حفظ"
+        "save": "حفظ",
+        "selfLearning": "تعلم وممارسة ذاتية",
+        "certifiedCourses": "دورات تدريبية معتمدة",
+        "preUniversityDiploma": "دبلوم قبل جامعي",
+        "bachelor": "شهادة جامعية (بكاليريوس)",
+        "masters": "دراسات عليا (ماجستير)",
+        "phd": "شهادة عالمية عالية (دكتوراة)"
       },
       "groups": {
         "groupName": "اسم المجموعة",

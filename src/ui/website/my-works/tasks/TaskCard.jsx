@@ -128,7 +128,20 @@ export default function TaskCard({
                         setShowModal(true);
                       }}
                       size="large"
-                      variant="outlined"
+                      variant={
+                        task?.rate === null ||
+                        task.rate.guidance === "" ||
+                        task.rate.verification === ""
+                          ? "outlined"
+                          : "default"
+                      }
+                      color={
+                        task?.rate === null ||
+                        task.rate.guidance === "" ||
+                        task.rate.verification === ""
+                          ? "primary"
+                          : "success"
+                      }
                       fullWidth
                     >
                       {task?.rate === null ||
@@ -147,7 +160,8 @@ export default function TaskCard({
                       setShowModal(true);
                     }}
                     size="large"
-                    variant="outlined"
+                    variant={task?.rate === null ? "outlined" : "default"}
+                    color={task?.rate === null ? "primary" : "success"}
                     fullWidth
                   >
                     {task?.rate === null

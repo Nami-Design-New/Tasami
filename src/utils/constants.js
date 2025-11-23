@@ -20,10 +20,12 @@ export const TASKS_TABS = [
 ];
 
 export const QUALIFICATION_VALUES = {
+  SELFLEARNING: "self_learning",
+  CERTIFIEDCOURSES: "certified_courses",
+  PREUNIVERSITYDIPLOMA: "pre_university_diploma",
   BACHELOR: "bachelor",
   MASTER: "master",
   DOCTORATE: "doctorate",
-  OTHER: "other",
 };
 
 export const CONSULTATION_TYPE = [

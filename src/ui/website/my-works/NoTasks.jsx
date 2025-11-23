@@ -28,18 +28,18 @@ export default function NoTasks({ workDetails, noActions = false }) {
   return (
     <>
       <div className="no-tasks">
-        <img src="/icons/no-tasks-icon.svg" alt="No tasks" />
+        {/* <img src="/icons/no-tasks-icon.svg" alt="No tasks" /> */}
         <p>{t("works.myTasks.noTasks")}</p>
       </div>
 
       {!noActions && (
-        <div className="button-wrapper d-flex mt-2 align-items-center gap-2">
+        <div className=" d-flex justify-content-center mt-2 align-items-center gap-2">
           <CustomButton
             style={{ whiteSpace: "nowrap" }}
             size="large"
             icon={<i className="fa-solid fa-plus"></i>}
             onClick={() => setShowModal(true)}
-            fullWidth
+            // fullWidth
           >
             {t("works.myTasks.addNew")}
           </CustomButton>{" "}
@@ -47,6 +47,7 @@ export default function NoTasks({ workDetails, noActions = false }) {
             <CustomButton
               type="button"
               size="large"
+              fullWidth
               onClick={() => handleAddTaskWithAi(workDetails?.id)}
               loading={isAdding}
               icon={<i className="fa-solid fa-sparkles"></i>}
@@ -55,7 +56,7 @@ export default function NoTasks({ workDetails, noActions = false }) {
                 // marginTop: "12px",
               }}
             >
-              {t("generate")}
+              {t("generateTasks")}
             </CustomButton>
           )}
         </div>

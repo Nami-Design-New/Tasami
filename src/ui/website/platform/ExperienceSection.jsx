@@ -4,9 +4,11 @@ import useGetCV from "../../../hooks/cv/useGetCV";
 import CustomButton from "../../CustomButton";
 import ExpDocItemLoader from "../../loading/ExpDocItemLoader";
 import ExperienceModal from "./ExperienceModal";
+import { useSelector } from "react-redux";
 
 export default function ExperienceSection() {
   const { t } = useTranslation();
+  const { lang } = useSelector((state) => state.language);
   const [showExperienceModal, setShowExperienceModal] = useState(false);
   const [selectedExp, setSelectedExp] = useState(null);
   const { cv, isLoading } = useGetCV();
@@ -17,7 +19,7 @@ export default function ExperienceSection() {
         <h2 id="experience-title" className="cv__section-title">
           {t("website.platform.cv.experience")}
           <span className="cv__section-note">
-            ({t("website.platform.cv.optional")})
+            {t("website.platform.cv.optional")}
           </span>
         </h2>
         <CustomButton
@@ -59,7 +61,11 @@ export default function ExperienceSection() {
                 className="cv__item-action"
                 aria-label={t("website.platform.cv.viewExperience")}
               >
-                <i className="fa-solid fa-angle-left" aria-hidden="true"></i>
+                {lang === "en" ? (
+                  <i className="fa-solid fa-angle-right" aria-hidden="true"></i>
+                ) : (
+                  <i className="fa-solid fa-angle-left" aria-hidden="true"></i>
+                )}
               </button>
             </li>
           ))}

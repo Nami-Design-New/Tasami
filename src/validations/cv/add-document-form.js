@@ -21,8 +21,9 @@ const getDocSchema = (t) => {
     documentNumber: yup.string().required(t("validation.required")),
     expiryDate: yup
       .date()
-      .typeError(t("validation.date"))
-      .required(t("validation.required")),
+      .nullable()
+      .transform((value, original) => (original === "" ? null : value))
+      .typeError(t("validation.date")),
   });
 };
 

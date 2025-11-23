@@ -6,13 +6,14 @@
   "confirmPerformance": "Confirm Performance",
   "daily": "Daily",
   "weakly": "ًWeekly",
+  "cancelContract": "Reason for terminating the contract",
   "none": "None",
   "contractReq_defined": "Specified",
   "contractReq_undefined": "Unspecified",
   "specified": "Specified",
   "unspecified": "Unspecified",
   "response": "Answer",
-
+  "generateTasks": "Generate all tasks using AI (optional)",
   "contractReq_startDate": "Start Date",
   "contractReq_pickDate": "Select a date...",
   "contractReq_additionalTerms": "Additional Terms",
@@ -266,9 +267,9 @@
     },
 
     "verificationStatus": {
-      "full": "Fully Achieved",
-      "partial": "Partially Achieved",
-      "retry": "Needs Retry"
+      "full": "Excellent",
+      "partial": "Partial",
+      "retry": "Accepted"
     },
 
     "cancel": "Cancel",
@@ -506,6 +507,7 @@
     "days_ago": "{{count}} days ago",
     "one_day_ago": "1 day ago",
     "empty": "No notifications found",
+    "noInquriy": "No Inquries found",
     "fetch_error": "Failed to load notifications. Please try again."
   },
   "settings": {
@@ -757,7 +759,7 @@
       "start": "Start Execution",
       "accOffer": "Accept Offer",
       "request": "Accept Request",
-      "waitAccept": "Waiting for Acceptance",
+      "waitAccept": "offer request",
       "offerSent": "Offer Sent",
       "requestOffer": "Request Offer"
     }
@@ -844,7 +846,7 @@
       "myWroksSubtitle": "Review and track your works easily"
     },
     "header": {
-      "home": "Home",
+      "home": "Launch",
       "howitWorks": "How It Works",
       "aboutUs": "About Us",
       "contactUs": "Contact Us",
@@ -924,20 +926,25 @@
         "aboutLabel": "About You",
         "aboutPlaceholder": "Write here",
         "experience": "Work Experience",
-        "optional": "Optional",
+        "optional": "(Optional)",
         "viewExperience": "Experience details",
         "documents": "Documents",
         "viewDocument": "Document details",
         "noExperience": "No experiences added",
         "noDocuments": "No documents added",
-        "bachelor": "Bachelor",
         "master": "Master",
         "doctorate": "Doctorate",
         "other": "Other",
         "editExperience": "Edit practical experience",
         "deleteExperience": "Delete",
         "update": "Update",
-        "save": "Save"
+        "save": "Save",
+        "selfLearning": "Self-learning & Practice",
+        "certifiedCourses": "Certified Training Courses",
+        "preUniversityDiploma": "Pre-University Diploma",
+        "bachelor": "University Degree (Bachelor)",
+        "masters": "Postgraduate Studies (Master’s)",
+        "phd": "Advanced Global Degree (PhD)"
       },
       "groups": {
         "groupName": "Group Name",
