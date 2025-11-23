@@ -1612,7 +1612,8 @@
         "save": "Save",
         "edit": "Edit",
         "add": "Add",
-        "saveDraft": "Save as Draft"
+        "saveDraft": "Save as Draft",
+        "complete": "Complete"
       }
     },
     "team": {
