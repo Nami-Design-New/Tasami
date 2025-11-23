@@ -168,16 +168,16 @@ export default function ConfirmPerformanceModal({
                     {...register("benefit")}
                     options={[
                       {
-                        name: t("performanceModal.benefitLevel.high"),
-                        value: "high",
+                        name: t("performanceModal.benefitLevel.low"),
+                        value: "low",
                       },
                       {
                         name: t("performanceModal.benefitLevel.medium"),
                         value: "normal",
                       },
                       {
-                        name: t("performanceModal.benefitLevel.low"),
-                        value: "low",
+                        name: t("performanceModal.benefitLevel.high"),
+                        value: "high",
                       },
                     ]}
                     error={errors.benefit?.message}
@@ -250,16 +250,17 @@ export default function ConfirmPerformanceModal({
                     {...register("verification")}
                     options={[
                       {
-                        name: t("performanceModal.verificationStatus.full"),
-                        value: "fully_achieved",
-                      },
-                      {
                         name: t("performanceModal.verificationStatus.partial"),
                         value: "partially_achieved",
                       },
+
                       {
                         name: t("performanceModal.verificationStatus.retry"),
                         value: "retry",
+                      },
+                      {
+                        name: t("performanceModal.verificationStatus.full"),
+                        value: "fully_achieved",
                       },
                     ]}
                     disabled={isWorks}

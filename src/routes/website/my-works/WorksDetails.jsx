@@ -125,7 +125,7 @@ export default function WorksDetails() {
                   {t("website.offerDetails.preferredGender")}
                 </div>
                 <div className="value">
-                  {workDetails?.creator_help_service?.preferred_gender}
+                  {t(`${workDetails?.creator_help_service?.preferred_gender}`)}
                 </div>
               </div>
 
@@ -141,7 +141,15 @@ export default function WorksDetails() {
                       ${workDetails?.creator_help_service?.to_age}`}{" "}
                 </div>
               </div>
-
+              <div
+                className="info-box  info-box-grow-min-width "
+                style={{ minWidth: "200px" }}
+              >
+                <div className="label">
+                  {t("website.offerDetails.startDate")}
+                </div>
+                <div className="value">{t(`${workDetails?.start_date}`)}</div>
+              </div>
               <div className="info-box info-box-grow-min-width ">
                 <div className="label">
                   {t("website.offerDetails.expectedDuration")}

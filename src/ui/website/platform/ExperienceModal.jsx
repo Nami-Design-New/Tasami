@@ -27,20 +27,28 @@ export default function ExperienceModal({
   const { deleteExp, isPending: isDeleting } = useDeleteExp();
   const QUALIFICATIONS = [
     {
+      value: QUALIFICATION_VALUES.SELFLEARNING,
+      name: t("website.platform.cv.selfLearning"),
+    },
+    {
+      value: QUALIFICATION_VALUES.CERTIFIEDCOURSES,
+      name: t("website.platform.cv.certifiedCourses"),
+    },
+    {
+      value: QUALIFICATION_VALUES.PREUNIVERSITYDIPLOMA,
+      name: t("website.platform.cv.preUniversityDiploma"),
+    },
+    {
       value: QUALIFICATION_VALUES.BACHELOR,
       name: t("website.platform.cv.bachelor"),
     },
     {
       value: QUALIFICATION_VALUES.MASTER,
-      name: t("website.platform.cv.master"),
+      name: t("website.platform.cv.masters"),
     },
     {
       value: QUALIFICATION_VALUES.DOCTORATE,
-      name: t("website.platform.cv.doctorate"),
-    },
-    {
-      value: QUALIFICATION_VALUES.OTHER,
-      name: t("website.platform.cv.other"),
+      name: t("website.platform.cv.phd"),
     },
   ];
   const {
@@ -80,9 +88,7 @@ export default function ExperienceModal({
             setShowExperienceModal(false);
             setSelectedExp(null);
 
-            toast.success(
-              res.data.message || t("website.platform.cv.updateSuccess")
-            );
+            toast.success(res?.message);
             queryClient.invalidateQueries({ queryKey: ["cv"] });
           },
           onError: (err) => {
@@ -97,9 +103,7 @@ export default function ExperienceModal({
           setShowExperienceModal(false);
 
           reset();
-          toast.success(
-            res.data.message || t("website.platform.cv.addSuccess")
-          );
+          toast.success(res?.message);
           queryClient.invalidateQueries({ queryKey: ["cv"] });
         },
         onError: (err) => {
@@ -114,7 +118,7 @@ export default function ExperienceModal({
       onSuccess: (res) => {
         setShowExperienceModal(false);
         setSelectedExp(null);
-        toast.success(res.message || t("website.platform.cv.deleteSuccess"));
+        toast.success(res?.message);
         queryClient.invalidateQueries({ queryKey: ["cv"] });
       },
       onError: (err) => {

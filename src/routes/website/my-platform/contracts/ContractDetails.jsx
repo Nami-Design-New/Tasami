@@ -145,6 +145,15 @@ export default function ContractDetails() {
                     : `${workDetails?.creator_help_service?.from_age} -
                       ${workDetails?.creator_help_service?.to_age}`}{" "}
                 </div>
+              </div>{" "}
+              <div
+                className="info-box  info-box-grow-min-width "
+                style={{ minWidth: "200px" }}
+              >
+                <div className="label">
+                  {t("website.offerDetails.startDate")}
+                </div>
+                <div className="value">{t(`${workDetails?.start_date}`)}</div>
               </div>
             </>
           )}

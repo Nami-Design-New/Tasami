@@ -1,19 +1,17 @@
+import { useQueryClient } from "@tanstack/react-query";
+import { useEffect } from "react";
 import { Modal } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
+import { toast } from "sonner";
 import useGetcategories from "../../../hooks/area-of-interests/useGetcategories";
 import useAddDoc from "../../../hooks/cv/docs/useAddDoc";
 import useDeleteDoc from "../../../hooks/cv/docs/useDeleteDoc";
 import useEditDoc from "../../../hooks/cv/docs/useEditDoc";
-import useGetDocsAuth from "../../../hooks/cv/docs/useGetDocsAuth";
-import useGetDocsTypes from "../../../hooks/cv/docs/useGetDocsTypes";
 import { formatYMD } from "../../../utils/helper";
 import useAddDocumentForm from "../../../validations/cv/add-document-form";
 import CustomButton from "../../CustomButton";
 import InputField from "../../forms/InputField";
 import SelectField from "../../forms/SelectField";
-import { toast } from "sonner";
-import { useQueryClient } from "@tanstack/react-query";
-import { useEffect } from "react";
 
 export default function DocumentModal({
   showDocumentModal,
@@ -24,8 +22,6 @@ export default function DocumentModal({
   const { t } = useTranslation();
   const queryClient = useQueryClient();
   const { categories, isLoading } = useGetcategories();
-  const { docsTypes, isLoading: docsLoaging } = useGetDocsTypes();
-  const { docsAuthorities, isLoading: docsAuthLoading } = useGetDocsAuth();
   const { addDoc, isPending: isAdding } = useAddDoc();
   const { editDoc, isPending: isUpdating } = useEditDoc();
   const { deleteDoc, isPending: isDeleting } = useDeleteDoc();
@@ -135,6 +131,7 @@ export default function DocumentModal({
       onHide={() => {
         setShowDocumentModal(false);
         setSelectedDoc(null);
+        reset();
       }}
       centered
       size="lg"
@@ -183,13 +180,8 @@ export default function DocumentModal({
 
             {/* Document Type */}
             <div className="col-12 col-md-6 p-2">
-              <SelectField
+              <InputField
                 label={t("website.platform.cv.documentType")}
-                options={docsTypes?.map((sub) => ({
-                  value: sub.id,
-                  name: sub.title,
-                }))}
-                loading={docsLoaging}
                 {...register("documentType")}
                 error={errors.documentType?.message}
               />
@@ -199,7 +191,6 @@ export default function DocumentModal({
             <div className="col-12 col-md-6 p-2">
               <InputField
                 label={t("website.platform.cv.issuingAuthority")}
-                loading={docsAuthLoading}
                 {...register("issuingAuthority")}
                 error={errors.issuingAuthority?.message}
               />

@@ -47,19 +47,28 @@ export default function Header() {
         <ul className={`nav-links container-lg ${openMenu ? "open" : ""}`}>
           <li onClick={() => setOpenMenu(false)}>
             <NavLink to={"/"}>{t("website.header.home")}</NavLink>
-          </li>
-          <li onClick={() => setOpenMenu(false)}>
-            <NavLink to={"/my-works"}>{t("website.header.myWorks")}</NavLink>
-          </li>
+          </li>{" "}
           {user && (
-            <li onClick={() => setOpenMenu(false)}>
-              <NavLink to={"/how-it-works"}>
-                {t("website.header.howitWorks")}
-              </NavLink>
-            </li>
+            <>
+              <li onClick={() => setOpenMenu(false)}>
+                <NavLink to={"/my-works"}>
+                  {t("website.header.myWorks")}
+                </NavLink>
+              </li>
+              <li onClick={() => setOpenMenu(false)}>
+                <NavLink to={"/my-profile"}>
+                  {t("website.header.myAccount")}
+                </NavLink>
+              </li>
+            </>
           )}
           <li onClick={() => setOpenMenu(false)}>
             <NavLink to={"/about"}>{t("website.header.aboutUs")}</NavLink>
+          </li>{" "}
+          <li onClick={() => setOpenMenu(false)}>
+            <NavLink to={"/how-it-works"}>
+              {t("website.header.howitWorks")}
+            </NavLink>
           </li>
           <li onClick={() => setOpenMenu(false)}>
             <NavLink to={"/contact"}>{t("website.header.contactUs")}</NavLink>
@@ -91,9 +100,14 @@ export default function Header() {
         </ul>
 
         <div className="actions">
+          {" "}
+          <Link className="communites-link" to="/reels">
+            <img src="./icons/communities.svg" />
+            <span>{t("website.header.communities")}</span>
+          </Link>{" "}
           <LangDropdown />
           {isAuthed && (
-            <Link to="/notifications" className="notification-btn">
+            <Link to="/notifications" className="notification-btn me-1">
               <i className="fa-regular fa-bell">
                 {settings?.notification_count >= 0 && (
                   <Badge>
@@ -105,15 +119,11 @@ export default function Header() {
               </i>
             </Link>
           )}
-          <Link className="communites-link" to="/reels">
-            <img src="./icons/communities.svg" />
-            <span>{t("website.header.communities")}</span>
-          </Link>{" "}
           {isAuthed && (
             <CustomButton
               size="small"
-              className="d-none d-sm-flex"
-              style={{ whiteSpace: "nowrap" }}
+              className="d-none d-sm-flex "
+              style={{ fontSize: "14px", whiteSpace: "nowrap" }}
               onClick={() => {
                 if (user) {
                   if (
