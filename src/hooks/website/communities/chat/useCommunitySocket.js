@@ -10,7 +10,6 @@ export default function useCommunitySocket(onNewMessage) {
 
     // Listen for the backend event
     socketRef.current.on("communityMessageSent", (message) => {
-      console.log("New community message:", message);
       onNewMessage?.(message);
     });
 

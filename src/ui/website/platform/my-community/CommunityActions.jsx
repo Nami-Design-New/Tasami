@@ -34,7 +34,8 @@ export default function CommunityActions({ community, isMyCommunity = true }) {
       {
         onSuccess: (res) => {
           setShowAlertModal(false);
-          queryClient.invalidateQueries(["my-community"]);
+          queryClient.invalidateQueries({ queryKey: ["my-community"] });
+
           toast.success(res.message);
         },
         onError: (error) => {
@@ -50,7 +51,10 @@ export default function CommunityActions({ community, isMyCommunity = true }) {
       unjoinCommunity(id, {
         onSuccess: (res) => {
           toast.success(res.message);
-          // queryClient.invalidateQueries(["community-details"]);
+          queryClient.invalidateQueries({ queryKey: ["community-details"] });
+          queryClient.invalidateQueries({ queryKey: ["consultaions"] });
+          queryClient.invalidateQueries({ queryKey: ["community-posts"] });
+          queryClient.invalidateQueries({ queryKey: ["meetings"] });
         },
         onError: (err) => {
           setOptimisticJoin(true);
@@ -69,7 +73,14 @@ export default function CommunityActions({ community, isMyCommunity = true }) {
           {
             onSuccess: (res) => {
               toast.success(res.message);
-              // queryClient.invalidateQueries(["my-community"]);
+              queryClient.invalidateQueries({
+                queryKey: ["community-details"],
+              });
+              queryClient.invalidateQueries({
+                queryKey: ["consultaions"],
+              });
+              queryClient.invalidateQueries({ queryKey: ["community-posts"] });
+              queryClient.invalidateQueries({ queryKey: ["meetings"] });
             },
             onError: (err) => {
               setOptimisticJoin(false); // rollback

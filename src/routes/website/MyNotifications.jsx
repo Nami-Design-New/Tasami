@@ -18,7 +18,6 @@ export default function MyNotifications() {
   useEffect(() => {
     setSearchParams((prev) => {
       const params = new URLSearchParams(prev);
-
       if (selectedTab) {
         params.set("tab", selectedTab);
       }

@@ -33,9 +33,7 @@ export default function AssistantStat() {
       title: t("website.platform.subscriptionPeriod"),
       value: (
         <>
-          <span style={{ color: "#0D0D0D8F", fontSize: "12px" }}>
-            {user.my_package_details.package.type_title}
-          </span>
+          <span>{user.my_package_details.package.type_title}</span>
           <img src="/icons/clock.svg" alt="clock" />
         </>
       ),
@@ -44,9 +42,7 @@ export default function AssistantStat() {
       title: t("website.platform.startDate"),
       value: (
         <>
-          <span style={{ color: "#0D0D0D8F", fontSize: "12px" }}>
-            {user.my_package_details.start_date}
-          </span>
+          <span>{user.my_package_details.start_date}</span>
           <img src="/icons/calendar-check.svg" alt="start" />
         </>
       ),
@@ -55,8 +51,10 @@ export default function AssistantStat() {
       title: t("website.platform.endDate"),
       value: (
         <>
-          <span style={{ color: "#0D0D0D8F", fontSize: "12px" }}>
-            {user.my_package_details.end_date}
+          <span>
+            {user.my_package_details.end_date
+              ? user.my_package_details.end_date
+              : "--"}
           </span>
           <img src="/icons/calendar-x.svg" alt="end" />
         </>

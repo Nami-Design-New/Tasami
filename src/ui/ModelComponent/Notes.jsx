@@ -6,11 +6,21 @@ import ReusableDataTable from "../table/ReusableDataTable";
 import FormWrapper from "../forms/FormWrapper";
 import AddActionModal from "./AddActionModal";
 import TablePagination from "../table/TablePagentaion";
+import { useTranslation } from "react-i18next";
 const columnHelper = createColumnHelper();
 
-const Notes = ({ taskData,page, setPage, setPageSize, pageSize ,  currentPage, lastPage, isLoading }) => {
+const Notes = ({
+  taskData,
+  page,
+  setPage,
+  setPageSize,
+  pageSize,
+  currentPage,
+  lastPage,
+  isLoading,
+}) => {
   const [showModal, setShowModal] = useState("");
-
+  const { t } = useTranslation();
   const data = useMemo(
     () => [
       {
@@ -127,10 +137,11 @@ const Notes = ({ taskData,page, setPage, setPageSize, pageSize ,  currentPage, l
     ],
     []
   );
+  console.log("taskdata", taskData);
 
   return (
     <>
-      <FormWrapper title={"سجل الافادات"}>
+      <FormWrapper title={t("dashboard.tasks.modelTask.notes.title")}>
         <ReusableDataTable
           header={false}
           filter={false}
@@ -155,7 +166,8 @@ const Notes = ({ taskData,page, setPage, setPageSize, pageSize ,  currentPage, l
             className="add-attachment-btn"
             onClick={() => setShowModal(true)}
           >
-            <i className="fa-solid fa-circle-plus"></i> إضافة افادة
+            <i className="fa-solid fa-circle-plus"></i>  
+            {t("dashboard.tasks.modelTask.notes.addBenefit")}
           </button>
         </div>
         <AddActionModal

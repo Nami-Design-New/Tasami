@@ -15,8 +15,6 @@ export const performanceFilterSchema = yup
     showSubData: yup.boolean(),
   })
   .test("valid-hierarchy", "تسلسل غير صحيح في التصفية", function (values) {
-    console.log("test values", values); // 🔍 تحقق من القيم
-
     const { region, country, city } = values || {};
 
     if (city && !country) {

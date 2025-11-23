@@ -53,6 +53,8 @@ const TasksTable = ({
   //   ],
   //   []
   // );
+  console.log("tasks  :::", tasks);
+
   const tableData = useMemo(
     () =>
       tasks?.data?.map((task) => ({
@@ -62,7 +64,7 @@ const TasksTable = ({
         model: task.reference_number || "-",
         date: task.date || "-",
         time: task.time || "-",
-        service: task.service || "-",
+        // service: task.service || "-",
         userAccount: task.account || "-",
         accountType: task.account_type || "-",
         idNumber: task.id_number || "-",
@@ -97,7 +99,7 @@ const TasksTable = ({
         cell: (info) => (
           <Link
             className="link-styles"
-            to={`/dashboard/model/${info.getValue()}`}
+            to={`/dashboard/model/${info.row.original.id}`}
           >
             {info.getValue()}
           </Link>
@@ -111,17 +113,17 @@ const TasksTable = ({
         header: t("dashboard.tasks.table.time"),
         cell: (info) => info.getValue(),
       }),
-      columnHelper.accessor("service", {
-        header: t("dashboard.tasks.table.service"),
-        cell: (info) => (
-          <Link
-            className="link-styles"
-            to={`/service-details/${info.getValue()}`}
-          >
-            {info.getValue()}
-          </Link>
-        ),
-      }),
+      // columnHelper.accessor("service", {
+      //   header: t("dashboard.tasks.table.service"),
+      //   cell: (info) => (
+      //     <Link
+      //       className="link-styles"
+      //       to={`/service-details/${info.getValue()}`}
+      //     >
+      //       {info.getValue()}
+      //     </Link>
+      //   ),
+      // }),
       columnHelper.accessor("userAccount", {
         header: t("dashboard.tasks.table.userAccount"),
         cell: (info) => (
@@ -146,7 +148,7 @@ const TasksTable = ({
         cell: (info) => (
           <Link
             className="link-styles"
-            to={`/dashboard/working-group/${info.getValue()}`}
+            to={`/dashboard/working-group/${info.row.original.id}`}
           >
             {info.getValue()}
           </Link>
@@ -172,14 +174,11 @@ const TasksTable = ({
             case "completed":
               badgeColor = "#28a745";
               break;
-            case "غير مكتمل":
-              badgeColor = "#007bff";
-              break;
-            case "غير مضاف":
+            case "progress":
               badgeColor = "#ffc107";
               break;
             default:
-              badgeColor = "#E5E7EB";
+              badgeColor = "#bababbff";
               break;
           }
           return (

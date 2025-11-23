@@ -15,6 +15,7 @@ import useAddTaskForm from "../../../hooks/dashboard/tasks/useAddTaskForm";
 import useGetTaskSystem from "../../../hooks/dashboard/tasks/useGetTaskSystem";
 import { PAGE_SIZE } from "../../../utils/constants";
 
+
 const AddNewTask = ({ showModal, setShowModal, title }) => {
   const { t } = useTranslation();
   const queryClient = useQueryClient();
@@ -25,7 +26,7 @@ const AddNewTask = ({ showModal, setShowModal, title }) => {
   const { taskSystem } = useGetTaskSystem("", page, PAGE_SIZE);
 
   const { addTask } = usePostAddTask();
-  console.log("taskSystem", taskSystem);
+  // console.log("taskSystem", taskSystem);
 
   const {
     handleSubmit,
@@ -57,8 +58,6 @@ const AddNewTask = ({ showModal, setShowModal, title }) => {
         formData.append(`files[${index}]`, file);
       });
     }
-
-    console.log("form data", formData);
 
     addTask(formData, {
       onSuccess: (res) => {

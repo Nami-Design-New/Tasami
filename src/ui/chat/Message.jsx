@@ -23,17 +23,75 @@ const Message = ({
   // Fancybox Initialization WITH DOWNLOAD BUTTON
   // --------------------------
   useEffect(() => {
+    const getFileName = (url) => {
+      try {
+        const urlObj = new URL(url);
+        const pathname = urlObj.pathname;
+        return (
+          pathname.substring(pathname.lastIndexOf("/") + 1) || "downloaded-file"
+        );
+      } catch (e) {
+        return url.split("/").pop() || "downloaded-file";
+      }
+    };
+
+    // Bind Fancybox with native download button support
     Fancybox.bind("[data-fancybox]", {
-      Toolbar: {
-        display: [
-          { id: "counter", position: "center" },
-          "zoom",
-          "slideshow",
-          "fullscreen",
-          "download",
-          "thumbs",
-          "close",
-        ],
+      Carousel: {
+        Toolbar: {
+          display: {
+            left: ["infobar"],
+            middle: [],
+            right: [
+              "zoom",
+              "slideshow",
+              "fullscreen",
+              "download",
+              "thumbs",
+              "close",
+            ],
+          },
+          items: {
+            download: {
+              tpl: '<button class="f-button" title="Download"><svg><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2M7 11l5 5 5-5M12 4v12"/></svg></button>',
+              click: (event, carousel) => {
+                const currentSlide = event.getSlides()[event.getPageIndex()];
+
+                // Use the src attribute of the slide (which comes from the href attribute)
+                const imageSrc = currentSlide.src;
+                const fileName = getFileName(imageSrc);
+
+                // Use the Fetch API to force a download dialog
+                fetch(imageSrc)
+                  .then((response) => response.blob())
+                  .then((blob) => {
+                    const url = window.URL.createObjectURL(blob);
+                    const link = document.createElement("a");
+                    link.href = url;
+                    link.download = fileName; // Force download with a specific filename
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                    window.URL.revokeObjectURL(url); // Clean up the object URL
+                  })
+                  .catch((err) => {
+                    // Fallback if fetch fails (e.g., severe CORS issues)
+                    console.warn(
+                      "Fetch failed, using direct download fallback:",
+                      err
+                    );
+                    const link = document.createElement("a");
+                    link.href = imageSrc;
+                    link.download = fileName; // Try the download attribute fallback
+                    link.target = "_blank";
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                  });
+              },
+            },
+          },
+        },
       },
     });
 
@@ -77,7 +135,12 @@ const Message = ({
           <div className="message__content-wrapper">
             <div className="message__image-container p-2">
               {/* Wrap image with Fancybox */}
-              <a data-fancybox="chat-gallery rounded-3" href={filePath}>
+              <a
+                data-fancybox="chat-gallery"
+                className="rouded-3"
+                href={filePath}
+                // data-download-src={filePath}
+              >
                 <img
                   src={filePath}
                   alt="Shared"

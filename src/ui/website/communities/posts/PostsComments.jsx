@@ -171,7 +171,7 @@ export default function PostsComments({ isSubscribed, isMyCommunity }) {
         <div ref={bottomRef} />
       </div>
       {/* Add comment input - sticky */}
-      {(isSubscribed || isMyCommunity) && (
+      {
         <form className="form_ui" onSubmit={handleSubmit(onSubmit)}>
           <div className="d-flex align-items-center gap-2 p-3">
             <InputField
@@ -189,7 +189,7 @@ export default function PostsComments({ isSubscribed, isMyCommunity }) {
             </CustomButton>
           </div>
         </form>
-      )}{" "}
+      }{" "}
     </div>
   );
 }

@@ -155,8 +155,6 @@ const WorkingGroups = () => {
       columnHelper.accessor("actions", {
         header: t("dashboard.workGroup.table.actions"),
         cell: (info) => {
-          console.log(info);
-
           return (
             <div className="table__actions">
               <Link to={`/dashboard/shared-groups/${info?.row?.original?.id}`}>

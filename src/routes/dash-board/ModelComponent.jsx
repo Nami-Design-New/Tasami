@@ -7,9 +7,10 @@ import ModelInfo from "../../ui/ModelComponent/ModelInfo";
 import Notes from "../../ui/ModelComponent/Notes";
 import { PAGE_SIZE } from "../../utils/constants";
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 const ModelComponent = () => {
   const { id } = useParams();
-
+  const { t } = useTranslation();
   // const [selectedRow, setSelectedRow] = useState();
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(PAGE_SIZE);
@@ -19,10 +20,14 @@ const ModelComponent = () => {
     PAGE_SIZE,
     id
   );
-  
+
   return (
     <section className="model">
-      <Header title="نموذج خدمه العملاء" />
+      <Header
+        title={`${t("dashboard.tasks.modelTask.header")} ${
+          taskData?.task?.system_type.title
+        }`}
+      />
       <EmployeeData taskData={taskData} />
       <ModelInfo taskData={taskData} />
       <Details taskData={taskData} />

@@ -238,6 +238,7 @@
   "perMonth": "شهريًا",
   "goal": "الهدف",
   "activityLevel": "مستوى النشاط",
+  "addAnswer": "رد",
   "offline": {
     "title": "لا يوجد اتصال بالإنترنت",
     "message": "يرجى التحقق من اتصالك بالإنترنت ثم المحاولة مرة أخرى.",
@@ -872,6 +873,7 @@
       "button": "الموافقة والاستمرار",
       "subscribe": "اشترك",
       "noClients": "لا يوجد عملاء بعد",
+      "alertMessage": "قم باستكمال السيرة الذاتية لتفعيل الحساب",
       "menu": {
         "subscriptions": "إدارة الاشتراك",
         "cv": "سيرتي الذاتية",
@@ -1041,7 +1043,9 @@
       "clear": "مسح",
       "moreThan": "أكثر من",
       "ratingTitle": "التقييم",
-      "noOpportunities": "لا توجد معلومات متاحة"
+      "noOpportunities": "لا توجد معلومات متاحة",
+      "RegistrationDate": "تاريخ التسجيل",
+      "contractCompletionRate": "معدل اكمال العقود"
     },
     "payment": "الدفع"
   },
@@ -1175,6 +1179,48 @@
         "title": "اعادة تعيين مهمة",
         "employeeLabel": "اسم الموظف",
         "reassignButton": "اعادة تعيين"
+      },
+      "modelTask": {
+        "header": "نموذج",
+        "employeeData": {
+          "title": "معلومات مقدم الطلب ",
+          "accountNumber": "رقم الحساب",
+          "groupNumber": "رقم التعريف او مجموعه العمل",
+          "date": "التاريخ",
+          "time": "الوقت"
+        },
+        "modelInfo": {
+          "systemTitle": "النظام الاداري",
+          "subject": "الموضوع",
+          "returnNumber": "الرقم المرجعي"
+        },
+        "taskDetails": {
+          "requestSubject": "موضوع الطلب",
+          "subject": "الموضوع",
+          "description": "الوصف",
+          "attachment": "المرفقات",
+          "date": "التاريخ",
+          "time": "الوقت",
+          "name": "الاسم",
+          "accountNumber": "رقم الحساب",
+          "fileAttachment": "الملف المرفق",
+          "addAttachment": "اضافة مرفق"
+        },
+        "notes": {
+          "title": "سجل الافادات",
+          "addBenefit": "اضافة افاده",
+          "date": "التاريخ",
+          "time": "الوقت",
+          "accountNumber": "رقم الحساب",
+          "action": "الاجراء",
+          "benefitDetails": "تفاصيل الافاده",
+          "complete": "اكمال ",
+          "redirect": "توجيه",
+          "return": "ارجاع",
+          "chooseRequestEmployee":"اختر الموظف المراد توجيه الطلب له",
+          "chooseEmployee":"اختر الموظف",
+          "excute":"تنفيذ"
+        }
       },
       "searchPlaceholder": "بحث في المهام ..."
     },
@@ -1499,6 +1545,7 @@
       "activateAccount": "تنشيط الحساب",
       "contentNotAvailable": "المحتوى غير متوفر لهذا التبويب",
       "requestSuspendAccountModalTitle": "طلب إيقاف الحساب",
+      "drafted": "موظفين قيد الانشاء",
       "form": {
         "employmentData": "البيانات الوظيفية",
         "jobLevel": "المستوى الوظيفي",
@@ -1566,21 +1613,18 @@
         "status_date": "تاريخ حالة الحساب",
         "status_time": "وقت حالة الحساب"
       },
-
       "statuses": {
         "active": "نشط",
         "inactive": "غير نشط",
         "stopped": "موقوف",
         "unknown": "غير معروف"
       },
-
       "charts": {
         "executives": "التنفيذيين",
         "leaders": "القادة",
         "managers": "المدراء",
         "supervisors": "المشرفين",
         "customer_service": "خدمة العملاء",
-
         "categories": {
           "total": "الإجمالي",
           "active": "نشط",
@@ -1589,6 +1633,37 @@
           "canceled": "ملغي"
         }
       }
+    },
+    "permissions": {
+      "title": "الصلاحيات",
+      "searchPlaceholder": "البحث عن صلاحية أو مهمة...",
+      "cancel": "إلغاء",
+      "save": "حفظ",
+      "update": "تعديل",
+      "selectAll": "تحديد الكل"
+    },
+    "fieldsAndSpecialization": {
+      "modalTitle": "مجال جديد",
+      "newField": "مجال جديد",
+      "existingField": "مجال موجود",
+      "fieldLabel": "المجال",
+      "fieldPlaceholder": "مثال: تكنولوجيا المعلومات",
+      "existingFieldLabel": "اختر المجال",
+      "specializationLabel": "التخصص",
+      "specializationPlaceholder": "مثال: تحليل البيانات",
+      "addButton": "إضافة",
+      "errors": {
+        "actionRequired": "نوع الإجراء مطلوب",
+        "invalidValue": "قيمة غير صالحة",
+        "newFieldRequired": "اسم المجال الجديد مطلوب",
+        "newFieldShort": "اسم المجال قصير جدًا",
+        "existingFieldRequired": "اختيار المجال مطلوب",
+        "specializationRequired": "اسم التخصص مطلوب",
+        "specializationShort": "اسم التخصص قصير جدًا"
+      }
+    },
+    "fileUploader": {
+      "dragDrop": "اسحب وافلت الملف هنا "
     }
   }
 }

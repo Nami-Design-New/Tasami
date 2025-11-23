@@ -12,12 +12,10 @@ export default function TaskCard({
   isDragging = false,
 }) {
   const navigate = useNavigate();
-  console.log(isDragable);
 
   const [showModal, setShowModal] = useState(false);
   const { pathname } = useLocation();
   const isContracts = pathname.includes("my-contracts") || !isDragable;
-  console.log(isContracts);
 
   const { t } = useTranslation();
   // persistent refs across renders

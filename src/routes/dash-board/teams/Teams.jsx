@@ -9,6 +9,7 @@ import ColumnChart from "../../../ui/dash-board/charts/ColumnChart";
 import ReusableDataTable from "../../../ui/table/ReusableDataTable";
 import useGetTeam from "../../../hooks/dashboard/teams/useGetTeam";
 import { PAGE_SIZE } from "../../../utils/constants";
+import TablePagination from "../../../ui/table/TablePagentaion";
 
 const columnHelper = createColumnHelper();
 
@@ -98,13 +99,13 @@ const Teams = () => {
     team?.customer_service_count,
     t("dashboard.team.charts.customer_service")
   );
-  console.log(team);
 
   // -----------------------------------
   // Table Data Mapping
   // -----------------------------------
   const data = useMemo(() => {
     return (team?.data ?? []).map((item) => ({
+      id: item?.id,
       first_name: item?.first_name,
       last_name: item?.last_name,
       employee_code: item?.code,
@@ -152,7 +153,7 @@ const Teams = () => {
         header: t("dashboard.team.columns.employee_code"),
         cell: (info) => (
           <Link
-            to={`/dashboard/employee-details/${info.getValue()}`}
+            to={`/dashboard/employee-details/${info?.row?.original?.id}`}
             className="link-styles"
           >
             {info.getValue()}
@@ -273,7 +274,14 @@ const Teams = () => {
             searchPlaceholder={t("dashboard.team.searchPlaceholder")}
             lang={lang}
             title={t("dashboard.team.title")}
-          />
+          >
+            <TablePagination
+              currentPage={page}
+              lastPage={lastPage}
+              onPageChange={setPage}
+              isLoading={isLoading}
+            />
+          </ReusableDataTable>
         </div>
       </div>
     </section>

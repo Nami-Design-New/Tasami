@@ -1,3 +1,5 @@
+// export default WebsiteLayout;
+import { useQueryClient } from "@tanstack/react-query";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import { useEffect } from "react";
@@ -9,12 +11,9 @@ import Footer from "../ui/Footer";
 import Header from "../ui/Header";
 import Loading from "../ui/loading/Loading";
 import ScrollToTop from "../ui/ScrollToTop";
-import useSettings from "../hooks/website/settings/useSettings";
-import useGetNotifications from "../hooks/website/notification/useGetNotifications";
 
 const WebsiteLayout = () => {
-  const { refetch: refetchSettings } = useSettings();
-  const { refetch: refetchNotifications } = useGetNotifications();
+  const queryClient = useQueryClient();
   const { user, loading } = useAuth();
 
   // Initialize AOS animations
@@ -45,10 +44,14 @@ const WebsiteLayout = () => {
     const initializeNotifications = async () => {
       try {
         await requestPermission();
-        unsubscribe = listenToMessages(() => {
-          refetchSettings();
-          refetchNotifications();
-        });
+        unsubscribe = listenToMessages(
+          () => {
+            queryClient.refetchQueries({ queryKey: ["settings"] });
+          },
+          () => {
+            queryClient.refetchQueries({ queryKey: ["notifications"] });
+          }
+        );
       } catch (error) {
         console.error("Error initializing notifications:", error);
       }
@@ -57,7 +60,7 @@ const WebsiteLayout = () => {
     return () => {
       if (unsubscribe) unsubscribe();
     };
-  }, [user, refetchSettings, refetchNotifications]);
+  }, [user, queryClient]);
 
   return (
     <>

@@ -8,7 +8,7 @@ export default function useGetShowTask(
   id
 ) {
   const { data, isLoading, isError, refetch } = useQuery({
-    queryKey: ["show-task", search, page, pageSize],
+    queryKey: ["show-task", search, page, pageSize ,id],
     queryFn: async () => {
       const res = await adminAxiosInstance.get(`dh-tasks/${id}`, {
         params: { search, page, limit_per_page: pageSize },

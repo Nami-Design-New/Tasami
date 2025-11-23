@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
 import { toast } from "sonner";
@@ -15,7 +15,7 @@ import GoalInfoGrid from "../../ui/website/gaols/GoalInfoGrid";
 import InquiryModal from "../../ui/website/my-notifications/inquiryModal";
 import TopInfo from "../../ui/website/offers/TopInfo";
 import { shareContent } from "../../utils/shared";
-import { useNavigate } from "react-router";
+import { Link, useNavigate } from "react-router";
 import PlatformModal from "../../ui/website/platform/PlatformModal";
 
 export default function GoalDetails() {
@@ -54,6 +54,9 @@ export default function GoalDetails() {
       },
     });
   };
+  useEffect(() => {
+    setIsActive(goalDetails?.is_saved);
+  }, [goalDetails]);
 
   if (isLoading) return <Loading />;
   const isMyGoal = user?.id === goalDetails?.user?.id;
@@ -64,65 +67,69 @@ export default function GoalDetails() {
           <div className="col-12 p-2">
             <div className="header">
               <SectionHeader title={t("website.offerDetails.goalHeader")} />
-              <div className="d-flex align-items-center gap-2">
-                <button
-                  type="button"
-                  className="btn btn-link like-button p-0"
-                  disabled={isSavingToggle}
-                  onClick={handleToggle}
-                >
-                  <motion.i
-                    key={isActive}
-                    initial={{ scale: 0.8, rotate: 0 }}
-                    animate={{
-                      scale: [1, 0.85, 1.15, 1],
-                      rotate: isActive ? [0, -20, 20, 0] : 0,
-                      color: isActive ? "#01C7FB" : "#0D0D0D59",
-                    }}
-                    transition={{ duration: 0.6, ease: "easeInOut" }}
-                    className="fa-solid fa-heart"
-                  />
-                </button>
+              {!isMyGoal && (
+                <div className="d-flex align-items-center gap-2">
+                  <button
+                    type="button"
+                    className="btn btn-link like-button p-0"
+                    disabled={isSavingToggle}
+                    onClick={handleToggle}
+                  >
+                    <motion.i
+                      key={isActive}
+                      initial={{ scale: 0.8, rotate: 0 }}
+                      animate={{
+                        scale: [1, 0.85, 1.15, 1],
+                        rotate: isActive ? [0, -20, 20, 0] : 0,
+                        color: isActive ? "#01C7FB" : "#0D0D0D59",
+                      }}
+                      transition={{ duration: 0.6, ease: "easeInOut" }}
+                      className="fa-solid fa-heart"
+                    />
+                  </button>
 
-                <button
-                  className="toggle-bookmark-button"
-                  onClick={() =>
-                    shareContent({
-                      title: goalDetails.title,
-                      url: window.location.href,
-                    })
-                  }
-                >
-                  <i
-                    className="fa-solid fa-share"
-                    style={{
-                      color: "#0D0D0D59",
-                    }}
-                  ></i>
-                </button>
-                {user && (
-                  <OptionsMenu
-                    options={[
-                      {
-                        label: t("website.offerDetails.inquiry"),
-                        onClick: () => setShowInquiryModal(true),
-                      },
-                      {
-                        label: t("website.offerDetails.report"),
-                        onClick: () => console.log("Report"),
-                        className: "text-danger",
-                      },
-                    ]}
-                  />
-                )}
-              </div>
+                  <button
+                    className="toggle-bookmark-button"
+                    onClick={() =>
+                      shareContent({
+                        title: goalDetails.title,
+                        url: window.location.href,
+                      })
+                    }
+                  >
+                    <i
+                      className="fa-solid fa-share"
+                      style={{
+                        color: "#0D0D0D59",
+                      }}
+                    ></i>
+                  </button>
+                  {user && (
+                    <OptionsMenu
+                      options={[
+                        {
+                          label: t("website.offerDetails.inquiry"),
+                          onClick: () => setShowInquiryModal(true),
+                        },
+                        {
+                          label: t("website.offerDetails.report"),
+                          onClick: () => console.log("Report"),
+                          className: "text-danger",
+                        },
+                      ]}
+                    />
+                  )}
+                </div>
+              )}
             </div>
           </div>
         </div>
 
         <div className="goal-details-card mt-3 row ">
           <div className="col-12 col-lg-4 p-2">
-            <TopInfo offer={goalDetails} />
+            <Link to={`/helper/${goalDetails?.user?.id}`}>
+              <TopInfo offer={goalDetails} />
+            </Link>
           </div>
           <div className="col-lg-8 col-12 p-2 ">
             <div className="hed">

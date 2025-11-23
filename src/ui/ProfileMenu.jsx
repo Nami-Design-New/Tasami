@@ -71,10 +71,10 @@ export default function ProfileMenu({ profileDropDown, setProfileDropDown }) {
         <div className="avatar--wrapper">
           <div className="avatar">
             <img
-              src="/images/my-fav.svg"
+              src={user?.image ? user?.image : "/images/my-fav.svg"}
               alt={t("dashboard.profile.avatarAlt")}
             />
-            <Link
+            {/* <Link
               className="edit"
               to="profile"
               title={t("dashboard.profile.editProfile")}
@@ -83,7 +83,7 @@ export default function ProfileMenu({ profileDropDown, setProfileDropDown }) {
                 src="/sys-icons/editIcon.svg"
                 alt={t("dashboard.profile.edit")}
               />
-            </Link>
+            </Link> */}
           </div>
         </div>
         <div className="account_welcoming">
@@ -98,7 +98,7 @@ export default function ProfileMenu({ profileDropDown, setProfileDropDown }) {
             <p>
               {t("dashboard.profile.groupNumber")}:{" "}
               <Link
-                to={`working-group/${user?.group?.code || "AG-000002"}`}
+                to={`working-group/${user?.group?.id || "AG-000002"}`}
                 className="link-styles"
               >
                 {user?.group?.name}

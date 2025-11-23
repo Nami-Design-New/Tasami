@@ -3,6 +3,7 @@ import { Link } from "react-router";
 import AttachmentsModal from "./AttachmentsModal";
 import usePostAddTaskFile from "../../hooks/dashboard/tasks/usePostAddTaskFile";
 import { toast } from "sonner";
+import { useTranslation } from "react-i18next";
 
 const Attachments = ({ taskData }) => {
   const [showModal, setShowModal] = useState(false);
@@ -20,7 +21,7 @@ const Attachments = ({ taskData }) => {
   // ]);
   // const [files, setFiles] = useState();
   const { addTaskFile } = usePostAddTaskFile();
-
+  const { t } = useTranslation();
   // const onSubmit = async (data) => {
   //   const formData = new FormData();
   //   // Handle file
@@ -99,17 +100,19 @@ const Attachments = ({ taskData }) => {
   return (
     <>
       <div className="attachments-container ">
-        <h4 className="attachments-title">المرفقات</h4>
+        <h4 className="attachments-title">
+          {t("dashboard.tasks.modelTask.taskDetails.attachment")}
+        </h4>
         <div className="table-container table-responsive border">
           <table className="custom-table table table-bordered text-center align-middle mb-0  attachments-table">
             <thead className="table-light">
               <tr>
-                <th>التاريخ</th>
-                <th>الوقت</th>
-                <th>الاسم</th>
-                <th>رقم الحساب</th>
+                <th>{t("dashboard.tasks.modelTask.taskDetails.date")}</th>
+                <th>{t("dashboard.tasks.modelTask.taskDetails.time")}</th>
+                <th>{t("dashboard.tasks.modelTask.taskDetails.name")}</th>
+                <th>{t("dashboard.tasks.modelTask.taskDetails.accountNumber")} </th>
                 {/* <th>العنوان</th> */}
-                <th>الملف المرفق</th>
+                <th>{t("dashboard.tasks.modelTask.taskDetails.fileAttachment")} </th>
               </tr>
             </thead>
             <tbody>
@@ -149,7 +152,8 @@ const Attachments = ({ taskData }) => {
             className="add-attachment-btn"
             onClick={() => fileInputRef.current.click()}
           >
-            <i className="fa-solid fa-circle-plus"></i> إضافة مرفق
+            <i className="fa-solid fa-circle-plus"></i> 
+            {t("dashboard.tasks.modelTask.taskDetails.addAttachment")} 
           </button>
         </div>
       </div>

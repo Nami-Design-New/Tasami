@@ -227,9 +227,6 @@ const WokingGroupDetails = () => {
     ];
   }
 
-  console.log(workingMembers);
-  console.log(workingGoupDetails);
-  console.log(workinGroupData);
   const { name } = workinGroupData;
 
   // -----------------------------

@@ -6,12 +6,17 @@ export default function AssistantWorkCard({
   chat = true,
   prevAssistant = false,
   canNavigate = true,
+  tohelper = false,
 }) {
   return (
     <>
       {canNavigate ? (
         <Link
-          to={`/assisatant/contarct/${contractId}`}
+          to={
+            tohelper
+              ? `/helper/${helper.id}`
+              : `/assisatant/contarct/${contractId}`
+          }
           className={`helper-card  ${prevAssistant ? "yellow" : ""}`}
         >
           <figure className="image-wrapper">

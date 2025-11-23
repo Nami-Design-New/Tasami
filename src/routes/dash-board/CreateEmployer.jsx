@@ -10,6 +10,7 @@ import PerformanceIndicators from "../../ui/dash-board/create-employee/Performan
 import PermissionBoard from "../../ui/dash-board/create-employee/PermissionBoard";
 import SuspensionModel from "../../ui/modals/SuspensionModel";
 import AddNewTask from "./tasks/AddNewTaskModal";
+import DraftedUsers from "../../ui/dash-board/create-employee/DraftedUsers";
 
 const CreateEmployee = () => {
   const { id } = useParams();
@@ -17,6 +18,7 @@ const CreateEmployee = () => {
   const [openSuspensionModel, setOpenSuspensionModel] = useState(false);
   const [showTaskModal, setShowTaskModal] = useState(false);
   const isEditMode = !!id;
+  console.log(isEditMode);
 
   const { t } = useTranslation();
 
@@ -25,23 +27,37 @@ const CreateEmployee = () => {
       id: 1,
       icon: <i className="fa-regular fa-user"></i>,
       title: t("dashboard.createEmployee.accountData"),
+      visibleInMainMode: true,
+      visibleInEditMode: true,
     },
     {
       id: 2,
       icon: <i className="fa-regular fa-shield-halved"></i>,
       title: t("dashboard.createEmployee.permissions"),
+      visibleInMainMode: false,
+      visibleInEditMode: true,
     },
     {
       id: 3,
       icon: <i className="fa-solid fa-chart-waterfall"></i>,
       title: t("dashboard.createEmployee.performanceIndicators"),
+      visibleInMainMode: false,
       visibleInEditMode: true,
+    },
+    {
+      id: 4,
+      icon: <i className="fa-regular fa-users"></i>,
+      title: t("dashboard.createEmployee.drafted"),
+      visibleInMainMode: true,
+      visibleInEditMode: false,
     },
   ];
 
   const tabs = useMemo(() => {
-    return allTabs.filter((tab) => !tab.visibleInEditMode || isEditMode);
-  }, [isEditMode, t]);
+    return allTabs.filter((tab) =>
+      isEditMode ? tab.visibleInEditMode : tab.visibleInMainMode
+    );
+  }, [isEditMode]);
 
   const [activeTab, setActiveTab] = useState(() => {
     const tabParam = searchParams.get("tab");
@@ -57,6 +73,7 @@ const CreateEmployee = () => {
     1: <EmployerDataForm isEdit={isEditMode} />,
     2: <PermissionBoard isEdit={isEditMode} />,
     3: <PerformanceIndicators />,
+    4: <DraftedUsers />,
   };
 
   return (
@@ -71,7 +88,7 @@ const CreateEmployee = () => {
           }
         />
 
-        {isEditMode && (
+        {isEditMode ? (
           <div className="col-12 col-md-3">
             <div className="side-tabs-wrapper">
               <Tabs
@@ -121,9 +138,19 @@ const CreateEmployee = () => {
               </div>
             </div>
           </div>
+        ) : (
+          <div className="col-12 col-md-3">
+            <div className="side-tabs-wrapper">
+              <Tabs
+                tabs={tabs}
+                activeTab={activeTab}
+                onTabChange={handleTabClick}
+              />
+            </div>
+          </div>
         )}
 
-        <div className={isEditMode ? "col-12 col-md-9" : "col-12 "}>
+        <div className={isEditMode ? "col-12 col-md-9" : "col-12 col-md-9 "}>
           {tabComponents[activeTab] || (
             <div>{t("dashboard.createEmployee.contentNotAvailable")}</div>
           )}

@@ -8,7 +8,7 @@ export default function useGetTeam(search = "", page = 1, pageSize = 10) {
     isError,
     refetch,
   } = useQuery({
-    queryKey: ["dashboard-team"],
+    queryKey: ["dashboard-team", page],
     queryFn: async () => {
       const res = await adminAxiosInstance.get("dh-employees", {
         params: { search, page, limit_per_page: pageSize },
@@ -17,7 +17,6 @@ export default function useGetTeam(search = "", page = 1, pageSize = 10) {
       if (res.data.code !== 200) {
         throw new Error(res.data.message || "Error create Data");
       }
-      console.log(res?.data);
 
       return res.data;
     },

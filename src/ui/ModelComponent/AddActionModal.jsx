@@ -9,6 +9,9 @@ import TabRadioGroup from "../TabRadioGroup";
 import usePostAddAction from "../../hooks/dashboard/tasks/usePostAddAction";
 import useGetSharedEmployees from "../../hooks/dashboard/tasks/useGetSharedEmployees";
 import { toast } from "sonner";
+import { useQueryClient } from "@tanstack/react-query";
+import { useSelector } from "react-redux";
+import { useTranslation } from "react-i18next";
 
 const schema = yup.object().shape({
   actionType: yup.string().required("نوع الاجراء مطلوب"),
@@ -21,8 +24,11 @@ const schema = yup.object().shape({
 });
 
 const AddActionModal = ({ showModal, setShowModal, taskData }) => {
+  const { t } = useTranslation();
   const { addAction } = usePostAddAction();
   const { employees } = useGetSharedEmployees();
+  const queryClient = useQueryClient();
+  const { user } = useSelector((state) => state.adminAuth);
 
   const {
     register,
@@ -40,6 +46,8 @@ const AddActionModal = ({ showModal, setShowModal, taskData }) => {
       sendNotification: false,
     },
   });
+  // console.log("employee", taskData?.task?.owner_id, user.id);
+
   const actionType = watch("actionType");
 
   const onSubmit = (data) => {
@@ -51,6 +59,8 @@ const AddActionModal = ({ showModal, setShowModal, taskData }) => {
           : data.actionType === "redirect"
           ? "send"
           : "return",
+      // employee_id:
+      //   data.actionType === "redirect" ? Number(data.employee) : null,
       ...(data.actionType === "redirect" && {
         employee_id: Number(data.employee),
       }),
@@ -62,6 +72,7 @@ const AddActionModal = ({ showModal, setShowModal, taskData }) => {
         setShowModal(false);
         reset();
         toast.success("تم تنفيذ الإجراء بنجاح");
+        queryClient.invalidateQueries({ queryKey: ["show-task"] });
       },
       onError: (error) => {
         toast.error(error.message);
@@ -75,7 +86,7 @@ const AddActionModal = ({ showModal, setShowModal, taskData }) => {
   };
   return (
     <Modal centered size="lg" show={showModal} onHide={handleCLose}>
-      <Modal.Header closeButton>اضف افادتك</Modal.Header>
+      <Modal.Header closeButton>{t("dashboard.tasks.modelTask.notes.addBenefit")} </Modal.Header>
       <Modal.Body>
         <form className="form_ui" onSubmit={handleSubmit(onSubmit)}>
           <div className="row">
@@ -84,9 +95,12 @@ const AddActionModal = ({ showModal, setShowModal, taskData }) => {
                 name="actionType"
                 register={register}
                 options={[
-                  { label: "اكمال", value: "complete" },
-                  { label: "توجيه", value: "redirect" },
-                  { label: "ارجاع", value: "return" },
+                  ...(taskData?.task?.owner_id !== user?.id
+                    ? [{ label: t('dashboard.tasks.modelTask.notes.addBenefit'), value: "complete" }]
+                    : []),
+
+                  { label: t('dashboard.tasks.modelTask.notes.addBenefit'), value: "redirect" },
+                  { label: t('dashboard.tasks.modelTask.notes.addBenefit'), value: "return" },
                 ]}
               />
 
@@ -102,8 +116,8 @@ const AddActionModal = ({ showModal, setShowModal, taskData }) => {
                   render={({ field }) => (
                     <SelectField
                       {...field}
-                      label="اختر الموظف المراد توجيه الطلب له"
-                      disableFiledValue="اختر الموظف"
+                      label={t('dashboard.tasks.modelTask.notes.chooseRequestEmployee')}
+                      disableFiledValue={t('dashboard.tasks.modelTask.notes.chooseEmployee')}
                       options={employees.map((emp) => ({
                         value: emp.id,
                         name: `${emp.first_name} ${emp.family_name}`,
@@ -117,7 +131,7 @@ const AddActionModal = ({ showModal, setShowModal, taskData }) => {
 
             <div className="col-12 py-2">
               <TextField
-                label="تفاصيل الافاده"
+                label={t('dashboard.tasks.modelTask.notes.benefitDetails')}
                 {...register("description")}
                 error={errors.description?.message}
               />
@@ -134,7 +148,7 @@ const AddActionModal = ({ showModal, setShowModal, taskData }) => {
                   حفظ و اغلاق
                 </CustomButton> */}
                 <CustomButton type="submit" color="primary" size="large">
-                  تنفيذ
+                 {t('dashboard.tasks.modelTask.notes.excute')}
                 </CustomButton>
               </div>
             </div>
