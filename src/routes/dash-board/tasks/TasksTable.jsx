@@ -5,23 +5,25 @@ import { Link } from "react-router";
 import ReusableDataTable from "../../../ui/table/ReusableDataTable";
 import ReassignTaskModal from "./ReassignTaskModal";
 import { useTranslation } from "react-i18next";
-import useGetTasksDashboard from "../../../hooks/dashboard/tasks/useGetTasksDashboard";
-import { PAGE_SIZE } from "../../../utils/constants";
+// import useGetTasksDashboard from "../../../hooks/dashboard/tasks/useGetTasksDashboard";
+// import { PAGE_SIZE } from "../../../utils/constants";
 import TablePagination from "../../../ui/table/TablePagentaion";
 
 const columnHelper = createColumnHelper();
 
-const TasksTable = () => {
+const TasksTable = ({
+  page,
+  setPage,
+  pageSize,
+  setPageSize,
+  tasks,
+  currentPage,
+  lastPage,
+  isLoading,
+}) => {
   const { t } = useTranslation();
   const [showReassignModal, setShowReassignModal] = useState(false);
   const [selectedRow, setSelectedRow] = useState();
-  const [page, setPage] = useState(1);
-  const [pageSize, setPageSize] = useState(PAGE_SIZE);
-  const { tasks, currentPage, lastPage, isLoading } = useGetTasksDashboard(
-    "",
-    page,
-    PAGE_SIZE
-  );
 
   // const data = useMemo(
   //   () => [
@@ -51,16 +53,18 @@ const TasksTable = () => {
   //   ],
   //   []
   // );
+  console.log("tasks  :::", tasks);
+
   const tableData = useMemo(
     () =>
-      tasks.map((task) => ({
+      tasks?.data?.map((task) => ({
         id: task?.id,
         system: task.system_type.type || "-",
         subject: task.system_type.title || "-",
         model: task.reference_number || "-",
         date: task.date || "-",
         time: task.time || "-",
-        service: task.service || "-",
+        // service: task.service || "-",
         userAccount: task.account || "-",
         accountType: task.account_type || "-",
         idNumber: task.id_number || "-",
@@ -93,7 +97,10 @@ const TasksTable = () => {
       columnHelper.accessor("model", {
         header: t("dashboard.tasks.table.model"),
         cell: (info) => (
-          <Link to={`/dashboard/model/${info.getValue()}`}>
+          <Link
+            className="link-styles"
+            to={`/dashboard/model/${info.row.original.id}`}
+          >
             {info.getValue()}
           </Link>
         ),
@@ -106,18 +113,24 @@ const TasksTable = () => {
         header: t("dashboard.tasks.table.time"),
         cell: (info) => info.getValue(),
       }),
-      columnHelper.accessor("service", {
-        header: t("dashboard.tasks.table.service"),
-        cell: (info) => (
-          <Link to={`/service-details/${info.getValue()}`}>
-            {info.getValue()}
-          </Link>
-        ),
-      }),
+      // columnHelper.accessor("service", {
+      //   header: t("dashboard.tasks.table.service"),
+      //   cell: (info) => (
+      //     <Link
+      //       className="link-styles"
+      //       to={`/service-details/${info.getValue()}`}
+      //     >
+      //       {info.getValue()}
+      //     </Link>
+      //   ),
+      // }),
       columnHelper.accessor("userAccount", {
         header: t("dashboard.tasks.table.userAccount"),
         cell: (info) => (
-          <Link to={`/dashboard/user-details/${info.getValue()}`}>
+          <Link
+            className="link-styles"
+            to={`/dashboard/user-details/${info.getValue()}`}
+          >
             {info.getValue()}
           </Link>
         ),
@@ -133,7 +146,10 @@ const TasksTable = () => {
       columnHelper.accessor("group", {
         header: t("dashboard.tasks.table.group"),
         cell: (info) => (
-          <Link to={`/dashboard/working-group/${info.getValue()}`}>
+          <Link
+            className="link-styles"
+            to={`/dashboard/working-group/${info.row.original.id}`}
+          >
             {info.getValue()}
           </Link>
         ),
@@ -158,14 +174,11 @@ const TasksTable = () => {
             case "completed":
               badgeColor = "#28a745";
               break;
-            case "غير مكتمل":
-              badgeColor = "#007bff";
-              break;
-            case "غير مضاف":
+            case "progress":
               badgeColor = "#ffc107";
               break;
             default:
-              badgeColor = "#E5E7EB";
+              badgeColor = "#bababbff";
               break;
           }
           return (

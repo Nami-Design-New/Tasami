@@ -1180,6 +1180,48 @@
         "employeeLabel": "اسم الموظف",
         "reassignButton": "اعادة تعيين"
       },
+      "modelTask": {
+        "header": "نموذج",
+        "employeeData": {
+          "title": "معلومات مقدم الطلب ",
+          "accountNumber": "رقم الحساب",
+          "groupNumber": "رقم التعريف او مجموعه العمل",
+          "date": "التاريخ",
+          "time": "الوقت"
+        },
+        "modelInfo": {
+          "systemTitle": "النظام الاداري",
+          "subject": "الموضوع",
+          "returnNumber": "الرقم المرجعي"
+        },
+        "taskDetails": {
+          "requestSubject": "موضوع الطلب",
+          "subject": "الموضوع",
+          "description": "الوصف",
+          "attachment": "المرفقات",
+          "date": "التاريخ",
+          "time": "الوقت",
+          "name": "الاسم",
+          "accountNumber": "رقم الحساب",
+          "fileAttachment": "الملف المرفق",
+          "addAttachment": "اضافة مرفق"
+        },
+        "notes": {
+          "title": "سجل الافادات",
+          "addBenefit": "اضافة افاده",
+          "date": "التاريخ",
+          "time": "الوقت",
+          "accountNumber": "رقم الحساب",
+          "action": "الاجراء",
+          "benefitDetails": "تفاصيل الافاده",
+          "complete": "اكمال ",
+          "redirect": "توجيه",
+          "return": "ارجاع",
+          "chooseRequestEmployee":"اختر الموظف المراد توجيه الطلب له",
+          "chooseEmployee":"اختر الموظف",
+          "excute":"تنفيذ"
+        }
+      },
       "searchPlaceholder": "بحث في المهام ..."
     },
     "employeeProfile": {
@@ -1571,21 +1613,18 @@
         "status_date": "تاريخ حالة الحساب",
         "status_time": "وقت حالة الحساب"
       },
-
       "statuses": {
         "active": "نشط",
         "inactive": "غير نشط",
         "stopped": "موقوف",
         "unknown": "غير معروف"
       },
-
       "charts": {
         "executives": "التنفيذيين",
         "leaders": "القادة",
         "managers": "المدراء",
         "supervisors": "المشرفين",
         "customer_service": "خدمة العملاء",
-
         "categories": {
           "total": "الإجمالي",
           "active": "نشط",
@@ -1613,7 +1652,6 @@
       "specializationLabel": "التخصص",
       "specializationPlaceholder": "مثال: تحليل البيانات",
       "addButton": "إضافة",
-
       "errors": {
         "actionRequired": "نوع الإجراء مطلوب",
         "invalidValue": "قيمة غير صالحة",
@@ -1623,6 +1661,9 @@
         "specializationRequired": "اسم التخصص مطلوب",
         "specializationShort": "اسم التخصص قصير جدًا"
       }
+    },
+    "fileUploader": {
+      "dragDrop": "اسحب وافلت الملف هنا "
     }
   }
 }

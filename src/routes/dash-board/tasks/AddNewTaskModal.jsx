@@ -11,21 +11,31 @@ import { toast } from "sonner";
 import { useQueryClient } from "@tanstack/react-query";
 import { Controller } from "react-hook-form";
 import { useState } from "react";
-import useAddTasksForm from "./useAddTaskForm";
+import useAddTaskForm from "../../../hooks/dashboard/tasks/useAddTaskForm";
+import useGetTaskSystem from "../../../hooks/dashboard/tasks/useGetTaskSystem";
+import { PAGE_SIZE } from "../../../utils/constants";
+
+
 
 const AddNewTask = ({ showModal, setShowModal, title }) => {
   const { t } = useTranslation();
   const queryClient = useQueryClient();
   const [files, setFiles] = useState();
+  const [page, setPage] = useState(1);
+  const [pageSize, setPageSize] = useState(PAGE_SIZE);
   const { employees } = useGetSharedEmployees();
+  const { taskSystem } = useGetTaskSystem("", page, PAGE_SIZE);
+
   const { addTask } = usePostAddTask();
+  // console.log("taskSystem", taskSystem);
+
   const {
     handleSubmit,
     reset,
     setValue,
     control,
     formState: { errors },
-  } = useAddTasksForm();
+  } = useAddTaskForm();
 
   const handleFilesChange = (updatedFiles) => {
     setFiles(updatedFiles);
@@ -116,10 +126,10 @@ const AddNewTask = ({ showModal, setShowModal, title }) => {
                   <SelectField
                     {...field}
                     label={t("dashboard.workModel.formType")}
-                    options={[
-                      { value: "1", name: "استفسار" },
-                      { value: "2", name: "اقتراح" },
-                    ]}
+                    options={taskSystem?.data?.map((emp) => ({
+                      value: emp.id,
+                      name: `${emp.title}`,
+                    }))}
                     error={errors.task_system_id?.message}
                   />
                 )}

@@ -1,5 +1,6 @@
 import { useEffect, useState, useCallback } from "react";
 import { useDropzone } from "react-dropzone";
+import { useTranslation } from "react-i18next";
 
 /**
  * Props:
@@ -16,6 +17,7 @@ export default function FileUploader({
   onFilesChange,
   multiple = true,
 }) {
+  const { t } = useTranslation();
   const toArray = (v) => (Array.isArray(v) ? v : v ? [v] : []);
   const [files, setFiles] = useState(toArray(initialFiles));
   const [previews, setPreviews] = useState([]); // data URLs for images
@@ -97,7 +99,7 @@ export default function FileUploader({
               >
                 <section className="icon">
                   <img src="/images/imageUpload.svg" alt="Upload Icon" />
-                  <p>Drag & drop or click to upload</p>
+                  <p>{t("dashboard.fileUploader.dragDrop")}</p>
                 </section>
               </div>
             ) : (
@@ -144,7 +146,7 @@ export default function FileUploader({
             >
               <section className="icon">
                 <img src="/images/imageUpload.svg" alt="Upload Icon" />
-                <p>Drag & drop or click to upload</p>
+                <p>{t("dashboard.fileUploader.dragDrop")}</p>
               </section>
             </div>
 
