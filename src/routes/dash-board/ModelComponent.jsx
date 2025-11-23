@@ -21,6 +21,7 @@ const ModelComponent = () => {
     id
   );
 
+
   return (
     <section className="model">
       <Header
@@ -41,6 +42,7 @@ const ModelComponent = () => {
         lastPage={lastPage}
         isLoading={isLoading}
       />
+
     </section>
   );
 };

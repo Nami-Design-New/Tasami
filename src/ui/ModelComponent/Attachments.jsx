@@ -22,6 +22,7 @@ const Attachments = ({ taskData }) => {
   // const [files, setFiles] = useState();
   const { addTaskFile } = usePostAddTaskFile();
   const { t } = useTranslation();
+
   // const onSubmit = async (data) => {
   //   const formData = new FormData();
   //   // Handle file
