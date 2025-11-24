@@ -1674,6 +1674,7 @@
     },
     "fieldsAndSpecialization": {
       "modalTitle": "New Field",
+      "editModalTitle": "Edit Field",
       "newField": "New Field",
       "existingField": "Existing Field",
       "fieldLabel": "Field",
@@ -1682,6 +1683,7 @@
       "specializationLabel": "Specialization",
       "specializationPlaceholder": "Example: Data Analysis",
       "addButton": "Add",
+      "editButton": "Update",
       "errors": {
         "actionRequired": "Action type is required",
         "invalidValue": "Invalid value",
@@ -1694,6 +1696,75 @@
     },
     "fileUploader": {
       "dragDrop": "Drag & drop or click to upload"
+    },
+    "suspensionModal": {
+      "title": "Suspend Account",
+      "fixedDuration": "Fixed Duration",
+      "from": "From",
+      "to": "To",
+      "notes": "Notes",
+      "addFiles": "Add Attachments",
+      "cancel": "Cancel",
+      "confirm": "Confirm",
+
+      "startRequired": "Please select a start date",
+      "endRequired": "Please select an end date",
+      "endTypeError": "Please enter a valid date",
+      "endAfterStart": "End date must be after start date",
+
+      "filesMin": "Please attach at least one file",
+      "filesMax": "You can upload up to 5 files only",
+
+      "notesMax": "Notes must not exceed 500 characters"
+    },
+    "administrativeSystems": {
+      "title": "Administrative Systems",
+      "search": "Search...",
+
+      "tableHeaders": {
+        "system": "Administrative System",
+        "subject": "Subjects",
+        "actions": "Actions"
+      },
+
+      "internal": "Internal",
+      "external": "External",
+      "createAccount": "Create Account",
+      "inquiry": "Inquiry",
+      "violationReport": "Violation Report"
+    },
+    "subjectModal": {
+      "newTitle": "New Subject",
+      "editTitle": "Edit Subject",
+      "system": "Administrative System",
+      "internal": "Internal",
+      "external": "External",
+      "subject": "Subject",
+      "code": "Subject Code",
+      "add": "Add",
+      "edit": "Update",
+
+      "errors": {
+        "systemRequired": "Please select the administrative system",
+        "codeRequired": "Please enter a code",
+        "subjectRequired": "Please enter the subject for: {{lang}}"
+      }
+    },
+    "fields": {
+      "mainTitle": "Fields & Specializations Statistics",
+      "tableTitle": "Fields & Specializations",
+      "search": "Search...",
+
+      "stats": {
+        "fields": "Fields",
+        "specializations": "Specializations"
+      },
+
+      "table": {
+        "fields": "Fields",
+        "specializations": "Specializations",
+        "actions": "Actions"
+      }
     }
   }
 }

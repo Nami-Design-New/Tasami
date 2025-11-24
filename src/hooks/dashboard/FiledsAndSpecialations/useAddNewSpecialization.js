@@ -1,5 +1,4 @@
 import { useMutation } from "@tanstack/react-query";
-import React from "react";
 import { adminAxiosInstance } from "../../../lib/adminAxios";
 
 export default function useAddNewSpecialization() {
