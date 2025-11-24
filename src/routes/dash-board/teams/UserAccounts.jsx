@@ -17,49 +17,49 @@ const UserAccounts = () => {
     useGetUsersAccounts("", page, PAGE_SIZE);
   console.log("users accounts", usersAccounts);
   // localized chart data
+  // const series = [
+  //   {
+  //     name: t("dashboard.userAccounts.totalAccounts"),
+  //     data: ["5000", "1000", "800", "500"],
+  //   },
+  //   {
+  //     name: t("dashboard.userAccounts.activeAccounts"),
+  //     data: ["3000", "800", "700", "400"],
+  //   },
+  //   {
+  //     name: t("dashboard.userAccounts.inactiveAccounts"),
+  //     data: ["1200", "150", "80", "60"],
+  //   },
+  //   {
+  //     name: t("dashboard.userAccounts.suspendedAccounts"),
+  //     data: ["800", "50", "20", "40"],
+  //   },
+  // ];
+  // const usersCategories = [
+  //   t("dashboard.userAccounts.category.beneficiary"),
+  //   t("dashboard.userAccounts.category.basic"),
+  //   t("dashboard.userAccounts.category.premium"),
+  //   t("dashboard.userAccounts.category.royal"),
+  // ];
   const series = [
     {
       name: t("dashboard.userAccounts.totalAccounts"),
-      data: ["5000", "1000", "800", "500"],
+      data: usersAccounts?.packages?.map((item) => item.total_users) || [],
     },
     {
       name: t("dashboard.userAccounts.activeAccounts"),
-      data: ["3000", "800", "700", "400"],
+      data: usersAccounts?.packages?.map((item) => item.active_users) || [],
     },
     {
       name: t("dashboard.userAccounts.inactiveAccounts"),
-      data: ["1200", "150", "80", "60"],
+      data: usersAccounts?.packages?.map((item) => item.inactive_users) || [],
     },
     {
       name: t("dashboard.userAccounts.suspendedAccounts"),
-      data: ["800", "50", "20", "40"],
+      data: usersAccounts?.packages?.map((item) => item.stopped_users) || [],
     },
   ];
 
-//   const series = [
-//   {
-//     name: t("dashboard.userAccounts.totalAccounts"),
-//     data: usersAccounts?.packages.map((item) => item.total_users),
-//   },
-//   {
-//     name: t("dashboard.userAccounts.activeAccounts"),
-//     data: usersAccounts?.packages.map((item) => item.active_users),
-//   },
-//   {
-//     name: t("dashboard.userAccounts.inactiveAccounts"),
-//     data: usersAccounts?.packages.map((item) => item.inactive_users),
-//   },
-//   {
-//     name: t("dashboard.userAccounts.suspendedAccounts"),
-//     data: usersAccounts?.packages.map((item) => item.stopped_users),
-//   },
-// ];
-  const usersCategories = [
-    t("dashboard.userAccounts.category.beneficiary"),
-    t("dashboard.userAccounts.category.basic"),
-    t("dashboard.userAccounts.category.premium"),
-    t("dashboard.userAccounts.category.royal"),
-  ];
   const UseresAccountsOptions = {
     chart: { type: "bar", height: 350, toolbar: { show: true } },
     plotOptions: {
@@ -73,7 +73,7 @@ const UserAccounts = () => {
     },
     dataLabels: { enabled: false },
     xaxis: {
-      categories: usersCategories,
+      categories: usersAccounts?.packages?.map((item) => item.package) || [],
       labels: { style: { fontSize: "14px" } },
     },
     yaxis: { labels: { style: { fontSize: "12px" } } },
@@ -127,7 +127,7 @@ const UserAccounts = () => {
   //   ],
   //   []
   // );
-  
+
   const columns = useMemo(
     () => [
       columnHelper.accessor("name", {
@@ -187,13 +187,13 @@ const UserAccounts = () => {
           let badgeColor;
           const value = info.getValue();
           switch (info.getValue()) {
-            case "نشط":
+            case "active":
               badgeColor = "#28a745";
               break;
-            case "غير نشطة":
+            case "inactive":
               badgeColor = "#007bff";
               break;
-            case "موقوفة":
+            case "suspended":
               badgeColor = "#dc3545";
               break;
             default:
@@ -246,7 +246,7 @@ const UserAccounts = () => {
           <ReusableDataTable
             title={t("dashboard.userAccounts.accounts")}
             filter={false}
-            data={usersAccounts.data || []}
+            data={usersAccounts?.data || []}
             columns={columns}
             lang="ar"
             initialPageSize={10}

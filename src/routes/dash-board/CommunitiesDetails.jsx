@@ -1,16 +1,26 @@
 import { createColumnHelper } from "@tanstack/react-table";
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import CommunityBio from "../../ui/dash-board/communities-details/CommunityBio";
 import CommunityStats from "../../ui/dash-board/communities-details/CommunityStats";
 import ReusableDataTable from "../../ui/table/ReusableDataTable";
-import { Link, Outlet } from "react-router";
+import { Link, Outlet, useParams } from "react-router";
 import CommunityTabs from "../../ui/dash-board/communities-details/CommunityTabs";
 import { useTranslation } from "react-i18next";
+import useGetUserCommunities from "../../hooks/dashboard/subscription/useGetUserCommunities";
+import { PAGE_SIZE } from "../../utils/constants";
 
 const columnHelper = createColumnHelper();
 
 export default function CommunitiesDetails() {
   const { t } = useTranslation();
+  const { id } = useParams();
+  const [page, setPage] = useState(1);
+  const [pageSize, setPageSize] = useState(PAGE_SIZE);
+  const { userCommunities, currentPage, lastPage, isLoading } =
+    useGetUserCommunities("", page, pageSize, id);
+
+  console.log("userCommunities", userCommunities);
+
   const editData = useMemo(
     () => [
       {
@@ -107,10 +117,10 @@ export default function CommunitiesDetails() {
             </div>
           </div>
           <div className="col-12 p-2">
-            <CommunityBio />
+            <CommunityBio userCommunities={userCommunities} />
           </div>
           <div className="col-12 p-2">
-            <CommunityStats />
+            <CommunityStats userCommunities={userCommunities} />
           </div>
           <div className="col-12 p-2">
             <ReusableDataTable

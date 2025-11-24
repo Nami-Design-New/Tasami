@@ -1,26 +1,16 @@
+import { useParams } from "react-router";
 import CustomButton from "../../../ui/CustomButton";
 import DescriptionSection from "./DescriptionSection";
 import DocumentList from "./DocumentList";
 import ExperienceList from "./ExperienceList";
 import UserDataCard from "./UserDataCard";
+import useGetResume from "../../../hooks/dashboard/subscription/useGetResume";
 
 export default function ResuemeDetails() {
-  const descriptionText =
-    "السيرة الذاتية هي عبارة عن ملخص منظم للخبرات المهنية، والخلفية التعليمية، والمهارات، والمعلومات الشخصية ذات الصلة بمقدم طلب العمل. تُستخدم السيرة الذاتية لعرض مؤهلات الشخص، والتعريف بالمهن التي عمل بها سابقًا، وما يمتلكه من قدرات وخبرات، وذلك بهدف تقديمها لأصحاب العمل عند التقدم لوظيفة معينة.";
+  const { id } = useParams();
+  const { userResume, isLoading } = useGetResume(id);
+  // console.log("userResume", id, userResume);
 
-  const experiences = [
-    "التجارة الإلكترونية",
-    "التجارة الإلكترونية",
-    "التجارة الإلكترونية",
-    "التجارة الإلكترونية",
-  ];
-
-  const documents = [
-    "التجارة الإلكترونية",
-    "التجارة الإلكترونية",
-    "التجارة الإلكترونية",
-    "التجارة الإلكترونية",
-  ];
   return (
     <section className="resumes-details">
       <div className="row">
@@ -30,16 +20,19 @@ export default function ResuemeDetails() {
         </div>
         <div className="col-12 col-lg-3 p-2">
           <UserDataCard
-            name="محمود"
-            country="السعودية"
-            image="/images/profile2.png"
+            name={userResume?.first_name + " " + userResume?.last_name}
+            country={"!السعودية"}
+            image={userResume?.image}
             flag="/icons/flag.svg"
           />
         </div>
         <div className="col-12 col-lg-9 p-2">
-          <DescriptionSection title="عرف عن نفسك" text={descriptionText} />
-          <ExperienceList experiences={experiences} />
-          <DocumentList documents={documents} />
+          <DescriptionSection title="عرف عن نفسك" text={userResume?.about} />
+          {isLoading ?( <p>Loading...</p> ) :(<>
+          {userResume?.user_experiences && 
+          <ExperienceList experiences={userResume?.user_experiences.map(exp=>exp.category_title)} />}
+          <DocumentList documents={userResume?.user_documents.map(doc=>doc.category_title)} />
+       </>   )}
         </div>
       </div>
     </section>

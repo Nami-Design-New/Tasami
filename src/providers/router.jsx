@@ -528,10 +528,10 @@ export const router = createBrowserRouter([
         path: "user-details/:id",
         element: <UserProfile />,
       },
-      {
-        path: "chats",
-        element: <ChatPage />,
-      },
+      // {
+      //   path: "chats",
+      //   element: <ChatPage />,
+      // },
 
       {
         path: "communities-details/:id",
