@@ -4,31 +4,40 @@ import DashBoardFooter from "../ui/dash-board/DashBoardFooter";
 import SideBar from "../ui/dash-board/SideBar";
 import NavBar from "../ui/NavBar";
 import ScrollToTop from "../ui/ScrollToTop";
+import useAdminAuth from "../hooks/auth/dashboard/useAdminAuth";
+import Loading from "../ui/loading/Loading";
 
 export default function DashboardLayout() {
   const [hoverExpand, setHoverExpand] = useState(false);
   const [collapsed, setCollapsed] = useState(true);
+  const { admin, loading } = useAdminAuth();
 
   return (
     <>
-      <ScrollToTop />
-      <section
-        className={`grid-container ${collapsed ? "collapsed" : "expanded"}`}
-      >
-        <SideBar
-          collapsed={collapsed}
-          setCollapsed={setCollapsed}
-          hoverExpand={hoverExpand}
-          setHoverExpand={setHoverExpand}
-        />
-        <NavBar collapsed={collapsed} setCollapsed={setCollapsed} />
-        <main className="main_wrap">
-          <div className="router_wrapper">
-            <Outlet />
-          </div>
-          <DashBoardFooter />
-        </main>
-      </section>
+      {loading ? (
+        <Loading />
+      ) : (
+        <>
+          <ScrollToTop />
+          <section
+            className={`grid-container ${collapsed ? "collapsed" : "expanded"}`}
+          >
+            <SideBar
+              collapsed={collapsed}
+              setCollapsed={setCollapsed}
+              hoverExpand={hoverExpand}
+              setHoverExpand={setHoverExpand}
+            />
+            <NavBar collapsed={collapsed} setCollapsed={setCollapsed} />
+            <main className="main_wrap">
+              <div className="router_wrapper">
+                <Outlet />
+              </div>
+              <DashBoardFooter />
+            </main>
+          </section>
+        </>
+      )}
     </>
   );
 }

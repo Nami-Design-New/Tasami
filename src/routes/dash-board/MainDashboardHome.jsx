@@ -6,55 +6,68 @@ import ColumnChart from "../../ui/dash-board/charts/ColumnChart";
 import DounutCharts from "../../ui/dash-board/charts/DounutCharts";
 import LineAnalyticsChart from "../../ui/dash-board/charts/LineAnalyticsChart";
 import TaskStatus from "../../ui/dash-board/home/TaskStatus";
+import { useSelector } from "react-redux";
+import useGetHomeStatistics from "../../hooks/dashboard/home/useGetHomeStatistics";
+
+const packageColors = ["#F5B849", "#26BF94", "#4A90E2", "#9B59B6", "#E74C3C"];
+const packageIcons = [
+  <i className="fa-solid fa-users"></i>,
+  <i className="fa-solid fa-user-group"></i>,
+  <i className="fa-solid fa-user-check"></i>,
+  <i className="fa-solid fa-user-plus"></i>,
+  <i className="fa-solid fa-user-tie"></i>,
+];
 
 export default function DashboardHome() {
   const { t } = useTranslation();
-  // ===== Line chart =====
-  const series = [
+  const { user } = useSelector((state) => state.adminAuth);
+  const { homeStatistics, isLoading } = useGetHomeStatistics();
+
+  if (isLoading) return <p>Loading...</p>;
+
+  // ===== Packages chartData (for StatCards) =====
+  const packageChartData =
+    homeStatistics?.subscriptions_revenue?.map(
+      (sub) => sub.total_subscriptions
+    ) || [];
+
+  // ===== Revenue Line Chart =====
+  const revenueSeries = [
     {
-      name: t("dashboard.assistant_requests"),
-      type: "area",
-      data: [200, 400, 300, 500, 300, 500, 600, 700, 300, 200, 150, 400],
+      name: t("dashboard.revenue_12_months"),
+      type: "line",
+      data: homeStatistics.subscriptions_revenue.map(
+        (sub) => sub.yearly_revenue
+      ),
     },
     {
       name: t("dashboard.revenue_6_months"),
       type: "line",
-      data: [
-        1200, 1000, 1700, 2000, 1500, 3000, 2300, 2500, 2400, 2600, 2700, 2800,
-      ],
+      data: homeStatistics.subscriptions_revenue.map(
+        (sub) => sub.half_yearly_revenue
+      ),
     },
     {
-      name: t("dashboard.revenue_12_months"),
-      type: "line",
-      data: [
-        900, 2200, 2500, 7000, 3000, 4000, 1000, 3500, 3700, 3900, 4100, 4300,
-      ],
+      name: t("dashboard.assistant_requests"),
+      type: "area",
+      data: homeStatistics.subscriptions_revenue.map(
+        (sub) => sub.total_subscriptions
+      ),
     },
   ];
 
-  const categories = [
-    "Jan",
-    "Feb",
-    "Mar",
-    "Apr",
-    "May",
-    "Jun",
-    "Jul",
-    "Aug",
-    "Sep",
-    "Oct",
-    "Nov",
-    "Dec",
-  ];
+  const revenueCategories = homeStatistics.subscriptions_revenue.map(
+    (sub) => sub.month
+  );
 
-  const revnueAnalyticsOptions = {
+  const revenueOptions = {
     chart: { height: 350, toolbar: { show: true } },
     stroke: { width: [0, 2, 3], curve: "smooth", dashArray: [0, 5, 0] },
     fill: { type: ["solid", "solid", "solid"], opacity: [0.2, 1, 1] },
     markers: { size: 0 },
     colors: ["#e2e8f0", "#0ea5e9", "#8b5cf6"],
     dataLabels: { enabled: false },
-    xaxis: { categories },
+    xaxis: { categories: revenueCategories },
     legend: {
       position: "top",
       horizontalAlign: "left",
@@ -63,9 +76,32 @@ export default function DashboardHome() {
     tooltip: { shared: true, intersect: false },
   };
 
-  // ===== Donut chart =====
-  const employersSeries = [20, 30, 40, 100, 400];
-  const employersOptions = {
+  // ===== User Growth Column Chart =====
+  const userGrowthSeries = [
+    {
+      name: t("dashboard.users"),
+      data: homeStatistics.users_growth.monthly_data.map((m) => m.user_count),
+    },
+  ];
+  const userGrowthCategories = homeStatistics.users_growth.monthly_data.map(
+    (m) => m.month
+  );
+  const userGrowthOptions = {
+    chart: { type: "bar", height: 350, toolbar: { show: true } },
+    plotOptions: {
+      bar: { borderRadius: 4, columnWidth: "10%", endingShape: "rounded" },
+    },
+    dataLabels: { enabled: false },
+    xaxis: { categories: userGrowthCategories },
+    colors: ["#6366f1"],
+    tooltip: { y: { formatter: (val) => `${val} ${t("dashboard.users")}` } },
+  };
+
+  // ===== Employees Donut Chart =====
+  const employeesSeries = homeStatistics.employees_counts.roles.map(
+    (role) => role?.count
+  );
+  const employeesOptions = {
     labels: [
       t("dashboard.executives"),
       t("dashboard.leaders"),
@@ -81,15 +117,6 @@ export default function DashboardHome() {
       position: "outside",
       style: { fontSize: "14px", fontWeight: "400", colors: ["#fff"] },
     },
-    responsive: [
-      {
-        breakpoint: 480,
-        options: {
-          chart: { width: 200 },
-          legend: { position: "bottom" },
-        },
-      },
-    ],
     plotOptions: {
       pie: {
         donut: {
@@ -110,114 +137,68 @@ export default function DashboardHome() {
         },
       },
     },
-  };
-
-  // ===== User growth chart =====
-  const userGrowthSeries = [
-    {
-      name: t("dashboard.users"),
-      data: [
-        300, 500, 800, 1200, 1100, 1600, 2000, 2300, 2500, 2800, 3100, 3500,
-      ],
-    },
-  ];
-
-  const userGrowthCategories = [
-    "Jan",
-    "Feb",
-    "Mar",
-    "Apr",
-    "May",
-    "Jun",
-    "Jul",
-    "Aug",
-    "Sep",
-    "Oct",
-    "Nov",
-    "Dec",
-  ];
-
-  const userGrowthOptions = {
-    chart: { type: "bar", height: 350, toolbar: { show: true } },
-    plotOptions: {
-      bar: { borderRadius: 4, columnWidth: "10%", endingShape: "rounded" },
-    },
-    dataLabels: { enabled: false },
-    xaxis: { categories: userGrowthCategories },
-    colors: ["#6366f1"],
-    tooltip: {
-      y: {
-        formatter: (val) => `${val} ${t("dashboard.users")}`,
+    responsive: [
+      {
+        breakpoint: 480,
+        options: { chart: { width: 200 }, legend: { position: "bottom" } },
       },
-    },
+    ],
   };
 
   return (
     <section className="dashboard--home">
       <div className="dashboard--home__header">
         <div className="welcome">
-          <h3> محمود عباس {t("dashboard.welcome_back")}</h3>
+          <h3>
+            {user?.first_name} {t("dashboard.welcome_back")}
+          </h3>
           <p>{t("dashboard.welcome_message")}</p>
         </div>
       </div>
+
       <div className="row">
-        <div className="col-12  col-lg-6 col-xxl p-2  ">
+        {/* Help Requests */}
+        <div className="col-12 col-lg-6 col-xxl p-2">
           <StatCard
             icon={<i className="fa-solid fa-handshake"></i>}
             title={t("dashboard.assistant_requests")}
-            value="1,02,890"
-            percentage="40"
+            value={homeStatistics?.help_requests?.total_help_requests}
+            percentage={homeStatistics?.help_requests?.growth_percentage}
             timeframe={t("dashboard.this_month")}
-            chartData={[12, 20, 18, 25, 22, 30, 28]}
+            chartData={packageChartData}
             color="#805AD5"
           />
         </div>
-        <div className="col-12 col-lg-6  col-xxl p-2 ">
-          {" "}
+
+        {/* Help Offers */}
+        <div className="col-12 col-lg-6 col-xxl p-2">
           <StatCard
             icon={<i className="fa-solid fa-notebook"></i>}
             title={t("dashboard.help_offers")}
-            value="1,02,890"
-            percentage="32"
+            value={homeStatistics?.help_services?.total_help_services}
+            percentage={homeStatistics?.help_services?.growth_percentage}
             timeframe={t("dashboard.this_month")}
-            chartData={[12, 20, 18, 25, 50, 30, 28]}
+            chartData={packageChartData}
             color="#23B7E5"
           />
         </div>
-        <div className="col-12 col-lg-6 col-xxl p-2">
-          {" "}
-          <StatCard
-            icon={<i className="fa-solid fa-users"></i>}
-            title={t("dashboard.basic_accounts")}
-            value="1,02,890"
-            percentage="19"
-            timeframe={t("dashboard.this_month")}
-            chartData={[12, 20, 18, 25, 22, 30, 28]}
-            color="#F5B849"
-          />
-        </div>
-        <div className="col-12 col-lg-6 col-xxl p-2">
-          <StatCard
-            icon={<i className="fa-solid fa-users-medical"></i>}
-            title={t("dashboard.leader_accounts")}
-            value="1,02,890"
-            percentage="-12"
-            timeframe={t("dashboard.this_month")}
-            chartData={[12, 20, 18, 25, 22, 30, 28]}
-            color="#26BF94"
-          />
-        </div>
-        <div className="col-12 col-lg-6 col-xxl p-2">
-          <StatCard
-            icon={<i className="fa-solid fa-users-medical"></i>}
-            title={t("dashboard.pioneer_accounts")}
-            value="1,02,890"
-            percentage="-12"
-            timeframe={t("dashboard.this_month")}
-            chartData={[12, 20, 18, 25, 22, 30, 28]}
-            color="#26BF94"
-          />
-        </div>
+
+        {/* Packages */}
+        {homeStatistics?.packages_counts.map((myPackage, index) => (
+          <div className="col-12 col-lg-6 col-xxl p-2" key={index}>
+            <StatCard
+              icon={packageIcons[index % packageIcons.length]}
+              title={myPackage.package}
+              value={myPackage.total_users}
+              percentage={myPackage.growth_percentage}
+              timeframe={t("dashboard.this_month")}
+              chartData={packageChartData}
+              color={packageColors[index % packageColors.length]}
+            />
+          </div>
+        ))}
+
+        {/* Quick Actions */}
         <div className="col-12 p-2">
           <ChartCard title={t("dashboard.urgent_actions")}>
             <div className="quick__actions--list">
@@ -225,57 +206,62 @@ export default function DashboardHome() {
                 to="/dashboard/create-employee"
                 className="quick--action__button"
               >
-                <img src="./icons/add-user.svg" />
+                <img src="./icons/add-user.svg" alt="" />
                 <span>{t("dashboard.create_employee")}</span>
               </Link>
               <Link
-                to={"/dashboard/list-management/working-groups"}
+                to="/dashboard/list-management/working-groups"
                 className="quick--action__button"
               >
-                <img src="./icons/permisson_icon.svg" />
+                <img src="./icons/permisson_icon.svg" alt="" />
                 <span>{t("dashboard.create_group")}</span>
               </Link>
               <Link className="quick--action__button">
-                <img src="./icons/delete-user.svg" />
+                <img src="./icons/delete-user.svg" alt="" />
                 <span>{t("dashboard.suspend_employee")}</span>
               </Link>
               <Link
                 to="/dashboard/list-management/fields-and-specializations"
                 className="quick--action__button"
               >
-                <img src="./icons/add-fileds.svg" />
+                <img src="./icons/add-fileds.svg" alt="" />
                 <span>{t("dashboard.add_field")}</span>
               </Link>
             </div>
           </ChartCard>
         </div>
       </div>
+
       <div className="row">
+        {/* Task Status + Employees Donut */}
         <div className="col-12 col-xl-4 p-2">
           <div className="col pb-2">
-            <TaskStatus />
+            <TaskStatus tasksData={homeStatistics?.tasks_counts} />
           </div>
-
           <div className="col pt-2">
             <DounutCharts
-              series={employersSeries}
-              options={employersOptions}
+              series={employeesSeries}
+              options={employeesOptions}
               title={t("dashboard.employees")}
               height={300}
             />
           </div>
         </div>
+
+        {/* Revenue Analytics */}
         <div className="col-12 col-xl-8 p-2">
           <LineAnalyticsChart
-            series={series}
+            series={revenueSeries}
             title={t("dashboard.revenue_analytics")}
-            options={revnueAnalyticsOptions}
+            options={revenueOptions}
             type="line"
             height={550}
           />
         </div>
       </div>
+
       <div className="row">
+        {/* User Growth */}
         <div className="col-12 p-2">
           <ColumnChart
             series={userGrowthSeries}
@@ -283,9 +269,6 @@ export default function DashboardHome() {
             title={t("dashboard.user_growth")}
           />
         </div>
-        {/* <div className="col-12 p-2">
-          <UsersTable />
-        </div> */}
       </div>
     </section>
   );

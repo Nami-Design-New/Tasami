@@ -9,18 +9,15 @@ import RadioInput from "./forms/RadioInput";
 export default function LanguageDropDown({ isOpen, setIsOpen }) {
   const dispatch = useDispatch();
   const queryClient = useQueryClient();
-  const [active, setActive] = useState("ar");
   const dropdownRef = useRef(null);
 
+  const [active, setActive] = useState(
+    i18next.language || localStorage.getItem("i18nextLng") || "ar"
+  );
+
   const variants = {
-    open: {
-      opacity: 1,
-      height: "auto",
-    },
-    closed: {
-      opacity: 0,
-      height: 0,
-    },
+    open: { opacity: 1, height: "auto" },
+    closed: { opacity: 0, height: 0 },
   };
 
   function handleRadioChange(e) {
@@ -31,12 +28,21 @@ export default function LanguageDropDown({ isOpen, setIsOpen }) {
     i18next.changeLanguage(selectedLanguage);
     queryClient.invalidateQueries();
     queryClient.removeQueries();
+
     const bodyElement = document.querySelector("body");
     if (bodyElement) {
       bodyElement.classList.toggle("en", selectedLanguage === "en");
     }
   }
 
+  //  Keep selected language in sync on mount
+  useEffect(() => {
+    const currentLang =
+      i18next.language || localStorage.getItem("i18nextLng") || "ar";
+    setActive(currentLang);
+  }, []);
+
+  //  Close dropdown when clicking outside
   useEffect(() => {
     function handleClickOutside(event) {
       const isDropdownButton = event.target.closest(".settings-gear");
@@ -45,10 +51,8 @@ export default function LanguageDropDown({ isOpen, setIsOpen }) {
       }
     }
     document.body.addEventListener("click", handleClickOutside);
-    return () => {
-      document.body.removeEventListener("click", handleClickOutside);
-    };
-  }, [setIsOpen, dropdownRef]);
+    return () => document.body.removeEventListener("click", handleClickOutside);
+  }, [setIsOpen]);
 
   return (
     <motion.div
@@ -63,17 +67,17 @@ export default function LanguageDropDown({ isOpen, setIsOpen }) {
         <div className="radios">
           <RadioInput
             active={active}
-            value={"ar"}
+            value="ar"
             onChange={handleRadioChange}
-            label={"عربي"}
-            name={"prefered_notification"}
+            label="عربي"
+            name="preferred_language"
           />
           <RadioInput
             active={active}
-            value={"en"}
+            value="en"
             onChange={handleRadioChange}
-            label={"English"}
-            name={"prefered_notification"}
+            label="English"
+            name="preferred_language"
           />
         </div>
       </div>

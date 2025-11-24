@@ -465,6 +465,24 @@ li[data-sonner-toast=""] {
   color: #214b92;
 }
 
+.react-select__control {
+  border-radius: 12px !important;
+  height: 54px !important;
+}
+
+.react-select__input-container {
+  height: 44px !important;
+}
+
+.react-select__menu {
+  z-index: 1050 !important;
+}
+
+.css-nhoipr-menu {
+  z-index: 9999999 !important;
+  max-height: 200px !important;
+}
+
 .info-box-grow-min-width {
   flex: 1;
   min-width: 150px;
@@ -1122,6 +1140,19 @@ li[data-sonner-toast=""] {
   }
 }
 
+::picker(select) {
+  -webkit-appearance: base-select;
+     -moz-appearance: base-select;
+          appearance: base-select;
+  border: 1px solid rgba(13, 13, 13, 0.0941176471);
+  border-radius: 4px;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+::picker(select)::-webkit-scrollbar {
+  display: none;
+}
+
 .form_ui {
   width: 100%;
 }
@@ -1231,6 +1262,18 @@ li[data-sonner-toast=""] {
 .form_ui .input-field select {
   color: #0d0d0d;
   cursor: pointer;
+}
+.form_ui .input-field select .form_ui .input-field select.form-select {
+  -webkit-appearance: base-select !important;
+     -moz-appearance: base-select !important;
+          appearance: base-select !important;
+}
+.form_ui .input-field select::picker-icon {
+  color: #999999;
+  transition: 0.4s rotate;
+}
+.form_ui .input-field select:open::picker-icon {
+  rotate: 180deg;
 }
 .form_ui .input-field select.disable {
   pointer-events: none;
@@ -4599,17 +4642,19 @@ input[type=file] {
   gap: 4px;
 }
 .settings ul li .dropdownButton .name h6 i {
-  transform: translateY(2px);
   transition: 0.3s ease-in-out;
 }
 .settings ul li .dropdownButton .name h6.animate i {
-  transform: translateY(2px) rotate(-90deg);
+  transform: translateY(-1px) rotate(90deg);
+}
+.settings ul li .dropdownButton .name h6.animate.ar i {
+  transform: translateY(-1px) rotate(-90deg);
 }
 .settings .profile_dropdown {
   position: absolute;
   box-shadow: 0px 2px 15px -3px rgba(0, 0, 0, 0.0705882353);
   top: 100%;
-  z-index: 9;
+  z-index: 999999;
   width: 320px;
   border-radius: 24px;
   display: flex;
@@ -5431,8 +5476,8 @@ input[type=file] {
   display: flex;
   align-items: center;
 }
-.permission__item input[type=checkbox] {
-  margin-left: 0.5rem;
+.permission__item label {
+  cursor: pointer;
 }
 .permission__select-all {
   font-weight: 600;
@@ -12864,4 +12909,11 @@ body main {
 body.en {
   direction: ltr;
   font-family: "Dubai";
+}
+
+select,
+::picker(select) {
+  -webkit-appearance: base-select;
+     -moz-appearance: base-select;
+          appearance: base-select;
 }/*# sourceMappingURL=style.css.map */

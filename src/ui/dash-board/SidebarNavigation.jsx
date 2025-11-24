@@ -35,7 +35,7 @@ export default function SidebarNavigation() {
               <li className="sub_nav_item">
                 <NavLink to="teams">
                   <img src="/sys-icons/subArrow.svg" alt="arrow" />
-                  <span>{t("dashboard.team")}</span>
+                  <span>{t("dashboard.myTeam")}</span>
                 </NavLink>
               </li>
             </ul>

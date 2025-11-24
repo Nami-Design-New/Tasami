@@ -23,8 +23,6 @@ export default function PublicConsultations() {
     return null;
   }
 
-  console.log("allPublicConsultaions", allPublicConsultaions);
-
   if (!isLoading && allPublicConsultaions.length === 0) {
     return (
       <EmptySection height="500px" message={t("community.noConsultaion")} />

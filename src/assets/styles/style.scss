@@ -55,3 +55,7 @@ body {
     font-family: "Dubai";
   }
 }
+select,
+::picker(select) {
+  appearance: base-select;
+}

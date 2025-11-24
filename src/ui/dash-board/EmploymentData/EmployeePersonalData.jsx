@@ -1,13 +1,15 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import AddNewTask from "../../../routes/dash-board/tasks/AddNewTask";
+import AddNewTask from "../../../routes/dash-board/tasks/AddNewTaskModal";
 import CustomButton from "../../CustomButton";
 import FormWrapper from "../../forms/FormWrapper";
 import MapModal from "../../modals/MapModal";
+import { useSelector } from "react-redux";
 
 const EmployeePersonalData = () => {
   const { t } = useTranslation();
-  const defaultBirthday = "2000-01-01";
+  const { user } = useSelector((state) => state.adminAuth);
+
   const [attachments] = useState([
     {
       id: 1,
@@ -37,7 +39,7 @@ const EmployeePersonalData = () => {
                   )}
                   :
                 </h6>
-                <p>محمد</p>
+                <p>{user?.first_name}</p>
               </div>
             </div>
             <div className="col-12 col-md-6 col-xxl-4  p-2">
@@ -59,7 +61,7 @@ const EmployeePersonalData = () => {
                   )}
                   :
                 </h6>
-                <p>رضوان</p>
+                <p>{user?.family_name}</p>{" "}
               </div>
             </div>
             <div className="col-12 col-md-6 col-xxl-4  p-2">
@@ -70,7 +72,7 @@ const EmployeePersonalData = () => {
                   )}
                   :
                 </h6>
-                <p>{defaultBirthday}</p>
+                <p>{user?.birthdate}</p>
               </div>
             </div>
             <div className="col-12 col-md-6 col-xxl-4  p-2">
@@ -78,7 +80,7 @@ const EmployeePersonalData = () => {
                 <h6>
                   {t("dashboard.employeeProfile.employeePersonalData.gender")}:
                 </h6>
-                <p>ذكر</p>
+                <p>{user?.birthdate}</p>
               </div>
             </div>
             <div className="col-12 col-md-6 col-xxl-4  p-2">
@@ -89,7 +91,7 @@ const EmployeePersonalData = () => {
                   )}
                   :
                 </h6>
-                <p>السعوديه</p>
+                <p>{user?.nationality?.title}</p>
               </div>
             </div>
             <div className="col-12 col-md-6 col-xxl-4  p-2">
@@ -100,7 +102,7 @@ const EmployeePersonalData = () => {
                   )}
                   :
                 </h6>
-                <p>السعوديه</p>
+                <p> {user?.country_id?.title}</p>
               </div>
             </div>
             <div className="col-12 col-md-6 col-xxl-4  p-2">
@@ -108,10 +110,10 @@ const EmployeePersonalData = () => {
                 <h6>
                   {t("dashboard.employeeProfile.employeePersonalData.city")}:
                 </h6>
-                <p>الرياض</p>
+                <p>{user?.city_id?.title}</p>
               </div>
             </div>
-            <div className="col-12 col-md-6 col-xxl-4  p-2">
+            {/* <div className="col-12 col-md-6 col-xxl-4  p-2">
               <div className="employee__data--item">
                 <h6>
                   {t("dashboard.employeeProfile.employeePersonalData.idNumber")}
@@ -119,7 +121,7 @@ const EmployeePersonalData = () => {
                 </h6>
                 <p>12345678</p>
               </div>
-            </div>
+            </div> */}
             <div className="col-12 col-md-6 col-xxl-4  p-2">
               <div className="employee__data--item">
                 <h6>
@@ -128,10 +130,10 @@ const EmployeePersonalData = () => {
                   )}
                   :
                 </h6>
-                <p>mohamed.radwan@tasami.com</p>
+                <p>{user?.email}</p>
               </div>
             </div>
-            <div className="col-12 col-md-6 col-xxl-4 p-2 ">
+            {/* <div className="col-12 col-md-6 col-xxl-4 p-2 ">
               <div className="employee__data--item">
                 <h6>
                   {t("dashboard.employeeProfile.employeePersonalData.address")}:
@@ -149,52 +151,53 @@ const EmployeePersonalData = () => {
                 </h6>
                 <p>السعوديه</p>
               </div>
-            </div>
+            </div> */}
 
             {/* Attachments Table */}
-            <div className="col-12 p-2">
-              <div className="employee__data--item w-full">
-                <h4 className="attachments-title fs-6 mb-1">
-                  {t(
-                    "dashboard.employeeProfile.employeePersonalData.attachments"
-                  )}
-                  :
-                </h4>
-                <div className="table-container table-responsive border">
-                  <table className="custom-table table table-bordered text-center align-middle mb-0 attachments-table">
-                    <thead className="table-light">
-                      <tr>
-                        <th>
-                          {t(
-                            "dashboard.employeeProfile.employeePersonalData.attachmentDate"
-                          )}
-                        </th>
-                        <th>
-                          {t(
-                            "dashboard.employeeProfile.employeePersonalData.attachmentTime"
-                          )}
-                        </th>
-                        <th>
-                          {t(
-                            "dashboard.employeeProfile.employeePersonalData.attachmentFile"
-                          )}
-                        </th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {attachments.map((item) => (
-                        <tr key={item.id}>
-                          <td>{item.date}</td>
-                          <td>{item.time}</td>
-                          <td>{item.filename}</td>
+            {user?.files.length > 0 && (
+              <div className="col-12 p-2">
+                <div className="employee__data--item w-full">
+                  <h4 className="attachments-title fs-6 mb-1">
+                    {t(
+                      "dashboard.employeeProfile.employeePersonalData.attachments"
+                    )}
+                    :
+                  </h4>
+                  <div className="table-container table-responsive border">
+                    <table className="custom-table table table-bordered text-center align-middle mb-0 attachments-table">
+                      <thead className="table-light">
+                        <tr>
+                          <th>
+                            {t(
+                              "dashboard.employeeProfile.employeePersonalData.attachmentDate"
+                            )}
+                          </th>
+                          <th>
+                            {t(
+                              "dashboard.employeeProfile.employeePersonalData.attachmentTime"
+                            )}
+                          </th>
+                          <th>
+                            {t(
+                              "dashboard.employeeProfile.employeePersonalData.attachmentFile"
+                            )}
+                          </th>
                         </tr>
-                      ))}
-                    </tbody>
-                  </table>
+                      </thead>
+                      <tbody>
+                        {attachments.map((item) => (
+                          <tr key={item.id}>
+                            <td>{item.date}</td>
+                            <td>{item.time}</td>
+                            <td>{item.filename}</td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
                 </div>
               </div>
-            </div>
-
+            )}
             {/* Update Data Button */}
             <div className="col-12 p-2">
               <CustomButton

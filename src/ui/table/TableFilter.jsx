@@ -1,10 +1,7 @@
 import { useEffect, useRef } from "react";
-import { Dropdown, OverlayTrigger, Popover } from "react-bootstrap";
+import { OverlayTrigger, Popover } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import InputField from "../forms/InputField";
-// import Select from "react-select";
-// import SelectField from "../forms/SelectField";
-// import { Form } from "react-router";
 import TableColumnVisibility from "./TableColumnVisibility";
 const TableFilter = ({
   filter = true,
@@ -15,7 +12,6 @@ const TableFilter = ({
   setColumnFilters,
   filterOptions = {},
   activeFilters = [],
-  filterButtonText,
   searchPlaceholder,
   table,
 }) => {
@@ -24,13 +20,9 @@ const TableFilter = ({
 
   const popoverRefs = useRef({});
 
-  const defaultFilterText = isRTL ? "فرز" : "Filter";
   const defaultSearchPlaceholder = isRTL ? "بحث" : "Search";
 
-  const buttonText = filterButtonText || defaultFilterText;
   const searchText = searchPlaceholder || defaultSearchPlaceholder;
-
-  // console.log("Current column filters:", columnFilters);
 
   useEffect(() => {
     function handleClickOutside(event) {

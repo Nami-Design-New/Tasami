@@ -2,7 +2,7 @@ import { ProgressBar } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
 import ChartCard from "../cards/ChartCard";
 
-const TaskStatus = () => {
+const TaskStatus = ({ tasksData }) => {
   const { t } = useTranslation();
 
   const data = {
@@ -18,25 +18,27 @@ const TaskStatus = () => {
     <ChartCard title={t("dashboard.task_status")}>
       <div className="task-card d-block">
         <div className="total">
-          <h4 className="number">4,289</h4>
-          <span className="change positive">1.02 ▲</span>
+          <h4 className="number">{tasksData?.total_tasks}</h4>
+          <span className="change positive">
+            {tasksData?.growth_percentage} ▲
+          </span>
           <span className="note">{t("dashboard.compared_last_week")}</span>
         </div>
 
         <ProgressBar className="rounded-bar mb-3">
           <ProgressBar
             className="complete"
-            now={percentage(data.successful)}
+            now={percentage(tasksData?.completed_tasks)}
             key={1}
           />
           <ProgressBar
             className="pending"
-            now={percentage(data.pending)}
+            now={percentage(tasksData?.progress_tasks)}
             key={2}
           />
           <ProgressBar
             className="unassigned"
-            now={percentage(data.rejected)}
+            now={percentage(tasksData?.not_assigned_tasks)}
             key={3}
           />
         </ProgressBar>
@@ -46,7 +48,8 @@ const TaskStatus = () => {
             <div className="legend--content">
               <span>{t("dashboard.completed_tasks")}</span>
               <span className="count">
-                {data.successful.toLocaleString()} {t("dashboard.task_label")}
+                {tasksData?.completed_tasks.toLocaleString()}{" "}
+                {t("dashboard.task_label")}
               </span>
             </div>
           </li>
@@ -54,7 +57,8 @@ const TaskStatus = () => {
             <div className="legend--content">
               <span>{t("dashboard.in_progress_tasks")}</span>
               <span className="count">
-                {data.pending.toLocaleString()} {t("dashboard.task_label")}
+                {tasksData?.progress_tasks.toLocaleString()}{" "}
+                {t("dashboard.task_label")}
               </span>
             </div>
           </li>
@@ -62,7 +66,8 @@ const TaskStatus = () => {
             <div className="legend--content">
               <span>{t("dashboard.unassigned_tasks")}</span>
               <span className="count">
-                {data.rejected.toLocaleString()} {t("dashboard.task_label")}
+                {tasksData?.not_assigned_tasks.toLocaleString()}{" "}
+                {t("dashboard.task_label")}
               </span>
             </div>
           </li>

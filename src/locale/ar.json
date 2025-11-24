@@ -254,34 +254,28 @@
     "benefit": "الفائدة",
     "guidance": "الإرشاد",
     "verification": "التحقق",
-
     "difficulty": {
       "easy": "سهل",
       "medium": "متوسط",
       "hard": "صعب"
     },
-
     "benefitLevel": {
       "high": "عالية",
       "medium": "متوسطة",
       "low": "منخفضة"
     },
-
     "guidanceLevel": {
       "easy": "بسيط",
       "medium": "متوسط",
       "advanced": "متقدم"
     },
-
     "verificationStatus": {
       "full": "متميز",
       "partial": "جزئي",
       "retry": "مقبول"
     },
-
     "cancel": "إلغاء",
     "send": "إرسال",
-
     "validation": {
       "selectDifficulty": "الرجاء اختيار مستوى التنفيذ",
       "selectBenefit": "الرجاء اختيار مستوى الفائدة",
@@ -722,7 +716,6 @@
         "accept": "قبول",
         "reject": "استبعاد"
       },
-
       "doWithoutAssistant": "تنفيذ الهدف بدون مساعدة",
       "confirm": "تأكيد",
       "alertText": "سيتم استبعاد جميع العروض وإلغاء تعيين المساعدة لهذا الهدف!",
@@ -1068,24 +1061,20 @@
   "dashboard": {
     "welcome_back": "مرحبًا بك مرة أخرى،",
     "welcome_message": "قم بتتبع نشاط المبيعات لديك، والعملاء المحتملين والصفقات هنا.",
-
     "assistant_requests": "عدد طلبات المساعد",
     "help_offers": "عدد عروض المساعدة",
     "basic_accounts": "عدد الحسابات الاساسيه",
     "leader_accounts": "عدد حسابات القادة",
     "pioneer_accounts": "عدد حسابات الرواد",
     "this_month": "هذا الشهر",
-
     "urgent_actions": "اجراءات عاجله",
     "create_employee": "انشاء موظف",
     "create_group": "انشاء مجموعه",
     "suspend_employee": "ايقاف موظف",
     "add_field": "اضافه مجال جديد",
-
     "employees": "عدد الموظفين",
     "revenue_analytics": "تحليلات الإيرادات",
     "user_growth": "نمو المستخدمين",
-
     "executives": "التنفيذيين",
     "leaders": "القادة",
     "managers": "المدراء",
@@ -1094,7 +1083,6 @@
     "total": "الكلي",
     "revenue_6_months": "عائد باقة 6 أشهر",
     "revenue_12_months": "عائد باقة 12 شهر",
-
     "users": "المستخدمين",
     "task_status": "حاله المهام",
     "compared_last_week": "مقارنة بالاسبوع الماضي",
@@ -1104,14 +1092,12 @@
     "task_label": "مهمة",
     "subscribers_and_team": "المشتركون و فريق العمل",
     "subscribers": "المشتركون",
-    "team": "فريق العمل",
-
+    "myTeam": "فريق العمل",
     "list_management": "اداره القوائم",
     "operating_areas": "مناطق التشغيل",
     "working_groups": "مجموعات العمل",
     "fields_specializations": "المجالات والتخصصات",
     "admin_systems": "الانظمه الاداريه",
-
     "website_management": "اداره الموقع",
     "violations": "المخالفات",
     "social_links": "روابط وسائل التواصل",
@@ -1125,6 +1111,13 @@
     "employment_data": "البيانات الوظيفيه",
     "performance_reports": "تقارير الاداء",
     "brand": "تسامي",
+    "noPermissions": "لا توجد صلاحيات متاحة",
+    "noSharedGroups": "لا توجد مجموعات مشتركة",
+    "confirmModal": {
+      "message": "أنت على وشك الحذف. عند المتابعة، لن تتمكن من العودة. هل تريد تأكيد الحذف؟",
+      "cancel": "إلغاء",
+      "delete": "حذف"
+    },
     "notifications": {
       "title": "التنبيهات",
       "searchPlaceholder": "البحث في قائمة التنبيهات",
@@ -1140,7 +1133,8 @@
       "group": "المجموعة",
       "region": "الإقليم",
       "location": "القطاع",
-      "city": "المدينة"
+      "city": "المدينة",
+      "added": "مضافه"
     },
     "table": {
       "drag": "تحريك",
@@ -1194,6 +1188,48 @@
         "title": "اعادة تعيين مهمة",
         "employeeLabel": "اسم الموظف",
         "reassignButton": "اعادة تعيين"
+      },
+      "modelTask": {
+        "header": "نموذج",
+        "employeeData": {
+          "title": "معلومات مقدم الطلب ",
+          "accountNumber": "رقم الحساب",
+          "groupNumber": "رقم التعريف او مجموعه العمل",
+          "date": "التاريخ",
+          "time": "الوقت"
+        },
+        "modelInfo": {
+          "systemTitle": "النظام الاداري",
+          "subject": "الموضوع",
+          "returnNumber": "الرقم المرجعي"
+        },
+        "taskDetails": {
+          "requestSubject": "موضوع الطلب",
+          "subject": "الموضوع",
+          "description": "الوصف",
+          "attachment": "المرفقات",
+          "date": "التاريخ",
+          "time": "الوقت",
+          "name": "الاسم",
+          "accountNumber": "رقم الحساب",
+          "fileAttachment": "الملف المرفق",
+          "addAttachment": "اضافة مرفق"
+        },
+        "notes": {
+          "title": "سجل الافادات",
+          "addBenefit": "اضافة افاده",
+          "date": "التاريخ",
+          "time": "الوقت",
+          "accountNumber": "رقم الحساب",
+          "action": "الاجراء",
+          "benefitDetails": "تفاصيل الافاده",
+          "complete": "اكمال ",
+          "redirect": "توجيه",
+          "return": "ارجاع",
+          "chooseRequestEmployee": "اختر الموظف المراد توجيه الطلب له",
+          "chooseEmployee": "اختر الموظف",
+          "excute": "تنفيذ"
+        }
       },
       "searchPlaceholder": "بحث في المهام ..."
     },
@@ -1378,6 +1414,337 @@
       "region": "الشرق الأوسط",
       "location": "المملكة العربية السعودية",
       "city": "الرياض"
+    },
+    "profile": {
+      "hello": "اهلا",
+      "logout": "تسجيل الخروج",
+      "logoutSuccess": "تم تسجيل الخروج بنجاح",
+      "logoutError": "فشل تسجيل الخروج",
+      "groupNumber": "رقم المجموعة",
+      "avatarAlt": "الصورة الشخصية",
+      "editProfile": "تعديل الملف الشخصي",
+      "edit": "تعديل"
+    },
+    "listManagement": {
+      "newGroup": "مجموعة جديدة",
+      "newSector": "قطاع جديد",
+      "newField": "مجال جديد",
+      "newSubject": "موضوع جديد"
+    },
+    "workGroup": {
+      "addTitle": "مجموعه جديده",
+      "editTitle": "تعديل المجموعة",
+      "groupType": "تصنيف المجموعه",
+      "operational": "تشغيليه",
+      "managerial": "ادارية",
+      "region": "الإقليم",
+      "location": "القطاع",
+      "country": "الدولة",
+      "city": "المدينة",
+      "add": "إضافة",
+      "update": "تحديث",
+      "validation": {
+        "groupType": "تصنيف المجموعة مطلوب",
+        "region": "الإقليم مطلوب",
+        "location": "القطاع مطلوب",
+        "country": "الدولة مطلوبة",
+        "city": "المدينة مطلوبة"
+      },
+      "stats": {
+        "title": "احصائيات مجموعات العمل",
+        "groups": "المجموعات",
+        "executives": "التنفيذيون",
+        "leaders": "القاده",
+        "managers": "المدراء",
+        "supervisors": "المشرفين",
+        "employees": "الموظفين"
+      },
+      "table": {
+        "title": "مجموعات العمل",
+        "groupNumber": "رقم المجموعة",
+        "classification": "تصنيف المجموعة",
+        "region": "الإقليم",
+        "location": "القطاع",
+        "city": "المدينة",
+        "createDate": "تاريخ الإنشاء",
+        "executives": "عدد التنفيذيين",
+        "leaders": "عدد القادة",
+        "managers": "عدد المدراء",
+        "supervisors": "عدد المشرفين",
+        "employees": "عدد الموظفين",
+        "actions": "الإجراءات",
+        "searchPlaceholder": "البحث في مجموعات العمل ..."
+      },
+      "centralRegion": "المنطقة الوسطى",
+      "saudiArabia": "المملكة العربية السعودية"
+    },
+    "workGroupDetails": {
+      "title": "تفاصيل فريق العمل رقم {{name}}",
+      "tableTitle": "حسابات فريق العمل رقم {{name}}",
+      "searchPlaceholder": "بحث في المجموعة",
+      "columns": {
+        "firstName": "الاسم",
+        "familyName": "اسم العائلة",
+        "code": "رقم الحساب",
+        "jobTitle": "المستوى الوظيفي",
+        "nationality": "الجنسية",
+        "region": "الإقليم",
+        "country": "الدولة",
+        "city": "المدينة",
+        "status": "الحالة",
+        "statusDate": "تاريخ الحالة",
+        "statusTime": "وقت الحالة"
+      },
+      "charts": {
+        "executives": "التنفيذيين",
+        "leaders": "القادة",
+        "managers": "المدراء",
+        "supervisors": "المشرفين",
+        "customerService": "خدمة العملاء",
+        "total": "الإجمالي",
+        "active": "نشط",
+        "inactive": "غير نشط",
+        "stopped": "موقوف"
+      },
+      "status": {
+        "active": "نشط",
+        "inactive": "غير نشط",
+        "stopped": "موقوف",
+        "pending": "قيد الانتظار"
+      }
+    },
+    "sharedGroups": {
+      "title": "المجموعات المشتركة",
+      "searchPlaceholder": "البحث عن مجموعة ...",
+      "employeesCount": "عدد الموظفين",
+      "supervisorsCount": "عدد المشرفين",
+      "executivesCount": "عدد التنفيذيين",
+      "leadersCount": "عدد القادة",
+      "managersCount": "عدد المدراء",
+      "tasksProgress": "إنجاز المهام",
+      "creationDate": "تاريخ الإنشاء"
+    },
+    "availableGroups": {
+      "title": "المجموعات المتاحة للإضافة",
+      "searchPlaceholder": "البحث في مجموعات العمل ...",
+      "columns": {
+        "groupNumber": "رقم المجموعة",
+        "classification": "تصنيف المجموعة",
+        "region": "الإقليم",
+        "location": "القطاع",
+        "city": "المدينة",
+        "createDate": "تاريخ الإنشاء",
+        "executives": "عدد التنفيذيين",
+        "leaders": "عدد القادة",
+        "managers": "عدد المدراء",
+        "supervisors": "عدد المشرفين",
+        "employees": "عدد الموظفين",
+        "actions": "الإجراءات"
+      }
+    },
+    "createEmployee": {
+      "accountData": "بيانات الحساب",
+      "permissions": "الصلاحيات",
+      "performanceIndicators": "مؤشرات الأداء",
+      "employeeAccountDetails": "تفاصيل حساب الموظف",
+      "completionRateTitle": "نسبة إكمال بيانات حساب الموظف:",
+      "completionRateValue": "٥٥",
+      "requestSuspendAccount": "طلب إيقاف الحساب",
+      "suspendAccount": "إيقاف الحساب",
+      "activateAccount": "تنشيط الحساب",
+      "contentNotAvailable": "المحتوى غير متوفر لهذا التبويب",
+      "requestSuspendAccountModalTitle": "طلب إيقاف الحساب",
+      "drafted": "موظفين قيد الانشاء",
+      "form": {
+        "employmentData": "البيانات الوظيفية",
+        "jobLevel": "المستوى الوظيفي",
+        "selectJobLevel": "اختر المستوى الوظيفي",
+        "jobLevel_executive": "تنفيذي",
+        "jobLevel_leader": "قائد",
+        "jobLevel_manager": "مدير",
+        "jobLevel_supervisor": "مشرف",
+        "jobLevel_customerService": "موظف خدمة العملاء",
+        "jobTitle": "المسمى الوظيفي",
+        "jobTitle_placeholder": "مثال: أخصائي قانوني",
+        "accountNumber": "رقم الحساب",
+        "date": "التاريخ",
+        "group": "المجموعة",
+        "selectGroup": "اختر المجموعة",
+        "region": "الإقليم",
+        "region_middleEast": "الشرق الأوسط",
+        "region_europe": "أوروبا",
+        "region_northAmerica": "أمريكا الشمالية",
+        "country": "القطاع",
+        "country_sa": "السعودية",
+        "country_egypt": "مصر",
+        "country_morocco": "المغرب",
+        "city": "المدينة",
+        "city_jeddah": "جدة",
+        "city_riyadh": "الرياض",
+        "city_madina": "المدينة",
+        "personalData": "البيانات الشخصية",
+        "firstName": "الاسم الأول",
+        "firstName_placeholder": "مثال: محمود",
+        "fatherName": "اسم الأب",
+        "fatherName_placeholder": "مثال: عباس",
+        "familyName": "اسم العائلة",
+        "familyName_placeholder": "مثال: عباس",
+        "birthDate": "تاريخ الميلاد",
+        "email": "البريد الإلكتروني",
+        "email_placeholder": "مثال: mahmoud@gmail.com",
+        "gender": "الجنس",
+        "gender_male": "ذكر",
+        "gender_female": "أنثى",
+        "residentCountry": "بلد الإقامة",
+        "residentCity": "مدينة الإقامة",
+        "nationality": "الجنسية",
+        "attachFiles": "أضف المرفقات",
+        "cancel": "إلغاء",
+        "save": "حفظ",
+        "add": "إضافة",
+        "saveDraft": "حفظ كمسودة",
+        "edit": "تعديل",
+        "complete": "اكمال"
+      }
+    },
+    "team": {
+      "title": "حسابات فريق العمل",
+      "searchPlaceholder": "البحث في فريق العمل",
+      "columns": {
+        "first_name": "الاسم",
+        "last_name": "اسم العائلة",
+        "employee_code": "رقم الحساب",
+        "job_level": "المستوى الوظيفي",
+        "nationality": "الجنسية",
+        "region": "الإقليم",
+        "location": "القطاع",
+        "city": "المدينة",
+        "status": "الحالة",
+        "status_date": "تاريخ حالة الحساب",
+        "status_time": "وقت حالة الحساب"
+      },
+      "statuses": {
+        "active": "نشط",
+        "inactive": "غير نشط",
+        "stopped": "موقوف",
+        "unknown": "غير معروف"
+      },
+      "charts": {
+        "executives": "التنفيذيين",
+        "leaders": "القادة",
+        "managers": "المدراء",
+        "supervisors": "المشرفين",
+        "customer_service": "خدمة العملاء",
+        "categories": {
+          "total": "الإجمالي",
+          "active": "نشط",
+          "inactive": "غير نشط",
+          "stopped": "موقوف",
+          "canceled": "ملغي"
+        }
+      }
+    },
+    "permissions": {
+      "title": "الصلاحيات",
+      "searchPlaceholder": "البحث عن صلاحية أو مهمة...",
+      "cancel": "إلغاء",
+      "save": "حفظ",
+      "update": "تعديل",
+      "selectAll": "تحديد الكل"
+    },
+    "fieldsAndSpecialization": {
+      "modalTitle": "مجال جديد",
+      "newField": "مجال جديد",
+      "editModalTitle": "تعديل المجال",
+
+      "existingField": "مجال موجود",
+      "fieldLabel": "المجال",
+      "fieldPlaceholder": "مثال: تكنولوجيا المعلومات",
+      "existingFieldLabel": "اختر المجال",
+      "specializationLabel": "التخصص",
+      "specializationPlaceholder": "مثال: تحليل البيانات",
+      "addButton": "إضافة",
+      "editButton": "تعديل",
+
+      "errors": {
+        "actionRequired": "نوع الإجراء مطلوب",
+        "invalidValue": "قيمة غير صالحة",
+        "newFieldRequired": "اسم المجال الجديد مطلوب",
+        "newFieldShort": "اسم المجال قصير جدًا",
+        "existingFieldRequired": "اختيار المجال مطلوب",
+        "specializationRequired": "اسم التخصص مطلوب",
+        "specializationShort": "اسم التخصص قصير جدًا"
+      }
+    },
+    "fileUploader": {
+      "dragDrop": "اسحب وافلت الملف هنا "
+    },
+    "suspensionModal": {
+      "title": "ايقاف الحساب",
+      "fixedDuration": "مدة محددة",
+      "from": "من",
+      "to": "الي",
+      "notes": "ملاحظات",
+      "addFiles": "اضف المرفقات",
+      "cancel": "الغاء",
+      "confirm": "تأكيد",
+      "startRequired": "الرجاء تحديد تاريخ البدء",
+      "endRequired": "الرجاء تحديد تاريخ الانتهاء",
+      "endTypeError": "الرجاء تحديد تاريخ صحيح",
+      "endAfterStart": "تاريخ الانتهاء يجب أن يكون بعد تاريخ البدء",
+      "filesMin": "يرجى إرفاق ملف واحد على الأقل",
+      "filesMax": "يمكنك تحميل حتى 5 ملفات فقط",
+      "notesMax": "يجب ألا تتجاوز الملاحظات 500 حرف"
+    },
+    "administrativeSystems": {
+      "title": "الأنظمة الإدارية",
+      "search": "بحث ...",
+
+      "tableHeaders": {
+        "system": "النظام الإداري",
+        "subject": "المواضيع",
+        "actions": "الإجراءات"
+      },
+
+      "internal": "داخلي",
+      "external": "خارجي",
+      "createAccount": "إنشاء حساب",
+      "inquiry": "استفسار",
+      "violationReport": "إبلاغ عن مخالفة"
+    },
+    "subjectModal": {
+      "newTitle": "موضوع جديد",
+      "editTitle": "تعديل الموضوع",
+
+      "system": "النظام الإداري",
+      "internal": "داخلي",
+      "external": "خارجي",
+      "code": "رقم الموضوع",
+      "subject": "الموضوع",
+      "add": "إضافة",
+      "edit": "تعديل",
+
+      "errors": {
+        "systemRequired": "يجب اختيار النظام الإداري",
+        "codeRequired": "يرجى إدخال الكود",
+        "subjectRequired": "يرجى إدخال الموضوع للغة: {{lang}}"
+      }
+    },
+    "fields": {
+      "mainTitle": "احصائيات المجالات والتخصصات",
+      "tableTitle": "المجالات والتخصصات",
+      "search": "بحث ...",
+
+      "stats": {
+        "fields": "المجالات",
+        "specializations": "التخصصات"
+      },
+
+      "table": {
+        "fields": "المجالات",
+        "specializations": "التخصصات",
+        "actions": "الإجراءات"
+      }
     }
   }
 }

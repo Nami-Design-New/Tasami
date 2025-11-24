@@ -6,18 +6,30 @@ import CustomButton from "../CustomButton";
 import SelectField from "../forms/SelectField";
 import TextField from "../forms/TextField";
 import TabRadioGroup from "../TabRadioGroup";
+import usePostAddAction from "../../hooks/dashboard/tasks/usePostAddAction";
+import useGetSharedEmployees from "../../hooks/dashboard/tasks/useGetSharedEmployees";
+import { toast } from "sonner";
+import { useQueryClient } from "@tanstack/react-query";
+import { useSelector } from "react-redux";
+import { useTranslation } from "react-i18next";
 
 const schema = yup.object().shape({
   actionType: yup.string().required("نوع الاجراء مطلوب"),
   description: yup.string().required("الوصف مطلوب"),
   employee: yup.string().when("actionType", {
-    is: "redirect",
+    is: "send",
     then: yup.string().required("اختر الموظف للتوجيه"),
   }),
   sendNotification: yup.boolean(),
 });
 
-const AddActionModal = ({ showModal, setShowModal }) => {
+const AddActionModal = ({ showModal, setShowModal, taskData }) => {
+  const { t } = useTranslation();
+  const { addAction } = usePostAddAction();
+  const { employees } = useGetSharedEmployees();
+  const queryClient = useQueryClient();
+  const { user } = useSelector((state) => state.adminAuth);
+
   const {
     register,
     handleSubmit,
@@ -34,11 +46,38 @@ const AddActionModal = ({ showModal, setShowModal }) => {
       sendNotification: false,
     },
   });
+  // console.log("employee", taskData?.task?.owner_id, user.id);
+
   const actionType = watch("actionType");
 
   const onSubmit = (data) => {
-    setShowModal(false);
-    reset();
+    const payload = {
+      task_id: taskData?.task?.id,
+      type:
+        data.actionType === "complete"
+          ? "finish"
+          : data.actionType === "redirect"
+          ? "send"
+          : "return",
+      // employee_id:
+      //   data.actionType === "redirect" ? Number(data.employee) : null,
+      ...(data.actionType === "redirect" && {
+        employee_id: Number(data.employee),
+      }),
+      note: data.description,
+    };
+
+    addAction(payload, {
+      onSuccess: () => {
+        setShowModal(false);
+        reset();
+        toast.success("تم تنفيذ الإجراء بنجاح");
+        queryClient.invalidateQueries({ queryKey: ["show-task"] });
+      },
+      onError: (error) => {
+        toast.error(error.message);
+      },
+    });
   };
 
   const handleCLose = () => {
@@ -47,7 +86,7 @@ const AddActionModal = ({ showModal, setShowModal }) => {
   };
   return (
     <Modal centered size="lg" show={showModal} onHide={handleCLose}>
-      <Modal.Header closeButton>اضف افادتك</Modal.Header>
+      <Modal.Header closeButton>{t("dashboard.tasks.modelTask.notes.addBenefit")} </Modal.Header>
       <Modal.Body>
         <form className="form_ui" onSubmit={handleSubmit(onSubmit)}>
           <div className="row">
@@ -56,9 +95,12 @@ const AddActionModal = ({ showModal, setShowModal }) => {
                 name="actionType"
                 register={register}
                 options={[
-                  { label: "اكمال", value: "complete" },
-                  { label: "توجيه", value: "redirect" },
-                  { label: "ارجاع", value: "return" },
+                  ...(taskData?.task?.owner_id !== user?.id
+                    ? [{ label: t('dashboard.tasks.modelTask.notes.addBenefit'), value: "complete" }]
+                    : []),
+
+                  { label: t('dashboard.tasks.modelTask.notes.addBenefit'), value: "redirect" },
+                  { label: t('dashboard.tasks.modelTask.notes.addBenefit'), value: "return" },
                 ]}
               />
 
@@ -74,12 +116,12 @@ const AddActionModal = ({ showModal, setShowModal }) => {
                   render={({ field }) => (
                     <SelectField
                       {...field}
-                      label="اختر الموظف المراد توجيه الطلب له"
-                      disableFiledValue="اختر الموظف"
-                      options={[
-                        { value: "1", name: "موظف 1" },
-                        { value: "2", name: "موظف 2" },
-                      ]}
+                      label={t('dashboard.tasks.modelTask.notes.chooseRequestEmployee')}
+                      disableFiledValue={t('dashboard.tasks.modelTask.notes.chooseEmployee')}
+                      options={employees.map((emp) => ({
+                        value: emp.id,
+                        name: `${emp.first_name} ${emp.family_name}`,
+                      }))}
                       error={errors.employee?.message}
                     />
                   )}
@@ -89,7 +131,7 @@ const AddActionModal = ({ showModal, setShowModal }) => {
 
             <div className="col-12 py-2">
               <TextField
-                label="تفاصيل الافاده"
+                label={t('dashboard.tasks.modelTask.notes.benefitDetails')}
                 {...register("description")}
                 error={errors.description?.message}
               />
@@ -97,16 +139,16 @@ const AddActionModal = ({ showModal, setShowModal }) => {
 
             <div className="col-12 py-2 ">
               <div className="d-flex align-items-center justify-content-end gap-2">
-                <CustomButton
+                {/* <CustomButton
                   onClick={handleCLose}
                   type="button"
                   color="secondary"
                   size="large"
                 >
                   حفظ و اغلاق
-                </CustomButton>
+                </CustomButton> */}
                 <CustomButton type="submit" color="primary" size="large">
-                  تنفيذ
+                 {t('dashboard.tasks.modelTask.notes.excute')}
                 </CustomButton>
               </div>
             </div>

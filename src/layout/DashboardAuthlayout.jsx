@@ -1,6 +1,13 @@
 import { useTranslation } from "react-i18next";
-import { Link, Outlet, useLocation, useSearchParams } from "react-router";
 import LangDropdown from "../ui/website/LangDropdown";
+import {
+  Link,
+  Navigate,
+  Outlet,
+  useLocation,
+  useSearchParams,
+} from "react-router";
+import useAdminAuth from "../hooks/auth/dashboard/useAdminAuth";
 
 const getHeadingText = (route, step, t) => {
   if (route === "/login") {
@@ -13,9 +20,14 @@ const DashboardAuthlayout = () => {
   const { t } = useTranslation();
   const location = useLocation();
   const route = location.pathname;
-  const [searchParmas, setSearchParams] = useSearchParams();
+  const [searchParmas] = useSearchParams();
   const step = searchParmas.get("step");
 
+  const { isAuthed } = useAdminAuth();
+
+  if (isAuthed) {
+    return <Navigate to="/dashboard" replace />;
+  }
   return (
     <section className="auth_section">
       <div className="form_container">

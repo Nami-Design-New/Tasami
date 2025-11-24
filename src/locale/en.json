@@ -247,34 +247,28 @@
     "benefit": "Benefit",
     "guidance": "Guidance",
     "verification": "Verification",
-
     "difficulty": {
       "easy": "Easy",
       "medium": "Medium",
       "hard": "Hard"
     },
-
     "benefitLevel": {
       "high": "High",
       "medium": "Medium",
       "low": "Low"
     },
-
     "guidanceLevel": {
       "easy": "Basic",
       "medium": "Intermediate",
       "advanced": "Advanced"
     },
-
     "verificationStatus": {
       "full": "Excellent",
       "partial": "Partial",
       "retry": "Accepted"
     },
-
     "cancel": "Cancel",
     "send": "Send",
-
     "validation": {
       "selectDifficulty": "Please select execution level",
       "selectBenefit": "Please select benefit level",
@@ -556,7 +550,6 @@
     "atLeastOne": "At least one of the fields (month or day) must be filled",
     "firstNameMin": "First name must be at least {{min}} characters",
     "middleNameMin": "Middle name must be at least {{min}} character",
-
     "maxTotal": "The total number of days must not exceed {{max}}",
     "titleRequired": "Title is required",
     "titleMin": "Title must be at least 5 characters",
@@ -668,7 +661,6 @@
     "errorOccurred": "An error occurred during the operation",
     "withdrawWarning": "This action will permanently delete the offer details and you will not be able to recover them later.",
     "completePayment": "Complete Payment",
-
     "myTasks": {
       "title": "Execution Tasks",
       "dragInstruction": "You can drag and drop to reorder tasks",
@@ -693,7 +685,6 @@
       "status": "Task Status",
       "pausedHint": "(Execution must be started to change the status)",
       "error": "An error occurred while updating the task",
-
       "statuses": {
         "pending": "Pending",
         "progress": "In Progress",
@@ -713,7 +704,6 @@
         "accept": "Accept",
         "reject": "Reject"
       },
-
       "doWithoutAssistant": "Complete the goal without assistance",
       "confirm": "Confirm",
       "alertText": "All offers will be dismissed, and the assistant will be removed from this goal!",
@@ -737,7 +727,6 @@
       "endContract": "End Contract",
       "renewContract": "Renew COntract",
       "withDrawContract": "withDraw Contract",
-
       "cv": "Resume",
       "payments": "Payments",
       "contractValue": "Contract Value",
@@ -1098,42 +1087,34 @@
       "RegistrationDate": "Registration Date",
       "contractCompletionRate": "Contract Completion Rate"
     },
-
     "payment": "Payment"
   },
-
   "dashboard": {
     "welcome_back": "Welcome back,",
     "welcome_message": "Track your sales activity, leads, and deals here.",
-
     "assistant_requests": "Assistant Requests",
     "help_offers": "Help Offers",
     "basic_accounts": "Basic Accounts",
     "leader_accounts": "Leader Accounts",
     "pioneer_accounts": "Pioneer Accounts",
     "this_month": "This Month",
-
     "urgent_actions": "Urgent Actions",
     "create_employee": "Create Employee",
     "create_group": "Create Group",
     "suspend_employee": "Suspend Employee",
     "add_field": "Add New Field",
-
     "employees": "Number of Employees",
     "revenue_analytics": "Revenue Analytics",
     "user_growth": "User Growth",
-
     "executives": "Executives",
     "leaders": "Leaders",
     "managers": "Managers",
     "supervisors": "Supervisors",
     "workers": "Employees",
     "total": "Total",
-
     "users": "Users",
     "revenue_6_months": "6-Month Package Revenue",
     "revenue_12_months": "12-Month Package Revenue",
-
     "task_status": "Task Status",
     "compared_last_week": "Compared to last week",
     "completed_tasks": "Completed Tasks",
@@ -1142,14 +1123,12 @@
     "task_label": "Task",
     "subscribers_and_team": "Subscribers & Team",
     "subscribers": "Subscribers",
-    "team": "Team",
-
+    "myTeam": "Team",
     "list_management": "List Management",
     "operating_areas": "Operating Areas",
     "working_groups": "Working Groups",
     "fields_specializations": "Fields & Specializations",
     "admin_systems": "Administrative Systems",
-
     "website_management": "Website Management",
     "violations": "Violations",
     "social_links": "Social Media Links",
@@ -1163,6 +1142,13 @@
     "employment_data": "Employment Data",
     "performance_reports": "Performance Reports",
     "brand": "Tasami",
+    "noPermissions": "No permissions available",
+    "noSharedGroups": "No shared groups available",
+    "confirmModal": {
+      "message": "You are about to delete this item. Once you continue, you will not be able to undo this action. Do you want to confirm the deletion?",
+      "cancel": "Cancel",
+      "delete": "Delete"
+    },
     "notifications": {
       "title": "Notifications",
       "searchPlaceholder": "Search notifications list",
@@ -1178,7 +1164,8 @@
       "group": "Group",
       "region": "Region",
       "location": "Sector",
-      "city": "City"
+      "city": "City",
+      "added": "Added"
     },
     "table": {
       "drag": "Drag",
@@ -1233,6 +1220,48 @@
         "title": "Reassign Task",
         "employeeLabel": "Employee Name",
         "reassignButton": "Reassign"
+      },
+      "modelTask": {
+        "header": "Model",
+        "employeeData": {
+          "title": "Applicant Information",
+          "accountNumber": "Account Number",
+          "groupNumber": "ID Number or Work Group",
+          "date": "Date",
+          "time": "Time"
+        },
+        "modelInfo": {
+          "systemTitle": "Administrative System",
+          "subject": "Subject",
+          "returnNumber": "Reference Number"
+        },
+        "taskDetails": {
+          "requestSubject": "Request Subject",
+          "subject": "Subject",
+          "description": "Description",
+          "attachment": "Attachments",
+          "date": "Date",
+          "time": "Time",
+          "name": "Name",
+          "accountNumber": "Account Number",
+          "fileAttachment": "Attached File",
+          "addAttachment": "Add Attachment"
+        },
+        "notes": {
+          "title": "Benefits Log",
+          "addBenefit": "Add Benefit",
+          "date": "Date",
+          "time": "Time",
+          "accountNumber": "Account Number",
+          "action": "Action",
+          "benefitDetails": "Benefit Details",
+          "complete": "Complete",
+          "redirect": "Redirect",
+          "return": "Return",
+          "chooseRequestEmployee": "Select the employee to redirect the request to",
+          "chooseEmployee": "Select Employee",
+          "excute": "Execute"
+        }
       },
       "searchPlaceholder": "Search tasks..."
     },
@@ -1405,6 +1434,337 @@
       "region": "Middle East",
       "location": "Kingdom of Saudi Arabia",
       "city": "Riyadh"
+    },
+    "profile": {
+      "hello": "Hello",
+      "logout": "Logout",
+      "logoutSuccess": "Logged out successfully",
+      "logoutError": "Failed to log out",
+      "groupNumber": "Group Number",
+      "avatarAlt": "Profile avatar",
+      "editProfile": "Edit profile",
+      "edit": "Edit"
+    },
+    "listManagement": {
+      "newGroup": "New Group",
+      "newSector": "New Sector",
+      "newField": "New Field",
+      "newSubject": "New Subject"
+    },
+    "workGroup": {
+      "addTitle": "New Work Group",
+      "editTitle": "Edit Work Group",
+      "groupType": "Group Classification",
+      "operational": "Operational",
+      "managerial": "Managerial",
+      "region": "Region",
+      "location": "Sector",
+      "country": "Country",
+      "city": "City",
+      "add": "Add",
+      "update": "Update",
+      "validation": {
+        "groupType": "Group type is required",
+        "region": "Region is required",
+        "location": "Sector is required",
+        "country": "Country is required",
+        "city": "City is required"
+      },
+      "stats": {
+        "title": "Work Groups Statistics",
+        "groups": "Groups",
+        "executives": "Executives",
+        "leaders": "Leaders",
+        "managers": "Managers",
+        "supervisors": "Supervisors",
+        "employees": "Employees"
+      },
+      "table": {
+        "title": "Work Groups",
+        "groupNumber": "Group Number",
+        "classification": "Classification",
+        "region": "Region",
+        "location": "Sector",
+        "city": "City",
+        "createDate": "Creation Date",
+        "executives": "Executives",
+        "leaders": "Leaders",
+        "managers": "Managers",
+        "supervisors": "Supervisors",
+        "employees": "Employees",
+        "actions": "Actions",
+        "searchPlaceholder": "Search work groups..."
+      },
+      "centralRegion": "Central Region",
+      "saudiArabia": "Saudi Arabia"
+    },
+    "workGroupDetails": {
+      "title": "Work Group Details No. {{name}}",
+      "tableTitle": "Work Group Accounts No. {{name}}",
+      "searchPlaceholder": "Search in group...",
+      "columns": {
+        "firstName": "First Name",
+        "familyName": "Family Name",
+        "code": "Account Number",
+        "jobTitle": "Job Title",
+        "nationality": "Nationality",
+        "region": "Region",
+        "country": "Country",
+        "city": "City",
+        "status": "Status",
+        "statusDate": "Status Date",
+        "statusTime": "Status Time"
+      },
+      "charts": {
+        "executives": "Executives",
+        "leaders": "Leaders",
+        "managers": "Managers",
+        "supervisors": "Supervisors",
+        "customerService": "Customer Service",
+        "total": "Total",
+        "active": "Active",
+        "inactive": "Inactive",
+        "stopped": "Suspended"
+      },
+      "status": {
+        "active": "Active",
+        "inactive": "Inactive",
+        "stopped": "Suspended",
+        "pending": "Pending"
+      }
+    },
+    "sharedGroups": {
+      "title": "Shared Groups",
+      "searchPlaceholder": "Search for a group...",
+      "employeesCount": "Employees",
+      "supervisorsCount": "Supervisors",
+      "executivesCount": "Executives",
+      "leadersCount": "Leaders",
+      "managersCount": "Managers",
+      "tasksProgress": "Task Progress",
+      "creationDate": "Creation Date"
+    },
+    "availableGroups": {
+      "title": "Available Groups for Addition",
+      "searchPlaceholder": "Search in working groups...",
+      "columns": {
+        "groupNumber": "Group Number",
+        "classification": "Classification",
+        "region": "Region",
+        "location": "Location",
+        "city": "City",
+        "createDate": "Creation Date",
+        "executives": "Executives",
+        "leaders": "Leaders",
+        "managers": "Managers",
+        "supervisors": "Supervisors",
+        "employees": "Employees",
+        "actions": "Actions"
+      }
+    },
+    "createEmployee": {
+      "accountData": "Account Data",
+      "permissions": "Permissions",
+      "performanceIndicators": "Performance Indicators",
+      "employeeAccountDetails": "Employee Account Details",
+      "completionRateTitle": "Employee Account Completion Rate:",
+      "completionRateValue": "55",
+      "requestSuspendAccount": "Request Account Suspension",
+      "suspendAccount": "Suspend Account",
+      "activateAccount": "Activate Account",
+      "contentNotAvailable": "Content is not available for this tab",
+      "requestSuspendAccountModalTitle": "Request Account Suspension",
+      "drafted": "Drafted Employees",
+      "form": {
+        "employmentData": "Employment Data",
+        "jobLevel": "Job Level",
+        "selectJobLevel": "Select Job Level",
+        "jobLevel_executive": "Executive",
+        "jobLevel_leader": "Leader",
+        "jobLevel_manager": "Manager",
+        "jobLevel_supervisor": "Supervisor",
+        "jobLevel_customerService": "Customer Service",
+        "jobTitle": "Job Title",
+        "jobTitle_placeholder": "Example: Legal Specialist",
+        "accountNumber": "Account Number",
+        "date": "Date",
+        "group": "Group",
+        "selectGroup": "Select Group",
+        "region": "Region",
+        "region_middleEast": "Middle East",
+        "region_europe": "Europe",
+        "region_northAmerica": "North America",
+        "country": "Country",
+        "country_sa": "Saudi Arabia",
+        "country_egypt": "Egypt",
+        "country_morocco": "Morocco",
+        "city": "City",
+        "city_jeddah": "Jeddah",
+        "city_riyadh": "Riyadh",
+        "city_madina": "Al-Madinah",
+        "personalData": "Personal Information",
+        "firstName": "First Name",
+        "firstName_placeholder": "Example: Mahmoud",
+        "fatherName": "Father Name",
+        "fatherName_placeholder": "Example: Abbas",
+        "familyName": "Family Name",
+        "familyName_placeholder": "Example: Abbas",
+        "birthDate": "Birth Date",
+        "email": "Email",
+        "email_placeholder": "Example: mahmoud@gmail.com",
+        "gender": "Gender",
+        "gender_male": "Male",
+        "gender_female": "Female",
+        "residentCountry": "Country of Residence",
+        "residentCity": "City of Residence",
+        "nationality": "Nationality",
+        "attachFiles": "Add Attachments",
+        "cancel": "Cancel",
+        "save": "Save",
+        "edit": "Edit",
+        "add": "Add",
+        "saveDraft": "Save as Draft",
+        "complete": "Complete"
+      }
+    },
+    "team": {
+      "title": "Team Accounts",
+      "searchPlaceholder": "search in work team",
+      "columns": {
+        "first_name": "First Name",
+        "last_name": "Last Name",
+        "employee_code": "Account Number",
+        "job_level": "Job Level",
+        "nationality": "Nationality",
+        "region": "Region",
+        "location": "Location",
+        "city": "City",
+        "status": "Status",
+        "status_date": "Status Date",
+        "status_time": "Status Time"
+      },
+      "statuses": {
+        "active": "Active",
+        "inactive": "Inactive",
+        "stopped": "Stopped",
+        "unknown": "Unknown"
+      },
+      "charts": {
+        "executives": "Executives",
+        "leaders": "Leaders",
+        "managers": "Managers",
+        "supervisors": "Supervisors",
+        "customer_service": "Customer Service",
+        "categories": {
+          "total": "Total",
+          "active": "Active",
+          "inactive": "Inactive",
+          "stopped": "Stopped",
+          "canceled": "Canceled"
+        }
+      }
+    },
+    "permissions": {
+      "title": "Permissions",
+      "searchPlaceholder": "Search for a permission or task...",
+      "cancel": "Cancel",
+      "save": "Save",
+      "update": "Update",
+      "selectAll": "Select All"
+    },
+    "fieldsAndSpecialization": {
+      "modalTitle": "New Field",
+      "editModalTitle": "Edit Field",
+      "newField": "New Field",
+      "existingField": "Existing Field",
+      "fieldLabel": "Field",
+      "fieldPlaceholder": "Example: Information Technology",
+      "existingFieldLabel": "Select Field",
+      "specializationLabel": "Specialization",
+      "specializationPlaceholder": "Example: Data Analysis",
+      "addButton": "Add",
+      "editButton": "Update",
+      "errors": {
+        "actionRequired": "Action type is required",
+        "invalidValue": "Invalid value",
+        "newFieldRequired": "New field name is required",
+        "newFieldShort": "Field name is too short",
+        "existingFieldRequired": "Please select a field",
+        "specializationRequired": "Specialization is required",
+        "specializationShort": "Specialization name is too short"
+      }
+    },
+    "fileUploader": {
+      "dragDrop": "Drag & drop or click to upload"
+    },
+    "suspensionModal": {
+      "title": "Suspend Account",
+      "fixedDuration": "Fixed Duration",
+      "from": "From",
+      "to": "To",
+      "notes": "Notes",
+      "addFiles": "Add Attachments",
+      "cancel": "Cancel",
+      "confirm": "Confirm",
+
+      "startRequired": "Please select a start date",
+      "endRequired": "Please select an end date",
+      "endTypeError": "Please enter a valid date",
+      "endAfterStart": "End date must be after start date",
+
+      "filesMin": "Please attach at least one file",
+      "filesMax": "You can upload up to 5 files only",
+
+      "notesMax": "Notes must not exceed 500 characters"
+    },
+    "administrativeSystems": {
+      "title": "Administrative Systems",
+      "search": "Search...",
+
+      "tableHeaders": {
+        "system": "Administrative System",
+        "subject": "Subjects",
+        "actions": "Actions"
+      },
+
+      "internal": "Internal",
+      "external": "External",
+      "createAccount": "Create Account",
+      "inquiry": "Inquiry",
+      "violationReport": "Violation Report"
+    },
+    "subjectModal": {
+      "newTitle": "New Subject",
+      "editTitle": "Edit Subject",
+      "system": "Administrative System",
+      "internal": "Internal",
+      "external": "External",
+      "subject": "Subject",
+      "code": "Subject Code",
+      "add": "Add",
+      "edit": "Update",
+
+      "errors": {
+        "systemRequired": "Please select the administrative system",
+        "codeRequired": "Please enter a code",
+        "subjectRequired": "Please enter the subject for: {{lang}}"
+      }
+    },
+    "fields": {
+      "mainTitle": "Fields & Specializations Statistics",
+      "tableTitle": "Fields & Specializations",
+      "search": "Search...",
+
+      "stats": {
+        "fields": "Fields",
+        "specializations": "Specializations"
+      },
+
+      "table": {
+        "fields": "Fields",
+        "specializations": "Specializations",
+        "actions": "Actions"
+      }
     }
   }
 }

@@ -37,7 +37,6 @@ export default function NewPassword({ setResetPasswordStep }) {
   };
 
   const onSubmit = async (data) => {
-    console.log(data);
     navigate("/dashboard/login");
   };
   return (

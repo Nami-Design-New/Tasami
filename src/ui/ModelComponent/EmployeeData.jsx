@@ -1,17 +1,26 @@
+import { useTranslation } from "react-i18next";
 import FormWrapper from "../forms/FormWrapper";
 import DataItem from "./common/DataItem";
 
-const EmployeeData = () => (
-  <FormWrapper title="معلومات مقدم الطلب ">
-    <div className="model__employee-data">
-      <div className="list">
-        <DataItem label="رقم الحساب" value="U-120122-000001" />
-        <DataItem label="رقم التعريف او مجموعه العمل" value="01-014-005" />
-        <DataItem label="التاريخ" value="20-01-2024" />
-        <DataItem label="الوقت" value="08:55 AM" />
+const EmployeeData = ({ taskData }) => {
+  const { t } = useTranslation();
+  return (
+    <FormWrapper title={t("dashboard.tasks.modelTask.employeeData.title")}>
+      <div className="model__employee-data">
+        <div className="list">
+          <DataItem
+            label={t("dashboard.tasks.modelTask.employeeData.accountNumber")}
+            value={taskData?.task?.account}
+          />
+          <DataItem
+            label={t("dashboard.tasks.modelTask.employeeData.groupNumber")}
+            value={taskData?.task?.id_number}
+          />
+          <DataItem label={t("dashboard.tasks.modelTask.employeeData.date")} value={taskData?.task?.date} />
+          <DataItem label={t("dashboard.tasks.modelTask.employeeData.time")} value={taskData?.task?.time} />
+        </div>
       </div>
-    </div>
-  </FormWrapper>
-);
-
+    </FormWrapper>
+  );
+};
 export default EmployeeData;

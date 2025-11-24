@@ -236,13 +236,6 @@ export default function GroupChat() {
     }
   };
 
-  //   const stopRecording = () => {
-  //     const recorder = mediaRecorderRef.current;
-  //     if (recorder && recorder.state !== "inactive") {
-  //       recorder.stop(); // will trigger onstop()
-  //     }
-  //   };
-
   const cancelRecording = () => {
     const recorder = mediaRecorderRef.current;
 

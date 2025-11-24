@@ -2,6 +2,16 @@
 @use "./mixins" as *;
 @use "./variables" as *;
 
+::picker(select) {
+  appearance: base-select;
+  border: 1px solid $InputStroke;
+  border-radius: 4px;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
 .form_ui {
   width: 100%;
 
@@ -109,6 +119,16 @@
     select {
       color: $dark;
       cursor: pointer;
+      & &.form-select {
+        appearance: base-select !important;
+      }
+      &::picker-icon {
+        color: #999999;
+        transition: 0.4s rotate;
+      }
+      &:open::picker-icon {
+        rotate: 180deg;
+      }
       &.disable {
         pointer-events: none;
         background: $InputStroke;

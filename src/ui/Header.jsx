@@ -11,12 +11,13 @@ import useSettings from "../hooks/website/settings/useSettings";
 import CustomLink from "./CustomLink";
 export default function Header() {
   const { t } = useTranslation();
-  const { settings, isLoading } = useSettings();
+  const { settings } = useSettings();
   const navigate = useNavigate();
   const headerRef = useRef(null);
   const [openMenu, setOpenMenu] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const { isAuthed, user } = useSelector((state) => state.authRole);
+
   useEffect(() => {
     const handleOutsideClick = (e) => {
       const menu = document.querySelector(".nav-links");

@@ -1,5 +1,5 @@
-import { useSearchParams } from "react-router";
 import { useTranslation } from "react-i18next";
+import { useSearchParams } from "react-router";
 import QuickActionsCard from "../../ui/dash-board/cards/QuickActionsCard";
 import UserProfileCard from "../../ui/dash-board/cards/UserProfileCard";
 import EmployeeData from "../../ui/dash-board/EmploymentData/EmployeeData";

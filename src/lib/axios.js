@@ -1,6 +1,5 @@
 import axios from "axios";
-import { getToken, removeToken } from "../utils/token";
-import { toast } from "sonner";
+import { getToken } from "../utils/token";
 
 export const axiosInstance = axios.create({
   baseURL: import.meta.env.VITE_API_URL,

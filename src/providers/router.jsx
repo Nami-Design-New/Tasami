@@ -94,6 +94,10 @@ import DashBoardResetPassword from "../routes/dashboard-auth/DashBoardResetPassw
 
 /* ---------------- ERROR / EXTRA ---------------- */
 
+import DashboardContractDetails from "../routes/dash-board/ContractDetails";
+import DashboardConsultaions from "../routes/dash-board/DashboardConsultaions";
+import DashboardMeetings from "../routes/dash-board/DashboardMeetings";
+import DashboardPosts from "../routes/dash-board/DashboardPosts";
 import Forbidden from "../routes/Forbidden";
 import CustomizeServicesPage from "../routes/website-auth/CustomizeServicesPage";
 import CommunityChat from "../routes/website/CommunityChat";
@@ -131,12 +135,10 @@ import MyCommunities from "../routes/website/profile/MyCommunities";
 import Reels from "../routes/website/Reels";
 import UserContractChat from "../routes/website/userContractChat";
 import ErrorFallback from "../ui/ErrorFallback";
+import ProtectedAdminRoutes from "./ProtectedAdminRoutes";
 import ProtectedRoute from "./ProtectedRoute";
-import DashboardContractDetails from "../routes/dash-board/ContractDetails";
-import TeamsSection from "../routes/dash-board/teams/WorkGroups";
-import DashboardConsultaions from "../routes/dash-board/DashboardConsultaions";
-import DashboardMeetings from "../routes/dash-board/DashboardMeetings";
-import DashboardPosts from "../routes/dash-board/DashboardPosts";
+import SharedGroups from "../routes/dash-board/teams/SharedGroups";
+import CompleteDraftedUsers from "../routes/dash-board/list-management/CompleteDraftedUsers";
 
 export const router = createBrowserRouter([
   /* WEBSITE AUTH */
@@ -490,11 +492,12 @@ export const router = createBrowserRouter([
     path: "/dashboard",
     element: (
       <Suspense fallback={<Loading />}>
-        <DashboardLayout />
+        <ProtectedAdminRoutes>
+          <DashboardLayout />
+        </ProtectedAdminRoutes>
       </Suspense>
     ),
     errorElement: <ErrorFallback />,
-
     children: [
       {
         index: true,
@@ -595,8 +598,12 @@ export const router = createBrowserRouter([
         element: <CreateEmployee />,
       },
       {
-        path: "shared-groups",
-        element: <TeamsSection />,
+        path: "complete-employee-data/:id",
+        element: <CompleteDraftedUsers />,
+      },
+      {
+        path: "shared-groups/:id",
+        element: <SharedGroups />,
       },
       { path: "resuems/:id", element: <ResuemeDetails /> },
       {

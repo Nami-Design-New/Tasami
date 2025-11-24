@@ -48,8 +48,6 @@ export default function AccountInfoForm({ setFormType }) {
       onSuccess: (data) => {
         navigate("/areas-of-interest");
         setToken(data.data.token);
-        // dispatch(setUser(data.data));
-        // dispatch(setAuthed(true));
         toast.success(data.message);
         persistor.purge();
       },

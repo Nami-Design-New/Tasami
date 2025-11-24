@@ -1,10 +1,14 @@
 import { useState } from "react";
 import LanguageDropDown from "./LanguageDropDown";
 import ProfileMenu from "./ProfileMenu";
+import { useSelector } from "react-redux";
 
 export default function NavBar({ collapsed, setCollapsed }) {
   const [profileDropDown, setProfileDropDown] = useState(false);
   const [isLangOpen, setIsLangOpen] = useState(false);
+  const { lang } = useSelector((state) => state.language);
+  const { user } = useSelector((state) => state.adminAuth);
+
   const toggleSidebar = () => setCollapsed(!collapsed);
   return (
     <nav className="navbar">
@@ -32,12 +36,23 @@ export default function NavBar({ collapsed, setCollapsed }) {
               onClick={() => setProfileDropDown(!profileDropDown)}
             >
               <div className="avatar">
-                <img src={"/images/my-fav.svg"} alt="avatar" />
+                <img
+                  src={user?.image ? user?.image : "/images/my-fav.svg"}
+                  alt="avatar"
+                />
               </div>
               <div className="name">
-                <h6 className={profileDropDown ? "animate" : ""}>
-                  محمود عباس
-                  <i className="fa-regular fa-angle-left" />
+                <h6
+                  className={`${lang === "ar" ? "ar" : ""} ${
+                    profileDropDown ? "animate" : ""
+                  }`}
+                >
+                  {user?.first_name}
+                  {lang === "ar" ? (
+                    <i className="fa-regular fa-angle-left" />
+                  ) : (
+                    <i className="fa-regular fa-angle-right" />
+                  )}
                 </h6>
               </div>
             </div>
