@@ -7,7 +7,7 @@ import AssistantPresenter from "../../ui/dash-board/userprofile/AssistantPresent
 import Beneficiary from "../../ui/dash-board/userprofile/Beneficiary";
 import SuspensionModel from "../../ui/modals/SuspensionModel";
 import AddNewTask from "./tasks/AddNewTaskModal";
-import { useSearchParams } from "react-router";
+import { useParams, useSearchParams } from "react-router";
 const tabs = [
   {
     id: 1,
@@ -23,7 +23,9 @@ const UserProfile = () => {
   const [showTaskModal, setShowTaskModal] = useState(false);
   const [searchParams] = useSearchParams();
   const activeTab = searchParams.get("tab");
-
+  const { id } = useParams();
+  console.log("idddd" , id);
+  
   return (
     <div className="user-dashboard">
       <PageHeader removeLast={true} name={"بيانات المستخدم"} />
