@@ -85,7 +85,6 @@ const HelpModal = ({ showModal, setShowModal, goal }) => {
                   {...register("price")}
                   type="number"
                   label={t("website.offerDetails.offerValue")}
-                  placeholder="00"
                   id="personalHelpValue"
                   icon={"/icons/ryal.svg"}
                   error={errors?.price?.message}
