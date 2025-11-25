@@ -42,17 +42,15 @@ export default function ConsultaionDashDetails() {
         </div>
 
         <p className="decription">{consultaionDashDetails?.desc}</p>
+        {consultaionDashDetails.answer && (
+          <div className="answer-container">
+            <h2>{t("community.yourAnswer")}</h2>
 
-        <div className="answer-container">
-          <h2>
-            {t("community.yourAnswer")}
-            {/* t("community.assistantAnswer") */}
-          </h2>
+            <p>{consultaionDashDetails.answer}</p>
 
-          <p>{consultaionDashDetails.answer}</p>
-
-          {/* <ConsultionActions consultaionDashDetails={consultaionDashDetails} /> */}
-        </div>
+            {/* <ConsultionActions consultaionDashDetails={consultaionDashDetails} /> */}
+          </div>
+        )}
 
         <ConsultaionDashComments />
       </div>

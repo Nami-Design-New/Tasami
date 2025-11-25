@@ -55,10 +55,10 @@ export default function CommunitiesDetails() {
                 </div>
               </div>
               <div className="col-12 p-2">
-                <CommunityBio userCommunities={userCommunities} />
+                <CommunityBio userData={userCommunities?.Communitiy?.user} />
               </div>
               <div className="col-12 p-2">
-                <CommunityStats userCommunities={userCommunities} />
+                <CommunityStats community={userCommunities?.Communitiy} />
               </div>
               <div className="col-12 p-2">
                 <ReusableDataTable

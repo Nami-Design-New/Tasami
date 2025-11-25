@@ -3,7 +3,6 @@ import EncounterDetailsModal from "./EncounterDetailsModal";
 
 export default function MeetingCard({ item }) {
   const [showDetails, setShowDetails] = useState(false);
-console.log("item::::: meeting card ", item);
 
   return (
     <>

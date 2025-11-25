@@ -1,38 +1,44 @@
-import { useQuery } from "@tanstack/react-query";
+import { useInfiniteQuery } from "@tanstack/react-query";
+import { useParams } from "react-router";
 import { adminAxiosInstance } from "../../../lib/adminAxios";
+import { PAGE_SIZE } from "../../../utils/constants";
 
-export default function useGetCommunityMeetings(
-  page = 1,
-  pageSize = 10,
-  id
-) {
-  const { data, isLoading, isError, refetch } = useQuery({
-    queryKey: ["dh-community-meetings", id, page, pageSize],
-    queryFn: async () => {
-      const res = await adminAxiosInstance.get(`dh-community-meetings`, {
+export default function useGetCommunityMeetings() {
+  const { id } = useParams();
+  const {
+    data: communityMeetings,
+    isLoading: meetingsLoading,
+    error,
+    hasNextPage,
+    fetchNextPage,
+    isFetchingNextPage,
+  } = useInfiniteQuery({
+    queryKey: ["dh-community-meetings", id],
+    queryFn: async ({ pageParam = 1 }) => {
+      const res = await adminAxiosInstance.get("dh-community-meetings", {
         params: {
-          page,
-          limit_per_page: pageSize,
-          community_id: id
+          community_id: id,
+          page: pageParam,
+          limit_per_page: PAGE_SIZE,
         },
-      }
-      );
-
+      });
       if (res.data.code !== 200) {
-        throw new Error(res.data.message || "Error fetching users  meetings communities");
+        throw new Error("Failed to fetch meeting communities");
       }
-
       return res.data;
     },
-    keepPreviousData: true,
+    getNextPageParam: (lastPage) => {
+      return lastPage?.next_page_url
+        ? new URL(lastPage.next_page_url).searchParams.get("page")
+        : undefined;
+    },
   });
-
   return {
-    communityMeetings: data?.data || [],
-    currentPage: data?.current_page || 1,
-    lastPage: data?.last_page || 1,
-    isLoading,
-    isError,
-    refetch,
+    communityMeetings,
+    meetingsLoading,
+    error,
+    hasNextPage,
+    fetchNextPage,
+    isFetchingNextPage,
   };
 }

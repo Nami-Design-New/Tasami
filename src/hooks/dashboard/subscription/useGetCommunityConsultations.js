@@ -1,38 +1,44 @@
-import { useQuery } from "@tanstack/react-query";
+import { useInfiniteQuery } from "@tanstack/react-query";
+import { useParams } from "react-router";
 import { adminAxiosInstance } from "../../../lib/adminAxios";
+import { PAGE_SIZE } from "../../../utils/constants";
 
-export default function useGetCommunityConsultations(
-  page = 1,
-  pageSize = 10,
-  id
-) {
-  const { data, isLoading, isError, refetch } = useQuery({
-    queryKey: ["dh-community-consultations", id, page, pageSize],
-    queryFn: async () => {
-      const res = await adminAxiosInstance.get(`dh-community-consultations`, {
+export default function useGetCommunityConsultations() {
+  const { id } = useParams();
+  const {
+    data: communityConsultations,
+    isLoading: consultationsLoading,
+    error,
+    hasNextPage,
+    fetchNextPage,
+    isFetchingNextPage,
+  } = useInfiniteQuery({
+    queryKey: ["dh-community-consultations", id],
+    queryFn: async ({ pageParam = 1 }) => {
+      const res = await adminAxiosInstance.get("dh-community-consultations", {
         params: {
-          page,
-          limit_per_page: pageSize,
-          community_id: id
+          community_id: id,
+          page: pageParam,
+          limit_per_page: PAGE_SIZE,
         },
-      }
-      );
-
+      });
       if (res.data.code !== 200) {
-        throw new Error(res.data.message || "Error fetching users  consultations communities");
+        throw new Error("Failed to fetch consultations communities");
       }
-
       return res.data;
     },
-    keepPreviousData: true,
+    getNextPageParam: (lastPage) => {
+      return lastPage?.next_page_url
+        ? new URL(lastPage.next_page_url).searchParams.get("page")
+        : undefined;
+    },
   });
-
   return {
-    communityConsultations: data?.data || [],
-    currentPage: data?.current_page || 1,
-    lastPage: data?.last_page || 1,
-    isLoading,
-    isError,
-    refetch,
+    communityConsultations,
+    consultationsLoading,
+    error,
+    hasNextPage,
+    fetchNextPage,
+    isFetchingNextPage,
   };
 }

@@ -4,7 +4,7 @@ import { NavLink, useParams } from "react-router";
 export default function CommunityTabs() {
   const { t } = useTranslation();
   const { id } = useParams();
-  const basePath = `/dashboard/communities-details/${id}`;
+  const basePath = `/dashboard/communities-details/${id}`;  
 
   return (
     <div className="community-tabs" style={{ top: "16px" }}>

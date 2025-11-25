@@ -9,7 +9,7 @@ import useGetResume from "../../../hooks/dashboard/subscription/useGetResume";
 export default function ResuemeDetails() {
   const { id } = useParams();
   const { userResume, isLoading } = useGetResume(id);
-  // console.log("userResume", id, userResume);
+  console.log("userResume", id, userResume);
 
   return (
     <section className="resumes-details">
@@ -28,11 +28,27 @@ export default function ResuemeDetails() {
         </div>
         <div className="col-12 col-lg-9 p-2">
           <DescriptionSection title="عرف عن نفسك" text={userResume?.about} />
-          {isLoading ?( <p>Loading...</p> ) :(<>
-          {userResume?.user_experiences && 
-          <ExperienceList experiences={userResume?.user_experiences.map(exp=>exp.category_title)} />}
-          <DocumentList documents={userResume?.user_documents.map(doc=>doc.category_title)} />
-       </>   )}
+          {isLoading ? (
+            <p>Loading...</p>
+          ) : (
+            <>
+              {userResume?.user_experiences.length > 0 && (
+                <ExperienceList
+                  experiences={userResume?.user_experiences.map(
+                    (exp) => exp.category_title
+                  )}
+                />
+              )}
+
+              {userResume?.user_documents.length > 0 && (
+                <DocumentList
+                  documents={userResume?.user_documents?.map(
+                    (doc) => doc.category_title
+                  )}
+                />
+              )}
+            </>
+          )}
         </div>
       </div>
     </section>
