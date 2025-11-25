@@ -424,7 +424,6 @@ const OperatingSectors = () => {
 // --- Submit Handlers ---
 const onSubmitRegion = (data) => {
   console.log("Region Submitted:", data.region, data.regionNumber);
-  // TODO: call createRegion API
 };
 
 const onSubmitCountry = (data) => {
