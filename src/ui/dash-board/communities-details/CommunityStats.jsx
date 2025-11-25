@@ -2,7 +2,7 @@ import Currency from "../../Currency";
 import { CommunityStat } from "./CommunityStat";
 import { useTranslation } from "react-i18next";
 
-export default function CommunityStats({ community }) {
+export default function CommunityStats({community, userCommunities }) {
   const { t } = useTranslation();
 
   return (
@@ -10,13 +10,13 @@ export default function CommunityStats({ community }) {
       <CommunityStat
         title={t("members")}
         icon="/icons/group-second.svg"
-        value={community?.members_count}
+        value={0}
         label={t("member")}
       />
       <CommunityStat
         title={t("likes")}
         icon="/icons/heart-fill.svg"
-        value={community?.likes_count}
+        value={userCommunities?.Communitiy?.likes_count}
         label={t("like")}
       />
       <CommunityStat

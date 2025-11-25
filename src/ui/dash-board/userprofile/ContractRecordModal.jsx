@@ -1,52 +1,42 @@
 import { createColumnHelper } from "@tanstack/react-table";
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { Modal } from "react-bootstrap";
 import { Link } from "react-router";
 import ReusableDataTable from "../../table/ReusableDataTable";
 import CustomButton from "../../CustomButton";
+import useGetUserContract from "../../../hooks/dashboard/subscription/usePostUserContract";
+import { PAGE_SIZE } from "../../../utils/constants";
+import TablePagination from "../../table/TablePagentaion";
 
 const columnHelper = createColumnHelper();
 
-const ContractRecordModal = ({ showModal, setShowModal, title }) => {
+const ContractRecordModal = ({
+  showModal,
+  setShowModal,
+  title,
+  currentPage,
+  lastPage,
+  page,
+  setPage,
+  pageSize,
+  setPageSize,
+  isLoading,
+  data,
+}) => {
   // const [showDeleteModal, setShowDeleteModal] = useState(false);
-  const data = useMemo(
-    () => [
-      {
-        referenceNumber: "REF001",
-        creationDate: "2025-06-01",
-        actions: "",
-      },
-      {
-        referenceNumber: "REF002",
-        creationDate: "2025-06-05",
-        actions: "",
-      },
-      {
-        referenceNumber: "REF003",
-        creationDate: "2025-06-10",
-        actions: "",
-      },
-      {
-        referenceNumber: "REF004",
-        creationDate: "2025-06-15",
-        actions: "",
-      },
-    ],
-    []
-  );
 
   const columns = useMemo(
     () => [
-      columnHelper.accessor("referenceNumber", {
+      columnHelper.accessor("code", {
         header: " الرقم المرجعي  ",
         cell: (info) => (
-          <Link to={"/dashboard/contracts/REF004"} className="link-styles">
+          <Link to={`/dashboard/contracts/${info.getValue()}`} className="link-styles">
             {info.getValue()}
           </Link>
         ),
         enableSorting: false,
       }),
-      columnHelper.accessor("creationDate", {
+      columnHelper.accessor("created_at", {
         header: " تاريخ الانشاء ",
         cell: (info) => info.getValue(),
         enableSorting: false,
@@ -91,7 +81,21 @@ const ContractRecordModal = ({ showModal, setShowModal, title }) => {
             title={title}
             filter={false}
             searchPlaceholder=""
-          />
+            currentPage={currentPage}
+            lastPage={lastPage}
+            setPage={setPage}
+            pageSize={pageSize}
+            setPageSize={setPageSize}
+            lang="ar"
+            isLoading={isLoading}
+          >
+            <TablePagination
+              currentPage={page}
+              lastPage={lastPage}
+              onPageChange={setPage}
+              isLoading={isLoading}
+            />
+          </ReusableDataTable>
         </Modal.Body>
       </Modal>
       {/* <ConfirmDeleteModal
