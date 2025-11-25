@@ -167,6 +167,7 @@ const CreateEmployee = () => {
       <SuspensionModel
         showModal={openSuspensionModel}
         setShowModal={setOpenSuspensionModel}
+        id={id}
       />
     </section>
   );

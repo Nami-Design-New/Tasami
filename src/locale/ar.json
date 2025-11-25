@@ -1226,9 +1226,9 @@
           "complete": "اكمال ",
           "redirect": "توجيه",
           "return": "ارجاع",
-          "chooseRequestEmployee":"اختر الموظف المراد توجيه الطلب له",
-          "chooseEmployee":"اختر الموظف",
-          "excute":"تنفيذ"
+          "chooseRequestEmployee": "اختر الموظف المراد توجيه الطلب له",
+          "chooseEmployee": "اختر الموظف",
+          "excute": "تنفيذ"
         }
       },
       "searchPlaceholder": "بحث في المهام ..."
@@ -1655,6 +1655,8 @@
     "fieldsAndSpecialization": {
       "modalTitle": "مجال جديد",
       "newField": "مجال جديد",
+      "editModalTitle": "تعديل المجال",
+
       "existingField": "مجال موجود",
       "fieldLabel": "المجال",
       "fieldPlaceholder": "مثال: تكنولوجيا المعلومات",
@@ -1662,6 +1664,8 @@
       "specializationLabel": "التخصص",
       "specializationPlaceholder": "مثال: تحليل البيانات",
       "addButton": "إضافة",
+      "editButton": "تعديل",
+
       "errors": {
         "actionRequired": "نوع الإجراء مطلوب",
         "invalidValue": "قيمة غير صالحة",
@@ -1674,6 +1678,73 @@
     },
     "fileUploader": {
       "dragDrop": "اسحب وافلت الملف هنا "
+    },
+    "suspensionModal": {
+      "title": "ايقاف الحساب",
+      "fixedDuration": "مدة محددة",
+      "from": "من",
+      "to": "الي",
+      "notes": "ملاحظات",
+      "addFiles": "اضف المرفقات",
+      "cancel": "الغاء",
+      "confirm": "تأكيد",
+      "startRequired": "الرجاء تحديد تاريخ البدء",
+      "endRequired": "الرجاء تحديد تاريخ الانتهاء",
+      "endTypeError": "الرجاء تحديد تاريخ صحيح",
+      "endAfterStart": "تاريخ الانتهاء يجب أن يكون بعد تاريخ البدء",
+      "filesMin": "يرجى إرفاق ملف واحد على الأقل",
+      "filesMax": "يمكنك تحميل حتى 5 ملفات فقط",
+      "notesMax": "يجب ألا تتجاوز الملاحظات 500 حرف"
+    },
+    "administrativeSystems": {
+      "title": "الأنظمة الإدارية",
+      "search": "بحث ...",
+
+      "tableHeaders": {
+        "system": "النظام الإداري",
+        "subject": "المواضيع",
+        "actions": "الإجراءات"
+      },
+
+      "internal": "داخلي",
+      "external": "خارجي",
+      "createAccount": "إنشاء حساب",
+      "inquiry": "استفسار",
+      "violationReport": "إبلاغ عن مخالفة"
+    },
+    "subjectModal": {
+      "newTitle": "موضوع جديد",
+      "editTitle": "تعديل الموضوع",
+
+      "system": "النظام الإداري",
+      "internal": "داخلي",
+      "external": "خارجي",
+      "code": "رقم الموضوع",
+      "subject": "الموضوع",
+      "add": "إضافة",
+      "edit": "تعديل",
+
+      "errors": {
+        "systemRequired": "يجب اختيار النظام الإداري",
+        "codeRequired": "يرجى إدخال الكود",
+        "subjectRequired": "يرجى إدخال الموضوع للغة: {{lang}}"
+      }
+    },
+    "fields": {
+      "mainTitle": "احصائيات المجالات والتخصصات",
+      "tableTitle": "المجالات والتخصصات",
+      "search": "بحث ...",
+
+      "stats": {
+        "fields": "المجالات",
+        "specializations": "التخصصات"
+      },
+
+      "table": {
+        "fields": "المجالات",
+        "specializations": "التخصصات",
+        "actions": "الإجراءات"
+      }
     }
   }
 }

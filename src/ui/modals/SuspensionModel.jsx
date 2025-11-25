@@ -3,47 +3,54 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useEffect, useState } from "react";
 import { Form, Modal } from "react-bootstrap";
 import { Controller, useForm } from "react-hook-form";
-import { Link } from "react-router";
+import { useTranslation } from "react-i18next";
 import * as yup from "yup";
+
 import CustomButton from "../CustomButton";
 import FileUploader from "../forms/FileUPloader";
 import InputField from "../forms/InputField";
 import TextField from "../forms/TextField";
+import useSuspendEmployee from "../../hooks/dashboard/employee/useSuspendEmployee";
+import { toast } from "sonner";
+import { set } from "lodash";
 
-const schema = yup.object().shape({
-  duration: yup.boolean(),
-  startDate: yup.date().when("duration", {
-    is: true,
-    then: (schema) => schema.required("الرجاء تحديد تاريخ البدء"),
-    otherwise: (schema) => schema.notRequired(),
-  }),
-  endDate: yup.date().when("duration", {
-    is: true,
-    then: (schema) =>
-      schema
-        .required("الرجاء تحديد تاريخ الانتهاء")
-        .typeError("الرجاء تحديد تاريخ صحيح")
-        .test(
-          "is-after-start",
-          "تاريخ الانتهاء يجب أن يكون بعد تاريخ البدء",
-          function (value) {
-            const { startDate } = this.parent;
-            return (
-              !startDate || !value || new Date(value) > new Date(startDate)
-            );
-          }
-        ),
-    otherwise: (schema) => schema.notRequired(),
+const SuspensionModel = ({ showModal, setShowModal, id }) => {
+  const { t } = useTranslation();
+  const { suspendEmployee, isPending } = useSuspendEmployee();
+  const [files, setFiles] = useState([]);
+
+  const schema = yup.object().shape({
+    duration: yup.boolean(),
+    startDate: yup.date().when("duration", {
+      is: true,
+      then: (schema) =>
+        schema.required(t("dashboard.suspensionModal.startRequired")),
+      otherwise: (schema) => schema.notRequired(),
+    }),
+    endDate: yup.date().when("duration", {
+      is: true,
+      then: (schema) =>
+        schema
+          .required(t("dashboard.suspensionModal.endRequired"))
+          .typeError(t("dashboard.suspensionModal.endTypeError"))
+          .test(
+            "is-after-start",
+            t("dashboard.suspensionModal.endAfterStart"),
+            function (value) {
+              const { startDate } = this.parent;
+              return (
+                !startDate || !value || new Date(value) > new Date(startDate)
+              );
+            }
+          ),
+      otherwise: (schema) => schema.notRequired(),
+    }),
     files: yup
       .array()
-      .min(1, "يرجى إرفاق ملف واحد على الأقل")
-      .max(5, "يمكنك تحميل حتى 5 ملفات فقط"),
-    notes: yup.string().max(500, "يجب ألا تتجاوز الملاحظات 500 حرف"),
-  }),
-});
-
-const SuspensionModel = ({ showModal, setShowModal }) => {
-  const [files, setFiles] = useState([]);
+      .min(1, t("dashboard.suspensionModal.filesMin"))
+      .max(5, t("dashboard.suspensionModal.filesMax")),
+    notes: yup.string().max(500, t("dashboard.suspensionModal.notesMax")),
+  });
 
   const {
     register,
@@ -64,79 +71,65 @@ const SuspensionModel = ({ showModal, setShowModal }) => {
   });
 
   const duration = watch("duration");
+
   useEffect(() => {
-    if (duration === true) {
+    if (duration) {
       setValue("endDate", null);
       setValue("startDate", null);
     }
   }, [duration, setValue]);
-  const onSubmit = (data) => {};
+
+  const onSubmit = (data) => {
+    const payload = {
+      employee_id: id,
+      reason: data.notes,
+      from_date: data.startDate,
+      to_date: data.endDate,
+      files: data.files,
+    };
+
+    suspendEmployee(payload, {
+      onSuccess: (res) => {
+        toast.success(res?.message);
+        setShowModal(false);
+      },
+      onError: (error) => {
+        toast.error(error.message);
+      },
+    });
+  };
 
   return (
     <Modal
       show={showModal}
       size="lg"
       onHide={() => setShowModal(false)}
-      aria-labelledby="contained-modal-title-vcenter"
       centered
       className="suspend-modal"
     >
       <Modal.Header closeButton>
-        <h6> ايقاف الحساب </h6>
+        <h6>{t("dashboard.suspensionModal.title")}</h6>
       </Modal.Header>
+
       <Modal.Body>
-        <h2> معلومات منشىء الطلب </h2>
-        <div className="request__creator-info-list">
-          <div className="request__creator-info-item">
-            <h3> رقم حساب منشئ الطلب : </h3>
-            <p>
-              <Link
-                to={`/dashboard/employee-details/E-11111-22222`}
-                className="link-styles"
-              >
-                E-11111-22222
-              </Link>
-            </p>
-          </div>
-          <div className="request__creator-info-item">
-            <h3> رقم مجموعه الاعمال :</h3>
-            <p>
-              {" "}
-              <Link
-                to={`/dashboard/working-group/GIN-11111`}
-                className="link-styles"
-              >
-                GIN-11111{" "}
-              </Link>
-            </p>
-          </div>
-          <div className="request__creator-info-item">
-            <h3> الرقم المرجعي :</h3>
-            <p>
-              {" "}
-              <Link to={`/dashboard/model/EU-11111`} className="link-styles">
-                EU-11111
-              </Link>
-            </p>
-          </div>
-        </div>
         <form className="form_ui" onSubmit={handleSubmit(onSubmit)}>
           <div className="row g-2">
             <Form.Check
               type="switch"
-              label="مدة محددة"
+              label={t("dashboard.suspensionModal.fixedDuration")}
               size="lg"
               id="duration-check"
               style={{ direction: "rtl" }}
               reverse={true}
               {...register("duration")}
             />
+
             {duration && (
               <>
                 <div className="col-md-6">
                   <InputField
                     type="date"
-                    label=" من "
+                    label={t("dashboard.suspensionModal.from")}
                     {...register("startDate")}
                     error={errors.startDate?.message}
                   />
@@ -144,22 +137,22 @@ const SuspensionModel = ({ showModal, setShowModal }) => {
                 <div className="col-md-6">
                   <InputField
                     type="date"
-                    label=" الي "
+                    label={t("dashboard.suspensionModal.to")}
                     {...register("endDate")}
                     error={errors.endDate?.message}
-                    // disabled={isIndefinite}
                   />
-                </div>{" "}
+                </div>
               </>
             )}
+
             <TextField
-              label="ملاحظات"
+              label={t("dashboard.suspensionModal.notes")}
               {...register("notes")}
               errors={errors.notes?.message}
             />
           </div>
 
-          <div className="col-12 mt-2 ">
+          <div className="col-12 mt-2">
             <Controller
               name="files"
               control={control}
@@ -171,29 +164,36 @@ const SuspensionModel = ({ showModal, setShowModal }) => {
                       field.onChange(updatedFiles);
                       setFiles(updatedFiles);
                     }}
-                    label="اضف المرفقات"
+                    label={t("dashboard.suspensionModal.addFiles")}
                   />
                   {errors.files && (
-                    <p className="text-danger  mt-1">{errors.files.message}</p>
+                    <p className="text-danger mt-1">{errors.files.message}</p>
                   )}
                 </>
               )}
             />
           </div>
 
-          <div className="col-12 mt-3 d-flex align-items-center  justify-content-end gap-2">
+          <div className="col-12 mt-3 d-flex align-items-center justify-content-end gap-2">
             <CustomButton
               size="meduim"
               type="button"
               color="secondary"
               onClick={() => setShowModal(false)}
             >
-              الغاء
+              {t("dashboard.suspensionModal.cancel")}
             </CustomButton>
-            <CustomButton size="meduim" color="primary">
-              تأكيد
+
+            <CustomButton
+              size="meduim"
+              color="primary"
+              loading={isPending}
+              type="submit"
+            >
+              {t("dashboard.suspensionModal.confirm")}
             </CustomButton>
           </div>
+
           <DevTool control={control} />
         </form>
       </Modal.Body>
