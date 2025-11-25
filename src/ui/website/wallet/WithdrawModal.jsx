@@ -57,6 +57,16 @@ export default function WithdrawModal({ showModal, setShowModal }) {
       <Modal.Body>
         <form className="form_ui" onSubmit={handleSubmit(onSubmit)}>
           <div className="row">
+            {" "}
+            <div className="col-12 col-md-6 p-2">
+              <InputField
+                label={t("profile.price")}
+                id="charge"
+                {...register("price")}
+                error={errors.price?.message}
+                icon={"/icons/ryal.svg"}
+              />
+            </div>
             <div className="col-12 col-md-6 p-2">
               <InputField
                 label={t("profile.fullName")}
@@ -102,16 +112,6 @@ export default function WithdrawModal({ showModal, setShowModal }) {
                 error={errors.swiftCode?.message}
               />
             </div>
-            <div className="col-12 col-md-6 p-2">
-              <InputField
-                label={t("profile.price")}
-                id="charge"
-                placeholder={t("profile.price")}
-                {...register("price")}
-                error={errors.price?.message}
-              />
-            </div>
-
             <div className="col-12 p-2">
               <CustomButton
                 type="submit"

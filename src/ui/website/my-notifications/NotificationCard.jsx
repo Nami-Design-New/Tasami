@@ -54,7 +54,7 @@ export default function NotificationCard({ item }) {
       url = `/posts/${item.operation_id}`;
       break;
     case "offer":
-      url = `/my-works/${item?.operation_id}`;
+      url = `/my-works/${item?.operation_id}/offers`;
       break;
     case "work":
       url = `/goal/${item?.operation_id}`;

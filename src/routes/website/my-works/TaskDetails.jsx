@@ -177,7 +177,11 @@ export default function TaskDetails() {
                         value={status}
                         checked={selectedStatus === status}
                         onChange={handleChange}
-                        disabled={taskDetails?.is_paused}
+                        disabled={
+                          taskDetails?.is_paused ||
+                          taskDetails?.status === "completed" ||
+                          taskDetails?.status === "confirmed"
+                        }
                       />
                     </label>
                   ))}

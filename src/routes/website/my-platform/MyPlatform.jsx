@@ -68,6 +68,16 @@ export default function MyPlatform() {
                   {t("website.platform.menu.myOpportunities")}
                 </ProtectedNavLink>
 
+                <ProtectedNavLink to="my-audience" disabled={!user.about}>
+                  <img src="./icons/fans.svg" alt="" />
+                  {t("website.platform.menu.myAudience")}
+                </ProtectedNavLink>
+
+                <ProtectedNavLink to="my-clients" disabled={!user.about}>
+                  <img src="./icons/my-clients.svg" alt="" />
+                  {t("website.platform.menu.myClients")}
+                </ProtectedNavLink>
+
                 <ProtectedNavLink to="/my-contracts" disabled={!user.about}>
                   <img src="./icons/my-contracts.svg" alt="" />
                   {t("website.platform.menu.myContracts")}
@@ -81,16 +91,6 @@ export default function MyPlatform() {
                 <ProtectedNavLink to="/my-community" disabled={!user.about}>
                   <img src="./icons/communities-second.svg" alt="" />
                   {t("website.platform.menu.myCommunity")}
-                </ProtectedNavLink>
-
-                <ProtectedNavLink to="my-audience" disabled={!user.about}>
-                  <img src="./icons/fans.svg" alt="" />
-                  {t("website.platform.menu.myAudience")}
-                </ProtectedNavLink>
-
-                <ProtectedNavLink to="my-clients" disabled={!user.about}>
-                  <img src="./icons/my-clients.svg" alt="" />
-                  {t("website.platform.menu.myClients")}
                 </ProtectedNavLink>
               </div>
             </div>
