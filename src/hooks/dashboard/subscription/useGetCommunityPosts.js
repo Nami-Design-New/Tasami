@@ -1,26 +1,25 @@
 import { useQuery } from "@tanstack/react-query";
 import { adminAxiosInstance } from "../../../lib/adminAxios";
 
-export default function useGetUserSubscriptionCommunities(
-  search = "",
+export default function useGetCommunityPosts(
   page = 1,
   pageSize = 10,
-  user_id
+  id
 ) {
   const { data, isLoading, isError, refetch } = useQuery({
-    queryKey: ["dh-community-subscription", user_id, search, page, pageSize],
+    queryKey: ["dh-community-posts", id, page, pageSize],
     queryFn: async () => {
-      const res = await adminAxiosInstance.get(`dh-community-subscription/${user_id}`, {
+      const res = await adminAxiosInstance.get(`dh-community-posts`, {
         params: {
-          search,
           page,
           limit_per_page: pageSize,
+          community_id: id
         },
       }
       );
 
       if (res.data.code !== 200) {
-        throw new Error(res.data.message || "Error fetching users  subscription communities");
+        throw new Error(res.data.message || "Error fetching users  posts communities");
       }
 
       return res.data;
@@ -29,7 +28,7 @@ export default function useGetUserSubscriptionCommunities(
   });
 
   return {
-    userSubscriptionCommunities: data?.data || [],
+    communityPosts: data?.data || [],
     currentPage: data?.current_page || 1,
     lastPage: data?.last_page || 1,
     isLoading,

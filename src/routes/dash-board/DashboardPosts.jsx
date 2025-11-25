@@ -1,4 +1,8 @@
+import { useParams } from "react-router";
 import PostCard from "../../ui/website/communities/posts/PostCard";
+import { useState } from "react";
+import { PAGE_SIZE } from "../../utils/constants";
+import useGetCommunityPosts from "../../hooks/dashboard/subscription/useGetCommunityPosts";
 
 export default function DashboardPosts() {
   const posts = [
@@ -68,11 +72,17 @@ export default function DashboardPosts() {
       shares_count: 2,
     },
   ];
+  const { id } = useParams();
+  const [page, setPage] = useState(1);
+  const [pageSize, setPageSize] = useState(PAGE_SIZE);
+  const { communityPosts, currentPage, lastPage, isLoading } =
+    useGetCommunityPosts("", page, pageSize, id);
+  console.log("communityPosts ::", communityPosts);
 
   return (
     <div className="consultations-section">
       <div className="row">
-        {posts.map((post) => (
+        {communityPosts?.map((post) => (
           <div className="col-12 p-2" key={post.id}>
             <PostCard post={post} />
           </div>

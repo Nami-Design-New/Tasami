@@ -60,7 +60,7 @@ const AssistantPresenter = ({ userDetails }) => {
           </InfoCard>{" "}
           <InfoCard
             title="مجتمع المساعد"
-            event={() => navigate(`/dashboard/communities-details/${user_id}`)}
+            event={() => navigate(`/dashboard/communities-details/${userDetails?.community?.id}`)}
             link={"سجل مجتمع المساعد "}
           >
             <p>

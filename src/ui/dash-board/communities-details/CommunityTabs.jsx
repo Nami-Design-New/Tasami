@@ -1,9 +1,10 @@
 import { useTranslation } from "react-i18next";
-import { NavLink } from "react-router";
+import { NavLink, useParams } from "react-router";
 
 export default function CommunityTabs() {
   const { t } = useTranslation();
-  const basePath = `/dashboard/communities-details/1`;
+  const { id } = useParams();
+  const basePath = `/dashboard/communities-details/${id}`;
 
   return (
     <div className="community-tabs" style={{ top: "16px" }}>

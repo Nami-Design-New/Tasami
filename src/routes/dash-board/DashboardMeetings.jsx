@@ -1,4 +1,8 @@
+import { useParams } from "react-router";
+import useGetCommunityMeetings from "../../hooks/dashboard/subscription/useGetCommunityMeetings";
 import MeetingCard from "../../ui/website/communities/meetings/MeetingCard";
+import { useState } from "react";
+import { PAGE_SIZE } from "../../utils/constants";
 
 export default function DashboardMeetings() {
   const meetings = [
@@ -43,12 +47,18 @@ export default function DashboardMeetings() {
       duration: "1 hr",
     },
   ];
+  const { id } = useParams();
+  const [page, setPage] = useState(1);
+  const [pageSize, setPageSize] = useState(PAGE_SIZE);
+  const { communityMeetings, currentPage, lastPage, isLoading } =
+    useGetCommunityMeetings("", page, pageSize, id);
+  console.log("communityMeetings ::", communityMeetings);
 
   return (
     <section className="meeting-section">
       <div className="mettings-list">
         <div className="row">
-          {meetings.map((item) => (
+          {communityMeetings?.map((item) => (
             <div className="col-12 p-2" key={item.id}>
               <MeetingCard item={item} />
             </div>
