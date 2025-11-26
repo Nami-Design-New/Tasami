@@ -591,7 +591,7 @@
     "consultant": "الاستشارات",
     "meetings": "اللقاءات",
     "posts": "المنشورات",
-    "addConsultation": "إضافة استشارة",
+    "addConsultation": "طلب استشارة",
     "addConsultaionTitle": "عنوان الاستشارة",
     "addConsultaionDec": "وصف الاستشارة",
     "descPlaceholder": "أدخل الوصف",
@@ -634,7 +634,7 @@
     "add": "إضافة",
     "noMeetings": "لا توجد لقاءات بعد",
     "noPosts": "لا توجد منشورات بعد",
-    "addPost": "اضافة منشور",
+    "addPost": "إضافة منشور",
     "linkLabel": "اضف رابط"
   },
   "works": {
@@ -697,6 +697,9 @@
       "status": "حالة المهمة",
       "pausedHint": "(يجب بدء التنفيذ لتغيير الحالة)",
       "error": "حدث خطأ أثناء تحديث المهمة",
+      "generateTasksConfirmBtn": "تأكيد",
+      "generateTasksWarning": "سيؤدي هذا إلى حذف جميع المهام الحالية و إنشاء مهام جديدة بناءً على تفاصيل الهدف المحدثة. هل أنت متأكد من المتابعة؟",
+
       "statuses": {
         "pending": "قيد الانتظار",
         "progress": "قيد التنفيذ",

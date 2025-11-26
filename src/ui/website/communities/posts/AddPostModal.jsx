@@ -12,12 +12,20 @@ import TextField from "../../../forms/TextField";
 import useAddPost from "../../../../hooks/website/communities/posts/useAddPost";
 import { toast } from "sonner";
 import { getAspectRatio } from "../../../../utils/helper";
+import { useEffect } from "react";
+import useEditPost from "../../../../hooks/website/communities/posts/useEditPost";
 
-export default function AddPostModal({ showModal, setShowModal }) {
+export default function AddPostModal({
+  showModal,
+  setShowModal,
+  isEdit = false,
+  postDetails = null,
+}) {
   const { t } = useTranslation();
   const queryClient = useQueryClient();
   const { categories, isLoading } = useGetcategories();
   const { addPost, isPending } = useAddPost();
+  const { editPost, isPending: editPending } = useEditPost();
 
   const {
     register,
@@ -41,8 +49,30 @@ export default function AddPostModal({ showModal, setShowModal }) {
     name: "links",
   });
 
+  // Pre-fill form in edit mode
+  useEffect(() => {
+    if (isEdit && postDetails) {
+      const normalizedLinks = postDetails?.links?.length
+        ? postDetails.links.map((l) => (typeof l === "string" ? l : l.link))
+        : [""];
+
+      reset({
+        field: postDetails?.category_id || "",
+        specialization: postDetails?.sub_category_id || "",
+        title: postDetails?.title || "",
+        description: postDetails?.desc || "",
+        files: [postDetails?.file], // file URL from backend
+        links: normalizedLinks,
+        postType: postDetails?.is_private ? "1" : "0",
+      });
+    }
+  }, [postDetails, isEdit, reset]);
+
   const onSubmit = async (data) => {
     const formData = new FormData();
+    if (isEdit) {
+      formData.append("_method", "put");
+    }
 
     formData.append("category_id", data.field);
     formData.append("sub_category_id", data.specialization);
@@ -50,18 +80,21 @@ export default function AddPostModal({ showModal, setShowModal }) {
     formData.append("desc", data.description);
     formData.append("is_private", data.postType);
 
-    let aspectRatio = null;
-
+    // Handle file upload in edit mode
     if (data.files && data.files.length > 0) {
-      const file = data.files[0]; // since multiple={false}
-      formData.append("file", file);
-      formData.append("type", file.type.split("/")[0]);
+      const file = data.files[0];
 
-      // calculate aspect ratio before sending
-      aspectRatio = await getAspectRatio(file);
-      if (aspectRatio) formData.append("aspect_ratio", aspectRatio);
+      // Only append if it's a new File object
+      if (file instanceof File) {
+        formData.append("file", file);
+        formData.append("type", file.type.split("/")[0]);
+
+        const aspectRatio = await getAspectRatio(file);
+        if (aspectRatio) formData.append("aspect_ratio", aspectRatio);
+      }
     }
 
+    // Handle links
     if (data.links && data.links.length > 0) {
       data.links.forEach((link, index) => {
         if (link && link.trim() !== "") {
@@ -70,7 +103,11 @@ export default function AddPostModal({ showModal, setShowModal }) {
       });
     }
 
-    addPost(formData, {
+    const mutation = isEdit ? editPost : addPost;
+
+    const id = postDetails?.id;
+
+    mutation(isEdit ? { postId: id, payload: formData } : formData, {
       onSuccess: (res) => {
         queryClient.invalidateQueries({ queryKey: ["community-posts"] });
         reset();
@@ -82,6 +119,8 @@ export default function AddPostModal({ showModal, setShowModal }) {
       },
     });
   };
+
+  const isSubmitting = isEdit ? editPending : isPending;
   return (
     <Modal
       show={showModal}
@@ -159,6 +198,7 @@ export default function AddPostModal({ showModal, setShowModal }) {
                     multiple={false}
                     files={field.value}
                     onFilesChange={field.onChange}
+                    aspectRatio={postDetails?.aspect_ratio}
                   />
                 )}
               />
@@ -252,8 +292,8 @@ export default function AddPostModal({ showModal, setShowModal }) {
           {/* Submit */}
           <div className="col-12 mt-3">
             <div className="buttons justify-content-end">
-              <CustomButton loading={isPending} type="submit" size="large">
-                {t("add")}
+              <CustomButton loading={isSubmitting} type="submit" size="large">
+                {t(isEdit ? "edit" : "add")}
               </CustomButton>
             </div>
           </div>

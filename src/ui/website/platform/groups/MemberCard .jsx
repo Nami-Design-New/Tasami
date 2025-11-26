@@ -3,6 +3,7 @@ import GoalDetailsModal from "./GoalDetailsModal";
 
 export default function MemberCard({ member, exePercentage }) {
   const [showGoalDetails, setShowGoalDetails] = useState();
+  console.log(member?.user);
 
   return (
     <>
@@ -12,10 +13,14 @@ export default function MemberCard({ member, exePercentage }) {
           if (member?.show_goal === true) setShowGoalDetails(true);
         }}
       >
-        <img
-          className="member-card__avatar"
-          src={member.user.image ? member.user.image : "/images/p1.png"}
-        />
+        {" "}
+        <div className="position-relative">
+          <img
+            className="member-card__avatar"
+            src={member.user.image ? member.user.image : "/images/p1.png"}
+          />
+          {member?.user?.is_online && <div className="status-indicator"></div>}
+        </div>
         {exePercentage >= 0 && (
           <div className="exe-padge">{exePercentage} %</div>
         )}

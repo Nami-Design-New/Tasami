@@ -2,10 +2,18 @@ import { Modal, Spinner } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
 import useGetMeetingDetails from "../../../../hooks/website/communities/mettings/useGetMeetingDetails";
 import { handleCopy } from "../../../../utils/helper";
+import { useState } from "react";
+import AddMeetingModal from "./AddMeetingModal";
 
 export default function EncounterDetailsModal({ show, setShow, meetingId }) {
   const { t } = useTranslation();
+  const [showModal, setShowModal] = useState(false);
   const { meetingDetails, isLoading } = useGetMeetingDetails(meetingId, show);
+  const meetingDate = new Date(
+    meetingDetails?.start_date + " " + meetingDetails?.start_time
+  );
+
+  const isPast = meetingDate < new Date();
 
   return (
     <Modal
@@ -16,7 +24,10 @@ export default function EncounterDetailsModal({ show, setShow, meetingId }) {
       className="encounter-modal"
     >
       <Modal.Header closeButton className="m-2">
-        <h6 className="fw-bold">{meetingDetails?.title}</h6>
+        <h6 className="fw-bold flex-grow-1 ">{meetingDetails?.title}</h6>
+        <button className=" fs-6  " onClick={() => setShowModal(true)}>
+          <i className="fa-regular fa-edit"></i>{" "}
+        </button>
       </Modal.Header>
 
       <Modal.Body>
@@ -56,7 +67,9 @@ export default function EncounterDetailsModal({ show, setShow, meetingId }) {
             <div className="meta">
               <span>
                 <i className="fa-light fa-calendar-days"></i>{" "}
-                {meetingDetails?.start_date}
+                <span style={{ color: isPast ? "#ff7a59" : "" }}>
+                  {meetingDetails?.start_date}
+                </span>
               </span>
               <span>
                 <i className="fa-light fa-clock"></i>{" "}
@@ -68,7 +81,14 @@ export default function EncounterDetailsModal({ show, setShow, meetingId }) {
               </span>
             </div>
           </>
-        )}
+        )}{" "}
+        <AddMeetingModal
+          showModal={showModal}
+          setShowModal={setShowModal}
+          isEdit={true}
+          meeting={meetingDetails}
+          setShowDetailsModal={setShow}
+        />
       </Modal.Body>
     </Modal>
   );
