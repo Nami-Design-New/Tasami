@@ -2,13 +2,6 @@ import { useEffect, useState, useCallback } from "react";
 import { useDropzone } from "react-dropzone";
 import { useTranslation } from "react-i18next";
 
-/**
- * Props:
- * - label, hint
- * - files: initial files array (File[])
- * - onFilesChange(updatedFilesArray)
- * - multiple: boolean (default true)
- */
 export default function FileUploader({
   hint,
   label,
@@ -16,32 +9,63 @@ export default function FileUploader({
   onDelete,
   onFilesChange,
   multiple = true,
+  aspectRatio,
 }) {
   const { t } = useTranslation();
   const toArray = (v) => (Array.isArray(v) ? v : v ? [v] : []);
   const [files, setFiles] = useState(toArray(initialFiles));
-  const [previews, setPreviews] = useState([]); // data URLs for images
+  const [previews, setPreviews] = useState([]);
 
-  // sync initialFiles when it actually changes (avoid infinite loop)
+  /** -----------------------------------------------
+   * Sync files coming from parent (edit mode)
+   * ----------------------------------------------- */
   useEffect(() => {
     const init = toArray(initialFiles);
-    const curKey = files.map((f) => `${f.name}-${f.size}`).join("|");
-    const newKey = init.map((f) => `${f.name}-${f.size}`).join("|");
-    if (newKey !== curKey) setFiles(init);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [JSON.stringify(initialFiles.map((f) => `${f.name}-${f.size}`))]);
 
-  // generate preview URLs for images and revoke on cleanup
+    const fileKey = (f) =>
+      typeof f === "string" ? f : `${f.name}-${f.size}-${f.type}`;
+
+    const currentKey = files.map(fileKey).join("|");
+    const newKey = init.map(fileKey).join("|");
+
+    if (currentKey !== newKey) {
+      setFiles(init);
+    }
+  }, [JSON.stringify(initialFiles)]);
+
+  /** -----------------------------------------------
+   * Generate previews for:
+   * - File images
+   * - File videos
+   * - URL images
+   * - URL videos
+   * ----------------------------------------------- */
   useEffect(() => {
-    const objectUrls = files.map((file) =>
-      file?.type?.startsWith("image/") ? URL.createObjectURL(file) : null
-    );
-    setPreviews(objectUrls);
+    const generated = files.map((file) => {
+      // If string → treat as URL
+      if (typeof file === "string") {
+        return file;
+      }
+
+      // File object → generate preview
+      return URL.createObjectURL(file);
+    });
+
+    setPreviews(generated);
+
+    // cleanup blobs created by URL.createObjectURL()
     return () => {
-      objectUrls.forEach((u) => u && URL.revokeObjectURL(u));
+      generated.forEach((url, i) => {
+        if (files[i] instanceof File && url?.startsWith("blob:")) {
+          URL.revokeObjectURL(url);
+        }
+      });
     };
   }, [files]);
 
+  /** -----------------------------------------------
+   * On drop
+   * ----------------------------------------------- */
   const onDrop = useCallback(
     (acceptedFiles) => {
       let updated;
@@ -56,22 +80,81 @@ export default function FileUploader({
     [files, multiple, onFilesChange]
   );
 
-  // Note: we always render the hidden input (getInputProps) so open() will work.
   const { getRootProps, getInputProps, isDragActive, open } = useDropzone({
     onDrop,
     multiple,
-    // keep default noClick: false so dropzone is clickable when shown
   });
 
+  /** -----------------------------------------------
+   * Remove file
+   * ----------------------------------------------- */
   const removeFile = (index) => {
     const updated = files.filter((_, i) => i !== index);
     setFiles(updated);
     onFilesChange?.(updated);
   };
 
-  // helper: render a friendly filename (truncate)
-  const shortName = (name = "") =>
-    name.length > 26 ? name.slice(0, 12) + "…" + name.slice(-10) : name;
+  /** -----------------------------------------------
+   * Utility - extract filename from File or URL
+   * ----------------------------------------------- */
+  const shortName = (file) => {
+    if (!file) return "";
+
+    if (typeof file === "string") {
+      const name = file.split("/").pop() || "file";
+      return name.length > 26
+        ? name.slice(0, 12) + "…" + name.slice(-10)
+        : name;
+    }
+
+    const name = file.name || "file";
+    return name.length > 26 ? name.slice(0, 12) + "…" + name.slice(-10) : name;
+  };
+
+  /** -----------------------------------------------
+   * Render: image or video preview
+   * ----------------------------------------------- */
+  const renderPreview = (src, file) => {
+    if (!src) return <img src="/images/docs.svg" alt="file" />;
+
+    const isVideo =
+      typeof file === "string"
+        ? file.match(/\.(mp4|mov|webm|avi|ogg)$/i)
+        : file?.type?.startsWith("video/");
+
+    const isImage =
+      typeof file === "string"
+        ? file.match(/\.(jpg|jpeg|png|gif|webp)$/i)
+        : file?.type?.startsWith("image/");
+
+    if (isVideo) {
+      return (
+        <video
+          src={src}
+          controls
+          className="uploaded_video"
+          style={{
+            maxHeight: "170px",
+            borderRadius: "8px",
+            aspectRatio: aspectRatio || "auto",
+          }}
+        />
+      );
+    }
+
+    if (isImage) {
+      return (
+        <img
+          src={src}
+          alt={shortName(file)}
+          className="uploaded_image"
+          style={{ objectFit: "contain", aspectRatio: aspectRatio || "auto" }}
+        />
+      );
+    }
+
+    return <img src="/images/docs.svg" alt="file" />;
+  };
 
   return (
     <section className="file_upload_grid">
@@ -82,15 +165,13 @@ export default function FileUploader({
         </label>
       )}
 
-      {/* Always render the hidden input so open() works even when dropzone not present */}
       <input {...getInputProps()} style={{ display: "none" }} />
 
       <div className="images_grid_upload">
-        {/* SINGLE MODE */}
+        {/* ---------------- SINGLE MODE ---------------- */}
         {!multiple && (
           <>
             {files.length === 0 ? (
-              // show dropzone when there's no file
               <div
                 {...getRootProps()}
                 className={`file_upload dropzone single ${
@@ -103,41 +184,33 @@ export default function FileUploader({
                 </section>
               </div>
             ) : (
-              // show uploaded image and actions
               <div className="uploaded_file single">
-                <img
-                  src={previews[0] || "/images/docs.svg"}
-                  alt={files[0]?.name || "file"}
-                />
+                {renderPreview(previews[0], files[0])}
+
                 <div className="actions">
-                  <button
-                    type="button"
-                    className="change"
-                    onClick={open} // open() works because input is mounted
-                  >
+                  <button type="button" className="change" onClick={open}>
                     Change
                   </button>
                   <button
                     type="button"
-                    className="delete "
+                    className="delete"
                     onClick={() => removeFile(0)}
                   >
                     Delete
                   </button>
                 </div>
 
-                <div className="meta">
-                  <small>{shortName(files[0]?.name)}</small>
-                </div>
+                {/* <div className="meta">
+                  <small>{shortName(files[0])}</small>
+                </div> */}
               </div>
             )}
           </>
         )}
 
-        {/* MULTIPLE MODE */}
+        {/* ---------------- MULTIPLE MODE ---------------- */}
         {multiple && (
           <>
-            {/* dropzone (clickable) */}
             <div
               {...getRootProps()}
               className={`file_upload dropzone multiple ${
@@ -150,15 +223,11 @@ export default function FileUploader({
               </section>
             </div>
 
-            {/* uploaded files grid */}
             <div className="uploads_wrapper multiple">
               {files.map((file, i) => (
                 <div className="uploaded_file" key={i}>
-                  <img
-                    src={previews[i] || "/images/docs.svg"}
-                    alt={file?.name || `file-${i}`}
-                    className={file?.type?.startsWith("image/") ? "" : "icon"}
-                  />
+                  {renderPreview(previews[i], file)}
+
                   <button
                     type="button"
                     className="delete multiple"
@@ -166,12 +235,12 @@ export default function FileUploader({
                       removeFile(i);
                       onDelete?.(file?.id);
                     }}
-                    aria-label={`Remove ${file?.name}`}
                   >
                     ✕
                   </button>
+
                   <div className="meta">
-                    <small>{shortName(file?.name)}</small>
+                    <small>{shortName(file)}</small>
                   </div>
                 </div>
               ))}

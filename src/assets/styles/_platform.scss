@@ -465,6 +465,9 @@
       background-color: $online;
       border: 1px solid $white;
     }
+    &.offline::before {
+      display: none;
+    }
   }
   .info {
     flex: 1;
@@ -637,6 +640,17 @@
       }
     }
   }
+  .status-indicator {
+    position: absolute;
+    bottom: 2px;
+    left: 2px;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background-color: $online;
+    border: 1px solid $white;
+  }
+
   .exe-padge {
     position: absolute;
     top: 0;
