@@ -363,21 +363,18 @@ export default function AddAssistanceModal({
               <div className="d-flex align-items-end gap-2">
                 <InputField
                   label={t("website.platform.myAssistance.duration")}
-                  placeholder="00"
                   {...register("month")}
                   icon={"/icons/month.svg"}
                 />
-                <InputField
-                  placeholder="00"
-                  {...register("day")}
-                  icon={"/icons/day.svg"}
-                />
+                <InputField {...register("day")} icon={"/icons/day.svg"} />
               </div>
-              <p className="mt-2" style={{ color: "gray" }}>
-                {t("website.platform.myAssistance.totalDuration", {
-                  duration: durationInDays,
-                })}
-              </p>
+              {!isNaN(durationInDays) && (
+                <p className="mt-2" style={{ color: "gray" }}>
+                  {t("website.platform.myAssistance.totalDuration", {
+                    duration: durationInDays,
+                  })}
+                </p>
+              )}
               <p className="error-text d-block">
                 {errors?.month?.message}
                 {errors?.day?.message}
@@ -387,7 +384,6 @@ export default function AddAssistanceModal({
             <div className="col-12 col-md-6 p-2">
               <InputField
                 label={t("website.platform.myAssistance.price")}
-                placeholder="00"
                 icon="/icons/ryal.svg"
                 {...register("price")}
                 error={errors.price?.message}

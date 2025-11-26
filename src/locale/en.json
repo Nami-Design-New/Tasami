@@ -182,7 +182,7 @@
   "no_group_description": "Assign a personal assistant to benefit from Tasami’s professional tools designed to boost productivity, build competencies, and support social learning.",
   "validation_message_or_file": "You must write a message or attach a file",
   "chat_type_message": "Type your message here...",
-  "chat_contract_ended_message": "You cannot reply to this chat because the contract has ended",
+  "chat_contract_ended_message": "You cannot participate in this conversation because the contract has ended.",
   "community_chat": "Community Chat",
   "group_chat_hint": "This is a group chat — your messages are visible to everyone.",
   "type_message_here": "Type your message here...",
@@ -293,7 +293,7 @@
     "waiting": "Waiting for payment confirmation..."
   },
   "footer": {
-    "description": "We are an Arabic platform aiming to connect ideas with skilled professionals in a trusted and supportive environment. Our goal is to help you complete your project with the highest quality and least effort.",
+    "description": "A smart Arabic platform that helps you turn your goals into realistic, actionable plans, supported by inspiring assistants and motivating communities, enabling you to achieve your ambitions with confidence and skill, and complete your tasks with high professionalism.",
     "quickLinks": {
       "title": "Quick Links",
       "faqs": "FAQs",
@@ -483,7 +483,7 @@
     "transactions": "Transactions",
     "operationNo": "Operation Number",
     "enterAmount": "Enter amount",
-    "price": "Price",
+    "price": "Enter the withdrawal amount",
     "noTransactions": "No transactions yet",
     "noBookmarkedOffers": "No bookmarked offers yet."
   },
@@ -828,11 +828,11 @@
       "personalGoalsTitle": "Personal Goals",
       "personalGoalsSubtitle": "The latest help requests to achieve new goals",
       "offersTitle": "Help Offers",
-      "offersSubtitle": "All assistance provided by helpers",
+      "offersSubtitle": "The latest assistance offers to help you complete new tasks",
       "heplersTitle": "Personal Assistants",
       "heplersSubtitle": "Meet the inspiring assistants in Tesami",
       "myWroksTitle": "My Works",
-      "myWroksSubtitle": "Review and track your works easily"
+      "myWroksSubtitle": "Indicators of your progress toward your goals"
     },
     "header": {
       "home": "Launch",

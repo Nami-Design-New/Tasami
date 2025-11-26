@@ -110,15 +110,10 @@ export default function AssignAssistantModal({ showModal, setShowModal }) {
               >
                 <InputField
                   label={t("assistant_duration_label")}
-                  placeholder="00"
                   {...register("month")}
                   icon={"/icons/month.svg"}
                 />
-                <InputField
-                  placeholder="00"
-                  {...register("day")}
-                  icon={"/icons/day.svg"}
-                />
+                <InputField {...register("day")} icon={"/icons/day.svg"} />
               </div>
               <p className="mt-2" style={{ color: "gray" }}>
                 {t("website.platform.myAssistance.totalDuration", {
