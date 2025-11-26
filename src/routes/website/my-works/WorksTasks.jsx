@@ -34,6 +34,7 @@ import {
 import { CSS } from "@dnd-kit/utilities";
 import Loading from "../../../ui/loading/Loading";
 import useAddTaskWithAi from "../../../hooks/website/MyWorks/tasks/useAddTaskWithAi";
+import { Alert } from "react-bootstrap";
 
 // Sortable wrapper for TaskCard
 function SortableTask({ task, workDetails }) {
@@ -64,6 +65,7 @@ function SortableTask({ task, workDetails }) {
 export default function WorksTasks() {
   const { id } = useParams();
   const { t } = useTranslation();
+  const [showTaskAlertModal, setShowTaskAlertModal] = useState(false);
   const queryClient = useQueryClient();
   const { setTasksSummary } = useOutletContext();
 
@@ -273,7 +275,7 @@ export default function WorksTasks() {
               <CustomButton
                 type="button"
                 size="large"
-                onClick={() => handleAddTaskWithAi(workDetails?.id)}
+                onClick={() => setShowTaskAlertModal(true)}
                 loading={isAdding}
                 icon={<i className="fa-solid fa-sparkles"></i>}
                 style={{
@@ -281,7 +283,7 @@ export default function WorksTasks() {
                   // marginTop: "12px",
                 }}
               >
-                {t("generate")}
+                {t("generateTasks")}
               </CustomButton>
             )}
           </div>
@@ -296,6 +298,15 @@ export default function WorksTasks() {
           loading={isPending}
         >
           {t("works.myTasks.pauseExecutionWarning")}
+        </AlertModal>
+        <AlertModal
+          confirmButtonText={t("works.myTasks.generateTasksConfirmBtn")}
+          showModal={showTaskAlertModal}
+          setShowModal={setShowTaskAlertModal}
+          onConfirm={() => handleAddTaskWithAi(workDetails?.id)}
+          loading={isAdding}
+        >
+          {t("works.myTasks.generateTasksWarning")}
         </AlertModal>
       </div>
     </section>

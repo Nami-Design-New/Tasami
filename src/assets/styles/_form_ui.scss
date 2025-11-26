@@ -449,7 +449,7 @@ body.en {
 
     &.single {
       width: 100%;
-      min-height: 220px;
+      // min-height: 220px;
     }
 
     &.multiple {
@@ -525,12 +525,16 @@ body.en {
     &.single {
       width: 100%;
       height: auto;
-      max-height: 220px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      // max-height: 220px;
 
       img {
         width: 100%;
         height: 100%;
-        object-fit: cover;
+        object-fit: contain;
       }
 
       .actions {

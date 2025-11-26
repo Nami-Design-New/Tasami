@@ -685,6 +685,8 @@
       "status": "Task Status",
       "pausedHint": "(Execution must be started to change the status)",
       "error": "An error occurred while updating the task",
+      "generateTasksConfirmBtn": "Confirm",
+      "generateTasksWarning": "This will delete all existing tasks and generate new ones based on the updated goal details. Are you sure you want to proceed?",
       "statuses": {
         "pending": "Pending",
         "progress": "In Progress",

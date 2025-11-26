@@ -6,7 +6,13 @@ export default function AudienceCard({ data }) {
 
   return (
     <Link to={`/helper/${data.user.id}`} className="audience-card">
-      <div className="user-image-wrapper">
+      <div
+        className={
+          data.user.is_online
+            ? "user-image-wrapper"
+            : "user-image-wrapper offline"
+        }
+      >
         <img
           className="user-image"
           src={data.user.image || "/images/profile image.svg"}

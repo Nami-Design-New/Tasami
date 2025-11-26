@@ -17,10 +17,8 @@ export default function Posts({ isMyCommuntiy = true }) {
   return (
     <div className="consultations-section">
       <div className="row">
-        {" "}
         {isMyCommuntiy && (
           <div className="col-12 p-2">
-            {" "}
             <div className="d-flex align-items-center justify-content-end">
               <CustomButton onClick={() => setShowModal(true)}>
                 {t("community.addPost")}
