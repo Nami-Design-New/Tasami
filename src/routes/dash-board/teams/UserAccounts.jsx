@@ -86,54 +86,16 @@ const UserAccounts = () => {
     legend: { position: "top", horizontalAlign: "center" },
   };
 
-  // const data = useMemo(
-  //   () => [
-  //     {
-  //       name: "صالح",
-  //       accountNumber: "U-020522-000001",
-  //       accountType: "رواد",
-  //       date: "25-Apr-2020",
-  //       gender: "ذكر",
-  //       beneficiaryPoints: "13",
-  //       assistanceProviderPoints: "12",
-  //       nationality: "السعودية",
-  //       city: "الرياض-001",
-  //       region: "014-المنطقة الوسطى",
-  //       location: "المملكة العربية السعودية",
-  //       subscriptionEntity: "25-oct-2019",
-  //       subscriptionEnd: "25-Apr-2020",
-  //       status: "موقوفة",
-  //       accountStatusDate: "20-Apr-2020",
-  //       time: "08:55 am",
-  //     },
-  //     {
-  //       name: "محمد",
-  //       accountNumber: "U-020522-000002",
-  //       accountType: "رواد",
-  //       date: "25-Apr-2020",
-  //       gender: "ذكر",
-  //       beneficiaryPoints: "13",
-  //       assistanceProviderPoints: "12",
-  //       nationality: "السعودية",
-  //       city: "الرياض-002",
-  //       region: "014-المنطقة الوسطى",
-  //       location: "المملكة العربية السعودية",
-  //       subscriptionEntity: "25-oct-2019",
-  //       subscriptionEnd: "25-Apr-2020",
-  //       status: "غير نشطة",
-  //       accountStatusDate: "20-Apr-2020",
-  //       time: "08:55 am",
-  //     },
-  //   ],
-  //   []
-  // );
-
   const columns = useMemo(
     () => [
       columnHelper.accessor("name", {
         header: t("dashboard.userAccounts.name"),
         cell: (info) =>
-          `${info.row.original.first_name} ${info.row.original.last_name}`,
+          `${
+            info.row.original.first_name && info.row.original.last_name
+              ? `${info.row.original.first_name} ${info.row.original.last_name}`
+              : "-"
+          }`,
       }),
       columnHelper.accessor("account_code", {
         header: t("dashboard.userAccounts.accountNumber"),
@@ -141,45 +103,57 @@ const UserAccounts = () => {
           <Link
             to={`/dashboard/user-details/${info.getValue()}`}
             className="link-styles"
-            style={{ textDecoration: "underline" }}
+            style={{
+              textDecoration: info.getValue() ? "underline" : "none",
+            }}
           >
-            {info.getValue()}
+            {info.getValue() || "-"}
           </Link>
         ),
       }),
       columnHelper.accessor("account_type", {
         header: t("dashboard.userAccounts.accountType"),
-        cell: (info) => info.getValue(),
+        cell: (info) => info.getValue() || "-",
       }),
       columnHelper.accessor("birthdate", {
         header: t("dashboard.userAccounts.date"),
+        cell: (info) => info.getValue() || "-",
       }),
       columnHelper.accessor("gender", {
         header: t("dashboard.userAccounts.gender"),
+        cell: (info) => info.getValue() || "-",
       }),
       columnHelper.accessor("beneficiary_points", {
         header: t("dashboard.userAccounts.beneficiaryPoints"),
+        cell: (info) => info.getValue() || "-",
       }),
       columnHelper.accessor("helper_points", {
         header: t("dashboard.userAccounts.assistanceProviderPoints"),
+        cell: (info) => info.getValue() || "-",
       }),
       columnHelper.accessor("nationality.title", {
         header: t("dashboard.userAccounts.nationality"),
+        cell: (info) => info.getValue() || "-",
       }),
       columnHelper.accessor("region_id.title", {
         header: t("dashboard.userAccounts.region"),
+        cell: (info) => info.getValue() || "-",
       }),
       columnHelper.accessor("country_id.title", {
         header: t("dashboard.userAccounts.sector"),
+        cell: (info) => info.getValue() || "-",
       }),
       columnHelper.accessor("city_id.title", {
         header: t("dashboard.userAccounts.city"),
+        cell: (info) => info.getValue() || "-",
       }),
       columnHelper.accessor("subscription_start_date", {
         header: t("dashboard.userAccounts.subscriptionStart"),
+        cell: (info) => info.getValue() || "-",
       }),
       columnHelper.accessor("subscription_end_date", {
         header: t("dashboard.userAccounts.subscriptionEnd"),
+        cell: (info) => info.getValue() || "-",
       }),
       columnHelper.accessor("status", {
         header: t("dashboard.userAccounts.status"),
@@ -217,6 +191,7 @@ const UserAccounts = () => {
       }),
       columnHelper.accessor("account_status_date", {
         header: t("dashboard.userAccounts.statusDate"),
+        cell: (info) => info.getValue() || "-",
       }),
       columnHelper.accessor("account_status_time", {
         header: t("dashboard.userAccounts.statusTime"),
@@ -224,7 +199,7 @@ const UserAccounts = () => {
           <div>
             {info.getValue() === null
               ? t("dashboard.userAccounts.noEvaluation")
-              : info.getValue()}
+              : info.getValue() || "-"}
           </div>
         ),
       }),

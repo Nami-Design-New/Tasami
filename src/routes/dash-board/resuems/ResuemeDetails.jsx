@@ -5,6 +5,8 @@ import DocumentList from "./DocumentList";
 import ExperienceList from "./ExperienceList";
 import UserDataCard from "./UserDataCard";
 import useGetResume from "../../../hooks/dashboard/subscription/useGetResume";
+import PersonalHelperExperiences from "../../../ui/website/helpers/PersonalHelperExperiences";
+import PersonalHelperDoc from "../../../ui/website/helpers/PersonalHelperDoc";
 
 export default function ResuemeDetails() {
   const { id } = useParams();
@@ -32,7 +34,7 @@ export default function ResuemeDetails() {
             <p>Loading...</p>
           ) : (
             <>
-              {userResume?.user_experiences.length > 0 && (
+              {/* {userResume?.user_experiences.length > 0 && (
                 <ExperienceList
                   experiences={userResume?.user_experiences.map(
                     (exp) => exp.category_title
@@ -46,7 +48,21 @@ export default function ResuemeDetails() {
                     (doc) => doc.category_title
                   )}
                 />
-              )}
+              )} */}
+
+                <>
+                  {" "}
+                  <div className="exp-info my-4">
+                    <h6 className="my-2">الخبرات العملية</h6>
+                    <PersonalHelperExperiences
+                      tabs={userResume.user_experiences}
+                    />
+                  </div>
+                  <div className="exp-info my-4">
+                    <h6 className="my-2">الوثائق</h6>
+                    <PersonalHelperDoc tabs={userResume.user_documents} />
+                  </div>
+                </>
             </>
           )}
         </div>
