@@ -16,31 +16,7 @@ const UserAccounts = () => {
   const { usersAccounts, currentPage, lastPage, isLoading } =
     useGetUsersAccounts("", page, PAGE_SIZE);
   console.log("users accounts", usersAccounts);
-  // localized chart data
-  // const series = [
-  //   {
-  //     name: t("dashboard.userAccounts.totalAccounts"),
-  //     data: ["5000", "1000", "800", "500"],
-  //   },
-  //   {
-  //     name: t("dashboard.userAccounts.activeAccounts"),
-  //     data: ["3000", "800", "700", "400"],
-  //   },
-  //   {
-  //     name: t("dashboard.userAccounts.inactiveAccounts"),
-  //     data: ["1200", "150", "80", "60"],
-  //   },
-  //   {
-  //     name: t("dashboard.userAccounts.suspendedAccounts"),
-  //     data: ["800", "50", "20", "40"],
-  //   },
-  // ];
-  // const usersCategories = [
-  //   t("dashboard.userAccounts.category.beneficiary"),
-  //   t("dashboard.userAccounts.category.basic"),
-  //   t("dashboard.userAccounts.category.premium"),
-  //   t("dashboard.userAccounts.category.royal"),
-  // ];
+
   const series = [
     {
       name: t("dashboard.userAccounts.totalAccounts"),
