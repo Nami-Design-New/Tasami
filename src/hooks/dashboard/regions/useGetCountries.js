@@ -1,7 +1,11 @@
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { adminAxiosInstance } from "../../../lib/adminAxios";
 
-export default function useGetCountries(regionId, enabled = true) {
+export default function useGetCountries(
+  regionId,
+  pagenation = "on",
+  enabled = true
+) {
   const {
     data,
     isLoading: isCountriesLaoding,
@@ -15,6 +19,7 @@ export default function useGetCountries(regionId, enabled = true) {
         params: {
           page: pageParam,
           region_id: regionId,
+          pagenation,
         },
       });
       if (res.data.code !== 200) {
