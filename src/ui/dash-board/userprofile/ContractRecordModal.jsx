@@ -30,7 +30,10 @@ const ContractRecordModal = ({
       columnHelper.accessor("code", {
         header: " الرقم المرجعي  ",
         cell: (info) => (
-          <Link to={`/dashboard/contracts/${info.getValue()}`} className="link-styles">
+          <Link
+            to={`/dashboard/contracts/${info.getValue()}`}
+            className="link-styles"
+          >
             {info.getValue()}
           </Link>
         ),
@@ -42,16 +45,20 @@ const ContractRecordModal = ({
         enableSorting: false,
       }),
 
-      columnHelper.accessor("actions", {
+      columnHelper.accessor("is_active", {
         header: " الاجراء ",
-        cell: () => (
+        cell: (info) => (
           <div className="table__actions">
-            <CustomButton size="small" color="primary">
-              تنشيط
-            </CustomButton>
-            <CustomButton size="small" color="secondary">
-              ايقاف
-            </CustomButton>
+            {console.log(info.getValue())}
+            {info.getValue() ? (
+              <CustomButton size="small" color="secondary">
+                ايقاف
+              </CustomButton>
+            ) : (
+              <CustomButton size="small" color="primary">
+                تنشيط
+              </CustomButton>
+            )}
 
             {/* <i className="fa-solid fa-trash  table__actions--delete"></i> */}
           </div>

@@ -16,6 +16,8 @@ const Beneficiary = ({ userDetails }) => {
     user_id
   );
 
+  console.log("user contract ", userContract);
+  
   return (
     <>
       <div className="row">

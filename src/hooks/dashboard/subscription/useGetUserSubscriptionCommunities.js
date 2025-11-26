@@ -29,7 +29,7 @@ export default function useGetUserSubscriptionCommunities(
   });
 
   return {
-    userSubscriptionCommunities: data.data || [],
+    userSubscriptionCommunities: data?.data || [],
     currentPage: data?.current_page || 1,
     lastPage: data?.last_page || 1,
     isLoading,

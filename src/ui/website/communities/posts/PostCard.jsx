@@ -1,8 +1,18 @@
 import { Link } from "react-router";
+import useCheckDashboard from "../../../../hooks/dashboard/checkDashboard/useCheckDashboard";
 
 export default function PostCard({ post }) {
+  const isDashboard = useCheckDashboard();
+
   return (
-    <Link className="post-card" to={`/posts/${post.id}`}>
+    <Link
+      className="post-card"
+      to={`${
+        isDashboard
+          ? `/dashboard/post-dash-details/${post.id}`
+          : `/post-details/${post.id}`
+      }`}
+    >
       {post.file && (
         <div className="image-wrapper">
           {post.type === "image" && (

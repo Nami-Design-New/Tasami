@@ -1,6 +1,5 @@
 import { useState } from "react";
 import CustomButton from "../../ui/CustomButton";
-import CustomLink from "../../ui/CustomLink";
 import PageHeader from "../../ui/PageHeader";
 import TabsHorizontal from "../../ui/TabsHorizontal";
 import AssistantPresenter from "../../ui/dash-board/userprofile/AssistantPresenter";
@@ -26,7 +25,7 @@ const UserProfile = () => {
   const activeTab = searchParams.get("tab");
   const { id } = useParams();
   const { userDetails, isLoading } = useGetUserDetails(id);
-  // console.log("idddd", id, userDetails);
+  console.log("idddd", id, userDetails);
   return (
     <>
       {isLoading ? (

@@ -2,8 +2,11 @@ import { useQueryClient } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import useHandelToggleLikePosts from "../../../../hooks/website/communities/posts/useHandelToggleLikePosts";
 import useSharePost from "../../../../hooks/website/communities/posts/useSharePost";
+import useCheckDashboard from "../../../../hooks/dashboard/checkDashboard/useCheckDashboard";
 
 export default function PostsActions({ post }) {
+  const isDashboard = useCheckDashboard();
+
   const { toggleLike, isPending: likePending } = useHandelToggleLikePosts();
   const { mutate: sharePost } = useSharePost();
   const queryClient = useQueryClient();
@@ -81,7 +84,7 @@ export default function PostsActions({ post }) {
       </div>
       <div className="icons-wrapper">
         <button
-          disabled={likePending}
+          disabled={isDashboard ? true : likePending}
           onClick={handleLike}
           className={`icon-circle ${isLiked ? "active" : ""}`}
         >
@@ -90,7 +93,11 @@ export default function PostsActions({ post }) {
         <span>{likesCount}</span>
       </div>
       <div className="icons-wrapper">
-        <button className="icon-circle" onClick={handleShare}>
+        <button
+          disabled={isDashboard ? true : false}
+          className="icon-circle"
+          onClick={handleShare}
+        >
           <img src="/icons/share.svg" alt="shares" />
         </button>
         <span>{sharesCount}</span>

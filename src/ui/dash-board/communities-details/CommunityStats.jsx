@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 
 export default function CommunityStats({ community }) {
   const { t } = useTranslation();
+  console.log("community stats:::" , community);
 
   return (
     <div className="community-stats">

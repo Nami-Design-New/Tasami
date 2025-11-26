@@ -1,8 +1,19 @@
 import { Link } from "react-router";
+import useCheckDashboard from "../../../../hooks/dashboard/checkDashboard/useCheckDashboard";
 
 export default function ConsultationCard({ item }) {
+  const isDashboard = useCheckDashboard();
+console.log("item consultaion ::|", item);
+
   return (
-    <Link to={`/consultaion-details/${item.id}`} className="consultation-card">
+    <Link
+      to={`${
+        isDashboard
+          ? `/dashboard/consultaion-dash-details/${item.id}`
+          : `/consultaion-details/${item.id}`
+      }`}
+      className="consultation-card"
+    >
       <p className="title">{item.title}</p>
       <p className="desc ellipsis">{item.desc}</p>
 
