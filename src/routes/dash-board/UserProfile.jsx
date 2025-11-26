@@ -25,7 +25,7 @@ const UserProfile = () => {
   const activeTab = searchParams.get("tab");
   const { id } = useParams();
   const { userDetails, isLoading } = useGetUserDetails(id);
-  console.log("idddd", id, userDetails);
+  console.log("userDetails Profile user", id, userDetails);
   return (
     <>
       {isLoading ? (
@@ -100,11 +100,13 @@ const UserProfile = () => {
                 </CustomButton>
                 <CustomButton
                   size="large"
-                  color="secondary"
+                  color={userDetails?.status === "stopped" ? "primary": "secondary"}
                   fullWidth
                   onClick={() => setOpenSuspensionModel(true)}
                 >
-                  إيقاف الحساب
+                  {userDetails?.status === "stopped"
+                    ? "تنشيط الحساب "
+                    : " إيقاف الحساب "}
                 </CustomButton>{" "}
               </div>
             </div>
@@ -119,6 +121,8 @@ const UserProfile = () => {
           <SuspensionModel
             showModal={openSuspensionModel}
             setShowModal={setOpenSuspensionModel}
+            isUser={true}
+            id={userDetails?.id}
           />{" "}
           <AddNewTask
             showModal={showTaskModal}

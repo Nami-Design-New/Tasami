@@ -8,22 +8,15 @@ import useCheckDashboard from "../../../../hooks/dashboard/checkDashboard/useChe
 export default function EncounterDetailsModal({ show, setShow, meetingId }) {
   const isDashboard = useCheckDashboard();
   const { t } = useTranslation();
+  
+  const dash = useGetMeetingDashDetails(meetingId, show);
+  const normal = useGetMeetingDetails(meetingId, show);
 
-  let meetingData = null;
-  let isLoadingData = false;
+  const meetingData = isDashboard
+    ? dash.meetingDashDetails
+    : normal.meetingDetails;
+  const isLoadingData = isDashboard ? dash.isLoading : normal.isLoading;
 
-  if (isDashboard) {
-    const { meetingDashDetails, isLoading } = useGetMeetingDashDetails(meetingId, show);
-
-    meetingData = meetingDashDetails;
-    isLoadingData = isLoading;
-    
-  } else {
-    const { meetingDetails, isLoading } = useGetMeetingDetails(meetingId, show);
-
-    meetingData = meetingDetails;
-    isLoadingData = isLoading;
-  }
   return (
     <Modal
       show={show}
@@ -76,8 +69,7 @@ export default function EncounterDetailsModal({ show, setShow, meetingId }) {
                 {meetingData?.start_date}
               </span>
               <span>
-                <i className="fa-light fa-clock"></i>{" "}
-                {meetingData?.start_time}
+                <i className="fa-light fa-clock"></i> {meetingData?.start_time}
               </span>
               <span>
                 <i className="fa-solid fa-rotate-left"></i>{" "}
