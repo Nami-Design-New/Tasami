@@ -1,204 +1,114 @@
 import ReusableDataTable from "../../ui/table/ReusableDataTable";
 import { createColumnHelper } from "@tanstack/react-table";
 import { Link } from "react-router";
+import useGetSubscriptionResumeExperience from "../../hooks/dashboard/subscription/resume/useGetSubscriptionResumeExperience";
+import { PAGE_SIZE } from "../../utils/constants";
+import { useState } from "react";
+import TablePagination from "../../ui/table/TablePagentaion";
 const columnHelper = createColumnHelper();
-const data = [
-  {
-    firstName: "صالح أ.",
-    familyName: "العمر",
-    gender: "ذكر",
-    accountType: "أساسي",
-    accountNumber: "U-123",
-    date: "25-Apr-2020",
-    accountStatus: "نشط",
-    nationality: "السعودية",
-    region: "01-الشرق الأوسط",
-    sector: "014-المملكة العربية السعودية",
-    city: "001-الرياض",
-    field: "التدريب والتعليم",
-    specialization: "التدريب",
-    expertiseField: "دورات تدريبية معتمدة",
-    years: 12,
-    qualification: "دورات تدريبية معتمدة",
-  },
-  {
-    firstName: "صالح أ.",
-    familyName: "العمر",
-    gender: "ذكر",
-    accountType: "أساسي",
-    accountNumber: "U-123",
-    date: "25-Apr-2020",
-    accountStatus: "نشط",
-    nationality: "السعودية",
-    region: "01-الشرق الأوسط",
-    sector: "014-المملكة العربية السعودية",
-    city: "002-الدمام",
-    field: "التدريب والتعليم",
-    specialization: "الاستشارات",
-    expertiseField: "دورات تدريبية معتمدة",
-    years: 3,
-    qualification: "دورات تدريبية معتمدة",
-  },
-  {
-    firstName: "محمد ن.",
-    familyName: "عبداللطيف",
-    gender: "ذكر",
-    accountType: "متميز",
-    accountNumber: "U-123",
-    date: "25-Apr-2020",
-    accountStatus: "غير نشط",
-    nationality: "السعودية",
-    region: "01-الشرق الأوسط",
-    sector: "014-المملكة العربية السعودية",
-    city: "002-الدمام",
-    field: "العلوم والمعارف",
-    specialization: "العلوم الطبيعية",
-    expertiseField: "شهادة جامعية (بكالوريوس)",
-    years: 10,
-    qualification: "شهادة جامعية (بكالوريوس)",
-  },
-  {
-    firstName: "محمد ن.",
-    familyName: "عبداللطيف",
-    gender: "ذكر",
-    accountType: "متميز",
-    accountNumber: "U-123",
-    date: "25-Apr-2020",
-    accountStatus: "غير نشط",
-    nationality: "السعودية",
-    region: "01-الشرق الأوسط",
-    sector: "014-المملكة العربية السعودية",
-    city: "002-الدمام",
-    field: "العلوم والمعارف",
-    specialization: "العلوم الرياضية",
-    expertiseField: "دراسات عليا (ماجستير)",
-    years: 5,
-    qualification: "دراسات عليا (ماجستير)",
-  },
-  {
-    firstName: "محمد ن.",
-    familyName: "عبداللطيف",
-    gender: "ذكر",
-    accountType: "متميز",
-    accountNumber: "U-123",
-    date: "25-Apr-2020",
-    accountStatus: "غير نشط",
-    nationality: "السعودية",
-    region: "01-الشرق الأوسط",
-    sector: "014-المملكة العربية السعودية",
-    city: "002-الدمام",
-    field: "العلوم والمعارف",
-    specialization: "البحث والتأليف",
-    expertiseField: "تعلم وممارسة ذاتية",
-    years: 6,
-    qualification: "تعلم وممارسة ذاتية",
-  },
-  {
-    firstName: "علي ب.",
-    familyName: "السالم",
-    gender: "ذكر",
-    accountType: "رواد",
-    accountNumber: "U-123",
-    date: "25-Apr-2020",
-    accountStatus: "نشط",
-    nationality: "السعودية",
-    region: "01-الشرق الأوسط",
-    sector: "005-المملكة العربية السعودية",
-    city: "005-جدة",
-    field: "البرمجية التقنية",
-    specialization: "البرمجية الشعبية",
-    expertiseField: "دورات تدريبية معتمدة",
-    years: 5,
-    qualification: "دبلوم قبل جامعي",
-  },
-  {
-    firstName: "علي ب.",
-    familyName: "السالم",
-    gender: "ذكر",
-    accountType: "رواد",
-    accountNumber: "U-123",
-    date: "25-Apr-2020",
-    accountStatus: "نشط",
-    nationality: "السعودية",
-    region: "01-الشرق الأوسط",
-    sector: "005-المملكة العربية السعودية",
-    city: "005-جدة",
-    field: "التجارة والمال والأعمال",
-    specialization: "المزادات",
-    expertiseField: "تعلم وممارسة ذاتية",
-    years: 7,
-    qualification: "تعلم وممارسة ذاتية",
-  },
-];
-const columns = [
-  columnHelper.accessor("firstName", {
-    header: "الاسم الأول",
-    cell: (info) => info.getValue(),
-  }),
-  columnHelper.accessor("familyName", {
-    header: "اسم العائلة",
-  }),
-  columnHelper.accessor("gender", {
-    header: "الجنس",
-  }),
-  columnHelper.accessor("accountType", {
-    header: "نوع الحساب",
-  }),
-  columnHelper.accessor("accountNumber", {
-    header: "رقم الحساب",
-    cell: (info) => (
-      <Link
-        to={`/dashboard/user-details/${info.getValue()}`}
-        className="link-styles"
-      >
-        {info.getValue()}
-      </Link>
-    ),
-  }),
-  columnHelper.accessor("date", {
-    header: "التاريخ",
-  }),
-  columnHelper.accessor("accountStatus", {
-    header: "حالة الحساب",
-  }),
-  columnHelper.accessor("nationality", {
-    header: "الجنسية",
-  }),
-  columnHelper.accessor("region", {
-    header: "الإقليم",
-  }),
-  columnHelper.accessor("sector", {
-    header: "القطاع",
-  }),
-  columnHelper.accessor("city", {
-    header: "المدينة",
-  }),
-  columnHelper.accessor("field", {
-    header: "مجال الخبرة",
-  }),
-  columnHelper.accessor("specialization", {
-    header: "تخصص الخبرة",
-  }),
-  columnHelper.accessor("expertiseField", {
-    header: "المؤهل",
-  }),
-  columnHelper.accessor("years", {
-    header: "السنوات",
-  }),
-  columnHelper.accessor("qualification", {
-    header: "المؤهل",
-  }),
-];
 const Experiences = () => {
+  const [page, setPage] = useState(1);
+  const [pageSize, setPageSize] = useState(PAGE_SIZE);
+  const { resumeExperiences, currentPage, lastPage, isLoading } =
+    useGetSubscriptionResumeExperience("", page, PAGE_SIZE);
+
+  // console.log(resumeExperiences);
+  const columns = [
+    columnHelper.accessor("user.first_name", {
+      header: "الاسم الأول",
+      cell: (info) => info.getValue() || "-",
+    }),
+    columnHelper.accessor("user.last_name", {
+      header: "اسم العائلة",
+      cell: (info) => info.getValue() || "-",
+    }),
+    columnHelper.accessor("user.gender", {
+      header: "الجنس",
+      cell: (info) => info.getValue() || "-",
+    }),
+    columnHelper.accessor("user.account_type", {
+      header: "نوع الحساب",
+      cell: (info) => info.getValue() || "-",
+    }),
+    columnHelper.accessor("user.account_code", {
+      header: "رقم الحساب",
+      cell: (info) => (
+        <Link
+          to={`/dashboard/user-details/${info?.row.original.user?.id}`}
+          className="link-styles"
+        >
+          {info.getValue()}
+        </Link>
+      ),
+    }),
+    columnHelper.accessor("user.birthdate", {
+      header: "التاريخ",
+      cell: (info) => info.getValue() || "-",
+    }),
+    columnHelper.accessor("user.status", {
+      header: "حالة الحساب",
+      cell: (info) => info.getValue() || "-",
+    }),
+    columnHelper.accessor("user.nationality.title", {
+      header: "الجنسية",
+      cell: (info) => info.getValue() || "-",
+    }),
+    columnHelper.accessor("user.region_id.title", {
+      header: "الإقليم",
+      cell: (info) => info.getValue() || "-",
+    }),
+    columnHelper.accessor("user.country_id.title", {
+      header: "القطاع",
+      cell: (info) => info.getValue() || "-",
+    }),
+    columnHelper.accessor("user.city_id.title", {
+      header: "المدينة",
+      cell: (info) => info.getValue() || "-",
+    }),
+    columnHelper.accessor("category_title", {
+      header: "مجال الخبرة",
+      cell: (info) => info.getValue() || "-",
+    }),
+    columnHelper.accessor("sub_category_title", {
+      header: "تخصص الخبرة",
+      cell: (info) => info.getValue() || "-",
+    }),
+    columnHelper.accessor("qualification_text", {
+      header: "المؤهل",
+      cell: (info) => info.getValue() || "-",
+    }),
+    columnHelper.accessor("number_of_years", {
+      header: "السنوات",
+      cell: (info) => info.getValue() || "-",
+    }),
+    columnHelper.accessor("qualifications", {
+      header: "المؤهل",
+      cell: (info) => info.getValue() || "-",
+    }),
+  ];
   return (
     <section className="experiences">
       <ReusableDataTable
         filter={false}
         searchPlaceholder=""
         columns={columns}
-        data={data}
+        data={resumeExperiences || []}
         title="الخبرات"
-      />
+        initialPageSize={10}
+        currentPage={currentPage}
+        lastPage={lastPage}
+        setPage={setPage}
+        pageSize={pageSize}
+        setPageSize={setPageSize}
+        isLoading={isLoading}
+      >
+        <TablePagination
+          currentPage={page}
+          lastPage={lastPage}
+          onPageChange={setPage}
+          isLoading={isLoading}
+        />
+      </ReusableDataTable>
     </section>
   );
 };

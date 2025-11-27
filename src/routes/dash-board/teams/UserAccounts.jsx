@@ -77,7 +77,7 @@ const UserAccounts = () => {
         header: t("dashboard.userAccounts.accountNumber"),
         cell: (info) => (
           <Link
-            to={`/dashboard/user-details/${info.getValue()}`}
+            to={`/dashboard/user-details/${info?.row?.original.id}`}
             className="link-styles"
             style={{
               textDecoration: info.getValue() ? "underline" : "none",
