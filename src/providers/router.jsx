@@ -141,6 +141,7 @@ import SharedGroups from "../routes/dash-board/teams/SharedGroups";
 import CompleteDraftedUsers from "../routes/dash-board/list-management/CompleteDraftedUsers";
 import ConsultaionDashDetails from "../routes/dash-board/community-dashboard/ConsultaionDashDetails";
 import PostDashDetails from "../routes/dash-board/community-dashboard/PostDashDetails";
+import WithdrawRequests from "../routes/dash-board/WithdrawRequests";
 
 export const router = createBrowserRouter([
   /* WEBSITE AUTH */
@@ -521,6 +522,7 @@ export const router = createBrowserRouter([
         path: "model/:id",
         element: <ModelComponent />,
       },
+      { path: "withdraw-requests", element: <WithdrawRequests /> },
 
       {
         path: "working-group/:id",

@@ -355,7 +355,38 @@
     "Banners": "لافتات اعلانية",
     "beneficiaryIdentityPreference": "تفضيل هوية المستفيد",
     "assistanceValue": "قيمة المساعدة",
-    "beneficiaryAgeGroup": "الفئة العمرية للمستفيد"
+    "beneficiaryAgeGroup": "الفئة العمرية للمستفيد",
+    "Withdraw Requests": "طلبات سحب الرصيد"
+  },
+  "withdraw": {
+    "customer": "العميل",
+    "amount": "المبلغ",
+    "status": "الحالة",
+    "statuses": {
+      "pending": "معلق",
+      "accepted": "مقبول",
+      "rejected": "مرفوض"
+    },
+    "date": "وقت الطلب",
+    "details": "التفاصيل",
+    "actions": "الإجراءات",
+    "accept": "قبول",
+    "reject": "رفض",
+
+    "accept_request": "قبول طلب السحب",
+    "reject_request": "رفض طلب السحب",
+
+    "uploadFile": "رفع ملف (اختياري)",
+    "notes": "ملاحظات",
+    "rejectReason": "سبب الرفض",
+    "enterNotes": "اكتب ملاحظاتك هنا",
+
+    "iban": "IBAN",
+    "bankName": "اسم البنك",
+    "fullName": "الاسم الكامل",
+    "branchCode": "رمز الفرع",
+    "swift": "سويفت كود",
+    "openFile": "فتح الملف"
   },
   "auth": {
     "yes": "نعم",
@@ -1113,6 +1144,7 @@
     "my_tasks": "المهام",
     "employment_data": "البيانات الوظيفيه",
     "performance_reports": "تقارير الاداء",
+    "withdraw_requests": " طلبات سحب الرصيد",
     "brand": "تسامي",
     "noPermissions": "لا توجد صلاحيات متاحة",
     "noSharedGroups": "لا توجد مجموعات مشتركة",
