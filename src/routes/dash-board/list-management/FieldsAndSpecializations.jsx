@@ -144,7 +144,7 @@ const FieldsAndSpecializations = () => {
               {isLoading ? (
                 <>
                   {" "}
-                  {[1, 2, 3].map((_, index) => (
+                  {[1, 2].map((_, index) => (
                     <div
                       className="col-12 col-sm-6 col-md-4 col-lg-3 col-xxl-2 p-2"
                       key={index}

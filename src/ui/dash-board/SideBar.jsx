@@ -98,6 +98,14 @@ export default function SideBar({ hoverExpand, setHoverExpand, collapsed }) {
             <h6>{t("dashboard.performance_reports")}</h6>
           </NavLink>
         </li>
+        <li className="nav_item mb-2">
+          <NavLink to="withdraw-requests" end>
+            <div className="icon">
+              <img src="/sys-icons/Reports.svg" alt="withdraw requests" />
+            </div>
+            <h6>{t("dashboard.withdraw_requests")}</h6>
+          </NavLink>
+        </li>
 
         {/* Sub Navigation Accordion */}
         <SidebarNavigation />

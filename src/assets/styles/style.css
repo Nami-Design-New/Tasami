@@ -3939,6 +3939,43 @@ input[type=file] {
   transition: 0.3s ease;
 }
 
+.nested-accordion-item {
+  background-color: #fff;
+  border-radius: 12px !important;
+}
+.nested-accordion-item .accordion-header {
+  background-color: #fff;
+  border-radius: 12px !important;
+}
+.nested-accordion-item .accordion-header .accordion-button {
+  background-color: #fff !important;
+}
+.nested-accordion-item .accordion-body {
+  background-color: #fff !important;
+}
+
+.tag-list .tag-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  justify-content: space-between;
+  padding: 12px 16px;
+  background-color: rgba(13, 13, 13, 0.0196078431);
+  border-radius: 12px;
+  color: #0d0d0d;
+  font-weight: 700;
+}
+
+.edit-icon-style {
+  color: #6c757d;
+  cursor: pointer;
+}
+
+.delete-icon-style {
+  color: rgba(220, 53, 69, 0.8);
+  cursor: pointer;
+}
+
 .grid-container {
   display: grid;
   grid-template-areas: "sidebar nav" "sidebar main";

@@ -1,13 +1,13 @@
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { adminAxiosInstance } from "../../../lib/adminAxios";
 
-export default function useGetRegions(enabled = true) {
+export default function useGetRegions(pagenation = "on", enabled = true) {
   const { data, isLoading, fetchNextPage, hasNextPage, isFetchingNextPage } =
     useInfiniteQuery({
       queryKey: ["dashboard-regions"],
       queryFn: async ({ pageParam = 1 }) => {
         const res = await adminAxiosInstance.get(
-          `dh-regions?page=${pageParam}`
+          `dh-regions?page=${pageParam}&pagenation=${pagenation}`
         );
         if (res.data.code !== 200) {
           throw new Error(res.data.message || "Error fetching regions");
@@ -19,6 +19,8 @@ export default function useGetRegions(enabled = true) {
         return lastPage.next_page_url ? lastPage.current_page + 1 : undefined;
       },
       enabled,
+      gcTime: undefined,
+      staleTime: undefined,
     });
 
   // Flatten all pages into a single array

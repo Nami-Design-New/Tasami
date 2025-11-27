@@ -351,7 +351,41 @@
     "Faq Management": "FAQ Management",
     "Tasks Management": "Tasks Managements",
     "Subscription Management": "Subscription Management",
-    "Banners": "Banners"
+    "Banners": "Banners",
+    "Withdraw Requests": "Withdraw Requests"
+  },
+  "withdraw": {
+    "customer": "Customer",
+    "amount": "Amount",
+    "status": "Status",
+
+    "statuses": {
+      "pending": "Pending",
+      "accepted": "Accepted",
+      "rejected": "Rejected"
+    },
+
+    "date": "Request Time",
+    "details": "Details",
+    "actions": "Actions",
+
+    "accept": "Accept",
+    "reject": "Reject",
+
+    "accept_request": "Accept Withdrawal Request",
+    "reject_request": "Reject Withdrawal Request",
+
+    "uploadFile": "Upload File (Optional)",
+    "notes": "Notes",
+    "rejectReason": "Rejection Reason",
+    "enterNotes": "Enter your notes here",
+
+    "iban": "IBAN",
+    "bankName": "Bank Name",
+    "fullName": "Full Name",
+    "branchCode": "Branch Code",
+    "swift": "Swift Code",
+    "openFile": "Open File"
   },
   "auth": {
     "login": "Login",
@@ -1143,6 +1177,7 @@
     "main": "Main",
     "employment_data": "Employment Data",
     "performance_reports": "Performance Reports",
+    "withdraw_requests": "Withdraw Requests",
     "brand": "Tasami",
     "noPermissions": "No permissions available",
     "noSharedGroups": "No shared groups available",
@@ -1767,6 +1802,37 @@
         "specializations": "Specializations",
         "actions": "Actions"
       }
+    },
+    "operatingRegions": {
+      "addRegionTitle": "Add New Region",
+      "addCountryTitle": "Add New Country",
+      "addCityTitle": "Add New City",
+      "statisticsTitle": "Operating Sectors Statistics",
+
+      "regionName": "Region Name",
+      "regionNumber": "Region Number",
+
+      "countryName": "Country Name",
+      "countryNumber": "Country Number",
+      "countryCode": "Country Code",
+      "chooseRegion": "Choose Region",
+
+      "cityName": "City Name",
+      "cityNumber": "City Number",
+      "chooseCountry": "Choose Country",
+
+      "regionsCount": "Regions",
+      "countriesCount": "Countries",
+      "citiesCount": "Cities",
+      "usersCount": "Users",
+      "employeesCount": "Employees",
+      "operatingSectorsTitle": "Operating Sectors",
+      "editRegion": "Edit Region",
+
+      "noCities": "No cities available.",
+      "noCountries": "No countries available.",
+      "editCountry": "Edit Country",
+      "editCity": "Edit City"
     }
   }
 }
