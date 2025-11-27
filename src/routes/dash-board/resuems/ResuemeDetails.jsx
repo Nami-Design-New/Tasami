@@ -1,40 +1,53 @@
 import { useParams } from "react-router";
 import CustomButton from "../../../ui/CustomButton";
 import DescriptionSection from "./DescriptionSection";
-import DocumentList from "./DocumentList";
-import ExperienceList from "./ExperienceList";
 import UserDataCard from "./UserDataCard";
 import useGetResume from "../../../hooks/dashboard/subscription/useGetResume";
+import PersonalHelperExperiences from "../../../ui/website/helpers/PersonalHelperExperiences";
+import PersonalHelperDoc from "../../../ui/website/helpers/PersonalHelperDoc";
 
 export default function ResuemeDetails() {
   const { id } = useParams();
   const { userResume, isLoading } = useGetResume(id);
-  // console.log("userResume", id, userResume);
+  console.log("userResume", id, userResume);
 
   return (
-    <section className="resumes-details">
-      <div className="row">
-        <div className="resume-header">
-          <h1>السيرة الذاتية</h1>
-          <CustomButton>تصدير</CustomButton>
-        </div>
-        <div className="col-12 col-lg-3 p-2">
-          <UserDataCard
-            name={userResume?.first_name + " " + userResume?.last_name}
-            country={"!السعودية"}
-            image={userResume?.image}
-            flag="/icons/flag.svg"
-          />
-        </div>
-        <div className="col-12 col-lg-9 p-2">
-          <DescriptionSection title="عرف عن نفسك" text={userResume?.about} />
-          {isLoading ?( <p>Loading...</p> ) :(<>
-          {userResume?.user_experiences && 
-          <ExperienceList experiences={userResume?.user_experiences.map(exp=>exp.category_title)} />}
-          <DocumentList documents={userResume?.user_documents.map(doc=>doc.category_title)} />
-       </>   )}
-        </div>
-      </div>
-    </section>
+    <>
+      {isLoading ? (
+        <div>Loading..</div>
+      ) : (
+        <section className="resumes-details">
+          <div className="row">
+            <div className="resume-header">
+              <h1>السيرة الذاتية</h1>
+              <CustomButton>تصدير</CustomButton>
+            </div>
+            <div className="col-12 col-lg-3 p-2">
+              <UserDataCard
+                name={userResume?.first_name + " " + userResume?.last_name}
+                country={userResume?.country?.title}
+                image={userResume?.image}
+                flag="/icons/flag.svg"
+              />
+            </div>
+            <div className="col-12 col-lg-9 p-2">
+              <DescriptionSection
+                title="عرف عن نفسك"
+                text={userResume?.about}
+              />
+
+              <div className="exp-info my-4">
+                <h6 className="my-2">الخبرات العملية</h6>
+                <PersonalHelperExperiences tabs={userResume.user_experiences} />
+              </div>
+              <div className="exp-info my-4">
+                <h6 className="my-2">الوثائق</h6>
+                <PersonalHelperDoc tabs={userResume.user_documents} />
+              </div>
+            </div>
+          </div>
+        </section>
+      )}
+    </>
   );
 }

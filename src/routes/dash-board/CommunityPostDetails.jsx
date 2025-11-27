@@ -8,9 +8,13 @@ import PostsActions from "../../ui/website/communities/posts/PostsActions";
 import PostsComments from "../../ui/website/communities/posts/PostsComments";
 import { useSelector } from "react-redux";
 import { handleCopy } from "../../utils/helper";
+import OptionsMenu from "../../ui/website/OptionsMenu";
+import { useState } from "react";
+import AddPostModal from "../../ui/website/communities/posts/AddPostModal";
 
 export default function CommunityPostDetails() {
   const { t } = useTranslation();
+  const [showEditModal, setShowEditModal] = useState(false);
   const { user } = useSelector((state) => state.authRole);
   const { postDetails, isLoading } = useGetPostDetails();
   const navigate = useNavigate();
@@ -22,8 +26,20 @@ export default function CommunityPostDetails() {
     <section className="community-post-details page">
       <div className="container" style={{ maxWidth: "800px" }}>
         <div className="my-2 d-flex align-items-center  gap-2">
-          <RoundedBackButton onClick={handleBack}></RoundedBackButton>
-          <h2 className="post-details-header">{t("postDetails")}</h2>
+          <div className="flex-grow-1 d-flex align-items-center gap-2">
+            <RoundedBackButton onClick={handleBack}></RoundedBackButton>
+            <h2 className="post-details-header">{t("postDetails")}</h2>
+          </div>
+
+          <OptionsMenu
+            toggleButton={"fas fa-ellipsis-h"}
+            options={[
+              {
+                label: t("edit"),
+                onClick: () => setShowEditModal(true),
+              },
+            ]}
+          />
         </div>
         <PostMedia post={postDetails} />
         <div className="post-image row">
@@ -63,6 +79,12 @@ export default function CommunityPostDetails() {
           </div>
         </div>
       </div>
+      <AddPostModal
+        showModal={showEditModal}
+        setShowModal={setShowEditModal}
+        isEdit={true}
+        postDetails={postDetails}
+      />
     </section>
   );
 }

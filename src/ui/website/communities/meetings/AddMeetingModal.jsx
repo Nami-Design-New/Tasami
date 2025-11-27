@@ -9,12 +9,21 @@ import CustomButton from "../../../CustomButton";
 import InputField from "../../../forms/InputField";
 import SelectField from "../../../forms/SelectField";
 import TextField from "../../../forms/TextField";
+import { useEffect } from "react";
+import useEditMeeting from "../../../../hooks/website/communities/mettings/useEditMeeting";
 
-export default function AddMeetingModal({ showModal, setShowModal }) {
+export default function AddMeetingModal({
+  showModal,
+  setShowModal,
+  setShowDetailsModal,
+  isEdit = true,
+  meeting = null,
+}) {
   const { t } = useTranslation();
   const queryClient = useQueryClient();
   const { categories, isLoading } = useGetcategories();
   const { addMeeting, isPending } = useAddMeeting();
+  const { editMeeting, isPending: isEditing } = useEditMeeting();
   const {
     register,
     handleSubmit,
@@ -31,7 +40,23 @@ export default function AddMeetingModal({ showModal, setShowModal }) {
     categories?.find((cat) => String(cat.id) === String(selectedFieldId))
       ?.sub_categories || [];
 
-  // ✅ Handle form submit
+  useEffect(() => {
+    if (isEdit && meeting) {
+      reset({
+        field: meeting?.category_id,
+        specialization: meeting?.sub_category_id,
+        title: meeting?.title,
+        description: meeting?.desc,
+        date: meeting?.start_date,
+        time: meeting?.start_time,
+        duration: meeting?.duration,
+        link: meeting?.link,
+        meetingType: meeting?.is_private ? "0" : "1",
+      });
+    }
+  }, [isEdit, meeting, reset]);
+
+  //  Handle form submit
   const onSubmit = (data) => {
     const payload = {
       category_id: data.field,
@@ -45,19 +70,41 @@ export default function AddMeetingModal({ showModal, setShowModal }) {
       is_private: data.meetingType,
     };
 
-    addMeeting(payload, {
-      onSuccess: (res) => {
-        setShowModal(false);
-        reset();
-        toast.success(t(res.message || "Meeting added successfully"));
-        queryClient.invalidateQueries({ queryKey: ["meetings"] });
-      },
-      onError: (error) => {
-        console.error("Error adding meeting:", error);
-        toast.error(error.message || "Error adding meeting");
-      },
-    });
+    if (isEdit && meeting?.id) {
+      // Edit mode
+      editMeeting(
+        { id: meeting?.id, params: payload },
+        {
+          onSuccess: (res) => {
+            toast.success(t(res.message || "Meeting updated successfully"));
+            setShowModal(false);
+            reset();
+            queryClient.invalidateQueries({ queryKey: ["meetings"] });
+            setShowDetailsModal(false);
+          },
+          onError: (error) => {
+            console.error("Error editing meeting:", error);
+            toast.error(error.message || "Error editing meeting");
+          },
+        }
+      );
+    } else {
+      // Add mode
+      addMeeting(payload, {
+        onSuccess: (res) => {
+          toast.success(t(res.message || "Meeting added successfully"));
+          setShowModal(false);
+          reset();
+          queryClient.invalidateQueries({ queryKey: ["meetings"] });
+        },
+        onError: (error) => {
+          console.error("Error adding meeting:", error);
+          toast.error(error.message || "Error adding meeting");
+        },
+      });
+    }
   };
+  const isSubmitting = isEdit ? isEditing : isPending;
 
   return (
     <Modal
@@ -189,8 +236,8 @@ export default function AddMeetingModal({ showModal, setShowModal }) {
 
             <div className="col-12 p-2">
               <div className="buttons justify-content-end">
-                <CustomButton loading={isPending} type="submit" size="large">
-                  {t("add")}
+                <CustomButton loading={isSubmitting} type="submit" size="large">
+                  {t(isEdit ? "edit" : "add")}
                 </CustomButton>
               </div>
             </div>

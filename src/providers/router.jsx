@@ -139,6 +139,8 @@ import ProtectedAdminRoutes from "./ProtectedAdminRoutes";
 import ProtectedRoute from "./ProtectedRoute";
 import SharedGroups from "../routes/dash-board/teams/SharedGroups";
 import CompleteDraftedUsers from "../routes/dash-board/list-management/CompleteDraftedUsers";
+import ConsultaionDashDetails from "../routes/dash-board/community-dashboard/ConsultaionDashDetails";
+import PostDashDetails from "../routes/dash-board/community-dashboard/PostDashDetails";
 
 export const router = createBrowserRouter([
   /* WEBSITE AUTH */
@@ -527,6 +529,14 @@ export const router = createBrowserRouter([
       {
         path: "user-details/:id",
         element: <UserProfile />,
+      },
+      {
+        path: "consultaion-dash-details/:id",
+        element: <ConsultaionDashDetails />,
+      },
+      {
+        path: "post-dash-details/:id",
+        element: <PostDashDetails />,
       },
       // {
       //   path: "chats",

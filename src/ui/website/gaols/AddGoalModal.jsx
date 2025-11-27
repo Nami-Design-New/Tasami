@@ -186,20 +186,16 @@ export default function AddGoalModal({ showModal, setShowModal }) {
               >
                 <InputField
                   label={t("website.platform.myAssistance.goalDuration")}
-                  placeholder="00"
                   {...register("month")}
                   icon={"/icons/month.svg"}
                 />
-                <InputField
-                  placeholder="00"
-                  {...register("day")}
-                  icon={"/icons/day.svg"}
-                />
+                <InputField {...register("day")} icon={"/icons/day.svg"} />
               </div>
               <p className="mt-2" style={{ color: "gray" }}>
-                {t("website.platform.myAssistance.totalDuration", {
-                  duration: durationInDays,
-                })}
+                {!isNaN(durationInDays) &&
+                  t("website.platform.myAssistance.totalDuration", {
+                    duration: durationInDays,
+                  })}
               </p>
               <p className="error-text d-block">
                 {errors?.month?.message}

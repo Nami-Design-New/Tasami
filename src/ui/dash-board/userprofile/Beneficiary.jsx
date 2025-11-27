@@ -1,8 +1,8 @@
 import { useState } from "react";
 import InfoCard from "../cards/InfoCard";
-import ContractRecordModal from "./ContractRecordModal";
 import { PAGE_SIZE } from "../../../utils/constants";
 import useGetUserContract from "../../../hooks/dashboard/subscription/usePostUserContract";
+import ContractRecordModal from "./ContractRecordModal";
 
 const Beneficiary = ({ userDetails }) => {
   const [showModal, setShowModal] = useState(false);
@@ -15,7 +15,7 @@ const Beneficiary = ({ userDetails }) => {
     PAGE_SIZE,
     user_id
   );
-
+  
   return (
     <>
       <div className="row">

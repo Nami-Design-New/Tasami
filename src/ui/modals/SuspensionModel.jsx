@@ -12,12 +12,20 @@ import InputField from "../forms/InputField";
 import TextField from "../forms/TextField";
 import useSuspendEmployee from "../../hooks/dashboard/employee/useSuspendEmployee";
 import { toast } from "sonner";
-import { set } from "lodash";
+import useSuspendUser from "../../hooks/dashboard/subscription/useSuspendUser";
+import { useQueryClient } from "@tanstack/react-query";
 
-const SuspensionModel = ({ showModal, setShowModal, id }) => {
+const SuspensionModel = ({ showModal, setShowModal, id, isUser = false }) => {
   const { t } = useTranslation();
-  const { suspendEmployee, isPending } = useSuspendEmployee();
   const [files, setFiles] = useState([]);
+  const queryClient = useQueryClient();
+
+  const { suspendEmployee, isPending: isEmployeePending } =
+    useSuspendEmployee();
+  const { suspendUser, isPending: isUserPending } = useSuspendUser();
+
+  const isPending = isUser ? isUserPending : isEmployeePending;
+  const suspendAction = isUser ? suspendUser : suspendEmployee;
 
   const schema = yup.object().shape({
     duration: yup.boolean(),
@@ -80,18 +88,23 @@ const SuspensionModel = ({ showModal, setShowModal, id }) => {
   }, [duration, setValue]);
 
   const onSubmit = (data) => {
+    const idKey = isUser ? "user_id" : "employee_id";
+
     const payload = {
-      employee_id: id,
+      [idKey]: id,
       reason: data.notes,
       from_date: data.startDate,
       to_date: data.endDate,
       files: data.files,
     };
 
-    suspendEmployee(payload, {
+    suspendAction(payload, {
       onSuccess: (res) => {
         toast.success(res?.message);
         setShowModal(false);
+        queryClient.invalidateQueries({
+          queryKey: isUser ? ["user-details", id] : null,
+        });
       },
       onError: (error) => {
         toast.error(error.message);

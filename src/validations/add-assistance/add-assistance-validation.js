@@ -145,8 +145,6 @@ export default function useAddAssistanceForm() {
       toAge: null,
       durationInDays: "",
       price: "",
-      month: 0,
-      day: 0,
       extraTerms: "",
       helpMechanism: [],
     },

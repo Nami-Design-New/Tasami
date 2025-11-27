@@ -5,14 +5,7 @@ const CustomInputWithUnit = ({ label, id, units, error, register }) => {
     <div className="input-field">
       <label htmlFor={id}>{label}</label>
       <div className="time-units">
-        <input
-          min="0"
-          type="number"
-          placeholder="00"
-          name={id}
-          id={id}
-          {...register(id)}
-        />
+        <input min="0" type="number" name={id} id={id} {...register(id)} />
         <select
           className="units"
           name={`${id}_unit`}

@@ -65,7 +65,6 @@ const CancellationPolicy = ({
                   <InputField
                     type="number"
                     min="0"
-                    placeholder="00"
                     value={policy.cancel_before}
                     onChange={(e) =>
                       handleTimeChange(
@@ -112,7 +111,6 @@ const CancellationPolicy = ({
                   <div className="time-units">
                     <input
                       type="number"
-                      placeholder="00"
                       value={policy.cancel_before_end}
                       onChange={(e) =>
                         handleTimeChange(
@@ -165,7 +163,6 @@ const CancellationPolicy = ({
                       onChange(index, "percentage", e.target.value)
                     }
                     id={`firstDaysRefund_${index}`}
-                    placeholder="00"
                     className={errors?.[index]?.percentage ? "is-invalid" : ""}
                   />
                   <span>%</span>

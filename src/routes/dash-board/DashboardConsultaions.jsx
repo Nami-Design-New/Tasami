@@ -1,56 +1,54 @@
+import { useRef } from "react";
+import EmptySection from "../../ui/EmptySection";
+import InfiniteScroll from "../../ui/loading/InfiniteScroll";
+import AudienceCardLoader from "../../ui/loading/AudienceCardLoader";
 import ConsultationCard from "../../ui/website/communities/consultations/ConsultationCard";
+import useGetCommunityConsultations from "./../../hooks/dashboard/subscription/useGetCommunityConsultations";
 
 export default function DashboardConsultaions() {
-  const consultations = [
-    {
-      id: 1,
-      title: "Understanding React Hooks",
-      desc: "A deep dive into React Hooks and how to use them effectively in modern web apps.",
-      is_private: false,
-      views_count: 120,
-      likes_count: 45,
-      comments_count: 10,
-      shares_count: 5,
-    },
-    {
-      id: 2,
-      title: "Advanced CSS Grid Techniques",
-      desc: "Learn advanced layouts using CSS Grid with real-world examples and best practices.",
-      is_private: false,
-      views_count: 98,
-      likes_count: 30,
-      comments_count: 7,
-      shares_count: 3,
-    },
-    {
-      id: 3,
-      title: "Private Consultation Example",
-      desc: "This is a private consultation and icons will be hidden.",
-      is_private: true,
-      views_count: 50,
-      likes_count: 12,
-      comments_count: 2,
-      shares_count: 0,
-    },
-    {
-      id: 4,
-      title: "Introduction to TypeScript",
-      desc: "TypeScript basics for beginners and how it improves JavaScript code quality.",
-      is_private: false,
-      views_count: 200,
-      likes_count: 80,
-      comments_count: 25,
-      shares_count: 12,
-    },
-  ];
+  const bottomRef = useRef(null);
+
+  const {
+    communityConsultations,
+    consultationsLoading,
+    hasNextPage,
+    fetchNextPage,
+    isFetchingNextPage,
+  } = useGetCommunityConsultations();
+
+  const allCommunityConsultations =
+    communityConsultations?.pages?.flatMap((page) => page?.data) ?? [];
+
   return (
     <div className="consultations-section">
       <div className="row">
-        {consultations.map((item, idx) => (
-          <div className="col-12 p-2" key={idx}>
-            <ConsultationCard item={item} />
-          </div>
-        ))}
+        <div className="flex-1 overflow-y-auto p-4 space-y-3">
+          {!consultationsLoading && allCommunityConsultations.length === 0 && (
+            <EmptySection  message={"not exist"} />
+          )}
+          <InfiniteScroll
+            onLoadMore={fetchNextPage}
+            hasNextPage={hasNextPage}
+            isFetchingNextPage={isFetchingNextPage}
+          >
+            {allCommunityConsultations?.map((item, idx) => (
+              <div className="col-12 p-2" key={idx}>
+                <ConsultationCard item={item} />
+              </div>
+            ))}
+            {/* <div ref={bottomRef} /> */}
+          </InfiniteScroll>
+          {(consultationsLoading || isFetchingNextPage) && (
+            <div className="">
+              {[1, 2, 3].map((i) => (
+                <div key={i} className="mt-3">
+                  <AudienceCardLoader />
+                </div>
+              ))}
+            </div>
+          )}
+          <div ref={bottomRef} />
+        </div>
       </div>
     </div>
   );

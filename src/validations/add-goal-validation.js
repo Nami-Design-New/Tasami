@@ -98,8 +98,6 @@ export default function useAddGoalForm() {
       durationInDays: "",
       assistantOption: "notDefined",
       price: "",
-      month: 0,
-      day: 0,
       helpMechanism: [],
     },
     mode: "onBlur",

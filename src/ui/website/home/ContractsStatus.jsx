@@ -33,6 +33,14 @@ export default function ContractsStatus({ stats }) {
             </h3>
             <p className="contract-status__card-count">{stats.total_works}</p>
           </div>
+        </SwiperSlide>{" "}
+        <SwiperSlide>
+          <div className="contract-status__card">
+            <h3 className="contract-status__card-title">
+              {t("website.home.pending")}
+            </h3>
+            <p className="contract-status__card-count">{stats.waiting_works}</p>
+          </div>
         </SwiperSlide>
         <SwiperSlide>
           <div className="contract-status__card">
@@ -42,14 +50,6 @@ export default function ContractsStatus({ stats }) {
             <p className="contract-status__card-count">
               {stats.progress_works}
             </p>
-          </div>
-        </SwiperSlide>
-        <SwiperSlide>
-          <div className="contract-status__card">
-            <h3 className="contract-status__card-title">
-              {t("website.home.pending")}
-            </h3>
-            <p className="contract-status__card-count">{stats.waiting_works}</p>
           </div>
         </SwiperSlide>
         <SwiperSlide>

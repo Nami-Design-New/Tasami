@@ -59,7 +59,7 @@
   "assistant_modal_title": "تعيين مساعد شخصي",
   "assistant_notes_label": "ملاحظات إضافية",
   "assistant_notes_placeholder": "اكتب ملاحظاتك هنا...",
-  "assistant_start_date": "تاريخ بدء طلب المساعدة",
+  "assistant_start_date": "تاريخ بدء المساعدة",
   "assistant_duration_label": "المدة المتوقعة لإنهاء المساعدة (شهور / أيام)",
   "assistant_total_duration": "إجمالي المدة: {{duration}} يوم",
   "assistant_gender_label": "الجنس المفضل",
@@ -186,7 +186,7 @@
   "validation_message_or_file": "يجب كتابة رسالة أو إرفاق ملف",
   "enable_mic_permission": "من فضلك فعّل إذن الميكروفون للتسجيل الصوتي",
   "chat_type_message": "اكتب رسالتك هنا...",
-  "chat_contract_ended_message": "لا يمكنك الرد على هذه المحادثة لانتهاء التعاقد بينك وبين المساعد",
+  "chat_contract_ended_message": "لا يمكنك المشاركة في هذه المحادثة لانتهاء التعاقد",
   "community_chat": "محادثة المجتمع",
   "group_chat_hint": "هذه محادثة جماعية، رسائلك مرئية للجميع",
   "type_message_here": "اكتب رسالتك هنا...",
@@ -284,7 +284,7 @@
     }
   },
   "footer": {
-    "description": "نحن منصة عربية نسعى لربط الأفكار بأصحاب المهارات والخبرات من خلال بيئة داعمة وموثوقة. هدفنا تمكينك من إنجاز مشروعك بأعلى جودة وأقل جهد.",
+    "description": "منصة عربية ذكية تساعدك على تحويل أهدافك إلى خطط واقعية قابلة للتنفيذ، بدعم من مساعدين ملهمين ومجتمعات محفّزة، لتحقق طموحاتك بثقة واقتدار، وتنجز مهامك باحترافية عالية.",
     "quickLinks": {
       "title": "روابط سريعة",
       "faqs": "الأسئلة الشائعة",
@@ -494,7 +494,7 @@
     "transactions": "عمليات الرصيد",
     "operationNo": "عمليه رقم",
     "enterAmount": "أدخل المبلغ",
-    "price": "السعر",
+    "price": "ادخل مبلغ السحب",
     "noTransactions": "لا توجد معاملات بعد ",
     "noBookmarkedOffers": "لا توجد محفوظات بعد"
   },
@@ -591,7 +591,7 @@
     "consultant": "الاستشارات",
     "meetings": "اللقاءات",
     "posts": "المنشورات",
-    "addConsultation": "إضافة استشارة",
+    "addConsultation": "طلب استشارة",
     "addConsultaionTitle": "عنوان الاستشارة",
     "addConsultaionDec": "وصف الاستشارة",
     "descPlaceholder": "أدخل الوصف",
@@ -634,7 +634,7 @@
     "add": "إضافة",
     "noMeetings": "لا توجد لقاءات بعد",
     "noPosts": "لا توجد منشورات بعد",
-    "addPost": "اضافة منشور",
+    "addPost": "إضافة منشور",
     "linkLabel": "اضف رابط"
   },
   "works": {
@@ -697,6 +697,9 @@
       "status": "حالة المهمة",
       "pausedHint": "(يجب بدء التنفيذ لتغيير الحالة)",
       "error": "حدث خطأ أثناء تحديث المهمة",
+      "generateTasksConfirmBtn": "تأكيد",
+      "generateTasksWarning": "سيؤدي هذا إلى حذف جميع المهام الحالية و إنشاء مهام جديدة بناءً على تفاصيل الهدف المحدثة. هل أنت متأكد من المتابعة؟",
+
       "statuses": {
         "pending": "قيد الانتظار",
         "progress": "قيد التنفيذ",
@@ -762,7 +765,7 @@
       "accOffer": "قبول العرض",
       "request": "قبول الطلب",
       "waitAccept": "طلب تعاقد",
-      "offerSent": "تم تقديم العرض",
+      "offerSent": " تقديم العرض",
       "requestOffer": "طلب تعاقد"
     }
   },
@@ -834,18 +837,18 @@
       "submitHelpOffer": "تقديم عرض مساعدة "
     },
     "home": {
-      "totalWork": "اجمالى  الاعمال",
+      "totalWork": "اجمالي  الأعمال",
       "inProgress": "قيد التنفيذ",
       "pending": "بانتظار التنفيذ",
       "completed": "مكتملة",
       "personalGoalsTitle": "الأهداف الشخصية",
       "personalGoalsSubtitle": "أحدث طلبات المساعدة لتحقيق أهداف جديدة",
       "offersTitle": "عروض المساعدة",
-      "offersSubtitle": "جميع المساعدات التي يقدمها المساعدون",
+      "offersSubtitle": "احدث عروض المساعدة لانجاز مهام جديدة ",
       "heplersTitle": "المساعدون الشخصيون",
       "heplersSubtitle": "تعرف على المساعدين الملهمين في تسامي",
       "myWroksTitle": "أعمالي",
-      "myWroksSubtitle": "راجع وتابع اعمالك بسهولة"
+      "myWroksSubtitle": "مؤشرات تقدمك نحو اهدافك"
     },
     "header": {
       "home": "الانطلاق",
@@ -881,7 +884,7 @@
       "menu": {
         "subscriptions": "إدارة الاشتراك",
         "cv": "سيرتي الذاتية",
-        "myAssistant": "مساعدتي",
+        "myAssistant": "مساعداتي",
         "myOpportunities": "فرصي",
         "myContracts": "عقودي",
         "myGroups": "مجموعاتي",

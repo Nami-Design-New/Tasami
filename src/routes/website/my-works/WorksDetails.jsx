@@ -163,7 +163,10 @@ export default function WorksDetails() {
 
           {/* Personal Goal Only */}
           {workDetails.rectangle !== "help_service_from_helper" && (
-            <div className="info-box info-box-grow-min-width ">
+            <div
+              className="info-box info-box-grow-min-width "
+              style={{ minWidth: "100%" }}
+            >
               <div className="label">
                 {t("website.offerDetails.expectedDuration")}
               </div>

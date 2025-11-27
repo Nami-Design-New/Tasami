@@ -34,33 +34,34 @@ const AssistantPresenter = ({ userDetails }) => {
             </p>
             <p>
               <span>تاريخ آخر اشتراك:</span>
-              <span> {`${userDetails?.subscription_end_date}`} ! </span>
+              <span>
+                {" "}
+                {`${userDetails?.current_scubscription.start_date}`}{" "}
+              </span>
             </p>
             <p>
               <span>مدة الاشتراك:</span>
               <span>
                 {" "}
-                {`${userDetails?.current_scubscription.end_date}`} !{" "}
+                {`${userDetails?.current_scubscription.package?.type_title}`}{" "}
               </span>
             </p>
             <p>
               <span>تاريخ نهاية الاشتراك:</span>
-              <span>
-                {" "}
-                {`${userDetails?.current_scubscription.end_date}`} !{" "}
-              </span>
+              <span> {`${userDetails?.current_scubscription.end_date}`} </span>
             </p>
             <p>
               <span>إجمالي مشتريات الاشتراكات:</span>
-              <span>
-                {" "}
-                {`${userDetails?.current_scubscription.app_commission}`} !{" "}
-              </span>
+              <span> {`${userDetails?.total_subscription_purchases}`} </span>
             </p>
           </InfoCard>{" "}
           <InfoCard
             title="مجتمع المساعد"
-            event={() => navigate(`/dashboard/communities-details/${user_id}`)}
+            event={() =>
+              navigate(
+                `/dashboard/communities-details/${userDetails?.community?.id}`
+              )
+            }
             link={"سجل مجتمع المساعد "}
           >
             <p>
@@ -69,11 +70,13 @@ const AssistantPresenter = ({ userDetails }) => {
             </p>
             <p>
               <span>حالة مجتمع المساعد:</span>
-              <span>نشط!</span>
+              <span>{`${
+                userDetails?.community.is_active ? "نشط" : "غير نشط"
+              }`}</span>
             </p>
             <p>
               <span>عدد الأعضاء الطالبين:</span>
-              <span>89!</span>
+              <span> {`${userDetails?.community.members_count}`} </span>
             </p>
             <p>
               <span>المنشورات:</span>
@@ -81,27 +84,27 @@ const AssistantPresenter = ({ userDetails }) => {
             </p>
             <p>
               <span>اللقاءات:</span>
-              <span>4!</span>
-            </p>
-            <p>
-              <span>الاجتماعات:</span>
               <span> {`${userDetails?.community.meetings_count}`} </span>
             </p>
+            {/* <p>
+              <span>الاجتماعات:</span>
+              <span> {`${userDetails?.community.meetings_count}`} </span>
+            </p> */}
             <p>
               <span>الاستشارات:</span>
               <span> {`${userDetails?.community.consultations_count}`} </span>
             </p>
             <p>
               <span>المشاهدات:</span>
-              <span>8!</span>
+              <span> {`${userDetails?.community.views_count}`} </span>
             </p>
-            <p>
+            {/* <p>
               <span>تقييم المجتمع الإجمالي:</span>
               <span>3.8!</span>
-            </p>
+            </p> */}
             <p>
               <span>مبيعات العضوية الإجمالي:</span>
-              <span>2,450 ريال!</span>
+              <span> {`ريال${userDetails?.community.revenue}`} </span>
             </p>
           </InfoCard>
         </div>
@@ -124,17 +127,17 @@ const AssistantPresenter = ({ userDetails }) => {
               <span> {`${userDetails?.deleted_helpe_services}`} </span>
             </p>
             <p>
-              <span>العروض قيد التنفيذ:</span>
-              <span>3!</span>
+              <span>العقود قيد التنفيذ:</span>
+              <span> {`${userDetails?.active_helper_contracts}`} </span>
             </p>
             <p>
-              <span>العروض المكتملة:</span>
+              <span>العقود المكتملة:</span>
               <span> {`${userDetails?.comlpeted_helper_contracts}`} </span>
             </p>
-            <p>
+            {/* <p>
               <span>الأهداف قيد التنفيذ:</span>
               <span> {`${userDetails?.goal_helper_contracts}`} </span>
-            </p>
+            </p> */}
             {/* <p>
               <span>الأهداف المكتملة:</span>
               <span>6</span>
@@ -161,7 +164,7 @@ const AssistantPresenter = ({ userDetails }) => {
             </p>
             <p>
               <span>نقاط الخبرة:</span>
-              <span>34 !</span>
+              <span> {`${userDetails?.total_helper_points}`} </span>
             </p>
             <p>
               <span>عدد بلاغات المخالفات:</span>

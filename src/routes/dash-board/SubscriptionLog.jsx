@@ -8,38 +8,28 @@ import { createColumnHelper } from "@tanstack/react-table";
 
 const columnHelper = createColumnHelper();
 const SubscriptionLog = () => {
-    
   const { id } = useParams();
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(PAGE_SIZE);
   const { userSubscriptionCommunities, currentPage, lastPage, isLoading } =
     useGetUserSubscriptionCommunities("", page, pageSize, id);
-  console.log("userSubscriptionCommunities", userSubscriptionCommunities);
-  const subData = useMemo(
-    () => [
-      {
-        username: "الكومي",
-        accountNumber: "U-020522-000001",
-        date: "23-01-2025",
-        subValue: "1000",
-      },
-      {
-        username: "محمود",
-        accountNumber: "U-020522-000002",
-        date: "07-06-2025",
-        subValue: "100",
-      },
-    ],
-    []
-  );
+
+  // console.log("userSubscriptionCommunities", userSubscriptionCommunities);
 
   const subColumns = useMemo(
     () => [
-      columnHelper.accessor("username", {
-        header: "الاسم",
-        cell: (info) => info.getValue(),
-      }),
-      columnHelper.accessor("accountNumber", {
+      columnHelper.accessor(
+        (row) => row?.user?.first_name + " " + row?.user?.last_name,
+        {
+          id: "name",
+          header: "الاسم",
+          cell: (info) => {
+            return info.getValue();
+          },
+        }
+      ),
+      columnHelper.accessor((row) => row?.user?.account_code, {
+        id: "accountNumber",
         header: "رقم الحساب",
         cell: (info) => (
           <Link
@@ -50,24 +40,25 @@ const SubscriptionLog = () => {
           </Link>
         ),
       }),
-      columnHelper.accessor("date", {
-        header: " التاريخ ",
+      columnHelper.accessor("created_at", {
+        header: "التاريخ",
         cell: (info) => info.getValue(),
       }),
-      columnHelper.accessor("subValue", {
-        header: " قيمة الاشتراك ",
+      columnHelper.accessor("price", {
+        header: "قيمة الاشتراك",
         cell: (info) => info.getValue(),
       }),
     ],
     []
   );
+
   return (
     <>
       <ReusableDataTable
         filter={false}
         title="سجل الاشتراكات"
         searchPlaceholder="بحث..."
-        data={subData}
+        data={userSubscriptionCommunities}
         columns={subColumns}
         currentPage={currentPage}
         lastPage={lastPage}
