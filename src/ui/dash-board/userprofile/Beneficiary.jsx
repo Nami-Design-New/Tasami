@@ -87,7 +87,7 @@ const Beneficiary = ({ userDetails }) => {
             </p>
             <p>
               <span>عضوية المجتمعات:</span>
-              <span> {`${userDetails?.total_user_points}`} </span>
+              <span> {`${userDetails?.community_subscription_count}`} </span>
             </p>
             <p>
               <span>المتابعون:</span>
@@ -99,15 +99,15 @@ const Beneficiary = ({ userDetails }) => {
             </p>
             <p>
               <span>الاقتراحات:</span>
-              <span> {`${userDetails?.subscription_start_date}`} </span>
+              <span> {`${userDetails?.suggestions_count}`} </span>
             </p>
             <p>
               <span>التصنيفات الجديدة:</span>
-              <span> {`${userDetails?.subscription_start_date}`} </span>
+              <span> {`${userDetails?.new_classifications_count}`} </span>
             </p>
             <p>
               <span>بلاغات المخالفات:</span>
-              <span> {`${userDetails?.subscription_start_date}`} </span>
+              <span> {`${userDetails?.own_violation_reports_count}`} </span>
             </p>
           </InfoCard>
         </div>

@@ -141,6 +141,8 @@ import SharedGroups from "../routes/dash-board/teams/SharedGroups";
 import CompleteDraftedUsers from "../routes/dash-board/list-management/CompleteDraftedUsers";
 import ConsultaionDashDetails from "../routes/dash-board/community-dashboard/ConsultaionDashDetails";
 import PostDashDetails from "../routes/dash-board/community-dashboard/PostDashDetails";
+import PersonalGoalDetails from "../routes/dash-board/teams/PersonalGoalDetails";
+import MyServicesDetails from "../routes/dash-board/teams/MyServicesDetails";
 
 export const router = createBrowserRouter([
   /* WEBSITE AUTH */
@@ -599,6 +601,15 @@ export const router = createBrowserRouter([
           },
         ],
       },
+      {
+        path: "personal-goal/:id",
+        element: <PersonalGoalDetails />,
+      },
+      {
+        path: "services/:id",
+        element: <MyServicesDetails />,
+      },
+
       {
         path: "create-employee",
         element: <CreateEmployee />,

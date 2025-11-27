@@ -1,20 +1,20 @@
 import { useQuery } from "@tanstack/react-query";
-import { adminAxiosInstance } from "../../../lib/adminAxios";
+import { adminAxiosInstance } from "../../../../lib/adminAxios";
 
-export default function useGetPersonalGoal(
+export default function useGetHelpRequest(
   search = "",
   page = 1,
   pageSize = 10,
 ) {
   const { data, isLoading, isError, refetch } = useQuery({
-    queryKey: ["personal-goal", search, page, pageSize],
+    queryKey: ["dh-help-requests", search, page, pageSize],
     queryFn: async () => {
-      const res = await adminAxiosInstance.get(`dh-goals`, {
+      const res = await adminAxiosInstance.get(`dh-help-requests`, {
         params: { search, page, limit_per_page: pageSize },
       });
 
       if (res.data.code !== 200) {
-        throw new Error(res.data.message || "Error fetching personal goal");
+        throw new Error(res.data.message || "Error fetching dh help requests");
       }
 
       return res.data;
@@ -23,7 +23,7 @@ export default function useGetPersonalGoal(
   });
 
   return {
-    personalGoal: data || [],
+    helpRequests: data || [],
     currentPage: data?.current_page || 1,
     lastPage: data?.last_page || 1,
     isLoading,

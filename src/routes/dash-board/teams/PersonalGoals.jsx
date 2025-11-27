@@ -6,7 +6,7 @@ import { Badge } from "react-bootstrap";
 import ColumnChart from "../../../ui/dash-board/charts/ColumnChart";
 import { useTranslation } from "react-i18next";
 import { PAGE_SIZE } from "../../../utils/constants";
-import useGetPersonalGoal from "../../../hooks/dashboard/personalGoal/useGetPersonalGoal";
+import useGetPersonalGoal from "../../../hooks/dashboard/subscription/personalGoal/useGetPersonalGoal";
 import TablePagination from "../../../ui/table/TablePagentaion";
 
 const columnHelper = createColumnHelper();
@@ -19,7 +19,7 @@ const PersonalGoals = () => {
     page,
     PAGE_SIZE
   );
-  console.log("personal goal ::", personalGoal);
+  // console.log("personal goal ::", personalGoal);
 
   const userGrowthSeries = [
     {
@@ -137,7 +137,10 @@ const PersonalGoals = () => {
       columnHelper.accessor("goal_code", {
         header: t("dashboard.personalGoals.table.serviceNumber"),
         cell: (info) => (
-          <Link to={`/model/${info.getValue()}`} className="link-styles">
+          <Link
+            to={`/dashboard/personal-goal/${info?.row?.original.id}`}
+            className="link-styles"
+          >
             {info.getValue()}
           </Link>
         ),
@@ -149,7 +152,7 @@ const PersonalGoals = () => {
         header: t("dashboard.personalGoals.table.accountNumber"),
         cell: (info) => (
           <Link
-            to={`/dashboard/user-details/${info.getValue()}`}
+            to={`/dashboard/user-details/${info?.row?.original.user.id}`}
             className="link-styles"
           >
             {info.getValue()}
@@ -159,9 +162,9 @@ const PersonalGoals = () => {
       columnHelper.accessor("user.account_type", {
         header: t("dashboard.personalGoals.table.accountType"),
       }),
-      columnHelper.accessor("offers", {
-        header: t("dashboard.personalGoals.table.offers"),
-      }),
+      // columnHelper.accessor("offers", {
+      //   header: t("dashboard.personalGoals.table.offers"),
+      // }),
       columnHelper.accessor("status", {
         header: " المرحله ",
         cell: (info) => {
@@ -217,12 +220,12 @@ const PersonalGoals = () => {
       columnHelper.accessor("sub_category.title", {
         header: t("dashboard.personalGoals.table.specialization"),
       }),
-      columnHelper.accessor("numberOfUsers", {
-        header: t("dashboard.personalGoals.table.numberOfUsers"),
-      }),
-      columnHelper.accessor("rate", {
-        header: t("dashboard.personalGoals.table.rate"),
-      }),
+      // columnHelper.accessor("numberOfUsers", {
+      //   header: t("dashboard.personalGoals.table.numberOfUsers"),
+      // }),
+      // columnHelper.accessor("rate", {
+      //   header: t("dashboard.personalGoals.table.rate"),
+      // }),
     ],
     []
   );

@@ -64,10 +64,10 @@ const AssistantPresenter = ({ userDetails }) => {
             }
             link={"سجل مجتمع المساعد "}
           >
-            <p>
+            {/* <p>
               <span>عدد المتابعين:</span>
               <span> {`${userDetails?.community.members_count}`} </span>
-            </p>
+            </p> */}
             <p>
               <span>حالة مجتمع المساعد:</span>
               <span>{`${
@@ -160,20 +160,24 @@ const AssistantPresenter = ({ userDetails }) => {
             </p>
             <p>
               <span>عدد عروض الأسعار الإجمالي:</span>
-              <span> {`${userDetails?.goal_offer_price}`} </span>
+              <span> {`${userDetails?.goal_offers}`} </span>
             </p>
             <p>
               <span>نقاط الخبرة:</span>
               <span> {`${userDetails?.total_helper_points}`} </span>
             </p>
             <p>
-              <span>عدد بلاغات المخالفات:</span>
-              <span>! 4</span>
+              <span>عدد الايقافات   </span>
+              <span> {`${userDetails?.stops_number}`} </span>
             </p>
             <p>
+              <span>عدد بلاغات المخالفات:</span>
+              <span> {`${userDetails?.violation_reports}`} </span>
+            </p>
+            {/* <p>
               <span>الإتفاقات:</span>
               <span>! 1</span>
-            </p>
+            </p> */}
             <p>
               <span>التقييم الإجمالي:</span>
               <span> {`${userDetails?.avg_rate}`} </span>
