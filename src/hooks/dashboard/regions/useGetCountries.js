@@ -13,7 +13,7 @@ export default function useGetCountries(
     hasNextPage: hasCountriesNextPage,
     isFetchingNextPage: isFetchingCountriesNextPage,
   } = useInfiniteQuery({
-    queryKey: ["dashboard-cities", regionId],
+    queryKey: ["dashboard-countries", regionId],
     queryFn: async ({ pageParam }) => {
       const res = await adminAxiosInstance.get("dh-countries", {
         params: {
@@ -32,6 +32,8 @@ export default function useGetCountries(
       return lastPage.next_page_url ? lastPage.current_page + 1 : undefined;
     },
     enabled,
+    gcTime: undefined,
+    staleTime: undefined,
   });
   // Flatten all pages into a single array
   const countries = data?.pages.flatMap((page) => page.data) || [];

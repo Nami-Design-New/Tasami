@@ -19,6 +19,8 @@ export default function useGetRegions(pagenation = "on", enabled = true) {
         return lastPage.next_page_url ? lastPage.current_page + 1 : undefined;
       },
       enabled,
+      gcTime: undefined,
+      staleTime: undefined,
     });
 
   // Flatten all pages into a single array

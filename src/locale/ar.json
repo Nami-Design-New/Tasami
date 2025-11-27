@@ -1745,6 +1745,39 @@
         "specializations": "التخصصات",
         "actions": "الإجراءات"
       }
+    },
+    "operatingRegions": {
+      "addRegionTitle": "اضافة اقليم جديد",
+      "addCountryTitle": "اضافة قطاع جديد",
+      "addCityTitle": "اضافة مدينة جديد",
+      "statisticsTitle": "إحصائيات قطاعات التشغيل",
+
+      "regionName": "اسم الاقليم",
+      "regionNumber": "رقم الاقليم",
+
+      "countryName": "اسم القطاع",
+      "countryNumber": "رقم القطاع",
+      "countryCode": "كود الدولة",
+      "chooseRegion": "اختر الاقليم",
+
+      "cityName": "اسم المدينة",
+      "cityNumber": "رقم المدينة",
+      "chooseCountry": "اختر الدولة",
+
+      "regionsCount": "الأقاليم",
+      "countriesCount": "القطاعات",
+      "citiesCount": "المدن",
+      "usersCount": "المستخدمون",
+      "employeesCount": "الموظفون",
+      "operatingSectorsTitle": "قطاعات التشغيل",
+
+      "noCities": "لا توجد مدن متاحة.",
+      "noCountries": "لا توجد قطاعات.",
+      "editRegion": "تعديل الإقليم",
+      "enterRegionName": "ادخل اسم الإقليم",
+      "enterRegionNumber": "ادخل رقم الإقليم",
+      "editCountry": "تعديل الاقليم",
+      "editCity": "تعديل المدينة"
     }
   }
 }

@@ -734,3 +734,41 @@ input[type="file"] {
     }
   }
 }
+.nested-accordion-item {
+  background-color: $white;
+  border-radius: 12px !important;
+  .accordion-header {
+    background-color: $white;
+    border-radius: 12px !important;
+
+    .accordion-button {
+      background-color: $white !important;
+    }
+  }
+  .accordion-body {
+    background-color: $white !important;
+  }
+}
+
+.tag-list {
+  .tag-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    justify-content: space-between;
+    padding: 12px 16px;
+    background-color: $InputBG;
+    border-radius: 12px;
+    color: $dark;
+    font-weight: 700;
+  }
+}
+
+.edit-icon-style {
+  color: $eidtAction;
+  cursor: pointer;
+}
+.delete-icon-style {
+  color: $dangerLight;
+  cursor: pointer;
+}

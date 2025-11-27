@@ -1,0 +1,151 @@
+import { yupResolver } from "@hookform/resolvers/yup";
+import { useEffect } from "react";
+import { Modal } from "react-bootstrap";
+import { Controller, useForm } from "react-hook-form";
+import { SUPPORTED_LANGS } from "../../../lib/multilang/config";
+
+import { useQueryClient } from "@tanstack/react-query";
+import { useTranslation } from "react-i18next";
+import { toast } from "sonner";
+import useEditCountry from "../../../hooks/dashboard/countries/useEditCountry";
+import useGetRegions from "../../../hooks/dashboard/regions/useGetRegions";
+import {
+  countrySchema,
+  defaultCountryValues,
+} from "../../../routes/dash-board/list-management/shared-schema";
+import CustomButton from "../../CustomButton";
+import InputField from "../../forms/InputField";
+import SelectFieldReactSelect from "../../forms/SelectFieldReactSelect";
+
+export default function EditCountryModal({
+  showModal,
+  setShowModal,
+  selectedCountry,
+}) {
+  const { t } = useTranslation();
+  const queryClient = useQueryClient();
+  const { regions, isLoading, fetchNextPage, hasNextPage, isFetchingNextPage } =
+    useGetRegions();
+  const countryForm = useForm({
+    resolver: yupResolver(countrySchema),
+    defaultValues: defaultCountryValues,
+  });
+  const { editCountry, isEditingCountry } = useEditCountry();
+  console.log(selectedCountry);
+
+  useEffect(() => {
+    countryForm.reset({
+      countryRegion: selectedCountry?.region_id,
+      country: {
+        ar: selectedCountry?.title_ar,
+        en: selectedCountry?.title_en,
+      },
+      countryNumber: selectedCountry?.code,
+      countryCode: selectedCountry?.phone_code,
+    });
+  }, [selectedCountry, countryForm]);
+  console.log(countryForm.formState.errors);
+
+  const onSubmit = (data) => {
+    const payload = {
+      _method: "put",
+      code: data?.countryNumber,
+      "title:ar": data?.country?.ar,
+      "title:en": data?.country?.en,
+      phone_code: data?.countryCode,
+      region_id: data?.countryRegion,
+    };
+    editCountry(
+      { countryId: selectedCountry?.id, countryData: payload },
+      {
+        onSuccess: (res) => {
+          toast.success(res.message);
+          setShowModal(false);
+          queryClient.refetchQueries({ queryKey: ["dashboard-countries"] });
+        },
+        onError: (err) => {
+          toast.error(err.message);
+        },
+      }
+    );
+  };
+
+  return (
+    <Modal
+      show={showModal}
+      size="lg"
+      centered
+      onHide={() => {
+        setShowModal(false);
+      }}
+    >
+      <Modal.Header closeButton>
+        <h6> {t("dashboard.operatingRegions.editCountry")} </h6>
+      </Modal.Header>
+      <Modal.Body>
+        <form className="form_ui" onSubmit={countryForm.handleSubmit(onSubmit)}>
+          <div className="row">
+            <div className="col-12 col-md-6 p-2">
+              <Controller
+                name="countryRegion"
+                control={countryForm.control}
+                render={({ field }) => (
+                  <SelectFieldReactSelect
+                    label={t("dashboard.workGroup.region")}
+                    options={regions?.map((region) => ({
+                      value: region.id,
+                      name: region.title,
+                    }))}
+                    loading={isLoading || isFetchingNextPage}
+                    value={field.value}
+                    onChange={field.onChange}
+                    onMenuScrollToBottom={() => {
+                      if (hasNextPage) fetchNextPage();
+                    }}
+                    error={countryForm.formState.errors.countryRegion?.message}
+                  />
+                )}
+              />
+            </div>
+            {SUPPORTED_LANGS.map((lang) => (
+              <div className="col-12 col-md-6 p-2" key={`country-${lang}`}>
+                <InputField
+                  label={`${t(
+                    "dashboard.operatingRegions.countryName"
+                  )} (${lang})`}
+                  placeholder={t("dashboard.operatingRegions.countryName")}
+                  {...countryForm.register(`country.${lang}`)}
+                  error={countryForm.formState.errors?.country?.[lang]?.message}
+                />
+              </div>
+            ))}
+            <div className="col-12 col-md-6 p-2">
+              <InputField
+                label={t("dashboard.operatingRegions.countryNumber")}
+                placeholder={t("dashboard.operatingRegions.countryNumber")}
+                {...countryForm.register("countryNumber")}
+                error={countryForm.formState.errors.countryNumber?.message}
+              />
+            </div>
+            <div className="col-12 col-md-6 p-2">
+              {" "}
+              <InputField
+                label={t("dashboard.operatingRegions.countryCode")}
+                placeholder={t("dashboard.operatingRegions.countryCode")}
+                {...countryForm.register("countryCode")}
+                error={countryForm.formState.errors.countryCode?.message}
+              />
+            </div>
+            <div className="col-12  p-2">
+              <div className="d-flex justify-content-end">
+                <CustomButton size="large" loading={isEditingCountry}>
+                  {t("edit")}
+                </CustomButton>
+              </div>
+            </div>
+          </div>
+        </form>
+      </Modal.Body>
+    </Modal>
+  );
+}
