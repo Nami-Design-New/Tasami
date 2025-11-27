@@ -19,7 +19,7 @@ const SubscriptionLog = () => {
   const subColumns = useMemo(
     () => [
       columnHelper.accessor(
-        (row) => row.user.first_name + " " + row.user.last_name,
+        (row) => row?.user?.first_name + " " + row?.user?.last_name,
         {
           id: "name",
           header: "الاسم",
@@ -28,7 +28,7 @@ const SubscriptionLog = () => {
           },
         }
       ),
-      columnHelper.accessor((row) => row.user.account_code, {
+      columnHelper.accessor((row) => row?.user?.account_code, {
         id: "accountNumber",
         header: "رقم الحساب",
         cell: (info) => (
