@@ -106,7 +106,7 @@ const WorkingGroups = () => {
         supervisorsCount: wg?.supervisor_count,
         employeeCount: wg?.customer_service_count,
       })),
-    [workingGroups, t]
+    [workingGroups]
   );
 
   const columns = useMemo(

@@ -1838,6 +1838,48 @@
       "noCountries": "No countries available.",
       "editCountry": "Edit Country",
       "editCity": "Edit City"
+    },
+    "faqs": {
+      "questions": "Question",
+      "answer": "Answer",
+      "actions": "Actions",
+      "addQuestion": "Add Question",
+      "searchPlaceholder": "Search in questions...",
+      "faqTitle": "Frequently Asked Questions",
+      "modal": {
+        "add": "Add",
+        "edit": "Edit",
+        "question": "Question",
+        "answer": "Answer",
+        "submit": "Save",
+        "required": "is required"
+      }
+    },
+    "appSettings": {
+      "management": "Content Management",
+      "terms": "Terms & Conditions",
+      "privacy": "Privacy Policy",
+      "aboutApp": "About the App",
+      "save": "Save",
+      "loading": "Loading"
+    },
+    "subscriptions": {
+      "management": "Subscription Management",
+      "logo": "Logo",
+      "package": "Package",
+      "actions": "Actions",
+      "add": "Add Subscription",
+      "tableTitle": "Subscriptions List",
+      "searchPlaceholder": "Search subscriptions...",
+      "free_forever": "Free forever",
+      "currency": "SAR",
+      "offers_count": "Number of offers allowed simultaneously",
+      "groups_count": "Number of groups that can be created",
+      "seats_count": "Seats available per group",
+      "app_commission": "Platform commission from contracts and memberships",
+      "yearly_price": "Yearly price",
+      "half_yearly_price": "Half-yearly price",
+      "no_data": "No package data available"
     }
   }
 }

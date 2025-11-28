@@ -1818,6 +1818,47 @@
       "enterRegionNumber": "ادخل رقم الإقليم",
       "editCountry": "تعديل الاقليم",
       "editCity": "تعديل المدينة"
+    },
+    "faqs": {
+      "questions": "السؤال",
+      "answer": "الاجابة",
+      "actions": "الاجراءات",
+      "addQuestion": "اضف سؤال",
+      "searchPlaceholder": "البحث في الأسئلة...",
+      "faqTitle": "الاسئلة الشائعة",
+      "modal": {
+        "add": "اضافه",
+        "edit": "تعديل",
+        "question": "السؤال",
+        "answer": "الاجابة",
+        "submit": "حفظ"
+      }
+    },
+    "appSettings": {
+      "management": "إدارة المحتوى",
+      "terms": "الشروط والأحكام",
+      "privacy": "سياسة الخصوصية",
+      "aboutApp": "عن التطبيق",
+      "save": "حفظ",
+      "loading": "جاري التحميل"
+    },
+    "subscriptions": {
+      "management": "إدارة الاشتراكات",
+      "logo": "الشعار",
+      "package": "الاشتراك",
+      "actions": "الإجراءات",
+      "add": "أضف اشتراك",
+      "tableTitle": "قائمة الاشتراكات",
+      "searchPlaceholder": "البحث في الاشتراكات...",
+      "free_forever": "Free forever",
+      "currency": "SAR",
+      "offers_count": "Number of offers allowed simultaneously",
+      "groups_count": "Number of groups that can be created",
+      "seats_count": "Seats available per group",
+      "app_commission": "Platform commission from contracts and memberships",
+      "yearly_price": "Yearly price",
+      "half_yearly_price": "Half-yearly price",
+      "no_data": "No package data available"
     }
   }
 }
