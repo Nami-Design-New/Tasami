@@ -358,11 +358,12 @@
     "customer": "Customer",
     "amount": "Amount",
     "status": "Status",
+    "attachments": "Attachments",
 
     "statuses": {
       "pending": "Pending",
       "accepted": "Accepted",
-      "rejected": "Rejected"
+      "refused": "Rejected"
     },
 
     "date": "Request Time",
@@ -385,7 +386,11 @@
     "fullName": "Full Name",
     "branchCode": "Branch Code",
     "swift": "Swift Code",
-    "openFile": "Open File"
+    "openFile": "Open File",
+    "errors": {
+      "fileRequired": "File is required",
+      "notesRequired": "Notes are required when rejecting"
+    }
   },
   "auth": {
     "login": "Login",

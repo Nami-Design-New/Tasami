@@ -1,15 +1,14 @@
-import { useTranslation } from "react-i18next";
-import PageHeader from "../../ui/PageHeader";
-import ChartCard from "../../ui/dash-board/cards/ChartCard";
-import ReusableDataTable from "../../ui/table/ReusableDataTable";
 import { createColumnHelper } from "@tanstack/react-table";
-import { Link } from "react-router";
 import { useMemo, useState } from "react";
+import { useTranslation } from "react-i18next";
 import useGetWithDrawRequests from "../../hooks/dashboard/withdrawRequests/useGetWithDrawRequests";
-import { PAGE_SIZE } from "../../utils/constants";
 import CustomButton from "../../ui/CustomButton";
-import TablePagination from "../../ui/table/TablePagentaion";
+import PageHeader from "../../ui/PageHeader";
 import WithdrawDetailsModal from "../../ui/dash-board/WithdrawDetailsModal";
+import ReusableDataTable from "../../ui/table/ReusableDataTable";
+import TablePagination from "../../ui/table/TablePagentaion";
+import { PAGE_SIZE } from "../../utils/constants";
+import WithdrawActionModal from "../../ui/dash-board/WithdrawActionModal";
 const columnHelper = createColumnHelper();
 
 export default function WithdrawRequests() {
@@ -97,7 +96,7 @@ export default function WithdrawRequests() {
               <CustomButton
                 onClick={() => {
                   setSelectedRequest(info.row.original.id);
-                  setActionType("accept");
+                  setActionType("accepted");
                   setShowActionModal(true);
                 }}
               >
@@ -108,7 +107,7 @@ export default function WithdrawRequests() {
                 color="danger"
                 onClick={() => {
                   setSelectedRequest(info.row.original.id);
-                  setActionType("reject");
+                  setActionType("refused");
                   setShowActionModal(true);
                 }}
               >
@@ -149,6 +148,14 @@ export default function WithdrawRequests() {
           />
         </ReusableDataTable>
       </div>
+      {showActionModal && (
+        <WithdrawActionModal
+          show={showActionModal}
+          setShow={setShowActionModal}
+          actionType={actionType}
+          request={selectedRequest}
+        />
+      )}
       {showDetailsModal && (
         <WithdrawDetailsModal
           show={showDetailsModal}

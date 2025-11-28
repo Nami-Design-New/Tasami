@@ -362,10 +362,11 @@
     "customer": "العميل",
     "amount": "المبلغ",
     "status": "الحالة",
+    "attachments": "المرفقات",
     "statuses": {
       "pending": "معلق",
       "accepted": "مقبول",
-      "rejected": "مرفوض"
+      "refused": "مرفوض"
     },
     "date": "وقت الطلب",
     "details": "التفاصيل",
@@ -386,7 +387,11 @@
     "fullName": "الاسم الكامل",
     "branchCode": "رمز الفرع",
     "swift": "سويفت كود",
-    "openFile": "فتح الملف"
+    "openFile": "فتح الملف",
+    "errors": {
+      "fileRequired": "يجب رفع ملف",
+      "notesRequired": "الملاحظات مطلوبة عند الرفض"
+    }
   },
   "auth": {
     "yes": "نعم",
