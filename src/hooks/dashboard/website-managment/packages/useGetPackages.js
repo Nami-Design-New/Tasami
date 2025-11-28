@@ -2,28 +2,34 @@ import { useQuery } from "@tanstack/react-query";
 import { adminAxiosInstance } from "../../../../lib/adminAxios";
 import { useSearchParams } from "react-router";
 
-export default function useGetFaqs(page = 1, pageSize = 10) {
+export default function useGetPackages(page, pageSize) {
   const [searchParams, setSearchParams] = useSearchParams();
   const search = searchParams.get("search");
-  const { data, isLoading } = useQuery({
-    queryKey: ["dh-faqs", page],
+
+  const {
+    data: packages,
+    isLoading,
+    error,
+    refetch,
+  } = useQuery({
+    queryKey: ["packages"],
     queryFn: async () => {
-      const res = await adminAxiosInstance.get("dh-fqs", {
+      const res = await adminAxiosInstance.get("dh-packages", {
         params: { search, page, limit_per_page: pageSize },
       });
-
       if (res.data.code !== 200) {
-        throw new Error(res.data.message || "Error fetching faqs");
+        throw new Error(res.data.message || "Error fetching packages");
       }
-      return res.data;
+      return res.data.data;
     },
     keepPreviousData: true,
   });
-
   return {
-    faqs: data?.data,
+    packages,
     isLoading,
-    currentPage: data?.current_page || 1,
-    lastPage: data?.last_page || 1,
+    error,
+    refetch,
+    currentPage: packages?.current_page || 1,
+    lastPage: packages?.last_page || 1,
   };
 }
