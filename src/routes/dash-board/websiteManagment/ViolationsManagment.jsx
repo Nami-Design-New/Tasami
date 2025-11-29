@@ -5,57 +5,69 @@ import CustomButton from "../../../ui/CustomButton";
 import PageHeader from "../../../ui/PageHeader";
 import ReusableDataTable from "../../../ui/table/ReusableDataTable";
 import ConfirmDeleteModal from "../../../ui/modals/ConfirmationDeleteModal";
+import useGetViolationReason from "../../../hooks/dashboard/websiteManagment/violationsManagment/useGetViolationReason";
+import { PAGE_SIZE } from "../../../utils/constants";
+import TablePagination from "../../../ui/table/TablePagentaion";
+import useDeleteViolationReason from "../../../hooks/dashboard/websiteManagment/violationsManagment/useDeleteViolationReason";
+import { useQueryClient } from "@tanstack/react-query";
 
 const columnHelper = createColumnHelper();
 export default function ViolationsManagment() {
   const [showModal, setShowModal] = useState();
   const [isEdit, setIsEdit] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState();
-  const data = useMemo(
-    () => [
-      {
-        violations:
-          " معلومات زائفة، أو موضوعات ووسائط محظورة (دينية أو أمنية أو سياسية أو جنسية)  ",
-        actions: "",
+  const queryClient = useQueryClient()
+
+  const lang = localStorage.getItem("i18nextLng")
+
+  // fetch data 
+  const [page, setPage] = useState(1);
+  const [pageSize, setPageSize] = useState(PAGE_SIZE);
+  const { violationReasons, currentPage, lastPage, isLoading } =
+    useGetViolationReason("", page, pageSize);
+
+  // delete row 
+  const [deletionTarget, setDeletionTarget] = useState(null);
+  const [updateTarget, setUpdateTarget] = useState(null);
+  const { deleteViolationReason, isDeletingViolationReason } = useDeleteViolationReason();
+
+  const handleDeleteViolationReason = (id) => {
+    deleteViolationReason(id, {
+      onSuccess: () => {
+        setShowDeleteModal(false);
+        setDeletionTarget(null);
+        queryClient.invalidateQueries({
+          queryKey: ["violation-reason-data"],
+        });
       },
-      {
-        violations: " ترويج لمواد غير مصرحة أو ممارسات مضرة أو لا أخلاقية ",
-        actions: "",
-      },
-      {
-        violations: "استخدام عبارات مهينة أو عنصرية أو خادشة",
-        actions: "",
-      },
-      {
-        violations:
-          " تعدي علي خصوصيات الغير أو تقديم محتوي محمي بحقوق الناشرين وأصحاب العلامات التجارية أو انتحال شخصية ",
-        actions: "",
-      },
-    ],
-    []
-  );
+    });
+  };
 
   const columns = useMemo(
     () => [
-      columnHelper.accessor("violations", {
+      columnHelper.accessor(lang === "ar" ? "title_ar" : "title_en", {
         header: " انواع المخالفات ",
         cell: (info) => info.getValue(),
       }),
 
-      columnHelper.accessor("actions", {
+      columnHelper.accessor("id", {
+        id: "id",
         header: " الاجراءات",
 
-        cell: () => (
+        cell: (info) => (
           <div className="table__actions">
             <i
               className="fa-solid fa-edit  table__actions--edit"
               onClick={() => {
-                setIsEdit(true), setShowModal(true);
+                setIsEdit(true), setShowModal(true), setUpdateTarget(info.row.original.id);
               }}
             ></i>
             <i
               className="fa-solid fa-trash  table__actions--delete"
-              onClick={() => setShowDeleteModal(true)}
+              onClick={() => {
+                setShowDeleteModal(true);
+                setDeletionTarget(info.row.original.id);
+              }}
             ></i>
           </div>
         ),
@@ -83,12 +95,25 @@ export default function ViolationsManagment() {
         <div className="col-12">
           <ReusableDataTable
             title="انواع المخالفات"
-            data={data}
+            data={violationReasons || []}
             columns={columns}
             filter={false}
             searchPlaceholder="البحث في المخالفات  ..."
             initialPageSize={10}
-          />
+            currentPage={currentPage}
+            lastPage={lastPage}
+            setPage={setPage}
+            pageSize={pageSize}
+            setPageSize={setPageSize}
+            isLoading={isLoading}
+          >
+            <TablePagination
+              currentPage={page}
+              lastPage={lastPage}
+              onPageChange={setPage}
+              isLoading={isLoading}
+            />
+          </ReusableDataTable>
         </div>
       </div>
       <ViolationsEditModal
@@ -96,10 +121,14 @@ export default function ViolationsManagment() {
         setShowModal={setShowModal}
         isEdit={isEdit}
         setIsEdit={setIsEdit}
+        updateTarget={updateTarget}
+        violationReasons={violationReasons}
       />
       <ConfirmDeleteModal
         showDeleteModal={showDeleteModal}
         setShowDeleteModal={setShowDeleteModal}
+        loading={isDeletingViolationReason}
+        onConfirm={() => handleDeleteViolationReason(deletionTarget)}
       />
     </section>
   );
