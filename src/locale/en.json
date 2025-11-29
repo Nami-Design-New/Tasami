@@ -1879,7 +1879,21 @@
       "app_commission": "Platform commission from contracts and memberships",
       "yearly_price": "Yearly price",
       "half_yearly_price": "Half-yearly price",
-      "no_data": "No package data available"
+      "no_data": "No package data available",
+      "edit": "Edit Subscription",
+      "plan_name": "Plan Name",
+      "plan_name_ar": "Plan Name (AR)",
+      "plan_name_en": "Plan Name (EN)",
+      "yearly_price_add": "Yearly Price",
+      "half_yearly_price_add": "Half Yearly Price",
+      "offers_count_add": "Number of Offers",
+      "groups_count_add": "Number of Groups",
+      "seats_count_add": "Number of Seats",
+      "commission": "Commission (%)",
+      "upload_image": "Upload Image",
+      "save": "Save",
+      "update": "Update",
+      "cancel": "Cancel"
     }
   }
 }

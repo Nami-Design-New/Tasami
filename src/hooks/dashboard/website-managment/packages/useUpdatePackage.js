@@ -1,15 +1,16 @@
 import { useMutation } from "@tanstack/react-query";
 import { adminAxiosInstance } from "../../../../lib/adminAxios";
 export default function useUpdatePackage() {
-  const {
-    mutate: updatePackage,
-    mutateAsync: updatePackageAsync,
-    isPending,
-  } = useMutation({
+  const { mutate: updatePackage, isPending } = useMutation({
     mutationFn: async ({ id, ...packageData }) => {
-      const res = await adminAxiosInstance.put(
+      const res = await adminAxiosInstance.post(
         `dh-packages/${id}`,
-        packageData
+        packageData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
       );
       if (res.data.code !== 200) {
         throw new Error(res.data.message || "Error updating package");
@@ -18,5 +19,5 @@ export default function useUpdatePackage() {
     },
   });
 
-  return { updatePackage, updatePackageAsync, isPending };
+  return { updatePackage, isPending };
 }

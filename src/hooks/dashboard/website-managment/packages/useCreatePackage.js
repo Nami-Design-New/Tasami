@@ -7,7 +7,11 @@ export default function useCreatePackage() {
     isPending,
   } = useMutation({
     mutationFn: async (packageData) => {
-      const res = await adminAxiosInstance.post("dh-packages", packageData);
+      const res = await adminAxiosInstance.post("dh-packages", packageData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
       if (res.data.code !== 200) {
         throw new Error(res.data.message || "Error creating package");
       }
