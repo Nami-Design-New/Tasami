@@ -7,7 +7,7 @@ export default function useGetPackage(id, enabled = true) {
     isLoading,
     error,
   } = useQuery({
-    queryKey: ["packages", id],
+    queryKey: ["dh-package", id],
     queryFn: async () => {
       const res = await adminAxiosInstance.get(`dh-packages/${id}`);
       if (res.data.code !== 200) {

@@ -1,20 +1,24 @@
 import { createColumnHelper } from "@tanstack/react-table";
 import { useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
+import useDeletePackage from "../../../hooks/dashboard/website-managment/packages/useDeletePackage";
+import useGetPackages from "../../../hooks/dashboard/website-managment/packages/useGetPackages";
 import CustomButton from "../../../ui/CustomButton";
 import AddNewSubscriptoinsModal from "../../../ui/dash-board/websiteManagment/AddNewSubscriptoinsModal";
 import DetailsSubscriptionsModal from "../../../ui/dash-board/websiteManagment/DetailsSubscriptionsModal";
 import ConfirmDeleteModal from "../../../ui/modals/ConfirmationDeleteModal";
 import PageHeader from "../../../ui/PageHeader";
 import ReusableDataTable from "../../../ui/table/ReusableDataTable";
-import useGetPackages from "../../../hooks/dashboard/website-managment/packages/useGetPackages";
-import { PAGE_SIZE } from "../../../utils/constants";
 import TablePagination from "../../../ui/table/TablePagentaion";
+import { PAGE_SIZE } from "../../../utils/constants";
+import { toast } from "sonner";
+import { useQueryClient } from "@tanstack/react-query";
 
 const columnHelper = createColumnHelper();
 
 export default function SubscriptionManagement() {
   const { t } = useTranslation();
+  const queryClient = useQueryClient();
   const [showDetails, setShowDetails] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [showAddSubscriptions, setShowAddSubscriptions] = useState(false);
@@ -30,12 +34,35 @@ export default function SubscriptionManagement() {
     pageSize
   );
 
+  const { isPending, deletePackage } = useDeletePackage();
+
+  const handleDeletePackage = () => {
+    deletePackage(selectedPacage.id, {
+      onSuccess: (res) => {
+        toast.success(res.message);
+        queryClient.invalidateQueries({ queryKey: ["dh-packages"] });
+        setShowDeleteModal(false);
+      },
+      onError: (error) => {
+        toast.error(error.message);
+      },
+    });
+  };
+
   const data = useMemo(
     () =>
       packages?.map((p) => ({
         id: p?.id,
         image: p?.image,
         classification: p?.title,
+        title_ar: p?.title_ar,
+        title_en: p?.title_en,
+        seats_count: p?.seats_count,
+        groups_count: p?.groups_count,
+        offers_count: p?.offers_count,
+        app_commission: p?.app_commission,
+        half_yearly_price: p?.half_yearly_price,
+        yearly_price: p?.yearly_price,
       })),
     [packages]
   );
@@ -60,11 +87,15 @@ export default function SubscriptionManagement() {
               onClick={() => {
                 setIsEdit(true);
                 setShowAddSubscriptions(true);
+                setSelectedPacage(info.row.original);
               }}
             />
             <i
               className="fa-solid fa-trash table__actions--delete"
-              onClick={() => setShowDeleteModal(true)}
+              onClick={() => {
+                setShowDeleteModal(true);
+                setSelectedPacage(info.row.original);
+              }}
             />
             <i
               className="fa-solid fa-eye table__actions--details"
@@ -119,15 +150,22 @@ export default function SubscriptionManagement() {
         />
       </ReusableDataTable>
 
-      <AddNewSubscriptoinsModal
-        setShowModal={setShowAddSubscriptions}
-        showModal={showAddSubscriptions}
-        isEdit={isEdit}
-      />
-      <ConfirmDeleteModal
-        showDeleteModal={showDeleteModal}
-        setShowDeleteModal={setShowDeleteModal}
-      />
+      {showAddSubscriptions && (
+        <AddNewSubscriptoinsModal
+          setShowModal={setShowAddSubscriptions}
+          showModal={showAddSubscriptions}
+          isEdit={isEdit}
+          existingData={selectedPacage}
+        />
+      )}
+      {showDeleteModal && (
+        <ConfirmDeleteModal
+          showDeleteModal={showDeleteModal}
+          setShowDeleteModal={setShowDeleteModal}
+          onConfirm={handleDeletePackage}
+          loading={isPending}
+        />
+      )}
       {showDetails && (
         <DetailsSubscriptionsModal
           setShowModal={setShowDetails}

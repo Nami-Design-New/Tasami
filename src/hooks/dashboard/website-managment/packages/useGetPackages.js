@@ -12,7 +12,7 @@ export default function useGetPackages(page, pageSize) {
     error,
     refetch,
   } = useQuery({
-    queryKey: ["packages"],
+    queryKey: ["dh-packages"],
     queryFn: async () => {
       const res = await adminAxiosInstance.get("dh-packages", {
         params: { search, page, limit_per_page: pageSize },
