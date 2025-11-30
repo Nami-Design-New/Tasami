@@ -5,6 +5,7 @@ import useCheckDashboard from "../../../../hooks/dashboard/checkDashboard/useChe
 import useGetMeetingDetails from "../../../../hooks/website/communities/mettings/useGetMeetingDetails";
 import { handleCopy } from "../../../../utils/helper";
 import AddMeetingModal from "./AddMeetingModal";
+import useGetMeetingDashDetails from "../../../../hooks/dashboard/subscription/useGetMeetingDashDetails";
 import AlertModal from "../../platform/my-community/AlertModal";
 import useDeleteMeeting from "../../../../hooks/website/communities/mettings/useDeleteMeeting";
 import { useQueryClient } from "@tanstack/react-query";
@@ -15,6 +16,14 @@ export default function EncounterDetailsModal({ show, setShow, meetingId }) {
   const { t } = useTranslation();
   const queryClient = useQueryClient();
   const [showModal, setShowModal] = useState(false);
+
+  const dash = useGetMeetingDashDetails(meetingId, show);
+  const normal = useGetMeetingDetails(meetingId, show);
+
+  const meetingData = isDashboard
+    ? dash.meetingDashDetails
+    : normal.meetingDetails;
+  const isLoadingData = isDashboard ? dash.isLoading : normal.isLoading;
   const [showAlertModal, setShowAlertModal] = useState(false);
   const { meetingDetails, isLoading } = useGetMeetingDetails(meetingId, show);
   const { deleteMeeting, isPending } = useDeleteMeeting();
@@ -110,25 +119,29 @@ export default function EncounterDetailsModal({ show, setShow, meetingId }) {
             </div>
           </>
         )}{" "}
-        {showModal && (
-          <AddMeetingModal
-            showModal={showModal}
-            setShowModal={setShowModal}
-            isEdit={true}
-            meeting={meetingDetails}
-            setShowDetailsModal={setShow}
-          />
-        )}
-        {showAlertModal && (
-          <AlertModal
-            showModal={showAlertModal}
-            setShowModal={setShowAlertModal}
-            loading={isPending}
-            onConfirm={handleDeleteMeeting}
-            confirmButtonText={t("confirm")}
-          >
-            {t("meetingDeleteAlert")}
-          </AlertModal>
+        {!isDashboard && (
+          <>
+            {showModal && (
+              <AddMeetingModal
+                showModal={showModal}
+                setShowModal={setShowModal}
+                isEdit={true}
+                meeting={meetingDetails}
+                setShowDetailsModal={setShow}
+              />
+            )}
+            {showAlertModal && (
+              <AlertModal
+                showModal={showAlertModal}
+                setShowModal={setShowAlertModal}
+                loading={isPending}
+                onConfirm={handleDeleteMeeting}
+                confirmButtonText={t("confirm")}
+              >
+                {t("meetingDeleteAlert")}
+              </AlertModal>
+            )}{" "}
+          </>
         )}
       </Modal.Body>
     </Modal>
