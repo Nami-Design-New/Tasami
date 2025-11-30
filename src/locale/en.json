@@ -1,4 +1,6 @@
 {
+  "postDeleteAlert": "The post will be permanently deleted.",
+  "meetingDeleteAlert": "The Meeting will be permanently deleted.",
   "withdraw_offer_warning": "This action will withdraw the offer made to the beneficiary.",
   "withdraw_offer": "Withdraw Offer",
   "contractReq_title": "Send Contract Request",

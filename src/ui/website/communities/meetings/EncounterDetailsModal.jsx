@@ -4,11 +4,33 @@ import useGetMeetingDetails from "../../../../hooks/website/communities/mettings
 import { handleCopy } from "../../../../utils/helper";
 import { useState } from "react";
 import AddMeetingModal from "./AddMeetingModal";
+import AlertModal from "../../platform/my-community/AlertModal";
+import useDeleteMeeting from "../../../../hooks/website/communities/mettings/useDeleteMeeting";
+import { useQueryClient } from "@tanstack/react-query";
+import { toast } from "sonner";
 
 export default function EncounterDetailsModal({ show, setShow, meetingId }) {
   const { t } = useTranslation();
+  const queryClient = useQueryClient();
   const [showModal, setShowModal] = useState(false);
+  const [showAlertModal, setShowAlertModal] = useState(false);
   const { meetingDetails, isLoading } = useGetMeetingDetails(meetingId, show);
+  const { deleteMeeting, isPending } = useDeleteMeeting();
+
+  const handleDeleteMeeting = () => {
+    deleteMeeting(meetingId, {
+      onSuccess: (res) => {
+        toast.success(res?.message);
+        queryClient.refetchQueries({ queryKey: ["meetings"] });
+        setShowAlertModal(false);
+        setShowModal(false);
+      },
+      onError: (error) => {
+        toast.error(error.message);
+      },
+    });
+  };
+
   const meetingDate = new Date(
     meetingDetails?.start_date + " " + meetingDetails?.start_time
   );
@@ -24,9 +46,15 @@ export default function EncounterDetailsModal({ show, setShow, meetingId }) {
       className="encounter-modal"
     >
       <Modal.Header closeButton className="m-2">
-        <h6 className="fw-bold flex-grow-1 ">{meetingDetails?.title}</h6>
+        <h6 className="fw-bold flex-grow-1 ">{meetingDetails?.title}</h6>{" "}
+        <button
+          className=" fs-6 mx-2  text-danger"
+          onClick={() => setShowAlertModal(true)}
+        >
+          <i className="fa-regular fa-trash"></i>
+        </button>
         <button className=" fs-6  " onClick={() => setShowModal(true)}>
-          <i className="fa-regular fa-edit"></i>{" "}
+          <i className="fa-regular fa-edit"></i>
         </button>
       </Modal.Header>
 
@@ -82,13 +110,26 @@ export default function EncounterDetailsModal({ show, setShow, meetingId }) {
             </div>
           </>
         )}{" "}
-        <AddMeetingModal
-          showModal={showModal}
-          setShowModal={setShowModal}
-          isEdit={true}
-          meeting={meetingDetails}
-          setShowDetailsModal={setShow}
-        />
+        {showModal && (
+          <AddMeetingModal
+            showModal={showModal}
+            setShowModal={setShowModal}
+            isEdit={true}
+            meeting={meetingDetails}
+            setShowDetailsModal={setShow}
+          />
+        )}
+        {showAlertModal && (
+          <AlertModal
+            showModal={showAlertModal}
+            setShowModal={setShowAlertModal}
+            loading={isPending}
+            onConfirm={handleDeleteMeeting}
+            confirmButtonText={t("confirm")}
+          >
+            {t("meetingDeleteAlert")}
+          </AlertModal>
+        )}
       </Modal.Body>
     </Modal>
   );

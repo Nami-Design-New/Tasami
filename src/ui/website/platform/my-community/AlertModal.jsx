@@ -20,8 +20,9 @@ export default function AlertModal({
     if (onConfirm) {
       onConfirm();
     }
-    setShowModal(false);
+    // setShowModal(false);
   };
+  console.log(loading);
   return (
     <Modal show={showModal} onHide={handleCancel} centered size="md">
       <Modal.Body>

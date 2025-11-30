@@ -1,4 +1,6 @@
 {
+  "postDeleteAlert": "سيتم حذف المنشور نهائيا",
+  "meetingDeleteAlert": "سيتم حذف اللقاء نهائيا",
   "withdraw_offer_warning": "سيؤدي هذا الإجراء إلى سحب العرض المقدم للمستفيد",
   "withdraw_offer": "سحب العرض",
   "contractReq_title": "إرسال طلب تعاقد",
