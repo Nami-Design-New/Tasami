@@ -1,8 +1,11 @@
+import { useTranslation } from "react-i18next";
+
 export default function GenderSelect({
   value,
   onChange,
   disabled = ({ disabled } = false),
 }) {
+  const { t } = useTranslation();
   return (
     <div className="gender_select">
       <label>الهوية</label>
@@ -19,7 +22,7 @@ export default function GenderSelect({
             disabled={disabled}
             checked={value === "female"}
           />
-          <img src="/icons/femal.svg" alt="female" /> أنثي
+          <img src="/icons/femal.svg" alt="female" /> {t("female")}
         </label>
 
         <label
@@ -34,7 +37,7 @@ export default function GenderSelect({
             disabled={disabled}
             checked={value === "male"}
           />
-          <img src="/icons/mal.svg" alt="male" /> ذكر
+          <img src="/icons/mal.svg" alt="male" /> {t("male")}
         </label>
       </div>
     </div>

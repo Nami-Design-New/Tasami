@@ -466,6 +466,12 @@
     &:focus {
       box-shadow: none;
     }
+    &:disabled {
+      background-color: #eeeeee;
+    }
+  }
+  .form-control:disabled + .flag-dropdown {
+    background-color: #eeeeee;
   }
 }
 

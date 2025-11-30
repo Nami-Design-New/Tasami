@@ -5,10 +5,12 @@ import CustomButton from "../../../CustomButton";
 export default function AlertModal({
   showModal,
   setShowModal,
+  noActions = false,
   confirmButtonText,
   onConfirm,
   loading = false,
   children,
+  withoutMessage = true,
 }) {
   const { t } = useTranslation();
   const handleCancel = () => {
@@ -26,32 +28,36 @@ export default function AlertModal({
         <div className="alert-modal">
           <img src="/icons/alert.svg" alt="alert" />
 
-          <h4> {t("website.platform.myCommunity.areYouSure")}</h4>
+          {withoutMessage && (
+            <h4> {t("website.platform.myCommunity.areYouSure")}</h4>
+          )}
 
           {children}
 
-          <div className="buttons w-100">
-            <CustomButton
-              size="large"
-              fullWidth
-              color="fire"
-              variant="outlined"
-              onClick={handleCancel}
-              style={{ width: "70%" }}
-            >
-              {t("cancel")}
-            </CustomButton>
-            <CustomButton
-              size="large"
-              fullWidth
-              color="fire"
-              onClick={handleConfirm}
-              loading={loading}
-              style={{ width: "30%" }}
-            >
-              {confirmButtonText}
-            </CustomButton>
-          </div>
+          {!noActions && (
+            <div className="buttons w-100">
+              <CustomButton
+                size="large"
+                fullWidth
+                color="fire"
+                variant="outlined"
+                onClick={handleCancel}
+                style={{ width: "70%" }}
+              >
+                {t("cancel")}
+              </CustomButton>
+              <CustomButton
+                size="large"
+                fullWidth
+                color="fire"
+                onClick={handleConfirm}
+                loading={loading}
+                style={{ width: "30%" }}
+              >
+                {confirmButtonText}
+              </CustomButton>
+            </div>
+          )}
         </div>
       </Modal.Body>
     </Modal>

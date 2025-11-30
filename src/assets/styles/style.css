@@ -1912,7 +1912,7 @@ body.en .show-pass {
 
 .hint {
   font-size: 0.8rem;
-  color: #bdbbbb;
+  color: #fdcb2f;
   margin-inline-start: 4px;
   font-weight: 500;
 }
@@ -3671,6 +3671,12 @@ body.en .show-pass {
 }
 .react-tel-input .form-control:focus {
   box-shadow: none;
+}
+.react-tel-input .form-control:disabled {
+  background-color: #eeeeee;
+}
+.react-tel-input .form-control:disabled + .flag-dropdown {
+  background-color: #eeeeee;
 }
 
 .phone-label {

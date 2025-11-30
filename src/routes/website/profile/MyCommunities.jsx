@@ -1,10 +1,9 @@
+import { Placeholder } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
+import useGetMyCommunities from "../../../hooks/website/communities/useGetMyCommunities";
 import EmptySection from "../../../ui/EmptySection";
 import InfiniteScroll from "../../../ui/loading/InfiniteScroll";
 import CommunitiesCard from "../../../ui/website/profile/my-communities/CommunitiesCard";
-import AudienceCardLoader from "../../../ui/loading/AudienceCardLoader";
-import useGetMyCommunities from "../../../hooks/website/communities/useGetMyCommunities";
-import { Placeholder } from "react-bootstrap";
 
 export default function MyCommunities() {
   const { t } = useTranslation();
@@ -25,7 +24,7 @@ export default function MyCommunities() {
       {!isLoading && allCommunities.length === 0 && (
         <EmptySection
           height="500px"
-          message={t("website.platform.audience.noFollowers")}
+          message={t("website.platform.audience.noCommunities")}
         />
       )}{" "}
       <InfiniteScroll
