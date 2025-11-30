@@ -124,7 +124,7 @@ const HelpModal = ({ showModal, setShowModal, goal }) => {
               <TextField
                 {...register("extraTerms")}
                 label={t("website.offerDetails.extraTerms")}
-                hint={`"${t("website.platform.cv.optional")}"`}
+                hint={`${t("website.platform.cv.optional")}`}
                 placeholder={t("website.inquiry.placeholder")}
                 id="groupAdditionalTerms"
                 error={errors?.extraTerms?.message}

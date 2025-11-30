@@ -8,11 +8,13 @@ import useUpdateUserCategories from "../../hooks/area-of-interests/useUpdateUser
 import CustomButton from "../../ui/CustomButton";
 import InterestsLoading from "../../ui/loading/InterestsLoading";
 import TagItem from "../../ui/website-auth/TagItem";
+import AlertModal from "../../ui/website/platform/my-community/AlertModal";
 
 export default function Interests() {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
   const { t } = useTranslation();
+  const [showModal, setShowModal] = useState();
   const [selected, setSelected] = useState([]); // selected IDs
   const [initialSelected, setInitialSelected] = useState([]); // initial IDs from API
   const { interests, isLoading: isInterestsLoading } = useGetMyInterests();
@@ -39,6 +41,10 @@ export default function Interests() {
   };
 
   const handleContinue = () => {
+    if (selected.length === 0) {
+      setShowModal(true);
+      return;
+    }
     const added = selected.filter((id) => !initialSelected.includes(id));
     const removed = initialSelected.filter((id) => !selected.includes(id));
 
@@ -114,12 +120,20 @@ export default function Interests() {
                 size="large"
                 onClick={handleContinue}
                 loading={isPending}
-                disabled={isPending || selected.length === 0}
+                disabled={isPending}
               >
-                {t("auth.continue")}
+                {t("save")}
               </CustomButton>
             </div>
           </div>
+          <AlertModal
+            withoutMessage={false}
+            noActions={true}
+            showModal={showModal}
+            setShowModal={setShowModal}
+          >
+            {t("interestAlert")}
+          </AlertModal>
         </section>
       </div>
     </section>

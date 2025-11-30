@@ -113,7 +113,7 @@ export default function GoalDetails() {
                         },
                         {
                           label: t("website.offerDetails.report"),
-                          onClick: () => console.log("Report"),
+                          onClick: () => setShowReportModal(true),
                           className: "text-danger",
                         },
                       ]}
@@ -215,6 +215,8 @@ export default function GoalDetails() {
           <ReportModal
             showModal={showReportModal}
             setShowModal={setShowReportModal}
+            objectId={goalDetails?.goal?.id}
+            type="goal"
           />
         )}
         {user && (

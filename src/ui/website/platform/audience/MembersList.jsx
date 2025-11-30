@@ -31,7 +31,7 @@ export default function MembersList() {
         <div className="row mt-3">
           {allMembers.map((follower) => (
             <div className="col-12 col-md-6 p-2" key={follower.id}>
-              <AudienceCard data={follower} />
+              <AudienceCard data={follower} date={true} />
             </div>
           ))}
         </div>

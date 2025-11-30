@@ -466,6 +466,12 @@
     &:focus {
       box-shadow: none;
     }
+    &:disabled {
+      background-color: #eeeeee;
+    }
+  }
+  .form-control:disabled + .flag-dropdown {
+    background-color: #eeeeee;
   }
 }
 
@@ -627,7 +633,7 @@ input[type="file"] {
       .accordion-button {
         font-size: 1rem;
         font-weight: 700;
-        background-color: $InputBG;
+        background-color: notification__header;
         color: $dark;
         border-radius: $borderRadius !important;
         padding: 0.75rem 1rem;

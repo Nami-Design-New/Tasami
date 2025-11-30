@@ -259,9 +259,8 @@ export default function AddAssistanceModal({
                 loading={isGenerating}
                 fullWidth
                 icon={<i className="fa-solid fa-sparkles"></i>}
+                className="generate-button"
                 style={{
-                  backgroundColor: "#FDCB2F",
-                  marginTop: "12px",
                   opacity: !watch("title")?.trim() || isGenerating ? 0.5 : 1,
                   cursor:
                     !watch("title")?.trim() || isGenerating

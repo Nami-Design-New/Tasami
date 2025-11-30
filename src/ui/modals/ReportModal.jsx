@@ -1,63 +1,83 @@
+import { useEffect } from "react";
 import { Modal } from "react-bootstrap";
-import { useState } from "react";
-import RadioInput from "../forms/RadioInput";
+import { useTranslation } from "react-i18next";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
 import TextField from "../../ui/forms/TextField";
-import SubmitButton from "../forms/SubmitButton";
+import CustomButton from "../CustomButton";
+import useReportGoalOrService from "../../hooks/website/useReportGoalOrService";
+import { toast } from "sonner";
 
-const ReportModal = ({ showModal, setShowModal }) => {
-  const [selectedReason, setSelectedReason] = useState("");
+const ReportModal = ({ showModal, setShowModal, type, objectId }) => {
+  const { t } = useTranslation();
+  const { reportGoalOrService, isPending } = useReportGoalOrService();
 
-  const handleReasonChange = (e) => {
-    setSelectedReason(e.target.value);
+  // Yup validation schema
+  const schema = yup.object().shape({
+    reason: yup.string().required(t("validation.please_enter_reason")),
+  });
+
+  // React Hook Form setup
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(schema),
+  });
+
+  const onSubmit = (data) => {
+    const payload = {
+      object_id: objectId,
+      object_type: type,
+      title: data.reason,
+    };
+    reportGoalOrService(payload, {
+      onSuccess: (res) => {
+        toast.success(res.message);
+        setShowModal(false);
+        reset();
+      },
+      onError: (error) => {
+        toast.error(error.message);
+      },
+    });
   };
 
-  const reports = [
-    "معلومات الزائفة، أو الموضوعات والوسائط المحظورة الدينية والأمنية والسياسية والجنسية",
-    "الترويج للمواد غير المصرحة او الممارسات المضرة او الااخلاقية",
-    "استخدام العبارات المهينة أو العنصرية أو الخادشة",
-    "التعدي علي خصوصيات الغير او تقديم المحتوي المحمي بحقوق  الناشرين وأصحاب العلامات التجارية او انتحال شخصية",
-    "سبب اخر ",
-  ];
+  useEffect(() => {
+    if (!showModal) {
+      reset();
+    }
+  }, [showModal, reset]);
 
   return (
     <Modal
       show={showModal}
-      size="lg"
+      size="md"
       onHide={() => setShowModal(false)}
       centered
     >
       <Modal.Header closeButton className="m-2">
-        <h5 className="fw-bold">إبلاغ عن مخالفة</h5>
+        <h6 className="fw-bold">{t("report_violation")}</h6>
       </Modal.Header>
 
       <Modal.Body>
-        <form className="form_ui">
-          {reports.map((reason, index) => (
-            <div className="col-12 my-3" key={index}>
-              <RadioInput
-                label={reason}
-                name="reportReason"
-                value={reason}
-                active={selectedReason}
-                onChange={handleReasonChange}
+        <form className="form_ui" onSubmit={handleSubmit(onSubmit)}>
+          <div className="row">
+            <div className="col-12 p-2">
+              <TextField
+                label={t("reason")}
+                placeholder={t("write_here")}
+                {...register("reason")}
+                error={errors.reason?.message}
               />
             </div>
-          ))}
-          <div className="col-12 my-3">
-            <TextField placeholder="اكتب هنا..." />
-          </div>
-          <div className="col-12 my-3 d-flex gap-1">
-            <div className="col-6">
-              <SubmitButton text="ارسال" />
-            </div>
-            <div className="col-6">
-              <button
-                type="button"
-                className="cancle"
-                onClick={() => setShowModal(false)}
-              >
-                إلغاء
-              </button>
+            <div className="col-12 p-2 d-flex justify-content-end gap-1">
+              <CustomButton type="submit" loading={isPending}>
+                {t("send")}
+              </CustomButton>
             </div>
           </div>
         </form>

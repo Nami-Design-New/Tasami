@@ -9,7 +9,7 @@ import useEditProfile from "../../hooks/website/profile/useEditProfile";
 import { clearAuth, setUser } from "../../redux/slices/authRole";
 import CustomButton from "../../ui/CustomButton";
 import DatePicker from "../../ui/forms/DatePicker";
-import GenderSelect from "../../ui/forms/GenderSelect copy";
+import GenderSelect from "../../ui/forms/EditProfileGenderSelect";
 import InputField from "../../ui/forms/InputField";
 import PhoneField from "../../ui/forms/PhoneField";
 import SelectField from "../../ui/forms/SelectField";
@@ -157,7 +157,7 @@ export default function EditProfile() {
           <div className="col-12 p-2">
             <p className="image-label">
               <span>{t("auth.profilePicture")}</span>{" "}
-              <span>&apos;{t("auth.optional")}&apos;</span>
+              <span>({t("auth.optional")})</span>
             </p>
             <label className="images-input">
               <div className="image-input-wrapper">

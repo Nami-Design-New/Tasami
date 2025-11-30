@@ -11,6 +11,7 @@ import InputField from "../../forms/InputField";
 import SelectField from "../../forms/SelectField";
 import TextField from "../../forms/TextField";
 import { useQueryClient } from "@tanstack/react-query";
+import { color } from "framer-motion";
 
 export default function AddGoalModal({ showModal, setShowModal }) {
   const { t } = useTranslation();
@@ -155,10 +156,9 @@ export default function AddGoalModal({ showModal, setShowModal }) {
                 onClick={handleGeneratDes}
                 loading={isGenerating}
                 fullWidth
+                className="generate-button"
                 icon={<i className="fa-solid fa-sparkles"></i>}
                 style={{
-                  backgroundColor: "#FDCB2F",
-                  marginTop: "12px",
                   opacity: !watch("title")?.trim() || isGenerating ? 0.5 : 1,
                   cursor:
                     !watch("title")?.trim() || isGenerating
