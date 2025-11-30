@@ -61,6 +61,8 @@ export default function TaskDetails() {
   }, [taskDetails?.status]);
 
   if (isLoading) return <Loading />;
+  const taskDate = new Date(taskDetails?.expected_end_date);
+  const isPast = taskDate < new Date();
 
   return (
     <section className="task_details page">
@@ -143,7 +145,13 @@ export default function TaskDetails() {
             <div className="info-grid w-100">
               <div className="info-box flex-grow-1">
                 <div className="label">{t("works.myTasks.date")}</div>
-                <div className="value text-fire">
+                <div
+                  className={`value ${
+                    isPast && taskDetails?.status !== "completed"
+                      ? "text-fire"
+                      : ""
+                  }`}
+                >
                   {taskDetails?.expected_end_date}
                 </div>
               </div>

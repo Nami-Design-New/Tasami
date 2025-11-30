@@ -1,7 +1,7 @@
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router";
 
-export default function AudienceCard({ data }) {
+export default function AudienceCard({ data, date = false }) {
   const { t } = useTranslation();
 
   return (
@@ -35,7 +35,7 @@ export default function AudienceCard({ data }) {
               <span>{data.user?.country?.title}</span>
             </p>
           )}
-          {data.created_at && (
+          {date && data.created_at && (
             <p className="date">
               {t("website.platform.audience.memberSince")} {data.created_at}{" "}
             </p>

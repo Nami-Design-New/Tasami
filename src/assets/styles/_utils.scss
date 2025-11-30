@@ -149,3 +149,195 @@
   margin-right: auto;
   display: block;
 }
+
+.generate-button {
+  color: #a88000 !important;
+  background-color: $clientYellow !important;
+  margin-top: 12px;
+  font-weight: 700 !important;
+}
+
+/* CSS */
+/* wrapper centers the loader and clips overflow */
+// .loader-wrapper {
+//   width: 160px; /* container width (tweak as needed) */
+//   height: 32px;
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+//   overflow: hidden; /* important so dots disappear when scaled/moved */
+// }
+
+// /* loader lays out the dots at the left side to start */
+// .loader-gloal {
+//   position: relative;
+//   width: 140px; /* travel area width */
+//   height: 18px;
+//   display: flex;
+//   align-items: center;
+//   gap: 22px;
+// }
+
+// /* basic dot style */
+// .dot {
+//   // position: absolute;
+//   // left: 0; /* start at left edge of the travel area */
+//   // top: 0;
+//   width: 18px;
+//   height: 18px;
+//   border-radius: 50%;
+//   transform-origin: center;
+//   /* animation controls */
+//   // animation-name: slideScale;
+//   animation-duration: 1s;
+//   animation-iteration-count: infinite;
+//   animation-timing-function: cubic-bezier(0.2, 0.9, 0.3, 1);
+// }
+
+// /* colors and staggered delays */
+// .dot:nth-child(1) {
+//   background: #eab308; /* yellow */
+//   transform: translateX(-100%) scale(0);
+//   animation-delay: 0s;
+// }
+// .dot:nth-child(2) {
+//   background: #fb6a47; /* orange */
+//   transform: translateX(0) scale(1);
+//   animation-delay: 0.18s;
+// }
+// .dot:nth-child(3) {
+//   background: #1f3c8b; /* blue */
+//   transform: translateX(0) scale(1);
+//   animation-delay: 0.36s;
+// }
+// .dot:nth-child(4) {
+//   background: #1f3c8b; /* blue */
+//   transform: translateX(0) scale(1);
+//   animation-delay: 0.36s;
+// }
+
+// /* the animation: travel to the right, then shrink to 0 at the end */
+// @keyframes slideScale {
+//   0% {
+//     transform: translateX(0) scale(1);
+//     opacity: 1;
+//   }
+
+//   /* move most of the distance while staying full size */
+//   70% {
+//     transform: translateX(90px) scale(1);
+//     opacity: 1;
+//   }
+
+//   /* complete travel + scale to 0 (disappear) */
+//   100% {
+//     transform: translateX(140px) scale(0);
+//     opacity: 0;
+//   }
+// }
+// .loader-global {
+//   display: flex;
+//   width: 80px;
+//   justify-content: space-between;
+//   position: relative;
+// }
+
+// .loader-global .dot {
+//   width: 16px;
+//   height: 16px;
+//   border-radius: 50%;
+//   position: absolute;
+//   top: 0;
+//   animation: cycle 1s infinite ease-in-out;
+// }
+
+// /* Colors */
+// .loader-global .dot:nth-child(1) {
+//   background: #eab308; /* yellow */
+//   animation-delay: 0s;
+// }
+
+// .loader-global .dot:nth-child(2) {
+//   background: #fb6a47; /* orange */
+//   animation-delay: 0.33s;
+// }
+
+// .loader-global .dot:nth-child(3) {
+//   background: #1f3c8b; /* blue */
+//   animation-delay: 0.66s;
+// }
+
+// /* 3 dot positions */
+// @keyframes cycle {
+//   0% {
+//     transform: translateX(0) scale(1);
+//   }
+//   33% {
+//     transform: translateX(30px) scale(1);
+//   }
+//   66% {
+//     transform: translateX(60px) scale(1);
+//   }
+//   100% {
+//     transform: translateX(0) scale(0); /* shrink then instantly restart at beginning */
+//   }
+// }
+.loader-global {
+  display: flex;
+  width: 120px; /* increased for 4 dots */
+  justify-content: space-between;
+  position: relative;
+}
+
+.loader-global .dot {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  position: absolute;
+  top: 0;
+  animation: cycle 1.6s infinite ease-in-out; /* increased duration */
+}
+
+/* Colors for 4 dots */
+.loader-global .dot:nth-child(1) {
+  background: #eab308; /* yellow */
+  animation-delay: 0s;
+}
+
+.loader-global .dot:nth-child(2) {
+  background: #fb6a47; /* orange */
+  animation-delay: 0.4s;
+}
+
+.loader-global .dot:nth-child(3) {
+  background: #1f3c8b; /* blue */
+  animation-delay: 0.8s;
+}
+
+.loader-global .dot:nth-child(4) {
+  background: #4caf50; /* green */
+  animation-delay: 1.2s;
+}
+
+/* 4 positions */
+@keyframes cycle {
+  0% {
+    transform: translateX(0) scale(1);
+  }
+
+  25% {
+    transform: translateX(35px) scale(1);
+  }
+
+  50% {
+    transform: translateX(70px) scale(1);
+  }
+
+  75% {
+    transform: translateX(105px) scale(1);
+  }
+
+  100% {
+    transform: translateX(0) scale(0); /* shrink, disappear, restart at left */
+  }
+}

@@ -649,6 +649,70 @@ li[data-sonner-toast=""] {
   display: block;
 }
 
+.generate-button {
+  color: #a88000 !important;
+  background-color: #fdcb2f !important;
+  margin-top: 12px;
+  font-weight: 700 !important;
+}
+
+/* CSS */
+/* wrapper centers the loader and clips overflow */
+.loader-global {
+  display: flex;
+  width: 120px; /* increased for 4 dots */
+  justify-content: space-between;
+  position: relative;
+}
+
+.loader-global .dot {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  position: absolute;
+  top: 0;
+  animation: cycle 1.6s infinite ease-in-out; /* increased duration */
+}
+
+/* Colors for 4 dots */
+.loader-global .dot:nth-child(1) {
+  background: #eab308; /* yellow */
+  animation-delay: 0s;
+}
+
+.loader-global .dot:nth-child(2) {
+  background: #fb6a47; /* orange */
+  animation-delay: 0.4s;
+}
+
+.loader-global .dot:nth-child(3) {
+  background: #1f3c8b; /* blue */
+  animation-delay: 0.8s;
+}
+
+.loader-global .dot:nth-child(4) {
+  background: #4caf50; /* green */
+  animation-delay: 1.2s;
+}
+
+/* 4 positions */
+@keyframes cycle {
+  0% {
+    transform: translateX(0) scale(1);
+  }
+  25% {
+    transform: translateX(35px) scale(1);
+  }
+  50% {
+    transform: translateX(70px) scale(1);
+  }
+  75% {
+    transform: translateX(105px) scale(1);
+  }
+  100% {
+    transform: translateX(0) scale(0); /* shrink, disappear, restart at left */
+  }
+}
 .main-header {
   position: sticky;
   top: 0;
@@ -3850,7 +3914,7 @@ input[type=file] {
 .area-of-interest .accordion .accordion-item .accordion-button {
   font-size: 1rem;
   font-weight: 700;
-  background-color: rgba(13, 13, 13, 0.0196078431);
+  background-color: notification__header;
   color: #0d0d0d;
   border-radius: 12px !important;
   padding: 0.75rem 1rem;
@@ -8806,6 +8870,7 @@ input[type=file] {
 }
 .contact-page .contact-form-wrapper .options {
   display: flex;
+  flex-wrap: wrap;
   gap: 0.5rem;
 }
 .contact-page .contact-form-wrapper .options button {
@@ -11792,11 +11857,12 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
 .notification-setting .personal-assistant h2 {
   font-size: 1.25rem;
   font-weight: 700;
-  margin-bottom: 4px;
+  margin-bottom: 12px;
 }
 .notification-setting .personal-assistant p {
   font-size: 1rem;
   font-weight: 500;
+  color: rgba(13, 13, 13, 0.0941176471);
 }
 .notification-setting .personal-assistant p.yellow {
   color: #fdcb2f;
@@ -11805,14 +11871,16 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
   display: flex;
   flex-direction: column;
   gap: 12px;
-  margin-top: 12px;
+  margin-top: 32px;
 }
 .notification-setting .personal-assistant .notifiaction-setting-options .notification__header {
   display: flex;
   align-items: center;
+  padding: 8px 16px;
+  border-radius: 12px;
+  background-color: rgba(13, 13, 13, 0.0196078431);
   justify-content: space-between;
   cursor: pointer;
-  background-color: #fff;
   transition: all 0.3s ease;
 }
 .notification-setting .personal-assistant .notifiaction-setting-options .notification__header .notification__title {

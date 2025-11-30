@@ -1,9 +1,23 @@
 {
+  "contact_error_subject": "الموضوع مطلوب",
+  "contact_error_title": "العنوان مطلوب",
+  "contact_error_name": "الاسم مطلوب",
+  "contact_error_name_min": "يجب أن يكون الاسم 6 أحرف على الأقل",
+  "contact_error_email": "البريد الإلكتروني مطلوب",
+  "contact_error_email_invalid": "البريد الإلكتروني غير صالح",
+  "contact_error_message": "الرسالة مطلوبة",
+  "contact_error_message_min": "يجب أن تكون الرسالة 15 حرفًا على الأقل",
+  "contact_success": "تم إرسال الرسالة بنجاح!",
+  "contact_error_submit": "فشل في إرسال الرسالة",
   "postDeleteAlert": "سيتم حذف المنشور نهائيا",
   "meetingDeleteAlert": "سيتم حذف اللقاء نهائيا",
   "withdraw_offer_warning": "سيؤدي هذا الإجراء إلى سحب العرض المقدم للمستفيد",
   "withdraw_offer": "سحب العرض",
   "contractReq_title": "إرسال طلب تعاقد",
+  "report_violation": "إبلاغ عن مخالفة",
+  "reason": "سبب المخالفة",
+  "write_here": "اكتب هنا...",
+  "please_enter_reason": "الرجاء كتابة السبب",
   "confirmPerformance": "تأكيد الاداء",
   "daily": "يوميا",
   "interestAlert": "اختيار واحد علي الاقل مطلوب للحفظ",
@@ -885,7 +899,7 @@
       "noClients": "لا يوجد عملاء بعد",
       "alertMessage": "قم باستكمال السيرة الذاتية لتفعيل الحساب",
       "menu": {
-        "subscriptions": "إدارة الاشتراك",
+        "subscriptions": "اشتراكاتي",
         "cv": "سيرتي الذاتية",
         "myAssistant": "مساعداتي",
         "myOpportunities": "فرصي",
@@ -979,7 +993,7 @@
         "noCommunities": "ليس لديك أي عضوية في مجتمعات المساعدين الشخصيين",
         "memberSince": "عضو منذ",
         "followers": "المتابعون",
-        "members": "الاعضاء"
+        "members": "الأعضاء"
       },
       "myAssistance": {
         "activeOffers": "العروض النشطة",

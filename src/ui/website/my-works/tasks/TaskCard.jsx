@@ -60,6 +60,9 @@ export default function TaskCard({
     }
   };
 
+  const taskDate = new Date(task?.expected_end_date);
+  const isPast = taskDate < new Date();
+
   return (
     <div
       className="task-card"
@@ -100,7 +103,13 @@ export default function TaskCard({
         <div className="meta-info">
           <div className="item">
             <i className="fa-regular fa-calendar" aria-hidden />
-            <span>{task?.expected_end_date}</span>
+            <span
+              className={`${
+                isPast && task?.status !== "completed" ? "text-fire" : ""
+              }`}
+            >
+              {task?.expected_end_date}
+            </span>
           </div>
           <div className="item">
             <i className="fa-light fa-bullseye-arrow" aria-hidden />

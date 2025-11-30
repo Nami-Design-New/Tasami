@@ -140,7 +140,7 @@ export default function NotificationSetting() {
       </div>
 
       {/* Beneficiary Section */}
-      <div className="personal-assistant mt-3">
+      <div className="personal-assistant mt-5">
         <h2>{t("profile.beneficiary_title")}</h2>
         <p className="yellow">{t("profile.beneficiary_hint")}</p>
         <p>{t("profile.multi_choice_hint")}</p>
