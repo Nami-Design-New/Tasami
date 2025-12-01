@@ -2,9 +2,9 @@ import { useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Controller, useForm } from "react-hook-form";
-import { useNavigate } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import { toast } from "sonner";
 import * as yup from "yup";
 import useGetCities from "../../../hooks/countries/useGetCities";
@@ -24,6 +24,7 @@ import InputField from "../../forms/InputField";
 import SelectField from "../../forms/SelectField";
 import SelectFieldReactSelect from "../../forms/SelectFieldReactSelect";
 import ProfileImageUploader from "../../ProfileImageUploader";
+import useCreateChatRoom from "../../../hooks/dashboard/chats/useCreateChatRoom";
 
 const createEmployeeSchema = (t) =>
   yup.object().shape({
@@ -68,21 +69,23 @@ const createEmployeeSchema = (t) =>
   });
 
 const EmployerDataForm = ({ isEdit }) => {
-  const [files, setFiles] = useState([]);
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const queryClient = useQueryClient();
-  const { t } = useTranslation();
+  const { id } = useParams();
+
+  const [files, setFiles] = useState([]);
   const [image, setImage] = useState(
     "/images/dashboard/avatar-placeholder.jpg"
   );
-  const { updateEmployee, isPending } = useUpdateEmployee();
+
   const { roles, rolesLoading } = useGetRoles();
   const { createEmployee, isCreatingEmployee } = useCreateEmployee();
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading } =
     useInfiniteWorkingGroups();
+  const { updateEmployee, isPending } = useUpdateEmployee();
   const { deleteEmployeeFiles, isPending: isDeleting } =
     useDeleteEmployeeAttachment();
-
   const { employee, isLoading: employeeLoading } = useGetEmployee();
 
   const {
@@ -600,7 +603,8 @@ const EmployerDataForm = ({ isEdit }) => {
             {/* Attachments */}
             <div className="col-12 p-2">
               <FileUploader
-                files={files}
+                files={files.map((file) => file?.file)}
+                multiple={true}
                 onFilesChange={handleFilesChange}
                 label={t("dashboard.createEmployee.form.attachFiles")}
                 onDelete={handleDeletefile}

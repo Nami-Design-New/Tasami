@@ -542,10 +542,10 @@ export const router = createBrowserRouter([
         path: "post-dash-details/:id",
         element: <PostDashDetails />,
       },
-      // {
-      //   path: "chats",
-      //   element: <ChatPage />,
-      // },
+      {
+        path: "chats",
+        element: <ChatPage />,
+      },
 
       {
         path: "communities-details/:id",

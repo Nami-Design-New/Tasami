@@ -8,6 +8,7 @@ import SuspensionModel from "../../ui/modals/SuspensionModel";
 import AddNewTask from "./tasks/AddNewTaskModal";
 import { useParams, useSearchParams } from "react-router";
 import useGetUserDetails from "../../hooks/dashboard/subscription/useGetUserDetails";
+import CustomLink from "../../ui/CustomLink";
 const tabs = [
   {
     id: 1,
@@ -87,9 +88,6 @@ const UserProfile = () => {
                 {/* <Link className="user-dashboard__resume "> السيره الذاتية </Link> */}
               </div>
               <div className="d-flex flex-column gap-2 mt-3">
-                {/* <CustomLink to={`/dashboard/chats`} size="large" fullWidth>
-                  تواصل مع المستخدم
-                </CustomLink> */}
                 <CustomButton
                   size="large"
                   color="secondary"
@@ -100,7 +98,9 @@ const UserProfile = () => {
                 </CustomButton>
                 <CustomButton
                   size="large"
-                  color={userDetails?.status === "stopped" ? "primary": "secondary"}
+                  color={
+                    userDetails?.status === "stopped" ? "primary" : "secondary"
+                  }
                   fullWidth
                   onClick={() => setOpenSuspensionModel(true)}
                 >
