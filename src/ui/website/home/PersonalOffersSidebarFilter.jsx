@@ -101,7 +101,7 @@ export default function PersonalOffersSidebarFilter() {
       specialization: "",
       gender: "both",
       priceMin: 1,
-      priceMax: 9000000,
+      priceMax: 10000,
       ageMin: 15,
       ageMax: 65,
     });
@@ -195,7 +195,7 @@ export default function PersonalOffersSidebarFilter() {
             </div>
           </div>
           {/* helpMechanism */}
-          <div className="col-12 p-2">
+          <div className="col-12 py-2 px-0">
             <div className="identity-selector">
               <h6 className="identity-title">
                 {t("website.platform.myAssistance.helpMechanism")}
@@ -206,12 +206,6 @@ export default function PersonalOffersSidebarFilter() {
                     {helpMechanisms.map((option) => {
                       return (
                         <label
-                          style={{
-                            padding: "8px",
-                            fontSize: "12px",
-                            height: "46px",
-                            borderRadius: "8px",
-                          }}
                           key={option.id}
                           className={`identity-option d-flex align-items-center justify-contnet-center gap-0 ${
                             selectedHelpMechanism.includes(String(option.id))
@@ -245,7 +239,7 @@ export default function PersonalOffersSidebarFilter() {
                 type="button"
                 onClick={() => {
                   setValue("priceMin", 1);
-                  setValue("priceMax", 9000000);
+                  setValue("priceMax", 10000);
                 }}
               >
                 {t("website.assistants.clear")}
@@ -253,8 +247,8 @@ export default function PersonalOffersSidebarFilter() {
             </div>
             <RangeSlider
               min={1}
-              max={9000000}
-              step={20}
+              max={10000}
+              step={1}
               value={[priceMin, priceMax]}
               onInput={handlePriceChange}
               className="w-100"
@@ -265,13 +259,26 @@ export default function PersonalOffersSidebarFilter() {
                 label={t("website.assistants.priceMinLabel")}
                 icon="/icons/ryal.svg"
                 value={priceMin}
-                min={priceMin}
-                max={priceMax}
-                step={20}
+                min={1}
+                max={10000}
+                step={1}
                 onChange={(e) => {
-                  const v = Number(e.target.value);
+                  let v = Number(e.target.value);
                   if (!isNaN(v)) {
+                    // Clamp value between 1 and 10000
+                    v = Math.max(1, Math.min(10000, v));
+                    // Ensure min doesn't exceed max
+                    if (v > priceMax) {
+                      v = priceMax;
+                    }
                     setValue("priceMin", v, { shouldDirty: true });
+                  }
+                }}
+                onBlur={(e) => {
+                  // Ensure value is set to min if empty or invalid
+                  const v = Number(e.target.value);
+                  if (isNaN(v) || v < 1) {
+                    setValue("priceMin", 1, { shouldDirty: true });
                   }
                 }}
               />
@@ -281,13 +288,26 @@ export default function PersonalOffersSidebarFilter() {
                 label={t("website.assistants.priceMaxLabel")}
                 icon="/icons/ryal.svg"
                 value={priceMax}
-                min={priceMin}
-                max={priceMax}
-                step={100}
+                min={1}
+                max={10000}
+                step={1}
                 onChange={(e) => {
-                  const v = Number(e.target.value);
+                  let v = Number(e.target.value);
                   if (!isNaN(v)) {
+                    // Clamp value between 1 and 10000
+                    v = Math.max(1, Math.min(10000, v));
+                    // Ensure max doesn't go below min
+                    if (v < priceMin) {
+                      v = priceMin;
+                    }
                     setValue("priceMax", v, { shouldDirty: true });
+                  }
+                }}
+                onBlur={(e) => {
+                  // Ensure value is set to max if empty or invalid
+                  const v = Number(e.target.value);
+                  if (isNaN(v) || v > 10000) {
+                    setValue("priceMax", 10000, { shouldDirty: true });
                   }
                 }}
               />
@@ -303,7 +323,7 @@ export default function PersonalOffersSidebarFilter() {
                 type="button"
                 className="text-danger"
                 onClick={() => {
-                  setValue("ageMin", 16);
+                  setValue("ageMin", 15);
                   setValue("ageMax", 65);
                 }}
               >
@@ -324,7 +344,7 @@ export default function PersonalOffersSidebarFilter() {
                 type="number"
                 label={t("website.assistants.ageMinLabel")}
                 value={ageMin}
-                min={16}
+                min={15}
                 max={ageMax}
                 step={1}
                 onChange={(e) => {
@@ -332,6 +352,20 @@ export default function PersonalOffersSidebarFilter() {
                   if (!isNaN(v)) {
                     setValue("ageMin", v, { shouldDirty: true });
                   }
+                }}
+                onBlur={(e) => {
+                  let v = Number(e.target.value);
+                  // Clamp value between 15 and 65
+                  if (isNaN(v) || v < 15) {
+                    v = 15;
+                  } else if (v > 65) {
+                    v = 65;
+                  }
+                  // Ensure min doesn't exceed max
+                  if (v > ageMax) {
+                    v = ageMax;
+                  }
+                  setValue("ageMin", v, { shouldDirty: true });
                 }}
               />
 
@@ -347,6 +381,20 @@ export default function PersonalOffersSidebarFilter() {
                   if (!isNaN(v)) {
                     setValue("ageMax", v, { shouldDirty: true });
                   }
+                }}
+                onBlur={(e) => {
+                  let v = Number(e.target.value);
+                  // Clamp value between 15 and 65
+                  if (isNaN(v) || v < 15) {
+                    v = 15;
+                  } else if (v > 65) {
+                    v = 65;
+                  }
+                  // Ensure max doesn't go below min
+                  if (v < ageMin) {
+                    v = ageMin;
+                  }
+                  setValue("ageMax", v, { shouldDirty: true });
                 }}
               />
             </div>
@@ -389,10 +437,11 @@ export default function PersonalOffersSidebarFilter() {
                 type="button"
                 variant="outlined"
                 onClick={handleReset}
+                size="large"
               >
                 {t("website.assistants.reset")}
               </CustomButton>
-              <CustomButton type="submit" fullWidth>
+              <CustomButton type="submit" fullWidth size="large">
                 {t("website.assistants.filter")}
               </CustomButton>
             </div>
