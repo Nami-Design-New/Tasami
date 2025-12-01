@@ -1,12 +1,12 @@
 import { useTranslation } from "react-i18next";
-import { Link, useNavigate } from "react-router";
+import { useNavigate } from "react-router";
 import useGetGoals from "../../hooks/website/goals/useGetGoals";
 import GoalCard from "../../ui/cards/GoalCard";
 import EmptySection from "../../ui/EmptySection";
 import AudienceCardLoader from "../../ui/loading/AudienceCardLoader";
 import InfiniteScroll from "../../ui/loading/InfiniteScroll";
-import AssistantsSidebar from "../../ui/website/helpers/AssistantsSidebar";
 import RoundedBackButton from "../../ui/website-auth/shared/RoundedBackButton";
+import AssistantsSidebar from "../../ui/website/helpers/AssistantsSidebar";
 export default function PersonalGoals() {
   const { t } = useTranslation();
   const navigate = useNavigate();
@@ -17,7 +17,6 @@ export default function PersonalGoals() {
     <section className="personal-helpers page">
       <div className="container">
         <div className="row">
-          {" "}
           <div className="col-12 p-2">
             <div className="section-header">
               <div className="page-header ">
@@ -45,7 +44,7 @@ export default function PersonalGoals() {
                   height="300px"
                   message={t("website.assistants.noPersonalAssistants")}
                 />
-              )}{" "}
+              )}
               <InfiniteScroll
                 onLoadMore={fetchNextPage}
                 hasNextPage={hasNextPage}
@@ -55,7 +54,7 @@ export default function PersonalGoals() {
                   <div className="col-12 col-md-6 col-xl-4 p-2" key={goal.id}>
                     <GoalCard goal={goal} />
                   </div>
-                ))}{" "}
+                ))}
                 {(isLoading || isFetchingNextPage) && (
                   <>
                     {[1, 2, 3].map((i) => (
