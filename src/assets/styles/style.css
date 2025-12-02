@@ -5837,6 +5837,14 @@ input[type=file] {
 .performance-filter__button {
   width: 150px;
 }
+.performance-filter h4 {
+  background-color: white;
+  color: rgb(255, 136, 0);
+  font-size: 18px;
+  width: 45%;
+  padding: 5px;
+  margin: -40px 10px 10px 0;
+}
 
 .form-switch {
   display: flex;
@@ -6007,36 +6015,126 @@ input[type=file] {
 .performance-report .metrics-header {
   margin-bottom: 1rem;
   font-size: 1.5rem;
+  color: #214b92;
 }
 .performance-report .metrics-container {
   display: flex;
   gap: 1rem;
   flex-wrap: wrap;
 }
-.performance-report .metrics-container .metric-card {
+.performance-report .metrics-container .metric-card-1 {
   flex: 1;
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
-  min-width: 240px;
+  max-width: 240px;
+  min-width: 220px;
   background-color: #fff;
   border-radius: 12px;
   padding: 20px 24px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
   transition: box-shadow 0.2s ease;
 }
-.performance-report .metrics-container .metric-card:hover {
+.performance-report .metrics-container .metric-card-1:hover {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
-.performance-report .metrics-container .metric-card .metric-title {
+.performance-report .metrics-container .metric-card-1 .metric-title {
   font-size: 0.9rem;
   color: #6b7280;
 }
-.performance-report .metrics-container .metric-card .metric-value {
+.performance-report .metrics-container .metric-card-1 .metric-value {
   font-size: 1.75rem;
   font-weight: 700;
   color: #111827;
   margin: 0;
+}
+.performance-report .metrics-container .metric-card-1 .metric-value-ratio {
+  font-size: 1.2rem;
+  font-weight: 400;
+  color: #9fa0a0;
+  margin: 0;
+}
+.performance-report .metrics-container .metric-card-1 .seperatorDiv {
+  padding: 0.5px;
+  height: 100%;
+  background-color: #9fa0a0;
+  margin: 0 18px;
+}
+.performance-report .metrics-container .metric-card-2 {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  max-width: 240px;
+  min-width: 220px;
+  background-color: #e2e7ee;
+  border-radius: 12px;
+  padding: 20px 24px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  transition: box-shadow 0.2s ease;
+}
+.performance-report .metrics-container .metric-card-2:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+.performance-report .metrics-container .metric-card-2 .metric-title {
+  font-size: 0.9rem;
+  color: #6b7280;
+}
+.performance-report .metrics-container .metric-card-2 .metric-value {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #111827;
+  margin: 0;
+}
+.performance-report .metrics-container .metric-card-2 .metric-value-ratio {
+  font-size: 1.2rem;
+  font-weight: 400;
+  color: #9fa0a0;
+  margin: 0;
+}
+.performance-report .metrics-container .metric-card-2 .seperatorDiv {
+  padding: 0.5px;
+  height: 100%;
+  background-color: #9fa0a0;
+  margin: 0 18px;
+}
+.performance-report .metrics-container .metric-card-3 {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  max-width: 240px;
+  min-width: 220px;
+  background-color: #e4e4e4;
+  border-radius: 12px;
+  padding: 20px 24px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  transition: box-shadow 0.2s ease;
+}
+.performance-report .metrics-container .metric-card-3:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+.performance-report .metrics-container .metric-card-3 .metric-title {
+  font-size: 0.9rem;
+  color: #6b7280;
+}
+.performance-report .metrics-container .metric-card-3 .metric-value {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #111827;
+  margin: 0;
+}
+.performance-report .metrics-container .metric-card-3 .metric-value-ratio {
+  font-size: 1.2rem;
+  font-weight: 400;
+  color: #9fa0a0;
+  margin: 0;
+}
+.performance-report .metrics-container .metric-card-3 .seperatorDiv {
+  padding: 0.5px;
+  height: 100%;
+  background-color: #9fa0a0;
+  margin: 0 18px;
 }
 
 .performance-no-report-data {
@@ -6072,6 +6170,31 @@ input[type=file] {
   font-size: 0.9rem;
   color: #666b88;
   text-align: center;
+}
+
+.-mt-5 {
+  margin-top: -40px;
+}
+
+.overall_index {
+  background-color: #e2e7ee;
+  width: 50px;
+  height: 30px;
+  border-radius: 5px;
+}
+
+.detailed_index {
+  background-color: #fff;
+  width: 50px;
+  height: 30px;
+  border-radius: 5px;
+}
+
+.general_index {
+  background-color: #e4e4e4;
+  width: 50px;
+  height: 30px;
+  border-radius: 5px;
 }
 
 .right-side {

@@ -90,6 +90,7 @@ const PerformanceFilter = ({ metrics }) => {
             error={errors[name]?.message}
             options={options}
             disableFiledValue={`اختر ${label}`}
+            className="border-0 rounded-0"
           />
         )}
       />
@@ -98,97 +99,153 @@ const PerformanceFilter = ({ metrics }) => {
   );
 
   return (
-    <div className="performance-filter">
+    <div className="performance-filter border border-2">
       <h3 className="performance-filter__header">خيارات التصفيه</h3>
       <FormProvider {...methods}>
         <form className="form_ui" onSubmit={handleSubmit(onSubmit)}>
           <div className="row g-3">
-            <div className="col-12  col-md-6 col-lg-4 col-xl-12">
-              <FieldWrapper
-                name="region"
-                label="الإقليم"
-                options={regionOptions}
-              />
-            </div>
-            <div className="col-12 col-md-6 col-lg-4 col-xl-12">
-              <FieldWrapper
-                name="country"
-                label="الدولة"
-                options={countryOptions}
-              />
-            </div>
-            <div className="col-12 col-md-6 col-lg-4 col-xl-12">
-              <FieldWrapper name="city" label="المدينة" options={cityOptions} />
+            <div className="p-4 border border-1 rounded-3 py-4">
+              <h4>المؤشرات الفوريه</h4>
+
+              <div className="col-12  col-md-6 col-lg-4 col-xl-12">
+                <FieldWrapper
+                  name="region"
+                  label="الإقليم"
+                  options={regionOptions}
+                />
+              </div>
+              <div className="col-12 col-md-6 col-lg-4 col-xl-12">
+                <FieldWrapper
+                  name="country"
+                  label="الدولة"
+                  options={countryOptions}
+                />
+              </div>
+              <div className="col-12 col-md-6 col-lg-4 col-xl-12">
+                <FieldWrapper
+                  name="city"
+                  label="المدينة"
+                  options={cityOptions}
+                />
+              </div>
+
+              {showSubDataCheckbox && (
+                <div className=" col-12  ">
+                  <div className="">
+                    <Form.Check
+                      type="switch"
+                      id="showSubData"
+                      label="عرض البيانات الفرعيه"
+                      {...register("showSubData")}
+                      style={{ width: "100%" }}
+                    />
+                  </div>
+                </div>
+              )}
+
+              <div className="d-flex p-2 justify-content-end  align-items-end mt-3 ">
+                <CustomButton size="large">تحديث</CustomButton>
+              </div>
             </div>
 
-            {showSubDataCheckbox && (
-              <div className=" col-12  ">
-                <div className="">
-                  <Form.Check
-                    type="switch"
-                    id="showSubData"
-                    label="عرض البيانات الفرعيه"
-                    {...register("showSubData")}
-                    style={{ width: "100%" }}
+            {/*التقارير المخصصة*/}
+            <div className="p-4 border border-1 rounded-3 py-4 mt-4">
+              <h4>التقارير المخصصة</h4>
+              <div className="col-12   col-md-6 col-lg-6 col-xl-12 ">
+                <div className="performance-metrics">
+                  <div className="d-flex align-items-center gap-1 my-2">
+                    <input type="checkbox" id="sub_data" />
+                    <label htmlFor="sub_data">عرض البيانات الفرعية</label>
+                  </div>{" "}
+                </div>
+                <InputField
+                  type="date"
+                  label="من تاريخ"
+                  error={errors.fromDate?.message}
+                  {...register("fromDate")}
+                />
+              </div>
+
+              <div className="col-12  col-md-6 col-lg-6 col-xl-12">
+                <InputField
+                  type="date"
+                  label="إلى تاريخ"
+                  error={errors.toDate?.message}
+                  {...register("toDate")}
+                  className=""
+                />
+                {/* <div className="d-flex flex-column align-items-center gap-2 mt-2">
+                  <label htmlFor="week">إلى تاريخ</label>
+                  <input type="date" id="week" className="bg-secondary w-100 p-2 text-center"/>
+                </div>{" "} */}
+              </div>
+
+              <div className="performance-metrics ">
+                <h3>نطاق البيانات</h3>
+                <div className="d-flex align-items-center gap-1 mt-2">
+                  <input type="radio" id="week" />
+                  <label htmlFor="week"> أسبوعي</label>
+                </div>{" "}
+                <div className="d-flex align-items-center gap-1 mt-2">
+                  <input type="radio" id="month" />
+                  <label htmlFor="month"> شهري</label>
+                </div>{" "}
+                <div className="d-flex align-items-center gap-1 mt-2">
+                  <input type="radio" id="quatreYear" />
+                  <label htmlFor="quatreYear">ربع سنوي</label>
+                </div>{" "}
+                <div className="d-flex align-items-center gap-1 mt-2">
+                  <input type="radio" id="year" />
+                  <label htmlFor="year"> سنوي</label>
+                </div>{" "}
+              </div>
+              {/* <div className="performance-metrics">
+                <h3> المجالات و التخصصات</h3>
+                <div className="mt-3">
+                  <TabRadioGroup
+                    name="fields"
+                    register={register}
+                    options={[
+                      { label: "التفصيل بالمجالات", value: "fileds" },
+                      {
+                        label: "التفصيل بالتخصصات",
+                        value: "specializations",
+                      },
+                    ]}
                   />
                 </div>
+              </div> */}
+              <div className="performance-metrics">
+                <h3>عرض التصنيفات</h3>
+                <div className="mt-3 d-flex justify-content-between w-75">
+                  <div className="d-flex align-items-center gap-1 mt-2">
+                    <input type="checkbox" id="field" />
+                    <label htmlFor="field"> المجالات</label>
+                  </div>{" "}
+                  <div className="d-flex align-items-center gap-1 mt-2">
+                    <input type="checkbox" id="category" />
+                    <label htmlFor="category"> التخصصات</label>
+                  </div>{" "}
+                </div>
               </div>
-            )}
+              <div className="performance-metrics">
+                <h3> عناصر التقرير</h3>
+                <div className="mt-3 d-flex justify-content-between w-75">
+                  <div className="d-flex align-items-center gap-1 mt-2">
+                    <input type="radio" id="table" />
+                    <label htmlFor="table"> جدول</label>
+                  </div>{" "}
+                  <div className="d-flex align-items-center gap-1 mt-2">
+                    <input type="radio" id="chart" />
+                    <label htmlFor="chart">رسم بياني</label>
+                  </div>{" "}
+                </div>
+              </div>
 
-            <div className="col-12   col-md-6 col-lg-6 col-xl-12 ">
-              <InputField
-                type="date"
-                label="من تاريخ"
-                error={errors.fromDate?.message}
-                {...register("fromDate")}
-              />
+              <div className="d-flex p-2 justify-content-end  align-items-end mt-3 ">
+                <CustomButton size="large">معاينة التقرير</CustomButton>
+              </div>
             </div>
-
-            <div className="col-12  col-md-6 col-lg-6 col-xl-12">
-              <InputField
-                type="date"
-                label="إلى تاريخ"
-                error={errors.toDate?.message}
-                {...register("toDate")}
-              />
-            </div>
-          </div>
-
-          <div className="performance-metrics">
-            <h3>مؤشرات التقرير</h3>
-            <MetricsAccordion
-              list={metrics}
-              watch={watch}
-              setValue={setValue}
-              errors={errors}
-            />
-          </div>
-          <div className="performance-metrics">
-            <h3> المجالات و التخصصات</h3>
-            <div className="mt-3">
-              <TabRadioGroup
-                name="fields"
-                register={register}
-                options={[
-                  { label: "التفصيل بالمجالات", value: "fileds" },
-                  {
-                    label: "التفصيل بالتخصصات",
-                    value: "specializations",
-                  },
-                ]}
-              />
-            </div>
-          </div>
-          <div className="performance-metrics">
-            <h3> عناصر التقرير</h3>
-            <div className="mt-3">
-              <Form.Check label="جدول" id="table" type="checkbox" />
-              <Form.Check label="رسم بياني" id="chart" type="checkbox" />
-            </div>
-          </div>
-
-          <div className="performance-filter__footer">
-            <CustomButton size="large">معاينة التقرير</CustomButton>
           </div>
         </form>
       </FormProvider>

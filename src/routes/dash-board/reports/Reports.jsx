@@ -11,11 +11,13 @@ const Reports = () => {
     <section>
       <PageHeader />
       <div className="row ">
-        <div className=" col-12 col-xl-4  p-2">
+        <div className=" col-12 col-xl-3 p-2">
           <PerformanceFilter metrics={metrics} />
         </div>
-        <div className="col-12 col-xl-8 p-2">
-          <NavigationTabs tabs={REPORT_TABS} />
+        <div className="col-12 col-xl-9 p-2">
+          <NavigationTabs
+            tabs={REPORT_TABS}
+          />
           <Outlet />
         </div>
       </div>

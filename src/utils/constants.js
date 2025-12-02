@@ -66,7 +66,7 @@ export const REPORT_TABS = [
   { id: 2, label: "الخدمات", to: "/dashboard/reports/services" },
   { id: 3, label: "العقود", to: "/dashboard/reports/contracts" },
   { id: 4, label: "المجتمعات", to: "/dashboard/reports/communities" },
-  { id: 4, label: "المبيعات", to: "/dashboard/reports/sales" },
+  { id: 5, label: "المبيعات", to: "/dashboard/reports/sales" },
 ];
 
 export const STATUS_AR = ["مكتمل", "قيد التنفيذ", "غير مضاف"];

@@ -4,7 +4,7 @@ import Loading from "../../../ui/loading/Loading";
 import SectionHeader from "../../../ui/website/SectionHeader";
 import TopInfo from "../../../ui/website/offers/TopInfo";
 import GoalInfoGrid from "../../../ui/website/gaols/GoalInfoGrid";
-import useGetHelpRequestDetails from "../../../hooks/dashboard/subscription/helpRequest/useGetPersonalGoalDetails";
+import useGetHelpRequestDetails from "../../../hooks/dashboard/subscription/helpRequest/useGetHelpRequestDetails";
 
 export default function MyServicesDetails() {
   const { t } = useTranslation();
