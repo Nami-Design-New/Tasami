@@ -1,4 +1,5 @@
 {
+  "showRates": "Show Rate",
   "contact_error_subject": "Subject is required",
   "contact_error_title": "Title is required",
   "contact_error_name": "Name is required",
