@@ -10,6 +10,8 @@ import useGetChatsMessages from "../../hooks/dashboard/chats/useGetChatsMessages
 import InfiniteScroll from "../loading/InfiniteScroll";
 import Message from "./Message";
 import useSendMessages from "../../hooks/dashboard/chats/useSendMessages";
+import { EmployeeChatService } from "../../utils/employeeChatService";
+import { getToken } from "../../utils/token";
 
 const getMessageType = (file) => {
   if (!file) return "text";
@@ -60,6 +62,7 @@ const ChatWindow = ({ isOpen, setIsOpen, activeChat, activeUser }) => {
   const [recordingTime, setRecordingTime] = useState(0);
   const [audioBlob, setAudioBlob] = useState(null);
   const [micPermission, setMicPermission] = useState(false);
+  const [socketStatus, setSocketStatus] = useState("connecting");
 
   const mediaRecorderRef = useRef(null);
   const audioChunksRef = useRef([]);
@@ -86,37 +89,37 @@ const ChatWindow = ({ isOpen, setIsOpen, activeChat, activeUser }) => {
     }
   }, [isLoading, allChats, initialScrollDone]);
 
-  // // Socket connection
-  // useEffect(() => {
-  //   const socket = new ContractChatService();
-  //   // const token = getToken();
+  // Socket connection
+  useEffect(() => {
+    const socket = new EmployeeChatService();
+    const token = getToken("admin_token");
 
-  //   socket.onStatusChange((status) => setSocketStatus(status));
+    socket.onStatusChange((status) => setSocketStatus(status));
 
-  //   socket.onMessage((message) => {
-  //     queryClient.setQueryData(["contract-chat", id], (oldData) => {
-  //       if (!oldData) return oldData;
-  //       const updatedPages = oldData.pages.map((page, idx) =>
-  //         idx === 0 ? { ...page, data: [message, ...page.data] } : page
-  //       );
-  //       return { ...oldData, pages: updatedPages };
-  //     });
+    socket.onMessage((message) => {
+      queryClient.setQueryData(["contract-chat", id], (oldData) => {
+        if (!oldData) return oldData;
+        const updatedPages = oldData.pages.map((page, idx) =>
+          idx === 0 ? { ...page, data: [message, ...page.data] } : page
+        );
+        return { ...oldData, pages: updatedPages };
+      });
 
-  //     requestAnimationFrame(() => {
-  //       const container = chatContainerRef.current;
-  //       if (!container) return;
-  //       const isNearBottom =
-  //         container.scrollHeight -
-  //           container.scrollTop -
-  //           container.clientHeight <
-  //         150;
-  //       if (isNearBottom) container.scrollTop = container.scrollHeight;
-  //     });
-  //   });
+      requestAnimationFrame(() => {
+        const container = chatContainerRef.current;
+        if (!container) return;
+        const isNearBottom =
+          container.scrollHeight -
+            container.scrollTop -
+            container.clientHeight <
+          150;
+        if (isNearBottom) container.scrollTop = container.scrollHeight;
+      });
+    });
 
-  //   socket.connectPrivate({ token, contractId: id });
-  //   return () => socket.disconnect();
-  // }, [id, queryClient]);
+    socket.connectPrivate({ token, chatId: activeChat });
+    return () => socket.disconnect();
+  }, [activeChat, id, queryClient]);
 
   const { register, handleSubmit, setValue, reset } = useForm({
     resolver: yupResolver(schema),
@@ -229,10 +232,10 @@ const ChatWindow = ({ isOpen, setIsOpen, activeChat, activeUser }) => {
     let type = "text";
 
     if (data.audio instanceof Blob) {
-      formData.append("file_path", data.audio, "recording.webm");
+      formData.append("file", data.audio, "recording.webm");
       type = "audio";
     } else if (data.file instanceof File) {
-      formData.append("file_path", data.file);
+      formData.append("file", data.file);
       type = getMessageType(data.file);
     } else if (data.message?.trim()) {
       formData.append("message", data.message.trim());
@@ -247,6 +250,7 @@ const ChatWindow = ({ isOpen, setIsOpen, activeChat, activeUser }) => {
     reset();
     setSelectedFile(null);
   };
+  console.log(activeUser);
 
   return (
     <div className="chat-window">
@@ -262,7 +266,7 @@ const ChatWindow = ({ isOpen, setIsOpen, activeChat, activeUser }) => {
           >
             <i className="fa-solid fa-arrow-right"></i>
           </button>
-          <img src="https://avatar.iran.liara.run/public/1" />
+          <img src={activeUser?.chater?.image} />
           <div>
             <h4 className="chat-window__name">{activeChat?.name}</h4>
             <span className="chat-window__role">نشط الان</span>
