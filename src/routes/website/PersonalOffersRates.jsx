@@ -7,15 +7,23 @@ import InfiniteScroll from "../../ui/loading/InfiniteScroll";
 import StarRate from "../../ui/ModelComponent/common/StarRate";
 import RateCard from "../../ui/website/offers/RateCard";
 import SectionHeader from "../../ui/website/SectionHeader";
+import Loading from "../../ui/loading/Loading";
 
 export default function PersonalOffersRates() {
   const { id } = useParams();
   const { t } = useTranslation();
-  const { rates, isLoading, hasNextPage, fetchNextPage, isFetchingNextPage } =
-    useGetRates(id);
+  const {
+    rates,
+    ratesData,
+    isLoading,
+    hasNextPage,
+    fetchNextPage,
+    isFetchingNextPage,
+  } = useGetRates(id);
 
-  const allRates = rates?.pages?.flatMap((page) => page?.data) ?? [];
-
+  const allRates = rates?.pages?.flatMap((page) => page?.data?.rates) ?? [];
+  const overAllRate = rates?.pages?.flatMap((page) => page?.data)[0];
+  if (isLoading) return <Loading />;
   return (
     <section className="personal-assistant-rates page">
       <div className="container">
@@ -25,8 +33,9 @@ export default function PersonalOffersRates() {
           </div>
           <div className="col-12">
             <div className="avg-rates">
-              <span className="avg-value">4.4</span>{" "}
-              <StarRate rating={4.4} isRating={false} /> <span>(453)</span>
+              <span className="avg-value">{overAllRate?.rate}</span>{" "}
+              <StarRate rating={overAllRate?.rate} isRating={false} />{" "}
+              <span>({overAllRate?.number_of_raters})</span>
             </div>
           </div>
         </div>
@@ -50,7 +59,7 @@ export default function PersonalOffersRates() {
               ))}
             </div>
           </InfiniteScroll>{" "}
-          {(isLoading || isFetchingNextPage) && (
+          {isFetchingNextPage && (
             <div className="row">
               {[1, 2, 3].map((i) => (
                 <div className="col-12  p-2" key={i}>

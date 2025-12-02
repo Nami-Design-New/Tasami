@@ -1,5 +1,7 @@
 export default function StarRate({ rating, isRating = true }) {
   const fullStars = Math.floor(rating);
+  console.log(rating);
+
   const halfStar = rating % 1 >= 0.5;
   return (
     <div className="star-rating">
