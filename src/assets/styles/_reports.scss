@@ -37,6 +37,9 @@
     padding: 5px;
     margin: -40px 10px 10px 0;
   }
+  .bg-secondary-select{
+    background-color: red;
+  }
 }
 .form-switch {
   display: flex;
@@ -235,13 +238,14 @@
       flex: 1;
       display: flex;
       flex-direction: column;
-      gap: 0.5rem;
+      justify-content: space-between;
+      gap: .5rem;
       max-width: 240px;
       min-width: 220px;
       background-color: #fff;
       border-radius: 12px;
       padding: 20px 24px;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+      box-shadow: 1px 1px rgba(0, 0, 0, 0.137);
       transition: box-shadow 0.2s ease;
 
       &:hover {
@@ -406,4 +410,14 @@
   width: 50px;
   height: 30px;
   border-radius: 5px;
+}
+.danger_deg{
+  font-size: 2.8rem;
+  font-weight: 900;
+  color: red;
+}
+.success_deg{
+  font-size: 2.8rem;
+  font-weight: 900;
+  color: green;
 }

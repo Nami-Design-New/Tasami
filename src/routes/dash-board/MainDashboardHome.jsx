@@ -8,6 +8,7 @@ import LineAnalyticsChart from "../../ui/dash-board/charts/LineAnalyticsChart";
 import TaskStatus from "../../ui/dash-board/home/TaskStatus";
 import { useSelector } from "react-redux";
 import useGetHomeStatistics from "../../hooks/dashboard/home/useGetHomeStatistics";
+import Loading from "../../ui/loading/Loading";
 
 const packageColors = ["#F5B849", "#26BF94", "#4A90E2", "#9B59B6", "#E74C3C"];
 const packageIcons = [
@@ -23,7 +24,7 @@ export default function DashboardHome() {
   const { user } = useSelector((state) => state.adminAuth);
   const { homeStatistics, isLoading } = useGetHomeStatistics();
 
-  if (isLoading) return <p>Loading...</p>;
+  if (isLoading) return <Loading />;
 
   // ===== Packages chartData (for StatCards) =====
   const packageChartData =
