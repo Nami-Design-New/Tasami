@@ -8,6 +8,7 @@ import SuspensionModel from "../../ui/modals/SuspensionModel";
 import AddNewTask from "./tasks/AddNewTaskModal";
 import { useParams, useSearchParams } from "react-router";
 import useGetUserDetails from "../../hooks/dashboard/subscription/useGetUserDetails";
+import Loading from "../../ui/loading/Loading";
 const tabs = [
   {
     id: 1,
@@ -25,11 +26,11 @@ const UserProfile = () => {
   const activeTab = searchParams.get("tab");
   const { id } = useParams();
   const { userDetails, isLoading } = useGetUserDetails(id);
-  console.log("userDetails Profile user", id, userDetails);
+  // console.log("userDetails Profile user", id, userDetails);
   return (
     <>
       {isLoading ? (
-        <div>Loading...</div>
+        <Loading />
       ) : (
         <div className="user-dashboard">
           <PageHeader removeLast={true} name={"بيانات المستخدم"} />

@@ -35,7 +35,7 @@ const ActiveServiceTab = () => {
         <div className="metrics-list">
           <h3 className="metrics-header"> طلبات وعروض المساعدة </h3>
           <div className="metrics-container">
-            <div className="metric-card-2">
+            <div className="metric-card-2 position-relative">
               <div className="d-flex align-items-center gap-1">
                 <input type="checkbox" id="total_user" />
                 <label htmlFor="total_user">
@@ -43,10 +43,12 @@ const ActiveServiceTab = () => {
                 </label>
               </div>
               <h2 className="metric-value">1200</h2>
-              <span className="position-absolute bottom-0 left-0 text-info">[ ]</span>
+              <span className="position-absolute bottom-0 start-0 text-info p-2">
+                [ ]
+              </span>
             </div>
 
-            <div className="metric-card-1">
+            <div className="metric-card-1 position-relative">
               <div className="d-flex align-items-center gap-1">
                 <input type="checkbox" id="active_user" />
                 <label htmlFor="active_user">عدد المستخدمون النشطين</label>
@@ -56,17 +58,16 @@ const ActiveServiceTab = () => {
                 <div className="seperatorDiv"></div>
                 <h2 className="metric-value-ratio">30%</h2>
               </div>
+              <span className="position-absolute bottom-0 start-0 text-info p-2">
+                [ ]
+              </span>
             </div>
             <div className="metric-card-1">
               <div className="d-flex align-items-center gap-1">
                 <input type="checkbox" id="inactive_user" />
                 <label htmlFor="inactive_user">عدد المستخدمون الخاملين</label>
               </div>{" "}
-              <div className="d-flex align-items-center">
-                <h2 className="metric-value">560</h2>
-                <div className="seperatorDiv"></div>
-                <h2 className="metric-value-ratio">30%</h2>
-              </div>
+              <p className="danger_deg">%5 -</p>
             </div>
             <div className="metric-card-3">
               <div className="d-flex align-items-center gap-2">
@@ -76,11 +77,7 @@ const ActiveServiceTab = () => {
                   عدل التغير األسبوعي في عدد المستخدمين اإلجمالي{" "}
                 </label>
               </div>{" "}
-              <div className="d-flex align-items-center">
-                <h2 className="metric-value">560</h2>
-                <div className="seperatorDiv"></div>
-                <h2 className="metric-value-ratio">30%</h2>
-              </div>
+              <p className="success_deg">%15 </p>
             </div>
           </div>
         </div>
@@ -91,7 +88,10 @@ const ActiveServiceTab = () => {
       <div className="performance-report">
         {/* {filteredData.map((item) => ( */}
         <div className="metrics-list">
-          <h3 className="metrics-header"> األهداف الشخصية بدون مساعدين فردية </h3>
+          <h3 className="metrics-header">
+            {" "}
+            األهداف الشخصية بدون مساعدين فردية{" "}
+          </h3>
           <div className="metrics-container">
             <div className="metric-card-2">
               <div>

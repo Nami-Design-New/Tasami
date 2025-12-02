@@ -10,6 +10,7 @@ import useGetUserCommunities from "../../hooks/dashboard/subscription/useGetUser
 import { PAGE_SIZE } from "../../utils/constants";
 import SubscriptionLog from "./SubscriptionLog";
 import TablePagination from "../../ui/table/TablePagentaion";
+import Loading from "../../ui/loading/Loading";
 
 const columnHelper = createColumnHelper();
 
@@ -40,7 +41,7 @@ export default function CommunitiesDetails() {
   return (
     <>
       {isLoading ? (
-        <div>Loading...</div>
+        <Loading />
       ) : (
         <section className="communities-details">
           <div className="container mt-3">

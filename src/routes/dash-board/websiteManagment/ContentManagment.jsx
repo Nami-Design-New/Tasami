@@ -9,6 +9,7 @@ import { SUPPORTED_LANGS } from "../../../lib/multilang/config";
 import useGetSettings from "../../../hooks/dashboard/website-managment/settings/useGetSettings";
 import useUpdateSettings from "../../../hooks/dashboard/website-managment/settings/useUpdateSettings";
 import { useQueryClient } from "@tanstack/react-query";
+import Loading from "../../../ui/loading/Loading";
 
 export default function ContentManagment() {
   const { t } = useTranslation();
@@ -53,7 +54,7 @@ export default function ContentManagment() {
     });
   };
 
-  if (isLoading) return <p>{t("dashboard.appSettings.loading")}...</p>;
+  if (isLoading) return <Loading />;
 
   const labelMap = {
     terms: t("dashboard.appSettings.terms"),

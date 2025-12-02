@@ -5,6 +5,7 @@ import UserDataCard from "./UserDataCard";
 import useGetResume from "../../../hooks/dashboard/subscription/useGetResume";
 import PersonalHelperExperiences from "../../../ui/website/helpers/PersonalHelperExperiences";
 import PersonalHelperDoc from "../../../ui/website/helpers/PersonalHelperDoc";
+import Loading from "../../../ui/loading/Loading";
 
 export default function ResuemeDetails() {
   const { id } = useParams();
@@ -14,7 +15,7 @@ export default function ResuemeDetails() {
   return (
     <>
       {isLoading ? (
-        <div>Loading..</div>
+        <Loading />
       ) : (
         <section className="resumes-details">
           <div className="row">
