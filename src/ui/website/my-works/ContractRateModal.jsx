@@ -112,19 +112,25 @@ export default function ContractRateModal({
           <div className="row">
             {/* Experience and Knowledge */}
             <div className="col-12 p-2">
-              <div className="d-flex align-items-center justify-content-between">
-                <span>{t("rate_experience")}</span>
-                <Controller
-                  name="experience_and_knowledge"
-                  control={control}
-                  render={({ field }) => (
-                    <ContractStarRating
-                      value={field.value}
-                      onChange={isRated ? undefined : field.onChange}
-                      readOnly={isRated}
-                    />
-                  )}
-                />
+              <div className="d-flex gap-2 flex-column">
+                <div className="d-flex gap-2 align-items-start justify-content-between">
+                  <p className="fw-bold fs-5 ">{t("rate_experience")}</p>
+                  <Controller
+                    name="experience_and_knowledge"
+                    control={control}
+                    render={({ field }) => (
+                      <ContractStarRating
+                        value={field.value}
+                        onChange={isRated ? undefined : field.onChange}
+                        readOnly={isRated}
+                      />
+                    )}
+                  />{" "}
+                </div>
+
+                <span className="text-grey-color">
+                  {t("rate_experience_desc")}
+                </span>
               </div>
               {!isRated && errors.experience_and_knowledge && (
                 <small className="text-danger">
@@ -135,19 +141,24 @@ export default function ContractRateModal({
 
             {/* Commitment to Time */}
             <div className="col-12 p-2">
-              <div className="d-flex align-items-center justify-content-between">
-                <span>{t("rate_commitment")}</span>
-                <Controller
-                  name="commitment_to_time"
-                  control={control}
-                  render={({ field }) => (
-                    <ContractStarRating
-                      value={field.value}
-                      onChange={isRated ? undefined : field.onChange}
-                      readOnly={isRated}
-                    />
-                  )}
-                />
+              <div className="d-flex gap-2 flex-column">
+                <div className="d-flex gap-2 align-items-start justify-content-between">
+                  <p className="fw-bold fs-5 ">{t("rate_commitment")}</p>
+                  <Controller
+                    name="commitment_to_time"
+                    control={control}
+                    render={({ field }) => (
+                      <ContractStarRating
+                        value={field.value}
+                        onChange={isRated ? undefined : field.onChange}
+                        readOnly={isRated}
+                      />
+                    )}
+                  />
+                </div>
+                <span className="text-grey-color">
+                  {t("rate_commitment_desc")}
+                </span>
               </div>
               {!isRated && errors.commitment_to_time && (
                 <small className="text-danger">
@@ -158,19 +169,24 @@ export default function ContractRateModal({
 
             {/* Quality of Performance */}
             <div className="col-12 p-2">
-              <div className="d-flex align-items-center justify-content-between">
-                <span>{t("rate_quality")}</span>
-                <Controller
-                  name="quality_of_performance"
-                  control={control}
-                  render={({ field }) => (
-                    <ContractStarRating
-                      value={field.value}
-                      onChange={isRated ? undefined : field.onChange}
-                      readOnly={isRated}
-                    />
-                  )}
-                />
+              <div className="d-flex gap-2 flex-column">
+                <div className="d-flex gap-2 align-items-start justify-content-between">
+                  <p className="fw-bold fs-5">{t("rate_quality")}</p>
+                  <Controller
+                    name="quality_of_performance"
+                    control={control}
+                    render={({ field }) => (
+                      <ContractStarRating
+                        value={field.value}
+                        onChange={isRated ? undefined : field.onChange}
+                        readOnly={isRated}
+                      />
+                    )}
+                  />
+                </div>{" "}
+                <span className="text-grey-color">
+                  {t("rate_quality_desc")}
+                </span>
               </div>
               {!isRated && errors.quality_of_performance && (
                 <small className="text-danger">
@@ -181,19 +197,25 @@ export default function ContractRateModal({
 
             {/* Respect and Treatment */}
             <div className="col-12 p-2">
-              <div className="d-flex align-items-center justify-content-between">
-                <span>{t("rate_respect")}</span>
-                <Controller
-                  name="respect_and_treatment"
-                  control={control}
-                  render={({ field }) => (
-                    <ContractStarRating
-                      value={field.value}
-                      onChange={isRated ? undefined : field.onChange}
-                      readOnly={isRated}
-                    />
-                  )}
-                />
+              <div className="d-flex gap-2 flex-column">
+                <div className="d-flex gap-2 align-items-start justify-content-between">
+                  <p className="fw-bold fs-5">{t("rate_respect")}</p>{" "}
+                  <Controller
+                    name="respect_and_treatment"
+                    control={control}
+                    render={({ field }) => (
+                      <ContractStarRating
+                        value={field.value}
+                        onChange={isRated ? undefined : field.onChange}
+                        readOnly={isRated}
+                      />
+                    )}
+                  />{" "}
+                </div>
+
+                <span className="text-grey-color">
+                  {t("rate_respect_desc")}
+                </span>
               </div>
               {!isRated && errors.respect_and_treatment && (
                 <small className="text-danger">
