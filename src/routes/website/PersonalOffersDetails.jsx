@@ -91,7 +91,7 @@ export default function PersonalOffersDetails() {
                     },
                     {
                       label: t("website.offerDetails.report"),
-                      onClick: () => console.log("Report"),
+                      onClick: () => setShowReportModal(true),
                       className: "text-danger",
                     },
                   ]}
@@ -213,6 +213,8 @@ export default function PersonalOffersDetails() {
             <ReportModal
               showModal={showReportModal}
               setShowModal={setShowReportModal}
+              type={"helper_service"}
+              objectId={offerDetails?.help_service?.id}
             />
 
             <InquiryModal

@@ -464,6 +464,7 @@ li[data-sonner-toast=""] {
     width: 14px;
     border: 1px solid $white;
     box-shadow: 0 0 10.1px -1px $main;
+    box-shadow: none !important;
   }
   .range-slider__range {
     height: 4px;

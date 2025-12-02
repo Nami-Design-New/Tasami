@@ -1,5 +1,5 @@
 import { useTranslation } from "react-i18next";
-import { Link, useNavigate } from "react-router";
+import { Link, useNavigate, useParams } from "react-router";
 import useGetPostDetails from "../../hooks/website/communities/posts/useGetPostDetails";
 import Loading from "../../ui/loading/Loading";
 import RoundedBackButton from "../../ui/website-auth/shared/RoundedBackButton";
@@ -11,13 +11,36 @@ import { handleCopy } from "../../utils/helper";
 import OptionsMenu from "../../ui/website/OptionsMenu";
 import { useState } from "react";
 import AddPostModal from "../../ui/website/communities/posts/AddPostModal";
+import AlertModal from "../../ui/website/platform/my-community/AlertModal";
+import useDeletePost from "../../hooks/website/communities/posts/useDeletePost";
+import { toast } from "sonner";
+import { useQueryClient } from "@tanstack/react-query";
 
 export default function CommunityPostDetails() {
   const { t } = useTranslation();
+  const navigate = useNavigate();
+  const { id } = useParams();
+  const queryClient = useQueryClient();
   const [showEditModal, setShowEditModal] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+
   const { user } = useSelector((state) => state.authRole);
   const { postDetails, isLoading } = useGetPostDetails();
-  const navigate = useNavigate();
+  const { deletePost, isDeletingPost } = useDeletePost();
+  const handleDeletePost = () => {
+    deletePost(id, {
+      onSuccess: (res) => {
+        toast.success(res.message);
+        navigate("/my-community/posts");
+        setShowDeleteModal(false);
+        queryClient.refetchQueries({ queryKey: ["community-posts"] });
+      },
+      onError: (error) => {
+        toast.error(error.message);
+      },
+    });
+  };
+
   const handleBack = () => {
     navigate(-1);
   };
@@ -37,6 +60,11 @@ export default function CommunityPostDetails() {
               {
                 label: t("edit"),
                 onClick: () => setShowEditModal(true),
+              },
+              {
+                label: t("delete"),
+                onClick: () => setShowDeleteModal(true),
+                className: "text-danger",
               },
             ]}
           />
@@ -79,12 +107,25 @@ export default function CommunityPostDetails() {
           </div>
         </div>
       </div>
-      <AddPostModal
-        showModal={showEditModal}
-        setShowModal={setShowEditModal}
-        isEdit={true}
-        postDetails={postDetails}
-      />
+      {showEditModal && (
+        <AddPostModal
+          showModal={showEditModal}
+          setShowModal={setShowEditModal}
+          isEdit={true}
+          postDetails={postDetails}
+        />
+      )}
+      {showDeleteModal && (
+        <AlertModal
+          showModal={showDeleteModal}
+          setShowModal={setShowDeleteModal}
+          onConfirm={handleDeletePost}
+          loading={isDeletingPost}
+          confirmButtonText={t("confirm")}
+        >
+          {t("postDeleteAlert")}
+        </AlertModal>
+      )}
     </section>
   );
 }

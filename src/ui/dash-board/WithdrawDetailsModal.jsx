@@ -11,54 +11,99 @@ export default function WithdrawDetailsModal({ show, setShow, request }) {
   return (
     <Modal centered show={show} onHide={() => setShow(false)}>
       <Modal.Header closeButton>
-        <h6>{t("withdraw.details")}</h6>
+        <h6 className="m-0">{t("withdraw.details")}</h6>
       </Modal.Header>
 
-      <Modal.Body>
+      <Modal.Body className="p-3">
         {isLoading ? (
           <SpinnerLoader />
         ) : (
           <>
-            {" "}
             <ul className="list-group">
-              <li className="list-group-item">
-                <strong>IBAN:</strong>{" "}
-                {withdrawRequestDetails.user_bank_info.iban}
+              <li className="list-group-item d-flex justify-content-between align-items-start">
+                <label className="mb-0 text-secondary">
+                  {t("withdraw.iban") || "IBAN"}:
+                </label>
+                <span className="ms-2 text-break">
+                  {withdrawRequestDetails?.user_bank_info?.iban || "-"}
+                </span>
               </li>
-              <li className="list-group-item">
-                <strong>{t("withdraw.bankName")}:</strong>{" "}
-                {withdrawRequestDetails.user_bank_info.bank_name}
+
+              <li className="list-group-item d-flex justify-content-between align-items-start">
+                <label className="mb-0 text-secondary">
+                  {t("withdraw.bankName")}:
+                </label>
+                <span className="ms-2 text-break">
+                  {withdrawRequestDetails?.user_bank_info?.bank_name || "-"}
+                </span>
               </li>
-              <li className="list-group-item">
-                <strong>{t("withdraw.fullName")}:</strong>{" "}
-                {withdrawRequestDetails.user_bank_info.full_name}
+
+              <li className="list-group-item d-flex justify-content-between align-items-start">
+                <label className="mb-0 text-secondary">
+                  {t("withdraw.fullName")}:
+                </label>
+                <span className="ms-2 text-break">
+                  {withdrawRequestDetails?.user_bank_info?.full_name || "-"}
+                </span>
               </li>
-              <li className="list-group-item">
-                <strong>{t("withdraw.branchCode")}:</strong>{" "}
-                {withdrawRequestDetails.user_bank_info.branch_code}
+
+              <li className="list-group-item d-flex justify-content-between align-items-start">
+                <label className="mb-0 text-secondary">
+                  {t("withdraw.branchCode")}:
+                </label>
+                <span className="ms-2 text-break">
+                  {withdrawRequestDetails?.user_bank_info?.branch_code || "-"}
+                </span>
               </li>
-              <li className="list-group-item">
-                <strong>{t("withdraw.swift")}:</strong>{" "}
-                {withdrawRequestDetails.user_bank_info.swift_code}
+
+              <li className="list-group-item d-flex justify-content-between align-items-start">
+                <label className="mb-0 text-secondary">
+                  {t("withdraw.swift")}:
+                </label>
+                <span className="ms-2 text-break">
+                  {withdrawRequestDetails?.user_bank_info?.swift_code || "-"}
+                </span>
               </li>
-            </ul>
-            <div className="mt-3 text-center">
-              {withdrawRequestDetails.file?.endsWith(".pdf") ? (
-                <a
-                  href={withdrawRequestDetails.file}
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  {t("withdraw.openFile")}
-                </a>
-              ) : (
-                <img
-                  src={withdrawRequestDetails.attachment}
-                  alt="attachment"
-                  className="img-fluid"
-                />
+
+              {withdrawRequestDetails?.reason && (
+                <li className="list-group-item">
+                  <label className="form-label mb-1 text-secondary">
+                    {t("withdraw.notes")}:
+                  </label>
+                  <div className="ms-1">{withdrawRequestDetails.reason}</div>
+                </li>
               )}
-            </div>
+            </ul>
+
+            {withdrawRequestDetails?.file && (
+              <div className="mt-3 ">
+                <label className="form-label fw-semibold d-block mb-2">
+                  {t("withdraw.attachments") || "Attachment"}
+                </label>
+
+                {withdrawRequestDetails.file.endsWith(".pdf") ? (
+                  <a
+                    href={withdrawRequestDetails.file}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="btn btn-sm btn-outline-primary"
+                  >
+                    {t("withdraw.openFile") || "Open File"}
+                  </a>
+                ) : (
+                  <img
+                    src={withdrawRequestDetails.file}
+                    alt="attachment"
+                    className="img-fluid rounded-2 shadow-sm"
+                    style={{
+                      height: 300,
+                      objectFit: "contain",
+                      border: "1px solid #e9ecef",
+                    }}
+                  />
+                )}
+              </div>
+            )}
           </>
         )}
       </Modal.Body>

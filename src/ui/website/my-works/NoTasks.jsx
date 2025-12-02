@@ -51,9 +51,9 @@ export default function NoTasks({ workDetails, noActions = false }) {
               onClick={() => handleAddTaskWithAi(workDetails?.id)}
               loading={isAdding}
               icon={<i className="fa-solid fa-sparkles"></i>}
+              className="generate-button"
               style={{
-                backgroundColor: "#FDCB2F",
-                // marginTop: "12px",
+                marginTop: "0",
               }}
             >
               {t("generateTasks")}

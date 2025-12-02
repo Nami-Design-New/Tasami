@@ -44,7 +44,7 @@ export default function PersonalInfoForm({ setFormType, setRegisterStep }) {
       <div className="col-12 p-2">
         <p className="image-label">
           <span>{t("auth.profilePicture")}</span>{" "}
-          <span>&apos;{t("auth.optional")}&apos;</span>
+          <span>({t("auth.optional")})</span>
         </p>
         <label className="images-input">
           <div className="image-input-wrapper">

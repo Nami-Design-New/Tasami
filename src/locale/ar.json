@@ -1,9 +1,27 @@
 {
+  "showRates": "عرض التقيمات",
+  "contact_error_subject": "الموضوع مطلوب",
+  "contact_error_title": "العنوان مطلوب",
+  "contact_error_name": "الاسم مطلوب",
+  "contact_error_name_min": "يجب أن يكون الاسم 6 أحرف على الأقل",
+  "contact_error_email": "البريد الإلكتروني مطلوب",
+  "contact_error_email_invalid": "البريد الإلكتروني غير صالح",
+  "contact_error_message": "الرسالة مطلوبة",
+  "contact_error_message_min": "يجب أن تكون الرسالة 15 حرفًا على الأقل",
+  "contact_success": "تم إرسال الرسالة بنجاح!",
+  "contact_error_submit": "فشل في إرسال الرسالة",
+  "postDeleteAlert": "سيتم حذف المنشور نهائيا",
+  "meetingDeleteAlert": "سيتم حذف اللقاء نهائيا",
   "withdraw_offer_warning": "سيؤدي هذا الإجراء إلى سحب العرض المقدم للمستفيد",
   "withdraw_offer": "سحب العرض",
   "contractReq_title": "إرسال طلب تعاقد",
+  "report_violation": "إبلاغ عن مخالفة",
+  "reason": "سبب المخالفة",
+  "write_here": "اكتب هنا...",
+  "please_enter_reason": "الرجاء كتابة السبب",
   "confirmPerformance": "تأكيد الاداء",
   "daily": "يوميا",
+  "interestAlert": "اختيار واحد علي الاقل مطلوب للحفظ",
   "cancelContract": "سبب انهاء التعاقد",
   "weakly": "اسبوعيا",
   "none": "لايوجد",
@@ -15,20 +33,24 @@
   "contractReq_startDate": "تاريخ البدء",
   "contractReq_pickDate": "اختر التاريخ...",
   "contractReq_additionalTerms": "بنود إضافية",
-  "contractReq_optional": "*اختياري*",
+  "contractReq_optional": "(اختياري)",
   "contractReq_writeTerms": "اكتب البنود الإضافية هنا...",
   "contractReq_send": "إرسال",
   "messages_success": "تم إرسال طلب التعاقد بنجاح!",
   "messages_error": "حدث خطأ، يرجى المحاولة مرة أخرى.",
   "rate_title": "تقييم العقد",
-  "rate_experience": "الخبرة والمعرفة",
+  "rate_experience": "الإرشاد والتوجيه",
+  "rate_experience_desc": "مدى وضوح وملاءمة التوجيه الذي قدّمه المساعد، وقدرته على تبسيط الطريق، وتقديم خطوات عملية قابلة للتنفيذ، وليس مجرد نصائح عامة.",
+  "rate_commitment": "التفاعل والمتابعة",
+  "rate_commitment_desc": "مدى التزام المساعد بالمتابعة، واستجابته في الوقت المناسب، وقدرته على التحفيز وتقديم تغذية راجعة أثناء تنفيذ المهام.",
+  "rate_quality": "القيمة والتأثير",
+  "rate_quality_desc": "مقدار التغيير الإيجابي في الفهم، والقدرة على التنفيذ، أو جودة المهام ونتائجها، مقارنة بما لو كان العمل على الخطة بدون التعاون مع المساعد.",
+  "rate_respect": "الاحترافية والثقة",
+  "rate_respect_desc": "مدى التزام المساعد بمبادئ مهنية عالية، مثل احترام الوقت، الحفاظ على سرية المعلومات، وضوح وجودة التواصل، والقدرة على بناء علاقة ثقة إيجابية.",
   "confirm_performance": "تأكيد الأداء",
   "performance_confirmed": "تم التأكيد",
-  "rate_commitment": "الالتزام بالوقت",
-  "rate_quality": "جودة الأداء",
   "generateTasks": "توليد جميع المهام بالذكاء الاصطناعي(اختياري)",
 
-  "rate_respect": "الاحترام والتعامل",
   "rate_notes": "ملاحظات",
   "rate_notes_placeholder": "اكتب ملاحظاتك هنا...",
   "rate_cancel": "إلغاء",
@@ -94,7 +116,7 @@
   "deactive": "ايقاف التنشيط",
   "active": "تنشيط",
   "add": "إضافة",
-  "generate": "توليد",
+  "generate": "إعادة توليد الوصف بالذكاء الاصطناعي(اختياري)",
   "from": "من",
   "to": "إلى",
   "optional": "اختياري",
@@ -200,7 +222,7 @@
   "remove_file": "إزالة الملف",
   "goalDeleteWarning": "سيتم حذف الهدف نهائيًا من قائمة أعمالك",
   "noCompletedContracts": "لا توجد عقود مكتملة حتى الآن",
-  "noPendingContracts": "لا توجد عقود معلقة حاليًا",
+  "noPendingContracts": "لا توجد عقود بانتظار التنفيذ حاليًا",
   "noInprogressContracts": "لا توجد عقود قيد التنفيذ حاليًا",
   "beneficiaryIdentityPreference": "تفضيل هوية المستفيد",
   "assistanceValue": "قيمة المساعدة",
@@ -362,10 +384,11 @@
     "customer": "العميل",
     "amount": "المبلغ",
     "status": "الحالة",
+    "attachments": "المرفقات",
     "statuses": {
       "pending": "معلق",
       "accepted": "مقبول",
-      "rejected": "مرفوض"
+      "refused": "مرفوض"
     },
     "date": "وقت الطلب",
     "details": "التفاصيل",
@@ -386,7 +409,11 @@
     "fullName": "الاسم الكامل",
     "branchCode": "رمز الفرع",
     "swift": "سويفت كود",
-    "openFile": "فتح الملف"
+    "openFile": "فتح الملف",
+    "errors": {
+      "fileRequired": "يجب رفع ملف",
+      "notesRequired": "الملاحظات مطلوبة عند الرفض"
+    }
   },
   "auth": {
     "yes": "نعم",
@@ -526,8 +553,8 @@
     "operationNo": "عمليه رقم",
     "enterAmount": "أدخل المبلغ",
     "price": "ادخل مبلغ السحب",
-    "noTransactions": "لا توجد معاملات بعد ",
-    "noBookmarkedOffers": "لا توجد محفوظات بعد"
+    "noTransactions": "لا توجد أي عمليات على الرصيد حتى الآن ",
+    "noBookmarkedOffers": "لا توجد لديك عروض مساعدة مفضلة"
   },
   "notification": {
     "title": "الإشعارات",
@@ -565,12 +592,12 @@
     "countryCodeRequired": "مفتاح الدولة مطلوب",
     "required": "هذا الحقل مطلوب",
     "email": "يرجى إدخال بريد إلكتروني صالح",
-    "passwordMin": "كلمة المرور يجب أن تكون 6 أحرف على الأقل",
+    "passwordMin": "استحدم كلمة مرور مكونة من 6 خانات علي الاقل",
     "passwordMatch": "يجب أن تتطابق كلمتا المرور",
     "fileSize": "يجب أن يكون حجم الملف أقل من 2 ميغابايت",
     "fileType": "يسمح فقط بالصور ",
     "date": "يرجى إدخال تاريخ صالح",
-    "minAge": "يجب أن يكون عمرك على الأقل {{age}} سنوات",
+    "minAge": "الاشتراك متاح لمن يبلغ من العمر {{age}} سنة أو أكثر",
     "invalidPhoneNumber": "يجب أن يحتوي رقم الهاتف على أرقام فقط",
     "number": "يجب أن يكون رقمًا",
     "min": "يجب أن يكون {{field}} على الأقل {{min}}",
@@ -732,7 +759,7 @@
       "generateTasksWarning": "سيؤدي هذا إلى حذف جميع المهام الحالية و إنشاء مهام جديدة بناءً على تفاصيل الهدف المحدثة. هل أنت متأكد من المتابعة؟",
 
       "statuses": {
-        "pending": "قيد الانتظار",
+        "pending": "بإنتظار التنفيذ",
         "progress": "قيد التنفيذ",
         "completed": "مكتملة",
         "paused": "متوقفة"
@@ -913,7 +940,7 @@
       "noClients": "لا يوجد عملاء بعد",
       "alertMessage": "قم باستكمال السيرة الذاتية لتفعيل الحساب",
       "menu": {
-        "subscriptions": "إدارة الاشتراك",
+        "subscriptions": "اشتراكاتي",
         "cv": "سيرتي الذاتية",
         "myAssistant": "مساعداتي",
         "myOpportunities": "فرصي",
@@ -1004,9 +1031,10 @@
       },
       "audience": {
         "noFollowers": "لا يوجد متابعون بعد",
+        "noCommunities": "ليس لديك أي عضوية في مجتمعات المساعدين الشخصيين",
         "memberSince": "عضو منذ",
         "followers": "المتابعون",
-        "members": "الاعضاء"
+        "members": "الأعضاء"
       },
       "myAssistance": {
         "activeOffers": "العروض النشطة",
@@ -1058,7 +1086,7 @@
       "personalAssistants": "المساعدون الشخصيون",
       "my_goals": "الاهداف الشخصية",
       "goal": "هدف شخصي",
-      "noPersonalAssistants": "ليس لديك أي مساعد شخصي.",
+      "noPersonalAssistants": "لم تقم بمتابعة أي مساعد شخصي حتى الآن.",
       "community": "مجتمع",
       "completed_contracts": "عدد العقود المكتملة",
       "progress_contracts": "عدد العقود النشطة",
@@ -1813,6 +1841,63 @@
       "enterRegionNumber": "ادخل رقم الإقليم",
       "editCountry": "تعديل الاقليم",
       "editCity": "تعديل المدينة"
+    },
+    "faqs": {
+      "questions": "السؤال",
+      "answer": "الاجابة",
+      "actions": "الاجراءات",
+      "addQuestion": "اضف سؤال",
+      "searchPlaceholder": "البحث في الأسئلة...",
+      "faqTitle": "الاسئلة الشائعة",
+      "modal": {
+        "add": "اضافه",
+        "edit": "تعديل",
+        "question": "السؤال",
+        "answer": "الاجابة",
+        "submit": "حفظ"
+      }
+    },
+    "appSettings": {
+      "management": "إدارة المحتوى",
+      "terms": "الشروط والأحكام",
+      "privacy": "سياسة الخصوصية",
+      "aboutApp": "عن التطبيق",
+      "save": "حفظ",
+      "loading": "جاري التحميل"
+    },
+    "subscriptions": {
+      "management": "إدارة الاشتراكات",
+      "logo": "الشعار",
+      "package": "الاشتراك",
+      "actions": "الإجراءات",
+      "add": "أضف اشتراك",
+      "tableTitle": "قائمة الاشتراكات",
+      "searchPlaceholder": "البحث في الاشتراكات...",
+      "free_forever": "مجاناً مدى الحياة",
+      "currency": "ر.س",
+      "yearly_price": "السعر السنوي",
+      "half_yearly_price": "السعر النصف سنوي",
+      "offers_count": "عدد عروض الأسعار التي يمكن تقديمها للمستفيدين في نفس الوقت",
+      "groups_count": "عدد المجموعات التي يمكن إنشاؤها",
+      "seats_count": "عدد المقاعد المتاحة للمستفيدين في المجموعة الواحدة",
+      "app_commission": "عمولة المنصة من العقود وعضويات المجتمعات",
+      "no_data": "لا توجد بيانات",
+      "title": "اشتراك",
+      "add_new": "اضف اشتراك جديد",
+      "edit": "تعديل اشتراك",
+      "plan_name": "اسم الخطة",
+      "plan_name_ar": "اسم الخطة (AR)",
+      "plan_name_en": "اسم الخطة (EN)",
+      "yearly_price_add": "السعر السنوي",
+      "half_yearly_price_add": "السعر النصف سنوي",
+      "offers_count_add": "عدد العروض",
+      "groups_count_add": "عدد المجموعات",
+      "seats_count_add": "عدد المقاعد",
+      "commission": "نسبة العمولة (%)",
+      "upload_image": "رفع صورة",
+      "save": "حفظ",
+      "update": "تحديث",
+      "cancel": "إلغاء"
     }
   }
 }

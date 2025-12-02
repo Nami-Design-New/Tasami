@@ -1,82 +1,99 @@
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import CustomButton from "../../../ui/CustomButton";
 import PageHeader from "../../../ui/PageHeader";
 import "ckeditor5/ckeditor5.css";
+import { SUPPORTED_LANGS } from "../../../lib/multilang/config";
+import useGetSettings from "../../../hooks/dashboard/website-managment/settings/useGetSettings";
+import useUpdateSettings from "../../../hooks/dashboard/website-managment/settings/useUpdateSettings";
+import { useQueryClient } from "@tanstack/react-query";
 
 export default function ContentManagment() {
-  const [terms, setTerms] = useState();
-  const [privacy, setPrivacy] = useState("");
-  const [about, setAbout] = useState("");
+  const { t } = useTranslation();
+  const { settings, isLoading } = useGetSettings();
+  const { updateSettings, isPending } = useUpdateSettings();
+  const queryClient = useQueryClient();
+  const [formData, setFormData] = useState({});
 
-  const [termsDraft, setTermsDraft] = useState(terms);
-  const [privacyDraft, setPrivacyDraft] = useState(privacy);
-  const [aboutDraft, setAboutDraft] = useState(about);
+  // Load settings into state
+  useEffect(() => {
+    if (!settings?.data) return;
 
-  const handleTermsSave = () => {
-    setTerms(termsDraft);
+    const initialData = {};
+    ["terms", "privacy", "about_app"].forEach((section) => {
+      SUPPORTED_LANGS.forEach((lang) => {
+        const key = `${section}_${lang}`;
+        initialData[key] = settings.data[key] || "";
+      });
+    });
+
+    setFormData(initialData);
+  }, [settings]);
+
+  const handleChange = (field, value) => {
+    setFormData((prev) => ({ ...prev, [field]: value }));
   };
 
-  const handlePrivacySave = () => {
-    setPrivacy(privacyDraft);
+  const handleSave = () => {
+    const payload = {
+      "terms:ar": formData.terms_ar,
+      "terms:en": formData.terms_en,
+      "privacy:ar": formData.privacy_ar,
+      "privacy:en": formData.privacy_en,
+      "about_app:ar": formData.about_app_ar,
+      "about_app:en": formData.about_app_en,
+    };
+
+    updateSettings(payload, {
+      onSuccess: () => {
+        queryClient.invalidateQueries({ queryKey: ["settings"] });
+      },
+    });
   };
 
-  const handleAboutSave = () => {
-    setAbout(aboutDraft);
+  if (isLoading) return <p>{t("dashboard.appSettings.loading")}...</p>;
+
+  const labelMap = {
+    terms: t("dashboard.appSettings.terms"),
+    privacy: t("dashboard.appSettings.privacy"),
+    about_app: t("dashboard.appSettings.aboutApp"),
   };
 
   return (
     <section>
-      <PageHeader />
+      <PageHeader title={t("dashboard.appSettings.management")} />
 
       <div className="row p-0 m-0">
-        {/* Terms Section */}
-        <div className="col-12 p-0 py-2">
-          <p className="mb-3 editor-label">الشروط و الاحكام</p>
-          <CKEditor
-            editor={ClassicEditor}
-            data={termsDraft}
-            onChange={(event, editor) => {
-              setTermsDraft(editor.getData());
-            }}
-          />
-          <div className="d-flex align-items-center mt-3 justify-content-end gap-2">
-            <CustomButton onClick={handleTermsSave}>حفظ</CustomButton>
-            <CustomButton color="secondary">إلغاء</CustomButton>
-          </div>
-        </div>
+        {["terms", "privacy", "about_app"].map((section) =>
+          SUPPORTED_LANGS.map((lang) => {
+            const field = `${section}_${lang}`;
+            return (
+              <div key={field} className="col-12 p-0 py-2">
+                <p className="mb-3 editor-label">
+                  {labelMap[section]} ({lang.toUpperCase()})
+                </p>
+                <CKEditor
+                  editor={ClassicEditor}
+                  data={formData[field] || ""}
+                  onChange={(_, editor) =>
+                    handleChange(field, editor.getData())
+                  }
+                />
+              </div>
+            );
+          })
+        )}
 
-        {/* Privacy Policy Section */}
-        <div className="col-12 p-0 py-2">
-          <p className="mb-3 editor-label">سياسات الخصوصية</p>
-          <CKEditor
-            editor={ClassicEditor}
-            data={privacyDraft}
-            onChange={(event, editor) => {
-              setPrivacyDraft(editor.getData());
-            }}
-          />
-          <div className="d-flex align-items-center mt-3 justify-content-end gap-2">
-            <CustomButton onClick={handlePrivacySave}>حفظ</CustomButton>
-            <CustomButton color="secondary">إلغاء</CustomButton>
-          </div>
-        </div>
-
-        {/* About Section */}
-        <div className="col-12 p-0 py-2">
-          <p className=" mb-3 editor-label">عن تسامي</p>
-          <CKEditor
-            editor={ClassicEditor}
-            data={aboutDraft}
-            onChange={(event, editor) => {
-              setAboutDraft(editor.getData());
-            }}
-          />
-          <div className="d-flex align-items-center mt-3 justify-content-end gap-2">
-            <CustomButton onClick={handleAboutSave}>حفظ</CustomButton>
-            <CustomButton color="secondary">إلغاء</CustomButton>
-          </div>
+        <div className="d-flex align-items-center mt-3 justify-content-end gap-2">
+          <CustomButton
+            onClick={handleSave}
+            disabled={isPending}
+            loading={isPending}
+          >
+            {t("dashboard.appSettings.save")}
+          </CustomButton>
         </div>
       </div>
     </section>

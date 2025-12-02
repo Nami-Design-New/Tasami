@@ -12,8 +12,8 @@ export default function useGetRates(id) {
   } = useInfiniteQuery({
     queryKey: ["work-rates", id],
     queryFn: async ({ pageParam = 1 }) => {
-      const res = await axiosInstance.get("help-services-rates", {
-        params: { page: pageParam, work_id: id },
+      const res = await axiosInstance.get(`help-services-rates/${id}`, {
+        params: { page: pageParam },
       });
       if (res.data.code !== 200) {
         throw new Error(res.data.message || "Error Fetching Rates");
@@ -26,6 +26,7 @@ export default function useGetRates(id) {
         : undefined;
     },
   });
+
   return {
     rates,
     isLoading,
