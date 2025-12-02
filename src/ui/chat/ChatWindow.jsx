@@ -1,14 +1,15 @@
+import { yupResolver } from "@hookform/resolvers/yup";
 import { useQueryClient } from "@tanstack/react-query";
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router";
-import Message from "./Message";
-import { useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
-import InfiniteScroll from "../loading/InfiniteScroll";
-import useGetChatsMessages from "../../hooks/dashboard/chats/useGetChatsMessages";
 import * as yup from "yup";
+import useGetChatsMessages from "../../hooks/dashboard/chats/useGetChatsMessages";
+import InfiniteScroll from "../loading/InfiniteScroll";
+import Message from "./Message";
+import useSendMessages from "../../hooks/dashboard/chats/useSendMessages";
 
 const getMessageType = (file) => {
   if (!file) return "text";
@@ -38,8 +39,12 @@ const schema = yup.object().shape({
   audio: yup.mixed().nullable(),
 });
 
-const ChatWindow = ({ isOpen, setIsOpen, activeChat }) => {
+const ChatWindow = ({ isOpen, setIsOpen, activeChat, activeUser }) => {
   const { user } = useSelector((state) => state.adminAuth);
+  const { id } = useParams();
+  const { t } = useTranslation();
+  const navigate = useNavigate();
+  const queryClient = useQueryClient();
   const {
     chatMessages,
     isLoading,
@@ -48,11 +53,6 @@ const ChatWindow = ({ isOpen, setIsOpen, activeChat }) => {
     fetchNextPage,
     isFetchingNextPage,
   } = useGetChatsMessages();
-
-  const { t } = useTranslation();
-  const navigate = useNavigate();
-  const { id } = useParams();
-  const queryClient = useQueryClient();
 
   const [selectedFile, setSelectedFile] = useState(null);
   const [isRecording, setIsRecording] = useState(false);
@@ -67,6 +67,7 @@ const ChatWindow = ({ isOpen, setIsOpen, activeChat }) => {
 
   const allChats =
     chatMessages?.pages?.flatMap((page) => page?.data).reverse() ?? [];
+  const { sendMessage, isSendingMessage } = useSendMessages();
 
   // const { sendMessage } = useSendAssistantMessage();
   const chatContainerRef = useRef(null);
@@ -240,12 +241,13 @@ const ChatWindow = ({ isOpen, setIsOpen, activeChat }) => {
     }
 
     formData.append("type", type);
-    formData.append("contract_id", id);
+    formData.append("chat_id", activeChat);
     sendMessage(formData);
     cancelRecording();
     reset();
     setSelectedFile(null);
   };
+
   return (
     <div className="chat-window">
       <header className="chat-window__header">
@@ -269,13 +271,19 @@ const ChatWindow = ({ isOpen, setIsOpen, activeChat }) => {
         {/* <div className="chat-window__actions"></div> */}
       </header>
 
-      <div className="chat-window__messages" ref={chatContainerRef}>
+      <div className="employee-chat__messages" ref={chatContainerRef}>
         <InfiniteScroll
           onLoadMore={fetchNextPage}
           hasNextPage={hasNextPage}
           isFetchingNextPage={isFetchingNextPage}
           revers={true}
         >
+          {" "}
+          {(isLoading || isFetchingNextPage) && (
+            <div className="d-flex align-items-center py-3 justify-content-center">
+              <div className="loader"></div>
+            </div>
+          )}
           {allChats?.map((chat) => {
             const form =
               Number(chat.sender.id) === Number(user.id)
@@ -314,7 +322,7 @@ const ChatWindow = ({ isOpen, setIsOpen, activeChat }) => {
         </button>
       </footer> */}
 
-      <form className="chat-window__footer" onSubmit={handleSubmit(onSubmit)}>
+      <form className="employee-chat__footer" onSubmit={handleSubmit(onSubmit)}>
         <div className="preview-section">
           {isRecording ? (
             <div className={`recording-bar ${isPaused ? "paused" : ""}`}>

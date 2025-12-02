@@ -7,9 +7,11 @@ const ChatPage = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const chatId = searchParams.get("chatId");
   const [activeChat, setActiveChat] = useState(Number(chatId));
+  const [activeUser, setActiveUser] = useState(null);
 
   const handleChatSelect = (chat) => {
     setActiveChat(chat?.id);
+    setActiveUser(chat);
     setSearchParams((prev) => {
       const newParams = new URLSearchParams(prev);
       newParams.set("chatId", chat?.id);
@@ -31,6 +33,7 @@ const ChatPage = () => {
         isOpen={sidebarOpen}
         setIsOpen={setSidebarOpen}
         activeChat={activeChat}
+        activeUser={activeUser}
       />
     </div>
   );
