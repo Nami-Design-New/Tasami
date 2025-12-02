@@ -229,7 +229,7 @@ export default function AssistantsSidebar({ isGoal = false }) {
                 </div>
               )}
               {/* helpMechanism */}
-              <div className="col-12 p-2">
+              <div className="col-12 py-2 px-0">
                 <div className="identity-selector">
                   <h6 className="identity-title">
                     {t("website.platform.myAssistance.helpMechanism")}
@@ -239,12 +239,6 @@ export default function AssistantsSidebar({ isGoal = false }) {
                       <>
                         {helpMechanisms.map((option) => (
                           <label
-                            style={{
-                              padding: "8px",
-                              fontSize: "12px",
-                              height: "46px",
-                              borderRadius: "8px",
-                            }}
                             key={option.id}
                             className={`identity-option d-flex align-items-center justify-contnet-center gap-0 ${
                               selectedHelpMechanism.includes(String(option.id))
@@ -274,12 +268,13 @@ export default function AssistantsSidebar({ isGoal = false }) {
             <div className="buttons">
               <CustomButton
                 type="button"
+                size="large"
                 variant="outlined"
                 onClick={handleReset}
               >
                 {t("website.assistants.reset")}
               </CustomButton>
-              <CustomButton type="submit" fullWidth>
+              <CustomButton type="submit" fullWidth size="large">
                 {t("website.assistants.filter")}
               </CustomButton>
             </div>
