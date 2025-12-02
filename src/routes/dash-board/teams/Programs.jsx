@@ -1,9 +1,12 @@
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import ColumnChart from "../../../ui/dash-board/charts/ColumnChart";
 import ReusableDataTable from "../../../ui/table/ReusableDataTable";
 import { createColumnHelper } from "@tanstack/react-table";
 import { Link } from "react-router";
 import { Badge } from "react-bootstrap";
+import { PAGE_SIZE } from "../../../utils/constants";
+import useGetAssistantOffers from "../../../hooks/dashboard/subscription/assistantOffers/useGetAssistantOffers";
+import TablePagination from "../../../ui/table/TablePagentaion";
 
 const usersSeries = [
   { name: "عروض المساعده ", data: ["450", "211", "150"] },
@@ -47,6 +50,11 @@ const usersOptions = {
       },
     },
   },
+  //   xaxis: {
+  //   categories:
+  //     assistantOffersData?.packages?.map((item) => item.package) || [],
+  //   labels: { style: { fontSize: "14px" } },
+  // },
   yaxis: {
     labels: {
       style: {
@@ -69,102 +77,77 @@ const usersOptions = {
 const columnHelper = createColumnHelper();
 
 const Programs = () => {
-  const data = useMemo(
-    () => [
-      {
-        programNumber: "SO-210425-000001",
-        date: "21-04-2025",
-        status: "مكتمل",
-        accountNumber: "U-020522-000215",
-        accountType: "متميز",
-        IdNumber: "01-014-003",
-        field: "الهندسة",
-        Specialization: "مدني",
-        activeContracts: 3,
-        completeContracts: 5,
-        canceledContracts: 122,
-        numbrOfUseres: 120,
-        rate: 4.5,
-      },
-      {
-        programNumber: "SO-210425-000002",
-        date: "21-04-2025",
-        status: "محذوف",
-        accountNumber: "U-020522-000216",
-        accountType: "رواد",
-        IdNumber: "01-014-003",
-        field: "المالية",
-        Specialization: "محاسبة",
-        activeContracts: 1,
-        completeContracts: 2,
-        canceledContracts: 220,
-        numbrOfUseres: 45,
-        rate: "-",
-      },
-      {
-        programNumber: "SO-210425-000003",
-        date: "21-04-2025",
-        status: "قيد التنفيذ",
-        accountNumber: "U-020522-000217",
-        accountType: "رواد",
-        IdNumber: "01-014-003",
-        field: "المالية",
-        Specialization: "محاسبة",
-        activeContracts: 1,
-        completeContracts: 2,
-        canceledContracts: 220,
-        numbrOfUseres: 45,
-        rate: "-",
-      },
-      {
-        programNumber: "SO-210425-000004",
-        date: "21-04-2025",
-        status: "بانتظار التنفيذ",
-        accountNumber: "U-020522-000218",
-        accountType: "رواد",
-        IdNumber: "01-014-003",
-        field: "المالية",
-        Specialization: "محاسبة",
-        activeContracts: 1,
-        completeContracts: 2,
-        canceledContracts: 220,
-        numbrOfUseres: 45,
-        rate: "-",
-      },
-    ],
-    []
-  );
+  const [page, setPage] = useState(1);
+  const [pageSize, setPageSize] = useState(PAGE_SIZE);
+  const { assistantOffersData, currentPage, lastPage, isLoading } =
+    useGetAssistantOffers("", page, PAGE_SIZE);
+
+  // const usersSeries = [
+  //   {
+  //     name: "عروض المساعده ",
+  //     data:
+  //       assistantOffersData?.packages?.map((item) => item.total_users) || [],
+  //   },
+  //   {
+  //     name: "بإنتظار التنفيذ",
+  //     data:
+  //       assistantOffersData?.packages?.map((item) => item.communities_count) ||
+  //       [],
+  //   },
+  //   {
+  //     name: "قيد التنفيذ",
+  //     data:
+  //       assistantOffersData?.packages?.map(
+  //         (item) => item.communities_members
+  //       ) || [],
+  //   },
+  //   {
+  //     name: "مكتملة",
+  //     data:
+  //       assistantOffersData?.packages?.map((item) => item.communities_count) ||
+  //       [],
+  //   },
+  //   {
+  //     name: "المحذوفة",
+  //     data:
+  //       assistantOffersData?.packages?.map((item) => item.communities_posts) ||
+  //       [],
+  //   },
+  // ];
 
   const columns = useMemo(
     () => [
-      columnHelper.accessor("programNumber", {
+      columnHelper.accessor("code", {
         header: "الخدمه",
         cell: (info) => (
-          <Link to={`/model/${info.getValue()}`} className="link-styles">
+          <Link
+            to={`/dashboard/programs/${info?.row.original.id}`}
+            className="link-styles"
+          >
             {info.getValue()}
           </Link>
         ),
         enableSorting: false,
       }),
-      columnHelper.accessor("date", {
+      columnHelper.accessor("created_at", {
         header: " التاريخ ",
-        cell: (info) => info.getValue(),
+        cell: (info) => info.getValue() || "-",
       }),
-      columnHelper.accessor("status", {
+      columnHelper.accessor("user.status", {
         header: " الحاله ",
         cell: (info) => {
           let badgeColor;
           switch (info.getValue()) {
-            case "مكتمل":
+            case "active":
               badgeColor = "#28a745";
               break;
-            case "بانتظار التنفيذ":
+            case "isPending":
               badgeColor = "#ffc107  ";
               break;
             case "قيد التنفيذ":
               badgeColor = "#007bff";
               break;
-            case "محذوف":
+            case "deleted":
               badgeColor = "#dc3545";
               break;
             default:
@@ -181,65 +164,65 @@ const Programs = () => {
                 fontWeight: "400",
               }}
             >
-              {info.getValue()}
+              {info.getValue() || "-"}
             </Badge>
           );
         },
       }),
-      columnHelper.accessor("accountNumber", {
+      columnHelper.accessor("user.account_code", {
         header: "رقم الحساب",
         cell: (info) => (
           <Link
-            to={`/dashboard/user-details/${info.getValue()}`}
-            className="link-styles"
+            to={`/dashboard/user-details/${info?.row?.original.user?.id}`}
+            className={info.getValue() ? "link-styles" : ""}
           >
-            {info.getValue()}
+            {info.getValue() || "-"}
           </Link>
         ),
         enableSorting: false,
       }),
-      columnHelper.accessor("accountType", {
+      columnHelper.accessor("user.account_type", {
         header: "نوع الحساب",
-        cell: (info) => info.getValue(),
+        cell: (info) => info.getValue() || "-",
         enableSorting: false,
       }),
 
-      columnHelper.accessor("IdNumber", {
+      columnHelper.accessor("user.identify_code", {
         header: "رقم التعريف",
         // cell: (info) => (
         //   <Link to={`/model/${info.getValue()}`} className="link-styles">
         //     {info.getValue()}
         //   </Link>
         // ),
-        cell: (info) => info.getValue(),
+        cell: (info) => info.getValue() || "-",
       }),
-      columnHelper.accessor("field", {
+      columnHelper.accessor("category.title", {
         header: "المجال",
-        cell: (info) => info.getValue(),
+        cell: (info) => info.getValue() || "-",
       }),
-      columnHelper.accessor("Specialization", {
+      columnHelper.accessor("sub_category.title", {
         header: " التخصص ",
-        cell: (info) => info.getValue(),
+        cell: (info) => info.getValue() || "-",
       }),
-      columnHelper.accessor("activeContracts", {
+      columnHelper.accessor("active_contracts", {
         header: " العقود النشطه ",
-        cell: (info) => info.getValue(),
+        cell: (info) => info.getValue() || "-",
       }),
-      columnHelper.accessor("completeContracts", {
+      columnHelper.accessor("completed_contracts", {
         header: " العقود المكتمله ",
-        cell: (info) => info.getValue(),
+        cell: (info) => info.getValue() || "-",
       }),
-      columnHelper.accessor("canceledContracts", {
+      columnHelper.accessor("price", {
         header: " القيمه ",
-        cell: (info) => info.getValue(),
+        cell: (info) => info.getValue() || "-",
       }),
-      columnHelper.accessor("numbrOfUseres", {
+      columnHelper.accessor("benefits", {
         header: "عدد المستفيدين",
-        cell: (info) => info.getValue(),
+        cell: (info) => info.getValue() || "-",
       }),
       columnHelper.accessor("rate", {
         header: "التقييم",
-        cell: (info) => info.getValue(),
+        cell: (info) => info.getValue() || "-",
       }),
     ],
     []
@@ -259,12 +242,25 @@ const Programs = () => {
           <ReusableDataTable
             title="عروض المساعده"
             filter={false}
-            data={data}
+            data={assistantOffersData?.data || []}
             columns={columns}
             lang="ar"
             initialPageSize={10}
             searchPlaceholder="البحث في عروض المساعده"
-          />
+            currentPage={currentPage}
+            lastPage={lastPage}
+            setPage={setPage}
+            pageSize={pageSize}
+            setPageSize={setPageSize}
+            isLoading={isLoading}
+          >
+            <TablePagination
+              currentPage={page}
+              lastPage={lastPage}
+              onPageChange={setPage}
+              isLoading={isLoading}
+            />
+          </ReusableDataTable>
         </div>
       </div>
     </section>

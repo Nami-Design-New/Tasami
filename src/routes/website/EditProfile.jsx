@@ -371,6 +371,7 @@ export default function EditProfile() {
           )}
           <div className="col-12 p-2">
             <CustomButton
+              type="submit"
               size="large"
               style={{
                 display: "block",
