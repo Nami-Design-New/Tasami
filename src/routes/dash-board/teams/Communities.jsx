@@ -7,10 +7,12 @@ import { Badge } from "react-bootstrap";
 import { PAGE_SIZE } from "../../../utils/constants";
 import useGetSubscriptionCommunity from "../../../hooks/dashboard/subscription/community/useGetSubscriptionCommunity";
 import TablePagination from "../../../ui/table/TablePagentaion";
+import { useTranslation } from "react-i18next";
 
 const columnHelper = createColumnHelper();
 
 const Communities = () => {
+  const { t } = useTranslation();
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(PAGE_SIZE);
   const { subscriptionCommunity, currentPage, lastPage, isLoading } =
@@ -18,48 +20,47 @@ const Communities = () => {
 
   const usersSeries = [
     {
-      name: "عدد الحسابات",
+      name: t("dashboard.communities.accountsCount"),
       data:
         subscriptionCommunity?.packages?.map((item) => item.total_users) || [],
     },
     {
-      name: "عدد المجتمعات",
+      name: t("dashboard.communities.communitiesCount"),
       data:
         subscriptionCommunity?.packages?.map(
           (item) => item.communities_count
         ) || [],
     },
     {
-      name: "الاعضاء",
+      name: t("dashboard.communities.members"),
       data:
         subscriptionCommunity?.packages?.map(
           (item) => item.communities_members
         ) || [],
     },
     {
-      name: "المشاهدات",
-      data: subscriptionCommunity?.packages?.map((item) => item.communities_count) || [],
+      name: t("dashboard.communities.views"),
+      data:
+        subscriptionCommunity?.packages?.map(
+          (item) => item.communities_count
+        ) || [],
     },
-    // {
-    //   name: "المحاورات",
-    //   data: subscriptionCommunity?.packages?.map((item) => item.count) || [],
-    // },
     {
-      name: "المنشورات",
+      name: t("dashboard.communities.posts"),
       data:
         subscriptionCommunity?.packages?.map(
           (item) => item.communities_posts
         ) || [],
     },
     {
-      name: "الاستشارات",
+      name: t("dashboard.communities.consultations"),
       data:
         subscriptionCommunity?.packages?.map(
           (item) => item.communities_consultations
         ) || [],
     },
     {
-      name: "اللقاءات",
+      name: t("dashboard.communities.meetings"),
       data:
         subscriptionCommunity?.packages?.map(
           (item) => item.communities_meetings
@@ -98,7 +99,7 @@ const Communities = () => {
     ],
     tooltip: {
       y: {
-        formatter: (val) => `${val} برامج`,
+        formatter: (val) => `${val} ${t("dashboard.communities.programs")}`,
       },
     },
     legend: { position: "top", horizontalAlign: "center" },
@@ -107,21 +108,20 @@ const Communities = () => {
   const columns = useMemo(
     () => [
       columnHelper.accessor("user.first_name", {
-        header: "الاسم الأول",
+        header: t("dashboard.communities.firstName"),
         cell: (info) => info.getValue() || "-",
         enableSorting: false,
       }),
       columnHelper.accessor("user.last_name", {
-        header: "اسم العائلة",
+        header: t("dashboard.communities.lastName"),
         cell: (info) => info.getValue() || "-",
       }),
       columnHelper.accessor("user.gender", {
-        header: "الجنس",
+        header: t("dashboard.communities.gender"),
         cell: (info) => info.getValue() || "-",
       }),
-
       columnHelper.accessor("user.account_code", {
-        header: "رقم الحساب",
+        header: t("dashboard.communities.accountNumber"),
         cell: (info) => (
           <Link
             to={`/dashboard/user-details/${info?.row.original.user?.id}`}
@@ -133,31 +133,17 @@ const Communities = () => {
         enableSorting: false,
       }),
       columnHelper.accessor("created_at", {
-        header: "التاريخ",
+        header: t("dashboard.communities.date"),
         cell: (info) => info.getValue() || "-",
       }),
       columnHelper.accessor("user.account_type", {
-        header: "نوع الحساب",
+        header: t("dashboard.communities.accountType"),
         cell: (info) => info.getValue() || "-",
       }),
       columnHelper.accessor("is_active", {
-        header: "حالة الحساب",
+        header: t("dashboard.communities.accountStatus"),
         cell: (info) => {
-          let badgeColor;
-          switch (info.getValue()) {
-            case true:
-              badgeColor = "#28a745";
-              break;
-            case false:
-              badgeColor = "#6c757d";
-              break;
-            // case "محذوف":
-            //   badgeColor = "#dc3545"; // red
-            //   break;
-            default:
-              badgeColor = "#c5cacfff"; // gray
-              break;
-          }
+          const badgeColor = info.getValue() ? "#28a745" : "#6c757d";
           return (
             <Badge
               pill
@@ -168,29 +154,31 @@ const Communities = () => {
                 fontWeight: "400",
               }}
             >
-              {info.getValue() ? "نشط " : "غير نشط"}
+              {info.getValue()
+                ? t("dashboard.communities.active")
+                : t("dashboard.communities.inactive")}
             </Badge>
           );
         },
       }),
       columnHelper.accessor("user.nationality.title", {
-        header: "الجنسية",
+        header: t("dashboard.communities.nationality"),
         cell: (info) => info.getValue() || "-",
       }),
       columnHelper.accessor("user.region_id.title", {
-        header: "الإقليم",
+        header: t("dashboard.communities.region"),
         cell: (info) => info.getValue() || "-",
       }),
       columnHelper.accessor("user.country_id.title", {
-        header: "القطاع",
+        header: t("dashboard.communities.sector"),
         cell: (info) => info.getValue() || "-",
       }),
       columnHelper.accessor("user.city_id.title", {
-        header: "المدينة",
+        header: t("dashboard.communities.city"),
         cell: (info) => info.getValue() || "-",
       }),
       columnHelper.accessor("communityTitle", {
-        header: "عنوان المجتمع",
+        header: t("dashboard.communities.communityTitle"),
         cell: (info) => (
           <Link
             to={`/dashboard/communities-details/${info?.row.original.id}`}
@@ -206,31 +194,27 @@ const Communities = () => {
         ),
       }),
       columnHelper.accessor("user_count", {
-        header: "عدد الأعضاء",
+        header: t("dashboard.communities.membersCount"),
         cell: (info) => info.getValue() || "-",
       }),
       columnHelper.accessor("views", {
-        header: "المشاهدات",
+        header: t("dashboard.communities.views"),
         cell: (info) => info.getValue(),
       }),
-      // columnHelper.accessor("111", {
-      //   header: "المحاورات",
-      //   cell: (info) => info.getValue(),
-      // }),
       columnHelper.accessor("posts_count", {
-        header: "المنشورات",
+        header: t("dashboard.communities.posts"),
         cell: (info) => info.getValue() || "-",
       }),
       columnHelper.accessor("consultations_count", {
-        header: "الاستشارات",
+        header: t("dashboard.communities.consultations"),
         cell: (info) => info.getValue() || "-",
       }),
       columnHelper.accessor("meets_count", {
-        header: "اللقاءات",
+        header: t("dashboard.communities.meetings"),
         cell: (info) => info.getValue() || "-",
       }),
     ],
-    []
+    [t]
   );
 
   return (
@@ -240,18 +224,18 @@ const Communities = () => {
           <ColumnChart
             series={usersSeries}
             options={usersOptions}
-            title={"المجتمعات"}
+            title={t("dashboard.communities.title")}
           />
         </div>
         <div className="col-12">
           <ReusableDataTable
-            title=" المجتمعات "
+            title={t("dashboard.communities.title")}
             filter={false}
             data={subscriptionCommunity?.data || []}
             columns={columns}
             lang="ar"
             initialPageSize={10}
-            searchPlaceholder="البحث في عروض المساعده"
+            searchPlaceholder={t("dashboard.communities.searchPlaceholder")}
             currentPage={currentPage}
             lastPage={lastPage}
             setPage={setPage}

@@ -10,26 +10,29 @@ import { PAGE_SIZE } from "../../../utils/constants";
 import TablePagination from "../../../ui/table/TablePagentaion";
 import useDeleteViolationReason from "../../../hooks/dashboard/websiteManagment/violationsManagment/useDeleteViolationReason";
 import { useQueryClient } from "@tanstack/react-query";
+import { useTranslation } from "react-i18next";
 
 const columnHelper = createColumnHelper();
 export default function ViolationsManagment() {
+  const { t } = useTranslation();
   const [showModal, setShowModal] = useState();
   const [isEdit, setIsEdit] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState();
-  const queryClient = useQueryClient()
+  const queryClient = useQueryClient();
 
-  const lang = localStorage.getItem("i18nextLng")
+  const lang = localStorage.getItem("i18nextLng");
 
-  // fetch data 
+  // fetch data
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(PAGE_SIZE);
   const { violationReasons, currentPage, lastPage, isLoading } =
     useGetViolationReason("", page, pageSize);
 
-  // delete row 
+  // delete row
   const [deletionTarget, setDeletionTarget] = useState(null);
   const [updateTarget, setUpdateTarget] = useState(null);
-  const { deleteViolationReason, isDeletingViolationReason } = useDeleteViolationReason();
+  const { deleteViolationReason, isDeletingViolationReason } =
+    useDeleteViolationReason();
 
   const handleDeleteViolationReason = (id) => {
     deleteViolationReason(id, {
@@ -46,20 +49,22 @@ export default function ViolationsManagment() {
   const columns = useMemo(
     () => [
       columnHelper.accessor(lang === "ar" ? "title_ar" : "title_en", {
-        header: " انواع المخالفات ",
+        header: t("dashboard.violation.type"),
         cell: (info) => info.getValue(),
       }),
 
       columnHelper.accessor("id", {
         id: "id",
-        header: " الاجراءات",
+        header: t("dashboard.violation.actions"),
 
         cell: (info) => (
           <div className="table__actions">
             <i
               className="fa-solid fa-edit  table__actions--edit"
               onClick={() => {
-                setIsEdit(true), setShowModal(true), setUpdateTarget(info.row.original.id);
+                setIsEdit(true),
+                  setShowModal(true),
+                  setUpdateTarget(info.row.original.id);
               }}
             ></i>
             <i
@@ -88,17 +93,17 @@ export default function ViolationsManagment() {
             setIsEdit(false);
           }}
         >
-          اضف مخلفة
+          {t("dashboard.violation.add")}{" "}
         </CustomButton>
       </div>
       <div className="row">
         <div className="col-12">
           <ReusableDataTable
-            title="انواع المخالفات"
+            title={t("dashboard.violation.title")}
             data={violationReasons || []}
             columns={columns}
             filter={false}
-            searchPlaceholder="البحث في المخالفات  ..."
+            searchPlaceholder={t("dashboard.violation.searchPlaceholder")}
             initialPageSize={10}
             currentPage={currentPage}
             lastPage={lastPage}

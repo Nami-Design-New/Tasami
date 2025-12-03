@@ -212,19 +212,22 @@ const ActiveUserTab = () => {
         <div className="d-flex justify-content-between align-items-center gap-5">
           <div className="d-flex align-items-center gap-2">
             <div className="overall_index"></div>
-            <span>مؤشر إجمالي</span>
+            <span> {t("dashboard.reports.total")}</span>
           </div>
           <div className="d-flex align-items-center gap-2">
             <div className="detailed_index"></div>
-            <span>مؤشر تفصيلي </span>
+            <span> {t("dashboard.reports.detailed")}</span>
           </div>
           <div className="d-flex align-items-center gap-2">
             <div className="general_index"></div>
-            <span>مؤشر عام</span>
+            <span> {t("dashboard.reports.general")}</span>
           </div>
         </div>
         <div className="d-flex p-2 justify-content-end  align-items-end mt-3 ">
-          <CustomButton size="large"> تصدير</CustomButton>
+          <CustomButton size="large">
+            {" "}
+            {t("dashboard.reports.export")}
+          </CustomButton>
         </div>
       </div>
     </>

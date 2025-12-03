@@ -5,84 +5,83 @@ import useGetSubscriptionResumeExperience from "../../hooks/dashboard/subscripti
 import { PAGE_SIZE } from "../../utils/constants";
 import { useState } from "react";
 import TablePagination from "../../ui/table/TablePagentaion";
+import { useTranslation } from "react-i18next";
 const columnHelper = createColumnHelper();
 const Experiences = () => {
+  const { t } = useTranslation();
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(PAGE_SIZE);
   const { resumeExperiences, currentPage, lastPage, isLoading } =
     useGetSubscriptionResumeExperience("", page, PAGE_SIZE);
 
   // console.log(resumeExperiences);
+
   const columns = [
     columnHelper.accessor("user.first_name", {
-      header: "الاسم الأول",
+      header: t("dashboard.resume.firstName"),
       cell: (info) => info.getValue() || "-",
     }),
     columnHelper.accessor("user.last_name", {
-      header: "اسم العائلة",
+      header: t("dashboard.resume.lastName"),
       cell: (info) => info.getValue() || "-",
     }),
     columnHelper.accessor("user.gender", {
-      header: "الجنس",
+      header: t("dashboard.resume.gender"),
       cell: (info) => info.getValue() || "-",
     }),
     columnHelper.accessor("user.account_type", {
-      header: "نوع الحساب",
+      header: t("dashboard.resume.accountType"),
       cell: (info) => info.getValue() || "-",
     }),
     columnHelper.accessor("user.account_code", {
-      header: "رقم الحساب",
+      header: t("dashboard.resume.accountNumber"),
       cell: (info) => (
         <Link
           to={`/dashboard/user-details/${info?.row.original.user?.id}`}
           className="link-styles"
         >
-          {info.getValue()}
+          {info.getValue() || "-"}
         </Link>
       ),
     }),
     columnHelper.accessor("user.birthdate", {
-      header: "التاريخ",
+      header: t("dashboard.resume.date"),
       cell: (info) => info.getValue() || "-",
     }),
     columnHelper.accessor("user.status", {
-      header: "حالة الحساب",
+      header: t("dashboard.resume.status"),
       cell: (info) => info.getValue() || "-",
     }),
     columnHelper.accessor("user.nationality.title", {
-      header: "الجنسية",
+      header: t("dashboard.resume.nationality"),
       cell: (info) => info.getValue() || "-",
     }),
     columnHelper.accessor("user.region_id.title", {
-      header: "الإقليم",
+      header: t("dashboard.resume.region"),
       cell: (info) => info.getValue() || "-",
     }),
     columnHelper.accessor("user.country_id.title", {
-      header: "القطاع",
+      header: t("dashboard.resume.sector"),
       cell: (info) => info.getValue() || "-",
     }),
     columnHelper.accessor("user.city_id.title", {
-      header: "المدينة",
+      header: t("dashboard.resume.city"),
       cell: (info) => info.getValue() || "-",
     }),
     columnHelper.accessor("category_title", {
-      header: "مجال الخبرة",
+      header: t("dashboard.resume.experienceField"),
       cell: (info) => info.getValue() || "-",
     }),
     columnHelper.accessor("sub_category_title", {
-      header: "تخصص الخبرة",
+      header: t("dashboard.resume.experienceSpecialization"),
       cell: (info) => info.getValue() || "-",
     }),
     columnHelper.accessor("qualification_text", {
-      header: "المؤهل",
+      header: t("dashboard.resume.qualification"),
       cell: (info) => info.getValue() || "-",
     }),
     columnHelper.accessor("number_of_years", {
-      header: "السنوات",
-      cell: (info) => info.getValue() || "-",
-    }),
-    columnHelper.accessor("qualifications", {
-      header: "المؤهل",
+      header: t("dashboard.resume.years"),
       cell: (info) => info.getValue() || "-",
     }),
   ];
@@ -93,7 +92,7 @@ const Experiences = () => {
         searchPlaceholder=""
         columns={columns}
         data={resumeExperiences || []}
-        title="الخبرات"
+        title={t("dashboard.resume.experiences")}
         initialPageSize={10}
         currentPage={currentPage}
         lastPage={lastPage}

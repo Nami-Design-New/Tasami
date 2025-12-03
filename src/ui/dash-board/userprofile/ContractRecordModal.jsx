@@ -8,6 +8,7 @@ import TablePagination from "../../table/TablePagentaion";
 import { toast } from "sonner";
 import useUpdateUserContract from "../../../hooks/dashboard/subscription/useUpdateUserContract";
 import { useQueryClient } from "@tanstack/react-query";
+import { useTranslation } from "react-i18next";
 
 const columnHelper = createColumnHelper();
 
@@ -24,6 +25,7 @@ const ContractRecordModal = ({
   isLoading,
   data,
 }) => {
+  const { t } = useTranslation();
   // const [showDeleteModal, setShowDeleteModal] = useState(false);
   const queryClient = useQueryClient();
   //-----------------------
@@ -61,7 +63,7 @@ const ContractRecordModal = ({
   const columns = useMemo(
     () => [
       columnHelper.accessor("code", {
-        header: " الرقم المرجعي  ",
+        header: t("dashboard.contractModal.refNumber"),
         cell: (info) => (
           <Link
             to={`/dashboard/contracts/${info.getValue()}`}
@@ -73,13 +75,13 @@ const ContractRecordModal = ({
         enableSorting: false,
       }),
       columnHelper.accessor("created_at", {
-        header: " تاريخ الانشاء ",
+        header: t("dashboard.contractModal.createDate"),
         cell: (info) => info.getValue(),
         enableSorting: false,
       }),
 
       columnHelper.accessor("is_active", {
-        header: " الاجراء ",
+        header: t("dashboard.contractModal.action"),
         cell: (info) => {
           const contractId = info?.row?.original?.id;
           const isUpdating = loadingContractId === contractId;
