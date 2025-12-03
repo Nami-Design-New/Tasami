@@ -9,17 +9,10 @@ import AddNewTask from "./tasks/AddNewTaskModal";
 import { useParams, useSearchParams } from "react-router";
 import useGetUserDetails from "../../hooks/dashboard/subscription/useGetUserDetails";
 import Loading from "../../ui/loading/Loading";
-const tabs = [
-  {
-    id: 1,
-    title: " المستفيد ",
-  },
-  {
-    id: 2,
-    title: " المساعد ",
-  },
-];
+import { useTranslation } from "react-i18next";
+
 const UserProfile = () => {
+  const { t } = useTranslation();
   const [openSuspensionModel, setOpenSuspensionModel] = useState(false);
   const [showTaskModal, setShowTaskModal] = useState(false);
   const [searchParams] = useSearchParams();
@@ -27,13 +20,27 @@ const UserProfile = () => {
   const { id } = useParams();
   const { userDetails, isLoading } = useGetUserDetails(id);
   // console.log("userDetails Profile user", id, userDetails);
+
+  const tabs = [
+    {
+      id: 1,
+      title: t("dashboard.userProfile.tabs.beneficiary"),
+    },
+    {
+      id: 2,
+      title: t("dashboard.userProfile.tabs.assistant"),
+    },
+  ];
   return (
     <>
       {isLoading ? (
         <Loading />
       ) : (
         <div className="user-dashboard">
-          <PageHeader removeLast={true} name={"بيانات المستخدم"} />
+          <PageHeader
+            removeLast={true}
+            name={t("dashboard.userProfile.header")}
+          />
           <div className="row">
             <div className="col-12  col-lg-3 p-1">
               <div className="user-dashboard__profile">
@@ -47,42 +54,42 @@ const UserProfile = () => {
                 </div>
                 <div className="personal__data">
                   <p>
-                    <span>الاسم:</span>
+                    <span>{t("dashboard.userProfile.fields.name")}:</span>
                     <span>
                       {" "}
                       {`${userDetails?.first_name} ${userDetails?.last_name}`}{" "}
                     </span>
                   </p>
                   <p>
-                    <span>رقم الجوال:</span>
+                    <span>{t("dashboard.userProfile.fields.phone")}:</span>
                     <span>
                       {" "}
                       {`${userDetails?.phone_code} ${userDetails?.phone}`}{" "}
                     </span>
                   </p>
                   <p>
-                    <span> البريد الالكتروني:</span>
+                    <span>{t("dashboard.userProfile.fields.email")}:</span>
                     <span> {`${userDetails?.email}`} </span>
                   </p>
                   <p>
-                    <span>تاريخ الميلاد :</span>
+                    <span>{t("dashboard.userProfile.fields.birthdate")}:</span>
                     <span> {`${userDetails?.birthdate}`} </span>
                   </p>
                   <p>
-                    <span>الجنس:</span>
+                    <span>{t("dashboard.userProfile.fields.gender")}:</span>
                     <span> {`${userDetails?.gender}`} </span>
                   </p>
                   <p>
-                    <span>الجنسية:</span>
+                    <span>{t("dashboard.userProfile.fields.nationality")}:</span>
                     <span> {`${userDetails?.nationality?.title}`} </span>
                   </p>
                   <p>
-                    <span> الدولة:</span>
+                    <span>{t("dashboard.userProfile.fields.country")}:</span>
                     <span> {`${userDetails?.country_id.title}`} </span>
                   </p>
                   <p>
-                    <span>المدينة:</span>
-                    <span> {`${userDetails?.city_id.title}`} </span>
+                    <span>{t("dashboard.userProfile.fields.birthdate")}:</span>
+                    <span> {`${userDetails?.city_id.city}`} </span>
                   </p>
                 </div>
                 {/* <Link className="user-dashboard__resume "> السيره الذاتية </Link> */}
@@ -97,17 +104,19 @@ const UserProfile = () => {
                   fullWidth
                   onClick={() => setShowTaskModal(true)}
                 >
-                  طلب إيقاف الحساب
+                  {t("dashboard.userProfile.actions.requestStopAccount")}
                 </CustomButton>
                 <CustomButton
                   size="large"
-                  color={userDetails?.status === "stopped" ? "primary": "secondary"}
+                  color={
+                    userDetails?.status === "stopped" ? "primary" : "secondary"
+                  }
                   fullWidth
                   onClick={() => setOpenSuspensionModel(true)}
                 >
                   {userDetails?.status === "stopped"
-                    ? "تنشيط الحساب "
-                    : " إيقاف الحساب "}
+                    ? t("dashboard.userProfile.actions.activateAccount")
+                    : t("dashboard.userProfile.actions.stopAccount")}
                 </CustomButton>{" "}
               </div>
             </div>
@@ -128,7 +137,7 @@ const UserProfile = () => {
           <AddNewTask
             showModal={showTaskModal}
             setShowModal={setShowTaskModal}
-            title="طلب إيقاف الحساب"
+            title={t("dashboard.userProfile.actions.requestStopAccount")}
           />
         </div>
       )}

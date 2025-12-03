@@ -10,23 +10,24 @@ import { useQueryClient } from "@tanstack/react-query";
 import useUpdateViolationReason from "../../../hooks/dashboard/websiteManagment/violationsManagment/useUpdateViolationReason";
 import { useEffect } from "react";
 import { toast } from "sonner";
-
-const schema = yup.object().shape({
-  "title:ar": yup.string().required("عنوان المخالفة عربي مطلوب"),
-  "title:en": yup.string().required("عنوان المخالفة إنجليزي مطلوب"),
-});
+import { useTranslation } from "react-i18next";
 
 export default function ViolationsEditModal({
   showModal,
   setShowModal,
   isEdit,
   updateTarget,
-  violationReasons
+  violationReasons,
 }) {
+  const { t } = useTranslation();
   const queryClient = useQueryClient();
-  const { postViolationReason, isPending } = usePostViolationReason()
-  const { updateViolationReason, updateViolateLoading } = useUpdateViolationReason()
-
+  const { postViolationReason, isPending } = usePostViolationReason();
+  const { updateViolationReason, updateViolateLoading } =
+    useUpdateViolationReason();
+  const schema = yup.object().shape({
+    "title:ar": yup.string().required(t("dashboard.violation.validation.ar")),
+    "title:en": yup.string().required(t("dashboard.violation.validation.en")),
+  });
   const {
     register,
     handleSubmit,
@@ -43,7 +44,9 @@ export default function ViolationsEditModal({
   // Update form when modal opens or updateTarget changes
   useEffect(() => {
     if (showModal && isEdit && updateTarget) {
-      const targetItem = violationReasons?.find((item) => item.id === updateTarget);
+      const targetItem = violationReasons?.find(
+        (item) => item.id === updateTarget
+      );
       reset({
         "title:ar": targetItem?.title_ar || "",
         "title:en": targetItem?.title_en || "",
@@ -63,26 +66,28 @@ export default function ViolationsEditModal({
     };
 
     if (isEdit) {
-      updateViolationReason({ id: updateTarget, payload }, {
-        onSuccess: () => {
-          setShowModal(false);
-          reset();
-          toast.success("تم تنفيذ الإجراء بنجاح");
-          queryClient.invalidateQueries({
-            queryKey: ["violation-reason-data"],
-          });
-
-        },
-        onError: (error) => {
-          toast.error(error.message);
-        },
-      });
+      updateViolationReason(
+        { id: updateTarget, payload },
+        {
+          onSuccess: () => {
+            setShowModal(false);
+            reset();
+            toast.success(t("dashboard.violation.success"));
+            queryClient.invalidateQueries({
+              queryKey: ["violation-reason-data"],
+            });
+          },
+          onError: (error) => {
+            toast.error(error.message);
+          },
+        }
+      );
     } else {
       postViolationReason(payload, {
         onSuccess: () => {
           setShowModal(false);
           reset();
-          toast.success("تم تنفيذ الإجراء بنجاح");
+          toast.success(t("dashboard.violation.success"));
           queryClient.invalidateQueries({
             queryKey: ["violation-reason-data"],
           });
@@ -102,7 +107,7 @@ export default function ViolationsEditModal({
       centered
     >
       <Modal.Header closeButton>
-        {isEdit ? "تعديل" : "اضافه"} المخالفه
+        {isEdit ? t("dashboard.violation.edit") : t("dashboard.violation.add")}
       </Modal.Header>
       <Modal.Body>
         <form className="form_ui" onSubmit={handleSubmit(onSubmit)}>
@@ -110,7 +115,7 @@ export default function ViolationsEditModal({
             <div className="col-12 p-2">
               <InputField
                 {...register("title:ar")}
-                label="عنوان المخالفه عربي"
+                label={t("dashboard.violation.labels.ar")}
                 error={errors["title:ar"]?.message}
               />
             </div>
@@ -119,12 +124,12 @@ export default function ViolationsEditModal({
               <InputField
                 {...register("title:en")}
                 error={errors["title:en"]?.message}
-                label="عنوان المخالفه انجليزي"
+                label={t("dashboard.violation.labels.en")}
               />
             </div>
             <div className="col-12 p-2">
               <CustomButton type="submit" fullWidth size="large">
-                {isEdit ? "تعديل " : "  اضافة "}{" "}
+                {isEdit ? t("dashboard.violation.edit") : t("dashboard.violation.add")}{" "}
                 {(isPending || updateViolateLoading) && "..."}
               </CustomButton>
             </div>

@@ -6,9 +6,11 @@ import { useState } from "react";
 import { PAGE_SIZE } from "../../utils/constants";
 import useGetSubscriptionResumeDocument from "../../hooks/dashboard/subscription/resume/useGetSubscriptionResumeDocument";
 import TablePagination from "../../ui/table/TablePagentaion";
+import { useTranslation } from "react-i18next";
 
 const columnHelper = createColumnHelper();
 const Documents = () => {
+  const { t } = useTranslation();
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(PAGE_SIZE);
   const { resumeDocuments, currentPage, lastPage, isLoading } =
@@ -16,49 +18,48 @@ const Documents = () => {
 
   const columns = [
     columnHelper.accessor("user.first_name", {
-      header: "الاسم الأول",
+      header: t("dashboard.documents.firstName"),
       cell: (info) => info.getValue() || "-",
     }),
     columnHelper.accessor("user.last_name", {
-      header: "اسم العائلة",
+      header: t("dashboard.documents.lastName"),
       cell: (info) => info.getValue() || "-",
     }),
     columnHelper.accessor("user.gender", {
-      header: "الجنس",
+      header: t("dashboard.documents.gender"),
       cell: (info) => info.getValue() || "-",
     }),
     columnHelper.accessor("user.account_type", {
-      header: "نوع الحساب",
+      header: t("dashboard.documents.accountType"),
       cell: (info) => info.getValue() || "-",
     }),
     columnHelper.accessor("user.account_code", {
-      header: "رقم الحساب",
+      header: t("dashboard.documents.accountNumber"),
       cell: (info) => (
         <Link
           to={`/dashboard/user-details/${info?.row.original.user?.id}`}
           className="link-styles"
         >
-          {info.getValue()}
+          {info.getValue() || "-"}
         </Link>
       ),
     }),
     columnHelper.accessor("user.birthdate", {
-      header: "التاريخ",
+      header: t("dashboard.documents.date"),
       cell: (info) => info.getValue() || "-",
     }),
     columnHelper.accessor("user.status", {
-      header: " حالة الحساب",
+      header: t("dashboard.documents.status"),
       cell: (info) => {
         let badgeColor;
-
         switch (info.getValue()) {
-          case "نشط":
+          case t("dashboard.documents.active"):
             badgeColor = "#28a745";
             break;
-          case "غير نشط":
+          case t("dashboard.documents.inactive"):
             badgeColor = "#007bff";
             break;
-          case "موقوفة":
+          case t("dashboard.documents.suspended"):
             badgeColor = "#dc3545";
             break;
           default:
@@ -81,47 +82,46 @@ const Documents = () => {
       },
     }),
     columnHelper.accessor("user.nationality.title", {
-      header: "الجنسية",
+      header: t("dashboard.documents.nationality"),
       cell: (info) => info.getValue() || "-",
     }),
     columnHelper.accessor("user.region_id.title", {
-      header: "الإقليم",
+      header: t("dashboard.documents.region"),
       cell: (info) => info.getValue() || "-",
     }),
     columnHelper.accessor("user.country_id.title", {
-      header: "القطاع",
+      header: t("dashboard.documents.sector"),
       cell: (info) => info.getValue() || "-",
     }),
     columnHelper.accessor("user.city_id.title", {
-      header: "المدينة",
+      header: t("dashboard.documents.city"),
       cell: (info) => info.getValue() || "-",
     }),
     columnHelper.accessor("category_title", {
-      header: "المجال",
+      header: t("dashboard.documents.field"),
       cell: (info) => info.getValue() || "-",
     }),
     columnHelper.accessor("sub_category_title", {
-      header: "التخصص",
+      header: t("dashboard.documents.specialization"),
       cell: (info) => info.getValue() || "-",
     }),
     columnHelper.accessor("document_type_title", {
-      header: "النوع",
+      header: t("dashboard.documents.type"),
       cell: (info) => info.getValue() || "-",
     }),
     columnHelper.accessor("document_auth", {
-      header: "جهة الإصدار",
+      header: t("dashboard.documents.issuer"),
       cell: (info) => info.getValue() || "-",
     }),
     columnHelper.accessor("document_number", {
-      header: "الرقم",
+      header: t("dashboard.documents.number"),
       cell: (info) => info.getValue() || "-",
     }),
     columnHelper.accessor("end_date", {
-      header: "الصلاحية",
+      header: t("dashboard.documents.expiry"),
       cell: (info) => info.getValue() || "-",
     }),
   ];
-
   return (
     <section className="documents">
       <ReusableDataTable
@@ -129,7 +129,7 @@ const Documents = () => {
         searchPlaceholder=""
         data={resumeDocuments || []}
         columns={columns}
-        title="الوثائق"
+        title={t("dashboard.documents.title")}
         initialPageSize={10}
         currentPage={currentPage}
         lastPage={lastPage}

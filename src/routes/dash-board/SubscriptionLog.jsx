@@ -5,9 +5,11 @@ import { Link, useParams } from "react-router";
 import ReusableDataTable from "../../ui/table/ReusableDataTable";
 import TablePagination from "../../ui/table/TablePagentaion";
 import { createColumnHelper } from "@tanstack/react-table";
+import { useTranslation } from "react-i18next";
 
 const columnHelper = createColumnHelper();
 const SubscriptionLog = () => {
+  const { t } = useTranslation();
   const { id } = useParams();
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(PAGE_SIZE);
@@ -22,7 +24,7 @@ const SubscriptionLog = () => {
         (row) => row?.user?.first_name + " " + row?.user?.last_name,
         {
           id: "name",
-          header: "الاسم",
+          header: t("dashboard.subscription.name"),
           cell: (info) => {
             return info.getValue();
           },
@@ -30,22 +32,22 @@ const SubscriptionLog = () => {
       ),
       columnHelper.accessor((row) => row?.user?.account_code, {
         id: "accountNumber",
-        header: "رقم الحساب",
+        header: t("dashboard.subscription.accountNumber"),
         cell: (info) => (
           <Link
             className="link-styles"
-            to={`/dashboard/user-details/${info.getValue()}`}
+            to={`/dashboard/user-details/${info?.row.original.user?.id}`}
           >
             {info.getValue()}
           </Link>
         ),
       }),
       columnHelper.accessor("created_at", {
-        header: "التاريخ",
+        header: t("dashboard.subscription.date"),
         cell: (info) => info.getValue(),
       }),
       columnHelper.accessor("price", {
-        header: "قيمة الاشتراك",
+        header: t("dashboard.subscription.price"),
         cell: (info) => info.getValue(),
       }),
     ],
@@ -56,8 +58,8 @@ const SubscriptionLog = () => {
     <>
       <ReusableDataTable
         filter={false}
-        title="سجل الاشتراكات"
-        searchPlaceholder="بحث..."
+        title={t("dashboard.subscription.title")}
+        searchPlaceholder={t("dashboard.subscription.search")}
         data={userSubscriptionCommunities}
         columns={subColumns}
         currentPage={currentPage}

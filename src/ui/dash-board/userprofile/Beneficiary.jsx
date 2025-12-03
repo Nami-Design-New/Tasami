@@ -3,8 +3,10 @@ import InfoCard from "../cards/InfoCard";
 import { PAGE_SIZE } from "../../../utils/constants";
 import useGetUserContract from "../../../hooks/dashboard/subscription/usePostUserContract";
 import ContractRecordModal from "./ContractRecordModal";
+import { useTranslation } from "react-i18next";
 
 const Beneficiary = ({ userDetails }) => {
+  const { t } = useTranslation();
   const [showModal, setShowModal] = useState(false);
   const user_id = userDetails?.id;
   const [page, setPage] = useState(1);
@@ -15,99 +17,113 @@ const Beneficiary = ({ userDetails }) => {
     PAGE_SIZE,
     user_id
   );
-  
+
   return (
     <>
       <div className="row">
         <div className="col-12 col-md-6 p-1">
-          <InfoCard title=" حساب المستفيد">
+          <InfoCard title={t("dashboard.beneficiary.titles.account")}>
             <p>
-              <span>رقم الحساب:</span>
-              <span> {`${userDetails?.account_code}`} </span>
+              <span>{t("dashboard.beneficiary.fields.accountNumber")}:</span>
+              <span> {userDetails?.account_code} </span>
             </p>
             <p>
-              <span>رقم التعريف:</span>
-              <span> {`${userDetails?.identify_code}`} </span>
+              <span>{t("dashboard.beneficiary.fields.identifierNumber")}:</span>
+              <span> {userDetails?.identify_code} </span>
             </p>
             <p>
-              <span>تاريخ التسجيل:</span>
-              <span> {`${userDetails?.subscription_start_date}`} </span>
+              <span>{t("dashboard.beneficiary.fields.registrationDate")}:</span>
+              <span> {userDetails?.subscription_start_date} </span>
             </p>
             <p>
-              <span>حالة الحساب:</span>
-              <span> {`${userDetails?.status}`} </span>
+              <span>{t("dashboard.beneficiary.fields.accountStatus")}:</span>
+              <span> {userDetails?.status} </span>
             </p>
             <p>
-              <span>تاريخ حالة الحساب:</span>
-              <span> {`${userDetails?.account_status_date}`} </span>
+              <span>
+                {t("dashboard.beneficiary.fields.accountStatusDate")}:
+              </span>
+              <span> {userDetails?.account_status_date} </span>
             </p>
             <p>
-              <span>تاريخ آخر دخول:</span>
-              <span> {`${userDetails?.subscription_end_date}`} </span>
+              <span>{t("dashboard.beneficiary.fields.lastLoginDate")}:</span>
+              <span> {userDetails?.subscription_end_date} </span>
             </p>
           </InfoCard>
         </div>
         <div className="col-12 col-md-6 p-1">
           <InfoCard
-            title="نشاط المستفيد"
+            title={t("dashboard.beneficiary.titles.activity")}
             event={() => setShowModal(true)}
-            link=" سجل عقود المستفيد "
+            link={t("dashboard.beneficiary.titles.contractLog")}
           >
             <p>
-              <span>الأهداف المكتملة:</span>
-              <span> {`${userDetails?.completed_goals}`} </span>
+              <span>{t("dashboard.beneficiary.fields.completedGoals")}:</span>
+              <span> {userDetails?.completed_goals} </span>
             </p>
             <p>
-              <span>الأهداف قيد التنفيذ:</span>
-              <span> {`${userDetails?.execution_goals}`} </span>
+              <span>{t("dashboard.beneficiary.fields.inProgressGoals")}:</span>
+              <span> {userDetails?.execution_goals} </span>
             </p>
             <p>
-              <span>الطلبات المكتملة:</span>
-              <span> {`${userDetails?.completed_requests}`} </span>
+              <span>
+                {t("dashboard.beneficiary.fields.completedRequests")}:
+              </span>
+              <span> {userDetails?.completed_requests} </span>
             </p>
             <p>
-              <span>الطلبات قيد التنفيذ:</span>
-              <span> {`${userDetails?.execution_requests}`} </span>
+              <span>
+                {t("dashboard.beneficiary.fields.inProgressRequests")}:
+              </span>
+              <span> {userDetails?.execution_requests} </span>
             </p>
             <p>
-              <span>العروض المكتملة:</span>
-              <span> {`${userDetails?.completed_help_service}`} </span>
+              <span>{t("dashboard.beneficiary.fields.completedOffers")}:</span>
+              <span> {userDetails?.completed_help_service} </span>
             </p>
             <p>
-              <span>العروض قيد التنفيذ:</span>
-              <span> {`${userDetails?.execution_help_service}`} </span>
+              <span>{t("dashboard.beneficiary.fields.inProgressOffers")}:</span>
+              <span> {userDetails?.execution_help_service} </span>
             </p>
             <p>
-              <span>مشتريات العقود:</span>
+              <span>
+                {t("dashboard.beneficiary.fields.contractPurchases")}:
+              </span>
               <span> {`ريال ${userDetails?.contract_cost}`} </span>
             </p>
             <p>
-              <span>نقاط الخبرة:</span>
-              <span> {`${userDetails?.experience_level}`} </span>
+              <span>{t("dashboard.beneficiary.fields.experiencePoints")}:</span>
+              <span> {userDetails?.experience_level} </span>
             </p>
             <p>
-              <span>عضوية المجتمعات:</span>
-              <span> {`${userDetails?.community_subscription_count}`} </span>
+              <span>
+                {t("dashboard.beneficiary.fields.communityMembership")}:
+              </span>
+              <span> {userDetails?.community_subscription_count} </span>
             </p>
             <p>
-              <span>المتابعون:</span>
-              <span> {`${userDetails?.community_count}`} </span>
+              <span>{t("dashboard.beneficiary.fields.followers")}:</span>
+              <span> {userDetails?.community_count} </span>
             </p>
             <p>
-              <span>مشتركات المجتمعات:</span>
-              <span> {`${userDetails?.community_subscritions}`} </span>
+              <span>
+                {t("dashboard.beneficiary.fields.communitySubscriptions")}:
+              </span>
+              <span> {userDetails?.community_subscritions} </span>
             </p>
             <p>
-              <span>الاقتراحات:</span>
-              <span> {`${userDetails?.suggestions_count}`} </span>
+              <span>{t("dashboard.beneficiary.fields.suggestions")}:</span>
+              <span> {userDetails?.suggestions_count} </span>
             </p>
             <p>
-              <span>التصنيفات الجديدة:</span>
-              <span> {`${userDetails?.new_classifications_count}`} </span>
+              <span>
+                {t("dashboard.beneficiary.fields.newClassifications")}:
+              </span>
+              <span> {userDetails?.new_classifications_count} </span>
             </p>
             <p>
-              <span>بلاغات المخالفات:</span>
-              <span> {`${userDetails?.own_violation_reports_count}`} </span>
+              <span>{t("dashboard.beneficiary.fields.violationReports")}:</span>
+              <span> {userDetails?.own_violation_reports_count} </span>
             </p>
           </InfoCard>
         </div>
@@ -122,7 +138,7 @@ const Beneficiary = ({ userDetails }) => {
           isLoading={isLoading}
           showModal={showModal}
           setShowModal={setShowModal}
-          title={" سجل عقود المستفيد "}
+          title={t("dashboard.beneficiary.titles.contractLog")}
         />
       </div>
     </>

@@ -8,9 +8,11 @@ import CustomButton from "../../../ui/CustomButton";
 import { PAGE_SIZE } from "../../../utils/constants";
 import TablePagination from "../../../ui/table/TablePagentaion";
 import useGetSubscriptionResume from "../../../hooks/dashboard/subscription/resume/useGetSubscriptionResume";
+import { useTranslation } from "react-i18next";
 const columnHelper = createColumnHelper();
 
 const Resuems = () => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(PAGE_SIZE);
@@ -20,21 +22,20 @@ const Resuems = () => {
   const columns = useMemo(
     () => [
       columnHelper.accessor("first_name", {
-        header: "الاسم الأول",
+        header: t("dashboard.resume.firstName"),
         cell: (info) => info.getValue() || "-",
         enableSorting: false,
       }),
       columnHelper.accessor("last_name", {
-        header: "اسم العائلة",
+        header: t("dashboard.resume.lastName"),
         cell: (info) => info.getValue() || "-",
       }),
       columnHelper.accessor("gender", {
-        header: "الجنس",
+        header: t("dashboard.resume.gender"),
         cell: (info) => info.getValue() || "-",
       }),
-
       columnHelper.accessor("account_code", {
-        header: "رقم الحساب",
+        header: t("dashboard.resume.accountNumber"),
         cell: (info) => (
           <Link
             to={`/dashboard/user-details/${info?.row.original.id}`}
@@ -45,22 +46,21 @@ const Resuems = () => {
         ),
         enableSorting: false,
       }),
-
       columnHelper.accessor("account_type", {
-        header: "نوع الحساب",
+        header: t("dashboard.resume.accountType"),
         cell: (info) => info.getValue(),
         enableSorting: false,
       }),
       columnHelper.accessor("created_at", {
-        header: "التاريخ",
+        header: t("dashboard.resume.date"),
         cell: (info) => info.getValue() || "-",
       }),
       columnHelper.accessor("helper_points", {
-        header: " نقاط المساعده ",
+        header: t("dashboard.resume.helperPoints"),
         cell: (info) => info.getValue(),
       }),
       columnHelper.accessor("status", {
-        header: " حاله الحساب ",
+        header: t("dashboard.resume.status"),
         cell: (info) => {
           let badgeColor;
           switch (info.getValue()) {
@@ -68,7 +68,7 @@ const Resuems = () => {
               badgeColor = "#28a745";
               break;
             case "stopped":
-              badgeColor = "#ffc107  ";
+              badgeColor = "#ffc107";
               break;
             case "غير نشط":
               badgeColor = "#007bff";
@@ -96,75 +96,74 @@ const Resuems = () => {
         },
       }),
       columnHelper.accessor("nationality.title", {
-        header: "الجنسيه",
+        header: t("dashboard.resume.nationality"),
         cell: (info) => info.getValue(),
       }),
       columnHelper.accessor("region_id.title", {
-        header: " الاقليم ",
+        header: t("dashboard.resume.region"),
         cell: (info) => info.getValue(),
       }),
       columnHelper.accessor("country_id.title", {
-        header: " القطاع ",
+        header: t("dashboard.resume.sector"),
         cell: (info) => info.getValue(),
       }),
       columnHelper.accessor("city_id.title", {
-        header: " المدينه ",
+        header: t("dashboard.resume.city"),
         cell: (info) => info.getValue(),
       }),
       columnHelper.accessor("members", {
-        header: " الاعضاء ",
+        header: t("dashboard.resume.members"),
         cell: (info) => info.getValue(),
       }),
       columnHelper.accessor("followers", {
-        header: " المتابعون ",
+        header: t("dashboard.resume.followers"),
         cell: (info) => info.getValue(),
       }),
-
       columnHelper.accessor("user_experiences", {
-        header: " الخبرات ",
+        header: t("dashboard.resume.experiences"),
         cell: (info) => info.getValue(),
       }),
       columnHelper.accessor("user_documents", {
-        header: " الوثائق ",
+        header: t("dashboard.resume.documents"),
         cell: (info) => info.getValue(),
       }),
       columnHelper.accessor("id", {
-        header: " معاينه ",
+        header: t("dashboard.resume.preview"),
         cell: (info) => (
           <Link
             to={`/dashboard/resuems/${info?.row.original.id}`}
-            className="log px-2  py-1"
+            className="log px-2 py-1"
           >
-            {"معاينه"}
+            {t("dashboard.resume.preview")}
           </Link>
         ),
       }),
     ],
-    []
+    [t]
   );
 
   const usersSeries = [
     {
-      name: "عدد الحسابات",
+      name: t("dashboard.resume.accountsCount"),
       data: subscriptionResume?.packages?.map((item) => item.total_users) || [],
     },
     {
-      name: "الخبرات",
+      name: t("dashboard.resume.experiences"),
       data: subscriptionResume?.packages?.map((item) => item.experiences) || [],
     },
     {
-      name: "الوثائق",
+      name: t("dashboard.resume.documents"),
       data: subscriptionResume?.packages?.map((item) => item.documents) || [],
     },
     {
-      name: "الاعضاء",
+      name: t("dashboard.resume.members"),
       data:
         subscriptionResume?.packages?.map(
           (item) => item.active_community_members
         ) || [],
     },
     {
-      name: "المتابعون",
+      name: t("dashboard.resume.followers"),
       data: subscriptionResume?.packages?.map((item) => item.follows) || [],
     },
   ];
@@ -217,7 +216,7 @@ const Resuems = () => {
       <div className="row">
         <div className="col-12 p-2">
           <ColumnChart
-            title={"السير الذاتيه"}
+            title={t("dashboard.resume.title")}
             options={usersOptions}
             series={usersSeries}
           />
@@ -227,7 +226,7 @@ const Resuems = () => {
             filter={false}
             data={subscriptionResume?.data || []}
             columns={columns}
-            title={"السير الذاتيه"}
+            title={t("dashboard.resume.title")}
             initialPageSize={10}
             currentPage={currentPage}
             lastPage={lastPage}
@@ -246,10 +245,10 @@ const Resuems = () => {
         </div>
         <div className="d-flex align-items-center gap-3 p-2 ">
           <CustomButton onClick={() => navigate("experiences")} size="large">
-            الخبرات
+            {t("dashboard.resume.experience")}
           </CustomButton>
           <CustomButton onClick={() => navigate("documents")} size="large">
-            الوثائق
+            {t("dashboard.resume.documents")}
           </CustomButton>
         </div>
       </div>

@@ -50,7 +50,6 @@
   "confirm_performance": "تأكيد الأداء",
   "performance_confirmed": "تم التأكيد",
   "generateTasks": "توليد جميع المهام بالذكاء الاصطناعي(اختياري)",
-
   "rate_notes": "ملاحظات",
   "rate_notes_placeholder": "اكتب ملاحظاتك هنا...",
   "rate_cancel": "إلغاء",
@@ -395,15 +394,12 @@
     "actions": "الإجراءات",
     "accept": "قبول",
     "reject": "رفض",
-
     "accept_request": "قبول طلب السحب",
     "reject_request": "رفض طلب السحب",
-
     "uploadFile": "رفع ملف (اختياري)",
     "notes": "ملاحظات",
     "rejectReason": "سبب الرفض",
     "enterNotes": "اكتب ملاحظاتك هنا",
-
     "iban": "IBAN",
     "bankName": "اسم البنك",
     "fullName": "الاسم الكامل",
@@ -757,7 +753,6 @@
       "error": "حدث خطأ أثناء تحديث المهمة",
       "generateTasksConfirmBtn": "تأكيد",
       "generateTasksWarning": "سيؤدي هذا إلى حذف جميع المهام الحالية و إنشاء مهام جديدة بناءً على تفاصيل الهدف المحدثة. هل أنت متأكد من المتابعة؟",
-
       "statuses": {
         "pending": "بإنتظار التنفيذ",
         "progress": "قيد التنفيذ",
@@ -1719,7 +1714,6 @@
       "modalTitle": "مجال جديد",
       "newField": "مجال جديد",
       "editModalTitle": "تعديل المجال",
-
       "existingField": "مجال موجود",
       "fieldLabel": "المجال",
       "fieldPlaceholder": "مثال: تكنولوجيا المعلومات",
@@ -1728,7 +1722,6 @@
       "specializationPlaceholder": "مثال: تحليل البيانات",
       "addButton": "إضافة",
       "editButton": "تعديل",
-
       "errors": {
         "actionRequired": "نوع الإجراء مطلوب",
         "invalidValue": "قيمة غير صالحة",
@@ -1762,13 +1755,11 @@
     "administrativeSystems": {
       "title": "الأنظمة الإدارية",
       "search": "بحث ...",
-
       "tableHeaders": {
         "system": "النظام الإداري",
         "subject": "المواضيع",
         "actions": "الإجراءات"
       },
-
       "internal": "داخلي",
       "external": "خارجي",
       "createAccount": "إنشاء حساب",
@@ -1778,7 +1769,6 @@
     "subjectModal": {
       "newTitle": "موضوع جديد",
       "editTitle": "تعديل الموضوع",
-
       "system": "النظام الإداري",
       "internal": "داخلي",
       "external": "خارجي",
@@ -1786,7 +1776,6 @@
       "subject": "الموضوع",
       "add": "إضافة",
       "edit": "تعديل",
-
       "errors": {
         "systemRequired": "يجب اختيار النظام الإداري",
         "codeRequired": "يرجى إدخال الكود",
@@ -1797,12 +1786,10 @@
       "mainTitle": "احصائيات المجالات والتخصصات",
       "tableTitle": "المجالات والتخصصات",
       "search": "بحث ...",
-
       "stats": {
         "fields": "المجالات",
         "specializations": "التخصصات"
       },
-
       "table": {
         "fields": "المجالات",
         "specializations": "التخصصات",
@@ -1814,26 +1801,21 @@
       "addCountryTitle": "اضافة قطاع جديد",
       "addCityTitle": "اضافة مدينة جديد",
       "statisticsTitle": "إحصائيات قطاعات التشغيل",
-
       "regionName": "اسم الاقليم",
       "regionNumber": "رقم الاقليم",
-
       "countryName": "اسم القطاع",
       "countryNumber": "رقم القطاع",
       "countryCode": "كود الدولة",
       "chooseRegion": "اختر الاقليم",
-
       "cityName": "اسم المدينة",
       "cityNumber": "رقم المدينة",
       "chooseCountry": "اختر الدولة",
-
       "regionsCount": "الأقاليم",
       "countriesCount": "القطاعات",
       "citiesCount": "المدن",
       "usersCount": "المستخدمون",
       "employeesCount": "الموظفون",
       "operatingSectorsTitle": "قطاعات التشغيل",
-
       "noCities": "لا توجد مدن متاحة.",
       "noCountries": "لا توجد قطاعات.",
       "editRegion": "تعديل الإقليم",
@@ -1929,7 +1911,16 @@
       "saudiArabia": "السعودية",
       "egypt": "مصر",
       "riyadh": "الرياض",
-      "dammam": "الدمام"
+      "dammam": "الدمام",
+      "users": "المستخدمين",
+      "services": "الخدمات",
+      "contracts": "العقود",
+      "communities": "المجتمعات",
+      "sales": "المبيعات",
+      "total": "مؤشر إجمالي",
+      "detailed": "مؤشر تفصيلي",
+      "general": "مؤشر عام",
+      "export": "تصدير"
     },
     "deleteAccountModal": {
       "deleteAccount": "حذف الحساب",
@@ -1945,6 +1936,283 @@
       "irreversibleActionWarning": "هذه العملية نهائية وغير قابلة للاسترجاع، وسيتم حذف جميع بياناتك المرتبطة بالحساب بشكل دائم",
       "continue": "استمرار",
       "cancel": "إلغاء"
+    },
+    "userProfile": {
+      "tabs": {
+        "beneficiary": "المستفيد",
+        "assistant": "المساعد"
+      },
+      "header": "بيانات المستخدم",
+      "fields": {
+        "name": "الاسم",
+        "phone": "رقم الجوال",
+        "email": "البريد الالكتروني",
+        "birthdate": "تاريخ الميلاد",
+        "gender": "الجنس",
+        "nationality": "الجنسية",
+        "country": "الدولة",
+        "city": "المدينة"
+      },
+      "actions": {
+        "requestStopAccount": "طلب إيقاف الحساب",
+        "activateAccount": "تنشيط الحساب",
+        "stopAccount": "إيقاف الحساب"
+      }
+    },
+    "beneficiary": {
+      "titles": {
+        "account": "حساب المستفيد",
+        "activity": "نشاط المستفيد",
+        "contractLog": "سجل عقود المستفيد"
+      },
+      "fields": {
+        "accountNumber": "رقم الحساب",
+        "identifierNumber": "رقم التعريف",
+        "registrationDate": "تاريخ التسجيل",
+        "accountStatus": "حالة الحساب",
+        "accountStatusDate": "تاريخ حالة الحساب",
+        "lastLoginDate": "تاريخ آخر دخول",
+        "completedGoals": "الأهداف المكتملة",
+        "inProgressGoals": "الأهداف قيد التنفيذ",
+        "completedRequests": "الطلبات المكتملة",
+        "inProgressRequests": "الطلبات قيد التنفيذ",
+        "completedOffers": "العروض المكتملة",
+        "inProgressOffers": "العروض قيد التنفيذ",
+        "contractPurchases": "مشتريات العقود",
+        "experiencePoints": "نقاط الخبرة",
+        "communityMembership": "عضوية المجتمعات",
+        "followers": "المتابعون",
+        "communitySubscriptions": "مشتركات المجتمعات",
+        "suggestions": "الاقتراحات",
+        "newClassifications": "التصنيفات الجديدة",
+        "violationReports": "بلاغات المخالفات"
+      }
+    },
+    "assistant": {
+      "titles": {
+        "account": "حساب المساعد",
+        "community": "مجتمع المساعد",
+        "activity": "نشاط المساعد"
+      },
+      "links": {
+        "resume": "السيرة الذاتية",
+        "communityLog": "سجل مجتمع المساعد",
+        "contractLog": "سجل عقود المساعد"
+      },
+      "fields": {
+        "accountType": "نوع الحساب",
+        "lastSubscriptionDate": "تاريخ آخر اشتراك",
+        "subscriptionDuration": "مدة الاشتراك",
+        "subscriptionEndDate": "تاريخ نهاية الاشتراك",
+        "totalSubscriptionPurchases": "إجمالي مشتريات الاشتراكات",
+        "communityStatus": "حالة مجتمع المساعد",
+        "membersCount": "عدد الأعضاء الطالبين",
+        "postsCount": "المنشورات",
+        "meetingsCount": "اللقاءات",
+        "consultationsCount": "الاستشارات",
+        "viewsCount": "المشاهدات",
+        "totalMembershipRevenue": "مبيعات العضوية الإجمالي",
+        "activeOffers": "العروض النشطة",
+        "archivedOffers": "العروض المؤرشفه",
+        "deletedOffers": "العروض المحذوفة",
+        "activeContracts": "العقود قيد التنفيذ",
+        "completedContracts": "العقود المكتملة",
+        "clientsCount": "عدد العملاء",
+        "contractRevenue": "مبيعات العقود",
+        "totalPriceOffers": "عدد عروض الأسعار الإجمالي",
+        "experiencePoints": "نقاط الخبرة",
+        "stopsNumber": "عدد الإيقافات",
+        "violationReports": "عدد بلاغات المخالفات",
+        "avgRate": "التقييم الإجمالي",
+        "experienceAndKnowledge": "الخبرة والمعرفة",
+        "commitmentToTime": "الإلتزام بالمواعيد",
+        "performanceQuality": "جودة الأداء",
+        "respectAndTreatment": "الإحترام والتعامل"
+      }
+    },
+    "common": {
+      "active": "نشط",
+      "inactive": "غير نشط"
+    },
+    "contractModal": {
+      "refNumber": "الرقم المرجعي",
+      "createDate": " تاريخ الانشاء",
+      "action": "الاجراء"
+    },
+    "community": {
+      "historyDate": "التاريخ",
+      "status": "الحالة",
+      "active": "تشغيل",
+      "inactive": "إيقاف",
+      "details": "تفاصيل المجتمع",
+      "editHistory": "سجل التعديلات",
+      "search": "بحث...",
+      "channels": "القنوات"
+    },
+    "subscription": {
+      "title": "سجل الاشتراكات",
+      "search": "بحث...",
+      "name": "الاسم",
+      "accountNumber": "رقم الحساب",
+      "date": "التاريخ",
+      "price": "قيمة الاشتراك"
+    },
+    "footer": {
+      "rights": "جميع الحقوق محفوظة ل",
+      "tasamy": "تسامي",
+      "terms": "الشروط و الأحكام",
+      "privacy": "سياسة الخصوصية",
+      "contact": "تواصل معنا"
+    },
+    "services": {
+      "users": "المستخدمين",
+      "helpRequests": "طلبات المساعدة",
+      "pending": "بانتظار التنفيذ",
+      "inProgress": "قيد التنفيذ",
+      "completed": "مكتملة",
+      "deleted": "محذوفة",
+      "status": "المرحلة",
+      "services": "الخدمات"
+    },
+    "programs": {
+      "assistantOffers": "عروض المساعدة",
+      "pending": "بانتظار التنفيذ",
+      "inProgress": "قيد التنفيذ",
+      "completed": "مكتملة",
+      "deleted": "محذوفة",
+      "basicHelper": "(أساسي) مقدم مساعدة",
+      "premiumHelper": "(متميز) مقدم مساعدة",
+      "leadersHelper": "(رواد) مقدم مساعدة",
+      "service": "الخدمة",
+      "date": "التاريخ",
+      "status": "الحالة",
+      "accountNumber": "رقم الحساب",
+      "accountType": "نوع الحساب",
+      "idNumber": "رقم التعريف",
+      "field": "المجال",
+      "specialization": "التخصص",
+      "activeContracts": "العقود النشطة",
+      "completedContracts": "العقود المكتملة",
+      "price": "القيمة",
+      "beneficiaries": "عدد المستفيدين",
+      "rate": "التقييم",
+      "searchInOffers": "البحث في عروض المساعدة"
+    },
+    "communities": {
+      "title": "المجتمعات",
+      "accountsCount": "عدد الحسابات",
+      "communitiesCount": "عدد المجتمعات",
+      "members": "الأعضاء",
+      "views": "المشاهدات",
+      "posts": "المنشورات",
+      "consultations": "الاستشارات",
+      "meetings": "اللقاءات",
+      "programs": "برامج",
+      "firstName": "الاسم الأول",
+      "lastName": "اسم العائلة",
+      "gender": "الجنس",
+      "accountNumber": "رقم الحساب",
+      "date": "التاريخ",
+      "accountType": "نوع الحساب",
+      "accountStatus": "حالة الحساب",
+      "active": "نشط",
+      "inactive": "غير نشط",
+      "nationality": "الجنسية",
+      "region": "الإقليم",
+      "sector": "القطاع",
+      "city": "المدينة",
+      "communityTitle": "عنوان المجتمع",
+      "membersCount": "عدد الأعضاء",
+      "searchPlaceholder": "البحث في المجتمعات"
+    },
+    "resume": {
+      "title": "السير الذاتية",
+      "firstName": "الاسم الأول",
+      "lastName": "اسم العائلة",
+      "gender": "الجنس",
+      "accountNumber": "رقم الحساب",
+      "accountType": "نوع الحساب",
+      "date": "التاريخ",
+      "helperPoints": "نقاط المساعدة",
+      "status": "حالة الحساب",
+      "nationality": "الجنسية",
+      "region": "الإقليم",
+      "sector": "القطاع",
+      "city": "المدينة",
+      "members": "الأعضاء",
+      "followers": "المتابعون",
+      "experience": "الخبرات",
+      "documents": "الوثائق",
+      "preview": "معاينة",
+      "accountsCount": "عدد الحسابات",
+      "export": "تصدير",
+      "aboutYou": "عرف عن نفسك",
+      "experiences": "الخبرات العملية",
+      "experienceField": "مجال الخبرة",
+      "experienceSpecialization": "تخصص الخبرة",
+      "qualification": "المؤهل",
+      "years": "السنوات"
+    },
+    "documents": {
+      "title": "الوثائق",
+      "firstName": "الاسم الأول",
+      "lastName": "اسم العائلة",
+      "gender": "الجنس",
+      "accountType": "نوع الحساب",
+      "accountNumber": "رقم الحساب",
+      "date": "التاريخ",
+      "status": "حالة الحساب",
+      "active": "نشط",
+      "inactive": "غير نشط",
+      "suspended": "موقوفة",
+      "nationality": "الجنسية",
+      "region": "الإقليم",
+      "sector": "القطاع",
+      "city": "المدينة",
+      "field": "المجال",
+      "specialization": "التخصص",
+      "type": "النوع",
+      "issuer": "جهة الإصدار",
+      "number": "الرقم",
+      "expiry": "الصلاحية"
+    },
+    "banner": {
+      "tableHeader": "اللافتة",
+      "actions": "الإجراءات",
+      "addBanner": "اضف لافتة",
+      "tableTitle": "الافتات الإعلانية",
+      "searchPlaceholder": "البحث في الافتات..."
+    },
+    "bannerModal": {
+      "editBanner": "تعديل الافتة",
+      "addBanner": "اضف لافتة",
+      "dragOrClick": "اسحب الصورة هنا أو انقر لاختيارها",
+      "loading": "جاري...",
+      "update": "تحديث",
+      "add": "اضف",
+      "imageRequired": "الشعار مطلوب",
+      "invalidImage": "الرجاء اختيار صورة صحيحة",
+      "updateSuccess": "تم تعديل الرابط بنجاح",
+      "addSuccess": "تم إضافة الرابط بنجاح",
+      "updateError": "حدث خطأ في التعديل",
+      "addError": "حدث خطأ في الإضافة"
+    },
+    "violation": {
+      "title": "انواع المخالفات",
+      "type": "انواع المخالفات",
+      "actions": "الاجراءات",
+      "add": "اضف مخالفة",
+      "searchPlaceholder": "البحث في المخالفات ...",
+      "edit": "تعديل المخالفة",
+      "labels": {
+        "ar": "عنوان المخالفة عربي",
+        "en": "عنوان المخالفة انجليزي"
+      },
+      "validation": {
+        "ar": "عنوان المخالفة عربي مطلوب",
+        "en": "عنوان المخالفة انجليزي مطلوب"
+      },
+      "success": "تم تنفيذ الإجراء بنجاح"
     }
   }
 }

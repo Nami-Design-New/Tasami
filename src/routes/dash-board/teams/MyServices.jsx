@@ -23,7 +23,7 @@ const Services = () => {
 
   const userGrowthSeries = [
     {
-      name: "المستخدمين",
+      name: t("dashboard.services.users"),
       data: [
         helpRequests?.requests_count,
         helpRequests?.pending_count,
@@ -35,11 +35,11 @@ const Services = () => {
     },
   ];
   const userGrowthCategories = [
-    "طلبات المساعده",
-    "بانتظار التنفيذ",
-    "قيد التنفيذ",
-    "مكتمله",
-    "محذوفه",
+    t("dashboard.services.helpRequests"),
+    t("dashboard.services.pending"),
+    t("dashboard.services.inProgress"),
+    t("dashboard.services.completed"),
+    t("dashboard.services.deleted"),
   ];
   const userGrowthOptions = {
     chart: {
@@ -61,7 +61,7 @@ const Services = () => {
     colors: ["#8c137e", "#007BFF", "#FFC107", "#28A745", "#DC3545"],
     tooltip: {
       y: {
-        formatter: (val) => `${val} مستخدم`,
+        formatter: (val) => `${val} ${t("dashboard.services.users")}`,
       },
     },
   };
@@ -99,7 +99,7 @@ const Services = () => {
       //   header: t("dashboard.personalGoals.table.offers"),
       // }),
       columnHelper.accessor("status", {
-        header: " المرحله ",
+        header: t("dashboard.services.status"),
         cell: (info) => {
           let badgeColor;
           switch (info.getValue()) {
@@ -169,12 +169,12 @@ const Services = () => {
           <ColumnChart
             series={userGrowthSeries}
             options={userGrowthOptions}
-            title={"طلبات المساعده"}
+            title={t("dashboard.services.helpRequests")}
           />
         </div>
         <div className="col-12">
           <ReusableDataTable
-            title="الخدمات"
+            title={t("dashboard.services.services")}
             filter={false}
             data={helpRequests?.data || []}
             columns={columns}
