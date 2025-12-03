@@ -1,4 +1,5 @@
 {
+  "noMembers": "You have no members subscribed to your personal community",
   "showRates": "Show Rate",
   "contact_error_subject": "Subject is required",
   "contact_error_title": "Title is required",
@@ -882,6 +883,7 @@
       "interaction": "Engagement and Follow-up",
       "value": "Value and Impact",
       "professionalism": "Professionalism and Trust"
+      "expectedDurationGoal": "Expected duration to achieve the goal"
     },
     "home": {
       "totalWork": "Total Work",

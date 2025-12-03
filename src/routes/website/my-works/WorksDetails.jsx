@@ -150,7 +150,10 @@ export default function WorksDetails() {
                 </div>
                 <div className="value">{t(`${workDetails?.start_date}`)}</div>
               </div>
-              <div className="info-box info-box-grow-min-width ">
+              <div
+                className="info-box info-box-grow-min-width "
+                style={{ minWidth: "100%" }}
+              >
                 <div className="label">
                   {t("website.offerDetails.expectedDuration")}
                 </div>
@@ -168,7 +171,7 @@ export default function WorksDetails() {
               style={{ minWidth: "100%" }}
             >
               <div className="label">
-                {t("website.offerDetails.expectedDuration")}
+                {t("website.offerDetails.expectedDurationGoal")}
               </div>
               <div className="value">
                 {workDetails?.goal?.expected_duration_human}

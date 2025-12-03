@@ -1,4 +1,5 @@
 {
+  "noMembers": "ليس لديك اي أعضاء مشتركين في مجتمعك الشخصي",
   "showRates": "عرض التقيمات",
   "contact_error_subject": "الموضوع مطلوب",
   "contact_error_title": "العنوان مطلوب",
@@ -882,6 +883,7 @@
       "offer": "مساعدة",
       "price": "السعر",
       "expectedDuration": "المدة المتوقعة لتقديم المساعدة",
+      "expectedDurationGoal": "المدة المتوقعة لتحقيق الهدف",
       "noGoalsOffers": "لا توجد عروض مقدمه",
       "alreadySubmittedOffer": "لقد قمت بتقديم عرض بالفعل",
       "submittedOffers": "العروض المقدمة",
@@ -952,8 +954,8 @@
         "myClients": "عملائي"
       },
       "subscription": {
-        "currentPlan": "الخطة الحالية",
-        "upgradeYourPlan": "قم بترقية الخطة لتناسب أعمالك",
+        "currentPlan": "الاشتراك الحالي",
+        "upgradeYourPlan": "قم بترقية اشتراكك ليتناسب مع حجم أعمالك",
         "freeForever": "مجاني مدى الحياة",
         "offersCount": "عدد عروض الأسعار التي يمكن تقديمها للمستفيدين في نفس الوقت",
         "groupsCount": "عدد المجموعات التي يمكن إنشاؤها",
