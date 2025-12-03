@@ -36,13 +36,13 @@ const DeleteAccountModal = ({
             {t("dashboard.deleteAccountModal.sorryToSeeYouGo")}
           </p>
 
-          <div className="requirements-section  ">
-            <h6 className="fw-bold mb-3">
+          <div className="requirements-section ">
+            <span className="text-muted">
               {t("dashboard.deleteAccountModal.beforeProceeding")}{" "}
-            </h6>
+            </span>
 
-            <div className=" mb-3">
-              <span className="fw-medium text-modal-orange">
+            <div className=" my-3 ">
+              <span className=" text-modal-orange">
                 {t("dashboard.deleteAccountModal.noActiveContracts")}
               </span>
               <span className="text-muted small mb-0 px-1">
@@ -51,7 +51,7 @@ const DeleteAccountModal = ({
             </div>
 
             <div className="text-modal-orange mb-3">
-              <span className="fw-medium text-modal-orange">
+              <span className=" text-modal-orange">
                 {t(
                   "dashboard.deleteAccountModal.stopPersonalAssistantCommunity"
                 )}
@@ -63,7 +63,7 @@ const DeleteAccountModal = ({
             </div>
 
             <div className="text-modal-orange">
-              <span className="fw-medium text-modal-orange">
+              <span className=" text-modal-orange">
                 {t("dashboard.deleteAccountModal.withdrawAllBalance")}
               </span>
               <span className="text-muted small mb-0 px-1">
@@ -73,7 +73,7 @@ const DeleteAccountModal = ({
           </div>
 
           <div className="my-3">
-            <p className="fw-medium mb-0">
+            <p className=" mb-0">
               {t("dashboard.deleteAccountModal.irreversibleActionWarning")}
             </p>
           </div>

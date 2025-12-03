@@ -11,10 +11,12 @@ import Footer from "../ui/Footer";
 import Header from "../ui/Header";
 import Loading from "../ui/loading/Loading";
 import ScrollToTop from "../ui/ScrollToTop";
+import usePostLastActivate from "../hooks/website/lastActivate/usePostLastActivate";
 
 const WebsiteLayout = () => {
   const queryClient = useQueryClient();
   const { user, loading } = useAuth();
+  usePostLastActivate();
 
   // Initialize AOS animations
   useEffect(() => {

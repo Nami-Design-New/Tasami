@@ -8,8 +8,14 @@ import useReplyToConsultaion from "../../../../hooks/website/communities/useRepl
 import CustomButton from "../../../CustomButton";
 import TextField from "../../../forms/TextField";
 import { toast } from "sonner";
+// import useEditReplyToConsultation from "../../../../hooks/website/communities/useEditReplyToConsultaion";
 
-export default function AnswerModal({ showModal, setShowModal }) {
+export default function AnswerModal({
+  showModal,
+  setShowModal,
+  // showEditModal,
+  // setShowEditModal,
+}) {
   const { t } = useTranslation();
   const queryClient = useQueryClient();
   const minChars = 15;
@@ -26,6 +32,8 @@ export default function AnswerModal({ showModal, setShowModal }) {
       ),
   });
   const { replyToConsultaion, isPending } = useReplyToConsultaion();
+  // const { editReplyToConsultation, isPending: editReplyLoading } =
+  //   useEditReplyToConsultation();
   const {
     register,
     handleSubmit,
