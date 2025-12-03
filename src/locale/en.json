@@ -646,6 +646,7 @@
     "publicConsultations": "Public Consultations",
     "noConsultaion": "No consultations are available in this community.",
     "title": "Reply to Consultation",
+    "editTitle": "Edit Consultation",
     "fieldLabel": "Add a reply",
     "fieldLabel1": "reply",
     "fieldPlaceholder": "Type here",
@@ -676,6 +677,7 @@
     "linkPlaceholder": "Meeting link",
     "visibility": "Visibility",
     "add": "Add",
+    "update": "Update",
     "noMeetings": "No Meetings Yet",
     "noPosts": "No Posts Yet",
     "addPost": "Add Post",
@@ -876,7 +878,11 @@
       "offerValue": "Offer Value",
       "submitHelpOffer": "ِAdd Offer",
       "price": "Price",
-      "expectedDuration": "Expected duration to provide assistance",
+      "expectedDuration": "Expected Duration",
+      "guidance": "Guidance and Direction",
+      "interaction": "Engagement and Follow-up",
+      "value": "Value and Impact",
+      "professionalism": "Professionalism and Trust"
       "expectedDurationGoal": "Expected duration to achieve the goal"
     },
     "home": {

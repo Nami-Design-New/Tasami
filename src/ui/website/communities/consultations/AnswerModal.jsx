@@ -3,22 +3,25 @@ import { useQueryClient } from "@tanstack/react-query";
 import { Modal } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
+import { useEffect } from "react";
 import * as yup from "yup";
 import useReplyToConsultaion from "../../../../hooks/website/communities/useReplyToConsultaion";
 import CustomButton from "../../../CustomButton";
 import TextField from "../../../forms/TextField";
 import { toast } from "sonner";
-// import useEditReplyToConsultation from "../../../../hooks/website/communities/useEditReplyToConsultaion";
+import useEditReplyToConsultation from "../../../../hooks/website/communities/useEditReplyToConsultaion";
 
 export default function AnswerModal({
   showModal,
   setShowModal,
-  // showEditModal,
-  // setShowEditModal,
+  showEditModal,
+  setShowEditModal,
+  consultaionDetails,
 }) {
   const { t } = useTranslation();
   const queryClient = useQueryClient();
   const minChars = 15;
+
   const schema = yup.object().shape({
     answer: yup
       .string()
@@ -31,49 +34,84 @@ export default function AnswerModal({
         })
       ),
   });
+
   const { replyToConsultaion, isPending } = useReplyToConsultaion();
-  // const { editReplyToConsultation, isPending: editReplyLoading } =
-  //   useEditReplyToConsultation();
+  const { editReplyToConsultation, isPending: editReplyLoading } =
+    useEditReplyToConsultation();
+
   const {
     register,
     handleSubmit,
     formState: { errors },
     reset,
+    setValue,
   } = useForm({
     resolver: yupResolver(schema),
+    defaultValues: {
+      answer: "",
+    },
   });
 
-  const onSubmit = (data) => {
-    replyToConsultaion(data.answer, {
-      onSuccess: () => {
-        setShowModal(false);
-        queryClient.invalidateQueries({ queryKey: ["consultaion-details"] });
-        reset();
-      },
-      onError: (error) => {
-        console.error("Error replying to consultation:", error);
-        toast.error(
-          error?.response?.data?.message ||
-            error?.message ||
-            t("errors.somethingWentWrong")
-        );
-        reset();
-      },
-    });
+  // Populate form when editing
+  useEffect(() => {
+    if (showEditModal && consultaionDetails?.answer) {
+      setValue("answer", consultaionDetails.answer);
+    } else {
+      setValue("answer", "");
+    }
+  }, [showEditModal, consultaionDetails?.answer, setValue]);
+
+  const handleClose = () => {
+    if (showModal) setShowModal(false);
+    if (showEditModal) setShowEditModal(false);
+    reset();
   };
 
+  const onSubmit = (data) => {
+    if (showEditModal) {
+      editReplyToConsultation(data.answer, {
+        onSuccess: () => {
+          handleClose();
+          queryClient.invalidateQueries({ queryKey: ["consultaion-details"] });
+
+        },
+        onError: (error) => {
+          console.error("Error editing reply:", error);
+          toast.error(
+            error?.response?.data?.message ||
+              error?.message ||
+              t("errors.somethingWentWrong")
+          );
+        },
+      });
+    } else {
+      replyToConsultaion(data.answer, {
+        onSuccess: () => {
+          handleClose();
+          queryClient.invalidateQueries({ queryKey: ["consultaion-details"] });
+
+        },
+        onError: (error) => {
+          console.error("Error replying to consultation:", error);
+          toast.error(
+            error?.response?.data?.message ||
+              error?.message ||
+              t("errors.somethingWentWrong")
+          );
+        },
+      });
+    }
+  };
+
+  const isOpen = showModal || showEditModal;
+  const isLoading = isPending || editReplyLoading;
+
   return (
-    <Modal
-      onHide={() => {
-        setShowModal(false);
-        reset();
-      }}
-      show={showModal}
-      centered
-      size="md"
-    >
+    <Modal onHide={handleClose} show={isOpen} centered size="md">
       <Modal.Header closeButton>
-        <h6>{t("community.title")}</h6>
+        <h6>
+          {showEditModal ? t("community.editTitle") : t("community.title")}
+        </h6>
       </Modal.Header>
       <Modal.Body>
         <form className="form_ui" onSubmit={handleSubmit(onSubmit)}>
@@ -90,11 +128,11 @@ export default function AnswerModal({
             <div className="col-12 p-2">
               <CustomButton
                 type="submit"
-                loading={isPending}
+                loading={isLoading}
                 fullWidth
                 size="large"
               >
-                {t("save")}
+                {showEditModal ? t("community.update") : t("coomunity.save")}
               </CustomButton>
             </div>
           </div>

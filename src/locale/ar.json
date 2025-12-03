@@ -656,6 +656,7 @@
     "publicConsultations": "الاستشارات العامة",
     "noConsultaion": "لا توجد استشارات متاحة في هذه المجتمع.",
     "title": "قم بالرد علي الاستشارة",
+    "editTitle": "تعديل الرد علي الاستشارة",
     "fieldLabel": "اضف رد",
     "fieldLabel1": "الرد",
     "fieldPlaceholder": "اكتب هنا",
@@ -687,6 +688,7 @@
     "linkPlaceholder": "رابط اللقاء",
     "visibility": "الظهور",
     "add": "إضافة",
+    "update": "تعديل",
     "noMeetings": "لا توجد لقاءات بعد",
     "noPosts": "لا توجد منشورات بعد",
     "addPost": "إضافة منشور",
@@ -889,7 +891,11 @@
       "offers": "عروض",
       "addGroup": "اضافة مجموعة",
       "offerValue": "قيمة العرض",
-      "submitHelpOffer": "تقديم عرض مساعدة "
+      "submitHelpOffer": "تقديم عرض مساعدة ",
+      "guidance": "الإرشاد والتوجيه",
+      "interaction": "التفاعل والمتابعة",
+      "value": "القيمة والتأثير",
+      "professionalism": "الاحترافية والثقة"
     },
     "home": {
       "totalWork": "اجمالي  الأعمال",

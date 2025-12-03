@@ -13,6 +13,7 @@ import InfiniteScroll from "../../ui/loading/InfiniteScroll";
 import RoundedBackButton from "../../ui/website-auth/shared/RoundedBackButton";
 import { ChatSocketService } from "../../utils/ChatSocketService";
 import { getToken } from "../../utils/token";
+import useUpdateCommunityChatCounter from "../../hooks/website/communities/chat/useUpdateCommunityChatCounter";
 
 const getMessageType = (file) => {
   if (!file) return "text";
@@ -284,6 +285,24 @@ export default function CommunityChat() {
     setSelectedFile(null);
   };
 
+  // ============ update chat counter when scroll to end of chat box ==========//
+  const { mutate: updateCounter } = useUpdateCommunityChatCounter();
+  const [updated, setUpdated] = useState(false);
+
+  const handleScroll = (e) => {
+    const target = e.target;
+
+    const isAtBottom =
+      Math.abs(target.scrollHeight - target.clientHeight - target.scrollTop) <
+      3;
+
+    if (isAtBottom && !updated) {
+      updateCounter();
+      setUpdated(true);
+    }
+  };
+
+  //====== end update chat counter =========//
   // ===== RENDER =====
   return (
     <div className="container">
@@ -317,7 +336,11 @@ export default function CommunityChat() {
           </div>
 
           {/* ===== Messages ===== */}
-          <div className="chat-window__messages" ref={chatContainerRef}>
+          <div
+            onScroll={handleScroll}
+            className="chat-window__messages"
+            ref={chatContainerRef}
+          >
             <InfiniteScroll
               onLoadMore={fetchNextPage}
               hasNextPage={hasNextPage}
