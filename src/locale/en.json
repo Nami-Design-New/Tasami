@@ -1,4 +1,5 @@
 {
+  "noMembers": "You have no members subscribed to your personal community",
   "showRates": "Show Rate",
   "contact_error_subject": "Subject is required",
   "contact_error_title": "Title is required",
@@ -875,7 +876,8 @@
       "offerValue": "Offer Value",
       "submitHelpOffer": "ِAdd Offer",
       "price": "Price",
-      "expectedDuration": "Expected Duration"
+      "expectedDuration": "Expected duration to provide assistance",
+      "expectedDurationGoal": "Expected duration to achieve the goal"
     },
     "home": {
       "totalWork": "Total Work",
