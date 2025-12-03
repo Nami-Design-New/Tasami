@@ -165,19 +165,19 @@ export default function PersonalOffersDetails() {
                 </div>
                 <ul className="rate-list">
                   <li>
-                    <span>{t("website.offerDetails.experience")}</span>
+                    <span>{t("website.offerDetails.guidance")}</span>
                     <span>{offerDetails.experience_rate}</span>
                   </li>
                   <li>
-                    <span>{t("website.offerDetails.time")}</span>
+                    <span>{t("website.offerDetails.interaction")}</span>
                     <span>{offerDetails.time_rate}</span>
                   </li>
                   <li>
-                    <span>{t("website.offerDetails.quality")}</span>
+                    <span>{t("website.offerDetails.value")}</span>
                     <span>{offerDetails.quality_rate}</span>
                   </li>
                   <li>
-                    <span>{t("website.offerDetails.treatment")}</span>
+                    <span>{t("website.offerDetails.professionalism")}</span>
                     <span>{offerDetails.good_treatment}</span>
                   </li>
                 </ul>

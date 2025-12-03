@@ -107,6 +107,7 @@ export default function ConsultaionDetails() {
         setShowModal={setShowModal}
         showEditModal={showEditModal}
         setShowEditModal={setShowEditModal}
+        consultaionDetails={consultaionDetails}
       />
       <AlertModal
         confirmButtonText={t("confirm")}
