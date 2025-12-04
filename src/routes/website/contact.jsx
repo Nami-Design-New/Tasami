@@ -137,12 +137,14 @@ import useGetTaskSystems from "../../hooks/website/contact-us/useGetTaskSystems"
 import CustomButton from "../../ui/CustomButton";
 import InputField from "../../ui/forms/InputField";
 import TextField from "../../ui/forms/TextField";
+import useSettings from "../../hooks/website/settings/useSettings";
 
 export default function Contact() {
   const { t } = useTranslation();
   const [activeOption, setActiveOption] = useState(null);
   const { user } = useSelector((state) => state.authRole);
   const { contactUs, isPending } = useContactUs();
+  const { settings, isLoading: settingsLoading } = useSettings();
 
   // Validation schema
   const schema = yup.object().shape({
@@ -194,26 +196,44 @@ export default function Contact() {
     });
   };
 
-  const socialLinks = [
-    { href: "#", src: "/icons/insta.svg", label: t("contact_insta") },
-    { href: "#", src: "/icons/watsapp.svg", label: t("contact_whatsapp") },
-    { href: "#", src: "/icons/tiktok.svg", label: t("contact_tiktok") },
-    { href: "#", src: "/icons/snap.svg", label: t("contact_snapchat") },
-  ];
+  // const socialLinks = [
+  //   { href: "#", src: "/icons/insta.svg", label: t("contact_insta") },
+  //   { href: "#", src: "/icons/watsapp.svg", label: t("contact_whatsapp") },
+  //   { href: "#", src: "/icons/tiktok.svg", label: t("contact_tiktok") },
+  //   { href: "#", src: "/icons/snap.svg", label: t("contact_snapchat") },
+  // ];
 
   return (
     <section className="contact-page page">
       <div className="container">
         {/* Social Links */}
         <div className="row mb-4 social-links">
-          {socialLinks.map((link, index) => (
-            <div className="col-6 col-md-3 p-2" key={index}>
-              <a href={link.href} className="social-box">
-                <img src={link.src} alt={link.label} className="social-icon" />
-                <span>{link.label}</span>
-              </a>
-            </div>
-          ))}
+          {settingsLoading ? (
+            <>
+              {[1, 2, 3, 4].map((link, index) => (
+                <div className="col-6 col-md-3 p-2" key={index}>
+                  <div className="social-box-skeleton">
+
+                  </div>
+                </div>
+              ))}
+            </>
+          ) : (
+            <>
+              {settings?.social_links.map((link, index) => (
+                <div className="col-6 col-md-3 p-2" key={index}>
+                  <a href={link.link} className="social-box">
+                    <img
+                      src={link.logo}
+                      alt={link.id}
+                      className="social-icon"
+                    />
+                    {/* <span>{link.id}</span> */}
+                  </a>
+                </div>
+              ))}
+            </>
+          )}
         </div>
 
         <div className="row">

@@ -124,7 +124,7 @@ const PerformanceFilter = ({ metrics }) => {
             disableFiledValue={`${t("dashboard.reports.choose")} ${t(labelKey)}`}
             className="border-0 rounded-0 "
             style={{
-              background: "#e4e4e498"
+              background: "#f8f8f8"
             }}
           />
         )}

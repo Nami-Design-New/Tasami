@@ -9,37 +9,45 @@ import { useQueryClient } from "@tanstack/react-query";
 import * as yup from "yup";
 import { useEffect } from "react";
 import { toast } from "sonner";
-
-
-const schema = yup.object().shape({
-  "title:ar": yup.string().required("عنوان التصنيف عربي مطلوب"),
-  "title:en": yup.string().required("عنوان التصنيف إنجليزي مطلوب"),
-});
+import { useTranslation } from "react-i18next";
 
 export default function TasksClassificationModal({
   showModal,
   setShowModal,
   isEdit,
   taskCategories,
-  updateTarget
+  updateTarget,
 }) {
-
   const queryClient = useQueryClient();
-  const { postTaskCategory, isPending } = usePostTaskCategory()
-  const { updateTaskCategory, updateTaskCategoryLoading } = useUpdateTaskCategory()
+  const { postTaskCategory, isPending } = usePostTaskCategory();
+  const { updateTaskCategory, updateTaskCategoryLoading } =
+    useUpdateTaskCategory();
+  const { t } = useTranslation();
 
-  const { register, handleSubmit, reset, formState: { errors } } = useForm({
+  const schema = yup.object().shape({
+    "title:ar": yup.string().required(t("dashboard.taskCategories.titleAr")),
+    "title:en": yup.string().required(t("dashboard.taskCategories.titleEn")),
+  });
+
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm({
     resolver: yupResolver(schema),
     defaultValues: {
-      "title:ar": '',
-      "title:en": ''
-    }
-  })
+      "title:ar": "",
+      "title:en": "",
+    },
+  });
 
   // Update form when modal opens or updateTarget changes
   useEffect(() => {
     if (showModal && isEdit && updateTarget) {
-      const targetItem = taskCategories?.find((item) => item.id === updateTarget);
+      const targetItem = taskCategories?.find(
+        (item) => item.id === updateTarget
+      );
       reset({
         "title:ar": targetItem?.title_ar || "",
         "title:en": targetItem?.title_en || "",
@@ -59,26 +67,28 @@ export default function TasksClassificationModal({
     };
 
     if (isEdit) {
-      updateTaskCategory({ id: updateTarget, payload }, {
-        onSuccess: () => {
-          setShowModal(false);
-          reset();
-          toast.success("تم تنفيذ الإجراء بنجاح");
-          queryClient.invalidateQueries({
-            queryKey: ["task-category-data"],
-          });
-
-        },
-        onError: (error) => {
-          toast.error(error.message);
-        },
-      });
+      updateTaskCategory(
+        { id: updateTarget, payload },
+        {
+          onSuccess: () => {
+            setShowModal(false);
+            reset();
+            toast.success(t("dashboard.taskCategories.actionSuccess"));
+            queryClient.invalidateQueries({
+              queryKey: ["task-category-data"],
+            });
+          },
+          onError: (error) => {
+            toast.error(error.message);
+          },
+        }
+      );
     } else {
       postTaskCategory(payload, {
         onSuccess: () => {
           setShowModal(false);
           reset();
-          toast.success("تم تنفيذ الإجراء بنجاح");
+          toast.success(t("dashboard.taskCategories.actionSuccess"));
           queryClient.invalidateQueries({
             queryKey: ["task-category-data"],
           });
@@ -100,7 +110,8 @@ export default function TasksClassificationModal({
       centered
     >
       <Modal.Header closeButton>
-        {isEdit ? "تعديل" : "اضافه"} التصنيف{" "}
+        {isEdit ? t("dashboard.taskCategories.edit") : t("dashboard.taskCategories.add")}{" "}
+        {t("dashboard.taskCategories.category")}
       </Modal.Header>
       <Modal.Body>
         <form onSubmit={handleSubmit(onSubmit)} className="form_ui">
@@ -108,7 +119,7 @@ export default function TasksClassificationModal({
             <div className="col-12 p-2">
               <InputField
                 {...register("title:ar")}
-                label="عنوان التصنيف عربي"
+                label={t("dashboard.taskCategories.titleAr")}
                 error={errors["title:ar"]?.message}
               />
             </div>
@@ -117,7 +128,7 @@ export default function TasksClassificationModal({
               <InputField
                 {...register("title:en")}
                 error={errors["title:en"]?.message}
-                label="عنوان التصنيف انجليزي"
+                label={t("dashboard.taskCategories.titleEn")}
               />
             </div>
 
@@ -129,10 +140,10 @@ export default function TasksClassificationModal({
                   color="secondary"
                   type="button"
                 >
-                  الغاء
+                  {t("dashboard.taskCategories.cancel")}
                 </CustomButton>
                 <CustomButton type="submit" fullWidth size="large">
-                  {isEdit ? "تعديل " : "  اضافة "}{" "}
+                  {isEdit ? t("dashboard.taskCategories.edit") : t("dashboard.taskCategories.add")}{" "}
                   {(isPending || updateTaskCategoryLoading) && "..."}
                 </CustomButton>
               </div>
