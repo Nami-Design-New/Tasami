@@ -275,7 +275,7 @@ export default function Contact() {
                   />
                 </div>
 
-                <div className="mb-3">
+                {/* <div className="mb-3">
                   <InputField
                     label={t("contact_field_name")}
                     placeholder={t("contact_placeholder_name")}
@@ -292,7 +292,7 @@ export default function Contact() {
                     {...register("email")}
                     error={errors.email?.message}
                   />
-                </div>
+                </div> */}
 
                 <div className="mb-3">
                   <TextField
