@@ -2239,6 +2239,44 @@
         "en": "English title is required"
       },
       "success": "Action completed successfully"
+    },
+    "socialLinks": {
+      "title": "Social Media Links",
+      "add": "Add Link",
+      "link": "Link",
+      "logo": "Image",
+      "actions": "Actions",
+      "search": "Search in links...",
+      "edit": "Edit",
+      "uploadLogo": "Upload Logo",
+      "dropImageHere": "Drop the image here or click to select",
+      "invalidLink": "Invalid URL",
+      "requiredLink": "Link is required",
+      "requiredLogo": "Logo is required",
+      "cancel": "Cancel",
+      "processing": "Processing...",
+      "successAdd": "Link added successfully",
+      "successEdit": "Link updated successfully",
+      "errorAdd": "An error occurred while adding",
+      "errorEdit": "An error occurred while updating"
+    },
+    "taskCategories": {
+      "taskCategory": "Task Category",
+      "categoriesTitle": "Task Categories",
+      "searchPlaceholder": "Search violations ...",
+      "category": "Category",
+      "add": "Add",
+      "edit": "Edit",
+      "titleAr": "Category Title (Arabic)",
+      "titleEn": "Category Title (English)",
+      "titleArRequired": "Arabic title is required",
+      "titleEnRequired": "English title is required",
+      "cancel": "Cancel",
+      "save": "Save",
+      "actionSuccess": "Action completed successfully",
+      "addCategory": "Add Category",
+      "editCategory": "Edit Category",
+      "actions": "Actions"
     }
   }
 }

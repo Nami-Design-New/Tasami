@@ -2221,6 +2221,44 @@
         "en": "عنوان المخالفة انجليزي مطلوب"
       },
       "success": "تم تنفيذ الإجراء بنجاح"
+    },
+    "socialLinks": {
+      "title": "روابط التواصل الاجتماعي",
+      "add": "اضف رابط",
+      "link": "الرابط",
+      "logo": "الصورة",
+      "actions": "الإجراءات",
+      "search": "البحث في الروابط ...",
+      "edit": "تعديل",
+      "uploadLogo": "تحميل الشعار",
+      "dropImageHere": "اسحب الصورة هنا أو انقر لاختيارها",
+      "invalidLink": "رابط غير صحيح",
+      "requiredLink": "رابط مطلوب",
+      "requiredLogo": "الشعار مطلوب",
+      "cancel": "إلغاء",
+      "processing": "جاري...",
+      "successAdd": "تم إضافة الرابط بنجاح",
+      "successEdit": "تم تعديل الرابط بنجاح",
+      "errorAdd": "حدث خطأ في الإضافة",
+      "errorEdit": "حدث خطأ في التعديل"
+    },
+    "taskCategories": {
+      "taskCategory": "تصنيف مهمة",
+      "categoriesTitle": "تصنيفات المهام",
+      "searchPlaceholder": "البحث في المخالفات ...",
+      "category": "التصنيف",
+      "add": "إضافة",
+      "edit": "تعديل",
+      "titleAr": "عنوان التصنيف (عربي)",
+      "titleEn": "عنوان التصنيف (إنجليزي)",
+      "titleArRequired": "عنوان التصنيف بالعربية مطلوب",
+      "titleEnRequired": "عنوان التصنيف بالإنجليزية مطلوب",
+      "cancel": "إلغاء",
+      "save": "حفظ",
+      "actionSuccess": "تم تنفيذ الإجراء بنجاح",
+      "addCategory": "إضافة تصنيف",
+      "editCategory": "تعديل التصنيف",
+      "actions": "الإجراءات"
     }
   }
 }

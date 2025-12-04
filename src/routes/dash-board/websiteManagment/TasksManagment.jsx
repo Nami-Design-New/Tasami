@@ -10,6 +10,7 @@ import { PAGE_SIZE } from "../../../utils/constants";
 import useGetTaskCategory from "../../../hooks/dashboard/websiteManagment/tasksManagment/useGetTaskCategory";
 import useDeleteTaskCategory from "../../../hooks/dashboard/websiteManagment/tasksManagment/useDeleteTaskCategory";
 import TablePagination from "../../../ui/table/TablePagentaion";
+import { useTranslation } from "react-i18next";
 
 const columnHelper = createColumnHelper();
 
@@ -17,20 +18,21 @@ export default function TasksManagment() {
   const [showModal, setShowModal] = useState();
   const [showDeleteModal, setShowDeleteModal] = useState();
   const [isEdit, setIsEdit] = useState(false);
-  const queryClient = useQueryClient()
+  const queryClient = useQueryClient();
+  const { t } = useTranslation();
+  const lang = localStorage.getItem("i18nextLng");
 
-  const lang = localStorage.getItem("i18nextLng")
-
-  // fetch data 
+  // fetch data
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(PAGE_SIZE);
   const { taskCategories, currentPage, lastPage, isLoading } =
     useGetTaskCategory("", page, pageSize);
 
-  // delete row 
+  // delete row
   const [deletionTarget, setDeletionTarget] = useState(null);
   const [updateTarget, setUpdateTarget] = useState(null);
-  const { deleteTaskCategory, isDeletingTaskCategory } = useDeleteTaskCategory();
+  const { deleteTaskCategory, isDeletingTaskCategory } =
+    useDeleteTaskCategory();
 
   const handleDeleteTaskCategory = (id) => {
     deleteTaskCategory(id, {
@@ -47,20 +49,22 @@ export default function TasksManagment() {
   const columns = useMemo(
     () => [
       columnHelper.accessor(lang === "ar" ? "title_ar" : "title_en", {
-        header: " تصنيف المهمة ",
+        header: t("dashboard.taskCategories.taskCategory"),
         cell: (info) => info.getValue(),
       }),
 
       columnHelper.display({
         id: "actions",
-        header: " الاجراءات",
+        header: t("dashboard.taskCategories.actions"),
 
         cell: (info) => (
           <div className="table__actions">
             <i
               className="fa-solid fa-edit  table__actions--edit"
               onClick={() => {
-                setIsEdit(true), setShowModal(true), setUpdateTarget(info.row.original.id);
+                setIsEdit(true),
+                  setShowModal(true),
+                  setUpdateTarget(info.row.original.id);
               }}
             ></i>
             <i
@@ -89,15 +93,15 @@ export default function TasksManagment() {
             setIsEdit(false);
           }}
         >
-          اضف تصنيف
+          {t("dashboard.taskCategories.addCategory")}
         </CustomButton>
       </div>
       <ReusableDataTable
-        title="تصنيف المهمات"
+        title={t("dashboard.taskCategories.categoriesTitle")}
         data={taskCategories || []}
         columns={columns}
         filter={false}
-        searchPlaceholder="البحث في المخالفات  ..."
+        searchPlaceholder={t("dashboard.taskCategories.searchPlaceholder")}
         initialPageSize={10}
         currentPage={currentPage}
         lastPage={lastPage}

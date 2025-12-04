@@ -10,11 +10,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { useDropzone } from "react-dropzone";
-
-const schema = yup.object().shape({
-  link: yup.string().url("رابط غير صحيح").required("رابط مطلوب"),
-  logo: yup.mixed().required("الشعار مطلوب"),
-});
+import { useTranslation } from "react-i18next";
 
 export default function SocialLinksModal({
   showModal,
@@ -30,7 +26,15 @@ export default function SocialLinksModal({
   const queryClient = useQueryClient();
   const { postSocialLink, isPending } = usePostSocialLink();
   const { updateSocialLink, updateSocialLoading } = useUpdateSocialLink();
+  const { t } = useTranslation();
 
+  const schema = yup.object().shape({
+    link: yup
+      .string()
+      .url(t("dashboard.socialLinks.invalidLink"))
+      .required(t("dashboard.socialLinks.requiredLink")),
+    logo: yup.mixed().required(t("dashboard.socialLinks.requiredLogo")),
+  });
   const {
     register,
     handleSubmit,
@@ -83,7 +87,7 @@ export default function SocialLinksModal({
         setPreview(previewUrl);
         setExistingLogo(null);
       } else {
-        toast.error("الرجاء اختيار صورة صحيحة");
+        toast.error(t("dashboard.socialLinks.invalidImage"));
       }
     },
     [setValue]
@@ -126,13 +130,13 @@ export default function SocialLinksModal({
             setShowModal(false);
             reset();
             handleRemoveLogo();
-            toast.success("تم تعديل الرابط بنجاح");
+            toast.success(t("dashboard.socialLinks.successEdit"));
             queryClient.invalidateQueries({
               queryKey: ["social-links-data"],
             });
           },
           onError: (error) => {
-            toast.error(error.message || "حدث خطأ في التعديل");
+            toast.error(error.message || t("dashboard.socialLinks.errorEdit"));
           },
         }
       );
@@ -142,13 +146,13 @@ export default function SocialLinksModal({
           setShowModal(false);
           reset();
           handleRemoveLogo();
-          toast.success("تم إضافة الرابط بنجاح");
+          toast.success(t("dashboard.socialLinks.successAdd"));
           queryClient.invalidateQueries({
             queryKey: ["social-links-data"],
           });
         },
         onError: (error) => {
-          toast.error(error.message || "حدث خطأ في الإضافة");
+          toast.error(error.message || t("dashboard.socialLinks.errorAdd"));
         },
       });
     }
@@ -164,13 +168,16 @@ export default function SocialLinksModal({
       }}
       centered
     >
-      <Modal.Header closeButton>{isEdit ? "تعديل" : "إضافة"} رابط</Modal.Header>
+      <Modal.Header closeButton>
+        {isEdit ? t("dashboard.socialLinks.edit") : t("dashboard.socialLinks.add")}{" "}
+        {t("dashboard.socialLinks.link")}
+      </Modal.Header>
       <Modal.Body>
         <form className="form_ui" onSubmit={handleSubmit(onSubmit)}>
           <div className="row">
             <div className="col-12">
               <label className="form-label fw-semibold mb-2">
-                تحميل الشعار
+                {t("dashboard.socialLinks.uploadLogo")}
               </label>
 
               <div className="col-12 p-2">
@@ -186,7 +193,7 @@ export default function SocialLinksModal({
                       className="banner-preview"
                     />
                   ) : (
-                    <p>اسحب الصورة هنا أو انقر لاختيارها</p>
+                    <p>{t("dashboard.socialLinks.dropImageHere")}</p>
                   )}
                 </div>{" "}
               </div>
@@ -199,7 +206,7 @@ export default function SocialLinksModal({
 
             <div className="col-12 p-2">
               <InputField
-                label="الرابط"
+                label={t("dashboard.socialLinks.link")}
                 placeholder="https://example.com"
                 {...register("link")}
                 error={errors.link?.message}
@@ -214,7 +221,7 @@ export default function SocialLinksModal({
                   color="secondary"
                   type="button"
                 >
-                  إلغاء
+                  {t("dashboard.socialLinks.cancel")}
                 </CustomButton>
 
                 <CustomButton
@@ -223,10 +230,10 @@ export default function SocialLinksModal({
                   disabled={isPending || updateSocialLoading}
                 >
                   {isPending || updateSocialLoading
-                    ? "جاري..."
+                    ? t("dashboard.socialLinks.processing")
                     : isEdit
-                    ? "تعديل"
-                    : "إضافة"}
+                    ? t("dashboard.socialLinks.edit")
+                    : t("dashboard.socialLinks.add")}
                 </CustomButton>
               </div>
             </div>

@@ -5928,7 +5928,7 @@ input[type=file] {
   background-color: white;
   color: rgb(255, 136, 0);
   font-size: 18px;
-  width: 45%;
+  width: 180px;
   padding: 5px;
   margin: -40px 10px 10px 0;
 }
@@ -8984,6 +8984,10 @@ input[type=file] {
 .contact-page {
   background: #fafafa;
 }
+.contact-page .social-links {
+  /* Pulse animation for smooth lighting effect */
+  /* Shimmer effect */
+}
 .contact-page .social-links .social-box {
   position: relative;
   width: 100%;
@@ -9048,6 +9052,45 @@ input[type=file] {
   }
   .contact-page .social-links .social-box:hover::after {
     border-width: 50px 0 0 50px;
+  }
+}
+.contact-page .social-links .social-box-skeleton {
+  position: relative;
+  width: 100%;
+  min-height: 120px;
+  background: #ffffff; /* Main white background */
+  cursor: pointer;
+  overflow: hidden;
+  border-radius: 10px;
+  animation: pulse 1.6s ease-in-out infinite;
+}
+@keyframes pulse {
+  0% {
+    background-color: #ffffff;
+  }
+  50% {
+    background-color: #f2f2f2; /* Light gray pulse */
+  }
+  100% {
+    background-color: #ffffff;
+  }
+}
+.contact-page .social-links .social-box-skeleton::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.6), transparent);
+  animation: shimmer 1.5s infinite;
+}
+@keyframes shimmer {
+  0% {
+    left: -100%;
+  }
+  100% {
+    left: 100%;
   }
 }
 .contact-page .contact-form-wrapper .title {

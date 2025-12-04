@@ -5,31 +5,15 @@ import { useDispatch } from "react-redux";
 import { useSearchParams } from "react-router";
 import { setFilters } from "../../../redux/slices/performanceFilter";
 import { performanceFilterSchema } from "../../../validations/performanceFilterSchema";
+import useGetCities from "../../../hooks/dashboard/regions/useGetCities";
+import useGetCountries from "../../../hooks/dashboard/regions/useGetCountries";
+import useGetRegions from "../../../hooks/dashboard/regions/useGetRegions";
 
 import { Form } from "react-bootstrap";
 import CustomButton from "../../CustomButton";
 import InputField from "../../forms/InputField";
 import SelectField from "../../forms/SelectField";
 import { useTranslation } from "react-i18next";
-
-// Import translation files (you'll need to set up i18n)
-// import arTranslations from '../../../locales/ar.json';
-// import enTranslations from '../../../locales/en.json';
-
-const regionOptions = [
-  { value: "middleEast", name: "middleEast" },
-  { value: "asia", name: "asia" },
-];
-
-const countryOptions = [
-  { value: "saudiArabia", name: "saudiArabia" },
-  { value: "egypt", name: "egypt" },
-];
-
-const cityOptions = [
-  { value: "riyadh", name: "riyadh" },
-  { value: "dammam", name: "dammam" },
-];
 
 const PerformanceFilter = ({ metrics }) => {
   const { t } = useTranslation();
@@ -71,6 +55,33 @@ const PerformanceFilter = ({ metrics }) => {
   const { region, country, city } = watch();
   const showSubDataCheckbox = (region && !country) || (country && !city);
 
+  // Fetch regions
+  const {
+    regions,
+    isLoading: isRegionsLoading,
+    fetchNextPage: fetchRegionsNextPage,
+    hasNextPage: hasRegionsNextPage,
+    isFetchingNextPage: isFetchingRegionsNextPage,
+  } = useGetRegions(true);
+
+  // Fetch countries based on selected region
+  const {
+    countries,
+    isCountriesLaoding,
+    fetchCountriesNextPage,
+    hasCountriesNextPage,
+    isFetchingCountriesNextPage,
+  } = useGetCountries(region, !!region);
+
+  // Fetch cities based on selected country
+  const {
+    cities,
+    isCitiesLaoding,
+    fetchCitiesNextPage,
+    hasCitiesNextPage,
+    isFetchingCitiesNextPage,
+  } = useGetCities(country, !!country);
+
   const onSubmit = (formData) => {
     const allFormData = {
       region: formData.region,
@@ -108,7 +119,16 @@ const PerformanceFilter = ({ metrics }) => {
   };
 
   const FieldWrapper = useCallback(
-    ({ name, labelKey, options }) => (
+    ({
+      name,
+      labelKey,
+      options,
+      loading,
+      hasNextPage,
+      fetchNextPage,
+      isDisabled,
+      isFetchingNextPage,
+    }) => (
       <Controller
         name={name}
         control={control}
@@ -117,14 +137,23 @@ const PerformanceFilter = ({ metrics }) => {
             {...field}
             label={t(labelKey)}
             error={errors[name]?.message}
-            options={options.map((opt) => ({
-              ...opt,
-              name: t(opt.name),
-            }))}
-            disableFiledValue={`${t("dashboard.reports.choose")} ${t(labelKey)}`}
-            className="border-0 rounded-0 "
+            options={
+              options?.map((opt) => ({
+                value: opt?.id,
+                name: opt?.title,
+              })) || []
+            }
+            disableFiledValue={`${t("dashboard.reports.choose")} ${t(
+              labelKey
+            )}`}
+            className="border-0 rounded-0"
             style={{
-              background: "#e4e4e498"
+              background: "#f8f8f8",
+            }}
+            disabled={isDisabled}
+            loading={loading || isFetchingNextPage}
+            onMenuScrollToBottom={() => {
+              if (hasNextPage && !isFetchingNextPage) fetchNextPage();
             }}
           />
         )}
@@ -145,25 +174,42 @@ const PerformanceFilter = ({ metrics }) => {
             <div className="p-4 border border-1 rounded-3 py-4">
               <h4>{t("dashboard.reports.immediateIndicators")}</h4>
 
-              <div className="col-12  col-md-6 col-lg-4 col-xl-12">
+              <div className="col-12 col-md-6 col-lg-4 col-xl-12">
                 <FieldWrapper
                   name="region"
-                  labelKey={t("dashboard.reports.region")}
-                  options={regionOptions}
+                  labelKey="dashboard.reports.region"
+                  options={regions}
+                  loading={isRegionsLoading}
+                  isFetchingNextPage={isFetchingRegionsNextPage}
+                  hasNextPage={hasRegionsNextPage}
+                  fetchNextPage={fetchRegionsNextPage}
+                  isDisabled={false}
                 />
               </div>
+
               <div className="col-12 col-md-6 col-lg-4 col-xl-12">
                 <FieldWrapper
                   name="country"
-                  labelKey={t("dashboard.reports.country")}
-                  options={countryOptions}
+                  labelKey="dashboard.reports.country"
+                  options={countries}
+                  loading={isCountriesLaoding}
+                  isFetchingNextPage={isFetchingCountriesNextPage}
+                  hasNextPage={hasCountriesNextPage}
+                  fetchNextPage={fetchCountriesNextPage}
+                  isDisabled={!region}
                 />
               </div>
+
               <div className="col-12 col-md-6 col-lg-4 col-xl-12">
                 <FieldWrapper
                   name="city"
-                  labelKey={t("dashboard.reports.city")}
-                  options={cityOptions}
+                  labelKey="dashboard.reports.city"
+                  options={cities}
+                  loading={isCitiesLaoding}
+                  isFetchingNextPage={isFetchingCitiesNextPage}
+                  hasNextPage={hasCitiesNextPage}
+                  fetchNextPage={fetchCitiesNextPage}
+                  isDisabled={!country}
                 />
               </div>
 
