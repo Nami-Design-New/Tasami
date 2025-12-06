@@ -1,8 +1,7 @@
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Controller, FormProvider, useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
-import { useSearchParams } from "react-router";
 import { setFilters } from "../../../redux/slices/performanceFilter";
 import { performanceFilterSchema } from "../../../validations/performanceFilterSchema";
 import useGetCities from "../../../hooks/dashboard/regions/useGetCities";
@@ -14,32 +13,38 @@ import CustomButton from "../../CustomButton";
 import InputField from "../../forms/InputField";
 import SelectField from "../../forms/SelectField";
 import { useTranslation } from "react-i18next";
+import { useSearchParams } from "react-router";
 
-const PerformanceFilter = ({ metrics }) => {
+const TIME_RANGES = [
+  { value: "weekly", labelKey: "dashboard.reports.weekly" },
+  { value: "monthly", labelKey: "dashboard.reports.monthly" },
+  { value: "quarterly", labelKey: "dashboard.reports.quarterly" },
+  { value: "yearly", labelKey: "dashboard.reports.yearly" },
+];
+
+const PerformanceFilter = ({ searchType }) => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const [searchParams, setSearchParams] = useSearchParams();
-  const [formData, setFormData] = useState({
+
+  const defaultFormData = {
     region: searchParams.get("region") || "",
     country: searchParams.get("country") || "",
     city: searchParams.get("city") || "",
     fromDate: searchParams.get("fromDate") || "",
     toDate: searchParams.get("toDate") || "",
-    metrics: searchParams.get("metrics")
-      ? searchParams.get("metrics").split(",").map(Number)
-      : [],
     showSubData: searchParams.get("showSubData") === "true",
     actionType: searchParams.get("actionType") || "",
     showSubDataCustom: searchParams.get("showSubDataCustom") === "true",
-    timeRange: searchParams.get("timeRange") || "month",
+    timeRange: searchParams.get("timeRange") || "",
     showFields: searchParams.get("showFields") === "true",
     showSpecializations: searchParams.get("showSpecializations") === "true",
     reportType: searchParams.get("reportType") || "table",
-  });
+  };
 
   const methods = useForm({
     resolver: yupResolver(performanceFilterSchema),
-    defaultValues: formData,
+    defaultValues: defaultFormData,
     mode: "onChange",
   });
 
@@ -52,10 +57,22 @@ const PerformanceFilter = ({ metrics }) => {
     formState: { errors },
   } = methods;
 
-  const { region, country, city } = watch();
+  const { region, country, city, timeRange } = watch();
   const showSubDataCheckbox = (region && !country) || (country && !city);
 
-  // Fetch regions
+  useEffect(() => {
+    if (!region) {
+      setValue("country", "");
+      setValue("city", "");
+    }
+  }, [region, setValue]);
+
+  useEffect(() => {
+    if (!country) {
+      setValue("city", "");
+    }
+  }, [country, setValue]);
+
   const {
     regions,
     isLoading: isRegionsLoading,
@@ -64,7 +81,6 @@ const PerformanceFilter = ({ metrics }) => {
     isFetchingNextPage: isFetchingRegionsNextPage,
   } = useGetRegions(true);
 
-  // Fetch countries based on selected region
   const {
     countries,
     isCountriesLaoding,
@@ -73,7 +89,6 @@ const PerformanceFilter = ({ metrics }) => {
     isFetchingCountriesNextPage,
   } = useGetCountries(region, !!region);
 
-  // Fetch cities based on selected country
   const {
     cities,
     isCitiesLaoding,
@@ -82,12 +97,57 @@ const PerformanceFilter = ({ metrics }) => {
     isFetchingCitiesNextPage,
   } = useGetCities(country, !!country);
 
-  const onSubmit = (formData) => {
+  const handlePreviewReport = () => {
+    const previewData = {
+      showSubDataCustom: methods.getValues("showSubDataCustom"),
+      fromDate: methods.getValues("fromDate"),
+      toDate: methods.getValues("toDate"),
+      period: methods.getValues("timeRange"),
+      showFields: methods.getValues("showFields"),
+      showSpecializations: methods.getValues("showSpecializations"),
+      reportType: methods.getValues("reportType"),
+    };
+
+    console.log("Preview Report Data:", previewData);
+    dispatch(setFilters(previewData));
+  };
+
+  const handleUpdateBasicFilters = () => {
+    const basicData = {
+      region: methods.getValues("region"),
+      country: methods.getValues("country"),
+      city: methods.getValues("city"),
+      showSubData: methods.getValues("showSubData"),
+      searchType: searchType,
+    };
+
+    console.log("Basic Filters Update:", basicData);
+
+    dispatch(setFilters(basicData));
+
+    // const params = new URLSearchParams(searchParams);
+
+    // if (basicData.region) params.set("region", basicData.region);
+    // else params.delete("region");
+    // if (basicData.country) params.set("country", basicData.country);
+    // else params.delete("country");
+    // if (basicData.city) params.set("city", basicData.city);
+    // else params.delete("city");
+
+    // params.set("showSubData", basicData.showSubData.toString());
+
+    // setSearchParams(params);
+  };
+
+  // دالة تُنفذ عند عمل Submit للـ Custom Report (باستخدام زر مخفي أو زر مخصص إذا أردت دمج الاثنين)
+  // إذا كنت تريد أن يرسل الـ Form كله البيانات عند أي تغيير في Custom Reports، يمكنك استخدام دالة onSubmit
+  const onSubmitCustomReport = (formData) => {
     const allFormData = {
-      region: formData.region,
-      country: formData.country,
-      city: formData.city,
-      showSubData: formData.showSubData,
+      region: methods.getValues("region"),
+      country: methods.getValues("country"),
+      city: methods.getValues("city"),
+      showSubData: methods.getValues("showSubData"),
+
       fromDate: formData.fromDate,
       toDate: formData.toDate,
       timeRange: formData.timeRange,
@@ -97,25 +157,24 @@ const PerformanceFilter = ({ metrics }) => {
       showSubDataCustom: formData.showSubDataCustom,
       metrics: formData.metrics,
       actionType: formData.actionType,
+      searchType: searchType,
     };
 
     console.log("All Form Data:", allFormData);
+    dispatch(setFilters(allFormData));
 
-    const params = new URLSearchParams();
+    // تحديث URL Search Params
+    const params = new URLSearchParams(searchParams);
     Object.entries(allFormData).forEach(([key, value]) => {
       if (Array.isArray(value)) {
         if (value.length > 0) params.set(key, value.join(","));
       } else if (value !== undefined && value !== "") {
         params.set(key, value.toString());
+      } else {
+        params.delete(key);
       }
     });
     setSearchParams(params);
-    dispatch(setFilters(allFormData));
-  };
-
-  const handleInputChange = (name, value) => {
-    setFormData((prev) => ({ ...prev, [name]: value }));
-    setValue(name, value);
   };
 
   const FieldWrapper = useCallback(
@@ -134,6 +193,7 @@ const PerformanceFilter = ({ metrics }) => {
         control={control}
         render={({ field }) => (
           <SelectField
+            // <SelectFieldReactSelect
             {...field}
             label={t(labelKey)}
             error={errors[name]?.message}
@@ -147,9 +207,7 @@ const PerformanceFilter = ({ metrics }) => {
               labelKey
             )}`}
             className="border-0 rounded-0"
-            style={{
-              background: "#f8f8f8",
-            }}
+            style={{ background: "#f8f8f8" }}
             disabled={isDisabled}
             loading={loading || isFetchingNextPage}
             onMenuScrollToBottom={() => {
@@ -159,7 +217,14 @@ const PerformanceFilter = ({ metrics }) => {
         )}
       />
     ),
-    [control, errors, t]
+    [
+      control,
+      errors,
+      t,
+      fetchRegionsNextPage,
+      fetchCountriesNextPage,
+      fetchCitiesNextPage,
+    ] // إضافة dependencies
   );
 
   return (
@@ -168,188 +233,134 @@ const PerformanceFilter = ({ metrics }) => {
         {t("dashboard.reports.filterOptions")}
       </h3>
       <FormProvider {...methods}>
-        <form className="form_ui" onSubmit={handleSubmit(onSubmit)}>
+        <form className="form_ui" onSubmit={handleSubmit(onSubmitCustomReport)}>
           <div className="row g-3">
-            {/* Immediate Indicators */}
             <div className="p-4 border border-1 rounded-3 py-4">
               <h4>{t("dashboard.reports.immediateIndicators")}</h4>
+              <div className="row g-3">
+                <div className="col-12 col-xl-12">
+                  <FieldWrapper
+                    name="region"
+                    labelKey="dashboard.reports.region"
+                    options={regions}
+                    loading={isRegionsLoading}
+                    isFetchingNextPage={isFetchingRegionsNextPage}
+                    hasNextPage={hasRegionsNextPage}
+                    fetchNextPage={fetchRegionsNextPage}
+                    isDisabled={false}
+                  />
+                </div>
 
-              <div className="col-12 col-md-6 col-lg-4 col-xl-12">
-                <FieldWrapper
-                  name="region"
-                  labelKey="dashboard.reports.region"
-                  options={regions}
-                  loading={isRegionsLoading}
-                  isFetchingNextPage={isFetchingRegionsNextPage}
-                  hasNextPage={hasRegionsNextPage}
-                  fetchNextPage={fetchRegionsNextPage}
-                  isDisabled={false}
-                />
-              </div>
+                <div className="col-12 col-xl-12">
+                  <FieldWrapper
+                    name="country"
+                    labelKey="dashboard.reports.country"
+                    options={countries}
+                    loading={isCountriesLaoding}
+                    isFetchingNextPage={isFetchingCountriesNextPage}
+                    hasNextPage={hasCountriesNextPage}
+                    fetchNextPage={fetchCountriesNextPage}
+                    isDisabled={!region}
+                  />
+                </div>
 
-              <div className="col-12 col-md-6 col-lg-4 col-xl-12">
-                <FieldWrapper
-                  name="country"
-                  labelKey="dashboard.reports.country"
-                  options={countries}
-                  loading={isCountriesLaoding}
-                  isFetchingNextPage={isFetchingCountriesNextPage}
-                  hasNextPage={hasCountriesNextPage}
-                  fetchNextPage={fetchCountriesNextPage}
-                  isDisabled={!region}
-                />
-              </div>
+                <div className="col-12 col-xl-12">
+                  <FieldWrapper
+                    name="city"
+                    labelKey="dashboard.reports.city"
+                    options={cities}
+                    loading={isCitiesLaoding}
+                    isFetchingNextPage={isFetchingCitiesNextPage}
+                    hasNextPage={hasCitiesNextPage}
+                    fetchNextPage={fetchCitiesNextPage}
+                    isDisabled={!country}
+                  />
+                </div>
 
-              <div className="col-12 col-md-6 col-lg-4 col-xl-12">
-                <FieldWrapper
-                  name="city"
-                  labelKey="dashboard.reports.city"
-                  options={cities}
-                  loading={isCitiesLaoding}
-                  isFetchingNextPage={isFetchingCitiesNextPage}
-                  hasNextPage={hasCitiesNextPage}
-                  fetchNextPage={fetchCitiesNextPage}
-                  isDisabled={!country}
-                />
-              </div>
-
-              {showSubDataCheckbox && (
-                <div className=" col-12  ">
-                  <div className="">
+                {showSubDataCheckbox && (
+                  <div className=" col-12  ">
                     <Form.Check
                       type="switch"
                       id="showSubData"
                       label={t("dashboard.reports.showSubData")}
                       {...register("showSubData")}
                       style={{ width: "100%" }}
-                      onChange={(e) =>
-                        handleInputChange("showSubData", e.target.checked)
-                      }
                     />
                   </div>
-                </div>
-              )}
+                )}
+              </div>
 
-              <div className="d-flex p-2 justify-content-end  align-items-end mt-3 ">
+              <div className="d-flex p-2 justify-content-end align-items-end mt-3 ">
                 <CustomButton
                   size="large"
                   type="button"
-                  onClick={() => {
-                    const basicData = {
-                      region: methods.getValues("region"),
-                      country: methods.getValues("country"),
-                      city: methods.getValues("city"),
-                      showSubData: methods.getValues("showSubData"),
-                    };
-                    console.log("Basic Filters Update:", basicData);
-                    dispatch(setFilters({ ...basicData, type: "basic" }));
-                  }}
+                  onClick={handleUpdateBasicFilters}
                 >
                   {t("dashboard.reports.update")}
                 </CustomButton>
               </div>
             </div>
 
-            {/* Custom Reports */}
             <div className="p-4 border border-1 rounded-3 py-4 mt-4">
               <h4>{t("dashboard.reports.customReports")}</h4>
-
-              <div className="col-12 col-md-6 col-lg-6 col-xl-12 ">
-                <div className="performance-metrics">
-                  <div className="d-flex align-items-center gap-1 my-2">
-                    <input
-                      type="checkbox"
-                      id="sub_data"
-                      {...register("showSubDataCustom")}
-                      onChange={(e) =>
-                        handleInputChange("showSubDataCustom", e.target.checked)
-                      }
-                    />
-                    <label htmlFor="sub_data">
-                      {t("dashboard.reports.showSubData")}
-                    </label>
-                  </div>{" "}
+              <div className="row g-3">
+                <div className="col-12">
+                  <div className="performance-metrics">
+                    <div className="d-flex align-items-center gap-1 my-2">
+                      <input
+                        type="checkbox"
+                        id="sub_data_custom"
+                        {...register("showSubDataCustom")}
+                      />
+                      <label htmlFor="sub_data_custom">
+                        {t("dashboard.reports.showSubData")}
+                      </label>
+                    </div>{" "}
+                  </div>
                 </div>
-                <InputField
-                  type="date"
-                  label={t("dashboard.reports.fromDate")}
-                  error={errors.fromDate?.message}
-                  {...register("fromDate")}
-                  onChange={(e) =>
-                    handleInputChange("fromDate", e.target.value)
-                  }
-                />
-              </div>
 
-              <div className="col-12  col-md-6 col-lg-6 col-xl-12">
-                <InputField
-                  type="date"
-                  label={t("dashboard.reports.toDate")}
-                  error={errors.toDate?.message}
-                  {...register("toDate")}
-                  onChange={(e) => handleInputChange("toDate", e.target.value)}
-                />
+                <div className="col-12">
+                  <InputField
+                    type="date"
+                    label={t("dashboard.reports.fromDate")}
+                    error={errors.fromDate?.message}
+                    {...register("fromDate")}
+                  />
+                </div>
+
+                <div className="col-12">
+                  <InputField
+                    type="date"
+                    label={t("dashboard.reports.toDate")}
+                    error={errors.toDate?.message}
+                    {...register("toDate")}
+                  />
+                </div>
               </div>
 
               {/* Data Range */}
-              <div className="performance-metrics ">
+              <div className="performance-metrics mt-4">
                 <h3>{t("dashboard.reports.dataRange")}</h3>
-                <div className="d-flex align-items-center gap-1 mt-2">
-                  <input
-                    type="radio"
-                    id="week"
-                    value="weekly"
-                    {...register("timeRange")}
-                    onChange={(e) =>
-                      handleInputChange("timeRange", e.target.value)
-                    }
-                  />
-                  <label htmlFor="week">{t("dashboard.reports.weekly")}</label>
-                </div>{" "}
-                <div className="d-flex align-items-center gap-1 mt-2">
-                  <input
-                    type="radio"
-                    id="month"
-                    value="monthly"
-                    {...register("timeRange")}
-                    onChange={(e) =>
-                      handleInputChange("timeRange", e.target.value)
-                    }
-                  />
-                  <label htmlFor="month">
-                    {t("dashboard.reports.monthly")}
-                  </label>
-                </div>{" "}
-                <div className="d-flex align-items-center gap-1 mt-2">
-                  <input
-                    type="radio"
-                    id="quatreYear"
-                    value="quarterly"
-                    {...register("timeRange")}
-                    onChange={(e) =>
-                      handleInputChange("timeRange", e.target.value)
-                    }
-                  />
-                  <label htmlFor="quatreYear">
-                    {t("dashboard.reports.quarterly")}
-                  </label>
-                </div>{" "}
-                <div className="d-flex align-items-center gap-1 mt-2">
-                  <input
-                    type="radio"
-                    id="year"
-                    value="yearly"
-                    {...register("timeRange")}
-                    onChange={(e) =>
-                      handleInputChange("timeRange", e.target.value)
-                    }
-                  />
-                  <label htmlFor="year">{t("dashboard.reports.yearly")}</label>
-                </div>{" "}
+                {TIME_RANGES.map((range) => (
+                  <div
+                    className="d-flex align-items-center gap-1 mt-2"
+                    key={range.value}
+                  >
+                    <input
+                      type="radio"
+                      id={range.value}
+                      value={range.value}
+                      {...register("timeRange")}
+                      checked={timeRange === range.value}
+                      onChange={() => setValue("timeRange", range.value)}
+                    />
+                    <label htmlFor={range.value}>{t(range.labelKey)}</label>
+                  </div>
+                ))}
               </div>
 
               {/* Show Classifications */}
-              <div className="performance-metrics">
+              <div className="performance-metrics mt-4">
                 <h3>{t("dashboard.reports.showClassifications")}</h3>
                 <div className="mt-3 d-flex justify-content-between w-75">
                   <div className="d-flex align-items-center gap-1 mt-2">
@@ -357,9 +368,6 @@ const PerformanceFilter = ({ metrics }) => {
                       type="checkbox"
                       id="field"
                       {...register("showFields")}
-                      onChange={(e) =>
-                        handleInputChange("showFields", e.target.checked)
-                      }
                     />
                     <label htmlFor="field">
                       {t("dashboard.reports.fields")}
@@ -370,12 +378,6 @@ const PerformanceFilter = ({ metrics }) => {
                       type="checkbox"
                       id="category"
                       {...register("showSpecializations")}
-                      onChange={(e) =>
-                        handleInputChange(
-                          "showSpecializations",
-                          e.target.checked
-                        )
-                      }
                     />
                     <label htmlFor="category">
                       {t("dashboard.reports.specializations")}
@@ -385,7 +387,7 @@ const PerformanceFilter = ({ metrics }) => {
               </div>
 
               {/* Report Elements */}
-              <div className="performance-metrics">
+              <div className="performance-metrics mt-4">
                 <h3>{t("dashboard.reports.reportElements")}</h3>
                 <div className="mt-3 d-flex justify-content-between w-75">
                   <div className="d-flex align-items-center gap-1 mt-2">
@@ -394,9 +396,6 @@ const PerformanceFilter = ({ metrics }) => {
                       id="table"
                       value="table"
                       {...register("reportType")}
-                      onChange={(e) =>
-                        handleInputChange("reportType", e.target.value)
-                      }
                     />
                     <label htmlFor="table">
                       {t("dashboard.reports.table")}
@@ -408,9 +407,6 @@ const PerformanceFilter = ({ metrics }) => {
                       id="chart"
                       value="chart"
                       {...register("reportType")}
-                      onChange={(e) =>
-                        handleInputChange("reportType", e.target.value)
-                      }
                     />
                     <label htmlFor="chart">
                       {t("dashboard.reports.chart")}
@@ -419,41 +415,11 @@ const PerformanceFilter = ({ metrics }) => {
                 </div>
               </div>
 
-              <div className="d-flex p-2 justify-content-end  align-items-end mt-3 ">
+              <div className="d-flex p-2 justify-content-end align-items-end mt-3 ">
                 <CustomButton
                   size="large"
                   type="button"
-                  onClick={() => {
-                    const previewData = {
-                      showSubDataCustom: methods.getValues("showSubDataCustom"),
-                      fromDate: methods.getValues("fromDate"),
-                      toDate: methods.getValues("toDate"),
-                      timeRange: methods.getValues("timeRange"),
-                      showFields: methods.getValues("showFields"),
-                      showSpecializations: methods.getValues(
-                        "showSpecializations"
-                      ),
-                      reportType: methods.getValues("reportType"),
-                    };
-                    console.log("Preview Report Data:", previewData);
-                    alert(
-                      `${t("dashboard.reports.previewReport")}:\n${t(
-                        "dashboard.reports.dataRange"
-                      )}: ${t(previewData.timeRange)}\n${t(
-                        "dashboard.reports.showClassifications"
-                      )}: ${
-                        previewData.showFields
-                          ? t("dashboard.reports.fields")
-                          : ""
-                      } ${
-                        previewData.showSpecializations
-                          ? t("dashboard.reports.specializations")
-                          : ""
-                      }\n${t("dashboard.reports.reportElements")}: ${t(
-                        previewData.reportType
-                      )}`
-                    );
-                  }}
+                  onClick={handlePreviewReport}
                 >
                   {t("dashboard.reports.previewReport")}
                 </CustomButton>

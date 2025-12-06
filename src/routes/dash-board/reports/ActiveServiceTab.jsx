@@ -1,20 +1,15 @@
 import { useTranslation } from "react-i18next";
-import { useDispatch, useSelector } from "react-redux";
-import { useLocation } from "react-router";
+import { useOutletContext } from "react-router";
 import CustomButton from "../../../ui/CustomButton";
+import Loading from "../../../ui/loading/Loading";
 
 const ActiveServiceTab = () => {
-  const location = useLocation();
-  const dispatch = useDispatch();
   const { t } = useTranslation();
-  const { metrics, filteredData } = useSelector((state) => state.filter);
-  const activeUsers = filteredData.filter((item) => item.status === "active");
-
-  const routeKey =
-    location.pathname.split("/").pop().toString().split("")[0].toUpperCase() +
-    location.pathname.split("/").pop().toString().slice(1);
-
-  if (filteredData.length === 0)
+  const { performanceReportData, isLoading, search_type } = useOutletContext();
+  if (isLoading) {
+    return <Loading />;
+  }
+  if (performanceReportData?.length === 0)
     return (
       <div className="performance-no-report-data">
         <div className="performance-no-report-data__icon">
@@ -42,7 +37,12 @@ const ActiveServiceTab = () => {
                   العدد اإلجمالي للخدمات المنشورة في صفحة االنطالق{" "}
                 </label>
               </div>
-              <h2 className="metric-value">1200</h2>
+              <h2 className="metric-value">
+                {
+                  performanceReportData?.requests_and_offers
+                    ?.total_requests_and_offers
+                }
+              </h2>
               <span className="position-absolute bottom-0 start-0 text-info p-2">
                 [ ]
               </span>
@@ -51,12 +51,46 @@ const ActiveServiceTab = () => {
             <div className="metric-card-1 position-relative">
               <div className="d-flex align-items-center gap-1">
                 <input type="checkbox" id="active_user" />
-                <label htmlFor="active_user">عدد المستخدمون النشطين</label>
+                <label htmlFor="active_user">
+                  عدد طلبات المساعدة المنشورة{" "}
+                </label>
               </div>{" "}
               <div className="d-flex align-items-center">
-                <h2 className="metric-value">560</h2>
+                <h2 className="metric-value">
+                  {performanceReportData?.requests_and_offers?.total_requests}
+                </h2>
                 <div className="seperatorDiv"></div>
-                <h2 className="metric-value-ratio">30%</h2>
+                <h2 className="metric-value-ratio">
+                  {" "}
+                  {
+                    performanceReportData?.requests_and_offers
+                      ?.requests_growth_rate_percent
+                  }
+                  %
+                </h2>
+              </div>
+              <span className="position-absolute bottom-0 start-0 text-info p-2">
+                [ ]
+              </span>
+            </div>
+            <div className="metric-card-1 position-relative">
+              <div className="d-flex align-items-center gap-1">
+                <input type="checkbox" id="active_user" />
+                <label htmlFor="active_user">عدد عروض المساعدة المنشورة</label>
+              </div>{" "}
+              <div className="d-flex align-items-center">
+                <h2 className="metric-value">
+                  {performanceReportData?.requests_and_offers?.total_offers}
+                </h2>
+                <div className="seperatorDiv"></div>
+                <h2 className="metric-value-ratio">
+                  {" "}
+                  {
+                    performanceReportData?.requests_and_offers
+                      ?.offers_growth_rate_percent
+                  }
+                  %
+                </h2>
               </div>
               <span className="position-absolute bottom-0 start-0 text-info p-2">
                 [ ]
@@ -65,26 +99,46 @@ const ActiveServiceTab = () => {
             <div className="metric-card-1">
               <div className="d-flex align-items-center gap-1">
                 <input type="checkbox" id="inactive_user" />
-                <label htmlFor="inactive_user">عدد المستخدمون الخاملين</label>
+                <label htmlFor="inactive_user">
+                  معدل التغير األسبوعي في عدد طلبات المساعدة{" "}
+                </label>
               </div>{" "}
-              <p className="danger_deg">%5 -</p>
+              <p
+                className={`metric-value ${
+                  performanceReportData?.requests_and_offers?.requests_growth_rate_percent <
+                  0
+                    ? "text-danger"
+                    : "text-success"
+                }`}
+              >
+                {performanceReportData?.requests_and_offers?.requests_growth_rate_percent}%
+              </p>
             </div>
             <div className="metric-card-3">
               <div className="d-flex align-items-center gap-2">
                 <input type="checkbox" id="weekly_change_user " />
                 <label htmlFor="weekly_change_user  ">
                   {" "}
-                  عدل التغير األسبوعي في عدد المستخدمين اإلجمالي{" "}
+                  معدل التغير األسبوعي في عدد عروض المساعدة{" "}
                 </label>
               </div>{" "}
-              <p className="success_deg">%15 </p>
+              <p
+                className={`metric-value ${
+                  performanceReportData?.requests_and_offers?.offers_growth_rate_percent <
+                  0
+                    ? "text-danger"
+                    : "text-success"
+                }`}
+              >
+                {performanceReportData?.requests_and_offers?.offers_growth_rate_percent}%
+              </p>
             </div>
           </div>
         </div>
         {/* ))} */}
       </div>
 
-      {/* المستفيدون */}
+      {/* ألهداف الشخصية بدون مساعدين فردي */}
       <div className="performance-report">
         {/* {filteredData.map((item) => ( */}
         <div className="metrics-list">
@@ -93,48 +147,95 @@ const ActiveServiceTab = () => {
             األهداف الشخصية بدون مساعدين فردية{" "}
           </h3>
           <div className="metrics-container">
-            <div className="metric-card-2">
-              <div>
-                <p className="metric-title">عدد المستخدمون الاجمالي</p>
-              </div>
-              <h2 className="metric-value">1200</h2>
+            <div className="metric-card-3 position-relative">
+              <div className="d-flex align-items-center gap-1">
+                <input type="checkbox" id="active_user" />
+                <label htmlFor="active_user">عدد األهداف الشخصية الفردية</label>
+              </div>{" "}
+              <h2 className="metric-value">
+                {performanceReportData?.goals_data?.all_goals_count}
+              </h2>
+              <span className="position-absolute bottom-0 start-0 text-info p-2">
+                [ ]
+              </span>
+            </div>
+            <div className="metric-card-3 position-relative">
+              <div className="d-flex align-items-center gap-1">
+                <input type="checkbox" id="active_user" />
+                <label htmlFor="active_user">
+                  معدل التغير األسبوعي في عدد األهداف الفردية
+                </label>
+              </div>{" "}
+              <h2
+                className={`metric-value ${
+                  performanceReportData?.all_users?.growth_rate_period_percent <
+                  0
+                    ? "text-danger"
+                    : "text-success"
+                }`}
+              >
+                {performanceReportData?.goals_data?.goals_growth_rate_percent}%
+              </h2>
             </div>
 
-            <div className="metric-card-1">
-              <p className="metric-title">عدد المستخدمون النشطين</p>
-              <div className="d-flex align-items-center">
-                <h2 className="metric-value">560</h2>
-                <div className="seperatorDiv"></div>
-                <h2 className="metric-value-ratio">30%</h2>
-              </div>
+            <div className="metric-card-3 position-relative">
+              <div className="d-flex align-items-center gap-1">
+                <input type="checkbox" id="active_user" />
+                <label htmlFor="active_user">
+                  عدد األهداف الفردية بانتظار التنفيذ
+                </label>
+              </div>{" "}
+              <h2 className="metric-value">
+                {performanceReportData?.goals_data?.pending_goals_count}
+              </h2>
+              <span className="position-absolute bottom-0 start-0 text-info p-2">
+                [ ]
+              </span>
             </div>
-            <div className="metric-card-1">
-              <p className="metric-title">عدد المستخدمون الخاملين</p>
-              <div className="d-flex align-items-center">
-                <h2 className="metric-value">560</h2>
-                <div className="seperatorDiv"></div>
-                <h2 className="metric-value-ratio">30%</h2>
-              </div>
+
+            <div className="metric-card-3 position-relative">
+              <div className="d-flex align-items-center gap-1">
+                <input type="checkbox" id="active_user" />
+                <label htmlFor="active_user">
+                  عدد األهداف الفردية قيد التنفيذ
+                </label>
+              </div>{" "}
+              <h2 className="metric-value">
+                {performanceReportData?.goals_data?.progress_goals_count}
+              </h2>
+              <span className="position-absolute bottom-0 start-0 text-info p-2">
+                [ ]
+              </span>
             </div>
-            <div className="metric-card-3">
-              <p className="metric-title">
-                عدل التغير األسبوعي في عدد المستخدمين اإلجمالي
-              </p>
-              <div className="d-flex align-items-center">
-                <h2 className="metric-value">560</h2>
-                <div className="seperatorDiv"></div>
-                <h2 className="metric-value-ratio">30%</h2>
-              </div>
+
+            <div className="metric-card-3 position-relative">
+              <div className="d-flex align-items-center gap-1">
+                <input type="checkbox" id="active_user" />
+                <label htmlFor="active_user">
+                  عدد األهداف الفردية المتوقفة
+                </label>
+              </div>{" "}
+              <h2 className="metric-value">
+                {performanceReportData?.goals_data?.paused_goals_count}
+              </h2>
+              <span className="position-absolute bottom-0 start-0 text-info p-2">
+                [ ]
+              </span>
             </div>
-            <div className="metric-card-3">
-              <p className="metric-title">
-                عدل التغير األسبوعي في عدد المستخدمين اإلجمالي
-              </p>
-              <div className="d-flex align-items-center">
-                <h2 className="metric-value">560</h2>
-                <div className="seperatorDiv"></div>
-                <h2 className="metric-value-ratio">30%</h2>
-              </div>
+
+            <div className="metric-card-3 position-relative">
+              <div className="d-flex align-items-center gap-1">
+                <input type="checkbox" id="active_user" />
+                <label htmlFor="active_user">
+                  عدد األهداف الفردية المكتملة
+                </label>
+              </div>{" "}
+              <h2 className="metric-value">
+                {performanceReportData?.goals_data?.completed_goals_count}
+              </h2>
+              <span className="position-absolute bottom-0 start-0 text-info p-2">
+                [ ]
+              </span>
             </div>
           </div>
         </div>

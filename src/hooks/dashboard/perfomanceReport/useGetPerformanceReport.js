@@ -16,7 +16,7 @@ export default function useGetPerformanceReport(region_id, country_id, city_id, 
         throw new Error(res.data.message || "Error create Data");
       }
 
-      return res.data;
+      return res.data?.data;
     },
     keepPreviousData: true,
   });
