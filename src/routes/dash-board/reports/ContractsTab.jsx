@@ -35,138 +35,83 @@ const ContractsTab = () => {
             <ReportCard
               langDir={langDir}
               cardNumber={1}
-              title={t("dashboard.reports.contractTab.basicAssistantContracts")}
-              value={200}
-              percentage={35}
+              title={` ${t("dashboard.reports.contractTab.helpersContractsCount")} ${item.package_name}`}
+              value={item.contracts_count}
+              percentage={item.percent_of_contracts}
               shape={true}
             />
           </>
         ))}
-        <ReportCard
-          langDir={langDir}
-          cardNumber={1}
-          title={t("dashboard.reports.contractTab.basicAssistantContracts")}
-          value={548}
-          percentage={35}
-          shape={true}
-        />
-        <ReportCard
-          langDir={langDir}
-          cardNumber={1}
-          shape={true}
-          title={t("dashboard.reports.contractTab.premiumAssistantContracts")}
-          value={548}
-          percentage={35}
-        />
-        <ReportCard
-          langDir={langDir}
-          cardNumber={1}
-          shape={true}
-          title={t("dashboard.reports.contractTab.leadAssistantContracts")}
-          value={548}
-          percentage={35}
-        />
+
         <ReportCard
           langDir={langDir}
           cardNumber={3}
           title={t("dashboard.reports.contractTab.avgContractsPerAssistant")}
-          value={performanceReportData?.all_contracts?.total_contracts}
+          value={
+            performanceReportData?.all_contracts?.average_contracts_per_helper
+          }
         />
 
         {/* row 2 */}
         <ReportCard
           langDir={langDir}
           title={t("dashboard.reports.contractTab.totalOngoingContracts")}
-          value={548}
+          value={performanceReportData?.all_contracts?.total_working}
           highlight
           cardNumber={2}
           shape={true}
         />
-        <ReportCard
-          langDir={langDir}
-          cardNumber={1}
-          title={t(
-            "dashboard.reports.contractTab.ongoingBasicAssistantContracts"
-          )}
-          value={548}
-          percentage={35}
-          shape={true}
-        />
-        <ReportCard
-          langDir={langDir}
-          cardNumber={1}
-          shape={true}
-          title={t(
-            "dashboard.reports.contractTab.ongoingPremiumAssistantContracts"
-          )}
-          value={548}
-          percentage={35}
-        />
-        <ReportCard
-          langDir={langDir}
-          cardNumber={1}
-          shape={true}
-          title={t(
-            "dashboard.reports.contractTab.ongoingLeadAssistantContracts"
-          )}
-          value={548}
-          percentage={35}
-        />
+        {performanceReportData?.all_contracts?.packages.map((item) => (
+          <>
+            <ReportCard
+              langDir={langDir}
+              cardNumber={1}
+              title={`${t("dashboard.reports.contractTab.helpersWorkingContractsCount")} ${item.package_name}`}
+              value={item.contracts_working_count}
+              percentage={item.percent_working}
+              shape={true}
+            />
+          </>
+        ))}
         <ReportCard
           langDir={langDir}
           cardNumber={3}
           title={t(
             "dashboard.reports.contractTab.weeklyChangeOngoingContracts"
           )}
-          percentage={35}
+          percentage={performanceReportData?.all_contracts?.growth_rate_working}
         />
 
         {/* row 3 */}
         <ReportCard
           langDir={langDir}
           title={t("dashboard.reports.contractTab.totalCompletedContracts")}
-          value={548}
+          value={performanceReportData?.all_contracts?.total_completed}
           highlight
           cardNumber={2}
           shape={true}
         />
-        <ReportCard
-          langDir={langDir}
-          cardNumber={1}
-          title={t(
-            "dashboard.reports.contractTab.completedBasicAssistantContracts"
-          )}
-          value={548}
-          percentage={35}
-          shape={true}
-        />
-        <ReportCard
-          langDir={langDir}
-          cardNumber={1}
-          shape={true}
-          title={t(
-            "dashboard.reports.contractTab.completedPremiumAssistantContracts"
-          )}
-          value={548}
-          percentage={35}
-        />
-        <ReportCard
-          langDir={langDir}
-          cardNumber={1}
-          shape={true}
-          title={t(
-            "dashboard.reports.contractTab.completedLeadAssistantContracts"
-          )}
-          value={548}
-          percentage={35}
-        />
+        {performanceReportData?.all_contracts?.packages.map((item) => (
+          <>
+            <ReportCard
+              langDir={langDir}
+              cardNumber={1}
+              title={` ${t("dashboard.reports.contractTab.helpersCompletedContractsCount")} ${item.package_name}`}
+              value={item.contracts_completed_count}
+              percentage={item.percent_completed}
+              shape={true}
+            />
+          </>
+        ))}
         <ReportCard
           langDir={langDir}
           cardNumber={3}
           title={t(
             "dashboard.reports.contractTab.weeklyChangeCompletedContracts"
           )}
-          percentage={35}
+          percentage={
+            performanceReportData?.all_contracts?.growth_rate_completed
+          }
         />
       </div>
 
@@ -183,91 +128,73 @@ const ContractsTab = () => {
           cardNumber={2}
           shape={true}
           title={t("dashboard.reports.contractTab.totalOngoingHelpRequests")}
-          value={"25%"}
+          value={
+            performanceReportData?.contracts_from_requests?.total_contracts
+          }
         />
-        <ReportCard
-          langDir={langDir}
-          cardNumber={1}
-          shape={true}
-          title={t("dashboard.reports.contractTab.ongoingBasicHelpRequests")}
-          value={548}
-          percentage={35}
-        />
-        <ReportCard
-          langDir={langDir}
-          cardNumber={1}
-          shape={true}
-          title={t("dashboard.reports.contractTab.ongoingPremiumHelpRequests")}
-          value={548}
-          percentage={35}
-        />
-        <ReportCard
-          langDir={langDir}
-          cardNumber={1}
-          shape={true}
-          title={t("dashboard.reports.contractTab.ongoingLeadHelpRequests")}
-          value={548}
-          percentage={35}
-        />
+        {performanceReportData?.contracts_from_requests?.packages.map(
+          (item) => (
+            <>
+              <ReportCard
+                langDir={langDir}
+                cardNumber={1}
+                title={`${t("dashboard.reports.contractTab.requestsWorkingContractsCount")} ${item.package_name}`}
+                value={item.contracts_working_count}
+                percentage={item.percent_working}
+                shape={true}
+              />
+            </>
+          )
+        )}
         <ReportCard
           langDir={langDir}
           cardNumber={3}
           shape={true}
           title={t("dashboard.reports.contractTab.weeklyChangeHelpRequests")}
-          value={548}
+          value={
+            performanceReportData?.contracts_from_requests
+              ?.percent_total_working
+          }
         />
         <ReportCard
           langDir={langDir}
           cardNumber={3}
           shape={true}
           title={t("dashboard.reports.contractTab.ongoingToTotalRatio")}
-          value={548}
+          value={
+            performanceReportData?.contracts_from_requests
+              ?.percent_contracts_from_requests
+          }
         />
-        <ReportCard
-          langDir={langDir}
-          cardNumber={3}
-          shape={true}
-          title={t(
-            "dashboard.reports.contractTab.weeklyChangeBasicHelpRequests"
-          )}
-          value={""}
-          percentage={10}
-        />
-        <ReportCard
-          langDir={langDir}
-          cardNumber={3}
-          shape={true}
-          title={t(
-            "dashboard.reports.contractTab.weeklyChangePremiumHelpRequests"
-          )}
-          value={""}
-          percentage={10}
-        />
-        <ReportCard
-          langDir={langDir}
-          cardNumber={3}
-          shape={true}
-          title={t(
-            "dashboard.reports.contractTab.weeklyChangeLeadHelpRequests"
-          )}
-          value={""}
-          percentage={10}
-        />
+        {performanceReportData?.contracts_from_requests?.packages.map(
+          (item) => (
+            <>
+              <ReportCard
+                langDir={langDir}
+                cardNumber={3}
+                title={`${t("dashboard.reports.contractTab.requestsWeeklyChange")} ${item.package_name}`}
+                percentage={item.percent_of_contracts}
+                shape={true}
+              />
+            </>
+          )
+        )}
+
         <ReportCard
           langDir={langDir}
           cardNumber={3}
           shape={true}
           title={t("dashboard.reports.contractTab.stoppedHelpRequests")}
-          value={""}
-          percentage={1}
+          value={
+            performanceReportData?.contracts_from_requests?.total_completed
+          }
         />
         <ReportCard
           langDir={langDir}
           cardNumber={3}
           shape={true}
           title={t("dashboard.reports.contractTab.completedHelpRequests")}
-          value={""}
-          percentage={1}
+          value={performanceReportData?.contracts_from_requests?.total_stopped}
         />
       </div>
 
@@ -282,87 +209,64 @@ const ContractsTab = () => {
           cardNumber={2}
           shape={true}
           title={t("dashboard.reports.contractTab.totalOngoingHelpOffers")}
-          value={"25%"}
+          value={performanceReportData?.contracts_from_offers?.total_contracts}
         />
-        <ReportCard
-          langDir={langDir}
-          cardNumber={1}
-          shape={true}
-          title={t("dashboard.reports.contractTab.ongoingBasicHelpOffers")}
-          value={548}
-          percentage={35}
-        />
-        <ReportCard
-          langDir={langDir}
-          cardNumber={1}
-          shape={true}
-          title={t("dashboard.reports.contractTab.ongoingPremiumHelpOffers")}
-          value={548}
-          percentage={35}
-        />
-        <ReportCard
-          langDir={langDir}
-          cardNumber={1}
-          shape={true}
-          title={t("dashboard.reports.contractTab.ongoingLeadHelpOffers")}
-          value={548}
-          percentage={35}
-        />
+        {performanceReportData?.contracts_from_offers?.packages.map((item) => (
+          <>
+            <ReportCard
+              langDir={langDir}
+              cardNumber={1}
+              title={`${t("dashboard.reports.contractTab.offersWorkingContractsCount")} ${item.package_name}`}
+              value={item.contracts_working_count}
+              percentage={item.percent_working}
+              shape={true}
+            />
+          </>
+        ))}
         <ReportCard
           langDir={langDir}
           cardNumber={3}
           shape={true}
           title={t("dashboard.reports.contractTab.weeklyChangeHelpOffers")}
-          value={548}
+          value={
+            performanceReportData?.contracts_from_offers?.percent_total_working
+          }
         />
         <ReportCard
           langDir={langDir}
           cardNumber={3}
           shape={true}
           title={t("dashboard.reports.contractTab.ongoingOffersToTotalRatio")}
-          value={548}
+          value={
+            performanceReportData?.contracts_from_offers
+              ?.percent_contracts_from_requests
+          }
         />
-        <ReportCard
-          langDir={langDir}
-          cardNumber={3}
-          shape={true}
-          title={t("dashboard.reports.contractTab.weeklyChangeBasicHelpOffers")}
-          value={""}
-          percentage={10}
-        />
-        <ReportCard
-          langDir={langDir}
-          cardNumber={3}
-          shape={true}
-          title={t(
-            "dashboard.reports.contractTab.weeklyChangePremiumHelpOffers"
-          )}
-          value={""}
-          percentage={10}
-        />
-        <ReportCard
-          langDir={langDir}
-          cardNumber={3}
-          shape={true}
-          title={t("dashboard.reports.contractTab.weeklyChangeLeadHelpOffers")}
-          value={""}
-          percentage={10}
-        />
+        {performanceReportData?.contracts_from_offers?.packages.map((item) => (
+          <>
+            <ReportCard
+              langDir={langDir}
+              cardNumber={3}
+              title={`${t("dashboard.reports.contractTab.offersWeeklyChange")} ${item.package_name}`}
+              percentage={item.percent_of_contracts}
+              shape={true}
+            />
+          </>
+        ))}
+
         <ReportCard
           langDir={langDir}
           cardNumber={3}
           shape={true}
           title={t("dashboard.reports.contractTab.stoppedHelpOffers")}
-          value={""}
-          percentage={1}
+          value={performanceReportData?.contracts_from_offers?.total_completed}
         />
         <ReportCard
           langDir={langDir}
           cardNumber={3}
           shape={true}
           title={t("dashboard.reports.contractTab.completedHelpOffers")}
-          value={""}
-          percentage={1}
+          value={performanceReportData?.contracts_from_offers?.total_stopped}
         />
       </div>
 
@@ -377,125 +281,135 @@ const ContractsTab = () => {
           cardNumber={2}
           shape={true}
           title={t("dashboard.reports.contractTab.totalValue")}
-          value={`${t("dashboard.reports.contractTab.riyal")} 500`}
+          value={` ${performanceReportData?.total_contracts_money?.total_value_all_contracts}`}
+          riyal={t("dashboard.reports.contractTab.riyal")}
           highlight
         />
-        <ReportCard
-          langDir={langDir}
-          cardNumber={1}
-          shape={true}
-          title={t("dashboard.reports.contractTab.basicAssistantValue")}
-          value={`${t("dashboard.reports.contractTab.riyal")} 500`}
-          percentage={35}
-        />
-        <ReportCard
-          langDir={langDir}
-          cardNumber={1}
-          shape={true}
-          title={t("dashboard.reports.contractTab.premiumAssistantValue")}
-          value={`${t("dashboard.reports.contractTab.riyal")} 500`}
-          percentage={35}
-        />
-        <ReportCard
-          langDir={langDir}
-          cardNumber={1}
-          shape={true}
-          title={t("dashboard.reports.contractTab.leadAssistantValue")}
-          value={`${t("dashboard.reports.contractTab.riyal")} 500`}
-          percentage={35}
-        />
-        <ReportCard
-          langDir={langDir}
-          cardNumber={3}
-          shape={true}
-          title={t("dashboard.reports.contractTab.completedContractsValue")}
-          value={`${t("dashboard.reports.contractTab.riyal")} 500`}
-        />
+        {performanceReportData?.total_contracts_money?.packages.map((item) => (
+          <>
+            <ReportCard
+              langDir={langDir}
+              cardNumber={1}
+              title={` ${t("dashboard.reports.contractTab.helpersTotalValue")} ${item.package_name}`}
+              value={item.total_value}
+              riyal={t("dashboard.reports.contractTab.riyal")}
+              percentage={item.percent_of_total}
+              shape={true}
+            />
+          </>
+        ))}
 
         <ReportCard
           langDir={langDir}
           cardNumber={3}
           shape={true}
-          title={t("dashboard.reports.contractTab.weeklyChangeTotalValue")}
-          value={""}
-          percentage={8}
+          title={t("dashboard.reports.contractTab.completedContractsValue")}
+          value={
+            performanceReportData?.total_contracts_money?.completed_total_value
+          }
+          riyal={t("dashboard.reports.contractTab.riyal")}
         />
+
+        <ReportCard
+          langDir={langDir}
+          cardNumber={3}
+          title={t("dashboard.reports.contractTab.weeklyChangeTotalValue")}
+          percentage={
+            performanceReportData?.total_contracts_money
+              ?.weekly_growth_completed_value
+          }
+        />
+
         <ReportCard
           langDir={langDir}
           cardNumber={1}
           shape={true}
           title={t("dashboard.reports.contractTab.helpRequestsValue")}
-          value={""}
-          percentage={-6}
+          value={
+            performanceReportData?.total_contracts_money?.total_value_requests
+          }
+          riyal={t("dashboard.reports.contractTab.riyal")}
+          highlight
+          percentage={
+            performanceReportData?.total_contracts_money?.average_value_requests
+          }
         />
         <ReportCard
           langDir={langDir}
           cardNumber={1}
           shape={true}
           title={t("dashboard.reports.contractTab.helpOffersValue")}
-          value={""}
-          percentage={-6}
-        />
-        <ReportCard
-          langDir={langDir}
-          cardNumber={3}
-          shape={true}
-          title={t(
-            "dashboard.reports.contractTab.weeklyChangeHelpRequestsValue"
-          )}
-          value={""}
-          percentage={-6}
-        />
-        <ReportCard
-          langDir={langDir}
-          cardNumber={3}
-          shape={true}
-          title={t("dashboard.reports.contractTab.weeklyChangeHelpOffersValue")}
-          value={""}
-          percentage={-6}
+          value={
+            performanceReportData?.total_contracts_money?.total_value_offers
+          }
+          riyal={t("dashboard.reports.contractTab.riyal")}
+          highlight
+          percentage={
+            performanceReportData?.total_contracts_money?.average_value_offers
+          }
         />
 
         <ReportCard
           langDir={langDir}
           cardNumber={3}
+          title={t(
+            "dashboard.reports.contractTab.weeklyChangeHelpRequestsValue"
+          )}
+          percentage={
+            performanceReportData?.total_contracts_money?.average_value_requests
+          }
+        />
+        <ReportCard
+          langDir={langDir}
+          cardNumber={3}
+          title={t("dashboard.reports.contractTab.weeklyChangeHelpOffersValue")}
+          percentage={
+            performanceReportData?.total_contracts_money?.average_value_offers
+          }
+        />
+      </div>
+      <div className="metrics-container mt-4">
+        <ReportCard
+          langDir={langDir}
+          cardNumber={3}
           shape={true}
           title={t("dashboard.reports.contractTab.avgTotalValue")}
-          value={`${t("dashboard.reports.contractTab.riyal")} 500`}
+          value={` ${performanceReportData?.total_contracts_money?.average_value_all_contracts}`}
+          riyal={t("dashboard.reports.contractTab.riyal")}
         />
-        <ReportCard
-          langDir={langDir}
-          cardNumber={3}
-          shape={true}
-          title={t("dashboard.reports.contractTab.avgBasicAssistantValue")}
-          value={`${t("dashboard.reports.contractTab.riyal")} 500`}
-        />
-        <ReportCard
-          langDir={langDir}
-          cardNumber={3}
-          shape={true}
-          title={t("dashboard.reports.contractTab.avgPremiumAssistantValue")}
-          value={`${t("dashboard.reports.contractTab.riyal")} 500`}
-        />
-        <ReportCard
-          langDir={langDir}
-          cardNumber={3}
-          shape={true}
-          title={t("dashboard.reports.contractTab.avgLeadAssistantValue")}
-          value={`${t("dashboard.reports.contractTab.riyal")} 500`}
-        />
+        {performanceReportData?.total_contracts_money?.packages.map((item) => (
+          <>
+            <ReportCard
+              langDir={langDir}
+              cardNumber={3}
+              title={`${t("dashboard.reports.contractTab.helpersAverageValue")} ${item.package_name}`}
+              value={item.total_value}
+              riyal={t("dashboard.reports.contractTab.riyal")}
+              percentage={item.average_value}
+              shape={true}
+            />
+          </>
+        ))}
+
         <ReportCard
           langDir={langDir}
           cardNumber={3}
           shape={true}
           title={t("dashboard.reports.contractTab.avgHelpRequestsValue")}
-          value={`${t("dashboard.reports.contractTab.riyal")} 500`}
+          value={
+            performanceReportData?.total_contracts_money?.average_value_requests
+          }
+          riyal={t("dashboard.reports.contractTab.riyal")}
         />
         <ReportCard
           langDir={langDir}
           cardNumber={3}
           shape={true}
           title={t("dashboard.reports.contractTab.avgHelpOffersValue")}
-          value={`${t("dashboard.reports.contractTab.riyal")} 500`}
+          value={
+            performanceReportData?.total_contracts_money?.average_value_offers
+          }
+          riyal={t("dashboard.reports.contractTab.riyal")}
         />
       </div>
     </div>

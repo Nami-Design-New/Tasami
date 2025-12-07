@@ -148,6 +148,7 @@ import ActiveUserTab from "../routes/dash-board/reports/ActiveUserTab";
 import ActiveServiceTab from "../routes/dash-board/reports/ActiveServiceTab";
 import ContractsTab from "../routes/dash-board/reports/ContractsTab";
 import CommunitiesTab from "../routes/dash-board/reports/CommunitesTab";
+import SalesTab from "../routes/dash-board/reports/SalesTab";
 
 export const router = createBrowserRouter([
   /* WEBSITE AUTH */
@@ -698,7 +699,7 @@ export const router = createBrowserRouter([
           },
           {
             path: "sales",
-            element: <ActiveUserTab />,
+            element: <SalesTab />,
           },
         ],
       },
