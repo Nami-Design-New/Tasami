@@ -1,3 +1,4 @@
+import { useSelector } from "react-redux";
 import ChatList from "./ChatList";
 
 const ChatSidebar = ({ isOpen, onClose, onChatSelect, activeChat }) => {

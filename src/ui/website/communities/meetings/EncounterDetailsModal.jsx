@@ -56,15 +56,20 @@ export default function EncounterDetailsModal({ show, setShow, meetingId }) {
     >
       <Modal.Header closeButton className="m-2">
         <h6 className="fw-bold flex-grow-1 ">{meetingDetails?.title}</h6>{" "}
-        <button
-          className=" fs-6 mx-2  text-danger"
-          onClick={() => setShowAlertModal(true)}
-        >
-          <i className="fa-regular fa-trash"></i>
-        </button>
-        <button className=" fs-6  " onClick={() => setShowModal(true)}>
-          <i className="fa-regular fa-edit"></i>
-        </button>
+        {!isDashboard && (
+          <>
+            {" "}
+            <button
+              className=" fs-6 mx-2  text-danger"
+              onClick={() => setShowAlertModal(true)}
+            >
+              <i className="fa-regular fa-trash"></i>
+            </button>
+            <button className=" fs-6  " onClick={() => setShowModal(true)}>
+              <i className="fa-regular fa-edit"></i>
+            </button>
+          </>
+        )}
       </Modal.Header>
 
       <Modal.Body>

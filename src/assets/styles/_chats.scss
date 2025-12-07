@@ -249,46 +249,44 @@
 
     scrollbar-width: none;
   }
+}
+.chat-window__footer {
+  display: flex;
+  align-items: center;
+  height: auto;
+  gap: 1rem;
+  padding: 0.75rem;
+  border-radius: $borderRadius;
 
-  &__footer {
+  input {
+    flex: 1;
+    padding: 0.6rem;
+  }
+
+  button {
+    font-size: 1rem;
+    cursor: pointer;
+  }
+
+  &--send {
     display: flex;
     align-items: center;
-    height: auto;
-    gap: 1rem;
-    padding: 0.75rem;
-    border-radius: $borderRadius;
-
-    input {
-      flex: 1;
-      padding: 0.6rem;
-    }
-
-    button {
-      font-size: 1rem;
-      cursor: pointer;
-    }
-
-    &--send {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      background-color: $main;
-      color: $white;
-      padding: 0.6rem 1rem;
-      border-radius: 8px;
-      @include tablet-layout() {
-        display: block;
-        background-color: $white;
-        padding: 0;
-        color: $main;
-        span {
-          display: none;
-        }
+    gap: 0.5rem;
+    background-color: $main;
+    color: $white;
+    padding: 0.6rem 1rem;
+    border-radius: 8px;
+    @include tablet-layout() {
+      display: block;
+      background-color: $white;
+      padding: 0;
+      color: $main;
+      span {
+        display: none;
       }
     }
   }
 }
-
 .message {
   display: flex;
   gap: 0.75rem;
@@ -639,6 +637,79 @@
   //     }
   //   }
   // }
+}
+.employee-chat__footer {
+  display: flex;
+  align-items: center;
+  height: auto;
+  gap: 1rem;
+  padding: 0.75rem;
+  border-radius: $borderRadius;
+  background-color: $InputBG;
+  border: 1px solid $InputStroke;
+
+  .preview-section {
+    width: 100%;
+    flex: 1;
+    .text-input {
+      width: 100%;
+    }
+  }
+
+  .chat-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  input {
+    flex: 1;
+    padding: 0.6rem;
+  }
+
+  button {
+    font-size: 1rem;
+    cursor: pointer;
+  }
+
+  &--send {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background-color: $main;
+    color: $white;
+    padding: 0.6rem 1rem;
+    border-radius: 8px;
+    @include tablet-layout() {
+      display: block;
+      background-color: $white;
+      padding: 0;
+      color: $main;
+      span {
+        display: none;
+      }
+    }
+  }
+}
+.employee-chat__messages {
+  scrollbar-width: none;
+  overflow-y: scroll;
+  padding: 1rem 0;
+  height: calc(100vh - 280px);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+
+  /* Hide scrollbar while maintaining scroll functionality */
+  &::-webkit-scrollbar {
+    width: 0;
+    background: transparent;
+  }
+
+  @media screen and (max-width: 991px) {
+    & {
+      height: calc(100vh - 354px);
+    }
+  }
 }
 // === Recording bar ===
 .recording-bar {

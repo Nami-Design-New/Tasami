@@ -8,6 +8,7 @@ import SuspensionModel from "../../ui/modals/SuspensionModel";
 import AddNewTask from "./tasks/AddNewTaskModal";
 import { useParams, useSearchParams } from "react-router";
 import useGetUserDetails from "../../hooks/dashboard/subscription/useGetUserDetails";
+import CustomLink from "../../ui/CustomLink";
 import Loading from "../../ui/loading/Loading";
 import { useTranslation } from "react-i18next";
 
@@ -95,9 +96,6 @@ const UserProfile = () => {
                 {/* <Link className="user-dashboard__resume "> السيره الذاتية </Link> */}
               </div>
               <div className="d-flex flex-column gap-2 mt-3">
-                {/* <CustomLink to={`/dashboard/chats`} size="large" fullWidth>
-                  تواصل مع المستخدم
-                </CustomLink> */}
                 <CustomButton
                   size="large"
                   color="secondary"

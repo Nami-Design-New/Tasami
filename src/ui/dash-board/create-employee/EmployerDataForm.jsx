@@ -2,9 +2,9 @@ import { useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Controller, useForm } from "react-hook-form";
-import { useNavigate } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import { toast } from "sonner";
 import * as yup from "yup";
 import useGetCities from "../../../hooks/countries/useGetCities";
@@ -24,6 +24,7 @@ import InputField from "../../forms/InputField";
 import SelectField from "../../forms/SelectField";
 import SelectFieldReactSelect from "../../forms/SelectFieldReactSelect";
 import ProfileImageUploader from "../../ProfileImageUploader";
+import useCreateChatRoom from "../../../hooks/dashboard/chats/useCreateChatRoom";
 
 const createEmployeeSchema = (t) =>
   yup.object().shape({
@@ -68,21 +69,23 @@ const createEmployeeSchema = (t) =>
   });
 
 const EmployerDataForm = ({ isEdit }) => {
-  const [files, setFiles] = useState([]);
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const queryClient = useQueryClient();
-  const { t } = useTranslation();
+  const { id } = useParams();
+
+  const [files, setFiles] = useState([]);
   const [image, setImage] = useState(
     "/images/dashboard/avatar-placeholder.jpg"
   );
-  const { updateEmployee, isPending } = useUpdateEmployee();
+
   const { roles, rolesLoading } = useGetRoles();
   const { createEmployee, isCreatingEmployee } = useCreateEmployee();
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading } =
     useInfiniteWorkingGroups();
+  const { updateEmployee, isPending } = useUpdateEmployee();
   const { deleteEmployeeFiles, isPending: isDeleting } =
     useDeleteEmployeeAttachment();
-
   const { employee, isLoading: employeeLoading } = useGetEmployee();
 
   const {
@@ -538,103 +541,201 @@ const EmployerDataForm = ({ isEdit }) => {
                 />
               </div>
 
+            {/* Nationality */}
+
+            <div className="col-12 col-md-6 col-xxl-4 p-2">
+              <Controller
+                name="nationality"
+                control={control}
+                render={({ field }) => (
+                  <SelectField
+                    loading={isNationaliesLoading}
+                    label={t("profile.nationality")}
+                    id="nationality"
+                    options={nationalities?.data?.map((nationality) => ({
+                      value: nationality.id,
+                      name: nationality.title,
+                    }))}
+                    value={field.value}
+                    onChange={field.onChange}
+                    error={errors.nationality?.message}
+                  />
+                )}
+              />
+            </div>
+            <div className="col-12 col-md-6 col-xxl-4 p-2">
+              <Controller
+                name="residentCountry"
+                control={control}
+                render={({ field }) => (
+                  <SelectField
+                    label={t("profile.country")}
+                    loading={isCountriesLoading}
+                    id="country"
+                    options={countires?.map((country) => ({
+                      value: country.id,
+                      name: country.title,
+                    }))}
+                    value={field.value}
+                    onChange={field.onChange}
+                    error={errors.residentCountry?.message}
+                  />
+                )}
+              />
+            </div>
+            <div className="col-12 col-md-6 col-xxl-4 p-2">
+              <Controller
+                name="residentCity"
+                control={control}
+                render={({ field }) => (
+                  <SelectField
+                    loading={isCitiesLoading}
+                    label={t("profile.city")}
+                    id="city"
+                    options={cities?.data?.map((city) => ({
+                      value: city.id,
+                      name: city.title,
+                    }))}
+                    value={field.value}
+                    onChange={field.onChange}
+                    error={errors.residentCity?.message}
+                  />
+                )}
+              />
+            </div>
+            {/* Attachments */}
+            <div className="col-12 p-2">
+              <FileUploader
+                files={files.map((file) => file?.file)}
+                multiple={true}
+                onFilesChange={handleFilesChange}
+                label={t("dashboard.createEmployee.form.attachFiles")}
+                onDelete={handleDeletefile}
+              />
+            </div>
+            {/* Buttons */}
+            <div className="col-12 p-2">
+              <div className="buttons w-full justify-content-end">
+                {isEdit ? (
+                  <CustomButton
+                    loading={isPending}
+                    type="submit"
+                    color={allFieldsFilled ? "success" : "primary"}
+                    size="large"
+                  >
+                    {t("dashboard.createEmployee.form.edit")}
+                  </CustomButton>
+                ) : (
+                  <>
+                    <CustomButton
+                      type="button"
+                      color="secondary"
+                      size="large"
+                      onClick={() => {
+                        reset(); // reset form fields
+                        setFiles([]); // reset attachments
+                        setImage("/images/dashboard/avatar-placeholder.jpg"); // reset profile image
+                      }}
+                    >
+                      {t("dashboard.createEmployee.form.cancel")}
+                    </CustomButton>
               {/* Nationality */}
 
-              <div className="col-12 col-md-6 col-xxl-4 p-2">
-                <Controller
-                  name="nationality"
-                  control={control}
-                  render={({ field }) => (
-                    <SelectField
-                      loading={isNationaliesLoading}
-                      label={t("profile.nationality")}
-                      id="nationality"
-                      options={nationalities?.data?.map((nationality) => ({
-                        value: nationality.id,
-                        name: nationality.title,
-                      }))}
-                      value={field.value}
-                      onChange={field.onChange}
-                      error={errors.nationality?.message}
-                    />
-                  )}
-                />
-              </div>
-              <div className="col-12 col-md-6 col-xxl-4 p-2">
-                <Controller
-                  name="residentCountry"
-                  control={control}
-                  render={({ field }) => (
-                    <SelectField
-                      label={t("profile.country")}
-                      loading={isCountriesLoading}
-                      id="country"
-                      options={countires?.map((country) => ({
-                        value: country.id,
-                        name: country.title,
-                      }))}
-                      value={field.value}
-                      onChange={field.onChange}
-                      error={errors.residentCountry?.message}
-                    />
-                  )}
-                />
-              </div>
-              <div className="col-12 col-md-6 col-xxl-4 p-2">
-                <Controller
-                  name="residentCity"
-                  control={control}
-                  render={({ field }) => (
-                    <SelectField
-                      loading={isCitiesLoading}
-                      label={t("profile.city")}
-                      id="city"
-                      options={cities?.data?.map((city) => ({
-                        value: city.id,
-                        name: city.title,
-                      }))}
-                      value={field.value}
-                      onChange={field.onChange}
-                      error={errors.residentCity?.message}
-                    />
-                  )}
-                />
-              </div>
+//               <div className="col-12 col-md-6 col-xxl-4 p-2">
+//                 <Controller
+//                   name="nationality"
+//                   control={control}
+//                   render={({ field }) => (
+//                     <SelectField
+//                       loading={isNationaliesLoading}
+//                       label={t("profile.nationality")}
+//                       id="nationality"
+//                       options={nationalities?.data?.map((nationality) => ({
+//                         value: nationality.id,
+//                         name: nationality.title,
+//                       }))}
+//                       value={field.value}
+//                       onChange={field.onChange}
+//                       error={errors.nationality?.message}
+//                     />
+//                   )}
+//                 />
+//               </div>
+//               <div className="col-12 col-md-6 col-xxl-4 p-2">
+//                 <Controller
+//                   name="residentCountry"
+//                   control={control}
+//                   render={({ field }) => (
+//                     <SelectField
+//                       label={t("profile.country")}
+//                       loading={isCountriesLoading}
+//                       id="country"
+//                       options={countires?.map((country) => ({
+//                         value: country.id,
+//                         name: country.title,
+//                       }))}
+//                       value={field.value}
+//                       onChange={field.onChange}
+//                       error={errors.residentCountry?.message}
+//                     />
+//                   )}
+//                 />
+//               </div>
+//               <div className="col-12 col-md-6 col-xxl-4 p-2">
+//                 <Controller
+//                   name="residentCity"
+//                   control={control}
+//                   render={({ field }) => (
+//                     <SelectField
+//                       loading={isCitiesLoading}
+//                       label={t("profile.city")}
+//                       id="city"
+//                       options={cities?.data?.map((city) => ({
+//                         value: city.id,
+//                         name: city.title,
+//                       }))}
+//                       value={field.value}
+//                       onChange={field.onChange}
+//                       error={errors.residentCity?.message}
+//                     />
+//                   )}
+//                 />
+//               </div>
               {/* Attachments */}
-              <div className="col-12 p-2">
-                <FileUploader
-                  files={files}
-                  onFilesChange={handleFilesChange}
-                  label={t("dashboard.createEmployee.form.attachFiles")}
-                  onDelete={handleDeletefile}
-                />
-              </div>
+//               <div className="col-12 p-2">
+//                 <FileUploader
+//                   files={files}
+//                   onFilesChange={handleFilesChange}
+//                   label={t("dashboard.createEmployee.form.attachFiles")}
+//                   onDelete={handleDeletefile}
+//                 />
+//               </div>
               {/* Buttons */}
-              <div className="col-12 p-2">
-                <div className="buttons w-full justify-content-end">
-                  {isEdit ? (
-                    <CustomButton
-                      loading={isPending}
-                      type="submit"
-                      color={allFieldsFilled ? "success" : "primary"}
-                      size="large"
-                    >
-                      {t("dashboard.createEmployee.form.edit")}
-                    </CustomButton>
-                  ) : (
-                    <>
-                      <CustomButton
-                        type="button"
-                        color="secondary"
-                        size="large"
-                        onClick={() => {
-                          reset(); // reset form fields
-                          setFiles([]); // reset attachments
-                          setImage("/images/dashboard/avatar-placeholder.jpg"); // reset profile image
-                        }}
-                      >
-                        {t("dashboard.createEmployee.form.cancel")}
-                      </CustomButton>
+//               <div className="col-12 p-2">
+//                 <div className="buttons w-full justify-content-end">
+//                   {isEdit ? (
+//                     <CustomButton
+//                       loading={isPending}
+//                       type="submit"
+//                       color={allFieldsFilled ? "success" : "primary"}
+//                       size="large"
+//                     >
+//                       {t("dashboard.createEmployee.form.edit")}
+//                     </CustomButton>
+//                   ) : (
+//                     <>
+//                       <CustomButton
+//                         type="button"
+//                         color="secondary"
+//                         size="large"
+//                         onClick={() => {
+//                           reset(); // reset form fields
+//                           setFiles([]); // reset attachments
+//                           setImage("/images/dashboard/avatar-placeholder.jpg"); // reset profile image
+//                         }}
+//                       >
+//                         {t("dashboard.createEmployee.form.cancel")}
+//                       </CustomButton>
                       <CustomButton
                         type="submit"
                         color={allFieldsFilled ? "success" : "primary"}
