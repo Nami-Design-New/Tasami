@@ -1,5 +1,5 @@
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect } from "react";
 import { Controller, FormProvider, useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { setFilters } from "../../../redux/slices/performanceFilter";
@@ -278,7 +278,7 @@ const PerformanceFilter = ({ searchType }) => {
                 </div>
 
                 {showSubDataCheckbox && (
-                  <div className=" col-12  ">
+                  <div className="col-12">
                     <Form.Check
                       type="switch"
                       id="showSubData"

@@ -146,6 +146,8 @@ import WithdrawRequests from "../routes/dash-board/WithdrawRequests";
 import ProgramsDetails from "../routes/dash-board/teams/ProgramsDetails";
 import ActiveUserTab from "../routes/dash-board/reports/ActiveUserTab";
 import ActiveServiceTab from "../routes/dash-board/reports/ActiveServiceTab";
+import ContractsTab from "../routes/dash-board/reports/ContractsTab";
+import CommunitiesTab from "../routes/dash-board/reports/CommunitesTab";
 
 export const router = createBrowserRouter([
   /* WEBSITE AUTH */
@@ -544,10 +546,10 @@ export const router = createBrowserRouter([
         path: "post-dash-details/:id",
         element: <PostDashDetails />,
       },
-      // {
-      //   path: "chats",
-      //   element: <ChatPage />,
-      // },
+      {
+        path: "chats",
+        element: <ChatPage />,
+      },
 
       {
         path: "communities-details/:id",
@@ -688,11 +690,11 @@ export const router = createBrowserRouter([
           },
           {
             path: "contracts",
-            element: <ActiveUserTab />,
+            element: <ContractsTab />,
           },
           {
             path: "communities",
-            element: <ActiveUserTab />,
+            element: <CommunitiesTab />,
           },
           {
             path: "sales",
