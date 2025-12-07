@@ -2049,7 +2049,19 @@
         "avgLeadAssistantValue": "Average Value of Lead Assistants Contracts",
         "avgHelpRequestsValue": "Average Value of Help Requests Contracts",
         "avgHelpOffersValue": "Average Value of Help Offers Contracts",
-        "riyal": "RSA"
+        "riyal": "RSA",
+        "helpersContractsCount": "Number of assistants' contracts for ",
+        "helpersWorkingContractsCount": "Number of ongoing assistants' contracts for ",
+        "helpersCompletedContractsCount": "Number of completed assistants' contracts for ",
+
+        "requestsWorkingContractsCount": "Number of ongoing request contracts for ",
+        "requestsWeeklyChange": "Weekly change rate of request contracts for assistants ",
+
+        "offersWorkingContractsCount": "Number of ongoing offer contracts for ",
+        "offersWeeklyChange": "Weekly change rate of offer contracts for assistants ",
+
+        "helpersTotalValue": "Total value of assistants' contracts for ",
+        "helpersAverageValue": "Average value of assistants' contracts for "
       },
       "communitiesTab": {
         "communities": "Communities",
@@ -2078,6 +2090,23 @@
         "weeklyAverageMeetings": "Weekly average posts for meetings",
         "weeklyAveragePosts": "Weekly average posts",
         "weeklyAverageDigital": "The weekly rate of change in digital content for communities."
+      },
+      "salesTab": {
+        "personalSubscriptions": "Personal Subscriptions",
+        "totalSubscriptions": "Total Personal Subscriptions",
+        "basicSubscriptions": "Basic Assistant Subscriptions",
+        "halfAnnualSubscriptions": "Half-Annual Assistant Subscriptions",
+        "annualSubscriptions": "Annual Assistant Subscriptions",
+        "pioneers": "Pioneers",
+        "halfAnnualPioneers": "Half-Annual Pioneers Subscriptions",
+        "annualPioneers": "Annual Pioneers Subscriptions",
+        "weeklyAverageRate": "Weekly Average Rate in Personal Subscriptions",
+        "contractConversions": "Contract Conversions",
+        "totalConversions": "Total Contract Conversions",
+        "averageWeeklyConversions": "Average Weekly Contract Conversions",
+        "averageBasicConversions": "Average Basic Contract Conversions",
+        "averageAnnualityConversions": "Average Annuity Percentage",
+        "sar": "SAR"
       }
     },
     "deleteAccountModal": {

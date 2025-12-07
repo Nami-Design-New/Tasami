@@ -23,13 +23,16 @@ export default function NavBar({ collapsed, setCollapsed }) {
 
       <div className="settings">
         <ul>
+          {" "}
+          {/* <li>
+           <i className="fa-duotone fa-user-md-chat fs-4 mx-2"></i>
+          </li> */}
           <li className="settings-gear">
             <div className="btn" onClick={() => setIsLangOpen(!isLangOpen)}>
               <i className="fa-sharp fa-regular fa-globe"></i>
             </div>
             <LanguageDropDown setIsOpen={setIsLangOpen} isOpen={isLangOpen} />
           </li>
-
           <li className="profile">
             <div
               className="dropdownButton"

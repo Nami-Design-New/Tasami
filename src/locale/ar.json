@@ -2031,7 +2031,16 @@
         "avgLeadAssistantValue": "متوسط قيمة العقود للمساعدين الرواد",
         "avgHelpRequestsValue": "متوسط قيمة عقود طلبات المساعدة",
         "avgHelpOffersValue": "متوسط قيمة عقود عروض المساعدة",
-        "riyal": "ريال"
+        "riyal": "ريال",
+        "helpersContractsCount": "عدد عقود المساعدين ",
+        "helpersWorkingContractsCount": "عدد عقود قيد التنفيذ المساعدين ",
+        "helpersCompletedContractsCount": "عدد عقود المكتملة المساعدين ",
+        "requestsWorkingContractsCount": "عدد عقود الطلبات قيد التنفيذ ",
+        "requestsWeeklyChange": "معدل التغير الأسبوعي في عقود الطلبات للمساعدين ",
+        "offersWorkingContractsCount": "عدد عقود العروض قيد التنفيذ ",
+        "offersWeeklyChange": "معدل التغير الأسبوعي في عقود العروض للمساعدين ",
+        "helpersTotalValue": "القيمة الإجمالية لعقود المساعدين ",
+        "helpersAverageValue": "متوسط قيمة العقود للمساعدين "
       },
       "communitiesTab": {
         "communities": "أعداد المجتمعات",
@@ -2060,6 +2069,23 @@
         "weeklyAverageMeetings": "متوسط النشر الأسبوعي للقاءات",
         "weeklyAveragePosts": "متوسط النشر الأسبوعي للمنشورات",
         "weeklyAverageDigital": "معدل التغير األسبوعي في المحتوى الرقمي للمجتمعات"
+      },
+      "salesTab": {
+        "personalSubscriptions": "اشتراكات المساعدين الشخصيين",
+        "totalSubscriptions": "إجمالي اشتراكات المساعدين الشخصيين",
+        "basicSubscriptions": "بيعات الاشتراكات للمساعدين الأساسيين",
+        "halfAnnualSubscriptions": "بيعات الاشتراكات للمساعدين النصف سنوية",
+        "annualSubscriptions": "بيعات الاشتراكات للمساعدين السنوية",
+        "pioneers": "الرواد",
+        "halfAnnualPioneers": "بيعات اشتراكات الرواد النصف سنوية",
+        "annualPioneers": "بيعات اشتراكات الرواد السنوية",
+        "weeklyAverageRate": "معدل التغير الأسبوعي في بيعات الاشتراكات الإجمالية",
+        "contractConversions": "عمولات العقود",
+        "totalConversions": "القيمة الإجمالية لعمولات العقود",
+        "averageWeeklyConversions": "متوسطة قيمة العمولة للعقد",
+        "averageBasicConversions": "القيمة الإجمالية لعمولات عقود طفف المساعدة",
+        "averageAnnualityConversions": "القيمة الإجمالية لعمولات العقود السنوية و الربع السنوية",
+        "sar": "ريال"
       }
     },
     "deleteAccountModal": {
