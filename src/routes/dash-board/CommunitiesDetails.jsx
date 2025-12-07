@@ -10,6 +10,7 @@ import useGetUserCommunities from "../../hooks/dashboard/subscription/useGetUser
 import { PAGE_SIZE } from "../../utils/constants";
 import SubscriptionLog from "./SubscriptionLog";
 import TablePagination from "../../ui/table/TablePagentaion";
+import Loading from "../../ui/loading/Loading";
 
 const columnHelper = createColumnHelper();
 
@@ -26,12 +27,13 @@ export default function CommunitiesDetails() {
   const editColumns = useMemo(
     () => [
       columnHelper.accessor("created_at", {
-        header: " التاريخ ",
+        header: t("dashboard.community.historyDate"),
         cell: (info) => info.getValue(),
       }),
       columnHelper.accessor("is_active", {
-        header: " الحالة ",
-        cell: (info) => (info.getValue() ? "تشغيل" : "ايقاف"),
+        header: t("dashboard.community.status"),
+        cell: (info) =>
+          info.getValue() ? t("dashboard.community.active") : t("dashboard.community.inactive"),
       }),
     ],
     []
@@ -40,7 +42,7 @@ export default function CommunitiesDetails() {
   return (
     <>
       {isLoading ? (
-        <div>Loading...</div>
+        <Loading />
       ) : (
         <section className="communities-details">
           <div className="container mt-3">
@@ -63,8 +65,8 @@ export default function CommunitiesDetails() {
               <div className="col-12 p-2">
                 <ReusableDataTable
                   filter={false}
-                  title="سجل التعديلات"
-                  searchPlaceholder="بحث..."
+                  title={t("dashboard.community.editHistory")}
+                  searchPlaceholder={t("dashboard.community.search")}
                   data={userCommunities?.data}
                   columns={editColumns}
                   currentPage={currentPage}
@@ -88,7 +90,7 @@ export default function CommunitiesDetails() {
               </div>
             </div>
             <div className="row p-0">
-              <h4 className="chanels">{t("community.channels")}</h4>
+              <h4 className="chanels">{t("dashboard.community.channels")}</h4>
               <div className="col-12 col-md-4 p-2">
                 <CommunityTabs />
               </div>

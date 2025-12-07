@@ -37,14 +37,69 @@ export default function AddGroupModal({
     categories?.find((cat) => String(cat.id) === String(selectedFieldId))
       ?.sub_categories || [];
 
+  // const onSubmit = async (data) => {
+  //   const payload = {
+  //     category_id: data.field,
+  //     sub_category_id: data.specialization,
+  //     title: data.groupName,
+  //     desc: data.description,
+  //   };
+  //   if (group) {
+  //     editGroup(
+  //       { id: group.id, payload },
+  //       {
+  //         onSuccess: (res) => {
+  //           setShowModal(false);
+  //           queryClient.invalidateQueries(["group-details"]);
+  //           reset();
+  //           toast.success(res.message);
+  //         },
+  //         onError: (err) => toast.error(err.message),
+  //       }
+  //     );
+  //   } else {
+  //     addGroup(payload, {
+  //       onSuccess: (res) => {
+  //         setShowModal(false);
+  //         queryClient.invalidateQueries(["my-groups"]);
+  //         reset();
+  //         toast.success(res.message);
+  //       },
+  //       onError: (err) => {
+  //         toast.error(err.message);
+  //       },
+  //     });
+  //   }
+  // };
+
   const onSubmit = async (data) => {
-    const payload = {
-      category_id: data.field,
-      sub_category_id: data.specialization,
-      title: data.groupName,
-      desc: data.description,
-    };
     if (group) {
+      // Build payload with only changed fields
+      const payload = {};
+
+      if (String(data.field) !== String(group.category_id)) {
+        payload.category_id = data.field;
+      }
+
+      if (String(data.specialization) !== String(group.sub_category_id)) {
+        payload.sub_category_id = data.specialization;
+      }
+
+      if (data.groupName !== group.title) {
+        payload.title = data.groupName;
+      }
+
+      if (data.description !== group.desc) {
+        payload.desc = data.description;
+      }
+
+      // Check if there are any changes
+      if (Object.keys(payload).length === 0) {
+        toast.info(t("noChangesDetected") || "No changes detected");
+        setShowModal(false);
+        return;
+      }
+
       editGroup(
         { id: group.id, payload },
         {
@@ -58,6 +113,14 @@ export default function AddGroupModal({
         }
       );
     } else {
+      // For adding new group, include all fields
+      const payload = {
+        category_id: data.field,
+        sub_category_id: data.specialization,
+        title: data.groupName,
+        desc: data.description,
+      };
+
       addGroup(payload, {
         onSuccess: (res) => {
           setShowModal(false);
@@ -71,7 +134,6 @@ export default function AddGroupModal({
       });
     }
   };
-
   useEffect(() => {
     if (group) {
       reset({

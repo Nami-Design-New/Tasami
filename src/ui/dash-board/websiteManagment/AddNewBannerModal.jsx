@@ -9,10 +9,7 @@ import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { toast } from "sonner";
 import { useForm } from "react-hook-form";
-
-const schema = yup.object().shape({
-  image: yup.mixed().required("الشعار مطلوب"),
-});
+import { useTranslation } from "react-i18next";
 
 export default function AddNewBannerModal({
   setShowModal,
@@ -21,6 +18,7 @@ export default function AddNewBannerModal({
   updateTarget,
   imageBanner,
 }) {
+  const { t } = useTranslation();
   const [preview, setPreview] = useState(null);
   const [imageFile, setImageFile] = useState(null);
   const [existingLogo, setExistingLogo] = useState(null);
@@ -28,6 +26,10 @@ export default function AddNewBannerModal({
   const queryClient = useQueryClient();
   const { postImageBanner, isPending } = usePostImageBanner();
   const { updateImageBanner, updateBannerLoading } = useUpdateImageBanner();
+
+  const schema = yup.object().shape({
+    image: yup.mixed().required(t("dashboard.bannerModal.imageRequired")),
+  });
 
   const {
     register,
@@ -76,7 +78,7 @@ export default function AddNewBannerModal({
         setPreview(previewUrl);
         setExistingLogo(null);
       } else {
-        toast.error("الرجاء اختيار صورة صحيحة");
+        toast.error(t("dashboard.bannerModal.invalidImage"));
       }
     },
     [setValue]
@@ -118,13 +120,13 @@ export default function AddNewBannerModal({
             setShowModal(false);
             reset();
             handleRemoveLogo();
-            toast.success("تم تعديل الرابط بنجاح");
+            toast.success(t("dashboard.bannerModal.updateSuccess"));
             queryClient.invalidateQueries({
               queryKey: ["image-banners"],
             });
           },
           onError: (error) => {
-            toast.error(error.message || "حدث خطأ في التعديل");
+            toast.error(error.message || t("dashboard.bannerModal.updateError"));
           },
         }
       );
@@ -134,13 +136,13 @@ export default function AddNewBannerModal({
           setShowModal(false);
           reset();
           handleRemoveLogo();
-          toast.success("تم إضافة الرابط بنجاح");
+          toast.success(t("dashboard.bannerModal.addSuccess"));
           queryClient.invalidateQueries({
             queryKey: ["image-banners"],
           });
         },
         onError: (error) => {
-          toast.error(error.message || "حدث خطأ في الإضافة");
+          toast.error(error.message || t("dashboard.bannerModal.addError"));
         },
       });
     }
@@ -157,7 +159,7 @@ export default function AddNewBannerModal({
       }}
     >
       <Modal.Header closeButton>
-        {isEdit ? "تعديل الافتة" : "اضف لافتة"}
+        {isEdit ? t("dashboard.bannerModal.editBanner") : t("dashboard.bannerModal.addBanner")}
       </Modal.Header>
       <Modal.Body>
         <div className="row">
@@ -170,7 +172,7 @@ export default function AddNewBannerModal({
               {preview ? (
                 <img src={preview} alt="preview" className="banner-preview" />
               ) : (
-                <p>اسحب الصورة هنا أو انقر لاختيارها</p>
+                <p>{t("dashboard.bannerModal.dragOrClick")}</p>
               )}
             </div>{" "}
           </div>
@@ -178,10 +180,10 @@ export default function AddNewBannerModal({
             <div className="buttons  justify-content-end">
               <CustomButton onClick={handleSubmit(onSubmit)} fullWidth>
                 {isPending || updateBannerLoading
-                  ? "جاري..."
+                  ? t("dashboard.bannerModal.loading")
                   : isEdit
-                  ? "تحديث"
-                  : "اضف"}
+                  ? t("dashboard.bannerModal.update")
+                  : t("dashboard.bannerModal.add")}
               </CustomButton>
             </div>
           </div>

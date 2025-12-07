@@ -143,7 +143,7 @@ export default function AddConsultationModal({ showModal, setShowModal }) {
                 size="large"
                 type="submit"
               >
-                {t("add")}
+                {t("send")}
               </CustomButton>
             </div>
           </div>

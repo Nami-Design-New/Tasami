@@ -10,13 +10,14 @@ import { PAGE_SIZE } from "../../../utils/constants";
 import useGetImageBanner from "../../../hooks/dashboard/websiteManagment/imageBanners/useGetImageBanner";
 import useDeleteImageBanner from "../../../hooks/dashboard/websiteManagment/imageBanners/useDeleteImageBanner";
 import TablePagination from "../../../ui/table/TablePagentaion";
+import { useTranslation } from "react-i18next";
 
 const columnHelper = createColumnHelper();
 export default function Banners() {
+  const { t } = useTranslation();
   const [showDeleteModal, setShowDeleteModal] = useState();
   const [showAddBanner, setShowAddBanner] = useState(false);
   const [isEdit, setIsEdit] = useState(false);
-  const [showModal, setShowModal] = useState();
 
   const queryClient = useQueryClient();
 
@@ -46,33 +47,16 @@ export default function Banners() {
     });
   };
 
-  const data = useMemo(
-    () => [
-      {
-        id: "1",
-        image: "/images/dashboard/silver-package.svg",
-      },
-      {
-        id: "2",
-        image: "/images/dashboard/platinum-package.svg",
-      },
-      {
-        id: "3",
-        image: "/images/dashboard/golden-package.svg",
-      },
-    ],
-    []
-  );
   const columns = useMemo(
     () => [
       columnHelper.accessor("image", {
-        header: " الافتة ",
+        header: t("dashboard.banner.tableHeader"),
         cell: (info) => <img width={40} height={40} src={info.getValue()} />,
       }),
 
       columnHelper.display({
         id: "id",
-        header: " الاجراءات",
+        header: t("dashboard.banner.actions"),
 
         cell: (info) => (
           <div className="table__actions">
@@ -110,15 +94,15 @@ export default function Banners() {
             setIsEdit(false);
           }}
         >
-          اضف لافتة
+          {t("dashboard.banner.addBanner")}
         </CustomButton>
       </div>{" "}
       <ReusableDataTable
-        title="الافتات الاعلانية"
+        title={t("dashboard.banner.tableTitle")}
         data={imageBanner || []}
         columns={columns}
         filter={false}
-        searchPlaceholder="البحث في الافتات  ..."
+        searchPlaceholder={t("dashboard.banner.searchPlaceholder")}
         initialPageSize={10}
         currentPage={currentPage}
         lastPage={lastPage}

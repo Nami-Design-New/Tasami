@@ -51,7 +51,6 @@ import OperatingSectors from "../routes/dash-board/list-management/OperatingSect
 import WorkingGroups from "../routes/dash-board/list-management/WorkingGroups";
 import ModelComponent from "../routes/dash-board/ModelComponent";
 import Notifications from "../routes/dash-board/Notifications";
-import ActiveTab from "../routes/dash-board/reports/ActiveTab";
 import Reports from "../routes/dash-board/reports/Reports";
 import ResuemeDetails from "../routes/dash-board/resuems/ResuemeDetails";
 import Tasks from "../routes/dash-board/tasks/Tasks";
@@ -144,6 +143,11 @@ import PostDashDetails from "../routes/dash-board/community-dashboard/PostDashDe
 import PersonalGoalDetails from "../routes/dash-board/teams/PersonalGoalDetails";
 import MyServicesDetails from "../routes/dash-board/teams/MyServicesDetails";
 import WithdrawRequests from "../routes/dash-board/WithdrawRequests";
+import ProgramsDetails from "../routes/dash-board/teams/ProgramsDetails";
+import ActiveUserTab from "../routes/dash-board/reports/ActiveUserTab";
+import ActiveServiceTab from "../routes/dash-board/reports/ActiveServiceTab";
+import ContractsTab from "../routes/dash-board/reports/ContractsTab";
+import CommunitiesTab from "../routes/dash-board/reports/CommunitesTab";
 
 export const router = createBrowserRouter([
   /* WEBSITE AUTH */
@@ -611,6 +615,10 @@ export const router = createBrowserRouter([
         path: "services/:id",
         element: <MyServicesDetails />,
       },
+      {
+        path: "programs/:id",
+        element: <ProgramsDetails />,
+      },
 
       {
         path: "create-employee",
@@ -670,27 +678,27 @@ export const router = createBrowserRouter([
         children: [
           {
             index: true,
-            element: <ActiveTab />,
+            element: <ActiveUserTab />,
           },
           {
             path: "users",
-            element: <ActiveTab />,
+            element: <ActiveUserTab />,
           },
           {
             path: "services",
-            element: <ActiveTab />,
+            element: <ActiveServiceTab />,
           },
           {
             path: "contracts",
-            element: <ActiveTab />,
+            element: <ContractsTab />,
           },
           {
             path: "communities",
-            element: <ActiveTab />,
+            element: <CommunitiesTab />,
           },
           {
             path: "sales",
-            element: <ActiveTab />,
+            element: <ActiveUserTab />,
           },
         ],
       },

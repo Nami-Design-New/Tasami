@@ -1,170 +1,158 @@
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import ColumnChart from "../../../ui/dash-board/charts/ColumnChart";
 import ReusableDataTable from "../../../ui/table/ReusableDataTable";
 import { createColumnHelper } from "@tanstack/react-table";
 import { Link } from "react-router";
 import { Badge } from "react-bootstrap";
-
-const usersSeries = [
-  { name: "عروض المساعده ", data: ["450", "211", "150"] },
-  { name: "بإنتظار التنفيذ", data: ["100", "30", "30"] },
-  { name: "قيد التنفيذ", data: ["110", "20", "60"] },
-  { name: "مكتملة", data: ["200", "100", "40"] },
-  { name: "  المحذوفة", data: ["40", "30", "20"] },
-];
-
-const usersCategories = [
-  "(اساسي) مقدم مساعده",
-  "(متميز) مقدم مساعده",
-  "(رواد) مقدم مساعده",
-];
-
-const usersOptions = {
-  chart: {
-    type: "bar",
-    height: 350,
-    toolbar: { show: true },
-  },
-  plotOptions: {
-    bar: {
-      horizontal: false,
-      columnWidth: "12%",
-      barHeight: "100%",
-      endingShape: "rounded",
-      borderRadius: 5,
-      borderRadiusApplication: "end",
-      distributed: false,
-    },
-  },
-  dataLabels: {
-    enabled: false,
-  },
-  xaxis: {
-    categories: usersCategories,
-    labels: {
-      style: {
-        fontSize: "14px",
-      },
-    },
-  },
-  yaxis: {
-    labels: {
-      style: {
-        fontSize: "12px",
-      },
-    },
-  },
-  colors: ["#8c137e", "#007BFF", "#FFC107", "#28A745", "#DC3545"],
-  tooltip: {
-    y: {
-      formatter: (val) => `${val} عروض مساعده`,
-    },
-  },
-  legend: {
-    position: "top",
-    horizontalAlign: "center",
-  },
-};
+import { PAGE_SIZE } from "../../../utils/constants";
+import useGetAssistantOffers from "../../../hooks/dashboard/subscription/assistantOffers/useGetAssistantOffers";
+import TablePagination from "../../../ui/table/TablePagentaion";
+import { useTranslation } from "react-i18next";
 
 const columnHelper = createColumnHelper();
 
 const Programs = () => {
-  const data = useMemo(
-    () => [
-      {
-        programNumber: "SO-210425-000001",
-        date: "21-04-2025",
-        status: "مكتمل",
-        accountNumber: "U-020522-000215",
-        accountType: "متميز",
-        IdNumber: "01-014-003",
-        field: "الهندسة",
-        Specialization: "مدني",
-        activeContracts: 3,
-        completeContracts: 5,
-        canceledContracts: 122,
-        numbrOfUseres: 120,
-        rate: 4.5,
-      },
-      {
-        programNumber: "SO-210425-000002",
-        date: "21-04-2025",
-        status: "محذوف",
-        accountNumber: "U-020522-000216",
-        accountType: "رواد",
-        IdNumber: "01-014-003",
-        field: "المالية",
-        Specialization: "محاسبة",
-        activeContracts: 1,
-        completeContracts: 2,
-        canceledContracts: 220,
-        numbrOfUseres: 45,
-        rate: "-",
-      },
-      {
-        programNumber: "SO-210425-000003",
-        date: "21-04-2025",
-        status: "قيد التنفيذ",
-        accountNumber: "U-020522-000217",
-        accountType: "رواد",
-        IdNumber: "01-014-003",
-        field: "المالية",
-        Specialization: "محاسبة",
-        activeContracts: 1,
-        completeContracts: 2,
-        canceledContracts: 220,
-        numbrOfUseres: 45,
-        rate: "-",
-      },
-      {
-        programNumber: "SO-210425-000004",
-        date: "21-04-2025",
-        status: "بانتظار التنفيذ",
-        accountNumber: "U-020522-000218",
-        accountType: "رواد",
-        IdNumber: "01-014-003",
-        field: "المالية",
-        Specialization: "محاسبة",
-        activeContracts: 1,
-        completeContracts: 2,
-        canceledContracts: 220,
-        numbrOfUseres: 45,
-        rate: "-",
-      },
-    ],
-    []
-  );
+  const { t } = useTranslation();
+  const [page, setPage] = useState(1);
+  const [pageSize, setPageSize] = useState(PAGE_SIZE);
+  const { assistantOffersData, currentPage, lastPage, isLoading } =
+    useGetAssistantOffers("", page, PAGE_SIZE);
 
+  // const usersSeries = [
+  //   {
+  //     name: "عروض المساعده ",
+  //     data:
+  //       assistantOffersData?.packages?.map((item) => item.total_users) || [],
+  //   },
+  //   {
+  //     name: "بإنتظار التنفيذ",
+  //     data:
+  //       assistantOffersData?.packages?.map((item) => item.communities_count) ||
+  //       [],
+  //   },
+  //   {
+  //     name: "قيد التنفيذ",
+  //     data:
+  //       assistantOffersData?.packages?.map(
+  //         (item) => item.communities_members
+  //       ) || [],
+  //   },
+  //   {
+  //     name: "مكتملة",
+  //     data:
+  //       assistantOffersData?.packages?.map((item) => item.communities_count) ||
+  //       [],
+  //   },
+  //   {
+  //     name: "المحذوفة",
+  //     data:
+  //       assistantOffersData?.packages?.map((item) => item.communities_posts) ||
+  //       [],
+  //   },
+  // ];
+
+  const usersSeries = [
+    {
+      name: t("dashboard.programs.assistantOffers"),
+      data: ["450", "211", "150"],
+    },
+    { name: t("dashboard.programs.pending"), data: ["100", "30", "30"] },
+    { name: t("dashboard.programs.inProgress"), data: ["110", "20", "60"] },
+    { name: t("dashboard.programs.completed"), data: ["200", "100", "40"] },
+    { name: t("dashboard.programs.deleted"), data: ["40", "30", "20"] },
+  ];
+
+  const usersCategories = [
+    t("dashboard.programs.basicHelper"),
+    t("dashboard.programs.premiumHelper"),
+    t("dashboard.programs.leadersHelper"),
+  ];
+
+  const usersOptions = {
+    chart: {
+      type: "bar",
+      height: 350,
+      toolbar: { show: true },
+    },
+    plotOptions: {
+      bar: {
+        horizontal: false,
+        columnWidth: "12%",
+        barHeight: "100%",
+        endingShape: "rounded",
+        borderRadius: 5,
+        borderRadiusApplication: "end",
+        distributed: false,
+      },
+    },
+    dataLabels: {
+      enabled: false,
+    },
+    xaxis: {
+      categories: usersCategories,
+      labels: {
+        style: {
+          fontSize: "14px",
+        },
+      },
+    },
+    //   xaxis: {
+    //   categories:
+    //     assistantOffersData?.packages?.map((item) => item.package) || [],
+    //   labels: { style: { fontSize: "14px" } },
+    // },
+    yaxis: {
+      labels: {
+        style: {
+          fontSize: "12px",
+        },
+      },
+    },
+    colors: ["#8c137e", "#007BFF", "#FFC107", "#28A745", "#DC3545"],
+    tooltip: {
+      y: {
+        formatter: (val) =>
+          `${val} ${t("dashboard.programs.assistantOffers")} `,
+      },
+    },
+    legend: {
+      position: "top",
+      horizontalAlign: "center",
+    },
+  };
   const columns = useMemo(
     () => [
-      columnHelper.accessor("programNumber", {
-        header: "الخدمه",
+      columnHelper.accessor("code", {
+        header: t("dashboard.programs.service"),
         cell: (info) => (
-          <Link to={`/model/${info.getValue()}`} className="link-styles">
+          <Link
+            to={`/dashboard/programs/${info?.row.original.id}`}
+            className="link-styles"
+          >
             {info.getValue()}
           </Link>
         ),
         enableSorting: false,
       }),
-      columnHelper.accessor("date", {
-        header: " التاريخ ",
-        cell: (info) => info.getValue(),
+      columnHelper.accessor("created_at", {
+        header: t("dashboard.programs.date"),
+        cell: (info) => info.getValue() || "-",
       }),
-      columnHelper.accessor("status", {
-        header: " الحاله ",
+      columnHelper.accessor("user.status", {
+        header: t("dashboard.programs.status"),
         cell: (info) => {
           let badgeColor;
           switch (info.getValue()) {
-            case "مكتمل":
+            case "active":
               badgeColor = "#28a745";
               break;
-            case "بانتظار التنفيذ":
+            case "isPending":
               badgeColor = "#ffc107  ";
               break;
             case "قيد التنفيذ":
               badgeColor = "#007bff";
               break;
-            case "محذوف":
+            case "deleted":
               badgeColor = "#dc3545";
               break;
             default:
@@ -181,65 +169,65 @@ const Programs = () => {
                 fontWeight: "400",
               }}
             >
-              {info.getValue()}
+              {info.getValue() || "-"}
             </Badge>
           );
         },
       }),
-      columnHelper.accessor("accountNumber", {
-        header: "رقم الحساب",
+      columnHelper.accessor("user.account_code", {
+        header: t("dashboard.programs.accountNumber"),
         cell: (info) => (
           <Link
-            to={`/dashboard/user-details/${info.getValue()}`}
-            className="link-styles"
+            to={`/dashboard/user-details/${info?.row?.original.user?.id}`}
+            className={info.getValue() ? "link-styles" : ""}
           >
-            {info.getValue()}
+            {info.getValue() || "-"}
           </Link>
         ),
         enableSorting: false,
       }),
-      columnHelper.accessor("accountType", {
-        header: "نوع الحساب",
-        cell: (info) => info.getValue(),
+      columnHelper.accessor("user.account_type", {
+        header: t("dashboard.programs.accountType"),
+        cell: (info) => info.getValue() || "-",
         enableSorting: false,
       }),
 
-      columnHelper.accessor("IdNumber", {
-        header: "رقم التعريف",
+      columnHelper.accessor("user.identify_code", {
+        header: t("dashboard.programs.idNumber"),
         // cell: (info) => (
         //   <Link to={`/model/${info.getValue()}`} className="link-styles">
         //     {info.getValue()}
         //   </Link>
         // ),
-        cell: (info) => info.getValue(),
+        cell: (info) => info.getValue() || "-",
       }),
-      columnHelper.accessor("field", {
-        header: "المجال",
-        cell: (info) => info.getValue(),
+      columnHelper.accessor("category.title", {
+        header: t("dashboard.programs.field"),
+        cell: (info) => info.getValue() || "-",
       }),
-      columnHelper.accessor("Specialization", {
-        header: " التخصص ",
-        cell: (info) => info.getValue(),
+      columnHelper.accessor("sub_category.title", {
+        header: t("dashboard.programs.specialization"),
+        cell: (info) => info.getValue() || "-",
       }),
-      columnHelper.accessor("activeContracts", {
-        header: " العقود النشطه ",
-        cell: (info) => info.getValue(),
+      columnHelper.accessor("active_contracts", {
+        header: t("dashboard.programs.activeContracts"),
+        cell: (info) => info.getValue() || "-",
       }),
-      columnHelper.accessor("completeContracts", {
-        header: " العقود المكتمله ",
-        cell: (info) => info.getValue(),
+      columnHelper.accessor("completed_contracts", {
+        header: t("dashboard.programs.completedContracts"),
+        cell: (info) => info.getValue() || "-",
       }),
-      columnHelper.accessor("canceledContracts", {
-        header: " القيمه ",
-        cell: (info) => info.getValue(),
+      columnHelper.accessor("price", {
+        header: t("dashboard.programs.price"),
+        cell: (info) => info.getValue() || "-",
       }),
-      columnHelper.accessor("numbrOfUseres", {
-        header: "عدد المستفيدين",
-        cell: (info) => info.getValue(),
+      columnHelper.accessor("benefits", {
+        header: t("dashboard.programs.beneficiaries"),
+        cell: (info) => info.getValue() || "-",
       }),
       columnHelper.accessor("rate", {
-        header: "التقييم",
-        cell: (info) => info.getValue(),
+        header: t("dashboard.programs.rate"),
+        cell: (info) => info.getValue() || "-",
       }),
     ],
     []
@@ -252,19 +240,32 @@ const Programs = () => {
           <ColumnChart
             series={usersSeries}
             options={usersOptions}
-            title={"عروض المساعده"}
+            title={t("dashboard.programs.assistantOffers")}
           />
         </div>
         <div className="col-12">
           <ReusableDataTable
-            title="عروض المساعده"
+            title={t("dashboard.programs.assistantOffers")}
             filter={false}
-            data={data}
+            data={assistantOffersData?.data || []}
             columns={columns}
             lang="ar"
             initialPageSize={10}
-            searchPlaceholder="البحث في عروض المساعده"
-          />
+            searchPlaceholder={t("dashboard.programs.searchInOffers")}
+            currentPage={currentPage}
+            lastPage={lastPage}
+            setPage={setPage}
+            pageSize={pageSize}
+            setPageSize={setPageSize}
+            isLoading={isLoading}
+          >
+            <TablePagination
+              currentPage={page}
+              lastPage={lastPage}
+              onPageChange={setPage}
+              isLoading={isLoading}
+            />
+          </ReusableDataTable>
         </div>
       </div>
     </section>

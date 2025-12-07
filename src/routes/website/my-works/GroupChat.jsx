@@ -13,6 +13,8 @@ import InfiniteScroll from "../../../ui/loading/InfiniteScroll";
 import RoundedBackButton from "../../../ui/website-auth/shared/RoundedBackButton";
 import { GroupChatSocketService } from "../../../utils/GroupChatService";
 import { getToken } from "../../../utils/token";
+import useUpdateGroupChatCounter from "../../../hooks/website/my-groups/useUpdateGroupChatCounter";
+import useGetGroupDetails from "../../../hooks/website/my-groups/useGetGroupDetails";
 
 const getMessageType = (file) => {
   if (!file) return "text";
@@ -48,6 +50,7 @@ export default function GroupChat() {
   const queryClient = useQueryClient();
   //   const { lang } = useSelector((state) => state.language);
   const { user } = useSelector((state) => state.authRole);
+  const { groupDetails } = useGetGroupDetails();
 
   // ===== States =====
   const [selectedFile, setSelectedFile] = useState(null);
@@ -284,6 +287,26 @@ export default function GroupChat() {
     setSelectedFile(null);
   };
 
+  // ============ update chat counter when scroll to end of chat box ==========//
+  const { mutate: updateCounter } = useUpdateGroupChatCounter();
+  const [updated, setUpdated] = useState(false);
+
+  const isLogedUser = user?.id === groupDetails?.helper_id;
+
+  const handleScroll = (e) => {
+    const target = e.target;
+
+    const isAtBottom =
+      Math.abs(target.scrollHeight - target.clientHeight - target.scrollTop) <
+      3;
+
+    if (isAtBottom && !updated && isLogedUser) {
+      updateCounter();
+      setUpdated(true);
+    }
+  };
+
+  //====== end update chat counter =========//
   // ===== RENDER =====
   return (
     <div className="container">
@@ -317,7 +340,11 @@ export default function GroupChat() {
           </div>
 
           {/* ===== Messages ===== */}
-          <div className="chat-window__messages" ref={chatContainerRef}>
+          <div
+            onScroll={handleScroll}
+            className="chat-window__messages"
+            ref={chatContainerRef}
+          >
             <InfiniteScroll
               onLoadMore={fetchNextPage}
               hasNextPage={hasNextPage}

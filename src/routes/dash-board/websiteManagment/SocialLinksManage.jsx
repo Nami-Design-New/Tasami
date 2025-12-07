@@ -10,17 +10,19 @@ import useGetSocialLinks from "../../../hooks/dashboard/websiteManagment/socialL
 import TablePagination from "../../../ui/table/TablePagentaion";
 import useDeleteSocialLink from "../../../hooks/dashboard/websiteManagment/socialLinksManage/useDeleteSocialLink";
 import { PAGE_SIZE } from "../../../utils/constants";
+import { useTranslation } from "react-i18next";
 
 const columnHelper = createColumnHelper();
 
 export default function SocialLinksManage() {
+  const { t } = useTranslation();
   const [showModal, setShowModal] = useState();
   const [showDeleteModal, setShowDeleteModal] = useState();
   const [isEdit, setIsEdit] = useState(false);
 
   const queryClient = useQueryClient();
 
-  const lang = localStorage.getItem("i18nextLng");
+  // const lang = localStorage.getItem("i18nextLng");
 
   // fetch data
   const [page, setPage] = useState(1);
@@ -51,7 +53,7 @@ export default function SocialLinksManage() {
   const columns = useMemo(
     () => [
       columnHelper.accessor("link", {
-        header: " الرابط ",
+        header: t("dashboard.socialLinks.link"),
         cell: (info) => (
           <a href={info.getValue()} target="_blank" rel="noopener noreferrer">
             {info.getValue()}
@@ -59,7 +61,7 @@ export default function SocialLinksManage() {
         ),
       }),
       columnHelper.accessor("logo", {
-        header: " الصوره ",
+        header: t("dashboard.socialLinks.logo"),
         cell: (info) => (
           <img
             style={{ width: "2rem", height: "2rem" }}
@@ -70,7 +72,7 @@ export default function SocialLinksManage() {
 
       columnHelper.accessor("id", {
         id: "id",
-        header: " الاجراءات",
+        header: t("dashboard.socialLinks.actions"),
 
         cell: (info) => (
           <div className="table__actions">
@@ -109,15 +111,15 @@ export default function SocialLinksManage() {
             setIsEdit(false);
           }}
         >
-          اضف رابط
+          {t("dashboard.socialLinks.add")}
         </CustomButton>
       </div>
       <ReusableDataTable
-        title="روابط التواصل الاجتماعي"
+        title={t("dashboard.socialLinks.title")}
         data={socialLinks || []}
         columns={columns}
         filter={false}
-        searchPlaceholder="البحث في الروابط  ..."
+        searchPlaceholder={t("dashboard.socialLinks.search")}
         initialPageSize={10}
         currentPage={currentPage}
         lastPage={lastPage}

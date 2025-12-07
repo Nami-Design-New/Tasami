@@ -319,224 +319,227 @@ const EmployerDataForm = ({ isEdit }) => {
 
   return (
     <>
-      <form className="form_ui" onSubmit={handleSubmit(onSubmit)}>
-        {/* Employment Data */}
-        <FormWrapper title={t("dashboard.createEmployee.form.employmentData")}>
-          <div className="row">
-            {/* Job Level */}
-            <div className="col-12 col-md-6 col-xxl-4 p-2">
-              <SelectField
-                label={t("dashboard.createEmployee.form.jobLevel")}
-                disableFiledValue={t(
-                  "dashboard.createEmployee.form.selectJobLevel"
-                )}
-                loading={rolesLoading}
-                error={errors.jobLevel?.message}
-                {...register("jobLevel")}
-                options={roles?.data.map((role) => ({
-                  value: role?.id,
-                  name: role?.title,
-                }))}
-              />
-            </div>
+      {employeeLoading ? (
+        <form className="form_ui" onSubmit={handleSubmit(onSubmit)}>
+          {/* Employment Data */}
+          <FormWrapper
+            title={t("dashboard.createEmployee.form.employmentData")}
+          >
+            <div className="row">
+              {/* Job Level */}
+              <div className="col-12 col-md-6 col-xxl-4 p-2">
+                <SelectField
+                  label={t("dashboard.createEmployee.form.jobLevel")}
+                  disableFiledValue={t(
+                    "dashboard.createEmployee.form.selectJobLevel"
+                  )}
+                  loading={rolesLoading}
+                  error={errors.jobLevel?.message}
+                  {...register("jobLevel")}
+                  options={roles?.data.map((role) => ({
+                    value: role?.id,
+                    name: role?.title,
+                  }))}
+                />
+              </div>
 
-            {/* Job Title */}
-            <div className="col-12 col-md-6 col-xxl-4 p-2">
-              <InputField
-                label={t("dashboard.createEmployee.form.jobTitle")}
-                placeholder={t(
-                  "dashboard.createEmployee.form.jobTitle_placeholder"
-                )}
-                error={errors.jobTitle?.message}
-                {...register("jobTitle")}
-              />
-            </div>
+              {/* Job Title */}
+              <div className="col-12 col-md-6 col-xxl-4 p-2">
+                <InputField
+                  label={t("dashboard.createEmployee.form.jobTitle")}
+                  placeholder={t(
+                    "dashboard.createEmployee.form.jobTitle_placeholder"
+                  )}
+                  error={errors.jobTitle?.message}
+                  {...register("jobTitle")}
+                />
+              </div>
 
-            {/* Account Number */}
-            {isEdit && (
-              <>
-                <div className="col-12 col-md-6 col-xxl-4 p-2">
-                  <InputField
-                    label={t("dashboard.createEmployee.form.accountNumber")}
-                    placeholder="EX: D-140123-00001"
-                    disabled
-                    {...register("accountNumber")}
-                    error={errors.accountNumber?.message}
-                  />
-                </div>
-                <div className="col-12 col-md-6 col-xxl-4 p-2">
-                  <InputField
-                    label={t("dashboard.createEmployee.form.date")}
-                    type="date"
-                    disabled
-                    {...register("date")}
-                    error={errors.date?.message}
-                    value={new Date().toISOString().split("T")[0]}
-                  />
-                </div>
-              </>
-            )}
+              {/* Account Number */}
+              {isEdit && (
+                <>
+                  <div className="col-12 col-md-6 col-xxl-4 p-2">
+                    <InputField
+                      label={t("dashboard.createEmployee.form.accountNumber")}
+                      placeholder="EX: D-140123-00001"
+                      disabled
+                      {...register("accountNumber")}
+                      error={errors.accountNumber?.message}
+                    />
+                  </div>
+                  <div className="col-12 col-md-6 col-xxl-4 p-2">
+                    <InputField
+                      label={t("dashboard.createEmployee.form.date")}
+                      type="date"
+                      disabled
+                      {...register("date")}
+                      error={errors.date?.message}
+                      value={new Date().toISOString().split("T")[0]}
+                    />
+                  </div>
+                </>
+              )}
 
-            {/* Group */}
-            <div className="col-12 col-md-6 col-xxl-4 p-2">
-              <Controller
-                name="group"
-                control={control}
-                render={({ field }) => (
-                  <SelectFieldReactSelect
-                    label={t("dashboard.createEmployee.form.group")}
-                    options={groups}
-                    loading={isLoading || isFetchingNextPage}
-                    value={field.value}
-                    onChange={field.onChange}
-                    error={errors.group?.message}
-                    onMenuScrollToBottom={() => {
-                      if (hasNextPage) fetchNextPage();
-                    }}
-                  />
-                )}
-              />
-            </div>
+              {/* Group */}
+              <div className="col-12 col-md-6 col-xxl-4 p-2">
+                <Controller
+                  name="group"
+                  control={control}
+                  render={({ field }) => (
+                    <SelectFieldReactSelect
+                      label={t("dashboard.createEmployee.form.group")}
+                      options={groups}
+                      loading={isLoading || isFetchingNextPage}
+                      value={field.value}
+                      onChange={field.onChange}
+                      error={errors.group?.message}
+                      onMenuScrollToBottom={() => {
+                        if (hasNextPage) fetchNextPage();
+                      }}
+                    />
+                  )}
+                />
+              </div>
 
-            {/* Region, Sector, City */}
-            <div className="col-12 col-md-6 col-xxl-4 p-2">
-              <Controller
-                name="region"
-                control={control}
-                render={({ field }) => (
-                  <SelectField
-                    label={t("dashboard.createEmployee.form.region")}
-                    options={flattened.map((g) => ({
-                      value: g.region?.id,
-                      name: g.region?.title,
-                    }))}
-                    disabled={true}
-                    value={field.value}
-                  />
-                )}
-              />
-            </div>
-            <div className="col-12 col-md-6 col-xxl-4 p-2">
-              <Controller
-                name="sector"
-                control={control}
-                render={({ field }) => (
-                  <SelectField
-                    label={t("dashboard.createEmployee.form.country")}
-                    options={flattened.map((g) => ({
-                      value: g.country?.id,
-                      name: g.country?.title,
-                    }))}
-                    disabled={true}
-                    value={field.value}
-                  />
-                )}
-              />
-            </div>
-            <div className="col-12 col-md-6 col-xxl-4 p-2">
-              <Controller
-                name="city"
-                control={control}
-                render={({ field }) => (
-                  <SelectField
-                    label={t("dashboard.createEmployee.form.city")}
-                    options={flattened.map((g) => ({
-                      value: g.city?.id,
-                      name: g.city?.title,
-                    }))}
-                    disabled={true}
-                    value={field.value}
-                  />
-                )}
-              />
-            </div>
-          </div>
-        </FormWrapper>
-
-        {/* Personal Data */}
-        <FormWrapper title={t("dashboard.createEmployee.form.personalData")}>
-          <div className="row">
-            {/* Profile Image */}
-            <div className="col-12 p-2">
-              <div className="d-flex align-items-center justify-content-center">
-                <ProfileImageUploader
-                  imageUrl={image}
-                  onChange={handleUpload}
+              {/* Region, Sector, City */}
+              <div className="col-12 col-md-6 col-xxl-4 p-2">
+                <Controller
+                  name="region"
+                  control={control}
+                  render={({ field }) => (
+                    <SelectField
+                      label={t("dashboard.createEmployee.form.region")}
+                      options={flattened.map((g) => ({
+                        value: g.region?.id,
+                        name: g.region?.title,
+                      }))}
+                      disabled={true}
+                      value={field.value}
+                    />
+                  )}
+                />
+              </div>
+              <div className="col-12 col-md-6 col-xxl-4 p-2">
+                <Controller
+                  name="sector"
+                  control={control}
+                  render={({ field }) => (
+                    <SelectField
+                      label={t("dashboard.createEmployee.form.country")}
+                      options={flattened.map((g) => ({
+                        value: g.country?.id,
+                        name: g.country?.title,
+                      }))}
+                      disabled={true}
+                      value={field.value}
+                    />
+                  )}
+                />
+              </div>
+              <div className="col-12 col-md-6 col-xxl-4 p-2">
+                <Controller
+                  name="city"
+                  control={control}
+                  render={({ field }) => (
+                    <SelectField
+                      label={t("dashboard.createEmployee.form.city")}
+                      options={flattened.map((g) => ({
+                        value: g.city?.id,
+                        name: g.city?.title,
+                      }))}
+                      disabled={true}
+                      value={field.value}
+                    />
+                  )}
                 />
               </div>
             </div>
-            {/* First Name */}
-            <div className="col-12 col-md-6 col-xxl-4 p-2">
-              <InputField
-                label={t("dashboard.createEmployee.form.firstName")}
-                placeholder={t(
-                  "dashboard.createEmployee.form.firstName_placeholder"
-                )}
-                {...register("firstName")}
-                error={errors.firstName?.message}
-              />
-            </div>
-            {/* Father Name */}
-            <div className="col-12 col-md-6 col-xxl-4 p-2">
-              <InputField
-                label={t("dashboard.createEmployee.form.fatherName")}
-                placeholder={t(
-                  "dashboard.createEmployee.form.fatherName_placeholder"
-                )}
-                {...register("fatherName")}
-                error={errors.fatherName?.message}
-              />
-            </div>
-            {/* Family Name */}
-            <div className="col-12 col-md-6 col-xxl-4 p-2">
-              <InputField
-                label={t("dashboard.createEmployee.form.familyName")}
-                placeholder={t(
-                  "dashboard.createEmployee.form.familyName_placeholder"
-                )}
-                {...register("familyName")}
-                error={errors.familyName?.message}
-              />
-            </div>
-            {/* Birthdate */}
-            <div className="col-12 col-md-6 col-xxl-4 p-2">
-              <InputField
-                label={t("dashboard.createEmployee.form.birthDate")}
-                type="date"
-                {...register("birthdate")}
-                error={errors.birthdate?.message}
-              />
-            </div>
-            {/* Email */}
-            <div className="col-12 col-md-6 col-xxl-4 p-2">
-              <InputField
-                label={t("dashboard.createEmployee.form.email")}
-                type="email"
-                placeholder={t(
-                  "dashboard.createEmployee.form.email_placeholder"
-                )}
-                error={errors.email?.message}
-                {...register("email")}
-              />
-            </div>
-            {/* Gender */}
-            <div className="col-12 col-md-6 col-xxl-4 p-2">
-              <SelectField
-                label={t("dashboard.createEmployee.form.gender")}
-                options={[
-                  {
-                    value: "male",
-                    name: t("dashboard.createEmployee.form.gender_male"),
-                  },
-                  {
-                    value: "female",
-                    name: t("dashboard.createEmployee.form.gender_female"),
-                  },
-                ]}
-                {...register("gender")}
-                error={errors.gender?.message}
-              />
-            </div>
+          </FormWrapper>
+
+          {/* Personal Data */}
+          <FormWrapper title={t("dashboard.createEmployee.form.personalData")}>
+            <div className="row">
+              {/* Profile Image */}
+              <div className="col-12 p-2">
+                <div className="d-flex align-items-center justify-content-center">
+                  <ProfileImageUploader
+                    imageUrl={image}
+                    onChange={handleUpload}
+                  />
+                </div>
+              </div>
+              {/* First Name */}
+              <div className="col-12 col-md-6 col-xxl-4 p-2">
+                <InputField
+                  label={t("dashboard.createEmployee.form.firstName")}
+                  placeholder={t(
+                    "dashboard.createEmployee.form.firstName_placeholder"
+                  )}
+                  {...register("firstName")}
+                  error={errors.firstName?.message}
+                />
+              </div>
+              {/* Father Name */}
+              <div className="col-12 col-md-6 col-xxl-4 p-2">
+                <InputField
+                  label={t("dashboard.createEmployee.form.fatherName")}
+                  placeholder={t(
+                    "dashboard.createEmployee.form.fatherName_placeholder"
+                  )}
+                  {...register("fatherName")}
+                  error={errors.fatherName?.message}
+                />
+              </div>
+              {/* Family Name */}
+              <div className="col-12 col-md-6 col-xxl-4 p-2">
+                <InputField
+                  label={t("dashboard.createEmployee.form.familyName")}
+                  placeholder={t(
+                    "dashboard.createEmployee.form.familyName_placeholder"
+                  )}
+                  {...register("familyName")}
+                  error={errors.familyName?.message}
+                />
+              </div>
+              {/* Birthdate */}
+              <div className="col-12 col-md-6 col-xxl-4 p-2">
+                <InputField
+                  label={t("dashboard.createEmployee.form.birthDate")}
+                  type="date"
+                  {...register("birthdate")}
+                  error={errors.birthdate?.message}
+                />
+              </div>
+              {/* Email */}
+              <div className="col-12 col-md-6 col-xxl-4 p-2">
+                <InputField
+                  label={t("dashboard.createEmployee.form.email")}
+                  type="email"
+                  placeholder={t(
+                    "dashboard.createEmployee.form.email_placeholder"
+                  )}
+                  error={errors.email?.message}
+                  {...register("email")}
+                />
+              </div>
+              {/* Gender */}
+              <div className="col-12 col-md-6 col-xxl-4 p-2">
+                <SelectField
+                  label={t("dashboard.createEmployee.form.gender")}
+                  options={[
+                    {
+                      value: "male",
+                      name: t("dashboard.createEmployee.form.gender_male"),
+                    },
+                    {
+                      value: "female",
+                      name: t("dashboard.createEmployee.form.gender_female"),
+                    },
+                  ]}
+                  {...register("gender")}
+                  error={errors.gender?.message}
+                />
+              </div>
 
             {/* Nationality */}
 
@@ -636,23 +639,123 @@ const EmployerDataForm = ({ isEdit }) => {
                     >
                       {t("dashboard.createEmployee.form.cancel")}
                     </CustomButton>
-                    <CustomButton
-                      type="submit"
-                      color={allFieldsFilled ? "success" : "primary"}
-                      size="large"
-                      loading={isCreatingEmployee}
-                    >
-                      {allFieldsFilled
-                        ? t("dashboard.createEmployee.form.add")
-                        : t("dashboard.createEmployee.form.saveDraft")}
-                    </CustomButton>
-                  </>
-                )}
+              {/* Nationality */}
+
+//               <div className="col-12 col-md-6 col-xxl-4 p-2">
+//                 <Controller
+//                   name="nationality"
+//                   control={control}
+//                   render={({ field }) => (
+//                     <SelectField
+//                       loading={isNationaliesLoading}
+//                       label={t("profile.nationality")}
+//                       id="nationality"
+//                       options={nationalities?.data?.map((nationality) => ({
+//                         value: nationality.id,
+//                         name: nationality.title,
+//                       }))}
+//                       value={field.value}
+//                       onChange={field.onChange}
+//                       error={errors.nationality?.message}
+//                     />
+//                   )}
+//                 />
+//               </div>
+//               <div className="col-12 col-md-6 col-xxl-4 p-2">
+//                 <Controller
+//                   name="residentCountry"
+//                   control={control}
+//                   render={({ field }) => (
+//                     <SelectField
+//                       label={t("profile.country")}
+//                       loading={isCountriesLoading}
+//                       id="country"
+//                       options={countires?.map((country) => ({
+//                         value: country.id,
+//                         name: country.title,
+//                       }))}
+//                       value={field.value}
+//                       onChange={field.onChange}
+//                       error={errors.residentCountry?.message}
+//                     />
+//                   )}
+//                 />
+//               </div>
+//               <div className="col-12 col-md-6 col-xxl-4 p-2">
+//                 <Controller
+//                   name="residentCity"
+//                   control={control}
+//                   render={({ field }) => (
+//                     <SelectField
+//                       loading={isCitiesLoading}
+//                       label={t("profile.city")}
+//                       id="city"
+//                       options={cities?.data?.map((city) => ({
+//                         value: city.id,
+//                         name: city.title,
+//                       }))}
+//                       value={field.value}
+//                       onChange={field.onChange}
+//                       error={errors.residentCity?.message}
+//                     />
+//                   )}
+//                 />
+//               </div>
+              {/* Attachments */}
+//               <div className="col-12 p-2">
+//                 <FileUploader
+//                   files={files}
+//                   onFilesChange={handleFilesChange}
+//                   label={t("dashboard.createEmployee.form.attachFiles")}
+//                   onDelete={handleDeletefile}
+//                 />
+//               </div>
+              {/* Buttons */}
+//               <div className="col-12 p-2">
+//                 <div className="buttons w-full justify-content-end">
+//                   {isEdit ? (
+//                     <CustomButton
+//                       loading={isPending}
+//                       type="submit"
+//                       color={allFieldsFilled ? "success" : "primary"}
+//                       size="large"
+//                     >
+//                       {t("dashboard.createEmployee.form.edit")}
+//                     </CustomButton>
+//                   ) : (
+//                     <>
+//                       <CustomButton
+//                         type="button"
+//                         color="secondary"
+//                         size="large"
+//                         onClick={() => {
+//                           reset(); // reset form fields
+//                           setFiles([]); // reset attachments
+//                           setImage("/images/dashboard/avatar-placeholder.jpg"); // reset profile image
+//                         }}
+//                       >
+//                         {t("dashboard.createEmployee.form.cancel")}
+//                       </CustomButton>
+                      <CustomButton
+                        type="submit"
+                        color={allFieldsFilled ? "success" : "primary"}
+                        size="large"
+                        loading={isCreatingEmployee}
+                      >
+                        {allFieldsFilled
+                          ? t("dashboard.createEmployee.form.add")
+                          : t("dashboard.createEmployee.form.saveDraft")}
+                      </CustomButton>
+                    </>
+                  )}
+                </div>
               </div>
             </div>
-          </div>
-        </FormWrapper>
-      </form>
+          </FormWrapper>
+        </form>
+      ) : (
+        "loading...."
+      )}
     </>
   );
 };

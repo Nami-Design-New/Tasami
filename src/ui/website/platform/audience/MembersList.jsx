@@ -20,7 +20,7 @@ export default function MembersList() {
       {!isLoading && allMembers.length === 0 && (
         <EmptySection
           height="500px"
-          message={t("website.platform.audience.noFollowers")}
+          message={t("website.platform.audience.noMembers")}
         />
       )}
       <InfiniteScroll
