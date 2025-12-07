@@ -7,7 +7,7 @@ import useGetPerformanceReport from "./../../../hooks/dashboard/perfomanceReport
 import { Outlet, useLocation } from "react-router";
 
 const Reports = () => {
-  const { region, country, city, period } = useSelector(
+  const { region, country, city, period, fromDate, toDate } = useSelector(
     (state) => state.filter
   );
 
@@ -18,14 +18,16 @@ const Reports = () => {
     search_type = "users";
   }
 
-  console.log({ region, country, city, period });
+  console.log({ region, country, city, period, fromDate, toDate });
 
   const { performanceReportData, isLoading } = useGetPerformanceReport(
+    search_type,
     region,
     country,
     city,
     period,
-    search_type
+    fromDate,
+    toDate
   );
 
   return (

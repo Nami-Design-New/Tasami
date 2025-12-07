@@ -1,15 +1,15 @@
 import { useQuery } from "@tanstack/react-query";
 import { adminAxiosInstance } from "../../../lib/adminAxios";
 
-export default function useGetPerformanceReport(region_id, country_id, city_id, period, search_type) {
+export default function useGetPerformanceReport(search_type, region_id, country_id, city_id, period, start_date, end_date) {
   const {
     data: performanceReportData,
     isLoading,
   } = useQuery({
-    queryKey: ["performance-report-kpi", region_id, country_id, city_id, period, search_type],
+    queryKey: ["performance-report-kpi", search_type, region_id, country_id, city_id, period, start_date, end_date],
     queryFn: async () => {
       const res = await adminAxiosInstance.get("kpi", {
-        params: { region_id, country_id, city_id, period, search_type },
+        params: { search_type, region_id, country_id, city_id, period, start_date, end_date },
       });
 
       if (res.data.code !== 200) {
