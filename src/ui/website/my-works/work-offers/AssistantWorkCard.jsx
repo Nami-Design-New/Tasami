@@ -57,13 +57,16 @@ export default function AssistantWorkCard({
               )}
 
               {chat && (
-                <Link to={`/user-chat/${contractId}`} className="chat">
+                <Link  to={`/user-chat/${contractId}`} className="chat position-relative">
                   <img
                     src="/icons/chat-white-icon.svg"
                     alt="chat"
                     className="flag-icon "
                     loading="lazy"
                   />
+                  <span className="notification_span notification_position">
+                    97
+                  </span>
                 </Link>
               )}
             </footer>

@@ -11,7 +11,7 @@ export const ReportCard = ({
   return (
     <div className={`metric-card-${cardNumber} position-relative`}>
       <div className="d-flex align-items-center gap-2 mb-2">
-        <input type="checkbox" id={title} />
+        {/* <input type="checkbox" id={title} /> */}
         <label style={{ fontSize: "14px" }} htmlFor={title}>
           {title}
         </label>
@@ -25,6 +25,8 @@ export const ReportCard = ({
         {percentage !== undefined && value !== undefined && (
           <>
             {!riyal && <div className="seperatorDiv"></div>}
+            {riyal && percentage && <div className="seperatorDiv"></div>}
+
             <span className={`metric-percentage text-secondary`}>
               {percentage}%
             </span>

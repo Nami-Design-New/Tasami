@@ -18,7 +18,11 @@ export default function useGetChatsMessages() {
   } = useInfiniteQuery({
     queryKey: ["chat-room-messages", chatId],
     queryFn: async ({ pageParam = 1 }) => {
-      const res = await adminAxiosInstance.get(`dh-chat-messages/${chatId}`);
+      const res = await adminAxiosInstance.get(`dh-chat-messages/${chatId}`, {
+        params: {
+          page: pageParam, pagination: "on",
+        }
+      });
       if (res?.data?.code !== 200) {
         if (res.data.code === 404) {
           const err = new Error("Not Found");
@@ -36,11 +40,11 @@ export default function useGetChatsMessages() {
         : undefined;
     },
   });
-  useEffect(() => {
-    if (error && error.status === 404) {
-      navigate(-1, { replace: true });
-    }
-  }, [error, navigate]);
+  // useEffect(() => {
+  //   if (error && error.status === 404) {
+  //     navigate(-1, { replace: true });
+  //   }
+  // }, [error, navigate]);
   return {
     chatMessages,
     isLoading,

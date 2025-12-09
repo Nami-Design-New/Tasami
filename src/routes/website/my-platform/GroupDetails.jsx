@@ -118,6 +118,7 @@ export default function GroupDetails() {
               type="outlined"
             >
               {t("groupChats")}
+              <span className="notification_span">97</span>
             </CustomLink>
           </div>
           <div className="col-12 p-2">

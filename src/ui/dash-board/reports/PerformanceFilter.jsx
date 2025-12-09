@@ -11,9 +11,9 @@ import useGetRegions from "../../../hooks/dashboard/regions/useGetRegions";
 import { Form } from "react-bootstrap";
 import CustomButton from "../../CustomButton";
 import InputField from "../../forms/InputField";
-import SelectField from "../../forms/SelectField";
 import { useTranslation } from "react-i18next";
 import { useSearchParams } from "react-router";
+import SelectFieldReactSelect from "../../forms/SelectFieldReactSelect";
 
 const TIME_RANGES = [
   { value: "weekly", labelKey: "dashboard.reports.weekly" },
@@ -139,8 +139,7 @@ const PerformanceFilter = ({ searchType }) => {
     // setSearchParams(params);
   };
 
-  // دالة تُنفذ عند عمل Submit للـ Custom Report (باستخدام زر مخفي أو زر مخصص إذا أردت دمج الاثنين)
-  // إذا كنت تريد أن يرسل الـ Form كله البيانات عند أي تغيير في Custom Reports، يمكنك استخدام دالة onSubmit
+  //send all 
   const onSubmitCustomReport = (formData) => {
     const allFormData = {
       region: methods.getValues("region"),
@@ -192,8 +191,17 @@ const PerformanceFilter = ({ searchType }) => {
         name={name}
         control={control}
         render={({ field }) => (
-          <SelectField
-            // <SelectFieldReactSelect
+          // <SelectField
+          <SelectFieldReactSelect
+            styles={{
+              control: (baseStyles) => ({
+                ...baseStyles,
+                backgroundColor: "#0d0d0d05",
+                borderRadius: "0px",
+                border:"none"
+              }),
+             
+            }}
             {...field}
             label={t(labelKey)}
             error={errors[name]?.message}
@@ -206,8 +214,7 @@ const PerformanceFilter = ({ searchType }) => {
             disableFiledValue={`${t("dashboard.reports.choose")} ${t(
               labelKey
             )}`}
-            className="border-0 rounded-0"
-            style={{ background: "#f8f8f8" }}
+            className="select_react_custom"
             disabled={isDisabled}
             loading={loading || isFetchingNextPage}
             onMenuScrollToBottom={() => {
@@ -224,7 +231,7 @@ const PerformanceFilter = ({ searchType }) => {
       fetchRegionsNextPage,
       fetchCountriesNextPage,
       fetchCitiesNextPage,
-    ] // إضافة dependencies
+    ] 
   );
 
   return (

@@ -15,6 +15,7 @@ export default function GroupList({ allGroups }) {
             <div className="d-flex gap-2 align-items-center">
               <img src="/icons/Groups.svg" alt={group.title} />
               <p className="groups__item-text">{group.title}</p>
+              <span className="notification_span">97</span>
             </div>
             <button
               type="button"

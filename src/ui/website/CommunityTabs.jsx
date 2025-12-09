@@ -26,6 +26,7 @@ export default function CommunityTabs({
                   {community?.consultations_count}
                 </Badge>
               )}
+              <span className="notification_span">97</span>
             </span>
           )}
         </NavLink>

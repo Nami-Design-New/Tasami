@@ -6348,6 +6348,31 @@ input[type=file] {
   margin: 0 18px;
 }
 
+.text-percent-custom {
+  font-size: 12px;
+}
+
+.notification_span {
+  font-size: 11px;
+  font-weight: 400;
+  width: 20px;
+  height: 20px;
+  padding: 2px 2px 0 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background-color: #ff7a59 !important;
+  color: white;
+}
+
+.notification_position {
+  position: absolute;
+  top: 0;
+  right: 0;
+  translate: 50% 0%;
+}
+
 .right-side {
   position: sticky;
   top: 30px;

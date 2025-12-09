@@ -4,7 +4,7 @@ import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
-import { useNavigate, useParams } from "react-router";
+import { useNavigate, useParams, useSearchParams } from "react-router";
 import * as yup from "yup";
 import useGetChatsMessages from "../../hooks/dashboard/chats/useGetChatsMessages";
 import InfiniteScroll from "../loading/InfiniteScroll";
@@ -43,10 +43,12 @@ const schema = yup.object().shape({
 
 const ChatWindow = ({ isOpen, setIsOpen, activeChat, activeUser }) => {
   const { user } = useSelector((state) => state.adminAuth);
-  const { id } = useParams();
   const { t } = useTranslation();
-  const navigate = useNavigate();
   const queryClient = useQueryClient();
+  const [searchParams] = useSearchParams();
+  const chatId = searchParams.get("chatId");
+  // console.log(chatId);
+
   const {
     chatMessages,
     isLoading,
@@ -97,7 +99,7 @@ const ChatWindow = ({ isOpen, setIsOpen, activeChat, activeUser }) => {
     socket.onStatusChange((status) => setSocketStatus(status));
 
     socket.onMessage((message) => {
-      queryClient.setQueryData(["contract-chat", id], (oldData) => {
+      queryClient.setQueryData(["chat-room-messages", chatId], (oldData) => {
         if (!oldData) return oldData;
         const updatedPages = oldData.pages.map((page, idx) =>
           idx === 0 ? { ...page, data: [message, ...page.data] } : page
@@ -119,7 +121,7 @@ const ChatWindow = ({ isOpen, setIsOpen, activeChat, activeUser }) => {
 
     socket.connectPrivate({ token, chatId: activeChat });
     return () => socket.disconnect();
-  }, [activeChat, id, queryClient]);
+  }, [activeChat, chatId, queryClient]);
 
   const { register, handleSubmit, setValue, reset } = useForm({
     resolver: yupResolver(schema),
