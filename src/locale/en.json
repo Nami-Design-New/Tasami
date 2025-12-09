@@ -2053,25 +2053,23 @@
         "helpersContractsCount": "Number of assistants' contracts for ",
         "helpersWorkingContractsCount": "Number of ongoing assistants' contracts for ",
         "helpersCompletedContractsCount": "Number of completed assistants' contracts for ",
-
         "requestsWorkingContractsCount": "Number of ongoing request contracts for ",
         "requestsWeeklyChange": "Weekly change rate of request contracts for assistants ",
-
         "offersWorkingContractsCount": "Number of ongoing offer contracts for ",
         "offersWeeklyChange": "Weekly change rate of offer contracts for assistants ",
-
         "helpersTotalValue": "Total value of assistants' contracts for ",
         "helpersAverageValue": "Average value of assistants' contracts for "
       },
       "communitiesTab": {
         "communities": "Communities",
         "totalCommunities": "Total Communities",
-        "basicAssistants": "Basic Assistants Communities",
+        "basicAssistants": "Assistants Communities",
         "premiumAssistants": "Premium Assistants Communities",
         "leadAssistants": "Lead Assistants Communities",
         "avgLowActivity": "Low Activity Communities",
         "avgMediumActivity": "Medium Activity Communities",
         "avgHighActivity": "High Activity Communities",
+        "avgNewActivity": "New Activity Communities",
         "weeklyChangeCommunities": "Weekly Change in Communities",
         "digitalContent": "Digital Content",
         "totalDigitalContent": "Total Digital Content",
@@ -2082,14 +2080,24 @@
         "avgWeeklyPosts": "Average Weekly Posts",
         "avgWeeklyChannels": "Average Weekly Channels",
         "weeklyChangeDigitalContent": "Weekly Change in Digital Content",
-        "stoppedCommunitiesMainAssistants": "Number of stopped communities for main assistants",
+        "stoppedCommunitiesMainAssistants": "Number of stopped communities for assistants",
         "stoppedCommunitiesPremiumAssistants": "Number of stopped communities for premium assistants",
         "stoppedCommunitiesPioneerAssistants": "Number of stopped communities for pioneer assistants",
         "weeklyAverageDigitalContent": "Weekly average posts for digital content",
         "weeklyAverageConsultations": "Weekly average posts for consultations",
         "weeklyAverageMeetings": "Weekly average posts for meetings",
         "weeklyAveragePosts": "Weekly average posts",
-        "weeklyAverageDigital": "The weekly rate of change in digital content for communities."
+        "weeklyAverageDigital": "The weekly rate of change in digital content for communities.",
+        "communitiesMembership": "Communities Membership",
+        "totalCommunityMembers": "Total Number of Community Members",
+        "assistantCommunityMembers": "Number of Assistant Community Members",
+        "weeklyMembersChangeRate": "Weekly Change Rate in Member Count",
+        "totalCommunitiesValue": "Total Value of Communities Membership",
+        "totalAssistantCommunitiesValue": "Total Value of Assistant Communities Membership",
+        "weeklyCommunitiesValueChangeRate": "Weekly Change Rate in Total Communities Membership Value",
+        "averageMembershipValue": "Average Membership Subscription Value for Communities",
+        "averageAssistantMonthlyMembershipValue": "Average Monthly Membership Value for Assistant Community",
+        "weeklyAverageMembershipValueChangeRate": "Weekly Change Rate in Average Membership Subscription Value"
       },
       "salesTab": {
         "personalSubscriptions": "Personal Subscriptions",
@@ -2106,7 +2114,21 @@
         "averageWeeklyConversions": "Average Weekly Contract Conversions",
         "averageBasicConversions": "Average Basic Contract Conversions",
         "averageAnnualityConversions": "Average Annuity Percentage",
-        "sar": "SAR"
+        "sar": "SAR",
+        "personalAssistantSubscriptions": "Personal Assistant Subscriptions",
+        "totalSubscriptionsSales": "Total Subscriptions Sales",
+        "assistantSubscriptionsSales": "Assistant Subscriptions Sales",
+        "weeklyChangeTotalSubscriptions": "Weekly Change in Total Subscriptions Sales",
+        "premiumAssistantSubscriptions": "Premium Assistant Subscriptions",
+        "premiumAssistantPackageSales": "Premium Assistant Package Sales",
+        "pioneerAssistantSubscriptions": "Pioneer Assistant Subscriptions",
+        "pioneerAssistantPackageSales": "Pioneer Assistant Package Sales",
+        "contractCommissions": "Contract Commissions",
+        "totalContractCommissions": "Total Contract Commissions",
+        "totalRequestContractCommissions": "Total Request Contract Commissions",
+        "totalOfferContractCommissions": "Total Offer Contract Commissions",
+        "averageCommissionPerContract": "Average Commission per Contract",
+        "weeklyChangeTotalContractCommissions": "Weekly Change in Total Contract Commissions"
       }
     },
     "deleteAccountModal": {
@@ -2438,6 +2460,9 @@
       "addCategory": "Add Category",
       "editCategory": "Edit Category",
       "actions": "Actions"
+    },
+    "chats": {
+      "chats": "Chats"
     }
   }
 }

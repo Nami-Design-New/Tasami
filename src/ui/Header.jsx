@@ -140,6 +140,7 @@ export default function Header() {
             >
               <i className="fa-regular fa-robot"></i>
               {t("profile.assistant")}
+              <span className="notification_span">97</span>
             </CustomButton>
           )}
           {isAuthed && <UserDropDown />}

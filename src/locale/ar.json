@@ -2045,12 +2045,13 @@
       "communitiesTab": {
         "communities": "أعداد المجتمعات",
         "totalCommunities": "العدد الإجمالي للمجتمعات",
-        "basicAssistants": "عدد مجتمعات المساعدين الأساسيين",
+        "basicAssistants": "عدد مجتمعات المساعدين ",
         "premiumAssistants": "عدد مجتمعات المساعدين المميزين",
         "leadAssistants": "عدد مجتمعات المساعدين الرواد",
         "avgLowActivity": "عدد المجتمعات منخفضة النشاط",
         "avgMediumActivity": "عدد المجتمعات متوسطة النشاط",
         "avgHighActivity": "عدد المجتمعات مرتفعة النشاط",
+        "avgNewActivity": "عدد المجتمعات جديدة النشاط",
         "weeklyChangeCommunities": "معدل التغير الأسبوعي في عدد المجتمعات",
         "digitalContent": "المحتوى الرقمي",
         "totalDigitalContent": "العدد الإجمالي للمحتوى الرقمي للمجتمعات",
@@ -2061,14 +2062,24 @@
         "avgWeeklyPosts": "متوسط النشر الأسبوعي للمنشورات",
         "avgWeeklyChannels": "متوسط النشر الأسبوعي للقنوات",
         "weeklyChangeDigitalContent": "معدل التغير الأسبوعي في المحتوى الرقمي",
-        "stoppedCommunitiesMainAssistants": "عدد المجتمعات المتوقفة للمساعدين األساسيين",
+        "stoppedCommunitiesMainAssistants": "عدد المجتمعات المتوقفة للمساعدين ",
         "stoppedCommunitiesPremiumAssistants": "عدد المجتمعات المتوقفة للمساعدين المميزين",
         "stoppedCommunitiesPioneerAssistants": "عدد المجتمعات المتوقفة للمساعدين الرواد",
         "weeklyAverageDigitalContent": "متوسط النشر الأسبوعي للمحتوى الرقمي",
         "weeklyAverageConsultations": "متوسط النشر الأسبوعي للاستشارات",
         "weeklyAverageMeetings": "متوسط النشر الأسبوعي للقاءات",
         "weeklyAveragePosts": "متوسط النشر الأسبوعي للمنشورات",
-        "weeklyAverageDigital": "معدل التغير األسبوعي في المحتوى الرقمي للمجتمعات"
+        "weeklyAverageDigital": "معدل التغير األسبوعي في المحتوى الرقمي للمجتمعات",
+        "communitiesMembership": "عضوية المجتمعات",
+        "totalCommunityMembers": "العدد الإجمالي لأعضاء المجتمعات",
+        "assistantCommunityMembers": "عدد أعضاء مجتمعات المساعدين",
+        "weeklyMembersChangeRate": "معدل التغير الأسبوعي في عدد الأعضاء",
+        "totalCommunitiesValue": "القيمة الإجمالية لعضوية المجتمعات",
+        "totalAssistantCommunitiesValue": "القيمة الإجمالية لعضوية مجتمعات المساعدين",
+        "weeklyCommunitiesValueChangeRate": "معدل التغير الأسبوعي في القيمة الإجمالية لعضوية المجتمعات",
+        "averageMembershipValue": "متوسط قيمة اشتراك العضوية للمجتمعات",
+        "averageAssistantMonthlyMembershipValue": "متوسط قيمة العضوية الشهرية لمجتمع المساعد",
+        "weeklyAverageMembershipValueChangeRate": "معدل التغير الأسبوعي في متوسط قيمة اشتراك العضوية"
       },
       "salesTab": {
         "personalSubscriptions": "اشتراكات المساعدين الشخصيين",
@@ -2085,7 +2096,21 @@
         "averageWeeklyConversions": "متوسطة قيمة العمولة للعقد",
         "averageBasicConversions": "القيمة الإجمالية لعمولات عقود طفف المساعدة",
         "averageAnnualityConversions": "القيمة الإجمالية لعمولات العقود السنوية و الربع السنوية",
-        "sar": "ريال"
+        "sar": "ريال",
+        "personalAssistantSubscriptions": "اشتراكات المساعدين الشخصيين",
+        "totalSubscriptionsSales": "مبيعات الاشتراكات الإجمالية",
+        "assistantSubscriptionsSales": "مبيعات الاشتراكات للمساعدين",
+        "weeklyChangeTotalSubscriptions": "معدل التغير الأسبوعي في مبيعات الاشتراكات الإجمالية",
+        "premiumAssistantSubscriptions": "مبيعات الاشتراكات للمساعدين المميزين",
+        "premiumAssistantPackageSales": "مبيعات اشتراكات المساعدين المميزين",
+        "pioneerAssistantSubscriptions": "مبيعات الاشتراكات للمساعدين الرواد",
+        "pioneerAssistantPackageSales": "مبيعات اشتراكات المساعدين الرواد",
+        "contractCommissions": "عمولات العقود",
+        "totalContractCommissions": "القيمة الإجمالية لعمولات العقود",
+        "totalRequestContractCommissions": "القيمة الإجمالية لعمولات عقود طلبات المساعدة",
+        "totalOfferContractCommissions": "القيمة الإجمالية لعموالات عقود عروض المساعدة",
+        "averageCommissionPerContract": "متوسط قيمة العمولة للعقد",
+        "weeklyChangeTotalContractCommissions": "معدل التغير الأسبوعي في القيمة الإجمالية لعمولات العقود"
       }
     },
     "deleteAccountModal": {
@@ -2417,6 +2442,9 @@
       "addCategory": "إضافة تصنيف",
       "editCategory": "تعديل التصنيف",
       "actions": "الإجراءات"
+    },
+    "chats": {
+      "chats": "المحادثات"
     }
   }
 }

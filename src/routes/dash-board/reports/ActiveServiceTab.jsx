@@ -26,7 +26,7 @@ const ActiveServiceTab = () => {
             <div className="metrics-container">
               <div className="metric-card-2 position-relative">
                 <div className="d-flex align-items-center gap-1">
-                  <input type="checkbox" id="totalServices" />
+                  {/* <input type="checkbox" id="totalServices" /> */}
                   <label htmlFor="totalServices">
                     {t("dashboard.reports.serviceTab.totalServices")}{" "}
                   </label>
@@ -48,7 +48,7 @@ const ActiveServiceTab = () => {
 
               <div className="metric-card-1 position-relative">
                 <div className="d-flex align-items-center gap-1">
-                  <input type="checkbox" id="totalRequests" />
+                  {/* <input type="checkbox" id="totalRequests" /> */}
                   <label htmlFor="totalRequests">
                     {t("dashboard.reports.serviceTab.totalRequests")}{" "}
                   </label>
@@ -77,7 +77,7 @@ const ActiveServiceTab = () => {
               </div>
               <div className="metric-card-1 position-relative">
                 <div className="d-flex align-items-center gap-1">
-                  <input type="checkbox" id="totalOffers" />
+                  {/* <input type="checkbox" id="totalOffers" /> */}
                   <label htmlFor="totalOffers">
                     {t("dashboard.reports.serviceTab.totalOffers")}
                   </label>
@@ -106,7 +106,7 @@ const ActiveServiceTab = () => {
               </div>
               <div className="metric-card-3">
                 <div className="d-flex align-items-center gap-2">
-                  <input type="checkbox" id="weeklyTotalServicesChange" />
+                  {/* <input type="checkbox" id="weeklyTotalServicesChange" /> */}
                   <label htmlFor="weeklyTotalServicesChange">
                     {" "}
                     {t(
@@ -131,7 +131,7 @@ const ActiveServiceTab = () => {
               </div>
               <div className="metric-card-3">
                 <div className="d-flex align-items-center gap-1">
-                  <input type="checkbox" id="weeklyRequestChange" />
+                  {/* <input type="checkbox" id="weeklyRequestChange" /> */}
                   <label htmlFor="weeklyRequestChange">
                     {t("dashboard.reports.serviceTab.weeklyRequestChange")}{" "}
                   </label>
@@ -153,7 +153,7 @@ const ActiveServiceTab = () => {
               </div>
               <div className="metric-card-3">
                 <div className="d-flex align-items-center gap-2">
-                  <input type="checkbox" id="weeklyOfferChange" />
+                  {/* <input type="checkbox" id="weeklyOfferChange" /> */}
                   <label htmlFor="weeklyOfferChange">
                     {" "}
                     {t("dashboard.reports.serviceTab.weeklyOfferChange")}{" "}
@@ -190,7 +190,7 @@ const ActiveServiceTab = () => {
             <div className="metrics-container">
               <div className="metric-card-3 position-relative">
                 <div className="d-flex align-items-center gap-1">
-                  <input type="checkbox" id="totalPersonalGoals" />
+                  {/* <input type="checkbox" id="totalPersonalGoals" /> */}
                   <label htmlFor="totalPersonalGoals">
                     {" "}
                     {t("dashboard.reports.serviceTab.totalPersonalGoals")}{" "}
@@ -209,7 +209,7 @@ const ActiveServiceTab = () => {
               </div>
               <div className="metric-card-3 position-relative">
                 <div className="d-flex align-items-center gap-1">
-                  <input type="checkbox" id="weeklyPersonalGoalsChange" />
+                  {/* <input type="checkbox" id="weeklyPersonalGoalsChange" /> */}
                   <label htmlFor="weeklyPersonalGoalsChange">
                     {t(
                       "dashboard.reports.serviceTab.weeklyPersonalGoalsChange"
@@ -231,7 +231,7 @@ const ActiveServiceTab = () => {
 
               <div className="metric-card-3 position-relative">
                 <div className="d-flex align-items-center gap-1">
-                  <input type="checkbox" id="pendingGoals" />
+                  {/* <input type="checkbox" id="pendingGoals" /> */}
                   <label htmlFor="pendingGoals">
                     {t("dashboard.reports.serviceTab.pendingGoals")}{" "}
                   </label>
@@ -250,7 +250,7 @@ const ActiveServiceTab = () => {
 
               <div className="metric-card-3 position-relative">
                 <div className="d-flex align-items-center gap-1">
-                  <input type="checkbox" id="inProgressGoals" />
+                  {/* <input type="checkbox" id="inProgressGoals" /> */}
                   <label htmlFor="inProgressGoals">
                     {t("dashboard.reports.serviceTab.inProgressGoals")}{" "}
                   </label>
@@ -269,7 +269,7 @@ const ActiveServiceTab = () => {
 
               <div className="metric-card-3 position-relative">
                 <div className="d-flex align-items-center gap-1">
-                  <input type="checkbox" id="pausedGoals" />
+                  {/* <input type="checkbox" id="pausedGoals" /> */}
                   <label htmlFor="pausedGoals">
                     {t("dashboard.reports.serviceTab.pausedGoals")}{" "}
                   </label>
@@ -288,7 +288,7 @@ const ActiveServiceTab = () => {
 
               <div className="metric-card-3 position-relative">
                 <div className="d-flex align-items-center gap-1">
-                  <input type="checkbox" id="completedGoals" />
+                  {/* <input type="checkbox" id="completedGoals" /> */}
                   <label htmlFor="completedGoals">
                     {t("dashboard.reports.serviceTab.completedGoals")}{" "}
                   </label>

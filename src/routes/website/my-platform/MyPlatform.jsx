@@ -86,11 +86,13 @@ export default function MyPlatform() {
                 <ProtectedNavLink to="my-groups" disabled={!user.about}>
                   <img src="./icons/my-groups.svg" alt="" />
                   {t("website.platform.menu.myGroups")}
+                  <span className="notification_span">97</span>
                 </ProtectedNavLink>
 
                 <ProtectedNavLink to="/my-community" disabled={!user.about}>
                   <img src="./icons/communities-second.svg" alt="" />
                   {t("website.platform.menu.myCommunity")}
+                  <span className="notification_span">97</span>
                 </ProtectedNavLink>
               </div>
             </div>

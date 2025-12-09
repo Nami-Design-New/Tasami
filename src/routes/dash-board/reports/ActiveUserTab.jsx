@@ -1,22 +1,22 @@
 import { useTranslation } from "react-i18next";
 import { useOutletContext } from "react-router";
 import Loading from "./../../../ui/loading/Loading";
-import { useRef, useState } from "react";
+import { useRef } from "react";
 import ReportIndicator from "./ReportIndicator";
 
 const ActiveUserTab = () => {
   const { t } = useTranslation();
   const pdfRef = useRef();
-  const [checked, setChecked] = useState(false);
+  // const [checked, setChecked] = useState(false);
 
   const { performanceReportData, isLoading } = useOutletContext();
   if (isLoading) {
     return <Loading />;
   }
 
-  const toggleCheck = () => {
-    setChecked((prev) => !prev);
-  };
+  // const toggleCheck = () => {
+  //   setChecked((prev) => !prev);
+  // };
   return (
     <>
       <div ref={pdfRef}>
@@ -30,16 +30,16 @@ const ActiveUserTab = () => {
             </h3>
             <div className="metrics-container">
               <div
-                onClick={toggleCheck}
-                className="metric-card-2 cursor-pointer"
+                // onClick={toggleCheck}
+                className="metric-card-2"
               >
                 <div className="d-flex align-items-center gap-1">
-                  <input
+                  {/* <input
                     type="checkbox"
                     id="total_user"
-                    checked={checked}
-                    onChange={toggleCheck}
-                  />
+                    // checked={checked}
+                    // onChange={toggleCheck}
+                  /> */}
                   <label htmlFor="total_user">
                     {t("dashboard.reports.usersTab.totalUsers")}{" "}
                   </label>
@@ -51,7 +51,7 @@ const ActiveUserTab = () => {
 
               <div className="metric-card-1">
                 <div className="d-flex align-items-center gap-1">
-                  <input type="checkbox" id="active_user" />
+                  {/* <input type="checkbox" id="active_user" /> */}
                   <label htmlFor="active_user">
                     {t("dashboard.reports.usersTab.activeUsers")}{" "}
                   </label>
@@ -68,7 +68,7 @@ const ActiveUserTab = () => {
               </div>
               <div className="metric-card-1">
                 <div className="d-flex align-items-center gap-1">
-                  <input type="checkbox" id="inactive_user" />
+                  {/* <input type="checkbox" id="inactive_user" /> */}
                   <label htmlFor="inactive_user">
                     {t("dashboard.reports.usersTab.inactiveUsers")}{" "}
                   </label>
@@ -85,7 +85,7 @@ const ActiveUserTab = () => {
               </div>
               <div className="metric-card-1">
                 <div className="d-flex align-items-center gap-1">
-                  <input type="checkbox" id="blocked_user" />
+                  {/* <input type="checkbox" id="blocked_user" /> */}
                   <label htmlFor="blocked_user">
                     {t("dashboard.reports.usersTab.blockedUsers")}{" "}
                   </label>
@@ -103,7 +103,7 @@ const ActiveUserTab = () => {
 
               <div className="metric-card-3">
                 <div className="d-flex align-items-center gap-2">
-                  <input type="checkbox" id="weekly_change_user " />
+                  {/* <input type="checkbox" id="weekly_change_user " /> */}
                   <label htmlFor="weekly_change_user  ">
                     {" "}
                     {t("dashboard.reports.usersTab.weeklyUserChange")}{" "}
@@ -136,7 +136,7 @@ const ActiveUserTab = () => {
             <div className="metrics-container">
               <div className="metric-card-2">
                 <div className="d-flex align-items-center gap-1">
-                  <input type="checkbox" id="totalBeneficiaries" />
+                  {/* <input type="checkbox" id="totalBeneficiaries" /> */}
                   <label htmlFor="totalBeneficiaries">
                     {" "}
                     {t("dashboard.reports.usersTab.totalBeneficiaries")}
@@ -152,7 +152,7 @@ const ActiveUserTab = () => {
 
               <div className="metric-card-1">
                 <div className="d-flex align-items-center gap-1">
-                  <input type="checkbox" id="activeBeneficiaries" />
+                  {/* <input type="checkbox" id="activeBeneficiaries" /> */}
                   <label htmlFor="activeBeneficiaries">
                     {t("dashboard.reports.usersTab.activeBeneficiaries")}{" "}
                   </label>
@@ -176,7 +176,7 @@ const ActiveUserTab = () => {
               </div>
               <div className="metric-card-1">
                 <div className="d-flex align-items-center gap-1">
-                  <input type="checkbox" id="inactiveBeneficiaries" />
+                  {/* <input type="checkbox" id="inactiveBeneficiaries" /> */}
                   <label htmlFor="inactiveBeneficiaries">
                     {t("dashboard.reports.usersTab.inactiveBeneficiaries")}{" "}
                   </label>
@@ -200,7 +200,7 @@ const ActiveUserTab = () => {
               </div>
               <div className="metric-card-1">
                 <div className="d-flex align-items-center gap-1">
-                  <input type="checkbox" id="blockedBeneficiaries" />
+                  {/* <input type="checkbox" id="blockedBeneficiaries" /> */}
                   <label htmlFor="blockedBeneficiaries">
                     {t("dashboard.reports.usersTab.blockedBeneficiaries")}
                   </label>
@@ -225,7 +225,7 @@ const ActiveUserTab = () => {
 
               <div className="metric-card-3">
                 <div className="d-flex align-items-center gap-2">
-                  <input type="checkbox" id="beneficiariesRatio" />
+                  {/* <input type="checkbox" id="beneficiariesRatio" /> */}
                   <label htmlFor="beneficiariesRatio">
                     {t("dashboard.reports.usersTab.beneficiariesRatio")}{" "}
                   </label>
@@ -240,7 +240,7 @@ const ActiveUserTab = () => {
               </div>
               <div className="metric-card-3">
                 <div className="d-flex align-items-center gap-2">
-                  <input type="checkbox" id="weeklyBeneficiaryChange" />
+                  {/* <input type="checkbox" id="weeklyBeneficiaryChange" /> */}
                   <label htmlFor="weeklyBeneficiaryChange">
                     {t("dashboard.reports.usersTab.weeklyBeneficiaryChange")}{" "}
                   </label>
@@ -275,7 +275,7 @@ const ActiveUserTab = () => {
             <div className="metrics-container">
               <div className="metric-card-2">
                 <div className="d-flex align-items-center gap-1">
-                  <input type="checkbox" id="totalHelpers" />
+                  {/* <input type="checkbox" id="totalHelpers" /> */}
                   <label htmlFor="totalHelpers">
                     {" "}
                     {t("dashboard.reports.usersTab.totalHelpers")}{" "}
@@ -288,7 +288,7 @@ const ActiveUserTab = () => {
               {performanceReportData?.helpers?.packages.map((item) => (
                 <div key={item.main_package_id} className="metric-card-1">
                   <div className="d-flex align-items-center gap-1">
-                    <input type="checkbox" id={item.package_name} />
+                    {/* <input type="checkbox" id={item.package_name} /> */}
                     <label htmlFor={item.package_name}>
                       {item.package_name}{" "}
                     </label>
@@ -305,7 +305,7 @@ const ActiveUserTab = () => {
 
               <div className="metric-card-3">
                 <div className="d-flex align-items-center gap-2">
-                  <input type="checkbox" id="helpersRatio" />
+                  {/* <input type="checkbox" id="helpersRatio" /> */}
                   <label htmlFor="helpersRatio">
                     {t("dashboard.reports.usersTab.helpersRatio")}{" "}
                   </label>
@@ -316,7 +316,7 @@ const ActiveUserTab = () => {
               </div>
               <div className="metric-card-3">
                 <div className="d-flex align-items-center gap-2">
-                  <input type="checkbox" id="weeklyHelpersChange" />
+                  {/* <input type="checkbox" id="weeklyHelpersChange" /> */}
                   <label htmlFor="weeklyHelpersChange">
                     {t("dashboard.reports.usersTab.weeklyHelpersChange")}{" "}
                   </label>
@@ -340,7 +340,7 @@ const ActiveUserTab = () => {
             <div key={item.main_package_id} className=" metrics-container2">
               <div className="metric-card">
                 <div className="d-flex align-items-center gap-1">
-                  <input type="checkbox" id="activeHelpers" />
+                  {/* <input type="checkbox" id="activeHelpers" /> */}
                   <label htmlFor="activeHelpers">
                     {t("dashboard.reports.usersTab.activeHelpers")}{" "}
                     {item.package_name}{" "}
@@ -350,7 +350,7 @@ const ActiveUserTab = () => {
               </div>
               <div className="metric-card">
                 <div className="d-flex align-items-center gap-1">
-                  <input type="checkbox" id="inactiveHelpers" />
+                  {/* <input type="checkbox" id="inactiveHelpers" /> */}
                   <label htmlFor="inactiveHelpers">
                     {t("dashboard.reports.usersTab.inactiveHelpers")}{" "}
                     {item.package_name}{" "}
@@ -364,7 +364,7 @@ const ActiveUserTab = () => {
               </div>
               <div className="metric-card">
                 <div className="d-flex align-items-center gap-1">
-                  <input type="checkbox" id="blockedHelpers" />
+                  {/* <input type="checkbox" id="blockedHelpers" /> */}
                   <label htmlFor="blockedHelpers">
                     {t("dashboard.reports.usersTab.blockedHelpers")}
                     {item.package_name}{" "}
@@ -378,7 +378,7 @@ const ActiveUserTab = () => {
               </div>
               <div className="metric-card">
                 <div className="d-flex align-items-center gap-2">
-                  <input type="checkbox" id="weeklyHelpersChange" />
+                  {/* <input type="checkbox" id="weeklyHelpersChange" /> */}
                   <label htmlFor="weeklyHelpersChange">
                     {t("dashboard.reports.usersTab.weeklyHelpersChange")}{" "}
                     {item.package_name}{" "}
