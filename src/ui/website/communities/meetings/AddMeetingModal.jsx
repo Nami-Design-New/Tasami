@@ -16,7 +16,7 @@ export default function AddMeetingModal({
   showModal,
   setShowModal,
   setShowDetailsModal,
-  isEdit = true,
+  isEdit = false,
   meeting = null,
 }) {
   const { t } = useTranslation();
