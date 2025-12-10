@@ -79,6 +79,7 @@ export default function ConfirmPerformanceModal({
         reset();
         setShowModal(false);
         queryClient.invalidateQueries({ queryKey: ["work-tasks"] });
+        queryClient.invalidateQueries({ queryKey: ["work-details"] });
       },
       onError: (err) => console.error("Error confirming performance:", err),
     });
