@@ -1,165 +1,109 @@
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import ReusableDataTable from "../../../ui/table/ReusableDataTable";
 import { createColumnHelper } from "@tanstack/react-table";
 import { Link } from "react-router";
 import { Badge } from "react-bootstrap";
 import ColumnChart from "../../../ui/dash-board/charts/ColumnChart";
+import { PAGE_SIZE } from "../../../utils/constants";
+import useGetHelpRequest from "../../../hooks/dashboard/subscription/helpRequest/useGetHelpRequest";
+import { useTranslation } from "react-i18next";
+import TablePagination from "../../../ui/table/TablePagentaion";
 
-const userGrowthSeries = [
-  {
-    name: "المستخدمين",
-    data: [4000, 600, 1000, 2000, 400],
-  },
-];
-const userGrowthCategories = [
-  "طلبات المساعده",
-  "بانتظار التنفيذ",
-  "قيد التنفيذ",
-  "مكتمله",
-  "محذوفه",
-];
-const userGrowthOptions = {
-  chart: {
-    type: "bar",
-    height: 350,
-    toolbar: { show: true },
-  },
-  plotOptions: {
-    bar: {
-      borderRadius: 4,
-      columnWidth: "10%",
-      endingShape: "rounded",
-      distributed: true,
-    },
-  },
-  dataLabels: { enabled: false },
-  xaxis: {
-    categories: userGrowthCategories,
-  },
-  yaxis: {},
-  colors: ["#8c137e", "#007BFF", "#FFC107", "#28A745", "#DC3545"],
-  tooltip: {
-    y: {
-      formatter: (val) => `${val} مستخدم`,
-    },
-  },
-};
 const columnHelper = createColumnHelper();
 const Services = () => {
-  const data = useMemo(
-    () => [
-      {
-        serviceNumber: "PO-091025-000001",
-        date: "09-10-2025",
-        status: "مكتمل",
-        accountNumber: "U-020522-000215",
-        accountType: "مستفيد",
-        IdNumber: "01-014-003",
-        region: "الشرق الاوسط ",
-        location: "المملكة العربية السعودية",
-        city: "الرياض",
-        field: "الهندسة",
-        Specialization: "مدني",
-        offers: 4,
-        numbrOfUseres: 120,
-        rate: 4.5,
-      },
-      {
-        serviceNumber: "PO-091025-000002",
-        date: "09-10-2025",
-        status: "محذوف",
-        accountNumber: "U-020522-000216",
-        accountType: "رواد",
-        IdNumber: "01-014-003",
-        region: "الشرق الاوسط ",
-        location: "المملكة العربية السعودية",
-        city: "الرياض",
-        field: "المالية",
-        Specialization: "محاسبة",
-        offers: 4,
-        numbrOfUseres: 45,
-        rate: "-",
-      },
-      {
-        serviceNumber: "PO-091025-000003",
-        date: "09-10-2025",
-        status: "بانتظار التنفيذ",
-        accountNumber: "U-020522-000217",
-        accountType: "رواد",
-        IdNumber: "01-014-003",
-        region: "الشرق الاوسط ",
-        location: "المملكة العربية السعودية",
-        city: "الرياض",
-        field: "المالية",
-        Specialization: "محاسبة",
-        offers: 4,
-        numbrOfUseres: 45,
-        rate: "-",
-      },
-      {
-        serviceNumber: "PO-091025-000004",
-        date: "09-10-2025",
-        status: "قيد التنفيذ",
-        accountNumber: "U-020522-000218",
-        accountType: "رواد",
-        IdNumber: "01-014-003",
-        region: "الشرق الاوسط ",
-        location: "المملكة العربية السعودية",
-        city: "الرياض",
-        field: "المالية",
-        Specialization: "محاسبة",
-        offers: 4,
-        numbrOfUseres: 45,
-        rate: "-",
-      },
-    ],
-    []
+  const { t } = useTranslation();
+  const [page, setPage] = useState(1);
+  const [pageSize, setPageSize] = useState(PAGE_SIZE);
+  const { helpRequests, currentPage, lastPage, isLoading } = useGetHelpRequest(
+    "",
+    page,
+    PAGE_SIZE
   );
+  // console.log("helpRequests ::", helpRequests , typeof(helpRequests.deleted_count));
 
+  const userGrowthSeries = [
+    {
+      name: t("dashboard.services.users"),
+      data: [
+        helpRequests?.requests_count,
+        helpRequests?.pending_count,
+        helpRequests?.completed_count,
+        helpRequests?.execution_count,
+        helpRequests?.deleted_count,
+      ],
+      // data:[300,5000, 500 , 500,400]
+    },
+  ];
+  const userGrowthCategories = [
+    t("dashboard.services.helpRequests"),
+    t("dashboard.services.pending"),
+    t("dashboard.services.inProgress"),
+    t("dashboard.services.completed"),
+    t("dashboard.services.deleted"),
+  ];
+  const userGrowthOptions = {
+    chart: {
+      type: "bar",
+      height: 350,
+      toolbar: { show: true },
+    },
+    plotOptions: {
+      bar: {
+        borderRadius: 4,
+        columnWidth: "10%",
+        endingShape: "rounded",
+        distributed: true,
+      },
+    },
+    dataLabels: { enabled: false },
+    xaxis: { categories: userGrowthCategories },
+    yaxis: {},
+    colors: ["#8c137e", "#007BFF", "#FFC107", "#28A745", "#DC3545"],
+    tooltip: {
+      y: {
+        formatter: (val) => `${val} ${t("dashboard.services.users")}`,
+      },
+    },
+  };
   const columns = useMemo(
     () => [
-      columnHelper.accessor("serviceNumber", {
-        header: "الخدمه",
-        cell: (info) => (
-          <Link to={`/model/${info.getValue()}`} className="link-styles">
-            {info.getValue()}
-          </Link>
-        ),
-        enableSorting: false,
-      }),
-      columnHelper.accessor("date", {
-        header: " التاريخ ",
-        cell: (info) => info.getValue(),
-      }),
-
-      columnHelper.accessor("accountNumber", {
-        header: "رقم الحساب",
+      columnHelper.accessor("goal_code", {
+        header: t("dashboard.personalGoals.table.serviceNumber"),
         cell: (info) => (
           <Link
-            to={`/dashboard/user-details/${info.getValue()}`}
+            to={`/dashboard/services/${info?.row?.original.id}`}
             className="link-styles"
           >
             {info.getValue()}
           </Link>
         ),
-        enableSorting: false,
       }),
-      columnHelper.accessor("accountType", {
-        header: "نوع الحساب",
-        cell: (info) => info.getValue(),
-        enableSorting: false,
+      columnHelper.accessor("created_at", {
+        header: t("dashboard.personalGoals.table.date"),
       }),
-      columnHelper.accessor("offers", {
-        header: " العروض المقدمه",
-        cell: (info) => info.getValue(),
-        enableSorting: false,
+      columnHelper.accessor("user.account_code", {
+        header: t("dashboard.personalGoals.table.accountNumber"),
+        cell: (info) => (
+          <Link
+            to={`/dashboard/user-details/${info?.row?.original.user?.id}`}
+            className="link-styles"
+          >
+            {info.getValue()}
+          </Link>
+        ),
       }),
+      columnHelper.accessor("user.account_type", {
+        header: t("dashboard.personalGoals.table.accountType"),
+      }),
+      // columnHelper.accessor("offers", {
+      //   header: t("dashboard.personalGoals.table.offers"),
+      // }),
       columnHelper.accessor("status", {
-        header: " المرحله ",
+        header: t("dashboard.services.status"),
         cell: (info) => {
           let badgeColor;
           switch (info.getValue()) {
-            case "مكتمل":
+            case "active":
               badgeColor = "#28a745";
               break;
             case "بانتظار التنفيذ":
@@ -168,7 +112,7 @@ const Services = () => {
             case "قيد التنفيذ":
               badgeColor = "#007bff";
               break;
-            case "محذوف":
+            case "paused":
               badgeColor = "#dc3545";
               break;
             default:
@@ -191,44 +135,30 @@ const Services = () => {
         },
       }),
 
-      columnHelper.accessor("IdNumber", {
-        header: "رقم التعريف",
-        cell: (info) => info.getValue(),
-        // cell: (info) => (
-        //   <Link to={`/model/${info.getValue()}`} className="link-styles">
-        //     {info.getValue()}
-        //   </Link>
-        // ),
+      columnHelper.accessor("user.identify_code", {
+        header: t("dashboard.personalGoals.table.idNumber"),
       }),
-      columnHelper.accessor("region", {
-        header: "الاقليم",
-        cell: (info) => info.getValue(),
+      columnHelper.accessor("user.region_id.title", {
+        header: t("dashboard.personalGoals.table.region"),
       }),
-      columnHelper.accessor("location", {
-        header: "القطاع",
-        cell: (info) => info.getValue(),
+      columnHelper.accessor("user.country_id.title", {
+        header: t("dashboard.personalGoals.table.location"),
       }),
-      columnHelper.accessor("city", {
-        header: "المدينه",
-        cell: (info) => info.getValue(),
+      columnHelper.accessor("user.city_id.title", {
+        header: t("dashboard.personalGoals.table.city"),
       }),
-      columnHelper.accessor("field", {
-        header: "المجال",
-        cell: (info) => info.getValue(),
+      columnHelper.accessor("category.title", {
+        header: t("dashboard.personalGoals.table.field"),
       }),
-      columnHelper.accessor("Specialization", {
-        header: " التخصص ",
-        cell: (info) => info.getValue(),
+      columnHelper.accessor("sub_category.title", {
+        header: t("dashboard.personalGoals.table.specialization"),
       }),
-
-      columnHelper.accessor("numbrOfUseres", {
-        header: "القيمه",
-        cell: (info) => info.getValue(),
-      }),
-      columnHelper.accessor("rate", {
-        header: "التقييم",
-        cell: (info) => info.getValue(),
-      }),
+      // columnHelper.accessor("numberOfUsers", {
+      //   header: t("dashboard.personalGoals.table.numberOfUsers"),
+      // }),
+      // columnHelper.accessor("rate", {
+      //   header: t("dashboard.personalGoals.table.rate"),
+      // }),
     ],
     []
   );
@@ -239,18 +169,30 @@ const Services = () => {
           <ColumnChart
             series={userGrowthSeries}
             options={userGrowthOptions}
-            title={"طلبات المساعده"}
+            title={t("dashboard.services.helpRequests")}
           />
         </div>
         <div className="col-12">
           <ReusableDataTable
-            title="الخدمات"
+            title={t("dashboard.services.services")}
             filter={false}
-            data={data}
+            data={helpRequests?.data || []}
             columns={columns}
             lang="ar"
-            initialPageSize={10}
-          />
+            currentPage={currentPage}
+            lastPage={lastPage}
+            setPage={setPage}
+            pageSize={pageSize}
+            setPageSize={setPageSize}
+            isLoading={isLoading}
+          >
+            <TablePagination
+              currentPage={page}
+              lastPage={lastPage}
+              onPageChange={setPage}
+              isLoading={isLoading}
+            />
+          </ReusableDataTable>
         </div>
       </div>
     </section>

@@ -29,6 +29,9 @@ const SelectFieldReactSelect = ({
 
   // Optional: name for accessibility
   name,
+
+  styles: overrideStyles = {},
+  className,
 }) => {
   const { t } = useTranslation();
 
@@ -171,6 +174,11 @@ const SelectFieldReactSelect = ({
     }),
   };
 
+    const finalStyles = {
+    ...customStyles,
+    ...overrideStyles,
+  };
+
   const DropdownIndicator = (props) => (
     <components.DropdownIndicator {...props}>
       <i className="fa-solid fa-chevron-down"></i>{" "}
@@ -193,6 +201,7 @@ const SelectFieldReactSelect = ({
       )}
 
       <ReactSelect
+        className={className}
         name={name}
         isMulti={isMulti}
         isClearable={isClearable}
@@ -216,7 +225,7 @@ const SelectFieldReactSelect = ({
         onBlur={onBlur}
         placeholder={placeholder || t("select")}
         onMenuScrollToBottom={onMenuScrollToBottom}
-        styles={customStyles}
+        styles={finalStyles}
         components={{
           DropdownIndicator,
           ClearIndicator,

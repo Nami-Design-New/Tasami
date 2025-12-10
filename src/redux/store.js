@@ -2,6 +2,7 @@ import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import languageSlice from "./slices/languageSlice";
 import authRole from "./slices/authRole";
 import adminAuth from "./slices/authAdmin";
+import chat from "./slices/chatSlice";
 import filterReducer from "./slices/performanceFilter";
 import phoneReducer from "./slices/phoneSlice";
 import storage from "redux-persist/lib/storage";
@@ -17,6 +18,7 @@ const rootReducer = combineReducers({
   language: languageSlice,
   authRole,
   adminAuth,
+  chat,
   filter: filterReducer,
   phone: phoneReducer,
 });

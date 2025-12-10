@@ -2,237 +2,149 @@ import { createColumnHelper } from "@tanstack/react-table";
 import { Badge } from "react-bootstrap";
 import { Link } from "react-router";
 import ReusableDataTable from "../../ui/table/ReusableDataTable";
+import { useState } from "react";
+import { PAGE_SIZE } from "../../utils/constants";
+import useGetSubscriptionResumeDocument from "../../hooks/dashboard/subscription/resume/useGetSubscriptionResumeDocument";
+import TablePagination from "../../ui/table/TablePagentaion";
+import { useTranslation } from "react-i18next";
 
 const columnHelper = createColumnHelper();
-const data = [
-  {
-    firstName: "صالح أ.",
-    familyName: "العمر",
-    gender: "ذكر",
-    accountNumber: "U-123",
-    accountType: "أساسي",
-    accountDate: "25-Apr-2020",
-    accountStatus: "نشط",
-    nationality: "السعودية",
-    region: "01-الشرق الأوسط",
-    sector: "014-المملكة العربية السعودية",
-    city: "001-الرياض",
-    field: "التدريب والتعليم",
-    specialization: "التدريب والتعليم",
-    documentType: "شهادة تدريب أو دورة مهنية",
-    issuingAuthority: "وزارة الموارد البشرية",
-    documentNumber: "518470",
-    expirationDate: "25-Apr-2020",
-  },
-  {
-    firstName: "صالح أ.",
-    familyName: "العمر",
-    gender: "ذكر",
-    accountNumber: "U-123",
-    accountType: "أساسي",
-    accountDate: "25-Apr-2020",
-    accountStatus: "نشط",
-    nationality: "السعودية",
-    region: "01-الشرق الأوسط",
-    sector: "014-المملكة العربية السعودية",
-    city: "001-الرياض",
-    field: "التدريب والتعليم",
-    specialization: "الاستشارات",
-    documentType: "رخصة أو تصريح حكومي",
-    issuingAuthority: "المؤسسة العامة للتدريب",
-    documentNumber: "518470",
-    expirationDate: "25-Apr-2020",
-  },
-  {
-    firstName: "محمد ن.",
-    familyName: "عبداللطيف",
-    gender: "ذكر",
-    accountNumber: "U-123",
-    accountType: "متميز",
-    accountDate: "25-Apr-2020",
-    accountStatus: "غير نشط",
-    nationality: "السعودية",
-    region: "01-الشرق الأوسط",
-    sector: "014-المملكة العربية السعودية",
-    city: "002-جدة",
-    field: "العلوم والمعارف",
-    specialization: "العلوم الطبيعية",
-    documentType: "شهادة اعتماد دولي",
-    issuingAuthority: "أكاديمية القادة",
-    documentNumber: "518470",
-    expirationDate: "25-Apr-2020",
-  },
-  {
-    firstName: "محمد ن.",
-    familyName: "عبداللطيف",
-    gender: "ذكر",
-    accountNumber: "U-123",
-    accountType: "متميز",
-    accountDate: "25-Apr-2020",
-    accountStatus: "غير نشط",
-    nationality: "السعودية",
-    region: "01-الشرق الأوسط",
-    sector: "014-المملكة العربية السعودية",
-    city: "002-جدة",
-    field: "العلوم والمعارف",
-    specialization: "البحث والتأليف",
-    documentType: "مشاركة في برامج تدريبية",
-    issuingAuthority: "هيئة التخصصات المهنية",
-    documentNumber: "518470",
-    expirationDate: "25-Apr-2020",
-  },
-  {
-    firstName: "محمد ن.",
-    familyName: "عبداللطيف",
-    gender: "ذكر",
-    accountNumber: "U-123",
-    accountType: "متميز",
-    accountDate: "25-Apr-2020",
-    accountStatus: "غير نشط",
-    nationality: "السعودية",
-    region: "01-الشرق الأوسط",
-    sector: "014-المملكة العربية السعودية",
-    city: "002-جدة",
-    field: "العلوم والمعارف",
-    specialization: "البحث والتأليف",
-    documentType: "خبرة موثقة",
-    issuingAuthority: "مركز “متطوعون”",
-    documentNumber: "518470",
-    expirationDate: "25-Apr-2020",
-  },
-  {
-    firstName: "علي ب.",
-    familyName: "السالم",
-    gender: "ذكر",
-    accountNumber: "U-123",
-    accountType: "رواد",
-    accountDate: "25-Apr-2020",
-    accountStatus: "نشط",
-    nationality: "السعودية",
-    region: "01-الشرق الأوسط",
-    sector: "014-المملكة العربية السعودية",
-    city: "005-الدمام",
-    field: "اللغة الأجنبية",
-    specialization: "اللغة الأجنبية",
-    documentType: "شهادة الهيئة المهنية",
-    issuingAuthority: "مركز “خطوات النجاح”",
-    documentNumber: "518470",
-    expirationDate: "25-Apr-2020",
-  },
-  {
-    firstName: "علي ب.",
-    familyName: "السالم",
-    gender: "ذكر",
-    accountNumber: "U-123",
-    accountType: "رواد",
-    accountDate: "25-Apr-2020",
-    accountStatus: "نشط",
-    nationality: "السعودية",
-    region: "01-الشرق الأوسط",
-    sector: "014-المملكة العربية السعودية",
-    city: "005-الدمام",
-    field: "الإعلام والإعلان",
-    specialization: "أخرى",
-    documentType: "شهادة مزاولة مهنة معتمدة",
-    issuingAuthority: "جامعة طيبة",
-    documentNumber: "518470",
-    expirationDate: "25-Apr-2020",
-  },
-  {
-    firstName: "علي ب.",
-    familyName: "السالم",
-    gender: "ذكر",
-    accountNumber: "U-123",
-    accountType: "رواد",
-    accountDate: "25-Apr-2020",
-    accountStatus: "نشط",
-    nationality: "السعودية",
-    region: "01-الشرق الأوسط",
-    sector: "014-المملكة العربية السعودية",
-    city: "005-الدمام",
-    field: "التجارة والتسويق",
-    specialization: "التجارة والتسويق",
-    documentType: "شهادة مزاولة مهنة معتمدة",
-    issuingAuthority: "مؤسسة “خبراء”",
-    documentNumber: "518470",
-    expirationDate: "25-Apr-2020",
-  },
-];
-
-const columns = [
-  columnHelper.accessor("firstName", { header: "الاسم الأول" }),
-  columnHelper.accessor("familyName", { header: "اسم العائلة" }),
-  columnHelper.accessor("gender", { header: "الجنس" }),
-  columnHelper.accessor("accountNumber", {
-    header: "رقم الحساب",
-    cell: (info) => (
-      <Link
-        to={`/dashboard/user-details/${info.getValue()}`}
-        className="link-styles"
-      >
-        {info.getValue()}
-      </Link>
-    ),
-  }),
-  columnHelper.accessor("accountType", { header: "نوع الحساب" }),
-  columnHelper.accessor("accountDate", { header: "التاريخ" }),
-  // columnHelper.accessor("accountStatus", { header: "حالة الحساب" }),
-  columnHelper.accessor("accountStatus", {
-    header: " حالة الحساب",
-    cell: (info) => {
-      let badgeColor;
-
-      switch (info.getValue()) {
-        case "نشط":
-          badgeColor = "#28a745";
-          break;
-        case "غير نشط":
-          badgeColor = "#007bff";
-          break;
-        case "موقوفة":
-          badgeColor = "#dc3545";
-          break;
-        default:
-          badgeColor = "#6c757d";
-          break;
-      }
-      return (
-        <Badge
-          pill
-          className="custom-badge"
-          style={{
-            "--badge-color": badgeColor,
-            "--text-color": "#fff",
-            fontWeight: "400",
-          }}
-        >
-          {info.getValue()}
-        </Badge>
-      );
-    },
-  }),
-  columnHelper.accessor("nationality", { header: "الجنسية" }),
-  columnHelper.accessor("region", { header: "الإقليم" }),
-  columnHelper.accessor("sector", { header: "القطاع" }),
-  columnHelper.accessor("city", { header: "المدينة" }),
-  columnHelper.accessor("field", { header: "المجال" }),
-  columnHelper.accessor("specialization", { header: "التخصص" }),
-  columnHelper.accessor("documentType", { header: "النوع" }),
-  columnHelper.accessor("issuingAuthority", { header: "جهة الإصدار" }),
-  columnHelper.accessor("documentNumber", { header: "الرقم" }),
-  columnHelper.accessor("expirationDate", { header: "الصلاحية" }),
-];
-
 const Documents = () => {
+  const { t } = useTranslation();
+  const [page, setPage] = useState(1);
+  const [pageSize, setPageSize] = useState(PAGE_SIZE);
+  const { resumeDocuments, currentPage, lastPage, isLoading } =
+    useGetSubscriptionResumeDocument("", page, PAGE_SIZE);
+
+  const columns = [
+    columnHelper.accessor("user.first_name", {
+      header: t("dashboard.documents.firstName"),
+      cell: (info) => info.getValue() || "-",
+    }),
+    columnHelper.accessor("user.last_name", {
+      header: t("dashboard.documents.lastName"),
+      cell: (info) => info.getValue() || "-",
+    }),
+    columnHelper.accessor("user.gender", {
+      header: t("dashboard.documents.gender"),
+      cell: (info) => info.getValue() || "-",
+    }),
+    columnHelper.accessor("user.account_type", {
+      header: t("dashboard.documents.accountType"),
+      cell: (info) => info.getValue() || "-",
+    }),
+    columnHelper.accessor("user.account_code", {
+      header: t("dashboard.documents.accountNumber"),
+      cell: (info) => (
+        <Link
+          to={`/dashboard/user-details/${info?.row.original.user?.id}`}
+          className="link-styles"
+        >
+          {info.getValue() || "-"}
+        </Link>
+      ),
+    }),
+    columnHelper.accessor("user.birthdate", {
+      header: t("dashboard.documents.date"),
+      cell: (info) => info.getValue() || "-",
+    }),
+    columnHelper.accessor("user.status", {
+      header: t("dashboard.documents.status"),
+      cell: (info) => {
+        let badgeColor;
+        switch (info.getValue()) {
+          case t("dashboard.documents.active"):
+            badgeColor = "#28a745";
+            break;
+          case t("dashboard.documents.inactive"):
+            badgeColor = "#007bff";
+            break;
+          case t("dashboard.documents.suspended"):
+            badgeColor = "#dc3545";
+            break;
+          default:
+            badgeColor = "#6c757d";
+            break;
+        }
+        return (
+          <Badge
+            pill
+            className="custom-badge"
+            style={{
+              "--badge-color": badgeColor,
+              "--text-color": "#fff",
+              fontWeight: "400",
+            }}
+          >
+            {info.getValue()}
+          </Badge>
+        );
+      },
+    }),
+    columnHelper.accessor("user.nationality.title", {
+      header: t("dashboard.documents.nationality"),
+      cell: (info) => info.getValue() || "-",
+    }),
+    columnHelper.accessor("user.region_id.title", {
+      header: t("dashboard.documents.region"),
+      cell: (info) => info.getValue() || "-",
+    }),
+    columnHelper.accessor("user.country_id.title", {
+      header: t("dashboard.documents.sector"),
+      cell: (info) => info.getValue() || "-",
+    }),
+    columnHelper.accessor("user.city_id.title", {
+      header: t("dashboard.documents.city"),
+      cell: (info) => info.getValue() || "-",
+    }),
+    columnHelper.accessor("category_title", {
+      header: t("dashboard.documents.field"),
+      cell: (info) => info.getValue() || "-",
+    }),
+    columnHelper.accessor("sub_category_title", {
+      header: t("dashboard.documents.specialization"),
+      cell: (info) => info.getValue() || "-",
+    }),
+    columnHelper.accessor("document_type_title", {
+      header: t("dashboard.documents.type"),
+      cell: (info) => info.getValue() || "-",
+    }),
+    columnHelper.accessor("document_auth", {
+      header: t("dashboard.documents.issuer"),
+      cell: (info) => info.getValue() || "-",
+    }),
+    columnHelper.accessor("document_number", {
+      header: t("dashboard.documents.number"),
+      cell: (info) => info.getValue() || "-",
+    }),
+    columnHelper.accessor("end_date", {
+      header: t("dashboard.documents.expiry"),
+      cell: (info) => info.getValue() || "-",
+    }),
+  ];
   return (
     <section className="documents">
       <ReusableDataTable
         filter={false}
         searchPlaceholder=""
-        data={data}
+        data={resumeDocuments || []}
         columns={columns}
-        title="الوثائق"
-      />
+        title={t("dashboard.documents.title")}
+        initialPageSize={10}
+        currentPage={currentPage}
+        lastPage={lastPage}
+        setPage={setPage}
+        pageSize={pageSize}
+        setPageSize={setPageSize}
+        isLoading={isLoading}
+      >
+        <TablePagination
+          currentPage={page}
+          lastPage={lastPage}
+          onPageChange={setPage}
+          isLoading={isLoading}
+        />
+      </ReusableDataTable>
     </section>
   );
 };

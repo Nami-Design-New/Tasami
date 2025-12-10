@@ -1,42 +1,488 @@
-import { useState } from "react";
+// import { useEffect } from "react";
+// import { Modal } from "react-bootstrap";
+// import { useForm, Controller } from "react-hook-form";
+// import { yupResolver } from "@hookform/resolvers/yup";
+// import * as yup from "yup";
+// import InputField from "../../forms/InputField";
+// import CustomButton from "../../CustomButton";
+// import { toast } from "sonner";
+// import useCreatePackage from "../../../hooks/dashboard/website-managment/packages/useCreatePackage";
+// import useUpdatePackage from "../../../hooks/dashboard/website-managment/packages/useUpdatePackage";
+// import { SUPPORTED_LANGS } from "../../../lib/multilang/config";
+// import { useTranslation } from "react-i18next";
+// import { useQueryClient } from "@tanstack/react-query";
+
+// // Validation Schema
+// const subscriptionSchema = yup.object().shape({
+//   name_ar: yup
+//     .string()
+//     .required("اسم الخطة بالعربية مطلوب")
+//     .min(3, "يجب أن يكون اسم الخطة 3 أحرف على الأقل"),
+//   name_en: yup
+//     .string()
+//     .required("اسم الخطة بالإنجليزية مطلوب")
+//     .min(3, "Name must be at least 3 characters"),
+//   yearlyPrice: yup
+//     .number()
+//     .required("السعر السنوي مطلوب")
+//     .positive("يجب أن يكون السعر موجباً")
+//     .typeError("يجب إدخال رقم صحيح"),
+//   halfYearlyPrice: yup
+//     .number()
+//     .required("السعر النصف سنوي مطلوب")
+//     .positive("يجب أن يكون السعر موجباً")
+//     .typeError("يجب إدخال رقم صحيح"),
+//   maxOffers: yup
+//     .number()
+//     .required("عدد العروض مطلوب")
+//     .integer("يجب إدخال عدد صحيح")
+//     .min(0, "يجب أن يكون العدد صفر أو أكثر")
+//     .typeError("يجب إدخال رقم صحيح"),
+//   maxGroups: yup
+//     .number()
+//     .required("عدد المجموعات مطلوب")
+//     .integer("يجب إدخال عدد صحيح")
+//     .min(0, "يجب أن يكون العدد صفر أو أكثر")
+//     .typeError("يجب إدخال رقم صحيح"),
+//   maxSeats: yup
+//     .number()
+//     .required("عدد المقاعد مطلوب")
+//     .integer("يجب إدخال عدد صحيح")
+//     .min(1, "يجب أن يكون العدد 1 على الأقل")
+//     .typeError("يجب إدخال رقم صحيح"),
+//   commission: yup
+//     .number()
+//     .required("نسبة العمولة مطلوبة")
+//     .min(0, "يجب أن تكون النسبة بين 0 و 100")
+//     .max(100, "يجب أن تكون النسبة بين 0 و 100")
+//     .typeError("يجب إدخال رقم صحيح"),
+//   image: yup.mixed().nullable(),
+// });
+
+// export default function AddNewSubscriptionsModal({
+//   setShowModal,
+//   showModal,
+//   isEdit,
+//   existingData = null,
+// }) {
+//   const { t } = useTranslation();
+//   const queryClient = useQueryClient();
+
+//   const { createPackage, isPending: isCreating } = useCreatePackage();
+//   const { updatePackage, isPending: isUpdating } = useUpdatePackage();
+
+//   const {
+//     control,
+//     handleSubmit,
+//     setValue,
+//     watch,
+//     reset,
+//     formState: { errors },
+//   } = useForm({
+//     resolver: yupResolver(subscriptionSchema),
+//     defaultValues: {
+//       name_ar: "",
+//       name_en: "",
+//       yearlyPrice: "",
+//       halfYearlyPrice: "",
+//       maxOffers: "",
+//       maxGroups: "",
+//       maxSeats: "",
+//       commission: "",
+//       image: null,
+//       preview: null,
+//     },
+//   });
+
+//   const imagePreview = watch("preview");
+
+//   // Populate form when editing
+//   useEffect(() => {
+//     if (isEdit && existingData) {
+//       reset({
+//         name_ar: existingData.title_ar || "",
+//         name_en: existingData.title_en || "",
+//         yearlyPrice: existingData.yearly_price || "",
+//         halfYearlyPrice: existingData.half_yearly_price || "",
+//         maxOffers: existingData.offers_count || "",
+//         maxGroups: existingData.groups_count || "",
+//         maxSeats: existingData.seats_count || "",
+//         commission: existingData.app_commission || "",
+//         image: null,
+//         preview: existingData.image || null,
+//       });
+//     } else {
+//       reset({
+//         name_ar: "",
+//         name_en: "",
+//         yearlyPrice: "",
+//         halfYearlyPrice: "",
+//         maxOffers: "",
+//         maxGroups: "",
+//         maxSeats: "",
+//         commission: "",
+//         image: null,
+//         preview: null,
+//       });
+//     }
+//   }, [isEdit, existingData, reset]);
+
+//   const handleImageChange = (e) => {
+//     const file = e.target.files[0];
+//     console.log(file);
+
+//     if (file) {
+//       setValue("image", file);
+//       setValue("preview", URL.createObjectURL(file));
+//     }
+//   };
+
+//   const onSubmit = async (data) => {
+//     console.log("Form data :", data);
+
+//     const formData = new FormData();
+//     formData.append("title:ar", data.name_ar);
+//     formData.append("title:en", data.name_en);
+//     formData.append("yearly_price", data.yearlyPrice);
+//     formData.append("half_yearly_price", data.halfYearlyPrice);
+//     formData.append("offers_count", data.maxOffers);
+//     formData.append("groups_count", data.maxGroups);
+//     formData.append("seats_count", data.maxSeats);
+//     formData.append("app_commission", data.commission);
+
+//     if (data.image) {
+//       formData.append("image", data.image);
+//     }
+
+//     if (isEdit) {
+//       updatePackage(
+//         {
+//           id: existingData.id,
+//           _method: "put",
+//           ...Object.fromEntries(formData),
+//         },
+//         {
+//           onSuccess: (res) => {
+//             toast.success(res.message);
+//             queryClient.invalidateQueries({ queryKey: ["dh-packages"] });
+//             setShowModal(false);
+//             reset();
+//           },
+//           onError: (error) => {
+//             toast.error(error.message);
+//           },
+//         }
+//       );
+//     } else {
+//       createPackage(Object.fromEntries(formData), {
+//         onSuccess: (res) => {
+//           toast.success(res.message);
+//           setShowModal(false);
+//           queryClient.invalidateQueries({ queryKey: ["dh-packages"] });
+//           reset();
+//         },
+//         onError: (error) => {
+//           toast.error(error.message);
+//         },
+//       });
+//     }
+//   };
+
+//   const handleClose = () => {
+//     setShowModal(false);
+//     reset();
+//   };
+
+//   const isPending = isCreating || isUpdating;
+
+//   return (
+//     <Modal centered size="lg" show={showModal} onHide={handleClose}>
+//       <Modal.Header closeButton>
+//         <h6> {isEdit ? "تعديل اشتراك" : "اضف اشتراك جديد"}</h6>
+//       </Modal.Header>
+//       <Modal.Body>
+//         <form className="form_ui" onSubmit={handleSubmit(onSubmit)}>
+//           <div className="row">
+//             {/* Image Upload */}
+//             <div className="d-flex align-items-center justify-content-center col-12 p-2">
+//               <label className="image-upload-wrapper">
+//                 <img
+//                   src={imagePreview || "/images/imageUpload.svg"}
+//                   alt="Preview"
+//                   className="image-preview-circle"
+//                 />
+//                 <div className="edit-icon">
+//                   <i className="fa-solid fa-edit"></i>
+//                 </div>
+//                 <input
+//                   type="file"
+//                   accept="image/*"
+//                   onChange={handleImageChange}
+//                   style={{ display: "none" }}
+//                 />
+//               </label>
+//             </div>
+
+//             {/* Name */}
+//             {SUPPORTED_LANGS.map((lang) => (
+//               <div className="col-12 col-lg-6 p-2" key={lang}>
+//                 <Controller
+//                   name={`name_${lang}`}
+//                   control={control}
+//                   render={({ field }) => (
+//                     <InputField
+//                       label={`اسم الخطة (${lang.toUpperCase()})`}
+//                       {...field}
+//                       error={errors[`name_${lang}`]?.message}
+//                     />
+//                   )}
+//                 />
+//               </div>
+//             ))}
+
+//             {/* Yearly Price */}
+//             <div className="col-12 col-lg-6 p-2">
+//               <Controller
+//                 name="yearlyPrice"
+//                 control={control}
+//                 render={({ field }) => (
+//                   <InputField
+//                     label="السعر السنوي"
+//                     type="number"
+//                     {...field}
+//                     error={errors.yearlyPrice?.message}
+//                   />
+//                 )}
+//               />
+//             </div>
+
+//             {/* Half Yearly Price */}
+//             <div className="col-12 col-lg-6 p-2">
+//               <Controller
+//                 name="halfYearlyPrice"
+//                 control={control}
+//                 render={({ field }) => (
+//                   <InputField
+//                     label="السعر النصف سنوي"
+//                     type="number"
+//                     {...field}
+//                     error={errors.halfYearlyPrice?.message}
+//                   />
+//                 )}
+//               />
+//             </div>
+
+//             {/* Max Offers */}
+//             <div className="col-12 col-md-6 p-2">
+//               <Controller
+//                 name="maxOffers"
+//                 control={control}
+//                 render={({ field }) => (
+//                   <InputField
+//                     label="عدد العروض"
+//                     type="number"
+//                     {...field}
+//                     error={errors.maxOffers?.message}
+//                   />
+//                 )}
+//               />
+//             </div>
+
+//             {/* Max Groups */}
+//             <div className="col-12 col-md-6 p-2">
+//               <Controller
+//                 name="maxGroups"
+//                 control={control}
+//                 render={({ field }) => (
+//                   <InputField
+//                     label="عدد المجموعات"
+//                     type="number"
+//                     {...field}
+//                     error={errors.maxGroups?.message}
+//                   />
+//                 )}
+//               />
+//             </div>
+
+//             {/* Max Seats */}
+//             <div className="col-12 col-md-6 p-2">
+//               <Controller
+//                 name="maxSeats"
+//                 control={control}
+//                 render={({ field }) => (
+//                   <InputField
+//                     label="عدد المقاعد"
+//                     type="number"
+//                     {...field}
+//                     error={errors.maxSeats?.message}
+//                   />
+//                 )}
+//               />
+//             </div>
+
+//             {/* Commission */}
+//             <div className="col-12 col-md-6 p-2">
+//               <Controller
+//                 name="commission"
+//                 control={control}
+//                 render={({ field }) => (
+//                   <InputField
+//                     label="نسبة العمولة (%)"
+//                     type="number"
+//                     {...field}
+//                     error={errors.commission?.message}
+//                   />
+//                 )}
+//               />
+//             </div>
+
+//             {/* Buttons */}
+//             <div className="col-12">
+//               <div className="buttons justify-content-end">
+//                 <CustomButton
+//                   type="submit"
+//                   disabled={isPending}
+//                   loading={isPending}
+//                 >
+//                   {isEdit ? "تحديث" : "اضف"}
+//                 </CustomButton>
+//               </div>
+//             </div>
+//           </div>
+//         </form>
+//       </Modal.Body>
+//     </Modal>
+//   );
+// }
+import { useEffect } from "react";
 import { Modal } from "react-bootstrap";
+import { useForm, Controller } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
 import InputField from "../../forms/InputField";
 import CustomButton from "../../CustomButton";
+import { toast } from "sonner";
+import useCreatePackage from "../../../hooks/dashboard/website-managment/packages/useCreatePackage";
+import useUpdatePackage from "../../../hooks/dashboard/website-managment/packages/useUpdatePackage";
+import { SUPPORTED_LANGS } from "../../../lib/multilang/config";
+import { useTranslation } from "react-i18next";
+import { useQueryClient } from "@tanstack/react-query";
 
-export default function AddNewSubscriptoinsModal({
+const subscriptionSchema = yup.object().shape({
+  name_ar: yup.string().required(),
+  name_en: yup.string().required(),
+  yearlyPrice: yup.number().required(),
+  halfYearlyPrice: yup.number().required(),
+  maxOffers: yup.number().required(),
+  maxGroups: yup.number().required(),
+  maxSeats: yup.number().required(),
+  commission: yup.number().required(),
+  image: yup.mixed().nullable(),
+});
+
+export default function AddNewSubscriptionsModal({
   setShowModal,
   showModal,
   isEdit,
   existingData = null,
 }) {
-  const [formData, setFormData] = useState({
-    name: existingData?.name || "",
-    yearlyPrice: existingData?.price || "",
-    halfYearlyPrice: existingData?.price || "",
-    image: existingData?.image || null,
-    preview: existingData?.image || null,
-    maxOffers: existingData?.maxOffers || "",
-    maxGroups: existingData?.maxGroups || "",
-    maxSeats: existingData?.maxSeats || "",
-    commission: existingData?.commission || "",
+  const { t } = useTranslation();
+  const queryClient = useQueryClient();
+
+  const { createPackage, isPending: isCreating } = useCreatePackage();
+  const { updatePackage, isPending: isUpdating } = useUpdatePackage();
+
+  const {
+    control,
+    handleSubmit,
+    setValue,
+    watch,
+    reset,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(subscriptionSchema),
+    defaultValues: {
+      name_ar: "",
+      name_en: "",
+      yearlyPrice: "",
+      halfYearlyPrice: "",
+      maxOffers: "",
+      maxGroups: "",
+      maxSeats: "",
+      commission: "",
+      image: null,
+      preview: null,
+    },
   });
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-  };
+
+  const preview = watch("preview");
+
+  useEffect(() => {
+    if (isEdit && existingData) {
+      reset({
+        name_ar: existingData.title_ar,
+        name_en: existingData.title_en,
+        yearlyPrice: existingData.yearly_price,
+        halfYearlyPrice: existingData.half_yearly_price,
+        maxOffers: existingData.offers_count,
+        maxGroups: existingData.groups_count,
+        maxSeats: existingData.seats_count,
+        commission: existingData.app_commission,
+        preview: existingData.image,
+        image: null,
+      });
+    } else {
+      reset();
+    }
+  }, [isEdit, existingData, reset]);
+
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     if (file) {
-      setFormData((prev) => ({
-        ...prev,
-        image: file,
-        preview: URL.createObjectURL(file),
-      }));
+      setValue("image", file);
+      setValue("preview", URL.createObjectURL(file));
     }
   };
+
+  const onSubmit = (data) => {
+    const formData = new FormData();
+    formData.append("title:ar", data.name_ar);
+    formData.append("title:en", data.name_en);
+    formData.append("yearly_price", data.yearlyPrice);
+    formData.append("half_yearly_price", data.halfYearlyPrice);
+    formData.append("offers_count", data.maxOffers);
+    formData.append("groups_count", data.maxGroups);
+    formData.append("seats_count", data.maxSeats);
+    formData.append("app_commission", data.commission);
+    if (data.image) formData.append("image", data.image);
+
+    const payload = Object.fromEntries(formData);
+
+    if (isEdit) {
+      updatePackage(
+        { id: existingData.id, _method: "put", ...payload },
+        {
+          onSuccess: (res) => {
+            toast.success(res.message);
+            queryClient.invalidateQueries(["dh-packages"]);
+            setShowModal(false);
+          },
+          onError: (err) => toast.error(err.message),
+        }
+      );
+    } else {
+      createPackage(payload, {
+        onSuccess: (res) => {
+          toast.success(res.message);
+          queryClient.invalidateQueries(["dh-packages"]);
+          setShowModal(false);
+          reset();
+        },
+        onError: (err) => toast.error(err.message),
+      });
+    }
+  };
+
   return (
     <Modal
       centered
@@ -45,116 +491,156 @@ export default function AddNewSubscriptoinsModal({
       onHide={() => setShowModal(false)}
     >
       <Modal.Header closeButton>
-        {isEdit ? "تعديل اشتراك" : "اضف اشتراك جديد"}
+        <h6>
+          {isEdit
+            ? t("dashboard.subscriptions.edit")
+            : t("dashboard.subscriptions.add_new")}
+        </h6>
       </Modal.Header>
+
       <Modal.Body>
-        <form className="form_ui">
+        <form className="form_ui" onSubmit={handleSubmit(onSubmit)}>
           <div className="row">
-            <div className="d-flex  align-items-center justify-content-center col-12 p-2">
+            {/* Upload Image */}
+            <div className="col-12 d-flex justify-content-center p-2">
               <label className="image-upload-wrapper">
                 <img
-                  src={formData.preview || "/default-avatar.png"}
-                  alt="Preview"
+                  src={preview || "/images/imageUpload.svg"}
                   className="image-preview-circle"
+                  alt="Preview"
                 />
                 <div className="edit-icon">
                   <i className="fa-solid fa-edit"></i>
                 </div>
+
                 <input
                   type="file"
                   accept="image/*"
                   onChange={handleImageChange}
-                  style={{ display: "none" }}
+                  hidden
                 />
               </label>
             </div>
-            <div className="col-12 col-lg-6 p-2">
-              <InputField label="اسم الخطة" name="name" />
-            </div>
-            {/* <div className="col-12 col-lg-6 p-2">
-              <p className="sub-type-lable"> نوع الاشتراك </p>
-              <div className="toggle-radio-group">
-                <div className="toggle-radio">
-                  <input
-                    type="radio"
-                    id="half-yearly"
-                    name="subscription"
-                    value="half-yearly"
-                    checked={formData.subscription === "half-yearly"}
-                    onChange={handleChange}
-                  />
-                  <label htmlFor="half-yearly" className="toggle-radio-label">
-                    نصف سنوي
-                  </label>
-                </div>
-                <div className="toggle-radio">
-                  <input
-                    type="radio"
-                    id="yearly"
-                    name="subscription"
-                    checked={formData.subscription === "yearly"}
-                    value="yearly"
-                    onChange={handleChange}
-                  />
-                  <label htmlFor="yearly" className="toggle-radio-label">
-                    سنوي
-                  </label>
-                </div>
+
+            {/* Name (AR + EN) */}
+            {SUPPORTED_LANGS.map((lang) => (
+              <div key={lang} className="col-12 col-lg-6 p-2">
+                <Controller
+                  name={`name_${lang}`}
+                  control={control}
+                  render={({ field }) => (
+                    <InputField
+                      {...field}
+                      label={`${t(
+                        "dashboard.subscriptions.plan_name"
+                      )} (${lang.toUpperCase()})`}
+                      error={errors[`name_${lang}`]?.message}
+                    />
+                  )}
+                />
               </div>
-            </div> */}
+            ))}
+
+            {/* Yearly price */}
             <div className="col-12 col-lg-6 p-2">
-              <InputField label=" السعر السنوي" />
+              <Controller
+                name="yearlyPrice"
+                control={control}
+                render={({ field }) => (
+                  <InputField
+                    {...field}
+                    type="number"
+                    label={t("dashboard.subscriptions.yearly_price")}
+                    error={errors.yearlyPrice?.message}
+                  />
+                )}
+              />
             </div>
+
+            {/* Half-year price */}
             <div className="col-12 col-lg-6 p-2">
-              <InputField label=" السعر النصف سنوي" />
+              <Controller
+                name="halfYearlyPrice"
+                control={control}
+                render={({ field }) => (
+                  <InputField
+                    {...field}
+                    type="number"
+                    label={t("dashboard.subscriptions.half_yearly_price")}
+                    error={errors.halfYearlyPrice?.message}
+                  />
+                )}
+              />
             </div>
-            {/* Features */}
+
+            {/* Offers, groups, seats, commission */}
             <div className="col-12 col-md-6 p-2">
-              <InputField
-                label="عدد العروض"
+              <Controller
                 name="maxOffers"
-                value={formData.maxOffers}
-                onChange={handleChange}
+                control={control}
+                render={({ field }) => (
+                  <InputField
+                    {...field}
+                    type="number"
+                    label={t("dashboard.subscriptions.offers_count_add")}
+                    error={errors.maxOffers?.message}
+                  />
+                )}
               />
             </div>
 
             <div className="col-12 col-md-6 p-2">
-              <InputField
-                label="عدد المجموعات"
+              <Controller
                 name="maxGroups"
-                value={formData.maxGroups}
-                onChange={handleChange}
+                control={control}
+                render={({ field }) => (
+                  <InputField
+                    {...field}
+                    type="number"
+                    label={t("dashboard.subscriptions.groups_count_add")}
+                    error={errors.maxGroups?.message}
+                  />
+                )}
               />
             </div>
 
             <div className="col-12 col-md-6 p-2">
-              <InputField
-                label="عدد المقاعد"
+              <Controller
                 name="maxSeats"
-                value={formData.maxSeats}
-                onChange={handleChange}
+                control={control}
+                render={({ field }) => (
+                  <InputField
+                    {...field}
+                    type="number"
+                    label={t("dashboard.subscriptions.seats_count_add")}
+                    error={errors.maxSeats?.message}
+                  />
+                )}
               />
             </div>
 
             <div className="col-12 col-md-6 p-2">
-              <InputField
-                label="نسبة العمولة (%)"
+              <Controller
                 name="commission"
-                value={formData.commission}
-                onChange={handleChange}
+                control={control}
+                render={({ field }) => (
+                  <InputField
+                    {...field}
+                    type="number"
+                    label={t("dashboard.subscriptions.commission")}
+                    error={errors.commission?.message}
+                  />
+                )}
               />
             </div>
-            <div className="col-12 ">
-              <div className="buttons justify-content-end">
-                <CustomButton
-                  color="secondary"
-                  size="large"
-                  onClick={() => setShowModal(false)}
-                >
-                  الغاء
-                </CustomButton>
-                <CustomButton>{isEdit ? "تحديث" : "اضف"}</CustomButton>
-              </div>
+
+            {/* Submit button */}
+            <div className="col-12 d-flex justify-content-end">
+              <CustomButton type="submit" loading={isCreating || isUpdating}>
+                {isEdit
+                  ? t("dashboard.subscriptions.update")
+                  : t("dashboard.subscriptions.save")}
+              </CustomButton>
             </div>
           </div>
         </form>

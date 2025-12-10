@@ -1,47 +1,56 @@
+import { useParams } from "react-router";
 import CustomButton from "../../../ui/CustomButton";
 import DescriptionSection from "./DescriptionSection";
-import DocumentList from "./DocumentList";
-import ExperienceList from "./ExperienceList";
 import UserDataCard from "./UserDataCard";
+import useGetResume from "../../../hooks/dashboard/subscription/useGetResume";
+import PersonalHelperExperiences from "../../../ui/website/helpers/PersonalHelperExperiences";
+import PersonalHelperDoc from "../../../ui/website/helpers/PersonalHelperDoc";
+import Loading from "../../../ui/loading/Loading";
+import { useTranslation } from "react-i18next";
 
 export default function ResuemeDetails() {
-  const descriptionText =
-    "السيرة الذاتية هي عبارة عن ملخص منظم للخبرات المهنية، والخلفية التعليمية، والمهارات، والمعلومات الشخصية ذات الصلة بمقدم طلب العمل. تُستخدم السيرة الذاتية لعرض مؤهلات الشخص، والتعريف بالمهن التي عمل بها سابقًا، وما يمتلكه من قدرات وخبرات، وذلك بهدف تقديمها لأصحاب العمل عند التقدم لوظيفة معينة.";
+  const { t } = useTranslation();
+  const { id } = useParams();
+  const { userResume, isLoading } = useGetResume(id);
+  // console.log("userResume", id, userResume);
 
-  const experiences = [
-    "التجارة الإلكترونية",
-    "التجارة الإلكترونية",
-    "التجارة الإلكترونية",
-    "التجارة الإلكترونية",
-  ];
-
-  const documents = [
-    "التجارة الإلكترونية",
-    "التجارة الإلكترونية",
-    "التجارة الإلكترونية",
-    "التجارة الإلكترونية",
-  ];
   return (
-    <section className="resumes-details">
-      <div className="row">
-        <div className="resume-header">
-          <h1>السيرة الذاتية</h1>
-          <CustomButton>تصدير</CustomButton>
-        </div>
-        <div className="col-12 col-lg-3 p-2">
-          <UserDataCard
-            name="محمود"
-            country="السعودية"
-            image="/images/profile2.png"
-            flag="/icons/flag.svg"
-          />
-        </div>
-        <div className="col-12 col-lg-9 p-2">
-          <DescriptionSection title="عرف عن نفسك" text={descriptionText} />
-          <ExperienceList experiences={experiences} />
-          <DocumentList documents={documents} />
-        </div>
-      </div>
-    </section>
+    <>
+      {isLoading ? (
+        <Loading />
+      ) : (
+        <section className="resumes-details">
+          <div className="row">
+            <div className="resume-header">
+              <h1>{t("dashboard.resume.title")}</h1>
+              <CustomButton>{t("dashboard.resume.export")}</CustomButton>
+            </div>
+            <div className="col-12 col-lg-3 p-2">
+              <UserDataCard
+                name={userResume?.first_name + " " + userResume?.last_name}
+                country={userResume?.country?.title}
+                image={userResume?.image}
+                flag="/icons/flag.svg"
+              />
+            </div>
+            <div className="col-12 col-lg-9 p-2">
+              <DescriptionSection
+                title={t("dashboard.resume.aboutYou")}
+                text={userResume?.about}
+              />
+
+              <div className="exp-info my-4">
+                <h6 className="my-2">{t("dashboard.resume.experiences")}</h6>
+                <PersonalHelperExperiences tabs={userResume.user_experiences} />
+              </div>
+              <div className="exp-info my-4">
+                <h6 className="my-2">{t("dashboard.resume.documents")}</h6>
+                <PersonalHelperDoc tabs={userResume.user_documents} />
+              </div>
+            </div>
+          </div>
+        </section>
+      )}
+    </>
   );
 }

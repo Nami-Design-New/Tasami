@@ -1,26 +1,30 @@
 import { useMemo, useState } from "react";
-import { useParams, useSearchParams } from "react-router";
 import { useTranslation } from "react-i18next";
+import { useNavigate, useParams, useSearchParams } from "react-router";
 
+import useCreateChatRoom from "../../hooks/dashboard/chats/useCreateChatRoom";
 import CustomButton from "../../ui/CustomButton";
 import PageHeader from "../../ui/PageHeader";
 import Tabs from "../../ui/Tabs";
+import DraftedUsers from "../../ui/dash-board/create-employee/DraftedUsers";
 import EmployerDataForm from "../../ui/dash-board/create-employee/EmployerDataForm";
 import PerformanceIndicators from "../../ui/dash-board/create-employee/PerformanceIndicators";
 import PermissionBoard from "../../ui/dash-board/create-employee/PermissionBoard";
 import SuspensionModel from "../../ui/modals/SuspensionModel";
 import AddNewTask from "./tasks/AddNewTaskModal";
-import DraftedUsers from "../../ui/dash-board/create-employee/DraftedUsers";
+import { setChat } from "../../redux/slices/chatSlice";
 
 const CreateEmployee = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
   const [openSuspensionModel, setOpenSuspensionModel] = useState(false);
   const [showTaskModal, setShowTaskModal] = useState(false);
   const isEditMode = !!id;
-  console.log(isEditMode);
 
   const { t } = useTranslation();
+
+  const { createChatRoom, isPending: isCreatingChatRoom } = useCreateChatRoom();
 
   const allTabs = [
     {
@@ -69,6 +73,24 @@ const CreateEmployee = () => {
     setSearchParams({ tab: tabId.toString() });
   };
 
+  const handleCreateChatRoom = () => {
+    createChatRoom(
+      { chater_id: id, chater_type: "employee" },
+      {
+        onSuccess: (res) => {
+          console.log("create Room Response :", res);
+
+          setChat(res.data);
+          localStorage.setItem("chatId", res.data.id);
+          navigate(`/dashboard/chats?chaterId=${id}&chatId=${res?.data?.id}`);
+        },
+        onError: (error) => {
+          console.log(error);
+        },
+      }
+    );
+  };
+
   const tabComponents = {
     1: <EmployerDataForm isEdit={isEditMode} />,
     2: <PermissionBoard isEdit={isEditMode} />,
@@ -113,6 +135,13 @@ const CreateEmployee = () => {
                 {isEditMode ? (
                   <>
                     <CustomButton
+                      onClick={handleCreateChatRoom}
+                      size="large"
+                      fullWidth
+                    >
+                      {t("dashboard.createEmployee.contact")}
+                    </CustomButton>
+                    <CustomButton
                       color="primary"
                       size="large"
                       fullWidth
@@ -120,7 +149,6 @@ const CreateEmployee = () => {
                     >
                       {t("dashboard.createEmployee.requestSuspendAccount")}
                     </CustomButton>
-
                     <CustomButton
                       color="secondary"
                       size="large"

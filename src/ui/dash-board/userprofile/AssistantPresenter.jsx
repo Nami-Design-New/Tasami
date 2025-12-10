@@ -3,9 +3,19 @@ import InfoCard from "../cards/InfoCard";
 import CummunityRecordModal from "./CummunityRecordModal";
 import ContractRecordModal from "./ContractRecordModal";
 import { useNavigate } from "react-router";
+import { PAGE_SIZE } from "../../../utils/constants";
+import useGetHelperContract from "../../../hooks/dashboard/subscription/usePostHelperContract";
+import { useTranslation } from "react-i18next";
 
-const AssistantPresenter = () => {
+const AssistantPresenter = ({ userDetails }) => {
+  const { t } = useTranslation();
   const [showModal, setShowModal] = useState(false);
+  const user_id = userDetails?.id;
+  const [page, setPage] = useState(1);
+  const [pageSize, setPageSize] = useState(PAGE_SIZE);
+  const { helperContract, currentPage, lastPage, isLoading } =
+    useGetHelperContract("", page, PAGE_SIZE, user_id);
+
   const navigate = useNavigate();
   const [showContractModal, setShowContractModal] = useState(false);
   function handleOpenModal() {
@@ -16,172 +26,165 @@ const AssistantPresenter = () => {
       <div className="row">
         <div className="col-12 col-md-6  p-1">
           <InfoCard
-            title="حساب المساعد "
-            link={"السيره الذاتيه"}
-            event={() => navigate("/dashboard/resuems/1")}
+            title={t("dashboard.assistant.titles.account")}
+            link={t("dashboard.assistant.links.resume")}
+            event={() => navigate(`/dashboard/resuems/${user_id}`)}
           >
             <p>
-              <span>نوع الحساب:</span>
-              <span>أساسي</span>
+              <span>{t("dashboard.assistant.fields.accountType")}:</span>
+              <span> {userDetails?.account_type} </span>
             </p>
             <p>
-              <span>تاريخ آخر اشتراك:</span>
-              <span>2025-06-11</span>
+              <span>{t("dashboard.assistant.fields.lastSubscriptionDate")}:</span>
+              <span> {userDetails?.current_scubscription.start_date} </span>
             </p>
             <p>
-              <span>مدة الاشتراك:</span>
-              <span>6 شهور</span>
+              <span>{t("dashboard.assistant.fields.subscriptionDuration")}:</span>
+              <span>
+                {" "}
+                {userDetails?.current_scubscription.package?.type_title}{" "}
+              </span>
             </p>
             <p>
-              <span>تاريخ نهاية الاشتراك:</span>
-              <span>2025-06-11</span>
+              <span>{t("dashboard.assistant.fields.subscriptionEndDate")}:</span>
+              <span> {userDetails?.current_scubscription.end_date} </span>
             </p>
             <p>
-              <span>إجمالي مشتريات الاشتراكات:</span>
-              <span>2,450 ريال</span>
+              <span>{t("dashboard.assistant.fields.totalSubscriptionPurchases")}:</span>
+              <span> {userDetails?.total_subscription_purchases} </span>
             </p>
-          </InfoCard>{" "}
+          </InfoCard>
           <InfoCard
-            title="مجتمع المساعد"
-            event={() => navigate("/dashboard/communities-details/1")}
-            link={"سجل مجتمع المساعد "}
+            title={t("dashboard.assistant.titles.community")}
+            event={() =>
+              navigate(
+                `/dashboard/communities-details/${userDetails?.community?.id}`
+              )
+            }
+            link={t("dashboard.assistant.links.communityLog")}
           >
             <p>
-              <span>عدد المتابعين:</span>
-              <span>4582</span>
+              <span>{t("dashboard.assistant.fields.communityStatus")}:</span>
+              <span>
+                {userDetails?.community.is_active
+                  ? t("dashboard.common.active")
+                  : t("dashboard.common.inactive")}
+              </span>
             </p>
             <p>
-              <span>حالة مجتمع المساعد:</span>
-              <span>نشط</span>
+              <span>{t("dashboard.assistant.fields.membersCount")}:</span>
+              <span> {userDetails?.community.members_count} </span>
             </p>
             <p>
-              <span>عدد الأعضاء الطالبين:</span>
-              <span>89</span>
+              <span>{t("dashboard.assistant.fields.postsCount")}:</span>
+              <span> {userDetails?.community.posts_count} </span>
             </p>
             <p>
-              <span>المشورات:</span>
-              <span>11</span>
+              <span>{t("dashboard.assistant.fields.meetingsCount")}:</span>
+              <span> {userDetails?.community.meetings_count} </span>
             </p>
             <p>
-              <span>اللقاءات:</span>
-              <span>4</span>
+              <span>{t("dashboard.assistant.fields.consultationsCount")}:</span>
+              <span> {userDetails?.community.consultations_count} </span>
             </p>
             <p>
-              <span>الاجتماعات:</span>
-              <span>5</span>
+              <span>{t("dashboard.assistant.fields.viewsCount")}:</span>
+              <span> {userDetails?.community.views_count} </span>
             </p>
             <p>
-              <span>الاستشارات:</span>
-              <span>22</span>
-            </p>
-            <p>
-              <span>المشاهدات:</span>
-              <span>8</span>
-            </p>
-            <p>
-              <span>تقييم المجتمع الإجمالي:</span>
-              <span>3.8</span>
-            </p>
-            <p>
-              <span>مبيعات العضوية الإجمالي:</span>
-              <span>2,450 ريال</span>
+              <span>{t("dashboard.assistant.fields.totalMembershipRevenue")}:</span>
+              <span> {`ريال${userDetails?.community.revenue}`} </span>
             </p>
           </InfoCard>
         </div>
-        <div className="col-12 col-md-6  p-1">
+
+        {/* Assistant Activity */}
+        <div className="col-12 col-md-6 p-1">
           <InfoCard
-            title="نشاط المساعد"
-            link={"سجل عقود المساعد "}
+            title={t("dashboard.assistant.titles.activity")}
+            link={t("dashboard.assistant.links.contractLog")}
             event={() => setShowContractModal(true)}
           >
             <p>
-              <span>العروض المنشورة:</span>
-              <span>4</span>
+              <span>{t("dashboard.assistant.fields.activeOffers")}:</span>
+              <span> {userDetails?.active_helpe_services} </span>
             </p>
             <p>
-              <span>العروض الموثقة:</span>
-              <span>1</span>
+              <span>{t("dashboard.assistant.fields.archivedOffers")}:</span>
+              <span> {userDetails?.archived_helpe_services} </span>
             </p>
             <p>
-              <span>العروض المحذوفة:</span>
-              <span>0</span>
+              <span>{t("dashboard.assistant.fields.deletedOffers")}:</span>
+              <span> {userDetails?.deleted_helpe_services} </span>
             </p>
             <p>
-              <span>العروض قيد التنفيذ:</span>
-              <span>3</span>
+              <span>{t("dashboard.assistant.fields.activeContracts")}:</span>
+              <span> {userDetails?.active_helper_contracts} </span>
             </p>
             <p>
-              <span>العروض المكتملة:</span>
-              <span>57</span>
+              <span>{t("dashboard.assistant.fields.completedContracts")}:</span>
+              <span> {userDetails?.comlpeted_helper_contracts} </span>
             </p>
             <p>
-              <span>الأهداف قيد التنفيذ:</span>
-              <span>1</span>
+              <span>{t("dashboard.assistant.fields.clientsCount")}:</span>
+              <span> {userDetails?.member} </span>
             </p>
             <p>
-              <span>الأهداف المكتملة:</span>
-              <span>6</span>
+              <span>{t("dashboard.assistant.fields.contractRevenue")}:</span>
+              <span> {`ريال${userDetails?.contract_revenue}`} </span>
             </p>
             <p>
-              <span>الطلبات قيد التنفيذ:</span>
-              <span>0</span>
+              <span>{t("dashboard.assistant.fields.totalPriceOffers")}:</span>
+              <span> {userDetails?.goal_offers} </span>
             </p>
             <p>
-              <span>الطلبات المكتملة:</span>
-              <span>48</span>
+              <span>{t("dashboard.assistant.fields.experiencePoints")}:</span>
+              <span> {userDetails?.total_helper_points} </span>
             </p>
             <p>
-              <span>عدد العملاء:</span>
-              <span>125</span>
+              <span>{t("dashboard.assistant.fields.stopsNumber")}:</span>
+              <span> {userDetails?.stops_number} </span>
             </p>
             <p>
-              <span>مبيعات العقود:</span>
-              <span>2,450 ريال</span>
+              <span>{t("dashboard.assistant.fields.violationReports")}:</span>
+              <span> {userDetails?.violation_reports} </span>
             </p>
             <p>
-              <span>عدد عروض الأسعار الإجمالي:</span>
-              <span>96</span>
+              <span>{t("dashboard.assistant.fields.avgRate")}:</span>
+              <span> {userDetails?.avg_rate} </span>
             </p>
             <p>
-              <span>نقاط الخبرة:</span>
-              <span>34</span>
+              <span>{t("dashboard.assistant.fields.experienceAndKnowledge")}:</span>
+              <span> {userDetails?.experience_and_knowledge} </span>
             </p>
             <p>
-              <span>عدد بلاغات المخالفات:</span>
-              <span>4</span>
+              <span>{t("dashboard.assistant.fields.commitmentToTime")}:</span>
+              <span> {userDetails?.commitment_to_time} </span>
             </p>
             <p>
-              <span>الإتفاقات:</span>
-              <span>1</span>
+              <span>{t("dashboard.assistant.fields.performanceQuality")}:</span>
+              <span> {userDetails?.quality_of_performance} </span>
             </p>
             <p>
-              <span>التقييم الإجمالي:</span>
-              <span>4.5</span>
-            </p>
-            <p>
-              <span>الخبرة والمعرفة:</span>
-              <span>4.5</span>
-            </p>
-            <p>
-              <span>الإلتزام بالمواعيد:</span>
-              <span>3.9</span>
-            </p>
-            <p>
-              <span>جودة الأداء:</span>
-              <span>4.1</span>
-            </p>
-            <p>
-              <span>الإحترام والتعامل:</span>
-              <span>4.2</span>
+              <span>{t("dashboard.assistant.fields.respectAndTreatment")}:</span>
+              <span> {userDetails?.respect_and_treatment} </span>
             </p>
           </InfoCard>
         </div>
       </div>
       <CummunityRecordModal setShowModal={setShowModal} showModal={showModal} />
       <ContractRecordModal
+        data={helperContract}
+        page={page}
+        currentPage={currentPage}
+        lastPage={lastPage}
+        setPage={setPage}
+        pageSize={pageSize}
+        setPageSize={setPageSize}
+        isLoading={isLoading}
         setShowModal={setShowContractModal}
         showModal={showContractModal}
-        title={"سجل عقود المساعد"}
+        title={t("dashboard.assistant.links.contractLog")}
       />
     </>
   );

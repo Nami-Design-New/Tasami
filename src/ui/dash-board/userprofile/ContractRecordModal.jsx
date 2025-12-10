@@ -1,75 +1,119 @@
 import { createColumnHelper } from "@tanstack/react-table";
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { Modal } from "react-bootstrap";
 import { Link } from "react-router";
 import ReusableDataTable from "../../table/ReusableDataTable";
 import CustomButton from "../../CustomButton";
+import TablePagination from "../../table/TablePagentaion";
+import { toast } from "sonner";
+import useUpdateUserContract from "../../../hooks/dashboard/subscription/useUpdateUserContract";
+import { useQueryClient } from "@tanstack/react-query";
+import { useTranslation } from "react-i18next";
 
 const columnHelper = createColumnHelper();
 
-const ContractRecordModal = ({ showModal, setShowModal, title }) => {
+const ContractRecordModal = ({
+  showModal,
+  setShowModal,
+  title,
+  currentPage,
+  lastPage,
+  page,
+  setPage,
+  pageSize,
+  setPageSize,
+  isLoading,
+  data,
+}) => {
+  const { t } = useTranslation();
   // const [showDeleteModal, setShowDeleteModal] = useState(false);
-  const data = useMemo(
-    () => [
-      {
-        referenceNumber: "REF001",
-        creationDate: "2025-06-01",
-        actions: "",
+  const queryClient = useQueryClient();
+  //-----------------------
+  // delete shared Group hook
+  //-----------------------
+  const { updateUserContract, isPending } = useUpdateUserContract();
+  const [loadingContractId, setLoadingContractId] = useState(null);
+
+  const handelUpdateUserContract = (id, is_active) => {
+    setLoadingContractId(id);
+
+    const payload = {
+      id,
+      is_active,
+    };
+    updateUserContract(payload, {
+      onSuccess: (res) => {
+        toast.success(res?.message);
+        queryClient.invalidateQueries({
+          queryKey: ["dh-user-contract"],
+        });
+        queryClient.invalidateQueries({
+          queryKey: ["dh-helper-contracts"],
+        });
+        setShowModal(false);
+        setLoadingContractId(null);
       },
-      {
-        referenceNumber: "REF002",
-        creationDate: "2025-06-05",
-        actions: "",
+      onError: (err) => {
+        toast.error(err?.message);
+        setLoadingContractId(null);
       },
-      {
-        referenceNumber: "REF003",
-        creationDate: "2025-06-10",
-        actions: "",
-      },
-      {
-        referenceNumber: "REF004",
-        creationDate: "2025-06-15",
-        actions: "",
-      },
-    ],
-    []
-  );
+    });
+  };
 
   const columns = useMemo(
     () => [
-      columnHelper.accessor("referenceNumber", {
-        header: " الرقم المرجعي  ",
+      columnHelper.accessor("code", {
+        header: t("dashboard.contractModal.refNumber"),
         cell: (info) => (
-          <Link to={"/dashboard/contracts/REF004"} className="link-styles">
+          <Link
+            to={`/dashboard/contracts/${info.getValue()}`}
+            className="link-styles"
+          >
             {info.getValue()}
           </Link>
         ),
         enableSorting: false,
       }),
-      columnHelper.accessor("creationDate", {
-        header: " تاريخ الانشاء ",
+      columnHelper.accessor("created_at", {
+        header: t("dashboard.contractModal.createDate"),
         cell: (info) => info.getValue(),
         enableSorting: false,
       }),
 
-      columnHelper.accessor("actions", {
-        header: " الاجراء ",
-        cell: () => (
-          <div className="table__actions">
-            <CustomButton size="small" color="primary">
-              تنشيط
-            </CustomButton>
-            <CustomButton size="small" color="secondary">
-              ايقاف
-            </CustomButton>
+      columnHelper.accessor("is_active", {
+        header: t("dashboard.contractModal.action"),
+        cell: (info) => {
+          const contractId = info?.row?.original?.id;
+          const isUpdating = loadingContractId === contractId;
 
-            {/* <i className="fa-solid fa-trash  table__actions--delete"></i> */}
-          </div>
-        ),
+          return (
+            <div className="table__actions">
+              {info.getValue() ? (
+                <CustomButton
+                  onClick={() => handelUpdateUserContract(contractId, false)}
+                  size="small"
+                  color="secondary"
+                  disabled={isUpdating}
+                >
+                  {isUpdating ? "جاري الإيقاف..." : " ايقاف"}
+                </CustomButton>
+              ) : (
+                <CustomButton
+                  onClick={() => handelUpdateUserContract(contractId, true)}
+                  size="small"
+                  color="primary"
+                  disabled={isUpdating}
+                >
+                  {isUpdating ? "جاري التنشيط..." : " تنشيط"}
+                </CustomButton>
+              )}
+            </div>
+          );
+        },
         enableSorting: false,
       }),
     ],
-    []
+    [isPending]
   );
   return (
     <>
@@ -91,7 +135,21 @@ const ContractRecordModal = ({ showModal, setShowModal, title }) => {
             title={title}
             filter={false}
             searchPlaceholder=""
-          />
+            currentPage={currentPage}
+            lastPage={lastPage}
+            setPage={setPage}
+            pageSize={pageSize}
+            setPageSize={setPageSize}
+            lang="ar"
+            isLoading={isLoading}
+          >
+            <TablePagination
+              currentPage={page}
+              lastPage={lastPage}
+              onPageChange={setPage}
+              isLoading={isLoading}
+            />
+          </ReusableDataTable>
         </Modal.Body>
       </Modal>
       {/* <ConfirmDeleteModal

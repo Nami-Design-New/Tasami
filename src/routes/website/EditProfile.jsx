@@ -22,6 +22,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import useDeleteAccount from "../../hooks/website/profile/useDeleteAccount";
 import { toast } from "sonner";
 import { useNavigate } from "react-router";
+import DeleteAccountModal from "./DeleteAccountModal";
 
 export default function EditProfile() {
   const { user } = useSelector((state) => state.authRole);
@@ -29,6 +30,7 @@ export default function EditProfile() {
   const navigate = useNavigate();
   const { editProfile, isEditingProfile } = useEditProfile();
   const [showAlertModal, setShowAlertModal] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
 
   const inputFileRef = useRef();
   const { t } = useTranslation();
@@ -371,6 +373,7 @@ export default function EditProfile() {
           )}
           <div className="col-12 p-2">
             <CustomButton
+              // type="submit"
               size="large"
               style={{
                 display: "block",
@@ -379,7 +382,7 @@ export default function EditProfile() {
                 background: "transparent",
                 color: "#ff7a59",
               }}
-              onClick={() => setShowAlertModal(true)}
+              onClick={() => setShowDeleteModal(true)}
             >
               {t("profile.deleteAccount")}
             </CustomButton>
@@ -397,6 +400,13 @@ export default function EditProfile() {
           </div>
         </div>
       </form>
+
+      <DeleteAccountModal
+        showDeleteModal={showDeleteModal}
+        setShowDeleteModal={setShowDeleteModal}
+        showAlertModal={showAlertModal}
+        setShowAlertModal={setShowAlertModal}
+      />
       <AlertModal
         confirmButtonText={t("confirm")}
         showModal={showAlertModal}

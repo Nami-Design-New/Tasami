@@ -5,70 +5,74 @@ import ReusableDataTable from "../../../ui/table/ReusableDataTable";
 import { createColumnHelper } from "@tanstack/react-table";
 import ConfirmDeleteModal from "../../../ui/modals/ConfirmationDeleteModal";
 import TasksClassificationModal from "../../../ui/dash-board/websiteManagment/TasksClassificationModal";
+import { useQueryClient } from "@tanstack/react-query";
+import { PAGE_SIZE } from "../../../utils/constants";
+import useGetTaskCategory from "../../../hooks/dashboard/websiteManagment/tasksManagment/useGetTaskCategory";
+import useDeleteTaskCategory from "../../../hooks/dashboard/websiteManagment/tasksManagment/useDeleteTaskCategory";
+import TablePagination from "../../../ui/table/TablePagentaion";
+import { useTranslation } from "react-i18next";
 
 const columnHelper = createColumnHelper();
 
 export default function TasksManagment() {
   const [showModal, setShowModal] = useState();
   const [showDeleteModal, setShowDeleteModal] = useState();
-
   const [isEdit, setIsEdit] = useState(false);
-  const data = useMemo(
-    () => [
-      {
-        id: "1",
-        classification: "تنمية معرفية",
+  const queryClient = useQueryClient();
+  const { t } = useTranslation();
+  const lang = localStorage.getItem("i18nextLng");
+
+  // fetch data
+  const [page, setPage] = useState(1);
+  const [pageSize, setPageSize] = useState(PAGE_SIZE);
+  const { taskCategories, currentPage, lastPage, isLoading } =
+    useGetTaskCategory("", page, pageSize);
+
+  // delete row
+  const [deletionTarget, setDeletionTarget] = useState(null);
+  const [updateTarget, setUpdateTarget] = useState(null);
+  const { deleteTaskCategory, isDeletingTaskCategory } =
+    useDeleteTaskCategory();
+
+  const handleDeleteTaskCategory = (id) => {
+    deleteTaskCategory(id, {
+      onSuccess: () => {
+        setShowDeleteModal(false);
+        setDeletionTarget(null);
+        queryClient.invalidateQueries({
+          queryKey: ["task-category-data"],
+        });
       },
-      {
-        id: "2",
-        classification: "مهارات التفكير الإبداعي",
-      },
-      {
-        id: "3",
-        classification: "التخطيط الشخصي",
-      },
-      {
-        id: "4",
-        classification: "الذكاء العاطفي",
-      },
-      {
-        id: "5",
-        classification: "إدارة الوقت",
-      },
-      {
-        id: "6",
-        classification: "بناء فرق العمل",
-      },
-      {
-        id: "7",
-        classification: "حل المشكلات واتخاذ القرار",
-      },
-    ],
-    []
-  );
+    });
+  };
 
   const columns = useMemo(
     () => [
-      columnHelper.accessor("classification", {
-        header: " تصنيف المهمة ",
+      columnHelper.accessor(lang === "ar" ? "title_ar" : "title_en", {
+        header: t("dashboard.taskCategories.taskCategory"),
         cell: (info) => info.getValue(),
       }),
 
       columnHelper.display({
         id: "actions",
-        header: " الاجراءات",
+        header: t("dashboard.taskCategories.actions"),
 
-        cell: () => (
+        cell: (info) => (
           <div className="table__actions">
             <i
               className="fa-solid fa-edit  table__actions--edit"
               onClick={() => {
-                setIsEdit(true), setShowModal(true);
+                setIsEdit(true),
+                  setShowModal(true),
+                  setUpdateTarget(info.row.original.id);
               }}
             ></i>
             <i
               className="fa-solid fa-trash  table__actions--delete"
-              onClick={() => setShowDeleteModal(true)}
+              onClick={() => {
+                setShowDeleteModal(true);
+                setDeletionTarget(info.row.original.id);
+              }}
             ></i>
           </div>
         ),
@@ -89,26 +93,43 @@ export default function TasksManagment() {
             setIsEdit(false);
           }}
         >
-          اضف تصنيف
+          {t("dashboard.taskCategories.addCategory")}
         </CustomButton>
       </div>
       <ReusableDataTable
-        title="تصنيف المهمات"
-        data={data}
+        title={t("dashboard.taskCategories.categoriesTitle")}
+        data={taskCategories || []}
         columns={columns}
         filter={false}
-        searchPlaceholder="البحث في الروابط  ..."
+        searchPlaceholder={t("dashboard.taskCategories.searchPlaceholder")}
         initialPageSize={10}
-      />
+        currentPage={currentPage}
+        lastPage={lastPage}
+        setPage={setPage}
+        pageSize={pageSize}
+        setPageSize={setPageSize}
+        isLoading={isLoading}
+      >
+        <TablePagination
+          currentPage={page}
+          lastPage={lastPage}
+          onPageChange={setPage}
+          isLoading={isLoading}
+        />
+      </ReusableDataTable>
       <TasksClassificationModal
         showModal={showModal}
         setShowModal={setShowModal}
         isEdit={isEdit}
         setIsEdit={setIsEdit}
+        updateTarget={updateTarget}
+        taskCategories={taskCategories}
       />
       <ConfirmDeleteModal
         showDeleteModal={showDeleteModal}
         setShowDeleteModal={setShowDeleteModal}
+        loading={isDeletingTaskCategory}
+        onConfirm={() => handleDeleteTaskCategory(deletionTarget)}
       />
     </section>
   );

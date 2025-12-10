@@ -1,18 +1,29 @@
+import { useState } from "react";
 import { Modal, Spinner } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
+import useCheckDashboard from "../../../../hooks/dashboard/checkDashboard/useCheckDashboard";
 import useGetMeetingDetails from "../../../../hooks/website/communities/mettings/useGetMeetingDetails";
 import { handleCopy } from "../../../../utils/helper";
-import { useState } from "react";
 import AddMeetingModal from "./AddMeetingModal";
+import useGetMeetingDashDetails from "../../../../hooks/dashboard/subscription/useGetMeetingDashDetails";
 import AlertModal from "../../platform/my-community/AlertModal";
 import useDeleteMeeting from "../../../../hooks/website/communities/mettings/useDeleteMeeting";
 import { useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 
 export default function EncounterDetailsModal({ show, setShow, meetingId }) {
+  const isDashboard = useCheckDashboard();
   const { t } = useTranslation();
   const queryClient = useQueryClient();
   const [showModal, setShowModal] = useState(false);
+
+  const dash = useGetMeetingDashDetails(meetingId, show);
+  const normal = useGetMeetingDetails(meetingId, show);
+
+  const meetingData = isDashboard
+    ? dash.meetingDashDetails
+    : normal.meetingDetails;
+  const isLoadingData = isDashboard ? dash.isLoading : normal.isLoading;
   const [showAlertModal, setShowAlertModal] = useState(false);
   const { meetingDetails, isLoading } = useGetMeetingDetails(meetingId, show);
   const { deleteMeeting, isPending } = useDeleteMeeting();
@@ -32,11 +43,9 @@ export default function EncounterDetailsModal({ show, setShow, meetingId }) {
   };
 
   const meetingDate = new Date(
-    meetingDetails?.start_date + " " + meetingDetails?.start_time
+    meetingData?.start_date + " " + meetingData?.start_time
   );
-
   const isPast = meetingDate < new Date();
-
   return (
     <Modal
       show={show}
@@ -47,19 +56,24 @@ export default function EncounterDetailsModal({ show, setShow, meetingId }) {
     >
       <Modal.Header closeButton className="m-2">
         <h6 className="fw-bold flex-grow-1 ">{meetingDetails?.title}</h6>{" "}
-        <button
-          className=" fs-6 mx-2  text-danger"
-          onClick={() => setShowAlertModal(true)}
-        >
-          <i className="fa-regular fa-trash"></i>
-        </button>
-        <button className=" fs-6  " onClick={() => setShowModal(true)}>
-          <i className="fa-regular fa-edit"></i>
-        </button>
+        {!isDashboard && (
+          <>
+            {" "}
+            <button
+              className=" fs-6 mx-2  text-danger"
+              onClick={() => setShowAlertModal(true)}
+            >
+              <i className="fa-regular fa-trash"></i>
+            </button>
+            <button className=" fs-6  " onClick={() => setShowModal(true)}>
+              <i className="fa-regular fa-edit"></i>
+            </button>
+          </>
+        )}
       </Modal.Header>
 
       <Modal.Body>
-        {isLoading ? (
+        {isLoadingData ? (
           <div
             className="d-flex justify-content-center align-items-center"
             style={{ height: "200px" }}
@@ -71,21 +85,21 @@ export default function EncounterDetailsModal({ show, setShow, meetingId }) {
         ) : (
           <>
             {" "}
-            <p className="desc">{meetingDetails?.desc}</p>
+            <p className="desc">{meetingData?.desc}</p>
             <div className="info-grid mt-3">
               <div>
                 <strong>{t("field")}:</strong>
-                <span>{meetingDetails?.category_title}</span>
+                <span>{meetingData?.category_title}</span>
               </div>
               <div>
                 <strong>{t("specialty")}:</strong>
-                <span>{meetingDetails?.sub_category_title}</span>
+                <span>{meetingData?.sub_category_title}</span>
               </div>
               <div>
                 <strong>{t("meetingLink")}:</strong>
-                <span className="url">{meetingDetails?.link}</span>
+                <span className="url">{meetingData?.link}</span>
                 <button
-                  onClick={() => handleCopy(meetingDetails?.link)}
+                  onClick={() => handleCopy(meetingData?.link)}
                   className="copy-btn"
                 >
                   <i className="fa-light fa-copy"></i>
@@ -96,39 +110,43 @@ export default function EncounterDetailsModal({ show, setShow, meetingId }) {
               <span>
                 <i className="fa-light fa-calendar-days"></i>{" "}
                 <span style={{ color: isPast ? "#ff7a59" : "" }}>
-                  {meetingDetails?.start_date}
+                  {meetingData?.start_date}
                 </span>
               </span>
               <span>
-                <i className="fa-light fa-clock"></i>{" "}
-                {meetingDetails?.start_time}
+                <i className="fa-light fa-clock"></i>
+                {meetingData?.start_time}
               </span>
               <span>
                 <i className="fa-solid fa-rotate-left"></i>{" "}
-                {meetingDetails?.duration}
+                {meetingData?.duration}
               </span>
             </div>
           </>
         )}{" "}
-        {showModal && (
-          <AddMeetingModal
-            showModal={showModal}
-            setShowModal={setShowModal}
-            isEdit={true}
-            meeting={meetingDetails}
-            setShowDetailsModal={setShow}
-          />
-        )}
-        {showAlertModal && (
-          <AlertModal
-            showModal={showAlertModal}
-            setShowModal={setShowAlertModal}
-            loading={isPending}
-            onConfirm={handleDeleteMeeting}
-            confirmButtonText={t("confirm")}
-          >
-            {t("meetingDeleteAlert")}
-          </AlertModal>
+        {!isDashboard && (
+          <>
+            {showModal && (
+              <AddMeetingModal
+                showModal={showModal}
+                setShowModal={setShowModal}
+                isEdit={true}
+                meeting={meetingDetails}
+                setShowDetailsModal={setShow}
+              />
+            )}
+            {showAlertModal && (
+              <AlertModal
+                showModal={showAlertModal}
+                setShowModal={setShowAlertModal}
+                loading={isPending}
+                onConfirm={handleDeleteMeeting}
+                confirmButtonText={t("confirm")}
+              >
+                {t("meetingDeleteAlert")}
+              </AlertModal>
+            )}{" "}
+          </>
         )}
       </Modal.Body>
     </Modal>

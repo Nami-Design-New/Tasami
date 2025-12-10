@@ -15,8 +15,8 @@ export default function useGetSubCategories(search, page, pageSize) {
     },
   });
   return {
-    categories_count: data?.stats?.categories_count || 0,
-    subcategories_count: data?.stats?.subcategories_count || 0,
+    categories_count: data?.categories_count || 0,
+    subcategories_count: data?.sub_categories_count || 0,
     subCategories: data?.data || [],
     currentPage: data?.current_page || 1,
     lastPage: data?.last_page || 1,

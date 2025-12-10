@@ -158,6 +158,9 @@ export default function ContractDetailsLayout() {
                   end={tab.end}
                 >
                   {tab.label}
+                  {(tab.id == 4 || tab.id == 5) && (
+                    <span className="notification_span mx-1">97</span>
+                  )}
                   {tab.link === "offers" && (
                     <span className="offer-count-badge">
                       {workDetails?.offers_count}

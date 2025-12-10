@@ -1,203 +1,74 @@
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import ReusableDataTable from "../../../ui/table/ReusableDataTable";
 import { createColumnHelper } from "@tanstack/react-table";
 import { Link, useNavigate } from "react-router";
 import ColumnChart from "../../../ui/dash-board/charts/ColumnChart";
 import { Badge } from "react-bootstrap";
 import CustomButton from "../../../ui/CustomButton";
+import { PAGE_SIZE } from "../../../utils/constants";
+import TablePagination from "../../../ui/table/TablePagentaion";
+import useGetSubscriptionResume from "../../../hooks/dashboard/subscription/resume/useGetSubscriptionResume";
+import { useTranslation } from "react-i18next";
 const columnHelper = createColumnHelper();
 
-const usersSeries = [
-  { name: "المتابعون", data: ["450", "211", "108"] },
-  { name: " الاعضاء", data: ["320", "200", "111"] },
-  { name: "الوثائق ", data: ["150", "80", "60"] },
-  { name: "الخبرات", data: ["40", "50", "20"] },
-  { name: "عدد الحسابات ", data: ["40", "50", "20"] },
-];
-
-const usersCategories = [
-  "(اساسي) مقدم برامج",
-  "(متميز) مقدم برامج",
-  "(رواد) مقدم برامج",
-];
-
-const usersOptions = {
-  chart: {
-    type: "bar",
-    height: 350,
-    toolbar: { show: true },
-  },
-  plotOptions: {
-    bar: {
-      horizontal: false,
-      columnWidth: "20%",
-      barHeight: "100%",
-      endingShape: "rounded",
-      borderRadius: 5,
-      borderRadiusApplication: "end",
-      distributed: false,
-    },
-  },
-  dataLabels: {
-    enabled: false,
-  },
-  xaxis: {
-    categories: usersCategories,
-    labels: {
-      style: {
-        fontSize: "14px",
-      },
-    },
-  },
-  yaxis: {
-    labels: {
-      style: {
-        fontSize: "12px",
-      },
-    },
-  },
-  colors: ["#214b92", "#22C55E", "#F97316", "#EF4444", " #3B82F6"],
-
-  legend: {
-    position: "top",
-    horizontalAlign: "center",
-  },
-};
 const Resuems = () => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
-  const data = useMemo(
-    () => [
-      {
-        name: "صالح",
-        lastName: "محمد",
-        gender: "ذكر",
-        accountNumber: "U-020522-00215a",
-        accountType: "متميز",
-        date: "25-Apr-2020",
-        helpPoints: "6",
-        status: "غير نشط",
-        nationality: "السعودية",
-        region: "014-المنطقة الوسطى",
-        location: "المملكة العربية السعودية",
-        city: "الرياض-001",
-        experiences: "10 ",
-        followers: "12",
-        members: "10",
-        docs: "4",
-        action: "معاينه",
-      },
-      {
-        name: "محمد",
-        lastName: "احمد",
-        gender: "ذكر",
-        accountNumber: "U-020522-00215b",
-        accountType: "رواد",
-        date: "25-Apr-2020",
-        helpPoints: "6",
-        status: "نشط",
-        nationality: "السعودية",
-        region: "014-المنطقة الوسطى",
-        location: "المملكة العربية السعودية",
-        city: "الرياض-002",
-        experiences: "10 ",
-        followers: "12",
-        members: "10",
-        docs: "4",
-        action: "معاينه",
-      },
-      {
-        name: "علي",
-        lastName: "كامل",
-        gender: "ذكر",
-        accountNumber: "U-020522-00215c",
-        accountType: "اساسي",
-        date: "25-Apr-2020",
-        helpPoints: "6",
-        status: "محذوف",
-        nationality: "السعودية",
-        region: "014-المنطقة الوسطى",
-        location: "المملكة العربية السعودية",
-        city: "الرياض-003",
-        experiences: "10 ",
-        followers: "12",
-        members: "10",
-        docs: "4",
-        action: "معاينه",
-      },
-      {
-        name: "علي",
-        lastName: "كامل",
-        gender: "ذكر",
-        accountNumber: "U-020522-00215c",
-        accountType: "اساسي",
-        date: "25-Apr-2020",
-        helpPoints: "6",
-        status: "موقوف",
-        nationality: "السعودية",
-        region: "014-المنطقة الوسطى",
-        location: "المملكة العربية السعودية",
-        city: "الرياض-003",
-        experiences: "10 ",
-        followers: "12",
-        members: "10",
-        docs: "4",
-        action: "معاينه",
-      },
-    ],
-    []
-  );
+  const [page, setPage] = useState(1);
+  const [pageSize, setPageSize] = useState(PAGE_SIZE);
+  const { subscriptionResume, currentPage, lastPage, isLoading } =
+    useGetSubscriptionResume("", page, PAGE_SIZE);
 
   const columns = useMemo(
     () => [
-      columnHelper.accessor("name", {
-        header: "الاسم",
-        cell: (info) => info.getValue(),
+      columnHelper.accessor("first_name", {
+        header: t("dashboard.resume.firstName"),
+        cell: (info) => info.getValue() || "-",
         enableSorting: false,
       }),
-      columnHelper.accessor("lastName", {
-        header: "اسم العائله",
-        cell: (info) => info.getValue(),
-        enableSorting: false,
+      columnHelper.accessor("last_name", {
+        header: t("dashboard.resume.lastName"),
+        cell: (info) => info.getValue() || "-",
       }),
       columnHelper.accessor("gender", {
-        header: "الجنس",
-        cell: (info) => info.getValue(),
+        header: t("dashboard.resume.gender"),
+        cell: (info) => info.getValue() || "-",
       }),
-      columnHelper.accessor("accountNumber", {
-        header: "رقم الحساب",
+      columnHelper.accessor("account_code", {
+        header: t("dashboard.resume.accountNumber"),
         cell: (info) => (
           <Link
-            to={`/dashboard/user-details/${info.getValue()}`}
+            to={`/dashboard/user-details/${info?.row.original.id}`}
             className="link-styles"
           >
-            {info.getValue()}
+            {info.getValue() || "-"}
           </Link>
         ),
         enableSorting: false,
       }),
-      columnHelper.accessor("accountType", {
-        header: "نوع الحساب",
+      columnHelper.accessor("account_type", {
+        header: t("dashboard.resume.accountType"),
         cell: (info) => info.getValue(),
         enableSorting: false,
       }),
-      columnHelper.accessor("date", {
-        header: " التاريخ ",
-        cell: (info) => info.getValue(),
+      columnHelper.accessor("created_at", {
+        header: t("dashboard.resume.date"),
+        cell: (info) => info.getValue() || "-",
       }),
-      columnHelper.accessor("helpPoints", {
-        header: " نقاط المساعده ",
+      columnHelper.accessor("helper_points", {
+        header: t("dashboard.resume.helperPoints"),
         cell: (info) => info.getValue(),
       }),
       columnHelper.accessor("status", {
-        header: " حاله الحساب ",
+        header: t("dashboard.resume.status"),
         cell: (info) => {
           let badgeColor;
           switch (info.getValue()) {
-            case "نشط":
+            case "active":
               badgeColor = "#28a745";
               break;
-            case "موقوف":
-              badgeColor = "#ffc107  ";
+            case "stopped":
+              badgeColor = "#ffc107";
               break;
             case "غير نشط":
               badgeColor = "#007bff";
@@ -224,57 +95,128 @@ const Resuems = () => {
           );
         },
       }),
-      columnHelper.accessor("nationality", {
-        header: "الجنسيه",
+      columnHelper.accessor("nationality.title", {
+        header: t("dashboard.resume.nationality"),
         cell: (info) => info.getValue(),
       }),
-      columnHelper.accessor("region", {
-        header: " الاقليم ",
+      columnHelper.accessor("region_id.title", {
+        header: t("dashboard.resume.region"),
         cell: (info) => info.getValue(),
       }),
-      columnHelper.accessor("location", {
-        header: " القطاع ",
+      columnHelper.accessor("country_id.title", {
+        header: t("dashboard.resume.sector"),
         cell: (info) => info.getValue(),
       }),
-      columnHelper.accessor("city", {
-        header: " المدينه ",
+      columnHelper.accessor("city_id.title", {
+        header: t("dashboard.resume.city"),
         cell: (info) => info.getValue(),
       }),
       columnHelper.accessor("members", {
-        header: " الاعضاء ",
+        header: t("dashboard.resume.members"),
         cell: (info) => info.getValue(),
       }),
       columnHelper.accessor("followers", {
-        header: " المتابعون ",
+        header: t("dashboard.resume.followers"),
         cell: (info) => info.getValue(),
       }),
-
-      columnHelper.accessor("experiences", {
-        header: " الخبرات ",
+      columnHelper.accessor("user_experiences", {
+        header: t("dashboard.resume.experiences"),
         cell: (info) => info.getValue(),
       }),
-      columnHelper.accessor("docs", {
-        header: " الوثائق ",
+      columnHelper.accessor("user_documents", {
+        header: t("dashboard.resume.documents"),
         cell: (info) => info.getValue(),
       }),
-      columnHelper.accessor("action", {
-        header: " معاينه ",
+      columnHelper.accessor("id", {
+        header: t("dashboard.resume.preview"),
         cell: (info) => (
-          <Link to={"/dashboard/resuems/1"} className="log px-2  py-1">
-            {info.getValue()}
+          <Link
+            to={`/dashboard/resuems/${info?.row.original.id}`}
+            className="log px-2 py-1"
+          >
+            {t("dashboard.resume.preview")}
           </Link>
         ),
       }),
     ],
-    []
+    [t]
   );
 
+  const usersSeries = [
+    {
+      name: t("dashboard.resume.accountsCount"),
+      data: subscriptionResume?.packages?.map((item) => item.total_users) || [],
+    },
+    {
+      name: t("dashboard.resume.experiences"),
+      data: subscriptionResume?.packages?.map((item) => item.experiences) || [],
+    },
+    {
+      name: t("dashboard.resume.documents"),
+      data: subscriptionResume?.packages?.map((item) => item.documents) || [],
+    },
+    {
+      name: t("dashboard.resume.members"),
+      data:
+        subscriptionResume?.packages?.map(
+          (item) => item.active_community_members
+        ) || [],
+    },
+    {
+      name: t("dashboard.resume.followers"),
+      data: subscriptionResume?.packages?.map((item) => item.follows) || [],
+    },
+  ];
+
+  const usersOptions = {
+    chart: {
+      type: "bar",
+      height: 350,
+      toolbar: { show: true },
+    },
+    plotOptions: {
+      bar: {
+        horizontal: false,
+        columnWidth: "20%",
+        barHeight: "100%",
+        endingShape: "rounded",
+        borderRadius: 5,
+        borderRadiusApplication: "end",
+        distributed: false,
+      },
+    },
+    dataLabels: {
+      enabled: false,
+    },
+    xaxis: {
+      categories:
+        subscriptionResume?.packages?.map((item) => item.package) || [],
+      labels: {
+        style: {
+          fontSize: "14px",
+        },
+      },
+    },
+    yaxis: {
+      labels: {
+        style: {
+          fontSize: "12px",
+        },
+      },
+    },
+    colors: ["#214b92", "#22C55E", "#F97316", "#EF4444", " #3B82F6"],
+
+    legend: {
+      position: "top",
+      horizontalAlign: "center",
+    },
+  };
   return (
     <section className="mt-5">
       <div className="row">
         <div className="col-12 p-2">
           <ColumnChart
-            title={"السير الذاتيه"}
+            title={t("dashboard.resume.title")}
             options={usersOptions}
             series={usersSeries}
           />
@@ -282,18 +224,31 @@ const Resuems = () => {
         <div className="col-12 p-2">
           <ReusableDataTable
             filter={false}
-            data={data}
+            data={subscriptionResume?.data || []}
             columns={columns}
-            title={"السير الذاتيه"}
+            title={t("dashboard.resume.title")}
             initialPageSize={10}
-          />
+            currentPage={currentPage}
+            lastPage={lastPage}
+            setPage={setPage}
+            pageSize={pageSize}
+            setPageSize={setPageSize}
+            isLoading={isLoading}
+          >
+            <TablePagination
+              currentPage={page}
+              lastPage={lastPage}
+              onPageChange={setPage}
+              isLoading={isLoading}
+            />
+          </ReusableDataTable>
         </div>
         <div className="d-flex align-items-center gap-3 p-2 ">
           <CustomButton onClick={() => navigate("experiences")} size="large">
-            الخبرات
+            {t("dashboard.resume.experience")}
           </CustomButton>
           <CustomButton onClick={() => navigate("documents")} size="large">
-            الوثائق
+            {t("dashboard.resume.documents")}
           </CustomButton>
         </div>
       </div>

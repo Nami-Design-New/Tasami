@@ -125,13 +125,14 @@ export default function CommunityActions({ community, isMyCommunity = true }) {
           )}
         </li>
         {(community?.is_subscribed === true || isMyCommunity) && (
-          <li>
+          <li className="position-relative">
             <Link
               to={`/community/${community?.id}/chats`}
               className="chat-link"
             >
               <img src="/icons/chat.svg" />
             </Link>
+            <span className="notification_span notification_position">97</span>
           </li>
         )}
         <li>

@@ -5,49 +5,63 @@ import ReusableDataTable from "../../../ui/table/ReusableDataTable";
 import ConfirmDeleteModal from "../../../ui/modals/ConfirmationDeleteModal";
 import CustomButton from "../../../ui/CustomButton";
 import SocialLinksModal from "../../../ui/dash-board/websiteManagment/SocialLinksModal";
+import { useQueryClient } from "@tanstack/react-query";
+import useGetSocialLinks from "../../../hooks/dashboard/websiteManagment/socialLinksManage/useGetSocialLinks";
+import TablePagination from "../../../ui/table/TablePagentaion";
+import useDeleteSocialLink from "../../../hooks/dashboard/websiteManagment/socialLinksManage/useDeleteSocialLink";
+import { PAGE_SIZE } from "../../../utils/constants";
+import { useTranslation } from "react-i18next";
 
 const columnHelper = createColumnHelper();
 
 export default function SocialLinksManage() {
+  const { t } = useTranslation();
   const [showModal, setShowModal] = useState();
   const [showDeleteModal, setShowDeleteModal] = useState();
-
   const [isEdit, setIsEdit] = useState(false);
 
-  const data = useMemo(
-    () => [
-      {
-        sociallinks: "https://facebook.com/exampleuser",
-        logo: "https://upload.wikimedia.org/wikipedia/commons/1/1b/Facebook_icon.svg",
-        actions: "",
-      },
-      {
-        sociallinks: "https://twitter.com/exampleuser",
-        logo: "https://upload.wikimedia.org/wikipedia/en/6/60/Twitter_Logo_as_of_2021.svg",
-        actions: "",
-      },
-      {
-        sociallinks: "https://instagram.com/exampleuser",
-        logo: "https://upload.wikimedia.org/wikipedia/commons/e/e7/Instagram_logo_2016.svg",
-        actions: "",
-      },
-      {
-        sociallinks: "https://linkedin.com/in/exampleuser",
-        logo: "https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png",
-        actions: "",
-      },
-    ],
-    []
+  const queryClient = useQueryClient();
+
+  // const lang = localStorage.getItem("i18nextLng");
+
+  // fetch data
+  const [page, setPage] = useState(1);
+  const [pageSize, setPageSize] = useState(PAGE_SIZE);
+  const { socialLinks, currentPage, lastPage, isLoading } = useGetSocialLinks(
+    "",
+    page,
+    pageSize
   );
+
+  // delete row
+  const [deletionTarget, setDeletionTarget] = useState(null);
+  const [updateTarget, setUpdateTarget] = useState(null);
+  const { deleteSocialLink, isDeletingSocialLink } = useDeleteSocialLink();
+
+  const handleDeleteSocialLink = (id) => {
+    deleteSocialLink(id, {
+      onSuccess: () => {
+        setShowDeleteModal(false);
+        setDeletionTarget(null);
+        queryClient.invalidateQueries({
+          queryKey: ["social-links-data"],
+        });
+      },
+    });
+  };
 
   const columns = useMemo(
     () => [
-      columnHelper.accessor("sociallinks", {
-        header: " الرابط ",
-        cell: (info) => info.getValue(),
+      columnHelper.accessor("link", {
+        header: t("dashboard.socialLinks.link"),
+        cell: (info) => (
+          <a href={info.getValue()} target="_blank" rel="noopener noreferrer">
+            {info.getValue()}
+          </a>
+        ),
       }),
       columnHelper.accessor("logo", {
-        header: " الصوره ",
+        header: t("dashboard.socialLinks.logo"),
         cell: (info) => (
           <img
             style={{ width: "2rem", height: "2rem" }}
@@ -56,20 +70,26 @@ export default function SocialLinksManage() {
         ),
       }),
 
-      columnHelper.accessor("actions", {
-        header: " الاجراءات",
+      columnHelper.accessor("id", {
+        id: "id",
+        header: t("dashboard.socialLinks.actions"),
 
-        cell: () => (
+        cell: (info) => (
           <div className="table__actions">
             <i
               className="fa-solid fa-edit  table__actions--edit"
               onClick={() => {
-                setIsEdit(true), setShowModal(true);
+                setIsEdit(true),
+                  setShowModal(true),
+                  setUpdateTarget(info?.row.original.id);
               }}
             ></i>
             <i
               className="fa-solid fa-trash  table__actions--delete"
-              onClick={() => setShowDeleteModal(true)}
+              onClick={() => {
+                setShowDeleteModal(true);
+                setDeletionTarget(info?.row.original.id);
+              }}
             ></i>
           </div>
         ),
@@ -91,26 +111,43 @@ export default function SocialLinksManage() {
             setIsEdit(false);
           }}
         >
-          اضف رابط
+          {t("dashboard.socialLinks.add")}
         </CustomButton>
       </div>
       <ReusableDataTable
-        title="روابط التواصل الاجتماعي"
-        data={data}
+        title={t("dashboard.socialLinks.title")}
+        data={socialLinks || []}
         columns={columns}
         filter={false}
-        searchPlaceholder="البحث في الروابط  ..."
+        searchPlaceholder={t("dashboard.socialLinks.search")}
         initialPageSize={10}
-      />
+        currentPage={currentPage}
+        lastPage={lastPage}
+        setPage={setPage}
+        pageSize={pageSize}
+        setPageSize={setPageSize}
+        isLoading={isLoading}
+      >
+        <TablePagination
+          currentPage={page}
+          lastPage={lastPage}
+          onPageChange={setPage}
+          isLoading={isLoading}
+        />
+      </ReusableDataTable>
       <SocialLinksModal
         showModal={showModal}
         setShowModal={setShowModal}
         isEdit={isEdit}
         setIsEdit={setIsEdit}
+        updateTarget={updateTarget}
+        socialLinks={socialLinks}
       />
       <ConfirmDeleteModal
         showDeleteModal={showDeleteModal}
         setShowDeleteModal={setShowDeleteModal}
+        loading={isDeletingSocialLink}
+        onConfirm={() => handleDeleteSocialLink(deletionTarget)}
       />
     </section>
   );

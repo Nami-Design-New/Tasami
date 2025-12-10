@@ -1,8 +1,350 @@
+// import {
+//   closestCenter,
+//   DndContext,
+//   KeyboardSensor,
+//   MouseSensor,
+//   TouchSensor,
+//   useSensor,
+//   useSensors,
+// } from "@dnd-kit/core";
+// import { restrictToVerticalAxis } from "@dnd-kit/modifiers";
+// import {
+//   arrayMove,
+//   SortableContext,
+//   useSortable,
+//   verticalListSortingStrategy,
+// } from "@dnd-kit/sortable";
+// import { CSS } from "@dnd-kit/utilities";
+
+// import {
+//   flexRender,
+//   getCoreRowModel,
+//   getFilteredRowModel,
+//   getPaginationRowModel,
+//   getSortedRowModel,
+//   useReactTable,
+// } from "@tanstack/react-table";
+
+// import { useEffect, useMemo, useState } from "react";
+// import { useTranslation } from "react-i18next";
+// import TableFilter from "./TableFilter";
+// import { Placeholder } from "react-bootstrap";
+
+// // ---------------------------------------------------------------------
+// // DRAG HANDLE
+// // ---------------------------------------------------------------------
+// const RowDragHandleCell = ({ rowId }) => {
+//   const { attributes, listeners } = useSortable({ id: rowId });
+
+//   return (
+//     <button {...attributes} {...listeners}>
+//       <i className="fa-regular fa-bars"></i>
+//     </button>
+//   );
+// };
+
+// // ---------------------------------------------------------------------
+// // DRAGGABLE ROW
+// // ---------------------------------------------------------------------
+// function DraggableRow({ row }) {
+//   const { transform, transition, setNodeRef, isDragging } = useSortable({
+//     id: row.id, // IMPORTANT: use row.id (not row.original.id)
+//   });
+//   console.log("row:", row.original);
+
+//   const style = {
+//     transform: CSS.Transform.toString(transform),
+//     transition,
+//     opacity: isDragging ? 0.7 : 1,
+//     zIndex: isDragging ? 2 : 1,
+//     position: "relative",
+//   };
+
+//   return (
+//     <tr ref={setNodeRef} style={style}>
+//       {row.getVisibleCells().map((cell) => (
+//         <td key={cell.id} width={cell.column.getSize()}>
+//           {flexRender(cell.column.columnDef.cell, cell.getContext())}
+//         </td>
+//       ))}
+//     </tr>
+//   );
+// }
+
+// // ---------------------------------------------------------------------
+// // MAIN COMPONENT
+// // ---------------------------------------------------------------------
+// const ReusableDataTable = ({
+//   title = "Table",
+//   filter = true,
+//   search = true,
+//   header = true,
+//   data = [],
+//   columns = [],
+//   currentPage = 1,
+//   lastPage = 1,
+//   setPage,
+//   pageSize = 10,
+//   setPageSize,
+//   filterOptions = {},
+//   activeFilters = [],
+//   searchPlaceholder = "Search",
+//   lang = "en",
+//   rowDnD = false,
+//   children,
+//   isLoading = false,
+//   onRowsReordered,
+// }) => {
+//   const { t } = useTranslation();
+
+//   // -----------------------------
+//   // FILTERS
+//   // -----------------------------
+//   const [globalFilter, setGlobalFilter] = useState("");
+//   const [columnFilters, setColumnFilters] = useState([]);
+//   const columnIds = useMemo(() => columns.map((c) => c.header), [columns]);
+
+//   const [columnVisibility, setColumnVisibility] = useState(
+//     Object.fromEntries(columnIds.map((id) => [id, true]))
+//   );
+
+//   const customGlobalFilterFn = (row, columnId, filterValue) => {
+//     return Object.values(row.original).some((val) =>
+//       String(val).toLowerCase().includes(filterValue.toLowerCase())
+//     );
+//   };
+
+//   // -----------------------------
+//   // DND DATA
+//   // -----------------------------
+//   const [dragData, setDragData] = useState(data);
+
+//   useEffect(() => {
+//     console.log("data :", data);
+//     setDragData(data);
+//   }, [data]);
+
+//   const handleDragEnd = ({ active, over }) => {
+//     console.log("🚀 [DND] Drag End Triggered");
+//     console.log("👉 Active:", active?.id);
+//     console.log("👉 Over:", over?.id);
+//     console.log(over);
+
+//     if (!over) {
+//       console.warn("⚠️ [DND] No 'over' target — drag cancelled.");
+//       return;
+//     }
+//     if (active.id === over.id) {
+//       console.log("ℹ️ [DND] Active and over IDs match — no movement.");
+//       return;
+//     }
+
+//     setDragData((items) => {
+//       console.log("📦 [DND] Current items:", JSON.parse(JSON.stringify(items)));
+
+//       const oldIndex = items.findIndex(
+//         (i) => String(i.id) === String(active.id)
+//       );
+//       const newIndex = items.findIndex((i) => String(i.id) === String(over.id));
+
+//       console.log("🔢 oldIndex:", oldIndex, " newIndex:", newIndex);
+
+//       if (oldIndex === -1 || newIndex === -1) {
+//         console.warn(
+//           "⛔ [DND] Could not find active or over index. Aborting reorder."
+//         );
+//         return items;
+//       }
+
+//       const newOrder = arrayMove(items, oldIndex, newIndex);
+
+//       console.log("🔄 [DND] New order:", JSON.parse(JSON.stringify(newOrder)));
+
+//       if (onRowsReordered) {
+//         console.log("📤 [DND] Calling onRowsReordered with new order.");
+//         onRowsReordered(newOrder);
+//       } else {
+//         console.log("ℹ️ [DND] No onRowsReordered function provided.");
+//       }
+
+//       console.log("✅ [DND] Reorder completed.");
+//       return newOrder;
+//     });
+//   };
+
+//   const sensors = useSensors(
+//     useSensor(MouseSensor),
+//     useSensor(TouchSensor),
+//     useSensor(KeyboardSensor)
+//   );
+
+//   // -----------------------------
+//   // TABLE INIT
+//   // -----------------------------
+//   const table = useReactTable({
+//     data: rowDnD ? dragData : data,
+//     columns: rowDnD
+//       ? [
+//           {
+//             id: "drag-handle",
+//             header: t("dashboard.table.drag"),
+//             cell: ({ row }) => <RowDragHandleCell rowId={row.id} />,
+//             size: 20,
+//           },
+//           ...columns,
+//         ]
+//       : columns,
+
+//     state: {
+//       globalFilter,
+//       columnFilters,
+//       columnVisibility,
+//       pagination: { pageIndex: currentPage - 1, pageSize },
+//     },
+
+//     manualPagination: true,
+//     pageCount: lastPage,
+
+//     globalFilterFn: customGlobalFilterFn,
+
+//     getCoreRowModel: getCoreRowModel(),
+//     getRowId: (row) => String(row.id),
+//     getFilteredRowModel: getFilteredRowModel(),
+//     getSortedRowModel: getSortedRowModel(),
+//     getPaginationRowModel: getPaginationRowModel(),
+
+//     onColumnVisibilityChange: setColumnVisibility,
+
+//     onPaginationChange: ({ pageIndex, pageSize }) => {
+//       setPage(pageIndex + 1);
+//       setPageSize(pageSize);
+//     },
+//   });
+
+//   const sortLabels = {
+//     asc: t("dashboard.table.sortAsc"),
+//     desc: t("dashboard.table.sortDesc"),
+//   };
+
+//   // -----------------------------
+//   // RENDER
+//   // -----------------------------
+//   return (
+//     <div className="card__custom">
+//       {header && (
+//         <div className="header d-flex justify-content-between">
+//           <h3 className="header__title">{t(title)}</h3>
+//           <TableFilter
+//             table={table}
+//             setColumnVisibility={setColumnVisibility}
+//             globalFilter={globalFilter}
+//             setGlobalFilter={setGlobalFilter}
+//             columnFilters={columnFilters}
+//             setColumnFilters={setColumnFilters}
+//             activeFilters={activeFilters}
+//             filterOptions={filterOptions}
+//             searchPlaceholder={t(searchPlaceholder)}
+//             filter={filter}
+//             search={search}
+//           />
+//         </div>
+//       )}
+
+//       <div className="card__body">
+//         <div className="table-container table-responsive border">
+//           <DndContext
+//             collisionDetection={closestCenter}
+//             modifiers={[restrictToVerticalAxis]}
+//             sensors={sensors}
+//             onDragEnd={handleDragEnd}
+//           >
+//             <table className="custom-table table table-bordered text-center align-middle mb-0">
+//               <thead className="table-light">
+//                 {table.getHeaderGroups().map((headerGroup) => (
+//                   <tr key={headerGroup.id}>
+//                     {headerGroup.headers.map((header) => (
+//                       <th key={header.id} width={header.getSize()}>
+//                         {flexRender(
+//                           header.column.columnDef.header,
+//                           header.getContext()
+//                         )}
+
+//                         {header.column.getCanSort() && (
+//                           <i
+//                             className="fa-solid fa-arrow-up-short-wide"
+//                             onClick={header.column.getToggleSortingHandler()}
+//                           ></i>
+//                         )}
+
+//                         {sortLabels[header.column.getIsSorted()] || ""}
+//                       </th>
+//                     ))}
+//                   </tr>
+//                 ))}
+//               </thead>
+
+//               <tbody>
+//                 {isLoading ? (
+//                   Array.from({ length: pageSize }).map((_, idx) => (
+//                     <tr key={idx}>
+//                       {rowDnD && (
+//                         <td>
+//                           <Placeholder animation="glow">
+//                             <Placeholder xs={2} />
+//                           </Placeholder>
+//                         </td>
+//                       )}
+//                       {columns.map((_, c) => (
+//                         <td key={c}>
+//                           <Placeholder animation="glow">
+//                             <Placeholder xs={12} />
+//                           </Placeholder>
+//                         </td>
+//                       ))}
+//                     </tr>
+//                   ))
+//                 ) : rowDnD ? (
+//                   <SortableContext
+//                     // IMPORTANT: always match actual rendered table row order
+//                     items={table.getRowModel().rows.map((r) => r.id)}
+//                     strategy={verticalListSortingStrategy}
+//                   >
+//                     {table.getRowModel().rows.map((row) => (
+//                       <DraggableRow key={row.id} row={row} />
+//                     ))}
+//                   </SortableContext>
+//                 ) : (
+//                   table.getRowModel().rows.map((row) => (
+//                     <tr key={row.id}>
+//                       {row.getVisibleCells().map((cell) => (
+//                         <td key={cell.id}>
+//                           {flexRender(
+//                             cell.column.columnDef.cell,
+//                             cell.getContext()
+//                           )}
+//                         </td>
+//                       ))}
+//                     </tr>
+//                   ))
+//                 )}
+//               </tbody>
+//             </table>
+//           </DndContext>
+//         </div>
+//       </div>
+
+//       <div className="card--footer">{children}</div>
+//     </div>
+//   );
+// };
+
+// export default ReusableDataTable;
 import {
   closestCenter,
   DndContext,
   KeyboardSensor,
   MouseSensor,
+  PointerSensor,
   TouchSensor,
   useSensor,
   useSensors,
@@ -15,6 +357,7 @@ import {
   verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
+
 import {
   flexRender,
   getCoreRowModel,
@@ -23,36 +366,39 @@ import {
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
-import { useMemo, useState } from "react";
+
+import { useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import TableFilter from "./TableFilter";
 import { Placeholder } from "react-bootstrap";
 
-// -----------------------------
-// DnD Row Handle Component
-// -----------------------------
+// ---------------------------------------------------------------------
+// DRAG HANDLE
+// ---------------------------------------------------------------------
 const RowDragHandleCell = ({ rowId }) => {
-  const { attributes, listeners } = useSortable({ id: String(rowId) });
+  const { attributes, listeners } = useSortable({ id: rowId });
+
   return (
     <button {...attributes} {...listeners}>
-      <i className="fa-regular fa-bars"> </i>
+      <i className="fa-regular fa-bars"></i>
     </button>
   );
 };
 
-// -----------------------------
-// Draggable Row Component
-// -----------------------------
+// ---------------------------------------------------------------------
+// DRAGGABLE ROW
+// ---------------------------------------------------------------------
 function DraggableRow({ row }) {
   const { transform, transition, setNodeRef, isDragging } = useSortable({
-    id: String(row.original.id),
+    id: row.id,
   });
+  console.log("Dragable row", row);
 
   const style = {
     transform: CSS.Transform.toString(transform),
     transition,
-    opacity: isDragging ? 0.8 : 1,
-    zIndex: isDragging ? 1 : 0,
+    opacity: isDragging ? 0.7 : 1,
+    zIndex: isDragging ? 2 : 1,
     position: "relative",
   };
 
@@ -67,9 +413,9 @@ function DraggableRow({ row }) {
   );
 }
 
-// -----------------------------
-// ReusableDataTable Component
-// -----------------------------
+// ---------------------------------------------------------------------
+// MAIN COMPONENT
+// ---------------------------------------------------------------------
 const ReusableDataTable = ({
   title = "Table",
   filter = true,
@@ -77,11 +423,11 @@ const ReusableDataTable = ({
   header = true,
   data = [],
   columns = [],
-  currentPage = 1, // server page index (1-based)
-  lastPage = 1, // total pages from server
-  setPage, // function to update page in parent
-  pageSize = 10, // current page size
-  setPageSize, // function to update pageSize in parent
+  currentPage = 1,
+  lastPage = 1,
+  setPage,
+  pageSize = 10,
+  setPageSize,
   filterOptions = {},
   activeFilters = [],
   searchPlaceholder = "Search",
@@ -89,61 +435,104 @@ const ReusableDataTable = ({
   rowDnD = false,
   children,
   isLoading = false,
+  onRowsReordered,
 }) => {
   const { t } = useTranslation();
 
   // -----------------------------
-  // Table Filters
+  // FILTERS
   // -----------------------------
   const [globalFilter, setGlobalFilter] = useState("");
   const [columnFilters, setColumnFilters] = useState([]);
   const columnIds = useMemo(() => columns.map((c) => c.header), [columns]);
-  const columnInitialVisibility = useMemo(() => {
-    return columnIds.reduce((acc, id) => {
-      acc[id] = true;
-      return acc;
-    }, {});
-  }, [columnIds]);
+
   const [columnVisibility, setColumnVisibility] = useState(
-    columnInitialVisibility
+    Object.fromEntries(columnIds.map((id) => [id, true]))
   );
 
   const customGlobalFilterFn = (row, columnId, filterValue) => {
-    const { ...rest } = row.original;
-    return Object.values(rest).some((val) =>
+    return Object.values(row.original).some((val) =>
       String(val).toLowerCase().includes(filterValue.toLowerCase())
     );
   };
 
   // -----------------------------
-  // DnD setup
+  // DND DATA - KEY FIX HERE
   // -----------------------------
   const [dragData, setDragData] = useState(data);
-  const dataIds = useMemo(() => dragData?.map(({ id }) => id), [dragData]);
 
-  const handleDragEnd = (event) => {
-    const { active, over } = event;
-    if (!over || active.id === over.id) return;
+  useEffect(() => {
+    console.log("data :", data);
+    setDragData(data);
+  }, [data]);
+
+  const handleDragEnd = ({ active, over }) => {
+    console.log("🚀 [DND] Drag End Triggered");
+    console.log("👉 Active:", active?.id);
+    console.log("👉 Over:", over?.id);
+
+    if (!over) {
+      console.warn("⚠️ [DND] No 'over' target — drag cancelled.");
+      return;
+    }
+    if (active.id === over.id) {
+      console.log("ℹ️ [DND] Active and over IDs match — no movement.");
+      return;
+    }
+
     setDragData((items) => {
+      console.log("📦 [DND] Current items:", JSON.parse(JSON.stringify(items)));
+
       const oldIndex = items.findIndex(
-        (item) => String(item.id) === String(active.id)
+        (i) => String(i.id) === String(active.id)
       );
-      const newIndex = items.findIndex(
-        (item) => String(item.id) === String(over.id)
-      );
-      if (oldIndex === -1 || newIndex === -1) return items;
-      return arrayMove(items, oldIndex, newIndex);
+      const newIndex = items.findIndex((i) => String(i.id) === String(over.id));
+
+      console.log("🔢 oldIndex:", oldIndex, " newIndex:", newIndex);
+
+      if (oldIndex === -1 || newIndex === -1) {
+        console.warn(
+          "⛔ [DND] Could not find active or over index. Aborting reorder."
+        );
+        return items;
+      }
+
+      const newOrder = arrayMove(items, oldIndex, newIndex);
+
+      console.log("🔄 [DND] New order:", JSON.parse(JSON.stringify(newOrder)));
+
+      if (onRowsReordered) {
+        console.log("📤 [DND] Calling onRowsReordered with new order.");
+        onRowsReordered(newOrder);
+      } else {
+        console.log("ℹ️ [DND] No onRowsReordered function provided.");
+      }
+
+      console.log("✅ [DND] Reorder completed.");
+      return newOrder;
     });
   };
 
   const sensors = useSensors(
-    useSensor(MouseSensor),
-    useSensor(TouchSensor),
+    useSensor(PointerSensor, {
+      activationConstraint: { distance: 5 },
+    }),
+    useSensor(MouseSensor, {
+      activationConstraint: {
+        distance: 5, // Add slight distance to prevent accidental drags
+      },
+    }),
+    useSensor(TouchSensor, {
+      activationConstraint: {
+        delay: 100,
+        tolerance: 5,
+      },
+    }),
     useSensor(KeyboardSensor)
   );
 
   // -----------------------------
-  // Initialize TanStack Table
+  // TABLE INIT
   // -----------------------------
   const table = useReactTable({
     data: rowDnD ? dragData : data,
@@ -158,34 +547,30 @@ const ReusableDataTable = ({
           ...columns,
         ]
       : columns,
+
     state: {
       globalFilter,
       columnFilters,
       columnVisibility,
-      pagination: {
-        pageIndex: currentPage - 1, // 0-indexed
-        pageSize: pageSize,
-      },
+      pagination: { pageIndex: currentPage - 1, pageSize },
     },
-    manualPagination: true, //  server-side pagination
-    pageCount: lastPage, //  total pages from API
+
+    manualPagination: true,
+    pageCount: lastPage,
+
     globalFilterFn: customGlobalFilterFn,
+
     getCoreRowModel: getCoreRowModel(),
     getRowId: (row) => String(row.id),
     getFilteredRowModel: getFilteredRowModel(),
     getSortedRowModel: getSortedRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
-    columnResizeMode: "onChange",
+
     onColumnVisibilityChange: setColumnVisibility,
+
     onPaginationChange: ({ pageIndex, pageSize }) => {
-      setPage(pageIndex + 1); // update parent state to trigger API fetch
-      setPageSize(pageSize); // update pageSize if changed
-    },
-    initialState: {
-      pagination: {
-        pageIndex: 0,
-        pageSize: pageSize,
-      },
+      setPage(pageIndex + 1);
+      setPageSize(pageSize);
     },
   });
 
@@ -194,12 +579,16 @@ const ReusableDataTable = ({
     desc: t("dashboard.table.sortDesc"),
   };
 
+  // KEY FIX: Generate dataIds from current dragData, not from table rows
+  const dataIds = useMemo(() => {
+    return dragData.map((item) => String(item?.row?.id));
+  }, [dragData]);
+
   // -----------------------------
-  // Render Table
+  // RENDER
   // -----------------------------
   return (
     <div className="card__custom">
-      {/* Header + Filter */}
       {header && (
         <div className="header d-flex justify-content-between">
           <h3 className="header__title">{t(title)}</h3>
@@ -212,7 +601,6 @@ const ReusableDataTable = ({
             setColumnFilters={setColumnFilters}
             activeFilters={activeFilters}
             filterOptions={filterOptions}
-            filterButtonText={t("dashboard.table.filter")}
             searchPlaceholder={t(searchPlaceholder)}
             filter={filter}
             search={search}
@@ -220,20 +608,15 @@ const ReusableDataTable = ({
         </div>
       )}
 
-      {/* Table Body */}
       <div className="card__body">
         <div className="table-container table-responsive border">
           <DndContext
             collisionDetection={closestCenter}
             modifiers={[restrictToVerticalAxis]}
-            onDragEnd={handleDragEnd}
             sensors={sensors}
+            onDragEnd={handleDragEnd}
           >
-            <table
-              width={table.getTotalSize()}
-              className="custom-table table table-bordered text-center align-middle mb-0"
-            >
-              {/* Table Header */}
+            <table className="custom-table table table-bordered text-center align-middle mb-0">
               <thead className="table-light">
                 {table.getHeaderGroups().map((headerGroup) => (
                   <tr key={headerGroup.id}>
@@ -243,60 +626,35 @@ const ReusableDataTable = ({
                           header.column.columnDef.header,
                           header.getContext()
                         )}
+
                         {header.column.getCanSort() && (
                           <i
                             className="fa-solid fa-arrow-up-short-wide"
                             onClick={header.column.getToggleSortingHandler()}
                           ></i>
                         )}
+
                         {sortLabels[header.column.getIsSorted()] || ""}
                       </th>
                     ))}
                   </tr>
                 ))}
               </thead>
-              {/* Table Body Rows */}
-              {/* <tbody> {
-                }
-                {rowDnD ? (
-                  <SortableContext
-                    items={dataIds}
-                    strategy={verticalListSortingStrategy}
-                  >
-                    {table.getRowModel().rows.map((row) => (
-                      <DraggableRow key={row.id} row={row} />
-                    ))}
-                  </SortableContext>
-                ) : (
-                  table.getRowModel().rows.map((row) => (
-                    <tr key={row.id}>
-                      {row.getVisibleCells().map((cell) => (
-                        <td key={cell.id} width={cell.column.getSize()}>
-                          {flexRender(
-                            cell.column.columnDef.cell,
-                            cell.getContext()
-                          )}
-                        </td>
-                      ))}
-                    </tr>
-                  ))
-                )}
-              </tbody> */}{" "}
+
               <tbody>
                 {isLoading ? (
-                  // Skeleton rows using React-Bootstrap
-                  Array.from({ length: pageSize }).map((_, rowIndex) => (
-                    <tr key={rowIndex}>
+                  Array.from({ length: pageSize }).map((_, idx) => (
+                    <tr key={idx}>
                       {rowDnD && (
-                        <td className="text-center">
-                          <Placeholder as="span" animation="glow">
+                        <td>
+                          <Placeholder animation="glow">
                             <Placeholder xs={2} />
                           </Placeholder>
                         </td>
                       )}
-                      {columns.map((col, colIndex) => (
-                        <td key={colIndex}>
-                          <Placeholder as="span" animation="glow">
+                      {columns.map((_, c) => (
+                        <td key={c}>
+                          <Placeholder animation="glow">
                             <Placeholder xs={12} />
                           </Placeholder>
                         </td>
@@ -305,6 +663,7 @@ const ReusableDataTable = ({
                   ))
                 ) : rowDnD ? (
                   <SortableContext
+                    // FIX: Use dataIds generated from dragData instead of table row IDs
                     items={dataIds}
                     strategy={verticalListSortingStrategy}
                   >
@@ -316,7 +675,7 @@ const ReusableDataTable = ({
                   table.getRowModel().rows.map((row) => (
                     <tr key={row.id}>
                       {row.getVisibleCells().map((cell) => (
-                        <td key={cell.id} width={cell.column.getSize()}>
+                        <td key={cell.id}>
                           {flexRender(
                             cell.column.columnDef.cell,
                             cell.getContext()
@@ -332,15 +691,7 @@ const ReusableDataTable = ({
         </div>
       </div>
 
-      {/* Pagination */}
-      <div className="card--footer">
-        {children}
-        {/* <TablePagentaion
-          currentPage={currentPage}
-          lastPage={lastPage}
-          onPageChange={setPage}
-        /> */}
-      </div>
+      <div className="card--footer">{children}</div>
     </div>
   );
 };

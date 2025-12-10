@@ -1,94 +1,239 @@
 import { Modal } from "react-bootstrap";
 import CustomButton from "../../CustomButton";
 import InputField from "../../forms/InputField";
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
+import * as yup from "yup";
+import { useQueryClient } from "@tanstack/react-query";
+import usePostSocialLink from "../../../hooks/dashboard/websiteManagment/socialLinksManage/usePostSocialLink";
+import useUpdateSocialLink from "../../../hooks/dashboard/websiteManagment/socialLinksManage/useUpdateSocialLink";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { useForm } from "react-hook-form";
+import { toast } from "sonner";
+import { useDropzone } from "react-dropzone";
+import { useTranslation } from "react-i18next";
 
-export default function SocialLinksModal({ showModal, setShowModal, isEdit }) {
-  const [logoFile, setLogoFile] = useState(null);
-  const [logoPreview, setLogoPreview] = useState(null);
+export default function SocialLinksModal({
+  showModal,
+  setShowModal,
+  isEdit,
+  updateTarget,
+  socialLinks,
+}) {
+  const [preview, setPreview] = useState(null);
+  const [imageFile, setImageFile] = useState(null);
+  const [existingLogo, setExistingLogo] = useState(null);
+  const [fileName, setFileName] = useState(null);
+  const queryClient = useQueryClient();
+  const { postSocialLink, isPending } = usePostSocialLink();
+  const { updateSocialLink, updateSocialLoading } = useUpdateSocialLink();
+  const { t } = useTranslation();
 
-  const handleFileChange = (e) => {
-    const file = e.target.files[0];
-    setLogoFile(file);
-    if (file) {
-      const previewUrl = URL.createObjectURL(file);
-      setLogoPreview(previewUrl);
+  const schema = yup.object().shape({
+    link: yup
+      .string()
+      .url(t("dashboard.socialLinks.invalidLink"))
+      .required(t("dashboard.socialLinks.requiredLink")),
+    logo: yup.mixed().required(t("dashboard.socialLinks.requiredLogo")),
+  });
+  const {
+    register,
+    handleSubmit,
+    reset,
+    setValue,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(schema),
+    defaultValues: {
+      link: "",
+      logo: null,
+    },
+  });
+
+  // Update form when modal opens or updateTarget changes
+  useEffect(() => {
+    if (showModal && isEdit && updateTarget) {
+      const targetItem = socialLinks?.find((item) => item.id === updateTarget);
+      if (targetItem) {
+        reset({
+          link: targetItem?.link || "",
+          logo: targetItem?.logo || null,
+        });
+        setExistingLogo(targetItem?.logo || null);
+        setPreview(targetItem?.logo || null);
+        setImageFile(null);
+        setFileName(null);
+      }
+    } else if (showModal && !isEdit) {
+      reset({
+        link: "",
+        logo: null,
+      });
+      setExistingLogo(null);
+      setPreview(null);
+      setImageFile(null);
+      setFileName(null);
+    }
+  }, [showModal, isEdit, updateTarget, socialLinks, reset]);
+
+  // Handle image drop/select
+  const onDrop = useCallback(
+    (acceptedFiles) => {
+      const file = acceptedFiles[0];
+      if (file && file.type.startsWith("image/")) {
+        setImageFile(file);
+        setFileName(file.name);
+        setValue("logo", file);
+        const previewUrl = URL.createObjectURL(file);
+        setPreview(previewUrl);
+        setExistingLogo(null);
+      } else {
+        toast.error(t("dashboard.socialLinks.invalidImage"));
+      }
+    },
+    [setValue]
+  );
+
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({
+    onDrop,
+    accept: {
+      "image/*": [],
+    },
+    multiple: false,
+  });
+
+  const handleRemoveLogo = () => {
+    setPreview(null);
+    setImageFile(null);
+    setFileName(null);
+    setExistingLogo(null);
+    setValue("logo", null);
+  };
+
+  const onSubmit = (data) => {
+    const formData = new FormData();
+    formData.append("link", data.link);
+
+    if (imageFile) {
+      formData.append("logo", imageFile);
+    } else if (isEdit && existingLogo && !preview) {
+      formData.append("logo", existingLogo);
+    }
+
+    if (isEdit) {
+      formData.append("_method", "put");
+    }
+    if (isEdit) {
+      updateSocialLink(
+        { id: updateTarget, payload: formData },
+        {
+          onSuccess: () => {
+            setShowModal(false);
+            reset();
+            handleRemoveLogo();
+            toast.success(t("dashboard.socialLinks.successEdit"));
+            queryClient.invalidateQueries({
+              queryKey: ["social-links-data"],
+            });
+          },
+          onError: (error) => {
+            toast.error(error.message || t("dashboard.socialLinks.errorEdit"));
+          },
+        }
+      );
+    } else {
+      postSocialLink(formData, {
+        onSuccess: () => {
+          setShowModal(false);
+          reset();
+          handleRemoveLogo();
+          toast.success(t("dashboard.socialLinks.successAdd"));
+          queryClient.invalidateQueries({
+            queryKey: ["social-links-data"],
+          });
+        },
+        onError: (error) => {
+          toast.error(error.message || t("dashboard.socialLinks.errorAdd"));
+        },
+      });
     }
   };
+
   return (
     <Modal
       show={showModal}
       size="md"
       onHide={() => {
         setShowModal(false);
-        setLogoPreview(null);
+        handleRemoveLogo();
       }}
       centered
     >
-      <Modal.Header closeButton>{isEdit ? "تعديل" : "اضافه"} رابط</Modal.Header>
+      <Modal.Header closeButton>
+        {isEdit ? t("dashboard.socialLinks.edit") : t("dashboard.socialLinks.add")}{" "}
+        {t("dashboard.socialLinks.link")}
+      </Modal.Header>
       <Modal.Body>
-        <form className="form_ui">
+        <form className="form_ui" onSubmit={handleSubmit(onSubmit)}>
           <div className="row">
             <div className="col-12">
               <label className="form-label fw-semibold mb-2">
-                تحميل الشعار
+                {t("dashboard.socialLinks.uploadLogo")}
               </label>
 
-              <div className="border border-2 border-dashed rounded-3 p-3 text-center position-relative bg-light">
-                <img
-                  style={{ width: "3rem", height: "3rem" }}
-                  src="/icons/umpload-icon.svg"
-                />
-                <input
-                  type="file"
-                  accept="image/*"
-                  className="position-absolute w-100 h-100 top-0 start-0 opacity-0"
-                  onChange={handleFileChange}
-                  style={{ cursor: "pointer" }}
-                />
-                {logoPreview ? (
-                  <div className="d-flex flex-column align-items-center">
+              <div className="col-12 p-2">
+                <div
+                  {...getRootProps()}
+                  className={`dropzone ${isDragActive ? "active" : ""}`}
+                >
+                  <input {...getInputProps()} />
+                  {preview ? (
                     <img
-                      src={logoPreview}
-                      alt="Logo Preview"
-                      className="img-fluid rounded mb-2"
-                      style={{ maxHeight: 100, objectFit: "contain" }}
+                      src={preview}
+                      alt="preview"
+                      className="banner-preview"
                     />
-                    <button
-                      type="button"
-                      className="btn btn-sm btn-outline-danger"
-                      onClick={() => {
-                        setLogoFile(null);
-                        setLogoPreview(null);
-                      }}
-                    >
-                      حذف الشعار
-                    </button>
-                  </div>
-                ) : (
-                  <div className="text-muted">
-                    انقر هنا أو اسحب صورة الشعار لرفعها
-                  </div>
-                )}
+                  ) : (
+                    <p>{t("dashboard.socialLinks.dropImageHere")}</p>
+                  )}
+                </div>{" "}
               </div>
+              {errors.logo && (
+                <small className="text-danger d-block mt-2">
+                  {errors.logo.message}
+                </small>
+              )}
             </div>
 
             <div className="col-12 p-2">
-              <InputField label="الرابط" placeholder="https://example.com" />
+              <InputField
+                label={t("dashboard.socialLinks.link")}
+                placeholder="https://example.com"
+                {...register("link")}
+                error={errors.link?.message}
+              />
             </div>
+
             <div className="col-12 p-2">
-              <div className="d-flex align-items-center gap-2    justify-content-end  ">
+              <div className="d-flex align-items-center gap-2 justify-content-end">
                 <CustomButton
                   onClick={() => setShowModal(false)}
                   size="large"
                   color="secondary"
                   type="button"
                 >
-                  الغاء
+                  {t("dashboard.socialLinks.cancel")}
                 </CustomButton>
 
-                <CustomButton size="large" type="submit">
-                  {isEdit ? "تعديل " : "  اضافة "}{" "}
+                <CustomButton
+                  size="large"
+                  type="submit"
+                  disabled={isPending || updateSocialLoading}
+                >
+                  {isPending || updateSocialLoading
+                    ? t("dashboard.socialLinks.processing")
+                    : isEdit
+                    ? t("dashboard.socialLinks.edit")
+                    : t("dashboard.socialLinks.add")}
                 </CustomButton>
               </div>
             </div>

@@ -25,4 +25,21 @@ export const performanceFilterSchema = yup
     }
 
     return true;
+  })
+  .test("valid-dates", "تاريخ النهاية يجب أن يكون بعد تاريخ البداية", function (values) {
+    const { fromDate, toDate } = values || {};
+
+    if (fromDate && toDate) {
+      const from = new Date(fromDate);
+      const to = new Date(toDate);
+
+      if (to < from) {
+        return this.createError({
+          path: "toDate",
+          message: "تاريخ النهاية يجب أن يكون بعد تاريخ البداية",
+        });
+      }
+    }
+
+    return true;
   });

@@ -34,16 +34,6 @@ const ListManagement = () => {
             </CustomButton>
           )}
 
-          {currentLocation === "operating-sectors" && (
-            <CustomButton
-              icon={<i className="fa-solid fa-plus"></i>}
-              color="secondary"
-              onClick={() => setAddSectorShowModal(true)}
-            >
-              {t("dashboard.listManagement.newSector")}
-            </CustomButton>
-          )}
-
           {currentLocation === "fields-and-specializations" && (
             <CustomButton
               icon={<i className="fa-solid fa-plus"></i>}

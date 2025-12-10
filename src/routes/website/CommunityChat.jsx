@@ -13,6 +13,8 @@ import InfiniteScroll from "../../ui/loading/InfiniteScroll";
 import RoundedBackButton from "../../ui/website-auth/shared/RoundedBackButton";
 import { ChatSocketService } from "../../utils/ChatSocketService";
 import { getToken } from "../../utils/token";
+import useUpdateCommunityChatCounter from "../../hooks/website/communities/chat/useUpdateCommunityChatCounter";
+import useGetMyCommunity from "../../hooks/website/communities/useGetMyCommunity";
 
 const getMessageType = (file) => {
   if (!file) return "text";
@@ -48,6 +50,7 @@ export default function CommunityChat() {
   // const { lang } = useSelector((state) => state.language);
   const { user } = useSelector((state) => state.authRole);
   const [, setSocketStatus] = useState("connecting");
+  const { myCommunity } = useGetMyCommunity();
 
   // ===== States =====
   const [selectedFile, setSelectedFile] = useState(null);
@@ -284,6 +287,25 @@ export default function CommunityChat() {
     setSelectedFile(null);
   };
 
+  // ============ update chat counter when scroll to end of chat box ==========//
+  const { mutate: updateCounter } = useUpdateCommunityChatCounter();
+  const [updated, setUpdated] = useState(false);
+  const isLogedUser = user?.id === myCommunity?.helper?.id;
+
+  const handleScroll = (e) => {
+    const target = e.target;
+
+    const isAtBottom =
+      Math.abs(target.scrollHeight - target.clientHeight - target.scrollTop) <
+      3;
+
+    if (isAtBottom && !updated && isLogedUser) {
+      updateCounter();
+      setUpdated(true);
+    }
+  };
+
+  //====== end update chat counter =========//
   // ===== RENDER =====
   return (
     <div className="container">
@@ -317,7 +339,11 @@ export default function CommunityChat() {
           </div>
 
           {/* ===== Messages ===== */}
-          <div className="chat-window__messages" ref={chatContainerRef}>
+          <div
+            onScroll={handleScroll}
+            className="chat-window__messages"
+            ref={chatContainerRef}
+          >
             <InfiniteScroll
               onLoadMore={fetchNextPage}
               hasNextPage={hasNextPage}
