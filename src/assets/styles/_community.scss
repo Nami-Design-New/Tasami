@@ -200,6 +200,28 @@
       font-weight: bold;
     }
   }
+  .consultation-card-no-answer {
+    display: block;
+    background: #f2fbff;
+    padding: 8px;
+    border-radius: 8px;
+    border: 1px solid $InputStroke;
+    transition: 0.3s;
+    min-height: 100%;
+
+    .title {
+      font-size: 1.125rem;
+      font-weight: 400;
+      margin-bottom: 0.5rem;
+      color: $second;
+    }
+
+    .desc {
+      font-size: 1rem;
+      color: $dark;
+      font-weight: bold;
+    }
+  }
 }
 .icons-row {
   display: flex;

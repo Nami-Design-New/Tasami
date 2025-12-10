@@ -6357,7 +6357,7 @@ input[type=file] {
   font-weight: 400;
   width: 20px;
   height: 20px;
-  padding: 2px 2px 0 2px;
+  padding: 4px 2px 0 2px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -10813,6 +10813,26 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
   color: #5fcafa;
 }
 .consultations-section .consultation-card .desc {
+  font-size: 1rem;
+  color: #0d0d0d;
+  font-weight: bold;
+}
+.consultations-section .consultation-card-no-answer {
+  display: block;
+  background: #f2fbff;
+  padding: 8px;
+  border-radius: 8px;
+  border: 1px solid rgba(13, 13, 13, 0.0941176471);
+  transition: 0.3s;
+  min-height: 100%;
+}
+.consultations-section .consultation-card-no-answer .title {
+  font-size: 1.125rem;
+  font-weight: 400;
+  margin-bottom: 0.5rem;
+  color: #5fcafa;
+}
+.consultations-section .consultation-card-no-answer .desc {
   font-size: 1rem;
   color: #0d0d0d;
   font-weight: bold;

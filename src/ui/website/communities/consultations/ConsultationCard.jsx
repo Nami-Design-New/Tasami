@@ -3,7 +3,7 @@ import useCheckDashboard from "../../../../hooks/dashboard/checkDashboard/useChe
 
 export default function ConsultationCard({ item }) {
   const isDashboard = useCheckDashboard();
-console.log("item consultaion ::|", item);
+  // console.log("item consultaion ::|", item);
 
   return (
     <Link
@@ -12,7 +12,11 @@ console.log("item consultaion ::|", item);
           ? `/dashboard/consultaion-dash-details/${item.id}`
           : `/consultaion-details/${item.id}`
       }`}
-      className="consultation-card"
+      className={`${
+        item.answer?.trim()
+          ? "consultation-card"
+          : "consultation-card-no-answer"
+      }`}
     >
       <p className="title">{item.title}</p>
       <p className="desc ellipsis">{item.desc}</p>

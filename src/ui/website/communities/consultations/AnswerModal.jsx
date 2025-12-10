@@ -132,7 +132,7 @@ export default function AnswerModal({
                 fullWidth
                 size="large"
               >
-                {showEditModal ? t("community.update") : t("coomunity.save")}
+                {showEditModal ? t("community.update") : t("community.save")}
               </CustomButton>
             </div>
           </div>
