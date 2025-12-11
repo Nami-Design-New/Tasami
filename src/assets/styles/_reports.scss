@@ -521,9 +521,9 @@
 .notification_span {
   font-size: 11px;
   font-weight: 400;
-  width: 20px;
-  height: 20px;
-  padding: 4px 2px 0 2px;
+  width: 22px;
+  height: 22px;
+  padding: 2px ;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -536,4 +536,10 @@
   top: 0;
   right: 0;
   translate: 50% 0%;
+}
+.notification_position-bottom {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  translate: 40% 40%;
 }

@@ -1,16 +1,21 @@
 import { useState } from "react";
 import GoalDetailsModal from "./GoalDetailsModal";
+import { useNavigate } from "react-router";
 
 export default function MemberCard({ member, exePercentage }) {
   const [showGoalDetails, setShowGoalDetails] = useState();
-  console.log(member?.user);
-
+  console.log("member ::", member);
+  const navigate = useNavigate();
   return (
-    <>
+    <div className="position-relative">
       <div
-        className={`member-card ${member?.show_goal ? "cursor-pointer" : ""}`}
+        className={`member-card position-relative cursor-pointer ${
+          member?.show_goal ? "cursor-pointer" : ""
+        }`}
         onClick={() => {
-          if (member?.show_goal === true) setShowGoalDetails(true);
+          // navigate(`/my-contracts/${member?.workId}`);
+          navigate(`/my-contracts/${417}`);
+          // if (member?.show_goal === true) setShowGoalDetails(true);
         }}
       >
         {" "}
@@ -40,6 +45,11 @@ export default function MemberCard({ member, exePercentage }) {
         subCategory={member.goal_sub_category_title}
         title={member.title}
       />
-    </>
+      {member?.member_pending_count > 0 && (
+        <span className="notification_span notification_position-bottom">
+          {member?.member_pending_count}
+        </span>
+      )}
+    </div>
   );
 }
