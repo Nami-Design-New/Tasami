@@ -7,6 +7,7 @@ export default function AssistantWorkCard({
   prevAssistant = false,
   canNavigate = true,
   tohelper = false,
+  unReadMessage,
 }) {
   return (
     <>
@@ -57,16 +58,21 @@ export default function AssistantWorkCard({
               )}
 
               {chat && (
-                <Link  to={`/user-chat/${contractId}`} className="chat position-relative">
+                <Link
+                  to={`/user-chat/${contractId}`}
+                  className="chat position-relative"
+                >
                   <img
                     src="/icons/chat-white-icon.svg"
                     alt="chat"
                     className="flag-icon "
                     loading="lazy"
                   />
-                  <span className="notification_span notification_position">
-                    97
-                  </span>
+                  {unReadMessage > 0 && (
+                    <span className="notification_span notification_position">
+                      {unReadMessage}
+                    </span>
+                  )}
                 </Link>
               )}
             </footer>

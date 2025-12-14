@@ -158,9 +158,19 @@ export default function ContractDetailsLayout() {
                   end={tab.end}
                 >
                   {tab.label}
-                  {(tab.id == 4 || tab.id == 5) && (
-                    <span className="notification_span mx-1">97</span>
-                  )}
+                  {tab.id == 4 &&
+                    workDetails?.tasks_need_actions_helper > 0 && (
+                      <span className="notification_span mx-1">
+                        {workDetails?.tasks_need_actions_helper}
+                      </span>
+                    )}
+                  {tab.id == 5 &&
+                    workDetails?.unread_messages  > 0 && (
+                      <span className="notification_span mx-1">
+                        {workDetails?.unread_messages }
+                      </span>
+                    )}
+                 
                   {tab.link === "offers" && (
                     <span className="offer-count-badge">
                       {workDetails?.offers_count}

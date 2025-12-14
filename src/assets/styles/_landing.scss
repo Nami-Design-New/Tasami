@@ -70,6 +70,61 @@
       background-color: color.adjust($main, $lightness: -10%);
     }
   }
+
+  @media (min-width: 768px) {
+    flex-direction: column;
+    height: 100%;
+    .goal-btn {
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      flex: 1;
+      padding: 0rem;
+      font-size: 1.3rem;
+
+      i {
+        font-size: 1.2rem;
+      }
+      img {
+        filter: brightness(0) invert(1);
+        width: 40px;
+      }
+    }
+    &.en {
+      .personal-goal {
+        border-radius: 12px 12px 0 0;
+      }
+      .offer-help {
+        border-radius: 0 0 12px 12px;
+      }
+    }
+    .personal-goal {
+      border-radius: 12px 12px 0 0;
+      position: relative;
+      z-index: 1;
+    }
+    .offer-help {
+      border-radius: 0 0 12px 12px;
+      position: relative;
+      z-index: 1;
+    }
+    .personal-goal::before,
+    .offer-help::before {
+      content: "";
+      position: absolute;
+      top: 50px;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      background-image: url("/icons/navlogo.svg");
+      background-size: contain;
+      background-position: center center;
+      background-repeat: no-repeat;
+      opacity: 0.1;
+    }
+  }
 }
 
 .why-section,

@@ -138,6 +138,11 @@ export default function WorksGroup() {
                 type="outlined"
               >
                 {t("works.group.groupChats")}
+                {/* {workDetails?.group?.helper_unread_chats > 0 && (
+                  <span className="notification_span">
+                    {workDetails?.group?.helper_unread_chats}
+                  </span>
+                )} */}
               </CustomLink>
             </div>
 

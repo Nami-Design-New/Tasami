@@ -52,6 +52,7 @@ export default function ContractsBeneficiaries() {
               <AssistantWorkCard
                 contractId={contractDetails?.id}
                 helper={contractDetails?.user}
+                unReadMessage={contractDetails?.unread_Messages}
                 tohelper={true}
               />
 

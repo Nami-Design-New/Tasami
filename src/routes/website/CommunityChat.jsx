@@ -314,7 +314,15 @@ export default function CommunityChat() {
           {/* ===== Header ===== */}
           <div className="chat-window__info d-flex align-items-center justify-content-between">
             <div className="d-flex align-items-center gap-2">
-              <RoundedBackButton onClick={() => navigate(-1)} />
+              <RoundedBackButton
+                onClick={() => {
+                  queryClient.invalidateQueries({
+                    queryKey: ["my-community"],
+                    refetchType: "active",
+                  });
+                  navigate(-1);
+                }}
+              />
               <h4 className="chat-window__name mb-0">{t("chats")}</h4>
             </div>
             {/* ✅ Live socket status indicator */}

@@ -103,6 +103,7 @@ export default function CommunityActions({ community, isMyCommunity = true }) {
       setOptimisticJoin(community?.is_subscribed);
     }
   }, [community]);
+
   return (
     <section className="community-actions">
       <ul className="community-actions-list">
@@ -132,7 +133,11 @@ export default function CommunityActions({ community, isMyCommunity = true }) {
             >
               <img src="/icons/chat.svg" />
             </Link>
-            <span className="notification_span notification_position">97</span>
+            {community?.helper_unread_chats > 0 && (
+              <span className="notification_span notification_position">
+                {community?.helper_unread_chats}
+              </span>
+            )}
           </li>
         )}
         <li>
