@@ -4,6 +4,8 @@ import MemberCard from "./MemberCard ";
 
 export default function GroupMembersList({ members }) {
   const { t } = useTranslation();
+  console.log("members" , members);
+  
   return (
     <section className="group-members-list">
       {members?.length > 0 ? (

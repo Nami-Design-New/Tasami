@@ -118,7 +118,11 @@ export default function GroupDetails() {
               type="outlined"
             >
               {t("groupChats")}
-              <span className="notification_span">97</span>
+              {groupDetails?.helper_unread_chats > 0 && (
+                <span className="notification_span">
+                  {groupDetails?.helper_unread_chats}
+                </span>
+              )}
             </CustomLink>
           </div>
           <div className="col-12 p-2">
