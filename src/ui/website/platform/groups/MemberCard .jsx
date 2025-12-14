@@ -13,8 +13,7 @@ export default function MemberCard({ member, exePercentage }) {
           member?.show_goal ? "cursor-pointer" : ""
         }`}
         onClick={() => {
-          // navigate(`/my-contracts/${member?.workId}`);
-          navigate(`/my-contracts/${417}`);
+          navigate(`/my-contracts/${member?.work_id}`);
           // if (member?.show_goal === true) setShowGoalDetails(true);
         }}
       >

@@ -3,6 +3,7 @@ import { Link } from "react-router";
 
 export default function GroupList({ allGroups }) {
   const { t } = useTranslation();
+  console.log("all groups", allGroups);
 
   return (
     <ul
@@ -15,15 +16,21 @@ export default function GroupList({ allGroups }) {
             <div className="d-flex gap-2 align-items-center">
               <img src="/icons/Groups.svg" alt={group.title} />
               <p className="groups__item-text">{group.title}</p>
-              <span className="notification_span">97</span>
             </div>
-            <button
-              type="button"
-              className="groups__item-action"
-              aria-label={t("website.platform.cv.viewExperience")}
-            >
-              <i className="fa-solid fa-angle-left" aria-hidden="true"></i>
-            </button>
+            <div className="d-flex align-items-center justify-content-center">
+              {group?.total_pending_sum > 0 && (
+                <span className="notification_span">
+                  {group?.total_pending_sum}
+                </span>
+              )}
+              <button
+                type="button"
+                className="groups__item-action"
+                aria-label={t("website.platform.cv.viewExperience")}
+              >
+                <i className="fa-solid fa-angle-left" aria-hidden="true"></i>
+              </button>
+            </div>
           </li>
         </Link>
       ))}
