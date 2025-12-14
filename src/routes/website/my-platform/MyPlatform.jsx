@@ -6,11 +6,13 @@ import UserCard from "../../../ui/website/profile/UserCard";
 import ProtectedNavLink from "./ProtectedNavLink";
 import AssistantStat from "../../../ui/website/platform/AssistantStat";
 import RoundedBackButton from "../../../ui/website-auth/shared/RoundedBackButton";
+import useGetCountersNotify from "../../../hooks/website/useGetCountersNotify";
 
 export default function MyPlatform() {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const { user } = useSelector((state) => state.authRole);
+  const { counterNotify } = useGetCountersNotify();
 
   if (!user) {
     return <Loading />;
@@ -86,13 +88,21 @@ export default function MyPlatform() {
                 <ProtectedNavLink to="my-groups" disabled={!user.about}>
                   <img src="./icons/my-groups.svg" alt="" />
                   {t("website.platform.menu.myGroups")}
-                  <span className="notification_span">97</span>
+                  {counterNotify?.total_groups_count > 0 && (
+                    <span className="notification_span">
+                      {counterNotify?.total_groups_count}
+                    </span>
+                  )}{" "}
                 </ProtectedNavLink>
 
                 <ProtectedNavLink to="/my-community" disabled={!user.about}>
                   <img src="./icons/communities-second.svg" alt="" />
                   {t("website.platform.menu.myCommunity")}
-                  <span className="notification_span">97</span>
+                  {counterNotify?.community_unread_chats > 0 && (
+                    <span className="notification_span">
+                      {counterNotify?.community_unread_chats}
+                    </span>
+                  )}
                 </ProtectedNavLink>
               </div>
             </div>

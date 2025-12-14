@@ -320,6 +320,9 @@ export default function CommunityChat() {
                     queryKey: ["my-community"],
                     refetchType: "active",
                   });
+                  queryClient.invalidateQueries({
+                    queryKey: ["counters-notify"],
+                  });
                   navigate(-1);
                 }}
               />

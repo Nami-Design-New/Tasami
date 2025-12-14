@@ -464,6 +464,7 @@ export default function GroupChat() {
                 <i className="fa-solid fa-paperclip"></i>
               </label>
               <input
+                autoComplete="off"
                 id="fileInput"
                 type="file"
                 accept="image/*,video/*"
