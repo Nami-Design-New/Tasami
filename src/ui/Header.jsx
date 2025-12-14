@@ -9,6 +9,7 @@ import PlatformModal from "./website/platform/PlatformModal";
 import { Badge } from "react-bootstrap";
 import useSettings from "../hooks/website/settings/useSettings";
 import CustomLink from "./CustomLink";
+import useGetCountersNotify from "../hooks/website/useGetCountersNotify";
 export default function Header() {
   const { t } = useTranslation();
   const { settings } = useSettings();
@@ -17,6 +18,7 @@ export default function Header() {
   const [openMenu, setOpenMenu] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const { isAuthed, user } = useSelector((state) => state.authRole);
+  const { counterNotify } = useGetCountersNotify();
 
   useEffect(() => {
     const handleOutsideClick = (e) => {
@@ -140,7 +142,11 @@ export default function Header() {
             >
               <i className="fa-regular fa-robot"></i>
               {t("profile.assistant")}
-              <span className="notification_span">97</span>
+              {counterNotify?.total_of_platform > 0 && (
+                <span className="notification_span">
+                  {counterNotify?.total_of_platform}
+                </span>
+              )}
             </CustomButton>
           )}
           {isAuthed && <UserDropDown />}

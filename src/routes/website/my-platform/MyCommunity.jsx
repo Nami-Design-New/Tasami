@@ -8,13 +8,14 @@ import CommunityActions from "../../../ui/website/platform/my-community/Communit
 import { useTranslation } from "react-i18next";
 import RoundedBackButton from "../../../ui/website-auth/shared/RoundedBackButton";
 import { useSelector } from "react-redux";
+import { useQueryClient } from "@tanstack/react-query";
 
 export default function MyCommunity() {
   const { myCommunity, isLoading } = useGetMyCommunity();
   const { t } = useTranslation();
   const navigate = useNavigate();
   const { lang } = useSelector((state) => state.language);
-
+  const queryClient = useQueryClient();
   if (isLoading) {
     return <Loading />;
   }
@@ -23,7 +24,12 @@ export default function MyCommunity() {
     <div className="container page">
       {" "}
       <div className="my-2">
-        <RoundedBackButton onClick={() => navigate(-1)}></RoundedBackButton>
+        <RoundedBackButton
+          onClick={() => {
+            navigate(-1);
+            queryClient.invalidateQueries({ queryKey: ["counters-notify"] });
+          }}
+        ></RoundedBackButton>
       </div>
       <section className="communities-details">
         <div className="communities-image-wrapper">
@@ -50,7 +56,7 @@ export default function MyCommunity() {
             <div className="row p-0">
               <h4 className="chanels">{t("community.channels")}</h4>
               <div className="col-12 col-md-4 p-2">
-                <CommunityTabs isMyCommunity={true}  community={myCommunity}/>
+                <CommunityTabs isMyCommunity={true} community={myCommunity} />
               </div>
               <div className="col-12 col-md-8 p-0">
                 <Outlet />

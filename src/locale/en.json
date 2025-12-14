@@ -976,7 +976,7 @@
         "specializationHint": "If you can’t find the required field or specialization, please contact customer support to add a new category.",
         "documentType": "Document Type",
         "issuingAuthority": "Issuing Authority",
-        "documentNumber": "Document / Accreditation Number",
+        "documentNumber": "Accreditation Number",
         "expiryDate": "Expiry Date",
         "addExperience": "Adding practical experience",
         "description": "Description",

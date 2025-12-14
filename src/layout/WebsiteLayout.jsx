@@ -52,6 +52,9 @@ const WebsiteLayout = () => {
           },
           () => {
             queryClient.refetchQueries({ queryKey: ["notifications"] });
+          },
+          () => {
+            queryClient.refetchQueries({ queryKey: ["counters-notify"] });
           }
         );
       } catch (error) {

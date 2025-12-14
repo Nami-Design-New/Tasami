@@ -53,7 +53,7 @@ const requestPermission = async () => {
   }
 };
 
-const listenToMessages = (refetchSettings, refetchNotifications) => {
+const listenToMessages = (refetchSettings, refetchNotifications, refetchUpdateCounter) => {
   const unsubscribe = onMessage(messaging, (payload) => {
     try {
       const { notification } = payload;
@@ -62,9 +62,9 @@ const listenToMessages = (refetchSettings, refetchNotifications) => {
         return;
       }
 
-      if (document.visibilityState === "visible") {
-        updateQueries(refetchSettings, refetchNotifications, payload);
-      }
+      updateQueries(refetchSettings, refetchNotifications, refetchUpdateCounter, payload);
+      // if (document.visibilityState === "visible") {
+      // }
 
       const title = notification.title || "New Notification";
       const options = {
@@ -153,7 +153,7 @@ const listenToMessages = (refetchSettings, refetchNotifications) => {
 
       toast.info(payload.notification?.title);
 
-      updateQueries(refetchSettings, refetchNotifications, payload);
+      updateQueries(refetchSettings, refetchNotifications, refetchUpdateCounter, payload);
     } catch (error) {
       console.error("[FCM] Error handling incoming message:", error);
     }
@@ -162,14 +162,15 @@ const listenToMessages = (refetchSettings, refetchNotifications) => {
   return unsubscribe;
 };
 
-const updateQueries = (refetchSettings, refetchNotifications, payload) => {
+const updateQueries = (refetchSettings, refetchNotifications, refetchUpdateCounter, payload) => {
   refetchNotifications();
   refetchSettings();
+  refetchUpdateCounter();
 
-  if (payload.data?.notification_type === "wallet" && payload.data?.order_id) {
-    refetchSettings();
-    refetchNotifications();
-  }
+  // if (payload.data?.notification_type === "wallet" && payload.data?.order_id) {
+  //   refetchSettings();
+  //   refetchNotifications();
+  // }
 };
 
 export { requestPermission, listenToMessages };

@@ -86,6 +86,7 @@ export default function WorksTasks() {
         toast.success(res.message);
         queryClient.refetchQueries({ queryKey: ["work-tasks"] });
         queryClient.refetchQueries({ queryKey: ["work-details"] });
+        setShowTaskAlertModal(false)
       },
       onError: (err) => {
         toast.error(err?.message);

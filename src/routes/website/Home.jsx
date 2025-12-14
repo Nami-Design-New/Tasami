@@ -9,7 +9,6 @@ import OffersSlider from "../../ui/website/home/OffersSlider";
 
 export default function Home() {
   const { homePageData, isLoading } = useGetHomeData();
-
   if (isLoading) return <Loading />;
   return (
     <section className="container-lg p-0">
