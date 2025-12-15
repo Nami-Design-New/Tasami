@@ -47,7 +47,7 @@ export default function ContractsBeneficiaries() {
     <section className="work-contract-details ">
       <div className="container">
         <div className="row">
-          <div className="col-4 p-2">
+          <div className="col-lg-4 col-12 p-2">
             <div className="d-flex flex-column gap-3">
               <AssistantWorkCard
                 contractId={contractDetails?.id}
@@ -96,7 +96,7 @@ export default function ContractsBeneficiaries() {
                 )}
             </div>
           </div>
-          <div className="col-8 p-2">
+          <div className="col-lg-8 col-12 p-2">
             <div className="contract-data">
               <h2>{t("payments")}</h2>
               <div className="goal-info">

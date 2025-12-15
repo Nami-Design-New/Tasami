@@ -50,7 +50,7 @@ export default function PersonalHelper() {
               {!isLoading && allAssistants.length === 0 && (
                 <EmptySection
                   height="300px"
-                  message={t("website.assistants.noPersonalAssistants")}
+                  message={t("noPersonalAssistants")}
                 />
               )}
               <InfiniteScroll

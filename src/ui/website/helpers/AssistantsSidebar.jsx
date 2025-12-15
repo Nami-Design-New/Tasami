@@ -29,6 +29,7 @@ export default function AssistantsSidebar({ isGoal = false }) {
     watch,
     formState: { errors },
   } = useAssistantsFilterForm();
+console.log("errors" , errors);
 
   const selectedFieldId = watch("field");
   const selectedHelpMechanism = watch("helpMechanism") || [];

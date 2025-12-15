@@ -268,6 +268,9 @@
   "field": "المجال",
   "specialty": "التخصص",
   "meetingLink": "لينك اللقاء",
+  "noPersonalOffers": "لا توجد عروض شخصيه",
+  "noPersonalGoals": "لا توجد أهداف شخصيه",
+  "noPersonalAssistants": "لا يوجد مساعدون شخصيون",
   "offline": {
     "title": "لا يوجد اتصال بالإنترنت",
     "message": "يرجى التحقق من اتصالك بالإنترنت ثم المحاولة مرة أخرى.",
