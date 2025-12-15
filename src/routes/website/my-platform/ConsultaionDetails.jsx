@@ -73,20 +73,22 @@ export default function ConsultaionDetails() {
                   ? t("community.yourAnswer")
                   : t("community.assistantAnswer")}
               </h2>
-              <div className="d-flex gap-2">
-                <button
-                  className=" fs-6 mx-2  text-danger"
-                  onClick={() => setShowAlertModal(true)}
-                >
-                  <i className="fa-regular fa-trash"></i>
-                </button>
-                <button
-                  className=" fs-6  "
-                  onClick={() => setShowEditModal(true)}
-                >
-                  <i className="fa-regular fa-edit"></i>
-                </button>
-              </div>
+              {user?.id === consultaionDetails?.to_user_id && (
+                <div className="d-flex gap-2">
+                  <button
+                    className=" fs-6 mx-2  text-danger"
+                    onClick={() => setShowAlertModal(true)}
+                  >
+                    <i className="fa-regular fa-trash"></i>
+                  </button>
+                  <button
+                    className=" fs-6  "
+                    onClick={() => setShowEditModal(true)}
+                  >
+                    <i className="fa-regular fa-edit"></i>
+                  </button>
+                </div>
+              )}
             </div>
             <p>{consultaionDetails.answer}</p>
 
