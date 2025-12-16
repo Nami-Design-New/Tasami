@@ -7,7 +7,7 @@ export default function useGetPersonalAssistants() {
   const params = {
     city_id: searchParams.get("city"),
     nationality_id: searchParams.get("nationality"),
-    category_id: searchParams.get("filed"),
+    category_id: searchParams.get("field"),
     sub_category_id: searchParams.get("specialization"),
     preferred_gender: searchParams.get("gender"),
     search_word: searchParams.get("search"),
