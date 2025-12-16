@@ -11,7 +11,7 @@ import useDeleteMeeting from "../../../../hooks/website/communities/mettings/use
 import { useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 
-export default function EncounterDetailsModal({ show, setShow, meetingId }) {
+export default function EncounterDetailsModal({ show, setShow, meetingId , isMyCommuntiy }) {
   const isDashboard = useCheckDashboard();
   const { t } = useTranslation();
   const queryClient = useQueryClient();
@@ -56,7 +56,7 @@ export default function EncounterDetailsModal({ show, setShow, meetingId }) {
     >
       <Modal.Header closeButton className="m-2">
         <h6 className="fw-bold flex-grow-1 ">{meetingDetails?.title}</h6>{" "}
-        {!isDashboard && (
+        {!isDashboard && isMyCommuntiy && (
           <>
             {" "}
             <button

@@ -36,7 +36,7 @@ export default function CompletedWorks() {
             </div>
           ))}
           {!isLoading && allMyWorks.length === 0 && (
-            <EmptySection height="300px" message={t("works.noWorks")} />
+            <EmptySection height="300px" message={t("works.noWorksCompeleted")} />
           )}
         </InfiniteScroll>
       </div>

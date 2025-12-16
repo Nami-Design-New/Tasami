@@ -41,7 +41,7 @@ export default function Meetings({ isMyCommuntiy = true }) {
           >
             {allMeetings.map((item) => (
               <div className="col-12 p-2" key={item.id}>
-                <MeetingCard item={item} />
+                <MeetingCard item={item} isMyCommuntiy={isMyCommuntiy} />
               </div>
             ))}
           </InfiniteScroll>{" "}

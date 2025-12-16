@@ -117,7 +117,7 @@ export default function AddMeetingModal({
       size="lg"
     >
       <Modal.Header closeButton>
-        <h6>{t("community.addMeeting")}</h6>
+        <h6>{t(isEdit ? "community.editMeeting" : "community.addMeeting")}</h6>
       </Modal.Header>
 
       <Modal.Body>

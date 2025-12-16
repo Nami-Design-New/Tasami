@@ -12,6 +12,7 @@ import Message from "./Message";
 import useSendMessages from "../../hooks/dashboard/chats/useSendMessages";
 import { EmployeeChatService } from "../../utils/employeeChatService";
 import { getToken } from "../../utils/token";
+import Loading from "../loading/Loading";
 
 const getMessageType = (file) => {
   if (!file) return "text";
@@ -287,7 +288,8 @@ const ChatWindow = ({ isOpen, setIsOpen, activeChat, activeUser }) => {
           {" "}
           {(isLoading || isFetchingNextPage) && (
             <div className="d-flex align-items-center py-3 justify-content-center">
-              <div className="loader"></div>
+              {/* <div className="loader"></div> */}
+              <Loading height={20} />
             </div>
           )}
           {allChats?.map((chat) => {
