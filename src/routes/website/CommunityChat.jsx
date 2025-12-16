@@ -15,6 +15,7 @@ import { ChatSocketService } from "../../utils/ChatSocketService";
 import { getToken } from "../../utils/token";
 import useUpdateCommunityChatCounter from "../../hooks/website/communities/chat/useUpdateCommunityChatCounter";
 import useGetMyCommunity from "../../hooks/website/communities/useGetMyCommunity";
+import Loading from "../../ui/loading/Loading";
 
 const getMessageType = (file) => {
   if (!file) return "text";
@@ -364,7 +365,8 @@ export default function CommunityChat() {
               {" "}
               {(isLoading || isFetchingNextPage) && (
                 <div className="d-flex align-items-center  py-3  justify-content-center">
-                  <div className="loader"></div>
+                  {/* <div className="loader"></div> */}
+                  <Loading height={20} />
                 </div>
               )}
               {allChats.map((chat) => {

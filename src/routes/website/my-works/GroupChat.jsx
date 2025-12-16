@@ -15,6 +15,7 @@ import { GroupChatSocketService } from "../../../utils/GroupChatService";
 import { getToken } from "../../../utils/token";
 import useUpdateGroupChatCounter from "../../../hooks/website/my-groups/useUpdateGroupChatCounter";
 import useGetGroupDetails from "../../../hooks/website/my-groups/useGetGroupDetails";
+import Loading from "../../../ui/loading/Loading";
 
 const getMessageType = (file) => {
   if (!file) return "text";
@@ -362,7 +363,8 @@ export default function GroupChat() {
               {" "}
               {(isLoading || isFetchingNextPage) && (
                 <div className="d-flex align-items-center  py-3  justify-content-center">
-                  <div className="loader"></div>
+                  {/* <div className="loader"></div> */}
+                  <Loading height={20} />
                 </div>
               )}
               {allChats.map((chat) => {

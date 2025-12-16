@@ -42,7 +42,7 @@ export default function PersonalGoals() {
               {!isLoading && allGoals.length === 0 && (
                 <EmptySection
                   height="300px"
-                  message={t("website.assistants.noPersonalAssistants")}
+                  message={t("noPersonalGoals")}
                 />
               )}
               <InfiniteScroll

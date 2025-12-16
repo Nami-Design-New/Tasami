@@ -276,7 +276,7 @@ export default function AddAssistanceModal({
             <div className="col-12  p-2">
               <div className="identity-selector">
                 <h6 className="identity-title">
-                  {t("website.platform.myAssistance.identity")}
+                  {t("beneficiaryIdentityPreference")}
                 </h6>
                 <div className="identity-container">
                   {["both", "male", "female"].map((g) => (

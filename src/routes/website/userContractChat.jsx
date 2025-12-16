@@ -14,6 +14,7 @@ import Message from "../../ui/chat/Message";
 import { ContractChatService } from "../../utils/ContractChatService";
 import { getToken } from "../../utils/token";
 import useGetContractDetails from "../../hooks/website/MyWorks/assistants/useGetContractDetails";
+import Loading from "../../ui/loading/Loading";
 
 const getMessageType = (file) => {
   if (!file) return "text";
@@ -273,7 +274,8 @@ export default function UserContractChat() {
             >
               {(isLoading || isFetchingNextPage) && (
                 <div className="d-flex align-items-center py-3 justify-content-center">
-                  <div className="loader"></div>
+                  {/* <div className="loader"></div> */}
+                   <Loading height={20} />
                 </div>
               )}
               {allChats.map((chat) => {

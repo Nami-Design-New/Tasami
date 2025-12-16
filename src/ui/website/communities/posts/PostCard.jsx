@@ -10,7 +10,7 @@ export default function PostCard({ post }) {
       to={`${
         isDashboard
           ? `/dashboard/post-dash-details/${post.id}`
-          : `/post-details/${post.id}`
+          : `/posts/${post.id}`
       }`}
     >
       {post.file && (

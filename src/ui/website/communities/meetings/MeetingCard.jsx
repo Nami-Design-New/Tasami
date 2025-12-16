@@ -1,7 +1,7 @@
 import { useState } from "react";
 import EncounterDetailsModal from "./EncounterDetailsModal";
 
-export default function MeetingCard({ item }) {
+export default function MeetingCard({ item, isMyCommuntiy }) {
   const [showDetails, setShowDetails] = useState(false);
 
   const meetingDate = new Date(item.start_date + " " + item.start_time);
@@ -35,6 +35,7 @@ export default function MeetingCard({ item }) {
           show={showDetails}
           setShow={setShowDetails}
           meetingId={item?.id}
+          isMyCommuntiy={isMyCommuntiy}
         />
       )}
     </>

@@ -21,7 +21,9 @@ export default function GoalInfoGrid({ goal }) {
         <div className="label">{t("website.offerDetails.preferredGender")}</div>
         <div className="value">{t(`${goal.preferred_gender}`)}</div>
       </div>
-      <div className="info-box info-box-grow-min-width ">
+      <div style={{
+        minWidth:"100%"
+      }} className="info-box info-box-grow-min-width ">
         <div className="label">{t("website.offerDetails.expectedData")}</div>
         <div className="value">{goal?.goal?.expected_duration_human}</div>
       </div>
