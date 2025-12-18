@@ -153,7 +153,9 @@ export default function ContractDetails() {
                 <div className="label">
                   {t("website.offerDetails.startDate")}
                 </div>
-                <div className="value">{t(`${workDetails?.help_start_date}`)}</div>
+                <div className="value">
+                  {t(`${workDetails?.help_start_date}`)}
+                </div>
               </div>
             </>
           )}
@@ -162,7 +164,7 @@ export default function ContractDetails() {
               {t("website.offerDetails.expectedData")}
             </div>
             <div className="value">
-              {workDetails?.goal?.expected_duration_human}
+              {workDetails?.goal?.expected_duration_new_human}
             </div>
           </div>
           {workDetails.rectangle === "personal_goal_with_helper" && (
