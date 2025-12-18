@@ -72,7 +72,7 @@ export default function ContractCard({ contract, withoutStatus = true }) {
           <div className="col-6 p-1">
             <div className="info-item">
               <i className="fa-light fa-calendar"></i>{" "}
-              <p>{contract.start_date}</p>
+              <p>{contract.help_start_date}</p>
             </div>
           </div>
         </div>
