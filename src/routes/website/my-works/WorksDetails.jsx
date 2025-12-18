@@ -92,7 +92,7 @@ export default function WorksDetails() {
           {workDetails.rectangle !== "help_service_from_helper" && (
             <div className="info-box info-box-grow-min-width ">
               <div className="label">{t("website.offerDetails.startDate")}</div>
-              <div className="value">{workDetails?.goal?.start_date}</div>
+              <div className="value">{workDetails?.help_start_date}</div>
             </div>
           )}
 
@@ -109,7 +109,10 @@ export default function WorksDetails() {
 
           {/* Notes */}
           {workDetails.goal?.notes && (
-            <div className="info-box info-box-grow-min-width ">
+            <div
+              className="info-box info-box-grow-min-width "
+              style={{ minWidth: "100%" }}
+            >
               <div className="label">
                 {t("website.offerDetails.extraTerms")}
               </div>
