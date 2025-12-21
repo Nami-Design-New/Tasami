@@ -1,4 +1,4 @@
-import { Modal, Button } from "react-bootstrap";
+import { Modal } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
 import CustomButton from "../../ui/CustomButton";
 
