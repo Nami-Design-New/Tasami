@@ -108,8 +108,8 @@ export default function GroupDetails() {
                 data={groupDetails.category_title}
               />
               <InfoCard
-                title={t("website.platform.groups.strength")}
-                data={groupDetails.strength_indicator}
+                title={t("groupStrengthIndex")}
+                data={`${groupDetails.strength_indicator} %`}
               />
             </div>
           </div>{" "}

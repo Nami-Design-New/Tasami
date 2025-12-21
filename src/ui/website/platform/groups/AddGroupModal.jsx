@@ -105,7 +105,7 @@ export default function AddGroupModal({
         {
           onSuccess: (res) => {
             setShowModal(false);
-            queryClient.invalidateQueries(["group-details"]);
+            queryClient.invalidateQueries({ queryKey: ["my-groups"] });
             reset();
             toast.success(res.message);
           },
@@ -124,7 +124,7 @@ export default function AddGroupModal({
       addGroup(payload, {
         onSuccess: (res) => {
           setShowModal(false);
-          queryClient.invalidateQueries(["my-groups"]);
+          queryClient.invalidateQueries({ queryKey: ["my-groups"] });
           reset();
           toast.success(res.message);
         },
