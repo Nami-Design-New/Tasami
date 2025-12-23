@@ -1,4 +1,8 @@
 {
+  "noData": "No data available",
+  "completed": "Completed",
+  "activate": "Activate",
+  "deactivate": "Deactivate",
   "benId": "Beneficiary Identity Preference",
   "noMembers": "You have no members subscribed to your personal community",
   "showRates": "Show Rate",

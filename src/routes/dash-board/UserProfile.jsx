@@ -8,7 +8,6 @@ import SuspensionModel from "../../ui/modals/SuspensionModel";
 import AddNewTask from "./tasks/AddNewTaskModal";
 import { useParams, useSearchParams } from "react-router";
 import useGetUserDetails from "../../hooks/dashboard/subscription/useGetUserDetails";
-import CustomLink from "../../ui/CustomLink";
 import Loading from "../../ui/loading/Loading";
 import { useTranslation } from "react-i18next";
 
@@ -81,7 +80,9 @@ const UserProfile = () => {
                     <span> {`${userDetails?.gender}`} </span>
                   </p>
                   <p>
-                    <span>{t("dashboard.userProfile.fields.nationality")}:</span>
+                    <span>
+                      {t("dashboard.userProfile.fields.nationality")}:
+                    </span>
                     <span> {`${userDetails?.nationality?.title}`} </span>
                   </p>
                   <p>
@@ -89,8 +90,8 @@ const UserProfile = () => {
                     <span> {`${userDetails?.country_id.title}`} </span>
                   </p>
                   <p>
-                    <span>{t("dashboard.userProfile.fields.birthdate")}:</span>
-                    <span> {`${userDetails?.city_id.city}`} </span>
+                    <span>{t("dashboard.userProfile.fields.city")}:</span>
+                    <span> {`${userDetails?.city_id?.title}`} </span>
                   </p>
                 </div>
                 {/* <Link className="user-dashboard__resume "> السيره الذاتية </Link> */}

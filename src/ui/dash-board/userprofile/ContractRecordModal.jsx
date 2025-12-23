@@ -84,18 +84,24 @@ const ContractRecordModal = ({
         header: t("dashboard.contractModal.action"),
         cell: (info) => {
           const contractId = info?.row?.original?.id;
+          const status = info?.row?.original?.status;
+          console.log(status);
+
           const isUpdating = loadingContractId === contractId;
 
           return (
-            <div className="table__actions">
-              {info.getValue() ? (
+            <div className="table__actions fs-6">
+              {status !== "working" ? (
+                t("completed")
+              ) : info.getValue() ? (
                 <CustomButton
                   onClick={() => handelUpdateUserContract(contractId, false)}
                   size="small"
                   color="secondary"
                   disabled={isUpdating}
+                  loading={isUpdating}
                 >
-                  {isUpdating ? "جاري الإيقاف..." : " ايقاف"}
+                  {t("deactivate")}
                 </CustomButton>
               ) : (
                 <CustomButton
@@ -103,8 +109,9 @@ const ContractRecordModal = ({
                   size="small"
                   color="primary"
                   disabled={isUpdating}
+                  loading={isUpdating}
                 >
-                  {isUpdating ? "جاري التنشيط..." : " تنشيط"}
+                  {t("activate")}
                 </CustomButton>
               )}
             </div>

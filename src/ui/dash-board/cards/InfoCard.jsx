@@ -1,7 +1,7 @@
 import CustomButton from "../../CustomButton";
 
-const InfoCard = ({ title, withBorder, link, event, children }) => (
-  <div className="user-dashboard__card">
+const InfoCard = ({ title, withBorder, style, link, event, children }) => (
+  <div className="user-dashboard__card" style={style}>
     <div className="user-dashboard__card-header">
       <h3 className="user-dashboard__card-title">{title}</h3>
       {link && (

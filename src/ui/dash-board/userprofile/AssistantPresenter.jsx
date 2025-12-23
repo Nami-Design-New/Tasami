@@ -35,22 +35,30 @@ const AssistantPresenter = ({ userDetails }) => {
               <span> {userDetails?.account_type} </span>
             </p>
             <p>
-              <span>{t("dashboard.assistant.fields.lastSubscriptionDate")}:</span>
-              <span> {userDetails?.current_scubscription.start_date} </span>
+              <span>
+                {t("dashboard.assistant.fields.lastSubscriptionDate")}:
+              </span>
+              <span> {userDetails?.current_scubscription?.start_date} </span>
             </p>
             <p>
-              <span>{t("dashboard.assistant.fields.subscriptionDuration")}:</span>
+              <span>
+                {t("dashboard.assistant.fields.subscriptionDuration")}:
+              </span>
               <span>
                 {" "}
                 {userDetails?.current_scubscription.package?.type_title}{" "}
               </span>
             </p>
             <p>
-              <span>{t("dashboard.assistant.fields.subscriptionEndDate")}:</span>
-              <span> {userDetails?.current_scubscription.end_date} </span>
+              <span>
+                {t("dashboard.assistant.fields.subscriptionEndDate")}:
+              </span>
+              <span> {userDetails?.current_scubscription?.end_date} </span>
             </p>
             <p>
-              <span>{t("dashboard.assistant.fields.totalSubscriptionPurchases")}:</span>
+              <span>
+                {t("dashboard.assistant.fields.totalSubscriptionPurchases")}:
+              </span>
               <span> {userDetails?.total_subscription_purchases} </span>
             </p>
           </InfoCard>
@@ -66,35 +74,43 @@ const AssistantPresenter = ({ userDetails }) => {
             <p>
               <span>{t("dashboard.assistant.fields.communityStatus")}:</span>
               <span>
-                {userDetails?.community.is_active
+                {userDetails?.community?.is_active
                   ? t("dashboard.common.active")
                   : t("dashboard.common.inactive")}
               </span>
             </p>
-            <p>
-              <span>{t("dashboard.assistant.fields.membersCount")}:</span>
-              <span> {userDetails?.community.members_count} </span>
-            </p>
-            <p>
-              <span>{t("dashboard.assistant.fields.postsCount")}:</span>
-              <span> {userDetails?.community.posts_count} </span>
-            </p>
-            <p>
-              <span>{t("dashboard.assistant.fields.meetingsCount")}:</span>
-              <span> {userDetails?.community.meetings_count} </span>
-            </p>
-            <p>
-              <span>{t("dashboard.assistant.fields.consultationsCount")}:</span>
-              <span> {userDetails?.community.consultations_count} </span>
-            </p>
-            <p>
-              <span>{t("dashboard.assistant.fields.viewsCount")}:</span>
-              <span> {userDetails?.community.views_count} </span>
-            </p>
-            <p>
-              <span>{t("dashboard.assistant.fields.totalMembershipRevenue")}:</span>
-              <span> {`ريال${userDetails?.community.revenue}`} </span>
-            </p>
+            {userDetails?.community?.is_active && (
+              <>
+                <p>
+                  <span>{t("dashboard.assistant.fields.membersCount")}:</span>
+                  <span> {userDetails?.community?.members_count} </span>
+                </p>
+                <p>
+                  <span>{t("dashboard.assistant.fields.postsCount")}:</span>
+                  <span> {userDetails?.community?.posts_count} </span>
+                </p>
+                <p>
+                  <span>{t("dashboard.assistant.fields.meetingsCount")}:</span>
+                  <span> {userDetails?.community?.meetings_count} </span>
+                </p>
+                <p>
+                  <span>
+                    {t("dashboard.assistant.fields.consultationsCount")}:
+                  </span>
+                  <span> {userDetails?.community?.consultations_count} </span>
+                </p>
+                <p>
+                  <span>{t("dashboard.assistant.fields.viewsCount")}:</span>
+                  <span> {userDetails?.community?.views_count} </span>
+                </p>
+                <p>
+                  <span>
+                    {t("dashboard.assistant.fields.totalMembershipRevenue")}:
+                  </span>
+                  <span> {`ريال${userDetails?.community?.revenue}`} </span>
+                </p>
+              </>
+            )}
           </InfoCard>
         </div>
 
@@ -154,7 +170,9 @@ const AssistantPresenter = ({ userDetails }) => {
               <span> {userDetails?.avg_rate} </span>
             </p>
             <p>
-              <span>{t("dashboard.assistant.fields.experienceAndKnowledge")}:</span>
+              <span>
+                {t("dashboard.assistant.fields.experienceAndKnowledge")}:
+              </span>
               <span> {userDetails?.experience_and_knowledge} </span>
             </p>
             <p>
@@ -166,7 +184,9 @@ const AssistantPresenter = ({ userDetails }) => {
               <span> {userDetails?.quality_of_performance} </span>
             </p>
             <p>
-              <span>{t("dashboard.assistant.fields.respectAndTreatment")}:</span>
+              <span>
+                {t("dashboard.assistant.fields.respectAndTreatment")}:
+              </span>
               <span> {userDetails?.respect_and_treatment} </span>
             </p>
           </InfoCard>
