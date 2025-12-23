@@ -109,7 +109,10 @@ export default function WorksDetails() {
 
           {/* Notes */}
           {workDetails.goal?.notes && (
-            <div className="info-box info-box-grow-min-width ">
+            <div
+              className="info-box info-box-grow-min-width "
+              style={{ minWidth: "100%" }}
+            >
               <div className="label">
                 {t("website.offerDetails.extraTerms")}
               </div>

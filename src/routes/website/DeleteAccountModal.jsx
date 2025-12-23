@@ -1,4 +1,4 @@
-import { Modal, Button } from "react-bootstrap";
+import { Modal } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
 import CustomButton from "../../ui/CustomButton";
 
@@ -45,7 +45,7 @@ const DeleteAccountModal = ({
               <span className=" text-modal-orange">
                 {t("dashboard.deleteAccountModal.noActiveContracts")}
               </span>
-              <span className="text-muted small mb-0 px-1">
+              <span className="text-muted small mb-0 mt-1  px-1 d-block">
                 {t("dashboard.deleteAccountModal.noActiveContractsDescription")}
               </span>
             </div>
@@ -57,7 +57,7 @@ const DeleteAccountModal = ({
                 )}
               </span>
 
-              <span className="text-muted small mb-0 px-1">
+              <span className="text-muted small mt-1 px-1 d-block">
                 {t("dashboard.deleteAccountModal.stopCommunityDescription")}
               </span>
             </div>
@@ -66,7 +66,7 @@ const DeleteAccountModal = ({
               <span className=" text-modal-orange">
                 {t("dashboard.deleteAccountModal.withdrawAllBalance")}
               </span>
-              <span className="text-muted small mb-0 px-1">
+              <span className="text-muted small mb-0 mt-1 px-1 d-block">
                 {t("dashboard.deleteAccountModal.withdrawBalanceDescription")}
               </span>
             </div>

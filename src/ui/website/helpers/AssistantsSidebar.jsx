@@ -166,7 +166,7 @@ export default function AssistantsSidebar({ isGoal = false }) {
           <div className="col-12  py-2 px-0">
             <div className="identity-selector">
               <h6 className="identity-title">
-                {t("website.platform.myAssistance.identity")}
+                {t("benId")}
               </h6>
               <div className="identity-container  flex-wrap">
                 {["both", "male", "female"].map((g) => (
