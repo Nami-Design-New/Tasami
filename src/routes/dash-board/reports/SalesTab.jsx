@@ -16,7 +16,7 @@ const SalesTab = () => {
   }
   return (
     <>
-      <div className="performance-report">
+      <div ref={pdfRef} className="performance-report">
         {/* ───────── اشتراكات المساعدين الشخصيين ───────── */}
         <h3 className="metrics-header mt-4 mb-3">
           {t("dashboard.reports.salesTab.personalAssistantSubscriptions")}
