@@ -4,7 +4,11 @@ import { adminAxiosInstance } from "../../../lib/adminAxios";
 export default function useAddCountry() {
   const { mutate: addCountry, isPending: isAddingCountry } = useMutation({
     mutationFn: async (payload) => {
-      const res = await adminAxiosInstance.post("dh-countries", payload);
+      const res = await adminAxiosInstance.post("dh-countries", payload ,{
+        headers:{
+          "Content-Type": "multipart/form-data",
+        }
+      });
       if (res.data.code !== 200) {
         throw new Error(res.data.message);
       }
