@@ -69,14 +69,14 @@ const OperatingSectors = () => {
   const handleChange = (e) => {
     const file = e.target.files[0];
     if (!file) return;
-    setErrorImage(null)
+    setErrorImage(null);
     const imageUrl = URL.createObjectURL(file);
     setPreview(imageUrl);
   };
 
   const handleClick = () => {
     fileRef.current.click();
-    setErrorImage(null)
+    setErrorImage(null);
   };
   /* ---------------------- SUBMIT HANDLERS ---------------------- */
   const onSubmitRegion = (data) => {
@@ -336,8 +336,11 @@ const OperatingSectors = () => {
                     onChange={handleChange}
                     hidden
                   />
-                  {countryForm.formState.errors.countryFlag && (
-                    <p className="text-danger mt-2" style={{ fontSize: "13px" }}>
+                  {countryForm.formState.errors.countryFlag && !preview && (
+                    <p
+                      className="text-danger mt-2"
+                      style={{ fontSize: "13px" }}
+                    >
                       {countryForm.formState.errors.countryFlag.message}
                     </p>
                   )}
