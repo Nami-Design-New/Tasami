@@ -276,6 +276,7 @@
   "noPersonalOffers": "لا توجد عروض شخصيه",
   "noPersonalGoals": "لا توجد أهداف شخصيه",
   "noPersonalAssistants": "لا يوجد مساعدون شخصيون",
+  "no-chat-selected": "لم يتم اختيار محادثة",
   "offline": {
     "title": "لا يوجد اتصال بالإنترنت",
     "message": "يرجى التحقق من اتصالك بالإنترنت ثم المحاولة مرة أخرى.",

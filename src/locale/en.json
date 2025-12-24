@@ -276,6 +276,7 @@
   "noPersonalOffers": "No Personal Offers",
   "noPersonalGoals": "No Personal Goals",
   "noPersonalAssistants": "No Personal Assistants",
+  "no-chat-selected": "No chat selected",
   "performanceModal": {
     "confirmPerformance": "Confirm Performance",
     "execution": "Execution",

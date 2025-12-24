@@ -48,8 +48,7 @@ const ChatWindow = ({ isOpen, setIsOpen, activeChat, activeUser }) => {
   const queryClient = useQueryClient();
   const [searchParams] = useSearchParams();
   const chatId = searchParams.get("chatId");
-  // console.log(chatId);
-
+  console.log("chatId", chatId);
   const {
     chatMessages,
     isLoading,
@@ -253,70 +252,77 @@ const ChatWindow = ({ isOpen, setIsOpen, activeChat, activeUser }) => {
     reset();
     setSelectedFile(null);
   };
-  console.log(activeUser);
+  console.log("activeUser in chat window:", activeUser);
+  console.log("activeChats in chat window:", activeChat);
 
   return (
-    <div className="chat-window">
-      <header className="chat-window__header">
-        <div className="chat-window__info">
-          <button
-            onClick={() => {
-              setIsOpen(true);
-            }}
-            className={`chat-window__back ${
-              isOpen ? "chat-window__back--open" : ""
-            } `}
-          >
-            <i className="fa-solid fa-arrow-right"></i>
-          </button>
-          <img src={activeUser?.chater?.image} />
-          <div>
-            <h4 className="chat-window__name">{activeChat?.name}</h4>
-            <span className="chat-window__role">نشط الان</span>
-          </div>
-        </div>
-        {/* <div className="chat-window__actions"></div> */}
-      </header>
-
-      <div className="employee-chat__messages" ref={chatContainerRef}>
-        <InfiniteScroll
-          onLoadMore={fetchNextPage}
-          hasNextPage={hasNextPage}
-          isFetchingNextPage={isFetchingNextPage}
-          revers={true}
-        >
-          {" "}
-          {(isLoading || isFetchingNextPage) && (
-            <div className="d-flex align-items-center py-3 justify-content-center">
-              {/* <div className="loader"></div> */}
-              <Loading height={20} />
+    <>
+      {chatId ? (
+        <div className="chat-window">
+          <header className="chat-window__header">
+            <div className="chat-window__info">
+              <button
+                onClick={() => {
+                  setIsOpen(true);
+                }}
+                className={`chat-window__back ${
+                  isOpen ? "chat-window__back--open" : ""
+                } `}
+              >
+                <i className="fa-solid fa-arrow-right"></i>
+              </button>
+              <img src={activeUser?.chater?.image} />
+              <div>
+                <h4 className="chat-window__name">
+                  {activeUser?.chater?.name}
+                </h4>
+                {/* <span className="chat-window__role">نشط الان</span> */}
+              </div>
             </div>
-          )}
-          {allChats?.map((chat) => {
-            const form =
-              Number(chat.sender.id) === Number(user.id)
-                ? "sender"
-                : "receiver";
-            return (
-              <Message
-                key={chat.id}
-                from={form}
-                creatorId={chat?.creator_id}
-                text={chat.message}
-                time={chat.created_at}
-                sender={chat?.sender}
-                filePath={chat?.file_path}
-                type={chat?.type}
-                avatar={
-                  chat.sender.id === user.id ? user?.image : chat?.sender?.image
-                }
-              />
-            );
-          })}{" "}
-        </InfiniteScroll>
-      </div>
+            {/* <div className="chat-window__actions"></div> */}
+          </header>
 
-      {/* <footer className="chat-window__footer">
+          <div className="employee-chat__messages" ref={chatContainerRef}>
+            <InfiniteScroll
+              onLoadMore={fetchNextPage}
+              hasNextPage={hasNextPage}
+              isFetchingNextPage={isFetchingNextPage}
+              revers={true}
+            >
+              {" "}
+              {(isLoading || isFetchingNextPage) && (
+                <div className="d-flex align-items-center py-3 justify-content-center">
+                  {/* <div className="loader"></div> */}
+                  <Loading height={20} />
+                </div>
+              )}
+              {allChats?.map((chat) => {
+                const form =
+                  Number(chat.sender.id) === Number(user.id)
+                    ? "sender"
+                    : "receiver";
+                return (
+                  <Message
+                    key={chat.id}
+                    from={form}
+                    creatorId={chat?.creator_id}
+                    text={chat.message}
+                    time={chat.created_at}
+                    sender={chat?.sender}
+                    filePath={chat?.file_path}
+                    type={chat?.type}
+                    avatar={
+                      chat.sender.id === user.id
+                        ? user?.image
+                        : chat?.sender?.image
+                    }
+                  />
+                );
+              })}{" "}
+            </InfiniteScroll>
+          </div>
+
+          {/* <footer className="chat-window__footer">
         <input type="text" placeholder="اكتب رسالتك هنا..." />
         <button>
           <i className="fa-solid fa-microphone"></i>
@@ -330,109 +336,125 @@ const ChatWindow = ({ isOpen, setIsOpen, activeChat, activeUser }) => {
         </button>
       </footer> */}
 
-      <form className="employee-chat__footer" onSubmit={handleSubmit(onSubmit)}>
-        <div className="preview-section">
-          {isRecording ? (
-            <div className={`recording-bar ${isPaused ? "paused" : ""}`}>
-              <button
-                type="button"
-                className="delete-btn"
-                onClick={cancelRecording}
-              >
-                <i className="fa-solid fa-stop"></i>
-              </button>
-
-              {!isPaused ? (
-                <button type="button" onClick={pauseRecording}>
-                  <i className="fa-solid fa-pause"></i>
-                </button>
-              ) : (
-                <button type="button" onClick={resumeRecording}>
-                  <i className="fa-solid fa-play"></i>
-                </button>
-              )}
-
-              <div className="wave"></div>
-              <span className="timer">{formatTime(recordingTime)}</span>
-            </div>
-          ) : audioBlob ? (
-            <div className="audio-preview d-flex align-items-center gap-2">
-              <audio controls src={URL.createObjectURL(audioBlob)} />
-              <button
-                type="button"
-                className="cancel-audio"
-                onClick={cancelRecording}
-              >
-                <i className="fa-solid fa-xmark"></i>
-              </button>
-            </div>
-          ) : selectedFile ? (
-            <div className="file-chat-preview">
-              <div className="file-info">
-                <i className="fa-solid fa-paperclip"></i>
-                <span className="file-name">{selectedFile.name}</span>
-              </div>
-              <button
-                type="button"
-                className="cancel-file"
-                onClick={() => {
-                  setSelectedFile(null);
-                  setValue("file", null);
-                }}
-              >
-                <i className="fa-solid fa-xmark"></i>
-              </button>
-            </div>
-          ) : (
-            <input
-              type="text"
-              className="text-input"
-              placeholder={t("chat_type_message")}
-              {...register("message")}
-              disabled={isRecording}
-            />
-          )}
-        </div>
-
-        <div className="chat-actions">
-          <label htmlFor="fileInput">
-            <i className="fa-solid fa-paperclip"></i>
-          </label>
-          <input
-            id="fileInput"
-            type="file"
-            accept="image/*,video/*"
-            hidden
-            {...register("file")}
-            onChange={(e) => {
-              const file = e.target.files[0];
-              if (!file) return;
-              const isImage = file.type.startsWith("image/");
-              const isVideo = file.type.startsWith("video/");
-              if (isImage || isVideo) {
-                setValue("message", "");
-                setAudioBlob(null);
-                cancelRecording();
-                setSelectedFile(file);
-                setValue("file", file);
-              } else {
-                e.target.value = "";
-              }
-            }}
-          />
-          <button
-            type="button"
-            onClick={startRecording}
-            disabled={selectedFile || isRecording}
+          <form
+            className="employee-chat__footer"
+            onSubmit={handleSubmit(onSubmit)}
           >
-            <i className="fa-solid fa-microphone"></i>
-          </button>
-          <button type="submit" className="chat-window__footer--send">
-            <i className="fa-solid fa-paper-plane"></i>
-          </button>
+            <div className="preview-section">
+              {isRecording ? (
+                <div className={`recording-bar ${isPaused ? "paused" : ""}`}>
+                  <button
+                    type="button"
+                    className="delete-btn"
+                    onClick={cancelRecording}
+                  >
+                    <i className="fa-solid fa-stop"></i>
+                  </button>
+
+                  {!isPaused ? (
+                    <button type="button" onClick={pauseRecording}>
+                      <i className="fa-solid fa-pause"></i>
+                    </button>
+                  ) : (
+                    <button type="button" onClick={resumeRecording}>
+                      <i className="fa-solid fa-play"></i>
+                    </button>
+                  )}
+
+                  <div className="wave"></div>
+                  <span className="timer">{formatTime(recordingTime)}</span>
+                </div>
+              ) : audioBlob ? (
+                <div className="audio-preview d-flex align-items-center gap-2">
+                  <audio controls src={URL.createObjectURL(audioBlob)} />
+                  <button
+                    type="button"
+                    className="cancel-audio"
+                    onClick={cancelRecording}
+                  >
+                    <i className="fa-solid fa-xmark"></i>
+                  </button>
+                </div>
+              ) : selectedFile ? (
+                <div className="file-chat-preview">
+                  <div className="file-info">
+                    <i className="fa-solid fa-paperclip"></i>
+                    <span className="file-name">{selectedFile.name}</span>
+                  </div>
+                  <button
+                    type="button"
+                    className="cancel-file"
+                    onClick={() => {
+                      setSelectedFile(null);
+                      setValue("file", null);
+                    }}
+                  >
+                    <i className="fa-solid fa-xmark"></i>
+                  </button>
+                </div>
+              ) : (
+                <input
+                  type="text"
+                  className="text-input"
+                  placeholder={t("chat_type_message")}
+                  {...register("message")}
+                  disabled={isRecording}
+                />
+              )}
+            </div>
+
+            <div className="chat-actions">
+              <label htmlFor="fileInput">
+                <i className="fa-solid fa-paperclip"></i>
+              </label>
+              <input
+                id="fileInput"
+                type="file"
+                accept="image/*,video/*"
+                hidden
+                {...register("file")}
+                onChange={(e) => {
+                  const file = e.target.files[0];
+                  if (!file) return;
+                  const isImage = file.type.startsWith("image/");
+                  const isVideo = file.type.startsWith("video/");
+                  if (isImage || isVideo) {
+                    setValue("message", "");
+                    setAudioBlob(null);
+                    cancelRecording();
+                    setSelectedFile(file);
+                    setValue("file", file);
+                  } else {
+                    e.target.value = "";
+                  }
+                }}
+              />
+              <button
+                type="button"
+                onClick={startRecording}
+                disabled={selectedFile || isRecording}
+              >
+                <i className="fa-solid fa-microphone"></i>
+              </button>
+              <button type="submit" className="chat-window__footer--send">
+                <i className="fa-solid fa-paper-plane"></i>
+              </button>
+            </div>
+          </form>
         </div>
-      </form>
-    </div>
+      ) : (
+        <div className="w-100 d-flex justify-content-center align-items-center">
+          <div className="d-flex flex-column gap-4 justify-content-center align-items-center opacity-25">
+            {" "}
+            <i
+              className="fa-sharp fa-regular fa-comments"
+              style={{ fontSize: "80px"}}
+            ></i>
+            <h3 >{t("no-chat-selected")}</h3>
+          </div>
+        </div>
+      )}
+    </>
   );
 };
 
