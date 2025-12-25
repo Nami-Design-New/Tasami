@@ -6,7 +6,11 @@ export default function useEditCountry() {
     mutationFn: async ({ countryId, countryData }) => {
       const res = await adminAxiosInstance.post(
         `dh-countries/${countryId}`,
-        countryData
+        countryData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        }
+      }
       );
       if (res.data.code !== 200) {
         throw new Error(res?.data?.message || "Error update country ");

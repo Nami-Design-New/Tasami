@@ -2,6 +2,7 @@ import { useState } from "react";
 import LanguageDropDown from "./LanguageDropDown";
 import ProfileMenu from "./ProfileMenu";
 import { useSelector } from "react-redux";
+import { Link } from "react-router";
 
 export default function NavBar({ collapsed, setCollapsed }) {
   const [profileDropDown, setProfileDropDown] = useState(false);
@@ -27,7 +28,10 @@ export default function NavBar({ collapsed, setCollapsed }) {
           {/* <li>
            <i className="fa-duotone fa-user-md-chat fs-4 mx-2"></i>
           </li> */}
-          <li className="settings-gear">
+          <li className="settings-gear gap-2">
+            <Link to={"/dashboard/chats"} className="btn">
+              <i className="fa-sharp fa-regular fa-comments"></i>
+            </Link>
             <div className="btn" onClick={() => setIsLangOpen(!isLangOpen)}>
               <i className="fa-sharp fa-regular fa-globe"></i>
             </div>

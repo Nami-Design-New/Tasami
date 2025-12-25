@@ -25,12 +25,15 @@ import {
   defaultRegionValues,
   regionSchema,
 } from "./shared-schema";
+import FileUploader from "../../../ui/forms/FileUPloader";
+import { useRef, useState } from "react";
+import { set } from "lodash";
 
 const OperatingSectors = () => {
   const { t } = useTranslation();
   const queryClient = useQueryClient();
   const { sectorsStats, isLoading: loadingStats } = useGetSectorsStats();
-
+  const [errorImage, setErrorImage] = useState(null);
   const { regions, isLoading, fetchNextPage, hasNextPage, isFetchingNextPage } =
     useGetRegions();
   const {
@@ -60,7 +63,21 @@ const OperatingSectors = () => {
   const { addRegion, isAddingRegion } = useAddRegion();
   const { addCountry, isAddingCountry } = useAddCountry();
   const { addCity, isAddingCity } = useAddCity();
+  const [preview, setPreview] = useState(null);
+  const fileRef = useRef(null);
 
+  const handleChange = (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    setErrorImage(null);
+    const imageUrl = URL.createObjectURL(file);
+    setPreview(imageUrl);
+  };
+
+  const handleClick = () => {
+    fileRef.current.click();
+    setErrorImage(null);
+  };
   /* ---------------------- SUBMIT HANDLERS ---------------------- */
   const onSubmitRegion = (data) => {
     const payload = {
@@ -85,6 +102,7 @@ const OperatingSectors = () => {
       "title:ar": data.country.ar,
       "title:en": data.country.en,
       phone_code: data.countryCode,
+      image: fileRef.current?.files[0] || null,
     };
     addCountry(payload, {
       onSuccess: (res) => {
@@ -186,7 +204,7 @@ const OperatingSectors = () => {
               className="form_ui"
               onSubmit={regionForm.handleSubmit(onSubmitRegion)}
             >
-              <div className="d-flex align-items-end gap-3 ">
+              <div className="d-lg-flex d-grid col-12 align-items-end gap-3 ">
                 {SUPPORTED_LANGS.map((lang) => (
                   <InputField
                     key={`regions-${lang}`}
@@ -224,7 +242,7 @@ const OperatingSectors = () => {
               className="form_ui"
               onSubmit={countryForm.handleSubmit(onSubmitCountry)}
             >
-              <div className="d-flex align-items-end gap-3 ">
+              <div className="d-lg-flex d-grid col-12 align-items-end gap-3 ">
                 <Controller
                   name="countryRegion"
                   control={countryForm.control}
@@ -272,6 +290,61 @@ const OperatingSectors = () => {
                   {...countryForm.register("countryCode")}
                   error={countryForm.formState.errors.countryCode?.message}
                 />
+                <div style={{ gap: "10px" }}>
+                  {/* Preview */}
+                  <div
+                    onClick={handleClick}
+                    style={{
+                      width: "60px",
+                      height: "54px",
+                      border: "1px solid #ccc",
+                      borderRadius: "12px",
+                      cursor: "pointer",
+                      overflow: "hidden",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      background: "#f5f5f5",
+                    }}
+                  >
+                    {preview ? (
+                      <img
+                        src={preview}
+                        alt="flag"
+                        style={{
+                          width: "100%",
+                          height: "100%",
+                          objectFit: "cover",
+                        }}
+                      />
+                    ) : (
+                      <span style={{ fontSize: "10px", color: "#777" }}>
+                        <img
+                          src="/images/imageUpload.svg"
+                          alt="Upload Icon"
+                          width={"20px"}
+                        />
+                      </span>
+                    )}
+                  </div>
+
+                  {/* Hidden input */}
+                  <input
+                    ref={fileRef}
+                    type="file"
+                    accept="image/*"
+                    onChange={handleChange}
+                    hidden
+                  />
+                  {countryForm.formState.errors.countryFlag && !preview && (
+                    <p
+                      className="text-danger mt-2"
+                      style={{ fontSize: "13px" }}
+                    >
+                      {countryForm.formState.errors.countryFlag.message}
+                    </p>
+                  )}
+                </div>{" "}
                 <CustomButton
                   icon={<i className="fa-regular fa-plus"></i>}
                   loading={isAddingCountry}
@@ -293,7 +366,7 @@ const OperatingSectors = () => {
               className="form_ui"
               onSubmit={cityForm.handleSubmit(onSubmitCity)}
             >
-              <div className="d-flex align-items-end gap-3 ">
+              <div className="d-lg-flex d-grid col-12 align-items-end gap-3 ">
                 <Controller
                   name="cityCountry"
                   control={cityForm.control}

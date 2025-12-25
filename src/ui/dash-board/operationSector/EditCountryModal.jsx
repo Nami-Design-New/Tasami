@@ -1,5 +1,5 @@
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Modal } from "react-bootstrap";
 import { Controller, useForm } from "react-hook-form";
 import { SUPPORTED_LANGS } from "../../../lib/multilang/config";
@@ -16,6 +16,7 @@ import {
 import CustomButton from "../../CustomButton";
 import InputField from "../../forms/InputField";
 import SelectFieldReactSelect from "../../forms/SelectFieldReactSelect";
+import FileUploader from "../../forms/FileUPloader";
 
 export default function EditCountryModal({
   showModal,
@@ -31,7 +32,7 @@ export default function EditCountryModal({
     defaultValues: defaultCountryValues,
   });
   const { editCountry, isEditingCountry } = useEditCountry();
-  console.log(selectedCountry);
+  const [files, setFiles] = useState([]);
 
   useEffect(() => {
     countryForm.reset({
@@ -42,9 +43,10 @@ export default function EditCountryModal({
       },
       countryNumber: selectedCountry?.code,
       countryCode: selectedCountry?.phone_code,
+      countryFlag: selectedCountry?.image ? [] : null,
     });
+    setFiles(selectedCountry?.image ? [selectedCountry?.image] : []);
   }, [selectedCountry, countryForm]);
-  console.log(countryForm.formState.errors);
 
   const onSubmit = (data) => {
     const payload = {
@@ -54,7 +56,10 @@ export default function EditCountryModal({
       "title:en": data?.country?.en,
       phone_code: data?.countryCode,
       region_id: data?.countryRegion,
+      image: files[0] || null,
     };
+    console.log("payload", payload, data);
+
     editCountry(
       { countryId: selectedCountry?.id, countryData: payload },
       {
@@ -69,7 +74,9 @@ export default function EditCountryModal({
       }
     );
   };
-
+  const handleFilesChange = (updatedFiles) => {
+    setFiles(updatedFiles);
+  };
   return (
     <Modal
       show={showModal}
@@ -127,7 +134,7 @@ export default function EditCountryModal({
                 error={countryForm.formState.errors.countryNumber?.message}
               />
             </div>
-            <div className="col-12 col-md-6 p-2">
+            <div className="col-12  p-2">
               {" "}
               <InputField
                 label={t("dashboard.operatingRegions.countryCode")}
@@ -135,6 +142,18 @@ export default function EditCountryModal({
                 {...countryForm.register("countryCode")}
                 error={countryForm.formState.errors.countryCode?.message}
               />
+            </div>
+            <div className="col-12  p-2">
+              <FileUploader
+                files={files}
+                onFilesChange={handleFilesChange}
+                label={t("dashboard.operatingRegions.countryFlag")}
+                multiple={false}
+                style={{ height: "200px" }}
+              />
+              {files.length === 0 && (
+                <p className="text-danger mt-1">country flag is required</p>
+              )}
             </div>
             <div className="col-12  p-2">
               <div className="d-flex justify-content-end">

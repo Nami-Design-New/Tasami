@@ -192,7 +192,16 @@ export default function OperatingSectorsList() {
                                 handleCountryToggle(country.id);
                               }}
                             >
-                              <span>{country?.title}</span>
+                              <div className="d-flex align-items-center gap-2">
+                                <img
+                                  src={country?.image}
+                                  alt={country?.title}
+                                  width={"36px"}
+                                  height={"32px"}
+                                  style={{ borderRadius: "6px" }}
+                                />
+                                <span>{country?.title}</span>
+                              </div>
                               <div className="d-flex gap-3">
                                 <button
                                   className="edit-icon-style"

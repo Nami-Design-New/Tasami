@@ -6,7 +6,6 @@ import jsPDF from "jspdf";
 const ReportIndicator = ({ pdfRef }) => {
   const { t } = useTranslation();
 
-
   const handleDownload = () => {
     const input = pdfRef.current;
 
@@ -27,8 +26,8 @@ const ReportIndicator = ({ pdfRef }) => {
   };
 
   return (
-    <div className="d-flex justify-content-between align-items-center p-5">
-      <div className="d-flex justify-content-between align-items-center gap-5">
+    <div className="d-md-flex justify-content-between align-items-center d-grid col-12 p-2 p-md-5">
+      <div className="d-flex justify-content-between align-items-center  gap-4">
         <div className="d-flex align-items-center gap-2">
           <div className="overall_index"></div>
           <span> {t("dashboard.reports.total")}</span>
@@ -42,7 +41,7 @@ const ReportIndicator = ({ pdfRef }) => {
           <span> {t("dashboard.reports.general")}</span>
         </div>
       </div>
-      <div className="d-flex p-2 justify-content-end  align-items-end mt-3 ">
+      <div className="d-grid p-2 justify-content-md-end justify-content-start align-items-end mt-3 ">
         <CustomButton onClick={handleDownload} size="large">
           {" "}
           {t("dashboard.reports.export")}

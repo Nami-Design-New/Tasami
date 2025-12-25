@@ -12,6 +12,7 @@ export const defaultCountryValues = {
   country: SUPPORTED_LANGS.reduce((acc, lang) => ({ ...acc, [lang]: "" }), {}),
   countryNumber: "",
   countryCode: "",
+  countryFlag: null,
 };
 
 export const defaultCityValues = {
@@ -46,6 +47,7 @@ export const countrySchema = yup.object({
     .matches(/^[0-9]+$/, "رقم القطاع يجب أن يكون رقمًا")
     .required("رقم القطاع مطلوب"),
   countryCode: yup.string().required("كود الدولة مطلوب"),
+  countryFlag: yup.mixed().required('العلم مطلوب'),
 });
 
 export const citySchema = yup.object({

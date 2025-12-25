@@ -10,6 +10,7 @@ export default function FileUploader({
   onFilesChange,
   multiple = true,
   aspectRatio,
+  style
 }) {
   const { t } = useTranslation();
   const toArray = (v) => (Array.isArray(v) ? v : v ? [v] : []);
@@ -115,6 +116,8 @@ export default function FileUploader({
    * Render: image or video preview
    * ----------------------------------------------- */
   const renderPreview = (src, file) => {
+    console.log("src", src ,file);
+    
     if (!src) return <img src="/images/docs.svg" alt="file" />;
 
     const isVideo =
@@ -171,10 +174,11 @@ export default function FileUploader({
         {/* ---------------- SINGLE MODE ---------------- */}
         {!multiple && (
           <>
+              {console.log(files)                }
             {files.length === 0 ? (
               <div
                 {...getRootProps()}
-                className={`file_upload dropzone single ${
+                className={`file_upload dropzone single ${style} ${
                   isDragActive ? "active" : ""
                 }`}
               >
@@ -184,7 +188,7 @@ export default function FileUploader({
                 </section>
               </div>
             ) : (
-              <div className="uploaded_file single">
+              <div className="uploaded_file single" style={style}>
                 {renderPreview(previews[0], files[0])}
 
                 <div className="actions">

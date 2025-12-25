@@ -357,6 +357,15 @@
         margin: 0 18px;
       }
     }
+
+    @media (max-width: 768px) {
+      .metric-card,
+      .metric-card-1,
+      .metric-card-2,
+      .metric-card-3 {
+        max-width: 100% !important;
+      }
+    }
   }
 }
 .performance-no-report-data {
@@ -470,6 +479,11 @@
       margin: 0 18px;
     }
   }
+  @media (max-width: 768px) {
+    .metric-card {
+      max-width: 100% !important;
+    }
+  }
 }
 
 //// Report Card
@@ -523,7 +537,7 @@
   font-weight: 400;
   width: 22px;
   height: 22px;
-  padding: 1px ;
+  padding: 1px;
   display: flex;
   align-items: center;
   justify-content: center;
