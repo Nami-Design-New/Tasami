@@ -11,7 +11,7 @@ const registerSchema = (t) => {
       .nullable()
       .test("fileSize", t("validation.fileSize"), (file) => {
         if (!file) return true;
-        return file.size <= 2 * 1024 * 1024;
+        return file.size <= 12 * 1024 * 1024;
       })
       .test("fileType", t("validation.fileType"), (file) => {
         if (!file) return true;

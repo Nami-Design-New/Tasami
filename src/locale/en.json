@@ -593,7 +593,7 @@
     "email": "Please enter a valid email",
     "passwordMinLength": "Use a password that is at least 6 characters long",
     "passwordMatch": "Passwords must match",
-    "fileSize": "File size must be less than 2MB",
+    "fileSize": "File size must be less than 12MB",
     "fileType": "Only JPG and PNG files are allowed",
     "date": "Please enter a valid date",
     "minAge": "Subscription is available for those who are {{age}} years old or older",

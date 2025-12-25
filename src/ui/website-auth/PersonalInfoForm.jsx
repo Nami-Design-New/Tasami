@@ -67,6 +67,7 @@ export default function PersonalInfoForm({ setFormType, setRegisterStep }) {
           </div>
           <input type="file" ref={inputFileRef} onChange={handleFileChange} />
         </label>
+        <p className="error-text">{errors.profilePicture?.message}</p>
       </div>
       <div className="col-12 p-2">
         <InputField
