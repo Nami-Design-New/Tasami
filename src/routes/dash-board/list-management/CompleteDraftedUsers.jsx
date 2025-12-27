@@ -7,8 +7,8 @@ import { useNavigate, useParams } from "react-router";
 import { toast } from "sonner";
 import * as yup from "yup";
 import useGetCities from "../../../hooks/countries/useGetCities";
+import useGetCountries from "../../../hooks/countries/useGetCountries";
 import useGetNationalities from "../../../hooks/countries/useGetNationalities";
-import useCreateEmployee from "../../../hooks/dashboard/employee/useCreateEmployee";
 import useDeleteDraftedUserFiles from "../../../hooks/dashboard/employee/useDeleteDraftedUserFiles";
 import useGetDraftedUser from "../../../hooks/dashboard/employee/useGetDraftedUser";
 import useUpdateDraftedUser from "../../../hooks/dashboard/employee/useUpdateDraftedUser";
@@ -20,10 +20,9 @@ import FormWrapper from "../../../ui/forms/FormWrapper";
 import InputField from "../../../ui/forms/InputField";
 import SelectField from "../../../ui/forms/SelectField";
 import SelectFieldReactSelect from "../../../ui/forms/SelectFieldReactSelect";
+import Loading from "../../../ui/loading/Loading";
 import ProfileImageUploader from "../../../ui/ProfileImageUploader";
 import { flattenPages, formatYMD } from "../../../utils/helper";
-import useGetCountries from "../../../hooks/countries/useGetCountries";
-import Loading from "../../../ui/loading/Loading";
 
 const createEmployeeSchema = (t) =>
   yup.object().shape({
@@ -174,7 +173,9 @@ export default function CompleteDraftedUsers() {
       });
 
       // Load image
-      setImage(draftedUser.data.image);
+      setImage(
+        draftedUser.data.image || "/images/dashboard/avatar-placeholder.jpg"
+      );
 
       // Load attachments into state
       setFiles(draftedUser.data.files || []);
@@ -223,9 +224,6 @@ export default function CompleteDraftedUsers() {
     deleteDraftedUserFiles(fileId, {
       onSuccess: (res) => {
         toast.success(res.message);
-        queryClient.invalidateQueries({
-          queryKey: ["drafted-user-details"],
-        });
       },
       onError: (error) => {
         toast.error(error?.message);

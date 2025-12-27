@@ -1,5 +1,6 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useQueryClient } from "@tanstack/react-query";
+import { useRef, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { toast } from "sonner";
@@ -25,9 +26,6 @@ import {
   defaultRegionValues,
   regionSchema,
 } from "./shared-schema";
-import FileUploader from "../../../ui/forms/FileUPloader";
-import { useRef, useState } from "react";
-import { set } from "lodash";
 
 const OperatingSectors = () => {
   const { t } = useTranslation();

@@ -49,19 +49,34 @@ export default function EditCountryModal({
   }, [selectedCountry, countryForm]);
 
   const onSubmit = (data) => {
-    const payload = {
-      _method: "put",
-      code: data?.countryNumber,
-      "title:ar": data?.country?.ar,
-      "title:en": data?.country?.en,
-      phone_code: data?.countryCode,
-      region_id: data?.countryRegion,
-      image: files[0] || null,
-    };
-    console.log("payload", payload, data);
+    const formData = new FormData();
 
+    // const payload = {
+    //   _method: "put",
+    //   code: data?.countryNumber,
+    //   "title:ar": data?.country?.ar,
+    //   "title:en": data?.country?.en,
+    //   phone_code: data?.countryCode,
+    //   region_id: data?.countryRegion,
+    //   image: files[0] || null,
+    // };
+    formData.append("_method", "put");
+    formData.append("code", data?.countryNumber);
+    formData.append("title:ar", data?.country?.ar);
+    formData.append("title:en", data?.country?.en);
+    formData.append("phone_code", data?.countryCode);
+    formData.append("region_id", data?.countryRegion);
+    // Handle file upload in edit mode
+    if (data.files && data.files.length > 0) {
+      const file = data.files[0];
+
+      // Only append if it's a new File object
+      if (file instanceof File) {
+        formData.append("image", file);
+      }
+    }
     editCountry(
-      { countryId: selectedCountry?.id, countryData: payload },
+      { countryId: selectedCountry?.id, countryData: formData },
       {
         onSuccess: (res) => {
           toast.success(res.message);
