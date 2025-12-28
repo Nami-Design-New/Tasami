@@ -1,20 +1,23 @@
 const ChatItem = ({ chat, onChatSelect, activeChat }) => {
-  const {
-    chater: { name, image },
-    last_message,
-  } = chat;
+  const { chater, last_message } = chat;
   console.log(activeChat);
+
+  console.log(chater);
 
   return (
     <li
-      key={chat.id}
-      className={`chat-item ${activeChat === chat.id ? "active" : ""}`}
+      key={chat?.id}
+      className={`chat-item ${activeChat === chat?.id ? "active" : ""}`}
       onClick={() => onChatSelect(chat)}
     >
-      <img className="chat-item__avatar" src={image} alt={name} />
+      <img
+        className="chat-item__avatar"
+        src={chater?.image}
+        alt={chater?.name}
+      />
       <div className="chat-item__info">
         <div className="d-flex align-items-center  justify-content-between">
-          <span className="chat-item__name">{name} </span>
+          <span className="chat-item__name">{chater?.name} </span>
           {last_message?.from_date && (
             <span className="chat-item__time">
               <i className="fa-light fa-timer"></i>
