@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useQueryClient } from "@tanstack/react-query";
 import { Controller, useForm } from "react-hook-form";
 import { useNavigate, useParams } from "react-router";
 import { toast } from "sonner";
@@ -24,33 +24,47 @@ import InputField from "../../forms/InputField";
 import SelectField from "../../forms/SelectField";
 import SelectFieldReactSelect from "../../forms/SelectFieldReactSelect";
 import ProfileImageUploader from "../../ProfileImageUploader";
-import useCreateChatRoom from "../../../hooks/dashboard/chats/useCreateChatRoom";
+import dayjs from "dayjs";
 
 const createEmployeeSchema = (t) =>
   yup.object().shape({
     jobLevel: yup
       .number()
-      .typeError(t("errors.required"))
-      .required(t("errors.required")),
+      .typeError(t("validation.required"))
+      .required(t("validation.required")),
 
-    jobTitle: yup.string().required(t("errors.required")),
+    jobTitle: yup.string().required(t("validation.required")),
 
     group: yup
       .number()
-      .typeError(t("errors.required"))
-      .required(t("errors.required")),
+      .typeError(t("validation.required"))
+      .required(t("validation.required")),
 
-    firstName: yup.string().required(t("errors.required")),
+    firstName: yup.string().required(t("validation.required")),
 
     birthdate: yup
       .date()
-      .typeError(t("errors.invalidDate"))
-      .required(t("errors.required")),
+      .typeError(t("validation.date"))
+      .required(t("validation.required"))
+      .test("notFuture", t("validation.futureDateNotAllowed"), (value) => {
+        if (!value) return false;
+        return (
+          dayjs(value).isSame(dayjs(), "day") || dayjs(value).isBefore(dayjs())
+        );
+      })
+      .test("minAge", t("validation.minAge", { age: 15 }), (value) => {
+        if (!value) return false;
+        const today = dayjs();
+        const minDate = today.subtract(15, "year");
+        return (
+          dayjs(value).isBefore(minDate) || dayjs(value).isSame(minDate, "day")
+        );
+      }),
 
     email: yup
       .string()
-      .email(t("errors.invalidEmail"))
-      .required(t("errors.required")),
+      .email(t("validation.invalidEmail"))
+      .required(t("validation.required")),
 
     // OPTIONAL FIELDS
     accountNumber: yup.string().nullable(),
@@ -74,6 +88,7 @@ const EmployerDataForm = ({ isEdit }) => {
   const queryClient = useQueryClient();
   const { id } = useParams();
 
+  // Updated files state - now handles mixed formats
   const [files, setFiles] = useState([]);
   const [image, setImage] = useState(
     "/images/dashboard/avatar-placeholder.jpg"
@@ -150,6 +165,9 @@ const EmployerDataForm = ({ isEdit }) => {
     setValue("city", selected.city?.id);
   }, [selectedGroupId, flattened, setValue]);
 
+  // ============================================
+  // UPDATED: Load files in edit mode
+  // ============================================
   useEffect(() => {
     if (isEdit && employee) {
       reset({
@@ -171,11 +189,24 @@ const EmployerDataForm = ({ isEdit }) => {
         nationality: employee.data.nationality.id,
       });
 
-      // Load image
-      setImage(employee.data.image);
+      // Load profile image
+      setImage(
+        employee.data.image || "/images/dashboard/avatar-placeholder.jpg"
+      );
 
-      // Load attachments into state
-      setFiles(employee.data.files || []);
+      const backendFiles = (employee.data.files || []).map((file) => ({
+        id: file.id || file.file_id,
+        file: file.file || file.url || file.path,
+      }));
+
+      // ✅ FIX: Preserve unsaved files when merging
+      setFiles((currentFiles) => {
+        // Get unsaved files (File objects) from current state
+        const unsavedFiles = currentFiles.filter((f) => f instanceof File);
+
+        // Merge: backend files + unsaved files
+        return [...backendFiles, ...unsavedFiles];
+      });
     }
   }, [isEdit, employee, reset]);
 
@@ -202,7 +233,14 @@ const EmployerDataForm = ({ isEdit }) => {
   });
 
   const handleFilesChange = (updatedFiles) => {
+    console.log("Files changed:", updatedFiles);
+
+    // The new component returns files in their original format:
+    // - File objects for new uploads
+    // - URL strings for URLs
+    // - {id, file} objects for backend files
     setFiles(updatedFiles);
+
     // Set value in the form
     setValue("attachments", updatedFiles, { shouldValidate: true });
   };
@@ -217,13 +255,19 @@ const EmployerDataForm = ({ isEdit }) => {
     }
   };
 
-  const handleDeletefile = (fileId) => {
+  // ============================================
+  // UPDATED: Handle file deletion
+  // ============================================
+  const handleDeleteFile = (fileId) => {
+    console.log("Deleting file with ID:", fileId);
+
+    // Call API to delete file
     deleteEmployeeFiles(fileId, {
       onSuccess: (res) => {
         toast.success(res.message);
-        queryClient.invalidateQueries({
-          queryKey: ["dashboard-employee-details"],
-        });
+        // queryClient.invalidateQueries({
+        //   queryKey: ["dashboard-employee-details"],
+        // });
       },
       onError: (error) => {
         toast.error(error?.message);
@@ -231,14 +275,16 @@ const EmployerDataForm = ({ isEdit }) => {
     });
   };
 
+  // ============================================
+  // UPDATED: Handle form submission
+  // ============================================
   const onSubmit = (formData) => {
     const payload = new FormData();
 
-    // Call mutation
     if (isEdit) {
       payload.append("_method", "put");
 
-      // Compare each field with original employee data
+      // Append all text fields
       payload.append("role_id", formData.jobLevel);
       payload.append("job_title", formData.jobTitle);
       payload.append("group_id", formData.group);
@@ -257,12 +303,33 @@ const EmployerDataForm = ({ isEdit }) => {
         payload.append("image", formData.profileImage);
       }
 
-      // Only append attachments if changed
-      const originalFiles = employee.data.attachments || [];
-      const newFiles = files.filter((f) => !originalFiles.includes(f));
+      // ✅ UPDATED: Handle file attachments properly
+      // Separate new files from existing ones
+      const newFiles = [];
+      const keepFileIds = [];
+
+      files.forEach((file) => {
+        if (file instanceof File) {
+          // New file upload
+          newFiles.push(file);
+        } else if (typeof file === "string") {
+          // URL string - treat as existing (shouldn't happen in edit mode)
+          console.warn("String URL in edit mode:", file);
+        } else if (file?.id) {
+          // Object format {id, file} - existing file
+          keepFileIds.push(file.id);
+        }
+      });
+
+      // Append new files
       newFiles.forEach((file, index) => {
         payload.append(`files[${index}]`, file);
       });
+
+      // Optionally send which files to keep (if your API needs this)
+      if (keepFileIds.length > 0) {
+        payload.append("keep_file_ids", JSON.stringify(keepFileIds));
+      }
 
       // Call update mutation
       updateEmployee(
@@ -282,8 +349,8 @@ const EmployerDataForm = ({ isEdit }) => {
         }
       );
     } else {
-      // Append text/number fields
-      payload.append("role_id", formData.jobLevel); // or map from jobLevel
+      // CREATE MODE
+      payload.append("role_id", formData.jobLevel);
       payload.append("job_title", formData.jobTitle);
       payload.append("group_id", formData.group);
       payload.append("first_name", formData.firstName);
@@ -295,14 +362,18 @@ const EmployerDataForm = ({ isEdit }) => {
       payload.append("country_id", formData.residentCountry || "");
       payload.append("city_id", formData.residentCity || "");
       payload.append("nationality_id", formData.nationality || "");
-      // Append profile image if selected
+
+      // Profile image
       if (formData?.profileImage && formData?.profileImage instanceof File) {
         payload.append("image", formData?.profileImage);
       }
-      // Append attachments if any
-      files.forEach((file, index) => {
+
+      // ✅ UPDATED: Only append File objects (new uploads)
+      const fileUploads = files.filter((file) => file instanceof File);
+      fileUploads.forEach((file, index) => {
         payload.append(`files[${index}]`, file);
       });
+
       createEmployee(payload, {
         onSuccess: (res) => {
           toast.success(res?.message);
@@ -603,15 +674,25 @@ const EmployerDataForm = ({ isEdit }) => {
             {/* Attachments */}
             <div className="col-12 p-2">
               <FileUploader
-                files={files.map((file) => file?.file)}
+                label={t("dashboard.createEmployee.form.attachFiles")}
+                // hint={t("dashboard.createEmployee.form.attachFilesHint")} // Optional
+                files={files} // Accepts mixed formats: File, string, {id, file}
                 multiple={true}
                 onFilesChange={handleFilesChange}
-                label={t("dashboard.createEmployee.form.attachFiles")}
-                onDelete={handleDeletefile}
+                onDelete={handleDeleteFile} // Called with file ID
+                maxFiles={10} // Optional: limit number of files
+                maxSize={5 * 1024 * 1024} // Optional: 5MB per file
+                onError={(errors) => {
+                  // Optional: handle validation errors
+                  console.error("File upload errors:", errors);
+                  errors.forEach((err) => {
+                    toast.error(`${err.file}: ${err.errors.join(", ")}`);
+                  });
+                }}
               />
             </div>
-            {/* Buttons */}
           </div>
+          {/* Buttons */}
           <div className="col-12 p-2">
             <div className="buttons w-full justify-content-end">
               {isEdit ? (

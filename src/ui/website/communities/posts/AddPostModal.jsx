@@ -110,6 +110,9 @@ export default function AddPostModal({
     mutation(isEdit ? { postId: id, payload: formData } : formData, {
       onSuccess: (res) => {
         queryClient.invalidateQueries({ queryKey: ["community-posts"] });
+        if (isEdit) {
+          queryClient.invalidateQueries({ queryKey: ["post-details"] });
+        }
         reset();
         setShowModal(false);
         toast.success(res.message);
