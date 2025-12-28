@@ -24,32 +24,47 @@ import InputField from "../../forms/InputField";
 import SelectField from "../../forms/SelectField";
 import SelectFieldReactSelect from "../../forms/SelectFieldReactSelect";
 import ProfileImageUploader from "../../ProfileImageUploader";
+import dayjs from "dayjs";
 
 const createEmployeeSchema = (t) =>
   yup.object().shape({
     jobLevel: yup
       .number()
-      .typeError(t("errors.required"))
-      .required(t("errors.required")),
+      .typeError(t("validation.required"))
+      .required(t("validation.required")),
 
-    jobTitle: yup.string().required(t("errors.required")),
+    jobTitle: yup.string().required(t("validation.required")),
 
     group: yup
       .number()
-      .typeError(t("errors.required"))
-      .required(t("errors.required")),
+      .typeError(t("validation.required"))
+      .required(t("validation.required")),
 
-    firstName: yup.string().required(t("errors.required")),
+    firstName: yup.string().required(t("validation.required")),
 
     birthdate: yup
       .date()
-      .typeError(t("errors.invalidDate"))
-      .required(t("errors.required")),
+      .typeError(t("validation.date"))
+      .required(t("validation.required"))
+      .test("notFuture", t("validation.futureDateNotAllowed"), (value) => {
+        if (!value) return false;
+        return (
+          dayjs(value).isSame(dayjs(), "day") || dayjs(value).isBefore(dayjs())
+        );
+      })
+      .test("minAge", t("validation.minAge", { age: 15 }), (value) => {
+        if (!value) return false;
+        const today = dayjs();
+        const minDate = today.subtract(15, "year");
+        return (
+          dayjs(value).isBefore(minDate) || dayjs(value).isSame(minDate, "day")
+        );
+      }),
 
     email: yup
       .string()
-      .email(t("errors.invalidEmail"))
-      .required(t("errors.required")),
+      .email(t("validation.invalidEmail"))
+      .required(t("validation.required")),
 
     // OPTIONAL FIELDS
     accountNumber: yup.string().nullable(),

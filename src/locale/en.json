@@ -624,7 +624,9 @@
     "titleMin": "Title must be at least 5 characters",
     "descriptionRequired": "Description is required",
     "descriptionMin": "Description must be at least 15 characters",
-    "descriptionMax": "Description cannot exceed 500 characters"
+    "descriptionMax": "Description cannot exceed 500 characters",
+    "futureDateNotAllowed": "Birth date cannot be in the future",
+    "after_or_equal_today": "Date must be today or later"
   },
   "pageNotFound": {
     "alt": "404 Not Found",
