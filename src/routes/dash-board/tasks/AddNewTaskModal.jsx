@@ -15,8 +15,6 @@ import useAddTaskForm from "../../../hooks/dashboard/tasks/useAddTaskForm";
 import useGetTaskSystem from "../../../hooks/dashboard/tasks/useGetTaskSystem";
 import { PAGE_SIZE } from "../../../utils/constants";
 
-
-
 const AddNewTask = ({ showModal, setShowModal, title }) => {
   const { t } = useTranslation();
   const queryClient = useQueryClient();
@@ -26,8 +24,7 @@ const AddNewTask = ({ showModal, setShowModal, title }) => {
   const { employees } = useGetSharedEmployees();
   const { taskSystem } = useGetTaskSystem("", page, PAGE_SIZE);
 
-  const { addTask } = usePostAddTask();
-  // console.log("taskSystem", taskSystem);
+  const { addTask, isAddingTask } = usePostAddTask();
 
   const {
     handleSubmit,
@@ -43,6 +40,8 @@ const AddNewTask = ({ showModal, setShowModal, title }) => {
   };
   const handleClose = () => {
     setShowModal(false);
+    reset();
+    setFiles(null);
   };
 
   const onSubmit = async (data) => {
@@ -62,8 +61,9 @@ const AddNewTask = ({ showModal, setShowModal, title }) => {
 
     addTask(formData, {
       onSuccess: (res) => {
-        queryClient.invalidateQueries(["dashboard-tasks"]);
+        queryClient.invalidateQueries({ queryKey: ["dashboard-tasks"] });
         reset();
+        setFiles(null);
         setShowModal(false);
         toast.success(res.message);
       },
@@ -180,7 +180,12 @@ const AddNewTask = ({ showModal, setShowModal, title }) => {
                 {t("dashboard.workModel.cancel")}
               </CustomButton>
 
-              <CustomButton size="meduim" color="primary" type="submit">
+              <CustomButton
+                size="meduim"
+                color="primary"
+                type="submit"
+                loading={isAddingTask}
+              >
                 {t("dashboard.workModel.send")}
               </CustomButton>
             </div>

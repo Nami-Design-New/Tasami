@@ -18,39 +18,6 @@ const Programs = () => {
   const { assistantOffersData, currentPage, lastPage, isLoading } =
     useGetAssistantOffers("", page, PAGE_SIZE);
 
-  // const usersSeries = [
-  //   {
-  //     name: "عروض المساعده ",
-  //     data:
-  //       assistantOffersData?.packages?.map((item) => item.total_users) || [],
-  //   },
-  //   {
-  //     name: "بإنتظار التنفيذ",
-  //     data:
-  //       assistantOffersData?.packages?.map((item) => item.communities_count) ||
-  //       [],
-  //   },
-  //   {
-  //     name: "قيد التنفيذ",
-  //     data:
-  //       assistantOffersData?.packages?.map(
-  //         (item) => item.communities_members
-  //       ) || [],
-  //   },
-  //   {
-  //     name: "مكتملة",
-  //     data:
-  //       assistantOffersData?.packages?.map((item) => item.communities_count) ||
-  //       [],
-  //   },
-  //   {
-  //     name: "المحذوفة",
-  //     data:
-  //       assistantOffersData?.packages?.map((item) => item.communities_posts) ||
-  //       [],
-  //   },
-  // ];
-
   const usersSeries = [
     {
       name: t("dashboard.programs.assistantOffers"),
@@ -96,11 +63,7 @@ const Programs = () => {
         },
       },
     },
-    //   xaxis: {
-    //   categories:
-    //     assistantOffersData?.packages?.map((item) => item.package) || [],
-    //   labels: { style: { fontSize: "14px" } },
-    // },
+
     yaxis: {
       labels: {
         style: {

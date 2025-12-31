@@ -10,6 +10,8 @@ import AlertModal from "../../website/platform/my-community/AlertModal";
 import usePostAddToTask from "../../../hooks/dashboard/notificatoins/usePostAddToTask";
 import { toast } from "sonner";
 import { useQueryClient } from "@tanstack/react-query";
+import { styleEffect } from "framer-motion";
+import CustomButton from "../../CustomButton";
 const columnHelper = createColumnHelper();
 
 const NotificationTable = () => {
@@ -17,7 +19,7 @@ const NotificationTable = () => {
   const queryClient = useQueryClient();
   const [showRateModal, setShowRateModal] = useState(false);
   const [notificationId, setNotificationId] = useState();
-  const { addToTask } = usePostAddToTask();
+  const { addToTask, isAddingToTask } = usePostAddToTask();
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(PAGE_SIZE);
 
@@ -42,111 +44,22 @@ const NotificationTable = () => {
         queryClient.invalidateQueries({
           queryKey: ["dashboard-notifications"],
         });
+        setShowModal(false);
       },
       onError: (err) => {
         toast.error(err.message);
       },
     });
   };
-  // const data = useMemo(
-  //   () => [
-  //     {
-  //       id: 1,
-  //       system: "دخلي ",
-  //       subject: "طلب خدمة",
-  //       model: "EVL-122201",
-  //       date: "2025-05-25",
-  //       time: "10:30",
-  //       service: "os-123",
-  //       userAccount: "U-010222-0000",
-  //       accountType: "اساسي",
-  //       idNumber: "01-014-0004",
-  //       group: "GN-000002",
-  //       region: "01-الشرق الاوسط",
-  //       location: "014 - السعوديه",
-  //       city: "0001 - الرياض",
-  //       employerName: "إياد محمد خالد",
-  //     },
-  //     {
-  //       id: 2,
-  //       system: "دخلي ",
-  //       subject: "شكوى",
-  //       model: "EVL-122201",
-  //       date: "2025-05-25",
-  //       time: "10:30",
-  //       service: "خدمة العملاء",
-  //       userAccount: "U-010222-0000",
-  //       accountType: "متميز",
-  //       idNumber: "01-014-0004",
-  //       group: "GN-000002",
-  //       region: "01-الشرق الاوسط",
-  //       location: "014 - السعوديه",
-  //       city: "0001 - الرياض",
-  //       employerName: "أحمد سعيد محمود",
-  //     },
-  //     {
-  //       id: 3,
-  //       system: "دخلي ",
-  //       subject: "تحديث بيانات",
-  //       model: "PIN-122201",
-  //       date: "2025-05-25",
-  //       time: "10:30",
-  //       service: "الخدمات المصرفية",
-  //       userAccount: "U-010222-0000",
-  //       accountType: "رواد",
-  //       idNumber: "01-014-0004",
-  //       group: "GN-000002",
-  //       region: "01-الشرق الاوسط",
-  //       location: "014 - السعوديه",
-  //       city: "0001 - الرياض",
-  //       employerName: "سارة أحمد علي",
-  //     },
-  //     {
-  //       id: 4,
-  //       system: "دخلي ",
-  //       subject: "فتح حساب",
-  //       model: "PIN-122201",
-  //       date: "2025-05-25",
-  //       time: "10:30",
-  //       service: "التمويل الشخصي",
-  //       userAccount: "U-010222-0000",
-  //       accountType: "اساسي",
-  //       idNumber: "01-014-0004",
-  //       group: "GN-000002",
-  //       region: "01-الشرق الاوسط",
-  //       location: "014 - السعوديه",
-  //       city: "0001 - الرياض",
-  //       employerName: "محمد خالد عبدالله",
-  //     },
-  //     {
-  //       id: 5,
-  //       system: "دخلي ",
-  //       subject: "إغلاق حساب",
-  //       model: "PIN-122201",
-  //       date: "2025-05-25",
-  //       time: "10:30",
-  //       service: "الخدمات العامة",
-  //       userAccount: "U-010222-0000",
-  //       accountType: "متميز",
-  //       idNumber: "01-014-0004",
-  //       group: "GN-000002",
-  //       region: "01-الشرق الاوسط",
-  //       location: "014 - السعوديه",
-  //       city: "0001 - الرياض",
-  //       employerName: "فاطمة محمد سعيد",
-  //     },
-  //   ],
-  //   []
-  // );
+
   // -----------------------------
   // Pagination state
   // -----------------------------
-
   const tableData = useMemo(
     () =>
       notifications.map((notify) => ({
         id: notify?.id,
-        system: notify.system_type.type || "-",
+        system: t(`${notify.system_type.type}`) || "-",
         subject: notify.system_type.title || "-",
         model: notify.reference_number || "-",
         date: notify.date || "-",
@@ -160,9 +73,8 @@ const NotificationTable = () => {
         location: notify.country.title || "-",
         city: notify.city.title || "-",
         is_added: notify.is_added,
-        // employerName: "فاطمة محمد سعيد",
       })),
-    [notifications, t]
+    [notifications]
   );
 
   const columns = useMemo(
@@ -230,9 +142,11 @@ const NotificationTable = () => {
                 <i
                   onClick={() => {
                     setShowModal(true);
+
                     setNotificationId(info?.row?.original?.id);
                     // setWorkingGroupName(info?.row?.original?.groupNumber);
                   }}
+                  style={{ cursor: "pointer" }}
                   className="fa-solid fa-plus"
                 ></i>
               )}
@@ -273,7 +187,11 @@ const NotificationTable = () => {
         onConfirm={handleAddToTask}
         notificationId={notificationId}
         confirmButtonText={t("confirm")}
-      />
+        withoutMessage={false}
+        loading={isAddingToTask}
+      >
+        {t("confirmAddToTask")}
+      </AlertModal>
     </>
   );
 };

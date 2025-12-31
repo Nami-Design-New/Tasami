@@ -87,7 +87,7 @@ const WokingGroupDetails = () => {
         header: t("dashboard.workGroupDetails.columns.code"),
         cell: (info) => (
           <Link
-            to={`/dashboard/employee-details/${info.getValue()}`}
+            to={`/dashboard/employee-details/${info?.row?.original?.user?.id}`}
             className="link-styles"
           >
             {info.getValue()}

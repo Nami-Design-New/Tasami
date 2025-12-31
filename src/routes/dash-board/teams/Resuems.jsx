@@ -90,7 +90,7 @@ const Resuems = () => {
                 fontWeight: "400",
               }}
             >
-              {info.getValue()}
+              {t(`userAccountsStatus.${info.getValue()}`)}
             </Badge>
           );
         },

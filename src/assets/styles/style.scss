@@ -59,3 +59,26 @@ select,
 ::picker(select) {
   appearance: base-select;
 }
+
+/* PDF only header */
+.pdf-header {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  margin-bottom: 16px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #333;
+}
+
+/* Border around PDF content */
+.pdf-container {
+  border: 1px solid #333;
+  padding: 16px;
+  margin: 0 auto;
+}
+
+@media screen {
+  .pdf-header {
+    display: none;
+  }
+}

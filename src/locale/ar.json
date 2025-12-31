@@ -1,4 +1,25 @@
 {
+  "consultaionDeleteAlert": "سيتم حذف الاستشارة نهائيا",
+  "tasksStatus": {
+    "progress": "جاري",
+    "not_assigned": "غير معين",
+    "completed": "مكتمل"
+  },
+  "userAccountsStatus": {
+    "active": "نشط",
+    "in_active": "غير نشط",
+    "pending": "قيد الانتظار",
+    "stopped": "موقوف"
+  },
+  "export": {
+    "generatedBy": "تم التصدير بواسطة",
+    "generatedAt": "تاريخ ووقت التصدير"
+  },
+  "managerial": "إدارية",
+  "operational": "تشغيليه",
+  "outside": "نظام خارجي",
+  "internal": "نظام داخلي",
+  "confirmAddToTask": "سيتم إضافة هذه المهمة إلى قائمة مهامك الوظيفية؟",
   "noData": "لا توجد بيانات",
   "completed": "مكتمل",
   "activate": "تنشيط",
@@ -362,7 +383,7 @@
     "Working Groups": "مجموعات العمل",
     "Operating Sectors": "قطاعات التشغيل",
     "Fields And Specializations": "المجالات و التخصصات",
-    "Profile": "البيانات الوظيفيه",
+    "Profile": "البيانات الوظيفية",
     "Employee Details": "تفاصيل الموظف",
     "User Details": "بيانات المستخدم",
     "Requests": "الطلبات",
@@ -399,9 +420,9 @@
     "status": "الحالة",
     "attachments": "المرفقات",
     "statuses": {
-      "pending": "معلق",
       "accepted": "مقبول",
-      "refused": "مرفوض"
+      "refused": "مرفوض",
+      "pending": "قيد الانتظار"
     },
     "date": "وقت الطلب",
     "details": "التفاصيل",
@@ -1192,7 +1213,7 @@
     "ad_banners": "لافتات اعلانية",
     "main": "الرئيسية",
     "my_tasks": "المهام",
-    "employment_data": "البيانات الوظيفيه",
+    "employment_data": "البيانات الوظيفية",
     "performance_reports": "تقارير الاداء",
     "withdraw_requests": " طلبات سحب الرصيد",
     "brand": "تسامي",
@@ -1320,7 +1341,7 @@
     },
     "employeeProfile": {
       "tabs": {
-        "jobData": "البيانات الوظيفيه",
+        "jobData": "البيانات الوظيفية",
         "personalData": "البيانات الشخصية",
         "permissions": "الصلاحيات",
         "sharedGroups": "المجموعات المشتركه"
@@ -2261,12 +2282,12 @@
       "channels": "القنوات"
     },
     "subscription": {
-      "title": "سجل الاشتراكات",
+      "title": "سجل الأعضاء",
       "search": "بحث...",
       "name": "الاسم",
       "accountNumber": "رقم الحساب",
       "date": "التاريخ",
-      "price": "قيمة الاشتراك"
+      "price": "قيمة العضوية"
     },
     "footer": {
       "rights": "جميع الحقوق محفوظة ل",
@@ -2328,6 +2349,7 @@
       "accountStatus": "حالة الحساب",
       "active": "نشط",
       "inactive": "غير نشط",
+      "communityStatus": "حالة مجتمع المساعد",
       "nationality": "الجنسية",
       "region": "الإقليم",
       "sector": "القطاع",

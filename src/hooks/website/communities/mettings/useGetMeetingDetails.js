@@ -2,6 +2,9 @@ import { useQuery } from "@tanstack/react-query";
 import { axiosInstance } from "../../../../lib/axios";
 
 export default function useGetMeetingDetails(id, show) {
+  console.log("web enabled:", !!id && show);
+  console.log("id:", !!id);
+  console.log("show:", show);
   const { isLoading, data: meetingDetails } = useQuery({
     queryKey: ["meeting-details", id],
     queryFn: async () => {

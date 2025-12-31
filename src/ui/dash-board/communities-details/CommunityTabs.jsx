@@ -4,11 +4,11 @@ import { NavLink, useParams } from "react-router";
 export default function CommunityTabs() {
   const { t } = useTranslation();
   const { id } = useParams();
-  const basePath = `/dashboard/communities-details/${id}`;  
+  const basePath = `/dashboard/communities-details/${id}`;
 
   return (
     <div className="community-tabs" style={{ top: "16px" }}>
-      <div className="tabs d-flex gap-3">
+      <div className="tabs d-flex gap-2">
         {/* CONSULTATIONS */}
         <NavLink to={`${basePath}`} end>
           {({ isActive }) => (

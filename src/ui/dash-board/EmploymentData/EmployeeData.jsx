@@ -67,7 +67,7 @@ const EmployeeData = () => {
               <h6>
                 {t("dashboard.employeeProfile.employeeData.accountStatus")}:
               </h6>
-              <p>{user?.status}</p>
+              <p>{t(`userAccountsStatus.${user?.status}`)}</p>
             </div>
           </div>
           <div className="col-12 col-md-6 col-xxl-4 p-2">

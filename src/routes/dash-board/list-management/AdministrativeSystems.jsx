@@ -62,7 +62,9 @@ const AdministrativeSystems = () => {
     () => [
       columnHelper.accessor("administrativeSystem", {
         header: t("dashboard.administrativeSystems.tableHeaders.system"),
-        cell: (info) => info.getValue(),
+        cell: (info) => {
+          return t(`${info.getValue()}`);
+        },
         enableSorting: false,
       }),
       columnHelper.accessor("subjects", {

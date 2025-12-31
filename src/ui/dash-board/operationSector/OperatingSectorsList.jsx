@@ -47,7 +47,6 @@ export default function OperatingSectorsList() {
 
   //  ------------------------- Countries Modal Stats -------------------------------------
   const [selectedCountry, setSelectedCountry] = useState(null);
-  console.log(selectedCountry);
 
   const [showEditCountryModal, setShowEditCountryModal] = useState(false);
   const [showDeleteCountryModal, setShowDeleteCountryModal] = useState(false);
@@ -308,40 +307,52 @@ export default function OperatingSectorsList() {
           </div>
         )}
       </div>
-      <ConfirmDeleteModal
-        onConfirm={handleDeleteRegion}
-        setShowDeleteModal={setShowDeleteRegionModal}
-        showDeleteModal={showDeleteRegionModal}
-        loading={isDeletingRegion}
-      />
-      <ConfirmDeleteModal
-        onConfirm={handleDeleteCountry}
-        setShowDeleteModal={setShowDeleteCountryModal}
-        showDeleteModal={showDeleteCountryModal}
-        loading={isDeletingCountry}
-      />
-      <ConfirmDeleteModal
-        onConfirm={handleDeleteCity}
-        setShowDeleteModal={setShowDeleteCityModal}
-        showDeleteModal={showDeleteCityModal}
-        loading={isDeletingCity}
-      />
+      {showDeleteCountryModal && (
+        <ConfirmDeleteModal
+          onConfirm={handleDeleteRegion}
+          setShowDeleteModal={setShowDeleteRegionModal}
+          showDeleteModal={showDeleteRegionModal}
+          loading={isDeletingRegion}
+        />
+      )}
+      {showDeleteCountryModal && (
+        <ConfirmDeleteModal
+          onConfirm={handleDeleteCountry}
+          setShowDeleteModal={setShowDeleteCountryModal}
+          showDeleteModal={showDeleteCountryModal}
+          loading={isDeletingCountry}
+        />
+      )}
+      {showDeleteCityModal && (
+        <ConfirmDeleteModal
+          onConfirm={handleDeleteCity}
+          setShowDeleteModal={setShowDeleteCityModal}
+          showDeleteModal={showDeleteCityModal}
+          loading={isDeletingCity}
+        />
+      )}
 
-      <EditRegionModal
-        showModal={showEditRegionModal}
-        setShowModal={setShowEditRegionModal}
-        selectedRegion={selectedRegion}
-      />
-      <EditCountryModal
-        showModal={showEditCountryModal}
-        setShowModal={setShowEditCountryModal}
-        selectedCountry={selectedCountry}
-      />
-      <EditCityModal
-        showModal={showEditCityModal}
-        setShowModal={setShowEditCityModal}
-        selectedCity={selectedCity}
-      />
+      {showEditRegionModal && (
+        <EditRegionModal
+          showModal={showEditRegionModal}
+          setShowModal={setShowEditRegionModal}
+          selectedRegion={selectedRegion}
+        />
+      )}
+      {showEditCountryModal && (
+        <EditCountryModal
+          showModal={showEditCountryModal}
+          setShowModal={setShowEditCountryModal}
+          selectedCountry={selectedCountry}
+        />
+      )}
+      {showEditCityModal && (
+        <EditCityModal
+          showModal={showEditCityModal}
+          setShowModal={setShowEditCityModal}
+          selectedCity={selectedCity}
+        />
+      )}
     </ChartCard>
   );
 }

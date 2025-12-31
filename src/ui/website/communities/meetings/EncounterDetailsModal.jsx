@@ -10,36 +10,59 @@ import AlertModal from "../../platform/my-community/AlertModal";
 import useDeleteMeeting from "../../../../hooks/website/communities/mettings/useDeleteMeeting";
 import { useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
+import useDeletDhMeeting from "../../../../hooks/dashboard/subscription/community/useDeleteDhMeeting";
 
-export default function EncounterDetailsModal({ show, setShow, meetingId , isMyCommuntiy }) {
+export default function EncounterDetailsModal({
+  show,
+  setShow,
+  meetingId,
+  isMyCommuntiy,
+}) {
   const isDashboard = useCheckDashboard();
+
   const { t } = useTranslation();
   const queryClient = useQueryClient();
   const [showModal, setShowModal] = useState(false);
 
-  const dash = useGetMeetingDashDetails(meetingId, show);
-  const normal = useGetMeetingDetails(meetingId, show);
+  const dash = useGetMeetingDashDetails(meetingId, show && isDashboard);
+  const normal = useGetMeetingDetails(meetingId, show && !isDashboard);
 
   const meetingData = isDashboard
     ? dash.meetingDashDetails
     : normal.meetingDetails;
   const isLoadingData = isDashboard ? dash.isLoading : normal.isLoading;
   const [showAlertModal, setShowAlertModal] = useState(false);
-  const { meetingDetails, isLoading } = useGetMeetingDetails(meetingId, show);
-  const { deleteMeeting, isPending } = useDeleteMeeting();
+  const { deleteMeeting, isMeetingDelete } = useDeleteMeeting();
+  const { deleteDhMeeting, isDhMeetingDelete } = useDeletDhMeeting();
 
   const handleDeleteMeeting = () => {
-    deleteMeeting(meetingId, {
-      onSuccess: (res) => {
-        toast.success(res?.message);
-        queryClient.refetchQueries({ queryKey: ["meetings"] });
-        setShowAlertModal(false);
-        setShowModal(false);
-      },
-      onError: (error) => {
-        toast.error(error.message);
-      },
-    });
+    if (isDashboard) {
+      console.log("dashborde deleting");
+
+      deleteDhMeeting(meetingId, {
+        onSuccess: (res) => {
+          toast.success(res?.message);
+          queryClient.refetchQueries({ queryKey: ["dh-community-meetings"] });
+          setShowAlertModal(false);
+          setShow(false);
+        },
+        onError: (error) => {
+          toast.error(error.message);
+        },
+      });
+    } else {
+      deleteMeeting(meetingId, {
+        onSuccess: (res) => {
+          toast.success(res?.message);
+          queryClient.refetchQueries({ queryKey: ["meetings"] });
+          setShowAlertModal(false);
+          setShow(false);
+        },
+        onError: (error) => {
+          toast.error(error.message);
+        },
+      });
+    }
   };
 
   const meetingDate = new Date(
@@ -55,10 +78,9 @@ export default function EncounterDetailsModal({ show, setShow, meetingId , isMyC
       className="encounter-modal"
     >
       <Modal.Header closeButton className="m-2">
-        <h6 className="fw-bold flex-grow-1 ">{meetingDetails?.title}</h6>{" "}
+        <h6 className="fw-bold flex-grow-1 ">{meetingData?.title}</h6>{" "}
         {!isDashboard && isMyCommuntiy && (
           <>
-            {" "}
             <button
               className=" fs-6 mx-2  text-danger"
               onClick={() => setShowAlertModal(true)}
@@ -67,6 +89,16 @@ export default function EncounterDetailsModal({ show, setShow, meetingId , isMyC
             </button>
             <button className=" fs-6  " onClick={() => setShowModal(true)}>
               <i className="fa-regular fa-edit"></i>
+            </button>
+          </>
+        )}
+        {isDashboard && (
+          <>
+            <button
+              className=" fs-6 mx-2  text-danger"
+              onClick={() => setShowAlertModal(true)}
+            >
+              <i className="fa-regular fa-trash"></i>
             </button>
           </>
         )}
@@ -131,22 +163,22 @@ export default function EncounterDetailsModal({ show, setShow, meetingId , isMyC
                 showModal={showModal}
                 setShowModal={setShowModal}
                 isEdit={true}
-                meeting={meetingDetails}
+                meeting={normal?.meetingDetails}
                 setShowDetailsModal={setShow}
               />
-            )}
-            {showAlertModal && (
-              <AlertModal
-                showModal={showAlertModal}
-                setShowModal={setShowAlertModal}
-                loading={isPending}
-                onConfirm={handleDeleteMeeting}
-                confirmButtonText={t("confirm")}
-              >
-                {t("meetingDeleteAlert")}
-              </AlertModal>
             )}{" "}
           </>
+        )}{" "}
+        {showAlertModal && (
+          <AlertModal
+            showModal={showAlertModal}
+            setShowModal={setShowAlertModal}
+            loading={isDashboard ? isDhMeetingDelete : isMeetingDelete}
+            onConfirm={handleDeleteMeeting}
+            confirmButtonText={t("confirm")}
+          >
+            {t("meetingDeleteAlert")}
+          </AlertModal>
         )}
       </Modal.Body>
     </Modal>

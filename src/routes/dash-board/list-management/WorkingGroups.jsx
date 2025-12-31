@@ -124,6 +124,9 @@ const WorkingGroups = () => {
       }),
       columnHelper.accessor("groupClassifications", {
         header: t("dashboard.workGroup.table.classification"),
+        cell: (info) => {
+          return t(`${info?.getValue()}`);
+        },
       }),
       columnHelper.accessor("region", {
         header: t("dashboard.workGroup.table.region"),

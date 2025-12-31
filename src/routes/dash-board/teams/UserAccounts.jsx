@@ -160,7 +160,7 @@ const UserAccounts = () => {
                 fontWeight: "400",
               }}
             >
-              {value}
+              {t(`userAccountsStatus.${value}`)}
             </Badge>
           );
         },

@@ -54,7 +54,7 @@ export default function SideBar({ hoverExpand, setHoverExpand, collapsed }) {
         <li className="nav_item mb-2">
           <NavLink to="/dashboard" end>
             <div className="icon">
-              <img src="/sys-icons/Dashboard.svg" alt="dashboard" />
+              <img src="/dashboard-icons/home.svg" alt="dashboard" />
             </div>
             <h6>{t("dashboard.main")}</h6>
           </NavLink>
@@ -63,7 +63,10 @@ export default function SideBar({ hoverExpand, setHoverExpand, collapsed }) {
         <li className="nav_item mb-2">
           <NavLink to="notifications" end>
             <div className="icon">
-              <img src="/sys-icons/notification.svg" alt="notifications" />
+              <img
+                src="/dashboard-icons/notifications.svg"
+                alt="notifications"
+              />
             </div>
             <h6>{t("dashboard.notifications.title")}</h6>
           </NavLink>
@@ -73,7 +76,7 @@ export default function SideBar({ hoverExpand, setHoverExpand, collapsed }) {
           <NavLink to="tasks" end>
             <div className="icon">
               <img
-                src="/sys-icons/manage-listing.svg"
+                src="/dashboard-icons/tasks.svg"
                 alt="Manage-Listings-icon"
               />
             </div>
@@ -84,7 +87,10 @@ export default function SideBar({ hoverExpand, setHoverExpand, collapsed }) {
         <li className="nav_item mb-2">
           <NavLink to="profile" end>
             <div className="icon">
-              <img src="/icons/data-icon.svg" alt="employment-data" />
+              <img
+                src="/dashboard-icons/employment-data.svg"
+                alt="employment-data"
+              />
             </div>
             <h6>{t("dashboard.employment_data")}</h6>
           </NavLink>
@@ -93,7 +99,10 @@ export default function SideBar({ hoverExpand, setHoverExpand, collapsed }) {
         <li className="nav_item mb-2">
           <NavLink to="reports/users" end>
             <div className="icon">
-              <img src="/sys-icons/Reports.svg" alt="reports" />
+              <img
+                src="/dashboard-icons/performance-reports.svg"
+                alt="reports"
+              />
             </div>
             <h6>{t("dashboard.performance_reports")}</h6>
           </NavLink>
@@ -101,7 +110,10 @@ export default function SideBar({ hoverExpand, setHoverExpand, collapsed }) {
         <li className="nav_item mb-2">
           <NavLink to="withdraw-requests" end>
             <div className="icon">
-              <img src="/sys-icons/wallet.svg" alt="withdraw requests" />
+              <img
+                src="/dashboard-icons/balance-withdrawal.svg"
+                alt="withdraw requests"
+              />
             </div>
             <h6>{t("dashboard.withdraw_requests")}</h6>
           </NavLink>

@@ -143,7 +143,24 @@ const Communities = () => {
       columnHelper.accessor("is_active", {
         header: t("dashboard.communities.accountStatus"),
         cell: (info) => {
-          const badgeColor = info.getValue() ? "#28a745" : "#6c757d";
+          console.log("Info data :", info.row.original);
+
+          let badgeColor;
+          const value = info?.row?.original?.user?.status;
+          switch (value) {
+            case "active":
+              badgeColor = "#28a745";
+              break;
+            case "inactive":
+              badgeColor = "#007bff";
+              break;
+            case "suspended":
+              badgeColor = "#dc3545";
+              break;
+            default:
+              badgeColor = "#6c757d";
+              break;
+          }
           return (
             <Badge
               pill
@@ -154,9 +171,7 @@ const Communities = () => {
                 fontWeight: "400",
               }}
             >
-              {info.getValue()
-                ? t("dashboard.communities.active")
-                : t("dashboard.communities.inactive")}
+              {t(`userAccountsStatus.${value}`)}
             </Badge>
           );
         },
@@ -193,6 +208,30 @@ const Communities = () => {
           </Link>
         ),
       }),
+      columnHelper.accessor("communityStatus", {
+        header: t("dashboard.communities.communityStatus"),
+        cell: (info) => {
+          let badgeColor;
+          let CommunityStatus;
+          const value = info?.row?.original?.is_active;
+          value ? (CommunityStatus = "active") : (CommunityStatus = "inactive");
+          value ? (badgeColor = "#28a745") : (badgeColor = "#007bff");
+
+          return (
+            <Badge
+              pill
+              className="custom-badge"
+              style={{
+                "--badge-color": badgeColor,
+                "--text-color": "#fff",
+                fontWeight: "400",
+              }}
+            >
+              {t(`dashboard.communities.${CommunityStatus}`)}
+            </Badge>
+          );
+        },
+      }),
       columnHelper.accessor("user_count", {
         header: t("dashboard.communities.membersCount"),
         cell: (info) => info.getValue() || "-",
@@ -216,7 +255,6 @@ const Communities = () => {
     ],
     [t]
   );
-
   return (
     <section className="mt-5">
       <div className="row">

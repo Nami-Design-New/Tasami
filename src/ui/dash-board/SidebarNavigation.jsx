@@ -15,7 +15,7 @@ export default function SidebarNavigation() {
           <Accordion.Header>
             <div className="icon">
               <img
-                src="/sys-icons/markiting-promotion.svg"
+                src="/dashboard-icons/participants-and-staff.svg"
                 alt="markiting-icon"
               />
             </div>
@@ -46,7 +46,10 @@ export default function SidebarNavigation() {
         <Accordion.Item eventKey="3">
           <Accordion.Header>
             <div className="icon">
-              <img src="/sys-icons/guest-details.svg" alt="Analytics" />
+              <img
+                src="/dashboard-icons/list-management.svg"
+                alt="list-management"
+              />
             </div>
             <div className="d-flex flex-column">
               <h6>{t("dashboard.list_management")}</h6>
@@ -87,7 +90,10 @@ export default function SidebarNavigation() {
         <Accordion.Item eventKey="4">
           <Accordion.Header>
             <div className="icon">
-              <img src="/sys-icons/website-manage.svg" alt="Analytics" />
+              <img
+                src="/dashboard-icons/website-managment.svg"
+                alt="website-managment"
+              />
             </div>
             <div className="d-flex flex-column">
               <h6>{t("dashboard.website_management")}</h6>

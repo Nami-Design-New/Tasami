@@ -3,6 +3,7 @@ import { useOutletContext } from "react-router";
 import Loading from "./../../../ui/loading/Loading";
 import { useRef } from "react";
 import ReportIndicator from "./ReportIndicator";
+import { useSelector } from "react-redux";
 
 const ActiveUserTab = () => {
   const { t } = useTranslation();
@@ -17,10 +18,10 @@ const ActiveUserTab = () => {
   // const toggleCheck = () => {
   //   setChecked((prev) => !prev);
   // };
+
   return (
     <>
       <div ref={pdfRef}>
-        {" "}
         <div className="performance-report">
           {/* {filteredData.map((item) => ( */}
           <div className="metrics-list">

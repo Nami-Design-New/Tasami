@@ -129,6 +129,8 @@ const Teams = () => {
         return "#28a745";
       case t("dashboard.team.statuses.inactive"):
         return "#007bff";
+      case t("dashboard.team.statuses."):
+        return "#00e5ffff";
       case t("dashboard.team.statuses.stopped"):
         return "#dc3545";
       default:
@@ -183,16 +185,35 @@ const Teams = () => {
       columnHelper.accessor("status", {
         header: t("dashboard.team.columns.status"),
         cell: (info) => {
+          let badgeColor;
+          const value = info.row.original.status;
+          switch (info.row.original.status) {
+            case "active":
+              badgeColor = "#28a745";
+              break;
+            case "inactive":
+              badgeColor = "#007bff";
+              break;
+            case "suspended":
+              badgeColor = "#dc3545";
+              break;
+            case "pending":
+              badgeColor = "#FACC15";
+              break;
+            default:
+              badgeColor = "#6c757d";
+              break;
+          }
           return (
             <Badge
               pill
               className="custom-badge"
               style={{
-                "--badge-color": statusColor(info.row.original.status),
+                "--badge-color": badgeColor,
                 "--text-color": "#fff",
               }}
             >
-              {info.row.original.status}
+              {t(`userAccountsStatus.${value}`)}
             </Badge>
           );
         },
@@ -206,7 +227,7 @@ const Teams = () => {
         cell: (info) => info.getValue() || "-",
       }),
     ],
-    [lang]
+    [t]
   );
 
   // -----------------------------------
@@ -273,6 +294,7 @@ const Teams = () => {
             isLoading={isLoading}
             searchPlaceholder={t("dashboard.team.searchPlaceholder")}
             lang={lang}
+            filter={false}
             title={t("dashboard.team.title")}
           >
             <TablePagination

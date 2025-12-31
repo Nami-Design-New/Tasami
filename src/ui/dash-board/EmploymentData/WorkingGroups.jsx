@@ -15,10 +15,10 @@ const WorkingGroups = () => {
             <li className="permission-list__item" key={index}>
               <i className="fa-solid fa-badge-check permission-list__icon"></i>
               <Link
-                to={`/dashboard/working-group/${group}`}
+                to={`/dashboard/working-group/${group?.id}`}
                 className="permission-list__label group"
               >
-                {group}
+                {group?.name}
               </Link>
             </li>
           ))}

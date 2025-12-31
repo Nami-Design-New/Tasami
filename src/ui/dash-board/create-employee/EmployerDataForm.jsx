@@ -25,6 +25,7 @@ import SelectField from "../../forms/SelectField";
 import SelectFieldReactSelect from "../../forms/SelectFieldReactSelect";
 import ProfileImageUploader from "../../ProfileImageUploader";
 import dayjs from "dayjs";
+import Loading from "../../loading/Loading";
 
 const createEmployeeSchema = (t) =>
   yup.object().shape({
@@ -199,7 +200,7 @@ const EmployerDataForm = ({ isEdit }) => {
         file: file.file || file.url || file.path,
       }));
 
-      // ✅ FIX: Preserve unsaved files when merging
+      //  FIX: Preserve unsaved files when merging
       setFiles((currentFiles) => {
         // Get unsaved files (File objects) from current state
         const unsavedFiles = currentFiles.filter((f) => f instanceof File);
@@ -303,7 +304,7 @@ const EmployerDataForm = ({ isEdit }) => {
         payload.append("image", formData.profileImage);
       }
 
-      // ✅ UPDATED: Handle file attachments properly
+      //  UPDATED: Handle file attachments properly
       // Separate new files from existing ones
       const newFiles = [];
       const keepFileIds = [];
@@ -368,7 +369,7 @@ const EmployerDataForm = ({ isEdit }) => {
         payload.append("image", formData?.profileImage);
       }
 
-      // ✅ UPDATED: Only append File objects (new uploads)
+      //  UPDATED: Only append File objects (new uploads)
       const fileUploads = files.filter((file) => file instanceof File);
       fileUploads.forEach((file, index) => {
         payload.append(`files[${index}]`, file);
@@ -388,6 +389,7 @@ const EmployerDataForm = ({ isEdit }) => {
     }
   };
 
+  if (employeeLoading) return <Loading height={"300px"} />;
   return (
     <>
       <form className="form_ui" onSubmit={handleSubmit(onSubmit)}>

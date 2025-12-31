@@ -25,46 +25,15 @@ const TasksTable = ({
   const [showReassignModal, setShowReassignModal] = useState(false);
   const [selectedRow, setSelectedRow] = useState();
 
-  // const data = useMemo(
-  //   () => [
-  //     {
-  //       id: 1,
-  //       system: "دخلي ",
-  //       subject: "طلب خدمة",
-  //       model: "EVL-122201",
-  //       date: "2025-05-25",
-  //       time: "10:30",
-  //       service: "os-123",
-  //       userAccount: "U-010222-0000",
-  //       accountType: "اساسي",
-  //       idNumber: "01-014-0004",
-  //       group: "GN-000002",
-  //       region: "01-الشرق الاوسط",
-  //       location: "014 - السعوديه",
-  //       city: "0001 - الرياض",
-  //       employerName: "إياد محمد خالد",
-
-  //       completionDate: "2025-05-25",
-  //       status: "غير مكتمل",
-  //       actionLevel: "الموظف",
-  //       rate: null,
-  //       assign: true,
-  //     },
-  //   ],
-  //   []
-  // );
-  console.log("tasks  :::", tasks);
-
   const tableData = useMemo(
     () =>
       tasks?.data?.map((task) => ({
         id: task?.id,
-        system: task.system_type.type || "-",
+        system: t(`${task.system_type.type}`) || "-",
         subject: task.system_type.title || "-",
         model: task.reference_number || "-",
         date: task.date || "-",
         time: task.time || "-",
-        // service: task.service || "-",
         userAccount: task.account || "-",
         accountType: task.account_type || "-",
         idNumber: task.id_number || "-",
@@ -78,8 +47,6 @@ const TasksTable = ({
         actionLevel: task.procedure_level || "-",
         rate: task.rate || "-",
         assign: false,
-        // is_added: task.is_added,
-        // employerName: "فاطمة محمد سعيد",
       })),
     [tasks, t]
   );
@@ -113,17 +80,7 @@ const TasksTable = ({
         header: t("dashboard.tasks.table.time"),
         cell: (info) => info.getValue(),
       }),
-      // columnHelper.accessor("service", {
-      //   header: t("dashboard.tasks.table.service"),
-      //   cell: (info) => (
-      //     <Link
-      //       className="link-styles"
-      //       to={`/service-details/${info.getValue()}`}
-      //     >
-      //       {info.getValue()}
-      //     </Link>
-      //   ),
-      // }),
+
       columnHelper.accessor("userAccount", {
         header: t("dashboard.tasks.table.userAccount"),
         cell: (info) => (
@@ -191,8 +148,7 @@ const TasksTable = ({
                 fontWeight: "500",
               }}
             >
-              {" "}
-              {info.getValue()}{" "}
+              {t(`tasksStatus.${info.getValue()}`)}
             </Badge>
           );
         },

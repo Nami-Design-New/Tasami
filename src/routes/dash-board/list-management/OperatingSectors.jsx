@@ -53,6 +53,8 @@ const OperatingSectors = () => {
     defaultValues: defaultCountryValues,
   });
 
+  console.log(countryForm.formState.errors);
+
   const cityForm = useForm({
     resolver: yupResolver(citySchema),
     defaultValues: defaultCityValues,
@@ -63,14 +65,6 @@ const OperatingSectors = () => {
   const { addCity, isAddingCity } = useAddCity();
   const [preview, setPreview] = useState(null);
   const fileRef = useRef(null);
-
-  const handleChange = (e) => {
-    const file = e.target.files[0];
-    if (!file) return;
-    setErrorImage(null);
-    const imageUrl = URL.createObjectURL(file);
-    setPreview(imageUrl);
-  };
 
   const handleClick = () => {
     fileRef.current.click();
@@ -106,6 +100,7 @@ const OperatingSectors = () => {
       onSuccess: (res) => {
         toast.success(res.message);
         countryForm.reset();
+        setPreview(null);
         queryClient.invalidateQueries({ queryKey: ["dashboard-countries"] });
       },
       onError: (err) => toast.error(err.message),
@@ -327,12 +322,25 @@ const OperatingSectors = () => {
                   </div>
 
                   {/* Hidden input */}
-                  <input
-                    ref={fileRef}
-                    type="file"
-                    accept="image/*"
-                    onChange={handleChange}
-                    hidden
+                  <Controller
+                    name="countryFlag"
+                    control={countryForm.control}
+                    render={({ field }) => (
+                      <>
+                        <input
+                          type="file"
+                          accept="image/*"
+                          hidden
+                          ref={fileRef}
+                          onChange={(e) => {
+                            const file = e.target.files[0];
+                            if (!file) return;
+                            field.onChange(file);
+                            setPreview(URL.createObjectURL(file));
+                          }}
+                        />
+                      </>
+                    )}
                   />
                   {countryForm.formState.errors.countryFlag && !preview && (
                     <p
