@@ -1,3 +1,4 @@
+
 import {
   closestCenter,
   DndContext,
@@ -20,13 +21,12 @@ import { CSS } from "@dnd-kit/utilities";
 import {
   flexRender,
   getCoreRowModel,
-  getFilteredRowModel,
   getPaginationRowModel,
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState, useCallback } from "react";
 import { useTranslation } from "react-i18next";
 import TableFilter from "./TableFilter";
 import { Placeholder } from "react-bootstrap";
@@ -51,7 +51,6 @@ function DraggableRow({ row }) {
   const { transform, transition, setNodeRef, isDragging } = useSortable({
     id: row.id,
   });
-  console.log("Dragable row", row);
 
   const style = {
     transform: CSS.Transform.toString(transform),
@@ -95,13 +94,62 @@ const ReusableDataTable = ({
   children,
   isLoading = false,
   onRowsReordered,
+  // New props for server-side search
+  searchQuery = "",
+  onSearchChange,
+  searchDebounceMs = 500,
 }) => {
   const { t } = useTranslation();
 
   // -----------------------------
-  // FILTERS
+  // SEARCH - Server Side
   // -----------------------------
-  const [globalFilter, setGlobalFilter] = useState("");
+  const [localSearchValue, setLocalSearchValue] = useState(searchQuery);
+  const [debounceTimer, setDebounceTimer] = useState(null);
+
+  // Sync local value when external searchQuery changes
+  useEffect(() => {
+    setLocalSearchValue(searchQuery);
+  }, [searchQuery]);
+
+  // Debounced search handler
+  const handleSearchChange = useCallback(
+    (value) => {
+      setLocalSearchValue(value);
+
+      // Clear existing timer
+      if (debounceTimer) {
+        clearTimeout(debounceTimer);
+      }
+
+      // Set new timer
+      const timer = setTimeout(() => {
+        if (onSearchChange) {
+          onSearchChange(value);
+          // Reset to page 1 when searching
+          if (setPage) {
+            setPage(1);
+          }
+        }
+      }, searchDebounceMs);
+
+      setDebounceTimer(timer);
+    },
+    [debounceTimer, onSearchChange, setPage, searchDebounceMs]
+  );
+
+  // Cleanup timer on unmount
+  useEffect(() => {
+    return () => {
+      if (debounceTimer) {
+        clearTimeout(debounceTimer);
+      }
+    };
+  }, [debounceTimer]);
+
+  // -----------------------------
+  // FILTERS (kept for other filtering needs)
+  // -----------------------------
   const [columnFilters, setColumnFilters] = useState([]);
   const columnIds = useMemo(() => columns.map((c) => c.header), [columns]);
 
@@ -109,65 +157,36 @@ const ReusableDataTable = ({
     Object.fromEntries(columnIds.map((id) => [id, true]))
   );
 
-  const customGlobalFilterFn = (row, columnId, filterValue) => {
-    return Object.values(row.original).some((val) =>
-      String(val).toLowerCase().includes(filterValue.toLowerCase())
-    );
-  };
-
   // -----------------------------
-  // DND DATA - KEY FIX HERE
+  // DND DATA
   // -----------------------------
   const [dragData, setDragData] = useState(data);
 
   useEffect(() => {
-    console.log("data :", data);
     setDragData(data);
   }, [data]);
 
   const handleDragEnd = ({ active, over }) => {
-    console.log(" [DND] Drag End Triggered");
-    console.log(" Active:", active?.id);
-    console.log(" Over:", over?.id);
-
-    if (!over) {
-      console.warn(" [DND] No 'over' target — drag cancelled.");
-      return;
-    }
-    if (active.id === over.id) {
-      console.log(" [DND] Active and over IDs match — no movement.");
+    if (!over || active.id === over.id) {
       return;
     }
 
     setDragData((items) => {
-      console.log(" [DND] Current items:", JSON.parse(JSON.stringify(items)));
-
       const oldIndex = items.findIndex(
         (i) => String(i.id) === String(active.id)
       );
       const newIndex = items.findIndex((i) => String(i.id) === String(over.id));
 
-      console.log(" oldIndex:", oldIndex, " newIndex:", newIndex);
-
       if (oldIndex === -1 || newIndex === -1) {
-        console.warn(
-          " [DND] Could not find active or over index. Aborting reorder."
-        );
         return items;
       }
 
       const newOrder = arrayMove(items, oldIndex, newIndex);
 
-      console.log(" [DND] New order:", JSON.parse(JSON.stringify(newOrder)));
-
       if (onRowsReordered) {
-        console.log(" [DND] Calling onRowsReordered with new order.");
         onRowsReordered(newOrder);
-      } else {
-        console.log("ℹ [DND] No onRowsReordered function provided.");
       }
 
-      console.log(" [DND] Reorder completed.");
       return newOrder;
     });
   };
@@ -178,7 +197,7 @@ const ReusableDataTable = ({
     }),
     useSensor(MouseSensor, {
       activationConstraint: {
-        distance: 5, // Add slight distance to prevent accidental drags
+        distance: 5,
       },
     }),
     useSensor(TouchSensor, {
@@ -208,20 +227,17 @@ const ReusableDataTable = ({
       : columns,
 
     state: {
-      globalFilter,
       columnFilters,
       columnVisibility,
       pagination: { pageIndex: currentPage - 1, pageSize },
     },
 
     manualPagination: true,
+    manualFiltering: true, // Important: Tell TanStack this is server-side
     pageCount: lastPage,
-
-    globalFilterFn: customGlobalFilterFn,
 
     getCoreRowModel: getCoreRowModel(),
     getRowId: (row) => String(row.id),
-    getFilteredRowModel: getFilteredRowModel(),
     getSortedRowModel: getSortedRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
 
@@ -238,9 +254,8 @@ const ReusableDataTable = ({
     desc: t("dashboard.table.sortDesc"),
   };
 
-  // KEY FIX: Generate dataIds from current dragData, not from table rows
   const dataIds = useMemo(() => {
-    return dragData.map((item) => String(item?.row?.id));
+    return dragData.map((item) => String(item.id));
   }, [dragData]);
 
   const hasData = table.getRowModel().rows.length > 0;
@@ -256,8 +271,8 @@ const ReusableDataTable = ({
           <TableFilter
             table={table}
             setColumnVisibility={setColumnVisibility}
-            globalFilter={globalFilter}
-            setGlobalFilter={setGlobalFilter}
+            globalFilter={localSearchValue}
+            setGlobalFilter={handleSearchChange}
             columnFilters={columnFilters}
             setColumnFilters={setColumnFilters}
             activeFilters={activeFilters}

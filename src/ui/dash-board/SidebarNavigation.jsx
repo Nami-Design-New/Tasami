@@ -144,6 +144,18 @@ export default function SidebarNavigation() {
                   <span>{t("dashboard.ad_banners")}</span>
                 </NavLink>
               </li>
+              <li className="sub_nav_item">
+                <NavLink to="nationalities-management">
+                  <img src="/sys-icons/subArrow.svg" alt="arrow" />
+                  <span>{t("dashboard.nationalities")}</span>
+                </NavLink>
+              </li>
+              <li className="sub_nav_item">
+                <NavLink to="public-notifications">
+                  <img src="/sys-icons/subArrow.svg" alt="arrow" />
+                  <span>{t("dashboard.publicNotifications")}</span>
+                </NavLink>
+              </li>
             </ul>
           </Accordion.Body>
         </Accordion.Item>

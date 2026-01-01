@@ -1,17 +1,15 @@
+import { useQueryClient } from "@tanstack/react-query";
 import { createColumnHelper } from "@tanstack/react-table";
 import { useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
-import ReusableDataTable from "../../table/ReusableDataTable";
-import RateModal from "./RateModal";
+import { toast } from "sonner";
 import useGetNotificationsDashboard from "../../../hooks/dashboard/notificatoins/useGetNotificationsDashboard";
+import usePostAddToTask from "../../../hooks/dashboard/notificatoins/usePostAddToTask";
 import { PAGE_SIZE } from "../../../utils/constants";
+import ReusableDataTable from "../../table/ReusableDataTable";
 import TablePagination from "../../table/TablePagentaion";
 import AlertModal from "../../website/platform/my-community/AlertModal";
-import usePostAddToTask from "../../../hooks/dashboard/notificatoins/usePostAddToTask";
-import { toast } from "sonner";
-import { useQueryClient } from "@tanstack/react-query";
-import { styleEffect } from "framer-motion";
-import CustomButton from "../../CustomButton";
+import RateModal from "./RateModal";
 const columnHelper = createColumnHelper();
 
 const NotificationTable = () => {
@@ -22,7 +20,10 @@ const NotificationTable = () => {
   const { addToTask, isAddingToTask } = usePostAddToTask();
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(PAGE_SIZE);
-
+  const [searchQuery, setSearchQuery] = useState("");
+  const handleSearchChange = (value) => {
+    setSearchQuery(value);
+  };
   // -----------------------------
   // Modal state
   // -----------------------------
@@ -32,7 +33,7 @@ const NotificationTable = () => {
   // Fetch working groups via hook
   // -----------------------------
   const { notifications, currentPage, lastPage, isLoading } =
-    useGetNotificationsDashboard("", page, pageSize);
+    useGetNotificationsDashboard(searchQuery, page, pageSize);
 
   const handleAddToTask = () => {
     const payload = {
@@ -169,8 +170,12 @@ const NotificationTable = () => {
         setPage={setPage}
         pageSize={pageSize}
         setPageSize={setPageSize}
+        searchQuery={searchQuery}
+        onSearchChange={handleSearchChange}
+        searchDebounceMs={700}
+        search={true}
         lang="ar"
-        searchPlaceholder={t("dashboard.workGroup.table.searchPlaceholder")}
+        searchPlaceholder={t("search")}
         isLoading={isLoading}
       >
         <TablePagination

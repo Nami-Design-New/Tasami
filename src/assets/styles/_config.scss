@@ -204,6 +204,22 @@ li[data-sonner-toast=""] {
 .css-1hac4vs-dummyInput {
   width: 0 !important;
 }
+.react-select__control {
+  overflow: hidden;
+  align-items: start;
+  .react-select__value-container {
+    overflow: scroll;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+  .react-select__indicators {
+    max-height: 54px;
+    align-items: center;
+  }
+}
 
 // Placeholders & Loaders
 

@@ -110,13 +110,15 @@ export default function TasksClassificationModal({
       centered
     >
       <Modal.Header closeButton>
-        {isEdit ? t("dashboard.taskCategories.edit") : t("dashboard.taskCategories.add")}{" "}
+        {isEdit
+          ? t("dashboard.taskCategories.edit")
+          : t("dashboard.taskCategories.add")}{" "}
         {t("dashboard.taskCategories.category")}
       </Modal.Header>
       <Modal.Body>
         <form onSubmit={handleSubmit(onSubmit)} className="form_ui">
           <div className="row">
-            <div className="col-12 p-2">
+            <div className="col-6 p-2">
               <InputField
                 {...register("title:ar")}
                 label={t("dashboard.taskCategories.titleAr")}
@@ -124,7 +126,7 @@ export default function TasksClassificationModal({
               />
             </div>
 
-            <div className="col-12 p-2">
+            <div className="col-6 p-2">
               <InputField
                 {...register("title:en")}
                 error={errors["title:en"]?.message}
@@ -143,7 +145,9 @@ export default function TasksClassificationModal({
                   {t("dashboard.taskCategories.cancel")}
                 </CustomButton>
                 <CustomButton type="submit" fullWidth size="large">
-                  {isEdit ? t("dashboard.taskCategories.edit") : t("dashboard.taskCategories.add")}{" "}
+                  {isEdit
+                    ? t("dashboard.taskCategories.edit")
+                    : t("dashboard.taskCategories.add")}{" "}
                   {(isPending || updateTaskCategoryLoading) && "..."}
                 </CustomButton>
               </div>

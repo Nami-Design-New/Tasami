@@ -5,8 +5,7 @@ import { Link } from "react-router";
 import ReusableDataTable from "../../../ui/table/ReusableDataTable";
 import ReassignTaskModal from "./ReassignTaskModal";
 import { useTranslation } from "react-i18next";
-// import useGetTasksDashboard from "../../../hooks/dashboard/tasks/useGetTasksDashboard";
-// import { PAGE_SIZE } from "../../../utils/constants";
+
 import TablePagination from "../../../ui/table/TablePagentaion";
 
 const columnHelper = createColumnHelper();
@@ -20,6 +19,8 @@ const TasksTable = ({
   currentPage,
   lastPage,
   isLoading,
+  onSearch,
+  searchQuery,
 }) => {
   const { t } = useTranslation();
   const [showReassignModal, setShowReassignModal] = useState(false);
@@ -197,8 +198,12 @@ const TasksTable = ({
         pageSize={pageSize}
         setPageSize={setPageSize}
         lang="ar"
-        searchPlaceholder={t("dashboard.workGroup.table.searchPlaceholder")}
+        searchPlaceholder={t("search")}
         isLoading={isLoading}
+        searchQuery={searchQuery}
+        onSearchChange={onSearch}
+        searchDebounceMs={700}
+        search={true}
       >
         <TablePagination
           currentPage={page}

@@ -410,6 +410,8 @@
     "Tasks Management": "Tasks Managements",
     "Subscription Management": "Subscription Management",
     "Banners": "Banners",
+    "Nationalities Management": "Nationalities Management",
+    "Public Notifications": "Public Notifications",
     "Withdraw Requests": "Withdraw Requests"
   },
   "withdraw": {
@@ -1244,6 +1246,7 @@
     "task_categories": "Task Categories",
     "subscription_management": "Subscription Management",
     "ad_banners": "Advertising Banners",
+    "nationalities": "Nationalities",
     "my_tasks": "Tasks",
     "main": "Main",
     "employment_data": "Employment Data",
@@ -2506,6 +2509,32 @@
     },
     "chats": {
       "chats": "Chats"
+    },
+    "nationalitiesModal": {
+      "addNationality": "Add Nationality",
+      "editNationality": "Edit Nationality",
+      "nationalityName": "Nationality title",
+      "titleAr": "Arabic title is required",
+      "titleEn": "English title is required",
+      "add": "Add",
+      "update": "Update",
+      "loading": "Loading..."
+    },
+    "nationalitiesDh": {
+      "addNationality": "Add Nationality",
+      "tableTitle": "Nationalities",
+      "tableHeader": "Nationality",
+      "searchPlaceholder": "Search nationalities...",
+      "actions": "Actions"
+    },
+    "public_notifications": {
+      "title": "Public Notifications",
+      "notificationType": "Notification Type",
+      "notificationTitle": "Notification Title",
+      "notificationMessage": "Notification Message",
+      "send": "Send",
+      "all": "All Users",
+      "specific": "Specific Users"
     }
   }
 }

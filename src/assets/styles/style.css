@@ -194,6 +194,23 @@ li[data-sonner-toast=""] {
   width: 0 !important;
 }
 
+.react-select__control {
+  overflow: hidden;
+  align-items: start;
+}
+.react-select__control .react-select__value-container {
+  overflow: scroll;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.react-select__control .react-select__value-container::-webkit-scrollbar {
+  display: none;
+}
+.react-select__control .react-select__indicators {
+  max-height: 54px;
+  align-items: center;
+}
+
 .data-loader {
   flex: 1;
   display: flex;

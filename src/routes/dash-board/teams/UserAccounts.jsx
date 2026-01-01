@@ -13,9 +13,13 @@ const UserAccounts = () => {
   const { t } = useTranslation();
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(PAGE_SIZE);
+  const [searchQuery, setSearchQuery] = useState("");
   const { usersAccounts, currentPage, lastPage, isLoading } =
-    useGetUsersAccounts("", page, PAGE_SIZE);
-  console.log("users accounts", usersAccounts);
+    useGetUsersAccounts(searchQuery, page, PAGE_SIZE);
+
+  const handleSearchChange = (value) => {
+    setSearchQuery(value);
+  };
 
   const series = [
     {
@@ -208,6 +212,11 @@ const UserAccounts = () => {
             pageSize={pageSize}
             setPageSize={setPageSize}
             isLoading={isLoading}
+            searchQuery={searchQuery}
+            onSearchChange={handleSearchChange}
+            searchDebounceMs={700}
+            search={true}
+            header={true}
           >
             <TablePagination
               currentPage={page}

@@ -149,6 +149,8 @@ import ActiveServiceTab from "../routes/dash-board/reports/ActiveServiceTab";
 import ContractsTab from "../routes/dash-board/reports/ContractsTab";
 import CommunitiesTab from "../routes/dash-board/reports/CommunitesTab";
 import SalesTab from "../routes/dash-board/reports/SalesTab";
+import Nationalities from "../routes/dash-board/websiteManagment/Nationalities";
+import PublicNotifications from "../routes/dash-board/websiteManagment/PublicNotifications";
 
 export const router = createBrowserRouter([
   /* WEBSITE AUTH */
@@ -731,6 +733,14 @@ export const router = createBrowserRouter([
       {
         path: "banners",
         element: <Banners />,
+      },
+      {
+        path: "nationalities-management",
+        element: <Nationalities />,
+      },
+      {
+        path: "public-notifications",
+        element: <PublicNotifications />,
       },
     ],
   },

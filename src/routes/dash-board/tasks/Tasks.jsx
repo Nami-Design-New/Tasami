@@ -15,8 +15,12 @@ const Tasks = () => {
   const [showModal, setShowModal] = useState(false);
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(PAGE_SIZE);
+  const [searchQuery, setSearchQuery] = useState("");
+  const handleSearchChange = (value) => {
+    setSearchQuery(value);
+  };
   const { tasks, currentPage, lastPage, isLoading } = useGetTasksDashboard(
-    "",
+    searchQuery,
     page,
     PAGE_SIZE
   );
@@ -112,6 +116,9 @@ const Tasks = () => {
               currentPage={currentPage}
               lastPage={lastPage}
               isLoading={isLoading}
+              onSearch={handleSearchChange}
+              searchQuery = {searchQuery}
+            
             />
           </div>
         </div>

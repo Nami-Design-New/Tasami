@@ -24,8 +24,13 @@ export default function WithdrawRequests() {
   // -----------------------------
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(PAGE_SIZE);
+  const [searchQuery, setSearchQuery] = useState("");
+  const handleSearchChange = (value) => {
+    setSearchQuery(value);
+  };
+
   const { withdrawRequests, isLoading, currentPage, lastPage } =
-    useGetWithDrawRequests();
+    useGetWithDrawRequests(searchQuery, page, pageSize);
 
   const tableData = useMemo(
     () =>
@@ -137,8 +142,12 @@ export default function WithdrawRequests() {
           setPageSize={setPageSize}
           lang="ar"
           filter={false}
-          searchPlaceholder={t("dashboard.workGroup.table.searchPlaceholder")}
+          searchPlaceholder={t("search")}
           isLoading={isLoading}
+          searchQuery={searchQuery}
+          onSearchChange={handleSearchChange}
+          searchDebounceMs={700}
+          search={true}
         >
           <TablePagination
             currentPage={page}

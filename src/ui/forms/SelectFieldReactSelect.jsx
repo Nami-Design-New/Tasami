@@ -174,7 +174,7 @@ const SelectFieldReactSelect = ({
     }),
   };
 
-    const finalStyles = {
+  const finalStyles = {
     ...customStyles,
     ...overrideStyles,
   };

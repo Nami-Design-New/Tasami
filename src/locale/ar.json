@@ -409,6 +409,8 @@
     "Tasks Management": "تصنيف المهمات",
     "Subscription Management": "ادارة الاشتراكات",
     "Banners": "لافتات اعلانية",
+    "Nationalities Management": "الجنسيات",
+    "Public Notifications": "الاشعارات العامة ",
     "beneficiaryIdentityPreference": "تفضيل هوية المستفيد",
     "assistanceValue": "قيمة المساعدة",
     "beneficiaryAgeGroup": "الفئة العمرية للمستفيد",
@@ -1211,6 +1213,8 @@
     "task_categories": "تصنيف المهمات",
     "subscription_management": "ادارة الاشتراكات",
     "ad_banners": "لافتات اعلانية",
+    "nationalities": "الجنسيات",
+    "publicNotifications": "الإشعارات العامة",
     "main": "الرئيسية",
     "my_tasks": "المهام",
     "employment_data": "البيانات الوظيفية",
@@ -2487,6 +2491,33 @@
     },
     "chats": {
       "chats": "المحادثات"
+    },
+
+    "nationalitiesModal": {
+      "addNationality": "إضافة جنسية",
+      "editNationality": "تعديل الجنسية",
+      "nationalityName": "اسم الجنسية",
+      "titleAr": "العنوان باللغة العربية مطلوب",
+      "titleEn": "العنوان باللغة الإنجليزية مطلوب",
+      "add": "إضافة",
+      "update": "تحديث",
+      "loading": "جاري التحميل..."
+    },
+    "nationalitiesDh": {
+      "addNationality": "إضافة جنسية",
+      "tableTitle": "الجنسيات",
+      "tableHeader": "الجنسية",
+      "searchPlaceholder": "ابحث عن جنسية...",
+      "actions": "الإجراءات"
+    },
+    "public_notifications": {
+      "title": "الإشعارات العامة",
+      "notificationType": "نوع الإشعار",
+      "notificationTitle": "عنوان الإشعار",
+      "notificationMessage": "نص الإشعار",
+      "send": "إرسال",
+      "all": "جميع المستخدمين",
+      "specific": "مستخدمين محددين"
     }
   }
 }

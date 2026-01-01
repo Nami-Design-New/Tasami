@@ -79,7 +79,7 @@ export default function Banners() {
         enableSorting: false,
       }),
     ],
-    []
+    [t]
   );
   return (
     <section>

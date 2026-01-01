@@ -8,7 +8,7 @@ const TextField = React.forwardRef(({ label, error, hint, ...props }, ref) => {
     <div className="input-field">
       {label && (
         <label htmlFor={props.id}>
-          {label} <sapn className="hint">{hint}</sapn>
+          {label} <span className="hint">{hint}</span>
         </label>
       )}
       <Form.Control as={"textarea"} ref={ref} {...props} />

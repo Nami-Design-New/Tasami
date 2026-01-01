@@ -14,12 +14,15 @@ const PersonalGoals = () => {
   const { t } = useTranslation();
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(PAGE_SIZE);
+  const [searchQuery, setSearchQuery] = useState("");
+  const handleSearchChange = (value) => {
+    setSearchQuery(value);
+  };
   const { personalGoal, currentPage, lastPage, isLoading } = useGetPersonalGoal(
-    "",
+    searchQuery,
     page,
     PAGE_SIZE
   );
-  // console.log("personal goal ::", personalGoal);
 
   const userGrowthSeries = [
     {
@@ -63,75 +66,6 @@ const PersonalGoals = () => {
     },
   };
 
-  // const data = useMemo(
-  //   () => [
-  //     {
-  //       serviceNumber: "PO-091025-000001",
-  //       date: "09-10-2025",
-  //       status: "مكتمل",
-  //       accountNumber: "U-020522-000215",
-  //       accountType: "مستفيد",
-  //       IdNumber: "01-014-003",
-  //       region: "الشرق الاوسط ",
-  //       location: "المملكة العربية السعودية",
-  //       city: "الرياض",
-  //       field: "الهندسة",
-  //       Specialization: "مدني",
-  //       offers: 4,
-  //       numbrOfUseres: 120,
-  //       rate: 4.5,
-  //     },
-  //     {
-  //       serviceNumber: "PO-091025-000002",
-  //       date: "09-10-2025",
-  //       status: "محذوف",
-  //       accountNumber: "U-020522-000216",
-  //       accountType: "رواد",
-  //       IdNumber: "01-014-003",
-  //       region: "الشرق الاوسط ",
-  //       location: "المملكة العربية السعودية",
-  //       city: "الرياض",
-  //       field: "المالية",
-  //       Specialization: "محاسبة",
-  //       offers: 4,
-  //       numbrOfUseres: 45,
-  //       rate: "-",
-  //     },
-  //     {
-  //       serviceNumber: "PO-091025-000003",
-  //       date: "09-10-2025",
-  //       status: "بانتظار التنفيذ",
-  //       accountNumber: "U-020522-000217",
-  //       accountType: "رواد",
-  //       IdNumber: "01-014-003",
-  //       region: "الشرق الاوسط ",
-  //       location: "المملكة العربية السعودية",
-  //       city: "الرياض",
-  //       field: "المالية",
-  //       Specialization: "محاسبة",
-  //       offers: 4,
-  //       numbrOfUseres: 45,
-  //       rate: "-",
-  //     },
-  //     {
-  //       serviceNumber: "PO-091025-000004",
-  //       date: "09-10-2025",
-  //       status: "قيد التنفيذ",
-  //       accountNumber: "U-020522-000218",
-  //       accountType: "رواد",
-  //       IdNumber: "01-014-003",
-  //       region: "الشرق الاوسط ",
-  //       location: "المملكة العربية السعودية",
-  //       city: "الرياض",
-  //       field: "المالية",
-  //       Specialization: "محاسبة",
-  //       offers: 4,
-  //       numbrOfUseres: 45,
-  //       rate: "-",
-  //     },
-  //   ],
-  //   []
-  // );
   const columns = useMemo(
     () => [
       columnHelper.accessor("goal_code", {
@@ -162,9 +96,7 @@ const PersonalGoals = () => {
       columnHelper.accessor("user.account_type", {
         header: t("dashboard.personalGoals.table.accountType"),
       }),
-      // columnHelper.accessor("offers", {
-      //   header: t("dashboard.personalGoals.table.offers"),
-      // }),
+
       columnHelper.accessor("status", {
         header: " المرحله ",
         cell: (info) => {
@@ -220,14 +152,8 @@ const PersonalGoals = () => {
       columnHelper.accessor("sub_category.title", {
         header: t("dashboard.personalGoals.table.specialization"),
       }),
-      // columnHelper.accessor("numberOfUsers", {
-      //   header: t("dashboard.personalGoals.table.numberOfUsers"),
-      // }),
-      // columnHelper.accessor("rate", {
-      //   header: t("dashboard.personalGoals.table.rate"),
-      // }),
     ],
-    []
+    [t]
   );
   return (
     <section className="mt-5">
@@ -241,19 +167,23 @@ const PersonalGoals = () => {
         </div>
         <div className="col-12 p-2">
           <ReusableDataTable
-            title={t("dashboard.userAccounts.accounts")}
+            title={t("dashboard.personalGoals.title")}
             filter={false}
             data={personalGoal?.data || []}
             columns={columns}
             lang="ar"
             initialPageSize={10}
-            searchPlaceholder={t("dashboard.userAccounts.searchPlaceholder")}
+            searchPlaceholder={t("search")}
             currentPage={currentPage}
             lastPage={lastPage}
             setPage={setPage}
             pageSize={pageSize}
             setPageSize={setPageSize}
             isLoading={isLoading}
+            searchQuery={searchQuery}
+            onSearchChange={handleSearchChange}
+            searchDebounceMs={700}
+            search={true}
           >
             <TablePagination
               currentPage={page}

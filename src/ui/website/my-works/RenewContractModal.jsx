@@ -162,7 +162,7 @@ export default function RenewContractModal({
             </div>
 
             <div className="col-12 p-2">
-              <sapn>{t("renew_total_amount")}</sapn> <span>{price}</span>{" "}
+              <span>{t("renew_total_amount")}</span> <span>{price}</span>{" "}
               <Currency />
             </div>
             <div className="col-12 p-2">
