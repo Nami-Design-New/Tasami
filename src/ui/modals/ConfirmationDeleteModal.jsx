@@ -6,6 +6,7 @@ const ConfirmDeleteModal = ({
   showDeleteModal,
   setShowDeleteModal,
   deletionTarget,
+  message,
   loading,
   onConfirm,
 }) => {
@@ -21,7 +22,9 @@ const ConfirmDeleteModal = ({
       <Modal.Body>
         <div className="row confirmation_modal">
           <div className="col-12 p-2">
-            <p className="text-center">{t("dashboard.confirmModal.message")}</p>
+            <p className="text-center">
+              {message || t("dashboard.confirmModal.message")}
+            </p>
           </div>
 
           <div className="col-12 p-2 d-flex gap-2">
