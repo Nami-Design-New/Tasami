@@ -1105,7 +1105,7 @@
         "videoCall": "الاتصال المرئي والمسموع",
         "textAudio": "التراسل النصي والصوتي",
         "offerImage": "صورة العرض",
-        "totalDuration": "اجمالي مدة المدة المحددة {{duration}} يوم",
+        "totalDuration": "اجمالي المدة المحددة {{duration}} يوم",
         "yes": "نعم",
         "no": "لا",
         "addAssistant": "تعيين مساعد شخصي؟",
