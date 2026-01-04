@@ -65,7 +65,9 @@ export default function TaskCard({
 
   return (
     <div
-      className="task-card"
+      className={`task-card ${isDragable ? "draggable" : "not-dragabble"} ${
+        isDragging ? "dragging" : ""
+      }`}
       role="link"
       tabIndex={0}
       onPointerDown={handlePointerDown}

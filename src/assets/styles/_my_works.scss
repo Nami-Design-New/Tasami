@@ -356,6 +356,9 @@
   & > div {
     transition: transform 0.2s ease;
     cursor: grab;
+    &.not-dragabble {
+      cursor: pointer !important;
+    }
 
     // Handle the connector line visibility
     &:first-child {

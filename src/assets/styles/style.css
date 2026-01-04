@@ -10460,6 +10460,9 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
   transition: transform 0.2s ease;
   cursor: grab;
 }
+.tasks-list > div.not-dragabble {
+  cursor: pointer !important;
+}
 .tasks-list > div:first-child .task-card .check::before {
   display: none;
 }

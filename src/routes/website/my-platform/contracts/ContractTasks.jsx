@@ -52,7 +52,12 @@ export default function ContractTasks() {
         </div>
         <div className="tasks-list">
           {goalTasks.data.map((task) => (
-            <TaskCard key={task.id} task={task} user={user} />
+            <TaskCard
+              key={task.id}
+              task={task}
+              user={user}
+              isDragable={false}
+            />
           ))}
         </div>
       </div>
