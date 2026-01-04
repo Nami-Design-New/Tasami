@@ -108,6 +108,9 @@ self.addEventListener("notificationclick", (event) => {
     case "group_chat":
       url = `/chat/${data.operation_id}`;
       break;
+    case "contract":
+      url = `/my-contracts/${data.operation_id}/tasks`;
+      break;
     default:
       url = "/";
   }

@@ -71,6 +71,9 @@ export default function NotificationCard({ item }) {
     case "group_chat":
       url = `/chat/${item.operation_id}`;
       break;
+    case "contract":
+      url = `/my-contracts/${item.operation_id}/tasks`;
+      break;
     default:
       url = "/";
   }

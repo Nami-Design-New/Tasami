@@ -69,7 +69,9 @@ export default function TaskDetails() {
       <div className="container">
         <header className="task-details__header">
           <div className="d-flex gap-3">
-            <RoundedBackButton onClick={() => navigate(-1)} />
+            <RoundedBackButton
+              onClick={() => navigate(`/my-works/${taskDetails.work_id}/tasks`)}
+            />
             <h1>{t("works.myTasks.taskDetails")}</h1>
           </div>
 

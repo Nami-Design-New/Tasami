@@ -53,7 +53,11 @@ const requestPermission = async () => {
   }
 };
 
-const listenToMessages = (refetchSettings, refetchNotifications, refetchUpdateCounter) => {
+const listenToMessages = (
+  refetchSettings,
+  refetchNotifications,
+  refetchUpdateCounter
+) => {
   const unsubscribe = onMessage(messaging, (payload) => {
     try {
       const { notification } = payload;
@@ -62,7 +66,12 @@ const listenToMessages = (refetchSettings, refetchNotifications, refetchUpdateCo
         return;
       }
 
-      updateQueries(refetchSettings, refetchNotifications, refetchUpdateCounter, payload);
+      updateQueries(
+        refetchSettings,
+        refetchNotifications,
+        refetchUpdateCounter,
+        payload
+      );
       // if (document.visibilityState === "visible") {
       // }
 
@@ -142,6 +151,9 @@ const listenToMessages = (refetchSettings, refetchNotifications, refetchUpdateCo
           case "group_chat":
             url = `/chat/${data.operation_id}`;
             break;
+          case "contract":
+            url = `/my-contracts/${data.operation_id}/tasks`;
+            break;
           default:
             url = "/";
         }
@@ -153,7 +165,12 @@ const listenToMessages = (refetchSettings, refetchNotifications, refetchUpdateCo
 
       toast.info(payload.notification?.title);
 
-      updateQueries(refetchSettings, refetchNotifications, refetchUpdateCounter, payload);
+      updateQueries(
+        refetchSettings,
+        refetchNotifications,
+        refetchUpdateCounter,
+        payload
+      );
     } catch (error) {
       console.error("[FCM] Error handling incoming message:", error);
     }
@@ -162,7 +179,12 @@ const listenToMessages = (refetchSettings, refetchNotifications, refetchUpdateCo
   return unsubscribe;
 };
 
-const updateQueries = (refetchSettings, refetchNotifications, refetchUpdateCounter, payload) => {
+const updateQueries = (
+  refetchSettings,
+  refetchNotifications,
+  refetchUpdateCounter,
+  payload
+) => {
   refetchNotifications();
   refetchSettings();
   refetchUpdateCounter();
