@@ -21,6 +21,10 @@ const WorkingGroups = () => {
   const queryClient = useQueryClient();
   const [workingGroupId, setWorkingGroupId] = useState();
   const [workingGroupName, setWorkingGroupName] = useState();
+  const [searchQuery, setSearchQuery] = useState("");
+  const handleSearchChange = (value) => {
+    setSearchQuery(value);
+  };
 
   // -----------------------------
   // Pagination state
@@ -38,7 +42,7 @@ const WorkingGroups = () => {
   // Fetch working groups via hook
   // -----------------------------
   const { workingGroups, stats, currentPage, lastPage, isLoading } =
-    useGetWorkingGroups("", page, pageSize);
+    useGetWorkingGroups(searchQuery, page, pageSize);
 
   // -----------------------------
   // delete working group
@@ -96,9 +100,9 @@ const WorkingGroups = () => {
         id: wg?.id,
         groupNumber: wg?.name,
         groupClassifications: wg?.type,
-        region: wg?.region?.title,
-        location: wg?.country?.title,
-        city: wg?.city?.title,
+        region: wg?.region?.title || "-",
+        location: wg?.country?.title || "-",
+        city: wg?.city?.title || "-",
         createDate: wg?.created_at,
         excutives: wg?.executive_count,
         leaders: wg?.leader_count,
@@ -220,6 +224,10 @@ const WorkingGroups = () => {
             filter={false}
             searchPlaceholder={t("dashboard.workGroup.table.searchPlaceholder")}
             isLoading={isLoading}
+            searchQuery={searchQuery}
+            onSearchChange={handleSearchChange}
+            searchDebounceMs={700}
+            search={true}
           >
             <TablePagination
               currentPage={page}

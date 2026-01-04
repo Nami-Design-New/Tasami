@@ -8,7 +8,7 @@ export default function useGetTeam(search = "", page = 1, pageSize = 10) {
     isError,
     refetch,
   } = useQuery({
-    queryKey: ["dashboard-team", page],
+    queryKey: ["dashboard-team", search, page],
     queryFn: async () => {
       const res = await adminAxiosInstance.get("dh-employees", {
         params: { search, page, limit_per_page: pageSize },

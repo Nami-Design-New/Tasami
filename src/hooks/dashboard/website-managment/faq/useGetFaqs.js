@@ -1,12 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
 import { adminAxiosInstance } from "../../../../lib/adminAxios";
-import { useSearchParams } from "react-router";
 
-export default function useGetFaqs(page = 1, pageSize = 10) {
-  const [searchParams, setSearchParams] = useSearchParams();
-  const search = searchParams.get("search");
+export default function useGetFaqs(search, page = 1, pageSize = 10) {
   const { data, isLoading } = useQuery({
-    queryKey: ["dh-faqs", page],
+    queryKey: ["dh-faqs", search, page],
     queryFn: async () => {
       const res = await adminAxiosInstance.get("dh-fqs", {
         params: { search, page, limit_per_page: pageSize },

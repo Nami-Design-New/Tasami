@@ -13,9 +13,12 @@ const AssistantPresenter = ({ userDetails }) => {
   const user_id = userDetails?.id;
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(PAGE_SIZE);
+  const [searchQuery, setSearchQuery] = useState("");
   const { helperContract, currentPage, lastPage, isLoading } =
-    useGetHelperContract("", page, PAGE_SIZE, user_id);
-
+    useGetHelperContract(searchQuery, page, PAGE_SIZE, user_id);
+  const handleSearchChange = (value) => {
+    setSearchQuery(value);
+  };
   const navigate = useNavigate();
   const [showContractModal, setShowContractModal] = useState(false);
   function handleOpenModal() {
@@ -205,6 +208,11 @@ const AssistantPresenter = ({ userDetails }) => {
         setShowModal={setShowContractModal}
         showModal={showContractModal}
         title={t("dashboard.assistant.links.contractLog")}
+        searchQuery={searchQuery}
+        onSearchChange={handleSearchChange}
+        searchDebounceMs={700}
+        setSearchQuery={setSearchQuery}
+        search={true}
       />
     </>
   );

@@ -13,10 +13,12 @@ const SubscriptionLog = () => {
   const { id } = useParams();
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(PAGE_SIZE);
+  const [searchQuery, setSearchQuery] = useState("");
+  const handleSearchChange = (value) => {
+    setSearchQuery(value);
+  };
   const { userSubscriptionCommunities, currentPage, lastPage, isLoading } =
-    useGetUserSubscriptionCommunities("", page, pageSize, id);
-
-  // console.log("userSubscriptionCommunities", userSubscriptionCommunities);
+    useGetUserSubscriptionCommunities(searchQuery, page, pageSize, id);
 
   const subColumns = useMemo(
     () => [
@@ -69,6 +71,10 @@ const SubscriptionLog = () => {
         setPageSize={setPageSize}
         lang="ar"
         isLoading={isLoading}
+        searchQuery={searchQuery}
+        onSearchChange={handleSearchChange}
+        searchDebounceMs={700}
+        search={true}
       >
         <TablePagination
           currentPage={page}

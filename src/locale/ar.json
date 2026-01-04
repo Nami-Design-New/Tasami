@@ -1,5 +1,6 @@
 {
   "consultaionDeleteAlert": "سيتم حذف الاستشارة نهائيا",
+  "notifyUsers": "المستخدمون",
   "tasksStatus": {
     "progress": "جاري",
     "not_assigned": "غير معين",

@@ -11,8 +11,12 @@ const Beneficiary = ({ userDetails }) => {
   const user_id = userDetails?.id;
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(PAGE_SIZE);
+  const [searchQuery, setSearchQuery] = useState("");
+  const handleSearchChange = (value) => {
+    setSearchQuery(value);
+  };
   const { userContract, currentPage, lastPage, isLoading } = useGetUserContract(
-    "",
+    searchQuery,
     page,
     PAGE_SIZE,
     user_id
@@ -139,6 +143,11 @@ const Beneficiary = ({ userDetails }) => {
           showModal={showModal}
           setShowModal={setShowModal}
           title={t("dashboard.beneficiary.titles.contractLog")}
+          searchQuery={searchQuery}
+          onSearchChange={handleSearchChange}
+          searchDebounceMs={700}
+          search={true}
+          setSearchQuery={setSearchQuery}
         />
       </div>
     </>

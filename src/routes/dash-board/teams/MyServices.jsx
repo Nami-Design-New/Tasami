@@ -14,12 +14,15 @@ const Services = () => {
   const { t } = useTranslation();
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(PAGE_SIZE);
+  const [searchQuery, setSearchQuery] = useState("");
+  const handleSearchChange = (value) => {
+    setSearchQuery(value);
+  };
   const { helpRequests, currentPage, lastPage, isLoading } = useGetHelpRequest(
-    "",
+    searchQuery,
     page,
     PAGE_SIZE
   );
-  // console.log("helpRequests ::", helpRequests , typeof(helpRequests.deleted_count));
 
   const userGrowthSeries = [
     {
@@ -65,6 +68,7 @@ const Services = () => {
       },
     },
   };
+
   const columns = useMemo(
     () => [
       columnHelper.accessor("goal_code", {
@@ -95,9 +99,6 @@ const Services = () => {
       columnHelper.accessor("user.account_type", {
         header: t("dashboard.personalGoals.table.accountType"),
       }),
-      // columnHelper.accessor("offers", {
-      //   header: t("dashboard.personalGoals.table.offers"),
-      // }),
       columnHelper.accessor("status", {
         header: t("dashboard.services.status"),
         cell: (info) => {
@@ -134,7 +135,6 @@ const Services = () => {
           );
         },
       }),
-
       columnHelper.accessor("user.identify_code", {
         header: t("dashboard.personalGoals.table.idNumber"),
       }),
@@ -153,15 +153,10 @@ const Services = () => {
       columnHelper.accessor("sub_category.title", {
         header: t("dashboard.personalGoals.table.specialization"),
       }),
-      // columnHelper.accessor("numberOfUsers", {
-      //   header: t("dashboard.personalGoals.table.numberOfUsers"),
-      // }),
-      // columnHelper.accessor("rate", {
-      //   header: t("dashboard.personalGoals.table.rate"),
-      // }),
     ],
-    []
+    [t]
   );
+
   return (
     <section className="mt-5">
       <div className="row">
@@ -179,12 +174,17 @@ const Services = () => {
             data={helpRequests?.data || []}
             columns={columns}
             lang="ar"
+            searchPlaceholder={t("search")}
             currentPage={currentPage}
             lastPage={lastPage}
             setPage={setPage}
             pageSize={pageSize}
             setPageSize={setPageSize}
             isLoading={isLoading}
+            searchQuery={searchQuery}
+            onSearchChange={handleSearchChange}
+            searchDebounceMs={700}
+            search={true}
           >
             <TablePagination
               currentPage={page}

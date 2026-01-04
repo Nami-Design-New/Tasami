@@ -16,7 +16,11 @@ const columnHelper = createColumnHelper();
 const Teams = () => {
   const { t, i18n } = useTranslation();
 
-  const lang = i18n.language; // "ar" or "en"
+  const lang = i18n.language;
+  const [searchQuery, setSearchQuery] = useState("");
+  const handleSearchChange = (value) => {
+    setSearchQuery(value);
+  };
 
   // -----------------------------------
   // Pagination
@@ -28,7 +32,7 @@ const Teams = () => {
   // Fetch data
   // -----------------------------------
   const { currentPage, lastPage, team, isLoading } = useGetTeam(
-    "",
+    searchQuery,
     page,
     pageSize
   );
@@ -74,7 +78,7 @@ const Teams = () => {
         obj?.active ?? 0,
         obj?.inactive ?? 0,
         obj?.stopped ?? 0,
-        0, // canceled not supported by backend
+        0,
       ],
     },
   ];
@@ -296,6 +300,10 @@ const Teams = () => {
             lang={lang}
             filter={false}
             title={t("dashboard.team.title")}
+            searchQuery={searchQuery}
+            onSearchChange={handleSearchChange}
+            searchDebounceMs={700}
+            search={true}
           >
             <TablePagination
               currentPage={page}

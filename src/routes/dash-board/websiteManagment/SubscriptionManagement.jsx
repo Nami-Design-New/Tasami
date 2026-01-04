@@ -24,12 +24,17 @@ export default function SubscriptionManagement() {
   const [showAddSubscriptions, setShowAddSubscriptions] = useState(false);
   const [isEdit, setIsEdit] = useState(false);
   const [selectedPacage, setSelectedPacage] = useState();
+  const [searchQuery, setSearchQuery] = useState("");
+  const handleSearchChange = (value) => {
+    setSearchQuery(value);
+  };
 
   // Pagination
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(PAGE_SIZE);
 
   const { packages, isLoading, currentPage, lastPage } = useGetPackages(
+    searchQuery,
     page,
     pageSize
   );
@@ -141,6 +146,10 @@ export default function SubscriptionManagement() {
         searchPlaceholder={t("dashboard.subscriptions.searchPlaceholder")}
         initialPageSize={10}
         isLoading={isLoading}
+        searchQuery={searchQuery}
+        onSearchChange={handleSearchChange}
+        searchDebounceMs={700}
+        search={true}
       >
         <TablePagination
           currentPage={page}

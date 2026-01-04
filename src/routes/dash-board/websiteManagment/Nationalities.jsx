@@ -27,9 +27,13 @@ export default function Nationalities() {
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(PAGE_SIZE);
   const [updateTarget, setUpdateTarget] = useState(null);
+  const [searchQuery, setSearchQuery] = useState("");
+  const handleSearchChange = (value) => {
+    setSearchQuery(value);
+  };
 
   const { nationalities, currentPage, lastPage, isLoading } =
-    useGetDhNationalities("", page, pageSize);
+    useGetDhNationalities(searchQuery, page, pageSize);
   const { deleteNationality, isDeletingNationality } = useDeleteNationality();
   const handleDeleteNationality = () => {
     deleteNationality(deletionTarget, {
@@ -109,6 +113,10 @@ export default function Nationalities() {
         pageSize={pageSize}
         setPageSize={setPageSize}
         isLoading={isLoading}
+        searchQuery={searchQuery}
+        onSearchChange={handleSearchChange}
+        searchDebounceMs={700}
+        search={true}
       >
         <TablePagination
           currentPage={page}

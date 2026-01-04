@@ -13,8 +13,12 @@ const Documents = () => {
   const { t } = useTranslation();
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(PAGE_SIZE);
+  const [searchQuery, setSearchQuery] = useState("");
+  const handleSearchChange = (value) => {
+    setSearchQuery(value);
+  };
   const { resumeDocuments, currentPage, lastPage, isLoading } =
-    useGetSubscriptionResumeDocument("", page, PAGE_SIZE);
+    useGetSubscriptionResumeDocument(searchQuery, page, PAGE_SIZE);
 
   const columns = [
     columnHelper.accessor("user.first_name", {
@@ -137,6 +141,10 @@ const Documents = () => {
         pageSize={pageSize}
         setPageSize={setPageSize}
         isLoading={isLoading}
+        searchQuery={searchQuery}
+        onSearchChange={handleSearchChange}
+        searchDebounceMs={700}
+        search={true}
       >
         <TablePagination
           currentPage={page}

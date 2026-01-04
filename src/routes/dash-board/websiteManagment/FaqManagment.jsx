@@ -23,6 +23,10 @@ export default function FaqManagment() {
   const [faqData, setFaqData] = useState();
   const [showDeleteModal, setShowDeleteModal] = useState();
   const [isEdit, setIsEdit] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
+  const handleSearchChange = (value) => {
+    setSearchQuery(value);
+  };
 
   // -----------------------------
   // Pagination state
@@ -30,7 +34,11 @@ export default function FaqManagment() {
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(PAGE_SIZE);
 
-  const { faqs, isLoading, currentPage, lastPage } = useGetFaqs(page, pageSize);
+  const { faqs, isLoading, currentPage, lastPage } = useGetFaqs(
+    searchQuery,
+    page,
+    pageSize
+  );
 
   const { reorderFaq, isPending: isReordering } = useUpdateFaqQorder();
 
@@ -151,6 +159,10 @@ export default function FaqManagment() {
         rowDnD={true}
         isLoading={isLoading}
         onRowsReordered={onRowsReordered}
+        searchQuery={searchQuery}
+        onSearchChange={handleSearchChange}
+        searchDebounceMs={700}
+        search={true}
       >
         <TablePagination
           currentPage={page}

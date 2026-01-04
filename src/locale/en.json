@@ -1,5 +1,6 @@
 {
   "consultaionDeleteAlert": "The consultation will be permanently deleted.",
+  "notifyUsers": "المستخدمون",
   "tasksStatus": {
     "progress": "In Progress",
     "not_assigned": "Not Assigned",

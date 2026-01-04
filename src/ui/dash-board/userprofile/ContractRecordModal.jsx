@@ -24,6 +24,11 @@ const ContractRecordModal = ({
   setPageSize,
   isLoading,
   data,
+  searchQuery,
+  setSearchQuery,
+  onSearchChange,
+  searchDebounceMs,
+  search,
 }) => {
   const { t } = useTranslation();
   // const [showDeleteModal, setShowDeleteModal] = useState(false);
@@ -120,14 +125,17 @@ const ContractRecordModal = ({
         enableSorting: false,
       }),
     ],
-    [isPending]
+    [isPending, t]
   );
   return (
     <>
       <Modal
         show={showModal}
         size="xl"
-        onHide={() => setShowModal(false)}
+        onHide={() => {
+          setShowModal(false);
+          setSearchQuery("");
+        }}
         aria-labelledby="working group add / edit Modal"
         centered
         className="working-group-modal"
@@ -149,6 +157,10 @@ const ContractRecordModal = ({
             setPageSize={setPageSize}
             lang="ar"
             isLoading={isLoading}
+            searchQuery={searchQuery}
+            onSearchChange={onSearchChange}
+            searchDebounceMs={searchDebounceMs}
+            search={search}
           >
             <TablePagination
               currentPage={page}

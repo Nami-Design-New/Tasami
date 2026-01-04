@@ -11,10 +11,12 @@ const Experiences = () => {
   const { t } = useTranslation();
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(PAGE_SIZE);
+  const [searchQuery, setSearchQuery] = useState("");
+  const handleSearchChange = (value) => {
+    setSearchQuery(value);
+  };
   const { resumeExperiences, currentPage, lastPage, isLoading } =
-    useGetSubscriptionResumeExperience("", page, PAGE_SIZE);
-
-  // console.log(resumeExperiences);
+    useGetSubscriptionResumeExperience(searchQuery, page, PAGE_SIZE);
 
   const columns = [
     columnHelper.accessor("user.first_name", {
@@ -100,6 +102,10 @@ const Experiences = () => {
         pageSize={pageSize}
         setPageSize={setPageSize}
         isLoading={isLoading}
+        searchQuery={searchQuery}
+        onSearchChange={handleSearchChange}
+        searchDebounceMs={700}
+        search={true}
       >
         <TablePagination
           currentPage={page}

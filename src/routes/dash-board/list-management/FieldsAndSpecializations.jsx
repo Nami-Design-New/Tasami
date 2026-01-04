@@ -28,6 +28,10 @@ const FieldsAndSpecializations = () => {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [deletedTargedId, setDeletedTargedId] = useState(null);
   const [selectedTarget, setSelectedTarget] = useState(null);
+  const [searchQuery, setSearchQuery] = useState("");
+  const handleSearchChange = (value) => {
+    setSearchQuery(value);
+  };
 
   //--------------------- Pagination ---------------------
   const [page, setPage] = useState(1);
@@ -41,7 +45,7 @@ const FieldsAndSpecializations = () => {
     currentPage,
     isLoading,
     lastPage,
-  } = useGetSubCategories("", page, pageSize);
+  } = useGetSubCategories(searchQuery, page, pageSize);
   const { deleteSpecialization, isPending } = useDeleteSpecialization();
 
   const handleDeleteSpecialization = () => {
@@ -58,7 +62,6 @@ const FieldsAndSpecializations = () => {
       },
     });
   };
-  console.log(subCategories);
 
   // Statistics data localized
   const statsData = [
@@ -185,6 +188,10 @@ const FieldsAndSpecializations = () => {
             searchPlaceholder={t("dashboard.fields.search")}
             filter={false}
             isLoading={isLoading}
+            searchQuery={searchQuery}
+            onSearchChange={handleSearchChange}
+            searchDebounceMs={700}
+            search={true}
           >
             <TablePagination
               currentPage={page}

@@ -110,6 +110,7 @@ export default function Banners() {
         pageSize={pageSize}
         setPageSize={setPageSize}
         isLoading={isLoading}
+        search={false}
       >
         <TablePagination
           currentPage={page}

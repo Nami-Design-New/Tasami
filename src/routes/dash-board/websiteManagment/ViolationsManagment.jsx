@@ -21,12 +21,16 @@ export default function ViolationsManagment() {
   const queryClient = useQueryClient();
 
   const lang = localStorage.getItem("i18nextLng");
+  const [searchQuery, setSearchQuery] = useState("");
+  const handleSearchChange = (value) => {
+    setSearchQuery(value);
+  };
 
   // fetch data
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(PAGE_SIZE);
   const { violationReasons, currentPage, lastPage, isLoading } =
-    useGetViolationReason("", page, pageSize);
+    useGetViolationReason(searchQuery, page, pageSize);
 
   // delete row
   const [deletionTarget, setDeletionTarget] = useState(null);
@@ -111,6 +115,10 @@ export default function ViolationsManagment() {
             pageSize={pageSize}
             setPageSize={setPageSize}
             isLoading={isLoading}
+            searchQuery={searchQuery}
+            onSearchChange={handleSearchChange}
+            searchDebounceMs={700}
+            search={true}
           >
             <TablePagination
               currentPage={page}

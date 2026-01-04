@@ -1,6 +1,6 @@
 import { createColumnHelper } from "@tanstack/react-table";
 import { useMemo, useState } from "react";
-import { Badge } from "react-bootstrap";
+import { Badge, Placeholder } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
 import { Link, useParams } from "react-router";
 import ColumnChart from "../../ui/dash-board/charts/ColumnChart";
@@ -59,18 +59,22 @@ const WokingGroupDetails = () => {
   // -----------------------------
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(PAGE_SIZE);
+  const [searchQuery, setSearchQuery] = useState("");
+  const handleSearchChange = (value) => {
+    setSearchQuery(value);
+  };
 
   // -----------------------------
   // Data Fetch
   // -----------------------------
   const {
-    workinGroupData,
+    workingGroupData,
     workingGoupDetails,
     workingMembers,
     currentPage,
     lastPage,
     isLoading,
-  } = useGetWorkingGroupdetails(id, "", page, pageSize);
+  } = useGetWorkingGroupdetails(id, searchQuery, page, pageSize);
 
   // -----------------------------
   // Table Columns
@@ -142,8 +146,6 @@ const WokingGroupDetails = () => {
     ],
     [t]
   );
-
-  if (isLoading) return <Loading />;
 
   // -----------------------------
   // Chart Data Mappings
@@ -227,7 +229,7 @@ const WokingGroupDetails = () => {
     ];
   }
 
-  const { name } = workinGroupData;
+  const name = workingGroupData?.name;
 
   // -----------------------------
   // Render
@@ -235,7 +237,22 @@ const WokingGroupDetails = () => {
   return (
     <section>
       <div className="d-flex align-items-center w-100 px-2 justify-content-between">
-        <Header title={t("dashboard.workGroupDetails.title", { name })} />{" "}
+        {isLoading ? (
+          <div className="model__header">
+            <Placeholder
+              animation="glow"
+              xs={12}
+              style={{ height: "100%", borderRadius: "10px" }}
+            >
+              <Placeholder
+                xs={12}
+                style={{ height: "60px", borderRadius: "10px" }}
+              />
+            </Placeholder>
+          </div>
+        ) : (
+          <Header title={t("dashboard.workGroupDetails.title", { name })} />
+        )}
       </div>
 
       <div className="row">
@@ -243,8 +260,8 @@ const WokingGroupDetails = () => {
         {chartData?.map((chart, i) => (
           <div key={i} className="col-12 col-lg-6 col-xxl-4 p-2">
             <ColumnChart
-              title={chart.title}
-              series={chart.series}
+              title={chart?.title}
+              series={chart?.series}
               options={activeAccountsoptions}
               height={250}
             />
@@ -267,6 +284,10 @@ const WokingGroupDetails = () => {
             )}
             filter={false}
             isLoading={isLoading}
+            searchQuery={searchQuery}
+            onSearchChange={handleSearchChange}
+            searchDebounceMs={700}
+            search={true}
           >
             {/*  Pagination for Server Data */}
             <TablePagination

@@ -20,6 +20,10 @@ const AdministrativeSystems = () => {
   const [deletionTarget, setDeletionTarget] = useState(null);
   const queryClient = useQueryClient();
   const { deleteSubject, isDeletingSubject } = useDeleteSubject();
+  const [searchQuery, setSearchQuery] = useState("");
+  const handleSearchChange = (value) => {
+    setSearchQuery(value);
+  };
 
   const handleDeleteSubject = (id) => {
     deleteSubject(id, {
@@ -40,7 +44,7 @@ const AdministrativeSystems = () => {
   const [pageSize, setPageSize] = useState(PAGE_SIZE);
 
   const { subjects, isLoading, currentPage, lastPage } = useGetSubjects(
-    "",
+    searchQuery,
     page,
     pageSize
   );
@@ -112,6 +116,10 @@ const AdministrativeSystems = () => {
         filter={false}
         searchPlaceholder={t("dashboard.administrativeSystems.search")}
         isLoading={isLoading}
+        searchQuery={searchQuery}
+        onSearchChange={handleSearchChange}
+        searchDebounceMs={700}
+        search={true}
       >
         <TablePagination
           currentPage={page}

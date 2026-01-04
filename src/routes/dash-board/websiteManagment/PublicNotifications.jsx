@@ -156,9 +156,7 @@ export default function PublicNotifications() {
                   render={({ field }) => (
                     <SelectFieldReactSelect
                       isMulti
-                      label={t(
-                        "dashboard.public_notifications.notificationUsers"
-                      )}
+                      label={t("notifyUsers")}
                       loading={isLoading || isFetchingNextPage}
                       value={field.value}
                       options={users}

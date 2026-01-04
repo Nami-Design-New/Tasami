@@ -25,7 +25,7 @@ export default function useGetWorkingGroupdetails(
   });
 
   return {
-    workinGroupData: data?.group,
+    workingGroupData: data?.group,
     workingGoupDetails: data
       ? [
           data.customer_services,

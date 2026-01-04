@@ -117,8 +117,8 @@ const Tasks = () => {
               lastPage={lastPage}
               isLoading={isLoading}
               onSearch={handleSearchChange}
-              searchQuery = {searchQuery}
-            
+              searchDebounceMs={700}
+              searchQuery={searchQuery}
             />
           </div>
         </div>

@@ -15,8 +15,12 @@ const Programs = () => {
   const { t } = useTranslation();
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(PAGE_SIZE);
+  const [searchQuery, setSearchQuery] = useState("");
+  const handleSearchChange = (value) => {
+    setSearchQuery(value);
+  };
   const { assistantOffersData, currentPage, lastPage, isLoading } =
-    useGetAssistantOffers("", page, PAGE_SIZE);
+    useGetAssistantOffers(searchQuery, page, PAGE_SIZE);
 
   const usersSeries = [
     {
@@ -221,6 +225,10 @@ const Programs = () => {
             pageSize={pageSize}
             setPageSize={setPageSize}
             isLoading={isLoading}
+            searchQuery={searchQuery}
+            onSearchChange={handleSearchChange}
+            searchDebounceMs={700}
+            search={true}
           >
             <TablePagination
               currentPage={page}

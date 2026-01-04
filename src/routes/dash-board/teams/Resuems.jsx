@@ -16,8 +16,12 @@ const Resuems = () => {
   const navigate = useNavigate();
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(PAGE_SIZE);
+  const [searchQuery, setSearchQuery] = useState("");
+  const handleSearchChange = (value) => {
+    setSearchQuery(value);
+  };
   const { subscriptionResume, currentPage, lastPage, isLoading } =
-    useGetSubscriptionResume("", page, PAGE_SIZE);
+    useGetSubscriptionResume(searchQuery, page, PAGE_SIZE);
 
   const columns = useMemo(
     () => [
@@ -227,6 +231,7 @@ const Resuems = () => {
             data={subscriptionResume?.data || []}
             columns={columns}
             title={t("dashboard.resume.title")}
+            searchPlaceholder={t("search")}
             initialPageSize={10}
             currentPage={currentPage}
             lastPage={lastPage}
@@ -234,6 +239,10 @@ const Resuems = () => {
             pageSize={pageSize}
             setPageSize={setPageSize}
             isLoading={isLoading}
+            searchQuery={searchQuery}
+            onSearchChange={handleSearchChange}
+            searchDebounceMs={700}
+            search={true}
           >
             <TablePagination
               currentPage={page}

@@ -15,8 +15,12 @@ const Communities = () => {
   const { t } = useTranslation();
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(PAGE_SIZE);
+  const [searchQuery, setSearchQuery] = useState("");
+  const handleSearchChange = (value) => {
+    setSearchQuery(value);
+  };
   const { subscriptionCommunity, currentPage, lastPage, isLoading } =
-    useGetSubscriptionCommunity("", page, PAGE_SIZE);
+    useGetSubscriptionCommunity(searchQuery, page, PAGE_SIZE);
 
   const usersSeries = [
     {
@@ -143,8 +147,6 @@ const Communities = () => {
       columnHelper.accessor("is_active", {
         header: t("dashboard.communities.accountStatus"),
         cell: (info) => {
-          console.log("Info data :", info.row.original);
-
           let badgeColor;
           const value = info?.row?.original?.user?.status;
           switch (value) {
@@ -255,6 +257,7 @@ const Communities = () => {
     ],
     [t]
   );
+
   return (
     <section className="mt-5">
       <div className="row">
@@ -280,6 +283,10 @@ const Communities = () => {
             pageSize={pageSize}
             setPageSize={setPageSize}
             isLoading={isLoading}
+            searchQuery={searchQuery}
+            onSearchChange={handleSearchChange}
+            searchDebounceMs={700}
+            search={true}
           >
             <TablePagination
               currentPage={page}

@@ -19,7 +19,6 @@ const UserProfile = () => {
   const activeTab = searchParams.get("tab");
   const { id } = useParams();
   const { userDetails, isLoading } = useGetUserDetails(id);
-  // console.log("userDetails Profile user", id, userDetails);
 
   const tabs = [
     {

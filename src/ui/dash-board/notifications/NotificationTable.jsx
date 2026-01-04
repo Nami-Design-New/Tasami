@@ -75,7 +75,7 @@ const NotificationTable = () => {
         city: notify.city.title || "-",
         is_added: notify.is_added,
       })),
-    [notifications]
+    [notifications, t]
   );
 
   const columns = useMemo(

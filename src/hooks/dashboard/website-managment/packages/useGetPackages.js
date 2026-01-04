@@ -1,18 +1,14 @@
 import { useQuery } from "@tanstack/react-query";
 import { adminAxiosInstance } from "../../../../lib/adminAxios";
-import { useSearchParams } from "react-router";
 
-export default function useGetPackages(page, pageSize) {
-  const [searchParams, setSearchParams] = useSearchParams();
-  const search = searchParams.get("search");
-
+export default function useGetPackages(search, page, pageSize) {
   const {
     data: packages,
     isLoading,
     error,
     refetch,
   } = useQuery({
-    queryKey: ["dh-packages"],
+    queryKey: ["dh-packages", search, page],
     queryFn: async () => {
       const res = await adminAxiosInstance.get("dh-packages", {
         params: { search, page, limit_per_page: pageSize },
