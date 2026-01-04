@@ -108,7 +108,7 @@ export default function DocumentModal({
       reset({
         field: selectedDoc.category_id || "",
         specialization: selectedDoc.sub_category_id || "",
-        documentType: selectedDoc.document_type_id || "",
+        documentType: selectedDoc.document_type || "",
         issuingAuthority: selectedDoc.document_auth || "",
         documentNumber: selectedDoc.document_number || "",
         expiryDate: selectedDoc.end_date || "",

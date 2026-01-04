@@ -109,7 +109,7 @@ const Documents = () => {
       header: t("dashboard.documents.specialization"),
       cell: (info) => info.getValue() || "-",
     }),
-    columnHelper.accessor("document_type_title", {
+    columnHelper.accessor("document_type", {
       header: t("dashboard.documents.type"),
       cell: (info) => info.getValue() || "-",
     }),
