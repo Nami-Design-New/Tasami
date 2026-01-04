@@ -1,32 +1,18 @@
-import { useEffect } from "react";
 import { Autoplay, EffectFade } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 
 export default function Hero({ sliders }) {
-  // useEffect(() => {
-  //   if (sliders?.length > 0) {
-  //     const link = document.createElement("link");
-  //     link.rel = "preload";
-  //     link.as = "image";
-  //     link.href = sliders[0].image;
-  //     link.fetchPriority = "high";
-  //     document.head.appendChild(link);
-  //   }
-  // }, [sliders]);
   return (
     <div className="hero-section">
       <Swiper
         slidesPerView={1}
-        effect="fade"
-        speed={2000}
-        loop
+        // effect="fade"
+        speed={800}
         centeredSlides
         className="hero_slider"
+        loop={true}
+        autoplay={{ delay: 5000, disableOnInteraction: false }}
         modules={[Autoplay, EffectFade]}
-        autoplay={{
-          delay: 4000,
-          disableOnInteraction: false,
-        }}
         observer={false}
         observeParents={false}
         watchOverflow={true}
