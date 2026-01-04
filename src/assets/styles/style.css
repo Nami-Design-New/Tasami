@@ -1958,7 +1958,7 @@ body.en .show-pass {
   padding-left: none !important;
   opacity: 0;
 }
-.request_partener_section .form_ui .social_field input:not(:-moz-placeholder-shown) {
+.request_partener_section .form_ui .social_field input:not(:-moz-placeholder) {
   background-image: none !important;
 }
 .request_partener_section .form_ui .social_field input:not(:placeholder-shown) {
@@ -2014,8 +2014,9 @@ body.en .show-pass {
   gap: 6px;
 }
 .gender_select label {
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 600;
+  margin: 0;
 }
 .gender_select .gender_card {
   display: flex;
@@ -2551,56 +2552,56 @@ body.en .show-pass {
   color: #fff;
 }
 .custom-btn--primary:hover {
-  background-color: #183668;
+  background-color: rgb(23.5977653631, 53.6312849162, 104.4022346369);
 }
 .custom-btn--primary08 {
   background-color: rgba(2, 72, 150, 0.0784313725);
   color: #0d0d0d;
 }
 .custom-btn--primary08:hover {
-  background-color: rgba(1, 48, 100, 0.0784313725);
+  background-color: rgba(1.3289473684, 47.8421052632, 99.6710526316, 0.0784313725);
 }
 .custom-btn--secondary {
   background-color: #8c137e;
   color: #fff;
 }
 .custom-btn--secondary:hover {
-  background-color: #5f0d56;
+  background-color: rgb(95.0943396226, 12.9056603774, 85.5849056604);
 }
 .custom-btn--danger {
   background-color: #ff3a29;
   color: #fff;
 }
 .custom-btn--danger:hover {
-  background-color: #f51300;
+  background-color: rgb(245, 19.4626168224, 0);
 }
 .custom-btn--success {
   background-color: #4ecdc4;
   color: #fff;
 }
 .custom-btn--success:hover {
-  background-color: #33b5ac;
+  background-color: rgb(51.1013215859, 180.8986784141, 171.7004405286);
 }
 .custom-btn--warning {
   background-color: #ffc107;
   color: #0d0d0d;
 }
 .custom-btn--warning:hover {
-  background-color: #d39e00;
+  background-color: rgb(211, 158.25, 0);
 }
 .custom-btn--secondary-website {
   background-color: #5fcafa;
   color: #fff;
 }
 .custom-btn--secondary-website:hover {
-  background-color: #2ebaf8;
+  background-color: rgb(45.5454545455, 185.6181818182, 248.4545454545);
 }
 .custom-btn--fire {
   background-color: #ff7a59;
   color: #fff;
 }
 .custom-btn--fire:hover {
-  background-color: #ff5126;
+  background-color: rgb(255, 81.1385542169, 38);
 }
 .custom-btn--outlined {
   background-color: transparent;
@@ -2706,42 +2707,42 @@ body.en .show-pass {
   color: #fff;
 }
 .custom-link--primary:hover {
-  background-color: #183668;
+  background-color: rgb(23.5977653631, 53.6312849162, 104.4022346369);
 }
 .custom-link--secondary {
   background-color: #8c137e;
   color: #fff;
 }
 .custom-link--secondary:hover {
-  background-color: #5f0d56;
+  background-color: rgb(95.0943396226, 12.9056603774, 85.5849056604);
 }
 .custom-link--danger {
   background-color: #ff3a29;
   color: #fff;
 }
 .custom-link--danger:hover {
-  background-color: #f51300;
+  background-color: rgb(245, 19.4626168224, 0);
 }
 .custom-link--success {
   background-color: #4ecdc4;
   color: #fff;
 }
 .custom-link--success:hover {
-  background-color: #33b5ac;
+  background-color: rgb(51.1013215859, 180.8986784141, 171.7004405286);
 }
 .custom-link--warning {
   background-color: #ffc107;
   color: #0d0d0d;
 }
 .custom-link--warning:hover {
-  background-color: #d39e00;
+  background-color: rgb(211, 158.25, 0);
 }
 .custom-link--secondary-website {
   background-color: #5fcafa;
   color: #fff;
 }
 .custom-link--secondary-website:hover {
-  background-color: #2ebaf8;
+  background-color: rgb(45.5454545455, 185.6181818182, 248.4545454545);
 }
 .custom-link--outlined {
   background-color: transparent;
@@ -8271,7 +8272,7 @@ input[type=file] {
   border-radius: 0 12px 12px 0;
 }
 .goals-help-section .personal-goal:hover {
-  background-color: #2ebaf8;
+  background-color: rgb(45.5454545455, 185.6181818182, 248.4545454545);
 }
 .goals-help-section .offer-help {
   font-weight: 700;
@@ -8279,7 +8280,7 @@ input[type=file] {
   border-radius: 12px 0 0 12px;
 }
 .goals-help-section .offer-help:hover {
-  background-color: #183668;
+  background-color: rgb(23.5977653631, 53.6312849162, 104.4022346369);
 }
 @media (min-width: 768px) {
   .goals-help-section {
@@ -8463,20 +8464,16 @@ input[type=file] {
   padding: 80px 0;
 }
 .why-section .row > div:nth-child(1) .circle-image {
-  -webkit-clip-path: polygon(0 100%, 0 0, 100% 100%);
-          clip-path: polygon(0 100%, 0 0, 100% 100%);
+  clip-path: polygon(0 100%, 0 0, 100% 100%);
 }
 .why-section .row > div:nth-child(2) .circle-image {
-  -webkit-clip-path: polygon(100% 100%, 0 100%, 100% 0);
-          clip-path: polygon(100% 100%, 0 100%, 100% 0);
+  clip-path: polygon(100% 100%, 0 100%, 100% 0);
 }
 .why-section .row > div:nth-child(3) .circle-image {
-  -webkit-clip-path: polygon(0 0, 0 100%, 100% 0);
-          clip-path: polygon(0 0, 0 100%, 100% 0);
+  clip-path: polygon(0 0, 0 100%, 100% 0);
 }
 .why-section .row > div:nth-child(4) .circle-image {
-  -webkit-clip-path: polygon(100% 0, 0 0, 100% 100%);
-          clip-path: polygon(100% 0, 0 0, 100% 100%);
+  clip-path: polygon(100% 0, 0 0, 100% 100%);
 }
 .why-section .row > div:nth-child(2) .item,
 .why-section .row > div:nth-child(4) .item {
@@ -8506,14 +8503,11 @@ input[type=file] {
   flex: 1;
   background-size: cover;
   background-position: center;
-  transition: transform 0.6s ease, -webkit-clip-path 0.6s ease;
   transition: clip-path 0.6s ease, transform 0.6s ease;
-  transition: clip-path 0.6s ease, transform 0.6s ease, -webkit-clip-path 0.6s ease;
   min-height: 200px;
 }
 .why-section .item:hover .circle-image {
-  -webkit-clip-path: circle(100%);
-          clip-path: circle(100%);
+  clip-path: circle(100%);
   transform: scale(1.05);
 }
 @media (max-width: 767px) {
@@ -8522,8 +8516,7 @@ input[type=file] {
   }
   .why-section .item .circle-image {
     min-height: 220px;
-    -webkit-clip-path: none !important;
-            clip-path: none !important;
+    clip-path: none !important;
   }
   .why-section .item .text {
     text-align: center;
@@ -8861,7 +8854,7 @@ input[type=file] {
   transition: color 0.3s;
 }
 .slider-header .view-all:hover {
-  color: #183668;
+  color: rgb(23.5977653631, 53.6312849162, 104.4022346369);
 }
 
 .section-header .page-header {
@@ -9183,16 +9176,16 @@ input[type=file] {
   }
 }
 .steps-section .steps-container .step:hover {
-  background: #afbfee;
+  background: rgb(175.1571428571, 191.3571428571, 237.6428571429);
   box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
   transform: translateY(-8px);
 }
 .steps-section .steps-container .step:hover .icon-wrapper {
-  background: #172c68;
+  background: rgb(22.7142857143, 43.9142857143, 104.4857142857);
   animation: pulse 0.6s ease-in-out;
 }
 .steps-section .steps-container .step:hover h3 {
-  color: #172c68;
+  color: rgb(22.7142857143, 43.9142857143, 104.4857142857);
 }
 @media (max-width: 768px) {
   .steps-section .steps-container {
@@ -9369,7 +9362,7 @@ input[type=file] {
   }
 }
 .contact-page .contact-form-wrapper .options button:hover {
-  background: #2a60bc;
+  background: rgb(42.4022346369, 96.3687150838, 187.5977653631);
   color: #fff;
 }
 .contact-page .contact-form-wrapper .options button.active {
@@ -9408,7 +9401,7 @@ input[type=file] {
   text-decoration: underline;
 }
 .terms .terms-content ul li a:hover {
-  color: #183668;
+  color: rgb(23.5977653631, 53.6312849162, 104.4022346369);
 }
 .terms .terms-content p {
   color: #0d0d0d;
@@ -9447,7 +9440,7 @@ input[type=file] {
   text-decoration: underline;
 }
 .privacy .privacy-content ul li a:hover {
-  color: #183668;
+  color: rgb(23.5977653631, 53.6312849162, 104.4022346369);
 }
 .privacy .privacy-content p {
   color: #0d0d0d;
@@ -11173,7 +11166,7 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
   margin: 0;
 }
 .encounter-modal .info-grid .copy-btn:hover {
-  background: #193a71;
+  background: rgb(25.4782122905, 57.905027933, 112.7217877095);
 }
 .encounter-modal .meta {
   display: flex;
@@ -11341,7 +11334,7 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
   margin-left: 6px;
 }
 .views-section .add-comment-btn:hover {
-  background: #193a71;
+  background: rgb(25.4782122905, 57.905027933, 112.7217877095);
 }
 
 .add-comment-btn {
@@ -11357,7 +11350,7 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
   margin-left: 6px;
 }
 .add-comment-btn:hover {
-  background: #183668;
+  background: rgb(23.5977653631, 53.6312849162, 104.4022346369);
 }
 
 .community-post-details {
@@ -12079,7 +12072,7 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
   transition: 0.3s ease;
 }
 .wallet-page .wallet-balance .btn-charge:hover {
-  background-color: #183668;
+  background-color: rgb(23.5977653631, 53.6312849162, 104.4022346369);
 }
 .wallet-page .wallet-balance .btn-refund {
   background-color: transparent;
@@ -12315,7 +12308,7 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
   height: 24px;
 }
 .profile_section .profile_sidebar .nav_links .nav_link:hover {
-  background-color: rgba(120, 210, 251, 0.1215686275);
+  background-color: rgba(119.7272727273, 210.1909090909, 250.7727272727, 0.1215686275);
 }
 .profile_section .profile_sidebar .nav_links .nav_link.active {
   background-color: #5fcafa;
@@ -12353,7 +12346,7 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
   font-size: 16px;
 }
 .profile_section .profile_sidebar .assistant_btn:hover {
-  background-color: #002b80;
+  background-color: rgb(0, 42.5, 127.5);
 }
 
 .notification-setting .personal-assistant h2 {

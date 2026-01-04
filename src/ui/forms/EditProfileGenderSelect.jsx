@@ -8,7 +8,7 @@ export default function GenderSelect({
   const { t } = useTranslation();
   return (
     <div className="gender_select">
-      <label>الهوية</label>
+      <label className="label">{t("auth.identity")}</label>
       <div>
         <label
           htmlFor="female"
@@ -37,7 +37,7 @@ export default function GenderSelect({
             disabled={disabled}
             checked={value === "male"}
           />
-          <img src="/icons/mal.svg" alt="male" /> {t("male")}
+          <img src="/icons/male-outlined.svg" alt="male" /> {t("male")}
         </label>
       </div>
     </div>
