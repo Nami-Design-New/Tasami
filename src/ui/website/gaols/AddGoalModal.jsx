@@ -12,12 +12,15 @@ import InputField from "../../forms/InputField";
 import SelectField from "../../forms/SelectField";
 import TextField from "../../forms/TextField";
 import { Link } from "react-router";
+import { useState } from "react";
+import ToastSuccessModal from "./ToastSuccessModal";
 
 export default function AddGoalModal({ showModal, setShowModal }) {
   const { t } = useTranslation();
   const queryClient = useQueryClient();
   const { categories, isLoading } = useGetcategories();
   const { helpMechanisms, isLoading: helpLoading } = useGetHelpMechanisms();
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
   const { generateDes, isPending: isGenerating } = useGenerateDes();
   const { addNewGoal, isPending } = useAddGoal();
   const {
@@ -72,7 +75,7 @@ export default function AddGoalModal({ showModal, setShowModal }) {
         });
         queryClient.refetchQueries({ queryKey: ["homeData"] });
         queryClient.refetchQueries({ queryKey: ["my-works"] });
-        toast.success(res?.message);
+        setShowSuccessModal(true);
       },
       onError: (error) => {
         toast.error(error?.message);
@@ -102,243 +105,271 @@ export default function AddGoalModal({ showModal, setShowModal }) {
   };
 
   return (
-    <Modal
-      show={showModal}
-      onHide={() => {
-        setShowModal(false);
-        reset();
-      }}
-      centered
-      size="lg"
-    >
-      <Modal.Header closeButton>
-        <h6>{t("website.platform.myAssistance.addNewGoal")}</h6>
-      </Modal.Header>
-      <Modal.Body>
-        <form className="form_ui" onSubmit={handleSubmit(onSubmit)}>
-          <div className="row">
-            {/* Field */}
-            <div className="col-12 col-md-6 p-2">
-              <SelectField
-                loading={isLoading}
-                label={t("website.platform.cv.field")}
-                {...register("field")}
-                options={categories?.map((category) => ({
-                  value: category?.id,
-                  name: category?.title,
-                }))}
-                error={errors.field?.message}
-              />
-            </div>{" "}
-            {/* Specialization */}
-            <div className="col-12 col-md-6 p-2">
-              <SelectField
-                label={t("website.platform.cv.specialization")}
-                {...register("specialization")}
-                options={subCategories.map((sub) => ({
-                  value: sub.id,
-                  name: sub.title,
-                }))}
-                error={errors.specialization?.message}
-              >
-                <p className="contact-hint">
-                  {t("website.platform.cv.specializationHint1")}
-                  <Link to={"/contact"} className="customer-service-link">
-                    {t("website.platform.cv.specializationHintLink")}
-                  </Link>
-                  <span className="contact-hint">
-                    {t("website.platform.cv.specializationHint2")}
-                  </span>
-                </p>
-              </SelectField>
-            </div>
-            {/* Offer Title */}
-            <div className="col-12 p-2">
-              <TextField
-                label={t("website.platform.myAssistance.goalTitle")}
-                {...register("title")}
-                error={errors.title?.message}
-              />
-              <CustomButton
-                type="button"
-                size="large"
-                onClick={handleGeneratDes}
-                loading={isGenerating}
-                fullWidth
-                className="generate-button"
-                icon={<i className="fa-solid fa-sparkles"></i>}
-                style={{
-                  opacity: !watch("title")?.trim() || isGenerating ? 0.5 : 1,
-                  cursor:
-                    !watch("title")?.trim() || isGenerating
-                      ? "not-allowed"
-                      : "pointer",
-                }}
-                disabled={!watch("title")?.trim() || isGenerating}
-              >
-                {t("generate")}
-              </CustomButton>
-            </div>{" "}
-            <div className="col-12 col-lg-6 p-2">
-              <InputField
-                label={t("website.platform.myAssistance.startDate")}
-                type="date"
-                {...register("startDate")}
-                error={errors?.startDate?.message}
-              />
-            </div>
-            {/* Duration */}
-            <div className="col-12 col-lg-6   p-2">
-              <div
-                className="d-flex align-items-end gap-2"
-                style={{ whiteSpace: "noWrap" }}
-              >
-                <InputField
-                  label={t("website.platform.myAssistance.goalDuration")}
-                  {...register("month")}
-                  icon={"/icons/month.svg"}
+    <>
+      <Modal
+        show={showModal}
+        onHide={() => {
+          setShowModal(false);
+          reset();
+        }}
+        centered
+        size="lg"
+      >
+        <Modal.Header closeButton>
+          <h6>{t("website.platform.myAssistance.addNewGoal")}</h6>
+        </Modal.Header>
+        <Modal.Body>
+          <form className="form_ui" onSubmit={handleSubmit(onSubmit)}>
+            <div className="row">
+              {/* Field */}
+              <div className="col-12 col-md-6 p-2">
+                <SelectField
+                  loading={isLoading}
+                  label={t("website.platform.cv.field")}
+                  {...register("field")}
+                  options={categories?.map((category) => ({
+                    value: category?.id,
+                    name: category?.title,
+                  }))}
+                  error={errors.field?.message}
                 />
-                <InputField {...register("day")} icon={"/icons/day.svg"} />
+              </div>{" "}
+              {/* Specialization */}
+              <div className="col-12 col-md-6 p-2">
+                <SelectField
+                  label={t("website.platform.cv.specialization")}
+                  {...register("specialization")}
+                  options={subCategories.map((sub) => ({
+                    value: sub.id,
+                    name: sub.title,
+                  }))}
+                  error={errors.specialization?.message}
+                >
+                  <p className="contact-hint">
+                    {t("website.platform.cv.specializationHint1")}
+                    <Link to={"/contact"} className="customer-service-link">
+                      {t("website.platform.cv.specializationHintLink")}
+                    </Link>
+                    <span className="contact-hint">
+                      {t("website.platform.cv.specializationHint2")}
+                    </span>
+                  </p>
+                </SelectField>
               </div>
-              <p className="mt-2" style={{ color: "gray" }}>
-                {!isNaN(durationInDays) &&
-                  t("website.platform.myAssistance.totalDuration", {
-                    duration: durationInDays,
-                  })}
-              </p>
-              <p className="error-text d-block">
-                {errors?.month?.message}
-                {errors?.day?.message}
-              </p>
-            </div>{" "}
-            {/* Assistant Option */}
-            <div className="col-12  p-2">
-              <div className="identity-selector">
-                <h6 className="identity-title">
-                  {t("website.platform.myAssistance.addAssistant")}
-                </h6>
-                <div className="d-flex align-items-center gap-0 ">
-                  <div
-                    className="identity-container p-1 "
-                    style={{
-                      backgroundColor: "#0D0D0D05",
-                      borderRadius: "12px",
-                    }}
-                  >
-                    <label
-                      className={`identity-option  ${
-                        selecteAssistnsOption === "defined" ? "active" : ""
-                      }`}
-                      style={{ border: "none" }}
-                    >
-                      <span>{t("website.platform.myAssistance.yes")}</span>
-                      <input
-                        type="radio"
-                        value="defined"
-                        {...register("assistantOption")}
-                      />
-                    </label>
-                    <label
-                      className={`identity-option ${
-                        selecteAssistnsOption === "notDefined" ? "active" : ""
-                      }`}
-                      style={{ border: "none" }}
-                    >
-                      <span>{t("website.platform.myAssistance.no")}</span>
-                      <input
-                        type="radio"
-                        value="notDefined"
-                        {...register("assistantOption")}
-                      />
-                    </label>
-                  </div>
+              {/* Offer Title */}
+              <div className="col-12 p-2">
+                <TextField
+                  label={t("website.platform.myAssistance.goalTitle")}
+                  {...register("title")}
+                  error={errors.title?.message}
+                />
+                <CustomButton
+                  type="button"
+                  size="large"
+                  onClick={handleGeneratDes}
+                  loading={isGenerating}
+                  fullWidth
+                  className="generate-button"
+                  icon={<i className="fa-solid fa-sparkles"></i>}
+                  style={{
+                    opacity: !watch("title")?.trim() || isGenerating ? 0.5 : 1,
+                    cursor:
+                      !watch("title")?.trim() || isGenerating
+                        ? "not-allowed"
+                        : "pointer",
+                  }}
+                  disabled={!watch("title")?.trim() || isGenerating}
+                >
+                  {t("generate")}
+                </CustomButton>
+              </div>{" "}
+              <div className="col-12 col-lg-6 p-2">
+                <InputField
+                  label={t("website.platform.myAssistance.startDate")}
+                  type="date"
+                  {...register("startDate")}
+                  error={errors?.startDate?.message}
+                />
+              </div>
+              {/* Duration */}
+              <div className="col-12 col-lg-6   p-2">
+                <div
+                  className="d-flex align-items-end gap-2"
+                  style={{ whiteSpace: "noWrap" }}
+                >
+                  <InputField
+                    label={t("website.platform.myAssistance.goalDuration")}
+                    {...register("month")}
+                    icon={"/icons/month.svg"}
+                  />
+                  <InputField {...register("day")} icon={"/icons/day.svg"} />
                 </div>
-                <p className="error-text"></p>
-              </div>
-            </div>
-            {/* Gender */}
-            {selecteAssistnsOption === "defined" && (
-              <>
-                <div className="col-12  p-2">
-                  <div className="identity-selector">
-                    <h6 className="identity-title">
-                      {t("website.platform.myAssistance.identity")}
-                    </h6>
-                    <div className="identity-container gap-2">
-                      {["both", "male", "female"].map((g) => (
-                        <label
-                          key={g}
-                          className={`identity-option ${
-                            selectedGender === g ? "active" : ""
-                          }`}
-                        >
-                          {g !== "both" && (
-                            <img
-                              src={`/icons/${g}-outlined.svg`}
-                              alt={t(`auth.${g}`)}
-                            />
-                          )}
-                          <span>{t(`auth.${g}`)}</span>
-                          <input
-                            type="radio"
-                            value={g}
-                            {...register("gender")}
-                          />
-                        </label>
-                      ))}
+                <p className="mt-2" style={{ color: "gray" }}>
+                  {!isNaN(durationInDays) &&
+                    t("website.platform.myAssistance.totalDuration", {
+                      duration: durationInDays,
+                    })}
+                </p>
+                <p className="error-text d-block">
+                  {errors?.month?.message}
+                  {errors?.day?.message}
+                </p>
+              </div>{" "}
+              {/* Assistant Option */}
+              <div className="col-12  p-2">
+                <div className="identity-selector">
+                  <h6 className="identity-title">
+                    {t("website.platform.myAssistance.addAssistant")}
+                  </h6>
+                  <div className="d-flex align-items-center gap-0 ">
+                    <div
+                      className="identity-container p-1 "
+                      style={{
+                        backgroundColor: "#0D0D0D05",
+                        borderRadius: "12px",
+                      }}
+                    >
+                      <label
+                        className={`identity-option  ${
+                          selecteAssistnsOption === "defined" ? "active" : ""
+                        }`}
+                        style={{ border: "none" }}
+                      >
+                        <span>{t("website.platform.myAssistance.yes")}</span>
+                        <input
+                          type="radio"
+                          value="defined"
+                          {...register("assistantOption")}
+                        />
+                      </label>
+                      <label
+                        className={`identity-option ${
+                          selecteAssistnsOption === "notDefined" ? "active" : ""
+                        }`}
+                        style={{ border: "none" }}
+                      >
+                        <span>{t("website.platform.myAssistance.no")}</span>
+                        <input
+                          type="radio"
+                          value="notDefined"
+                          {...register("assistantOption")}
+                        />
+                      </label>
                     </div>
-                    <p className="error-text">{errors.gender?.message}</p>
                   </div>
+                  <p className="error-text"></p>
                 </div>
-                {/* Help Mechanism */}
-                <div className="col-12 p-2">
-                  <div className="identity-selector">
-                    <h6 className="identity-title">
-                      {t("website.platform.myAssistance.helpMechanism")}
-                    </h6>
-                    <div className="identity-container gap-2">
-                      {!helpLoading &&
-                        helpMechanisms.map((option) => (
+              </div>
+              {/* Gender */}
+              {selecteAssistnsOption === "defined" && (
+                <>
+                  <div className="col-12  p-2">
+                    <div className="identity-selector">
+                      <h6 className="identity-title">
+                        {t("website.platform.myAssistance.identity")}
+                      </h6>
+                      <div className="identity-container gap-2">
+                        {["both", "male", "female"].map((g) => (
                           <label
-                            key={option.id}
+                            key={g}
                             className={`identity-option ${
-                              selectedHelpMechanism.includes(String(option.id))
-                                ? "active"
-                                : ""
+                              selectedGender === g ? "active" : ""
                             }`}
                           >
-                            <span>{option.title}</span>
+                            {g !== "both" && (
+                              <img
+                                src={`/icons/${g}-outlined.svg`}
+                                alt={t(`auth.${g}`)}
+                              />
+                            )}
+                            <span>{t(`auth.${g}`)}</span>
                             <input
-                              type="checkbox"
-                              value={option.id}
-                              {...register("helpMechanism")}
+                              type="radio"
+                              value={g}
+                              {...register("gender")}
                             />
                           </label>
                         ))}
+                      </div>
+                      <p className="error-text">{errors.gender?.message}</p>
                     </div>
-                    <p className="error-text">
-                      {errors.helpMechanism?.message}
-                    </p>
                   </div>
-                </div>{" "}
-              </>
-            )}
-          </div>{" "}
-          {/* Buttons */}
-          <div className="col-12 p-2">
-            <div className="buttons">
-              <CustomButton
-                type="submit"
-                loading={isPending}
-                size="large"
-                fullWidth
-              >
-                {t("create")}
-              </CustomButton>
+                  {/* Help Mechanism */}
+                  <div className="col-12 p-2">
+                    <div className="identity-selector">
+                      <h6 className="identity-title">
+                        {t("website.platform.myAssistance.helpMechanism")}
+                      </h6>
+                      <div className="identity-container gap-2">
+                        {!helpLoading &&
+                          helpMechanisms.map((option) => (
+                            <label
+                              key={option.id}
+                              className={`identity-option ${
+                                selectedHelpMechanism.includes(
+                                  String(option.id)
+                                )
+                                  ? "active"
+                                  : ""
+                              }`}
+                            >
+                              <span>{option.title}</span>
+                              <input
+                                type="checkbox"
+                                value={option.id}
+                                {...register("helpMechanism")}
+                              />
+                            </label>
+                          ))}
+                      </div>
+                      <p className="error-text">
+                        {errors.helpMechanism?.message}
+                      </p>
+                    </div>
+                  </div>{" "}
+                </>
+              )}
+            </div>{" "}
+            {/* Buttons */}
+            <div className="col-12 p-2">
+              <div className="buttons">
+                <CustomButton
+                  type="submit"
+                  loading={isPending}
+                  size="large"
+                  fullWidth
+                >
+                  {t("create")}
+                </CustomButton>
+              </div>
             </div>
-          </div>
-        </form>
-      </Modal.Body>
-    </Modal>
+          </form>
+        </Modal.Body>
+      </Modal>
+      <ToastSuccessModal
+        showModal={showSuccessModal}
+        setShowModal={setShowSuccessModal}
+        title={""}
+      >
+        <div className="d-flex align-items-center justify-content-center flex-column gap-3">
+          <img
+            src={"/icons/toasts/success-mark.svg"}
+            width={100}
+            height={100}
+          />
+
+          <h4 className="toast-header">{t("goalSuccesMessage1")}</h4>
+          <p className="toast-message">{t("goalSuccesMessage2")}</p>
+        </div>
+        <div className="w-100 d-flex  justify-content-end py-2 mt-2">
+          <CustomButton
+            color="success"
+            onClick={() => setShowSuccessModal(false)}
+          >
+            {t("ok")}
+          </CustomButton>
+        </div>
+      </ToastSuccessModal>
+    </>
   );
 }

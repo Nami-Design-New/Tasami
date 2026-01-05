@@ -749,6 +749,20 @@ li[data-sonner-toast=""] {
   text-decoration: underline;
 }
 
+.toast-header {
+  font-size: 22px;
+  color: #4ecdc4;
+  font-weight: 700;
+}
+
+.toast-message {
+  font-size: 16px;
+  text-align: center;
+  font-weight: 500;
+  line-height: 1.5;
+  color: #0d0d0d;
+}
+
 .main-header {
   position: sticky;
   top: 0;
