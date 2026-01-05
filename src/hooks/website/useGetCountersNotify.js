@@ -1,7 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
 import { axiosInstance } from "../../lib/axios";
+import { getToken } from "../../utils/token";
 
 export default function useGetCountersNotify() {
+  const token = getToken();
   const { data: counterNotify, isLoading } = useQuery({
     queryKey: ["counters-notify"],
     queryFn: async () => {
@@ -12,6 +14,7 @@ export default function useGetCountersNotify() {
 
       return res.data.data;
     },
+    enabled: !!token,
     // staleTime: Infinity
   });
   return { counterNotify, isLoading };

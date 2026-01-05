@@ -5,15 +5,14 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 import { toast } from "sonner";
 import useAcceptOrRefuseContract from "../../../../hooks/website/contracts/useAcceptOrRefuseContract";
+import useWithdrawOfferHelp from "../../../../hooks/website/contracts/useWithdrawOfferHelp";
 import useGetWorkDetails from "../../../../hooks/website/MyWorks/useGetWorkDetails";
+import Currency from "../../../../ui/Currency";
 import CustomButton from "../../../../ui/CustomButton";
 import Loading from "../../../../ui/loading/Loading";
 import AssistantWorkCard from "../../../../ui/website/my-works/work-offers/AssistantWorkCard";
 import AcceptModal from "../../../../ui/website/platform/contracts/AcceptModal";
 import AlertModal from "../../../../ui/website/platform/my-community/AlertModal";
-import Currency from "../../../../ui/Currency";
-import useWithdrawOfferHelp from "../../../../hooks/website/contracts/useWithdrawOfferHelp";
-import HelperCard from "../../../../ui/cards/HelperCard";
 
 export default function ContractDetails() {
   const { t } = useTranslation();
@@ -251,7 +250,6 @@ export default function ContractDetails() {
             disabled={isPending}
             onClick={() => setShowAlertWithdrawOfferModal(true)}
           >
-            {/* {t("withdraw_offer")} */}
             {t("withdraw_offer")}
           </CustomButton>
         </div>

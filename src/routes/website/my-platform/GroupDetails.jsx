@@ -25,7 +25,7 @@ export default function GroupDetails() {
   const { deleteGroup, isPending: isDeleteingGroup } = useDeleteGroup();
 
   const handleDeleteGroup = (id, members) => {
-    if (members.length == 0) {
+    if (members?.length == 0) {
       deleteGroup(id, {
         onSuccess: (res) => {
           navigate("/my-platform/my-groups");
@@ -131,8 +131,7 @@ export default function GroupDetails() {
           </div>
           <div className="col-12 p-2">
             <h2 className="group-label">
-              {" "}
-              {t("website.platform.groups.groupMembers")}{" "}
+              {t("website.platform.groups.groupMembers")}
             </h2>
             <GroupMembersList members={groupDetails.members} />
           </div>
