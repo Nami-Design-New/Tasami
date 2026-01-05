@@ -2,7 +2,8 @@
   "ok": "Proceed",
   "canNotDelete": "This group can’t be deleted because it has members.",
   "resume": "Resume",
-  "goalSuccesMessage": "The goal has been created successfully. You can start setting up the plan to implement it from the My Tasks page > Pending Execution.",
+  "goalSuccesMessage1": "The goal has been created successfully.",
+  "goalSuccesMessage2": "You can start setting up the plan to implement it from the My Tasks page > Pending Execution.",
   "consultaionDeleteAlert": "The consultation will be permanently deleted.",
   "notifyUsers": "المستخدمون",
   "tasksStatus": {
