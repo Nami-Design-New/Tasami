@@ -1,27 +1,28 @@
+import { useQueryClient } from "@tanstack/react-query";
 import { useEffect, useRef, useState } from "react";
 import { Form } from "react-bootstrap";
+import { Controller } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router";
+import { toast } from "sonner";
 import useGetCities from "../../hooks/countries/useGetCities";
 import useGetCountries from "../../hooks/countries/useGetCountries";
 import useGetNationalities from "../../hooks/countries/useGetNationalities";
+import useDeleteAccount from "../../hooks/website/profile/useDeleteAccount";
 import useEditProfile from "../../hooks/website/profile/useEditProfile";
 import { clearAuth, setUser } from "../../redux/slices/authRole";
 import CustomButton from "../../ui/CustomButton";
+import CustomPhoneInput from "../../ui/forms/CustomPhoneInput";
 import DatePicker from "../../ui/forms/DatePicker";
 import GenderSelect from "../../ui/forms/EditProfileGenderSelect";
 import InputField from "../../ui/forms/InputField";
-import PhoneField from "../../ui/forms/PhoneField";
-import SelectField from "../../ui/forms/SelectField";
-import useProfileValidation from "../../validations/my-profile/my-profile-validation";
-import { Controller } from "react-hook-form";
 import PasswordField from "../../ui/forms/PasswordField";
+import SelectField from "../../ui/forms/SelectField";
 import AlertModal from "../../ui/website/platform/my-community/AlertModal";
+import OtpModal from "../../ui/website/profile/OtpModal";
 import { removeToken } from "../../utils/token";
-import { useQueryClient } from "@tanstack/react-query";
-import useDeleteAccount from "../../hooks/website/profile/useDeleteAccount";
-import { toast } from "sonner";
-import { useNavigate } from "react-router";
+import useProfileValidation from "../../validations/my-profile/my-profile-validation";
 import DeleteAccountModal from "./DeleteAccountModal";
 
 export default function EditProfile() {
@@ -31,7 +32,7 @@ export default function EditProfile() {
   const { editProfile, isEditingProfile } = useEditProfile();
   const [showAlertModal, setShowAlertModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
-
+  const [showOtpModal, setShowOtpModal] = useState(false);
   const inputFileRef = useRef();
   const { t } = useTranslation();
   const queryClient = useQueryClient();
@@ -42,13 +43,17 @@ export default function EditProfile() {
     reset,
     setValue,
     control,
+    getValues,
     formState: { errors },
   } = useProfileValidation();
+  const { data: countries, fetchNextPage, hasNextPage } = useGetCountries();
 
   const profilePicture = watch("profilePicture");
   const wantChangePassword = watch("wantChangePassword");
   const gender = watch("gender");
   const countryId = watch("country");
+  const phone = watch("phone");
+  const phoneCode = watch("code");
 
   const { data, isLoading: isCountriesLoading } = useGetCountries({
     search: "",
@@ -72,12 +77,27 @@ export default function EditProfile() {
     inputFileRef.current.click();
   };
 
+  const isFirstNameDisabled = !!user?.first_name;
+  const isDateDisabled = !!user?.birthdate;
+  const isGenderDisabled = !!user?.gender;
+  const isPhoneDisabled = !!user?.phone && !!user?.phone_code;
+
   const onSubmit = (data) => {
     const formData = new FormData();
 
-    // Required fields
-    // formData.append("phone", data.phone);
-    // formData.append("phone_code", "+966");
+    formData.append(
+      "first_name",
+      isFirstNameDisabled ? user.first_name : data.firstName
+    );
+    formData.append("last_name", data.lastName);
+    formData.append("birthdate", isDateDisabled ? user.birthdate : data.date);
+    formData.append("gender", isGenderDisabled ? user.gender : data.gender);
+
+    formData.append("phone", isPhoneDisabled ? user.phone : data.phone);
+    formData.append(
+      "phone_code",
+      isPhoneDisabled ? user.phone_code : data.code
+    );
     formData.append("first_name", data.firstName);
     formData.append("last_name", data.lastName);
     formData.append("email", data.email);
@@ -104,7 +124,7 @@ export default function EditProfile() {
       },
       onError: (err) => {
         console.error("Failed to update profile:", err.message);
-        toast.success(err.message);
+        toast.error(err.message);
       },
     });
   };
@@ -120,9 +140,7 @@ export default function EditProfile() {
         queryClient.clear();
         queryClient.invalidateQueries();
         queryClient.removeQueries();
-
         navigate("/login");
-
         toast.success(res.message);
       },
       onError: (err) => {
@@ -199,7 +217,7 @@ export default function EditProfile() {
             <InputField
               label={t("profile.firstName")}
               id="firstName"
-              disabled
+              disabled={isFirstNameDisabled ? true : false}
               {...register("firstName", {
                 required: t("validation.required"),
               })}
@@ -222,7 +240,7 @@ export default function EditProfile() {
             <DatePicker
               label={t("profile.date")}
               id="date"
-              disabled
+              disabled={isDateDisabled ? true : false}
               {...register("date", {
                 required: t("validation.required"),
               })}
@@ -234,7 +252,7 @@ export default function EditProfile() {
             <GenderSelect
               value={gender}
               onChange={(val) => setValue("gender", val)}
-              disabled
+              disabled={isGenderDisabled ? true : false}
             />
           </div>
 
@@ -301,15 +319,53 @@ export default function EditProfile() {
           </div>
 
           <div className="col-12 col-lg-6 p-2">
-            <PhoneField
+            {/* <PhoneField
               label={t("profile.phone")}
               id="phone"
               type="phone"
               country="eg"
-              disabled
+              // disabled={
+              //   user?.phone_code === " " || user?.phone === " " ? true : false
+              // }
               value={user?.phone_code + watch("phone")}
               {...register("phone")}
               error={errors.phone?.message}
+            /> */}
+            <label className="label d-flex justify-content-between align-items-center">
+              {t("profile.phone")}{" "}
+              <button
+                onClick={() => setShowOtpModal(true)}
+                className="link-styles"
+                style={{ fontSize: "12px", color: "#5fcafa" }}
+              >
+                {" "}
+                {t("verify")}
+              </button>{" "}
+            </label>
+            <Controller
+              name="fullPhone"
+              control={control}
+              render={({ field }) => (
+                <CustomPhoneInput
+                  countries={countries || []}
+                  onScrollEnd={() => {
+                    fetchNextPage();
+                  }}
+                  value={{
+                    phone: getValues("phone"),
+                    code: getValues("code"),
+                    fullPhone: getValues("fullPhone"),
+                  }}
+                  onChange={(val) => {
+                    setValue("phone", val.phone);
+                    setValue("code", val.code);
+                    setValue("fullPhone", val.fullPhone);
+                  }}
+                  error={errors.phone?.message || errors.code?.message}
+                  t={t}
+                  disabled={isPhoneDisabled ? true : false}
+                />
+              )}
             />
           </div>
 
@@ -416,6 +472,7 @@ export default function EditProfile() {
       >
         {t("profile.deleteAlertMessage")}
       </AlertModal>
+      <OtpModal show={showOtpModal} setShowModal={setShowOtpModal} phone={phone} phoneCode={phoneCode}  />
     </div>
   );
 }
