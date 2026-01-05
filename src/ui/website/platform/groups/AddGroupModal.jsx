@@ -10,6 +10,7 @@ import { toast } from "sonner";
 import useAddGroup from "../../../../hooks/website/my-groups/useAddGroup";
 import { useEffect } from "react";
 import useEditGroup from "../../../../hooks/website/my-groups/useEditGroup";
+import { Link } from "react-router";
 
 export default function AddGroupModal({
   showModal,
@@ -36,41 +37,6 @@ export default function AddGroupModal({
   const subCategories =
     categories?.find((cat) => String(cat.id) === String(selectedFieldId))
       ?.sub_categories || [];
-
-  // const onSubmit = async (data) => {
-  //   const payload = {
-  //     category_id: data.field,
-  //     sub_category_id: data.specialization,
-  //     title: data.groupName,
-  //     desc: data.description,
-  //   };
-  //   if (group) {
-  //     editGroup(
-  //       { id: group.id, payload },
-  //       {
-  //         onSuccess: (res) => {
-  //           setShowModal(false);
-  //           queryClient.invalidateQueries(["group-details"]);
-  //           reset();
-  //           toast.success(res.message);
-  //         },
-  //         onError: (err) => toast.error(err.message),
-  //       }
-  //     );
-  //   } else {
-  //     addGroup(payload, {
-  //       onSuccess: (res) => {
-  //         setShowModal(false);
-  //         queryClient.invalidateQueries(["my-groups"]);
-  //         reset();
-  //         toast.success(res.message);
-  //       },
-  //       onError: (err) => {
-  //         toast.error(err.message);
-  //       },
-  //     });
-  //   }
-  // };
 
   const onSubmit = async (data) => {
     if (group) {
@@ -185,8 +151,19 @@ export default function AddGroupModal({
                   name: sub.title,
                 }))}
                 error={errors.specialization?.message}
-                hint={t("website.platform.cv.specializationHint")}
-              />
+                // hint={t("website.platform.cv.specializationHint")}
+              >
+                {" "}
+                <p className="contact-hint">
+                  {t("website.platform.cv.specializationHint1")}
+                  <Link to={"/contact"} className="customer-service-link">
+                    {t("website.platform.cv.specializationHintLink")}
+                  </Link>
+                  <span className="contact-hint">
+                    {t("website.platform.cv.specializationHint2")}
+                  </span>
+                </p>
+              </SelectField>
             </div>
             <div className="col-12 col-md-6 p-2">
               <InputField

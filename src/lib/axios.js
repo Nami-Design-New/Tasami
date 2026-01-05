@@ -1,5 +1,6 @@
 import axios from "axios";
-import { getToken } from "../utils/token";
+import { getToken, removeToken } from "../utils/token";
+import { toast } from "sonner";
 
 export const axiosInstance = axios.create({
   baseURL: import.meta.env.VITE_API_URL,
@@ -27,11 +28,11 @@ axiosInstance.interceptors.response.use(
     const status = error.response?.status;
 
     switch (status) {
-      // case 401:
-      //   removeToken();
-      //   toast.error("you Should login");
-      //   window.location.href = "/login";
-      //   break;
+      case 401:
+        removeToken();
+        toast.error("you Should login");
+        window.location.href = "/login";
+        break;
 
       case 403:
         window.location.href = "/forbidden";

@@ -111,7 +111,7 @@ export default function Header() {
           {isAuthed && (
             <Link to="/notifications" className="notification-btn me-1">
               <i className="fa-regular fa-bell">
-                {settings?.notification_count >= 0 && (
+                {settings?.notification_count > 0 && (
                   <Badge>
                     {settings?.notification_count > 99
                       ? "99+"

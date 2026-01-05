@@ -13,6 +13,7 @@ import SelectField from "../../forms/SelectField";
 import useGenerateDes from "../../../hooks/website/my-assistances/useGenerateDes";
 import TextField from "../../forms/TextField";
 import useEditAssistance from "../../../hooks/website/my-assistances/useEditAssistance";
+import { Link } from "react-router";
 
 export default function AddAssistanceModal({
   showModal,
@@ -242,8 +243,17 @@ export default function AddAssistanceModal({
                   name: sub.title,
                 }))}
                 error={errors.specialization?.message}
-                hint={t("website.platform.cv.specializationHint")}
-              />
+              >
+                <p className="contact-hint">
+                  {t("website.platform.cv.specializationHint1")}
+                  <Link to={"/contact"} className="customer-service-link">
+                    {t("website.platform.cv.specializationHintLink")}
+                  </Link>
+                  <span className="contact-hint">
+                    {t("website.platform.cv.specializationHint2")}
+                  </span>
+                </p>
+              </SelectField>
             </div>
             {/* Offer Title */}
             <div className="col-12 p-2">
@@ -437,7 +447,7 @@ export default function AddAssistanceModal({
                   size="large"
                   fullWidth
                 >
-                  {isEdit ? t("edit") : t("create")}
+                  {isEdit ? t("edit") : t("add")}
                 </CustomButton>
               </div>
             </div>

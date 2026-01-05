@@ -1,3 +1,4 @@
+import { useQueryClient } from "@tanstack/react-query";
 import { Modal } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
 import { toast } from "sonner";
@@ -10,8 +11,7 @@ import CustomButton from "../../CustomButton";
 import InputField from "../../forms/InputField";
 import SelectField from "../../forms/SelectField";
 import TextField from "../../forms/TextField";
-import { useQueryClient } from "@tanstack/react-query";
-import { color } from "framer-motion";
+import { Link } from "react-router";
 
 export default function AddGoalModal({ showModal, setShowModal }) {
   const { t } = useTranslation();
@@ -140,8 +140,17 @@ export default function AddGoalModal({ showModal, setShowModal }) {
                   name: sub.title,
                 }))}
                 error={errors.specialization?.message}
-                hint={t("website.platform.cv.specializationHint")}
-              />
+              >
+                <p className="contact-hint">
+                  {t("website.platform.cv.specializationHint1")}
+                  <Link to={"/contact"} className="customer-service-link">
+                    {t("website.platform.cv.specializationHintLink")}
+                  </Link>
+                  <span className="contact-hint">
+                    {t("website.platform.cv.specializationHint2")}
+                  </span>
+                </p>
+              </SelectField>
             </div>
             {/* Offer Title */}
             <div className="col-12 p-2">

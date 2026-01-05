@@ -1,8 +1,16 @@
+import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
 import { Link } from "react-router";
+import CustomButton from "../CustomButton";
+import CustomLink from "../CustomLink";
 
-export default function HelperCard({ helper, canNavigate = true }) {
+export default function HelperCard({
+  helper,
+  toResume = false,
+  canNavigate = true,
+}) {
   const { lang } = useSelector((state) => state.language);
+  const { t } = useTranslation();
   return (
     <>
       {canNavigate ? (
@@ -45,6 +53,11 @@ export default function HelperCard({ helper, canNavigate = true }) {
                   />
                   <span>{helper.country.title}</span>
                 </span>
+              )}{" "}
+              {toResume && (
+                <CustomLink to={`/helper/${helper.id}`} size="small">
+                  {t("resume")}
+                </CustomLink>
               )}
             </footer>
           </section>
@@ -86,6 +99,11 @@ export default function HelperCard({ helper, canNavigate = true }) {
                   />
                   <span>{helper.country.title}</span>
                 </span>
+              )}
+              {toResume && (
+                <CustomLink size="small" to={`/helper/${helper.id}`}>
+                  {t("resume")}
+                </CustomLink>
               )}
             </footer>
           </section>

@@ -769,7 +769,7 @@ body.en {
 }
 .hint {
   font-size: 0.8rem;
-  color: $clientYellow;
+  color: $clientYellow !important;
   margin-inline-start: 4px;
   font-weight: 500;
 }

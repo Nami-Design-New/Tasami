@@ -68,40 +68,33 @@ export default function Profile() {
               <UserCard user={user} />
               <div className="nav_links">
                 <NavLink to="" end className="nav_link">
-                  <i className="fa-regular fa-user"></i>
+                  <img src="/icons/my-profile/my-account.svg" />
                   {t("profile.myInfo")}
                 </NavLink>
-
-                <NavLink to="my-notifications" className="nav_link">
-                  <i className="fa-regular fa-bell"></i>
-                  {t("profile.notificationsSys")}
-                </NavLink>
-
                 <NavLink to="my-wallet" className="nav_link">
-                  <i className="fa-regular fa-wallet"></i>
+                  <img src="/icons/my-profile/my-wallet.svg" />
                   {t("profile.wallet")}
-                </NavLink>
-
+                </NavLink>{" "}
                 <NavLink to="Interests" className="nav_link">
-                  <i className="fa-regular fa-clipboard-list"></i>
+                  <img src="/icons/my-profile/my-interests.svg" />
                   {t("profile.interests")}
                 </NavLink>
-
                 <NavLink to="savings" className="nav_link">
-                  <i className="fa-regular fa-bookmark"></i>
+                  <img src="/icons/my-profile/bookmark.svg" />
                   {t("profile.savings")}
                 </NavLink>
-
                 <NavLink to="my-communities" className="nav_link">
-                  <i className="fa-regular fa-users"></i>
+                  <img src="/icons/my-profile/communities.svg" />
                   {t("profile.community")}
                 </NavLink>
-
                 <NavLink to="followings" className="nav_link">
-                  <i className="fa-regular fa-heart"></i>
+                  <img src="/icons/my-profile/followers.svg" />
                   {t("profile.followers")}
+                </NavLink>{" "}
+                <NavLink to="my-notifications" className="nav_link">
+                  <img src="/icons/my-profile/sys-notification.svg" />
+                  {t("profile.notificationsSys")}
                 </NavLink>
-
                 <CustomButton
                   size="large"
                   color="fire"

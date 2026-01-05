@@ -203,11 +203,13 @@ $color-fire: #ff7a59;
   &--small {
     font-size: 0.75rem;
     padding: 0.35rem 0.8rem;
+    border-radius: $borderRadius * 0.5;
   }
 
   &--medium {
     font-size: 0.875rem;
     padding: 0.5rem 1.25rem;
+    border-radius: $borderRadius * 0.75;
   }
 
   &--large {

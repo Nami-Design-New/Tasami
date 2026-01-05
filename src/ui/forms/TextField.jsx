@@ -2,8 +2,6 @@ import React from "react";
 import { Form } from "react-bootstrap";
 
 const TextField = React.forwardRef(({ label, error, hint, ...props }, ref) => {
-  console.log(hint);
-
   return (
     <div className="input-field">
       {label && (

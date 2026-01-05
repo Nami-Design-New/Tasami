@@ -1,4 +1,6 @@
 {
+  "resume": "Resume",
+  "goalSuccesMessage": "The goal has been created successfully. You can start setting up the plan to implement it from the My Tasks page > Pending Execution.",
   "consultaionDeleteAlert": "The consultation will be permanently deleted.",
   "notifyUsers": "المستخدمون",
   "tasksStatus": {

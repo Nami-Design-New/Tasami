@@ -63,7 +63,11 @@ export default function WorkOfferDetails({ showModal, setShowModal, offerId }) {
           ) : (
             <div className="row">
               <div className="col-12 p-2">
-                <HelperCard helper={workOfferDetails?.helper} />
+                <HelperCard
+                  helper={workOfferDetails?.helper}
+                  canNavigate={false}
+                  toResume={true}
+                />
               </div>
 
               <div className="info-grid">

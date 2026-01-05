@@ -739,6 +739,16 @@ li[data-sonner-toast=""] {
     transform: translateX(0) scale(0); /* shrink, disappear, restart at left */
   }
 }
+.contact-hint {
+  font-size: 12px;
+  color: rgba(13, 13, 13, 0.5607843137);
+}
+
+.customer-service-link {
+  color: #214b92;
+  text-decoration: underline;
+}
+
 .main-header {
   position: sticky;
   top: 0;
@@ -2002,7 +2012,7 @@ body.en .show-pass {
 
 .hint {
   font-size: 0.8rem;
-  color: #fdcb2f;
+  color: #fdcb2f !important;
   margin-inline-start: 4px;
   font-weight: 500;
 }
@@ -2682,10 +2692,12 @@ body.en .show-pass {
 .custom-link--small {
   font-size: 0.75rem;
   padding: 0.35rem 0.8rem;
+  border-radius: 6px;
 }
 .custom-link--medium {
   font-size: 0.875rem;
   padding: 0.5rem 1.25rem;
+  border-radius: 9px;
 }
 .custom-link--large {
   font-size: 1rem;

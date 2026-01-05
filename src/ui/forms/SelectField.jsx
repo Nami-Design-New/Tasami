@@ -13,6 +13,7 @@ const SelectField = React.forwardRef(
       disableFiledValue,
       loading = false,
       disabled = false,
+      children,
       ...props
     },
     ref
@@ -48,6 +49,7 @@ const SelectField = React.forwardRef(
         </Form.Select>
 
         {hint && <span className="hint">{hint}</span>}
+        {children}
         {error && (
           <Form.Control.Feedback type="invalid">{error}</Form.Control.Feedback>
         )}
