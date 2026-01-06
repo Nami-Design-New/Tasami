@@ -24,6 +24,7 @@ import OtpModal from "../../ui/website/profile/OtpModal";
 import { removeToken } from "../../utils/token";
 import useProfileValidation from "../../validations/my-profile/my-profile-validation";
 import DeleteAccountModal from "./DeleteAccountModal";
+import usePhoneRegister from "../../hooks/auth/useSendOtpCode";
 
 export default function EditProfile() {
   const { user } = useSelector((state) => state.authRole);
@@ -46,6 +47,7 @@ export default function EditProfile() {
     getValues,
     formState: { errors },
   } = useProfileValidation();
+  const { sendCode, isPending } = usePhoneRegister();
   const { data: countries, fetchNextPage, hasNextPage } = useGetCountries();
 
   const profilePicture = watch("profilePicture");
@@ -151,6 +153,9 @@ export default function EditProfile() {
 
   useEffect(() => {
     if (user) {
+      const phone = user.phone || "";
+      const code = user.phone_code || "";
+
       reset({
         profilePicture: user.image,
         firstName: user.first_name,
@@ -160,7 +165,9 @@ export default function EditProfile() {
         nationality: String(user?.nationality?.id) || "",
         country: String(user?.country_id) || "",
         city: String(user?.city?.id) || "",
-        phone: user.phone,
+        phone,
+        code,
+        fullPhone: `${code}${phone}`,
         email: user.email,
         wantChangePassword: false,
         oldPassword: "",
@@ -169,6 +176,21 @@ export default function EditProfile() {
       });
     }
   }, [user, reset]);
+
+  const handleSend = () => {
+    sendCode(
+      { phone, code: phoneCode, type: "update_profile" },
+      {
+        onSuccess: (data) => {
+          toast.success(data.message);
+          setShowOtpModal(true);
+        },
+        onError: (error) => {
+          toast.error(error.message);
+        },
+      }
+    );
+  };
 
   return (
     <div className="edit-profile-page">
@@ -319,28 +341,19 @@ export default function EditProfile() {
           </div>
 
           <div className="col-12 col-lg-6 p-2">
-            {/* <PhoneField
-              label={t("profile.phone")}
-              id="phone"
-              type="phone"
-              country="eg"
-              // disabled={
-              //   user?.phone_code === " " || user?.phone === " " ? true : false
-              // }
-              value={user?.phone_code + watch("phone")}
-              {...register("phone")}
-              error={errors.phone?.message}
-            /> */}
             <label className="label d-flex justify-content-between align-items-center">
-              {t("profile.phone")}{" "}
-              <button
-                onClick={() => setShowOtpModal(true)}
-                className="link-styles"
-                style={{ fontSize: "12px", color: "#5fcafa" }}
-              >
-                {" "}
-                {t("verify")}
-              </button>{" "}
+              {t("profile.phone")}
+              {!isPhoneDisabled && (
+                <button
+                  type="button"
+                  onClick={handleSend}
+                  className="link-styles"
+                  style={{ fontSize: "12px", color: "#5fcafa" }}
+                >
+                  {" "}
+                  {t("verify")}
+                </button>
+              )}
             </label>
             <Controller
               name="fullPhone"
@@ -472,7 +485,12 @@ export default function EditProfile() {
       >
         {t("profile.deleteAlertMessage")}
       </AlertModal>
-      <OtpModal show={showOtpModal} setShowModal={setShowOtpModal} phone={phone} phoneCode={phoneCode}  />
+      <OtpModal
+        show={showOtpModal}
+        setShowModal={setShowOtpModal}
+        phone={phone}
+        phoneCode={phoneCode}
+      />
     </div>
   );
 }

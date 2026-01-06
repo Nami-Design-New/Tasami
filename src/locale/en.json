@@ -1,4 +1,5 @@
 {
+  "otpTitle": "OTP Verification",
   "verify": "Verify Phone Number",
   "ok": "Proceed",
   "canNotDelete": "This group can’t be deleted because it has members.",

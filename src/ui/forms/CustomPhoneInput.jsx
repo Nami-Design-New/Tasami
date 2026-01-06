@@ -18,10 +18,26 @@ const CustomPhoneInput = ({
 
   // Update local country if countries change
   useEffect(() => {
-    if (!selectedCountry && countries?.length > 0) {
+    if (!countries?.length) return;
+
+    // Edit mode
+    if (value?.code) {
+      const foundCountry = countries.find((c) => c.phone_code === value.code);
+
+      if (foundCountry) {
+        setSelectedCountry(foundCountry);
+      }
+    }
+    //  Create mode:  →
+    else {
       setSelectedCountry(countries[0]);
     }
-  }, [countries, selectedCountry]);
+
+    // sync phone
+    if (value?.phone !== undefined) {
+      setPhone(value.phone);
+    }
+  }, [value, countries]);
 
   const handleCountrySelect = (country) => {
     setSelectedCountry(country);

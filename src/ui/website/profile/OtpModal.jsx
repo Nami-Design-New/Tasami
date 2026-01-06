@@ -41,6 +41,7 @@ export default function OtpModal({ show, setShowModal, phone, phoneCode }) {
       {
         onSuccess: (data) => {
           toast.success(data.message);
+          setShowModal(false);
         },
         onError: (err) => {
           toast.error(err.message);
@@ -74,7 +75,7 @@ export default function OtpModal({ show, setShowModal, phone, phoneCode }) {
   return (
     <Modal show={show} onHide={() => setShowModal(false)} size="md" centered>
       <Modal.Header closeButton>
-        <h6>OTP Verification</h6>
+        <h6>{t("otpTitle")}</h6>
       </Modal.Header>
       <Modal.Body>
         <form onSubmit={handleSubmit(onSubmit)} className="reset-form">
