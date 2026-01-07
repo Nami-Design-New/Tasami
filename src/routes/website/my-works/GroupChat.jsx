@@ -70,7 +70,7 @@ export default function GroupChat() {
     useGetGroupChats();
   const allChats = chats?.pages?.flatMap((page) => page?.data).reverse() ?? [];
 
-  const { sendMessage } = useSendGroupMessage();
+  const { sendMessage, isPending } = useSendGroupMessage();
 
   //   const messagesEndRef = useRef(null);
   const chatContainerRef = useRef(null);
@@ -382,6 +382,7 @@ export default function GroupChat() {
                     sender={chat?.sender}
                     filePath={chat?.file_path}
                     type={chat?.type}
+                    isUploading={isPending}
                     avatar={
                       chat.sender.id === user.id
                         ? user?.image
@@ -466,29 +467,19 @@ export default function GroupChat() {
                 <i className="fa-solid fa-paperclip"></i>
               </label>
               <input
-                autoComplete="off"
                 id="fileInput"
                 type="file"
-                accept="image/*,video/*"
                 hidden
                 {...register("file")}
                 onChange={(e) => {
                   const file = e.target.files[0];
-
                   if (!file) return;
-                  //  validate type (safety check)
-                  const isImage = file.type.startsWith("image/");
-                  const isVideo = file.type.startsWith("video/");
 
-                  if (isImage || isVideo) {
-                    setValue("message", "");
-                    setAudioBlob(null);
-                    cancelRecording();
-                    setSelectedFile(file);
-                    setValue("file", file);
-                  } else {
-                    e.target.value = "";
-                  }
+                  setValue("message", "");
+                  setAudioBlob(null);
+                  cancelRecording();
+                  setSelectedFile(file);
+                  setValue("file", file);
                 }}
               />
               <button
