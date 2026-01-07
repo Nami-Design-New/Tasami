@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 export default function GenderSelect({
   value,
   onChange,
+  error,
   disabled = ({ disabled } = false),
 }) {
   const { t } = useTranslation();
@@ -40,6 +41,7 @@ export default function GenderSelect({
           <img src="/icons/male-outlined.svg" alt="male" /> {t("male")}
         </label>
       </div>
+      {error && <p className="error-text">{error} </p>}
     </div>
   );
 }

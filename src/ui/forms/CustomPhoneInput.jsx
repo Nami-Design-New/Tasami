@@ -1,6 +1,7 @@
 // export default CustomPhoneInput;
 import { useState, useEffect, useRef } from "react";
 import { Dropdown, Spinner } from "react-bootstrap";
+import { useTranslation } from "react-i18next";
 
 const CustomPhoneInput = ({
   countries,
@@ -8,9 +9,10 @@ const CustomPhoneInput = ({
   value,
   onChange,
   error,
-  t,
+
   disabled = false,
 }) => {
+  const { t } = useTranslation();
   const defaultCountry = countries?.[0];
   const [selectedCountry, setSelectedCountry] = useState(defaultCountry);
   const [phone, setPhone] = useState("");

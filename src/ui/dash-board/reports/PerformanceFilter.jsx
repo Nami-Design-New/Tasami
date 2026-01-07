@@ -139,7 +139,7 @@ const PerformanceFilter = ({ searchType }) => {
     // setSearchParams(params);
   };
 
-  //send all 
+  //send all
   const onSubmitCustomReport = (formData) => {
     const allFormData = {
       region: methods.getValues("region"),
@@ -198,9 +198,8 @@ const PerformanceFilter = ({ searchType }) => {
                 ...baseStyles,
                 backgroundColor: "#0d0d0d05",
                 borderRadius: "0px",
-                border:"none"
+                border: "none",
               }),
-             
             }}
             {...field}
             label={t(labelKey)}
@@ -228,10 +227,10 @@ const PerformanceFilter = ({ searchType }) => {
       control,
       errors,
       t,
-      fetchRegionsNextPage,
-      fetchCountriesNextPage,
-      fetchCitiesNextPage,
-    ] 
+      // fetchRegionsNextPage,
+      // fetchCountriesNextPage,
+      // fetchCitiesNextPage,
+    ]
   );
 
   return (
@@ -284,7 +283,7 @@ const PerformanceFilter = ({ searchType }) => {
                   />
                 </div>
 
-                {showSubDataCheckbox && (
+                {/* {showSubDataCheckbox && (
                   <div className="col-12">
                     <Form.Check
                       type="switch"
@@ -294,7 +293,7 @@ const PerformanceFilter = ({ searchType }) => {
                       style={{ width: "100%" }}
                     />
                   </div>
-                )}
+                )} */}
               </div>
 
               <div className="d-flex p-2 justify-content-end align-items-end mt-3 ">

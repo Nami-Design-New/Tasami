@@ -56,8 +56,7 @@ export default function OtpModal({ show, setShowModal, phone, phoneCode }) {
         {
           phone,
           code: phoneCode,
-          type:
-            location.pathname === "/register" ? "register" : "reset_password",
+          type: "update_profile",
         },
         {
           onSuccess: (data) => {
