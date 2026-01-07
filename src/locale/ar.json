@@ -1123,7 +1123,8 @@
         "goalDuration": "المدة المتوقعة لتحقيق الهدف",
         "goalTitle": "وصف الهدف",
         "addNewGoal": "إنشاء هدف شخصي جديد",
-        "helpMechanism": "آليات المساعدة المناسبة"
+        "helpMechanism": "آليات المساعدة المناسبة",
+        "subTitle": "يمكنك اختيار أكثر من آلية"
       },
       "activeContracts": "العقود النشطة",
       "activeGroups": "المجموعات النشطة",

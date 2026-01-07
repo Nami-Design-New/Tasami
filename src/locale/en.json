@@ -1114,7 +1114,8 @@
         "offerImage": "Offer Image",
         "totalDuration": "Total Duration {{duration}} (in days)",
         "yes": "Yes",
-        "no": "No"
+        "no": "No",
+        "subTitle": "You can choose more than one method."
       },
       "activeContracts": "Active Contracts",
       "activeGroups": "Active Groups",

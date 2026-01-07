@@ -501,6 +501,13 @@ li[data-sonner-toast=""] {
   max-height: 200px !important;
 }
 
+.input-label-hint {
+  font-size: 12px;
+  color: rgba(13, 13, 13, 0.5607843137);
+  margin-top: 4px;
+  font-weight: 400;
+}
+
 .info-box-grow-min-width {
   flex: 1;
   min-width: 150px;
@@ -3330,7 +3337,7 @@ body.en .show-pass {
   overflow-y: auto;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   padding: 3rem;
   gap: 16px;

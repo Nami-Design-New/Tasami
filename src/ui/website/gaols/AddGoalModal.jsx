@@ -297,8 +297,11 @@ export default function AddGoalModal({ showModal, setShowModal }) {
                   {/* Help Mechanism */}
                   <div className="col-12 p-2">
                     <div className="identity-selector">
-                      <h6 className="identity-title">
+                      <h6 className="identity-title ">
                         {t("website.platform.myAssistance.helpMechanism")}
+                        <span className="d-block input-label-hint">
+                          {t("website.platform.myAssistance.subTitle")}
+                        </span>
                       </h6>
                       <div className="identity-container gap-2">
                         {!helpLoading &&
