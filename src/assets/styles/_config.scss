@@ -510,3 +510,8 @@ li[data-sonner-toast=""] {
   margin-top: 4px;
   font-weight: 400;
 }
+
+input::-ms-reveal,
+input::-ms-clear {
+  display: none;
+}

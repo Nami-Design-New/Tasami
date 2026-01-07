@@ -105,6 +105,7 @@ export default function PersonalOffersSidebarFilter() {
     reset({
       search: "",
       city: "",
+      country: "",
       nationality: "",
       field: "",
       specialization: "",

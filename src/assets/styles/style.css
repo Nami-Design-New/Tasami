@@ -508,6 +508,11 @@ li[data-sonner-toast=""] {
   font-weight: 400;
 }
 
+input::-ms-reveal,
+input::-ms-clear {
+  display: none;
+}
+
 .info-box-grow-min-width {
   flex: 1;
   min-width: 150px;

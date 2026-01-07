@@ -6,6 +6,8 @@
   "resume": "Resume",
   "goalSuccesMessage1": "The goal has been created successfully.",
   "goalSuccesMessage2": "You can start setting up the plan to implement it from the My Tasks page > Pending Execution.",
+  "offerSuccesMessage2": "The help offer has been successfully published on the launch page under the Help Offers section.",
+
   "consultaionDeleteAlert": "The consultation will be permanently deleted.",
   "notifyUsers": "المستخدمون",
   "tasksStatus": {
