@@ -126,7 +126,7 @@ export default function AreasOfInterest() {
       </div>
 
       <div className="img  d-none d-md-block">
-        <img src="/images/regiester-image.webp" alt={t("auth.authImageAlt")} />
+        <img src="/images/regiester-image.png" alt={t("auth.authImageAlt")} />
       </div>
     </section>
   );
