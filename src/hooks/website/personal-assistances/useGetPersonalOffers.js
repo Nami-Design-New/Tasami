@@ -7,6 +7,7 @@ export default function useGetPersonalOffers() {
 
   const params = {
     city_id: searchParams.get("city"),
+    country_id: searchParams.get("country"),
     nationality_id: searchParams.get("nationality"),
     category_id: searchParams.get("field"),
     sub_category_id: searchParams.get("specialization"),

@@ -6,6 +6,7 @@ const getDocSchema = () => {
   return yup.object().shape({
     search: yup.string().optional(),
     city: yup.string().optional(),
+    country: yup.string().optional(),
     nationality: yup.string().optional(),
     field: yup.string().optional(),
     specialization: yup.string().optional(),

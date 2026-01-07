@@ -11,25 +11,34 @@ import CustomButton from "../../CustomButton";
 import RangeSlider from "react-range-slider-input";
 import "react-range-slider-input/dist/style.css";
 import useGetHelpMechanisms from "../../../hooks/useGetHelpMechanisms";
+import useGetCountries from "../../../hooks/countries/useGetCountries";
+import { Controller } from "react-hook-form";
 export default function PersonalOffersSidebarFilter() {
   const { t } = useTranslation();
   const [searchParams, setSearchParams] = useSearchParams();
   const { categories, isLoading } = useGetcategories();
   const { helpMechanisms, isLoading: helpLoading } = useGetHelpMechanisms();
-  const { cities, isCitiesLoading } = useGetCities({
-    search: "",
-    pagination: "off",
-  });
-  const { nationalities, isLoading: isNationaliesLoading } =
-    useGetNationalities("", "off");
   const {
     register,
     handleSubmit,
     reset,
     watch,
     setValue,
+    control,
     formState: { errors },
   } = usePersonalFilterForm(helpMechanisms);
+  const countryId = watch("country");
+  const { data, isLoading: isCountriesLoading } = useGetCountries({
+    search: "",
+    pagination: "off",
+  });
+  const { cities, isCitiesLoading } = useGetCities({
+    search: "",
+    pagination: "off",
+    countryId,
+  });
+  const { nationalities, isLoading: isNationaliesLoading } =
+    useGetNationalities("", "off");
 
   // Range slider watched values
   const priceMin = Number(watch("priceMin"));
@@ -120,15 +129,43 @@ export default function PersonalOffersSidebarFilter() {
             />
           </div>{" "}
           <div className="col-12 py-2 px-0">
-            <SelectField
-              loading={isCitiesLoading}
-              label={t("profile.city")}
-              id="city"
-              {...register("city")}
-              options={cities?.data?.map((city) => ({
-                value: city.id,
-                name: city.title,
-              }))}
+            <Controller
+              name="country"
+              control={control}
+              render={({ field }) => (
+                <SelectField
+                  label={t("profile.country2")}
+                  loading={isCountriesLoading}
+                  id="country"
+                  options={data?.map((country) => ({
+                    value: country.id,
+                    name: country.title,
+                  }))}
+                  value={field.value}
+                  onChange={field.onChange}
+                  error={errors.country?.message}
+                />
+              )}
+            />
+          </div>
+          <div className="col-12 py-2 px-0">
+            <Controller
+              name="city"
+              control={control}
+              render={({ field }) => (
+                <SelectField
+                  loading={isCitiesLoading}
+                  label={t("profile.city")}
+                  id="city"
+                  options={cities?.data?.map((city) => ({
+                    value: city.id,
+                    name: city.title,
+                  }))}
+                  value={field.value}
+                  onChange={field.onChange}
+                  error={errors.city?.message}
+                />
+              )}
             />
           </div>
           <div className="col-12 py-2 px-0">

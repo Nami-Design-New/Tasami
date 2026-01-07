@@ -9,26 +9,35 @@ import useAssistantsFilterForm from "../../../validations/personal-assistants-fi
 import CustomButton from "../../CustomButton";
 import InputField from "../../forms/InputField";
 import SelectField from "../../forms/SelectField";
+import useGetCountries from "../../../hooks/countries/useGetCountries";
+import { Controller } from "react-hook-form";
 
 export default function AssistantsSidebar({ isGoal = false }) {
   const { t } = useTranslation();
   const [searchParams, setSearchParams] = useSearchParams();
   const { helpMechanisms, isLoading: helpLoading } = useGetHelpMechanisms();
   const { categories, isLoading } = useGetcategories();
-  const { cities, isCitiesLoading } = useGetCities({
-    search: "",
-    pagination: "off",
-  });
-  const { nationalities, isLoading: isNationaliesLoading } =
-    useGetNationalities("", "off");
-
   const {
     register,
     handleSubmit,
     reset,
     watch,
+    control,
     formState: { errors },
   } = useAssistantsFilterForm();
+  const countryId = watch("country");
+  const { data, isLoading: isCountriesLoading } = useGetCountries({
+    search: "",
+    pagination: "off",
+  });
+  const { cities, isCitiesLoading } = useGetCities({
+    search: "",
+    pagination: "off",
+    countryId,
+  });
+
+  const { nationalities, isLoading: isNationaliesLoading } =
+    useGetNationalities("", "off");
 
   const selectedFieldId = watch("field");
   const selectedHelpMechanism = watch("helpMechanism") || [];
@@ -65,6 +74,7 @@ export default function AssistantsSidebar({ isGoal = false }) {
     const filteredData = Object.fromEntries(
       Object.entries(data).filter(([_, v]) => v && v !== "")
     );
+    console.log(filteredData);
 
     // handle helpMechanism as array
     if (Array.isArray(data.helpMechanism) && data.helpMechanism.length > 0) {
@@ -92,6 +102,7 @@ export default function AssistantsSidebar({ isGoal = false }) {
     const resetValues = {
       search: "",
       city: "",
+      country: "",
       nationality: "",
       field: "",
       specialization: "",
@@ -115,7 +126,57 @@ export default function AssistantsSidebar({ isGoal = false }) {
             />
           </div>
           <div className="col-12 py-2 px-0">
-            <SelectField
+            {" "}
+            <Controller
+              name="country"
+              control={control}
+              render={({ field }) => (
+                <SelectField
+                  label={t("profile.country2")}
+                  loading={isCountriesLoading}
+                  id="country"
+                  options={data?.map((country) => ({
+                    value: country.id,
+                    name: country.title,
+                  }))}
+                  value={field.value}
+                  onChange={field.onChange}
+                  error={errors.country?.message}
+                />
+              )}
+            />
+            {/* <SelectField
+              loading={isCitiesLoading}
+              label={t("profile.country2")}
+              id="city"
+              {...register("country")}
+              options={data?.map((country) => ({
+                value: country.id,
+                name: country.title,
+              }))}
+            /> */}
+          </div>
+          <div className="col-12 py-2 px-0">
+            {" "}
+            <Controller
+              name="city"
+              control={control}
+              render={({ field }) => (
+                <SelectField
+                  loading={isCitiesLoading}
+                  label={t("profile.city")}
+                  id="city"
+                  options={cities?.data?.map((city) => ({
+                    value: city.id,
+                    name: city.title,
+                  }))}
+                  value={field.value}
+                  onChange={field.onChange}
+                  error={errors.city?.message}
+                />
+              )}
+            />
+            {/* <SelectField
               loading={isCitiesLoading}
               label={t("profile.city")}
               id="city"
@@ -124,7 +185,7 @@ export default function AssistantsSidebar({ isGoal = false }) {
                 value: city.id,
                 name: city.title,
               }))}
-            />
+            /> */}
           </div>
           <div className="col-12 py-2 px-0">
             <SelectField
@@ -165,9 +226,7 @@ export default function AssistantsSidebar({ isGoal = false }) {
           {/* gender */}
           <div className="col-12  py-2 px-0">
             <div className="identity-selector">
-              <h6 className="identity-title">
-                {t("benId")}
-              </h6>
+              <h6 className="identity-title">{t("benId")}</h6>
               <div className="identity-container  flex-wrap">
                 {["both", "male", "female"].map((g) => (
                   <label
@@ -197,7 +256,7 @@ export default function AssistantsSidebar({ isGoal = false }) {
               <div className="col-12 py-2 px-0">
                 <div className="identity-selector">
                   <h6 className="identity-title">
-                    {t("website.platform.myAssistance.startDate")}
+                    {t("website.platform.myAssistance.startDate2")}
                   </h6>
                   <div className="identity-container  flex-wrap">
                     {["specified", "unspecified"].map((g) => (

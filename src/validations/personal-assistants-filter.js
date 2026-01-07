@@ -5,6 +5,7 @@ import * as yup from "yup";
 const getDocSchema = () => {
   return yup.object().shape({
     search: yup.string().optional(),
+    country: yup.string().optional(),
     city: yup.string().optional(),
     nationality: yup.string().optional(),
     field: yup.string().optional(),

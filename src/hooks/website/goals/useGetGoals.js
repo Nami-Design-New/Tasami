@@ -6,6 +6,7 @@ export default function useGetGoals() {
   const [searchParams] = useSearchParams();
   const params = {
     city_id: searchParams.get("city"),
+    country_id: searchParams.get("country"),
     nationality_id: searchParams.get("nationality"),
     category_id: searchParams.get("field"),
     sub_category_id: searchParams.get("specialization"),
