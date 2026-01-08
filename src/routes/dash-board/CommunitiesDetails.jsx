@@ -48,7 +48,6 @@ export default function CommunitiesDetails() {
 
   return (
     <>
-
       <section className="communities-details">
         <div className="container mt-3">
           <div className="row">
@@ -78,7 +77,7 @@ export default function CommunitiesDetails() {
                     src={
                       userCommunities?.Communitiy?.image
                         ? userCommunities?.Communitiy?.image
-                        : "/images/dashboard/communities-image.png"
+                        : "./images/dashboard/communities-image.png"
                     }
                     alt="communities-details"
                   />
@@ -158,7 +157,6 @@ export default function CommunitiesDetails() {
           </div>
         </div>
       </section>
-     
     </>
   );
 }

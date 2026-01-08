@@ -70,7 +70,7 @@ export default function Steps() {
           <div className="row g-4 align-items-center">
             <div className="col-12 col-md-6 text-center">
               <img
-                src="/images/1.jpg"
+                src="./images/1.jpg"
                 alt={t("aim_beneficiary_alt")}
                 className="img-fluid mb-3"
               />
@@ -80,7 +80,7 @@ export default function Steps() {
 
             <div className="col-12 col-md-6 text-center">
               <img
-                src="/images/2.jpg"
+                src="./images/2.jpg"
                 alt={t("aim_assistant_alt")}
                 className="img-fluid mb-3"
               />

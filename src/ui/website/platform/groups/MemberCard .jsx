@@ -21,7 +21,7 @@ export default function MemberCard({ member, exePercentage }) {
         <div className="position-relative">
           <img
             className="member-card__avatar"
-            src={member.user.image ? member.user.image : "/images/p1.png"}
+            src={member.user.image ? member.user.image : "./images/p1.png"}
           />
           {member?.user?.is_online && <div className="status-indicator"></div>}
         </div>

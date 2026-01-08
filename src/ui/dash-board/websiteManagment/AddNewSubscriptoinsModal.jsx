@@ -149,7 +149,7 @@ export default function AddNewSubscriptionsModal({
             <div className="col-12 d-flex justify-content-center p-2">
               <label className="image-upload-wrapper">
                 <img
-                  src={preview || "/images/imageUpload.svg"}
+                  src={preview || "./images/imageUpload.svg"}
                   className="image-preview-circle"
                   alt="Preview"
                 />

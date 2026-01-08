@@ -35,7 +35,7 @@ export default function SideBar({ hoverExpand, setHoverExpand, collapsed }) {
       <div className="logo_wrapper">
         <span className="logo_container">
           <img
-            src="/images/my-fav.svg"
+            src="./images/my-fav.svg"
             alt="fav"
             className="logo_img fav_logo"
           />

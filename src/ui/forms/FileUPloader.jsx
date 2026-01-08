@@ -1,7 +1,3 @@
-
-
-
-
 import { useEffect, useState, useCallback, useMemo } from "react";
 import { useDropzone } from "react-dropzone";
 import { useTranslation } from "react-i18next";
@@ -163,9 +159,7 @@ export default function FileUploader({
    */
   useEffect(() => {
     const incoming = FileUtils.toArray(initialFiles);
-    const normalized = incoming
-      .map(FileUtils.normalizeFile)
-      .filter(Boolean);
+    const normalized = incoming.map(FileUtils.normalizeFile).filter(Boolean);
 
     // Only update if files actually changed
     if (!FileUtils.areFilesEqual(normalizedFiles, normalized)) {
@@ -231,7 +225,10 @@ export default function FileUploader({
 
       if (multiple) {
         // Check maxFiles limit
-        if (maxFiles && normalizedFiles.length + newNormalized.length > maxFiles) {
+        if (
+          maxFiles &&
+          normalizedFiles.length + newNormalized.length > maxFiles
+        ) {
           const error = {
             file: "multiple",
             errors: [`Maximum ${maxFiles} files allowed`],
@@ -249,7 +246,14 @@ export default function FileUploader({
       setErrors([]);
       onFilesChange?.(getOriginalFiles(updated));
     },
-    [normalizedFiles, multiple, maxFiles, onFilesChange, getOriginalFiles, onError]
+    [
+      normalizedFiles,
+      multiple,
+      maxFiles,
+      onFilesChange,
+      getOriginalFiles,
+      onError,
+    ]
   );
 
   /**
@@ -290,7 +294,7 @@ export default function FileUploader({
       if (!preview || !normalizedFile) {
         return (
           <img
-            src="/images/docs.svg"
+            src="./images/docs.svg"
             alt="file"
             data-testid={`file-fallback-${index}`}
           />
@@ -330,7 +334,7 @@ export default function FileUploader({
 
       return (
         <img
-          src="/images/docs.svg"
+          src="./images/docs.svg"
           alt="file"
           data-testid={`file-fallback-${index}`}
         />
@@ -374,7 +378,7 @@ export default function FileUploader({
                 data-testid="dropzone-single"
               >
                 <section className="icon">
-                  <img src="/images/imageUpload.svg" alt="Upload Icon" />
+                  <img src="./images/imageUpload.svg" alt="Upload Icon" />
                   <p>{t("dashboard.fileUploader.dragDrop")}</p>
                 </section>
               </div>
@@ -420,7 +424,7 @@ export default function FileUploader({
               data-testid="dropzone-multiple"
             >
               <section className="icon">
-                <img src="/images/imageUpload.svg" alt="Upload Icon" />
+                <img src="./images/imageUpload.svg" alt="Upload Icon" />
                 <p>{t("dashboard.fileUploader.dragDrop")}</p>
               </section>
             </div>

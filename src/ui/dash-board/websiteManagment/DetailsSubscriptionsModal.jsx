@@ -35,7 +35,7 @@ export default function DetailsSubscriptionsModal({
                     <img
                       src={
                         packageData?.image ||
-                        "/images/dashboard/silver-package.svg"
+                        "./images/dashboard/silver-package.svg"
                       }
                       alt={packageData?.title_ar || packageData?.title_en || ""}
                       className="image-preview-circle"

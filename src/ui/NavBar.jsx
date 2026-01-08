@@ -44,7 +44,7 @@ export default function NavBar({ collapsed, setCollapsed }) {
             >
               <div className="avatar">
                 <img
-                  src={user?.image ? user?.image : "/images/my-fav.svg"}
+                  src={user?.image ? user?.image : "./images/my-fav.svg"}
                   alt="avatar"
                 />
               </div>

@@ -8,25 +8,25 @@ export default function AboutSection() {
       id: 1,
       title: t("why_item1_title"),
       description: t("why_item1_desc"),
-      image: "/images/f1.jpg",
+      image: "./images/f1.jpg",
     },
     {
       id: 2,
       title: t("why_item2_title"),
       description: t("why_item2_desc"),
-      image: "/images/f2.jpg",
+      image: "./images/f2.jpg",
     },
     {
       id: 3,
       title: t("why_item3_title"),
       description: t("why_item3_desc"),
-      image: "/images/f3.jpg",
+      image: "./images/f3.jpg",
     },
     {
       id: 4,
       title: t("why_item4_title"),
       description: t("why_item4_desc"),
-      image: "/images/f4.jpg",
+      image: "./images/f4.jpg",
     },
   ];
 

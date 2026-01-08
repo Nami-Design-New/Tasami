@@ -313,7 +313,7 @@ const OperatingSectors = () => {
                     ) : (
                       <span style={{ fontSize: "10px", color: "#777" }}>
                         <img
-                          src="/images/imageUpload.svg"
+                          src="./images/imageUpload.svg"
                           alt="Upload Icon"
                           width={"20px"}
                         />

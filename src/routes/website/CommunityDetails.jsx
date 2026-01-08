@@ -26,7 +26,7 @@ export default function CommunityDetails() {
             className="communities-image"
             src={
               communityDetails?.image ||
-              "/images/dashboard/communities-image.png"
+              "./images/dashboard/communities-image.png"
             }
             alt="communities-details"
           />

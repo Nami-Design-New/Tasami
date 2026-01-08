@@ -92,7 +92,7 @@ const EmployerDataForm = ({ isEdit }) => {
   // Updated files state - now handles mixed formats
   const [files, setFiles] = useState([]);
   const [image, setImage] = useState(
-    "/images/dashboard/avatar-placeholder.jpg"
+    "./images/dashboard/avatar-placeholder.jpg"
   );
 
   const { roles, rolesLoading } = useGetRoles();
@@ -192,7 +192,7 @@ const EmployerDataForm = ({ isEdit }) => {
 
       // Load profile image
       setImage(
-        employee.data.image || "/images/dashboard/avatar-placeholder.jpg"
+        employee.data.image || "./images/dashboard/avatar-placeholder.jpg"
       );
 
       const backendFiles = (employee.data.files || []).map((file) => ({
@@ -715,7 +715,7 @@ const EmployerDataForm = ({ isEdit }) => {
                     onClick={() => {
                       reset();
                       setFiles([]);
-                      setImage("/images/dashboard/avatar-placeholder.jpg");
+                      setImage("./images/dashboard/avatar-placeholder.jpg");
                     }}
                   >
                     {t("dashboard.createEmployee.form.cancel")}

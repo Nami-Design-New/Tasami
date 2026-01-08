@@ -71,7 +71,7 @@ export default function ProfileMenu({ profileDropDown, setProfileDropDown }) {
         <div className="avatar--wrapper">
           <div className="avatar">
             <img
-              src={user?.image ? user?.image : "/images/my-fav.svg"}
+              src={user?.image ? user?.image : "./images/my-fav.svg"}
               alt={t("dashboard.profile.avatarAlt")}
             />
             {/* <Link
