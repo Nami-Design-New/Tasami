@@ -185,37 +185,40 @@ export default function AddNewSubscriptionsModal({
               </div>
             ))}
 
-            {/* Yearly price */}
-            <div className="col-12 col-lg-6 p-2">
-              <Controller
-                name="yearlyPrice"
-                control={control}
-                render={({ field }) => (
-                  <InputField
-                    {...field}
-                    type="number"
-                    label={t("dashboard.subscriptions.yearly_price")}
-                    error={errors.yearlyPrice?.message}
+            {existingData.type !== "free" && (
+              <>
+                {/* Yearly price */}
+                <div className="col-12 col-lg-6 p-2">
+                  <Controller
+                    name="yearlyPrice"
+                    control={control}
+                    render={({ field }) => (
+                      <InputField
+                        {...field}
+                        type="number"
+                        label={t("dashboard.subscriptions.yearly_price")}
+                        error={errors.yearlyPrice?.message}
+                      />
+                    )}
                   />
-                )}
-              />
-            </div>
-
-            {/* Half-year price */}
-            <div className="col-12 col-lg-6 p-2">
-              <Controller
-                name="halfYearlyPrice"
-                control={control}
-                render={({ field }) => (
-                  <InputField
-                    {...field}
-                    type="number"
-                    label={t("dashboard.subscriptions.half_yearly_price")}
-                    error={errors.halfYearlyPrice?.message}
+                </div>
+                {/* Half-year price */}
+                <div className="col-12 col-lg-6 p-2">
+                  <Controller
+                    name="halfYearlyPrice"
+                    control={control}
+                    render={({ field }) => (
+                      <InputField
+                        {...field}
+                        type="number"
+                        label={t("dashboard.subscriptions.half_yearly_price")}
+                        error={errors.halfYearlyPrice?.message}
+                      />
+                    )}
                   />
-                )}
-              />
-            </div>
+                </div>{" "}
+              </>
+            )}
 
             {/* Offers, groups, seats, commission */}
             <div className="col-12 col-md-6 p-2">

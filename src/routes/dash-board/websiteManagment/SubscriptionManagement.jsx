@@ -68,6 +68,7 @@ export default function SubscriptionManagement() {
         app_commission: p?.app_commission,
         half_yearly_price: p?.half_yearly_price,
         yearly_price: p?.yearly_price,
+        type: p?.type,
       })),
     [packages]
   );
@@ -85,32 +86,39 @@ export default function SubscriptionManagement() {
       columnHelper.display({
         id: "actions",
         header: t("dashboard.subscriptions.actions"),
-        cell: (info) => (
-          <div className="table__actions">
-            <i
-              className="fa-solid fa-edit table__actions--edit"
-              onClick={() => {
-                setIsEdit(true);
-                setShowAddSubscriptions(true);
-                setSelectedPacage(info.row.original);
-              }}
-            />
-            <i
-              className="fa-solid fa-trash table__actions--delete"
-              onClick={() => {
-                setShowDeleteModal(true);
-                setSelectedPacage(info.row.original);
-              }}
-            />
-            <i
-              className="fa-solid fa-eye table__actions--details"
-              onClick={() => {
-                setShowDetails(true);
-                setSelectedPacage(info.row.original);
-              }}
-            />
-          </div>
-        ),
+        cell: (info) => {
+          const isFree = info?.row?.original?.type === "free";
+          console.log(isFree);
+
+          return (
+            <div className="table__actions">
+              <i
+                className="fa-solid fa-edit table__actions--edit"
+                onClick={() => {
+                  setIsEdit(true);
+                  setShowAddSubscriptions(true);
+                  setSelectedPacage(info.row.original);
+                }}
+              />
+              {!isFree && (
+                <i
+                  className="fa-solid fa-trash table__actions--delete"
+                  onClick={() => {
+                    setShowDeleteModal(true);
+                    setSelectedPacage(info.row.original);
+                  }}
+                />
+              )}
+              <i
+                className="fa-solid fa-eye table__actions--details"
+                onClick={() => {
+                  setShowDetails(true);
+                  setSelectedPacage(info.row.original);
+                }}
+              />
+            </div>
+          );
+        },
         enableSorting: false,
       }),
     ],

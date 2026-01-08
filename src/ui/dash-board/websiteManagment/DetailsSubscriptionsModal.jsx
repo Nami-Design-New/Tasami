@@ -44,7 +44,7 @@ export default function DetailsSubscriptionsModal({
                       {packageData?.title ||
                         t("dashboard.subscription.no_data")}
                     </h3>
-                    <p>
+                    {/* <p>
                       {packageData?.yearly_price === 0 ? (
                         t("dashboard.subscription.free_forever")
                       ) : (
@@ -52,7 +52,7 @@ export default function DetailsSubscriptionsModal({
                           {packageData?.yearly_price} <Currency />{" "}
                         </>
                       )}
-                    </p>
+                    </p> */}
                   </div>
                 </div>
 
@@ -79,24 +79,31 @@ export default function DetailsSubscriptionsModal({
                 </div>
 
                 {/* Prices */}
-                <div className="col-6 p-2">
-                  <div className="subscription-price">
-                    <span>{t("dashboard.subscriptions.yearly_price")} :</span>
-                    <span className="d-flex align-items-center gap-2">
-                      {packageData?.yearly_price} <Currency />
-                    </span>
-                  </div>
-                </div>
-                <div className="col-6 p-2">
-                  <div className="subscription-price">
-                    <span>
-                      {t("dashboard.subscriptions.half_yearly_price")} :
-                    </span>
-                    <span className="d-flex align-items-center gap-2">
-                      {packageData?.half_yearly_price} <Currency />
-                    </span>
-                  </div>
-                </div>
+                {packageData?.type !== "free" && (
+                  <>
+                    {" "}
+                    <div className="col-6 p-2">
+                      <div className="subscription-price">
+                        <span>
+                          {t("dashboard.subscriptions.yearly_price")} :
+                        </span>
+                        <span className="d-flex align-items-center gap-2">
+                          {packageData?.yearly_price} <Currency />
+                        </span>
+                      </div>
+                    </div>
+                    <div className="col-6 p-2">
+                      <div className="subscription-price">
+                        <span>
+                          {t("dashboard.subscriptions.half_yearly_price")} :
+                        </span>
+                        <span className="d-flex align-items-center gap-2">
+                          {packageData?.half_yearly_price} <Currency />
+                        </span>
+                      </div>
+                    </div>{" "}
+                  </>
+                )}
               </div>
             </div>
           </Modal.Body>
