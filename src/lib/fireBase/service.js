@@ -106,7 +106,7 @@ const listenToMessages = (
           case "contract_request":
             url = `/my-contracts/${data?.operation_id}`;
             break;
-          case "help_service ":
+          case "help_service":
             url = `/offers/${data?.operation_id}`;
             break;
           case "goal":

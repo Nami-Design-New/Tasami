@@ -51,42 +51,42 @@ export default function MyPlatform() {
               <UserCard user={user} />
               <div className="nav_links">
                 <NavLink to="" end className="nav_link">
-                  <img src="./icons/subscripe-managment.svg" />
+                  <img src="/icons/subscripe-managment.svg" />
                   {t("website.platform.menu.subscriptions")}
                 </NavLink>
 
                 <NavLink to="my-cv" className="nav_link">
-                  <img src="./icons/cv-icon.svg" />
+                  <img src="/icons/cv-icon.svg" />
                   {t("website.platform.menu.cv")}
                 </NavLink>
 
                 <ProtectedNavLink to="my-assistances" disabled={!user.about}>
-                  <img src="./icons/my-assistance.svg" alt="" />
+                  <img src="/icons/my-assistance.svg" alt="" />
                   {t("website.platform.menu.myAssistant")}
                 </ProtectedNavLink>
 
                 <ProtectedNavLink to="my-opportunities" disabled={!user.about}>
-                  <img src="./icons/my-opportunities.svg" alt="" />
+                  <img src="/icons/my-opportunities.svg" alt="" />
                   {t("website.platform.menu.myOpportunities")}
                 </ProtectedNavLink>
 
                 <ProtectedNavLink to="my-audience" disabled={!user.about}>
-                  <img src="./icons/fans.svg" alt="" />
+                  <img src="/icons/fans.svg" alt="" />
                   {t("website.platform.menu.myAudience")}
                 </ProtectedNavLink>
 
                 <ProtectedNavLink to="my-clients" disabled={!user.about}>
-                  <img src="./icons/my-clients.svg" alt="" />
+                  <img src="/icons/my-clients.svg" alt="" />
                   {t("website.platform.menu.myClients")}
                 </ProtectedNavLink>
 
                 <ProtectedNavLink to="/my-contracts" disabled={!user.about}>
-                  <img src="./icons/my-contracts.svg" alt="" />
+                  <img src="/icons/my-contracts.svg" alt="" />
                   {t("website.platform.menu.myContracts")}
                 </ProtectedNavLink>
 
                 <ProtectedNavLink to="my-groups" disabled={!user.about}>
-                  <img src="./icons/my-groups.svg" alt="" />
+                  <img src="/icons/my-groups.svg" alt="" />
                   {t("website.platform.menu.myGroups")}
                   {counterNotify?.total_groups_count > 0 && (
                     <span className="notification_span">
@@ -96,7 +96,7 @@ export default function MyPlatform() {
                 </ProtectedNavLink>
 
                 <ProtectedNavLink to="/my-community" disabled={!user.about}>
-                  <img src="./icons/communities-second.svg" alt="" />
+                  <img src="/icons/communities-second.svg" alt="" />
                   {t("website.platform.menu.myCommunity")}
                   {counterNotify?.community_unread_chats > 0 && (
                     <span className="notification_span">

@@ -26,7 +26,7 @@ export default function NotificationCard({ item }) {
     case "contract_request":
       url = `/my-contracts/${item?.operation_id}`;
       break;
-    case "help_service ":
+    case "help_service":
       url = `/offers/${item?.operation_id}`;
       break;
     case "goal":

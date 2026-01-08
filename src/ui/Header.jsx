@@ -104,7 +104,7 @@ export default function Header() {
         <div className="actions">
           {" "}
           <Link className="communites-link" to="/reels">
-            <img src="./icons/communities.svg" />
+            <img src="/icons/communities.svg" />
             <span>{t("website.header.communities")}</span>
           </Link>{" "}
           <LangDropdown />

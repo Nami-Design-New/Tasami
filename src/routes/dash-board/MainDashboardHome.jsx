@@ -207,25 +207,25 @@ export default function DashboardHome() {
                 to="/dashboard/create-employee"
                 className="quick--action__button"
               >
-                <img src="./icons/add-user.svg" alt="" />
+                <img src="/icons/add-user.svg" alt="" />
                 <span>{t("dashboard.create_employee")}</span>
               </Link>
               <Link
                 to="/dashboard/list-management/working-groups"
                 className="quick--action__button"
               >
-                <img src="./icons/permisson_icon.svg" alt="" />
+                <img src="/icons/permisson_icon.svg" alt="" />
                 <span>{t("dashboard.create_group")}</span>
               </Link>
               <Link className="quick--action__button">
-                <img src="./icons/delete-user.svg" alt="" />
+                <img src="/icons/delete-user.svg" alt="" />
                 <span>{t("dashboard.suspend_employee")}</span>
               </Link>
               <Link
                 to="/dashboard/list-management/fields-and-specializations"
                 className="quick--action__button"
               >
-                <img src="./icons/add-fileds.svg" alt="" />
+                <img src="/icons/add-fileds.svg" alt="" />
                 <span>{t("dashboard.add_field")}</span>
               </Link>
             </div>
