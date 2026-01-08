@@ -5,7 +5,7 @@ export default function AssistantData() {
         <div className="user-data">
           <div className="img-wrapper">
             <img
-              src="./images/profile2.png"
+              src="/images/profile2.png"
               alt="احمد التطاوي"
               className="assistant-avatar"
             />

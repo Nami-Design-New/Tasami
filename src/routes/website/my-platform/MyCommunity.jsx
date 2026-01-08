@@ -36,7 +36,7 @@ export default function MyCommunity() {
           <img
             className="communities-image"
             src={
-              myCommunity?.image || "./images/dashboard/communities-image.png"
+              myCommunity?.image || "/images/dashboard/communities-image.png"
             }
             alt="communities-details"
           />

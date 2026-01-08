@@ -22,7 +22,7 @@ export default function TabContent({ activeTab }) {
       user: {
         name: "انس تركي",
         rate: 4.4,
-        image: "./images/user.png",
+        image: "/images/user.png",
       },
     },
   ];

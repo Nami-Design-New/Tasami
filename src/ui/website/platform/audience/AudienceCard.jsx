@@ -16,7 +16,7 @@ export default function AudienceCard({ data, date = false }) {
       >
         <img
           className="user-image"
-          src={data?.user?.image || "./images/profile image.svg"}
+          src={data?.user?.image || "/images/profile image.svg"}
           alt="profile photo"
         />
       </div>

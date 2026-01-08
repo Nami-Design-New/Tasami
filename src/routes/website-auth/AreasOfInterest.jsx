@@ -52,7 +52,7 @@ export default function AreasOfInterest() {
         <div className="form-header">
           <div className="logo">
             <Link to="/">
-              <img src="./images/logo.svg" alt="logo" />
+              <img src="/images/logo.svg" alt="logo" />
             </Link>
             <span />
             <h1>{t("auth.areasOfInterest")}</h1>
@@ -126,7 +126,7 @@ export default function AreasOfInterest() {
       </div>
 
       <div className="img  d-none d-md-block">
-        <img src="./images/regiester-image.png" alt={t("auth.authImageAlt")} />
+        <img src="/images/regiester-image.png" alt={t("auth.authImageAlt")} />
       </div>
     </section>
   );

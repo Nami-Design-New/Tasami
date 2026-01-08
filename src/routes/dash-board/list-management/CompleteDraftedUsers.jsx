@@ -72,7 +72,7 @@ export default function CompleteDraftedUsers() {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
   const [image, setImage] = useState(
-    "./images/dashboard/avatar-placeholder.jpg"
+    "/images/dashboard/avatar-placeholder.jpg"
   );
   const { t } = useTranslation();
 
@@ -174,7 +174,7 @@ export default function CompleteDraftedUsers() {
 
       // Load image
       setImage(
-        draftedUser.data.image || "./images/dashboard/avatar-placeholder.jpg"
+        draftedUser.data.image || "/images/dashboard/avatar-placeholder.jpg"
       );
 
       // Load attachments into state

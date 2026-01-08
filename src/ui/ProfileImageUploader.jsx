@@ -99,7 +99,7 @@ export default ProfileImageUploader;
 //     <div className={`profile-image ${className}`}>
 //       <div className="profile-image__wrapper" {...getRootProps()}>
 //         <img
-//           src={previewUrl || imageUrl || "./images/default-profile.png"}
+//           src={previewUrl || imageUrl || "/images/default-profile.png"}
 //           alt="Profile"
 //           className="profile-image__img"
 //         />

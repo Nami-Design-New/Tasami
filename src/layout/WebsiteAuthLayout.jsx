@@ -49,7 +49,7 @@ const WebsiteAuthLayout = () => {
         <div className="form-header d-flex align-items-center justify-content-between">
           <div className="logo">
             <Link to="/">
-              <img src="./images/logo.svg" alt="logo" />
+              <img src="/images/logo.svg" alt="logo" />
             </Link>
             <span />
             <h1>{getHeadingText(route, step, t)}</h1>
@@ -60,7 +60,7 @@ const WebsiteAuthLayout = () => {
       </div>
 
       <div className="img  d-none d-md-block">
-        <img src="./images/regiester-image.png" alt={t("auth.authImageAlt")} />
+        <img src="/images/regiester-image.png" alt={t("auth.authImageAlt")} />
       </div>
     </section>
   );
