@@ -26,7 +26,7 @@ export default function PersonalHelper() {
     <section className="personal-helpers page">
       <div className="container">
         <div className="row">
-          <div className="col-12 p-2">
+          <div className="col-12 px-0 py-2">
             <div className="section-header">
               <div className="page-header">
                 <RoundedBackButton
@@ -41,7 +41,7 @@ export default function PersonalHelper() {
           </div>
           <div className="col-12 col-lg-9 p-2">
             <div className="row">
-              <div className="col-12 p-2">
+              <div className="col-12 p-2 pt-md-0">
                 <div className="result-count">
                   <strong>{allAssistants.length}</strong>{" "}
                   {t("website.assistants.personalAssistant")}

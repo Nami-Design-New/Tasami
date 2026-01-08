@@ -190,7 +190,7 @@ export default function AssistantsSidebar({ isGoal = false }) {
           <div className="col-12 py-2 px-0">
             <SelectField
               loading={isNationaliesLoading}
-              label={t("profile.nationality")}
+              label={t("profile.helperNationality")}
               id="nationality"
               {...register("nationality")}
               options={nationalities?.data?.map((nationality) => ({

@@ -28,7 +28,7 @@ export default function PersonalOffers() {
     <section className="personal-helpers page">
       <div className="container">
         <div className="row">
-          <div className="col-12 p-2">
+          <div className="col-12 px-0 py-2">
             <div className="section-header">
               <div className="page-header">
                 <RoundedBackButton
@@ -45,17 +45,14 @@ export default function PersonalOffers() {
           <div className="col-12 col-lg-9 p-0 ">
             <div className="row">
               {" "}
-              <div className="col-12 p-2">
+              <div className="col-12 p-2 pt-md-0">
                 <div className="result-count">
                   <strong>{allPersonalOffers?.length}</strong>{" "}
                   {t("personalOffers")}
                 </div>
               </div>
               {!isLoading && allPersonalOffers?.length === 0 && (
-                <EmptySection
-                  height="300px"
-                  message={t("noPersonalOffers")}
-                />
+                <EmptySection height="300px" message={t("noPersonalOffers")} />
               )}
               <InfiniteScroll
                 onLoadMore={fetchNextPage}
