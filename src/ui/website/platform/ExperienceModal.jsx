@@ -12,6 +12,7 @@ import { useEffect } from "react";
 import useAddExp from "../../../hooks/cv/exp/useAddExp";
 import useEditExp from "../../../hooks/cv/exp/useEditExp";
 import useDeleteExp from "../../../hooks/cv/exp/useDeleteExp";
+import { Link } from "react-router";
 
 export default function ExperienceModal({
   showExperienceModal,
@@ -197,8 +198,17 @@ export default function ExperienceModal({
                   name: sub.title,
                 }))}
                 error={errors.specialization?.message}
-                hint={t("website.platform.cv.specializationHint")}
-              />
+              >
+                <p className="contact-hint">
+                  {t("website.platform.cv.specializationHint1")}
+                  <Link to={"/contact"} className="customer-service-link">
+                    {t("website.platform.cv.specializationHintLink")}
+                  </Link>
+                  <span className="contact-hint">
+                    {t("website.platform.cv.specializationHint2")}
+                  </span>
+                </p>
+              </SelectField>
             </div>
 
             {/* Description */}

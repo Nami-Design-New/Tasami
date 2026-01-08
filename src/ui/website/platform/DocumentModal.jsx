@@ -12,6 +12,7 @@ import useAddDocumentForm from "../../../validations/cv/add-document-form";
 import CustomButton from "../../CustomButton";
 import InputField from "../../forms/InputField";
 import SelectField from "../../forms/SelectField";
+import { Link } from "react-router";
 
 export default function DocumentModal({
   showDocumentModal,
@@ -174,8 +175,17 @@ export default function DocumentModal({
                   name: sub.title,
                 }))}
                 error={errors.specialization?.message}
-                hint={t("website.platform.cv.specializationHint")}
-              />
+              >
+                <p className="contact-hint">
+                  {t("website.platform.cv.specializationHint1")}
+                  <Link to={"/contact"} className="customer-service-link">
+                    {t("website.platform.cv.specializationHintLink")}
+                  </Link>
+                  <span className="contact-hint">
+                    {t("website.platform.cv.specializationHint2")}
+                  </span>
+                </p>
+              </SelectField>
             </div>
 
             {/* Document Type */}
