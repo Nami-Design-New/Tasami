@@ -30,11 +30,12 @@ export default function Cv() {
     handleSubmit,
     formState: { errors },
     reset,
+    watch,
   } = useForm({
     resolver: yupResolver(CVSchema),
     defaultValues: { about: "" },
   });
-
+  const aboutValue = watch("about");
   useEffect(() => {
     if (cv) {
       reset({ about: cv.about || "" });
@@ -45,9 +46,17 @@ export default function Cv() {
     const payload = { about: data.about };
     editCV(payload, {
       onSuccess: (res) => {
+        console.log(res);
+
         toast.success(res?.message || t("website.platform.cv.updateSuccess"));
         queryClient.invalidateQueries({ queryKey: ["cv"] });
-        queryClient.invalidateQueries({ queryKey: ["authedUser"] });
+        queryClient.setQueryData(["authedUser"], (oldData) => {
+          if (!oldData) return oldData;
+          return {
+            ...oldData,
+            about: res?.data?.about,
+          };
+        });
       },
       onError: (error) => {
         toast.error(error.message);
@@ -67,6 +76,20 @@ export default function Cv() {
               {...register("about")}
               error={errors?.about?.message}
             />
+            {aboutValue !== (cv?.about || "") && (
+              <div className="col-12 p-2 px-0 d-flex justify-content-end">
+                {/* Save button */}
+                <CustomButton
+                  type="button"
+                  onClick={handleSubmit(onSubmit)}
+                  disabled={isPending}
+                  loading={isPending}
+                  size="large"
+                >
+                  {t("save")}
+                </CustomButton>
+              </div>
+            )}
           </form>
         </div>
 
@@ -77,19 +100,6 @@ export default function Cv() {
         <div className="col-12 p-2">
           {/* Documents Section */}
           <DocumentsSection />
-        </div>
-
-        <div className="col-12 p-2 d-flex justify-content-end">
-          {/* Save button */}
-          <CustomButton
-            type="submit"
-            onClick={handleSubmit(onSubmit)}
-            disabled={isPending}
-            loading={isPending}
-            size="large"
-          >
-            {t("edit")}
-          </CustomButton>
         </div>
       </div>
     </section>
