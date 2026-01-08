@@ -7004,11 +7004,16 @@ input[type=file] {
   position: relative;
   border-radius: 16px;
   overflow: hidden;
-  aspect-ratio: 16/9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   -o-object-fit: contain;
      object-fit: contain;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
   transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+.message__content .message__video-container video {
+  width: 100%;
 }
 .message__content .shimmer {
   background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
