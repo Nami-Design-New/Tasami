@@ -39,7 +39,7 @@
     "i18next-browser-languagedetector": "^8.0.2",
     "i18next-http-backend": "^3.0.2",
     "js-cookie": "^3.0.5",
-    "jspdf": "^3.0.4",
+    "jspdf": "^4.0.0",
     "laravel-echo": "^2.2.4",
     "lodash": "^4.17.21",
     "pusher-js": "^8.4.0",
