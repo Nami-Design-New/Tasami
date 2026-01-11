@@ -30,11 +30,11 @@ axiosInstance.interceptors.response.use(
     switch (status) {
       case 401:
         removeToken();
-        window.location.href = "/login";
+        window.location.href = "login";
         break;
 
       case 403:
-        window.location.href = "forbidden";
+        window.location.href = "/forbidden";
         break;
 
       case 500:
