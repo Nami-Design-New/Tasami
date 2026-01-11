@@ -34,7 +34,7 @@ axiosInstance.interceptors.response.use(
         break;
 
       case 403:
-        window.location.href = "/forbidden";
+        window.location.href = "forbidden";
         break;
 
       case 500:
