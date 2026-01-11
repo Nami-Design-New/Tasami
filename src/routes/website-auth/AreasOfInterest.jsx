@@ -7,6 +7,8 @@ import CustomButton from "../../ui/CustomButton";
 import useGetcategories from "../../hooks/area-of-interests/useGetcategories";
 import useUpdateUserCategories from "../../hooks/area-of-interests/useUpdateUserCategories";
 import InterestsLoading from "../../ui/loading/InterestsLoading";
+import logo from "../../assets/images/logo.svg";
+import regiesterImage from "../../assets/images/regiester-image.png";
 
 export default function AreasOfInterest() {
   const navigate = useNavigate();
@@ -14,7 +16,7 @@ export default function AreasOfInterest() {
   const { t } = useTranslation();
 
   const [selected, setSelected] = useState([]);
-  const [initialSelected, setInitialSelected] = useState([]);
+  const [initialSelected] = useState([]);
   const { updateUserCategories, isPending } = useUpdateUserCategories();
 
   const toggle = (value) => {
@@ -52,7 +54,7 @@ export default function AreasOfInterest() {
         <div className="form-header">
           <div className="logo">
             <Link to="/">
-              <img src="images/logo.svg" alt="logo" />
+              <img src={logo} alt="logo" />
             </Link>
             <span />
             <h1>{t("auth.areasOfInterest")}</h1>
@@ -126,7 +128,7 @@ export default function AreasOfInterest() {
       </div>
 
       <div className="img  d-none d-md-block">
-        <img src="images/regiester-image.png" alt={t("auth.authImageAlt")} />
+        <img src={regiesterImage} alt={t("auth.authImageAlt")} />
       </div>
     </section>
   );

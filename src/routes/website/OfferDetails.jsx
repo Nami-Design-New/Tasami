@@ -15,6 +15,8 @@ import AddAssistanceModal from "../../ui/website/offers/AddAssistanceModal";
 import OfferInfoGrid from "../../ui/website/offers/OfferInfoGrid";
 import TopInfo from "../../ui/website/offers/TopInfo";
 import AlertModal from "../../ui/website/platform/my-community/AlertModal";
+import helpTriangle from "../../assets/icons/help-triangle.svg";
+
 export default function OfferDetails() {
   const { t } = useTranslation();
   const navigate = useNavigate();
@@ -112,7 +114,7 @@ export default function OfferDetails() {
           </div>
           <div className="col-lg-8 col-12 p-2 ">
             <div className="hed">
-              <img src="icons/help-triangle.svg" />
+              <img src={helpTriangle} />
               <h6>{t("website.offerDetails.assistance")}</h6>{" "}
             </div>
             <p className="desc">{offerDetails?.title}</p>

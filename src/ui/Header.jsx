@@ -10,6 +10,9 @@ import { Badge } from "react-bootstrap";
 import useSettings from "../hooks/website/settings/useSettings";
 import CustomLink from "./CustomLink";
 import useGetCountersNotify from "../hooks/website/useGetCountersNotify";
+import logo from "../assets/images/logo.svg";
+import communities from "../assets/icons/communities.svg";
+
 export default function Header() {
   const { t } = useTranslation();
   const { settings } = useSettings();
@@ -44,7 +47,7 @@ export default function Header() {
     <header className="main-header" ref={headerRef}>
       <nav className="container-lg p-0">
         <Link to="/" className="logo">
-          <img src="images/logo.svg" alt="logo" />
+          <img src={logo} alt="logo" />
         </Link>
         <ul className={`nav-links container-lg ${openMenu ? "open" : ""}`}>
           <li onClick={() => setOpenMenu(false)}>
@@ -104,7 +107,7 @@ export default function Header() {
         <div className="actions">
           {" "}
           <Link className="communites-link" to="/reels">
-            <img src="icons/communities.svg" />
+            <img src={communities} />
             <span>{t("website.header.communities")}</span>
           </Link>{" "}
           <LangDropdown />

@@ -1,5 +1,7 @@
 import { Form } from "react-bootstrap";
 import InputField from "./InputField";
+import deleteIcon from "../../assets/sys-icons/delete.svg";
+import addIcon from "../../assets/sys-icons/add.svg";
 
 const CancellationPolicy = ({
   policies = [],
@@ -49,7 +51,7 @@ const CancellationPolicy = ({
                 : "Add new policy"
             }
           >
-            <img src="sys-icons/add.svg" alt="add" />
+            <img src={addIcon} alt="add" />
           </button>
         </div>
 
@@ -186,7 +188,7 @@ const CancellationPolicy = ({
                   : "Remove policy"
               }
             >
-              <img src="sys-icons/delete.svg" alt="trash" />
+              <img src={deleteIcon} alt="trash" />
             </button>
           </div>
         ))}

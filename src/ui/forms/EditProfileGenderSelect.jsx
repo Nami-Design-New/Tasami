@@ -1,5 +1,6 @@
 import { useTranslation } from "react-i18next";
-
+import female from "../../assets/icons/female.svg";
+import male from "../../assets/icons/male-outlined.svg";
 export default function GenderSelect({
   value,
   onChange,
@@ -23,7 +24,7 @@ export default function GenderSelect({
             disabled={disabled}
             checked={value === "female"}
           />
-          <img src="icons/femal.svg" alt="female" /> {t("female")}
+          <img src={female} alt="female" /> {t("female")}
         </label>
 
         <label
@@ -38,7 +39,7 @@ export default function GenderSelect({
             disabled={disabled}
             checked={value === "male"}
           />
-          <img src="icons/male-outlined.svg" alt="male" /> {t("male")}
+          <img src={male} alt="male" /> {t("male")}
         </label>
       </div>
       {error && <p className="error-text">{error} </p>}

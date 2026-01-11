@@ -9,6 +9,9 @@ import Currency from "../../Currency";
 import CustomButton from "../../CustomButton";
 import useMessagePaymentListener from "../../../hooks/shared/useMessagePaymentListener";
 
+import mastercardLogo from "../../../assets/icons/mastercard-logo.svg";
+import walletImage from "../../../assets/icons/wallet-image.svg";
+
 export default function CommunityPaymentModal({
   community,
   showModal,
@@ -102,7 +105,7 @@ export default function CommunityPaymentModal({
             }`}
           >
             <div className="payment-methd-image-wrapper">
-              <img src="icons/mastercard-logo.svg" />
+              <img src={mastercardLogo} />
             </div>
             <span className="payment-method-title">
               {" "}
@@ -124,7 +127,7 @@ export default function CommunityPaymentModal({
             }`}
           >
             <div className="payment-methd-image-wrapper">
-              <img src="icons/wallet-image.svg" />
+              <img src={walletImage} />
             </div>
             <span className="payment-method-title">
               {" "}

@@ -5,6 +5,7 @@ import NewPassword from "../../ui/website-auth/NewPassword";
 import ResetForm from "../../ui/website-auth/ResetForm";
 import OtpConfirmationPage from "../../ui/website-auth/OtpConfirmationPage";
 import LangDropdown from "../../ui/website/LangDropdown";
+import logo from "../../assets/images/logo.svg";
 
 export default function ResetPassword() {
   const [resetPasswordStep, setResetPasswordStep] = useState("s1");
@@ -24,7 +25,7 @@ export default function ResetPassword() {
     <section className="reset_section">
       <div className="header d-flex align-items-center justify-content-between gap-3">
         <Link to="/" className="logo">
-          <img src="images/logo.svg" alt="logo" />
+          <img src={logo} alt="logo" />
         </Link>
         <LangDropdown isAuthPage={true} />
       </div>

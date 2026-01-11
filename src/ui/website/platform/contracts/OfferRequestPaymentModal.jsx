@@ -8,7 +8,8 @@ import useMessagePaymentListener from "../../../../hooks/shared/useMessagePaymen
 import useOfferRequestPayment from "../../../../hooks/website/contracts/useOfferRequestPayment";
 import Currency from "../../../Currency";
 import CustomButton from "../../../CustomButton";
-
+import masterCardLogo from "../../../../assets/icons/mastercard-logo.svg";
+import walletImage from "../../../../assets/icons/wallet-image.svg";
 export default function OfferRequestPaymentModal({
   plan,
   workId,
@@ -103,7 +104,7 @@ export default function OfferRequestPaymentModal({
             }`}
           >
             <div className="payment-methd-image-wrapper">
-              <img src="icons/mastercard-logo.svg" />
+              <img src={masterCardLogo} />
             </div>
             <span className="payment-method-title">
               {t("website.platform.subscription.online")}
@@ -124,7 +125,7 @@ export default function OfferRequestPaymentModal({
             }`}
           >
             <div className="payment-methd-image-wrapper">
-              <img src="icons/wallet-image.svg" />
+              <img src={walletImage} />
             </div>
             <span className="payment-method-title">
               {t("website.platform.subscription.wallet")}

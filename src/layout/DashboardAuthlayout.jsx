@@ -9,6 +9,9 @@ import {
 } from "react-router";
 import useAdminAuth from "../hooks/auth/dashboard/useAdminAuth";
 
+import logo from "../assets/images/logo.svg";
+import registerImage from "../assets/images/regiester-image.png";
+
 const getHeadingText = (route, step, t) => {
   if (route === "/login") {
     return t("auth.login");
@@ -34,7 +37,7 @@ const DashboardAuthlayout = () => {
         <div className="form-header d-flex align-items-center justify-content-between">
           <div className="logo">
             <Link to="/">
-              <img src="images/logo.svg" alt="logo" />
+              <img src={logo} alt="logo" />
             </Link>
             <span />
             <h1>{getHeadingText(route, step, t)}</h1>
@@ -45,7 +48,7 @@ const DashboardAuthlayout = () => {
       </div>
 
       <div className="img  d-none d-md-block">
-        <img src="images/regiester-image.png" alt={t("auth.authImageAlt")} />
+        <img src={registerImage} alt={t("auth.authImageAlt")} />
       </div>
     </section>
   );

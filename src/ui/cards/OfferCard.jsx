@@ -3,7 +3,9 @@ import { useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router";
 import useAddOrRemoveBookmark from "../../hooks/website/personal-assistances/useAddOrRemoveBookmark";
 import { useTranslation } from "react-i18next";
-
+import titleIcon from "../../assets/icons/title.svg";
+import cashIcon from "../../assets/icons/cash.svg";
+import ryalIcon from "../../assets/icons/ryal.svg";
 const OfferCard = ({ offer }) => {
   const navigate = useNavigate();
   const { t } = useTranslation();
@@ -58,12 +60,12 @@ const OfferCard = ({ offer }) => {
 
       <div className="data">
         <span className="item mx-2">
-          <img src="icons/title.svg" alt="title" /> {offer.category_title}
+          <img src={titleIcon} alt="title" /> {offer.category_title}
         </span>
         <div className="item price">
           <span>
-            <img src="icons/cash.svg" alt="icon" className="mx-2" />
-            {offer.help_service.price} <img src="icons/ryal.svg" alt="ريال" />
+            <img src={cashIcon} alt="icon" className="mx-2" />
+            {offer.help_service.price} <img src={ryalIcon} alt="ريال" />
           </span>
           {!isMyOffer && (
             <button

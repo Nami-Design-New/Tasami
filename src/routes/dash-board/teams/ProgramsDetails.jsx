@@ -6,7 +6,7 @@ import Loading from "../../../ui/loading/Loading";
 import { Link } from "react-router";
 import TopInfo from "../../../ui/website/offers/TopInfo";
 import OfferInfoGrid from "../../../ui/website/offers/OfferInfoGrid";
-
+import helpTriangle from "../../../assets/icons/help-triangle.svg";
 export default function ProgramsDetails() {
   const { t } = useTranslation();
   const { assistantOffersDetails, isLoading } = useGetAssistantOffersDetails();
@@ -33,7 +33,7 @@ export default function ProgramsDetails() {
 
           <div className="col-lg-8 col-12 p-2">
             <div className="hed">
-              <img src="icons/help-triangle.svg" />
+              <img src={helpTriangle} />
               <h6>{t("website.offerDetails.assistance")}</h6>
             </div>
             <p className="desc">{assistantOffersDetails?.title}</p>

@@ -17,6 +17,7 @@ import TopInfo from "../../ui/website/offers/TopInfo";
 import { shareContent } from "../../utils/shared";
 import { Link, useNavigate } from "react-router";
 import PlatformModal from "../../ui/website/platform/PlatformModal";
+import triangleWithHelper from "../../assets/icons/triangle-with-helper.svg";
 
 export default function GoalDetails() {
   const { t } = useTranslation();
@@ -133,7 +134,7 @@ export default function GoalDetails() {
           </div>
           <div className="col-lg-8 col-12 p-2 ">
             <div className="hed">
-              <img src="icons/triangle.svg" />
+              <img src={triangleWithHelper} />
               <h6>{t("website.offerDetails.goal")}</h6>
             </div>
             <p className="desc ">{goalDetails.title}</p>

@@ -1,6 +1,7 @@
 import { Link, useLocation } from "react-router";
 import { useTranslation } from "react-i18next";
 import { ROLE_REDIRECTS } from "../utils/constants";
+import notFound from "../assets/sys-icons/notFound.svg";
 
 export default function PageNotFound() {
   const { t } = useTranslation();
@@ -17,7 +18,7 @@ export default function PageNotFound() {
   return (
     <div className="error-page">
       <div className="container">
-        <img src="sys-icons/notFound.svg" alt={t("pageNotFound.alt")} />
+        <img src={notFound} alt={t("pageNotFound.alt")} />
 
         <h1 className="error-title">{t("pageNotFound.title")}</h1>
 

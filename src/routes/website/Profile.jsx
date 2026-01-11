@@ -10,6 +10,13 @@ import Loading from "../../ui/loading/Loading";
 import RoundedBackButton from "../../ui/website-auth/shared/RoundedBackButton";
 import UserCard from "../../ui/website/profile/UserCard";
 import { removeToken } from "../../utils/token";
+import myAccount from "../../assets/icons/my-profile/my-account.svg";
+import myWallet from "../../assets/icons/my-profile/my-wallet.svg";
+import myInterests from "../../assets/icons/my-profile/my-interests.svg";
+import bookmark from "../../assets/icons/my-profile/bookmark.svg";
+import communities from "../../assets/icons/my-profile/communities.svg";
+import followers from "../../assets/icons/my-profile/followers.svg";
+import sysNotification from "../../assets/icons/my-profile/sys-notification.svg";
 
 export default function Profile() {
   const { t } = useTranslation();
@@ -68,31 +75,31 @@ export default function Profile() {
               <UserCard user={user} />
               <div className="nav_links">
                 <NavLink to="" end className="nav_link">
-                  <img src="icons/my-profile/my-account.svg" />
+                  <img src={myAccount} />
                   {t("profile.myInfo")}
                 </NavLink>
                 <NavLink to="my-wallet" className="nav_link">
-                  <img src="icons/my-profile/my-wallet.svg" />
+                  <img src={myWallet} />
                   {t("profile.wallet")}
                 </NavLink>{" "}
                 <NavLink to="Interests" className="nav_link">
-                  <img src="icons/my-profile/my-interests.svg" />
+                  <img src={myInterests} />
                   {t("profile.interests")}
                 </NavLink>
                 <NavLink to="savings" className="nav_link">
-                  <img src="icons/my-profile/bookmark.svg" />
+                  <img src={bookmark} />
                   {t("profile.savings")}
                 </NavLink>
                 <NavLink to="my-communities" className="nav_link">
-                  <img src="icons/my-profile/communities.svg" />
+                  <img src={communities} />
                   {t("profile.community")}
                 </NavLink>
                 <NavLink to="followings" className="nav_link">
-                  <img src="icons/my-profile/followers.svg" />
+                  <img src={followers} />
                   {t("profile.followers")}
                 </NavLink>{" "}
                 <NavLink to="my-notifications" className="nav_link">
-                  <img src="icons/my-profile/sys-notification.svg" />
+                  <img src={sysNotification} />
                   {t("profile.notificationsSys")}
                 </NavLink>
                 <CustomButton

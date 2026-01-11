@@ -2,7 +2,8 @@ import { useTranslation } from "react-i18next";
 import { Link, useLocation } from "react-router";
 import LoginForm from "../../ui/website-auth/LoginForm";
 import useGoogleAuth from "../../hooks/auth/useGoogleAuth";
-
+import googleIcon from "../../assets/icons/google-icon.svg";
+import appleIcon from "../../assets/icons/apple-icon.svg";
 const LoginPage = () => {
   const { t } = useTranslation();
   const location = useLocation();
@@ -28,11 +29,12 @@ const LoginPage = () => {
       <div className="seperator">{t("auth.or")}</div>
       <div className="social-login-buttons">
         <button onClick={handleGoogleLogin} disabled={loading}>
-          <img src="icons/google-icon.svg" alt="Google" />
+          <img src={googleIcon} alt="Google" />
           <span>{t("auth.continueWithGoogle")}</span>
         </button>
+
         <button>
-          <img src="icons/apple-icon.svg" alt="Apple" />
+          <img src={appleIcon} alt="Apple" />
           <span>{t("auth.continueWithApple")}</span>
         </button>
       </div>

@@ -1,6 +1,7 @@
 import { useTranslation } from "react-i18next";
 import { Link, useRouteError, useLocation } from "react-router";
 import { ROLE_REDIRECTS } from "../utils/constants";
+import errorImg from "../assets/sys-icons/error.svg";
 
 export default function ErrorFallback() {
   const { t } = useTranslation();
@@ -35,7 +36,7 @@ export default function ErrorFallback() {
   return (
     <div className="error-page">
       <div className="container">
-        <img src="sys-icons/error.svg" alt={t("pageNotFound.alt")} />
+        <img src={errorImg} alt={t("pageNotFound.alt")} />
 
         <h1 className="error-title">
           {t("errors.oops")} {title} ({status})

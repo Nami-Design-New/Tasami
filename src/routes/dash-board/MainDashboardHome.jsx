@@ -9,6 +9,10 @@ import TaskStatus from "../../ui/dash-board/home/TaskStatus";
 import { useSelector } from "react-redux";
 import useGetHomeStatistics from "../../hooks/dashboard/home/useGetHomeStatistics";
 import Loading from "../../ui/loading/Loading";
+import addUser from "../../assets/icons/add-user.svg";
+import permissonIcon from "../../assets/icons/permisson_icon.svg";
+import deleteUser from "../../assets/icons/delete-user.svg";
+import addFileds from "../../assets/icons/add-fileds.svg";
 
 const packageColors = ["#F5B849", "#26BF94", "#4A90E2", "#9B59B6", "#E74C3C"];
 const packageIcons = [
@@ -207,25 +211,25 @@ export default function DashboardHome() {
                 to="/dashboard/create-employee"
                 className="quick--action__button"
               >
-                <img src="icons/add-user.svg" alt="" />
+                <img src={addUser} alt="" />
                 <span>{t("dashboard.create_employee")}</span>
               </Link>
               <Link
                 to="/dashboard/list-management/working-groups"
                 className="quick--action__button"
               >
-                <img src="icons/permisson_icon.svg" alt="" />
+                <img src={permissonIcon} alt="" />
                 <span>{t("dashboard.create_group")}</span>
               </Link>
               <Link className="quick--action__button">
-                <img src="icons/delete-user.svg" alt="" />
+                <img src={deleteUser} alt="" />
                 <span>{t("dashboard.suspend_employee")}</span>
               </Link>
               <Link
                 to="/dashboard/list-management/fields-and-specializations"
                 className="quick--action__button"
               >
-                <img src="icons/add-fileds.svg" alt="" />
+                <img src={addFileds} alt="" />
                 <span>{t("dashboard.add_field")}</span>
               </Link>
             </div>

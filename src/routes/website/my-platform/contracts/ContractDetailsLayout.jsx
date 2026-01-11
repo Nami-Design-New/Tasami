@@ -1,61 +1,19 @@
-import { useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useSelector } from "react-redux";
 import { NavLink, Outlet, useNavigate } from "react-router";
 import useGetWorkDetails from "../../../../hooks/website/MyWorks/useGetWorkDetails";
 import Loading from "../../../../ui/loading/Loading";
 import RoundedBackButton from "../../../../ui/website-auth/shared/RoundedBackButton";
-import CancelContractModal from "../../../../ui/website/my-works/CancelContractModal";
 
 export default function ContractDetailsLayout() {
   const navigate = useNavigate();
-  const menuRef = useRef(null);
   const { t } = useTranslation();
-  const { lang } = useSelector((state) => state.language);
-  // const [showCancelModal, setShowCancelModal] = useState(false);
-  const [menuOpen, setMenuOpen] = useState(false);
 
-  const toggleMenu = () => setMenuOpen(!menuOpen);
   const { workDetails, isLoading } = useGetWorkDetails();
 
   // let options;
   let tabs = [];
 
   if (isLoading) return <Loading />;
-
-  // Optins menu Logic
-
-  // if (workDetails?.rectangle === "personal_goal_with_helper") {
-  //   if (
-  //     workDetails?.status === "offer_sent" ||
-  //     workDetails?.status === "payment"
-  //   ) {
-  //     options = [];
-  //   } else {
-  //     options = [
-  //       {
-  //         id: 1,
-  //         label: t("works.contractDetails.endContract"),
-  //         className: "text-fire",
-  //         onClick: () => setShowCancelModal(true),
-  //       },
-  //     ];
-  //   }
-  // } else if (workDetails?.rectangle === "help_service_from_helper") {
-  //   if (
-  //     workDetails?.status !== "wait_for_user_payment" ||
-  //     workDetails?.status !== "wait_helper_to_accept"
-  //   ) {
-  //     options = [
-  //       {
-  //         id: 1,
-  //         label: t("works.contractDetails.endContract"),
-  //         className: "text-fire",
-  //         onClick: () => setShowCancelModal(true),
-  //       },
-  //     ];
-  //   }
-  // }
 
   // Tabs Logic
   if (
@@ -117,35 +75,6 @@ export default function ContractDetailsLayout() {
                 ></RoundedBackButton>
                 <h1>{workDetails?.code}</h1>
               </div>
-              {/* {workDetails?.has_working_contract && (
-                <div className={`work-actions `}>
-                  <div className="options-menu" ref={menuRef}>
-                    <button className="action-buttons" onClick={toggleMenu}>
-                      <img src="icons/contract-flag.svg" />
-                    </button>
-                    {menuOpen && (
-                      <div
-                        className={`options-list  ${
-                          lang === "en" ? "en" : ""
-                        } `}
-                      >
-                        {options?.map((option, index) => (
-                          <button
-                            key={index}
-                            className={`options-item ${option.className || ""}`}
-                            onClick={() => {
-                              option.onClick?.();
-                              setMenuOpen(false);
-                            }}
-                          >
-                            {option.label}
-                          </button>
-                        ))}
-                      </div>
-                    )}
-                  </div>
-                </div>
-              )} */}
             </div>
           </div>
           <div className="col-12 p-2">

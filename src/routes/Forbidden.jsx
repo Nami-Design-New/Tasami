@@ -1,6 +1,7 @@
 import { useTranslation } from "react-i18next";
 import { Link, useLocation } from "react-router";
 import { ROLE_REDIRECTS } from "../utils/constants";
+import forbiddenBro from "../assets/sys-icons/forbidden-bro.svg";
 
 export default function Forbidden() {
   const { t } = useTranslation();
@@ -17,7 +18,7 @@ export default function Forbidden() {
   return (
     <div className="error-page">
       <div className="container">
-        <img src="sys-icons/forbidden-bro.svg" alt={t("pageNotFound.alt")} />
+        <img src={forbiddenBro} alt={t("pageNotFound.alt")} />
 
         <h1 className="error-title">{t("forbidden.title")}</h1>
 

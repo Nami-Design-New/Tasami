@@ -5,7 +5,7 @@ import SectionHeader from "../../../ui/website/SectionHeader";
 import TopInfo from "../../../ui/website/offers/TopInfo";
 import GoalInfoGrid from "../../../ui/website/gaols/GoalInfoGrid";
 import useGetHelpRequestDetails from "../../../hooks/dashboard/subscription/helpRequest/useGetHelpRequestDetails";
-
+import triangleWithHelper from "../../../assets/icons/triangle-with-helper.svg";
 export default function MyServicesDetails() {
   const { t } = useTranslation();
   const { helpRequestDetails, isLoading } = useGetHelpRequestDetails();
@@ -32,7 +32,7 @@ export default function MyServicesDetails() {
           </div>
           <div className="col-lg-8 col-12 p-2 ">
             <div className="hed">
-              <img src="icons/triangle-with-helper.svg" />
+              <img src={triangleWithHelper} />
               <h6>{t("website.offerDetails.goal")}</h6>
             </div>
             <p className="desc ">{helpRequestDetails?.title}</p>

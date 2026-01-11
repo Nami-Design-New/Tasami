@@ -3,7 +3,9 @@ import { useEffect, useState } from "react";
 import useHandelToggleLikePosts from "../../../../hooks/website/communities/posts/useHandelToggleLikePosts";
 import useSharePost from "../../../../hooks/website/communities/posts/useSharePost";
 import useCheckDashboard from "../../../../hooks/dashboard/checkDashboard/useCheckDashboard";
-
+import eyeIcon from "../../../../assets/icons/eye.svg";
+import shareIcon from "../../../../assets/icons/share.svg";
+import commentsIcon from "../../../../assets/icons/comments.svg";
 export default function PostsActions({ post }) {
   const isDashboard = useCheckDashboard();
 
@@ -78,7 +80,7 @@ export default function PostsActions({ post }) {
     <div className="icons-row details">
       <div className="icons-wrapper">
         <div className="icon-circle">
-          <img src="icons/eye.svg" alt="views" />
+          <img src={eyeIcon} alt="views" />
         </div>
         <span>{post.views_count}</span>
       </div>
@@ -98,13 +100,13 @@ export default function PostsActions({ post }) {
           className="icon-circle"
           onClick={handleShare}
         >
-          <img src="icons/share.svg" alt="shares" />
+          <img src={shareIcon} alt="shares" />
         </button>
         <span>{sharesCount}</span>
       </div>{" "}
       <div className="icons-wrapper">
         <div className="icon-circle">
-          <img src="icons/comments.svg" alt="comments" />
+          <img src={commentsIcon} alt="comments" />
         </div>
         <span>{post.comments_count}</span>
       </div>

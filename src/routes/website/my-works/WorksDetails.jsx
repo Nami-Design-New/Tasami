@@ -7,6 +7,8 @@ import CustomButton from "../../../ui/CustomButton";
 import Loading from "../../../ui/loading/Loading";
 import OfferRequestPaymentModal from "../../../ui/website/platform/contracts/OfferRequestPaymentModal";
 import AssistantWorkCard from "../../../ui/website/my-works/work-offers/AssistantWorkCard";
+import triangleWithHelper from "../../../assets/icons/triangle-with-helper.svg";
+import helpServiceFromHelper from "../../../assets/icons/help_service_from_helper.svg";
 
 export default function WorksDetails() {
   const { t } = useTranslation();
@@ -15,20 +17,6 @@ export default function WorksDetails() {
   const { lang } = useSelector((state) => state.language);
 
   if (isLoading) return <Loading />;
-
-  // Helper: get localized status text
-  // const getStatusLabel = (status) => {
-  //   const statuses = {
-  //     wait_helper_to_accept: t("works.status.wait_helper_to_accept"),
-  //     wait_for_user_payment: t("works.status.wait_for_user_payment"),
-  //     planning: t("works.status.planning"),
-  //     offers: t("works.status.offers"),
-  //     execution: t("works.status.execution"),
-  //     payment: t("works.status.payment"),
-  //     completed: t("works.status.completed"),
-  //   };
-  //   return statuses[status] || "";
-  // };
 
   return (
     <section className="work-details-page">
@@ -56,13 +44,14 @@ export default function WorksDetails() {
         <div className="label">
           {workDetails.rectangle === "personal_goal_with_helper" && (
             <>
-              <img src="icons/triangle-with-helper.svg" alt="" />
+              <img src={triangleWithHelper} alt="" />
               {t("website.offerDetails.goal")}
             </>
           )}
+
           {workDetails.rectangle === "help_service_from_helper" && (
             <>
-              <img src="icons/help_service_from_helper.svg" alt="" />
+              <img src={helpServiceFromHelper} alt="" />
               {t("website.offerDetails.offer")}
             </>
           )}

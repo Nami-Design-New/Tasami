@@ -2,7 +2,11 @@ import { useTranslation } from "react-i18next";
 import WorkProgress from "../website/my-works/WorkProgress";
 import { Link } from "react-router";
 import HelperCard from "./HelperCard";
-
+import titleIcon from "../../assets/icons/title.svg";
+import offersIcon from "../../assets/icons/offers-icon.svg";
+import triangleWithHelper from "../../assets/icons/triangle-with-helper.svg";
+import triangleWithoutHelper from "../../assets/icons/triangle-without-helper.png";
+import helpServiceFromHelper from "../../assets/icons/help_service_from_helper.svg";
 export default function WorkCard({ work, withoutStatus = false }) {
   let steps;
   const { t } = useTranslation();
@@ -50,13 +54,13 @@ export default function WorkCard({ work, withoutStatus = false }) {
       )}
       <div className="work-title">
         {work.rectangle === "personal_goal_with_helper" && (
-          <img src="icons/triangle-with-helper.svg" />
+          <img src={triangleWithHelper} alt="" />
         )}
         {work.rectangle === "personal_goal" && (
-          <img src="icons/triangle-without-helper.png" />
+          <img src={triangleWithoutHelper} alt="" />
         )}
         {work.rectangle === "help_service_from_helper" && (
-          <img src="icons/help_service_from_helper.svg" />
+          <img src={helpServiceFromHelper} alt="" />
         )}
         <p className="title ellipsis">{work.title}</p>
       </div>
@@ -65,7 +69,7 @@ export default function WorkCard({ work, withoutStatus = false }) {
         <div className="row">
           <div className="col-6 p-1">
             <div className="info-item">
-              <img src="icons/title.svg" />
+              <img src={titleIcon} />
               <p> {work.category_title} </p>
             </div>
           </div>
@@ -77,7 +81,7 @@ export default function WorkCard({ work, withoutStatus = false }) {
           {work.offers_count > 0 && (
             <div className="col-6 p-1 ">
               <div className="info-item">
-                <img src="icons/offers-icon.svg" />
+                <img src={offersIcon} />
                 <p>{work.offers_count} عروض مقدمة</p>
               </div>
             </div>

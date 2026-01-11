@@ -1,3 +1,6 @@
+import medalIcon from "../../../assets/icons/medal.svg";
+import locationIcon from "../../../assets/icons/location-icon.svg";
+
 export default function AssistantData() {
   return (
     <div className="assistant-card">
@@ -14,12 +17,12 @@ export default function AssistantData() {
             <h3>
               <span> احمد التطاوي</span>{" "}
               <div className="stats">
-                <img src="icons/medal.svg" />
+                <img src={medalIcon} />
                 <span>11</span>
               </div>
             </h3>
             <div className="location">
-              <img src="icons/location-icon.svg" />
+              <img src={locationIcon} />
               <span>السعودية </span>
             </div>
           </div>

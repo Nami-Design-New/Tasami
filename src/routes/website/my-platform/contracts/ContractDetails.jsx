@@ -13,6 +13,8 @@ import Loading from "../../../../ui/loading/Loading";
 import AssistantWorkCard from "../../../../ui/website/my-works/work-offers/AssistantWorkCard";
 import AcceptModal from "../../../../ui/website/platform/contracts/AcceptModal";
 import AlertModal from "../../../../ui/website/platform/my-community/AlertModal";
+import triangleWithHelper from "../../../../assets/icons/triangle-with-helper.svg";
+import helpServiceFromHelper from "../../../../assets/icons/help_service_from_helper.svg";
 
 export default function ContractDetails() {
   const { t } = useTranslation();
@@ -95,17 +97,19 @@ export default function ContractDetails() {
         <div className="label">
           {workDetails.rectangle === "personal_goal_with_helper" && (
             <>
-              <img src="icons/triangle-with-helper.svg" alt="" />{" "}
+              <img src={triangleWithHelper} alt="" />
               {t("website.offerDetails.goal")}
             </>
           )}
+
           {workDetails.rectangle === "help_service_from_helper" && (
             <>
-              <img src="icons/help_service_from_helper.svg" alt="" />{" "}
+              <img src={helpServiceFromHelper} alt="" />
               {t("website.offerDetails.offer")}
             </>
           )}
         </div>
+
         <p className="value">{workDetails?.title}</p>
       </div>
 

@@ -5,6 +5,8 @@ import { useState } from "react";
 import AnswerModal from "./AnswerModal";
 import { useTranslation } from "react-i18next";
 
+import triangleWithHelper from "../../../assets/icons/triangle-with-helper.svg";
+
 export default function InQuriyCard({ item }) {
   const { t } = useTranslation();
 
@@ -16,7 +18,7 @@ export default function InQuriyCard({ item }) {
       <HelperCard helper={item?.fromUser} />
       <div className="inquriy-data">
         <div className="inquriy-header">
-          <img src="icons/triangle-with-helper.svg" />
+          <img src={triangleWithHelper} />
           <h2>{item.code}</h2>
         </div>
         <p>{item.message} </p>

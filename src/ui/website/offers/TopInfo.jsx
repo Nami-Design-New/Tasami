@@ -1,3 +1,5 @@
+import flagIcon from "../../../assets/icons/flag.svg";
+import medalIcon from "../../../assets/icons/medal.svg";
 export default function TopInfo({ offer }) {
   return (
     <div className="top-info">
@@ -11,12 +13,12 @@ export default function TopInfo({ offer }) {
           <div className="personal-info">
             <h5>{offer.user.name}</h5>
             <div className="country">
-              <img src="icons/flag.svg" />
+              <img src={flagIcon} />
               {offer.user.country.title}
             </div>
           </div>
           <div className="rating">
-            <img src="icons/medal.svg" />
+            <img src={medalIcon} />
             <span>{offer.user.experience_level}</span>
           </div>
         </div>

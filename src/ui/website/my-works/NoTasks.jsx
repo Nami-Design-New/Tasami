@@ -28,7 +28,6 @@ export default function NoTasks({ workDetails, noActions = false }) {
   return (
     <>
       <div className="no-tasks">
-        {/* <img src="icons/no-tasks-icon.svg" alt="No tasks" /> */}
         <p>{t("works.myTasks.noTasks")}</p>
       </div>
 

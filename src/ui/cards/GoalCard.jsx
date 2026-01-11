@@ -5,6 +5,8 @@ import { Link, useNavigate } from "react-router";
 import { toast } from "sonner";
 import useToggleSavedGoals from "../../hooks/website/goals/useToggleSavedGoals";
 import { useSelector } from "react-redux";
+import title from "../../assets/icons/title.svg";
+import offerIcon from "../../assets/icons/offers-icon.svg";
 
 const GoalCard = ({ goal }) => {
   const { user } = useSelector((state) => state.authRole);
@@ -72,11 +74,11 @@ const GoalCard = ({ goal }) => {
       </div>
       <div className="meta text-decoration-none text-dark ">
         <span>
-          <img src="icons/title.svg" alt="type" /> {goal.category_title}
+          <img src={title} alt="type" /> {goal.category_title}
         </span>
         <span>
-          <img src="icons/offers-icon.svg" alt="offers" />{" "}
-          {goal.goal.offers_count} {t("website.offerDetails.submittedOffer")}
+          <img src={offerIcon} alt="offers" /> {goal.goal.offers_count}{" "}
+          {t("website.offerDetails.submittedOffer")}
         </span>
       </div>
     </Link>

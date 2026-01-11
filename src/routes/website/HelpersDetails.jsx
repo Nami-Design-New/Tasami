@@ -16,6 +16,9 @@ import RoundedBackButton from "../../ui/website-auth/shared/RoundedBackButton";
 import PersonalHelperDoc from "../../ui/website/helpers/PersonalHelperDoc";
 import PersonalHelperExperiences from "../../ui/website/helpers/PersonalHelperExperiences";
 
+import medal from "../../assets/icons/medal.svg";
+import flag from "../../assets/icons/flag.svg";
+
 export default function HelpersDetails() {
   const navigate = useNavigate();
   const { t } = useTranslation();
@@ -120,14 +123,14 @@ export default function HelpersDetails() {
                     {assistantDetails?.country?.title && (
                       <>
                         {" "}
-                        <img src="icons/flag.svg" />
+                        <img src={flag} />
                         <span>{assistantDetails?.country?.title}</span>
                       </>
                     )}
                   </div>
                 </div>
                 <div className="rating">
-                  <img src="icons/medal.svg" />
+                  <img src={medal} />
                   <span>{assistantDetails.experience_level}</span>
                 </div>
               </div>

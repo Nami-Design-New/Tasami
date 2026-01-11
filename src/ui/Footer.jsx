@@ -1,6 +1,6 @@
 import { Link } from "react-router";
 import { useTranslation } from "react-i18next";
-
+import logo from "../assets/images/logo.svg";
 export default function Footer() {
   const { t } = useTranslation();
 
@@ -11,7 +11,7 @@ export default function Footer() {
           {/* Logo + Description */}
           <div className="col-lg-4 col-md-6 col-12 p-2">
             <Link to="/" className="logo">
-              <img src="images/logo.svg" alt="logo" width="150" height="60" />
+              <img src={logo} alt="logo" width="150" height="60" />
             </Link>
             <p className="description">{t("footer.description")}</p>
           </div>

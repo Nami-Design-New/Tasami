@@ -4,7 +4,9 @@ import { useTranslation } from "react-i18next";
 import { useLocation, useNavigate } from "react-router";
 import CustomButton from "../../../CustomButton";
 import ConfirmPerformanceModal from "./ConfirmPerformanceModal";
-
+import pendingTaskCheck from "../../../../assets/icons/pending-task-check.svg";
+import progressTaskCheck from "../../../../assets/icons/progress-task-check.svg";
+import taskCheck from "../../../../assets/icons/task-check.svg";
 export default function TaskCard({
   task,
   user,
@@ -90,13 +92,15 @@ export default function TaskCard({
         }`}
       >
         {task.status === "pending" && (
-          <img src="icons/pending-task-check.svg" alt="pending" />
+          <img src={pendingTaskCheck} alt="pending" />
         )}
+
         {task.status === "progress" && (
-          <img src="icons/progress-task-check.svg" alt="progress" />
+          <img src={progressTaskCheck} alt="progress" />
         )}
+
         {(task.status === "completed" || task.status === "confirmed") && (
-          <img src="icons/task-check.svg" alt="completed" />
+          <img src={taskCheck} alt="completed" />
         )}
       </div>
 

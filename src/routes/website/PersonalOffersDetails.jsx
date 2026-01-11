@@ -15,6 +15,7 @@ import InquiryModal from "../../ui/website/my-notifications/inquiryModal";
 import OfferInfoGrid from "../../ui/website/offers/OfferInfoGrid";
 import TopInfo from "../../ui/website/offers/TopInfo";
 import { shareContent } from "../../utils/shared";
+import helpTiangle from "../../assets/icons/help-triangle.svg";
 
 export default function PersonalOffersDetails() {
   const { t } = useTranslation();
@@ -27,7 +28,6 @@ export default function PersonalOffersDetails() {
   const [showHelpModal, setShowHelpModal] = useState(false);
   const [showReportModal, setShowReportModal] = useState(false);
   const [showInquiryModal, setShowInquiryModal] = useState(false);
-
   useEffect(() => {
     setBookmarked(offerDetails?.is_saved || false);
   }, [offerDetails?.is_saved]);
@@ -110,7 +110,7 @@ export default function PersonalOffersDetails() {
 
           <div className="col-lg-8 col-12 p-2">
             <div className="hed">
-              <img src="icons/help-triangle.svg" />
+              <img src={helpTiangle} />
               <h6>{t("website.offerDetails.assistance")}</h6>
             </div>
             <p className="desc">{offerDetails?.title}</p>

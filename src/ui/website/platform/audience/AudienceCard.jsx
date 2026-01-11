@@ -1,6 +1,6 @@
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router";
-
+import medalIcon from "../../../../assets/icons/medal.svg";
 export default function AudienceCard({ data, date = false }) {
   const { t } = useTranslation();
   console.log(data);
@@ -24,7 +24,7 @@ export default function AudienceCard({ data, date = false }) {
         <h2>
           <span>{data?.user?.name}</span>
           <span className="score">
-            <img src="icons/medal.svg" />
+            <img src={medalIcon} />
             {0}
           </span>
         </h2>

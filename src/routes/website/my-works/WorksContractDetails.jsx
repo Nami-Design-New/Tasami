@@ -14,7 +14,10 @@ import AssistantWorkCard from "../../../ui/website/my-works/work-offers/Assistan
 import RateShowModal from "../../../ui/website/my-works/work-offers/RateShowModal";
 import RenewContractModal from "../../../ui/website/my-works/RenewContractModal";
 import RenewContractDetailsModal from "../../../ui/website/my-works/RenewContractDetailsModal";
-
+import workStarYellow from "../../../assets/icons/work-star-yellow.svg";
+import workChat from "../../../assets/icons/work-chat.svg";
+import workChatYellow from "../../../assets/icons/work-chat-yellow.svg";
+import contractFlag from "../../../assets/icons/contract-flag.svg";
 export default function WorksContractDetails() {
   const { t } = useTranslation();
   const { id } = useParams();
@@ -83,7 +86,7 @@ export default function WorksContractDetails() {
                           setShowRateModal(true);
                         }}
                       >
-                        <img src="icons/work-star-yellow.svg" alt="working" />
+                        <img src={workStarYellow} alt="working" />
                       </button>
                     ) : (
                       <button
@@ -108,16 +111,16 @@ export default function WorksContractDetails() {
                   }`}
                 >
                   {contractDetails.status === "working" ? (
-                    <img src="icons/work-chat.svg" alt="chat" />
+                    <img src={workChat} alt="chat" />
                   ) : (
-                    <img src="icons/work-chat-yellow.svg" alt="chat" />
+                    <img src={workChatYellow} alt="chat" />
                   )}
                 </Link>
 
                 {contractDetails.status === "working" && (
                   <div className="options-menu" ref={menuRef}>
                     <button className="action-buttons" onClick={toggleMenu}>
-                      <img src="icons/contract-flag.svg" alt="options" />
+                      <img src={contractFlag} alt="options" />
                     </button>
                     {menuOpen && (
                       <div

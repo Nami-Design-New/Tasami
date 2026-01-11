@@ -1,7 +1,8 @@
-import { useEffect, useState, useCallback, useMemo } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { useDropzone } from "react-dropzone";
 import { useTranslation } from "react-i18next";
 import PropTypes from "prop-types";
+import imageUpload from "../../assets/images/imageUpload.svg";
 
 /**
  * Utility functions - separated for easier testing
@@ -378,7 +379,7 @@ export default function FileUploader({
                 data-testid="dropzone-single"
               >
                 <section className="icon">
-                  <img src="images/imageUpload.svg" alt="Upload Icon" />
+                  <img src={imageUpload} alt="Upload Icon" />
                   <p>{t("dashboard.fileUploader.dragDrop")}</p>
                 </section>
               </div>
@@ -424,7 +425,7 @@ export default function FileUploader({
               data-testid="dropzone-multiple"
             >
               <section className="icon">
-                <img src="images/imageUpload.svg" alt="Upload Icon" />
+                <img src={imageUpload} alt="Upload Icon" />
                 <p>{t("dashboard.fileUploader.dragDrop")}</p>
               </section>
             </div>

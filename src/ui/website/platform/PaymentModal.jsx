@@ -8,7 +8,8 @@ import useMessagePaymentListener from "../../../hooks/shared/useMessagePaymentLi
 import useSubscripePackage from "../../../hooks/website/subscribe/useSubscripePackage";
 import Currency from "../../Currency";
 import CustomButton from "../../CustomButton";
-
+import masterCardLogo from "../../../assets/icons/mastercard-logo.svg";
+import walletImage from "../../../assets/icons/wallet-image.svg";
 export default function PaymentModal({ plan, showModal, setShowModal }) {
   const { t } = useTranslation();
   const { user } = useSelector((state) => state.authRole);
@@ -96,7 +97,7 @@ export default function PaymentModal({ plan, showModal, setShowModal }) {
             }`}
           >
             <div className="payment-methd-image-wrapper">
-              <img src="icons/mastercard-logo.svg" />
+              <img src={masterCardLogo} />
             </div>
             <span className="payment-method-title">
               {" "}
@@ -118,7 +119,7 @@ export default function PaymentModal({ plan, showModal, setShowModal }) {
             }`}
           >
             <div className="payment-methd-image-wrapper">
-              <img src="icons/wallet-image.svg" />
+              <img src={walletImage} />
             </div>
             <span className="payment-method-title">
               {" "}

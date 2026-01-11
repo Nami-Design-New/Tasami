@@ -6,7 +6,7 @@ import CustomButton from "../../CustomButton";
 import AddGoalModal from "../gaols/AddGoalModal";
 import AddAssistanceModal from "../offers/AddAssistanceModal";
 import PlatformModal from "../platform/PlatformModal";
-
+import addIcon from "../../../assets/icons/add.svg";
 export default function GoalsHelpSection() {
   const { t } = useTranslation();
   const navigate = useNavigate();
@@ -36,7 +36,7 @@ export default function GoalsHelpSection() {
         }}
         className="goal-btn personal-goal"
       >
-        <img src="icons/add.svg" alt="icon" />
+        <img src={addIcon} alt="icon" />
         {t("website.hero.personalGoal")}
       </CustomButton>
       <button
@@ -61,7 +61,7 @@ export default function GoalsHelpSection() {
         }}
         className="goal-btn offer-help"
       >
-        <img src="icons/add.svg" alt="icon" />
+        <img src={addIcon} alt="icon" />
         {t("website.hero.offerHelp")}
       </button>
       <AddAssistanceModal showModal={showModal} setShowModal={setShowModal} />

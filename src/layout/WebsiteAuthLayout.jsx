@@ -8,6 +8,8 @@ import {
 } from "react-router";
 import useAuth from "../hooks/auth/useAuth";
 import LangDropdown from "../ui/website/LangDropdown";
+import logo from "../assets/images/logo.svg";
+import registerPage from "../assets/images/regiester-image.png";
 
 const getHeadingText = (route, step, t) => {
   if (route === "/login") {
@@ -49,7 +51,7 @@ const WebsiteAuthLayout = () => {
         <div className="form-header d-flex align-items-center justify-content-between">
           <div className="logo">
             <Link to="/">
-              <img src="images/logo.svg" alt="logo" />
+              <img src={logo} alt="logo" />
             </Link>
             <span />
             <h1>{getHeadingText(route, step, t)}</h1>
@@ -60,7 +62,7 @@ const WebsiteAuthLayout = () => {
       </div>
 
       <div className="img  d-none d-md-block">
-        <img src="images/regiester-image.png" alt={t("auth.authImageAlt")} />
+        <img src={registerPage} alt={t("auth.authImageAlt")} />
       </div>
     </section>
   );

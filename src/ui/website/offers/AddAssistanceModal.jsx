@@ -15,7 +15,7 @@ import TextField from "../../forms/TextField";
 import useEditAssistance from "../../../hooks/website/my-assistances/useEditAssistance";
 import { Link } from "react-router";
 import ToastSuccessModal from "../gaols/ToastSuccessModal";
-
+import addphoto from "../../../assets/icons/add-photo.svg";
 export default function AddAssistanceModal({
   showModal,
   setShowModal,
@@ -214,7 +214,7 @@ export default function AddAssistanceModal({
                         className="preview-img"
                       />
                     ) : (
-                      <img src="icons/add-photo.svg" alt="placeholder" />
+                      <img src={addphoto} alt="placeholder" />
                     )}
                   </div>
                   <input

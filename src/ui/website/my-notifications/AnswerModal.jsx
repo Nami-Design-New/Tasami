@@ -10,6 +10,8 @@ import * as yup from "yup";
 import { toast } from "sonner";
 import useAnswerInquriy from "../../../hooks/website/inquiries/useAnswerInquriy";
 
+import triangleWithHelper from "../../../assets/icons/triangle-with-helper.svg";
+
 export default function AnswerModal({ shwModal, setShowModal, item }) {
   const { t } = useTranslation();
   const { answer, isPending } = useAnswerInquriy();
@@ -64,7 +66,7 @@ export default function AnswerModal({ shwModal, setShowModal, item }) {
           <div className="row">
             <div className="col-12 p-2">
               <h3 className="message-title">
-                <img src="icons/triangle-with-helper.svg" />
+                <img src={triangleWithHelper} />
                 <span> {t("goal")} </span>
               </h3>
               <p className="message-desc">{item.message}</p>

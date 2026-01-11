@@ -5,6 +5,7 @@ import Loading from "../../../ui/loading/Loading";
 import SectionHeader from "../../../ui/website/SectionHeader";
 import TopInfo from "../../../ui/website/offers/TopInfo";
 import GoalInfoGrid from "../../../ui/website/gaols/GoalInfoGrid";
+import triangleWithHelper from "../../../assets/icons/triangle-with-helper.svg";
 
 export default function PersonalGoalDetails() {
   const { t } = useTranslation();
@@ -32,7 +33,7 @@ export default function PersonalGoalDetails() {
           </div>
           <div className="col-lg-8 col-12 p-2 ">
             <div className="hed">
-              <img src="icons/triangle-with-helper.svg" />
+              <img src={triangleWithHelper} />
               <h6>{t("website.offerDetails.goal")}</h6>
             </div>
             <p className="desc ">{personalGoalDetails?.title}</p>
