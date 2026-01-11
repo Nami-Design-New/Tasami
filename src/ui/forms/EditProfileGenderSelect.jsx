@@ -23,7 +23,7 @@ export default function GenderSelect({
             disabled={disabled}
             checked={value === "female"}
           />
-          <img src="/icons/femal.svg" alt="female" /> {t("female")}
+          <img src="icons/femal.svg" alt="female" /> {t("female")}
         </label>
 
         <label
@@ -38,7 +38,7 @@ export default function GenderSelect({
             disabled={disabled}
             checked={value === "male"}
           />
-          <img src="/icons/male-outlined.svg" alt="male" /> {t("male")}
+          <img src="icons/male-outlined.svg" alt="male" /> {t("male")}
         </label>
       </div>
       {error && <p className="error-text">{error} </p>}

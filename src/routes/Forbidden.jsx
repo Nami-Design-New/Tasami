@@ -17,7 +17,7 @@ export default function Forbidden() {
   return (
     <div className="error-page">
       <div className="container">
-        <img src="/sys-icons/forbidden-bro.svg" alt={t("pageNotFound.alt")} />
+        <img src="sys-icons/forbidden-bro.svg" alt={t("pageNotFound.alt")} />
 
         <h1 className="error-title">{t("forbidden.title")}</h1>
 

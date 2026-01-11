@@ -120,14 +120,14 @@ export default function HelpersDetails() {
                     {assistantDetails?.country?.title && (
                       <>
                         {" "}
-                        <img src="/icons/flag.svg" />
+                        <img src="icons/flag.svg" />
                         <span>{assistantDetails?.country?.title}</span>
                       </>
                     )}
                   </div>
                 </div>
                 <div className="rating">
-                  <img src="/icons/medal.svg" />
+                  <img src="icons/medal.svg" />
                   <span>{assistantDetails.experience_level}</span>
                 </div>
               </div>

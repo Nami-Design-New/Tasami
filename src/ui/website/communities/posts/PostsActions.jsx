@@ -78,7 +78,7 @@ export default function PostsActions({ post }) {
     <div className="icons-row details">
       <div className="icons-wrapper">
         <div className="icon-circle">
-          <img src="/icons/eye.svg" alt="views" />
+          <img src="icons/eye.svg" alt="views" />
         </div>
         <span>{post.views_count}</span>
       </div>
@@ -98,13 +98,13 @@ export default function PostsActions({ post }) {
           className="icon-circle"
           onClick={handleShare}
         >
-          <img src="/icons/share.svg" alt="shares" />
+          <img src="icons/share.svg" alt="shares" />
         </button>
         <span>{sharesCount}</span>
       </div>{" "}
       <div className="icons-wrapper">
         <div className="icon-circle">
-          <img src="/icons/comments.svg" alt="comments" />
+          <img src="icons/comments.svg" alt="comments" />
         </div>
         <span>{post.comments_count}</span>
       </div>

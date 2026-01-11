@@ -95,13 +95,13 @@ export default function ContractDetails() {
         <div className="label">
           {workDetails.rectangle === "personal_goal_with_helper" && (
             <>
-              <img src="/icons/triangle-with-helper.svg" alt="" />{" "}
+              <img src="icons/triangle-with-helper.svg" alt="" />{" "}
               {t("website.offerDetails.goal")}
             </>
           )}
           {workDetails.rectangle === "help_service_from_helper" && (
             <>
-              <img src="/icons/help_service_from_helper.svg" alt="" />{" "}
+              <img src="icons/help_service_from_helper.svg" alt="" />{" "}
               {t("website.offerDetails.offer")}
             </>
           )}

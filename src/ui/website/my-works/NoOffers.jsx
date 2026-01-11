@@ -5,7 +5,7 @@ export default function NoOffers() {
 
   return (
     <div className="no-groups">
-      <img src="/icons/alert-icon.svg" alt="No offers" />
+      <img src="icons/alert-icon.svg" alt="No offers" />
       <h1>{t("works.myOffers.noOffers.title")}</h1>
       <p>{t("works.myOffers.noOffers.description")}</p>
     </div>

@@ -7,7 +7,7 @@ export default function UserCard({ user }) {
         <span>{user.account_code}</span>
       </div>
       <div className="rating">
-        <img src="/icons/medal.svg" />
+        <img src="icons/medal.svg" />
         <span>{user.experience_level}</span>
       </div>
     </div>

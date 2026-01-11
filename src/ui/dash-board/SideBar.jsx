@@ -54,7 +54,7 @@ export default function SideBar({ hoverExpand, setHoverExpand, collapsed }) {
         <li className="nav_item mb-2">
           <NavLink to="/dashboard" end>
             <div className="icon">
-              <img src="/dashboard-icons/home.svg" alt="dashboard" />
+              <img src="dashboard-icons/home.svg" alt="dashboard" />
             </div>
             <h6>{t("dashboard.main")}</h6>
           </NavLink>

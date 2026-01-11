@@ -27,7 +27,7 @@ export default function AlertModal({
     <Modal show={showModal} onHide={handleCancel} centered size="md">
       <Modal.Body>
         <div className="alert-modal">
-          <img src="/icons/alert.svg" alt="alert" />
+          <img src="icons/alert.svg" alt="alert" />
 
           {withoutMessage && (
             <h4> {t("website.platform.myCommunity.areYouSure")}</h4>

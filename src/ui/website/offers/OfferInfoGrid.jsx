@@ -17,7 +17,7 @@ export default function OfferInfoGrid({ offer }) {
       <div className="info-box info-box-grow-min-width">
         <div className="label">{t("website.offerDetails.helpValue")}</div>
         <div className="value">
-          {offer.help_service.price} <img src="/icons/ryal.svg" alt="ريال" />
+          {offer.help_service.price} <img src="icons/ryal.svg" alt="ريال" />
         </div>
       </div>
 

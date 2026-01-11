@@ -9,7 +9,7 @@ function ResponsiveNav() {
   return (
     <div className="small_menu">
       <NavLink to="/" className="menu_item">
-        <img src="/icons/navlogo.svg" alt="fav" />
+        <img src="icons/navlogo.svg" alt="fav" />
         <span>{t("nav.start")}</span>
       </NavLink>
 

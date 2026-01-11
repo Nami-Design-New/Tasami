@@ -121,7 +121,7 @@ export default function ContractDetailsLayout() {
                 <div className={`work-actions `}>
                   <div className="options-menu" ref={menuRef}>
                     <button className="action-buttons" onClick={toggleMenu}>
-                      <img src="/icons/contract-flag.svg" />
+                      <img src="icons/contract-flag.svg" />
                     </button>
                     {menuOpen && (
                       <div
@@ -164,13 +164,12 @@ export default function ContractDetailsLayout() {
                         {workDetails?.tasks_need_actions_helper}
                       </span>
                     )}
-                  {tab.id == 5 &&
-                    workDetails?.unread_messages  > 0 && (
-                      <span className="notification_span mx-1">
-                        {workDetails?.unread_messages }
-                      </span>
-                    )}
-                 
+                  {tab.id == 5 && workDetails?.unread_messages > 0 && (
+                    <span className="notification_span mx-1">
+                      {workDetails?.unread_messages}
+                    </span>
+                  )}
+
                   {tab.link === "offers" && (
                     <span className="offer-count-badge">
                       {workDetails?.offers_count}

@@ -36,7 +36,7 @@ export default function GoalsHelpSection() {
         }}
         className="goal-btn personal-goal"
       >
-        <img src="/icons/add.svg" alt="icon" />
+        <img src="icons/add.svg" alt="icon" />
         {t("website.hero.personalGoal")}
       </CustomButton>
       <button
@@ -61,7 +61,7 @@ export default function GoalsHelpSection() {
         }}
         className="goal-btn offer-help"
       >
-        <img src="/icons/add.svg" alt="icon" />
+        <img src="icons/add.svg" alt="icon" />
         {t("website.hero.offerHelp")}
       </button>
       <AddAssistanceModal showModal={showModal} setShowModal={setShowModal} />

@@ -90,13 +90,13 @@ export default function TaskCard({
         }`}
       >
         {task.status === "pending" && (
-          <img src="/icons/pending-task-check.svg" alt="pending" />
+          <img src="icons/pending-task-check.svg" alt="pending" />
         )}
         {task.status === "progress" && (
-          <img src="/icons/progress-task-check.svg" alt="progress" />
+          <img src="icons/progress-task-check.svg" alt="progress" />
         )}
         {(task.status === "completed" || task.status === "confirmed") && (
-          <img src="/icons/task-check.svg" alt="completed" />
+          <img src="icons/task-check.svg" alt="completed" />
         )}
       </div>
 

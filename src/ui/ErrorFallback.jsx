@@ -35,7 +35,7 @@ export default function ErrorFallback() {
   return (
     <div className="error-page">
       <div className="container">
-        <img src="/sys-icons/error.svg" alt={t("pageNotFound.alt")} />
+        <img src="sys-icons/error.svg" alt={t("pageNotFound.alt")} />
 
         <h1 className="error-title">
           {t("errors.oops")} {title} ({status})

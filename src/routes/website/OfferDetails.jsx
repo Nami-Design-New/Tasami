@@ -112,7 +112,7 @@ export default function OfferDetails() {
           </div>
           <div className="col-lg-8 col-12 p-2 ">
             <div className="hed">
-              <img src="/icons/help-triangle.svg" />
+              <img src="icons/help-triangle.svg" />
               <h6>{t("website.offerDetails.assistance")}</h6>{" "}
             </div>
             <p className="desc">{offerDetails?.title}</p>

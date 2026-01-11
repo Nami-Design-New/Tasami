@@ -24,7 +24,7 @@ export default function ResetPassword() {
     <section className="reset_section">
       <div className="header d-flex align-items-center justify-content-between gap-3">
         <Link to="/" className="logo">
-          <img src="/images/logo.svg" alt="logo" />
+          <img src="images/logo.svg" alt="logo" />
         </Link>
         <LangDropdown isAuthPage={true} />
       </div>

@@ -112,7 +112,7 @@ export default function EditCommunityModal({
                       className="preview-img"
                     />
                   ) : (
-                    <img src="/icons/add-photo.svg" alt="placeholder" />
+                    <img src="icons/add-photo.svg" alt="placeholder" />
                   )}
                 </div>
                 <input

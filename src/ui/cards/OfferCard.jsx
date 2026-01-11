@@ -58,12 +58,12 @@ const OfferCard = ({ offer }) => {
 
       <div className="data">
         <span className="item mx-2">
-          <img src="/icons/title.svg" alt="title" /> {offer.category_title}
+          <img src="icons/title.svg" alt="title" /> {offer.category_title}
         </span>
         <div className="item price">
           <span>
-            <img src="/icons/cash.svg" alt="icon" className="mx-2" />
-            {offer.help_service.price} <img src="/icons/ryal.svg" alt="ريال" />
+            <img src="icons/cash.svg" alt="icon" className="mx-2" />
+            {offer.help_service.price} <img src="icons/ryal.svg" alt="ريال" />
           </span>
           {!isMyOffer && (
             <button

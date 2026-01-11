@@ -34,7 +34,7 @@ export default function AssistantStat() {
       value: (
         <>
           <span>{user.my_package_details.package.type_title}</span>
-          {/* <img src="/icons/clock.svg" alt="clock" /> */}
+          {/* <img src="icons/clock.svg" alt="clock" /> */}
         </>
       ),
     },
@@ -43,7 +43,7 @@ export default function AssistantStat() {
       value: (
         <>
           <span>{user.my_package_details.start_date}</span>
-          {/* <img src="/icons/calendar-check.svg" alt="start" /> */}
+          {/* <img src="icons/calendar-check.svg" alt="start" /> */}
         </>
       ),
     },
@@ -56,7 +56,7 @@ export default function AssistantStat() {
               ? user.my_package_details.end_date
               : "--"}
           </span>
-          {/* <img src="/icons/calendar-x.svg" alt="end" /> */}
+          {/* <img src="icons/calendar-x.svg" alt="end" /> */}
         </>
       ),
     },

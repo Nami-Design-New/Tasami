@@ -111,7 +111,7 @@ export default function OfferPaymentModal({
             }`}
           >
             <div className="payment-methd-image-wrapper">
-              <img src="/icons/mastercard-logo.svg" />
+              <img src="icons/mastercard-logo.svg" />
             </div>
             <span className="payment-method-title">
               {t("website.platform.subscription.online")}
@@ -132,7 +132,7 @@ export default function OfferPaymentModal({
             }`}
           >
             <div className="payment-methd-image-wrapper">
-              <img src="/icons/wallet-image.svg" />
+              <img src="icons/wallet-image.svg" />
             </div>
             <span className="payment-method-title">
               {t("website.platform.subscription.wallet")}

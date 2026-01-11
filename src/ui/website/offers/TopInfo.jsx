@@ -11,12 +11,12 @@ export default function TopInfo({ offer }) {
           <div className="personal-info">
             <h5>{offer.user.name}</h5>
             <div className="country">
-              <img src="/icons/flag.svg" />
+              <img src="icons/flag.svg" />
               {offer.user.country.title}
             </div>
           </div>
           <div className="rating">
-            <img src="/icons/medal.svg" />
+            <img src="icons/medal.svg" />
             <span>{offer.user.experience_level}</span>
           </div>
         </div>

@@ -131,7 +131,7 @@ export default function CommunityActions({ community, isMyCommunity = true }) {
               to={`/community/${community?.id}/chats`}
               className="chat-link"
             >
-              <img src="/icons/chat.svg" />
+              <img src="icons/chat.svg" />
             </Link>
             {community?.helper_unread_chats > 0 && (
               <span className="notification_span notification_position">

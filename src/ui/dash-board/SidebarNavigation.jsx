@@ -28,13 +28,13 @@ export default function SidebarNavigation() {
             <ul className="sub_navigation_menu">
               <li className="sub_nav_item">
                 <NavLink to="user-accounts">
-                  <img src="/sys-icons/subArrow.svg" alt="arrow" />
+                  <img src="sys-icons/subArrow.svg" alt="arrow" />
                   <span>{t("dashboard.subscribers")}</span>
                 </NavLink>
               </li>
               <li className="sub_nav_item">
                 <NavLink to="teams">
-                  <img src="/sys-icons/subArrow.svg" alt="arrow" />
+                  <img src="sys-icons/subArrow.svg" alt="arrow" />
                   <span>{t("dashboard.myTeam")}</span>
                 </NavLink>
               </li>
@@ -60,25 +60,25 @@ export default function SidebarNavigation() {
             <ul className="sub_navigation_menu">
               <li className="sub_nav_item">
                 <NavLink to="list-management/operating-sectors">
-                  <img src="/sys-icons/subArrow.svg" alt="arrow" />
+                  <img src="sys-icons/subArrow.svg" alt="arrow" />
                   <span>{t("dashboard.operating_areas")}</span>
                 </NavLink>
               </li>
               <li className="sub_nav_item">
                 <NavLink to="list-management/working-groups">
-                  <img src="/sys-icons/subArrow.svg" alt="arrow" />
+                  <img src="sys-icons/subArrow.svg" alt="arrow" />
                   <span>{t("dashboard.working_groups")}</span>
                 </NavLink>
               </li>
               <li className="sub_nav_item">
                 <NavLink to="list-management/fields-and-specializations">
-                  <img src="/sys-icons/subArrow.svg" alt="arrow" />
+                  <img src="sys-icons/subArrow.svg" alt="arrow" />
                   <span>{t("dashboard.fields_specializations")}</span>
                 </NavLink>
               </li>
               <li className="sub_nav_item">
                 <NavLink to="list-management/administrative-systems">
-                  <img src="/sys-icons/subArrow.svg" alt="arrow" />
+                  <img src="sys-icons/subArrow.svg" alt="arrow" />
                   <span>{t("dashboard.admin_systems")}</span>
                 </NavLink>
               </li>
@@ -104,55 +104,55 @@ export default function SidebarNavigation() {
             <ul className="sub_navigation_menu">
               <li className="sub_nav_item">
                 <NavLink to="violations-management">
-                  <img src="/sys-icons/subArrow.svg" alt="arrow" />
+                  <img src="sys-icons/subArrow.svg" alt="arrow" />
                   <span>{t("dashboard.violations")}</span>
                 </NavLink>
               </li>
               <li className="sub_nav_item">
                 <NavLink to="social-links-management">
-                  <img src="/sys-icons/subArrow.svg" alt="arrow" />
+                  <img src="sys-icons/subArrow.svg" alt="arrow" />
                   <span>{t("dashboard.social_links")}</span>
                 </NavLink>
               </li>
               <li className="sub_nav_item">
                 <NavLink to="content-management">
-                  <img src="/sys-icons/subArrow.svg" alt="arrow" />
+                  <img src="sys-icons/subArrow.svg" alt="arrow" />
                   <span>{t("dashboard.content_management")}</span>
                 </NavLink>
               </li>
               <li className="sub_nav_item">
                 <NavLink to="faq-management">
-                  <img src="/sys-icons/subArrow.svg" alt="arrow" />
+                  <img src="sys-icons/subArrow.svg" alt="arrow" />
                   <span>{t("dashboard.faq")}</span>
                 </NavLink>
               </li>
               <li className="sub_nav_item">
                 <NavLink to="tasks-management">
-                  <img src="/sys-icons/subArrow.svg" alt="arrow" />
+                  <img src="sys-icons/subArrow.svg" alt="arrow" />
                   <span>{t("dashboard.task_categories")}</span>
                 </NavLink>
               </li>
               <li className="sub_nav_item">
                 <NavLink to="subscription-management">
-                  <img src="/sys-icons/subArrow.svg" alt="arrow" />
+                  <img src="sys-icons/subArrow.svg" alt="arrow" />
                   <span>{t("dashboard.subscription_management")}</span>
                 </NavLink>
               </li>
               <li className="sub_nav_item">
                 <NavLink to="banners">
-                  <img src="/sys-icons/subArrow.svg" alt="arrow" />
+                  <img src="sys-icons/subArrow.svg" alt="arrow" />
                   <span>{t("dashboard.ad_banners")}</span>
                 </NavLink>
               </li>
               <li className="sub_nav_item">
                 <NavLink to="nationalities-management">
-                  <img src="/sys-icons/subArrow.svg" alt="arrow" />
+                  <img src="sys-icons/subArrow.svg" alt="arrow" />
                   <span>{t("dashboard.nationalities")}</span>
                 </NavLink>
               </li>
               <li className="sub_nav_item">
                 <NavLink to="public-notifications">
-                  <img src="/sys-icons/subArrow.svg" alt="arrow" />
+                  <img src="sys-icons/subArrow.svg" alt="arrow" />
                   <span>{t("dashboard.publicNotifications")}</span>
                 </NavLink>
               </li>

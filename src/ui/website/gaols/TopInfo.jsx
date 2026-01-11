@@ -10,12 +10,12 @@ export default function TopInfo({ goal }) {
           <div className="personal-info">
             <h5>{goal.name}</h5>
             <div className="country">
-              <img src="/icons/flag.svg" />
+              <img src="icons/flag.svg" />
               {goal.country}
             </div>
           </div>
           <div className="rating">
-            <img src="/icons/hz-bars.svg" />
+            <img src="icons/hz-bars.svg" />
             <span>11</span>
           </div>
         </div>

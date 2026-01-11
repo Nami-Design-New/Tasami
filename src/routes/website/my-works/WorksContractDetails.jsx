@@ -83,7 +83,7 @@ export default function WorksContractDetails() {
                           setShowRateModal(true);
                         }}
                       >
-                        <img src="/icons/work-star-yellow.svg" alt="working" />
+                        <img src="icons/work-star-yellow.svg" alt="working" />
                       </button>
                     ) : (
                       <button
@@ -108,16 +108,16 @@ export default function WorksContractDetails() {
                   }`}
                 >
                   {contractDetails.status === "working" ? (
-                    <img src="/icons/work-chat.svg" alt="chat" />
+                    <img src="icons/work-chat.svg" alt="chat" />
                   ) : (
-                    <img src="/icons/work-chat-yellow.svg" alt="chat" />
+                    <img src="icons/work-chat-yellow.svg" alt="chat" />
                   )}
                 </Link>
 
                 {contractDetails.status === "working" && (
                   <div className="options-menu" ref={menuRef}>
                     <button className="action-buttons" onClick={toggleMenu}>
-                      <img src="/icons/contract-flag.svg" alt="options" />
+                      <img src="icons/contract-flag.svg" alt="options" />
                     </button>
                     {menuOpen && (
                       <div

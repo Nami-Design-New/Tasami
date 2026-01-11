@@ -72,10 +72,10 @@ const GoalCard = ({ goal }) => {
       </div>
       <div className="meta text-decoration-none text-dark ">
         <span>
-          <img src="/icons/title.svg" alt="type" /> {goal.category_title}
+          <img src="icons/title.svg" alt="type" /> {goal.category_title}
         </span>
         <span>
-          <img src="/icons/offers-icon.svg" alt="offers" />{" "}
+          <img src="icons/offers-icon.svg" alt="offers" />{" "}
           {goal.goal.offers_count} {t("website.offerDetails.submittedOffer")}
         </span>
       </div>

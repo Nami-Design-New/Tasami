@@ -218,7 +218,7 @@
 //                     />
 //                   )
 //                 ) : (
-//                   <img src="/icons/add-photo.svg" alt="placeholder" />
+//                   <img src="icons/add-photo.svg" alt="placeholder" />
 //                 )}
 //                 <button
 //                   onClick={handleButtonClick}
@@ -782,7 +782,7 @@ export default function EditProfile() {
                     />
                   )
                 ) : (
-                  <img src="/icons/add-photo.svg" alt="placeholder" />
+                  <img src="icons/add-photo.svg" alt="placeholder" />
                 )}
                 <button
                   onClick={handleButtonClick}

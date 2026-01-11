@@ -103,7 +103,7 @@ export default function CommunityHeader() {
               <div className="label">قيمة العضوية</div>
               <div className="value">
                 <i className="fa-solid fa-coins me-1"></i> {helper.price}
-                <img src="/icons/ryal.svg" alt="" />
+                <img src="icons/ryal.svg" alt="" />
               </div>
             </div>
             <div className="info-box">

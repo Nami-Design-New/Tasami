@@ -14,12 +14,12 @@ export default function AssistantData() {
             <h3>
               <span> احمد التطاوي</span>{" "}
               <div className="stats">
-                <img src="/icons/medal.svg" />
+                <img src="icons/medal.svg" />
                 <span>11</span>
               </div>
             </h3>
             <div className="location">
-              <img src="/icons/location-icon.svg" />
+              <img src="icons/location-icon.svg" />
               <span>السعودية </span>
             </div>
           </div>

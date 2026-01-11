@@ -50,13 +50,13 @@ export default function ContractCard({ contract, withoutStatus = true }) {
       <div className="work-title">
         {" "}
         {contract.rectangle === "personal_goal_with_helper" && (
-          <img src="/icons/triangle-with-helper.svg" />
+          <img src="icons/triangle-with-helper.svg" />
         )}
         {contract.rectangle === "personal_goal" && (
-          <img src="/icons/triangle-without-helper.png" />
+          <img src="icons/triangle-without-helper.png" />
         )}
         {contract.rectangle === "help_service_from_helper" && (
-          <img src="/icons/help_service_from_helper.svg" />
+          <img src="icons/help_service_from_helper.svg" />
         )}
         <p className="title ellipsis">{contract.title}</p>
       </div>{" "}
@@ -65,7 +65,7 @@ export default function ContractCard({ contract, withoutStatus = true }) {
           {" "}
           <div className="col-6 p-1">
             <div className="info-item">
-              <img src="/icons/title.svg" />
+              <img src="icons/title.svg" />
               <p> {contract.category_title} </p>
             </div>
           </div>

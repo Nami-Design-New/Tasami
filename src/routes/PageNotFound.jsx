@@ -17,7 +17,7 @@ export default function PageNotFound() {
   return (
     <div className="error-page">
       <div className="container">
-        <img src="/sys-icons/notFound.svg" alt={t("pageNotFound.alt")} />
+        <img src="sys-icons/notFound.svg" alt={t("pageNotFound.alt")} />
 
         <h1 className="error-title">{t("pageNotFound.title")}</h1>
 

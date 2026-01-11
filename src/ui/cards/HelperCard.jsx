@@ -1,7 +1,6 @@
 import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
 import { Link } from "react-router";
-import CustomButton from "../CustomButton";
 import CustomLink from "../CustomLink";
 
 export default function HelperCard({
@@ -46,7 +45,7 @@ export default function HelperCard({
               {helper.country && (
                 <span className="country">
                   <img
-                    src="/icons/flag.svg"
+                    src="icons/flag.svg"
                     alt={`${helper.country.title} flag`}
                     className="flag-icon"
                     loading="lazy"

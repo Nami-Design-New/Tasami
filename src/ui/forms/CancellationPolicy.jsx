@@ -49,7 +49,7 @@ const CancellationPolicy = ({
                 : "Add new policy"
             }
           >
-            <img src="/sys-icons/add.svg" alt="add" />
+            <img src="sys-icons/add.svg" alt="add" />
           </button>
         </div>
 
@@ -186,7 +186,7 @@ const CancellationPolicy = ({
                   : "Remove policy"
               }
             >
-              <img src="/sys-icons/delete.svg" alt="trash" />
+              <img src="sys-icons/delete.svg" alt="trash" />
             </button>
           </div>
         ))}

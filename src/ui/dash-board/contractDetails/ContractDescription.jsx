@@ -2,7 +2,7 @@ export default function ContractDescription() {
   return (
     <div className="contract-description">
       <h3 className="title">
-        <img src="/icons/help-triangle-with-helper.svg" />
+        <img src="icons/help-triangle-with-helper.svg" />
         <span>المساعدة</span>
       </h3>
       <p className="description">
@@ -52,15 +52,15 @@ export default function ContractDescription() {
           <h5 className="mb-2">آليات المساعدة المناسبة</h5>
           <ul className="mechanisms">
             <li>
-              <img src="/icons/check.svg" />
+              <img src="icons/check.svg" />
               <span>الالتقاء الشخصي</span>
             </li>
             <li>
-              <img src="/icons/check.svg" />
+              <img src="icons/check.svg" />
               <span>الاتصال المرئي والمسموع</span>
             </li>
             <li>
-              <img src="/icons/check.svg" />
+              <img src="icons/check.svg" />
               <span>التراسل النصي والصوتي</span>
             </li>
           </ul>

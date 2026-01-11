@@ -55,7 +55,7 @@ export default function PersonalInfoForm({ setFormType, setRegisterStep }) {
                 className="preview-img"
               />
             ) : (
-              <img src="/icons/add-photo.svg" />
+              <img src="icons/add-photo.svg" />
             )}
             <button
               onClick={handleButtonClick}
@@ -102,7 +102,7 @@ export default function PersonalInfoForm({ setFormType, setRegisterStep }) {
                 selectedGender === "male" ? "active" : ""
               }`}
             >
-              <img src="/icons/male-outlined.svg" alt={t("auth.male")} />
+              <img src="icons/male-outlined.svg" alt={t("auth.male")} />
               <span>{t("auth.male")}</span>
               <input
                 type="radio"
@@ -116,7 +116,7 @@ export default function PersonalInfoForm({ setFormType, setRegisterStep }) {
                 selectedGender === "female" ? "active" : ""
               }`}
             >
-              <img src="/icons/female-outlined.svg" alt={t("auth.female")} />
+              <img src="icons/female-outlined.svg" alt={t("auth.female")} />
               <span>{t("auth.female")}</span>
               <input
                 type="radio"

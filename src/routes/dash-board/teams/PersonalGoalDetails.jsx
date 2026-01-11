@@ -24,13 +24,15 @@ export default function PersonalGoalDetails() {
 
         <div className="goal-details-card mt-3 row ">
           <div className="col-12 col-lg-4 p-2">
-            <Link to={`/dashboard/user-details/${personalGoalDetails?.user?.id}`}>
+            <Link
+              to={`/dashboard/user-details/${personalGoalDetails?.user?.id}`}
+            >
               <TopInfo offer={personalGoalDetails} />
             </Link>
           </div>
           <div className="col-lg-8 col-12 p-2 ">
             <div className="hed">
-              <img src="/icons/triangle-with-helper.svg" />
+              <img src="icons/triangle-with-helper.svg" />
               <h6>{t("website.offerDetails.goal")}</h6>
             </div>
             <p className="desc ">{personalGoalDetails?.title}</p>

@@ -44,7 +44,7 @@ export default function Header() {
     <header className="main-header" ref={headerRef}>
       <nav className="container-lg p-0">
         <Link to="/" className="logo">
-          <img src="/images/logo.svg" alt="logo" />
+          <img src="images/logo.svg" alt="logo" />
         </Link>
         <ul className={`nav-links container-lg ${openMenu ? "open" : ""}`}>
           <li onClick={() => setOpenMenu(false)}>
@@ -104,7 +104,7 @@ export default function Header() {
         <div className="actions">
           {" "}
           <Link className="communites-link" to="/reels">
-            <img src="/icons/communities.svg" />
+            <img src="icons/communities.svg" />
             <span>{t("website.header.communities")}</span>
           </Link>{" "}
           <LangDropdown />

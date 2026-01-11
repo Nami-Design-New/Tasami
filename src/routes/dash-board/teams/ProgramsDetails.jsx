@@ -24,14 +24,16 @@ export default function ProgramsDetails() {
 
         <div className="goal-details-card mt-3 row">
           <div className="col-12 col-lg-4 p-2">
-            <Link to={`/dashboard/user-details/${assistantOffersDetails?.user?.id}`}>
+            <Link
+              to={`/dashboard/user-details/${assistantOffersDetails?.user?.id}`}
+            >
               <TopInfo offer={assistantOffersDetails} />
             </Link>
           </div>
 
           <div className="col-lg-8 col-12 p-2">
             <div className="hed">
-              <img src="/icons/help-triangle.svg" />
+              <img src="icons/help-triangle.svg" />
               <h6>{t("website.offerDetails.assistance")}</h6>
             </div>
             <p className="desc">{assistantOffersDetails?.title}</p>

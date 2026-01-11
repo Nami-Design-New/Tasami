@@ -13,7 +13,7 @@ export default function GenderSelect({ formData, onChange, index }) {
             name={`gender${index}`}
             id={`female${index}`}
           />
-          <img src="/sys-icons/female.svg" alt="female" /> Female
+          <img src="sys-icons/female.svg" alt="female" /> Female
         </label>
         <label
           htmlFor={`male${index}`}
@@ -25,7 +25,7 @@ export default function GenderSelect({ formData, onChange, index }) {
             name={`gender${index}`}
             id={`male${index}`}
           />
-          <img src="/sys-icons/male.svg" alt="male" /> Male
+          <img src="sys-icons/male.svg" alt="male" /> Male
         </label>
       </div>
     </div>

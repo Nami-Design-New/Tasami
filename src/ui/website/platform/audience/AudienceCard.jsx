@@ -24,7 +24,7 @@ export default function AudienceCard({ data, date = false }) {
         <h2>
           <span>{data?.user?.name}</span>
           <span className="score">
-            <img src="/icons/medal.svg" />
+            <img src="icons/medal.svg" />
             {0}
           </span>
         </h2>
