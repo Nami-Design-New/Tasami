@@ -1,4 +1,4 @@
-import { NavLink } from "react-router";
+import { Link, NavLink } from "react-router";
 import SidebarNavigation from "./SidebarNavigation";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
@@ -9,6 +9,7 @@ import tasksIcon from "../../assets/dashboard-icons/tasks.svg";
 import employmentDataIcon from "../../assets/dashboard-icons/employment-data.svg";
 import performanceReportsIcon from "../../assets/dashboard-icons/performance-reports.svg";
 import balanceWithdrawalIcon from "../../assets/dashboard-icons/balance-withdrawal.svg";
+import favIcon from "../../assets/images/my-fav.svg";
 export default function SideBar({ hoverExpand, setHoverExpand, collapsed }) {
   const [sideClass, setSideClass] = useState("");
   const { t } = useTranslation();
@@ -39,11 +40,9 @@ export default function SideBar({ hoverExpand, setHoverExpand, collapsed }) {
       {/* Logo Section */}
       <div className="logo_wrapper">
         <span className="logo_container">
-          <img
-            src="/images/my-fav.svg"
-            alt="fav"
-            className="logo_img fav_logo"
-          />
+          <Link to={"/dashboard"}>
+            <img src={favIcon} alt="fav" className="logo_img fav_logo" />
+          </Link>
           <div
             className={`logo_name ${
               collapsed && !hoverExpand ? "hidden" : "visible"

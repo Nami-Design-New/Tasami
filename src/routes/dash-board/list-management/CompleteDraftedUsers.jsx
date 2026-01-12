@@ -23,6 +23,7 @@ import SelectFieldReactSelect from "../../../ui/forms/SelectFieldReactSelect";
 import Loading from "../../../ui/loading/Loading";
 import ProfileImageUploader from "../../../ui/ProfileImageUploader";
 import { flattenPages, formatYMD } from "../../../utils/helper";
+import avatarPlaceholder from "../../../assets//images/dashboard/avatar-placeholder.jpg";
 
 const createEmployeeSchema = (t) =>
   yup.object().shape({
@@ -71,9 +72,7 @@ export default function CompleteDraftedUsers() {
   const [files, setFiles] = useState([]);
   const navigate = useNavigate();
   const queryClient = useQueryClient();
-  const [image, setImage] = useState(
-    "/images/dashboard/avatar-placeholder.jpg"
-  );
+  const [image, setImage] = useState(avatarPlaceholder);
   const { t } = useTranslation();
 
   const { updateDraftedUser, isPending } = useUpdateDraftedUser();
@@ -173,9 +172,7 @@ export default function CompleteDraftedUsers() {
       });
 
       // Load image
-      setImage(
-        draftedUser.data.image || "/images/dashboard/avatar-placeholder.jpg"
-      );
+      setImage(draftedUser.data.image || avatarPlaceholder);
 
       // Load attachments into state
       setFiles(draftedUser.data.files || []);

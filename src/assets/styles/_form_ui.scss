@@ -72,7 +72,7 @@
         height: 54px;
         border-radius: 12px;
         @include clearInput();
-        background-image: url("/sys-icons/mapIcon.svg");
+        background-image: url("../../assets/sys-icons/mapIcon.svg");
       }
       span {
         width: 100%;

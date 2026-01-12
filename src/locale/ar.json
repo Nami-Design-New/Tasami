@@ -1190,7 +1190,7 @@
     "leader_accounts": "عدد حسابات القادة",
     "pioneer_accounts": "عدد حسابات الرواد",
     "this_month": "هذا الشهر",
-    "urgent_actions": "اجراءات عاجله",
+    "urgent_actions": "اجراءات عاجلة",
     "create_employee": "انشاء موظف",
     "create_group": "انشاء مجموعه",
     "suspend_employee": "ايقاف موظف",
@@ -1558,10 +1558,10 @@
       "newSubject": "موضوع جديد"
     },
     "workGroup": {
-      "addTitle": "مجموعه جديده",
+      "addTitle": "مجموعه جديدة",
       "editTitle": "تعديل المجموعة",
-      "groupType": "تصنيف المجموعه",
-      "operational": "تشغيليه",
+      "groupType": "تصنيف المجموعة",
+      "operational": "تشغيلية",
       "managerial": "ادارية",
       "region": "الإقليم",
       "location": "القطاع",

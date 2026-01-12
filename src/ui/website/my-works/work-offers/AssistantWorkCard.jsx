@@ -49,7 +49,7 @@ export default function AssistantWorkCard({
               {helper.country && (
                 <span className="country">
                   <img
-                    src="/icons/flag.svg"
+                    src={flagIcon}
                     alt={`${helper.country.title} flag`}
                     className="flag-icon"
                     loading="lazy"

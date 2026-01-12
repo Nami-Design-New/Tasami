@@ -44,6 +44,7 @@ const ChargeBalanceModal = ({ showModal, setShowModal }) => {
     onSuccess: () => {
       toast.success(t("payment.success"));
       queryClient.invalidateQueries({ queryKey: ["wallet-balance"] });
+      queryClient.invalidateQueries({ queryKey: ["authedUser"] });
     },
     onFail: () => {
       toast.error(t("payment.failed"));
@@ -67,6 +68,7 @@ const ChargeBalanceModal = ({ showModal, setShowModal }) => {
           );
         }
         reset();
+
       },
       onError: (err) => {
         toast.error(err.message);

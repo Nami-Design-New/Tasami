@@ -1341,7 +1341,7 @@ input::-ms-clear {
   border: none;
   background: none;
   outline: none;
-  background-image: url("/sys-icons/mapIcon.svg");
+  background-image: url("../../assets/sys-icons/mapIcon.svg");
 }
 .form_ui .input-field .searchMapGroup span {
   width: 100%;
@@ -10036,7 +10036,7 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
   position: absolute;
   top: 0;
   right: 0;
-  background-image: url(/icons/check.svg);
+  background-image: url(../../assets/icons/check.svg);
   width: 20px;
   height: 20px;
   background-repeat: no-repeat;
@@ -12707,6 +12707,7 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
 }
 .plan-card .plan img {
   height: 80px;
+  width: 80px;
 }
 .plan-card .plan h3 {
   font-size: 1rem;

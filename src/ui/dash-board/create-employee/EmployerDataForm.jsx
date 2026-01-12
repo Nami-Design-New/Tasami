@@ -26,6 +26,7 @@ import SelectFieldReactSelect from "../../forms/SelectFieldReactSelect";
 import ProfileImageUploader from "../../ProfileImageUploader";
 import dayjs from "dayjs";
 import Loading from "../../loading/Loading";
+import avatarPlaceholder from "../../../assets/images/dashboard/avatar-placeholder.jpg";
 
 const createEmployeeSchema = (t) =>
   yup.object().shape({
@@ -91,9 +92,7 @@ const EmployerDataForm = ({ isEdit }) => {
 
   // Updated files state - now handles mixed formats
   const [files, setFiles] = useState([]);
-  const [image, setImage] = useState(
-    "/images/dashboard/avatar-placeholder.jpg"
-  );
+  const [image, setImage] = useState(avatarPlaceholder);
 
   const { roles, rolesLoading } = useGetRoles();
   const { createEmployee, isCreatingEmployee } = useCreateEmployee();
@@ -191,9 +190,7 @@ const EmployerDataForm = ({ isEdit }) => {
       });
 
       // Load profile image
-      setImage(
-        employee.data.image || "/images/dashboard/avatar-placeholder.jpg"
-      );
+      setImage(employee.data.image || avatarPlaceholder);
 
       const backendFiles = (employee.data.files || []).map((file) => ({
         id: file.id || file.file_id,
@@ -715,7 +712,7 @@ const EmployerDataForm = ({ isEdit }) => {
                     onClick={() => {
                       reset();
                       setFiles([]);
-                      setImage("/images/dashboard/avatar-placeholder.jpg");
+                      setImage(avatarPlaceholder);
                     }}
                   >
                     {t("dashboard.createEmployee.form.cancel")}

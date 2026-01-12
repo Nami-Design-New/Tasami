@@ -50,7 +50,7 @@ const EmployeePersonalData = () => {
                   )}
                   :
                 </h6>
-                <p>رضوان</p>
+                <p>{user?.last_name}</p>
               </div>
             </div>
             <div className="col-12 col-md-6 col-xxl-4  p-2">

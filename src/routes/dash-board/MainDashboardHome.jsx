@@ -221,10 +221,10 @@ export default function DashboardHome() {
                 <img src={permissonIcon} alt="" />
                 <span>{t("dashboard.create_group")}</span>
               </Link>
-              <Link className="quick--action__button">
+              {/* <Link className="quick--action__button">
                 <img src={deleteUser} alt="" />
                 <span>{t("dashboard.suspend_employee")}</span>
-              </Link>
+              </Link> */}
               <Link
                 to="/dashboard/list-management/fields-and-specializations"
                 className="quick--action__button"
