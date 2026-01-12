@@ -589,7 +589,8 @@
     "enterAmount": "Enter amount",
     "price": "Enter the withdrawal amount",
     "noTransactions": "There are no balance transactions yet.",
-    "noBookmarkedOffers": "You have no bookmarked assistant offers."
+    "noBookmarkedOffers": "You have no bookmarked assistant offers.",
+    "noChanges": "No changes to save"
   },
   "notification": {
     "title": "Notifications",

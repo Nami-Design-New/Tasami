@@ -599,7 +599,8 @@
     "enterAmount": "أدخل المبلغ",
     "price": "ادخل مبلغ السحب",
     "noTransactions": "لا توجد أي عمليات على الرصيد حتى الآن ",
-    "noBookmarkedOffers": "لا توجد لديك عروض مساعدة مفضلة"
+    "noBookmarkedOffers": "لا توجد لديك عروض مساعدة مفضلة",
+    "noChanges": "لا توجد تغيرات لحفظها"
   },
   "notification": {
     "title": "الإشعارات",
