@@ -11,6 +11,7 @@ export default function AlertModal({
   loading = false,
   children,
   withoutMessage = true,
+  showCancel = true,
 }) {
   const { t } = useTranslation();
   const handleCancel = () => {
@@ -36,17 +37,19 @@ export default function AlertModal({
           {children}
 
           {!noActions && (
-            <div className="buttons w-100">
-              <CustomButton
-                size="large"
-                fullWidth
-                color="fire"
-                variant="outlined"
-                onClick={handleCancel}
-                style={{ width: "70%" }}
-              >
-                {t("cancel")}
-              </CustomButton>
+            <div className="buttons justify-content-end  w-100">
+              {showCancel && (
+                <CustomButton
+                  size="large"
+                  fullWidth
+                  color="fire"
+                  variant="outlined"
+                  onClick={handleCancel}
+                  style={{ width: "70%" }}
+                >
+                  {t("cancel")}
+                </CustomButton>
+              )}
               <CustomButton
                 size="large"
                 fullWidth

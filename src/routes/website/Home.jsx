@@ -13,13 +13,11 @@ export default function Home() {
   return (
     <section className="container-lg p-0">
       <div className="row">
-        <div className="row">
-          <div className="col-md-9 col-12 p-2 ">
-            <Hero sliders={homePageData?.sliders} />
-          </div>
-          <div className="col-md-3 col-12 p-2  my-2 my-md-0 ">
-            <GoalsHelpSection goals={homePageData?.goals} />
-          </div>
+        <div className="col-md-9 col-12 p-2 my-1 my-md-3 ">
+          <Hero sliders={homePageData?.sliders} />
+        </div>
+        <div className="col-md-3 col-12 p-2  my-1 my-md-3 ">
+          <GoalsHelpSection goals={homePageData?.goals} />
         </div>
 
         {homePageData?.goals.length > 0 && (

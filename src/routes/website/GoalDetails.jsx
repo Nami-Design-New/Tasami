@@ -18,6 +18,8 @@ import { shareContent } from "../../utils/shared";
 import { Link, useNavigate } from "react-router";
 import PlatformModal from "../../ui/website/platform/PlatformModal";
 import triangleWithHelper from "../../assets/icons/triangle-with-helper.svg";
+import useGetCurrentPackage from "../../hooks/website/subscribe/useGetCurrentPackage";
+import AlertModal from "../../ui/website/platform/my-community/AlertModal";
 
 export default function GoalDetails() {
   const { t } = useTranslation();
@@ -27,7 +29,9 @@ export default function GoalDetails() {
   const [showAgreeModal, setShowAgreeModal] = useState();
   const [showReportModal, setShowReportModal] = useState(false);
   const [showInquiryModal, setShowInquiryModal] = useState(false);
-
+  const [showAlertModal, setShowAlertModal] = useState(false);
+  const { currentPackage, isLoading: isLoadingPackage } =
+    useGetCurrentPackage();
   const { lang } = useSelector((state) => state.language);
   const { user } = useSelector((state) => state.authRole);
 
@@ -42,6 +46,18 @@ export default function GoalDetails() {
 
     if (!user) {
       navigate("/login");
+      return;
+    }
+
+    if (
+      user?.country === null &&
+      user?.city === null &&
+      user?.nationality === null
+    ) {
+      navigate("/customize-services");
+      return;
+    } else if (user.about === "") {
+      setShowAgreeModal(true);
       return;
     }
 
@@ -187,7 +203,11 @@ export default function GoalDetails() {
                         ) {
                           navigate("/customize-services");
                         } else if (user.about) {
-                          setShowHelpModal(true);
+                          if (currentPackage?.reminder_offers === 0) {
+                            setShowAlertModal(true);
+                          } else {
+                            setShowHelpModal(true);
+                          }
                         } else {
                           setShowAgreeModal(true);
                         }
@@ -228,10 +248,27 @@ export default function GoalDetails() {
           />
         )}
 
-        <PlatformModal
-          showModal={showAgreeModal}
-          setShowModal={setShowAgreeModal}
-        />
+        {showAgreeModal && (
+          <PlatformModal
+            showModal={showAgreeModal}
+            setShowModal={setShowAgreeModal}
+          />
+        )}
+        {showAlertModal && (
+          <AlertModal
+            showModal={showAlertModal}
+            setShowModal={setShowAlertModal}
+            withoutMessage={false}
+            confirmButtonText={t("ok")}
+            showCancel={false}
+            onConfirm={() => setShowAlertModal(false)}
+          >
+            <p className="text-center text-dark fw-bold ">
+              {t("maxOfferAlert1")} <br />
+              {t("maxOfferAlert2")}
+            </p>
+          </AlertModal>
+        )}
       </div>
     </section>
   );

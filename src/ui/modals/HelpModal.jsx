@@ -21,6 +21,7 @@ const HelpModal = ({ showModal, setShowModal, goal }) => {
   const { myGroups, isLaoding } = useGetMyGroups("off");
   const allGroups = myGroups?.pages?.flatMap((page) => page?.data) ?? [];
   const { requestOffer, isPending } = useRequestOffer();
+
   const schema = yup.object().shape({
     price: yup
       .number()
@@ -58,7 +59,6 @@ const HelpModal = ({ showModal, setShowModal, goal }) => {
       },
       onError: (error) => {
         toast.error(error.message);
-        setShowModal(false);
       },
     });
   };
@@ -68,7 +68,10 @@ const HelpModal = ({ showModal, setShowModal, goal }) => {
       <Modal
         show={showModal}
         size="lg"
-        onHide={() => setShowModal(false)}
+        onHide={() => {
+          setShowModal(false);
+          reset();
+        }}
         centered
       >
         <Modal.Header closeButton className="m-2">
