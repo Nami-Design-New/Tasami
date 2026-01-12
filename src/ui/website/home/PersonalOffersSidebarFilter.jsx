@@ -13,6 +13,9 @@ import "react-range-slider-input/dist/style.css";
 import useGetHelpMechanisms from "../../../hooks/useGetHelpMechanisms";
 import useGetCountries from "../../../hooks/countries/useGetCountries";
 import { Controller } from "react-hook-form";
+import ryalIcon from "../../../assets/icons/ryal.svg";
+import searchIcon from "../../../assets/icons/search.svg";
+
 export default function PersonalOffersSidebarFilter() {
   const { t } = useTranslation();
   const [searchParams, setSearchParams] = useSearchParams();
@@ -125,7 +128,7 @@ export default function PersonalOffersSidebarFilter() {
           <div className="col-12 py-2 px-0">
             <InputField
               placeholder={t("search")}
-              icon="/icons/search.svg"
+              icon={searchIcon}
               {...register("search")}
             />
           </div>{" "}
@@ -295,7 +298,7 @@ export default function PersonalOffersSidebarFilter() {
               <InputField
                 type="number"
                 label={t("website.assistants.priceMinLabel")}
-                icon="/icons/ryal.svg"
+                icon={ryalIcon}
                 value={priceMin}
                 min={1}
                 max={10000}
@@ -324,7 +327,7 @@ export default function PersonalOffersSidebarFilter() {
               <InputField
                 type="number"
                 label={t("website.assistants.priceMaxLabel")}
-                icon="/icons/ryal.svg"
+                icon={ryalIcon}
                 value={priceMax}
                 min={1}
                 max={10000}

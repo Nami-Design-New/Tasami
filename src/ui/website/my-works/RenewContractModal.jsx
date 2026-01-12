@@ -10,7 +10,7 @@ import * as yup from "yup";
 import useRenewContract from "../../../hooks/website/MyWorks/groups/useRenewContract";
 import Currency from "../../Currency";
 import CustomButton from "../../CustomButton";
-
+import monthIcon from "../../../assets/icons/month.svg";
 const calculateRenewDate = (baseDate, daysToAdd) => {
   const date = new Date(baseDate);
   date.setDate(date.getDate() + daysToAdd);
@@ -143,7 +143,7 @@ export default function RenewContractModal({
                   label={t("renew_month_label")}
                   placeholder={t("renew_placeholder")}
                   {...register("month")}
-                  icon={"/icons/month.svg"}
+                  icon={monthIcon}
                 />
                 <InputField
                   label={t("renew_day_label")}

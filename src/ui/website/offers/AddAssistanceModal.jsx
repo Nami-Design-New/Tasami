@@ -19,6 +19,9 @@ import addphoto from "../../../assets/icons/add-photo.svg";
 import successMark from "../../../assets//icons/toasts/success-mark.svg";
 import maleIcon from "../../../assets/icons/male-outlined.svg";
 import femaleIcon from "../../../assets/icons/female-outlined.svg";
+import monthIcon from "../../../assets/icons/month.svg";
+import dayIcon from "../../../assets/icons/day.svg";
+import ryalIcon from "../../../assets/icons/ryal.svg";
 const genderIcons = {
   male: maleIcon,
   female: femaleIcon,
@@ -386,9 +389,9 @@ export default function AddAssistanceModal({
                   <InputField
                     label={t("website.platform.myAssistance.duration")}
                     {...register("month")}
-                    icon={"/icons/month.svg"}
+                    icon={monthIcon}
                   />
-                  <InputField {...register("day")} icon={"/icons/day.svg"} />
+                  <InputField {...register("day")} icon={dayIcon} />
                 </div>
                 {!isNaN(durationInDays) && (
                   <p className="mt-2" style={{ color: "gray" }}>
@@ -406,7 +409,7 @@ export default function AddAssistanceModal({
               <div className="col-12 col-md-6 p-2">
                 <InputField
                   label={t("website.platform.myAssistance.price")}
-                  icon="/icons/ryal.svg"
+                  icon={ryalIcon}
                   {...register("price")}
                   error={errors.price?.message}
                 />

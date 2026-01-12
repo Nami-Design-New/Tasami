@@ -11,6 +11,7 @@ import InputField from "../../forms/InputField";
 import SelectField from "../../forms/SelectField";
 import useGetCountries from "../../../hooks/countries/useGetCountries";
 import { Controller } from "react-hook-form";
+import searchIcon from "../../../assets/icons/search.svg";
 
 export default function AssistantsSidebar({ isGoal = false }) {
   const { t } = useTranslation();
@@ -121,7 +122,7 @@ export default function AssistantsSidebar({ isGoal = false }) {
           <div className="col-12 py-2 px-0">
             <InputField
               placeholder={t("search")}
-              icon="/icons/search.svg"
+              icon={searchIcon}
               {...register("search")}
             />
           </div>

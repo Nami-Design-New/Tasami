@@ -9,7 +9,7 @@ import useAskForAssistant from "../../../../hooks/website/MyWorks/assistants/use
 import { useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { useParams } from "react-router";
-
+import monthIcon from "../../../../assets/icons/month.svg";
 export default function AssignAssistantModal({ showModal, setShowModal }) {
   const { t } = useTranslation();
   const queryClient = useQueryClient();
@@ -111,7 +111,7 @@ export default function AssignAssistantModal({ showModal, setShowModal }) {
                 <InputField
                   label={t("assistant_duration_label")}
                   {...register("month")}
-                  icon={"/icons/month.svg"}
+                  icon={monthIcon}
                 />
                 <InputField {...register("day")} icon={"/icons/day.svg"} />
               </div>

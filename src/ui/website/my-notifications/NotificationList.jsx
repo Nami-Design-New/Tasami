@@ -10,6 +10,7 @@ import NotificationLoader from "../../loading/NotificationLoader";
 import { useSearchParams } from "react-router";
 import InputField from "../../forms/InputField";
 import { useEffect, useState } from "react";
+import searchIcon from "../../../assets/icons/search.svg";
 
 export default function NotificationList() {
   const { t } = useTranslation();
@@ -64,7 +65,7 @@ export default function NotificationList() {
       <div className="form_ui my-2">
         <InputField
           placeholder={t("notification.search")}
-          icon="/icons/search.svg"
+          icon={searchIcon}
           value={inputValue}
           onChange={(e) => {
             setInputValue(e.target.value);

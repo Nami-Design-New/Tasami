@@ -17,6 +17,8 @@ import ToastSuccessModal from "./ToastSuccessModal";
 import successMark from "../../../assets//icons/toasts/success-mark.svg";
 import maleIcon from "../../../assets/icons/male-outlined.svg";
 import femaleIcon from "../../../assets/icons/female-outlined.svg";
+import monthIcon from "../../../assets/icons/month.svg";
+import dayIcon from "../../../assets/icons/day.svg";
 const genderIcons = {
   male: maleIcon,
   female: femaleIcon,
@@ -207,9 +209,9 @@ export default function AddGoalModal({ showModal, setShowModal }) {
                   <InputField
                     label={t("website.platform.myAssistance.goalDuration")}
                     {...register("month")}
-                    icon={"/icons/month.svg"}
+                    icon={monthIcon}
                   />
-                  <InputField {...register("day")} icon={"/icons/day.svg"} />
+                  <InputField {...register("day")} icon={dayIcon} />
                 </div>
                 <p className="mt-2" style={{ color: "gray" }}>
                   {!isNaN(durationInDays) &&

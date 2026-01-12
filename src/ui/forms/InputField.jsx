@@ -3,9 +3,10 @@ import { Form } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
 
 const InputField = React.forwardRef(
-  ({ label, hint, error, className, icon, ...props }, ref) => {
+  ({ label, hint, error, className, icon = null, ...props }, ref) => {
     const { i18n } = useTranslation();
     const isRTL = i18n.dir() === "rtl";
+    console.log("icon:----", icon);
 
     return (
       <div className={`input-field ${className ? className : ""}`}>
@@ -20,7 +21,7 @@ const InputField = React.forwardRef(
           isInvalid={!!error}
           {...props}
           style={{
-            backgroundImage: icon ? `url(${icon})` : "none",
+            backgroundImage: icon ? `url("${icon}")` : undefined,
             backgroundRepeat: "no-repeat",
             backgroundPosition: isRTL
               ? "left 10px center"

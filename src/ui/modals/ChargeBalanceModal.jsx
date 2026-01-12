@@ -9,7 +9,7 @@ import useMessagePaymentListener from "../../hooks/shared/useMessagePaymentListe
 import useChargeWallet from "../../hooks/website/wallet/useChargeWallet";
 import CustomButton from "../CustomButton";
 import InputField from "../forms/InputField";
-
+import ryalIcon from "../../assets/icons/ryal.svg";
 const getChargeBalanceSchema = (t) =>
   yup.object().shape({
     charge: yup
@@ -68,7 +68,6 @@ const ChargeBalanceModal = ({ showModal, setShowModal }) => {
           );
         }
         reset();
-
       },
       onError: (err) => {
         toast.error(err.message);
@@ -88,7 +87,7 @@ const ChargeBalanceModal = ({ showModal, setShowModal }) => {
               <InputField
                 label={t("profile.chargeBalance")}
                 type="number"
-                icon="/icons/ryal.svg"
+                icon={ryalIcon}
                 id="charge"
                 placeholder={t("profile.enterAmount")}
                 {...register("charge")}
