@@ -16,6 +16,13 @@ import useEditAssistance from "../../../hooks/website/my-assistances/useEditAssi
 import { Link } from "react-router";
 import ToastSuccessModal from "../gaols/ToastSuccessModal";
 import addphoto from "../../../assets/icons/add-photo.svg";
+import successMark from "../../../assets//icons/toasts/success-mark.svg";
+import maleIcon from "../../../assets/icons/male-outlined.svg";
+import femaleIcon from "../../../assets/icons/female-outlined.svg";
+const genderIcons = {
+  male: maleIcon,
+  female: femaleIcon,
+};
 export default function AddAssistanceModal({
   showModal,
   setShowModal,
@@ -302,10 +309,7 @@ export default function AddAssistanceModal({
                         }`}
                       >
                         {g !== "both" && (
-                          <img
-                            src={`/icons/${g}-outlined.svg`}
-                            alt={t(`auth.${g}`)}
-                          />
+                          <img src={genderIcons[g]} alt={t(`auth.${g}`)} />
                         )}
                         <span>{t(`auth.${g}`)}</span>
                         <input type="radio" value={g} {...register("gender")} />
@@ -473,11 +477,7 @@ export default function AddAssistanceModal({
         title={""}
       >
         <div className="d-flex align-items-center justify-content-center flex-column gap-3">
-          <img
-            src={"/icons/toasts/success-mark.svg"}
-            width={100}
-            height={100}
-          />
+          <img src={successMark} width={100} height={100} />
 
           {/* <h4 className="toast-header">{t("goalSuccesMessage1")}</h4> */}
           <p className="toast-message">{t("offerSuccesMessage2")}</p>

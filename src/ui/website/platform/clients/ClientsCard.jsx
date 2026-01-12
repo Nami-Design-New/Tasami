@@ -6,6 +6,7 @@ import { toast } from "sonner";
 import { useQueryClient } from "@tanstack/react-query";
 import AlertModal from "../my-community/AlertModal";
 import { useState } from "react";
+import flagIcon from "../../../../assets/icons/flag.svg";
 
 export default function ClientsCard({ helper }) {
   const { t } = useTranslation();
@@ -61,7 +62,7 @@ export default function ClientsCard({ helper }) {
             {helper.country && (
               <span className="country">
                 <img
-                  src="/icons/flag.svg"
+                  src={flagIcon}
                   alt={`${helper.country.title} flag`}
                   className="flag-icon"
                   loading="lazy"

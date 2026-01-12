@@ -1,6 +1,9 @@
 import { useState } from "react";
 import Currency from "../../../Currency";
 import WorkOfferDetails from "./WorkOfferDetails";
+import flagIcon from "../../../../assets/icons/flag.svg";
+import medalIcon from "../../../../assets/icons/medal.svg";
+import cashIcon from "../../../../assets/icons/cash.svg";
 
 export default function WorkOffersCard({ helper, price, offerId }) {
   const [showDetailsModal, setShowDetailsModal] = useState(false);
@@ -26,7 +29,7 @@ export default function WorkOffersCard({ helper, price, offerId }) {
             <h3>{helper.name}</h3>
             <div className="rating">
               <img
-                src="/icons/medal.svg"
+                src={medalIcon}
                 alt="Medal icon"
                 className="rating-icon"
                 loading="lazy"
@@ -39,7 +42,7 @@ export default function WorkOffersCard({ helper, price, offerId }) {
             {helper.country && (
               <span className="country">
                 <img
-                  src="/icons/flag.svg"
+                  src={flagIcon}
                   alt={`${helper.country.title} flag`}
                   className="flag-icon"
                   loading="lazy"
@@ -50,7 +53,7 @@ export default function WorkOffersCard({ helper, price, offerId }) {
             {price && (
               <span>
                 <img
-                  src="/icons/cash.svg"
+                  src={cashIcon}
                   alt={`${helper.country.title} flag`}
                   className="flag-icon"
                   loading="lazy"

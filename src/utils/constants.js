@@ -1,24 +1,3 @@
-export const TASKS_TABS = [
-  {
-    icon: "/sys-icons/info.svg",
-    alt: "main-info",
-    label: "المهام التنفيذية",
-    to: "executive-tasks",
-  },
-  {
-    icon: "/sys-icons/media.svg",
-    alt: "supervisory-tasks",
-    label: "المهام الاشرافيه ",
-    to: "supervisory-tasks",
-  },
-  {
-    icon: "/sys-icons/ancor.svg",
-    alt: "supervisory-tasks",
-    label: "مهام خدمه العملاء",
-    to: "customer-service-tasks",
-  },
-];
-
 export const QUALIFICATION_VALUES = {
   SELFLEARNING: "self_learning",
   CERTIFIEDCOURSES: "certified_courses",
@@ -64,12 +43,23 @@ export const SUB_TABS = [
 
 export const REPORT_TABS = [
   { id: 1, label: "dashboard.reports.users", to: "/dashboard/reports/users" },
-  { id: 2, label: "dashboard.reports.services", to: "/dashboard/reports/services" },
-  { id: 3, label: "dashboard.reports.contracts", to: "/dashboard/reports/contracts" },
-  { id: 4, label: "dashboard.reports.communities", to: "/dashboard/reports/communities" },
+  {
+    id: 2,
+    label: "dashboard.reports.services",
+    to: "/dashboard/reports/services",
+  },
+  {
+    id: 3,
+    label: "dashboard.reports.contracts",
+    to: "/dashboard/reports/contracts",
+  },
+  {
+    id: 4,
+    label: "dashboard.reports.communities",
+    to: "/dashboard/reports/communities",
+  },
   { id: 5, label: "dashboard.reports.sales", to: "/dashboard/reports/sales" },
 ];
-
 
 export const STATUS_AR = ["مكتمل", "قيد التنفيذ", "غير مضاف"];
 export const STATUS_EN = ["Completed", "Pending", "Not Added"];

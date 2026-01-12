@@ -10,7 +10,7 @@ import useUnjoinCommunity from "../../../../hooks/website/communities/useUnjoinC
 import CommunityPaymentModal from "../../communities/CommunityPaymentModal";
 import AlertModal from "./AlertModal";
 import EditCommunityModal from "./EditCommunityModal";
-
+import chatIcon from "../../../../assets/icons/chat.svg";
 export default function CommunityActions({ community, isMyCommunity = true }) {
   const { t } = useTranslation();
   const queryClient = useQueryClient();
@@ -131,7 +131,7 @@ export default function CommunityActions({ community, isMyCommunity = true }) {
               to={`/community/${community?.id}/chats`}
               className="chat-link"
             >
-              <img src="icons/chat.svg" />
+              <img src={chatIcon} />
             </Link>
             {community?.helper_unread_chats > 0 && (
               <span className="notification_span notification_position">

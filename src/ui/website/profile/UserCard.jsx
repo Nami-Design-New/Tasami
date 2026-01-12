@@ -1,3 +1,5 @@
+import medalIcon from "../../../assets/icons/medal.svg";
+
 export default function UserCard({ user }) {
   return (
     <div className="user-profile">
@@ -7,7 +9,7 @@ export default function UserCard({ user }) {
         <span>{user.account_code}</span>
       </div>
       <div className="rating">
-        <img src="icons/medal.svg" />
+        <img src={medalIcon} />
         <span>{user.experience_level}</span>
       </div>
     </div>

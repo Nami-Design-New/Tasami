@@ -14,9 +14,16 @@ import TextField from "../../forms/TextField";
 import { Link } from "react-router";
 import { useState } from "react";
 import ToastSuccessModal from "./ToastSuccessModal";
-
+import successMark from "../../../assets//icons/toasts/success-mark.svg";
+import maleIcon from "../../../assets/icons/male-outlined.svg";
+import femaleIcon from "../../../assets/icons/female-outlined.svg";
+const genderIcons = {
+  male: maleIcon,
+  female: femaleIcon,
+};
 export default function AddGoalModal({ showModal, setShowModal }) {
   const { t } = useTranslation();
+
   const queryClient = useQueryClient();
   const { categories, isLoading } = useGetcategories();
   const { helpMechanisms, isLoading: helpLoading } = useGetHelpMechanisms();
@@ -277,10 +284,7 @@ export default function AddGoalModal({ showModal, setShowModal }) {
                             }`}
                           >
                             {g !== "both" && (
-                              <img
-                                src={`/icons/${g}-outlined.svg`}
-                                alt={t(`auth.${g}`)}
-                              />
+                              <img src={genderIcons[g]} alt={t(`auth.${g}`)} />
                             )}
                             <span>{t(`auth.${g}`)}</span>
                             <input
@@ -355,11 +359,7 @@ export default function AddGoalModal({ showModal, setShowModal }) {
         title={""}
       >
         <div className="d-flex align-items-center justify-content-center flex-column gap-3">
-          <img
-            src={"/icons/toasts/success-mark.svg"}
-            width={100}
-            height={100}
-          />
+          <img src={successMark} width={100} height={100} />
 
           <h4 className="toast-header">{t("goalSuccesMessage1")}</h4>
           <p className="toast-message">{t("goalSuccesMessage2")}</p>

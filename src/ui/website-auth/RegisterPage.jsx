@@ -11,7 +11,8 @@ import CustomButton from "../../ui/CustomButton";
 import BackButton from "../../ui/forms/BackButton";
 import useGetCountries from "../../hooks/countries/useGetCountries";
 import CustomPhoneInput from "../forms/CustomPhoneInput";
-
+import googleIcon from "../../assets/icons/google-icon.svg";
+import appleIcon from "../../assets/icons/apple-icon.svg";
 const registerSchema = (t) =>
   yup.object().shape({
     fullPhone: yup.string().required(t("validation.fullPhoneRequired")),
@@ -131,11 +132,11 @@ const RegisterPage = ({ setRegisterStep }) => {
       {/* Social Login */}
       <div className="social-login-buttons">
         <button>
-          <img src="icons/google-icon.svg" alt="Google" />
+          <img src={googleIcon} alt="Google" />
           <span>{t("auth.continueWithGoogle")}</span>
         </button>
         <button>
-          <img src="icons/apple-icon.svg" alt="Apple" />
+          <img src={googleIcon} alt="Apple" />
           <span>{t("auth.continueWithApple")}</span>
         </button>
       </div>

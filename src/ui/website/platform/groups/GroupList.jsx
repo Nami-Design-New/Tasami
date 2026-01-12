@@ -1,6 +1,6 @@
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router";
-
+import groupsIcon from "../../../../assets/icons/Groups.svg";
 export default function GroupList({ allGroups }) {
   const { t } = useTranslation();
   console.log("all groups", allGroups);
@@ -14,7 +14,7 @@ export default function GroupList({ allGroups }) {
         <Link key={group.id} to={`/my-group/${group.id}`}>
           <li className="groups__list-item">
             <div className="d-flex gap-2 align-items-center">
-              <img src="icons/Groups.svg" alt={group.title} />
+              <img src={groupsIcon} alt={group.title} />
               <p className="groups__item-text">{group.title}</p>
             </div>
             <div className="d-flex align-items-center justify-content-center">

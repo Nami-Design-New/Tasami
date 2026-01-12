@@ -1,7 +1,7 @@
 import { Modal } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
 import CustomButton from "../../../CustomButton";
-
+import alertIcon from "../../../../assets/icons/alert.svg";
 export default function AlertModal({
   showModal,
   setShowModal,
@@ -27,7 +27,7 @@ export default function AlertModal({
     <Modal show={showModal} onHide={handleCancel} centered size="md">
       <Modal.Body>
         <div className="alert-modal">
-          <img src="icons/alert.svg" alt="alert" />
+          <img src={alertIcon} alt="alert" />
 
           {withoutMessage && (
             <h4> {t("website.platform.myCommunity.areYouSure")}</h4>

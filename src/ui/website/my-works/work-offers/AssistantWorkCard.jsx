@@ -1,5 +1,6 @@
 import { Link } from "react-router";
-
+import flagIcon from "../../../../assets/icons/flag.svg";
+import medalIcon from "../../../../assets/icons/medal.svg";
 export default function AssistantWorkCard({
   helper,
   contractId,
@@ -35,7 +36,7 @@ export default function AssistantWorkCard({
               <h3>{helper.name}</h3>
               <div className="rating">
                 <img
-                  src="/icons/medal.svg"
+                  src={medalIcon}
                   alt="Medal icon"
                   className="rating-icon"
                   loading="lazy"
@@ -95,7 +96,7 @@ export default function AssistantWorkCard({
               <h3>{helper.name}</h3>
               <div className="rating">
                 <img
-                  src="/icons/medal.svg"
+                  src={flagIcon}
                   alt="Medal icon"
                   className="rating-icon"
                   loading="lazy"

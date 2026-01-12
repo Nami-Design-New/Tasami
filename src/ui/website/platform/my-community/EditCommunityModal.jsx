@@ -8,7 +8,7 @@ import CustomButton from "../../../CustomButton";
 import InputField from "../../../forms/InputField";
 import TextField from "../../../forms/TextField";
 import useEditMyCommunity from "../../../../hooks/website/communities/useEditMyCommunity";
-
+import addPhoto from "../../../../assets/icons/add-photo.svg";
 export default function EditCommunityModal({
   showModal,
   setShowModal,
@@ -112,7 +112,7 @@ export default function EditCommunityModal({
                       className="preview-img"
                     />
                   ) : (
-                    <img src="icons/add-photo.svg" alt="placeholder" />
+                    <img src={addPhoto} alt="placeholder" />
                   )}
                 </div>
                 <input

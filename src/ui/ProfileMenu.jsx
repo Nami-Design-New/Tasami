@@ -74,16 +74,6 @@ export default function ProfileMenu({ profileDropDown, setProfileDropDown }) {
               src={user?.image ? user?.image : "/images/my-fav.svg"}
               alt={t("dashboard.profile.avatarAlt")}
             />
-            {/* <Link
-              className="edit"
-              to="profile"
-              title={t("dashboard.profile.editProfile")}
-            >
-              <img
-                src="/sys-icons/editIcon.svg"
-                alt={t("dashboard.profile.edit")}
-              />
-            </Link> */}
           </div>
         </div>
         <div className="account_welcoming">

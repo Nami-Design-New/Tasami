@@ -4,8 +4,9 @@ import {
   StandaloneSearchBox,
   useLoadScript,
 } from "@react-google-maps/api";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import Modal from "react-bootstrap/Modal";
+import mapPin from "../../assets/sys-icons/map-pin.svg";
 
 const MapModal = ({
   showModal,
@@ -153,7 +154,7 @@ const MapModal = ({
                   center={markerPosition}
                 >
                   <Marker
-                    icon="/sys-icons/map-pin.svg"
+                    icon={mapPin}
                     position={markerPosition}
                     draggable={true}
                     onDragEnd={(e) => {

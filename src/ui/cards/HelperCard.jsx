@@ -2,6 +2,8 @@ import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
 import { Link } from "react-router";
 import CustomLink from "../CustomLink";
+import medalIcon from "../../assets/icons/medal.svg";
+import flagIcon from "../../assets/icons/flag.svg";
 
 export default function HelperCard({
   helper,
@@ -32,7 +34,7 @@ export default function HelperCard({
               <h3>{helper.name}</h3>
               <div className="rating">
                 <img
-                  src="/icons/medal.svg"
+                  src={medalIcon}
                   alt="Medal icon"
                   className="rating-icon"
                   loading="lazy"
@@ -45,7 +47,7 @@ export default function HelperCard({
               {helper.country && (
                 <span className="country">
                   <img
-                    src="icons/flag.svg"
+                    src={flagIcon}
                     alt={`${helper.country.title} flag`}
                     className="flag-icon"
                     loading="lazy"
@@ -78,7 +80,7 @@ export default function HelperCard({
               <h3>{helper.name}</h3>
               <div className="rating">
                 <img
-                  src="/icons/medal.svg"
+                  src={medalIcon}
                   alt="Medal icon"
                   className="rating-icon"
                   loading="lazy"
@@ -91,7 +93,7 @@ export default function HelperCard({
               {helper.country && (
                 <span className="country">
                   <img
-                    src="/icons/flag.svg"
+                    src={flagIcon}
                     alt={`${helper.country.title} flag`}
                     className="flag-icon"
                     loading="lazy"

@@ -1,4 +1,4 @@
-import helpTriangleWithHelper from "../../../assets/icons/help-triangle-with-helper.svg";
+import helpTriangleWithHelper from "../../../assets/icons/triangle-with-helper.svg";
 import check from "../../../assets/icons/check.svg";
 
 export default function ContractDescription() {

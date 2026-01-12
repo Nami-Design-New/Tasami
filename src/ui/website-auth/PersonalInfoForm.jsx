@@ -4,7 +4,9 @@ import { useTranslation } from "react-i18next";
 import CustomButton from "../CustomButton";
 import BackButton from "../forms/BackButton";
 import InputField from "../forms/InputField";
-
+import addPhoto from "../../assets/icons/add-photo.svg";
+import maleOutlined from "../../assets/icons/male-outlined.svg";
+import femaleOutlined from "../../assets/icons/female-outlined.svg";
 export default function PersonalInfoForm({ setFormType, setRegisterStep }) {
   const inputFileRef = useRef();
   const { t } = useTranslation();
@@ -55,7 +57,7 @@ export default function PersonalInfoForm({ setFormType, setRegisterStep }) {
                 className="preview-img"
               />
             ) : (
-              <img src="icons/add-photo.svg" />
+              <img src={addPhoto} />
             )}
             <button
               onClick={handleButtonClick}
@@ -102,7 +104,7 @@ export default function PersonalInfoForm({ setFormType, setRegisterStep }) {
                 selectedGender === "male" ? "active" : ""
               }`}
             >
-              <img src="icons/male-outlined.svg" alt={t("auth.male")} />
+              <img src={maleOutlined} alt={t("auth.male")} />
               <span>{t("auth.male")}</span>
               <input
                 type="radio"
@@ -116,7 +118,7 @@ export default function PersonalInfoForm({ setFormType, setRegisterStep }) {
                 selectedGender === "female" ? "active" : ""
               }`}
             >
-              <img src="icons/female-outlined.svg" alt={t("auth.female")} />
+              <img src={femaleOutlined} alt={t("auth.female")} />
               <span>{t("auth.female")}</span>
               <input
                 type="radio"
