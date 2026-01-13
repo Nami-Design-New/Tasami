@@ -11,6 +11,7 @@ import CustomButton from "../../ui/CustomButton";
 import InputField from "../../ui/forms/InputField";
 import TextField from "../../ui/forms/TextField";
 import useSettings from "../../hooks/website/settings/useSettings";
+import { Placeholder } from "react-bootstrap";
 
 export default function Contact() {
   const { t } = useTranslation();
@@ -63,6 +64,7 @@ export default function Contact() {
       onSuccess: (res) => {
         toast.success(res?.message);
         reset();
+        setActiveOption(null);
       },
       onError: (error) => {
         error.message;
@@ -84,9 +86,23 @@ export default function Contact() {
         <div className="row mb-4 social-links">
           {settingsLoading ? (
             <>
-              {[1, 2, 3, 4].map((link, index) => (
-                <div className="col-6 col-md-3 p-2" key={index}>
-                  <div className="social-box-skeleton"></div>
+              {[1, 2, 3].map((link, index) => (
+                <div
+                  className="col-6 col-md-3 p-2"
+                  style={{ height: "120px" }}
+                  key={index}
+                >
+                  <Placeholder
+                    animation="glow"
+                    xs={2}
+                    className="icon"
+                    style={{ height: "120px", borderRadius: "10px" }}
+                  >
+                    <Placeholder
+                      xs={12}
+                      style={{ height: "100%", borderRadius: "10px" }}
+                    />
+                  </Placeholder>
                 </div>
               ))}
             </>
@@ -116,27 +132,48 @@ export default function Contact() {
 
               <form className="form_ui" onSubmit={handleSubmit(onSubmit)}>
                 {/* Subject Options */}
-                <div className="mb-3">
-                  <label className="form-label">{t("contact_subject")}</label>
-                  <div className="options">
-                    {taskSystems?.data?.map((opt) => (
-                      <button
-                        key={opt}
-                        type="button"
-                        className={activeOption === opt?.id ? "active" : ""}
-                        onClick={() => {
-                          setActiveOption(opt?.id);
-                          setValue("subject", opt?.id);
-                        }}
-                      >
-                        {opt.title}
-                      </button>
-                    ))}
+                {isLoading ? (
+                  <>
+                    <div className="options mb-3">
+                      {[1, 2, 3, 4].map((link, index) => (
+                        <Placeholder
+                          animation="glow"
+                          key={index}
+                          xs={2}
+                          className="icon"
+                          style={{ height: "36px", borderRadius: "10px" }}
+                        >
+                          <Placeholder
+                            xs={12}
+                            style={{ height: "100%", borderRadius: "10px" }}
+                          />
+                        </Placeholder>
+                      ))}
+                    </div>
+                  </>
+                ) : (
+                  <div className="mb-3">
+                    <label className="form-label">{t("contact_subject")}</label>
+                    <div className="options">
+                      {taskSystems?.data?.map((opt) => (
+                        <button
+                          key={opt}
+                          type="button"
+                          className={activeOption === opt?.id ? "active" : ""}
+                          onClick={() => {
+                            setActiveOption(opt?.id);
+                            setValue("subject", opt?.id);
+                          }}
+                        >
+                          {opt.title}
+                        </button>
+                      ))}
+                    </div>
+                    {errors.subject && (
+                      <p className="error-text">{errors.subject.message}</p>
+                    )}
                   </div>
-                  {errors.subject && (
-                    <p className="error-text">{errors.subject.message}</p>
-                  )}
-                </div>
+                )}
 
                 <div className="mb-3">
                   <InputField
