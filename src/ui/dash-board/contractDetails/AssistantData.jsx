@@ -1,6 +1,6 @@
 import medalIcon from "../../../assets/icons/medal.svg";
 import locationIcon from "../../../assets/icons/location-icon.svg";
-import profileIcon from "../../../images/profile2.png";
+import profileIcon from "../../../assets/images/profile2.png";
 
 export default function AssistantData() {
   return (
