@@ -4,6 +4,7 @@ import { useLocation } from "react-router";
 
 import { Fancybox } from "@fancyapps/ui";
 import "@fancyapps/ui/dist/fancybox/fancybox.css";
+import { useTranslation } from "react-i18next";
 
 const Message = ({
   sender,
@@ -18,6 +19,72 @@ const Message = ({
   const [imageLoaded, setImageLoaded] = useState(false);
   const [videoLoaded, setVideoLoaded] = useState(false);
   const { pathname } = useLocation();
+  const { t } = useTranslation();
+  // --------------------------
+  // Helper Functions
+  // --------------------------
+  const getFileName = (url) => {
+    try {
+      const urlObj = new URL(url);
+      const pathname = urlObj.pathname;
+      return pathname.substring(pathname.lastIndexOf("/") + 1) || "file";
+    } catch (e) {
+      return url.split("/").pop() || "file";
+    }
+  };
+
+  const getFileExtension = (filename) => {
+    if (!filename) return "";
+    return filename.split(".").pop().toLowerCase();
+  };
+
+  const getFileIcon = (filename) => {
+    const ext = getFileExtension(filename);
+
+    const iconMap = {
+      pdf: "📄",
+      doc: "📝",
+      docx: "📝",
+      xls: "📊",
+      xlsx: "📊",
+      ppt: "📊",
+      pptx: "📊",
+      zip: "🗜️",
+      rar: "🗜️",
+      txt: "📃",
+      csv: "📊",
+    };
+
+    return iconMap[ext] || "📎";
+  };
+
+  const handleFileDownload = (e) => {
+    e.preventDefault();
+    const name = getFileName(filePath);
+
+    fetch(filePath)
+      .then((response) => response.blob())
+      .then((blob) => {
+        const url = window.URL.createObjectURL(blob);
+        const link = document.createElement("a");
+        link.href = url;
+        link.download = name;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        window.URL.revokeObjectURL(url);
+      })
+      .catch((err) => {
+        console.warn("Download failed:", err);
+        const link = document.createElement("a");
+        link.href = filePath;
+        link.download = name;
+        link.target = "_blank";
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      });
+  };
 
   // --------------------------
   // Fancybox Initialization WITH DOWNLOAD BUTTON
@@ -120,7 +187,7 @@ const Message = ({
   const messageClass = `message ${baseClass} ${colorClass}`;
 
   // --------------------------
-  // 🔥 Content Renderer
+  //  Content Renderer
   // --------------------------
   const renderMessageContent = () => {
     switch (type) {
@@ -128,12 +195,18 @@ const Message = ({
         return <div className="message__text">{text}</div>;
 
       // --------------------------
-      // 🔥 IMAGE WITH FANCYBOX
+      //  IMAGE WITH FANCYBOX
       // --------------------------
       case "image":
         return (
           <div className="message__content-wrapper">
             <div className="message__image-container p-2">
+              {" "}
+              {!imageLoaded && (
+                <div className="message__image-loading shimmer">
+                  <span> {t("loadingImage")}</span>
+                </div>
+              )}
               {/* Wrap image with Fancybox */}
               <a
                 data-fancybox="chat-gallery"
@@ -156,7 +229,7 @@ const Message = ({
         );
 
       // --------------------------
-      // 🔥 VIDEO
+      //  VIDEO
       // --------------------------
       case "video":
         return (
@@ -164,7 +237,7 @@ const Message = ({
             <div className="message__video-container p-2">
               {!videoLoaded && (
                 <div className="message__video-loading shimmer">
-                  <span>جارٍ تحميل الفيديو...</span>
+                  <span> {t("loadingVideo")}</span>
                 </div>
               )}
               <video
@@ -182,7 +255,7 @@ const Message = ({
         );
 
       // --------------------------
-      // 🔥 AUDIO
+      //  AUDIO
       // --------------------------
       case "audio":
         return (
@@ -195,6 +268,65 @@ const Message = ({
             />
           </div>
         );
+      // --------------------------
+      // 🔥 FILE (PDF, DOC, etc.)
+      // --------------------------
+      case "file":
+        const displayFileName = getFileName(filePath);
+        const fileIcon = getFileIcon(displayFileName);
+
+        return (
+          <div className="message__content-wrapper">
+            {text && <div className="message__text mb-2">{text}</div>}
+            <div
+              className="message__file-container p-3 rounded-3 d-flex align-items-center gap-3"
+              style={{
+                backgroundColor: "rgba(0, 0, 0, 0.05)",
+                border: "1px solid rgba(0, 0, 0, 0.1)",
+                cursor: "pointer",
+                transition: "all 0.2s ease",
+              }}
+              onClick={handleFileDownload}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.backgroundColor = "rgba(0, 0, 0, 0.08)";
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.backgroundColor = "rgba(0, 0, 0, 0.05)";
+              }}
+            >
+              <div className="message__file-icon" style={{ fontSize: "2rem" }}>
+                {fileIcon}
+              </div>
+              <div className="message__file-info flex-grow-1">
+                <div
+                  className="message__file-name fw-semibold text-truncate"
+                  style={{ maxWidth: "200px" }}
+                  title={displayFileName}
+                >
+                  {displayFileName}
+                </div>
+                <div
+                  className="message__file-action color-main small"
+                  style={{ fontSize: "0.85rem" }}
+                >
+                  {t("download")}
+                </div>
+              </div>
+              <div className="message__download-icon">
+                <svg
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                >
+                  <path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2M7 11l5 5 5-5M12 4v12" />
+                </svg>
+              </div>
+            </div>
+          </div>
+        );
 
       default:
         return <div className="message__text">{text}</div>;
@@ -202,7 +334,7 @@ const Message = ({
   };
 
   // --------------------------
-  // 🔥 Component Return
+  //  Component Return
   // --------------------------
   return (
     <div className={messageClass}>

@@ -6924,7 +6924,6 @@ input[type=file] {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  background-color: #214b92;
   color: #fff;
   padding: 0.6rem 1rem;
   border-radius: 8px;
@@ -6934,7 +6933,6 @@ input[type=file] {
     display: block;
     background-color: #fff;
     padding: 0;
-    color: #214b92;
   }
   .chat-window__footer--send span {
     display: none;
@@ -7209,7 +7207,6 @@ input[type=file] {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  background-color: #214b92;
   color: #fff;
   padding: 0.6rem 1rem;
   border-radius: 8px;
@@ -7260,7 +7257,6 @@ input[type=file] {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  background-color: #214b92;
   color: #fff;
   padding: 0.6rem 1rem;
   border-radius: 8px;

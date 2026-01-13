@@ -15,6 +15,7 @@ import { ContractChatService } from "../../utils/ContractChatService";
 import { getToken } from "../../utils/token";
 import useGetContractDetails from "../../hooks/website/MyWorks/assistants/useGetContractDetails";
 import Loading from "../../ui/loading/Loading";
+import CustomButton from "../../ui/CustomButton";
 
 const getMessageType = (file) => {
   if (!file) return "text";
@@ -69,7 +70,7 @@ export default function UserContractChat() {
     useGetAssistantChats();
   const allChats = chats?.pages?.flatMap((page) => page?.data).reverse() ?? [];
 
-  const { sendMessage } = useSendAssistantMessage();
+  const { sendMessage, isPending } = useSendAssistantMessage();
   const chatContainerRef = useRef(null);
   const [initialScrollDone, setInitialScrollDone] = useState(false);
 
@@ -275,7 +276,7 @@ export default function UserContractChat() {
               {(isLoading || isFetchingNextPage) && (
                 <div className="d-flex align-items-center py-3 justify-content-center">
                   {/* <div className="loader"></div> */}
-                   <Loading height={20} />
+                  <Loading height={20} />
                 </div>
               )}
               {allChats.map((chat) => {
@@ -380,23 +381,18 @@ export default function UserContractChat() {
                 <input
                   id="fileInput"
                   type="file"
-                  accept="image/*,video/*"
+                  accept="*/*"
                   hidden
                   {...register("file")}
                   onChange={(e) => {
                     const file = e.target.files[0];
                     if (!file) return;
-                    const isImage = file.type.startsWith("image/");
-                    const isVideo = file.type.startsWith("video/");
-                    if (isImage || isVideo) {
-                      setValue("message", "");
-                      setAudioBlob(null);
-                      cancelRecording();
-                      setSelectedFile(file);
-                      setValue("file", file);
-                    } else {
-                      e.target.value = "";
-                    }
+
+                    setValue("message", "");
+                    setAudioBlob(null);
+                    cancelRecording();
+                    setSelectedFile(file);
+                    setValue("file", file);
                   }}
                 />
                 <button
@@ -406,9 +402,14 @@ export default function UserContractChat() {
                 >
                   <i className="fa-solid fa-microphone"></i>
                 </button>
-                <button type="submit" className="chat-window__footer--send">
+                <CustomButton
+                  loading={isPending}
+                  color="success"
+                  type="submit"
+                  className="chat-window__footer--send"
+                >
                   <i className="fa-solid fa-paper-plane"></i>
-                </button>
+                </CustomButton>
               </div>
             </form>
           ) : (

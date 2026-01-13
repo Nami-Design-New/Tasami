@@ -10,6 +10,13 @@ import { useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { useParams } from "react-router";
 import monthIcon from "../../../../assets/icons/month.svg";
+import maleIcon from "../../../../assets/icons/male-outlined.svg";
+import femaleIcon from "../../../../assets/icons/female-outlined.svg";
+
+const genderIcons = {
+  male: maleIcon,
+  female: femaleIcon,
+};
 export default function AssignAssistantModal({ showModal, setShowModal }) {
   const { t } = useTranslation();
   const queryClient = useQueryClient();
@@ -142,10 +149,7 @@ export default function AssignAssistantModal({ showModal, setShowModal }) {
                         }`}
                       >
                         {g !== "both" && (
-                          <img
-                            src={`/icons/${g}-outlined.svg`}
-                            alt={t(`auth.${g}`)}
-                          />
+                          <img src={genderIcons[g]} alt={t(`auth.${g}`)} />
                         )}
                         <span>{t(`auth.${g}`)}</span>
                         <input type="radio" value={g} {...register("gender")} />

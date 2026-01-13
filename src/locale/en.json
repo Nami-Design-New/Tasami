@@ -1,4 +1,7 @@
 {
+  "loadingImage": "Loading image...",
+  "loadingVideo": "Loading Video...",
+  "download": "Download",
   "maxOfferAlert1": "You have reached the maximum number of offers!",
   "maxOfferAlert2": "Please withdraw one of your existing offers or wait until it is accepted or rejected, then try again.",
   "otpTitle": "OTP Verification",

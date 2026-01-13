@@ -16,6 +16,7 @@ import { getToken } from "../../../utils/token";
 import useUpdateGroupChatCounter from "../../../hooks/website/my-groups/useUpdateGroupChatCounter";
 import useGetGroupDetails from "../../../hooks/website/my-groups/useGetGroupDetails";
 import Loading from "../../../ui/loading/Loading";
+import CustomButton from "../../../ui/CustomButton";
 
 const getMessageType = (file) => {
   if (!file) return "text";
@@ -70,7 +71,7 @@ export default function GroupChat() {
     useGetGroupChats();
   const allChats = chats?.pages?.flatMap((page) => page?.data).reverse() ?? [];
 
-  const { sendMessage } = useSendGroupMessage();
+  const { sendMessage, isPending } = useSendGroupMessage();
 
   //   const messagesEndRef = useRef(null);
   const chatContainerRef = useRef(null);
@@ -469,28 +470,21 @@ export default function GroupChat() {
                 autoComplete="off"
                 id="fileInput"
                 type="file"
-                accept="image/*,video/*"
+                accept="*/*"
                 hidden
                 {...register("file")}
                 onChange={(e) => {
                   const file = e.target.files[0];
-
                   if (!file) return;
-                  //  validate type (safety check)
-                  const isImage = file.type.startsWith("image/");
-                  const isVideo = file.type.startsWith("video/");
 
-                  if (isImage || isVideo) {
-                    setValue("message", "");
-                    setAudioBlob(null);
-                    cancelRecording();
-                    setSelectedFile(file);
-                    setValue("file", file);
-                  } else {
-                    e.target.value = "";
-                  }
+                  setValue("message", "");
+                  setAudioBlob(null);
+                  cancelRecording();
+                  setSelectedFile(file);
+                  setValue("file", file);
                 }}
               />
+
               <button
                 type="button"
                 onClick={startRecording}
@@ -498,9 +492,14 @@ export default function GroupChat() {
               >
                 <i className="fa-solid fa-microphone"></i>
               </button>
-              <button type="submit" className="chat-window__footer--send">
+              <CustomButton
+                loading={isPending}
+                color="success"
+                type="submit"
+                className="chat-window__footer--send"
+              >
                 <i className="fa-solid fa-paper-plane"></i>
-              </button>
+              </CustomButton>
             </div>
           </form>
         </div>
