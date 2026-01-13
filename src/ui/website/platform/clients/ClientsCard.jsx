@@ -42,7 +42,9 @@ export default function ClientsCard({ helper }) {
             className="avatar"
             loading="lazy"
           />
-          <span className="status-dot" aria-hidden="true"></span>
+          {helper?.is_online && (
+            <span className="status-dot" aria-hidden="true"></span>
+          )}
         </figure>
 
         <section className="info">

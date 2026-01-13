@@ -5,7 +5,7 @@ export default function TopInfo({ offer }) {
     <div className="top-info">
       <div style={{ position: "relative" }}>
         <img src={offer.user.image} alt={offer.user.name} className="avatar" />
-        {offer.status && <span className="status-dot"></span>}
+        {offer?.user?.is_online && <span className="status-dot"></span>}
       </div>
 
       <div className="details p-2">
