@@ -108,7 +108,6 @@ const PerformanceFilter = ({ searchType }) => {
       reportType: methods.getValues("reportType"),
     };
 
-    console.log("Preview Report Data:", previewData);
     dispatch(setFilters(previewData));
   };
 
@@ -121,7 +120,6 @@ const PerformanceFilter = ({ searchType }) => {
       searchType: searchType,
     };
 
-    console.log("Basic Filters Update:", basicData);
 
     dispatch(setFilters(basicData));
 
@@ -159,7 +157,6 @@ const PerformanceFilter = ({ searchType }) => {
       searchType: searchType,
     };
 
-    console.log("All Form Data:", allFormData);
     dispatch(setFilters(allFormData));
 
     // تحديث URL Search Params

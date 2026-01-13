@@ -48,7 +48,6 @@ const ChatWindow = ({ isOpen, setIsOpen, activeChat, activeUser }) => {
   const queryClient = useQueryClient();
   const [searchParams] = useSearchParams();
   const chatId = searchParams.get("chatId");
-  console.log("chatId", chatId);
   const {
     chatMessages,
     isLoading,
@@ -252,8 +251,6 @@ const ChatWindow = ({ isOpen, setIsOpen, activeChat, activeUser }) => {
     reset();
     setSelectedFile(null);
   };
-  console.log("activeUser in chat window:", activeUser);
-  console.log("activeChats in chat window:", activeChat);
 
   return (
     <>
@@ -448,9 +445,9 @@ const ChatWindow = ({ isOpen, setIsOpen, activeChat, activeUser }) => {
             {" "}
             <i
               className="fa-sharp fa-regular fa-comments"
-              style={{ fontSize: "80px"}}
+              style={{ fontSize: "80px" }}
             ></i>
-            <h3 >{t("no-chat-selected")}</h3>
+            <h3>{t("no-chat-selected")}</h3>
           </div>
         </div>
       )}

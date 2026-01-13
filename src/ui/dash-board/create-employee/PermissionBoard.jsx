@@ -45,7 +45,6 @@ const PermissionBoard = ({ isEdit }) => {
 
     return permissions.data.map((group) => {
       // Find matching employee group
-      console.log(group);
 
       const empGroup = employee.data.permissions.find(
         (eg) => eg.id === group.id
@@ -67,20 +66,16 @@ const PermissionBoard = ({ isEdit }) => {
   }, [permissions, employee]);
 
   const onSubmit = (values) => {
-    console.log(values);
-    console.log(Object.entries(values.permissions));
 
     // convert object {1: true, 2:false,...} → only active IDs
     const activePermissions = Object.entries(values.permissions)
       .filter(([_, isChecked]) => isChecked === true)
       .map(([id]) => Number(id));
-    console.log(activePermissions);
 
     const payload = {
       employee_id: employee.data.id,
       permissions: activePermissions,
     };
-    console.log(payload);
 
     editPermissions(payload, {
       onSuccess: (res) => {

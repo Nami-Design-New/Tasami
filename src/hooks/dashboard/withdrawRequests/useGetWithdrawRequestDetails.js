@@ -9,7 +9,6 @@ export default function useGetWithdrawRequestDetails(id) {
       if (res.data.code !== 200) {
         throw new Error(res.data.message || "Error Fetching Data");
       }
-      console.log(withdrawRequestDetails);
 
       return res.data.data;
     },

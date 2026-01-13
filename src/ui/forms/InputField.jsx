@@ -6,7 +6,6 @@ const InputField = React.forwardRef(
   ({ label, hint, error, className, icon = null, ...props }, ref) => {
     const { i18n } = useTranslation();
     const isRTL = i18n.dir() === "rtl";
-    console.log("icon:----", icon);
 
     return (
       <div className={`input-field ${className ? className : ""}`}>

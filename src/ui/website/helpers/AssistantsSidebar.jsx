@@ -75,7 +75,6 @@ export default function AssistantsSidebar({ isGoal = false }) {
     const filteredData = Object.fromEntries(
       Object.entries(data).filter(([_, v]) => v && v !== "")
     );
-    console.log(filteredData);
 
     // handle helpMechanism as array
     if (Array.isArray(data.helpMechanism) && data.helpMechanism.length > 0) {

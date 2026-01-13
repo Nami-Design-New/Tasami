@@ -4,8 +4,6 @@ import { adminAxiosInstance } from "../../../lib/adminAxios";
 export default function useUpdateUserContract() {
   const { mutate: updateUserContract, isPending } = useMutation({
     mutationFn: async (payload) => {
-      console.log(payload);
-      
       const res = await adminAxiosInstance.post(
         `dh-user-contracts/${payload.id}`,
         {

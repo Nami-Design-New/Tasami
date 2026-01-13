@@ -27,7 +27,6 @@ export default function EditRegionModal({
     defaultValues: defaultRegionValues,
   });
   const { editRegion, isEditingRegion } = useEditRegion();
-  console.log(selectedRegion);
 
   useEffect(() => {
     regionForm.reset({
@@ -40,7 +39,6 @@ export default function EditRegionModal({
   }, [selectedRegion, regionForm]);
 
   const onSubmit = (data) => {
-    console.log(data);
 
     const payload = {
       _method: "put",

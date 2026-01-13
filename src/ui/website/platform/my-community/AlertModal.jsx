@@ -23,7 +23,6 @@ export default function AlertModal({
     }
     // setShowModal(false);
   };
-  console.log(loading);
   return (
     <Modal show={showModal} onHide={handleCancel} centered size="md">
       <Modal.Body>

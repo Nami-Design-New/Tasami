@@ -37,7 +37,6 @@ export default function EditCityModal({
     defaultValues: defaultCityValues,
   });
   const { editCity, isEditingCity } = useEditCity();
-  console.log(selectedCity);
 
   useEffect(() => {
     cityForm.reset({
@@ -49,7 +48,6 @@ export default function EditCityModal({
       cityNumber: selectedCity?.code,
     });
   }, [selectedCity, cityForm]);
-  console.log(cityForm.formState.errors);
 
   const onSubmit = (data) => {
     const payload = {

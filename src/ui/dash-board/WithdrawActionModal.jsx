@@ -47,8 +47,6 @@ export default function WithdrawActionModal({
     context: { actionType },
   });
 
-  console.log(errors, actionType);
-
   const handleFilesChange = (updatedFiles) => {
     setFiles(updatedFiles);
     setValue("file", updatedFiles, { shouldValidate: true });

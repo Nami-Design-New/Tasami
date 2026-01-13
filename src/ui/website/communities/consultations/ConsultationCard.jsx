@@ -3,7 +3,6 @@ import useCheckDashboard from "../../../../hooks/dashboard/checkDashboard/useChe
 
 export default function ConsultationCard({ item }) {
   const isDashboard = useCheckDashboard();
-  // console.log("item consultaion ::|", item);
 
   return (
     <Link

@@ -4,7 +4,6 @@ import { useNavigate } from "react-router";
 import medalIcon from "../../../../assets/icons/medal.svg";
 export default function MemberCard({ member, exePercentage }) {
   const [showGoalDetails, setShowGoalDetails] = useState();
-  console.log("member ::", member);
   const navigate = useNavigate();
   return (
     <div className="position-relative">

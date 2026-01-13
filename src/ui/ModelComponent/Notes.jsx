@@ -137,7 +137,6 @@ const Notes = ({
     ],
     []
   );
-  console.log("taskdata", taskData);
 
   return (
     <>

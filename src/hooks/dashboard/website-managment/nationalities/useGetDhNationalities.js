@@ -16,7 +16,6 @@ export default function useGetDhNationalities(
       if (res.data.code !== 200) {
         throw new Error(res.data.message || "Error fetching dh nationalities");
       }
-      console.log(res.data);
 
       return res.data;
     },

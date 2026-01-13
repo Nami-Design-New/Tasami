@@ -83,7 +83,6 @@ export default function CompleteDraftedUsers() {
     useDeleteDraftedUserFiles();
 
   const { draftedUser, isLoading: employeeLoading } = useGetDraftedUser();
-  console.log(draftedUser);
 
   const {
     register,
@@ -289,8 +288,6 @@ export default function CompleteDraftedUsers() {
       }
     );
   };
-  console.log(allFields);
-  console.log(allFieldsFilled);
 
   if (employeeLoading) return <Loading />;
 

@@ -55,8 +55,6 @@ const OperatingSectors = () => {
     defaultValues: defaultCountryValues,
   });
 
-  console.log(countryForm.formState.errors);
-
   const cityForm = useForm({
     resolver: yupResolver(citySchema),
     defaultValues: defaultCityValues,

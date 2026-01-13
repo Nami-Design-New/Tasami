@@ -1,5 +1,4 @@
 const PermissionList = ({ permissions }) => {
-  console.log(permissions);
 
   return (
     <ul className="permission-list">

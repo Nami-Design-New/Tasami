@@ -27,7 +27,6 @@ export default function useGetUsersAccountsInfinite(
       if (res.data.code !== 200) {
         throw new Error(res.data.message || "Error fetching users accounts");
       }
-      console.log(res.data);
 
       return res.data;
     },

@@ -1,5 +1,4 @@
 const PermissionItem = ({ label, id, checked, onChange, register }) => {
-  console.log(id);
 
   return (
     <div className="permission__item ">

@@ -46,7 +46,6 @@ export default function FaqManagment() {
 
   const onRowsReordered = (newOrder) => {
     const payload = newOrder.map((item) => item.id);
-    console.log("Payload (IDs only):", payload);
 
     reorderFaq(
       { positions: payload },
@@ -78,7 +77,6 @@ export default function FaqManagment() {
   const data = useMemo(
     () =>
       faqs?.map((faq) => {
-        console.log(faq);
         return {
           id: faq.id,
           questions: faq.title,

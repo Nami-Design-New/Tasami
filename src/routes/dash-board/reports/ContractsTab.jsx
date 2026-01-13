@@ -14,7 +14,6 @@ const ContractsTab = () => {
   if (isLoading) {
     return <Loading />;
   }
-  console.log("contract tabs", performanceReportData);
 
   return (
     <>
@@ -385,7 +384,8 @@ const ContractsTab = () => {
             riyal={t("dashboard.reports.contractTab.riyal")}
             highlight
             percentage={
-              performanceReportData?.total_contracts_money?.offers_growth_percent
+              performanceReportData?.total_contracts_money
+                ?.offers_growth_percent
             }
           />
 
@@ -411,7 +411,7 @@ const ContractsTab = () => {
             }
           />
         </div>
-        
+
         <div className="metrics-container mt-4">
           <ReportCard
             langDir={langDir}

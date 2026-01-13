@@ -18,8 +18,6 @@ const Reports = () => {
     search_type = "users";
   }
 
-  console.log({ region, country, city, period, fromDate, toDate });
-
   const { performanceReportData, isLoading } = useGetPerformanceReport(
     search_type,
     region,

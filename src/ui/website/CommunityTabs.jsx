@@ -13,8 +13,6 @@ export default function CommunityTabs({
     ? "/my-community"
     : `/community/${communityId}`;
 
-  // console.log(community);
-
   return (
     <div className="community-tabs">
       <div className="tabs d-flex gap-3">

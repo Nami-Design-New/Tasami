@@ -46,7 +46,6 @@ const AddActionModal = ({ showModal, setShowModal, taskData }) => {
       sendNotification: false,
     },
   });
-  // console.log("employee", taskData?.task?.owner_id, user.id);
 
   const actionType = watch("actionType");
 
@@ -59,8 +58,6 @@ const AddActionModal = ({ showModal, setShowModal, taskData }) => {
           : data.actionType === "redirect"
           ? "send"
           : "return",
-      // employee_id:
-      //   data.actionType === "redirect" ? Number(data.employee) : null,
       ...(data.actionType === "redirect" && {
         employee_id: Number(data.employee),
       }),

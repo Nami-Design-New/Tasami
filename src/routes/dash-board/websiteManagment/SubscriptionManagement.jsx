@@ -88,7 +88,6 @@ export default function SubscriptionManagement() {
         header: t("dashboard.subscriptions.actions"),
         cell: (info) => {
           const isFree = info?.row?.original?.type === "free";
-          console.log(isFree);
 
           return (
             <div className="table__actions">

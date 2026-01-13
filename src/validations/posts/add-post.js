@@ -19,11 +19,8 @@ const getSchema = (t) =>
       yup.mixed().test("fileType", t("validation.invalidFileType"), (file) => {
         if (!file) return true; // empty value is okay
         // if file is a URL string, skip type check
-        console.log("type of the file :", typeof file);
 
         if (typeof file === "string") return true;
-
-        console.log("bug do not return ");
 
         const typeCategory = file.type?.split("/")[0];
         return typeCategory === "image" || typeCategory === "video";

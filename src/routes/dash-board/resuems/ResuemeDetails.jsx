@@ -12,7 +12,6 @@ export default function ResuemeDetails() {
   const { t } = useTranslation();
   const { id } = useParams();
   const { userResume, isLoading } = useGetResume(id);
-  // console.log("userResume", id, userResume);
 
   return (
     <>

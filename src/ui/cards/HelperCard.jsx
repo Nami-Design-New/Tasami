@@ -12,6 +12,7 @@ export default function HelperCard({
 }) {
   const { lang } = useSelector((state) => state.language);
   const { t } = useTranslation();
+
   return (
     <>
       {canNavigate ? (

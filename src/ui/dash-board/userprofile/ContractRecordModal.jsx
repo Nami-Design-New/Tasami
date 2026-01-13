@@ -90,7 +90,6 @@ const ContractRecordModal = ({
         cell: (info) => {
           const contractId = info?.row?.original?.id;
           const status = info?.row?.original?.status;
-          console.log(status);
 
           const isUpdating = loadingContractId === contractId;
 

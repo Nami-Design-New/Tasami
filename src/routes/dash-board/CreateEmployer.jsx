@@ -78,15 +78,11 @@ const CreateEmployee = () => {
       { chater_id: id, chater_type: "employee" },
       {
         onSuccess: (res) => {
-          console.log("create Room Response :", res);
-
           setChat(res.data);
           localStorage.setItem("chatId", res.data.id);
           navigate(`/dashboard/chats?chaterId=${id}&chatId=${res?.data?.id}`);
         },
-        onError: (error) => {
-          console.log(error);
-        },
+        onError: (error) => {},
       }
     );
   };

@@ -21,8 +21,6 @@ export default function ConsultaionDashComments() {
   const allConsultaionComments =
     consultaionDashComments?.pages?.flatMap((page) => page?.data) ?? [];
 
-    console.log("consultaionDashComments :::" , consultaionDashComments , allConsultaionComments);
-    
   return (
     <div className="comments">
       <div className="comments-header  px-4 py-3">

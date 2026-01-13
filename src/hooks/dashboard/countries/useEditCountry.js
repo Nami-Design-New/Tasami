@@ -4,8 +4,6 @@ import { adminAxiosInstance } from "../../../lib/adminAxios";
 export default function useEditCountry() {
   const { mutate: editCountry, isPending: isEditingCountry } = useMutation({
     mutationFn: async ({ countryId, countryData }) => {
-      console.log(countryData);
-
       const res = await adminAxiosInstance.post(
         `dh-countries/${countryId}`,
         countryData,

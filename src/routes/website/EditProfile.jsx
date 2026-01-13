@@ -182,8 +182,6 @@ export default function EditProfile() {
 
     editProfile(formData, {
       onSuccess: (res) => {
-        console.log("user Data", res);
-
         dispatch(setUser(res.data));
         toast.success(res?.message);
         // Update initial values after successful save
@@ -265,8 +263,6 @@ export default function EditProfile() {
       }
     );
   };
-
-  console.log(errors);
 
   return (
     <div className="edit-profile-page">

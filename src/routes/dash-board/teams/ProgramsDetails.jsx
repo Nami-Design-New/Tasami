@@ -11,7 +11,6 @@ export default function ProgramsDetails() {
   const { t } = useTranslation();
   const { assistantOffersDetails, isLoading } = useGetAssistantOffersDetails();
   if (isLoading) return <Loading />;
-  console.log("assisatant details", assistantOffersDetails);
 
   return (
     <section className="page offer-details-section">

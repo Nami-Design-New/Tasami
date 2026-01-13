@@ -231,8 +231,6 @@ const EmployerDataForm = ({ isEdit }) => {
   });
 
   const handleFilesChange = (updatedFiles) => {
-    console.log("Files changed:", updatedFiles);
-
     // The new component returns files in their original format:
     // - File objects for new uploads
     // - URL strings for URLs
@@ -257,7 +255,6 @@ const EmployerDataForm = ({ isEdit }) => {
   // UPDATED: Handle file deletion
   // ============================================
   const handleDeleteFile = (fileId) => {
-    console.log("Deleting file with ID:", fileId);
 
     // Call API to delete file
     deleteEmployeeFiles(fileId, {

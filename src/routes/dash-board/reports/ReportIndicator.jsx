@@ -63,7 +63,6 @@ const ReportIndicator = ({ pdfRef }) => {
   const { t } = useTranslation();
   const [loading, setLoading] = useState(false);
   const user = useSelector((state) => state.adminAuth.user);
-  console.log(user);
 
   const exportedBy =
     `${user?.first_name || ""} ${user?.last_name || ""}`.trim() || "—";

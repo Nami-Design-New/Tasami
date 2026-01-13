@@ -28,7 +28,6 @@ export default function DraftedUsers() {
     page,
     pageSize
   );
-  console.log(draftedUsers?.data);
 
   // -----------------------------------
   // Table Data Mapping

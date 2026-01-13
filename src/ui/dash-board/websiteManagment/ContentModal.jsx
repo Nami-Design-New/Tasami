@@ -88,7 +88,6 @@ export default function ContentModal({
   }, {});
 
   const schema = yup.object().shape(schemaShape);
-  console.log(isEdit, faqData);
 
   const {
     handleSubmit,
@@ -104,10 +103,8 @@ export default function ContentModal({
 
   // Pre-fill form when editing
   useEffect(() => {
-    console.log("filling");
 
     if (isEdit && faqData) {
-      console.log("filling");
 
       reset({
         answer_ar: faqData.answer_ar,
@@ -116,7 +113,6 @@ export default function ContentModal({
         question_ar: faqData.questions_ar,
       });
     } else {
-      console.log("i am here");
 
       reset();
     }
@@ -131,7 +127,6 @@ export default function ContentModal({
       return acc;
     }, {});
 
-    console.log(data);
 
     if (isEdit) {
       editNewFaq(

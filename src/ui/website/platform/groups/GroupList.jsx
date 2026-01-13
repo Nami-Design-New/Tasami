@@ -3,7 +3,6 @@ import { Link } from "react-router";
 import groupsIcon from "../../../../assets/icons/Groups.svg";
 export default function GroupList({ allGroups }) {
   const { t } = useTranslation();
-  console.log("all groups", allGroups);
 
   return (
     <ul

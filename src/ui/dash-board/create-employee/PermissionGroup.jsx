@@ -6,7 +6,6 @@ import PermissionItem from "./PermissionItem";
 const PermissionGroup = ({ title, permissions, groupId, register }) => {
   const [isOpen, setIsOpen] = useState(false);
   const { t } = useTranslation();
-  console.log(permissions);
 
   const [checkedItems, setCheckedItems] = useState(
     permissions.map((p) => p.active)

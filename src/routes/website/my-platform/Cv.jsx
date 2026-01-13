@@ -46,8 +46,6 @@ export default function Cv() {
     const payload = { about: data.about };
     editCV(payload, {
       onSuccess: (res) => {
-        console.log(res);
-
         toast.success(res?.message || t("website.platform.cv.updateSuccess"));
         queryClient.invalidateQueries({ queryKey: ["cv"] });
         queryClient.setQueryData(["authedUser"], (oldData) => {

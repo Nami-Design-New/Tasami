@@ -88,7 +88,6 @@ export default function EditFiledAndSpecializationModal({
 
   // ----------------- Submit Handler -----------------
   const onSubmit = (formData) => {
-    console.log(formData);
 
     const payload = {
       _method: "put",

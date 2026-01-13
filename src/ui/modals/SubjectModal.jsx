@@ -94,7 +94,6 @@ const SubjectModal = ({
 
   // ---------------------- SUBMIT HANDLER ------------------------
   const onSubmit = (formData) => {
-    console.log(formData);
 
     const payload = {
       type: formData.system,

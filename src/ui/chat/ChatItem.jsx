@@ -1,8 +1,5 @@
 const ChatItem = ({ chat, onChatSelect, activeChat }) => {
   const { chater, last_message } = chat;
-  console.log(activeChat);
-
-  console.log(chater);
 
   return (
     <li

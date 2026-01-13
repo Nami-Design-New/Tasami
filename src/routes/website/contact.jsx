@@ -39,7 +39,6 @@ export default function Contact() {
   });
 
   const { taskSystems, isLoading } = useGetTaskSystems();
-  console.log(taskSystems);
 
   const {
     register,
@@ -50,7 +49,6 @@ export default function Contact() {
   } = useForm({
     resolver: yupResolver(schema),
   });
-  console.log(errors);
 
   const onSubmit = async (data) => {
     const payload = {

@@ -101,8 +101,6 @@ export default function PublicNotifications() {
      Submit
   ======================= */
   const onSubmit = (data) => {
-    console.log(data);
-
     const payload = {
       ...data,
       usersIds: data.type === "specific" ? data?.usersIds : [],

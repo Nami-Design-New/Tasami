@@ -21,8 +21,6 @@ export default function PostDashComments() {
   const allPostComments =
     postDashComments?.pages?.flatMap((page) => page?.data) ?? [];
 
-    console.log("postDashComments :::" , postDashComments , allPostComments);
-    
   return (
     <div className="comments">
       <div className="comments-header  px-4 py-3">

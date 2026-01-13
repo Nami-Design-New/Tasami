@@ -57,7 +57,7 @@ const GoalCard = ({ goal }) => {
         <div className="d-flex align-items-center gap-2 px-2">
           <div className="image-wrapper">
             <img src={goal.user.image} alt={goal.name} className="avatar" />
-            {goal.status && <span className="status-dot"></span>}
+            {goal?.user?.is_online && <span className="status-dot"></span>}
           </div>
           <div className="d-flex gap-2 flex-grow-1">
             <div className="info">

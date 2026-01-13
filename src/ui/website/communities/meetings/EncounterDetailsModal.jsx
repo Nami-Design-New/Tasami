@@ -37,8 +37,6 @@ export default function EncounterDetailsModal({
 
   const handleDeleteMeeting = () => {
     if (isDashboard) {
-      console.log("dashborde deleting");
-
       deleteDhMeeting(meetingId, {
         onSuccess: (res) => {
           toast.success(res?.message);
