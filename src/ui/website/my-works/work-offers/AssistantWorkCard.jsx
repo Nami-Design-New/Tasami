@@ -1,6 +1,7 @@
 import { Link } from "react-router";
 import flagIcon from "../../../../assets/icons/flag.svg";
 import medalIcon from "../../../../assets/icons/medal.svg";
+import chatWhiteIcon from "../../../../assets/icons/chat-white-icon.svg";
 export default function AssistantWorkCard({
   helper,
   contractId,
@@ -64,7 +65,7 @@ export default function AssistantWorkCard({
                   className="chat position-relative"
                 >
                   <img
-                    src="/icons/chat-white-icon.svg"
+                    src={chatWhiteIcon}
                     alt="chat"
                     className="flag-icon "
                     loading="lazy"

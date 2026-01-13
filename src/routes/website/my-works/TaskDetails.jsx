@@ -12,6 +12,9 @@ import AddTasksModal from "../../../ui/website/my-works/tasks/AddTasksModal";
 import OptionsMenu from "../../../ui/website/OptionsMenu";
 import { TASKS_STATUS } from "../../../utils/constants";
 
+import missionClassIcon from "../../../assets/icons/mission-class.svg";
+import bellIcon from "../../../assets/icons/bell.svg";
+
 export default function TaskDetails() {
   const navigate = useNavigate();
   const { taskId } = useParams();
@@ -124,7 +127,7 @@ export default function TaskDetails() {
                 <div className="label">{t("works.myTasks.category")}</div>
                 <div className="value">
                   {" "}
-                  <img src={"/icons/mission-class.svg"} />{" "}
+                  <img src={missionClassIcon} />{" "}
                   {taskDetails?.task_category?.title}
                 </div>
               </div>
@@ -136,7 +139,7 @@ export default function TaskDetails() {
               <div className="info-box flex-grow-1">
                 <div className="label">{t("works.myTasks.reminder")}</div>
                 <div className="value">
-                  <img src={"/icons/bell.svg"} />
+                  <img src={bellIcon} />
                   {t(`${taskDetails?.notification_repeat}`)}
                 </div>
               </div>
