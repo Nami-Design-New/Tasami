@@ -25,7 +25,7 @@ const schema = yup.object().shape({
 
 const AddActionModal = ({ showModal, setShowModal, taskData }) => {
   const { t } = useTranslation();
-  const { addAction } = usePostAddAction();
+  const { addAction, isPending } = usePostAddAction();
   const { employees } = useGetSharedEmployees();
   const queryClient = useQueryClient();
   const { user } = useSelector((state) => state.adminAuth);
@@ -83,7 +83,9 @@ const AddActionModal = ({ showModal, setShowModal, taskData }) => {
   };
   return (
     <Modal centered size="lg" show={showModal} onHide={handleCLose}>
-      <Modal.Header closeButton>{t("dashboard.tasks.modelTask.notes.addBenefit")} </Modal.Header>
+      <Modal.Header closeButton>
+        <h6> {t("dashboard.tasks.modelTask.notes.addBenefit")}</h6>
+      </Modal.Header>
       <Modal.Body>
         <form className="form_ui" onSubmit={handleSubmit(onSubmit)}>
           <div className="row">
@@ -92,12 +94,25 @@ const AddActionModal = ({ showModal, setShowModal, taskData }) => {
                 name="actionType"
                 register={register}
                 options={[
-                  ...(taskData?.task?.owner_id !== user?.id
-                    ? [{ label: t('dashboard.tasks.modelTask.notes.addBenefit'), value: "complete" }]
+                  ...(taskData?.task?.owner_id === user?.id
+                    ? [
+                        {
+                          label: t(
+                            "dashboard.tasks.modelTask.notes.completeBenefit"
+                          ),
+                          value: "complete",
+                        },
+                      ]
                     : []),
 
-                  { label: t('dashboard.tasks.modelTask.notes.addBenefit'), value: "redirect" },
-                  { label: t('dashboard.tasks.modelTask.notes.addBenefit'), value: "return" },
+                  {
+                    label: t("dashboard.tasks.modelTask.notes.redirectBenefit"),
+                    value: "redirect",
+                  },
+                  {
+                    label: t("dashboard.tasks.modelTask.notes.returnBenefit"),
+                    value: "return",
+                  },
                 ]}
               />
 
@@ -113,8 +128,12 @@ const AddActionModal = ({ showModal, setShowModal, taskData }) => {
                   render={({ field }) => (
                     <SelectField
                       {...field}
-                      label={t('dashboard.tasks.modelTask.notes.chooseRequestEmployee')}
-                      disableFiledValue={t('dashboard.tasks.modelTask.notes.chooseEmployee')}
+                      label={t(
+                        "dashboard.tasks.modelTask.notes.chooseRequestEmployee"
+                      )}
+                      disableFiledValue={t(
+                        "dashboard.tasks.modelTask.notes.chooseEmployee"
+                      )}
                       options={employees.map((emp) => ({
                         value: emp.id,
                         name: `${emp.first_name} ${emp.family_name}`,
@@ -128,7 +147,7 @@ const AddActionModal = ({ showModal, setShowModal, taskData }) => {
 
             <div className="col-12 py-2">
               <TextField
-                label={t('dashboard.tasks.modelTask.notes.benefitDetails')}
+                label={t("dashboard.tasks.modelTask.notes.benefitDetails")}
                 {...register("description")}
                 error={errors.description?.message}
               />
@@ -136,16 +155,13 @@ const AddActionModal = ({ showModal, setShowModal, taskData }) => {
 
             <div className="col-12 py-2 ">
               <div className="d-flex align-items-center justify-content-end gap-2">
-                {/* <CustomButton
-                  onClick={handleCLose}
-                  type="button"
-                  color="secondary"
+                <CustomButton
+                  loading={isPending}
+                  type="submit"
+                  color="primary"
                   size="large"
                 >
-                  حفظ و اغلاق
-                </CustomButton> */}
-                <CustomButton type="submit" color="primary" size="large">
-                 {t('dashboard.tasks.modelTask.notes.excute')}
+                  {t("dashboard.tasks.modelTask.notes.excute")}
                 </CustomButton>
               </div>
             </div>

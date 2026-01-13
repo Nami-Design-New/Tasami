@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import CustomButton from "../../ui/CustomButton";
 import PageHeader from "../../ui/PageHeader";
 import TabsHorizontal from "../../ui/TabsHorizontal";
@@ -15,7 +15,7 @@ const UserProfile = () => {
   const { t } = useTranslation();
   const [openSuspensionModel, setOpenSuspensionModel] = useState(false);
   const [showTaskModal, setShowTaskModal] = useState(false);
-  const [searchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
   const activeTab = searchParams.get("tab");
   const { id } = useParams();
   const { userDetails, isLoading } = useGetUserDetails(id);
@@ -30,6 +30,11 @@ const UserProfile = () => {
       title: t("dashboard.userProfile.tabs.assistant"),
     },
   ];
+  useEffect(() => {
+    if (!activeTab) {
+      setSearchParams({ tab: "1" }, { replace: true });
+    }
+  }, [activeTab, setSearchParams]);
   return (
     <>
       {isLoading ? (

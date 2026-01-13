@@ -171,22 +171,22 @@ const EmployerDataForm = ({ isEdit }) => {
   useEffect(() => {
     if (isEdit && employee) {
       reset({
-        jobLevel: employee.data.role?.id,
-        jobTitle: employee.data.job_title,
-        accountNumber: employee.data.code,
-        group: employee.data.group.id,
-        firstName: employee.data.first_name,
-        fatherName: employee.data.last_name,
-        familyName: employee.data.family_name,
-        birthdate: employee.data.birthdate,
-        email: employee.data.email,
-        gender: employee.data.gender,
-        region: employee.data.group.region?.id,
-        city: employee.data.group.city?.id,
-        sector: employee.data.group.sector?.id,
-        residentCountry: employee.data.country_id.id,
-        residentCity: employee.data.city_id.id,
-        nationality: employee.data.nationality.id,
+        jobLevel: employee?.data?.role?.id,
+        jobTitle: employee?.data?.job_title,
+        accountNumber: employee?.data?.code,
+        group: employee?.data?.group?.id,
+        firstName: employee?.data.first_name,
+        fatherName: employee?.data?.last_name,
+        familyName: employee?.data?.family_name,
+        birthdate: employee?.data?.birthdate,
+        email: employee?.data?.email,
+        gender: employee?.data?.gender,
+        region: employee?.data?.group?.region?.id,
+        city: employee?.data?.group.city?.id,
+        sector: employee?.data?.group?.sector?.id,
+        residentCountry: employee?.data.country_id?.id,
+        residentCity: employee?.data?.city_id?.id,
+        nationality: employee?.data?.nationality?.id,
       });
 
       // Load profile image
@@ -255,7 +255,6 @@ const EmployerDataForm = ({ isEdit }) => {
   // UPDATED: Handle file deletion
   // ============================================
   const handleDeleteFile = (fileId) => {
-
     // Call API to delete file
     deleteEmployeeFiles(fileId, {
       onSuccess: (res) => {

@@ -7,9 +7,12 @@ const ModelInfo = ({ taskData }) => {
     <div className="model__info">
       <DataItem
         label={t("dashboard.tasks.modelTask.modelInfo.systemTitle")}
-        value={taskData?.task?.system_type.type}
+        value={t(`${taskData?.task?.system_type.type}`)}
       />
-      <DataItem label={t("dashboard.tasks.modelTask.modelInfo.subject")} value={taskData?.task?.system_type.title} />
+      <DataItem
+        label={t("dashboard.tasks.modelTask.modelInfo.subject")}
+        value={taskData?.task?.system_type.title}
+      />
       <DataItem
         label={t("dashboard.tasks.modelTask.modelInfo.returnNumber")}
         value={taskData?.task?.reference_number}

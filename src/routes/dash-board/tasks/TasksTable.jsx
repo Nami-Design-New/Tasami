@@ -35,14 +35,14 @@ const TasksTable = ({
         model: task.reference_number || "-",
         date: task.date || "-",
         time: task.time || "-",
-        userAccount: task.account || "-",
+        userAccount: task?.account,
         accountType: task.account_type || "-",
         idNumber: task.id_number || "-",
         group: task.account_group || "-",
         region: task.region.title || "-",
         location: task.country.title || "-",
         city: task.city.title || "-",
-
+        createrId: task?.creater_id,
         completionDate: task.finish_date || "-",
         status: task.status || "-",
         actionLevel: task.procedure_level || "-",
@@ -84,14 +84,29 @@ const TasksTable = ({
 
       columnHelper.accessor("userAccount", {
         header: t("dashboard.tasks.table.userAccount"),
-        cell: (info) => (
-          <Link
-            className="link-styles"
-            to={`/dashboard/user-details/${info.getValue()}`}
-          >
-            {info.getValue()}
-          </Link>
-        ),
+        cell: (info) => {
+          const isAppUser = info?.getValue()?.toLowerCase()?.startsWith("u");
+          const userId = info?.row?.original?.createrId;
+
+          return (
+            <>
+              {info.getValue() ? (
+                <Link
+                  className="link-styles"
+                  to={
+                    isAppUser
+                      ? `/dashboard/user-details/${userId}`
+                      : `/dashboard/employee-details/${userId}`
+                  }
+                >
+                  {info.getValue()}
+                </Link>
+              ) : (
+                <p>-</p>
+              )}
+            </>
+          );
+        },
       }),
       columnHelper.accessor("accountType", {
         header: t("dashboard.tasks.table.accountType"),

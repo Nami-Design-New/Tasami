@@ -114,7 +114,7 @@ const ActionsLogModel = () => {
         },
       }),
       columnHelper.accessor("info_details", {
-        header: " تفاصيل الافاده ",
+        header: " تفاصيل الافادة ",
         cell: (info) => info.getValue(),
       }),
     ],
@@ -122,7 +122,7 @@ const ActionsLogModel = () => {
   );
   return (
     <section className="model">
-      <Header title={"سجل الافاده"} />
+      <Header title={"سجل الافادة"} />
       <EmployeeData />
       <ModelInfo />
       <ReusableDataTable

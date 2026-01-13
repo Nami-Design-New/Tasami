@@ -1379,7 +1379,10 @@
         },
         "notes": {
           "title": "Benefits Log",
-          "addBenefit": "Add Benefit",
+          "returnBenefit": "ٌreturn",
+          "addBenefit": "ٌAdd Benefit",
+          "redirectBenefit": "Redirect ",
+          "comleteBenefit": "Complete ",
           "date": "Date",
           "time": "Time",
           "accountNumber": "Account Number",

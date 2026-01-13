@@ -2,7 +2,7 @@ import { useMutation } from "@tanstack/react-query";
 import { adminAxiosInstance } from "../../../lib/adminAxios";
 
 export default function usePostAddAction() {
-  const { mutate: addAction} = useMutation({
+  const { mutate: addAction, isPending } = useMutation({
     mutationFn: async (payload) => {
       const res = await adminAxiosInstance.post(`dh-task-actions`, payload);
       if (res.data.code !== 200) {
@@ -11,5 +11,5 @@ export default function usePostAddAction() {
       return res.data;
     },
   });
-  return { addAction };
+  return { addAction, isPending };
 }

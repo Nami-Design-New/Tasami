@@ -114,13 +114,13 @@ const Teams = () => {
       last_name: item?.last_name,
       employee_code: item?.code,
       job_level: item?.role?.title,
-      nationality: item.nationality.title,
-      city: item.group.city.title,
-      region: item.group.region.title,
-      location: item.group.country.title,
-      status: item.status,
-      status_date: item.status_date,
-      status_time: item.status_time,
+      nationality: item.nationality?.title,
+      city: item?.group?.city?.title,
+      region: item?.group?.region?.title,
+      location: item?.group?.country?.title,
+      status: item?.status,
+      status_date: item?.status_date,
+      status_time: item?.status_time,
     }));
   }, [team]);
 
