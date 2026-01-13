@@ -110,7 +110,7 @@ export default function AssistantWorkCard({
               {helper.country && (
                 <span className="country">
                   <img
-                    src="/icons/flag.svg"
+                    src={flagIcon}
                     alt={`${helper.country.title} flag`}
                     className="flag-icon"
                     loading="lazy"
@@ -122,7 +122,7 @@ export default function AssistantWorkCard({
               {chat && (
                 <Link to={`/user-chat/${contractId}`} className="chat">
                   <img
-                    src="/icons/chat-white-icon.svg"
+                    src={chatWhiteIcon}
                     alt="chat"
                     className="flag-icon "
                     loading="lazy"

@@ -13,7 +13,7 @@ import AlertModal from "../../../ui/website/platform/my-community/AlertModal";
 import useDeleteDhPost from "../../../hooks/dashboard/subscription/community/useDeleteDhPost";
 import { useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
-
+import fileIcon from "../../../assets/icons/file-icon.svg";
 export default function PostDashDetails() {
   const { t } = useTranslation();
   const navigate = useNavigate();
@@ -78,7 +78,7 @@ export default function PostDashDetails() {
                   <Link className="post-link" key={link.id}>
                     <img
                       onClick={() => handleCopy(link.link)}
-                      src="/icons/file-icon.svg"
+                      src={fileIcon}
                       alt="file"
                     />
                     <span>{link.link}</span>

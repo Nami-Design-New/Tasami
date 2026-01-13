@@ -1,5 +1,6 @@
 import medalIcon from "../../../assets/icons/medal.svg";
 import locationIcon from "../../../assets/icons/location-icon.svg";
+import profileIcon from "../../../images/profile2.png";
 
 export default function AssistantData() {
   return (
@@ -8,7 +9,7 @@ export default function AssistantData() {
         <div className="user-data">
           <div className="img-wrapper">
             <img
-              src="/images/profile2.png"
+              src={profileIcon}
               alt="احمد التطاوي"
               className="assistant-avatar"
             />

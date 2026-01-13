@@ -95,10 +95,7 @@ export default function WorksContractDetails() {
                           setShowRateReadOnlyModal(true);
                         }}
                       >
-                        <img
-                          src="/icons/work-star-yellow.svg"
-                          alt="not working"
-                        />
+                        <img src={workStarYellow} alt="not working" />
                       </button>
                     )}{" "}
                   </>

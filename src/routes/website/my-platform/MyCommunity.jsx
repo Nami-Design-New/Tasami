@@ -1,20 +1,19 @@
+import { useQueryClient } from "@tanstack/react-query";
+import { useTranslation } from "react-i18next";
 import { Outlet, useNavigate } from "react-router";
+import communitiesImage from "../../../assets/images/dashboard/communities-image.png";
 import useGetMyCommunity from "../../../hooks/website/communities/useGetMyCommunity";
 import CommunityBio from "../../../ui/dash-board/communities-details/CommunityBio";
 import CommunityStats from "../../../ui/dash-board/communities-details/CommunityStats";
 import Loading from "../../../ui/loading/Loading";
+import RoundedBackButton from "../../../ui/website-auth/shared/RoundedBackButton";
 import CommunityTabs from "../../../ui/website/CommunityTabs";
 import CommunityActions from "../../../ui/website/platform/my-community/CommunityActions";
-import { useTranslation } from "react-i18next";
-import RoundedBackButton from "../../../ui/website-auth/shared/RoundedBackButton";
-import { useSelector } from "react-redux";
-import { useQueryClient } from "@tanstack/react-query";
 
 export default function MyCommunity() {
   const { myCommunity, isLoading } = useGetMyCommunity();
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const { lang } = useSelector((state) => state.language);
   const queryClient = useQueryClient();
   if (isLoading) {
     return <Loading />;
@@ -35,9 +34,7 @@ export default function MyCommunity() {
         <div className="communities-image-wrapper">
           <img
             className="communities-image"
-            src={
-              myCommunity?.image || "/images/dashboard/communities-image.png"
-            }
+            src={myCommunity?.image || communitiesImage}
             alt="communities-details"
           />
         </div>

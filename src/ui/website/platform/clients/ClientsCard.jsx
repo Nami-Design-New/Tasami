@@ -7,6 +7,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import AlertModal from "../my-community/AlertModal";
 import { useState } from "react";
 import flagIcon from "../../../../assets/icons/flag.svg";
+import medalIcon from "../../../../assets/icons/medal.svg";
 
 export default function ClientsCard({ helper }) {
   const { t } = useTranslation();
@@ -49,7 +50,7 @@ export default function ClientsCard({ helper }) {
             <h3>{helper.name}</h3>
             <div className="rating">
               <img
-                src="/icons/medal.svg"
+                src={medalIcon}
                 alt="Medal icon"
                 className="rating-icon"
                 loading="lazy"

@@ -3,6 +3,7 @@ import { useDropzone } from "react-dropzone";
 import { useTranslation } from "react-i18next";
 import PropTypes from "prop-types";
 import imageUpload from "../../assets/images/imageUpload.svg";
+import docsIcon from "../../assets/images/docs.svg";
 
 /**
  * Utility functions - separated for easier testing
@@ -295,7 +296,7 @@ export default function FileUploader({
       if (!preview || !normalizedFile) {
         return (
           <img
-            src="/images/docs.svg"
+            src={docsIcon}
             alt="file"
             data-testid={`file-fallback-${index}`}
           />
@@ -334,11 +335,7 @@ export default function FileUploader({
       }
 
       return (
-        <img
-          src="/images/docs.svg"
-          alt="file"
-          data-testid={`file-fallback-${index}`}
-        />
+        <img src={docsIcon} alt="file" data-testid={`file-fallback-${index}`} />
       );
     },
     [aspectRatio]

@@ -27,6 +27,8 @@ import {
   regionSchema,
 } from "./shared-schema";
 
+import imageUpload from "../../../assets/images/imageUpload.svg";
+
 const OperatingSectors = () => {
   const { t } = useTranslation();
   const queryClient = useQueryClient();
@@ -313,7 +315,7 @@ const OperatingSectors = () => {
                     ) : (
                       <span style={{ fontSize: "10px", color: "#777" }}>
                         <img
-                          src="/images/imageUpload.svg"
+                          src={imageUpload}
                           alt="Upload Icon"
                           width={"20px"}
                         />
