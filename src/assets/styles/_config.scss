@@ -515,3 +515,14 @@ input::-ms-reveal,
 input::-ms-clear {
   display: none;
 }
+
+.celebration {
+  position: relative;
+  height: 180px;
+  img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+}

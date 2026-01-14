@@ -513,6 +513,17 @@ input::-ms-clear {
   display: none;
 }
 
+.celebration {
+  position: relative;
+  height: 180px;
+}
+.celebration img {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
 .info-box-grow-min-width {
   flex: 1;
   min-width: 150px;
