@@ -1003,7 +1003,7 @@
 
 .reels-page {
   width: 100%;
-  height: calc(100vh - 82px);
+  height: calc(100dvh - 82px);
   overflow-y: scroll;
   scroll-snap-type: y mandatory;
   // background-color: #000;
@@ -1025,7 +1025,7 @@
 
   .reel-item {
     width: 100%;
-    height: calc(100vh - 82px);
+    height: calc(100dvh - 82px);
     scroll-snap-align: start;
     position: relative;
     display: flex;
@@ -1034,7 +1034,7 @@
     padding: 20px; /* space around each reel */
     box-sizing: border-box;
     @include labtop-layout {
-      height: calc(100vh - 158px);
+      height: calc(100dvh - 158px);
     }
   }
 }
@@ -1280,6 +1280,6 @@
 
 @media (min-width: 991px) {
   .reel-item {
-    height: calc(100vh - 158px);
+    height: calc(100dvh - 158px);
   }
 }

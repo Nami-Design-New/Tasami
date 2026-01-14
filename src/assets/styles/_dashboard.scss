@@ -32,7 +32,7 @@
     position: sticky;
     top: 0;
     background: $white;
-    height: 100vh;
+    height: 100dvh;
     overflow: hidden;
     padding: 24px 16px 0 16px;
     transition: $transition;
@@ -393,7 +393,7 @@
   .main_wrap {
     grid-area: main;
     transition: $transition;
-    height: calc(100vh - 80px);
+    height: calc(100dvh - 80px);
     // padding: 0 1rem;
     overflow-y: auto;
     direction: inherit;
@@ -406,7 +406,7 @@
 
     // Router Wrapper
     .router_wrapper {
-      min-height: calc(100vh - 180px);
+      min-height: calc(100dvh - 180px);
       background: $dashboardBg;
       border-radius: 24px;
       padding: 18px;

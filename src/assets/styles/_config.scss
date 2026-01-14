@@ -85,7 +85,7 @@ input[type="number"] {
 
 .error-page {
   background-color: #f8f9fa;
-  height: 100vh;
+  height: 100dvh;
 
   .container {
     padding: 20px;
@@ -459,7 +459,7 @@ li[data-sonner-toast=""] {
 }
 
 .loading-container {
-  height: 100vh;
+  height: 100dvh;
   display: flex;
   align-items: center;
   justify-content: center;
