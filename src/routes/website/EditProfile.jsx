@@ -433,7 +433,7 @@ export default function EditProfile() {
             <Controller
               name="fullPhone"
               control={control}
-              render={({ field }) => (
+              render={() => (
                 <CustomPhoneInput
                   countries={countries || []}
                   onScrollEnd={() => {

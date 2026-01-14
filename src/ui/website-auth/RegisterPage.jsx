@@ -33,14 +33,13 @@ const RegisterPage = ({ setRegisterStep }) => {
     data: countries,
     isLoading: countriesLoading,
     fetchNextPage,
-    hasNextPage,
   } = useGetCountries();
 
   const {
     handleSubmit,
     control,
     setValue,
-    getValues,
+
     watch,
     formState: { errors },
   } = useForm({
@@ -49,7 +48,7 @@ const RegisterPage = ({ setRegisterStep }) => {
   });
   const watchPhone = watch("phone");
   const watchCode = watch("code");
-  const watchFullPhone = watch("fullPhone");
+  // const watchFullPhone = watch("fullPhone");
   const onSubmit = ({ phone, code, fullPhone }) => {
     sendCode(
       { phone, code, type: "register" },
