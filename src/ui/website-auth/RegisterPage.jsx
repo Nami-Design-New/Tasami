@@ -1,18 +1,17 @@
-import { Controller, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
+import { Controller, useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
-import { useNavigate, Link } from "react-router";
 import { useDispatch } from "react-redux";
+import { Link, useNavigate } from "react-router";
 import { toast } from "sonner";
+import * as yup from "yup";
+import googleIcon from "../../assets/icons/google-icon.svg";
 import usePhoneRegister from "../../hooks/auth/useSendOtpCode";
+import useGetCountries from "../../hooks/countries/useGetCountries";
 import { setPhoneData } from "../../redux/slices/phoneSlice";
 import CustomButton from "../../ui/CustomButton";
 import BackButton from "../../ui/forms/BackButton";
-import useGetCountries from "../../hooks/countries/useGetCountries";
 import CustomPhoneInput from "../forms/CustomPhoneInput";
-import googleIcon from "../../assets/icons/google-icon.svg";
-import appleIcon from "../../assets/icons/apple-icon.svg";
 const registerSchema = (t) =>
   yup.object().shape({
     fullPhone: yup.string().required(t("validation.fullPhoneRequired")),
@@ -30,19 +29,27 @@ const RegisterPage = ({ setRegisterStep }) => {
   const dispatch = useDispatch();
   const { sendCode, isPending } = usePhoneRegister();
 
-  const { data: countries, fetchNextPage, hasNextPage } = useGetCountries();
+  const {
+    data: countries,
+    isLoading: countriesLoading,
+    fetchNextPage,
+    hasNextPage,
+  } = useGetCountries();
 
   const {
     handleSubmit,
     control,
     setValue,
     getValues,
+    watch,
     formState: { errors },
   } = useForm({
     resolver: yupResolver(registerSchema(t)),
     defaultValues: { phone: "", code: "", fullPhone: "" },
   });
-
+  const watchPhone = watch("phone");
+  const watchCode = watch("code");
+  const watchFullPhone = watch("fullPhone");
   const onSubmit = ({ phone, code, fullPhone }) => {
     sendCode(
       { phone, code, type: "register" },
@@ -67,7 +74,7 @@ const RegisterPage = ({ setRegisterStep }) => {
         <label>{t("auth.phoneLabel")}</label>
 
         {/*  Our Custom Bootstrap Phone Input */}
-        <Controller
+        {/* <Controller
           name="fullPhone"
           control={control}
           render={({ field }) => (
@@ -78,17 +85,41 @@ const RegisterPage = ({ setRegisterStep }) => {
                 fetchNextPage();
               }}
               value={{
-                phone: getValues("phone"),
-                code: getValues("code"),
-                fullPhone: getValues("fullPhone"),
+                phone: watchPhone,
+                code: watchCode,
+                fullPhone: watchFullPhone,
               }}
               onChange={(val) => {
-                setValue("phone", val.phone);
-                setValue("code", val.code);
-                setValue("fullPhone", val.fullPhone);
+                setValue("phone", val.phone, { shouldValidate: true });
+                setValue("code", val.code, { shouldValidate: true });
+                setValue("fullPhone", val.fullPhone, { shouldValidate: true });
               }}
               error={errors.phone?.message || errors.code?.message}
               t={t}
+            />
+          )}
+        /> */}
+        <Controller
+          name="fullPhone"
+          control={control}
+          render={({ field }) => (
+            <CustomPhoneInput
+              countries={countries || []}
+              onScrollEnd={() => {
+                fetchNextPage();
+              }}
+              value={{
+                phone: watchPhone,
+                code: watchCode,
+              }}
+              onChange={(val) => {
+                setValue("phone", val.phone, { shouldValidate: true });
+                setValue("code", val.code, { shouldValidate: true });
+                setValue("fullPhone", val.fullPhone, { shouldValidate: true });
+                field.onChange(val.fullPhone);
+              }}
+              isLoadingMore={countriesLoading}
+              error={errors.fullPhone?.message || errors.phone?.message}
             />
           )}
         />

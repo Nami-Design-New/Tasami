@@ -58,6 +58,7 @@ export default function EditProfile() {
   const countryId = watch("country");
   const phone = watch("phone");
   const phoneCode = watch("code");
+  const phoneFlag = watch("phoneFlag");
 
   const { data, isLoading: isCountriesLoading } = useGetCountries({
     search: "",
@@ -235,6 +236,7 @@ export default function EditProfile() {
         city: String(user?.city?.id) || "",
         phone,
         code,
+        phoneFlag: user?.phone_flag,
         fullPhone: `${code}${phone}`,
         email: user.email,
         wantChangePassword: false,
@@ -441,11 +443,13 @@ export default function EditProfile() {
                     phone: getValues("phone"),
                     code: getValues("code"),
                     fullPhone: getValues("fullPhone"),
+                    image: phoneFlag,
                   }}
                   onChange={(val) => {
                     setValue("phone", val.phone);
                     setValue("code", val.code);
                     setValue("fullPhone", val.fullPhone);
+                    setValue("phoneFlag", val.image);
                   }}
                   error={errors.phone?.message || errors.code?.message}
                   t={t}
