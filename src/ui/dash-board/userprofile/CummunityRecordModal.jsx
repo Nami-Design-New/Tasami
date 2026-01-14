@@ -1,9 +1,9 @@
-import { Modal } from "react-bootstrap";
 import ReusableDataTable from "../../table/ReusableDataTable";
 import { useMemo, useState } from "react";
 import { createColumnHelper } from "@tanstack/react-table";
 import ConfirmDeleteModal from "../../modals/ConfirmationDeleteModal";
 import { Link } from "react-router";
+import GlobalModal from "../../GlobalModal";
 
 const columnHelper = createColumnHelper();
 
@@ -93,7 +93,7 @@ const CummunityRecordModal = ({ showModal, setShowModal }) => {
   );
   return (
     <>
-      <Modal
+      <GlobalModal
         show={showModal}
         size="xl"
         onHide={() => setShowModal(false)}
@@ -101,10 +101,10 @@ const CummunityRecordModal = ({ showModal, setShowModal }) => {
         centered
         className="working-group-modal"
       >
-        <Modal.Header closeButton>
+        <GlobalModal.Header closeButton>
           <h6> سجل مجتمعات المساعد </h6>
-        </Modal.Header>
-        <Modal.Body>
+        </GlobalModal.Header>
+        <GlobalModal.Body>
           <ReusableDataTable
             data={data}
             columns={columns}
@@ -112,8 +112,8 @@ const CummunityRecordModal = ({ showModal, setShowModal }) => {
             filter={false}
             searchPlaceholder=""
           />
-        </Modal.Body>
-      </Modal>
+        </GlobalModal.Body>
+      </GlobalModal>
       <ConfirmDeleteModal
         showDeleteModal={showDeleteModal}
         setShowDeleteModal={setShowDeleteModal}

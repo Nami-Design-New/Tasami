@@ -1,4 +1,3 @@
-import { Modal } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import InputField from "../../forms/InputField";
@@ -11,6 +10,7 @@ import useRenewContract from "../../../hooks/website/MyWorks/groups/useRenewCont
 import Currency from "../../Currency";
 import CustomButton from "../../CustomButton";
 import monthIcon from "../../../assets/icons/month.svg";
+import GlobalModal from "../../GlobalModal";
 const calculateRenewDate = (baseDate, daysToAdd) => {
   const date = new Date(baseDate);
   date.setDate(date.getDate() + daysToAdd);
@@ -127,11 +127,11 @@ export default function RenewContractModal({
     });
   };
   return (
-    <Modal show={showModal} onHide={() => setShowModal(false)} centered>
-      <Modal.Header closeButton>
+    <GlobalModal show={showModal} onHide={() => setShowModal(false)} centered>
+      <GlobalModal.Header closeButton>
         <h6>{t("renew_modal_title")}</h6>
-      </Modal.Header>
-      <Modal.Body>
+      </GlobalModal.Header>
+      <GlobalModal.Body>
         <form onSubmit={handleSubmit(onSubmit)} className="form_ui">
           <div className="row">
             <div className="col-12   p-2">
@@ -172,7 +172,7 @@ export default function RenewContractModal({
             </div>
           </div>
         </form>
-      </Modal.Body>
-    </Modal>
+      </GlobalModal.Body>
+    </GlobalModal>
   );
 }

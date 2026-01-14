@@ -115,7 +115,7 @@ export default function AddTasksModal({
   };
 
   return (
-    <Modal
+    <GlobalModal
       show={showModal}
       onHide={() => {
         setShowModal(false);
@@ -124,11 +124,11 @@ export default function AddTasksModal({
       centered
       size="lg"
     >
-      <Modal.Header closeButton>
+      <GlobalModal.Header closeButton>
         <h6>{taskData ? t("works.updateTask") : t("works.newTask")}</h6>
-      </Modal.Header>
+      </GlobalModal.Header>
 
-      <Modal.Body>
+      <GlobalModal.Body>
         <form className="form_ui" onSubmit={handleSubmit(onSubmit)}>
           <div className="row">
             <div className="col-12 p-2">
@@ -258,7 +258,7 @@ export default function AddTasksModal({
             </div>
           </div>
         </form>
-      </Modal.Body>
-    </Modal>
+      </GlobalModal.Body>
+    </GlobalModal>
   );
 }

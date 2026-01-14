@@ -1,4 +1,3 @@
-import { Modal } from "react-bootstrap";
 import SelectField from "../../../forms/SelectField";
 import useGetcategories from "../../../../hooks/area-of-interests/useGetcategories";
 import useAddGroupForm from "../../../../validations/groups/add-group-vaildation";
@@ -11,6 +10,7 @@ import useAddGroup from "../../../../hooks/website/my-groups/useAddGroup";
 import { useEffect } from "react";
 import useEditGroup from "../../../../hooks/website/my-groups/useEditGroup";
 import { Link } from "react-router";
+import GlobalModal from "../../../GlobalModal";
 
 export default function AddGroupModal({
   showModal,
@@ -111,7 +111,7 @@ export default function AddGroupModal({
     }
   }, [group, reset]);
   return (
-    <Modal
+    <GlobalModal
       show={showModal}
       size="lg"
       centered
@@ -120,14 +120,14 @@ export default function AddGroupModal({
         reset();
       }}
     >
-      <Modal.Header closeButton>
+      <GlobalModal.Header closeButton>
         <h6>
           {group
             ? t("website.platform.groups.editGroup")
             : t("website.platform.groups.addNew")}
         </h6>
-      </Modal.Header>
-      <Modal.Body>
+      </GlobalModal.Header>
+      <GlobalModal.Body>
         <form className="form_ui" onSubmit={handleSubmit(onSubmit)}>
           <div className="row">
             <div className="col-12 col-md-6 p-2">
@@ -188,7 +188,7 @@ export default function AddGroupModal({
             </div>
           </div>
         </form>
-      </Modal.Body>
-    </Modal>
+      </GlobalModal.Body>
+    </GlobalModal>
   );
 }

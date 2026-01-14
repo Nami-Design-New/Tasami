@@ -1,15 +1,14 @@
 import { yupResolver } from "@hookform/resolvers/yup";
-import { Modal } from "react-bootstrap";
 import { Controller, useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
-import { useSelector } from "react-redux";
 import { toast } from "sonner";
 import * as yup from "yup";
+import useOtpConfirmation from "../../../hooks/auth/useOtpConfirmation";
 import usePhoneRegister from "../../../hooks/auth/useSendOtpCode";
 import CustomButton from "../../CustomButton";
 import OtpContainer from "../../forms/OtpContainer";
 import ResendTimer from "../../website-auth/ResendTimer";
-import useOtpConfirmation from "../../../hooks/auth/useOtpConfirmation";
+import GlobalModal from "../../GlobalModal";
 
 const otpSchema = (t) =>
   yup.object().shape({
@@ -72,11 +71,16 @@ export default function OtpModal({ show, setShowModal, phone, phoneCode }) {
     });
   };
   return (
-    <Modal show={show} onHide={() => setShowModal(false)} size="md" centered>
-      <Modal.Header closeButton>
+    <GlobalModal
+      show={show}
+      onHide={() => setShowModal(false)}
+      size="md"
+      centered
+    >
+      <GlobalModal.Header closeButton>
         <h6>{t("otpTitle")}</h6>
-      </Modal.Header>
-      <Modal.Body>
+      </GlobalModal.Header>
+      <GlobalModal.Body>
         <form onSubmit={handleSubmit(onSubmit)} className="reset-form">
           <Controller
             name="code"
@@ -110,7 +114,7 @@ export default function OtpModal({ show, setShowModal, phone, phoneCode }) {
             </CustomButton>
           </div>
         </form>
-      </Modal.Body>
-    </Modal>
+      </GlobalModal.Body>
+    </GlobalModal>
   );
 }

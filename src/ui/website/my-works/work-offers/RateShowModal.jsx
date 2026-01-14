@@ -1,21 +1,21 @@
-import { Modal } from "react-bootstrap";
+import GlobalModal from "../../../GlobalModal";
 import StarRate from "../../../ModelComponent/common/StarRate";
 import { useTranslation } from "react-i18next";
 
 export default function RateShowModal({ showModal, setShowModal, contract }) {
   const { t } = useTranslation();
   return (
-    <Modal
+    <GlobalModal
       className="show-rate-modal"
       show={showModal}
       onHide={() => setShowModal(false)}
       centered
       size="md"
     >
-      <Modal.Header closeButton>
+      <GlobalModal.Header closeButton>
         <h6>{t("rate_view_title")}</h6>
-      </Modal.Header>
-      <Modal.Body>
+      </GlobalModal.Header>
+      <GlobalModal.Body>
         <div className="row">
           <div className="col-12 p-2">
             <div className="rate-summary">
@@ -55,7 +55,7 @@ export default function RateShowModal({ showModal, setShowModal, contract }) {
             <p className="notes">{contract?.rate?.notes}</p>
           </div>
         </div>
-      </Modal.Body>
-    </Modal>
+      </GlobalModal.Body>
+    </GlobalModal>
   );
 }

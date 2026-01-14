@@ -1,16 +1,15 @@
-import React from "react";
-import { Modal } from "react-bootstrap";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { useQueryClient } from "@tanstack/react-query";
+import { useForm } from "react-hook-form";
+import { useTranslation } from "react-i18next";
+import { toast } from "sonner";
+import * as yup from "yup";
+import useAnswerInquriy from "../../../hooks/website/inquiries/useAnswerInquriy";
 import CustomButton from "../../CustomButton";
 import TextField from "../../forms/TextField";
-import { useQueryClient } from "@tanstack/react-query";
-import { useTranslation } from "react-i18next";
-import { useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
-import { toast } from "sonner";
-import useAnswerInquriy from "../../../hooks/website/inquiries/useAnswerInquriy";
 
 import triangleWithHelper from "../../../assets/icons/triangle-with-helper.svg";
+import GlobalModal from "../../GlobalModal";
 
 export default function AnswerModal({ shwModal, setShowModal, item }) {
   const { t } = useTranslation();
@@ -51,17 +50,17 @@ export default function AnswerModal({ shwModal, setShowModal, item }) {
     );
   };
   return (
-    <Modal
+    <GlobalModal
       className="answer-modal"
       show={shwModal}
       onHide={() => setShowModal(false)}
       centered
       size="md"
     >
-      <Modal.Header closeButton className="m-2">
+      <GlobalModal.Header closeButton className="m-2">
         <h6 className="fw-bold">{t("website.inquiry.answer.title")}</h6>
-      </Modal.Header>
-      <Modal.Body>
+      </GlobalModal.Header>
+      <GlobalModal.Body>
         <form className="form_ui" onSubmit={handleSubmit(onSubmit)}>
           <div className="row">
             <div className="col-12 p-2">
@@ -93,7 +92,7 @@ export default function AnswerModal({ shwModal, setShowModal, item }) {
             </div>
           </div>
         </form>
-      </Modal.Body>
-    </Modal>
+      </GlobalModal.Body>
+    </GlobalModal>
   );
 }

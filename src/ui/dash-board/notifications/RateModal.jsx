@@ -1,18 +1,18 @@
-import { Modal } from "react-bootstrap";
+import GlobalModal from "../../GlobalModal";
 import StarRate from "../../ModelComponent/common/StarRate";
 
 export default function RateModal({ showModal, setShowModal }) {
   const rating = 4.2;
 
   return (
-    <Modal
+    <GlobalModal
       show={showModal}
       onHide={() => setShowModal(false)}
       centered
       size="md"
     >
-      <Modal.Header closeButton>تفاصيل التقييم</Modal.Header>
-      <Modal.Body>
+      <GlobalModal.Header closeButton>تفاصيل التقييم</GlobalModal.Header>
+      <GlobalModal.Body>
         <div className="rate">
           <div className="row">
             <div className="col-12 p-2">
@@ -28,7 +28,7 @@ export default function RateModal({ showModal, setShowModal }) {
             </div>
           </div>
         </div>
-      </Modal.Body>
-    </Modal>
+      </GlobalModal.Body>
+    </GlobalModal>
   );
 }

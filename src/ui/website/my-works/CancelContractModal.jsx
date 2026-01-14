@@ -1,4 +1,3 @@
-import { Modal } from "react-bootstrap";
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
@@ -11,6 +10,7 @@ import { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router";
 import { toast } from "sonner";
 import { useQueryClient } from "@tanstack/react-query";
+import GlobalModal from "../../GlobalModal";
 
 //  Validation schema
 const schema = yup.object().shape({
@@ -85,11 +85,11 @@ export default function CancelContractModal({
   }, [showModal, reset]);
 
   return (
-    <Modal show={showModal} onHide={handleCancel} centered>
-      <Modal.Header closeButton>
+    <GlobalModal show={showModal} onHide={handleCancel} centered>
+      <GlobalModal.Header closeButton>
         <h6>{t("cancelContract")}</h6>
-      </Modal.Header>
-      <Modal.Body>
+      </GlobalModal.Header>
+      <GlobalModal.Body>
         <form className="form_ui" onSubmit={handleSubmit(onSubmit)}>
           {cancelReasons?.map((reason) => (
             <div key={reason?.id} className="col-12 p-2">
@@ -175,7 +175,7 @@ export default function CancelContractModal({
             </div>
           </div>
         </form>
-      </Modal.Body>
-    </Modal>
+      </GlobalModal.Body>
+    </GlobalModal>
   );
 }

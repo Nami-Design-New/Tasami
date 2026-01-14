@@ -113,18 +113,18 @@ const SuspensionModel = ({ showModal, setShowModal, id, isUser = false }) => {
   };
 
   return (
-    <Modal
+    <GlobalModal
       show={showModal}
       size="lg"
       onHide={() => setShowModal(false)}
       centered
       className="suspend-modal"
     >
-      <Modal.Header closeButton>
+      <GlobalModal.Header closeButton>
         <h6>{t("dashboard.suspensionModal.title")}</h6>
-      </Modal.Header>
+      </GlobalModal.Header>
 
-      <Modal.Body>
+      <GlobalModal.Body>
         <form className="form_ui" onSubmit={handleSubmit(onSubmit)}>
           <div className="row g-2">
             <Form.Check
@@ -209,8 +209,8 @@ const SuspensionModel = ({ showModal, setShowModal, id, isUser = false }) => {
 
           <DevTool control={control} />
         </form>
-      </Modal.Body>
-    </Modal>
+      </GlobalModal.Body>
+    </GlobalModal>
   );
 };
 

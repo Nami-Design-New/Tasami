@@ -1,7 +1,7 @@
-import { Modal } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
 import CustomButton from "../../../CustomButton";
 import alertIcon from "../../../../assets/icons/alert.svg";
+import GlobalModal from "../../../GlobalModal";
 export default function AlertModal({
   showModal,
   setShowModal,
@@ -24,8 +24,8 @@ export default function AlertModal({
     // setShowModal(false);
   };
   return (
-    <Modal show={showModal} onHide={handleCancel} centered size="md">
-      <Modal.Body>
+    <GlobalModal show={showModal} onHide={handleCancel} centered size="md">
+      <GlobalModal.Body>
         <div className="alert-modal">
           <img src={alertIcon} alt="alert" />
 
@@ -62,7 +62,7 @@ export default function AlertModal({
             </div>
           )}
         </div>
-      </Modal.Body>
-    </Modal>
+      </GlobalModal.Body>
+    </GlobalModal>
   );
 }

@@ -1,6 +1,5 @@
 import { useQueryClient } from "@tanstack/react-query";
 import { useEffect } from "react";
-import { Modal } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
 import { toast } from "sonner";
 import useGetcategories from "../../../hooks/area-of-interests/useGetcategories";
@@ -127,7 +126,7 @@ export default function DocumentModal({
   }, [selectedDoc, reset, categories, isLoading]);
 
   return (
-    <Modal
+    <GlobalModal
       show={showDocumentModal}
       onHide={() => {
         setShowDocumentModal(false);
@@ -138,17 +137,17 @@ export default function DocumentModal({
       size="lg"
       aria-labelledby="add-document-title"
     >
-      <Modal.Header closeButton>
-        <Modal.Title id="add-document-title">
+      <GlobalModal.Header closeButton>
+        <GlobalModal.Title id="add-document-title">
           <h6>
             {selectedDoc
               ? t("website.platform.cv.editDocument")
               : t("website.platform.cv.addDocument")}
           </h6>
-        </Modal.Title>
-      </Modal.Header>
+        </GlobalModal.Title>
+      </GlobalModal.Header>
 
-      <Modal.Body>
+      <GlobalModal.Body>
         <form className="form_ui" onSubmit={handleSubmit(onSubmit)}>
           <div className="row">
             {/* Field */}
@@ -256,7 +255,7 @@ export default function DocumentModal({
             </div>
           </div>
         </form>
-      </Modal.Body>
-    </Modal>
+      </GlobalModal.Body>
+    </GlobalModal>
   );
 }

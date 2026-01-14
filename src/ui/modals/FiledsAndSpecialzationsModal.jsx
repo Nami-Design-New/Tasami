@@ -1,5 +1,4 @@
 import { yupResolver } from "@hookform/resolvers/yup";
-import { Modal } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import CustomButton from "../CustomButton";
@@ -12,6 +11,7 @@ import { SUPPORTED_LANGS } from "../../lib/multilang/config";
 import useAddNewSpecialization from "../../hooks/dashboard/FiledsAndSpecialations/useAddNewSpecialization";
 import { toast } from "sonner";
 import useGetMainCategories from "../../hooks/dashboard/FiledsAndSpecialations/useGetMainCategories";
+import GlobalModal from "../GlobalModal";
 
 const FiledsAndSpecialzationsModal = ({ showModal, setShowModal }) => {
   const { t } = useTranslation();
@@ -153,7 +153,7 @@ const FiledsAndSpecialzationsModal = ({ showModal, setShowModal }) => {
 
   // ----------------- Render -----------------
   return (
-    <Modal
+    <GlobalModal
       show={showModal}
       size="lg"
       onHide={() => {
@@ -163,11 +163,11 @@ const FiledsAndSpecialzationsModal = ({ showModal, setShowModal }) => {
       aria-labelledby="working group add / edit Modal"
       centered
     >
-      <Modal.Header closeButton>
+      <GlobalModal.Header closeButton>
         <h6>{t("dashboard.fieldsAndSpecialization.modalTitle")}</h6>
-      </Modal.Header>
+      </GlobalModal.Header>
 
-      <Modal.Body>
+      <GlobalModal.Body>
         <form className="form_ui" onSubmit={handleSubmit(onSubmit)}>
           <div className="row">
             {/* Radio Group: New / Existing Field */}
@@ -251,8 +251,8 @@ const FiledsAndSpecialzationsModal = ({ showModal, setShowModal }) => {
             </div>
           </div>
         </form>
-      </Modal.Body>
-    </Modal>
+      </GlobalModal.Body>
+    </GlobalModal>
   );
 };
 

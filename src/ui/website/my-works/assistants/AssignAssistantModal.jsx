@@ -1,4 +1,3 @@
-import { Modal } from "react-bootstrap";
 import InputField from "../../../forms/InputField";
 import { useTranslation } from "react-i18next";
 import TextField from "../../../forms/TextField";
@@ -12,6 +11,7 @@ import { useParams } from "react-router";
 import monthIcon from "../../../../assets/icons/month.svg";
 import maleIcon from "../../../../assets/icons/male-outlined.svg";
 import femaleIcon from "../../../../assets/icons/female-outlined.svg";
+import GlobalModal from "../../../GlobalModal";
 
 const genderIcons = {
   male: maleIcon,
@@ -77,7 +77,7 @@ export default function AssignAssistantModal({ showModal, setShowModal }) {
     });
   };
   return (
-    <Modal
+    <GlobalModal
       show={showModal}
       onHide={() => {
         setShowModal(false);
@@ -86,10 +86,10 @@ export default function AssignAssistantModal({ showModal, setShowModal }) {
       centered
       size="lg"
     >
-      <Modal.Header closeButton>
+      <GlobalModal.Header closeButton>
         <h6>{t("assistant_modal_title")}</h6>
-      </Modal.Header>
-      <Modal.Body>
+      </GlobalModal.Header>
+      <GlobalModal.Body>
         <form className="form_ui" onSubmit={handleSubmit(onSubmit)}>
           <div className="row">
             {/* Offer Title */}
@@ -207,7 +207,7 @@ export default function AssignAssistantModal({ showModal, setShowModal }) {
             </div>
           </div>
         </form>
-      </Modal.Body>
-    </Modal>
+      </GlobalModal.Body>
+    </GlobalModal>
   );
 }

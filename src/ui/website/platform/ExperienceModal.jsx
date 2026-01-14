@@ -1,4 +1,3 @@
-import { Modal } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
 import useGetcategories from "../../../hooks/area-of-interests/useGetcategories";
 import { QUALIFICATION_VALUES } from "../../../utils/constants";
@@ -13,6 +12,7 @@ import useAddExp from "../../../hooks/cv/exp/useAddExp";
 import useEditExp from "../../../hooks/cv/exp/useEditExp";
 import useDeleteExp from "../../../hooks/cv/exp/useDeleteExp";
 import { Link } from "react-router";
+import GlobalModal from "../../GlobalModal";
 
 export default function ExperienceModal({
   showExperienceModal,
@@ -151,7 +151,7 @@ export default function ExperienceModal({
   }, [selectedExp, reset, categories, isLoading]);
 
   return (
-    <Modal
+    <GlobalModal
       show={showExperienceModal}
       onHide={() => {
         setShowExperienceModal(false);
@@ -161,17 +161,17 @@ export default function ExperienceModal({
       size="lg"
       aria-labelledby="add-experience-title"
     >
-      <Modal.Header closeButton>
-        <Modal.Title id="add-experience-title">
+      <GlobalModal.Header closeButton>
+        <GlobalModal.Title id="add-experience-title">
           <h6>
             {selectedExp
               ? t("website.platform.cv.editExperience")
               : t("website.platform.cv.addExperience")}
           </h6>
-        </Modal.Title>
-      </Modal.Header>
+        </GlobalModal.Title>
+      </GlobalModal.Header>
 
-      <Modal.Body>
+      <GlobalModal.Body>
         <form className="form_ui" onSubmit={handleSubmit(onSubmit)}>
           <div className="row">
             {/* Field */}
@@ -272,7 +272,7 @@ export default function ExperienceModal({
             </div>
           </div>
         </form>
-      </Modal.Body>
-    </Modal>
+      </GlobalModal.Body>
+    </GlobalModal>
   );
 }

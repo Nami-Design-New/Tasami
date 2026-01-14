@@ -1,5 +1,4 @@
 import { useQueryClient } from "@tanstack/react-query";
-import { Modal } from "react-bootstrap";
 import { Controller, useFieldArray } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import useGetcategories from "../../../../hooks/area-of-interests/useGetcategories";
@@ -14,6 +13,7 @@ import { toast } from "sonner";
 import { getAspectRatio } from "../../../../utils/helper";
 import { useEffect } from "react";
 import useEditPost from "../../../../hooks/website/communities/posts/useEditPost";
+import GlobalModal from "../../../GlobalModal";
 
 export default function AddPostModal({
   showModal,
@@ -125,7 +125,7 @@ export default function AddPostModal({
 
   const isSubmitting = isEdit ? editPending : isPending;
   return (
-    <Modal
+    <GlobalModal
       show={showModal}
       onHide={() => {
         setShowModal(false);
@@ -134,10 +134,10 @@ export default function AddPostModal({
       centered
       size="lg"
     >
-      <Modal.Header closeButton>
+      <GlobalModal.Header closeButton>
         <h6>{t("community.addPost")}</h6>
-      </Modal.Header>
-      <Modal.Body>
+      </GlobalModal.Header>
+      <GlobalModal.Body>
         <form className="form_ui" onSubmit={handleSubmit(onSubmit)}>
           <div className="row">
             {/* Field */}
@@ -301,7 +301,7 @@ export default function AddPostModal({
             </div>
           </div>
         </form>
-      </Modal.Body>
-    </Modal>
+      </GlobalModal.Body>
+    </GlobalModal>
   );
 }

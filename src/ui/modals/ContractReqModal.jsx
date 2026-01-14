@@ -1,5 +1,4 @@
 import { useQueryClient } from "@tanstack/react-query";
-import { Modal } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { useParams } from "react-router";
@@ -10,6 +9,7 @@ import CheckField from "../../ui/forms/CheckField";
 import SubmitButton from "../../ui/forms/SubmitButton";
 import TextField from "../../ui/forms/TextField";
 import DatePicker from "../forms/DatePicker";
+import GlobalModal from "../GlobalModal";
 
 const ContractReq = ({ showModal, setShowModal }) => {
   const { t } = useTranslation();
@@ -54,17 +54,17 @@ const ContractReq = ({ showModal, setShowModal }) => {
   };
 
   return (
-    <Modal
+    <GlobalModal
       show={showModal}
       size="lg"
       onHide={() => setShowModal(false)}
       centered
     >
-      <Modal.Header closeButton className="m-2">
+      <GlobalModal.Header closeButton className="m-2">
         <h6 className="fw-bold">{t("contractReq_title")}</h6>{" "}
-      </Modal.Header>
+      </GlobalModal.Header>
 
-      <Modal.Body>
+      <GlobalModal.Body>
         <form className="form_ui" onSubmit={handleSubmit(onSubmit)}>
           <div className="row">
             <div className="col-12 p-1">
@@ -112,8 +112,8 @@ const ContractReq = ({ showModal, setShowModal }) => {
             />
           </div>
         </form>
-      </Modal.Body>
-    </Modal>
+      </GlobalModal.Body>
+    </GlobalModal>
   );
 };
 

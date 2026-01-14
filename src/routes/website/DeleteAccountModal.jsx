@@ -1,6 +1,6 @@
-import { Modal } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
 import CustomButton from "../../ui/CustomButton";
+import GlobalModal from "../../ui/GlobalModal";
 
 const DeleteAccountModal = ({
   showDeleteModal,
@@ -17,20 +17,20 @@ const DeleteAccountModal = ({
     setShowAlertModal(true);
   };
   return (
-    <Modal
+    <GlobalModal
       show={showDeleteModal}
       onHide={handleCancel}
       centered
       size="md"
       className="delete-account-modal"
     >
-      <Modal.Header closeButton className="border-0 pb-0">
-        <Modal.Title className="text-modal-orange fw-bold">
+      <GlobalModal.Header closeButton className="border-0 pb-0">
+        <GlobalModal.Title className="text-modal-orange fw-bold">
           {t("dashboard.deleteAccountModal.deleteAccount")}
-        </Modal.Title>
-      </Modal.Header>
+        </GlobalModal.Title>
+      </GlobalModal.Header>
 
-      <Modal.Body className="p-3">
+      <GlobalModal.Body className="p-3">
         <>
           <p className="text-muted mb-4">
             {t("dashboard.deleteAccountModal.sorryToSeeYouGo")}
@@ -78,7 +78,7 @@ const DeleteAccountModal = ({
             </p>
           </div>
         </>
-      </Modal.Body>
+      </GlobalModal.Body>
 
       <div className="buttons w-100 p-4">
         <CustomButton
@@ -101,7 +101,7 @@ const DeleteAccountModal = ({
           {t("dashboard.deleteAccountModal.continue")}
         </CustomButton>
       </div>
-    </Modal>
+    </GlobalModal>
   );
 };
 

@@ -46,11 +46,11 @@ export default function WorkOfferDetails({ showModal, setShowModal, offerId }) {
 
   return (
     <>
-      <Modal show={showModal} onHide={() => setShowModal(false)} centered>
-        <Modal.Header closeButton>
+      <GlobalModal show={showModal} onHide={() => setShowModal(false)} centered>
+        <GlobalModal.Header closeButton>
           <h6>{t("works.myOffers.details.title")}</h6>
-        </Modal.Header>
-        <Modal.Body>
+        </GlobalModal.Header>
+        <GlobalModal.Body>
           {isLoading ? (
             <div
               className="d-flex align-items-center justify-content-center w-100"
@@ -112,8 +112,8 @@ export default function WorkOfferDetails({ showModal, setShowModal, offerId }) {
               </div>
             </div>
           )}
-        </Modal.Body>
-      </Modal>
+        </GlobalModal.Body>
+      </GlobalModal>
 
       <OfferPaymentModal
         showModal={showPaymentModal}

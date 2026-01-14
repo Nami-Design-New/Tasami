@@ -1,11 +1,12 @@
 import { useQueryClient } from "@tanstack/react-query";
-import { Modal } from "react-bootstrap";
+
 import { useTranslation } from "react-i18next";
 import { toast } from "sonner";
 import useWithdrawWallet from "../../../hooks/website/wallet/useWithdrawWallet";
 import useWithDrawForm from "../../../validations/wallet/withdraw-validation";
 import CustomButton from "../../CustomButton";
 import InputField from "../../forms/InputField";
+import GlobalModal from "../../GlobalModal";
 
 export default function WithdrawModal({ showModal, setShowModal }) {
   const { t } = useTranslation();
@@ -42,7 +43,7 @@ export default function WithdrawModal({ showModal, setShowModal }) {
   };
 
   return (
-    <Modal
+    <GlobalModal
       show={showModal}
       size="lg"
       onHide={() => {
@@ -51,10 +52,10 @@ export default function WithdrawModal({ showModal, setShowModal }) {
       }}
       centered
     >
-      <Modal.Header closeButton>
+      <GlobalModal.Header closeButton>
         <h6>{t("profile.bankAccount")}</h6>
-      </Modal.Header>
-      <Modal.Body>
+      </GlobalModal.Header>
+      <GlobalModal.Body>
         <form className="form_ui" onSubmit={handleSubmit(onSubmit)}>
           <div className="row">
             {" "}
@@ -124,7 +125,7 @@ export default function WithdrawModal({ showModal, setShowModal }) {
             </div>
           </div>
         </form>
-      </Modal.Body>
-    </Modal>
+      </GlobalModal.Body>
+    </GlobalModal>
   );
 }

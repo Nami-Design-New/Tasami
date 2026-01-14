@@ -1,4 +1,3 @@
-import { Modal } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -10,6 +9,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import AssistantWorkCard from "../work-offers/AssistantWorkCard";
 import { useSelector } from "react-redux";
 import { useLocation } from "react-router";
+import GlobalModal from "../../../GlobalModal";
 
 export default function ConfirmPerformanceModal({
   show,
@@ -86,7 +86,7 @@ export default function ConfirmPerformanceModal({
   };
 
   return (
-    <Modal
+    <GlobalModal
       show={show}
       onHide={() => {
         setShowModal(false);
@@ -96,11 +96,11 @@ export default function ConfirmPerformanceModal({
       size="lg"
       onClick={(e) => e.stopPropagation()}
     >
-      <Modal.Header closeButton>
+      <GlobalModal.Header closeButton>
         <h6>{t("performanceModal.confirmPerformance")}</h6>
-      </Modal.Header>
+      </GlobalModal.Header>
 
-      <Modal.Body>
+      <GlobalModal.Body>
         <form className="form_ui" onSubmit={handleSubmit(onSubmit)}>
           <div className="row">
             {/* Assistant card (helper) */}
@@ -327,7 +327,7 @@ export default function ConfirmPerformanceModal({
             )}
           </div>
         </form>
-      </Modal.Body>
-    </Modal>
+      </GlobalModal.Body>
+    </GlobalModal>
   );
 }

@@ -1,20 +1,20 @@
-import { Modal } from "react-bootstrap";
 import CustomButton from "../CustomButton";
 import InputField from "../forms/InputField";
+import GlobalModal from "../GlobalModal";
 
 const OperatingSectorsModal = ({ showModal, setShowModal }) => {
   return (
-    <Modal
+    <GlobalModal
       show={showModal}
       size="lg"
       onHide={() => setShowModal(false)}
       aria-labelledby="working group add / edit Modal"
       centered
     >
-      <Modal.Header closeButton>
+      <GlobalModal.Header closeButton>
         <h6> قطاع جديد </h6>
-      </Modal.Header>
-      <Modal.Body>
+      </GlobalModal.Header>
+      <GlobalModal.Body>
         <form className="form_ui ">
           <div className="row g-3">
             <div className="col-12 col-md-6">
@@ -41,8 +41,8 @@ const OperatingSectorsModal = ({ showModal, setShowModal }) => {
             </div>
           </div>
         </form>
-      </Modal.Body>
-    </Modal>
+      </GlobalModal.Body>
+    </GlobalModal>
   );
 };
 

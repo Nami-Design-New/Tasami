@@ -1,5 +1,4 @@
 import { yupResolver } from "@hookform/resolvers/yup";
-import { Modal } from "react-bootstrap";
 import { Controller, useForm } from "react-hook-form";
 import * as yup from "yup";
 import CustomButton from "../CustomButton";
@@ -12,6 +11,7 @@ import { toast } from "sonner";
 import { useQueryClient } from "@tanstack/react-query";
 import { useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
+import GlobalModal from "../GlobalModal";
 
 const schema = yup.object().shape({
   actionType: yup.string().required("نوع الاجراء مطلوب"),
@@ -82,11 +82,11 @@ const AddActionModal = ({ showModal, setShowModal, taskData }) => {
     reset();
   };
   return (
-    <Modal centered size="lg" show={showModal} onHide={handleCLose}>
-      <Modal.Header closeButton>
+    <GlobalModal centered size="lg" show={showModal} onHide={handleCLose}>
+      <GlobalModal.Header closeButton>
         <h6> {t("dashboard.tasks.modelTask.notes.addBenefit")}</h6>
-      </Modal.Header>
-      <Modal.Body>
+      </GlobalModal.Header>
+      <GlobalModal.Body>
         <form className="form_ui" onSubmit={handleSubmit(onSubmit)}>
           <div className="row">
             <div className="col-12 py-2">
@@ -167,8 +167,8 @@ const AddActionModal = ({ showModal, setShowModal, taskData }) => {
             </div>
           </div>
         </form>
-      </Modal.Body>
-    </Modal>
+      </GlobalModal.Body>
+    </GlobalModal>
   );
 };
 

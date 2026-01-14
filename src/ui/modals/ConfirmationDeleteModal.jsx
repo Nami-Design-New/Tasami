@@ -13,13 +13,13 @@ const ConfirmDeleteModal = ({
   const { t } = useTranslation();
 
   return (
-    <Modal
+    <GlobalModal
       show={showDeleteModal}
       onHide={() => setShowDeleteModal(false)}
       aria-labelledby="contained-modal-title-vcenter"
       centered
     >
-      <Modal.Body>
+      <GlobalModal.Body>
         <div className="row confirmation_modal">
           <div className="col-12 p-2">
             <p className="text-center">
@@ -48,8 +48,8 @@ const ConfirmDeleteModal = ({
             </CustomButton>
           </div>
         </div>
-      </Modal.Body>
-    </Modal>
+      </GlobalModal.Body>
+    </GlobalModal>
   );
 };
 

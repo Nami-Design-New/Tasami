@@ -1,4 +1,3 @@
-import { Modal } from "react-bootstrap";
 import CustomButton from "../../CustomButton";
 import TextField from "../../forms/TextField";
 import useInquiry from "../../../hooks/website/inquiries/useInquiry";
@@ -8,6 +7,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
+import GlobalModal from "../../GlobalModal";
 
 const InquiryModal = ({ showModal, setShowModal, workid }) => {
   const { t } = useTranslation();
@@ -50,7 +50,7 @@ const InquiryModal = ({ showModal, setShowModal, workid }) => {
   };
 
   return (
-    <Modal
+    <GlobalModal
       show={showModal}
       size="md"
       onHide={() => {
@@ -59,11 +59,11 @@ const InquiryModal = ({ showModal, setShowModal, workid }) => {
       }}
       centered
     >
-      <Modal.Header closeButton className="m-2">
+      <GlobalModal.Header closeButton className="m-2">
         <h6 className="fw-bold">{t("website.inquiry.title")}</h6>
-      </Modal.Header>
+      </GlobalModal.Header>
 
-      <Modal.Body>
+      <GlobalModal.Body>
         <form className="form_ui" onSubmit={handleSubmit(onSubmit)}>
           <div className="row">
             <div className="col-12 p-2">
@@ -99,8 +99,8 @@ const InquiryModal = ({ showModal, setShowModal, workid }) => {
             </div>
           </div>
         </form>
-      </Modal.Body>
-    </Modal>
+      </GlobalModal.Body>
+    </GlobalModal>
   );
 };
 

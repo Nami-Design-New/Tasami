@@ -1,6 +1,5 @@
 import { useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
-import { Modal } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
 import { toast } from "sonner";
@@ -11,6 +10,7 @@ import useMessagePaymentListener from "../../../hooks/shared/useMessagePaymentLi
 
 import mastercardLogo from "../../../assets/icons/mastercard-logo.svg";
 import walletImage from "../../../assets/icons/wallet-image.svg";
+import GlobalModal from "../../GlobalModal";
 
 export default function CommunityPaymentModal({
   community,
@@ -71,7 +71,7 @@ export default function CommunityPaymentModal({
   }
 
   return (
-    <Modal
+    <GlobalModal
       centered
       size="md"
       show={showModal}
@@ -80,11 +80,11 @@ export default function CommunityPaymentModal({
         setSelectedMethod("online");
       }}
     >
-      <Modal.Header closeButton className="payment-modal-header">
+      <GlobalModal.Header closeButton className="payment-modal-header">
         <h6> {t("website.payment")}</h6>
-      </Modal.Header>
+      </GlobalModal.Header>
 
-      <Modal.Body className="payment-modal-body">
+      <GlobalModal.Body className="payment-modal-body">
         <div className="payment-modal-header">
           <h1 className="payment-modal-heading">
             {t("payMessage", {
@@ -153,7 +153,7 @@ export default function CommunityPaymentModal({
         >
           {t("website.platform.subscription.confirm")}
         </CustomButton>
-      </Modal.Body>
-    </Modal>
+      </GlobalModal.Body>
+    </GlobalModal>
   );
 }

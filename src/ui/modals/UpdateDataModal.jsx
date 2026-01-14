@@ -1,4 +1,3 @@
-import { Modal } from "react-bootstrap";
 import CustomButton from "../CustomButton";
 import FileUploader from "../forms/FileUPloader";
 import InputField from "../forms/InputField";
@@ -7,6 +6,7 @@ import TextField from "../forms/TextField";
 import { useState } from "react";
 import ProfileImageUploader from "../ProfileImageUploader";
 import MapLocationField from "../dash-board/create-employee/MapLocationField";
+import GlobalModal from "../GlobalModal";
 
 const UpdateDataModal = ({ showModal, setShowModal }) => {
   const [files, setFiles] = useState([]);
@@ -30,16 +30,16 @@ const UpdateDataModal = ({ showModal, setShowModal }) => {
     setUserFiles(updatedFiles);
   };
   return (
-    <Modal
+    <GlobalModal
       show={showModal}
       size="lg"
       onHide={() => setShowModal(false)}
       centered
     >
-      <Modal.Header closeButton>
+      <GlobalModal.Header closeButton>
         <h6>طلب تحديث البيانات</h6>
-      </Modal.Header>
-      <Modal.Body>
+      </GlobalModal.Header>
+      <GlobalModal.Body>
         <form className="form_ui">
           <div className="row">
             {" "}
@@ -134,8 +134,8 @@ const UpdateDataModal = ({ showModal, setShowModal }) => {
             </div>
           </div>
         </form>
-      </Modal.Body>
-    </Modal>
+      </GlobalModal.Body>
+    </GlobalModal>
   );
 };
 

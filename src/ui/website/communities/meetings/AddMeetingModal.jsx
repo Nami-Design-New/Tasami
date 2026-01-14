@@ -1,5 +1,4 @@
 import { useQueryClient } from "@tanstack/react-query";
-import { Modal } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
 import { toast } from "sonner";
 import useGetcategories from "../../../../hooks/area-of-interests/useGetcategories";
@@ -11,6 +10,7 @@ import SelectField from "../../../forms/SelectField";
 import TextField from "../../../forms/TextField";
 import { useEffect } from "react";
 import useEditMeeting from "../../../../hooks/website/communities/mettings/useEditMeeting";
+import GlobalModal from "../../../GlobalModal";
 
 export default function AddMeetingModal({
   showModal,
@@ -107,7 +107,7 @@ export default function AddMeetingModal({
   const isSubmitting = isEdit ? isEditing : isPending;
 
   return (
-    <Modal
+    <GlobalModal
       show={showModal}
       onHide={() => {
         setShowModal(false);
@@ -116,11 +116,11 @@ export default function AddMeetingModal({
       centered
       size="lg"
     >
-      <Modal.Header closeButton>
+      <GlobalModal.Header closeButton>
         <h6>{t(isEdit ? "community.editMeeting" : "community.addMeeting")}</h6>
-      </Modal.Header>
+      </GlobalModal.Header>
 
-      <Modal.Body>
+      <GlobalModal.Body>
         <form className="form_ui" onSubmit={handleSubmit(onSubmit)}>
           <div className="row">
             {/* Field */}
@@ -243,7 +243,7 @@ export default function AddMeetingModal({
             </div>
           </div>
         </form>
-      </Modal.Body>
-    </Modal>
+      </GlobalModal.Body>
+    </GlobalModal>
   );
 }

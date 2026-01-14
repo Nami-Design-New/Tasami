@@ -1,4 +1,3 @@
-import { Modal } from "react-bootstrap";
 import CustomButton from "../../CustomButton";
 import InputField from "../../forms/InputField";
 import { useForm } from "react-hook-form";
@@ -10,6 +9,7 @@ import * as yup from "yup";
 import { useEffect } from "react";
 import { toast } from "sonner";
 import { useTranslation } from "react-i18next";
+import GlobalModal from "../../GlobalModal";
 
 export default function TasksClassificationModal({
   showModal,
@@ -101,7 +101,7 @@ export default function TasksClassificationModal({
   };
 
   return (
-    <Modal
+    <GlobalModal
       show={showModal}
       size="md"
       onHide={() => {
@@ -109,13 +109,13 @@ export default function TasksClassificationModal({
       }}
       centered
     >
-      <Modal.Header closeButton>
+      <GlobalModal.Header closeButton>
         {isEdit
           ? t("dashboard.taskCategories.edit")
           : t("dashboard.taskCategories.add")}{" "}
         {t("dashboard.taskCategories.category")}
-      </Modal.Header>
-      <Modal.Body>
+      </GlobalModal.Header>
+      <GlobalModal.Body>
         <form onSubmit={handleSubmit(onSubmit)} className="form_ui">
           <div className="row">
             <div className="col-6 p-2">
@@ -154,7 +154,7 @@ export default function TasksClassificationModal({
             </div>
           </div>
         </form>
-      </Modal.Body>
-    </Modal>
+      </GlobalModal.Body>
+    </GlobalModal>
   );
 }

@@ -1,6 +1,5 @@
 import { useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
-import { Modal } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
 import { toast } from "sonner";
@@ -10,6 +9,7 @@ import Currency from "../../Currency";
 import CustomButton from "../../CustomButton";
 import masterCardLogo from "../../../assets/icons/mastercard-logo.svg";
 import walletImage from "../../../assets/icons/wallet-image.svg";
+import GlobalModal from "../../GlobalModal";
 export default function PaymentModal({ plan, showModal, setShowModal }) {
   const { t } = useTranslation();
   const { user } = useSelector((state) => state.authRole);
@@ -63,7 +63,7 @@ export default function PaymentModal({ plan, showModal, setShowModal }) {
   }
 
   return (
-    <Modal
+    <GlobalModal
       centered
       size="md"
       show={showModal}
@@ -72,11 +72,11 @@ export default function PaymentModal({ plan, showModal, setShowModal }) {
         setSelectedMethod("online");
       }}
     >
-      <Modal.Header closeButton className="payment-modal-header">
+      <GlobalModal.Header closeButton className="payment-modal-header">
         <h6> {t("website.payment")}</h6>
-      </Modal.Header>
+      </GlobalModal.Header>
 
-      <Modal.Body className="payment-modal-body">
+      <GlobalModal.Body className="payment-modal-body">
         <div className="payment-modal-header">
           <h1 className="payment-modal-heading">
             {t("website.platform.subscription.payMessage", {
@@ -145,7 +145,7 @@ export default function PaymentModal({ plan, showModal, setShowModal }) {
         >
           {t("website.platform.subscription.confirm")}
         </CustomButton>
-      </Modal.Body>
-    </Modal>
+      </GlobalModal.Body>
+    </GlobalModal>
   );
 }

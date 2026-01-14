@@ -1,6 +1,5 @@
 import { useQueryClient } from "@tanstack/react-query";
 import { useEffect, useRef } from "react";
-import { Modal } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
 import { toast } from "sonner";
 import useEditMyCommunityForm from "../../../../validations/communities/edit-my-communities";
@@ -9,6 +8,7 @@ import InputField from "../../../forms/InputField";
 import TextField from "../../../forms/TextField";
 import useEditMyCommunity from "../../../../hooks/website/communities/useEditMyCommunity";
 import addPhoto from "../../../../assets/icons/add-photo.svg";
+import GlobalModal from "../../../GlobalModal";
 export default function EditCommunityModal({
   showModal,
   setShowModal,
@@ -77,7 +77,7 @@ export default function EditCommunityModal({
   };
 
   return (
-    <Modal
+    <GlobalModal
       show={showModal}
       onHide={() => {
         setShowModal(false);
@@ -86,10 +86,10 @@ export default function EditCommunityModal({
       centered
       size="lg"
     >
-      <Modal.Header closeButton>
+      <GlobalModal.Header closeButton>
         <h6> {t("website.platform.myCommunity.editCommunity")} </h6>
-      </Modal.Header>
-      <Modal.Body>
+      </GlobalModal.Header>
+      <GlobalModal.Body>
         <form className="form_ui" onSubmit={handleSubmit(onSubmit)}>
           <div className="row">
             <div className="col-12 p-2">
@@ -152,7 +152,7 @@ export default function EditCommunityModal({
             </div>
           </div>
         </form>
-      </Modal.Body>
-    </Modal>
+      </GlobalModal.Body>
+    </GlobalModal>
   );
 }

@@ -1,6 +1,5 @@
 import { useQueryClient } from "@tanstack/react-query";
 import { useEffect, useRef, useState } from "react";
-import { Modal } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
 import { toast } from "sonner";
 import useGetcategories from "../../../hooks/area-of-interests/useGetcategories";
@@ -22,6 +21,7 @@ import femaleIcon from "../../../assets/icons/female-outlined.svg";
 import monthIcon from "../../../assets/icons/month.svg";
 import dayIcon from "../../../assets/icons/day.svg";
 import ryalIcon from "../../../assets/icons/ryal.svg";
+import GlobalModal from "../../GlobalModal";
 const genderIcons = {
   male: maleIcon,
   female: femaleIcon,
@@ -185,7 +185,7 @@ export default function AddAssistanceModal({
 
   return (
     <>
-      <Modal
+      <GlobalModal
         centered
         show={showModal}
         onHide={() => {
@@ -194,15 +194,15 @@ export default function AddAssistanceModal({
         }}
         size="lg"
       >
-        <Modal.Header closeButton>
+        <GlobalModal.Header closeButton>
           <h6>
             {/* {t("website.platform.myAssistance.addNewOffer")} */}
             {isEdit
               ? t("website.platform.myAssistance.editOffer")
               : t("website.platform.myAssistance.addNewOffer")}
           </h6>
-        </Modal.Header>
-        <Modal.Body>
+        </GlobalModal.Header>
+        <GlobalModal.Body>
           <form className="form_ui" onSubmit={handleSubmit(onSubmit)}>
             <div className="row">
               {" "}
@@ -472,8 +472,8 @@ export default function AddAssistanceModal({
               </div>
             </div>
           </form>
-        </Modal.Body>
-      </Modal>
+        </GlobalModal.Body>
+      </GlobalModal>
       <ToastSuccessModal
         showModal={showSuccessModal}
         setShowModal={setShowSuccessModal}

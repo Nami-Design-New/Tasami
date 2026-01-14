@@ -1,5 +1,4 @@
 import { useEffect } from "react";
-import { Modal } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -8,6 +7,7 @@ import TextField from "../../ui/forms/TextField";
 import CustomButton from "../CustomButton";
 import useReportGoalOrService from "../../hooks/website/useReportGoalOrService";
 import { toast } from "sonner";
+import GlobalModal from "../GlobalModal";
 
 const ReportModal = ({ showModal, setShowModal, type, objectId }) => {
   const { t } = useTranslation();
@@ -53,17 +53,17 @@ const ReportModal = ({ showModal, setShowModal, type, objectId }) => {
   }, [showModal, reset]);
 
   return (
-    <Modal
+    <GlobalModal
       show={showModal}
       size="md"
       onHide={() => setShowModal(false)}
       centered
     >
-      <Modal.Header closeButton className="m-2">
+      <GlobalModal.Header closeButton className="m-2">
         <h6 className="fw-bold">{t("report_violation")}</h6>
-      </Modal.Header>
+      </GlobalModal.Header>
 
-      <Modal.Body>
+      <GlobalModal.Body>
         <form className="form_ui" onSubmit={handleSubmit(onSubmit)}>
           <div className="row">
             <div className="col-12 p-2">
@@ -81,8 +81,8 @@ const ReportModal = ({ showModal, setShowModal, type, objectId }) => {
             </div>
           </div>
         </form>
-      </Modal.Body>
-    </Modal>
+      </GlobalModal.Body>
+    </GlobalModal>
   );
 };
 

@@ -1,4 +1,4 @@
-import { Modal } from "react-bootstrap";
+import GlobalModal from "../../GlobalModal";
 
 export default function ToastSuccessModal({
   showModal,
@@ -7,18 +7,18 @@ export default function ToastSuccessModal({
   children,
 }) {
   return (
-    <Modal
+    <GlobalModal
       show={showModal}
       size="md"
       centered
       onHide={() => setShowModal(false)}
     >
-      <Modal.Header closeButton>
+      <GlobalModal.Header closeButton>
         <h6>{title}</h6>
-      </Modal.Header>
-      <Modal.Body>
+      </GlobalModal.Header>
+      <GlobalModal.Body>
         <div className="p-2">{children}</div>
-      </Modal.Body>
-    </Modal>
+      </GlobalModal.Body>
+    </GlobalModal>
   );
 }

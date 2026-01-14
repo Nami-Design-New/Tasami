@@ -1,4 +1,3 @@
-import { Modal } from "react-bootstrap";
 import CustomButton from "../../CustomButton";
 import InputField from "../../forms/InputField";
 import { useCallback, useEffect, useState } from "react";
@@ -11,6 +10,7 @@ import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { useDropzone } from "react-dropzone";
 import { useTranslation } from "react-i18next";
+import GlobalModal from "../../GlobalModal";
 
 export default function SocialLinksModal({
   showModal,
@@ -159,7 +159,7 @@ export default function SocialLinksModal({
   };
 
   return (
-    <Modal
+    <GlobalModal
       show={showModal}
       size="md"
       onHide={() => {
@@ -168,11 +168,13 @@ export default function SocialLinksModal({
       }}
       centered
     >
-      <Modal.Header closeButton>
-        {isEdit ? t("dashboard.socialLinks.edit") : t("dashboard.socialLinks.add")}{" "}
+      <GlobalModal.Header closeButton>
+        {isEdit
+          ? t("dashboard.socialLinks.edit")
+          : t("dashboard.socialLinks.add")}{" "}
         {t("dashboard.socialLinks.link")}
-      </Modal.Header>
-      <Modal.Body>
+      </GlobalModal.Header>
+      <GlobalModal.Body>
         <form className="form_ui" onSubmit={handleSubmit(onSubmit)}>
           <div className="row">
             <div className="col-12">
@@ -239,7 +241,7 @@ export default function SocialLinksModal({
             </div>
           </div>
         </form>
-      </Modal.Body>
-    </Modal>
+      </GlobalModal.Body>
+    </GlobalModal>
   );
 }

@@ -1,6 +1,5 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useQueryClient } from "@tanstack/react-query";
-import { Modal } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { toast } from "sonner";
@@ -10,6 +9,7 @@ import useChargeWallet from "../../hooks/website/wallet/useChargeWallet";
 import CustomButton from "../CustomButton";
 import InputField from "../forms/InputField";
 import ryalIcon from "../../assets/icons/ryal.svg";
+import GlobalModal from "../GlobalModal";
 const getChargeBalanceSchema = (t) =>
   yup.object().shape({
     charge: yup
@@ -76,11 +76,11 @@ const ChargeBalanceModal = ({ showModal, setShowModal }) => {
   };
 
   return (
-    <Modal show={showModal} onHide={() => setShowModal(false)} centered>
-      <Modal.Header closeButton>
+    <GlobalModal show={showModal} onHide={() => setShowModal(false)} centered>
+      <GlobalModal.Header closeButton>
         <h6>{t("profile.chargeBalance")}</h6>
-      </Modal.Header>
-      <Modal.Body>
+      </GlobalModal.Header>
+      <GlobalModal.Body>
         <form className="form_ui" onSubmit={handleSubmit(onSubmit)}>
           <div className="row">
             <div className="col-12 p-2">
@@ -107,8 +107,8 @@ const ChargeBalanceModal = ({ showModal, setShowModal }) => {
             </CustomButton>
           </div>
         </form>
-      </Modal.Body>
-    </Modal>
+      </GlobalModal.Body>
+    </GlobalModal>
   );
 };
 

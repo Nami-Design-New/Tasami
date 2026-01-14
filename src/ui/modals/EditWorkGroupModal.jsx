@@ -1,6 +1,5 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useQueryClient } from "@tanstack/react-query";
-import { Modal } from "react-bootstrap";
 import { Controller, useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { toast } from "sonner";
@@ -17,6 +16,7 @@ import SelectFieldReactSelect from "../forms/SelectFieldReactSelect";
 import TabRadioGroup from "../TabRadioGroup";
 import { useEffect } from "react";
 import SpinnerLoader from "../loading/SpinnerLoader";
+import GlobalModal from "../GlobalModal";
 
 const defaultValues = {
   groupType: WORKING_GROPUS_CALSSIFICATIONS[0],
@@ -144,7 +144,7 @@ const EditWorkGroupModal = ({
   };
 
   return (
-    <Modal
+    <GlobalModal
       show={showModal}
       size="lg"
       onHide={() => setShowModal(false)}
@@ -152,15 +152,15 @@ const EditWorkGroupModal = ({
       centered
       className="working-group-modal"
     >
-      <Modal.Header closeButton>
+      <GlobalModal.Header closeButton>
         <h6>
           {isEditMode
             ? t("dashboard.workGroup.editTitle")
             : t("dashboard.workGroup.addTitle")}
         </h6>
-      </Modal.Header>
+      </GlobalModal.Header>
 
-      <Modal.Body>
+      <GlobalModal.Body>
         {isEditMode && isGroupLoading ? (
           <SpinnerLoader />
         ) : (
@@ -277,8 +277,8 @@ const EditWorkGroupModal = ({
             </div>
           </form>
         )}
-      </Modal.Body>
-    </Modal>
+      </GlobalModal.Body>
+    </GlobalModal>
   );
 };
 

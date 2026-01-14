@@ -1,4 +1,3 @@
-import { Modal } from "react-bootstrap";
 import InputField from "../../forms/InputField";
 import CustomButton from "../../CustomButton";
 import { useForm } from "react-hook-form";
@@ -100,16 +99,16 @@ export default function ViolationsEditModal({
   };
 
   return (
-    <Modal
+    <GlobalModal
       show={showModal}
       size="md"
       onHide={() => setShowModal(false)}
       centered
     >
-      <Modal.Header closeButton>
+      <GlobalModal.Header closeButton>
         {isEdit ? t("dashboard.violation.edit") : t("dashboard.violation.add")}
-      </Modal.Header>
-      <Modal.Body>
+      </GlobalModal.Header>
+      <GlobalModal.Body>
         <form className="form_ui" onSubmit={handleSubmit(onSubmit)}>
           <div className="row">
             <div className="col-12 p-2">
@@ -129,13 +128,15 @@ export default function ViolationsEditModal({
             </div>
             <div className="col-12 p-2">
               <CustomButton type="submit" fullWidth size="large">
-                {isEdit ? t("dashboard.violation.edit") : t("dashboard.violation.add")}{" "}
+                {isEdit
+                  ? t("dashboard.violation.edit")
+                  : t("dashboard.violation.add")}{" "}
                 {(isPending || updateViolateLoading) && "..."}
               </CustomButton>
             </div>
           </div>
         </form>
-      </Modal.Body>
-    </Modal>
+      </GlobalModal.Body>
+    </GlobalModal>
   );
 }

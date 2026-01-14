@@ -1,59 +1,6 @@
-// import { Modal } from "react-bootstrap";
-// import CustomButton from "../../CustomButton";
-// import InputField from "../../forms/InputField";
-// import TextField from "../../forms/TextField";
-// import { SUPPORTED_LANGS } from "../../../lib/multilang/config";
-
-// export default function ContentModal({ showModal, setShowModal, isEdit }) {
-//   return (
-//     <Modal
-//       show={showModal}
-//       size="md"
-//       onHide={() => {
-//         setShowModal(false);
-//       }}
-//       centered
-//     >
-//       <Modal.Header closeButton>{isEdit ? "تعديل" : "اضافه"} سؤال</Modal.Header>
-//       <Modal.Body>
-//         <form className="form_ui">
-//           <div className="row">
-//             {SUPPORTED_LANGS.map((lang) => (
-//               <div className="col-12 p-2" key={lang}>
-//                 <InputField label="السؤال" placeholder="" />
-//               </div>
-//             ))}
-//             {SUPPORTED_LANGS.map((lang) => (
-//               <div className="col-12 p-2" key={lang}>
-//                 <TextField label="الاجابة" placeholder="" />
-//               </div>
-//             ))}
-//             <div className="col-12 p-2">
-//               <div className="d-flex align-items-center gap-2    justify-content-end  ">
-//                 <CustomButton
-//                   onClick={() => setShowModal(false)}
-//                   size="large"
-//                   color="secondary"
-//                   type="button"
-//                 >
-//                   الغاء
-//                 </CustomButton>
-
-//                 <CustomButton size="large" type="submit">
-//                   {isEdit ? "تعديل " : "  اضافة "}{" "}
-//                 </CustomButton>
-//               </div>
-//             </div>
-//           </div>
-//         </form>
-//       </Modal.Body>
-//     </Modal>
-//   );
-// }
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useQueryClient } from "@tanstack/react-query";
 import { useEffect } from "react";
-import { Modal } from "react-bootstrap";
 import { Controller, useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { toast } from "sonner";
@@ -64,6 +11,7 @@ import { SUPPORTED_LANGS } from "../../../lib/multilang/config";
 import CustomButton from "../../CustomButton";
 import InputField from "../../forms/InputField";
 import TextField from "../../forms/TextField";
+import GlobalModal from "../../GlobalModal";
 
 export default function ContentModal({
   showModal,
@@ -103,9 +51,7 @@ export default function ContentModal({
 
   // Pre-fill form when editing
   useEffect(() => {
-
     if (isEdit && faqData) {
-
       reset({
         answer_ar: faqData.answer_ar,
         question_en: faqData.questions_en,
@@ -113,7 +59,6 @@ export default function ContentModal({
         question_ar: faqData.questions_ar,
       });
     } else {
-
       reset();
     }
   }, [isEdit, faqData, reset]);
@@ -126,7 +71,6 @@ export default function ContentModal({
       };
       return acc;
     }, {});
-
 
     if (isEdit) {
       editNewFaq(
@@ -176,7 +120,7 @@ export default function ContentModal({
   };
 
   return (
-    <Modal
+    <GlobalModal
       show={showModal}
       size="lg"
       onHide={() => {
@@ -187,15 +131,15 @@ export default function ContentModal({
       }}
       centered
     >
-      <Modal.Header closeButton>
+      <GlobalModal.Header closeButton>
         <h6>
           {isEdit
             ? t("dashboard.faqs.modal.edit")
             : t("dashboard.faqs.modal.add")}{" "}
           {t("dashboard.faqs.modal.question")}
         </h6>
-      </Modal.Header>
-      <Modal.Body>
+      </GlobalModal.Header>
+      <GlobalModal.Body>
         <form className="form_ui" onSubmit={handleSubmit(onSubmit)}>
           <div className="row">
             {SUPPORTED_LANGS.map((lang) => (
@@ -252,7 +196,7 @@ export default function ContentModal({
             </div>
           </div>
         </form>
-      </Modal.Body>
-    </Modal>
+      </GlobalModal.Body>
+    </GlobalModal>
   );
 }

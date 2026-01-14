@@ -1,10 +1,10 @@
-import { Modal } from "react-bootstrap";
 import CustomButton from "../../CustomButton";
 import { useTranslation } from "react-i18next";
 import Currency from "../../Currency";
 import useWithdrawRenewRequest from "../../../hooks/website/MyWorks/useWithdrawRenewRequest";
 import { useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
+import GlobalModal from "../../GlobalModal";
 
 export default function RenewContractDetailsModal({
   showModal,
@@ -27,17 +27,17 @@ export default function RenewContractDetailsModal({
     });
   };
   return (
-    <Modal
+    <GlobalModal
       show={showModal}
       onHide={() => setShowModal(false)}
       centered
       size="md"
       className="withdraw-modal"
     >
-      <Modal.Header closeButton>
+      <GlobalModal.Header closeButton>
         <h6>{t("renew_title")}</h6>
-      </Modal.Header>
-      <Modal.Body>
+      </GlobalModal.Header>
+      <GlobalModal.Body>
         <div className="row">
           <div className="col-12 p-1">
             <h6>{t("renew_message")}</h6>
@@ -66,7 +66,7 @@ export default function RenewContractDetailsModal({
             </CustomButton>
           </div>
         </div>
-      </Modal.Body>
-    </Modal>
+      </GlobalModal.Body>
+    </GlobalModal>
   );
 }

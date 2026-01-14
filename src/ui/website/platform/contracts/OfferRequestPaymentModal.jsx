@@ -1,6 +1,5 @@
 import { useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
-import { Modal } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
 import { toast } from "sonner";
@@ -10,6 +9,7 @@ import Currency from "../../../Currency";
 import CustomButton from "../../../CustomButton";
 import masterCardLogo from "../../../../assets/icons/mastercard-logo.svg";
 import walletImage from "../../../../assets/icons/wallet-image.svg";
+import GlobalModal from "../../../GlobalModal";
 export default function OfferRequestPaymentModal({
   plan,
   workId,
@@ -70,7 +70,7 @@ export default function OfferRequestPaymentModal({
   };
 
   return (
-    <Modal
+    <GlobalModal
       centered
       size="md"
       show={showModal}
@@ -80,10 +80,10 @@ export default function OfferRequestPaymentModal({
       }}
     >
       {" "}
-      <Modal.Header closeButton className="payment-modal-header">
+      <GlobalModal.Header closeButton className="payment-modal-header">
         <h6> {t("website.payment")}</h6>
-      </Modal.Header>{" "}
-      <Modal.Body className="payment-modal-body">
+      </GlobalModal.Header>{" "}
+      <GlobalModal.Body className="payment-modal-body">
         <div className="payment-modal-header">
           <h1 className="payment-modal-heading">
             {t("website.platform.subscription.offerPayMessage", {
@@ -150,7 +150,7 @@ export default function OfferRequestPaymentModal({
         >
           {t("website.platform.subscription.confirm")}
         </CustomButton>
-      </Modal.Body>
-    </Modal>
+      </GlobalModal.Body>
+    </GlobalModal>
   );
 }

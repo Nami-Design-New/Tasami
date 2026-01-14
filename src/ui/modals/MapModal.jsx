@@ -129,17 +129,17 @@ const MapModal = ({
   };
 
   return (
-    <Modal
+    <GlobalModal
       show={showModal}
       onHide={() => setShowModal(false)}
       size="lg"
       centered
     >
-      <Modal.Header closeButton>
+      <GlobalModal.Header closeButton>
         <h6>{title}</h6>
-      </Modal.Header>
+      </GlobalModal.Header>
 
-      <Modal.Body>
+      <GlobalModal.Body>
         <div className="row">
           <div className="col-12 p-0 mb-2">
             <div className="map">
@@ -191,8 +191,8 @@ const MapModal = ({
             </button>
           </div>
         </div>
-      </Modal.Body>
-    </Modal>
+      </GlobalModal.Body>
+    </GlobalModal>
   );
 };
 

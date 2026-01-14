@@ -1,4 +1,3 @@
-import { Modal } from "react-bootstrap";
 import CustomButton from "../../../ui/CustomButton";
 import SelectField from "../../../ui/forms/SelectField";
 import { useTranslation } from "react-i18next";
@@ -7,6 +6,7 @@ import usePostReassignTask from "../../../hooks/dashboard/tasks/usePostReassignT
 import { toast } from "sonner";
 import { useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
+import GlobalModal from "../../../ui/GlobalModal";
 
 export default function ReassignTaskModal({
   showModal,
@@ -39,16 +39,16 @@ export default function ReassignTaskModal({
   };
 
   return (
-    <Modal
+    <GlobalModal
       centered
       size="md"
       show={showModal}
       onHide={() => setShowModal(false)}
     >
-      <Modal.Header closeButton>
+      <GlobalModal.Header closeButton>
         <h6>{t("dashboard.tasks.reassignModal.title")}</h6>
-      </Modal.Header>
-      <Modal.Body>
+      </GlobalModal.Header>
+      <GlobalModal.Body>
         <form className="form_ui">
           <div className="row">
             <div className="col-12 p-2">
@@ -74,7 +74,7 @@ export default function ReassignTaskModal({
             </div>
           </div>
         </form>
-      </Modal.Body>
-    </Modal>
+      </GlobalModal.Body>
+    </GlobalModal>
   );
 }

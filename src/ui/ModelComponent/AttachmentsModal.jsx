@@ -1,6 +1,6 @@
-import { Modal } from "react-bootstrap";
 import InputField from "../forms/InputField";
 import SubmitButton from "../forms/SubmitButton";
+import GlobalModal from "../GlobalModal";
 
 const AttachmentsModal = ({
   showModal,
@@ -10,16 +10,16 @@ const AttachmentsModal = ({
   handleSave,
 }) => {
   return (
-    <Modal
+    <GlobalModal
       centered
       size="md"
       show={showModal}
       onHide={() => setShowModal(false)}
     >
-      <Modal.Header closeButton>
+      <GlobalModal.Header closeButton>
         <h6> اضف عنوان للمرفق </h6>
-      </Modal.Header>
-      <Modal.Body>
+      </GlobalModal.Header>
+      <GlobalModal.Body>
         <form
           className="form_ui"
           onSubmit={(e) => {
@@ -36,8 +36,8 @@ const AttachmentsModal = ({
           />
           <SubmitButton text="حفظ" className={"mt-3"} />
         </form>
-      </Modal.Body>
-    </Modal>
+      </GlobalModal.Body>
+    </GlobalModal>
   );
 };
 

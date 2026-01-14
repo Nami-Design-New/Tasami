@@ -1,5 +1,4 @@
 import { useEffect } from "react";
-import { Modal } from "react-bootstrap";
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
@@ -11,6 +10,7 @@ import useUpdatePackage from "../../../hooks/dashboard/website-managment/package
 import { SUPPORTED_LANGS } from "../../../lib/multilang/config";
 import { useTranslation } from "react-i18next";
 import { useQueryClient } from "@tanstack/react-query";
+import GlobalModal from "../../GlobalModal";
 
 const subscriptionSchema = yup.object().shape({
   name_ar: yup.string().required(),
@@ -128,21 +128,21 @@ export default function AddNewSubscriptionsModal({
   };
 
   return (
-    <Modal
+    <GlobalModal
       centered
       size="lg"
       show={showModal}
       onHide={() => setShowModal(false)}
     >
-      <Modal.Header closeButton>
+      <GlobalModal.Header closeButton>
         <h6>
           {isEdit
             ? t("dashboard.subscriptions.edit")
             : t("dashboard.subscriptions.add_new")}
         </h6>
-      </Modal.Header>
+      </GlobalModal.Header>
 
-      <Modal.Body>
+      <GlobalModal.Body>
         <form className="form_ui" onSubmit={handleSubmit(onSubmit)}>
           <div className="row">
             {/* Upload Image */}
@@ -291,7 +291,7 @@ export default function AddNewSubscriptionsModal({
             </div>
           </div>
         </form>
-      </Modal.Body>
-    </Modal>
+      </GlobalModal.Body>
+    </GlobalModal>
   );
 }

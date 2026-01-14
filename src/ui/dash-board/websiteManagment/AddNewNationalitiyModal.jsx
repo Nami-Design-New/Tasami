@@ -1,4 +1,3 @@
-import { Modal } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
 import InputField from "../../forms/InputField";
 import * as yup from "yup";
@@ -11,6 +10,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 import useUpdateNationality from "../../../hooks/dashboard/website-managment/nationalities/useUpdateNationality";
 import { useEffect } from "react";
+import GlobalModal from "../../GlobalModal";
 
 export default function AddNewNationalitiyModal({
   setShowModal,
@@ -88,7 +88,7 @@ export default function AddNewNationalitiyModal({
   };
 
   return (
-    <Modal
+    <GlobalModal
       centered
       size="md"
       show={showModal}
@@ -97,14 +97,14 @@ export default function AddNewNationalitiyModal({
         reset();
       }}
     >
-      <Modal.Header closeButton>
+      <GlobalModal.Header closeButton>
         <h6>
           {isEdit
             ? t("dashboard.nationalitiesModal.editNationality")
             : t("dashboard.nationalitiesModal.addNationality")}
         </h6>
-      </Modal.Header>
-      <Modal.Body>
+      </GlobalModal.Header>
+      <GlobalModal.Body>
         <form className="form_ui" onSubmit={handleSubmit(onSubmit)}>
           <div className="row">
             {" "}
@@ -141,7 +141,7 @@ export default function AddNewNationalitiyModal({
             </div>
           </div>
         </form>
-      </Modal.Body>
-    </Modal>
+      </GlobalModal.Body>
+    </GlobalModal>
   );
 }

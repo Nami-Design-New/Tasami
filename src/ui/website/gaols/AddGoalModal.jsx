@@ -1,5 +1,4 @@
 import { useQueryClient } from "@tanstack/react-query";
-import { Modal } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
 import { toast } from "sonner";
 import useGetcategories from "../../../hooks/area-of-interests/useGetcategories";
@@ -19,6 +18,7 @@ import maleIcon from "../../../assets/icons/male-outlined.svg";
 import femaleIcon from "../../../assets/icons/female-outlined.svg";
 import monthIcon from "../../../assets/icons/month.svg";
 import dayIcon from "../../../assets/icons/day.svg";
+import GlobalModal from "../../GlobalModal";
 const genderIcons = {
   male: maleIcon,
   female: femaleIcon,
@@ -115,7 +115,7 @@ export default function AddGoalModal({ showModal, setShowModal }) {
 
   return (
     <>
-      <Modal
+      <GlobalModal
         show={showModal}
         onHide={() => {
           setShowModal(false);
@@ -124,10 +124,10 @@ export default function AddGoalModal({ showModal, setShowModal }) {
         centered
         size="lg"
       >
-        <Modal.Header closeButton>
+        <GlobalModal.Header closeButton>
           <h6>{t("website.platform.myAssistance.addNewGoal")}</h6>
-        </Modal.Header>
-        <Modal.Body>
+        </GlobalModal.Header>
+        <GlobalModal.Body>
           <form className="form_ui" onSubmit={handleSubmit(onSubmit)}>
             <div className="row">
               {/* Field */}
@@ -353,8 +353,8 @@ export default function AddGoalModal({ showModal, setShowModal }) {
               </div>
             </div>
           </form>
-        </Modal.Body>
-      </Modal>
+        </GlobalModal.Body>
+      </GlobalModal>
       <ToastSuccessModal
         showModal={showSuccessModal}
         setShowModal={setShowSuccessModal}

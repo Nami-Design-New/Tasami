@@ -1,5 +1,5 @@
-import { Modal } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
+import GlobalModal from "../../../GlobalModal";
 
 export default function GoalDetailsModal({
   showModal,
@@ -11,11 +11,11 @@ export default function GoalDetailsModal({
 }) {
   const { t } = useTranslation();
   return (
-    <Modal show={showModal} onHide={() => setShowModal(false)} centered>
-      <Modal.Header closeButton>
+    <GlobalModal show={showModal} onHide={() => setShowModal(false)} centered>
+      <GlobalModal.Header closeButton>
         <h6>{name}</h6>
-      </Modal.Header>
-      <Modal.Body>
+      </GlobalModal.Header>
+      <GlobalModal.Body>
         <div className="info-grid w-100">
           <div className="row w-100">
             <div className="col-6 p-2">
@@ -42,7 +42,7 @@ export default function GoalDetailsModal({
             </div>
           </div>
         </div>
-      </Modal.Body>
-    </Modal>
+      </GlobalModal.Body>
+    </GlobalModal>
   );
 }

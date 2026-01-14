@@ -1,5 +1,4 @@
 import { useCallback, useEffect, useState } from "react";
-import { Modal } from "react-bootstrap";
 import { useDropzone } from "react-dropzone";
 import CustomButton from "../../CustomButton";
 import { useQueryClient } from "@tanstack/react-query";
@@ -10,6 +9,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { toast } from "sonner";
 import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
+import GlobalModal from "../../GlobalModal";
 
 export default function AddNewBannerModal({
   setShowModal,
@@ -126,7 +126,9 @@ export default function AddNewBannerModal({
             });
           },
           onError: (error) => {
-            toast.error(error.message || t("dashboard.bannerModal.updateError"));
+            toast.error(
+              error.message || t("dashboard.bannerModal.updateError")
+            );
           },
         }
       );
@@ -149,7 +151,7 @@ export default function AddNewBannerModal({
   };
 
   return (
-    <Modal
+    <GlobalModal
       centered
       size="md"
       show={showModal}
@@ -158,10 +160,12 @@ export default function AddNewBannerModal({
         handleRemoveLogo();
       }}
     >
-      <Modal.Header closeButton>
-        {isEdit ? t("dashboard.bannerModal.editBanner") : t("dashboard.bannerModal.addBanner")}
-      </Modal.Header>
-      <Modal.Body>
+      <GlobalModal.Header closeButton>
+        {isEdit
+          ? t("dashboard.bannerModal.editBanner")
+          : t("dashboard.bannerModal.addBanner")}
+      </GlobalModal.Header>
+      <GlobalModal.Body>
         <div className="row">
           <div className="col-12 p-2">
             <div
@@ -188,7 +192,7 @@ export default function AddNewBannerModal({
             </div>
           </div>
         </div>
-      </Modal.Body>
-    </Modal>
+      </GlobalModal.Body>
+    </GlobalModal>
   );
 }

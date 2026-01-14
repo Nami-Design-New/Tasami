@@ -1,6 +1,5 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useQueryClient } from "@tanstack/react-query";
-import { Modal } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { useEffect } from "react";
@@ -10,6 +9,7 @@ import CustomButton from "../../../CustomButton";
 import TextField from "../../../forms/TextField";
 import { toast } from "sonner";
 import useEditReplyToConsultation from "../../../../hooks/website/communities/useEditReplyToConsultaion";
+import GlobalModal from "../../../GlobalModal";
 
 export default function AnswerModal({
   showModal,
@@ -73,7 +73,6 @@ export default function AnswerModal({
         onSuccess: () => {
           handleClose();
           queryClient.invalidateQueries({ queryKey: ["consultaion-details"] });
-
         },
         onError: (error) => {
           console.error("Error editing reply:", error);
@@ -89,7 +88,6 @@ export default function AnswerModal({
         onSuccess: () => {
           handleClose();
           queryClient.invalidateQueries({ queryKey: ["consultaion-details"] });
-
         },
         onError: (error) => {
           console.error("Error replying to consultation:", error);
@@ -107,13 +105,13 @@ export default function AnswerModal({
   const isLoading = isPending || editReplyLoading;
 
   return (
-    <Modal onHide={handleClose} show={isOpen} centered size="md">
-      <Modal.Header closeButton>
+    <GlobalModal onHide={handleClose} show={isOpen} centered size="md">
+      <GlobalModal.Header closeButton>
         <h6>
           {showEditModal ? t("community.editTitle") : t("community.title")}
         </h6>
-      </Modal.Header>
-      <Modal.Body>
+      </GlobalModal.Header>
+      <GlobalModal.Body>
         <form className="form_ui" onSubmit={handleSubmit(onSubmit)}>
           <div className="row">
             <div className="col-12 p-2">
@@ -137,7 +135,7 @@ export default function AnswerModal({
             </div>
           </div>
         </form>
-      </Modal.Body>
-    </Modal>
+      </GlobalModal.Body>
+    </GlobalModal>
   );
 }

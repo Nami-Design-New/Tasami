@@ -1,7 +1,6 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
-import { Modal } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { toast } from "sonner";
@@ -11,6 +10,7 @@ import useGetMyGroups from "../../../../hooks/website/my-groups/useGetMyGroups";
 import CustomButton from "../../../CustomButton";
 import SelectField from "../../../forms/SelectField";
 import AddGroupModal from "../groups/AddGroupModal";
+import GlobalModal from "../../../GlobalModal";
 
 export default function AcceptModal({ workId, showModal, setShowModal }) {
   const { t } = useTranslation();
@@ -47,7 +47,7 @@ export default function AcceptModal({ workId, showModal, setShowModal }) {
   };
   return (
     <>
-      <Modal
+      <GlobalModal
         show={showModal}
         onHide={() => {
           setShowModal(false);
@@ -56,11 +56,11 @@ export default function AcceptModal({ workId, showModal, setShowModal }) {
         centered
         size="md"
       >
-        <Modal.Header closeButton>
+        <GlobalModal.Header closeButton>
           {" "}
           <h6>{t("select_group")}</h6>
-        </Modal.Header>
-        <Modal.Body>
+        </GlobalModal.Header>
+        <GlobalModal.Body>
           <form onSubmit={handleSubmit(onSubmit)} className="form_ui">
             <div className="row">
               <div className="col-12 p-2">
@@ -97,8 +97,8 @@ export default function AcceptModal({ workId, showModal, setShowModal }) {
               </div>
             </div>
           </form>{" "}
-        </Modal.Body>
-      </Modal>{" "}
+        </GlobalModal.Body>
+      </GlobalModal>{" "}
       <AddGroupModal
         setShowModal={setShowAddGroupModal}
         showModal={showAddGroupModal}

@@ -1,5 +1,4 @@
 import { useEffect } from "react";
-import { Modal } from "react-bootstrap";
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
@@ -10,6 +9,7 @@ import useRateContract from "../../../hooks/website/MyWorks/useRateContract";
 import { toast } from "sonner";
 import { useQueryClient } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
+import GlobalModal from "../../GlobalModal";
 
 export default function ContractRateModal({
   showModal,
@@ -97,17 +97,17 @@ export default function ContractRateModal({
   };
 
   return (
-    <Modal
+    <GlobalModal
       show={showModal}
       onHide={() => setShowModal(false)}
       centered
       size="md"
     >
-      <Modal.Header closeButton>
+      <GlobalModal.Header closeButton>
         <h6>{t("rate_title")}</h6>{" "}
-      </Modal.Header>
+      </GlobalModal.Header>
 
-      <Modal.Body>
+      <GlobalModal.Body>
         <form onSubmit={handleSubmit(onSubmit)} className="form_ui">
           <div className="row">
             {/* Experience and Knowledge */}
@@ -263,7 +263,7 @@ export default function ContractRateModal({
             )}
           </div>
         </form>
-      </Modal.Body>
-    </Modal>
+      </GlobalModal.Body>
+    </GlobalModal>
   );
 }

@@ -1,7 +1,7 @@
-import { Modal } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
 import useGetWithdrawRequestDetails from "../../hooks/dashboard/withdrawRequests/useGetWithdrawRequestDetails";
 import SpinnerLoader from "../loading/SpinnerLoader";
+import GlobalModal from "../GlobalModal";
 
 export default function WithdrawDetailsModal({ show, setShow, request }) {
   const { t } = useTranslation();
@@ -9,12 +9,12 @@ export default function WithdrawDetailsModal({ show, setShow, request }) {
     useGetWithdrawRequestDetails(request);
 
   return (
-    <Modal centered show={show} onHide={() => setShow(false)}>
-      <Modal.Header closeButton>
+    <GlobalModal centered show={show} onHide={() => setShow(false)}>
+      <GlobalModal.Header closeButton>
         <h6 className="m-0">{t("withdraw.details")}</h6>
-      </Modal.Header>
+      </GlobalModal.Header>
 
-      <Modal.Body className="p-3">
+      <GlobalModal.Body className="p-3">
         {isLoading ? (
           <SpinnerLoader />
         ) : (
@@ -106,7 +106,7 @@ export default function WithdrawDetailsModal({ show, setShow, request }) {
             )}
           </>
         )}
-      </Modal.Body>
-    </Modal>
+      </GlobalModal.Body>
+    </GlobalModal>
   );
 }

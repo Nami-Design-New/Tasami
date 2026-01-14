@@ -1,6 +1,5 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useEffect } from "react";
-import { Modal } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import useEditRegion from "../../../hooks/dashboard/regions/useEditRegion";
 import { SUPPORTED_LANGS } from "../../../lib/multilang/config";
@@ -14,6 +13,7 @@ import {
 } from "../../../routes/dash-board/list-management/shared-schema";
 import CustomButton from "../../CustomButton";
 import InputField from "../../forms/InputField";
+import GlobalModal from "../../GlobalModal";
 
 export default function EditRegionModal({
   showModal,
@@ -39,7 +39,6 @@ export default function EditRegionModal({
   }, [selectedRegion, regionForm]);
 
   const onSubmit = (data) => {
-
     const payload = {
       _method: "put",
       code: data?.regionNumber,
@@ -62,7 +61,7 @@ export default function EditRegionModal({
   };
 
   return (
-    <Modal
+    <GlobalModal
       show={showModal}
       size="md"
       centered
@@ -70,11 +69,11 @@ export default function EditRegionModal({
         setShowModal(false);
       }}
     >
-      <Modal.Header closeButton>
+      <GlobalModal.Header closeButton>
         {" "}
         <h6> {t("dashboard.operatingRegions.editRegion")} </h6>{" "}
-      </Modal.Header>
-      <Modal.Body>
+      </GlobalModal.Header>
+      <GlobalModal.Body>
         <form className="form_ui" onSubmit={regionForm.handleSubmit(onSubmit)}>
           <div className="row">
             {SUPPORTED_LANGS.map((lang) => (
@@ -106,7 +105,7 @@ export default function EditRegionModal({
             </div>
           </div>
         </form>
-      </Modal.Body>
-    </Modal>
+      </GlobalModal.Body>
+    </GlobalModal>
   );
 }

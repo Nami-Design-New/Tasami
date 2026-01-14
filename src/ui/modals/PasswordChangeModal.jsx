@@ -1,4 +1,3 @@
-import { Modal } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
 import InputField from "../forms/InputField";
 import CustomButton from "../CustomButton";
@@ -8,6 +7,7 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { toast } from "sonner";
+import GlobalModal from "../GlobalModal";
 
 const PasswordChangeModal = ({ showModal, setShowModal }) => {
   const { t } = useTranslation();
@@ -57,17 +57,17 @@ const PasswordChangeModal = ({ showModal, setShowModal }) => {
   };
 
   return (
-    <Modal
+    <GlobalModal
       show={showModal}
       onHide={() => setShowModal(false)}
       size="md"
       centered
     >
-      <Modal.Header closeButton>
+      <GlobalModal.Header closeButton>
         <h6>{t("dashboard.employeeProfile.passwordChange.title")}</h6>
-      </Modal.Header>
+      </GlobalModal.Header>
 
-      <Modal.Body>
+      <GlobalModal.Body>
         <form className="form_ui" onSubmit={handleSubmit(onSubmit)}>
           <div className="row">
             <div className="col-12 p-2">
@@ -115,8 +115,8 @@ const PasswordChangeModal = ({ showModal, setShowModal }) => {
             </div>
           </div>
         </form>
-      </Modal.Body>
-    </Modal>
+      </GlobalModal.Body>
+    </GlobalModal>
   );
 };
 

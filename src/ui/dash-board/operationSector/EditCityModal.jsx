@@ -1,6 +1,5 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useEffect } from "react";
-import { Modal } from "react-bootstrap";
 import { Controller, useForm } from "react-hook-form";
 import { SUPPORTED_LANGS } from "../../../lib/multilang/config";
 
@@ -16,6 +15,7 @@ import {
 import CustomButton from "../../CustomButton";
 import InputField from "../../forms/InputField";
 import SelectFieldReactSelect from "../../forms/SelectFieldReactSelect";
+import GlobalModal from "../../GlobalModal";
 
 export default function EditCityModal({
   showModal,
@@ -73,7 +73,7 @@ export default function EditCityModal({
   };
 
   return (
-    <Modal
+    <GlobalModal
       show={showModal}
       size="lg"
       centered
@@ -81,10 +81,10 @@ export default function EditCityModal({
         setShowModal(false);
       }}
     >
-      <Modal.Header closeButton>
+      <GlobalModal.Header closeButton>
         <h6> {t("dashboard.operatingRegions.editCity")} </h6>
-      </Modal.Header>
-      <Modal.Body>
+      </GlobalModal.Header>
+      <GlobalModal.Body>
         <form className="form_ui" onSubmit={cityForm.handleSubmit(onSubmit)}>
           <div className="row">
             <div className="col-12 col-md-6 p-2">
@@ -140,7 +140,7 @@ export default function EditCityModal({
             </div>
           </div>
         </form>
-      </Modal.Body>
-    </Modal>
+      </GlobalModal.Body>
+    </GlobalModal>
   );
 }

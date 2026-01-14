@@ -1,6 +1,5 @@
 import { useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
-import { Modal } from "react-bootstrap";
 import { Controller } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { toast } from "sonner";
@@ -17,6 +16,7 @@ import useGetTaskSystem from "../../../hooks/dashboard/tasks/useGetTaskSystem";
 import usePostAddTask from "../../../hooks/dashboard/tasks/usePostAddTask";
 import AlertModal from "../../../ui/website/platform/my-community/AlertModal";
 import { PAGE_SIZE } from "../../../utils/constants";
+import GlobalModal from "../../../ui/GlobalModal";
 
 const AddNewTask = ({ showModal, setShowModal, title }) => {
   const { t } = useTranslation();
@@ -100,7 +100,7 @@ const AddNewTask = ({ showModal, setShowModal, title }) => {
 
   return (
     <>
-      <Modal
+      <GlobalModal
         size="lg"
         centered
         show={showModal}
@@ -108,11 +108,11 @@ const AddNewTask = ({ showModal, setShowModal, title }) => {
         backdrop="static"
         keyboard={false}
       >
-        <Modal.Header closeButton>
+        <GlobalModal.Header closeButton>
           <h6>{title}</h6>
-        </Modal.Header>
+        </GlobalModal.Header>
 
-        <Modal.Body>
+        <GlobalModal.Body>
           <form onSubmit={handleSubmit(onSubmit)} className="form_ui">
             <div className="row">
               {/* Employee */}
@@ -223,8 +223,8 @@ const AddNewTask = ({ showModal, setShowModal, title }) => {
               </CustomButton>
             </div>
           </form>
-        </Modal.Body>
-      </Modal>
+        </GlobalModal.Body>
+      </GlobalModal>
 
       {/* CONFIRM MODAL */}
       <AlertModal

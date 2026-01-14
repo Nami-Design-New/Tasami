@@ -1,6 +1,5 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useEffect, useState } from "react";
-import { Modal } from "react-bootstrap";
 import { Controller, useForm } from "react-hook-form";
 import { SUPPORTED_LANGS } from "../../../lib/multilang/config";
 
@@ -17,6 +16,7 @@ import CustomButton from "../../CustomButton";
 import InputField from "../../forms/InputField";
 import SelectFieldReactSelect from "../../forms/SelectFieldReactSelect";
 import FileUploader from "../../forms/FileUPloader";
+import GlobalModal from "../../GlobalModal";
 
 export default function EditCountryModal({
   showModal,
@@ -93,7 +93,7 @@ export default function EditCountryModal({
     setFiles(updatedFiles);
   };
   return (
-    <Modal
+    <GlobalModal
       show={showModal}
       size="lg"
       centered
@@ -101,10 +101,10 @@ export default function EditCountryModal({
         setShowModal(false);
       }}
     >
-      <Modal.Header closeButton>
+      <GlobalModal.Header closeButton>
         <h6> {t("dashboard.operatingRegions.editCountry")} </h6>
-      </Modal.Header>
-      <Modal.Body>
+      </GlobalModal.Header>
+      <GlobalModal.Body>
         <form className="form_ui" onSubmit={countryForm.handleSubmit(onSubmit)}>
           <div className="row">
             <div className="col-12 col-md-6 p-2">
@@ -179,7 +179,7 @@ export default function EditCountryModal({
             </div>
           </div>
         </form>
-      </Modal.Body>
-    </Modal>
+      </GlobalModal.Body>
+    </GlobalModal>
   );
 }

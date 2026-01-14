@@ -1,7 +1,6 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
-import { Modal } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { toast } from "sonner";
@@ -13,6 +12,7 @@ import SelectField from "../../ui/forms/SelectField";
 import TextField from "../../ui/forms/TextField";
 import CustomButton from "../CustomButton";
 import AddGroupModal from "../website/platform/groups/AddGroupModal";
+import GlobalModal from "../GlobalModal";
 
 const HelpModal = ({ showModal, setShowModal, goal }) => {
   const { t } = useTranslation();
@@ -65,7 +65,7 @@ const HelpModal = ({ showModal, setShowModal, goal }) => {
 
   return (
     <>
-      <Modal
+      <GlobalModal
         show={showModal}
         size="lg"
         onHide={() => {
@@ -74,13 +74,13 @@ const HelpModal = ({ showModal, setShowModal, goal }) => {
         }}
         centered
       >
-        <Modal.Header closeButton className="m-2">
+        <GlobalModal.Header closeButton className="m-2">
           <h6 className="fw-bold">
             {t("website.offerDetails.submitHelpOffer")}
           </h6>
-        </Modal.Header>
+        </GlobalModal.Header>
 
-        <Modal.Body>
+        <GlobalModal.Body>
           <form onSubmit={handleSubmit(onSubmit)} className="form_ui">
             <div className="row">
               <div className="col-12 col-lg-6 p-2">
@@ -145,8 +145,8 @@ const HelpModal = ({ showModal, setShowModal, goal }) => {
               </CustomButton>
             </div>
           </form>
-        </Modal.Body>
-      </Modal>
+        </GlobalModal.Body>
+      </GlobalModal>
 
       {/* Add group modal */}
       <AddGroupModal

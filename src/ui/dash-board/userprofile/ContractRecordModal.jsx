@@ -1,6 +1,5 @@
 import { createColumnHelper } from "@tanstack/react-table";
 import { useMemo, useState } from "react";
-import { Modal } from "react-bootstrap";
 import { Link } from "react-router";
 import ReusableDataTable from "../../table/ReusableDataTable";
 import CustomButton from "../../CustomButton";
@@ -9,6 +8,7 @@ import { toast } from "sonner";
 import useUpdateUserContract from "../../../hooks/dashboard/subscription/useUpdateUserContract";
 import { useQueryClient } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
+import GlobalModal from "../../GlobalModal";
 
 const columnHelper = createColumnHelper();
 
@@ -128,7 +128,7 @@ const ContractRecordModal = ({
   );
   return (
     <>
-      <Modal
+      <GlobalModal
         show={showModal}
         size="xl"
         onHide={() => {
@@ -139,10 +139,10 @@ const ContractRecordModal = ({
         centered
         className="working-group-modal"
       >
-        <Modal.Header closeButton>
+        <GlobalModal.Header closeButton>
           <h6>{title}</h6>
-        </Modal.Header>
-        <Modal.Body>
+        </GlobalModal.Header>
+        <GlobalModal.Body>
           <ReusableDataTable
             data={data}
             columns={columns}
@@ -168,8 +168,8 @@ const ContractRecordModal = ({
               isLoading={isLoading}
             />
           </ReusableDataTable>
-        </Modal.Body>
-      </Modal>
+        </GlobalModal.Body>
+      </GlobalModal>
       {/* <ConfirmDeleteModal
         showDeleteModal={showDeleteModal}
         setShowDeleteModal={setShowDeleteModal}

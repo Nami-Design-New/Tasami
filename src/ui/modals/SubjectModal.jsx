@@ -1,4 +1,3 @@
-import { Modal } from "react-bootstrap";
 import CustomButton from "../CustomButton";
 import InputField from "../forms/InputField";
 import SelectField from "../forms/SelectField";
@@ -13,6 +12,7 @@ import useEditSubject from "../../hooks/dashboard/administrativeSystems/useEditS
 import { useQueryClient } from "@tanstack/react-query";
 import { useEffect } from "react";
 import { toast } from "sonner";
+import GlobalModal from "../GlobalModal";
 
 const SubjectModal = ({
   showModal,
@@ -94,7 +94,6 @@ const SubjectModal = ({
 
   // ---------------------- SUBMIT HANDLER ------------------------
   const onSubmit = (formData) => {
-
     const payload = {
       type: formData.system,
       code: formData.code,
@@ -143,22 +142,22 @@ const SubjectModal = ({
   };
 
   return (
-    <Modal
+    <GlobalModal
       show={showModal}
       size="lg"
       onHide={handleClose}
       aria-labelledby="subject add / edit Modal"
       centered
     >
-      <Modal.Header closeButton>
+      <GlobalModal.Header closeButton>
         <h6>
           {isEdit
             ? t("dashboard.subjectModal.editTitle")
             : t("dashboard.subjectModal.newTitle")}
         </h6>
-      </Modal.Header>
+      </GlobalModal.Header>
 
-      <Modal.Body>
+      <GlobalModal.Body>
         <form className="form_ui" onSubmit={handleSubmit(onSubmit)}>
           <div className="row">
             {/* System Selection */}
@@ -213,8 +212,8 @@ const SubjectModal = ({
             </div>
           </div>
         </form>
-      </Modal.Body>
-    </Modal>
+      </GlobalModal.Body>
+    </GlobalModal>
   );
 };
 

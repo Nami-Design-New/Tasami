@@ -1,7 +1,6 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
-import { Modal } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { toast } from "sonner";
@@ -10,6 +9,7 @@ import CustomButton from "../CustomButton";
 import FileUploader from "../forms/FileUPloader";
 import TextField from "../forms/TextField";
 import * as yup from "yup";
+import GlobalModal from "../GlobalModal";
 
 export default function WithdrawActionModal({
   show,
@@ -82,16 +82,16 @@ export default function WithdrawActionModal({
     reset();
   };
   return (
-    <Modal show={show} onHide={handleClose} centered>
-      <Modal.Header closeButton>
+    <GlobalModal show={show} onHide={handleClose} centered>
+      <GlobalModal.Header closeButton>
         <h6>
           {isReject
             ? t("withdraw.reject_request")
             : t("withdraw.accept_request")}
         </h6>
-      </Modal.Header>
+      </GlobalModal.Header>
 
-      <Modal.Body>
+      <GlobalModal.Body>
         <form onSubmit={handleSubmit(onSubmit)} className="form_ui">
           <div className="row">
             {/* FILE */}
@@ -124,7 +124,7 @@ export default function WithdrawActionModal({
             </div>
           </div>
         </form>
-      </Modal.Body>
-    </Modal>
+      </GlobalModal.Body>
+    </GlobalModal>
   );
 }

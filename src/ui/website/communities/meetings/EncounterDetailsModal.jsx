@@ -68,14 +68,14 @@ export default function EncounterDetailsModal({
   );
   const isPast = meetingDate < new Date();
   return (
-    <Modal
+    <GlobalModal
       show={show}
       size="lg"
       onHide={() => setShow(false)}
       centered
       className="encounter-modal"
     >
-      <Modal.Header closeButton className="m-2">
+      <GlobalModal.Header closeButton className="m-2">
         <h6 className="fw-bold flex-grow-1 ">{meetingData?.title}</h6>{" "}
         {!isDashboard && isMyCommuntiy && (
           <>
@@ -100,9 +100,9 @@ export default function EncounterDetailsModal({
             </button>
           </>
         )}
-      </Modal.Header>
+      </GlobalModal.Header>
 
-      <Modal.Body>
+      <GlobalModal.Body>
         {isLoadingData ? (
           <div
             className="d-flex justify-content-center align-items-center"
@@ -178,7 +178,7 @@ export default function EncounterDetailsModal({
             {t("meetingDeleteAlert")}
           </AlertModal>
         )}
-      </Modal.Body>
-    </Modal>
+      </GlobalModal.Body>
+    </GlobalModal>
   );
 }

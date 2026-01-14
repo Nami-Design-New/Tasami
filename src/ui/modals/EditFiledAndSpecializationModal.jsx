@@ -1,4 +1,3 @@
-import { Modal } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
 import * as yup from "yup";
 import { SUPPORTED_LANGS } from "../../lib/multilang/config";
@@ -12,6 +11,7 @@ import { useEffect } from "react";
 import { toast } from "sonner";
 import { useQueryClient } from "@tanstack/react-query";
 import useEditSpecialization from "../../hooks/dashboard/FiledsAndSpecialations/useEditSpecialization";
+import GlobalModal from "../GlobalModal";
 
 export default function EditFiledAndSpecializationModal({
   showModal,
@@ -88,7 +88,6 @@ export default function EditFiledAndSpecializationModal({
 
   // ----------------- Submit Handler -----------------
   const onSubmit = (formData) => {
-
     const payload = {
       _method: "put",
       category_id: formData.existingField,
@@ -114,7 +113,7 @@ export default function EditFiledAndSpecializationModal({
   };
 
   return (
-    <Modal
+    <GlobalModal
       show={showModal}
       size="lg"
       onHide={() => {
@@ -125,10 +124,10 @@ export default function EditFiledAndSpecializationModal({
       centered
     >
       {" "}
-      <Modal.Header closeButton>
+      <GlobalModal.Header closeButton>
         <h6>{t("dashboard.fieldsAndSpecialization.editModalTitle")}</h6>
-      </Modal.Header>
-      <Modal.Body>
+      </GlobalModal.Header>
+      <GlobalModal.Body>
         <form className="form_ui" onSubmit={handleSubmit(onSubmit)}>
           <div className="row">
             <div className="col-12 col-md-12 p-2">
@@ -169,7 +168,7 @@ export default function EditFiledAndSpecializationModal({
             </CustomButton>
           </div>
         </form>
-      </Modal.Body>
-    </Modal>
+      </GlobalModal.Body>
+    </GlobalModal>
   );
 }

@@ -1,6 +1,5 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useQueryClient } from "@tanstack/react-query";
-import { Modal } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { useParams } from "react-router";
@@ -10,6 +9,7 @@ import useChangeGroup from "../../../../hooks/website/contracts/useChangeGroup";
 import useGetMyGroups from "../../../../hooks/website/my-groups/useGetMyGroups";
 import CustomButton from "../../../CustomButton";
 import SelectField from "../../../forms/SelectField";
+import GlobalModal from "../../../GlobalModal";
 
 export default function ChangeGroupModal({ showModal, setShowModal }) {
   const { t } = useTranslation();
@@ -44,18 +44,18 @@ export default function ChangeGroupModal({ showModal, setShowModal }) {
     });
   };
   return (
-    <Modal
+    <GlobalModal
       show={showModal}
       onHide={() => setShowModal(false)}
       centered
       size="md"
     >
-      <Modal.Header closeButton>
-        <Modal.Title>
+      <GlobalModal.Header closeButton>
+        <GlobalModal.Title>
           <h6>{t("changeGroup")}</h6>
-        </Modal.Title>
-      </Modal.Header>
-      <Modal.Body>
+        </GlobalModal.Title>
+      </GlobalModal.Header>
+      <GlobalModal.Body>
         <form onSubmit={handleSubmit(onSubmit)} className="form_ui">
           <div className="row">
             <div className="col-12 p-2">
@@ -78,7 +78,7 @@ export default function ChangeGroupModal({ showModal, setShowModal }) {
             </div>
           </div>
         </form>
-      </Modal.Body>
-    </Modal>
+      </GlobalModal.Body>
+    </GlobalModal>
   );
 }

@@ -1,24 +1,24 @@
-import { Modal } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
 import CustomButton from "../../CustomButton";
 import { useNavigate } from "react-router";
+import GlobalModal from "../../GlobalModal";
 
 export default function PlatformModal({ showModal, setShowModal }) {
   const { t } = useTranslation();
   const navigate = useNavigate();
 
   return (
-    <Modal
+    <GlobalModal
       centered
       size="md"
       show={showModal}
       onHide={() => setShowModal(false)}
     >
-      <Modal.Header closeButton className="platform-modal-header">
+      <GlobalModal.Header closeButton className="platform-modal-header">
         <h6> {t("website.platform.header")}</h6>
-      </Modal.Header>
+      </GlobalModal.Header>
 
-      <Modal.Body className="platform-modal-body">
+      <GlobalModal.Body className="platform-modal-body">
         <h1 className="platform-modal-heading">
           {t("website.platform.title")}
         </h1>
@@ -42,7 +42,7 @@ export default function PlatformModal({ showModal, setShowModal }) {
         >
           {t("website.platform.button")}
         </CustomButton>
-      </Modal.Body>
-    </Modal>
+      </GlobalModal.Body>
+    </GlobalModal>
   );
 }

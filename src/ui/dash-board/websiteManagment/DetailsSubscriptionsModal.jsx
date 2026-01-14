@@ -1,8 +1,8 @@
-import { Modal } from "react-bootstrap";
 import Currency from "../../Currency";
 import useGetPackage from "../../../hooks/dashboard/website-managment/packages/useGetPackage";
 import SpinnerLoader from "../../loading/SpinnerLoader";
 import { useTranslation } from "react-i18next";
+import GlobalModal from "../../GlobalModal";
 
 export default function DetailsSubscriptionsModal({
   showModal,
@@ -15,18 +15,18 @@ export default function DetailsSubscriptionsModal({
   const handleClose = () => setShowModal(false);
 
   return (
-    <Modal centered size="lg" show={showModal} onHide={handleClose}>
+    <GlobalModal centered size="lg" show={showModal} onHide={handleClose}>
       {isLoading ? (
         <SpinnerLoader />
       ) : (
         <>
-          <Modal.Header closeButton>
+          <GlobalModal.Header closeButton>
             <h6>
               {packageData?.title || t("dashboard.subscriptions.no_data")}
             </h6>
-          </Modal.Header>
+          </GlobalModal.Header>
 
-          <Modal.Body>
+          <GlobalModal.Body>
             <div className="subscriptions-details">
               <div className="row">
                 {/* Header */}
@@ -106,9 +106,9 @@ export default function DetailsSubscriptionsModal({
                 )}
               </div>
             </div>
-          </Modal.Body>
+          </GlobalModal.Body>
         </>
       )}
-    </Modal>
+    </GlobalModal>
   );
 }
