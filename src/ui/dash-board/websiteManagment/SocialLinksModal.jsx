@@ -1,15 +1,15 @@
-import CustomButton from "../../CustomButton";
-import InputField from "../../forms/InputField";
-import { useCallback, useEffect, useState } from "react";
-import * as yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
 import { useQueryClient } from "@tanstack/react-query";
+import { useCallback, useEffect, useState } from "react";
+import { useDropzone } from "react-dropzone";
+import { useForm } from "react-hook-form";
+import { useTranslation } from "react-i18next";
+import { toast } from "sonner";
+import * as yup from "yup";
 import usePostSocialLink from "../../../hooks/dashboard/websiteManagment/socialLinksManage/usePostSocialLink";
 import useUpdateSocialLink from "../../../hooks/dashboard/websiteManagment/socialLinksManage/useUpdateSocialLink";
-import { yupResolver } from "@hookform/resolvers/yup";
-import { useForm } from "react-hook-form";
-import { toast } from "sonner";
-import { useDropzone } from "react-dropzone";
-import { useTranslation } from "react-i18next";
+import CustomButton from "../../CustomButton";
+import InputField from "../../forms/InputField";
 import GlobalModal from "../../GlobalModal";
 
 export default function SocialLinksModal({

@@ -1,6 +1,6 @@
-import Modal from "react-bootstrap/Modal";
-import CustomButton from "../CustomButton";
 import { useTranslation } from "react-i18next";
+import CustomButton from "../CustomButton";
+import GlobalModal from "../GlobalModal";
 
 const ConfirmDeleteModal = ({
   showDeleteModal,

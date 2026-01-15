@@ -3,7 +3,9 @@ import { useTranslation } from "react-i18next";
 import { toast } from "sonner";
 import useGetcategories from "../../../../hooks/area-of-interests/useGetcategories";
 import useAddMeeting from "../../../../hooks/website/communities/mettings/useAddMeeting";
-import useAddMeetingForm from "../../../../validations/meetings/add-meeting";
+import useAddMeetingForm, {
+  ADD_MEETING_DEFAULT_VALUES,
+} from "../../../../validations/meetings/add-meeting";
 import CustomButton from "../../../CustomButton";
 import InputField from "../../../forms/InputField";
 import SelectField from "../../../forms/SelectField";
@@ -11,6 +13,8 @@ import TextField from "../../../forms/TextField";
 import { useEffect } from "react";
 import useEditMeeting from "../../../../hooks/website/communities/mettings/useEditMeeting";
 import GlobalModal from "../../../GlobalModal";
+import useFormCloseHandler from "../../../../hooks/shared/useFormCloseHandler";
+import AlertModal from "../../platform/my-community/AlertModal";
 
 export default function AddMeetingModal({
   showModal,
@@ -32,7 +36,13 @@ export default function AddMeetingModal({
 
     formState: { errors },
   } = useAddMeetingForm();
-
+  const { showAlertModal, requestClose, confirmClose, cancelClose } =
+    useFormCloseHandler({
+      watch,
+      reset,
+      defaultValues: ADD_MEETING_DEFAULT_VALUES,
+      onClose: () => setShowModal(false),
+    });
   const selectedFieldId = watch("field");
   const selectedMeetingType = watch("meetingType");
 
@@ -107,143 +117,161 @@ export default function AddMeetingModal({
   const isSubmitting = isEdit ? isEditing : isPending;
 
   return (
-    <GlobalModal
-      show={showModal}
-      onHide={() => {
-        setShowModal(false);
-        reset();
-      }}
-      centered
-      size="lg"
-    >
-      <GlobalModal.Header closeButton>
-        <h6>{t(isEdit ? "community.editMeeting" : "community.addMeeting")}</h6>
-      </GlobalModal.Header>
+    <>
+      <GlobalModal show={showModal} onHide={requestClose} centered size="lg">
+        <GlobalModal.Header closeButton>
+          <h6>
+            {t(isEdit ? "community.editMeeting" : "community.addMeeting")}
+          </h6>
+        </GlobalModal.Header>
 
-      <GlobalModal.Body>
-        <form className="form_ui" onSubmit={handleSubmit(onSubmit)}>
-          <div className="row">
-            {/* Field */}
-            <div className="col-12 col-md-6 p-2">
-              <SelectField
-                loading={isLoading}
-                label={t("community.field")}
-                {...register("field")}
-                options={categories?.map((category) => ({
-                  value: category?.id,
-                  name: category?.title,
-                }))}
-                error={errors.field?.message}
-              />
-            </div>
-
-            {/* Specialization */}
-            <div className="col-12 col-md-6 p-2">
-              <SelectField
-                label={t("community.specialization")}
-                {...register("specialization")}
-                options={subCategories.map((sub) => ({
-                  value: sub.id,
-                  name: sub.title,
-                }))}
-                error={errors.specialization?.message}
-              />
-            </div>
-
-            <div className="col-12 p-2">
-              <InputField
-                label={t("community.meetingTitle")}
-                placeholder={t("community.meetingTitlePlaceholder")}
-                {...register("title")}
-                error={errors.title?.message}
-              />
-            </div>
-
-            <div className="col-12 p-2">
-              <TextField
-                label={t("community.description")}
-                placeholder={t("community.descriptionPlaceholder")}
-                {...register("description")}
-                error={errors.description?.message}
-              />
-            </div>
-
-            <div className="col-12 col-md-6 p-2">
-              <InputField
-                type="date"
-                label={t("community.date")}
-                placeholder={t("community.datePlaceholder")}
-                {...register("date")}
-                error={errors.date?.message}
-              />
-            </div>
-
-            <div className="col-12 col-md-3 p-2">
-              <InputField
-                label={t("community.time")}
-                placeholder={t("community.timePlaceholder")}
-                {...register("time")}
-                error={errors.time?.message}
-                type="time"
-              />
-            </div>
-
-            <div className="col-12 col-md-3 p-2">
-              <InputField
-                label={t("community.duration")}
-                placeholder={t("community.durationPlaceholder")}
-                {...register("duration")}
-                error={errors.duration?.message}
-                defaultValue="00:00" // optional default
-                step="60"
-              />
-            </div>
-
-            <div className="col-12 col-md-6 p-2">
-              <InputField
-                label={t("community.link")}
-                placeholder={t("community.linkPlaceholder")}
-                {...register("link")}
-                error={errors.title?.message}
-              />
-            </div>
-
-            <div className="col-12 col-md-6 p-2">
-              <p className="label">{t("community.visibility")}</p>
-              <div className="identity-container">
-                <label
-                  className={`identity-option ${
-                    selectedMeetingType === "0" ? "active" : ""
-                  }`}
-                >
-                  <input type="radio" value="0" {...register("meetingType")} />
-                  <span>{t("membersOnly")}</span>
-                </label>
-
-                <label
-                  className={`identity-option ${
-                    selectedMeetingType === "1" ? "active" : ""
-                  }`}
-                >
-                  <input type="radio" value="1" {...register("meetingType")} />
-                  <span>{t("public")}</span>
-                </label>
+        <GlobalModal.Body>
+          <form className="form_ui" onSubmit={handleSubmit(onSubmit)}>
+            <div className="row">
+              {/* Field */}
+              <div className="col-12 col-md-6 p-2">
+                <SelectField
+                  loading={isLoading}
+                  label={t("community.field")}
+                  {...register("field")}
+                  options={categories?.map((category) => ({
+                    value: category?.id,
+                    name: category?.title,
+                  }))}
+                  error={errors.field?.message}
+                />
               </div>
-              {errors && (
-                <p className="error-text">{errors.meetingType?.message}</p>
-              )}
-            </div>
 
-            <div className="col-12 p-2">
-              <div className="buttons justify-content-end">
-                <CustomButton loading={isSubmitting} type="submit" size="large">
-                  {t(isEdit ? "edit" : "add")}
-                </CustomButton>
+              {/* Specialization */}
+              <div className="col-12 col-md-6 p-2">
+                <SelectField
+                  label={t("community.specialization")}
+                  {...register("specialization")}
+                  options={subCategories.map((sub) => ({
+                    value: sub.id,
+                    name: sub.title,
+                  }))}
+                  error={errors.specialization?.message}
+                />
+              </div>
+
+              <div className="col-12 p-2">
+                <InputField
+                  label={t("community.meetingTitle")}
+                  placeholder={t("community.meetingTitlePlaceholder")}
+                  {...register("title")}
+                  error={errors.title?.message}
+                />
+              </div>
+
+              <div className="col-12 p-2">
+                <TextField
+                  label={t("community.description")}
+                  placeholder={t("community.descriptionPlaceholder")}
+                  {...register("description")}
+                  error={errors.description?.message}
+                />
+              </div>
+
+              <div className="col-12 col-md-6 p-2">
+                <InputField
+                  type="date"
+                  label={t("community.date")}
+                  placeholder={t("community.datePlaceholder")}
+                  {...register("date")}
+                  error={errors.date?.message}
+                />
+              </div>
+
+              <div className="col-12 col-md-3 p-2">
+                <InputField
+                  label={t("community.time")}
+                  placeholder={t("community.timePlaceholder")}
+                  {...register("time")}
+                  error={errors.time?.message}
+                  type="time"
+                />
+              </div>
+
+              <div className="col-12 col-md-3 p-2">
+                <InputField
+                  label={t("community.duration")}
+                  placeholder={t("community.durationPlaceholder")}
+                  {...register("duration")}
+                  error={errors.duration?.message}
+                  defaultValue="00:00" // optional default
+                  step="60"
+                />
+              </div>
+
+              <div className="col-12 col-md-6 p-2">
+                <InputField
+                  label={t("community.link")}
+                  placeholder={t("community.linkPlaceholder")}
+                  {...register("link")}
+                  error={errors.title?.message}
+                />
+              </div>
+
+              <div className="col-12 col-md-6 p-2">
+                <p className="label">{t("community.visibility")}</p>
+                <div className="identity-container">
+                  <label
+                    className={`identity-option ${
+                      selectedMeetingType === "0" ? "active" : ""
+                    }`}
+                  >
+                    <input
+                      type="radio"
+                      value="0"
+                      {...register("meetingType")}
+                    />
+                    <span>{t("membersOnly")}</span>
+                  </label>
+
+                  <label
+                    className={`identity-option ${
+                      selectedMeetingType === "1" ? "active" : ""
+                    }`}
+                  >
+                    <input
+                      type="radio"
+                      value="1"
+                      {...register("meetingType")}
+                    />
+                    <span>{t("public")}</span>
+                  </label>
+                </div>
+                {errors && (
+                  <p className="error-text">{errors.meetingType?.message}</p>
+                )}
+              </div>
+
+              <div className="col-12 p-2">
+                <div className="buttons justify-content-end">
+                  <CustomButton
+                    loading={isSubmitting}
+                    type="submit"
+                    size="large"
+                  >
+                    {t(isEdit ? "edit" : "add")}
+                  </CustomButton>
+                </div>
               </div>
             </div>
-          </div>
-        </form>
-      </GlobalModal.Body>
-    </GlobalModal>
+          </form>
+        </GlobalModal.Body>
+      </GlobalModal>
+      {showAlertModal && (
+        <AlertModal
+          showModal={showAlertModal}
+          setShowModal={cancelClose}
+          onConfirm={confirmClose}
+          confirmButtonText={t("auth.continue")}
+        >
+          {t("confirmDeleteAlert")}
+        </AlertModal>
+      )}
+    </>
   );
 }

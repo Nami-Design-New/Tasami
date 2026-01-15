@@ -1,19 +1,20 @@
 import { DevTool } from "@hookform/devtools";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useEffect, useState } from "react";
-import { Form, Modal } from "react-bootstrap";
+import { Form } from "react-bootstrap";
 import { Controller, useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import * as yup from "yup";
 
+import { useQueryClient } from "@tanstack/react-query";
+import { toast } from "sonner";
+import useSuspendEmployee from "../../hooks/dashboard/employee/useSuspendEmployee";
+import useSuspendUser from "../../hooks/dashboard/subscription/useSuspendUser";
 import CustomButton from "../CustomButton";
 import FileUploader from "../forms/FileUPloader";
 import InputField from "../forms/InputField";
 import TextField from "../forms/TextField";
-import useSuspendEmployee from "../../hooks/dashboard/employee/useSuspendEmployee";
-import { toast } from "sonner";
-import useSuspendUser from "../../hooks/dashboard/subscription/useSuspendUser";
-import { useQueryClient } from "@tanstack/react-query";
+import GlobalModal from "../GlobalModal";
 
 const SuspensionModel = ({ showModal, setShowModal, id, isUser = false }) => {
   const { t } = useTranslation();

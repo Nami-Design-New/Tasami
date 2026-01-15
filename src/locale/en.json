@@ -674,7 +674,8 @@
     "descriptionMin": "Description must be at least 15 characters",
     "descriptionMax": "Description cannot exceed 500 characters",
     "futureDateNotAllowed": "Birth date cannot be in the future",
-    "after_or_equal_today": "Date must be today or later"
+    "after_or_equal_today": "Date must be today or later",
+    "invalidUrl": "The URL is invalid"
   },
   "pageNotFound": {
     "alt": "404 Not Found",

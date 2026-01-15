@@ -2,6 +2,17 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import * as yup from "yup";
+export const ADD_MEETING_DEFAULT_VALUES = {
+  field: "",
+  specialization: "",
+  title: "",
+  description: "",
+  date: "",
+  time: "",
+  duration: "",
+  link: "",
+  meetingType: "1",
+};
 
 const getSchema = (t) =>
   yup.object({
@@ -31,17 +42,7 @@ export default function useAddMeetingForm() {
   const { t } = useTranslation();
   return useForm({
     resolver: yupResolver(getSchema(t)),
-    defaultValues: {
-      field: "",
-      specialization: "",
-      title: "",
-      description: "",
-      date: "",
-      time: "",
-      duration: "",
-      link: "",
-      meetingType: "1",
-    },
+    defaultValues: ADD_MEETING_DEFAULT_VALUES,
     mode: "onBlur",
   });
 }

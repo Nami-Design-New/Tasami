@@ -3,6 +3,14 @@ import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import * as yup from "yup";
 
+export const ADD_NEW_TASK_MODAL = {
+  employee_id: "",
+  task_system_id: "",
+  title: "",
+  description: "",
+  files: [],
+};
+
 const getSchema = (t) =>
   yup.object({
     employee_id: yup.string().required(t("validation.required")),
@@ -28,13 +36,7 @@ export default function useAddTaskForm() {
   const { t } = useTranslation();
   return useForm({
     resolver: yupResolver(getSchema(t)),
-    defaultValues: {
-      employee_id: "",
-      task_system_id: "",
-      title: "",
-      description: "",
-      files: [],
-    },
+    defaultValues: ADD_NEW_TASK_MODAL,
     mode: "onBlur",
   });
 }

@@ -1,7 +1,8 @@
 import { useQueryClient } from "@tanstack/react-query";
 import { useEffect } from "react";
-import { Form, Modal } from "react-bootstrap";
+import { Form } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
+import { useParams } from "react-router";
 import { toast } from "sonner";
 import useAddTasks from "../../../../hooks/website/MyWorks/tasks/useAddTasks";
 import useGetTasksCategories from "../../../../hooks/website/MyWorks/tasks/useGetTasksCategories";
@@ -12,7 +13,7 @@ import CustomButton from "../../../CustomButton";
 import InputField from "../../../forms/InputField";
 import SelectField from "../../../forms/SelectField";
 import TextField from "../../../forms/TextField";
-import { useParams } from "react-router";
+import GlobalModal from "../../../GlobalModal";
 
 export default function AddTasksModal({
   showModal,

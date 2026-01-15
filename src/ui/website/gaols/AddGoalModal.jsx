@@ -5,7 +5,9 @@ import useGetcategories from "../../../hooks/area-of-interests/useGetcategories"
 import useGetHelpMechanisms from "../../../hooks/useGetHelpMechanisms";
 import useAddGoal from "../../../hooks/website/goals/useAddGoal";
 import useGenerateDes from "../../../hooks/website/my-assistances/useGenerateDes";
-import useAddGoalForm from "../../../validations/add-goal-validation";
+import useAddGoalForm, {
+  ADD_GOAL_DEFAULT_VALUES,
+} from "../../../validations/add-goal-validation";
 import CustomButton from "../../CustomButton";
 import InputField from "../../forms/InputField";
 import SelectField from "../../forms/SelectField";
@@ -19,6 +21,8 @@ import femaleIcon from "../../../assets/icons/female-outlined.svg";
 import monthIcon from "../../../assets/icons/month.svg";
 import dayIcon from "../../../assets/icons/day.svg";
 import GlobalModal from "../../GlobalModal";
+import AlertModal from "../platform/my-community/AlertModal";
+import useFormCloseHandler from "../../../hooks/shared/useFormCloseHandler";
 const genderIcons = {
   male: maleIcon,
   female: femaleIcon,
@@ -32,6 +36,7 @@ export default function AddGoalModal({ showModal, setShowModal }) {
   const [showSuccessModal, setShowSuccessModal] = useState(false);
   const { generateDes, isPending: isGenerating } = useGenerateDes();
   const { addNewGoal, isPending } = useAddGoal();
+
   const {
     register,
     handleSubmit,
@@ -48,6 +53,15 @@ export default function AddGoalModal({ showModal, setShowModal }) {
   const selectedHelpMechanism = watch("helpMechanism") || [];
   const selectedGender = watch("gender");
   const selectedFieldId = watch("field");
+
+  const { showAlertModal, requestClose, confirmClose, cancelClose } =
+    useFormCloseHandler({
+      watch,
+      reset,
+      defaultValues: ADD_GOAL_DEFAULT_VALUES,
+      onClose: () => setShowModal(false),
+    });
+
   const subCategories =
     categories?.find((cat) => String(cat.id) === String(selectedFieldId))
       ?.sub_categories || [];
@@ -76,7 +90,7 @@ export default function AddGoalModal({ showModal, setShowModal }) {
     formData.append("expected_duration", durationInDays);
 
     addNewGoal(formData, {
-      onSuccess: (res) => {
+      onSuccess: () => {
         reset();
         setShowModal(false);
         queryClient.invalidateQueries({
@@ -115,15 +129,7 @@ export default function AddGoalModal({ showModal, setShowModal }) {
 
   return (
     <>
-      <GlobalModal
-        show={showModal}
-        onHide={() => {
-          setShowModal(false);
-          reset();
-        }}
-        centered
-        size="lg"
-      >
+      <GlobalModal show={showModal} onHide={requestClose} centered size="lg">
         <GlobalModal.Header closeButton>
           <h6>{t("website.platform.myAssistance.addNewGoal")}</h6>
         </GlobalModal.Header>
@@ -374,7 +380,17 @@ export default function AddGoalModal({ showModal, setShowModal }) {
             {t("ok")}
           </CustomButton>
         </div>
-      </ToastSuccessModal>
+      </ToastSuccessModal>{" "}
+      {showAlertModal && (
+        <AlertModal
+          showModal={showAlertModal}
+          setShowModal={cancelClose}
+          onConfirm={confirmClose}
+          confirmButtonText={t("auth.continue")}
+        >
+          {t("confirmDeleteAlert")}
+        </AlertModal>
+      )}
     </>
   );
 }

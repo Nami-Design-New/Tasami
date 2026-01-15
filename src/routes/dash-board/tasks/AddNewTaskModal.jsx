@@ -10,19 +10,21 @@ import InputField from "../../../ui/forms/InputField";
 import SelectField from "../../../ui/forms/SelectField";
 import TextField from "../../../ui/forms/TextField";
 
-import useAddTaskForm from "../../../hooks/dashboard/tasks/useAddTaskForm";
+import useAddTaskForm, {
+  ADD_NEW_TASK_MODAL,
+} from "../../../hooks/dashboard/tasks/useAddTaskForm";
 import useGetSharedEmployees from "../../../hooks/dashboard/tasks/useGetSharedEmployees";
 import useGetTaskSystem from "../../../hooks/dashboard/tasks/useGetTaskSystem";
 import usePostAddTask from "../../../hooks/dashboard/tasks/usePostAddTask";
 import AlertModal from "../../../ui/website/platform/my-community/AlertModal";
 import { PAGE_SIZE } from "../../../utils/constants";
 import GlobalModal from "../../../ui/GlobalModal";
+import useFormCloseHandler from "../../../hooks/shared/useFormCloseHandler";
 
 const AddNewTask = ({ showModal, setShowModal, title }) => {
   const { t } = useTranslation();
   const queryClient = useQueryClient();
 
-  const [showAlertModal, setShowAlertModal] = useState(false);
   const [files, setFiles] = useState(null);
   const [page] = useState(1);
 
@@ -34,26 +36,20 @@ const AddNewTask = ({ showModal, setShowModal, title }) => {
     handleSubmit,
     reset,
     setValue,
+    watch,
     control,
     formState: { errors },
   } = useAddTaskForm();
-
+  const { showAlertModal, requestClose, confirmClose, cancelClose } =
+    useFormCloseHandler({
+      watch,
+      reset,
+      defaultValues: ADD_NEW_TASK_MODAL,
+      onClose: () => setShowModal(false),
+    });
   /* ==============================
      CLOSE HANDLING (IMPORTANT)
   ============================== */
-
-  // Intercept ALL close attempts
-  const requestClose = () => {
-    setShowAlertModal(true);
-  };
-
-  // Actually close after confirmation
-  const confirmClose = () => {
-    setShowAlertModal(false);
-    setShowModal(false);
-    reset();
-    setFiles(null);
-  };
 
   /* ==============================
      FILE HANDLING
@@ -100,14 +96,7 @@ const AddNewTask = ({ showModal, setShowModal, title }) => {
 
   return (
     <>
-      <GlobalModal
-        size="lg"
-        centered
-        show={showModal}
-        onHide={requestClose}
-        backdrop="static"
-        keyboard={false}
-      >
+      <GlobalModal size="lg" centered show={showModal} onHide={requestClose}>
         <GlobalModal.Header closeButton>
           <h6>{title}</h6>
         </GlobalModal.Header>
@@ -229,7 +218,7 @@ const AddNewTask = ({ showModal, setShowModal, title }) => {
       {/* CONFIRM MODAL */}
       <AlertModal
         showModal={showAlertModal}
-        setShowModal={setShowAlertModal}
+        setShowModal={cancelClose}
         onConfirm={confirmClose}
         confirmButtonText={t("auth.continue")}
       >

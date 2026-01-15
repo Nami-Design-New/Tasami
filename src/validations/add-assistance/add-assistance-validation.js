@@ -3,6 +3,21 @@ import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import * as yup from "yup";
 
+export const ADD_ASSISTANCE_DEFAULT_VALUES = {
+  profilePicture: null,
+  field: "",
+  specialization: "",
+  title: "",
+  gender: "",
+  ageOption: "notDefined",
+  fromAge: null,
+  toAge: null,
+  month: null,
+  day: null,
+  price: null,
+  extraTerms: null,
+  helpMechanism: [],
+};
 const getSchema = (t) =>
   yup
     .object({
@@ -135,19 +150,7 @@ export default function useAddAssistanceForm() {
   const { t } = useTranslation();
   return useForm({
     resolver: yupResolver(getSchema(t)),
-    defaultValues: {
-      field: "",
-      specialization: "",
-      title: "",
-      gender: "",
-      ageOption: "notDefined",
-      fromAge: null,
-      toAge: null,
-      durationInDays: "",
-      price: "",
-      extraTerms: "",
-      helpMechanism: [],
-    },
-    mode: "onBlur",
+    defaultValues: ADD_ASSISTANCE_DEFAULT_VALUES,
+    mode: "onChange",
   });
 }

@@ -2,7 +2,15 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import * as yup from "yup";
-
+export const ADD_POST_DEFAULT_VALUES = {
+  field: "",
+  specialization: "",
+  title: "",
+  description: "",
+  files: [],
+  links: [],
+  postType: "1",
+};
 const getSchema = (t) =>
   yup.object({
     field: yup.string().required(t("validation.required")),
@@ -37,15 +45,7 @@ export default function useAddPostForm() {
   const { t } = useTranslation();
   return useForm({
     resolver: yupResolver(getSchema(t)),
-    defaultValues: {
-      field: "",
-      specialization: "",
-      title: "",
-      description: "",
-      files: [],
-      links: [""],
-      postType: "1",
-    },
-    mode: "onBlur",
+    defaultValues: ADD_POST_DEFAULT_VALUES,
+    mode: "onChange",
   });
 }

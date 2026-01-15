@@ -5,7 +5,9 @@ import { toast } from "sonner";
 import useGetcategories from "../../../hooks/area-of-interests/useGetcategories";
 import useGetHelpMechanisms from "../../../hooks/useGetHelpMechanisms";
 import useAddNewAssistance from "../../../hooks/website/my-assistances/useAddNewAssistance";
-import useAddAssistanceForm from "../../../validations/add-assistance/add-assistance-validation";
+import useAddAssistanceForm, {
+  ADD_ASSISTANCE_DEFAULT_VALUES,
+} from "../../../validations/add-assistance/add-assistance-validation";
 import CustomButton from "../../CustomButton";
 import InputField from "../../forms/InputField";
 import SelectField from "../../forms/SelectField";
@@ -22,6 +24,8 @@ import monthIcon from "../../../assets/icons/month.svg";
 import dayIcon from "../../../assets/icons/day.svg";
 import ryalIcon from "../../../assets/icons/ryal.svg";
 import GlobalModal from "../../GlobalModal";
+import AlertModal from "../platform/my-community/AlertModal";
+import useFormCloseHandler from "../../../hooks/shared/useFormCloseHandler";
 const genderIcons = {
   male: maleIcon,
   female: femaleIcon,
@@ -39,6 +43,7 @@ export default function AddAssistanceModal({
   const { addNewAssistance, isPending } = useAddNewAssistance();
   const { editYourAssistance, isPending: isEditing } = useEditAssistance();
   const [showSuccessModal, setShowSuccessModal] = useState(false);
+
   const queryClient = useQueryClient();
   const inputFileRef = useRef();
   const {
@@ -49,7 +54,13 @@ export default function AddAssistanceModal({
     setValue,
     formState: { errors },
   } = useAddAssistanceForm();
-
+  const { showAlertModal, requestClose, confirmClose, cancelClose } =
+    useFormCloseHandler({
+      watch,
+      reset,
+      defaultValues: ADD_ASSISTANCE_DEFAULT_VALUES,
+      onClose: () => setShowModal(false),
+    });
   const profilePicture = watch("profilePicture");
   const selectedFieldId = watch("field");
   const selectedGender = watch("gender");
@@ -57,7 +68,6 @@ export default function AddAssistanceModal({
   const month = watch("month");
   const day = watch("day");
   const durationInDays = Number(month) * 30 + Number(day);
-
   const selectedHelpMechanism = watch("helpMechanism") || [];
 
   const subCategories =
@@ -183,15 +193,7 @@ export default function AddAssistanceModal({
 
   return (
     <>
-      <GlobalModal
-        centered
-        show={showModal}
-        onHide={() => {
-          setShowModal(false);
-          reset();
-        }}
-        size="lg"
-      >
+      <GlobalModal centered show={showModal} onHide={requestClose} size="lg">
         <GlobalModal.Header closeButton>
           <h6>
             {/* {t("website.platform.myAssistance.addNewOffer")} */}
@@ -491,7 +493,17 @@ export default function AddAssistanceModal({
             {t("ok")}
           </CustomButton>
         </div>
-      </ToastSuccessModal>
+      </ToastSuccessModal>{" "}
+      {showAlertModal && (
+        <AlertModal
+          showModal={showAlertModal}
+          setShowModal={cancelClose}
+          onConfirm={confirmClose}
+          confirmButtonText={t("auth.continue")}
+        >
+          {t("confirmDeleteAlert")}
+        </AlertModal>
+      )}
     </>
   );
 }
