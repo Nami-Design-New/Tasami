@@ -11,9 +11,7 @@ import celebrationImage from "../assets/icons/toasts/celebration.svg";
 const LevelUpModal = () => {
   const dispatch = useDispatch();
   const { t } = useTranslation();
-  const { showLevelUpModal, levelUpData, previousLevel } = useSelector(
-    (state) => state.authRole
-  );
+  const { showLevelUpModal } = useSelector((state) => state.authRole);
   const defaultOptions = {
     loop: true,
     autoplay: true,
@@ -56,10 +54,13 @@ const LevelUpModal = () => {
 
         {/* Title */}
         <div className="d-flex align-items-center justify-content-between flex-column gap-2">
-          <h2 className="text-green ">تهانينا!</h2>
+          <h2 className="text-green "> {t("levelUp.title")}!</h2>
           {/* Subtitle */}
-          <p>لقد اكتسبت نقطة خبرة اضافية!</p>
-          <p>تقدمك المستمر يعكس تميزك ويقوي ملفك الشخصي</p>
+          <p className="fw-bold text-dark text-center">
+            {t("levelUp.messageLine1")}
+            <br />
+            {t("levelUp.messageLine2")}
+          </p>
           {/* Close Button */}
           <CustomButton
             color="success"

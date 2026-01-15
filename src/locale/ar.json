@@ -15,6 +15,12 @@
   "consultaionDeleteAlert": "سيتم حذف الاستشارة نهائيا",
   "notifyUsers": "المستخدمون",
   "confirmDeleteAlert": "سيتم محو البيانات التي تم ادخالها!",
+  "community_level_new": "جديد",
+  "levelUp": {
+    "title": "تهانينا!",
+    "messageLine1": "لقد اكتسبت نقطة خبرة إضافية!",
+    "messageLine2": "تقدمك المستمر يعكس تميزك ويقوي ملفك الشخصي"
+  },
   "tasksStatus": {
     "progress": "جاري",
     "not_assigned": "غير معين",

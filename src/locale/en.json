@@ -14,7 +14,13 @@
   "offerSuccesMessage2": "The help offer has been successfully published on the launch page under the Help Offers section.",
 
   "consultaionDeleteAlert": "The consultation will be permanently deleted.",
-  "notifyUsers": "المستخدمون",
+  "notifyUsers": "users",
+  "community_level_new": "new",
+  "levelUp": {
+    "title": "Congratulations!",
+    "messageLine1": "You have gained an extra experience point!",
+    "messageLine2": "Your continuous progress reflects your excellence and strengthens your profile"
+  },
   "tasksStatus": {
     "progress": "In Progress",
     "not_assigned": "Not Assigned",

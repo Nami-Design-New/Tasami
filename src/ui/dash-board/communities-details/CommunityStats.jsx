@@ -39,7 +39,7 @@ export default function CommunityStats({ community }) {
       <CommunityStat
         title={t("activityLevel")}
         icon={activeIndex}
-        label={community?.activity_level || "جديد"}
+        label={t(`${community?.activity_level}`)}
       />
     </div>
   );
