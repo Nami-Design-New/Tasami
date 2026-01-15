@@ -5,20 +5,20 @@ import { Link } from "react-router";
 import useGetWorkingGroups from "../../../hooks/dashboard/workingGroups/useGetWorkingGroups";
 import ChartCard from "../../../ui/dash-board/cards/ChartCard";
 import StatisticsCard from "../../../ui/dash-board/cards/StatisticsCard";
-import ConfirmDeleteModal from "../../../ui/modals/ConfirmationDeleteModal";
 import EditWorkGroupModal from "../../../ui/modals/EditWorkGroupModal";
 import ReusableDataTable from "../../../ui/table/ReusableDataTable";
 import TablePagination from "../../../ui/table/TablePagentaion";
-import useDeleteGroup from "../../../hooks/dashboard/workingGroups/useDeleteGroup";
-import { toast } from "sonner";
-import { useQueryClient } from "@tanstack/react-query";
+// import ConfirmDeleteModal from "../../../ui/modals/ConfirmationDeleteModal";
+// import useDeleteGroup from "../../../hooks/dashboard/workingGroups/useDeleteGroup";
+// import { toast } from "sonner";
+// import { useQueryClient } from "@tanstack/react-query";
 import { PAGE_SIZE } from "../../../utils/constants";
 
 const columnHelper = createColumnHelper();
 
 const WorkingGroups = () => {
   const { t } = useTranslation();
-  const queryClient = useQueryClient();
+  // const queryClient = useQueryClient();
   const [workingGroupId, setWorkingGroupId] = useState();
   const [workingGroupName, setWorkingGroupName] = useState();
   const [searchQuery, setSearchQuery] = useState("");
@@ -36,7 +36,7 @@ const WorkingGroups = () => {
   // Modal state
   // -----------------------------
   const [showModal, setShowModal] = useState(false);
-  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  // const [showDeleteModal, setShowDeleteModal] = useState(false);
 
   // -----------------------------
   // Fetch working groups via hook
@@ -47,7 +47,7 @@ const WorkingGroups = () => {
   // -----------------------------
   // delete working group
   // -----------------------------
-  const { deleteWorkingGroup, isDeleting } = useDeleteGroup();
+  // const { deleteWorkingGroup, isDeleting } = useDeleteGroup();
 
   const statsData = [
     {
@@ -176,13 +176,13 @@ const WorkingGroups = () => {
                 }}
               ></i>
               {
-                <i
-                  className="fa-solid fa-trash table__actions--delete"
-                  onClick={() => {
-                    setShowDeleteModal(true);
-                    setWorkingGroupId(info?.row?.original?.id);
-                  }}
-                ></i>
+                // <i
+                //   className="fa-solid fa-trash table__actions--delete"
+                //   onClick={() => {
+                //     setShowDeleteModal(true);
+                //     setWorkingGroupId(info?.row?.original?.id);
+                //   }}
+                // ></i>
               }
             </div>
           );
@@ -245,7 +245,7 @@ const WorkingGroups = () => {
         workingGroupId={workingGroupId}
         workingGroupName={workingGroupName}
       />
-      <ConfirmDeleteModal
+      {/* <ConfirmDeleteModal
         setShowDeleteModal={setShowDeleteModal}
         showDeleteModal={showDeleteModal}
         onConfirm={() =>
@@ -263,7 +263,7 @@ const WorkingGroups = () => {
           })
         }
         loading={isDeleting}
-      />
+      /> */}
     </section>
   );
 };

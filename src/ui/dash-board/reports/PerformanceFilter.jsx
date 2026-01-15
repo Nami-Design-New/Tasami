@@ -120,7 +120,6 @@ const PerformanceFilter = ({ searchType }) => {
       searchType: searchType,
     };
 
-
     dispatch(setFilters(basicData));
 
     // const params = new URLSearchParams(searchParams);
@@ -309,7 +308,7 @@ const PerformanceFilter = ({ searchType }) => {
               <div className="row g-3">
                 <div className="col-12">
                   <div className="performance-metrics">
-                    <div className="d-flex align-items-center gap-1 my-2">
+                    {/* <div className="d-flex align-items-center gap-1 my-2">
                       <input
                         type="checkbox"
                         id="sub_data_custom"
@@ -318,7 +317,7 @@ const PerformanceFilter = ({ searchType }) => {
                       <label htmlFor="sub_data_custom">
                         {t("dashboard.reports.showSubData")}
                       </label>
-                    </div>{" "}
+                    </div>{" "} */}
                   </div>
                 </div>
 
@@ -341,7 +340,6 @@ const PerformanceFilter = ({ searchType }) => {
                 </div>
               </div>
 
-              {/* Data Range */}
               <div className="performance-metrics mt-4">
                 <h3>{t("dashboard.reports.dataRange")}</h3>
                 {TIME_RANGES.map((range) => (
@@ -362,8 +360,7 @@ const PerformanceFilter = ({ searchType }) => {
                 ))}
               </div>
 
-              {/* Show Classifications */}
-              <div className="performance-metrics mt-4">
+              {/* <div className="performance-metrics mt-4">
                 <h3>{t("dashboard.reports.showClassifications")}</h3>
                 <div className="mt-3 d-flex justify-content-between w-75">
                   <div className="d-flex align-items-center gap-1 mt-2">
@@ -387,10 +384,9 @@ const PerformanceFilter = ({ searchType }) => {
                     </label>
                   </div>{" "}
                 </div>
-              </div>
+              </div> */}
 
-              {/* Report Elements */}
-              <div className="performance-metrics mt-4">
+              {/* <div className="performance-metrics mt-4">
                 <h3>{t("dashboard.reports.reportElements")}</h3>
                 <div className="mt-3 d-flex justify-content-between w-75">
                   <div className="d-flex align-items-center gap-1 mt-2">
@@ -416,7 +412,7 @@ const PerformanceFilter = ({ searchType }) => {
                     </label>
                   </div>{" "}
                 </div>
-              </div>
+              </div> */}
 
               <div className="d-flex p-2 justify-content-end align-items-end mt-3 ">
                 <CustomButton

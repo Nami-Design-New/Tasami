@@ -419,7 +419,7 @@
     "Prorams-and-services": "البرامج والخدمات",
     "Personal Goals": " الاهداف الشخصيه ",
     "Communities": "المجتمعات ",
-    "Administrative Systems": "الانظمه الادارية",
+    "Administrative Systems": "الأنظمة الإدارية",
     "Users": "المستخدمون",
     "Contracts": "العقود",
     "Experiences": "الخبرات",
@@ -1234,7 +1234,7 @@
     "operating_areas": "مناطق التشغيل",
     "working_groups": "مجموعات العمل",
     "fields_specializations": "المجالات والتخصصات",
-    "admin_systems": "الانظمه الاداريه",
+    "admin_systems": "الأنظمة الإدارية",
     "website_management": "اداره الموقع",
     "violations": "المخالفات",
     "social_links": "روابط وسائل التواصل",
@@ -1969,7 +1969,7 @@
       "cancel": "إلغاء"
     },
     "reports": {
-      "filterOptions": "خيارات التصفيه",
+      "filterOptions": "خيارات التصفية",
       "immediateIndicators": "المؤشرات الفورية",
       "customReports": "التقارير المخصصة",
       "region": "الإقليم",

@@ -81,7 +81,7 @@ const PerformanceIndicators = () => {
   return (
     <>
       <section className="performance-indicators">
-        <FormWrapper title={"خيارات التصفيه"}>
+        <FormWrapper title={"خيارات التصفية"}>
           <div className="filter-section">
             <form className="form_ui">
               <div className="row">

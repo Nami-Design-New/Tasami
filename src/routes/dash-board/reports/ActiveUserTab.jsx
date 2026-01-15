@@ -1,9 +1,8 @@
+import { useRef } from "react";
 import { useTranslation } from "react-i18next";
 import { useOutletContext } from "react-router";
 import Loading from "./../../../ui/loading/Loading";
-import { useRef } from "react";
 import ReportIndicator from "./ReportIndicator";
-import { useSelector } from "react-redux";
 
 const ActiveUserTab = () => {
   const { t } = useTranslation();

@@ -1,16 +1,20 @@
-import { QueryClient } from "@tanstack/react-query";
+/*  
+--------------- Please Do not remove comments here --------------
+*/
+
 import { useState } from "react";
 import { Accordion, AccordionBody } from "react-bootstrap";
-import { toast } from "sonner";
-import useDeleteCity from "../../../hooks/dashboard/cities/useDeleteCity";
-import useDeleteCountry from "../../../hooks/dashboard/countries/useDeleteCountry";
-import useDeleteRegion from "../../../hooks/dashboard/regions/useDeleteRegion";
+// import { toast } from "sonner";
+// import { QueryClient } from "@tanstack/react-query";
+// import useDeleteCity from "../../../hooks/dashboard/cities/useDeleteCity";
+// import useDeleteCountry from "../../../hooks/dashboard/countries/useDeleteCountry";
+// import useDeleteRegion from "../../../hooks/dashboard/regions/useDeleteRegion";
+// import ConfirmDeleteModal from "../../modals/ConfirmationDeleteModal";
 import useGetCities from "../../../hooks/dashboard/regions/useGetCities";
 import useGetCountries from "../../../hooks/dashboard/regions/useGetCountries";
 import useGetRegions from "../../../hooks/dashboard/regions/useGetRegions";
 import InfiniteScroll from "../../loading/InfiniteScroll";
 import InterestsLoading from "../../loading/InterestsLoading";
-import ConfirmDeleteModal from "../../modals/ConfirmationDeleteModal";
 import ChartCard from "../cards/ChartCard";
 import EditCityModal from "./EditCityModal";
 import EditCountryModal from "./EditCountryModal";
@@ -18,7 +22,7 @@ import EditRegionModal from "./EditRegionModal";
 import { useTranslation } from "react-i18next";
 
 export default function OperatingSectorsList() {
-  const queryClient = new QueryClient();
+  // const queryClient = new QueryClient();
   const { t } = useTranslation();
   // -------------------- Avtice States -------------------------
   const [activeRegion, setActiveRegion] = useState(null);
@@ -27,29 +31,29 @@ export default function OperatingSectorsList() {
   //  ------------------------- Regions Modal Stats -------------------------------------
   const [selectedRegion, setSelectedRegion] = useState(null);
   const [showEditRegionModal, setShowEditRegionModal] = useState(false);
-  const [showDeleteRegionModal, setShowDeleteRegionModal] = useState(false);
+  // const [showDeleteRegionModal, setShowDeleteRegionModal] = useState(false);
 
   //  ------------------------- Regions Hooks -------------------------------------
   const { regions, isLoading, fetchNextPage, hasNextPage, isFetchingNextPage } =
     useGetRegions();
 
-  const { deleteRegion, isDeletingRegion } = useDeleteRegion();
+  // const { deleteRegion, isDeletingRegion } = useDeleteRegion();
 
-  const handleDeleteRegion = () => {
-    deleteRegion(selectedRegion.id, {
-      onSuccess: () => {
-        setShowDeleteRegionModal(false);
-        setSelectedRegion(null);
-        queryClient.refetchQueries({ queryKey: ["dashboard-regions"] });
-      },
-    });
-  };
+  // const handleDeleteRegion = () => {
+  //   deleteRegion(selectedRegion.id, {
+  //     onSuccess: () => {
+  //       setShowDeleteRegionModal(false);
+  //       setSelectedRegion(null);
+  //       queryClient.refetchQueries({ queryKey: ["dashboard-regions"] });
+  //     },
+  //   });
+  // };
 
   //  ------------------------- Countries Modal Stats -------------------------------------
   const [selectedCountry, setSelectedCountry] = useState(null);
 
   const [showEditCountryModal, setShowEditCountryModal] = useState(false);
-  const [showDeleteCountryModal, setShowDeleteCountryModal] = useState(false);
+  // const [showDeleteCountryModal, setShowDeleteCountryModal] = useState(false);
 
   //  ------------------------- Countries Hooks -------------------------------------
   const {
@@ -60,26 +64,26 @@ export default function OperatingSectorsList() {
     isFetchingCountriesNextPage,
   } = useGetCountries(activeRegion, "off");
 
-  const { deleteCountry, isDeletingCountry } = useDeleteCountry();
+  // const { deleteCountry, isDeletingCountry } = useDeleteCountry();
 
-  const handleDeleteCountry = () => {
-    deleteCountry(selectedCountry?.id, {
-      onSuccess: (res) => {
-        toast.success(res.message);
-        setShowDeleteCountryModal(false);
-        setSelectedCountry(null);
-        queryClient.refetchQueries({ queryKey: ["dashboard-countries"] });
-      },
-      onError: (err) => {
-        toast.error(err?.message);
-      },
-    });
-  };
+  // const handleDeleteCountry = () => {
+  //   deleteCountry(selectedCountry?.id, {
+  //     onSuccess: (res) => {
+  //       toast.success(res.message);
+  //       setShowDeleteCountryModal(false);
+  //       setSelectedCountry(null);
+  //       queryClient.refetchQueries({ queryKey: ["dashboard-countries"] });
+  //     },
+  //     onError: (err) => {
+  //       toast.error(err?.message);
+  //     },
+  //   });
+  // };
 
   //  ------------------------- City Modal Stats -------------------------------------
   const [selectedCity, setSelectedCity] = useState(null);
   const [showEditCityModal, setShowEditCityModal] = useState(false);
-  const [showDeleteCityModal, setShowDeleteCityModal] = useState(false);
+  // const [showDeleteCityModal, setShowDeleteCityModal] = useState(false);
 
   //  ------------------------- Cities Hooks -------------------------------------
   const {
@@ -90,21 +94,21 @@ export default function OperatingSectorsList() {
     isFetchingCitiesNextPage,
   } = useGetCities(activeCountry, "off");
 
-  const { deleteCity, isDeletingCity } = useDeleteCity();
+  // const { deleteCity, isDeletingCity } = useDeleteCity();
 
-  const handleDeleteCity = () => {
-    deleteCity(selectedCity.id, {
-      onSuccess: (res) => {
-        toast.success(res.message);
-        setShowDeleteCityModal(false);
-        setSelectedCity(null);
-        queryClient.refetchQueries({ queryKey: ["dashboard-cities"] });
-      },
-      onError: (err) => {
-        toast.error(err?.message);
-      },
-    });
-  };
+  // const handleDeleteCity = () => {
+  //   deleteCity(selectedCity.id, {
+  //     onSuccess: (res) => {
+  //       toast.success(res.message);
+  //       setShowDeleteCityModal(false);
+  //       setSelectedCity(null);
+  //       queryClient.refetchQueries({ queryKey: ["dashboard-cities"] });
+  //     },
+  //     onError: (err) => {
+  //       toast.error(err?.message);
+  //     },
+  //   });
+  // };
 
   // ============ Handlers ============
   const handleRegionToggle = (regionId) => {
@@ -151,7 +155,7 @@ export default function OperatingSectorsList() {
                     >
                       <i className="fa-regular fa-edit"></i>
                     </button>
-                    <button
+                    {/* <button
                       className="delete-icon-style"
                       onClick={(e) => {
                         e.stopPropagation();
@@ -160,7 +164,7 @@ export default function OperatingSectorsList() {
                       }}
                     >
                       <i className="fa-regular fa-trash"></i>
-                    </button>
+                    </button> */}
 
                     <span className="border px-2 rounded-2">
                       {region?.code}
@@ -212,7 +216,7 @@ export default function OperatingSectorsList() {
                                 >
                                   <i className="fa-regular fa-edit"></i>
                                 </button>
-                                <button
+                                {/* <button
                                   className="delete-icon-style"
                                   onClick={(e) => {
                                     e.stopPropagation();
@@ -221,7 +225,7 @@ export default function OperatingSectorsList() {
                                   }}
                                 >
                                   <i className="fa-regular fa-trash"></i>
-                                </button>
+                                </button> */}
 
                                 <span className="border px-2 rounded-2">
                                   {" "}
@@ -255,7 +259,7 @@ export default function OperatingSectorsList() {
                                           >
                                             <i className="fa-regular fa-edit"></i>
                                           </button>
-                                          <button
+                                          {/* <button
                                             className="delete-icon-style"
                                             onClick={(e) => {
                                               e.stopPropagation();
@@ -264,7 +268,7 @@ export default function OperatingSectorsList() {
                                             }}
                                           >
                                             <i className="fa-regular fa-trash"></i>
-                                          </button>
+                                          </button> */}
 
                                           <span className="border px-2 rounded-2">
                                             {" "}
@@ -307,7 +311,7 @@ export default function OperatingSectorsList() {
           </div>
         )}
       </div>
-      {showDeleteCountryModal && (
+      {/* {setShowDeleteRegionModal && (
         <ConfirmDeleteModal
           onConfirm={handleDeleteRegion}
           setShowDeleteModal={setShowDeleteRegionModal}
@@ -330,7 +334,7 @@ export default function OperatingSectorsList() {
           showDeleteModal={showDeleteCityModal}
           loading={isDeletingCity}
         />
-      )}
+      )} */}
 
       {showEditRegionModal && (
         <EditRegionModal

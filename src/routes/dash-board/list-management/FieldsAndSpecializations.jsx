@@ -1,32 +1,35 @@
+/*  
+--------------- Please Do not remove comments here --------------
+*/
+
 // export default FieldsAndSpecializations;
 import { createColumnHelper } from "@tanstack/react-table";
 import { useMemo, useState } from "react";
+import { useTranslation } from "react-i18next";
+// import { toast } from "sonner";
+// import { useQueryClient } from "@tanstack/react-query";
+// import useDeleteSpecialization from "../../../hooks/dashboard/FiledsAndSpecialations/useDeleteSpecialization";
+// import ConfirmDeleteModal from "../../../ui/modals/ConfirmationDeleteModal";
 import useGetSubCategories from "../../../hooks/dashboard/FiledsAndSpecialations/useGetSubCategories";
 import ChartCard from "../../../ui/dash-board/cards/ChartCard";
 import StatisticsCard from "../../../ui/dash-board/cards/StatisticsCard";
-import ConfirmDeleteModal from "../../../ui/modals/ConfirmationDeleteModal";
+import StatisticsCardSkeleton from "../../../ui/loading/StatisticsCardSkeleton";
+import EditFiledAndSpecializationModal from "../../../ui/modals/EditFiledAndSpecializationModal";
 import FiledsAndSpecialzationsModal from "../../../ui/modals/FiledsAndSpecialzationsModal";
 import ReusableDataTable from "../../../ui/table/ReusableDataTable";
-import { PAGE_SIZE } from "../../../utils/constants";
 import TablePagination from "../../../ui/table/TablePagentaion";
-import { useTranslation } from "react-i18next";
-import useDeleteSpecialization from "../../../hooks/dashboard/FiledsAndSpecialations/useDeleteSpecialization";
-import { toast } from "sonner";
-import { useQueryClient } from "@tanstack/react-query";
-import EditFiledAndSpecializationModal from "../../../ui/modals/EditFiledAndSpecializationModal";
-import { set } from "lodash";
-import StatisticsCardSkeleton from "../../../ui/loading/StatisticsCardSkeleton";
+import { PAGE_SIZE } from "../../../utils/constants";
 
 const columnHelper = createColumnHelper();
 
 const FieldsAndSpecializations = () => {
   const { t } = useTranslation();
-  const queryClient = useQueryClient();
+  // const queryClient = useQueryClient();
   const [showModal, setShowModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
   const [isEditMode, setIsEditMode] = useState(false);
-  const [showDeleteModal, setShowDeleteModal] = useState(false);
-  const [deletedTargedId, setDeletedTargedId] = useState(null);
+  // const [showDeleteModal, setShowDeleteModal] = useState(false);
+  // const [deletedTargedId, setDeletedTargedId] = useState(null);
   const [selectedTarget, setSelectedTarget] = useState(null);
   const [searchQuery, setSearchQuery] = useState("");
   const handleSearchChange = (value) => {
@@ -46,22 +49,22 @@ const FieldsAndSpecializations = () => {
     isLoading,
     lastPage,
   } = useGetSubCategories(searchQuery, page, pageSize);
-  const { deleteSpecialization, isPending } = useDeleteSpecialization();
+  // const { deleteSpecialization, isPending } = useDeleteSpecialization();
 
-  const handleDeleteSpecialization = () => {
-    deleteSpecialization(deletedTargedId, {
-      onSuccess: (res) => {
-        toast.success(res?.message);
-        queryClient.invalidateQueries({
-          queryKey: ["dashboard-sub-categories"],
-        });
-        setShowDeleteModal(false);
-      },
-      onError: (err) => {
-        toast.error(err?.message);
-      },
-    });
-  };
+  // const handleDeleteSpecialization = () => {
+  //   deleteSpecialization(deletedTargedId, {
+  //     onSuccess: (res) => {
+  //       toast.success(res?.message);
+  //       queryClient.invalidateQueries({
+  //         queryKey: ["dashboard-sub-categories"],
+  //       });
+  //       setShowDeleteModal(false);
+  //     },
+  //     onError: (err) => {
+  //       toast.error(err?.message);
+  //     },
+  //   });
+  // };
 
   // Statistics data localized
   const statsData = [
@@ -121,13 +124,13 @@ const FieldsAndSpecializations = () => {
               }}
             ></i>
 
-            <i
+            {/* <i
               className="fa-solid fa-trash table__actions--delete"
               onClick={() => {
                 setShowDeleteModal(true);
                 setDeletedTargedId(info.row.original.id);
               }}
-            ></i>
+            ></i> */}
           </div>
         ),
         enableSorting: false,
@@ -214,13 +217,13 @@ const FieldsAndSpecializations = () => {
         setShowModal={setShowEditModal}
         selectedTarget={selectedTarget}
       />
-
+      {/* 
       <ConfirmDeleteModal
         setShowDeleteModal={setShowDeleteModal}
         showDeleteModal={showDeleteModal}
         loading={isPending}
         onConfirm={() => handleDeleteSpecialization()}
-      />
+      /> */}
     </section>
   );
 };

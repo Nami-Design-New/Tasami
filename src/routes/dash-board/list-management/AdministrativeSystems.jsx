@@ -1,10 +1,14 @@
-import { useQueryClient } from "@tanstack/react-query";
+/*  
+--------------- Please Do not remove comments here --------------
+*/
+
+// import { useQueryClient } from "@tanstack/react-query";
 import { createColumnHelper } from "@tanstack/react-table";
 import { useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
-import useDeleteSubject from "../../../hooks/dashboard/administrativeSystems/useDeleteSubject";
+// import useDeleteSubject from "../../../hooks/dashboard/administrativeSystems/useDeleteSubject";
 import useGetSubjects from "../../../hooks/dashboard/administrativeSystems/useGetSubjects";
-import ConfirmDeleteModal from "../../../ui/modals/ConfirmationDeleteModal";
+// import ConfirmDeleteModal from "../../../ui/modals/ConfirmationDeleteModal";
 import SubjectModal from "../../../ui/modals/SubjectModal";
 import ReusableDataTable from "../../../ui/table/ReusableDataTable";
 import TablePagination from "../../../ui/table/TablePagentaion";
@@ -15,27 +19,27 @@ const columnHelper = createColumnHelper();
 const AdministrativeSystems = () => {
   const { t } = useTranslation();
   const [showModal, setShowModal] = useState(false);
-  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  // const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [selectedSubject, setSelectedSubject] = useState(null);
-  const [deletionTarget, setDeletionTarget] = useState(null);
-  const queryClient = useQueryClient();
-  const { deleteSubject, isDeletingSubject } = useDeleteSubject();
+  // const [deletionTarget, setDeletionTarget] = useState(null);
+  // const queryClient = useQueryClient();
+  // const { deleteSubject, isDeletingSubject } = useDeleteSubject();
   const [searchQuery, setSearchQuery] = useState("");
   const handleSearchChange = (value) => {
     setSearchQuery(value);
   };
 
-  const handleDeleteSubject = (id) => {
-    deleteSubject(id, {
-      onSuccess: () => {
-        setShowDeleteModal(false);
-        setDeletionTarget(null);
-        queryClient.invalidateQueries({
-          queryKey: ["subjects"],
-        });
-      },
-    });
-  };
+  // const handleDeleteSubject = (id) => {
+  //   deleteSubject(id, {
+  //     onSuccess: () => {
+  //       setShowDeleteModal(false);
+  //       setDeletionTarget(null);
+  //       queryClient.invalidateQueries({
+  //         queryKey: ["subjects"],
+  //       });
+  //     },
+  //   });
+  // };
 
   // -----------------------------
   // Pagination state
@@ -86,13 +90,13 @@ const AdministrativeSystems = () => {
                 setSelectedSubject(info.row.original);
               }}
             ></i>
-            <i
+            {/* <i
               className="fa-solid fa-trash table__actions--delete"
               onClick={() => {
                 setShowDeleteModal(true);
                 setDeletionTarget(info.row.original.id);
               }}
-            ></i>
+            ></i> */}
           </div>
         ),
         enableSorting: false,
@@ -136,12 +140,12 @@ const AdministrativeSystems = () => {
         isEdit={true}
       />
 
-      <ConfirmDeleteModal
+      {/* <ConfirmDeleteModal
         setShowDeleteModal={setShowDeleteModal}
         showDeleteModal={showDeleteModal}
         loading={isDeletingSubject}
         onConfirm={() => handleDeleteSubject(deletionTarget)}
-      />
+      /> */}
     </section>
   );
 };
