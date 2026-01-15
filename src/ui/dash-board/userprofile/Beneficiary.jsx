@@ -4,6 +4,7 @@ import { PAGE_SIZE } from "../../../utils/constants";
 import useGetUserContract from "../../../hooks/dashboard/subscription/usePostUserContract";
 import ContractRecordModal from "./ContractRecordModal";
 import { useTranslation } from "react-i18next";
+import Currency from "../../Currency";
 
 const Beneficiary = ({ userDetails }) => {
   const { t } = useTranslation();
@@ -93,7 +94,10 @@ const Beneficiary = ({ userDetails }) => {
               <span>
                 {t("dashboard.beneficiary.fields.contractPurchases")}:
               </span>
-              <span> {`ريال ${userDetails?.contract_cost}`} </span>
+              <span>
+                {" "}
+                <Currency /> {`${userDetails?.contract_cost}`}{" "}
+              </span>
             </p>
             <p>
               <span>{t("dashboard.beneficiary.fields.experiencePoints")}:</span>
@@ -118,6 +122,10 @@ const Beneficiary = ({ userDetails }) => {
             <p>
               <span>{t("dashboard.beneficiary.fields.suggestions")}:</span>
               <span> {userDetails?.suggestions_count} </span>
+            </p>
+            <p>
+              <span>{t("dashboard.beneficiary.fields.inquires")}:</span>
+              <span> {userDetails?.inquries} </span>
             </p>
             <p>
               <span>

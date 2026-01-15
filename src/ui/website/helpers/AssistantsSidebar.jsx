@@ -12,7 +12,12 @@ import SelectField from "../../forms/SelectField";
 import useGetCountries from "../../../hooks/countries/useGetCountries";
 import { Controller } from "react-hook-form";
 import searchIcon from "../../../assets/icons/search.svg";
-
+import maleIcon from "../../../assets/icons/male-outlined.svg";
+import femaleIcon from "../../../assets/icons/female-outlined.svg";
+const genderIcons = {
+  male: maleIcon,
+  female: femaleIcon,
+};
 export default function AssistantsSidebar({ isGoal = false }) {
   const { t } = useTranslation();
   const [searchParams, setSearchParams] = useSearchParams();
@@ -236,10 +241,7 @@ export default function AssistantsSidebar({ isGoal = false }) {
                     }`}
                   >
                     {g !== "both" && (
-                      <img
-                        src={`/icons/${g}-outlined.svg`}
-                        alt={t(`auth.${g}`)}
-                      />
+                      <img src={genderIcons[g]} alt={t(`auth.${g}`)} />
                     )}
                     <span>{t(`auth.${g}`)}</span>
                     <input type="radio" value={g} {...register("gender")} />

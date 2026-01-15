@@ -15,7 +15,12 @@ import useGetCountries from "../../../hooks/countries/useGetCountries";
 import { Controller } from "react-hook-form";
 import ryalIcon from "../../../assets/icons/ryal.svg";
 import searchIcon from "../../../assets/icons/search.svg";
-
+import maleIcon from "../../../assets/icons/male-outlined.svg";
+import femaleIcon from "../../../assets/icons/female-outlined.svg";
+const genderIcons = {
+  male: maleIcon,
+  female: femaleIcon,
+};
 export default function PersonalOffersSidebarFilter() {
   const { t } = useTranslation();
   const [searchParams, setSearchParams] = useSearchParams();
@@ -222,10 +227,7 @@ export default function PersonalOffersSidebarFilter() {
                     }`}
                   >
                     {g !== "both" && (
-                      <img
-                        src={`/icons/${g}-outlined.svg`}
-                        alt={t(`auth.${g}`)}
-                      />
+                      <img src={genderIcons[g]} alt={t(`auth.${g}`)} />
                     )}
                     <span>{t(`auth.${g}`)}</span>
                     <input type="radio" value={g} {...register("gender")} />
@@ -446,7 +448,7 @@ export default function PersonalOffersSidebarFilter() {
                 {t("website.assistants.ratingTitle")}
               </h6>
               <div className="identity-container flex-wrap">
-                {["all", "1", "2", "3", "4", "5"].map((g) => (
+                {["all", "1", "2", "3", "4"].map((g) => (
                   <label
                     key={g}
                     className={`identity-option text-dark d-flex gap-1 align-items-center   ${

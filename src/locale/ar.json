@@ -105,9 +105,9 @@
   "rate_submit": "إرسال",
   "rate_success": "تم إرسال التقييم بنجاح!",
   "rate_error": "حدث خطأ أثناء الإرسال. حاول مرة أخرى.",
-  "rate_validation_experience": "الرجاء اختيار تقييم الخبرة والمعرفة",
+  "rate_validation_experience": "الرجاء اختيار تقييم الإرشاد والتوجية",
   "rate_validation_commitment": "الرجاء اختيار تقييم الالتزام بالوقت",
-  "rate_validation_quality": "الرجاء اختيار تقييم جودة الأداء",
+  "rate_validation_quality": "الرجاء اختيار تقييم القيمة والتأثير",
   "rate_validation_respect": "الرجاء اختيار تقييم الاحترام والتعامل",
   "rate_view_title": "عرض التقييم",
   "renew_title": "تفاصيل تمديد العقد",
@@ -931,9 +931,9 @@
       "previousRatings": "تقييمات سابقة",
       "previousUsers": "مستفيدون سابقون",
       "overallRating": "التقييم الاجمالي",
-      "experience": "الخبرة والمعرفة",
+      "experience": "الإرشاد والتوجية",
       "time": "الالتزام بالوقت",
-      "quality": "جودة الأداء",
+      "quality": "القيمة والتأثير",
       "treatment": "حسن التعامل",
       "showReviews": "عرض التقييمات",
       "sendContract": "إرسال طلب تعاقد",
@@ -2251,10 +2251,11 @@
         "experiencePoints": "نقاط الخبرة",
         "communityMembership": "عضوية المجتمعات",
         "followers": "المتابعون",
-        "communitySubscriptions": "مشتركات المجتمعات",
+        "communitySubscriptions": "مشتريات المجتمعات",
         "suggestions": "الاقتراحات",
         "newClassifications": "التصنيفات الجديدة",
-        "violationReports": "بلاغات المخالفات"
+        "violationReports": "بلاغات المخالفات",
+        "inquires": "الاستفسارات"
       }
     },
     "assistant": {
@@ -2275,7 +2276,7 @@
         "subscriptionEndDate": "تاريخ نهاية الاشتراك",
         "totalSubscriptionPurchases": "إجمالي مشتريات الاشتراكات",
         "communityStatus": "حالة مجتمع المساعد",
-        "membersCount": "عدد الأعضاء الطالبين",
+        "membersCount": "عدد الأعضاء الحاليين",
         "postsCount": "المنشورات",
         "meetingsCount": "اللقاءات",
         "consultationsCount": "الاستشارات",
@@ -2293,10 +2294,10 @@
         "stopsNumber": "عدد الإيقافات",
         "violationReports": "عدد بلاغات المخالفات",
         "avgRate": "التقييم الإجمالي",
-        "experienceAndKnowledge": "الخبرة والمعرفة",
-        "commitmentToTime": "الإلتزام بالمواعيد",
-        "performanceQuality": "جودة الأداء",
-        "respectAndTreatment": "الإحترام والتعامل"
+        "experienceAndKnowledge": "الإرشاد والتوجية",
+        "commitmentToTime": "التفاعل والمتابعة",
+        "performanceQuality": "القيمة والتأثير",
+        "respectAndTreatment": "الاحترافية والثقة"
       }
     },
     "common": {

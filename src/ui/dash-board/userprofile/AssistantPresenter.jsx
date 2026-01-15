@@ -6,6 +6,7 @@ import { useNavigate } from "react-router";
 import { PAGE_SIZE } from "../../../utils/constants";
 import useGetHelperContract from "../../../hooks/dashboard/subscription/usePostHelperContract";
 import { useTranslation } from "react-i18next";
+import Currency from "../../Currency";
 
 const AssistantPresenter = ({ userDetails }) => {
   const { t } = useTranslation();
@@ -102,15 +103,17 @@ const AssistantPresenter = ({ userDetails }) => {
                   </span>
                   <span> {userDetails?.community?.consultations_count} </span>
                 </p>
-                <p>
+                {/* <p>
                   <span>{t("dashboard.assistant.fields.viewsCount")}:</span>
                   <span> {userDetails?.community?.views_count} </span>
-                </p>
+                </p> */}
                 <p>
                   <span>
                     {t("dashboard.assistant.fields.totalMembershipRevenue")}:
                   </span>
-                  <span> {`ريال${userDetails?.community?.revenue}`} </span>
+                  <span>
+                    {`${userDetails?.community?.revenue}`} <Currency />
+                  </span>
                 </p>
               </>
             )}
@@ -150,7 +153,10 @@ const AssistantPresenter = ({ userDetails }) => {
             </p>
             <p>
               <span>{t("dashboard.assistant.fields.contractRevenue")}:</span>
-              <span> {`ريال${userDetails?.contract_revenue}`} </span>
+              <span>
+                {" "}
+                {`${userDetails?.contract_revenue}`} <Currency />{" "}
+              </span>
             </p>
             <p>
               <span>{t("dashboard.assistant.fields.totalPriceOffers")}:</span>

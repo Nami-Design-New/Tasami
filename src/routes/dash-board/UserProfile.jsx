@@ -10,6 +10,7 @@ import { useParams, useSearchParams } from "react-router";
 import useGetUserDetails from "../../hooks/dashboard/subscription/useGetUserDetails";
 import Loading from "../../ui/loading/Loading";
 import { useTranslation } from "react-i18next";
+import profilePlaceholder from "../../assets/images/dashboard/avatar-placeholder.jpg";
 
 const UserProfile = () => {
   const { t } = useTranslation();
@@ -49,12 +50,7 @@ const UserProfile = () => {
             <div className="col-12  col-lg-3 p-1">
               <div className="user-dashboard__profile">
                 <div className="user-dashboard__avatar">
-                  <img
-                    src={
-                      userDetails?.image ||
-                      "https://avatar.iran.liara.run/public/6"
-                    }
-                  />
+                  <img src={userDetails?.image || profilePlaceholder} />
                 </div>
                 <div className="personal__data">
                   <p>
