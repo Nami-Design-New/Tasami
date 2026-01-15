@@ -20,10 +20,12 @@ export default function Consultations() {
     fetchNextPage,
     isFetchingNextPage,
   } = useGetConsultations();
-
   const allConsultaions =
     consultaions?.pages?.flatMap((page) => page?.data) ?? [];
 
+  const handleAddConsultaionModal = () => {
+    setShowModal(true);
+  };
   return (
     <>
       <div className="consultations-section">
@@ -31,7 +33,7 @@ export default function Consultations() {
           <div className="col-12 p-2">
             <div className="consultations-header justify-content-end">
               {communityDetails.is_subscribed && (
-                <CustomButton className="" onClick={() => setShowModal(true)}>
+                <CustomButton className="" onClick={handleAddConsultaionModal}>
                   {t("community.addConsultation")}
                 </CustomButton>
               )}
@@ -39,7 +41,7 @@ export default function Consultations() {
           </div>{" "}
           {!isLoading && allConsultaions.length === 0 && (
             <EmptySection
-              height="500px"
+              height="450px"
               message={t("community.noConsultaion")}
             />
           )}{" "}

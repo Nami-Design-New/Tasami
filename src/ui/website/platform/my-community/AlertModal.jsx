@@ -2,6 +2,12 @@ import { useTranslation } from "react-i18next";
 import CustomButton from "../../../CustomButton";
 import alertIcon from "../../../../assets/icons/alert.svg";
 import GlobalModal from "../../../GlobalModal";
+
+const justifyMap = {
+  start: "flex-start",
+  center: "center",
+  end: "flex-end",
+};
 export default function AlertModal({
   showModal,
   setShowModal,
@@ -12,6 +18,7 @@ export default function AlertModal({
   children,
   withoutMessage = true,
   showCancel = true,
+  confirmAlign = "center",
 }) {
   const { t } = useTranslation();
   const handleCancel = () => {
@@ -36,7 +43,14 @@ export default function AlertModal({
           {children}
 
           {!noActions && (
-            <div className="buttons justify-content-end  w-100">
+            <div
+              className="buttons w-100 d-flex"
+              style={{
+                justifyContent: showCancel
+                  ? "center"
+                  : justifyMap[confirmAlign],
+              }}
+            >
               {showCancel && (
                 <CustomButton
                   size="large"

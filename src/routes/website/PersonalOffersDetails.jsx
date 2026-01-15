@@ -16,6 +16,7 @@ import OfferInfoGrid from "../../ui/website/offers/OfferInfoGrid";
 import TopInfo from "../../ui/website/offers/TopInfo";
 import { shareContent } from "../../utils/shared";
 import helpTiangle from "../../assets/icons/help-triangle.svg";
+import AlertModal from "../../ui/website/platform/my-community/AlertModal";
 
 export default function PersonalOffersDetails() {
   const { t } = useTranslation();
@@ -28,6 +29,8 @@ export default function PersonalOffersDetails() {
   const [showHelpModal, setShowHelpModal] = useState(false);
   const [showReportModal, setShowReportModal] = useState(false);
   const [showInquiryModal, setShowInquiryModal] = useState(false);
+  const [showAlertModal, setShowAlertModal] = useState();
+
   useEffect(() => {
     setBookmarked(offerDetails?.is_saved || false);
   }, [offerDetails?.is_saved]);
@@ -46,6 +49,13 @@ export default function PersonalOffersDetails() {
         setBookmarked(prevState);
       },
     });
+  };
+  const handleInquiryModal = () => {
+    if (offerDetails?.can_send_inquiry) {
+      setShowInquiryModal(true);
+    } else {
+      setShowAlertModal(true);
+    }
   };
 
   if (isLoading) return <Loading />;
@@ -87,7 +97,7 @@ export default function PersonalOffersDetails() {
                   options={[
                     {
                       label: t("website.offerDetails.inquiry"),
-                      onClick: () => setShowInquiryModal(true),
+                      onClick: handleInquiryModal,
                     },
                     {
                       label: t("website.offerDetails.report"),
@@ -222,6 +232,20 @@ export default function PersonalOffersDetails() {
               showModal={showInquiryModal}
               setShowModal={setShowInquiryModal}
             />
+            {showAlertModal && (
+              <AlertModal
+                showModal={showAlertModal}
+                setShowModal={setShowAlertModal}
+                confirmButtonText={t("ok")}
+                showCancel={false}
+                withoutMessage={false}
+                onConfirm={() => setShowAlertModal(false)}
+              >
+                <p className="text-dark fw-bold text-center">
+                  {t("sendInquiryAlert")}
+                </p>
+              </AlertModal>
+            )}
           </>
         )}
       </div>

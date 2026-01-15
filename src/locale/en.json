@@ -16,6 +16,7 @@
   "consultaionDeleteAlert": "The consultation will be permanently deleted.",
   "notifyUsers": "users",
   "community_level_new": "new",
+  "sendInquiryAlert": "You have already sent an inquiry to this user and it has not been answered yet. Please wait until you receive a response before sending another inquiry.",
   "levelUp": {
     "title": "Congratulations!",
     "messageLine1": "You have gained an extra experience point!",

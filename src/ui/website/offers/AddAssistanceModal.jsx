@@ -128,13 +128,11 @@ export default function AddAssistanceModal({
 
     const commonSuccess = (res) => {
       reset();
-
       setShowModal(false);
       queryClient.invalidateQueries({ queryKey: ["my-assistances"] });
       queryClient.invalidateQueries({ queryKey: ["offer-details"] });
       queryClient.invalidateQueries({ queryKey: ["personal-assistants"] });
       queryClient.refetchQueries({ queryKey: ["homeData"] });
-      toast.success(res?.message);
     };
 
     const commonError = (error) => {

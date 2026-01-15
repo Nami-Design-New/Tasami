@@ -8,6 +8,7 @@ import { Outlet, useNavigate } from "react-router";
 import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
 import RoundedBackButton from "../../ui/website-auth/shared/RoundedBackButton";
+import communityPlaceholder from "../../assets/images/dashboard/communities-image.png";
 
 export default function CommunityDetails() {
   const { communityDetails, isLoading } = useGetCommunityDetails();
@@ -24,10 +25,7 @@ export default function CommunityDetails() {
         <div className="communities-image-wrapper">
           <img
             className="communities-image"
-            src={
-              communityDetails?.image ||
-              "/images/dashboard/communities-image.png"
-            }
+            src={communityDetails?.image || communityPlaceholder}
             alt="communities-details"
           />
         </div>
