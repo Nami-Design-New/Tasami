@@ -541,7 +541,8 @@
     "withoutLogin": "without login ",
     "email": "Email",
     "both": "both",
-    "all": "All"
+    "all": "All",
+    "loginSuccess": "Login successful"
   },
   "profile": {
     "myInfo": "My Info",

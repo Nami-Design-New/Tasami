@@ -30,10 +30,11 @@ export default function GoalDetails() {
   const [showReportModal, setShowReportModal] = useState(false);
   const [showInquiryModal, setShowInquiryModal] = useState(false);
   const [showAlertModal, setShowAlertModal] = useState(false);
-  const { currentPackage, isLoading: isLoadingPackage } =
-    useGetCurrentPackage();
-  const { lang } = useSelector((state) => state.language);
   const { user } = useSelector((state) => state.authRole);
+  const { lang } = useSelector((state) => state.language);
+  const { currentPackage, isLoading: isLoadingPackage } = useGetCurrentPackage(
+    !!user
+  );
 
   const { goalDetails, isLoading } = useGetGoalDetails();
 

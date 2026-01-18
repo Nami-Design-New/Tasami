@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { axiosInstance } from "../../../lib/axios";
 
-export default function useGetCurrentPackage() {
+export default function useGetCurrentPackage(enabled) {
   const { data: currentPackage, isLoading } = useQuery({
     queryKey: ["current-package"],
     queryFn: async () => {
@@ -11,6 +11,7 @@ export default function useGetCurrentPackage() {
       }
       return res.data.data;
     },
+    enabled,
   });
 
   return { currentPackage, isLoading };
