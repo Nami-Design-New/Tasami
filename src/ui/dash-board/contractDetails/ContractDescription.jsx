@@ -17,7 +17,7 @@ export default function ContractDescription() {
         صحتهم.
       </p>
       <div className="row">
-        <div className="col-6 p-2">
+        <div className="col-sm-6 p-2">
           <div className="dec-item">
             <h5>المجال</h5>
             <p>ريادة الأعمال</p>
@@ -52,7 +52,7 @@ export default function ContractDescription() {
       </div>
       <div className="row">
         <div className="col-12 col-lg-6 p-2">
-          <h5 className="mb-2">آليات المساعدة المناسبة</h5>
+          <h5 className=" mechanisms-title ">آليات المساعدة المناسبة</h5>
           <ul className="mechanisms">
             <li>
               <img src={check} />

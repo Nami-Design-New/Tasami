@@ -247,12 +247,23 @@
     font-weight: 500;
   }
   .dec-item {
+    padding: 10px;
+    border: 1px solid $InputStroke;
+    border-radius: $borderRadius;
+    h5 {
+      font-size: 14px;
+      margin-bottom: 6px;
+    }
     p {
       font-size: 14px;
       line-height: 1.8;
       font-weight: 700;
       color: $dark;
     }
+  }
+  .mechanisms-title {
+    font-size: 14px;
+    margin-bottom: 6px;
   }
   .mechanisms {
     display: flex;

@@ -8130,11 +8130,24 @@ input[type=file] {
   font-size: 20px;
   font-weight: 500;
 }
+.contract-description .dec-item {
+  padding: 10px;
+  border: 1px solid rgba(13, 13, 13, 0.0941176471);
+  border-radius: 12px;
+}
+.contract-description .dec-item h5 {
+  font-size: 14px;
+  margin-bottom: 6px;
+}
 .contract-description .dec-item p {
   font-size: 14px;
   line-height: 1.8;
   font-weight: 700;
   color: #0d0d0d;
+}
+.contract-description .mechanisms-title {
+  font-size: 14px;
+  margin-bottom: 6px;
 }
 .contract-description .mechanisms {
   display: flex;

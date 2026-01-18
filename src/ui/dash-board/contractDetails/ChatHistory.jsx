@@ -98,20 +98,6 @@ export default function ChatHistory() {
             avatar="https://avatar.iran.liara.run/public/42"
           />
         </div>
-
-        <footer className="chat-window__footer">
-          <input type="text" placeholder="اكتب رسالتك هنا..." />
-          <button>
-            <i className="fa-solid fa-microphone"></i>
-          </button>
-          <button>
-            <i className="fa-solid fa-paperclip-vertical"></i>
-          </button>
-          <button className="chat-window__footer--send">
-            <i className="fa-solid fa-paper-plane"></i>
-            <span>إرسال</span>
-          </button>
-        </footer>
       </div>
     </div>
   );
