@@ -1,4 +1,5 @@
 {
+  "chat_conversation_history": "سجل المحادثات",
   "loadingImage": "جارٍ تحميل الصورة...",
   "loadingVideo": "جارٍ تحميل الفيديو...",
   "download": "انقر للتحميل",
@@ -17,6 +18,18 @@
   "confirmDeleteAlert": "سيتم محو البيانات التي تم ادخالها!",
   "community_level_new": "جديد",
   "sendInquiryAlert": "لديك استفسار مرسل لهذا المستخدم ولم يتم الرد عليه بعد. المرجو الانتظار الي ان يتم الرد لتتمكن من ارسال استفسار آخر ",
+  "paymentContractDetails": {
+    "title": "المدفوعات",
+    "contractValue": "قيمة العقد",
+    "contractDuration": "مدة العقد",
+    "dailyHelperPrice": "قيمة الاستحقاق اليومي للمساعد الشخصي",
+    "receivedAmount": "القيمة المستحقة للمساعد",
+    "remainingBalance": "رصيد الضمان المتبقي",
+    "progress": "التقدم"
+  },
+  "common": {
+    "days": "يوم"
+  },
   "levelUp": {
     "title": "تهانينا!",
     "messageLine1": "لقد اكتسبت نقطة خبرة إضافية!",

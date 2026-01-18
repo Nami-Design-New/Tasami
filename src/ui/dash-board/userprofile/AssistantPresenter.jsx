@@ -22,9 +22,9 @@ const AssistantPresenter = ({ userDetails }) => {
   };
   const navigate = useNavigate();
   const [showContractModal, setShowContractModal] = useState(false);
-  function handleOpenModal() {
-    setShowModal(true);
-  }
+  // function handleOpenModal() {
+  //   setShowModal(true);
+  // }
   return (
     <>
       <div className="row">
@@ -201,25 +201,33 @@ const AssistantPresenter = ({ userDetails }) => {
           </InfoCard>
         </div>
       </div>
-      <CummunityRecordModal setShowModal={setShowModal} showModal={showModal} />
-      <ContractRecordModal
-        data={helperContract}
-        page={page}
-        currentPage={currentPage}
-        lastPage={lastPage}
-        setPage={setPage}
-        pageSize={pageSize}
-        setPageSize={setPageSize}
-        isLoading={isLoading}
-        setShowModal={setShowContractModal}
-        showModal={showContractModal}
-        title={t("dashboard.assistant.links.contractLog")}
-        searchQuery={searchQuery}
-        onSearchChange={handleSearchChange}
-        searchDebounceMs={700}
-        setSearchQuery={setSearchQuery}
-        search={true}
-      />
+      {showModal && (
+        <CummunityRecordModal
+          setShowModal={setShowModal}
+          showModal={showModal}
+        />
+      )}
+      {showContractModal && (
+        <ContractRecordModal
+          data={helperContract}
+          userId={user_id}
+          page={page}
+          currentPage={currentPage}
+          lastPage={lastPage}
+          setPage={setPage}
+          pageSize={pageSize}
+          setPageSize={setPageSize}
+          isLoading={isLoading}
+          setShowModal={setShowContractModal}
+          showModal={showContractModal}
+          title={t("dashboard.assistant.links.contractLog")}
+          searchQuery={searchQuery}
+          onSearchChange={handleSearchChange}
+          searchDebounceMs={700}
+          setSearchQuery={setSearchQuery}
+          search={true}
+        />
+      )}
     </>
   );
 };

@@ -1,46 +1,45 @@
 import helpTriangleWithHelper from "../../../assets/icons/triangle-with-helper.svg";
-import check from "../../../assets/icons/check.svg";
+import helpTriangle from "../../../assets/icons/help-triangle.svg";
 
-export default function ContractDescription() {
+import check from "../../../assets/icons/check.svg";
+import { useTranslation } from "react-i18next";
+
+export default function ContractDescription({ work }) {
+  const { t } = useTranslation();
   return (
     <div className="contract-description">
       <h3 className="title">
-        <img src={helpTriangleWithHelper} />
+        <img
+          src={work.type === "goal" ? helpTriangleWithHelper : helpTriangle}
+        />
         <span>المساعدة</span>
       </h3>
-      <p className="description">
-        تطوير تطبيق جوال متكامل لمراقبة الصحة الشخصية، يهدف إلى تمكين المستخدمين
-        من تتبع مؤشرات صحتهم بشكل يومي. سيوفر التطبيق ميزات مثل تسجيل النشاط
-        البدني، مراقبة النظام الغذائي، وتحليل البيانات الصحية لتقديم نصائح
-        مخصصة. كما سيتضمن التطبيق واجهة مستخدم سهلة الاستخدام، مع إمكانية الوصول
-        إلى معلومات صحية موثوقة، مما يساعد المستخدمين على اتخاذ قرارات أفضل بشأن
-        صحتهم.
-      </p>
+      <p className="description">{work?.title}</p>
       <div className="row">
         <div className="col-sm-6 p-2">
           <div className="dec-item">
             <h5>المجال</h5>
-            <p>ريادة الأعمال</p>
+            <p>{work?.category_title}</p>
           </div>
         </div>
         <div className="col-sm-6 p-2">
           <div className="dec-item">
             <h5>التخصص</h5>
-            <p>إدارة المشاريع الصغيرة</p>
+            <p>{work?.sub_category_title}</p>
           </div>
         </div>
         <div className="col-sm-6 p-2">
           {" "}
           <div className="dec-item">
             <h5>المدة المتوقعة لتحقيق الهدف</h5>
-            <p>3 أشهر</p>
+            <p>{work?.goal?.expected_duration_new_human}</p>
           </div>
         </div>
         <div className="col-sm-6 p-2">
           {" "}
           <div className="dec-item">
             <h5>تفضيل هوية المستفيد</h5>
-            <p>الكل</p>
+            <p>{t(`${work?.preferred_gender}`)}</p>
           </div>
         </div>
         <div className="col-sm-6 p-2">

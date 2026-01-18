@@ -647,7 +647,7 @@ export const router = createBrowserRouter(
         },
         { path: "resuems/:id", element: <ResuemeDetails /> },
         {
-          path: "contracts/:id",
+          path: "contracts/:userId/:id",
           element: <DashboardContractDetails />,
         },
         {

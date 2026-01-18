@@ -362,7 +362,6 @@ export default function GroupChat() {
               {" "}
               {(isLoading || isFetchingNextPage) && (
                 <div className="d-flex align-items-center  py-3  justify-content-center">
-                  {/* <div className="loader"></div> */}
                   <Loading height={20} />
                 </div>
               )}

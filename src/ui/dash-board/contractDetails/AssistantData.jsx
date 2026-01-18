@@ -2,29 +2,29 @@ import medalIcon from "../../../assets/icons/medal.svg";
 import locationIcon from "../../../assets/icons/location-icon.svg";
 import profileIcon from "../../../assets/images/profile2.png";
 
-export default function AssistantData() {
+export default function AssistantData({ user }) {
   return (
     <div className="assistant-card">
       <div className="card-body">
         <div className="user-data">
-          <div className="img-wrapper">
+          <div className="img-wrapper ">
             <img
-              src={profileIcon}
-              alt="احمد التطاوي"
+              src={user?.image || profileIcon}
+              alt="username"
               className="assistant-avatar"
             />
           </div>
           <div className="assistant-name">
             <h3>
-              <span> احمد التطاوي</span>{" "}
-              <div className="stats">
+              <span> {user?.name}</span>{" "}
+              <div className="stats d-flex align-items-center gap-1">
                 <img src={medalIcon} />
-                <span>11</span>
+                <span>{user?.experience_level}</span>
               </div>
             </h3>
             <div className="location">
+              <span>{user?.country?.title} </span>
               <img src={locationIcon} />
-              <span>السعودية </span>
             </div>
           </div>
         </div>

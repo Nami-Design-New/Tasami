@@ -139,24 +139,26 @@ const Beneficiary = ({ userDetails }) => {
             </p>
           </InfoCard>
         </div>
-        <ContractRecordModal
-          data={userContract}
-          page={page}
-          currentPage={currentPage}
-          lastPage={lastPage}
-          setPage={setPage}
-          pageSize={pageSize}
-          setPageSize={setPageSize}
-          isLoading={isLoading}
-          showModal={showModal}
-          setShowModal={setShowModal}
-          title={t("dashboard.beneficiary.titles.contractLog")}
-          searchQuery={searchQuery}
-          onSearchChange={handleSearchChange}
-          searchDebounceMs={700}
-          search={true}
-          setSearchQuery={setSearchQuery}
-        />
+        {showModal && (
+          <ContractRecordModal
+            data={userContract}
+            page={page}
+            currentPage={currentPage}
+            lastPage={lastPage}
+            setPage={setPage}
+            pageSize={pageSize}
+            setPageSize={setPageSize}
+            isLoading={isLoading}
+            showModal={showModal}
+            setShowModal={setShowModal}
+            title={t("dashboard.beneficiary.titles.contractLog")}
+            searchQuery={searchQuery}
+            onSearchChange={handleSearchChange}
+            searchDebounceMs={700}
+            search={true}
+            setSearchQuery={setSearchQuery}
+          />
+        )}
       </div>
     </>
   );

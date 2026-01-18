@@ -29,6 +29,7 @@ const ContractRecordModal = ({
   onSearchChange,
   searchDebounceMs,
   search,
+  userId,
 }) => {
   const { t } = useTranslation();
   // const [showDeleteModal, setShowDeleteModal] = useState(false);
@@ -71,7 +72,7 @@ const ContractRecordModal = ({
         header: t("dashboard.contractModal.refNumber"),
         cell: (info) => (
           <Link
-            to={`/dashboard/contracts/${info.getValue()}`}
+            to={`/dashboard/contracts/${userId}/${info.getValue()}`}
             className="link-styles"
           >
             {info.getValue()}
