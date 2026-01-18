@@ -23,9 +23,9 @@
     "messageLine2": "تقدمك المستمر يعكس تميزك ويقوي ملفك الشخصي"
   },
   "tasksStatus": {
-    "progress": "جاري",
-    "not_assigned": "غير معين",
-    "completed": "مكتمل"
+    "progress": "غير مكتملة",
+    "not_assigned": "غير مضافة",
+    "completed": "مكتملة"
   },
   "userAccountsStatus": {
     "active": "نشط",

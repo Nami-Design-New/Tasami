@@ -39,20 +39,13 @@ export default function AddPostModal({
     control,
     formState: { errors },
   } = useAddPostForm();
-  const {
-    showAlertModal,
-    requestClose,
-    confirmClose,
-    cancelClose,
-    hasFormValues,
-  } = useFormCloseHandler({
-    watch,
-    reset,
-    defaultValues: ADD_POST_DEFAULT_VALUES,
-    onClose: () => setShowModal(false),
-  });
-  console.log(hasFormValues());
-  console.log(watch());
+  const { showAlertModal, requestClose, confirmClose, cancelClose } =
+    useFormCloseHandler({
+      watch,
+      reset,
+      defaultValues: ADD_POST_DEFAULT_VALUES,
+      onClose: () => setShowModal(false),
+    });
 
   const selectedFieldId = watch("field");
   const selectedPostType = watch("postType");
@@ -73,7 +66,6 @@ export default function AddPostModal({
       const normalizedLinks = postDetails?.links?.length
         ? postDetails.links.map((l) => (typeof l === "string" ? l : l.link))
         : [];
-      console.log(normalizedLinks);
 
       reset({
         field: postDetails?.category_id || "",

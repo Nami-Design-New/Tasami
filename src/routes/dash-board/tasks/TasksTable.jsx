@@ -148,7 +148,7 @@ const TasksTable = ({
               badgeColor = "#28a745";
               break;
             case "progress":
-              badgeColor = "#ffc107";
+              badgeColor = "#dc3545";
               break;
             default:
               badgeColor = "#bababbff";

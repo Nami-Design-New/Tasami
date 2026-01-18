@@ -16,7 +16,7 @@ export default function ReassignTaskModal({
   const { t } = useTranslation();
   const [selectedEmployee, setSelectedEmployee] = useState("");
   const { employees } = useGetSharedEmployees();
-  const { reassignTask } = usePostReassignTask();
+  const { reassignTask, isReassigning } = usePostReassignTask();
   const queryClient = useQueryClient();
 
   const handleReassignTask = () => {
@@ -31,6 +31,7 @@ export default function ReassignTaskModal({
           queryKey: ["dashboard-tasks"],
         });
         setShowModal(false);
+        setSelectedEmployee("");
       },
       onError: (err) => {
         toast.error(err.message);
@@ -43,7 +44,10 @@ export default function ReassignTaskModal({
       centered
       size="md"
       show={showModal}
-      onHide={() => setShowModal(false)}
+      onHide={() => {
+        setShowModal(false);
+        setSelectedEmployee("");
+      }}
     >
       <GlobalModal.Header closeButton>
         <h6>{t("dashboard.tasks.reassignModal.title")}</h6>
@@ -68,6 +72,7 @@ export default function ReassignTaskModal({
                 onClick={handleReassignTask}
                 fullWidth
                 size="large"
+                loading={isReassigning}
               >
                 {t("dashboard.tasks.reassignModal.reassignButton")}
               </CustomButton>
