@@ -1,18 +1,18 @@
+import { yupResolver } from "@hookform/resolvers/yup";
+import { useQueryClient } from "@tanstack/react-query";
+import { useForm } from "react-hook-form";
+import { useTranslation } from "react-i18next";
+import { toast } from "sonner";
+import * as yup from "yup";
+import useInquiry from "../../../hooks/website/inquiries/useInquiry";
 import CustomButton from "../../CustomButton";
 import TextField from "../../forms/TextField";
-import useInquiry from "../../../hooks/website/inquiries/useInquiry";
-import { useTranslation } from "react-i18next";
-import { useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
-import { useQueryClient } from "@tanstack/react-query";
-import { toast } from "sonner";
 import GlobalModal from "../../GlobalModal";
 
 const InquiryModal = ({ showModal, setShowModal, workid }) => {
   const { t } = useTranslation();
 
-  const querClient = useQueryClient();
+  const queryClient = useQueryClient();
   const { inquiry, isPending } = useInquiry();
 
   const schema = yup.object().shape({
@@ -39,7 +39,17 @@ const InquiryModal = ({ showModal, setShowModal, workid }) => {
         onSuccess: (res) => {
           reset();
           setShowModal(false);
-          querClient.refetchQueries({ queryKey: ["inquries"] });
+          queryClient.setQueryData(
+            ["offer-details", String(workid)],
+            (oldData) => {
+              if (!oldData) return oldData;
+              return {
+                ...oldData,
+                can_send_inquiry: !oldData.can_send_inquiry,
+              };
+            }
+          );
+          queryClient.refetchQueries({ queryKey: ["inquries"] });
           toast.success(res.message);
         },
         onError: (err) => {

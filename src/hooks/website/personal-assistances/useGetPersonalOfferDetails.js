@@ -13,6 +13,8 @@ export default function useGetPersonalOfferDetails() {
       }
       return res.data.data;
     },
+    gcTime: undefined,
+    staleTime: undefined,
   });
   return { offerDetails, isLoading };
 }

@@ -15,7 +15,7 @@ import InquiryModal from "../../ui/website/my-notifications/inquiryModal";
 import OfferInfoGrid from "../../ui/website/offers/OfferInfoGrid";
 import TopInfo from "../../ui/website/offers/TopInfo";
 import { shareContent } from "../../utils/shared";
-import helpTiangle from "../../assets/icons/help-triangle.svg";
+import helpTriangle from "../../assets/icons/help-triangle.svg";
 import AlertModal from "../../ui/website/platform/my-community/AlertModal";
 
 export default function PersonalOffersDetails() {
@@ -120,7 +120,7 @@ export default function PersonalOffersDetails() {
 
           <div className="col-lg-8 col-12 p-2">
             <div className="hed">
-              <img src={helpTiangle} />
+              <img src={helpTriangle} />
               <h6>{t("website.offerDetails.assistance")}</h6>
             </div>
             <p className="desc">{offerDetails?.title}</p>
@@ -215,23 +215,29 @@ export default function PersonalOffersDetails() {
 
         {user && (
           <>
-            <ContractReq
-              showModal={showHelpModal}
-              setShowModal={setShowHelpModal}
-            />
+            {showHelpModal && (
+              <ContractReq
+                showModal={showHelpModal}
+                setShowModal={setShowHelpModal}
+              />
+            )}
 
-            <ReportModal
-              showModal={showReportModal}
-              setShowModal={setShowReportModal}
-              type={"helper_service"}
-              objectId={offerDetails?.help_service?.id}
-            />
+            {showReportModal && (
+              <ReportModal
+                showModal={showReportModal}
+                setShowModal={setShowReportModal}
+                type={"helper_service"}
+                objectId={offerDetails?.help_service?.id}
+              />
+            )}
 
-            <InquiryModal
-              workid={offerDetails.id}
-              showModal={showInquiryModal}
-              setShowModal={setShowInquiryModal}
-            />
+            {showInquiryModal && (
+              <InquiryModal
+                workid={offerDetails.id}
+                showModal={showInquiryModal}
+                setShowModal={setShowInquiryModal}
+              />
+            )}
             {showAlertModal && (
               <AlertModal
                 showModal={showAlertModal}
