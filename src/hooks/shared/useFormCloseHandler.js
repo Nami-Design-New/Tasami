@@ -24,15 +24,10 @@ export default function useFormCloseHandler({
    */
   const hasFormValues = () => {
     const currentValues = watch();
-    console.log(currentValues);
 
     return Object.keys(defaultValues).some((key) => {
-      console.log(key);
-
       const currentValue = currentValues[key];
       const defaultValue = defaultValues[key];
-
-      console.log("currentValue:", currentValue);
 
       // Handle different types of values
       if (Array.isArray(defaultValue)) {

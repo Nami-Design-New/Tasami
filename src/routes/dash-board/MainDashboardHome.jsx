@@ -1,18 +1,17 @@
 import { useTranslation } from "react-i18next";
+import { useSelector } from "react-redux";
 import { Link } from "react-router";
+import addFileds from "../../assets/icons/add-fileds.svg";
+import addUser from "../../assets/icons/add-user.svg";
+import permissonIcon from "../../assets/icons/permisson_icon.svg";
+import useGetHomeStatistics from "../../hooks/dashboard/home/useGetHomeStatistics";
 import ChartCard from "../../ui/dash-board/cards/ChartCard";
 import StatCard from "../../ui/dash-board/cards/StatCard";
 import ColumnChart from "../../ui/dash-board/charts/ColumnChart";
 import DounutCharts from "../../ui/dash-board/charts/DounutCharts";
 import LineAnalyticsChart from "../../ui/dash-board/charts/LineAnalyticsChart";
 import TaskStatus from "../../ui/dash-board/home/TaskStatus";
-import { useSelector } from "react-redux";
-import useGetHomeStatistics from "../../hooks/dashboard/home/useGetHomeStatistics";
 import Loading from "../../ui/loading/Loading";
-import addUser from "../../assets/icons/add-user.svg";
-import permissonIcon from "../../assets/icons/permisson_icon.svg";
-import deleteUser from "../../assets/icons/delete-user.svg";
-import addFileds from "../../assets/icons/add-fileds.svg";
 
 const packageColors = ["#F5B849", "#26BF94", "#4A90E2", "#9B59B6", "#E74C3C"];
 const packageIcons = [
@@ -29,12 +28,6 @@ export default function DashboardHome() {
   const { homeStatistics, isLoading } = useGetHomeStatistics();
 
   if (isLoading) return <Loading />;
-
-  // ===== Packages chartData (for StatCards) =====
-  const packageChartData =
-    homeStatistics?.subscriptions_revenue?.map(
-      (sub) => sub.total_subscriptions
-    ) || [];
 
   // ===== Revenue Line Chart =====
   const revenueSeries = [
@@ -170,7 +163,7 @@ export default function DashboardHome() {
             value={homeStatistics?.help_requests?.total_help_requests}
             percentage={homeStatistics?.help_requests?.growth_percentage}
             timeframe={t("dashboard.this_month")}
-            chartData={packageChartData}
+            chartData={homeStatistics?.help_requests?.chart_data}
             color="#805AD5"
           />
         </div>
@@ -183,7 +176,7 @@ export default function DashboardHome() {
             value={homeStatistics?.help_services?.total_help_services}
             percentage={homeStatistics?.help_services?.growth_percentage}
             timeframe={t("dashboard.this_month")}
-            chartData={packageChartData}
+            chartData={homeStatistics?.help_services?.chart_data}
             color="#23B7E5"
           />
         </div>
@@ -197,7 +190,7 @@ export default function DashboardHome() {
               value={myPackage.total_users}
               percentage={myPackage.growth_percentage}
               timeframe={t("dashboard.this_month")}
-              chartData={packageChartData}
+              chartData={myPackage?.chart_data}
               color={packageColors[index % packageColors.length]}
             />
           </div>
