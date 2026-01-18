@@ -4,23 +4,23 @@ import { useTranslation } from "react-i18next";
 import useGetDhNationalities from "../../../hooks/dashboard/website-managment/nationalities/useGetDhNationalities";
 import CustomButton from "../../../ui/CustomButton";
 import AddNewNationalitiyModal from "../../../ui/dash-board/websiteManagment/AddNewNationalitiyModal";
-import ConfirmDeleteModal from "../../../ui/modals/ConfirmationDeleteModal";
+// import ConfirmDeleteModal from "../../../ui/modals/ConfirmationDeleteModal";
 import PageHeader from "../../../ui/PageHeader";
 import ReusableDataTable from "../../../ui/table/ReusableDataTable";
 import TablePagination from "../../../ui/table/TablePagentaion";
 import { PAGE_SIZE } from "../../../utils/constants";
-import useDeleteNationality from "../../../hooks/dashboard/website-managment/nationalities/useDeleteNationality";
-import { useQueryClient } from "@tanstack/react-query";
-import { toast } from "sonner";
+// import useDeleteNationality from "../../../hooks/dashboard/website-managment/nationalities/useDeleteNationality";
+// import { useQueryClient } from "@tanstack/react-query";
+// import { toast } from "sonner";
 const columnHelper = createColumnHelper();
 
 export default function Nationalities() {
   const { t } = useTranslation();
-  const queryClient = useQueryClient();
+  // const queryClient = useQueryClient();
 
   const [showAddNationality, setShowAddNationality] = useState(false);
-  const [showDeleteModal, setShowDeleteModal] = useState(false);
-  const [deletionTarget, setDeletionTarget] = useState(null);
+  // const [showDeleteModal, setShowDeleteModal] = useState(false);
+  // const [deletionTarget, setDeletionTarget] = useState(null);
   const [isEdit, setIsEdit] = useState(false);
 
   // pagenation states
@@ -34,19 +34,19 @@ export default function Nationalities() {
 
   const { nationalities, currentPage, lastPage, isLoading } =
     useGetDhNationalities(searchQuery, page, pageSize);
-  const { deleteNationality, isDeletingNationality } = useDeleteNationality();
-  const handleDeleteNationality = () => {
-    deleteNationality(deletionTarget, {
-      onSuccess: (res) => {
-        toast.success(res.message);
-        queryClient.invalidateQueries({ queryKey: ["dh-nationalites"] });
-        setShowDeleteModal(false);
-      },
-      onError: (error) => {
-        toast.error(error.message);
-      },
-    });
-  };
+  // const { deleteNationality, isDeletingNationality } = useDeleteNationality();
+  // const handleDeleteNationality = () => {
+  //   deleteNationality(deletionTarget, {
+  //     onSuccess: (res) => {
+  //       toast.success(res.message);
+  //       queryClient.invalidateQueries({ queryKey: ["dh-nationalites"] });
+  //       setShowDeleteModal(false);
+  //     },
+  //     onError: (error) => {
+  //       toast.error(error.message);
+  //     },
+  //   });
+  // };
 
   const columns = useMemo(
     () => [
@@ -70,13 +70,13 @@ export default function Nationalities() {
                 setUpdateTarget(info?.row.original);
               }}
             ></i>
-            <i
+            {/* <i
               className="fa-solid fa-trash  table__actions--delete"
               onClick={() => {
                 setShowDeleteModal(true);
                 setDeletionTarget(info?.row.original.id);
               }}
-            ></i>
+            ></i> */}
           </div>
         ),
         enableSorting: false,
@@ -133,14 +133,14 @@ export default function Nationalities() {
           updateTarget={updateTarget}
         />
       )}{" "}
-      {showDeleteModal && (
+      {/* {showDeleteModal && (
         <ConfirmDeleteModal
           showDeleteModal={showDeleteModal}
           setShowDeleteModal={setShowDeleteModal}
           onConfirm={handleDeleteNationality}
           loading={isDeletingNationality}
         />
-      )}
+      )} */}
     </section>
   );
 }

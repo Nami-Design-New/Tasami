@@ -13,6 +13,7 @@ import useSendMessages from "../../hooks/dashboard/chats/useSendMessages";
 import { EmployeeChatService } from "../../utils/employeeChatService";
 import { getToken } from "../../utils/token";
 import Loading from "../loading/Loading";
+import CustomButton from "../CustomButton";
 
 const getMessageType = (file) => {
   if (!file) return "text";
@@ -433,9 +434,13 @@ const ChatWindow = ({ isOpen, setIsOpen, activeChat, activeUser }) => {
               >
                 <i className="fa-solid fa-microphone"></i>
               </button>
-              <button type="submit" className="chat-window__footer--send">
+              <CustomButton
+                color={"success"}
+                type="submit"
+                className="chat-window__footer--send"
+              >
                 <i className="fa-solid fa-paper-plane"></i>
-              </button>
+              </CustomButton>
             </div>
           </form>
         </div>

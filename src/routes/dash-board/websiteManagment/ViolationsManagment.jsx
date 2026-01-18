@@ -129,20 +129,24 @@ export default function ViolationsManagment() {
           </ReusableDataTable>
         </div>
       </div>
-      <ViolationsEditModal
-        showModal={showModal}
-        setShowModal={setShowModal}
-        isEdit={isEdit}
-        setIsEdit={setIsEdit}
-        updateTarget={updateTarget}
-        violationReasons={violationReasons}
-      />
-      <ConfirmDeleteModal
-        showDeleteModal={showDeleteModal}
-        setShowDeleteModal={setShowDeleteModal}
-        loading={isDeletingViolationReason}
-        onConfirm={() => handleDeleteViolationReason(deletionTarget)}
-      />
+      {showModal && (
+        <ViolationsEditModal
+          showModal={showModal}
+          setShowModal={setShowModal}
+          isEdit={isEdit}
+          setIsEdit={setIsEdit}
+          updateTarget={updateTarget}
+          violationReasons={violationReasons}
+        />
+      )}
+      {showDeleteModal && (
+        <ConfirmDeleteModal
+          showDeleteModal={showDeleteModal}
+          setShowDeleteModal={setShowDeleteModal}
+          loading={isDeletingViolationReason}
+          onConfirm={() => handleDeleteViolationReason(deletionTarget)}
+        />
+      )}
     </section>
   );
 }

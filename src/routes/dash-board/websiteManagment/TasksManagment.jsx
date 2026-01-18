@@ -3,12 +3,12 @@ import CustomButton from "../../../ui/CustomButton";
 import PageHeader from "../../../ui/PageHeader";
 import ReusableDataTable from "../../../ui/table/ReusableDataTable";
 import { createColumnHelper } from "@tanstack/react-table";
-import ConfirmDeleteModal from "../../../ui/modals/ConfirmationDeleteModal";
 import TasksClassificationModal from "../../../ui/dash-board/websiteManagment/TasksClassificationModal";
-import { useQueryClient } from "@tanstack/react-query";
 import { PAGE_SIZE } from "../../../utils/constants";
 import useGetTaskCategory from "../../../hooks/dashboard/websiteManagment/tasksManagment/useGetTaskCategory";
-import useDeleteTaskCategory from "../../../hooks/dashboard/websiteManagment/tasksManagment/useDeleteTaskCategory";
+// import ConfirmDeleteModal from "../../../ui/modals/ConfirmationDeleteModal";
+// import { useQueryClient } from "@tanstack/react-query";
+// import useDeleteTaskCategory from "../../../hooks/dashboard/websiteManagment/tasksManagment/useDeleteTaskCategory";
 import TablePagination from "../../../ui/table/TablePagentaion";
 import { useTranslation } from "react-i18next";
 
@@ -16,9 +16,9 @@ const columnHelper = createColumnHelper();
 
 export default function TasksManagment() {
   const [showModal, setShowModal] = useState();
-  const [showDeleteModal, setShowDeleteModal] = useState();
+  // const [showDeleteModal, setShowDeleteModal] = useState();
   const [isEdit, setIsEdit] = useState(false);
-  const queryClient = useQueryClient();
+  // const queryClient = useQueryClient();
   const { t } = useTranslation();
   const lang = localStorage.getItem("i18nextLng");
   const [searchQuery, setSearchQuery] = useState("");
@@ -33,22 +33,22 @@ export default function TasksManagment() {
     useGetTaskCategory(searchQuery, page, pageSize);
 
   // delete row
-  const [deletionTarget, setDeletionTarget] = useState(null);
+  // const [deletionTarget, setDeletionTarget] = useState(null);
   const [updateTarget, setUpdateTarget] = useState(null);
-  const { deleteTaskCategory, isDeletingTaskCategory } =
-    useDeleteTaskCategory();
+  // const { deleteTaskCategory, isDeletingTaskCategory } =
+  //   useDeleteTaskCategory();
 
-  const handleDeleteTaskCategory = (id) => {
-    deleteTaskCategory(id, {
-      onSuccess: () => {
-        setShowDeleteModal(false);
-        setDeletionTarget(null);
-        queryClient.invalidateQueries({
-          queryKey: ["task-category-data"],
-        });
-      },
-    });
-  };
+  // const handleDeleteTaskCategory = (id) => {
+  //   deleteTaskCategory(id, {
+  //     onSuccess: () => {
+  //       setShowDeleteModal(false);
+  //       setDeletionTarget(null);
+  //       queryClient.invalidateQueries({
+  //         queryKey: ["task-category-data"],
+  //       });
+  //     },
+  //   });
+  // };
 
   const columns = useMemo(
     () => [
@@ -71,19 +71,19 @@ export default function TasksManagment() {
                   setUpdateTarget(info.row.original.id);
               }}
             ></i>
-            <i
+            {/* <i
               className="fa-solid fa-trash  table__actions--delete"
               onClick={() => {
                 setShowDeleteModal(true);
                 setDeletionTarget(info.row.original.id);
               }}
-            ></i>
+            ></i> */}
           </div>
         ),
         enableSorting: false,
       }),
     ],
-    []
+    [t, lang]
   );
   return (
     <section>
@@ -133,12 +133,12 @@ export default function TasksManagment() {
         updateTarget={updateTarget}
         taskCategories={taskCategories}
       />
-      <ConfirmDeleteModal
+      {/* <ConfirmDeleteModal
         showDeleteModal={showDeleteModal}
         setShowDeleteModal={setShowDeleteModal}
         loading={isDeletingTaskCategory}
         onConfirm={() => handleDeleteTaskCategory(deletionTarget)}
-      />
+      /> */}
     </section>
   );
 }

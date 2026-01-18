@@ -10,6 +10,7 @@ import useUpdateViolationReason from "../../../hooks/dashboard/websiteManagment/
 import { useEffect } from "react";
 import { toast } from "sonner";
 import { useTranslation } from "react-i18next";
+import GlobalModal from "../../GlobalModal";
 
 export default function ViolationsEditModal({
   showModal,
@@ -106,12 +107,17 @@ export default function ViolationsEditModal({
       centered
     >
       <GlobalModal.Header closeButton>
-        {isEdit ? t("dashboard.violation.edit") : t("dashboard.violation.add")}
+        <h6>
+          {" "}
+          {isEdit
+            ? t("dashboard.violation.edit")
+            : t("dashboard.violation.add")}
+        </h6>
       </GlobalModal.Header>
       <GlobalModal.Body>
         <form className="form_ui" onSubmit={handleSubmit(onSubmit)}>
           <div className="row">
-            <div className="col-12 p-2">
+            <div className="col-6 p-2">
               <InputField
                 {...register("title:ar")}
                 label={t("dashboard.violation.labels.ar")}
@@ -119,7 +125,7 @@ export default function ViolationsEditModal({
               />
             </div>
 
-            <div className="col-12 p-2">
+            <div className="col-6 p-2">
               <InputField
                 {...register("title:en")}
                 error={errors["title:en"]?.message}

@@ -1,26 +1,26 @@
 import { createColumnHelper } from "@tanstack/react-table";
 import { useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
-import useDeletePackage from "../../../hooks/dashboard/website-managment/packages/useDeletePackage";
+// import useDeletePackage from "../../../hooks/dashboard/website-managment/packages/useDeletePackage";
 import useGetPackages from "../../../hooks/dashboard/website-managment/packages/useGetPackages";
 import CustomButton from "../../../ui/CustomButton";
 import AddNewSubscriptoinsModal from "../../../ui/dash-board/websiteManagment/AddNewSubscriptoinsModal";
 import DetailsSubscriptionsModal from "../../../ui/dash-board/websiteManagment/DetailsSubscriptionsModal";
-import ConfirmDeleteModal from "../../../ui/modals/ConfirmationDeleteModal";
 import PageHeader from "../../../ui/PageHeader";
 import ReusableDataTable from "../../../ui/table/ReusableDataTable";
 import TablePagination from "../../../ui/table/TablePagentaion";
 import { PAGE_SIZE } from "../../../utils/constants";
-import { toast } from "sonner";
-import { useQueryClient } from "@tanstack/react-query";
+// import ConfirmDeleteModal from "../../../ui/modals/ConfirmationDeleteModal";
+// import { toast } from "sonner";
+// import { useQueryClient } from "@tanstack/react-query";
 
 const columnHelper = createColumnHelper();
 
 export default function SubscriptionManagement() {
   const { t } = useTranslation();
-  const queryClient = useQueryClient();
+  // const queryClient = useQueryClient();
   const [showDetails, setShowDetails] = useState(false);
-  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  // const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [showAddSubscriptions, setShowAddSubscriptions] = useState(false);
   const [isEdit, setIsEdit] = useState(false);
   const [selectedPacage, setSelectedPacage] = useState();
@@ -39,20 +39,20 @@ export default function SubscriptionManagement() {
     pageSize
   );
 
-  const { isPending, deletePackage } = useDeletePackage();
+  // const { isPending, deletePackage } = useDeletePackage();
 
-  const handleDeletePackage = () => {
-    deletePackage(selectedPacage.id, {
-      onSuccess: (res) => {
-        toast.success(res.message);
-        queryClient.invalidateQueries({ queryKey: ["dh-packages"] });
-        setShowDeleteModal(false);
-      },
-      onError: (error) => {
-        toast.error(error.message);
-      },
-    });
-  };
+  // const handleDeletePackage = () => {
+  //   deletePackage(selectedPacage.id, {
+  //     onSuccess: (res) => {
+  //       toast.success(res.message);
+  //       queryClient.invalidateQueries({ queryKey: ["dh-packages"] });
+  //       setShowDeleteModal(false);
+  //     },
+  //     onError: (error) => {
+  //       toast.error(error.message);
+  //     },
+  //   });
+  // };
 
   const data = useMemo(
     () =>
@@ -87,7 +87,7 @@ export default function SubscriptionManagement() {
         id: "actions",
         header: t("dashboard.subscriptions.actions"),
         cell: (info) => {
-          const isFree = info?.row?.original?.type === "free";
+          // const isFree = info?.row?.original?.type === "free";
 
           return (
             <div className="table__actions">
@@ -99,7 +99,7 @@ export default function SubscriptionManagement() {
                   setSelectedPacage(info.row.original);
                 }}
               />
-              {!isFree && (
+              {/* {!isFree && (
                 <i
                   className="fa-solid fa-trash table__actions--delete"
                   onClick={() => {
@@ -107,7 +107,7 @@ export default function SubscriptionManagement() {
                     setSelectedPacage(info.row.original);
                   }}
                 />
-              )}
+              )} */}
               <i
                 className="fa-solid fa-eye table__actions--details"
                 onClick={() => {
@@ -174,14 +174,14 @@ export default function SubscriptionManagement() {
           existingData={selectedPacage}
         />
       )}
-      {showDeleteModal && (
+      {/* {showDeleteModal && (
         <ConfirmDeleteModal
           showDeleteModal={showDeleteModal}
           setShowDeleteModal={setShowDeleteModal}
           onConfirm={handleDeletePackage}
           loading={isPending}
         />
-      )}
+      )} */}
       {showDetails && (
         <DetailsSubscriptionsModal
           setShowModal={setShowDetails}
