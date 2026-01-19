@@ -12,6 +12,7 @@ import HelperCard from "../../../cards/HelperCard";
 import Currency from "../../../Currency";
 import CustomButton from "../../../CustomButton";
 import OfferPaymentModal from "./OfferPaymentModal";
+import GlobalModal from "../../../GlobalModal";
 
 export default function WorkOfferDetails({ showModal, setShowModal, offerId }) {
   const { t } = useTranslation();
