@@ -12,6 +12,7 @@ import CustomButton from "../../CustomButton";
 import InputField from "../../forms/InputField";
 import SelectField from "../../forms/SelectField";
 import { Link } from "react-router";
+import GlobalModal from "../../GlobalModal";
 
 export default function DocumentModal({
   showDocumentModal,
