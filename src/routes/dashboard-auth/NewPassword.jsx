@@ -6,6 +6,10 @@ import CustomButton from "../../ui/CustomButton";
 import PasswordField from "../../ui/forms/PasswordField";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { useSelector } from "react-redux";
+import useResetPassord from "../../hooks/auth/dashboard/useResetPassord";
+import { toast } from "sonner";
+import { persistor } from "../../redux/store";
 
 // Password validation schema
 const newPasswordSchema = (t) =>
@@ -23,6 +27,7 @@ const newPasswordSchema = (t) =>
 export default function NewPassword({ setResetPasswordStep }) {
   const navigate = useNavigate();
   const { t } = useTranslation();
+  const { email } = useSelector((state) => state.phone);
   const {
     register,
     handleSubmit,
@@ -31,14 +36,31 @@ export default function NewPassword({ setResetPasswordStep }) {
     resolver: yupResolver(newPasswordSchema(t)),
     mode: "onChange",
   });
+  const { resetPassword, isPending } = useResetPassord();
   const handleBackButtonClick = (e) => {
     e.preventDefault();
     setResetPasswordStep("s1");
   };
 
   const onSubmit = async (data) => {
-    navigate("/dashboard/login");
+    const payload = {
+      password: data.password,
+      password_confirmation: data.confirmPassword,
+      email,
+    };
+
+    resetPassword(payload, {
+      onSuccess: (data) => {
+        toast.success(data.message);
+        persistor.purge();
+        navigate("/dashboard/login");
+      },
+      onError: (error) => {
+        toast.error(error.message);
+      },
+    });
   };
+
   return (
     <div className="reset-form">
       <form className="form_ui" onSubmit={handleSubmit(onSubmit)}>

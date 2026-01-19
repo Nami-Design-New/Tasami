@@ -5,7 +5,10 @@ import * as yup from "yup";
 import InputField from "../forms/InputField";
 import { Link } from "react-router";
 import CustomButton from "../CustomButton";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import useSendOtpCode from "../../hooks/auth/dashboard/useSendOtpCode";
+import { toast } from "sonner";
+import { setEmail } from "../../redux/slices/phoneSlice";
 
 const resetPasswordSchema = (t) =>
   yup.object().shape({
@@ -18,6 +21,7 @@ const resetPasswordSchema = (t) =>
 export default function ResetForm({ setResetPasswordStep }) {
   const { t } = useTranslation();
   const lang = useSelector((state) => state.language.lang);
+  const dispatch = useDispatch();
 
   const {
     handleSubmit,
@@ -27,10 +31,22 @@ export default function ResetForm({ setResetPasswordStep }) {
     resolver: yupResolver(resetPasswordSchema(t)),
     defaultValues: { email: "" },
   });
-
+  const { sendCode, isPending } = useSendOtpCode();
   // Submit
-  const onSubmit = (data) => {
-    setResetPasswordStep("s2");
+  const onSubmit = ({ email }) => {
+    sendCode(
+      { email },
+      {
+        onSuccess: (data) => {
+          toast.success(data.message);
+          dispatch(setEmail({ email }));
+          setResetPasswordStep("s2");
+        },
+        onError: (error) => {
+          toast.error(error.message);
+        },
+      },
+    );
   };
   return (
     <div className="reset-form">
@@ -54,7 +70,7 @@ export default function ResetForm({ setResetPasswordStep }) {
                   <i className="fa-light fa-arrow-left" />
                 )}
               </Link>
-              <CustomButton fullWidth size="large">
+              <CustomButton fullWidth size="large" loading={isPending}>
                 {t("auth.confirm")}
               </CustomButton>
             </div>

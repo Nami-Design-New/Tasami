@@ -4,6 +4,7 @@ const initialState = {
   fullPhone: null,
   phone: null,
   phoneCode: null,
+  email: null,
 };
 
 const phoneSlice = createSlice({
@@ -15,13 +16,20 @@ const phoneSlice = createSlice({
       state.phone = action.payload.phone;
       state.phoneCode = action.payload.phoneCode;
     },
+    setEmail: (state, action) => {
+      state.email = action.payload.email;
+    },
     clearPhoneData: (state) => {
       state.fullPhone = null;
       state.phone = null;
       state.phoneCode = null;
     },
+    clearEmail: (state) => {
+      state.email = null;
+    },
   },
 });
 
-export const { setPhoneData, clearPhoneData } = phoneSlice.actions;
+export const { setPhoneData, clearPhoneData, setEmail, clearEmail } =
+  phoneSlice.actions;
 export default phoneSlice.reducer;
