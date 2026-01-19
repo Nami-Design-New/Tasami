@@ -1,9 +1,13 @@
 import { useState } from "react";
 import GoalDetailsModal from "./GoalDetailsModal";
-import { useNavigate } from "react-router";
+import { useLocation, useNavigate } from "react-router";
 import medalIcon from "../../../../assets/icons/medal.svg";
 export default function MemberCard({ member, exePercentage }) {
   const [showGoalDetails, setShowGoalDetails] = useState();
+  const location = useLocation();
+  console.log(location.pathname);
+
+  const isMyGroup = location?.pathname.includes("my-group");
   const navigate = useNavigate();
   return (
     <div className="position-relative">
@@ -12,8 +16,11 @@ export default function MemberCard({ member, exePercentage }) {
           member?.show_goal ? "cursor-pointer" : ""
         }`}
         onClick={() => {
-          navigate(`/my-contracts/${member?.work_id}`);
-          // if (member?.show_goal === true) setShowGoalDetails(true);
+          if (isMyGroup) {
+            navigate(`/my-contracts/${member?.work_id}`);
+          } else {
+            if (member?.show_goal === true) setShowGoalDetails(true);
+          }
         }}
       >
         {" "}
@@ -43,7 +50,7 @@ export default function MemberCard({ member, exePercentage }) {
         subCategory={member.goal_sub_category_title}
         title={member.title}
       />
-      {member?.member_pending_count > 0 && (
+      {member?.member_pending_count && isMyGroup > 0 && (
         <span className="notification_span notification_position-bottom">
           {member?.member_pending_count}
         </span>

@@ -48,7 +48,7 @@ export default function ContractDetails() {
         onError: (error) => {
           toast.error(error.message || t("contract.errorOccurred"));
         },
-      }
+      },
     );
   };
   const handleWithdrawOffer = (offerId) => {
@@ -179,19 +179,23 @@ export default function ContractDetails() {
         </div>
       </div>
 
-      {workDetails.rectangle === "help_service_from_helper" ? (
-        workDetails?.notes_from_helper !== "" && (
-          <div className="notse-box my-3">
-            <div className="label">{t("website.offerDetails.extraTerms")}</div>
-            <div className="value"> {workDetails?.notes_from_helper}</div>
-          </div>
-        )
-      ) : (
-        <div className="notse-box my-3">
-          <div className="label">{t("website.offerDetails.extraTerms")}</div>{" "}
-          <div className="value">{workDetails?.goal.notes}</div>
-        </div>
-      )}
+      {workDetails.rectangle === "help_service_from_helper"
+        ? workDetails?.notes_from_helper !== "" && (
+            <div className="notse-box my-3">
+              <div className="label">
+                {t("website.offerDetails.extraTerms")}
+              </div>
+              <div className="value"> {workDetails?.notes_from_helper}</div>
+            </div>
+          )
+        : workDetails?.goal.notes !== "" && (
+            <div className="notse-box my-3">
+              <div className="label">
+                {t("website.offerDetails.extraTerms")}
+              </div>{" "}
+              <div className="value">{workDetails?.goal.notes}</div>
+            </div>
+          )}
 
       {workDetails?.help_mechanisms.length > 0 && (
         <div className="extra-terms">

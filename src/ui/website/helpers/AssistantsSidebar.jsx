@@ -78,7 +78,7 @@ export default function AssistantsSidebar({ isGoal = false }) {
   // --- Handle submit (sync with URL search params)
   const onSubmit = (data) => {
     const filteredData = Object.fromEntries(
-      Object.entries(data).filter(([_, v]) => v && v !== "")
+      Object.entries(data).filter(([_, v]) => v && v !== ""),
     );
 
     // handle helpMechanism as array
@@ -195,7 +195,7 @@ export default function AssistantsSidebar({ isGoal = false }) {
           <div className="col-12 py-2 px-0">
             <SelectField
               loading={isNationaliesLoading}
-              label={t("profile.helperNationality")}
+              label={t("profile.benNationality")}
               id="nationality"
               {...register("nationality")}
               options={nationalities?.data?.map((nationality) => ({

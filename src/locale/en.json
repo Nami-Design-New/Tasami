@@ -574,6 +574,8 @@
     "firstName": "First Name",
     "lastName": "Last Name",
     "date": "Date of Birth",
+    "benNationality": "Personal Assistant Nationality",
+    "helperNationality": "Beneficiary Nationality",
     "gender": "Gender",
     "nationality": "Personal assistant nationality",
     "country": "Country of Residence",

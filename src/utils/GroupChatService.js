@@ -56,44 +56,44 @@ export class GroupChatSocketService {
     const connection = this.echo.connector.pusher.connection;
 
     connection.bind("connecting", () => {
-      // console.log("🟡 Connecting to socket...");
+      console.log("🟡 Connecting to socket...");
       this.statusCallback?.("connecting");
     });
 
     connection.bind("connected", () => {
-      // console.log("🟢 Socket connected successfully!");
+      console.log("🟢 Socket connected successfully!");
       this.statusCallback?.("connected");
     });
 
     connection.bind("disconnected", () => {
-      // console.log("🔴 Socket disconnected!");
+      console.log("🔴 Socket disconnected!");
       this.statusCallback?.("disconnected");
     });
 
     connection.bind("error", (error) => {
-      // console.error("⚠️ Socket connection error:", error);
+      console.error("⚠️ Socket connection error:", error);
       this.statusCallback?.("error");
     });
 
     connection.bind("state_change", (state) => {
-      // console.log("🔄 Socket state change:", state);
+      console.log("🔄 Socket state change:", state);
     });
 
     // --- Listen to channel messages ---
     this.echo
       .private(`groupchat.${groupId}`)
       .listen("GroupMessageSent", (event) => {
-        // console.log("📨 New message received via socket:", event.message);
+        console.log("📨 New message received via socket:", event.message);
         this.messageCallback?.(event.message);
       });
 
-    // console.log(`✅ Subscribed to private-groupchat.${groupId}`);
+    console.log(`✅ Subscribed to private-groupchat.${groupId}`);
   }
 
   disconnect() {
     if (this.echo) {
       this.echo.disconnect();
-      // console.log("🔌 Socket manually disconnected");
+      console.log("🔌 Socket manually disconnected");
     }
   }
 }
