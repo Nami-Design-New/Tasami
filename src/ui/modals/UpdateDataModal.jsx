@@ -13,7 +13,7 @@ const UpdateDataModal = ({ showModal, setShowModal }) => {
   const [userFiles, setUserFiles] = useState([]);
   const [showMapModal, setShowMapModal] = useState(false);
   const [image, setImage] = useState(
-    "https://randomuser.me/api/portraits/men/12.jpg"
+    "https://randomuser.me/api/portraits/men/12.jpg",
   );
 
   const handleUpload = (e) => {
@@ -123,7 +123,7 @@ const UpdateDataModal = ({ showModal, setShowModal }) => {
             </div>
             <div className="col-12 p-2">
               <p className="hint">
-                سيتم مراجعة طلبك من قبل الادارة وسيتم التواصل معك في حال
+                سيتم مراجعة طلبك من قبل الإدارة وسيتم التواصل معك في حال
                 الموافقة في حال الموافقة سيتم تحديث بياناتك في النظام
               </p>
             </div>

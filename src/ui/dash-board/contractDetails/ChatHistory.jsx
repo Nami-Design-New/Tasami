@@ -4,6 +4,7 @@ import Message from "../../chat/Message";
 import InfiniteScroll from "../../loading/InfiniteScroll";
 import Loading from "../../loading/Loading";
 import { useTranslation } from "react-i18next";
+import EmptySection from "../../EmptySection";
 
 export default function ChatHistory({
   messages,
@@ -23,50 +24,53 @@ export default function ChatHistory({
             {t("chat_conversation_history")}
           </h4>
         </div>
-
-        <div
-          className="chat-window__messages"
-          style={{ minHeight: "100dvh" }}
-          ref={chatContainerRef}
-        >
-          <InfiniteScroll
-            onLoadMore={fetchNextPage}
-            hasNextPage={hasNextPage}
-            isFetchingNextPage={isFetchingNextPage}
-            revers={true}
+        {messages.length === 0 && !isLoading ? (
+          <EmptySection message={t("noChatHistroy")} />
+        ) : (
+          <div
+            className="chat-window__messages"
+            style={{ minHeight: "calc(100dvh - 80px)" }}
+            ref={chatContainerRef}
           >
-            {" "}
-            {(isLoading || isFetchingNextPage) && (
-              <div className="d-flex align-items-center  py-3  justify-content-center">
-                {/* <div className="loader"></div> */}
-                <Loading height={20} />
-              </div>
-            )}
-            {messages.map((chat) => {
-              const form =
-                Number(chat?.sender?.id) === Number(userId)
-                  ? "sender"
-                  : "receiver";
-              return (
-                <Message
-                  key={chat?.id}
-                  from={form}
-                  creatorId={chat?.creator_id}
-                  text={chat?.message}
-                  time={chat?.created_at}
-                  sender={chat?.sender}
-                  filePath={chat?.file_path}
-                  type={chat?.type}
-                  avatar={
-                    chat?.sender?.id === userId
-                      ? chat.receiver?.image
-                      : chat?.sender?.image
-                  }
-                />
-              );
-            })}
-          </InfiniteScroll>
-        </div>
+            <InfiniteScroll
+              onLoadMore={fetchNextPage}
+              hasNextPage={hasNextPage}
+              isFetchingNextPage={isFetchingNextPage}
+              revers={true}
+            >
+              {" "}
+              {(isLoading || isFetchingNextPage) && (
+                <div className="d-flex align-items-center  py-3  justify-content-center">
+                  {/* <div className="loader"></div> */}
+                  <Loading height={20} />
+                </div>
+              )}
+              {messages.map((chat) => {
+                const form =
+                  Number(chat?.sender?.id) === Number(userId)
+                    ? "sender"
+                    : "receiver";
+                return (
+                  <Message
+                    key={chat?.id}
+                    from={form}
+                    creatorId={chat?.creator_id}
+                    text={chat?.message}
+                    time={chat?.created_at}
+                    sender={chat?.sender}
+                    filePath={chat?.file_path}
+                    type={chat?.type}
+                    avatar={
+                      chat?.sender?.id === userId
+                        ? chat.receiver?.image
+                        : chat?.sender?.image
+                    }
+                  />
+                );
+              })}
+            </InfiniteScroll>
+          </div>
+        )}
       </div>
     </div>
   );

@@ -32,9 +32,8 @@ export default function GoalDetails() {
   const [showAlertModal, setShowAlertModal] = useState(false);
   const { user } = useSelector((state) => state.authRole);
   const { lang } = useSelector((state) => state.language);
-  const { currentPackage, isLoading: isLoadingPackage } = useGetCurrentPackage(
-    !!user
-  );
+  const { currentPackage, isLoading: isLoadingPackage } =
+    useGetCurrentPackage(!!user);
 
   const { goalDetails, isLoading } = useGetGoalDetails();
 
@@ -171,7 +170,6 @@ export default function GoalDetails() {
             </div>
             {user && !isMyGoal && (
               <div className="add-offer-wrapper">
-                {" "}
                 {goalDetails?.goal?.can_send_offers ? (
                   <>
                     {" "}

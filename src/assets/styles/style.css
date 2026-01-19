@@ -7924,7 +7924,6 @@ input[type=file] {
   font-size: 1.5rem;
   font-weight: bold;
   color: #5fcafa;
-  margin-bottom: 0.5rem;
 }
 .contract-header .contract-title p {
   color: #666b88;
@@ -8108,6 +8107,7 @@ input[type=file] {
   border-radius: 12px;
   background: #fff;
   padding: 1.5rem;
+  height: 100%;
 }
 .contract-description .title {
   display: flex;
@@ -8120,10 +8120,10 @@ input[type=file] {
   color: #0d0d0d;
 }
 .contract-description .description {
-  font-weight: 400;
-  font-size: 14px;
+  color: rgb(68, 68, 68);
   line-height: 1.8;
-  color: rgba(13, 13, 13, 0.5607843137);
+  font-size: 0.95rem;
+  margin-bottom: 1.2rem;
 }
 .contract-description h5 {
   color: #5fcafa;

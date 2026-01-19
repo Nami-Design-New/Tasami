@@ -1,4 +1,8 @@
 {
+  "noChatHistroy": "No chat history for this contract",
+  "contractNumber": "Contract #: {{code}}",
+  "contractCreatedAt": "Created at",
+  "contractStatus": "Status",
   "chat_conversation_history": "Conversation History",
   "loadingImage": "Loading image...",
   "loadingVideo": "Loading Video...",

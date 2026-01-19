@@ -20,7 +20,7 @@ const Beneficiary = ({ userDetails }) => {
     searchQuery,
     page,
     PAGE_SIZE,
-    user_id
+    user_id,
   );
 
   return (
@@ -142,6 +142,7 @@ const Beneficiary = ({ userDetails }) => {
         {showModal && (
           <ContractRecordModal
             data={userContract}
+            userId={user_id}
             page={page}
             currentPage={currentPage}
             lastPage={lastPage}

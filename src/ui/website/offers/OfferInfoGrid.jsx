@@ -29,7 +29,6 @@ export default function OfferInfoGrid({ offer }) {
       <div className="info-box info-box-grow-min-width">
         <div className="label">{t("website.offerDetails.ageRange")}</div>
         <div className="value">
-          {" "}
           <div className="value">
             {offer?.help_service?.from_age === 0 ||
             offer?.help_service?.to_age === 0

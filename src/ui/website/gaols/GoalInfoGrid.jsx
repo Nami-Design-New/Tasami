@@ -25,7 +25,7 @@ export default function GoalInfoGrid({ goal }) {
         style={{
           minWidth: "100%",
         }}
-        className="info-box info-box-grow-min-width "
+        className="info-box info-box-grow-min-width"
       >
         <div className="label">{t("website.offerDetails.expectedData")}</div>
         <div className="value">{goal?.goal?.expected_duration_new_human}</div>

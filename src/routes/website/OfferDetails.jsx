@@ -57,7 +57,7 @@ export default function OfferDetails() {
         toast.success(
           isCurrentlyArchived
             ? t("unarchivedSuccessfully")
-            : t("archivedSuccessfully")
+            : t("archivedSuccessfully"),
         );
         isCurrentlyArchived
           ? navigate("/my-platform/my-assistances?tab=active")
@@ -92,7 +92,7 @@ export default function OfferDetails() {
                   onClick: () =>
                     handleArchive(
                       offerDetails?.id,
-                      offerDetails?.help_service?.is_archived
+                      offerDetails?.help_service?.is_archived,
                     ),
                   props: {
                     disabled: isArchiving,
@@ -118,7 +118,7 @@ export default function OfferDetails() {
               <h6>{t("website.offerDetails.assistance")}</h6>{" "}
             </div>
             <p className="desc">{offerDetails?.title}</p>
-            <OfferInfoGrid offer={offerDetails} />{" "}
+            <OfferInfoGrid offer={offerDetails} />
             <div className="extra-terms">
               <h2>{t("website.offerDetails.extraTerms")}</h2>{" "}
               <p>{offerDetails?.help_service?.notes}</p>
