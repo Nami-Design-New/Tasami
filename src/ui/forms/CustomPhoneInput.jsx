@@ -210,12 +210,16 @@ const CustomPhoneInput = ({
   error,
 }) => {
   const observerTarget = useRef(null);
+  console.log(isLoadingMore);
   const { t } = useTranslation();
   // 1. Identify the selected country object from the flattened list
   const selectedCountry = useMemo(() => {
     if (!value?.code || countries.length === 0) return null;
     return countries.find((c) => String(c.phone_code) === String(value.code));
   }, [countries, value?.code]);
+
+  console.log(countries.length > 0);
+  console.log(value?.code);
 
   // 2. CREATE MODE: Auto-select first country if no code exists
   useEffect(() => {
@@ -240,7 +244,7 @@ const CustomPhoneInput = ({
           onScrollEnd();
         }
       },
-      { threshold: 0.1 } // Trigger as soon as the sentinel is slightly visible
+      { threshold: 0.1 }, // Trigger as soon as the sentinel is slightly visible
     );
 
     if (observerTarget.current) observer.observe(observerTarget.current);

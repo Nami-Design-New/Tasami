@@ -9,6 +9,8 @@ import CustomButton from "../CustomButton";
 import usePhoneRegister from "../../hooks/auth/useSendOtpCode";
 import { toast } from "sonner";
 import { setPhoneData } from "../../redux/slices/phoneSlice";
+import CustomPhoneInput from "../forms/CustomPhoneInput";
+import useGetCountries from "../../hooks/countries/useGetCountries";
 
 const resetPasswordSchema = (t) =>
   yup.object().shape({
@@ -26,11 +28,20 @@ const ResetForm = ({ setResetPasswordStep }) => {
     handleSubmit,
     control,
     setValue,
+    watch,
     formState: { errors },
   } = useForm({
     resolver: yupResolver(resetPasswordSchema(t)),
-    defaultValues: { phone: "", code: "966", fullPhone: "" },
+    defaultValues: { phone: "", code: "", fullPhone: "" },
   });
+
+  const watchPhone = watch("phone");
+  const watchCode = watch("code");
+  const {
+    data: countries,
+    isLoading: countriesLoading,
+    fetchNextPage,
+  } = useGetCountries();
 
   // Submit
   const onSubmit = ({ phone, code, fullPhone }) => {
@@ -45,7 +56,7 @@ const ResetForm = ({ setResetPasswordStep }) => {
         onError: (error) => {
           toast.error(error.message);
         },
-      }
+      },
     );
   };
 
@@ -56,7 +67,7 @@ const ResetForm = ({ setResetPasswordStep }) => {
           <div className="col-12 p-2">
             <label>{t("auth.phoneLabel")}</label>
             {/* Controlled phone input */}
-            <Controller
+            {/* <Controller
               name="fullPhone"
               control={control}
               render={({ field }) => (
@@ -81,12 +92,38 @@ const ResetForm = ({ setResetPasswordStep }) => {
                   }}
                 />
               )}
+            /> */}
+            <Controller
+              name="fullPhone"
+              control={control}
+              render={({ field }) => (
+                <CustomPhoneInput
+                  countries={countries || []}
+                  onScrollEnd={() => {
+                    fetchNextPage();
+                  }}
+                  value={{
+                    phone: watchPhone,
+                    code: watchCode,
+                  }}
+                  onChange={(val) => {
+                    setValue("phone", val.phone, { shouldValidate: true });
+                    setValue("code", val.code, { shouldValidate: true });
+                    setValue("fullPhone", val.fullPhone, {
+                      shouldValidate: true,
+                    });
+                    field.onChange(val.fullPhone);
+                  }}
+                  isLoadingMore={countriesLoading}
+                  error={errors.fullPhone?.message || errors.phone?.message}
+                />
+              )}
             />
             {/* Show errors */}
-            {errors.phone && (
+            {/* {errors.phone && (
               <p className="error-text">{errors.phone.message}</p>
-            )}
-            {errors.code && <p className="error-text">{errors.code.message}</p>}
+            )} */}
+            {/* {errors.code && <p className="error-text">{errors.code.message}</p>} */}
           </div>
           <div className="col-12 p-2">
             <div className="buttons">

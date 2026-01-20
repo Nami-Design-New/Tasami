@@ -39,7 +39,6 @@ const RegisterPage = ({ setRegisterStep }) => {
     handleSubmit,
     control,
     setValue,
-
     watch,
     formState: { errors },
   } = useForm({
