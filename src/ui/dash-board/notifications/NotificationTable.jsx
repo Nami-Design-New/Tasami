@@ -75,7 +75,7 @@ const NotificationTable = () => {
         city: notify.city.title || "-",
         is_added: notify.is_added,
       })),
-    [notifications, t]
+    [notifications, t],
   );
 
   const columns = useMemo(
@@ -156,12 +156,12 @@ const NotificationTable = () => {
         },
       }),
     ],
-    [t]
+    [t],
   );
   return (
     <>
       <ReusableDataTable
-        filter={false}
+        filter={true}
         title={t("dashboard.notifications.title")}
         data={tableData}
         columns={columns}
