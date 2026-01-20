@@ -195,7 +195,9 @@ export default function AssistantsSidebar({ isGoal = false }) {
           <div className="col-12 py-2 px-0">
             <SelectField
               loading={isNationaliesLoading}
-              label={t("profile.benNationality")}
+              label={
+                isGoal ? t("profile.benNationality") : t("profile.nationality")
+              }
               id="nationality"
               {...register("nationality")}
               options={nationalities?.data?.map((nationality) => ({
@@ -216,22 +218,28 @@ export default function AssistantsSidebar({ isGoal = false }) {
               error={errors.field?.message}
             />
           </div>
-          <div className="col-12 py-2 px-0">
-            <SelectField
-              label={t("website.platform.cv.specialization")}
-              {...register("specialization")}
-              options={subCategories.map((sub) => ({
-                value: sub.id,
-                name: sub.title,
-              }))}
-              error={errors.specialization?.message}
-            />
-          </div>
+          {isGoal && (
+            <div className="col-12 py-2 px-0">
+              <SelectField
+                label={t("website.platform.cv.specialization")}
+                {...register("specialization")}
+                options={subCategories.map((sub) => ({
+                  value: sub.id,
+                  name: sub.title,
+                }))}
+                error={errors.specialization?.message}
+              />
+            </div>
+          )}
 
           {/* gender */}
           <div className="col-12  py-2 px-0">
             <div className="identity-selector">
-              <h6 className="identity-title">{t("benId")}</h6>
+              <h6 className="identity-title">
+                {isGoal
+                  ? t("benId")
+                  : t("website.platform.myAssistance.identity")}
+              </h6>
               <div className="identity-container  flex-wrap">
                 {["both", "male", "female"].map((g) => (
                   <label
