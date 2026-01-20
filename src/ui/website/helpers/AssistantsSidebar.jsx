@@ -209,7 +209,7 @@ export default function AssistantsSidebar({ isGoal = false }) {
           <div className="col-12 py-2 px-0">
             <SelectField
               loading={isLoading}
-              label={t("website.platform.cv.field")}
+              label={isGaol ?  t("website.platform.cv.field") :t("website.platform.cv.field2") }
               {...register("field")}
               options={categories?.map((category) => ({
                 value: category?.id,
@@ -238,7 +238,7 @@ export default function AssistantsSidebar({ isGoal = false }) {
               <h6 className="identity-title">
                 {isGoal
                   ? t("benId")
-                  : t("website.platform.myAssistance.identity")}
+                  : t("website.platform.myAssistance.helperIdentity")}
               </h6>
               <div className="identity-container  flex-wrap">
                 {["both", "male", "female"].map((g) => (
