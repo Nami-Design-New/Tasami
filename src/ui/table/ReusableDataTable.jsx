@@ -536,22 +536,27 @@ const ReusableDataTable = ({
   const [columnFilters, setColumnFilters] = useState([]);
 
   const handleFilterChange = useCallback(
-    (filters) => {
-      setColumnFilters(filters);
+    (updater) => {
+      setColumnFilters((prev) => {
+        const nextFilters =
+          typeof updater === "function" ? updater(prev) : updater;
 
-      if (enableServerSideFiltering && onFilterChange) {
-        // Convert filters array to object for server
-        const filtersObj = filters.reduce((acc, filter) => {
-          acc[filter.id] = filter.value;
-          return acc;
-        }, {});
+        console.log("🟢 COLUMN FILTERS (TanStack):", nextFilters);
 
-        onFilterChange(filtersObj);
+        if (enableServerSideFiltering && onFilterChange) {
+          const filtersObj = nextFilters.reduce((acc, f) => {
+            acc[f.id] = f.value;
+            return acc;
+          }, {});
 
-        if (setPage) {
+          console.log("🔵 SERVER FILTER OBJECT:", filtersObj);
+
+          onFilterChange(filtersObj);
           setPage(1);
         }
-      }
+
+        return nextFilters;
+      });
     },
     [enableServerSideFiltering, onFilterChange, setPage],
   );
@@ -561,6 +566,19 @@ const ReusableDataTable = ({
   const [columnVisibility, setColumnVisibility] = useState(
     Object.fromEntries(columnIds.map((id) => [id, true])),
   );
+  const handleResetFilters = useCallback(() => {
+    console.log("🧹 RESET FILTERS CLICKED");
+
+    setColumnFilters([]);
+
+    if (enableServerSideFiltering && onFilterChange) {
+      onFilterChange({});
+    }
+
+    if (setPage) {
+      setPage(1);
+    }
+  }, [enableServerSideFiltering, onFilterChange, setPage]);
 
   // -----------------------------
   // SORTING - Server Side or Client Side
@@ -752,6 +770,7 @@ const ReusableDataTable = ({
             filterOptions={filterOptions}
             searchPlaceholder={t(searchPlaceholder)}
             filter={filter}
+            resetFilters={handleResetFilters}
             search={search}
           />
         </div>

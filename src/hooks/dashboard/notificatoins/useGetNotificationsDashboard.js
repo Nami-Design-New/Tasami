@@ -1,16 +1,37 @@
 import { useQuery } from "@tanstack/react-query";
 import { adminAxiosInstance } from "../../../lib/adminAxios";
+import { useEffect } from "react";
 
 export default function useGetNotificationsDashboard(
   search = "",
   page = 1,
-  pageSize = 10
+  pageSize = 10,
+  sortConfig = null,
+  filters = null,
 ) {
+  useEffect(() => {
+    console.log("🔴 QUERY FILTERS:", filters);
+  }, [filters]);
   const { data, isLoading, isError, refetch } = useQuery({
-    queryKey: ["dashboard-notifications", search, page, pageSize],
+    queryKey: [
+      "dashboard-notifications",
+      search,
+      page,
+      pageSize,
+      sortConfig?.sortBy,
+      sortConfig?.sortOrder,
+      filters,
+    ],
     queryFn: async () => {
       const res = await adminAxiosInstance.get("dh-tasks-notifications", {
-        params: { search, page, limit_per_page: pageSize },
+        params: {
+          search,
+          page,
+          limit_per_page: pageSize,
+          sortBy: sortConfig?.sortBy,
+          sortOrder: sortConfig?.sortOrder,
+          ...filters,
+        },
       });
 
       if (res.data.code !== 200) {
