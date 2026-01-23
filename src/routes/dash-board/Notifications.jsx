@@ -1,14 +1,14 @@
 import { useTranslation } from "react-i18next";
-import NotificationTable from "../../ui/dash-board/notifications/NotificationTable";
 import PageHeader from "../../ui/PageHeader";
+import NotificationsTable from "../../ui/datatable/NotificationTable";
 
 const Notifications = () => {
   const { t } = useTranslation();
   return (
     <section className="notifications">
       <PageHeader name={t("dashboard.notifications.title")} />
-      <div className="table--wrapper">
-        <NotificationTable />
+      <div className="table-wrapper">
+        <NotificationsTable />
       </div>
     </section>
   );

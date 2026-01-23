@@ -74,7 +74,8 @@
 }
 .popover {
   min-width: 200px;
-  overflow: hidden;
+  max-width: auto !important;
+  padding: 8px;
   .popover-header {
     font-size: 12px;
     padding: 12px;

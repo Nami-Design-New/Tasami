@@ -1,4 +1,3 @@
-
 import { useTranslation } from "react-i18next";
 
 const TablePagination = ({
@@ -83,7 +82,7 @@ const TablePagination = ({
               >
                 {page}
               </button>
-            )
+            ),
           )}
         </div>
 
