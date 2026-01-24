@@ -55,6 +55,7 @@ const TableHeader = ({
                       filtering?.setColumnFilter(header.column.id, value)
                     }
                     config={filterConfig[header.column.id]}
+                    label ={header.column.columnDef.header}
                   />
                 )}
               </div>

@@ -14,6 +14,8 @@ import RateModal from "../dash-board/notifications/RateModal";
 import AlertModal from "../website/platform/my-community/AlertModal";
 import { toast } from "sonner";
 import { useQueryClient } from "@tanstack/react-query";
+import { usePersistedTableState } from "./hooks/usePersistedTableState";
+import useGetPackages from "../../hooks/dashboard/website-managment/packages/useGetPackages";
 
 const systemTypes = [
   { id: 1, value: "internal", label: "Internal" },
@@ -42,6 +44,22 @@ const NotificationsTable = () => {
   const [sortConfig, setSortConfig] = useState(null);
   const [filters, setFilters] = useState({});
 
+  usePersistedTableState({
+    key: "notifications-table",
+    state: {
+      search,
+      page,
+      sortConfig,
+      filters,
+    },
+    setState: (saved) => {
+      setSearch(saved.search ?? "");
+      setPage(saved.page ?? 1);
+      setSortConfig(saved.sortConfig ?? null);
+      setFilters(saved.filters ?? {});
+    },
+  });
+
   // ----------------------------------
   // DATA FETCH
   // ----------------------------------
@@ -64,6 +82,8 @@ const NotificationsTable = () => {
   );
   const { subjects } = useGetSubjects("", 1, 50);
   const { addToTask, isAddingToTask } = usePostAddToTask();
+
+  const { packages } = useGetPackages("", 1, 50);
   // -----------------------------
   // Modals
   // -----------------------------
@@ -104,7 +124,7 @@ const NotificationsTable = () => {
         time: notify.time || "-",
         service: notify.service || "-",
         userAccount: notify.account || "-",
-        accountType: notify.account_type || "-",
+        package_id: notify.account_type || "-",
         idNumber: notify.id_number || "-",
         group: notify.account_group || "-",
         region_id: notify.region.title || "-",
@@ -158,10 +178,11 @@ const NotificationsTable = () => {
         cell: (info) => info.getValue(),
         enableSorting: true,
       }),
-      columnHelper.accessor("accountType", {
+      columnHelper.accessor("package_id", {
         header: t("dashboard.notifications.accountType"),
         cell: (info) => info.getValue(),
         enableSorting: true,
+        enableFiltering: true,
       }),
       columnHelper.accessor("idNumber", {
         header: t("dashboard.notifications.idNumber"),
@@ -213,6 +234,7 @@ const NotificationsTable = () => {
     ],
     [t],
   );
+  console.log(packages, subjects, regions, countries, cities);
 
   const notificationsFilterConfig = {
     system_type: {
@@ -234,7 +256,10 @@ const NotificationsTable = () => {
       id: "package_id",
       type: "select",
       label: { en: "Package" },
-      options: packages,
+      options: packages?.map((pack) => ({
+        value: pack?.id,
+        label: pack?.title,
+      })),
     },
     region_id: {
       id: "region_id",
@@ -265,7 +290,7 @@ const NotificationsTable = () => {
     },
     date: {
       type: "date",
-      mode: "range", 
+      mode: "range",
     },
   };
   return (

@@ -45,6 +45,8 @@ export default function useGetNotificationsDashboard(
       return res.data;
     },
     keepPreviousData: true,
+    gcTime: undefined,
+    staleTime: undefined,
   });
 
   return {

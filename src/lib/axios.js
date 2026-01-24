@@ -46,5 +46,5 @@ axiosInstance.interceptors.response.use(
 
     // Important! Always return a rejected promise
     return Promise.reject(error);
-  }
+  },
 );

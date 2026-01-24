@@ -5309,52 +5309,30 @@ input[type=file] {
   background-color: #5fcafa;
 }
 
-.popover {
-  min-width: 200px;
-  max-width: auto !important;
-  padding: 8px;
+.filter-button {
+  background-color: none;
+  padding: 0;
 }
-.popover .popover-header {
-  font-size: 12px;
-  padding: 12px;
-  background-color: #fff;
-  border: none;
+.filter-button:hover {
+  background-color: none;
 }
-.popover .popover-body {
-  padding: 0 !important;
+.filter-button.active i {
+  color: #5fcafa;
 }
-.popover .popover-body .status-container {
-  align-items: flex-start;
-  flex-direction: column;
-  overflow: hidden;
+
+.table-filter-popover {
+  min-width: 320px;
+  border-radius: 12px;
 }
-.popover .popover-body .status-container button {
-  padding: 6px 10px;
-  width: 100%;
-  text-align: start;
-  padding: 12px;
-  align-items: center;
-  font-weight: 500;
-  gap: 12px;
-  font-size: 12px;
+
+.table-filter-popover .popover-header {
+  background: transparent;
+  border-bottom: 1px solid #eee;
 }
-.popover .popover-body .status-container button .color-icon {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-}
-.popover .popover-body .status-container button .color-icon.active {
-  background-color: #28a745;
-}
-.popover .popover-body .status-container button .color-icon.inactive {
-  background-color: #dc3545;
-}
-.popover .popover-body .status-container button:hover {
-  background-color: rgba(13, 13, 13, 0.0196078431);
-}
-.popover .popover-body .status-container button.selected {
-  background-color: rgba(13, 13, 13, 0.0196078431);
-  font-weight: 600;
+
+.table-filter-popover .popover-body {
+  max-height: 300px;
+  overflow-y: auto;
 }
 
 .pagination-container {
