@@ -1507,6 +1507,8 @@
       "accountNumber": "رقم الحساب",
       "accountType": "نوع الحساب",
       "date": "التاريخ",
+      "createDate": "تاريخ الإنشاء",
+      "birthDate": "تاريخ الميلاد",
       "gender": "الجنس",
       "beneficiaryPoints": "نقاط المستفيد",
       "assistanceProviderPoints": "نقاط المساعد",

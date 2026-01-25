@@ -1,6 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
 import { adminAxiosInstance } from "../../../lib/adminAxios";
-import { useEffect } from "react";
 
 export default function useGetNotificationsDashboard(
   search = "",

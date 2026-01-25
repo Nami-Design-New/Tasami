@@ -21,6 +21,7 @@ const isFilterActive = (value) => {
 
 const TableColumnFilter = ({ value, onChange, config, label }) => {
   const { type = "select", options = [], mode } = config;
+
   const { t } = useTranslation();
   const targetRef = useRef(null);
   const [show, setShow] = useState(false);

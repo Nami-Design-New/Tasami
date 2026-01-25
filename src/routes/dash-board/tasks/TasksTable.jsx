@@ -4,17 +4,16 @@ import { useTranslation } from "react-i18next";
 import { Link } from "react-router";
 import ReassignTaskModal from "./ReassignTaskModal";
 
-import { useQueryClient } from "@tanstack/react-query";
 import useGetSubjects from "../../../hooks/dashboard/administrativeSystems/useGetSubjects";
 import useGetCities from "../../../hooks/dashboard/regions/useGetCities";
 import useGetCountries from "../../../hooks/dashboard/regions/useGetCountries";
 import useGetRegions from "../../../hooks/dashboard/regions/useGetRegions";
+import useGetRoles from "../../../hooks/dashboard/shared/useGetRoles";
 import useGetPackages from "../../../hooks/dashboard/website-managment/packages/useGetPackages";
 import { getSystemTypes } from "../../../ui/dash-board/notifications/NotificationTable";
 import { columnHelper } from "../../../ui/datatable/adapters/tanstackAdapter";
 import { usePersistedTableState } from "../../../ui/datatable/hooks/usePersistedTableState";
 import DataTable from "../../../ui/datatable/ui/DataTable";
-import useGetRoles from "../../../hooks/dashboard/shared/useGetRoles";
 
 export const getTasksStatus = (t) => [
   { id: 1, value: "not_assigned", label: t("tasksStatus.not_assigned") },
@@ -39,8 +38,6 @@ const TasksTable = ({
   setFilters,
 }) => {
   const { t } = useTranslation();
-  const queryClient = useQueryClient();
-  console.log("tasks in tasks Table:", tasks);
 
   const [showReassignModal, setShowReassignModal] = useState(false);
   const [selectedRow, setSelectedRow] = useState();
@@ -276,7 +273,7 @@ const TasksTable = ({
     [t],
   );
 
-  const notificationsFilterConfig = {
+  const tasksFilterConfig = {
     system_type: {
       id: "system_type",
       type: "select",
@@ -350,38 +347,12 @@ const TasksTable = ({
   };
   return (
     <>
-      {/* <ReusableDataTable
-        filter={false}
-        title={t("dashboard.tasks.table.subject")}
-        data={tableData}
-        columns={columns}
-        currentPage={currentPage}
-        lastPage={lastPage}
-        setPage={setPage}
-        pageSize={pageSize}
-        setPageSize={setPageSize}
-        lang="ar"
-        searchPlaceholder={t("search")}
-        isLoading={isLoading}
-        searchQuery={searchQuery}
-        onSearchChange={onSearch}
-        searchDebounceMs={700}
-        search={true}
-      >
-        <TablePagination
-          currentPage={page}
-          lastPage={lastPage}
-          onPageChange={setPage}
-          isLoading={isLoading}
-        />
-      </ReusableDataTable> */}
-
       <DataTable
         title={t("dashboard.tasks.table.subject")}
         data={tableData}
         columns={columns}
         loading={isLoading}
-        filterConfig={notificationsFilterConfig}
+        filterConfig={tasksFilterConfig}
         pagination={{
           currentPage,
           lastPage,

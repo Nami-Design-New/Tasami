@@ -45,18 +45,21 @@ const TableHeader = ({
 
                 {/* FILTER */}
                 {header.column.columnDef.enableFiltering && (
-                  <TableColumnFilter
-                    value={
-                      filtering?.columnFilters?.find(
-                        (f) => f.id === header.column.id,
-                      )?.value
-                    }
-                    onChange={(value) =>
-                      filtering?.setColumnFilter(header.column.id, value)
-                    }
-                    config={filterConfig[header.column.id]}
-                    label ={header.column.columnDef.header}
-                  />
+                  <>
+                    {/* <> {console.log(header.column.id)}</> */}
+                    <TableColumnFilter
+                      value={
+                        filtering?.columnFilters?.find(
+                          (f) => f.id === header.column.id,
+                        )?.value
+                      }
+                      onChange={(value) =>
+                        filtering?.setColumnFilter(header.column.id, value)
+                      }
+                      config={filterConfig[header.column.id]}
+                      label={header.column.columnDef.header}
+                    />
+                  </>
                 )}
               </div>
             </th>

@@ -22,8 +22,6 @@ const DataTable = ({
   search,
   loading,
 }) => {
-  console.log(data, columns);
-
   const paginationHook = useTablePagination(pagination);
   const filters = useTableFilters({
     ...filtering,

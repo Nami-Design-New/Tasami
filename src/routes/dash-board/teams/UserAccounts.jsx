@@ -1,25 +1,58 @@
-import { createColumnHelper } from "@tanstack/react-table";
 import { useMemo, useState } from "react";
 import { Badge } from "react-bootstrap";
-import { Link } from "react-router";
-import ColumnChart from "../../../ui/dash-board/charts/ColumnChart";
-import ReusableDataTable from "../../../ui/table/ReusableDataTable";
 import { useTranslation } from "react-i18next";
+import { Link } from "react-router";
+import useGetCities from "../../../hooks/dashboard/regions/useGetCities";
+import useGetCountries from "../../../hooks/dashboard/regions/useGetCountries";
+import useGetRegions from "../../../hooks/dashboard/regions/useGetRegions";
 import useGetUsersAccounts from "../../../hooks/dashboard/subscription/useGetUsersAccounts";
+import useGetPackages from "../../../hooks/dashboard/website-managment/packages/useGetPackages";
+import ColumnChart from "../../../ui/dash-board/charts/ColumnChart";
+import { columnHelper } from "../../../ui/datatable/adapters/tanstackAdapter";
+import { usePersistedTableState } from "../../../ui/datatable/hooks/usePersistedTableState";
+import DataTable from "../../../ui/datatable/ui/DataTable";
 import { PAGE_SIZE } from "../../../utils/constants";
-import TablePagination from "../../../ui/table/TablePagentaion";
-const columnHelper = createColumnHelper();
+import useGetNationalities from "../../../hooks/countries/useGetNationalities";
+
+const getGenderTypes = (t) => [
+  { id: 1, value: "male", label: t("male") },
+  { id: 2, value: "female", label: t("female") },
+];
+const getUserAccountsStatus = (t) => [
+  { id: 1, value: "active", label: t("userAccountsStatus.active") },
+  { id: 2, value: "in_active", label: t("userAccountsStatus.in_active") },
+  { id: 3, value: "stopped", label: t("userAccountsStatus.stopped") },
+];
 const UserAccounts = () => {
   const { t } = useTranslation();
+
+  // ----------------------------------
+  // TABLE STATE (controlled)
+  // ----------------------------------
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(PAGE_SIZE);
-  const [searchQuery, setSearchQuery] = useState("");
-  const { usersAccounts, currentPage, lastPage, isLoading } =
-    useGetUsersAccounts(searchQuery, page, PAGE_SIZE);
+  const [search, setSearch] = useState("");
+  const [sortConfig, setSortConfig] = useState(null);
+  const [filters, setFilters] = useState({});
 
-  const handleSearchChange = (value) => {
-    setSearchQuery(value);
-  };
+  usePersistedTableState({
+    key: "users-table",
+    state: {
+      search,
+      page,
+      sortConfig,
+      filters,
+    },
+    setState: (saved) => {
+      setSearch(saved.search ?? "");
+      setPage(saved.page ?? 1);
+      setSortConfig(saved.sortConfig ?? null);
+      setFilters(saved.filters ?? {});
+    },
+  });
+
+  const { usersAccounts, currentPage, lastPage, isLoading } =
+    useGetUsersAccounts(search, page, pageSize, sortConfig, filters);
 
   const series = [
     {
@@ -66,6 +99,24 @@ const UserAccounts = () => {
     legend: { position: "top", horizontalAlign: "center" },
   };
 
+  // -----------------------------
+  // Fetch cascading filter data
+  // -----------------------------
+  const { regions } = useGetRegions();
+  const { countries } = useGetCountries(
+    filters.region_id_title,
+    "off",
+    !!filters.region_id_title,
+  );
+  const { cities } = useGetCities(
+    filters.country_id_title,
+    "off",
+    !!filters.country_id_title,
+  );
+
+  const { nationalities } = useGetNationalities("", "off");
+  const { packages } = useGetPackages("", 1, 50);
+
   const columns = useMemo(
     () => [
       columnHelper.accessor("name", {
@@ -94,14 +145,24 @@ const UserAccounts = () => {
       columnHelper.accessor("account_type", {
         header: t("dashboard.userAccounts.accountType"),
         cell: (info) => info.getValue() || "-",
+        enableSorting: true,
+        enableFiltering: true,
       }),
       columnHelper.accessor("birthdate", {
-        header: t("dashboard.userAccounts.date"),
+        header: t("dashboard.userAccounts.birthDate"),
         cell: (info) => info.getValue() || "-",
+      }),
+      columnHelper.accessor("created_at", {
+        header: t("dashboard.userAccounts.createDate"),
+        cell: (info) => info.getValue() || "-",
+        enableSorting: true,
+        enableFiltering: true,
       }),
       columnHelper.accessor("gender", {
         header: t("dashboard.userAccounts.gender"),
-        cell: (info) => info.getValue() || "-",
+        cell: (info) => t(`${info.getValue()}`) || "-",
+        enableSorting: true,
+        enableFiltering: true,
       }),
       columnHelper.accessor("beneficiary_points", {
         header: t("dashboard.userAccounts.beneficiaryPoints"),
@@ -114,18 +175,26 @@ const UserAccounts = () => {
       columnHelper.accessor("nationality.title", {
         header: t("dashboard.userAccounts.nationality"),
         cell: (info) => info.getValue() || "-",
+        enableSorting: true,
+        enableFiltering: true,
       }),
       columnHelper.accessor("region_id.title", {
         header: t("dashboard.userAccounts.region"),
         cell: (info) => info.getValue() || "-",
+        enableSorting: true,
+        enableFiltering: true,
       }),
       columnHelper.accessor("country_id.title", {
         header: t("dashboard.userAccounts.sector"),
         cell: (info) => info.getValue() || "-",
+        enableSorting: true,
+        enableFiltering: true,
       }),
       columnHelper.accessor("city_id.title", {
         header: t("dashboard.userAccounts.city"),
         cell: (info) => info.getValue() || "-",
+        enableSorting: true,
+        enableFiltering: true,
       }),
       columnHelper.accessor("subscription_start_date", {
         header: t("dashboard.userAccounts.subscriptionStart"),
@@ -168,6 +237,8 @@ const UserAccounts = () => {
             </Badge>
           );
         },
+        enableSorting: true,
+        enableFiltering: true,
       }),
       columnHelper.accessor("account_status_date", {
         header: t("dashboard.userAccounts.statusDate"),
@@ -184,8 +255,79 @@ const UserAccounts = () => {
         ),
       }),
     ],
-    [t]
+    [t],
   );
+
+  // ----------------------------------
+  // HANDLERS
+  // ----------------------------------
+  const handleSortChange = (sortBy, sortOrder) => {
+    setSortConfig(sortBy && sortOrder ? { sortBy, sortOrder } : null);
+  };
+  const usersFilterConfig = {
+    gender: {
+      id: "gender",
+      type: "select",
+      label: { en: "gender" },
+      options: getGenderTypes(t),
+    },
+    status: {
+      id: "status",
+      type: "select",
+      label: { en: "status" },
+      options: getUserAccountsStatus(t),
+    },
+    account_type: {
+      id: "account_type",
+      type: "select",
+      label: { en: "Package" },
+      options: packages?.map((pack) => ({
+        value: pack?.id,
+        label: pack?.title,
+      })),
+    },
+    nationality_title: {
+      id: "nationality_title",
+      type: "select",
+      label: { en: "Nationality" },
+      options: nationalities?.data?.map((nat) => ({
+        value: nat?.id,
+        label: nat?.title,
+      })),
+    },
+    region_id_title: {
+      id: "region_id_title",
+      type: "select",
+      label: { en: "Region" },
+      options: regions.map((reg) => ({
+        value: reg?.id,
+        label: reg?.title,
+      })),
+    },
+    country_id_title: {
+      id: "country_id_title",
+      type: "select",
+      label: { en: "Country" },
+      options: countries.map((reg) => ({
+        value: reg?.id,
+        label: reg?.title,
+      })),
+    },
+    city_id_title: {
+      id: "city_id_title",
+      type: "select",
+      label: { en: "City" },
+      options: cities.map((reg) => ({
+        value: reg?.id,
+        label: reg?.title,
+      })),
+    },
+    created_at: {
+      type: "date",
+      mode: "range",
+    },
+  };
+
   return (
     <section className="mt-5">
       <div className="row">
@@ -198,33 +340,40 @@ const UserAccounts = () => {
           />
         </div>
         <div className="col-12 p-2">
-          <ReusableDataTable
+          <DataTable
             title={t("dashboard.userAccounts.accounts")}
-            filter={false}
             data={usersAccounts?.data || []}
             columns={columns}
-            lang="ar"
-            initialPageSize={10}
-            searchPlaceholder={t("dashboard.userAccounts.searchPlaceholder")}
-            currentPage={currentPage}
-            lastPage={lastPage}
-            setPage={setPage}
-            pageSize={pageSize}
-            setPageSize={setPageSize}
-            isLoading={isLoading}
-            searchQuery={searchQuery}
-            onSearchChange={handleSearchChange}
-            searchDebounceMs={700}
-            search={true}
-            header={true}
-          >
-            <TablePagination
-              currentPage={page}
-              lastPage={lastPage}
-              onPageChange={setPage}
-              isLoading={isLoading}
-            />
-          </ReusableDataTable>
+            loading={isLoading}
+            filterConfig={usersFilterConfig}
+            pagination={{
+              currentPage,
+              lastPage,
+              pageSize,
+              onPageSizeChange: setPageSize,
+              page,
+              onPageChange: setPage,
+            }}
+            sorting={{
+              enabled: true,
+              server: true,
+              sortBy: sortConfig?.sortBy,
+              sortOrder: sortConfig?.sortOrder,
+              onChange: handleSortChange,
+            }}
+            filtering={{
+              enabled: false,
+              server: true,
+              onChange: setFilters,
+            }}
+            search={{
+              enabled: true,
+              value: search,
+              onChange: setSearch,
+              searchPlaceholder: t("search"),
+              debounceMs: 500,
+            }}
+          />
         </div>
       </div>
     </section>

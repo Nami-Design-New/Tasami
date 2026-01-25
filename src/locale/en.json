@@ -1528,6 +1528,8 @@
       "accountNumber": "Account Number",
       "accountType": "Account Type",
       "date": "Date",
+      "createDate": "Creation Date",
+      "birthDate": "Birth Date",
       "gender": "Gender",
       "beneficiaryPoints": "Beneficiary Points",
       "assistanceProviderPoints": "Assistant Points",
