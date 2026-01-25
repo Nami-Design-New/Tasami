@@ -17,7 +17,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import { usePersistedTableState } from "../../datatable/hooks/usePersistedTableState";
 import useGetPackages from "../../../hooks/dashboard/website-managment/packages/useGetPackages";
 
-const getSystemTypes = (t) => [
+export const getSystemTypes = (t) => [
   { id: 1, value: "internal", label: t("internal") },
   { id: 2, value: "outside", label: t("outside") },
 ];
@@ -228,7 +228,6 @@ const NotificationsTable = () => {
     ],
     [t],
   );
-  console.log(packages, subjects, regions, countries, cities);
 
   const notificationsFilterConfig = {
     system_type: {

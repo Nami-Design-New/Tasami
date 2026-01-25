@@ -1,15 +1,14 @@
-import { useTableFilters } from "../hooks/useTableFilters";
-import { useTableSorting } from "../hooks/useTableSorting";
 import { useCreateTable } from "../adapters/tanstackAdapter";
+import { useTableDnD } from "../hooks/useTableDnD";
+import { useTableFilters } from "../hooks/useTableFilters";
 import { useTablePagination } from "../hooks/useTablePagination";
 import { useTableSearch } from "../hooks/useTableSearch";
-import { useTableDnD } from "../hooks/useTableDnD";
-import TableHeader from "./TableHeader";
+import { useTableSorting } from "../hooks/useTableSorting";
 import TableBody from "./TableBody";
+import TableColumnVisibility from "./TableColumnVisibility";
+import TableHeader from "./TableHeader";
 import TablePagination from "./TablePagination";
 import TableSearch from "./TableSearch";
-import { useTranslation } from "react-i18next";
-import TableColumnVisibility from "./TableColumnVisibility";
 
 const DataTable = ({
   title,
@@ -23,6 +22,7 @@ const DataTable = ({
   search,
   loading,
 }) => {
+  console.log(data, columns);
 
   const paginationHook = useTablePagination(pagination);
   const filters = useTableFilters({
@@ -52,7 +52,7 @@ const DataTable = ({
     pageCount: pagination.lastPage,
     sorting,
     filtering,
-    pagination
+    pagination,
   });
 
   return (
@@ -90,9 +90,8 @@ const DataTable = ({
             />
           </table>
           <div className="card--footer">
-            <TablePagination {...paginationHook.ui} isLoading={loading} />  
+            <TablePagination {...paginationHook.ui} isLoading={loading} />
           </div>
-              
         </div>
       </div>
     </div>

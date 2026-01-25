@@ -9,8 +9,10 @@ import { restrictToVerticalAxis } from "@dnd-kit/modifiers";
 import DraggableRow from "./DraggableRow";
 
 const TableBody = ({ table, columns, rowDnD, dnd, isLoading, pageSize }) => {
-  const rows = table.getRowModel().rows;
-  const hasData = rows.length > 0;
+  const rows = table?.getRowModel().rows;
+  console.log(rows);
+
+  const hasData = rows?.length > 0;
 
   if (isLoading) {
     return (
@@ -54,7 +56,7 @@ const TableBody = ({ table, columns, rowDnD, dnd, isLoading, pageSize }) => {
   }
 
   if (rowDnD) {
-    const ids = dnd.dragData.map((r) => String(r.id));
+    const ids = dnd?.dragData?.map((r) => String(r.id));
 
     return (
       <tbody>

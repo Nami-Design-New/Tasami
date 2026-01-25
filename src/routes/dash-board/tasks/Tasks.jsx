@@ -16,13 +16,18 @@ const Tasks = () => {
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(PAGE_SIZE);
   const [searchQuery, setSearchQuery] = useState("");
+  const [sortConfig, setSortConfig] = useState(null);
+  const [filters, setFilters] = useState({});
   const handleSearchChange = (value) => {
     setSearchQuery(value);
   };
+
   const { tasks, currentPage, lastPage, isLoading } = useGetTasksDashboard(
     searchQuery,
     page,
-    PAGE_SIZE
+    PAGE_SIZE,
+    sortConfig,
+    filters,
   );
 
   const statsData = [
@@ -112,13 +117,17 @@ const Tasks = () => {
               setPage={setPage}
               pageSize={pageSize}
               setPageSize={setPageSize}
-              tasks={tasks}
+              tasks={tasks?.data || []}
               currentPage={currentPage}
               lastPage={lastPage}
               isLoading={isLoading}
               onSearch={handleSearchChange}
               searchDebounceMs={700}
               searchQuery={searchQuery}
+              sortConfig={sortConfig}
+              setSortConfig={setSortConfig}
+              filters={filters}
+              setFilters={setFilters}
             />
           </div>
         </div>
