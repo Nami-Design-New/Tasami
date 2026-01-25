@@ -2,41 +2,84 @@
 import { createColumnHelper } from "@tanstack/react-table";
 import { useMemo, useState } from "react";
 import { Badge } from "react-bootstrap";
-import { Link } from "react-router";
 import { useTranslation } from "react-i18next";
+import { Link } from "react-router";
 
-import ColumnChart from "../../../ui/dash-board/charts/ColumnChart";
-import ReusableDataTable from "../../../ui/table/ReusableDataTable";
+import useGetNationalities from "../../../hooks/countries/useGetNationalities";
+import useGetCities from "../../../hooks/dashboard/regions/useGetCities";
+import useGetCountries from "../../../hooks/dashboard/regions/useGetCountries";
+import useGetRegions from "../../../hooks/dashboard/regions/useGetRegions";
+import useGetRoles from "../../../hooks/dashboard/shared/useGetRoles";
 import useGetTeam from "../../../hooks/dashboard/teams/useGetTeam";
+import ColumnChart from "../../../ui/dash-board/charts/ColumnChart";
+import { usePersistedTableState } from "../../../ui/datatable/hooks/usePersistedTableState";
+import DataTable from "../../../ui/datatable/ui/DataTable";
 import { PAGE_SIZE } from "../../../utils/constants";
-import TablePagination from "../../../ui/table/TablePagentaion";
 
 const columnHelper = createColumnHelper();
 
+const getTeamsStatus = (t) => [
+  { id: 1, value: "pending", label: t("userAccountsStatus.pending") },
+  { id: 2, value: "active", label: t("userAccountsStatus.active") },
+  { id: 2, value: "in_active", label: t("userAccountsStatus.in_active") },
+  { id: 3, value: "stopped", label: t("userAccountsStatus.stopped") },
+];
+
 const Teams = () => {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
 
-  const lang = i18n.language;
-  const [searchQuery, setSearchQuery] = useState("");
-  const handleSearchChange = (value) => {
-    setSearchQuery(value);
-  };
-
-  // -----------------------------------
-  // Pagination
-  // -----------------------------------
+  // ----------------------------------
+  // TABLE STATE (controlled)
+  // ----------------------------------
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(PAGE_SIZE);
+  const [search, setSearch] = useState("");
+  const [sortConfig, setSortConfig] = useState(null);
+  const [filters, setFilters] = useState({});
+
+  usePersistedTableState({
+    key: "teams-table",
+    state: {
+      search,
+      page,
+      sortConfig,
+      filters,
+    },
+    setState: (saved) => {
+      setSearch(saved.search ?? "");
+      setPage(saved.page ?? 1);
+      setSortConfig(saved.sortConfig ?? null);
+      setFilters(saved.filters ?? {});
+    },
+  });
 
   // -----------------------------------
   // Fetch data
   // -----------------------------------
   const { currentPage, lastPage, team, isLoading } = useGetTeam(
-    searchQuery,
+    search,
     page,
-    pageSize
+    pageSize,
+    sortConfig,
+    filters,
   );
 
+  // -----------------------------
+  // Fetch cascading filter data
+  // -----------------------------
+  const { regions } = useGetRegions();
+  const { countries } = useGetCountries(
+    filters.region_id,
+    "on",
+    !!filters.region_id,
+  );
+  const { cities } = useGetCities(
+    filters.country_id,
+    "on",
+    !!filters.country_id,
+  );
+  const { roles = [] } = useGetRoles();
+  const { nationalities } = useGetNationalities("", "off");
   // -----------------------------------
   // Chart mapping (same logic)
   // -----------------------------------
@@ -85,25 +128,31 @@ const Teams = () => {
 
   const executives = mapChart(
     team?.executive_count,
-    t("dashboard.team.charts.executives")
+    t("dashboard.team.charts.executives"),
   );
   const leaders = mapChart(
     team?.leader_count,
-    t("dashboard.team.charts.leaders")
+    t("dashboard.team.charts.leaders"),
   );
   const managers = mapChart(
     team?.manager_count,
-    t("dashboard.team.charts.managers")
+    t("dashboard.team.charts.managers"),
   );
   const supervisors = mapChart(
     team?.supervisor_count,
-    t("dashboard.team.charts.supervisors")
+    t("dashboard.team.charts.supervisors"),
   );
   const customerService = mapChart(
     team?.customer_service_count,
-    t("dashboard.team.charts.customer_service")
+    t("dashboard.team.charts.customer_service"),
   );
 
+  // ----------------------------------
+  // HANDLERS
+  // ----------------------------------
+  const handleSortChange = (sortBy, sortOrder) => {
+    setSortConfig(sortBy && sortOrder ? { sortBy, sortOrder } : null);
+  };
   // -----------------------------------
   // Table Data Mapping
   // -----------------------------------
@@ -113,34 +162,16 @@ const Teams = () => {
       first_name: item?.first_name,
       last_name: item?.last_name,
       employee_code: item?.code,
-      job_level: item?.role?.title,
+      role_id: item?.role?.title,
       nationality: item.nationality?.title,
-      city: item?.group?.city?.title,
-      region: item?.group?.region?.title,
-      location: item?.group?.country?.title,
+      city_id: item?.group?.city?.title,
+      region_id: item?.group?.region?.title,
+      country_id: item?.group?.country?.title,
       status: item?.status,
       status_date: item?.status_date,
       status_time: item?.status_time,
     }));
   }, [team]);
-
-  // -----------------------------------
-  // Localized Status Colors
-  // -----------------------------------
-  const statusColor = (status) => {
-    switch (status) {
-      case t("dashboard.team.statuses.active"):
-        return "#28a745";
-      case t("dashboard.team.statuses.inactive"):
-        return "#007bff";
-      case t("dashboard.team.statuses."):
-        return "#00e5ffff";
-      case t("dashboard.team.statuses.stopped"):
-        return "#dc3545";
-      default:
-        return "#6c757d";
-    }
-  };
 
   // -----------------------------------
   // Table Columns (fully localized)
@@ -166,25 +197,35 @@ const Teams = () => {
           </Link>
         ),
       }),
-      columnHelper.accessor("job_level", {
+      columnHelper.accessor("role_id", {
         header: t("dashboard.team.columns.job_level"),
         cell: (info) => info.getValue(),
+        enableSorting: true,
+        enableFiltering: true,
       }),
       columnHelper.accessor("nationality", {
         header: t("dashboard.team.columns.nationality"),
         cell: (info) => info.getValue(),
+        enableSorting: true,
+        enableFiltering: true,
       }),
-      columnHelper.accessor("region", {
+      columnHelper.accessor("region_id", {
         header: t("dashboard.team.columns.region"),
         cell: (info) => info.getValue(),
+        enableSorting: true,
+        enableFiltering: true,
       }),
-      columnHelper.accessor("location", {
+      columnHelper.accessor("country_id", {
         header: t("dashboard.team.columns.location"),
         cell: (info) => info.getValue(),
+        enableSorting: true,
+        enableFiltering: true,
       }),
-      columnHelper.accessor("city", {
+      columnHelper.accessor("city_id", {
         header: t("dashboard.team.columns.city"),
         cell: (info) => info.getValue(),
+        enableSorting: true,
+        enableFiltering: true,
       }),
       columnHelper.accessor("status", {
         header: t("dashboard.team.columns.status"),
@@ -221,6 +262,8 @@ const Teams = () => {
             </Badge>
           );
         },
+        enableSorting: true,
+        enableFiltering: true,
       }),
       columnHelper.accessor("status_date", {
         header: t("dashboard.team.columns.status_date"),
@@ -231,8 +274,62 @@ const Teams = () => {
         cell: (info) => info.getValue() || "-",
       }),
     ],
-    [t]
+    [t],
   );
+
+  const tasksFilterConfig = {
+    nationality: {
+      id: "nationality",
+      type: "select",
+      label: { en: "Nationality" },
+      options: nationalities?.data?.map((nat) => ({
+        value: nat?.id,
+        label: nat?.title,
+      })),
+    },
+    region_id: {
+      id: "region_id",
+      type: "select",
+      label: { en: "Region" },
+      options: regions.map((reg) => ({
+        value: reg?.id,
+        label: reg?.title,
+      })),
+    },
+    country_id: {
+      id: "country_id",
+      type: "select",
+      label: { en: "Country" },
+      options: countries.map((reg) => ({
+        value: reg?.id,
+        label: reg?.title,
+      })),
+    },
+    city_id: {
+      id: "city_id",
+      type: "select",
+      label: { en: "City" },
+      options: cities.map((reg) => ({
+        value: reg?.id,
+        label: reg?.title,
+      })),
+    },
+    status: {
+      id: "status",
+      type: "select",
+      label: { en: "Status" },
+      options: getTeamsStatus(t),
+    },
+    role_id: {
+      id: "role_id",
+      type: "select",
+      label: { en: "Action Level" },
+      options: roles?.data?.map((role) => ({
+        value: role?.id,
+        label: role?.title,
+      })),
+    },
+  };
 
   // -----------------------------------
   // Render
@@ -248,7 +345,6 @@ const Teams = () => {
             height={250}
           />
         </div>
-
         <div className="col-12 col-lg-6 col-xxl-4 p-2">
           <ColumnChart
             title={t("dashboard.team.charts.leaders")}
@@ -257,7 +353,6 @@ const Teams = () => {
             height={250}
           />
         </div>
-
         <div className="col-12 col-lg-6 col-xxl-4 p-2">
           <ColumnChart
             title={t("dashboard.team.charts.managers")}
@@ -266,7 +361,6 @@ const Teams = () => {
             height={250}
           />
         </div>
-
         <div className="col-12 col-lg-6 p-2">
           <ColumnChart
             title={t("dashboard.team.charts.supervisors")}
@@ -286,32 +380,40 @@ const Teams = () => {
         </div>
 
         <div className="col-12 p-2">
-          <ReusableDataTable
+          <DataTable
+            title={t("dashboard.team.title")}
             data={data}
             columns={columns}
-            currentPage={currentPage}
-            lastPage={lastPage}
-            setPage={setPage}
-            pageSize={pageSize}
-            setPageSize={setPageSize}
-            initialPageSize={8}
-            isLoading={isLoading}
-            searchPlaceholder={t("dashboard.team.searchPlaceholder")}
-            lang={lang}
-            filter={false}
-            title={t("dashboard.team.title")}
-            searchQuery={searchQuery}
-            onSearchChange={handleSearchChange}
-            searchDebounceMs={700}
-            search={true}
-          >
-            <TablePagination
-              currentPage={page}
-              lastPage={lastPage}
-              onPageChange={setPage}
-              isLoading={isLoading}
-            />
-          </ReusableDataTable>
+            loading={isLoading}
+            filterConfig={tasksFilterConfig}
+            pagination={{
+              currentPage,
+              lastPage,
+              pageSize,
+              onPageSizeChange: setPageSize,
+              page,
+              onPageChange: setPage,
+            }}
+            sorting={{
+              enabled: true,
+              server: true,
+              sortBy: sortConfig?.sortBy,
+              sortOrder: sortConfig?.sortOrder,
+              onChange: handleSortChange,
+            }}
+            filtering={{
+              enabled: false,
+              server: true,
+              onChange: setFilters,
+            }}
+            search={{
+              enabled: true,
+              value: search,
+              onChange: setSearch,
+              searchPlaceholder: t("search"),
+              debounceMs: 500,
+            }}
+          />
         </div>
       </div>
     </section>

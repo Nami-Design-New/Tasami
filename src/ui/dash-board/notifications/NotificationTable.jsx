@@ -39,19 +39,19 @@ const NotificationsTable = () => {
   const [filters, setFilters] = useState({});
 
   usePersistedTableState({
-    key: "notifications-table",
-    state: {
-      search,
-      page,
-      sortConfig,
-      filters,
-    },
-    setState: (saved) => {
-      setSearch(saved.search ?? "");
-      setPage(saved.page ?? 1);
-      setSortConfig(saved.sortConfig ?? null);
-      setFilters(saved.filters ?? {});
-    },
+      key: "notifications-table",
+      state: {
+        search,
+        page,
+        sortConfig,
+        filters,
+      },
+      setState: (saved) => {
+        setSearch(saved.search ?? "");
+        setPage(saved.page ?? 1);
+        setSortConfig(saved.sortConfig ?? null);
+        setFilters(saved.filters ?? {});
+      },
   });
 
   // ----------------------------------
