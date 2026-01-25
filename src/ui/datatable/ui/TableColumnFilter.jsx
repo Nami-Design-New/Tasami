@@ -53,13 +53,13 @@ const TableColumnFilter = ({ value, onChange, config, label }) => {
       return (
         <div className="d-flex gap-2">
           <InputField
-            label={t("fromDate")}
+            label={t("from")}
             type="date"
             value={draft?.from || ""}
             onChange={(e) => handleDateChange("from", e.target.value)}
           />
           <InputField
-            label={t("toDate")}
+            label={t("to")}
             type="date"
             value={draft?.to || ""}
             onChange={(e) => handleDateChange("to", e.target.value)}

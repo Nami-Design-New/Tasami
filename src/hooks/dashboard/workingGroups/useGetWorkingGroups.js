@@ -4,13 +4,35 @@ import { adminAxiosInstance } from "../../../lib/adminAxios";
 export default function useGetWorkingGroups(
   search = "",
   page = 1,
-  pageSize = 10
+  pageSize = 10,
+  sortConfig = null,
+  filters = null,
 ) {
   const { data, isLoading, isError, refetch } = useQuery({
-    queryKey: ["dashboard-working-group", search, page, pageSize],
+    queryKey: [
+      "dashboard-working-group",
+      search,
+      page,
+      pageSize,
+      sortConfig?.sortBy,
+      sortConfig?.sortOrder,
+      filters,
+    ],
     queryFn: async () => {
       const res = await adminAxiosInstance.get("dh-working-groups", {
-        params: { search, page, limit_per_page: pageSize },
+        params: {
+          search,
+          page,
+          limit_per_page: pageSize,
+          sortBy: sortConfig?.sortBy,
+          sortOrder: sortConfig?.sortOrder,
+          from_date: filters?.createDate?.from,
+          to_date: filters?.createDate?.to,
+          region_id: filters?.region_id,
+          country_id: filters?.country_id,
+          city_id: filters?.city_id,
+          type: filters?.groupClassifications,
+        },
       });
 
       if (res.data.code !== 200) {
@@ -20,6 +42,8 @@ export default function useGetWorkingGroups(
       return res.data;
     },
     keepPreviousData: true,
+    gcTime: undefined,
+    staleTime: undefined,
   });
 
   return {
