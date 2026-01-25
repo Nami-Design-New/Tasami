@@ -1,6 +1,6 @@
 import { useTranslation } from "react-i18next";
 import PageHeader from "../../ui/PageHeader";
-import NotificationsTable from "../../ui/datatable/NotificationTable";
+import NotificationsTable from "../../ui/dash-board/notifications/NotificationTable";
 
 const Notifications = () => {
   const { t } = useTranslation();

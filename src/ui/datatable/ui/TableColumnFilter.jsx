@@ -1,4 +1,3 @@
-
 import { useRef, useState } from "react";
 import { Button, Overlay, Popover } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
@@ -111,7 +110,9 @@ const TableColumnFilter = ({ value, onChange, config, label }) => {
       >
         <Popover className="table-filter-popover">
           {/* HEADER */}
-          <Popover.Header className="fw-bold">{t("filter")}</Popover.Header>
+          <Popover.Header className="fw-bold">
+            {t("website.assistants.filterTitle")}
+          </Popover.Header>
 
           {/* BODY */}
           <Popover.Body>
@@ -119,12 +120,15 @@ const TableColumnFilter = ({ value, onChange, config, label }) => {
           </Popover.Body>
 
           {/* FOOTER */}
-          <div className="d-flex justify-content-between px-3 pb-3">
-            <CustomButton variant="light" onClick={reset}>
-              {t("reset")}
+          <div className="d-flex justify-content-end gap-2 px-3 pb-3">
+            <CustomButton variant="outlined" onClick={reset}>
+              {t("website.assistants.reset")}
             </CustomButton>
 
-            <CustomButton onClick={apply}>{t("apply")}</CustomButton>
+            <CustomButton onClick={apply}>
+              {" "}
+              {t("website.assistants.filter")}
+            </CustomButton>
           </div>
         </Popover>
       </Overlay>

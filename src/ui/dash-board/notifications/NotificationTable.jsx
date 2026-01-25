@@ -1,62 +1,64 @@
-import { useQueryClient } from "@tanstack/react-query";
-import { createColumnHelper } from "@tanstack/react-table";
 import { useMemo, useState } from "react";
-import { useTranslation } from "react-i18next";
-import { toast } from "sonner";
 import useGetNotificationsDashboard from "../../../hooks/dashboard/notificatoins/useGetNotificationsDashboard";
-import usePostAddToTask from "../../../hooks/dashboard/notificatoins/usePostAddToTask";
+import DataTable from "../../datatable/ui/DataTable";
 
+import { useTranslation } from "react-i18next";
 import { PAGE_SIZE } from "../../../utils/constants";
-import ReusableDataTable from "../../table/ReusableDataTable";
-import TablePagination from "../../table/TablePagentaion";
-import AlertModal from "../../website/platform/my-community/AlertModal";
-import RateModal from "./RateModal";
+import { columnHelper } from "../../datatable/adapters/tanstackAdapter";
 import useGetRegions from "../../../hooks/dashboard/regions/useGetRegions";
 import useGetCountries from "../../../hooks/dashboard/regions/useGetCountries";
 import useGetCities from "../../../hooks/dashboard/regions/useGetCities";
 import useGetSubjects from "../../../hooks/dashboard/administrativeSystems/useGetSubjects";
+import usePostAddToTask from "../../../hooks/dashboard/notificatoins/usePostAddToTask";
+import RateModal from "./RateModal";
+import AlertModal from "../../website/platform/my-community/AlertModal";
+import { toast } from "sonner";
+import { useQueryClient } from "@tanstack/react-query";
+import { usePersistedTableState } from "../../datatable/hooks/usePersistedTableState";
+import useGetPackages from "../../../hooks/dashboard/website-managment/packages/useGetPackages";
 
-const columnHelper = createColumnHelper();
-
-const systemTypes = [
-  { id: 1, value: "internal", label: "Internal" },
-  { id: 2, value: "outside", label: "Outside" },
+const getSystemTypes = (t) => [
+  { id: 1, value: "internal", label: t("internal") },
+  { id: 2, value: "outside", label: t("outside") },
 ];
 
-const packages = [
-  { id: 1, value: "basic", title: "Basic Package" },
-  { id: 2, value: "standard", title: "Standard Package" },
-  { id: 3, value: "premium", title: "Premium Package" },
-];
-
-const NotificationTable = () => {
+const NotificationsTable = () => {
   const { t } = useTranslation();
   const queryClient = useQueryClient();
 
   const [showRateModal, setShowRateModal] = useState(false);
   const [notificationId, setNotificationId] = useState(null);
 
-  const { addToTask, isAddingToTask } = usePostAddToTask();
-
+  // ----------------------------------
+  // TABLE STATE (controlled)
+  // ----------------------------------
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(PAGE_SIZE);
-  const [searchQuery, setSearchQuery] = useState("");
-  const [sortConfig, setSortConfig] = useState({
-    sortBy: null,
-    sortOrder: null,
+  const [search, setSearch] = useState("");
+  const [sortConfig, setSortConfig] = useState(null);
+  const [filters, setFilters] = useState({});
+
+  usePersistedTableState({
+    key: "notifications-table",
+    state: {
+      search,
+      page,
+      sortConfig,
+      filters,
+    },
+    setState: (saved) => {
+      setSearch(saved.search ?? "");
+      setPage(saved.page ?? 1);
+      setSortConfig(saved.sortConfig ?? null);
+      setFilters(saved.filters ?? {});
+    },
   });
 
-  // Filters
-  const [filters, setFilters] = useState({
-    system_type: null,
-    system_type_id: null,
-    package_id: null,
-    region_id: null,
-    country_id: null,
-    city_id: null,
-    from_date: null,
-    to_date: null,
-  });
+  // ----------------------------------
+  // DATA FETCH
+  // ----------------------------------
+  const { notifications, currentPage, lastPage, isLoading } =
+    useGetNotificationsDashboard(search, page, pageSize, sortConfig, filters);
 
   // -----------------------------
   // Fetch cascading filter data
@@ -73,62 +75,9 @@ const NotificationTable = () => {
     !!filters.country_id,
   );
   const { subjects } = useGetSubjects("", 1, 50);
+  const { addToTask, isAddingToTask } = usePostAddToTask();
 
-  // -----------------------------
-  // Handle Search
-  // -----------------------------
-  const handleSearchChange = (value) => {
-    setSearchQuery(value);
-    setPage(1);
-  };
-
-  // -----------------------------
-  // Handle Sorting
-  // -----------------------------
-  const handleSort = (columnId) => {
-    setSortConfig((prev) => {
-      if (prev.sortBy === columnId) {
-        if (prev.sortOrder === "asc")
-          return { sortBy: columnId, sortOrder: "desc" };
-        if (prev.sortOrder === "desc") return { sortBy: null, sortOrder: null };
-      }
-      return { sortBy: columnId, sortOrder: "asc" };
-    });
-    setPage(1);
-  };
-
-  // -----------------------------
-  // Handle Filter Change
-  // -----------------------------
-  const handleFilterChange = (newFilters) => {
-    console.log(newFilters);
-
-    if (newFilters.region_id && newFilters.region_id !== filters.region_id) {
-      newFilters.country_id = null;
-      newFilters.city_id = null;
-    }
-    if (newFilters.country_id && newFilters.country_id !== filters.country_id) {
-      newFilters.city_id = null;
-    }
-
-    setFilters((prev) => ({ ...prev, ...newFilters }));
-    setPage(1);
-  };
-
-  // const handleResetFilters = () => {
-  //   setFilters({
-  //     system_type: null,
-  //     system_type_id: null,
-  //     package_id: null,
-  //     region_id: null,
-  //     country_id: null,
-  //     city_id: null,
-  //     from_date: null,
-  //     to_date: null,
-  //   });
-  //   setPage(1);
-  // };
-
+  const { packages } = useGetPackages("", 1, 50);
   // -----------------------------
   // Modals
   // -----------------------------
@@ -148,18 +97,12 @@ const NotificationTable = () => {
       },
     );
   };
-
-  // -----------------------------
-  // Fetch Notifications
-  // -----------------------------
-  const { notifications, currentPage, lastPage, isLoading } =
-    useGetNotificationsDashboard(
-      searchQuery,
-      page,
-      pageSize,
-      sortConfig,
-      filters,
-    );
+  // ----------------------------------
+  // HANDLERS
+  // ----------------------------------
+  const handleSortChange = (sortBy, sortOrder) => {
+    setSortConfig(sortBy && sortOrder ? { sortBy, sortOrder } : null);
+  };
 
   // -----------------------------
   // Table Data
@@ -175,12 +118,12 @@ const NotificationTable = () => {
         time: notify.time || "-",
         service: notify.service || "-",
         userAccount: notify.account || "-",
-        accountType: notify.account_type || "-",
+        package_id: notify.account_type || "-",
         idNumber: notify.id_number || "-",
         group: notify.account_group || "-",
-        region: notify.region.title || "-",
-        location: notify.country.title || "-",
-        city: notify.city.title || "-",
+        region_id: notify.region.title || "-",
+        country_id: notify.country.title || "-",
+        city_id: notify.city.title || "-",
         is_added: notify.is_added,
       })),
     [notifications, t],
@@ -212,6 +155,7 @@ const NotificationTable = () => {
         header: t("dashboard.notifications.date"),
         cell: (info) => info.getValue(),
         enableSorting: true,
+        enableFiltering: true,
       }),
       columnHelper.accessor("time", {
         header: t("dashboard.notifications.time"),
@@ -228,10 +172,11 @@ const NotificationTable = () => {
         cell: (info) => info.getValue(),
         enableSorting: true,
       }),
-      columnHelper.accessor("accountType", {
+      columnHelper.accessor("package_id", {
         header: t("dashboard.notifications.accountType"),
         cell: (info) => info.getValue(),
         enableSorting: true,
+        enableFiltering: true,
       }),
       columnHelper.accessor("idNumber", {
         header: t("dashboard.notifications.idNumber"),
@@ -243,20 +188,23 @@ const NotificationTable = () => {
         cell: (info) => info.getValue(),
         enableSorting: true,
       }),
-      columnHelper.accessor("region", {
+      columnHelper.accessor("region_id", {
         header: t("dashboard.notifications.region"),
         cell: (info) => info.getValue(),
         enableSorting: true,
+        enableFiltering: true,
       }),
-      columnHelper.accessor("location", {
+      columnHelper.accessor("country_id", {
         header: t("dashboard.notifications.location"),
         cell: (info) => info.getValue(),
         enableSorting: true,
+        enableFiltering: true,
       }),
-      columnHelper.accessor("city", {
+      columnHelper.accessor("city_id", {
         header: t("dashboard.notifications.city"),
         cell: (info) => info.getValue(),
         enableSorting: true,
+        enableFiltering: true,
       }),
       columnHelper.accessor("actions", {
         header: t("dashboard.workGroup.table.actions"),
@@ -280,102 +228,101 @@ const NotificationTable = () => {
     ],
     [t],
   );
+  console.log(packages, subjects, regions, countries, cities);
 
-  // -----------------------------
-  // Filter Options
-  // -----------------------------
-  const filterOptions = {
+  const notificationsFilterConfig = {
     system_type: {
       id: "system_type",
       type: "select",
       label: { en: "System Type" },
-      options: systemTypes,
-      getLabel: (o) => o.title,
-      getValue: (o) => o.id,
+      options: getSystemTypes(t),
     },
     system_type_id: {
       id: "system_type_id",
       type: "select",
       label: { en: "System Type ID" },
       options: subjects.map((sub) => ({
-        id: sub?.id,
         value: sub?.id,
         label: sub?.title,
       })),
-      getLabel: (o) => o.title,
-      getValue: (o) => o.id,
     },
     package_id: {
       id: "package_id",
       type: "select",
       label: { en: "Package" },
-      options: packages,
-      getLabel: (o) => o.title,
-      getValue: (o) => o.id,
+      options: packages?.map((pack) => ({
+        value: pack?.id,
+        label: pack?.title,
+      })),
     },
     region_id: {
       id: "region_id",
       type: "select",
       label: { en: "Region" },
-      options: regions,
-      getLabel: (o) => o.title,
-      getValue: (o) => o.id,
+      options: regions.map((reg) => ({
+        value: reg?.id,
+        label: reg?.title,
+      })),
     },
     country_id: {
       id: "country_id",
       type: "select",
       label: { en: "Country" },
-      options: countries,
-      getLabel: (o) => o.title,
-      getValue: (o) => o.id,
+      options: countries.map((reg) => ({
+        value: reg?.id,
+        label: reg?.title,
+      })),
     },
     city_id: {
       id: "city_id",
       type: "select",
       label: { en: "City" },
-      options: cities,
-      getLabel: (o) => o.title,
-      getValue: (o) => o.id,
+      options: cities.map((reg) => ({
+        value: reg?.id,
+        label: reg?.title,
+      })),
     },
-    from_date: { id: "from_date", type: "date", label: { en: "From Date" } },
-    to_date: { id: "to_date", type: "date", label: { en: "To Date" } },
+    date: {
+      type: "date",
+      mode: "range",
+    },
   };
-
   return (
     <>
-      <ReusableDataTable
+      <DataTable
         title={t("dashboard.notifications.title")}
         data={tableData}
         columns={columns}
-        currentPage={currentPage}
-        lastPage={lastPage}
-        setPage={setPage}
-        pageSize={pageSize}
-        setPageSize={setPageSize}
-        searchQuery={searchQuery}
-        onSearchChange={handleSearchChange}
-        searchDebounceMs={700}
-        search={true}
-        header={true}
-        isLoading={isLoading}
-        filter={true}
-        activeFilters={Object.keys(filters)}
-        filterOptions={filterOptions}
-        onFilterChange={handleFilterChange}
-        enableServerSideFiltering
-        onSortChange={handleSort}
-        enableServerSideSorting
-        sortBy={sortConfig.sortBy}
-        sortOrder={sortConfig.sortOrder}
-      >
-        <TablePagination
-          currentPage={page}
-          lastPage={lastPage}
-          onPageChange={setPage}
-          isLoading={isLoading}
-        />
-      </ReusableDataTable>
-
+        loading={isLoading}
+        filterConfig={notificationsFilterConfig}
+        pagination={{
+          currentPage,
+          lastPage,
+          pageSize,
+          onPageSizeChange: setPageSize,
+          page,
+          onPageChange: setPage,
+        }}
+        sorting={{
+          enabled: true,
+          server: true,
+          sortBy: sortConfig?.sortBy,
+          sortOrder: sortConfig?.sortOrder,
+          onChange: handleSortChange,
+        }}
+        filtering={{
+          enabled: false,
+          server: true,
+          onChange: setFilters,
+        }}
+        search={{
+          enabled: true,
+          value: search,
+          onChange: setSearch,
+          searchPlaceholder: t("search"),
+          debounceMs: 500,
+        }}
+      />
       <RateModal showModal={showRateModal} setShowModal={setShowRateModal} />
 
       <AlertModal
@@ -393,4 +340,4 @@ const NotificationTable = () => {
   );
 };
 
-export default NotificationTable;
+export default NotificationsTable;
