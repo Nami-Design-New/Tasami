@@ -1,7 +1,8 @@
 import { Dropdown, Form } from "react-bootstrap";
+import { useTranslation } from "react-i18next";
 
 const TableColumnVisibility = ({ table }) => {
-
+  const { t } = useTranslation();
   return (
     <Dropdown className="custom-dropdown" style={{ zIndex: "10" }}>
       <Dropdown.Toggle id="dropdown-basic">
@@ -12,7 +13,7 @@ const TableColumnVisibility = ({ table }) => {
         <div className="d-flex align-items-center  justify-content-between border-bottom pb-2 px-2">
           <Form.Check
             type="radio"
-            label="إظهار الكل"
+            label={t("showAll")}
             name="show"
             id="show-all"
             onChange={() => {
@@ -23,7 +24,7 @@ const TableColumnVisibility = ({ table }) => {
           />
           <Form.Check
             type="radio"
-            label="إخفاء الكل"
+            label={t("hideAll")}
             name="show"
             id="hide-all"
             onChange={() => {

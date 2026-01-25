@@ -8,29 +8,30 @@ import StatisticsCard from "../../../ui/dash-board/cards/StatisticsCard";
 import EditWorkGroupModal from "../../../ui/modals/EditWorkGroupModal";
 import ReusableDataTable from "../../../ui/table/ReusableDataTable";
 import TablePagination from "../../../ui/table/TablePagentaion";
-// import ConfirmDeleteModal from "../../../ui/modals/ConfirmationDeleteModal";
-// import useDeleteGroup from "../../../hooks/dashboard/workingGroups/useDeleteGroup";
-// import { toast } from "sonner";
-// import { useQueryClient } from "@tanstack/react-query";
 import { PAGE_SIZE } from "../../../utils/constants";
+import DataTable from "../../../ui/datatable/ui/DataTable";
+import useGetRegions from "../../../hooks/dashboard/regions/useGetRegions";
+import useGetCountries from "../../../hooks/dashboard/regions/useGetCountries";
+import useGetCities from "../../../hooks/dashboard/regions/useGetCities";
+import { columnHelper } from "../../../ui/datatable/adapters/tanstackAdapter";
 
-const columnHelper = createColumnHelper();
-
+const getgroupTypes = (t) => [
+  { id: 1, value: "managerial", label: t("managerial") },
+  { id: 2, value: "operational", label: t("operational") },
+];
 const WorkingGroups = () => {
   const { t } = useTranslation();
   // const queryClient = useQueryClient();
   const [workingGroupId, setWorkingGroupId] = useState();
   const [workingGroupName, setWorkingGroupName] = useState();
-  const [searchQuery, setSearchQuery] = useState("");
-  const handleSearchChange = (value) => {
-    setSearchQuery(value);
-  };
-
-  // -----------------------------
-  // Pagination state
-  // -----------------------------
+  // ----------------------------------
+  // TABLE STATE (controlled)
+  // ----------------------------------
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(PAGE_SIZE);
+  const [search, setSearch] = useState("");
+  const [sortConfig, setSortConfig] = useState(null);
+  const [filters, setFilters] = useState({});
 
   // -----------------------------
   // Modal state
@@ -42,12 +43,33 @@ const WorkingGroups = () => {
   // Fetch working groups via hook
   // -----------------------------
   const { workingGroups, stats, currentPage, lastPage, isLoading } =
-    useGetWorkingGroups(searchQuery, page, pageSize);
+    useGetWorkingGroups(search, page, pageSize, sortConfig, filters);
 
   // -----------------------------
   // delete working group
   // -----------------------------
   // const { deleteWorkingGroup, isDeleting } = useDeleteGroup();
+
+  // ----------------------------------
+  // HANDLERS
+  // ----------------------------------
+  const handleSortChange = (sortBy, sortOrder) => {
+    setSortConfig(sortBy && sortOrder ? { sortBy, sortOrder } : null);
+  };
+  // -----------------------------
+  // Fetch cascading filter data
+  // -----------------------------
+  const { regions } = useGetRegions();
+  const { countries } = useGetCountries(
+    filters.region_id,
+    "on",
+    !!filters.region_id,
+  );
+  const { cities } = useGetCities(
+    filters.country_id,
+    "on",
+    !!filters.country_id,
+  );
 
   const statsData = [
     {
@@ -100,9 +122,9 @@ const WorkingGroups = () => {
         id: wg?.id,
         groupNumber: wg?.name,
         groupClassifications: wg?.type,
-        region: wg?.region?.title || "-",
-        location: wg?.country?.title || "-",
-        city: wg?.city?.title || "-",
+        region_id: wg?.region?.title || "-",
+        country_id: wg?.country?.title || "-",
+        city_id: wg?.city?.title || "-",
         createDate: wg?.created_at,
         excutives: wg?.executive_count,
         leaders: wg?.leader_count,
@@ -110,7 +132,7 @@ const WorkingGroups = () => {
         supervisorsCount: wg?.supervisor_count,
         employeeCount: wg?.customer_service_count,
       })),
-    [workingGroups]
+    [workingGroups],
   );
 
   const columns = useMemo(
@@ -131,18 +153,28 @@ const WorkingGroups = () => {
         cell: (info) => {
           return t(`${info?.getValue()}`);
         },
+        enableSorting: true,
+        enableFiltering: true,
       }),
-      columnHelper.accessor("region", {
+      columnHelper.accessor("region_id", {
         header: t("dashboard.workGroup.table.region"),
+        enableSorting: true,
+        enableFiltering: true,
       }),
-      columnHelper.accessor("location", {
+      columnHelper.accessor("country_id", {
         header: t("dashboard.workGroup.table.location"),
+        enableSorting: true,
+        enableFiltering: true,
       }),
-      columnHelper.accessor("city", {
+      columnHelper.accessor("city_id", {
         header: t("dashboard.workGroup.table.city"),
+        enableSorting: true,
+        enableFiltering: true,
       }),
       columnHelper.accessor("createDate", {
         header: t("dashboard.workGroup.table.createDate"),
+        enableSorting: true,
+        enableFiltering: true,
       }),
       columnHelper.accessor("excutives", {
         header: t("dashboard.workGroup.table.executives"),
@@ -189,9 +221,47 @@ const WorkingGroups = () => {
         },
       }),
     ],
-    [t]
+    [t],
   );
-
+  const workingGroupsFilterConfig = {
+    groupClassifications: {
+      id: "groupClassifications",
+      type: "select",
+      label: { en: "Group Classifications" },
+      options: getgroupTypes(t),
+    },
+    region_id: {
+      id: "region_id",
+      type: "select",
+      label: { en: "Region" },
+      options: regions.map((reg) => ({
+        value: reg?.id,
+        label: reg?.title,
+      })),
+    },
+    country_id: {
+      id: "country_id",
+      type: "select",
+      label: { en: "Country" },
+      options: countries.map((reg) => ({
+        value: reg?.id,
+        label: reg?.title,
+      })),
+    },
+    city_id: {
+      id: "city_id",
+      type: "select",
+      label: { en: "City" },
+      options: cities.map((reg) => ({
+        value: reg?.id,
+        label: reg?.title,
+      })),
+    },
+    createDate: {
+      type: "date",
+      mode: "range",
+    },
+  };
   return (
     <section>
       <div className="row">
@@ -211,7 +281,7 @@ const WorkingGroups = () => {
         </div>
 
         <div className="col-12 p-2">
-          <ReusableDataTable
+          {/* <ReusableDataTable
             title={t("dashboard.workGroup.table.title")}
             data={tableData}
             columns={columns}
@@ -235,7 +305,41 @@ const WorkingGroups = () => {
               onPageChange={setPage}
               isLoading={isLoading}
             />
-          </ReusableDataTable>
+          </ReusableDataTable> */}
+          <DataTable
+            title={t("dashboard.workGroup.table.title")}
+            data={tableData}
+            columns={columns}
+            loading={isLoading}
+            filterConfig={workingGroupsFilterConfig}
+            pagination={{
+              currentPage,
+              lastPage,
+              pageSize,
+              onPageSizeChange: setPageSize,
+              page,
+              onPageChange: setPage,
+            }}
+            sorting={{
+              enabled: true,
+              server: true,
+              sortBy: sortConfig?.sortBy,
+              sortOrder: sortConfig?.sortOrder,
+              onChange: handleSortChange,
+            }}
+            filtering={{
+              enabled: false,
+              server: true,
+              onChange: setFilters,
+            }}
+            search={{
+              enabled: true,
+              value: search,
+              onChange: setSearch,
+              searchPlaceholder: t("search"),
+              debounceMs: 500,
+            }}
+          />
         </div>
       </div>
 

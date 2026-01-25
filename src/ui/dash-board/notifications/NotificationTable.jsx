@@ -1,160 +1,150 @@
-import { useQueryClient } from "@tanstack/react-query";
-import { createColumnHelper } from "@tanstack/react-table";
 import { useMemo, useState } from "react";
-import { useTranslation } from "react-i18next";
-import { toast } from "sonner";
 import useGetNotificationsDashboard from "../../../hooks/dashboard/notificatoins/useGetNotificationsDashboard";
-import usePostAddToTask from "../../../hooks/dashboard/notificatoins/usePostAddToTask";
+import DataTable from "../../datatable/ui/DataTable";
+
+import { useTranslation } from "react-i18next";
 import { PAGE_SIZE } from "../../../utils/constants";
-import ReusableDataTable from "../../table/ReusableDataTable";
-import TablePagination from "../../table/TablePagentaion";
-import AlertModal from "../../website/platform/my-community/AlertModal";
+import { columnHelper } from "../../datatable/adapters/tanstackAdapter";
+import useGetRegions from "../../../hooks/dashboard/regions/useGetRegions";
+import useGetCountries from "../../../hooks/dashboard/regions/useGetCountries";
+import useGetCities from "../../../hooks/dashboard/regions/useGetCities";
+import useGetSubjects from "../../../hooks/dashboard/administrativeSystems/useGetSubjects";
+import usePostAddToTask from "../../../hooks/dashboard/notificatoins/usePostAddToTask";
 import RateModal from "./RateModal";
-const columnHelper = createColumnHelper();
-const countries = [
-  { id: 1, region_id: 1, title: "Saudi Arabia" },
-  { id: 2, region_id: 1, title: "UAE" },
-  { id: 3, region_id: 2, title: "Germany" },
-  { id: 4, region_id: 2, title: "France" },
-  { id: 5, region_id: 3, title: "Japan" },
-];
-const regions = [
-  { id: 1, title: "Middle East" },
-  { id: 2, title: "Europe" },
-  { id: 3, title: "Asia" },
-];
-const cities = [
-  { id: 1, value: 1, title: "Riyadh" },
-  { id: 2, value: 2, title: "Jeddah" },
-  { id: 3, value: 3, title: "Dubai" },
-  { id: 4, value: 4, title: "Berlin" },
-  { id: 5, value: 5, title: "Tokyo" },
+import AlertModal from "../../website/platform/my-community/AlertModal";
+import { toast } from "sonner";
+import { useQueryClient } from "@tanstack/react-query";
+import { usePersistedTableState } from "../../datatable/hooks/usePersistedTableState";
+import useGetPackages from "../../../hooks/dashboard/website-managment/packages/useGetPackages";
+
+export const getSystemTypes = (t) => [
+  { id: 1, value: "internal", label: t("internal") },
+  { id: 2, value: "outside", label: t("outside") },
 ];
 
-const systemTypes = [
-  { id: 1, value: "internal", name: "internal" },
-  { id: 2, value: "outside", name: "outside" },
-];
-const packages = [
-  { id: 1, value: "", title: "Basic Package" },
-  { id: 2, value: "", title: "Standard Package" },
-  { id: 3, value: "", title: "Premium Package" },
-];
-
-const NotificationTable = () => {
+const NotificationsTable = () => {
   const { t } = useTranslation();
   const queryClient = useQueryClient();
+
   const [showRateModal, setShowRateModal] = useState(false);
-  const [notificationId, setNotificationId] = useState();
-  const { addToTask, isAddingToTask } = usePostAddToTask();
+  const [notificationId, setNotificationId] = useState(null);
+
+  // ----------------------------------
+  // TABLE STATE (controlled)
+  // ----------------------------------
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(PAGE_SIZE);
-  const [searchQuery, setSearchQuery] = useState("");
-  const [sortConfig, setSortConfig] = useState({
-    sortBy: null,
-    sortOrder: null, // 'asc' or 'desc'
+  const [search, setSearch] = useState("");
+  const [sortConfig, setSortConfig] = useState(null);
+  const [filters, setFilters] = useState({});
+
+  usePersistedTableState({
+      key: "notifications-table",
+      state: {
+        search,
+        page,
+        sortConfig,
+        filters,
+      },
+      setState: (saved) => {
+        setSearch(saved.search ?? "");
+        setPage(saved.page ?? 1);
+        setSortConfig(saved.sortConfig ?? null);
+        setFilters(saved.filters ?? {});
+      },
   });
-  const [filters, setFilters] = useState({
-    status: null,
-    role: null,
-  });
-  const handleSearchChange = (value) => {
-    setSearchQuery(value);
-  };
-  const handleSort = (columnId) => {
-    console.log(columnId);
 
-    setSortConfig((prev) => {
-      // If clicking the same column, toggle order
-      if (prev.sortBy === columnId) {
-        if (prev.sortOrder === "asc") {
-          return { sortBy: columnId, sortOrder: "desc" };
-        } else if (prev.sortOrder === "desc") {
-          return { sortBy: null, sortOrder: null }; // Clear sorting
-        }
-      }
+  // ----------------------------------
+  // DATA FETCH
+  // ----------------------------------
+  const { notifications, currentPage, lastPage, isLoading } =
+    useGetNotificationsDashboard(search, page, pageSize, sortConfig, filters);
 
-      return { sortBy: columnId, sortOrder: "asc" };
-    });
-    setPage(1);
-  }; // Handle filter changes
-  const handleFilterChange = (filtersObj) => {
-    console.log("🟣 FILTERS IN PAGE:", filtersObj);
-
-    setFilters(filtersObj);
-    setPage(1);
-  };
   // -----------------------------
-  // Modal state
+  // Fetch cascading filter data
+  // -----------------------------
+  const { regions } = useGetRegions();
+  const { countries } = useGetCountries(
+    filters.region_id,
+    "on",
+    !!filters.region_id,
+  );
+  const { cities } = useGetCities(
+    filters.country_id,
+    "on",
+    !!filters.country_id,
+  );
+  const { subjects } = useGetSubjects("", 1, 50);
+  const { addToTask, isAddingToTask } = usePostAddToTask();
+
+  const { packages } = useGetPackages("", 1, 50);
+  // -----------------------------
+  // Modals
   // -----------------------------
   const [showModal, setShowModal] = useState(false);
-
-  // -----------------------------
-  // Fetch working groups via hook
-  // -----------------------------
-  const { notifications, currentPage, lastPage, isLoading } =
-    useGetNotificationsDashboard(
-      searchQuery,
-      page,
-      pageSize,
-      sortConfig,
-      filters,
-    );
-
   const handleAddToTask = () => {
-    const payload = {
-      task_id: notificationId,
-    };
-    addToTask(payload, {
-      onSuccess: (res) => {
-        toast.success(res.message);
-        queryClient.invalidateQueries({
-          queryKey: ["dashboard-notifications"],
-        });
-        setShowModal(false);
+    addToTask(
+      { task_id: notificationId },
+      {
+        onSuccess: (res) => {
+          toast.success(res.message);
+          queryClient.invalidateQueries({
+            queryKey: ["dashboard-notifications"],
+          });
+          setShowModal(false);
+        },
+        onError: (err) => toast.error(err.message),
       },
-      onError: (err) => {
-        toast.error(err.message);
-      },
-    });
+    );
+  };
+  // ----------------------------------
+  // HANDLERS
+  // ----------------------------------
+  const handleSortChange = (sortBy, sortOrder) => {
+    setSortConfig(sortBy && sortOrder ? { sortBy, sortOrder } : null);
   };
 
   // -----------------------------
-  // Pagination state
+  // Table Data
   // -----------------------------
   const tableData = useMemo(
     () =>
       notifications.map((notify) => ({
         id: notify?.id,
-        system: t(`${notify.system_type.type}`) || "-",
-        subject: notify.system_type.title || "-",
+        system_type: t(`${notify.system_type.type}`) || "-",
+        system_type_id: notify.system_type.title || "-",
         model: notify.reference_number || "-",
         date: notify.date || "-",
         time: notify.time || "-",
         service: notify.service || "-",
         userAccount: notify.account || "-",
-        accountType: notify.account_type || "-",
+        package_id: notify.account_type || "-",
         idNumber: notify.id_number || "-",
         group: notify.account_group || "-",
-        region: notify.region.title || "-",
-        location: notify.country.title || "-",
-        city: notify.city.title || "-",
+        region_id: notify.region.title || "-",
+        country_id: notify.country.title || "-",
+        city_id: notify.city.title || "-",
         is_added: notify.is_added,
       })),
     [notifications, t],
   );
 
+  // -----------------------------
+  // Columns
+  // -----------------------------
   const columns = useMemo(
     () => [
-      columnHelper.accessor("system", {
+      columnHelper.accessor("system_type", {
         header: t("dashboard.notifications.system"),
         cell: (info) => info.getValue(),
         enableSorting: true,
+        enableFiltering: true,
       }),
-      columnHelper.accessor("subject", {
+      columnHelper.accessor("system_type_id", {
         header: t("dashboard.notifications.subject"),
         cell: (info) => info.getValue(),
         enableSorting: true,
+        enableFiltering: true,
       }),
       columnHelper.accessor("model", {
         header: t("dashboard.notifications.model"),
@@ -165,6 +155,7 @@ const NotificationTable = () => {
         header: t("dashboard.notifications.date"),
         cell: (info) => info.getValue(),
         enableSorting: true,
+        enableFiltering: true,
       }),
       columnHelper.accessor("time", {
         header: t("dashboard.notifications.time"),
@@ -181,10 +172,11 @@ const NotificationTable = () => {
         cell: (info) => info.getValue(),
         enableSorting: true,
       }),
-      columnHelper.accessor("accountType", {
+      columnHelper.accessor("package_id", {
         header: t("dashboard.notifications.accountType"),
         cell: (info) => info.getValue(),
         enableSorting: true,
+        enableFiltering: true,
       }),
       columnHelper.accessor("idNumber", {
         header: t("dashboard.notifications.idNumber"),
@@ -196,167 +188,145 @@ const NotificationTable = () => {
         cell: (info) => info.getValue(),
         enableSorting: true,
       }),
-      columnHelper.accessor("region", {
+      columnHelper.accessor("region_id", {
         header: t("dashboard.notifications.region"),
         cell: (info) => info.getValue(),
         enableSorting: true,
+        enableFiltering: true,
       }),
-      columnHelper.accessor("location", {
+      columnHelper.accessor("country_id", {
         header: t("dashboard.notifications.location"),
         cell: (info) => info.getValue(),
         enableSorting: true,
+        enableFiltering: true,
       }),
-      columnHelper.accessor("city", {
+      columnHelper.accessor("city_id", {
         header: t("dashboard.notifications.city"),
         cell: (info) => info.getValue(),
         enableSorting: true,
+        enableFiltering: true,
       }),
       columnHelper.accessor("actions", {
         header: t("dashboard.workGroup.table.actions"),
-        cell: (info) => {
-          return (
-            <div className="table__actions">
-              {info?.row?.original?.is_added ? (
-                t("dashboard.notifications.added")
-              ) : (
-                <i
-                  onClick={() => {
-                    setShowModal(true);
-
-                    setNotificationId(info?.row?.original?.id);
-                    // setWorkingGroupName(info?.row?.original?.groupNumber);
-                  }}
-                  style={{ cursor: "pointer" }}
-                  className="fa-solid fa-plus"
-                ></i>
-              )}
-            </div>
-          );
-        },
+        cell: (info) => (
+          <div className="table__actions">
+            {info?.row?.original?.is_added ? (
+              t("dashboard.notifications.added")
+            ) : (
+              <i
+                onClick={() => {
+                  setShowModal(true);
+                  setNotificationId(info?.row?.original?.id);
+                }}
+                style={{ cursor: "pointer" }}
+                className="fa-solid fa-plus"
+              />
+            )}
+          </div>
+        ),
       }),
     ],
     [t],
   );
-  // Filter options configuration
-  const filterOptions = {
+
+  const notificationsFilterConfig = {
     system_type: {
       id: "system_type",
       type: "select",
-      label: { en: "System Type", ar: "نوع النظام" },
-      options: systemTypes, // [{ id, name }]
-      getLabel: (o) => o.name,
-      getValue: (o) => o.value,
+      label: { en: "System Type" },
+      options: getSystemTypes(t),
     },
-
     system_type_id: {
       id: "system_type_id",
       type: "select",
-      label: { en: "System Type ID", ar: "رقم النظام" },
-      options: systemTypes,
-      getLabel: (o) => o.name,
-      getValue: (o) => o.value,
+      label: { en: "System Type ID" },
+      options: subjects.map((sub) => ({
+        value: sub?.id,
+        label: sub?.title,
+      })),
     },
-
     package_id: {
       id: "package_id",
       type: "select",
-      label: { en: "Package", ar: "الباقة" },
-      options: packages,
-      getLabel: (o) => o.title,
-      getValue: (o) => o.id,
+      label: { en: "Package" },
+      options: packages?.map((pack) => ({
+        value: pack?.id,
+        label: pack?.title,
+      })),
     },
-
     region_id: {
       id: "region_id",
       type: "select",
-      label: { en: "Region", ar: "المنطقة" },
-      options: regions,
-      getLabel: (o) => o.title,
-      getValue: (o) => o.id,
+      label: { en: "Region" },
+      options: regions.map((reg) => ({
+        value: reg?.id,
+        label: reg?.title,
+      })),
     },
-
     country_id: {
       id: "country_id",
       type: "select",
-      label: { en: "Country", ar: "الدولة" },
-      options: countries,
-      getLabel: (o) => o.title,
-      getValue: (o) => o.id,
+      label: { en: "Country" },
+      options: countries.map((reg) => ({
+        value: reg?.id,
+        label: reg?.title,
+      })),
     },
-
     city_id: {
       id: "city_id",
       type: "select",
-      label: { en: "City", ar: "المدينة" },
-      options: cities,
-      getLabel: (o) => o.title,
-      getValue: (o) => o.id,
+      label: { en: "City" },
+      options: cities.map((reg) => ({
+        value: reg?.id,
+        label: reg?.title,
+      })),
     },
-
-    from_date: {
-      id: "from_date",
+    date: {
       type: "date",
-      label: { en: "From Date", ar: "من تاريخ" },
-    },
-
-    to_date: {
-      id: "to_date",
-      type: "date",
-      label: { en: "To Date", ar: "إلى تاريخ" },
+      mode: "range",
     },
   };
-
   return (
     <>
-      <ReusableDataTable
+      <DataTable
         title={t("dashboard.notifications.title")}
         data={tableData}
         columns={columns}
-        currentPage={currentPage}
-        lastPage={lastPage}
-        setPage={setPage}
-        pageSize={pageSize}
-        setPageSize={setPageSize}
-        searchQuery={searchQuery}
-        onSearchChange={handleSearchChange}
-        searchDebounceMs={700}
-        search={true}
-        lang="ar"
-        searchPlaceholder={t("search")}
-        isLoading={isLoading}
-        // filter
-        filter={true}
-        activeFilters={[
-          "system_type",
-          "system_type_id",
-          "package_id",
-          "region_id",
-          "country_id",
-          "city_id",
-          "from_date",
-          "to_date",
-        ]}
-        filterOptions={filterOptions}
-        enableServerSideFiltering={true}
-        onFilterChange={handleFilterChange}
-        //sort
-        onSortChange={handleSort}
-        enableServerSideSorting={true}
-        sortBy={sortConfig.sortBy}
-        sortOrder={sortConfig.sortOrder}
-        header={true}
-      >
-        <TablePagination
-          currentPage={page}
-          lastPage={lastPage}
-          onPageChange={setPage}
-          isLoading={isLoading}
-        />
-      </ReusableDataTable>
+        loading={isLoading}
+        filterConfig={notificationsFilterConfig}
+        pagination={{
+          currentPage,
+          lastPage,
+          pageSize,
+          onPageSizeChange: setPageSize,
+          page,
+          onPageChange: setPage,
+        }}
+        sorting={{
+          enabled: true,
+          server: true,
+          sortBy: sortConfig?.sortBy,
+          sortOrder: sortConfig?.sortOrder,
+          onChange: handleSortChange,
+        }}
+        filtering={{
+          enabled: false,
+          server: true,
+          onChange: setFilters,
+        }}
+        search={{
+          enabled: true,
+          value: search,
+          onChange: setSearch,
+          searchPlaceholder: t("search"),
+          debounceMs: 500,
+        }}
+      />
       <RateModal showModal={showRateModal} setShowModal={setShowRateModal} />
+
       <AlertModal
-        setShowModal={setShowModal}
         showModal={showModal}
+        setShowModal={setShowModal}
         onConfirm={handleAddToTask}
         notificationId={notificationId}
         confirmButtonText={t("confirm")}
@@ -369,4 +339,4 @@ const NotificationTable = () => {
   );
 };
 
-export default NotificationTable;
+export default NotificationsTable;

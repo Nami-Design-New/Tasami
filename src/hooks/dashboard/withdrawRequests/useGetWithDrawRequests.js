@@ -1,19 +1,33 @@
 import { useQuery } from "@tanstack/react-query";
 import { adminAxiosInstance } from "../../../lib/adminAxios";
-import { useSearchParams } from "react-router";
 
 export default function useGetWithDrawRequests(
   search,
   page = 1,
-  pageSize = 10
+  pageSize = 10,
+  sortConfig = null,
+  filters = null,
 ) {
-  const [searchParams, setSearchParams] = useSearchParams();
-
   const { data: withdrawRequests, isLoading } = useQuery({
-    queryKey: ["withdraw-requests", page, pageSize, search],
+    queryKey: [
+      "withdraw-requests",
+      page,
+      pageSize,
+      search,
+      sortConfig?.sortBy,
+      sortConfig?.sortOrder,
+      filters,
+    ],
     queryFn: async () => {
       const res = await adminAxiosInstance.get("dh-withdraw-requests", {
-        params: { page, limit_per_page: pageSize, search },
+        params: {
+          page,
+          limit_per_page: pageSize,
+          search,
+          status: filters?.status,
+          from_date: filters?.created_at?.from,
+          to_date: filters?.created_at?.to,
+        },
       });
       if (res.data.code !== 200) {
         throw new Error(res.data.message, "Error Fetching witdraw Data");
@@ -21,6 +35,9 @@ export default function useGetWithDrawRequests(
 
       return res.data;
     },
+    keepPreviousData: true,
+    gcTime: undefined,
+    staleTime: undefined,
   });
   return {
     withdrawRequests,

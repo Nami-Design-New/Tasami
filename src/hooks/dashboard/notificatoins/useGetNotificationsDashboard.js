@@ -1,6 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
 import { adminAxiosInstance } from "../../../lib/adminAxios";
-import { useEffect } from "react";
 
 export default function useGetNotificationsDashboard(
   search = "",
@@ -9,9 +8,6 @@ export default function useGetNotificationsDashboard(
   sortConfig = null,
   filters = null,
 ) {
-  useEffect(() => {
-    console.log("🔴 QUERY FILTERS:", filters);
-  }, [filters]);
   const { data, isLoading, isError, refetch } = useQuery({
     queryKey: [
       "dashboard-notifications",
@@ -30,7 +26,14 @@ export default function useGetNotificationsDashboard(
           limit_per_page: pageSize,
           sortBy: sortConfig?.sortBy,
           sortOrder: sortConfig?.sortOrder,
-          ...filters,
+          from_date: filters?.date?.from,
+          to_date: filters?.date?.to,
+          region_id: filters?.region_id,
+          country_id: filters?.country_id,
+          city_id: filters?.city_id,
+          system_type: filters?.system_type,
+          system_type_id: filters?.system_type_id,
+          package_id: filters?.package_id,
         },
       });
 
@@ -41,20 +44,12 @@ export default function useGetNotificationsDashboard(
       return res.data;
     },
     keepPreviousData: true,
+    gcTime: undefined,
+    staleTime: undefined,
   });
 
   return {
     notifications: data?.data || [],
-    // stats: data
-    //   ? {
-    //       group_count: data.group_count,
-    //       executive_count: data.executive_count,
-    //       leader_count: data.leader_count,
-    //       manager_count: data.manager_count,
-    //       supervisor_count: data.supervisor_count,
-    //       customer_service_count: data.customer_service_count,
-    //     }
-    //   : {},
     currentPage: data?.current_page || 1,
     lastPage: data?.last_page || 1,
     isLoading,

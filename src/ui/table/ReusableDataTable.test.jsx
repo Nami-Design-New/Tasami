@@ -18,7 +18,7 @@ vi.mock("react-i18next", () => ({
   }),
 }));
 
-vi.mock("./TableFilter", () => ({
+vi.mock("./TableOptions", () => ({
   default: ({ globalFilter, setGlobalFilter, searchPlaceholder }) => (
     <div data-testid="table-filter">
       <input
