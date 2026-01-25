@@ -14,6 +14,7 @@ import useGetRegions from "../../../hooks/dashboard/regions/useGetRegions";
 import useGetCountries from "../../../hooks/dashboard/regions/useGetCountries";
 import useGetCities from "../../../hooks/dashboard/regions/useGetCities";
 import { columnHelper } from "../../../ui/datatable/adapters/tanstackAdapter";
+import { usePersistedTableState } from "../../../ui/datatable/hooks/usePersistedTableState";
 
 const getgroupTypes = (t) => [
   { id: 1, value: "managerial", label: t("managerial") },
@@ -32,7 +33,21 @@ const WorkingGroups = () => {
   const [search, setSearch] = useState("");
   const [sortConfig, setSortConfig] = useState(null);
   const [filters, setFilters] = useState({});
-
+  usePersistedTableState({
+    key: "notifications-table",
+    state: {
+      search,
+      page,
+      sortConfig,
+      filters,
+    },
+    setState: (saved) => {
+      setSearch(saved.search ?? "");
+      setPage(saved.page ?? 1);
+      setSortConfig(saved.sortConfig ?? null);
+      setFilters(saved.filters ?? {});
+    },
+  });
   // -----------------------------
   // Modal state
   // -----------------------------

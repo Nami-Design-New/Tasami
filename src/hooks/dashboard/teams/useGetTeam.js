@@ -46,8 +46,8 @@ export default function useGetTeam(
       return res.data;
     },
     keepPreviousData: true,
-    gcTime: undefined,
-    staleTime: undefined,
+    staleTime: 30 * 1000,
+    gcTime: 5 * 60 * 1000,
   });
 
   return {

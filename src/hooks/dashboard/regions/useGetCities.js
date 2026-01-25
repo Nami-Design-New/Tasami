@@ -4,7 +4,7 @@ import { adminAxiosInstance } from "../../../lib/adminAxios";
 export default function useGetCities(
   countryId,
   pagenation = "on",
-  enabled = true
+  enabled = true,
 ) {
   const {
     data,
