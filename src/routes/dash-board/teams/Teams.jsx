@@ -181,10 +181,12 @@ const Teams = () => {
       columnHelper.accessor("first_name", {
         header: t("dashboard.team.columns.first_name"),
         cell: (info) => info.getValue(),
+        enableSorting: true,
       }),
       columnHelper.accessor("last_name", {
         header: t("dashboard.team.columns.last_name"),
         cell: (info) => info.getValue(),
+        enableSorting: true,
       }),
       columnHelper.accessor("employee_code", {
         header: t("dashboard.team.columns.employee_code"),
@@ -196,6 +198,7 @@ const Teams = () => {
             {info.getValue()}
           </Link>
         ),
+        enableSorting: true,
       }),
       columnHelper.accessor("role_id", {
         header: t("dashboard.team.columns.job_level"),
@@ -268,10 +271,12 @@ const Teams = () => {
       columnHelper.accessor("status_date", {
         header: t("dashboard.team.columns.status_date"),
         cell: (info) => info.getValue(),
+        enableSorting: true,
       }),
       columnHelper.accessor("status_time", {
         header: t("dashboard.team.columns.status_time"),
         cell: (info) => info.getValue() || "-",
+        enableSorting: true,
       }),
     ],
     [t],

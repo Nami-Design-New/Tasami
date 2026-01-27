@@ -1,20 +1,17 @@
-import { createColumnHelper } from "@tanstack/react-table";
 import { useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router";
+import useGetCities from "../../../hooks/dashboard/regions/useGetCities";
+import useGetCountries from "../../../hooks/dashboard/regions/useGetCountries";
+import useGetRegions from "../../../hooks/dashboard/regions/useGetRegions";
 import useGetWorkingGroups from "../../../hooks/dashboard/workingGroups/useGetWorkingGroups";
 import ChartCard from "../../../ui/dash-board/cards/ChartCard";
 import StatisticsCard from "../../../ui/dash-board/cards/StatisticsCard";
-import EditWorkGroupModal from "../../../ui/modals/EditWorkGroupModal";
-import ReusableDataTable from "../../../ui/table/ReusableDataTable";
-import TablePagination from "../../../ui/table/TablePagentaion";
-import { PAGE_SIZE } from "../../../utils/constants";
-import DataTable from "../../../ui/datatable/ui/DataTable";
-import useGetRegions from "../../../hooks/dashboard/regions/useGetRegions";
-import useGetCountries from "../../../hooks/dashboard/regions/useGetCountries";
-import useGetCities from "../../../hooks/dashboard/regions/useGetCities";
 import { columnHelper } from "../../../ui/datatable/adapters/tanstackAdapter";
 import { usePersistedTableState } from "../../../ui/datatable/hooks/usePersistedTableState";
+import DataTable from "../../../ui/datatable/ui/DataTable";
+import EditWorkGroupModal from "../../../ui/modals/EditWorkGroupModal";
+import { PAGE_SIZE } from "../../../utils/constants";
 
 const getgroupTypes = (t) => [
   { id: 1, value: "managerial", label: t("managerial") },
@@ -162,6 +159,7 @@ const WorkingGroups = () => {
             {info.getValue()}
           </Link>
         ),
+        enableSorting: true,
       }),
       columnHelper.accessor("groupClassifications", {
         header: t("dashboard.workGroup.table.classification"),
@@ -193,18 +191,23 @@ const WorkingGroups = () => {
       }),
       columnHelper.accessor("excutives", {
         header: t("dashboard.workGroup.table.executives"),
+        enableSorting: true,
       }),
       columnHelper.accessor("leaders", {
         header: t("dashboard.workGroup.table.leaders"),
+        enableSorting: true,
       }),
       columnHelper.accessor("managers", {
         header: t("dashboard.workGroup.table.managers"),
+        enableSorting: true,
       }),
       columnHelper.accessor("supervisorsCount", {
         header: t("dashboard.workGroup.table.supervisors"),
+        enableSorting: true,
       }),
       columnHelper.accessor("employeeCount", {
         header: t("dashboard.workGroup.table.employees"),
+        enableSorting: true,
       }),
       columnHelper.accessor("actions", {
         header: t("dashboard.workGroup.table.actions"),
@@ -234,6 +237,7 @@ const WorkingGroups = () => {
             </div>
           );
         },
+        enableSorting: true,
       }),
     ],
     [t],

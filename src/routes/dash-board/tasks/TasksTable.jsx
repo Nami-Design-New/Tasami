@@ -134,14 +134,17 @@ const TasksTable = ({
             {info.getValue()}
           </Link>
         ),
+        enableSorting: true,
       }),
       columnHelper.accessor("date", {
         header: t("dashboard.tasks.table.date"),
         cell: (info) => info.getValue(),
+        enableSorting: true,
       }),
       columnHelper.accessor("time", {
         header: t("dashboard.tasks.table.time"),
         cell: (info) => info.getValue(),
+        enableSorting: true,
       }),
 
       columnHelper.accessor("userAccount", {
@@ -168,6 +171,7 @@ const TasksTable = ({
             </>
           );
         },
+        enableSorting: true,
       }),
       columnHelper.accessor("package_id", {
         header: t("dashboard.tasks.table.accountType"),
@@ -189,6 +193,7 @@ const TasksTable = ({
             {info.getValue()}
           </Link>
         ),
+        enableSorting: true,
       }),
       columnHelper.accessor("region_id", {
         header: t("dashboard.tasks.table.region"),
@@ -249,11 +254,13 @@ const TasksTable = ({
       columnHelper.accessor("completionDate", {
         header: t("dashboard.tasks.table.completionDate"),
         cell: (info) => info.getValue(),
+        enableSorting: true,
       }),
       columnHelper.accessor("rate", {
         header: t("dashboard.tasks.table.rate"),
         cell: (info) =>
           info.getValue() ?? t("dashboard.tasks.statusLabels.noRate"),
+        enableSorting: true,
       }),
       columnHelper.accessor("assign", {
         header: t("dashboard.tasks.table.assign"),
@@ -268,6 +275,7 @@ const TasksTable = ({
               <i className="fa-solid fa-repeat"></i>
             </button>
           ),
+        enableSorting: true,
       }),
     ],
     [t],

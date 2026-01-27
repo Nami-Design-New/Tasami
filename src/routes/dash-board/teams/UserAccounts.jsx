@@ -127,6 +127,7 @@ const UserAccounts = () => {
               ? `${info.row.original.first_name} ${info.row.original.last_name}`
               : "-"
           }`,
+        enableSorting: true,
       }),
       columnHelper.accessor("account_code", {
         header: t("dashboard.userAccounts.accountNumber"),
@@ -141,6 +142,7 @@ const UserAccounts = () => {
             {info.getValue() || "-"}
           </Link>
         ),
+        enableSorting: true,
       }),
       columnHelper.accessor("account_type", {
         header: t("dashboard.userAccounts.accountType"),
@@ -167,10 +169,12 @@ const UserAccounts = () => {
       columnHelper.accessor("beneficiary_points", {
         header: t("dashboard.userAccounts.beneficiaryPoints"),
         cell: (info) => info.getValue() || "-",
+        enableSorting: true,
       }),
       columnHelper.accessor("helper_points", {
         header: t("dashboard.userAccounts.assistanceProviderPoints"),
         cell: (info) => info.getValue() || "-",
+        enableSorting: true,
       }),
       columnHelper.accessor("nationality.title", {
         header: t("dashboard.userAccounts.nationality"),
@@ -199,10 +203,12 @@ const UserAccounts = () => {
       columnHelper.accessor("subscription_start_date", {
         header: t("dashboard.userAccounts.subscriptionStart"),
         cell: (info) => info.getValue() || "-",
+        enableSorting: true,
       }),
       columnHelper.accessor("subscription_end_date", {
         header: t("dashboard.userAccounts.subscriptionEnd"),
         cell: (info) => info.getValue() || "-",
+        enableSorting: true,
       }),
       columnHelper.accessor("status", {
         header: t("dashboard.userAccounts.status"),
@@ -243,6 +249,7 @@ const UserAccounts = () => {
       columnHelper.accessor("account_status_date", {
         header: t("dashboard.userAccounts.statusDate"),
         cell: (info) => info.getValue() || "-",
+        enableSorting: true,
       }),
       columnHelper.accessor("account_status_time", {
         header: t("dashboard.userAccounts.statusTime"),
@@ -253,6 +260,7 @@ const UserAccounts = () => {
               : info.getValue() || "-"}
           </div>
         ),
+        enableSorting: true,
       }),
     ],
     [t],
