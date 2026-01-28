@@ -5,13 +5,16 @@ import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router";
 import { toast } from "sonner";
 import * as yup from "yup";
-import googleIcon from "../../assets/icons/google-icon.svg";
+
 import usePhoneRegister from "../../hooks/auth/useSendOtpCode";
 import useGetCountries from "../../hooks/countries/useGetCountries";
 import { setPhoneData } from "../../redux/slices/phoneSlice";
 import CustomButton from "../../ui/CustomButton";
 import BackButton from "../../ui/forms/BackButton";
 import CustomPhoneInput from "../forms/CustomPhoneInput";
+import appleIcon from "../../assets/icons/apple-icon.svg";
+import googleIcon from "../../assets/icons/google-icon.svg";
+
 const registerSchema = (t) =>
   yup.object().shape({
     fullPhone: yup.string().required(t("validation.fullPhoneRequired")),
@@ -60,7 +63,7 @@ const RegisterPage = ({ setRegisterStep }) => {
         onError: (error) => {
           toast.error(error.message);
         },
-      }
+      },
     );
   };
 
@@ -165,7 +168,7 @@ const RegisterPage = ({ setRegisterStep }) => {
           <span>{t("auth.continueWithGoogle")}</span>
         </button>
         <button>
-          <img src={googleIcon} alt="Apple" />
+          <img src={appleIcon} alt="Apple" />
           <span>{t("auth.continueWithApple")}</span>
         </button>
       </div>
