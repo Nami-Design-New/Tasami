@@ -85,7 +85,7 @@ export default function AddGoalModal({ showModal, setShowModal }) {
       "start_date",
       data.startDate
         ? new Date(data.startDate).toISOString().split("T")[0]
-        : null
+        : null,
     );
     formData.append("expected_duration", durationInDays);
 
@@ -123,7 +123,7 @@ export default function AddGoalModal({ showModal, setShowModal }) {
         onError: (error) => {
           toast.error(error?.message || t("failedToGenerate"));
         },
-      }
+      },
     );
   };
 
@@ -197,7 +197,7 @@ export default function AddGoalModal({ showModal, setShowModal }) {
                 >
                   {t("generate")}
                 </CustomButton>
-              </div>{" "}
+              </div>
               <div className="col-12 col-lg-6 p-2">
                 <InputField
                   label={t("website.platform.myAssistance.startDate")}
@@ -322,7 +322,7 @@ export default function AddGoalModal({ showModal, setShowModal }) {
                               key={option.id}
                               className={`identity-option ${
                                 selectedHelpMechanism.includes(
-                                  String(option.id)
+                                  String(option.id),
                                 )
                                   ? "active"
                                   : ""

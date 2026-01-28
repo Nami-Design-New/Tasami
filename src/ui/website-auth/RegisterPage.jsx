@@ -14,6 +14,7 @@ import BackButton from "../../ui/forms/BackButton";
 import CustomPhoneInput from "../forms/CustomPhoneInput";
 import appleIcon from "../../assets/icons/apple-icon.svg";
 import googleIcon from "../../assets/icons/google-icon.svg";
+import useGoogleAuth from "../../hooks/auth/useGoogleAuth";
 
 const registerSchema = (t) =>
   yup.object().shape({
@@ -31,6 +32,7 @@ const RegisterPage = ({ setRegisterStep }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { sendCode, isPending } = usePhoneRegister();
+  const { handleGoogleLogin, loading } = useGoogleAuth();
 
   const {
     data: countries,
@@ -163,7 +165,7 @@ const RegisterPage = ({ setRegisterStep }) => {
 
       {/* Social Login */}
       <div className="social-login-buttons">
-        <button>
+        <button onClick={handleGoogleLogin}>
           <img src={googleIcon} alt="Google" />
           <span>{t("auth.continueWithGoogle")}</span>
         </button>

@@ -211,7 +211,7 @@
   "accept": "Accept",
   "reject": "Reject",
   "anotherReason": "Another reason",
-  "brand_name": "Tasami",
+  "brand_name": "Tasami?",
   "steps_subtitle": "Simple Steps",
   "steps_title": "How does",
   "steps_description": "From start to success — Tasami helps you define your goals, connect with the right assistant, and stay on track until you achieve the results you aim for.",
@@ -669,6 +669,7 @@
     "passwordMinLength": "Use a password that is at least 6 characters long",
     "passwordMatch": "Passwords must match",
     "fileSize": "File size must be less than 12MB",
+    "passwordMin": "Use a password with at least 6 characters",
     "fileType": "Only JPG and PNG files are allowed",
     "date": "Please enter a valid date",
     "minAge": "Subscription is available for those who are {{age}} years old or older",
@@ -701,7 +702,11 @@
     "descriptionMax": "Description cannot exceed 500 characters",
     "futureDateNotAllowed": "Birth date cannot be in the future",
     "after_or_equal_today": "Date must be today or later",
-    "invalidUrl": "The URL is invalid"
+    "invalidUrl": "The URL is invalid",
+    "firstNameMax": "First name cannot exceed {{max}} characters",
+    "firstNameAlpha": "First name can only contain letters and spaces",
+    "middleNameMax": "Middle name cannot exceed {{max}} characters",
+    "middleNameAlpha": "Middle name can only contain letters and spaces"
   },
   "pageNotFound": {
     "alt": "404 Not Found",
@@ -1096,7 +1101,10 @@
         "preUniversityDiploma": "Pre-University Diploma",
         "bachelor": "University Degree (Bachelor)",
         "masters": "Postgraduate Studies (Master’s)",
-        "phd": "Advanced Global Degree (PhD)"
+        "phd": "Advanced Global Degree (PhD)",
+        "specializationHint1": "If you can't find the required field or specialization, contact ",
+        "specializationHintLink": "Customer Support ",
+        "specializationHint2": "to add a new category"
       },
       "groups": {
         "groupName": "Group Name",

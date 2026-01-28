@@ -20,20 +20,31 @@ const registerSchema = (t) => {
       }),
     firstName: yup
       .string()
+      .required(t("validation.required"))
       .min(2, t("validation.firstNameMin", { min: 2 }))
-      .required(t("validation.required")),
+      .max(50, t("validation.firstNameMax", { max: 50 })) // max limit
+      .matches(
+        /^[A-Za-z\s]+$/,
+        t("validation.firstNameAlpha"), // only letters and spaces
+      ),
+
     middleName: yup
       .string()
+      .required(t("validation.required"))
       .min(1, t("validation.middleNameMin", { min: 1 }))
-      .required(t("validation.required")),
+      .max(50, t("validation.middleNameMax", { max: 50 })) // max limit
+      .matches(
+        /^[A-Za-z\s]+$/,
+        t("validation.middleNameAlpha"), // only letters and spaces
+      ),
     dateOfBirth: yup
       .date()
       .typeError(t("validation.date"))
       .required(t("validation.required"))
-      .test("minAge", t("validation.minAge", { age: 15 }), (value) => {
+      .test("minAge", t("validation.minAge", { age: 18 }), (value) => {
         if (!value) return false;
         const today = dayjs();
-        const minDate = today.subtract(15, "year");
+        const minDate = today.subtract(18, "year");
         return (
           dayjs(value).isBefore(minDate) || dayjs(value).isSame(minDate, "day")
         );
@@ -48,7 +59,7 @@ const registerSchema = (t) => {
       .min(6, t("validation.passwordLength"))
       .matches(
         /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).+$/,
-        t("validation.passwordStrength")
+        t("validation.passwordStrength"),
       )
       .required(t("validation.required")),
     confirmPassword: yup

@@ -127,7 +127,7 @@ export default function Header() {
           {isAuthed && (
             <CustomButton
               size="small"
-              className="d-none d-sm-flex "
+              className="d-none d-lg-flex "
               style={{ fontSize: "14px", whiteSpace: "nowrap" }}
               onClick={() => {
                 if (user) {

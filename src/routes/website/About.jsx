@@ -58,7 +58,7 @@ export default function AboutSection() {
           <div className="section-head text-center mb-5">
             <span className="sub-title d-block mb-2">{t("why_subtitle")}</span>
             <h2 className="main-title mb-3">
-              {t("why_title")} <span>{t("brand_name")}</span>؟
+              {t("why_title")} <span>{t("brand_name")}</span>
             </h2>
             <p className="desc">{t("why_description")}</p>
           </div>
