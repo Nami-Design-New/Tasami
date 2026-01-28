@@ -509,7 +509,7 @@
     "emailTab": "Email",
     "phoneTab": "Phone Number",
     "emailPlaceholder": "e.g. mail@mail.com",
-    "phonePlaceholder": "e.g. +455 567888 555",
+    "phonePlaceholder": "e.g. 455 567888 555",
     "passwordPlaceholder": "Password",
     "forgotPassword": "Forgot password?",
     "loginButton": "Login",
