@@ -11,6 +11,7 @@ import useDeleteMeeting from "../../../../hooks/website/communities/mettings/use
 import { useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 import useDeletDhMeeting from "../../../../hooks/dashboard/subscription/community/useDeleteDhMeeting";
+import GlobalModal from "../../../GlobalModal";
 
 export default function EncounterDetailsModal({
   show,
@@ -64,7 +65,7 @@ export default function EncounterDetailsModal({
   };
 
   const meetingDate = new Date(
-    meetingData?.start_date + " " + meetingData?.start_time
+    meetingData?.start_date + " " + meetingData?.start_time,
   );
   const isPast = meetingDate < new Date();
   return (
