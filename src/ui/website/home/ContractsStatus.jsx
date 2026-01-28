@@ -22,8 +22,9 @@ export default function ContractsStatus({ stats }) {
           768: { slidesPerView: 3 },
           1024: { slidesPerView: 4 },
         }}
-        // autoplay={{ delay: 3000, disableOnInteraction: false }}
-        // modules={[Autoplay]}
+        loop
+        autoplay={{ delay: 3000, disableOnInteraction: false }}
+        modules={[Autoplay]}
       >
         <SwiperSlide>
           <div className="contract-status__card">

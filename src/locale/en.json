@@ -1,4 +1,8 @@
 {
+  "goalWithoutHelper": "Goal without Personal Assistant",
+  "goalWithHelper": "Goal with Personal Assistant",
+  "helpOffer": "Help Offer",
+  "legendTitle": "Legend",
   "hideAll": "Hide all",
   "noChatHistroy": "No chat history for this contract",
   "contractNumber": "Contract #: {{code}}",

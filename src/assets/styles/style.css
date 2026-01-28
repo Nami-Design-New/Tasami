@@ -10479,6 +10479,29 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
   border-radius: 0.5rem;
 }
 
+.legend-section {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+}
+.legend-section .legend-title {
+  font-size: clamp(1rem, 2.5vw, 1.25rem);
+}
+.legend-section .legend-list {
+  display: flex;
+  gap: 1rem;
+}
+.legend-section .legend-list li figure {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+.legend-section .legend-list li figure figcaption {
+  font-size: clamp(0.875rem, 2vw, 1rem);
+  font-weight: 600;
+  color: rgba(13, 13, 13, 0.5607843137);
+}
+
 .myworks .tab-nav {
   display: flex;
   gap: 0.25rem;

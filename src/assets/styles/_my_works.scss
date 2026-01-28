@@ -2,6 +2,32 @@
 @use "./mixins" as *;
 @use "./variables" as *;
 
+.legend-section {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  .legend-title {
+    font-size: clamp(1rem, 2.5vw, 1.25rem);
+  }
+  .legend-list {
+    display: flex;
+    gap: 1rem;
+    li {
+      figure {
+        display: flex;
+        align-items: center;
+        gap: 0.25rem;
+
+        figcaption {
+          font-size: clamp(0.875rem, 2vw, 1rem);
+          font-weight: 600;
+          color: $gray;
+        }
+      }
+    }
+  }
+}
+
 .myworks {
   .tab-nav {
     display: flex;
