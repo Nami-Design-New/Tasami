@@ -17,12 +17,16 @@ const newPasswordSchema = (t) =>
   yup.object().shape({
     password: yup
       .string()
-      .required(t("validation.required"))
-      .min(6, t("validation.passwordMin")),
+      .min(6, t("validation.passwordLength"))
+      .matches(
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).+$/,
+        t("validation.passwordStrength"),
+      )
+      .required(t("validation.required")),
     confirmPassword: yup
       .string()
-      .required(t("validation.required"))
-      .oneOf([yup.ref("password")], t("validation.passwordMatch")),
+      .oneOf([yup.ref("password")], t("validation.passwordMatch"))
+      .required(t("validation.required")),
   });
 
 const NewPassword = ({ setResetPasswordStep }) => {

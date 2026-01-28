@@ -511,7 +511,7 @@
     "emailTab": "بريد الكتروني",
     "phoneTab": "رقم هاتف",
     "emailPlaceholder": "مثال: mail@mail.com",
-    "phonePlaceholder": "مثال: +455 567888 555",
+    "phonePlaceholder": "455 567888 555",
     "passwordPlaceholder": "كلمه المرور",
     "forgotPassword": "نسيت كلمه المرور ؟",
     "loginButton": "دخول",
