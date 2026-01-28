@@ -12,8 +12,9 @@ import AddTasksModal from "../../../ui/website/my-works/tasks/AddTasksModal";
 import OptionsMenu from "../../../ui/website/OptionsMenu";
 import { TASKS_STATUS } from "../../../utils/constants";
 
-import missionClassIcon from "../../../assets/icons/mission-class.svg";
 import bellIcon from "../../../assets/icons/bell.svg";
+import missionClassIcon from "../../../assets/icons/mission-class.svg";
+import TaskBreadcrumb from "../../../ui/website/my-works/tasks/TaskBreadcrumb";
 
 export default function TaskDetails() {
   const navigate = useNavigate();
@@ -43,7 +44,7 @@ export default function TaskDetails() {
         onError: (err) => {
           toast.error(err?.message || t("works.myTasks.error"));
         },
-      }
+      },
     );
   };
 
@@ -71,11 +72,12 @@ export default function TaskDetails() {
     <section className="task_details page">
       <div className="container">
         <header className="task-details__header">
-          <div className="d-flex gap-3">
+          <div className="d-flex align-items-center gap-3">
             <RoundedBackButton
               onClick={() => navigate(`/my-works/${taskDetails.work_id}/tasks`)}
             />
-            <h1>{t("works.myTasks.taskDetails")}</h1>
+            <TaskBreadcrumb taskDetails={taskDetails} />
+            {/* <h1>{t("works.myTasks.taskDetails")}</h1> */}
           </div>
 
           {taskDetails?.work_status !== "completed" && (

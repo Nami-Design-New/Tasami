@@ -823,6 +823,7 @@
     "completePayment": "إتمام الدفع",
     "myTasks": {
       "title": "المهام التنفيذية",
+      "allTasks": "جميع المهام",
       "dragInstruction": "يمكنك السحب والإفلات لإعادة ترتيب المهام",
       "startExecution": "بداية التنفيذ",
       "endExecution": "اكتمال التنفيذ",

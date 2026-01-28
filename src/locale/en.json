@@ -817,6 +817,7 @@
       "title": "Execution Tasks",
       "dragInstruction": "You can drag and drop to reorder tasks",
       "startExecution": "Start of Execution",
+      "allTasks": "All Tasks",
       "endExecution": "End of Execution",
       "executionRate": "Execution Progress",
       "startExecutionBtn": "Start Execution",
