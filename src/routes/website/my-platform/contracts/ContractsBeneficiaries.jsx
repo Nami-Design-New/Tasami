@@ -102,25 +102,24 @@ export default function ContractsBeneficiaries() {
               <div className="goal-info">
                 <div className="info-grid">
                   <div className="info-box flex-grow-1">
-                    <div className="label">{t("contractValue")}</div>
-                    <div className="value">
+                    <h4 className="label">{t("contractValue")}</h4>
+                    <p className="value">
                       {contractDetails?.total_price}
                       <Currency />
-                    </div>
+                    </p>
                   </div>
                   <div className="info-box flex-grow-1">
-                    <div className="label">{t("contractDuration")}</div>
-                    <div className="value">
+                    <h4 className="label">{t("contractDuration")}</h4>
+                    <p className="value">
                       {contractDetails?.total_days} {t("day")}
-                    </div>
+                    </p>
                   </div>
                   <div className="info-box flex-grow-1">
-                    <div className="label">{t("dailyEarning")}</div>
-
-                    <div className="value">
+                    <h4 className="label">{t("dailyEarning")}</h4>
+                    <p className="value">
                       {contractDetails?.day_price}
                       <Currency />
-                    </div>
+                    </p>
                   </div>
                 </div>
               </div>
@@ -128,15 +127,15 @@ export default function ContractsBeneficiaries() {
             <div className="goal-info mt-2">
               <div className="info-grid">
                 <div className="info-box flex-grow-1">
-                  <div className="label">{t("progress")}</div>
-                  <div className="progress-bar-label">
+                  <h4 className="label">{t("progress")}</h4>
+                  <p className="progress-bar-label">
                     <span>
                       {contractDetails?.progress_days} {t("days")}
                     </span>
                     <span>
                       {contractDetails?.total_days} {t("day")}
                     </span>
-                  </div>
+                  </p>
                   <ProgressBar
                     label=""
                     now={contractDetails?.progress_percent}
@@ -147,17 +146,17 @@ export default function ContractsBeneficiaries() {
             <div className="goal-info mt-2">
               <div className="info-grid">
                 <div className="info-box flex-grow-1">
-                  <div className="label">{t("assistantEarnings")}</div>
-                  <div className="value">
+                  <h4 className="label">{t("assistantEarnings")}</h4>
+                  <p className="value">
                     {contractDetails?.received_money}
                     <Currency />
-                  </div>
+                  </p>
                 </div>
                 <div className="info-box flex-grow-1">
-                  <div className="label">{t("remainingGuarantee")}</div>
-                  <div className="value">
+                  <h4 className="label">{t("remainingGuarantee")}</h4>
+                  <p className="value">
                     {contractDetails?.reminder_money} <Currency />
-                  </div>
+                  </p>
                 </div>
               </div>
             </div>

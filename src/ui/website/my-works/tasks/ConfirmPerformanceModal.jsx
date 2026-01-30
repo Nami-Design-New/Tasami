@@ -119,20 +119,20 @@ export default function ConfirmPerformanceModal({
                       <div className="goal-info">
                         <div className="info-grid">
                           <div className="info-box flex-grow-1">
-                            <div className="label">
+                            <h4 className="label">
                               {t("performanceModal.execution")}
-                            </div>
-                            <div className="value">
+                            </h4>
+                            <p className="value">
                               {task?.rate?.execution_text}
-                            </div>
+                            </p>
                           </div>
                           <div className="info-box flex-grow-1">
-                            <div className="label">
+                            <h4 className="label">
                               {t("performanceModal.benefit")}
-                            </div>
-                            <div className="value">
+                            </h4>
+                            <p className="value">
                               {task?.rate?.benefit_text}
-                            </div>
+                            </p>
                           </div>
                         </div>
                       </div>
@@ -203,18 +203,18 @@ export default function ConfirmPerformanceModal({
                 <div className="goal-info">
                   <div className="info-grid">
                     <div className="info-box flex-grow-1">
-                      <div className="label">
+                      <h4 className="label">
                         {t("performanceModal.guidance")}
-                      </div>
-                      <div className="value">{task?.rate?.guidance_text}</div>
+                      </h4>
+                      <p className="value">{task?.rate?.guidance_text}</p>
                     </div>
                     <div className="info-box flex-grow-1">
-                      <div className="label">
+                      <h4 className="label">
                         {t("performanceModal.verification")}
-                      </div>
-                      <div className="value">
+                      </h4>
+                      <p className="value">
                         {task?.rate?.verification_text}
-                      </div>
+                      </p>
                     </div>
                   </div>
                 </div>

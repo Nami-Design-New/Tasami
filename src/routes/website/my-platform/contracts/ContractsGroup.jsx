@@ -14,7 +14,7 @@ export default function ContractsGroup() {
   const { workDetails, isLoading } = useGetWorkDetails();
   const { workGroup, isLoading: groupLoading } = useGetWorkGroup(
     workDetails?.id ?? null,
-    workDetails?.goal?.group_id ?? null
+    workDetails?.goal?.group_id ?? null,
   );
   if (isLoading || groupLoading) return <Loading height={"500px"} />;
   return (
@@ -45,16 +45,14 @@ export default function ContractsGroup() {
             <div className="col-12 p-2">
               <div className="info-grid">
                 <div className="info-box info-box-grow-min-width">
-                  <div className="label">{t("website.offerDetails.field")}</div>
-                  <div className="value">
-                    {workGroup?.group?.category_title}
-                  </div>
+                  <h4 className="label">{t("website.offerDetails.field")}</h4>
+                  <p className="value">{workGroup?.group?.category_title}</p>
                 </div>
                 <div className="info-box info-box-grow-min-width">
-                  <div className="label">{t("groupStrengthIndex")}</div>
-                  <div className="value">
+                  <h4 className="label">{t("groupStrengthIndex")}</h4>
+                  <p className="value">
                     {workGroup?.group?.strength_indicator} %
-                  </div>
+                  </p>
                 </div>
               </div>
             </div>

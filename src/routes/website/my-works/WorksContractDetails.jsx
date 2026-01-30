@@ -169,30 +169,30 @@ export default function WorksContractDetails() {
               <div className="goal-info">
                 <div className="info-grid">
                   <div className="info-box flex-grow-1">
-                    <div className="label">
+                    <h4 className="label">
                       {t("works.contractDetails.contractValue")}
-                    </div>
-                    <div className="value">
+                    </h4>
+                    <p className="value">
                       {contractDetails?.total_price}
                       <Currency />
-                    </div>
+                    </p>
                   </div>
 
                   <div className="info-box flex-grow-1">
-                    <div className="label">
+                    <h4 className="label">
                       {t("works.contractDetails.contractDuration")}
-                    </div>
-                    <div className="value">{contractDetails?.total_days}</div>
+                    </h4>
+                    <p className="value">{contractDetails?.total_days}</p>
                   </div>
 
                   <div className="info-box flex-grow-1">
-                    <div className="label">
+                    <h4 className="label">
                       {t("works.contractDetails.dailyPayment")}
-                    </div>
-                    <div className="value">
+                    </h4>
+                    <p className="value">
                       {contractDetails?.day_price}
                       <Currency />
-                    </div>
+                    </p>
                   </div>
                 </div>
               </div>
@@ -202,10 +202,10 @@ export default function WorksContractDetails() {
             <div className="goal-info mt-2">
               <div className="info-grid">
                 <div className="info-box flex-grow-1">
-                  <div className="label">
+                  <h4 className="label">
                     {t("works.contractDetails.progress")}
-                  </div>
-                  <div className="progress-bar-label">
+                  </h4>
+                  <p className="progress-bar-label">
                     <span>
                       {contractDetails?.progress_days}{" "}
                       {t("works.contractDetails.days")}
@@ -214,7 +214,7 @@ export default function WorksContractDetails() {
                       {contractDetails?.total_days}{" "}
                       {t("works.contractDetails.day")}
                     </span>
-                  </div>
+                  </p>
                   <ProgressBar
                     label=""
                     now={contractDetails?.progress_percent}
@@ -227,21 +227,21 @@ export default function WorksContractDetails() {
             <div className="goal-info mt-2">
               <div className="info-grid">
                 <div className="info-box flex-grow-1">
-                  <div className="label">
+                  <h4 className="label">
                     {t("works.contractDetails.receivedAmount")}
-                  </div>
-                  <div className="value">
+                  </h4>
+                  <p className="value">
                     {contractDetails?.received_money}
                     <Currency />
-                  </div>
+                  </p>
                 </div>
                 <div className="info-box flex-grow-1">
-                  <div className="label">
+                  <h4 className="label">
                     {t("works.contractDetails.remainingBalance")}
-                  </div>
-                  <div className="value">
+                  </h4>
+                  <p className="value">
                     {contractDetails?.reminder_money} <Currency />
-                  </div>
+                  </p>
                 </div>
               </div>
             </div>

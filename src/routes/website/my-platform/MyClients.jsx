@@ -26,15 +26,15 @@ export default function MyClients() {
         <div className="goal-info">
           <div className="info-grid">
             <div className="info-box flex-grow-1">
-              <div className="label">
+              <h4 className="label">
                 {t("website.offerDetails.beneficiaries")}
-              </div>
-              <div className="value">{totalCount}</div>
+              </h4>
+              <p className="value">{totalCount}</p>
             </div>
 
             <div className="info-box flex-grow-1">
-              <div className="label">{t("website.offerDetails.totalRate")}</div>
-              <div className="value">{totalRate}</div>
+              <h4 className="label">{t("website.offerDetails.totalRate")}</h4>
+              <p className="value">{totalRate}</p>
             </div>
           </div>
         </div>

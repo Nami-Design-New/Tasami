@@ -55,7 +55,7 @@ export default function MyPlatform() {
 
             <AssistantStat />
           </div>
-          <div className="col-lg-3 col-md-3 col-12 p-2">
+          <div className="col-lg-3 col-md-4 col-12 p-2">
             <div className="profile_sidebar">
               <UserCard user={user} />
               <div className="nav_links">
@@ -117,7 +117,7 @@ export default function MyPlatform() {
             </div>
           </div>
 
-          <div className="col-lg-9 col-md-9 col-12 p-2">
+          <div className="col-lg-9 col-md-8 col-12 p-2">
             <Outlet />
           </div>
         </div>

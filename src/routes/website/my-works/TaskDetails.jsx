@@ -103,56 +103,52 @@ export default function TaskDetails() {
         <div className="row mt-4">
           <div className="col-12 p-2">
             <div className="info-grid w-100">
-              <div className="info-box flex-grow-1">
-                <div className="label">{t("works.myTasks.taskTitle")}</div>
-                <div className="value white-space-wrap">
-                  {taskDetails?.title}
-                </div>
+              <div className="info-box info-box-grow-min-width">
+                <h4 className="label">{t("works.myTasks.taskTitle")}</h4>
+                <p className="value white-space-wrap">{taskDetails?.title}</p>
               </div>
             </div>
           </div>
 
           <div className="col-12 p-2">
             <div className="info-grid w-100">
-              <div className="info-box flex-grow-1">
-                <div className="label">{t("works.myTasks.notes")}</div>
-                <div className="value white-space-wrap">
-                  {taskDetails?.notes}
-                </div>
+              <div className="info-box info-box-grow-min-width">
+                <h4 className="label">{t("works.myTasks.notes")}</h4>
+                <p className="value white-space-wrap">{taskDetails?.notes}</p>
               </div>
             </div>
           </div>
 
-          <div className="col-4 p-2">
+          <div className="col p-2">
             <div className="info-grid w-100">
-              <div className="info-box flex-grow-1">
-                <div className="label">{t("works.myTasks.category")}</div>
-                <div className="value">
+              <div className="info-box info-box-grow-min-width">
+                <h4 className="label">{t("works.myTasks.category")}</h4>
+                <p className="value">
                   {" "}
                   <img src={missionClassIcon} />{" "}
                   {taskDetails?.task_category?.title}
-                </div>
+                </p>
               </div>
             </div>
           </div>
 
-          <div className="col-4 p-2">
+          <div className="col p-2">
             <div className="info-grid w-100">
-              <div className="info-box flex-grow-1">
-                <div className="label">{t("works.myTasks.reminder")}</div>
-                <div className="value">
+              <div className="info-box info-box-grow-min-width">
+                <h4 className="label">{t("works.myTasks.reminder")}</h4>
+                <p className="value">
                   <img src={bellIcon} />
                   {t(`${taskDetails?.notification_repeat}`)}
-                </div>
+                </p>
               </div>
             </div>
           </div>
 
-          <div className="col-4 p-2">
-            <div className="info-grid w-100">
-              <div className="info-box flex-grow-1">
-                <div className="label">{t("works.myTasks.date")}</div>
-                <div
+          <div className="col p-2">
+            <div className="info-grid">
+              <div className="info-box info-box-grow-min-width">
+                <h4 className="label">{t("works.myTasks.date")}</h4>
+                <p
                   className={`value ${
                     isPast && taskDetails?.status !== "completed"
                       ? "text-fire"
@@ -160,7 +156,7 @@ export default function TaskDetails() {
                   }`}
                 >
                   {taskDetails?.expected_end_date}
-                </div>
+                </p>
               </div>
             </div>
           </div>

@@ -73,20 +73,20 @@ export default function WorkOfferDetails({ showModal, setShowModal, offerId }) {
 
               <div className="info-grid">
                 <div className="info-box flex-grow-1 w-100">
-                  <div className="label">
+                  <h4 className="label">
                     {t("works.myOffers.details.amount")}
-                  </div>
-                  <div className="value">
+                  </h4>
+                  <p className="value">
                     {workOfferDetails?.price} <Currency />
-                  </div>
+                  </p>
                 </div>
 
                 {workOfferDetails?.notes && (
                   <div className="info-box flex-grow-1 w-100">
-                    <div className="label">
+                    <h4 className="label">
                       {t("works.myOffers.details.extraTerms")}
-                    </div>
-                    <div className="value">{workOfferDetails?.notes}</div>
+                    </h4>
+                    <p className="value">{workOfferDetails?.notes}</p>
                   </div>
                 )}
               </div>

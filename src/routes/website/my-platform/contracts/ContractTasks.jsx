@@ -26,22 +26,22 @@ export default function ContractTasks() {
       {/* Info Section */}
       <div className="info-grid">
         <div className="info-box flex-grow-1">
-          <div className="label">{t("works.myTasks.startExecution")}</div>{" "}
-          <div className="value">
+          <h4 className="label">{t("works.myTasks.startExecution")}</h4>{" "}
+          <p className="value">
             {goalTasks["additional-data"]?.start_of_execution || "---"}
-          </div>
+          </p>
         </div>
         <div className="info-box flex-grow-1">
-          <div className="label">{t("works.myTasks.endExecution")}</div>
-          <div className="value">
+          <h4 className="label">{t("works.myTasks.endExecution")}</h4>
+          <p className="value">
             {goalTasks["additional-data"]?.end_of_execution || "---"}
-          </div>
+          </p>
         </div>
         <div className="info-box flex-grow-1">
-          <div className="label">{t("works.myTasks.executionRate")}</div>
-          <div className="value">
+          <h4 className="label">{t("works.myTasks.executionRate")}</h4>
+          <p className="value">
             {goalTasks["additional-data"]?.execution_percentage || "---"}
-          </div>
+          </p>
         </div>
       </div>
 

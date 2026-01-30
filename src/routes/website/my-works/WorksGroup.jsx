@@ -82,16 +82,16 @@ export default function WorksGroup() {
             <div className="col-12 p-2">
               <div className="info-grid">
                 <div className="info-box info-box-grow-min-width">
-                  <div className="label">{t("works.group.field")}</div>
-                  <div className="value">
+                  <h4 className="label">{t("works.group.field")}</h4>
+                  <p className="value">
                     {workGroup?.group?.category_title}
-                  </div>
+                  </p>
                 </div>
                 <div className="info-box info-box-grow-min-width">
-                  <div className="label">{t("works.group.strengthIndex")}</div>
-                  <div className="value">
+                  <h4 className="label">{t("works.group.strengthIndex")}</h4>
+                  <p className="value">
                     {workGroup?.group?.strength_indicator} %
-                  </div>
+                  </p>
                 </div>
               </div>
             </div>

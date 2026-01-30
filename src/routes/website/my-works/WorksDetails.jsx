@@ -62,13 +62,13 @@ export default function WorksDetails() {
       <div className="goal-info">
         <div className="info-grid">
           <div className="info-box info-box-grow-min-width">
-            <div className="label">{t("website.offerDetails.field")}</div>
-            <div className="value">{workDetails.category_title}</div>
+            <h4 className="label">{t("website.offerDetails.field")}</h4>
+            <p className="value">{workDetails.category_title}</p>
           </div>
 
           <div className="info-box info-box-grow-min-width">
-            <div className="label">{t("website.offerDetails.specialty")}</div>
-            <div className="value">{workDetails.sub_category_title}</div>
+            <h4 className="label">{t("website.offerDetails.specialty")}</h4>
+            <p className="value">{workDetails.sub_category_title}</p>
           </div>
           {/* {workDetails.rectangle !== "personal_helper" && (
             <div className="info-box">
@@ -80,8 +80,8 @@ export default function WorksDetails() {
           {/* Start Date (not shown for helper service) */}
           {workDetails.rectangle !== "help_service_from_helper" && (
             <div className="info-box info-box-grow-min-width ">
-              <div className="label">{t("website.offerDetails.startDate")}</div>
-              <div className="value">{workDetails?.goal?.start_date}</div>
+              <h4 className="label">{t("website.offerDetails.startDate")}</h4>
+              <p className="value">{workDetails?.goal?.start_date}</p>
             </div>
           )}
 
@@ -89,10 +89,10 @@ export default function WorksDetails() {
           {workDetails.rectangle === "help_service_from_helper" &&
             workDetails?.offer_price >= 0 && (
               <div className="info-box info-box-grow-min-width ">
-                <div className="label">{t("website.offerDetails.price")}</div>
-                <div className="value">
+                <h4 className="label">{t("website.offerDetails.price")}</h4>
+                <p className="value">
                   {workDetails?.help_price} <Currency />
-                </div>
+                </p>
               </div>
             )}
 
@@ -102,10 +102,8 @@ export default function WorksDetails() {
               className="info-box info-box-grow-min-width "
               style={{ minWidth: "100%" }}
             >
-              <div className="label">
-                {t("website.offerDetails.extraTerms")}
-              </div>
-              <div className="value">{workDetails.goal.notes}</div>
+              <h4 className="label">{t("website.offerDetails.extraTerms")}</h4>
+              <p className="value">{workDetails.goal.notes}</p>
             </div>
           )}
 
@@ -113,45 +111,41 @@ export default function WorksDetails() {
           {workDetails.rectangle === "help_service_from_helper" && (
             <>
               <div className="info-box info-box-grow-min-width ">
-                <div className="label">
+                <h4 className="label">
                   {t("website.offerDetails.preferredGender")}
-                </div>
-                <div className="value">
+                </h4>
+                <p className="value">
                   {t(`${workDetails?.creator_help_service?.preferred_gender}`)}
-                </div>
+                </p>
               </div>
 
               <div className="info-box info-box-grow-min-width ">
-                <div className="label">
-                  {t("website.offerDetails.ageRange")}
-                </div>
-                <div className="value">
+                <h4 className="label">{t("website.offerDetails.ageRange")}</h4>
+                <p className="value">
                   {workDetails?.creator_help_service?.from_age === 0 ||
                   workDetails?.creator_help_service?.to_age === 0
                     ? t("undefined")
                     : `${workDetails?.creator_help_service?.from_age} -
                       ${workDetails?.creator_help_service?.to_age}`}{" "}
-                </div>
+                </p>
               </div>
               <div
                 className="info-box  info-box-grow-min-width "
                 style={{ minWidth: "200px" }}
               >
-                <div className="label">
-                  {t("website.offerDetails.startDate")}
-                </div>
-                <div className="value">{t(`${workDetails?.start_date}`)}</div>
+                <h4 className="label">{t("website.offerDetails.startDate")}</h4>
+                <p className="value">{t(`${workDetails?.start_date}`)}</p>
               </div>
               <div
                 className="info-box info-box-grow-min-width "
                 style={{ minWidth: "100%" }}
               >
-                <div className="label">
+                <h4 className="label">
                   {t("website.offerDetails.expectedDuration")}
-                </div>
-                <div className="value">
+                </h4>
+                <p className="value">
                   {workDetails?.goal?.expected_duration_human}
-                </div>
+                </p>
               </div>
             </>
           )}
@@ -162,12 +156,12 @@ export default function WorksDetails() {
               className="info-box info-box-grow-min-width "
               style={{ minWidth: "100%" }}
             >
-              <div className="label">
+              <h4 className="label">
                 {t("website.offerDetails.expectedDurationGoal")}
-              </div>
-              <div className="value">
+              </h4>
+              <p className="value">
                 {workDetails?.goal?.expected_duration_human}
-              </div>
+              </p>
             </div>
           )}
         </div>
