@@ -76,7 +76,7 @@ const CustomPhoneInput = ({
           <input
             type="tel"
             className="form-control input-field flex-grow-1"
-            placeholder={t("auth.phoneInputPlaceholder")}
+            placeholder={t("auth.phonePlaceholder")}
             value={value?.phone || ""}
             onChange={handlePhoneChange}
             disabled={disabled}

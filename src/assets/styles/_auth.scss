@@ -51,12 +51,12 @@
       .logo {
         display: flex;
         align-items: end;
-        gap: 12px;
+        gap: 8px;
         img {
-          height: 60px;
+          height: 48px;
           object-fit: contain;
           @include small-mobile {
-            height: 48px;
+            height: 32px;
           }
         }
         h1 {
@@ -64,8 +64,11 @@
           margin: 0;
           font-weight: 400;
           font-size: 32px;
-          @include small-mobile {
+          @include tablet-layout {
             font-size: 24px;
+          }
+          @include small-mobile {
+            font-size: 22px;
           }
         }
         span {
