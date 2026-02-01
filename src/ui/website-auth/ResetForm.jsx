@@ -1,16 +1,15 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Controller, useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
-import PhoneInput from "react-phone-input-2";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router";
-import * as yup from "yup";
-import CustomButton from "../CustomButton";
-import usePhoneRegister from "../../hooks/auth/useSendOtpCode";
 import { toast } from "sonner";
-import { setPhoneData } from "../../redux/slices/phoneSlice";
-import CustomPhoneInput from "../forms/CustomPhoneInput";
+import * as yup from "yup";
+import usePhoneRegister from "../../hooks/auth/useSendOtpCode";
 import useGetCountries from "../../hooks/countries/useGetCountries";
+import { setPhoneData } from "../../redux/slices/phoneSlice";
+import CustomButton from "../CustomButton";
+import CustomPhoneInput from "../forms/CustomPhoneInput";
 
 const resetPasswordSchema = (t) =>
   yup.object().shape({
@@ -66,33 +65,7 @@ const ResetForm = ({ setResetPasswordStep }) => {
         <div className="row">
           <div className="col-12 p-2">
             <label>{t("auth.phoneLabel")}</label>
-            {/* Controlled phone input */}
-            {/* <Controller
-              name="fullPhone"
-              control={control}
-              render={({ field }) => (
-                <PhoneInput
-                  country={"sa"}
-                  value={field.value}
-                  onChange={(value, country) => {
-                    // full input for UI
-                    field.onChange(value);
-                    const dialCode = `+${country.dialCode}`;
-                    const localPhone = value.replace(country.dialCode, "");
-                    setValue("code", dialCode);
-                    setValue("phone", localPhone);
-                  }}
-                  enableSearch
-                  preferredCountries={["us", "gb", "fr", "de"]}
-                  placeholder={t("auth.phoneInputPlaceholder")}
-                  inputProps={{
-                    name: "fullPhone",
-                    required: true,
-                    autoFocus: true,
-                  }}
-                />
-              )}
-            /> */}
+
             <Controller
               name="fullPhone"
               control={control}
@@ -107,7 +80,7 @@ const ResetForm = ({ setResetPasswordStep }) => {
                     code: watchCode,
                   }}
                   onChange={(val) => {
-                    setValue("phone", val.phone, { shouldValidate: true });
+                    setValue("phone", val.phone, { shouldValidate: false });
                     setValue("code", val.code, { shouldValidate: true });
                     setValue("fullPhone", val.fullPhone, {
                       shouldValidate: true,
@@ -119,11 +92,6 @@ const ResetForm = ({ setResetPasswordStep }) => {
                 />
               )}
             />
-            {/* Show errors */}
-            {/* {errors.phone && (
-              <p className="error-text">{errors.phone.message}</p>
-            )} */}
-            {/* {errors.code && <p className="error-text">{errors.code.message}</p>} */}
           </div>
           <div className="col-12 p-2">
             <div className="buttons">

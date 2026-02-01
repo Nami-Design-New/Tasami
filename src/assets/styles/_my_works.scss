@@ -361,6 +361,10 @@
   .execution-tasks {
     .tasks-header {
       margin-top: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
       h1 {
         color: $dark;
         font-size: 1.25rem;

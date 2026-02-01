@@ -3386,16 +3386,16 @@ body.en .show-pass {
 .auth_section .form_container .form-header .logo {
   display: flex;
   align-items: end;
-  gap: 12px;
+  gap: 8px;
 }
 .auth_section .form_container .form-header .logo img {
-  height: 60px;
+  height: 48px;
   -o-object-fit: contain;
      object-fit: contain;
 }
 @media screen and (max-width: 576px) {
   .auth_section .form_container .form-header .logo img {
-    height: 48px;
+    height: 32px;
   }
 }
 .auth_section .form_container .form-header .logo h1 {
@@ -3404,9 +3404,14 @@ body.en .show-pass {
   font-weight: 400;
   font-size: 32px;
 }
-@media screen and (max-width: 576px) {
+@media (max-width: 768px) {
   .auth_section .form_container .form-header .logo h1 {
     font-size: 24px;
+  }
+}
+@media screen and (max-width: 576px) {
+  .auth_section .form_container .form-header .logo h1 {
+    font-size: 22px;
   }
 }
 .auth_section .form_container .form-header .logo span {
@@ -10810,6 +10815,9 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
 
 .tasks-page .execution-tasks .tasks-header {
   margin-top: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 .tasks-page .execution-tasks .tasks-header h1 {
   color: #0d0d0d;
