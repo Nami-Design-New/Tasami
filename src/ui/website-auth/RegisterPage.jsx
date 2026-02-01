@@ -52,7 +52,7 @@ const RegisterPage = ({ setRegisterStep }) => {
   });
   const watchPhone = watch("phone");
   const watchCode = watch("code");
-  // const watchFullPhone = watch("fullPhone");
+
   const onSubmit = ({ phone, code, fullPhone }) => {
     sendCode(
       { phone, code, type: "register" },
@@ -76,32 +76,6 @@ const RegisterPage = ({ setRegisterStep }) => {
       <form className="form_ui register-form" onSubmit={handleSubmit(onSubmit)}>
         <label>{t("auth.phoneLabel")}</label>
 
-        {/*  Our Custom Bootstrap Phone Input */}
-        {/* <Controller
-          name="fullPhone"
-          control={control}
-          render={({ field }) => (
-            <CustomPhoneInput
-              countries={countries || []}
-              onScrollEnd={() => {
-                // if (hasNextPage)
-                fetchNextPage();
-              }}
-              value={{
-                phone: watchPhone,
-                code: watchCode,
-                fullPhone: watchFullPhone,
-              }}
-              onChange={(val) => {
-                setValue("phone", val.phone, { shouldValidate: true });
-                setValue("code", val.code, { shouldValidate: true });
-                setValue("fullPhone", val.fullPhone, { shouldValidate: true });
-              }}
-              error={errors.phone?.message || errors.code?.message}
-              t={t}
-            />
-          )}
-        /> */}
         <Controller
           name="fullPhone"
           control={control}
@@ -116,7 +90,7 @@ const RegisterPage = ({ setRegisterStep }) => {
                 code: watchCode,
               }}
               onChange={(val) => {
-                setValue("phone", val.phone, { shouldValidate: true });
+                setValue("phone", val.phone, { shouldValidate: false });
                 setValue("code", val.code, { shouldValidate: true });
                 setValue("fullPhone", val.fullPhone, { shouldValidate: true });
                 field.onChange(val.fullPhone);
