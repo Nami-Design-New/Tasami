@@ -13,11 +13,17 @@ export default function MyNotifications() {
   // get initial tab from URL or fallback to notifications
   const initialTab = searchParams.get("tab") || "notifications";
   const [selectedTab, setSelectedTab] = useState(initialTab);
-
+  useEffect(() => {
+    if (initialTab !== selectedTab) {
+      setSelectedTab(initialTab);
+    }
+  }, [initialTab]);
   // keep URL in sync when tab changes
   useEffect(() => {
     setSearchParams((prev) => {
       const params = new URLSearchParams(prev);
+      console.log("params :", params);
+
       if (selectedTab) {
         params.set("tab", selectedTab);
       }

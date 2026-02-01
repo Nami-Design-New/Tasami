@@ -86,7 +86,7 @@ export default function WorksTasks() {
         toast.success(res.message);
         queryClient.refetchQueries({ queryKey: ["work-tasks"] });
         queryClient.refetchQueries({ queryKey: ["work-details"] });
-        setShowTaskAlertModal(false)
+        setShowTaskAlertModal(false);
       },
       onError: (err) => {
         toast.error(err?.message);
@@ -117,7 +117,7 @@ export default function WorksTasks() {
   const sensors = useSensors(
     useSensor(PointerSensor, {
       activationConstraint: { distance: 5 },
-    })
+    }),
   );
 
   // Toggle execution handler
@@ -159,7 +159,7 @@ export default function WorksTasks() {
           onError: () => {
             toast.error(t("works.myTasks.reorderError"));
           },
-        }
+        },
       );
 
       return reordered;
@@ -175,22 +175,22 @@ export default function WorksTasks() {
       {/* Info Section */}
       <div className="info-grid">
         <div className="info-box flex-grow-1">
-          <div className="label">{t("works.myTasks.startExecution")}</div>
-          <div className="value">
+          <h4 className="label">{t("works.myTasks.startExecution")}</h4>
+          <p className="value">
             {goalTasks["additional-data"]?.start_of_execution || "---"}
-          </div>
+          </p>
         </div>
         <div className="info-box flex-grow-1">
-          <div className="label">{t("works.myTasks.endExecution")}</div>
-          <div className="value">
+          <h4 className="label">{t("works.myTasks.endExecution")}</h4>
+          <p className="value">
             {goalTasks["additional-data"]?.end_of_execution || "---"}
-          </div>
+          </p>
         </div>
         <div className="info-box flex-grow-1">
-          <div className="label">{t("works.myTasks.executionRate")}</div>
-          <div className="value">
+          <h4 className="label">{t("works.myTasks.executionRate")}</h4>
+          <p className="value">
             {goalTasks["additional-data"]?.execution_percentage} %
-          </div>
+          </p>
         </div>
       </div>
 
@@ -229,7 +229,7 @@ export default function WorksTasks() {
         </DndContext>
         {/* Buttons */}
         {workDetails.status !== "completed" && (
-          <div className="buttons mt-3 justify-content-end">
+          <div className="buttons mt-3 flex-wrap justify-content-end">
             {workDetails?.rectangle === "personal_goal" ? (
               <>
                 <CustomButton
