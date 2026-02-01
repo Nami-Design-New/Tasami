@@ -35,6 +35,7 @@ import { CSS } from "@dnd-kit/utilities";
 import Loading from "../../../ui/loading/Loading";
 import useAddTaskWithAi from "../../../hooks/website/MyWorks/tasks/useAddTaskWithAi";
 import { Alert } from "react-bootstrap";
+import useDeleteAllTasks from "../../../hooks/website/MyWorks/tasks/useDeleteAllTasks";
 
 // Sortable wrapper for TaskCard
 function SortableTask({ task, workDetails }) {
@@ -72,6 +73,7 @@ export default function WorksTasks() {
   const [tasks, setTasks] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [showAlertModal, setShowAlertModal] = useState(false);
+  const [showDeleteAlertModal, setShowDeleteAlertModal] = useState(false);
 
   // API hooks
   const { goalTasks, isLoading } = useGetTasks(id);
@@ -79,6 +81,7 @@ export default function WorksTasks() {
   const { toggleGoalExe, isPending } = useGetToggleGoalExe();
   const { reorderTasks } = useReorderTasks();
   const { addTaskWithAi, isAdding } = useAddTaskWithAi();
+  const { isDeleting, deleteAllTasks } = useDeleteAllTasks();
 
   const handleAddTaskWithAi = (id) => {
     addTaskWithAi(id, {
@@ -86,7 +89,7 @@ export default function WorksTasks() {
         toast.success(res.message);
         queryClient.refetchQueries({ queryKey: ["work-tasks"] });
         queryClient.refetchQueries({ queryKey: ["work-details"] });
-        setShowTaskAlertModal(false)
+        setShowTaskAlertModal(false);
       },
       onError: (err) => {
         toast.error(err?.message);
@@ -117,7 +120,7 @@ export default function WorksTasks() {
   const sensors = useSensors(
     useSensor(PointerSensor, {
       activationConstraint: { distance: 5 },
-    })
+    }),
   );
 
   // Toggle execution handler
@@ -159,10 +162,23 @@ export default function WorksTasks() {
           onError: () => {
             toast.error(t("works.myTasks.reorderError"));
           },
-        }
+        },
       );
 
       return reordered;
+    });
+  };
+
+  const handleDeleteAllTasks = (workId) => {
+    deleteAllTasks(workId, {
+      onSuccess: (res) => {
+        toast.success(res?.message);
+        queryClient.refetchQueries({ queryKey: ["work-tasks"] });
+        setShowDeleteAlertModal(false);
+      },
+      onError: (err) => {
+        toast.error(err?.message || t("common.error"));
+      },
     });
   };
 
@@ -175,30 +191,41 @@ export default function WorksTasks() {
       {/* Info Section */}
       <div className="info-grid">
         <div className="info-box flex-grow-1">
-          <div className="label">{t("works.myTasks.startExecution")}</div>
-          <div className="value">
+          <h1 className="label">{t("works.myTasks.startExecution")}</h1>
+          <p className="value">
             {goalTasks["additional-data"]?.start_of_execution || "---"}
-          </div>
+          </p>
         </div>
         <div className="info-box flex-grow-1">
-          <div className="label">{t("works.myTasks.endExecution")}</div>
-          <div className="value">
+          <h1 className="label">{t("works.myTasks.endExecution")}</h1>
+          <p className="value">
             {goalTasks["additional-data"]?.end_of_execution || "---"}
-          </div>
+          </p>
         </div>
         <div className="info-box flex-grow-1">
-          <div className="label">{t("works.myTasks.executionRate")}</div>
-          <div className="value">
+          <h1 className="label">{t("works.myTasks.executionRate")}</h1>
+          <p className="value">
             {goalTasks["additional-data"]?.execution_percentage} %
-          </div>
+          </p>
         </div>
       </div>
 
       {/* Tasks Section */}
       <div className="execution-tasks">
         <div className="tasks-header">
-          <h1>{t("works.myTasks.title")}</h1>
-          <p>{t("works.myTasks.dragInstruction")}</p>
+          <div>
+            <h1>{t("works.myTasks.title")}</h1>
+            <p>{t("works.myTasks.dragInstruction")}</p>
+          </div>
+          {goalTasks?.data?.length > 0 && (
+            <CustomButton
+              size="large"
+              color="fire"
+              onClick={() => setShowDeleteAlertModal(true)}
+            >
+              {t("works.myTasks.deleteAll")}
+            </CustomButton>
+          )}
         </div>
         <DndContext
           sensors={sensors}
@@ -290,25 +317,42 @@ export default function WorksTasks() {
           </div>
         )}
         {/* Modals */}
-        <AddTasksModal showModal={showModal} setShowModal={setShowModal} />
-        <AlertModal
-          confirmButtonText={t("confirm")}
-          showModal={showAlertModal}
-          setShowModal={setShowAlertModal}
-          onConfirm={() => handleToggleTaskExe(workDetails?.goal?.id)}
-          loading={isPending}
-        >
-          {t("works.myTasks.pauseExecutionWarning")}
-        </AlertModal>
-        <AlertModal
-          confirmButtonText={t("works.myTasks.generateTasksConfirmBtn")}
-          showModal={showTaskAlertModal}
-          setShowModal={setShowTaskAlertModal}
-          onConfirm={() => handleAddTaskWithAi(workDetails?.id)}
-          loading={isAdding}
-        >
-          {t("works.myTasks.generateTasksWarning")}
-        </AlertModal>
+        {showModal && (
+          <AddTasksModal showModal={showModal} setShowModal={setShowModal} />
+        )}
+        {showAlertModal && (
+          <AlertModal
+            confirmButtonText={t("confirm")}
+            showModal={showAlertModal}
+            setShowModal={setShowAlertModal}
+            onConfirm={() => handleToggleTaskExe(workDetails?.goal?.id)}
+            loading={isPending}
+          >
+            {t("works.myTasks.pauseExecutionWarning")}
+          </AlertModal>
+        )}
+        {showTaskAlertModal && (
+          <AlertModal
+            confirmButtonText={t("works.myTasks.generateTasksConfirmBtn")}
+            showModal={showTaskAlertModal}
+            setShowModal={setShowTaskAlertModal}
+            onConfirm={() => handleAddTaskWithAi(workDetails?.id)}
+            loading={isAdding}
+          >
+            {t("works.myTasks.generateTasksWarning")}
+          </AlertModal>
+        )}
+        {showDeleteAlertModal && (
+          <AlertModal
+            confirmButtonText={t("confirm")}
+            showModal={showDeleteAlertModal}
+            setShowModal={setShowDeleteAlertModal}
+            onConfirm={() => handleDeleteAllTasks(workDetails?.id)}
+            loading={isDeleting}
+          >
+            {t("works.myTasks.deleteAllWarning")}
+          </AlertModal>
+        )}
       </div>
     </section>
   );
