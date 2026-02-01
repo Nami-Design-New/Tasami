@@ -37,8 +37,8 @@ export default function OfferPaymentModal({
       setShowOfferModal(false);
       navigate(`/my-works/${workId}/group`);
     },
-    onFail: () => {
-      toast.error(t("payment.failed"));
+    onFail: (error) => {
+      toast.error(error?.message);
     },
   });
 
@@ -60,7 +60,7 @@ export default function OfferPaymentModal({
             window.open(
               res.data.redirect_url,
               "ChargeWalletPopup",
-              `width=${width},height=${height},left=${left},top=${top},resizable=yes,scrollbars=yes,status=no`
+              `width=${width},height=${height},left=${left},top=${top},resizable=yes,scrollbars=yes,status=no`,
             );
           }
         } else if (selectedMethod === "wallet") {
@@ -74,6 +74,9 @@ export default function OfferPaymentModal({
           queryClient.refetchQueries({ queryKey: ["work-group"] });
           navigate(`/my-works/${workId}/group`);
         }
+      },
+      onError: (error) => {
+        toast.error(error.message);
       },
     });
   };

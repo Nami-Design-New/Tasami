@@ -9,7 +9,7 @@ export default function useAcceptOrRemoveWorkOffer() {
         null,
         {
           params: payload,
-        }
+        },
       );
 
       if (res.data.code !== 200) {

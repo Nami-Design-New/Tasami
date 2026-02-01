@@ -40,6 +40,8 @@ export default function WorkOfferDetails({ showModal, setShowModal, offerId }) {
         queryClient.refetchQueries({ queryKey: ["work-group"] });
       },
       onError: (error) => {
+        console.log("error");
+
         toast.error(error.message);
       },
     });
