@@ -64,7 +64,7 @@ export default function ReelCard({ reel }) {
 
   // Follow Pose Owner
   const [optimisticFollow, setOptimisticFollow] = useState(
-    reel?.helper?.i_follow_him
+    reel?.helper?.i_follow_him,
   );
   const { toggleFollow, isPending } = useFollow();
 
@@ -108,7 +108,7 @@ export default function ReelCard({ reel }) {
       },
     });
   };
-
+  const isMyPost = user.id === reel?.helper?.id;
   return (
     <div className="social-card">
       {/* Header */}
@@ -122,17 +122,19 @@ export default function ReelCard({ reel }) {
           />
           <span className="social-card__username">{reel?.helper?.name}</span>
         </div>
-        <button
-          className="social-card__user-btn"
-          onClick={() => handleFollow(reel.helper.id)}
-          disabled={isPending}
-        >
-          {optimisticFollow ? (
-            <i className="fa-regular fa-user-check"></i>
-          ) : (
-            <i className="fa-regular fa-user-plus"></i>
-          )}
-        </button>
+        {!isMyPost && (
+          <button
+            className="social-card__user-btn"
+            onClick={() => handleFollow(reel.helper.id)}
+            disabled={isPending}
+          >
+            {optimisticFollow ? (
+              <i className="fa-regular fa-user-check"></i>
+            ) : (
+              <i className="fa-regular fa-user-plus"></i>
+            )}
+          </button>
+        )}
       </div>
       {/* Video */}{" "}
       {reel?.file && (

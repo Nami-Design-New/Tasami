@@ -46,6 +46,7 @@ export default function CommunityPostDetails() {
     navigate(-1);
   };
   if (isLoading) return <Loading />;
+  const isMyPost = user.id === postDetails?.helper?.id;
   return (
     <section className="community-post-details page">
       <div className="container" style={{ maxWidth: "800px" }}>
@@ -55,20 +56,22 @@ export default function CommunityPostDetails() {
             <h2 className="post-details-header">{t("postDetails")}</h2>
           </div>
 
-          <OptionsMenu
-            toggleButton={"fas fa-ellipsis-h"}
-            options={[
-              {
-                label: t("edit"),
-                onClick: () => setShowEditModal(true),
-              },
-              {
-                label: t("delete"),
-                onClick: () => setShowDeleteModal(true),
-                className: "text-danger",
-              },
-            ]}
-          />
+          {isMyPost && (
+            <OptionsMenu
+              toggleButton={"fas fa-ellipsis-h"}
+              options={[
+                {
+                  label: t("edit"),
+                  onClick: () => setShowEditModal(true),
+                },
+                {
+                  label: t("delete"),
+                  onClick: () => setShowDeleteModal(true),
+                  className: "text-danger",
+                },
+              ]}
+            />
+          )}
         </div>
         <PostMedia post={postDetails} />
         <div className="post-image row">
