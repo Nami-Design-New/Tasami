@@ -26,21 +26,22 @@ export default function MyAudience() {
   }, [selectedTab, setSearchParams]);
   return (
     <section className="my-audience">
-      <PlanDurationSelector
-        options={[
-          {
-            label: t("website.platform.audience.followers"),
-            value: "followers",
-          },
-          { label: t("website.platform.audience.members"), value: "members" },
-        ]}
-        value={selectedTab}
-        onChange={(tab) => {
-          setSelectedTab(tab);
-          window.scrollTo({ top: 0, behavior: "smooth" });
-        }}
-      />
-
+      <div className="platform-tabs">
+        <PlanDurationSelector
+          options={[
+            {
+              label: t("website.platform.audience.followers"),
+              value: "followers",
+            },
+            { label: t("website.platform.audience.members"), value: "members" },
+          ]}
+          value={selectedTab}
+          onChange={(tab) => {
+            setSelectedTab(tab);
+            window.scrollTo({ top: 0, behavior: "smooth" });
+          }}
+        />
+      </div>
       {selectedTab === "followers" && <FollowersList />}
       {selectedTab === "members" && <MembersList />}
     </section>
