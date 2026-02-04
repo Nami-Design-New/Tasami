@@ -77,7 +77,7 @@ export default function WorksContractDetails() {
             <header>
               <RoundedBackButton onClick={() => navigate(-1)} />
               <div className="work-actions">
-                {contractDetails.status !== "working" && (
+                {contractDetails?.status !== "working" && (
                   <>
                     {contractDetails.rate === null ? (
                       <button
@@ -104,17 +104,17 @@ export default function WorksContractDetails() {
                 <Link
                   to={`/user-chat/${contractDetails?.id}`}
                   className={`action-buttons ${
-                    contractDetails.status === "working" ? "" : "yellow"
+                    contractDetails?.status === "working" ? "" : "yellow"
                   }`}
                 >
-                  {contractDetails.status === "working" ? (
+                  {contractDetails?.status === "working" ? (
                     <img src={workChat} alt="chat" />
                   ) : (
                     <img src={workChatYellow} alt="chat" />
                   )}
                 </Link>
 
-                {contractDetails.status === "working" && (
+                {contractDetails?.status === "working" && (
                   <div className="options-menu" ref={menuRef}>
                     <button className="action-buttons" onClick={toggleMenu}>
                       <img src={contractFlag} alt="options" />
@@ -149,13 +149,14 @@ export default function WorksContractDetails() {
               <AssistantWorkCard
                 helper={contractDetails?.helper}
                 chat={false}
+                tohelper={true}
                 prevAssistant={contractDetails?.status !== "working"}
               />
               <CustomLink
                 type="outlined"
                 fullWidth
                 size="large"
-                to={`/helper/${contractDetails.helper.id}`}
+                to={`/helper/${contractDetails?.helper.id}`}
               >
                 {t("works.contractDetails.cv")}
               </CustomLink>
