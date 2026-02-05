@@ -20,7 +20,7 @@ export default function ContractsStatus({ stats }) {
           0: { slidesPerView: 2 },
           576: { slidesPerView: 2 },
           768: { slidesPerView: 3 },
-          1024: { slidesPerView: 4 },
+          1024: { slidesPerView: 6 },
         }}
         loop
         autoplay={{ delay: 3000, disableOnInteraction: false }}
@@ -55,11 +55,10 @@ export default function ContractsStatus({ stats }) {
         <SwiperSlide>
           <div className="contract-status__card">
             <h3 className="contract-status__card-title">
-              {t("website.home.completed")}
+              {t("website.home.overdueTasks")}
             </h3>
-            <p className="contract-status__card-count text-success">
-              {" "}
-              {stats.completed_works}
+            <p className="contract-status__card-count text-fire">
+              {stats?.overdue_tasks || "--"}
             </p>
           </div>
         </SwiperSlide>
@@ -73,17 +72,18 @@ export default function ContractsStatus({ stats }) {
               {stats?.progress_ratio || "--"} %
             </p>
           </div>
-        </SwiperSlide>
+        </SwiperSlide>{" "}
         <SwiperSlide>
           <div className="contract-status__card">
             <h3 className="contract-status__card-title">
-              {t("website.home.overdueTasks")}
+              {t("website.home.completed")}
             </h3>
-            <p className="contract-status__card-count text-fire">
-              {stats?.overdue_tasks || "--"}
+            <p className="contract-status__card-count text-success">
+              {" "}
+              {stats.completed_works}
             </p>
           </div>
-        </SwiperSlide>
+        </SwiperSlide>{" "}
       </Swiper>
     </section>
   );

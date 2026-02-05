@@ -996,12 +996,12 @@
       "professionalism": "الاحترافية والثقة"
     },
     "home": {
-      "totalWork": "اجمالي  الأعمال",
+      "totalWork": "إجمالي الأعمال",
       "inProgress": "قيد التنفيذ",
       "pending": "بانتظار التنفيذ",
-      "completed": "مكتملة",
-      "progressRatio": "نسبة التقدم",
-      "overdueTasks": "المهام المتأخرة",
+      "completed": "الأعمال مكتملة",
+      "progressRatio": " التفدم الإجمالي",
+      "overdueTasks": " إجمالي المهام المتأخرة  ",
       "personalGoalsTitle": "الأهداف الشخصية",
       "personalGoalsSubtitle": "أحدث طلبات المساعدة لتحقيق أهداف جديدة",
       "offersTitle": "عروض المساعدة",
