@@ -79,7 +79,7 @@ export default function WorksContractDetails() {
               <div className="work-actions">
                 {contractDetails?.status !== "working" && (
                   <>
-                    {contractDetails.rate === null ? (
+                    {contractDetails?.rate === null ? (
                       <button
                         className="action-buttons yellow"
                         onClick={() => {

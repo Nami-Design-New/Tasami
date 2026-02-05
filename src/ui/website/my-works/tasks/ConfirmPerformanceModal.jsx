@@ -106,6 +106,7 @@ export default function ConfirmPerformanceModal({
             {/* Assistant card (helper) */}
             <div className="col-12 p-2">
               <AssistantWorkCard
+                tohelper={true}
                 helper={isWorks ? user : workUser}
                 chat={false}
               />
@@ -130,9 +131,7 @@ export default function ConfirmPerformanceModal({
                             <h4 className="label">
                               {t("performanceModal.benefit")}
                             </h4>
-                            <p className="value">
-                              {task?.rate?.benefit_text}
-                            </p>
+                            <p className="value">{task?.rate?.benefit_text}</p>
                           </div>
                         </div>
                       </div>
@@ -193,7 +192,11 @@ export default function ConfirmPerformanceModal({
             {/* Assistant card (current user) */}
             <div className="col-12 p-2">
               {" "}
-              <AssistantWorkCard helper={task?.helper} chat={false} />
+              <AssistantWorkCard
+                helper={task?.helper}
+                chat={false}
+                tohelper={true}
+              />
             </div>
             {/* Guidance + Verification */}
             {task.rate !== null &&
@@ -212,9 +215,7 @@ export default function ConfirmPerformanceModal({
                       <h4 className="label">
                         {t("performanceModal.verification")}
                       </h4>
-                      <p className="value">
-                        {task?.rate?.verification_text}
-                      </p>
+                      <p className="value">{task?.rate?.verification_text}</p>
                     </div>
                   </div>
                 </div>
