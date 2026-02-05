@@ -32,11 +32,16 @@ const getSchema = (t) =>
 
         const typeCategory = file.type?.split("/")[0];
         return typeCategory === "image" || typeCategory === "video";
-      })
+      }),
     ),
     links: yup
       .array()
-      .of(yup.string().url(t("validation.invalidUrl")))
+      .of(
+        yup
+          .string()
+          .required(t("validation.required"))
+          .url(t("validation.invalidUrl")),
+      )
       .optional(),
     postType: yup.string().required(t("validation.typeRequired")),
   });

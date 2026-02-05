@@ -62,22 +62,29 @@ export default function AddPostModal({
 
   // Pre-fill form in edit mode
   useEffect(() => {
-    if (isEdit && postDetails) {
+    // Only reset when modal is open, in edit mode, we have post details, AND categories are loaded
+    if (
+      showModal &&
+      isEdit &&
+      postDetails &&
+      !isLoading &&
+      categories?.length > 0
+    ) {
       const normalizedLinks = postDetails?.links?.length
         ? postDetails.links.map((l) => (typeof l === "string" ? l : l.link))
         : [];
 
       reset({
-        field: postDetails?.category_id || "",
-        specialization: postDetails?.sub_category_id || "",
+        field: String(postDetails?.category_id),
+        specialization: String(postDetails?.sub_category_id || ""),
         title: postDetails?.title || "",
         description: postDetails?.desc || "",
-        files: [postDetails?.file],
+        files: postDetails?.file ? [postDetails.file] : [],
         links: normalizedLinks,
         postType: postDetails?.is_private ? "1" : "0",
       });
     }
-  }, [postDetails, isEdit, reset]);
+  }, [showModal, isEdit, postDetails, isLoading, categories, reset]);
 
   const onSubmit = async (data) => {
     const formData = new FormData();
@@ -103,7 +110,7 @@ export default function AddPostModal({
         const aspectRatio = await getAspectRatio(file);
         if (aspectRatio) formData.append("aspect_ratio", aspectRatio);
       }
-    }
+    } 
 
     // Handle links
     if (data.links && data.links.length > 0) {
@@ -112,7 +119,10 @@ export default function AddPostModal({
           formData.append(`links[${index}]`, link);
         }
       });
+    } else {
+      formData.append("links", []);
     }
+    console.log(data);
 
     const mutation = isEdit ? editPost : addPost;
 
@@ -133,13 +143,14 @@ export default function AddPostModal({
       },
     });
   };
+  console.log("Post Form Errors:", errors);
 
   const isSubmitting = isEdit ? editPending : isPending;
   return (
     <>
       <GlobalModal show={showModal} onHide={requestClose} centered size="lg">
         <GlobalModal.Header closeButton>
-          <h6>{t("community.addPost")}</h6>
+          <h6>{isEdit ? t("community.editPost") : t("community.addPost")}</h6>
         </GlobalModal.Header>
         <GlobalModal.Body>
           <form className="form_ui" onSubmit={handleSubmit(onSubmit)}>
@@ -197,11 +208,11 @@ export default function AddPostModal({
                   control={control}
                   name="files"
                   defaultValue={[]}
-                  rules={{ required: "الصورة أو الفيديو مطلوب" }}
+                  rules={{ required: t("community.required") }}
                   render={({ field }) => (
                     <FileUploader
-                      label="اضف صورة / فيديو"
-                      hint="عنصر واحد فقط"
+                      label={t("community.add_label")}
+                      hint={t("community.single_hint")}
                       multiple={false}
                       files={field.value}
                       onFilesChange={field.onChange}

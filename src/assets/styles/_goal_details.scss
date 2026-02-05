@@ -304,6 +304,7 @@
     border-radius: 12px;
     padding: 0.5rem;
     height: min-content;
+    flex-grow: 1;
     .label {
       font-size: 0.9rem;
       font-weight: 600;
@@ -318,7 +319,7 @@
       color: $dark;
       display: flex;
       align-items: center;
-      // white-space: nowrap;
+      white-space: nowrap;
       gap: 6px;
 
       img {

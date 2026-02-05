@@ -73,6 +73,7 @@ const FileUtils = {
       webp: "image/webp",
       svg: "image/svg+xml",
       mp4: "video/mp4",
+      avif: "image/avif",
       mov: "video/quicktime",
       webm: "video/webm",
       avi: "video/x-msvideo",
@@ -150,6 +151,7 @@ export default function FileUploader({
   onError,
 }) {
   const { t } = useTranslation();
+  console.log("Files:", initialFiles);
 
   // Normalize files state
   const [normalizedFiles, setNormalizedFiles] = useState([]);
@@ -255,7 +257,7 @@ export default function FileUploader({
       onFilesChange,
       getOriginalFiles,
       onError,
-    ]
+    ],
   );
 
   /**
@@ -285,14 +287,19 @@ export default function FileUploader({
         onDelete?.(fileToRemove.originalObject.id);
       }
     },
-    [normalizedFiles, onFilesChange, onDelete, getOriginalFiles]
+    [normalizedFiles, onFilesChange, onDelete, getOriginalFiles],
   );
 
   /**
    * Render preview based on file type
    */
+
   const renderPreview = useCallback(
     (preview, normalizedFile, index) => {
+      console.log(preview, normalizedFile, index);
+      console.log(!preview || !normalizedFile);
+      console.log(FileUtils.isImage(normalizedFile));
+
       if (!preview || !normalizedFile) {
         return (
           <img
@@ -338,7 +345,7 @@ export default function FileUploader({
         <img src={docsIcon} alt="file" data-testid={`file-fallback-${index}`} />
       );
     },
-    [aspectRatio]
+    [aspectRatio],
   );
 
   return (
@@ -395,7 +402,7 @@ export default function FileUploader({
                     onClick={open}
                     data-testid="change-button"
                   >
-                    Change
+                    {t("change")}
                   </button>
                   <button
                     type="button"
@@ -403,7 +410,7 @@ export default function FileUploader({
                     onClick={() => removeFile(0)}
                     data-testid="delete-button-0"
                   >
-                    Delete
+                    {t("delete")}
                   </button>
                 </div>
               </div>
@@ -442,7 +449,7 @@ export default function FileUploader({
                     onClick={() => removeFile(i)}
                     data-testid={`delete-button-${i}`}
                   >
-                    ✕
+                    <i className="fa-solid fa-xmark"></i>{" "}
                   </button>
 
                   <div className="meta">
