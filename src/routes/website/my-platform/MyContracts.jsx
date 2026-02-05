@@ -1,20 +1,28 @@
+import { useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
-import { NavLink, Outlet } from "react-router";
-import WorksTab from "../../../ui/website/WorksTab";
 import { useTranslation } from "react-i18next";
-import triangleWithHelper from "../../../assets/icons/triangle-with-helper.svg";
+import { NavLink, Outlet, useNavigate } from "react-router";
 import helpTriangle from "../../../assets/icons/help-triangle.svg";
-import triangleWithoutHelper from "../../../assets/icons/triangle-without-helper.png";
+import triangleWithHelper from "../../../assets/icons/triangle-with-helper.svg";
+import RoundedBackButton from "../../../ui/website-auth/shared/RoundedBackButton";
+import WorksTab from "../../../ui/website/WorksTab";
 
 export default function MyContracts() {
   const { t } = useTranslation();
   const [activeTab, setActiveTab] = useState("pending");
+  const navigate = useNavigate();
+  const queryClient = useQueryClient();
 
   return (
     <div className="myworks page">
       <div className="container">
         <div className="row g-0">
-          {" "}
+          <RoundedBackButton
+            onClick={() => {
+              navigate("/my-platform");
+              queryClient.invalidateQueries({ queryKey: ["counters-notify"] });
+            }}
+          ></RoundedBackButton>
           <section
             className="col-12 p-2 legend-section"
             aria-labelledby="legend-title"
