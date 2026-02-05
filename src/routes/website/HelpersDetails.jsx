@@ -26,7 +26,7 @@ export default function HelpersDetails() {
   const { assistantDetails, isLoading } = useGetAssistantDetails();
   const queryClient = useQueryClient();
   const [optimisticFollow, setOptimisticFollow] = useState(
-    assistantDetails?.i_follow_him
+    assistantDetails?.i_follow_him,
   );
 
   useEffect(() => {
@@ -57,12 +57,12 @@ export default function HelpersDetails() {
           setOptimisticFollow(res.data.i_follow_him);
         }
 
-        if (res?.data?.i_follow_him === false) {
-          navigate("/my-profile/followings");
-        }
-        queryClient.refetchQueries({
-          queryKey: ["my-following"],
-        });
+        // if (res?.data?.i_follow_him === false) {
+        //   navigate("/my-profile/followings");
+        // }
+        // queryClient.refetchQueries({
+        //   queryKey: ["my-following"],
+        // });
       },
       onError: () => {
         // Rollback if API fails
