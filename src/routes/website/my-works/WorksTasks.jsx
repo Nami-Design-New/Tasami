@@ -131,6 +131,7 @@ export default function WorksTasks() {
         queryClient.invalidateQueries({ queryKey: ["work-details"] });
         queryClient.refetchQueries({ queryKey: ["my-works"] });
         queryClient.refetchQueries({ queryKey: ["task-details"] });
+        setShowAlertModal(false);
       },
       onError: (err) => {
         toast.error(err.message || t("common.error"));

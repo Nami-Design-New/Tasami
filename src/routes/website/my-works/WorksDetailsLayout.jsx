@@ -49,14 +49,17 @@ export default function WorksDetailsLayout() {
     (goalId) => {
       completeGoal(goalId, {
         onSuccess: (res) => {
-          toast.success(res?.data?.message);
+          toast.success(res?.message);
           queryClient.refetchQueries("work-details");
           queryClient.refetchQueries("work-tasks");
           queryClient.refetchQueries("my-works");
         },
+        onError: (err) => {
+          toast.error(err?.message);
+        },
       });
     },
-    [completeGoal, queryClient]
+    [completeGoal, queryClient],
   );
 
   const handleDeleteGoal = useCallback(
@@ -70,7 +73,7 @@ export default function WorksDetailsLayout() {
         onError: (err) => toast.error(err.message),
       });
     },
-    [deleteWork, navigate, queryClient]
+    [deleteWork, navigate, queryClient],
   );
 
   const handleCancelOffer = useCallback(
@@ -85,7 +88,7 @@ export default function WorksDetailsLayout() {
           toast.error(error.message || t("works.errorOccurred")),
       });
     },
-    [cancelRequestOffer, navigate, queryClient, t]
+    [cancelRequestOffer, navigate, queryClient, t],
   );
 
   // const handleWithdrawOffer = useCallback(
