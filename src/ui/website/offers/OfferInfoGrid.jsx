@@ -4,29 +4,29 @@ export default function OfferInfoGrid({ offer }) {
   const { t } = useTranslation();
   return (
     <div className="info-grid">
-      <div className="info-box info-box-grow-min-width ">
+      <div className="info-box  ">
         <h4 className="label">{t("website.offerDetails.field")}</h4>
         <p className="value">{offer.category_title}</p>
       </div>
 
-      <div className="info-box info-box-grow-min-width">
+      <div className="info-box ">
         <h4 className="label">{t("website.offerDetails.specialty")}</h4>
         <p className="value">{offer.sub_category_title}</p>
       </div>
 
-      <div className="info-box info-box-grow-min-width">
+      <div className="info-box ">
         <h4 className="label">{t("website.offerDetails.helpValue")}</h4>
         <p className="value">
           {offer.help_service.price} <img src={ryal} alt="ريال" />
         </p>
       </div>
 
-      <div className="info-box info-box-grow-min-width">
+      <div className="info-box ">
         <h4 className="label">{t("beneficiaryIdentityPreference")}</h4>
         <p className="value">{t(`${offer.preferred_gender}`)}</p>
       </div>
 
-      <div className="info-box info-box-grow-min-width">
+      <div className="info-box ">
         <h4 className="label">{t("website.offerDetails.ageRange")}</h4>
         <div className="value">
           <p className="value">
@@ -40,7 +40,7 @@ export default function OfferInfoGrid({ offer }) {
         </div>
       </div>
 
-      <div className="info-box info-box-grow-min-width ">
+      <div className="info-box  ">
         <h4 className="label">{t("website.offerDetails.duration")}</h4>
         <p className="value">
           {offer.help_service.duration}{" "}

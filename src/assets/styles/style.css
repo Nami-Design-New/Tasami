@@ -10171,6 +10171,7 @@ html[lang=en] .pdf-wrapper {
   padding: 0.5rem;
   height: -moz-min-content;
   height: min-content;
+  flex-grow: 1;
 }
 .info-grid .info-box .label {
   font-size: 0.9rem;
@@ -10185,6 +10186,7 @@ html[lang=en] .pdf-wrapper {
   color: #0d0d0d;
   display: flex;
   align-items: center;
+  white-space: nowrap;
   gap: 6px;
 }
 .info-grid .info-box .value img {
@@ -13699,6 +13701,7 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
   padding: 0.5rem;
   height: -moz-min-content;
   height: min-content;
+  flex-grow: 1;
 }
 .personal-assiatant-details-card .info-grid .info-box .label {
   font-size: 0.9rem;
@@ -13713,7 +13716,7 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
   color: #0d0d0d;
   display: flex;
   align-items: center;
-  white-space: wrap;
+  white-space: nowrap;
   gap: 6px;
 }
 .personal-assiatant-details-card .info-grid .info-box .value img {

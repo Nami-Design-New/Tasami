@@ -22,7 +22,8 @@
   "goalSuccesMessage1": "The goal has been created successfully.",
   "goalSuccesMessage2": "You can start setting up the plan to implement it from the My Tasks page > Pending Execution.",
   "offerSuccesMessage2": "The help offer has been successfully published on the launch page under the Help Offers section.",
-
+  "change": "Change",
+  "confirmDeleteAlert": "The entered data will be deleted!",
   "consultaionDeleteAlert": "The consultation will be permanently deleted.",
   "notifyUsers": "users",
   "community_level_new": "new",
@@ -778,7 +779,11 @@
     "noMeetings": "No Meetings Yet",
     "noPosts": "No Posts Yet",
     "addPost": "Add Post",
-    "linkLabel": "Add New Link"
+    "editPost": "Edit Post",
+    "linkLabel": "Add New Link",
+    "add_label": "Add image / video",
+    "single_hint": "Single item only",
+    "required": "Image or video is required"
   },
   "works": {
     "newTask": "New Task",
@@ -985,7 +990,8 @@
       "interaction": "Engagement and Follow-up",
       "value": "Value and Impact",
       "professionalism": "Professionalism and Trust",
-      "expectedDurationGoal": "Expected duration to achieve the goal"
+      "expectedDurationGoal": "Expected duration to achieve the goal",
+      "delete_confirmation": "This help item will be deleted"
     },
     "home": {
       "totalWork": "Total Work",

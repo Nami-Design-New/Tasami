@@ -88,14 +88,19 @@ export default function CommunityPostDetails() {
               <div className="post-links">
                 <h3 className="links-title">{t("links")}</h3>
                 {postDetails?.links.map((link) => (
-                  <Link className="post-link" key={link.id}>
+                  <a
+                    className="post-link"
+                    key={link.id}
+                    href={link.link}
+                    target="_blank"
+                  >
                     <img
                       onClick={() => handleCopy(link.link)}
                       src={fileIcon}
                       alt="file"
                     />
                     <span>{link.link}</span>
-                  </Link>
+                  </a>
                 ))}
               </div>
             </div>

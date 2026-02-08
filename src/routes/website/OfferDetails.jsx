@@ -212,7 +212,7 @@ export default function OfferDetails() {
         onConfirm={() => handleDeleteAssistance(offerDetails?.id)}
         loading={isDeleting}
       >
-        سيتم حذف هذة المساعدة
+        {t("website.offerDetails.delete_confirmation")}{" "}
       </AlertModal>
     </section>
   );
