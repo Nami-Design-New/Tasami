@@ -1,5 +1,5 @@
 import axios from "axios";
-import { getToken } from "../utils/token";
+import { getToken, removeToken } from "../utils/token";
 
 export const adminAxiosInstance = axios.create({
   baseURL: import.meta.env.VITE_API_URL,
@@ -27,11 +27,10 @@ adminAxiosInstance.interceptors.response.use(
     const status = error.response?.status;
 
     switch (status) {
-      // case 401:
-      //   removeToken("admin_token");
-      //   toast.error("you Should login");
-      //   window.location.href = "/dashboard/login";
-      //   break;
+      case 401:
+        removeToken("admin_token");
+        window.location.href = "/dashboard/login";
+        break;
 
       case 403:
         window.location.href = "/forbidden";
@@ -47,5 +46,5 @@ adminAxiosInstance.interceptors.response.use(
 
     // Important! Always return a rejected promise
     return Promise.reject(error);
-  }
+  },
 );
