@@ -58,7 +58,7 @@ export default function ContractsStatus({ stats }) {
               {t("website.home.overdueTasks")}
             </h3>
             <p className="contract-status__card-count text-fire">
-              {stats?.overdue_tasks || "--"}
+              {stats?.overdue_tasks}
             </p>
           </div>
         </SwiperSlide>
@@ -69,7 +69,7 @@ export default function ContractsStatus({ stats }) {
             </h3>
             <p className="contract-status__card-count ">
               {" "}
-              {stats?.progress_ratio || "--"} %
+              {stats?.progress_ratio} %
             </p>
           </div>
         </SwiperSlide>{" "}
