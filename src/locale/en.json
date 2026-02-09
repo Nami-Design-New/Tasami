@@ -826,7 +826,7 @@
     "myTasks": {
       "title": "Execution Tasks",
       "dragInstruction": "You can drag and drop to reorder tasks",
-      "deleteAll": "Delete all",
+      "deleteAll": "Delete all Tasks",
       "deleteAllWarning": "This action will permanently delete all your tasks. This cannot be undone.",
       "startExecution": "Start of Execution",
       "allTasks": "All Tasks",

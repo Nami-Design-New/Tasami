@@ -10,7 +10,7 @@ const TaskBreadcrumb = ({ taskDetails }) => {
     <section className="breadcrumb-section" dir={lang === "ar" ? "rtl" : "ltr"}>
       <Breadcrumb>
         <Breadcrumb.Item href={`/my-works/${taskDetails.work_id}/tasks`}>
-          {taskDetails?.work_id}
+          {taskDetails?.code}
         </Breadcrumb.Item>
         <Breadcrumb.Item href={`/my-works/${taskDetails.work_id}/tasks`}>
           {t("works.myTasks.allTasks")}

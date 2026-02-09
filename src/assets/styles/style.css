@@ -10971,9 +10971,9 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
   text-decoration: underline;
   color: #5fcafa;
 }
-.breadcrumb-section .breadcrumb:dir(ltr) .breadcrumb-item a.active,
-.breadcrumb-section .breadcrumb:dir(ltr) .breadcrumb-item span.active {
-  color: #0d0d0d;
+.breadcrumb-section .breadcrumb:dir(ltr) .breadcrumb-item.active {
+  color: #5fcafa !important;
+  font-weight: 700;
 }
 .breadcrumb-section:dir(rtl) .breadcrumb-item a,
 .breadcrumb-section:dir(rtl) .breadcrumb-item span {
@@ -10982,9 +10982,9 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
   text-decoration: underline;
   color: #5fcafa;
 }
-.breadcrumb-section:dir(rtl) .breadcrumb-item a.active,
-.breadcrumb-section:dir(rtl) .breadcrumb-item span.active {
-  color: #0d0d0d;
+.breadcrumb-section:dir(rtl) .breadcrumb-item.active {
+  color: #5fcafa !important;
+  font-weight: 700;
 }
 .breadcrumb-section:dir(rtl) .breadcrumb-item:not(:last-child)::before {
   content: "\f053";

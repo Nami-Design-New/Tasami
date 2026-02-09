@@ -527,10 +527,10 @@
           font-weight: 700;
           text-decoration: underline;
           color: $second;
-
-          &.active {
-            color: $dark;
-          }
+        }
+        &.active {
+          color: $second !important;
+          font-weight: 700;
         }
       }
     }
@@ -545,10 +545,10 @@
         font-weight: 700;
         text-decoration: underline;
         color: $second;
-
-        &.active {
-          color: $dark;
-        }
+      }
+      &.active {
+        color: $second !important;
+        font-weight: 700;
       }
     }
     .breadcrumb-item:not(:last-child)::before {
