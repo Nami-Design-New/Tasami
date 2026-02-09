@@ -40,6 +40,13 @@
   "common": {
     "days": "يوم"
   },
+  "reply": {
+    "replying_to": "الرد على",
+    "yourself": "نفسك",
+    "image": "صورة",
+    "video": "فيديو",
+    "attachment": "مرفق"
+  },
   "levelUp": {
     "title": "تهانينا!",
     "messageLine1": "لقد اكتسبت نقطة خبرة إضافية!",

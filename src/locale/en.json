@@ -41,6 +41,13 @@
   "common": {
     "days": "days"
   },
+  "reply": {
+    "replying_to": "Replying to",
+    "yourself": "yourself",
+    "image": "Image",
+    "video": "Video",
+    "attachment": "Attachment"
+  },
   "levelUp": {
     "title": "Congratulations!",
     "messageLine1": "You have gained an extra experience point!",

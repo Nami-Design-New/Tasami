@@ -17,6 +17,7 @@ import useUpdateGroupChatCounter from "../../../hooks/website/my-groups/useUpdat
 import useGetGroupDetails from "../../../hooks/website/my-groups/useGetGroupDetails";
 import Loading from "../../../ui/loading/Loading";
 import CustomButton from "../../../ui/CustomButton";
+import ReplyPreview from "../../../ui/chat/ReplyPreview";
 
 const getMessageType = (file) => {
   if (!file) return "text";
@@ -42,7 +43,7 @@ export default function GroupChat() {
           const hasFile = file instanceof File;
           const hasAudio = audio instanceof Blob;
           return hasMessage || hasFile || hasAudio;
-        }
+        },
       ),
     file: yup.mixed().nullable(),
     audio: yup.mixed().nullable(),
@@ -62,6 +63,7 @@ export default function GroupChat() {
   const [audioBlob, setAudioBlob] = useState(null);
   const [micPermission, setMicPermission] = useState(false);
   const [, setSocketStatus] = useState("connecting");
+  const [replyTo, setReplyTo] = useState(null);
 
   const mediaRecorderRef = useRef(null);
   const audioChunksRef = useRef([]);
@@ -104,7 +106,7 @@ export default function GroupChat() {
       queryClient.setQueryData(["group-chat", id], (oldData) => {
         if (!oldData) return oldData;
         const updatedPages = oldData.pages.map((page, idx) =>
-          idx === 0 ? { ...page, data: [message, ...page.data] } : page
+          idx === 0 ? { ...page, data: [message, ...page.data] } : page,
         );
         return { ...oldData, pages: updatedPages };
       });
@@ -175,7 +177,7 @@ export default function GroupChat() {
   const formatTime = (s) =>
     `${String(Math.floor(s / 60)).padStart(2, "0")}:${String(s % 60).padStart(
       2,
-      "0"
+      "0",
     )}`;
 
   // ===== RECORDING CONTROLS =====
@@ -279,8 +281,17 @@ export default function GroupChat() {
 
     formData.append("type", type);
     formData.append("group_id", id);
+    if (replyTo) {
+      if (replyTo) {
+        formData.append("reply_to_message_id", replyTo.id);
+      }
+    }
 
-    sendMessage(formData);
+    sendMessage(formData, {
+      onSuccess: (res) => {
+        setReplyTo(null);
+      },
+    });
 
     cancelRecording();
     reset();
@@ -359,7 +370,6 @@ export default function GroupChat() {
               isFetchingNextPage={isFetchingNextPage}
               revers={true}
             >
-              {" "}
               {(isLoading || isFetchingNextPage) && (
                 <div className="d-flex align-items-center  py-3  justify-content-center">
                   <Loading height={20} />
@@ -385,6 +395,17 @@ export default function GroupChat() {
                         ? user?.image
                         : chat?.sender?.image
                     }
+                    replyTo={chat.reply_to_message}
+                    onReply={() => {
+                      setReplyTo({
+                        id: chat.id,
+                        senderId: chat.sender.id,
+                        senderName: chat.sender.name,
+                        type: chat.type,
+                        text: chat.message,
+                        filePath: chat.file_path,
+                      });
+                    }}
                   />
                 );
               })}
@@ -392,6 +413,7 @@ export default function GroupChat() {
           </div>
 
           {/* ===== Footer Form ===== */}
+          <ReplyPreview replyTo={replyTo} onClose={() => setReplyTo(null)} />
           <form
             className="chat-window__footer"
             onSubmit={handleSubmit(onSubmit)}

@@ -17,6 +17,7 @@ import useUpdateCommunityChatCounter from "../../hooks/website/communities/chat/
 import useGetMyCommunity from "../../hooks/website/communities/useGetMyCommunity";
 import Loading from "../../ui/loading/Loading";
 import CustomButton from "../../ui/CustomButton";
+import ReplyPreview from "../../ui/chat/ReplyPreview";
 
 const getMessageType = (file) => {
   if (!file) return "text";
@@ -41,7 +42,7 @@ export default function CommunityChat() {
           const hasFile = file instanceof File;
           const hasAudio = audio instanceof Blob;
           return hasMessage || hasFile || hasAudio;
-        }
+        },
       ),
     file: yup.mixed().nullable(),
     audio: yup.mixed().nullable(),
@@ -61,6 +62,7 @@ export default function CommunityChat() {
   const [recordingTime, setRecordingTime] = useState(0);
   const [audioBlob, setAudioBlob] = useState(null);
   const [micPermission, setMicPermission] = useState(false);
+  const [replyTo, setReplyTo] = useState(null);
 
   const mediaRecorderRef = useRef(null);
   const audioChunksRef = useRef([]);
@@ -103,7 +105,7 @@ export default function CommunityChat() {
       queryClient.setQueryData(["community-chat", id], (oldData) => {
         if (!oldData) return oldData;
         const updatedPages = oldData.pages.map((page, idx) =>
-          idx === 0 ? { ...page, data: [message, ...page.data] } : page
+          idx === 0 ? { ...page, data: [message, ...page.data] } : page,
         );
         return { ...oldData, pages: updatedPages };
       });
@@ -168,7 +170,7 @@ export default function CommunityChat() {
   const formatTime = (s) =>
     `${String(Math.floor(s / 60)).padStart(2, "0")}:${String(s % 60).padStart(
       2,
-      "0"
+      "0",
     )}`;
 
   // ===== RECORDING CONTROLS =====
@@ -279,8 +281,16 @@ export default function CommunityChat() {
 
     formData.append("type", type);
     formData.append("community_id", id);
-
-    sendMessage(formData);
+    if (replyTo) {
+      if (replyTo) {
+        formData.append("reply_to_message_id", replyTo.id);
+      }
+    }
+    sendMessage(formData, {
+      onSuccess: (res) => {
+        setReplyTo(null);
+      },
+    });
 
     cancelRecording();
     reset();
@@ -388,6 +398,17 @@ export default function CommunityChat() {
                         ? user?.image
                         : chat?.sender?.image
                     }
+                    replyTo={chat.reply_to_message}
+                    onReply={() => {
+                      setReplyTo({
+                        id: chat.id,
+                        senderId: chat.sender.id,
+                        senderName: chat.sender.name,
+                        type: chat.type,
+                        text: chat.message,
+                        filePath: chat.file_path,
+                      });
+                    }}
                   />
                 );
               })}
@@ -395,6 +416,7 @@ export default function CommunityChat() {
           </div>
 
           {/* ===== Footer Form ===== */}
+          <ReplyPreview replyTo={replyTo} onClose={() => setReplyTo(null)} />
           <form
             className="chat-window__footer"
             onSubmit={handleSubmit(onSubmit)}
