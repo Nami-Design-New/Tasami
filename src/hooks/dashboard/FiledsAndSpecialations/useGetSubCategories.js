@@ -1,12 +1,22 @@
 import { useQuery } from "@tanstack/react-query";
 import { adminAxiosInstance } from "../../../lib/adminAxios";
 
-export default function useGetSubCategories(search, page, pageSize) {
+export default function useGetSubCategories(
+  search,
+  page,
+  pageSize,
+  categoryId,
+) {
   const { data, isLoading, refetch, isError } = useQuery({
-    queryKey: ["dashboard-sub-categories", search, page, pageSize],
+    queryKey: ["dashboard-sub-categories", search, page, pageSize, categoryId],
     queryFn: async () => {
       const res = await adminAxiosInstance.get("dh-subcategories", {
-        params: { search, page, limit_per_page: pageSize },
+        params: {
+          search,
+          page,
+          limit_per_page: pageSize,
+          category_id: categoryId,
+        },
       });
       if (res.data.code !== 200) {
         throw new Error(res?.message || "Error Fetching Sub Categories");

@@ -369,3 +369,13 @@
   line-height: 1.5;
   color: $dark;
 }
+
+.float-text {
+  position: relative;
+  top: -34px;
+  background-color: $white;
+  width: fit-content;
+  color: $gray;
+  font-size: 16px;
+  font-weight: 600;
+}

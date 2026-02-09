@@ -2588,12 +2588,22 @@
       "actions": "الإجراءات"
     },
     "public_notifications": {
+      "sendChoices": "خيارات الإسال",
+      "accountType": "نوع الحساب",
+      "nationality": "الجنسية",
+      "gender": "هوية المستخدم",
+      "operationsSections": "مناطق التشغيل",
+      "interests": "الاهتمامات",
+      "bene": "المستفيدون",
+      "category": "المجال",
+      "subcategory": "التخصص",
       "title": "الإشعارات العامة",
       "notificationType": "نوع الإشعار",
       "notificationTitle": "عنوان الإشعار",
       "notificationMessage": "نص الإشعار",
       "send": "إرسال",
-      "all": "جميع المستخدمين",
+      "allUsers": "جميع المستخدمين",
+      "all": "الكل",
       "specific": "مستخدمين محددين"
     }
   }

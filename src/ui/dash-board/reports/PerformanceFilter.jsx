@@ -2,17 +2,16 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useCallback, useEffect } from "react";
 import { Controller, FormProvider, useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
-import { setFilters } from "../../../redux/slices/performanceFilter";
-import { performanceFilterSchema } from "../../../validations/performanceFilterSchema";
 import useGetCities from "../../../hooks/dashboard/regions/useGetCities";
 import useGetCountries from "../../../hooks/dashboard/regions/useGetCountries";
 import useGetRegions from "../../../hooks/dashboard/regions/useGetRegions";
+import { setFilters } from "../../../redux/slices/performanceFilter";
+import { performanceFilterSchema } from "../../../validations/performanceFilterSchema";
 
-import { Form } from "react-bootstrap";
-import CustomButton from "../../CustomButton";
-import InputField from "../../forms/InputField";
 import { useTranslation } from "react-i18next";
 import { useSearchParams } from "react-router";
+import CustomButton from "../../CustomButton";
+import InputField from "../../forms/InputField";
 import SelectFieldReactSelect from "../../forms/SelectFieldReactSelect";
 
 const TIME_RANGES = [
@@ -207,7 +206,7 @@ const PerformanceFilter = ({ searchType }) => {
               })) || []
             }
             disableFiledValue={`${t("dashboard.reports.choose")} ${t(
-              labelKey
+              labelKey,
             )}`}
             className="select_react_custom"
             disabled={isDisabled}
@@ -226,7 +225,7 @@ const PerformanceFilter = ({ searchType }) => {
       // fetchRegionsNextPage,
       // fetchCountriesNextPage,
       // fetchCitiesNextPage,
-    ]
+    ],
   );
 
   return (
