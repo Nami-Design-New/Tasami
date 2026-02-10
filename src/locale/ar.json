@@ -714,7 +714,11 @@
     "firstNameMax": "لا يمكن أن يتجاوز الاسم الأول {{max}} حرفًا",
     "firstNameAlpha": "يمكن للاسم الأول أن يحتوي على حروف ومسافات فقط",
     "middleNameMax": "لا يمكن أن يتجاوز الاسم الأوسط {{max}} حرفًا",
-    "middleNameAlpha": "يمكن للاسم الأوسط أن يحتوي على حروف ومسافات فقط"
+    "middleNameAlpha": "يمكن للاسم الأوسط أن يحتوي على حروف ومسافات فقط",
+    "notificationTypeRequired": "نوع الإشعار مطلوب",
+    "notificationTitleRequired": "عنوان الإشعار مطلوب",
+    "notificationMessageRequired": "محتوى الإشعار مطلوب",
+    "regionRequired": "الرجاء اختيار الإقليم"
   },
   "pageNotFound": {
     "alt": "لم يتم العثور على الصفحة",

@@ -101,7 +101,7 @@ export default function PublicNotificationsSidebarFilter() {
                 name: opt?.title,
               })) || []
             }
-            disableFiledValue={`${t("dashboard.reports.choose")} ${t(
+            disableFiledValue={`${t("dashboard.public_notifications.all")} ${t(
               labelKey,
             )}`}
             className="select_react_custom"
@@ -194,11 +194,15 @@ export default function PublicNotificationsSidebarFilter() {
             <div className="col-12 col-xl-12">
               <SelectField
                 label={t("dashboard.public_notifications.gender")}
-                disableFiledValue={t("dashboard.public_notifications.all")}
+                // disableFiledValue={t("dashboard.public_notifications.all")}
                 loading={loadingNationalities}
                 error={errors.gender?.message}
                 {...register("gender")}
                 options={[
+                  {
+                    id: "all",
+                    title: `${t("dashboard.public_notifications.all")}`,
+                  },
                   { id: "male", title: `${t("male")}` },
                   { id: "female", title: `${t("female")}` },
                 ]?.map((gender) => ({

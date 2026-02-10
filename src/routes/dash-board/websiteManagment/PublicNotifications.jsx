@@ -240,26 +240,36 @@ import PublicNotificationsSidebarFilter from "../../../ui/dash-board/websiteMana
 /* =======================
    Yup Validation Schema
 ======================= */
-const schema = yup.object({
-  type: yup.string().required("Notification type is required"),
-  title: yup.string().required("Notification title is required"),
-  description: yup.string().required("Notification message is required"),
-  region: yup.string().required("الرجاء اختيار الإقليم"),
-  country: yup.string().nullable(),
-  city: yup.string().nullable(),
-  packageId: yup.string().nullable(),
-  nationality: yup.string().nullable(),
-  gender: yup.string().nullable(),
-  categoryId: yup.string().nullable(),
-  subcategoryId: yup.string().nullable(),
-  // usersIds: yup.array().when("type", {
-  //   is: "specific",
-  //   then: (schema) =>
-  //     schema.min(1, "Please select at least one user").required(),
-  //   otherwise: (schema) => schema.notRequired(),
-  // }),
-});
+const getSchema = (t) =>
+  yup.object({
+    type: yup.string().required(t("validation.notificationTypeRequired")),
 
+    title: yup.string().required(t("validation.notificationTitleRequired")),
+
+    description: yup
+      .string()
+      .required(t("validation.notificationMessageRequired")),
+
+    region: yup.string().nullable(),
+    country: yup.string().nullable(),
+    city: yup.string().nullable(),
+    packageId: yup.string().nullable(),
+    nationality: yup.string().nullable(),
+    gender: yup.string().nullable(),
+    categoryId: yup.string().nullable(),
+    subcategoryId: yup.string().nullable(),
+    // usersIds: yup.array().when("type", {
+    //   is: "specific",
+    //   then: (schema) =>
+    //     schema.min(1, "Please select at least one user").required(),
+    //   otherwise: (schema) => schema.notRequired(),
+    // }),
+  });
+
+const normalizeValue = (value) => {
+  if (!value || value === "all") return "all";
+  return Number(value);
+};
 export default function PublicNotifications() {
   const { t } = useTranslation();
 
@@ -293,10 +303,10 @@ export default function PublicNotifications() {
      React Hook Form
   ======================= */
   const methods = useForm({
-    resolver: yupResolver(schema),
+    resolver: yupResolver(getSchema(t)),
     defaultValues: {
-      type: "all",
-      usersIds: [],
+      // type: "all",
+      // usersIds: [],
     },
   });
 
@@ -325,10 +335,15 @@ export default function PublicNotifications() {
   ======================= */
   const onSubmit = (data) => {
     console.log(data);
-
     const payload = {
       ...data,
-      usersIds: data.type === "specific" ? data.usersIds : [],
+      region: normalizeValue(data.region),
+      country: normalizeValue(data.country),
+      city: normalizeValue(data.city),
+      categoryId: normalizeValue(data.categoryId),
+      subcategoryId: normalizeValue(data.subcategoryId),
+      packageId: normalizeValue(data.packageId),
+      nationality: normalizeValue(data.nationality),
     };
 
     sendPublicNotification(payload, {
