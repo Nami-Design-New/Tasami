@@ -16,6 +16,8 @@ import { getToken } from "../../utils/token";
 import useGetContractDetails from "../../hooks/website/MyWorks/assistants/useGetContractDetails";
 import Loading from "../../ui/loading/Loading";
 import CustomButton from "../../ui/CustomButton";
+import ReplyPreview from "../../ui/chat/ReplyPreview";
+import useScrollToMessage from "../../utils/useScrollToMessage";
 
 const getMessageType = (file) => {
   if (!file) return "text";
@@ -39,7 +41,7 @@ const schema = yup.object().shape({
         const hasFile = file instanceof File;
         const hasAudio = audio instanceof Blob;
         return hasMessage || hasFile || hasAudio;
-      }
+      },
     ),
   file: yup.mixed().nullable(),
   audio: yup.mixed().nullable(),
@@ -61,6 +63,8 @@ export default function UserContractChat() {
   const [audioBlob, setAudioBlob] = useState(null);
   const [micPermission, setMicPermission] = useState(false);
   const [socketStatus, setSocketStatus] = useState("connecting");
+  const [replyTo, setReplyTo] = useState(null);
+  const [scrollTargetId, setScrollTargetId] = useState(null);
 
   const mediaRecorderRef = useRef(null);
   const audioChunksRef = useRef([]);
@@ -98,7 +102,7 @@ export default function UserContractChat() {
       queryClient.setQueryData(["contract-chat", id], (oldData) => {
         if (!oldData) return oldData;
         const updatedPages = oldData.pages.map((page, idx) =>
-          idx === 0 ? { ...page, data: [message, ...page.data] } : page
+          idx === 0 ? { ...page, data: [message, ...page.data] } : page,
         );
         return { ...oldData, pages: updatedPages };
       });
@@ -122,6 +126,14 @@ export default function UserContractChat() {
   const { register, handleSubmit, setValue, reset } = useForm({
     resolver: yupResolver(schema),
     defaultValues: { message: "", file: null, audio: null },
+  });
+
+  useScrollToMessage({
+    targetId: scrollTargetId,
+    fetchNextPage,
+    hasNextPage,
+    messages: allChats,
+    onDone: () => setScrollTargetId(null),
   });
 
   const askForMicPermission = async () => {
@@ -154,7 +166,7 @@ export default function UserContractChat() {
   const formatTime = (s) =>
     `${String(Math.floor(s / 60)).padStart(2, "0")}:${String(s % 60).padStart(
       2,
-      "0"
+      "0",
     )}`;
 
   // Recording controls
@@ -243,7 +255,16 @@ export default function UserContractChat() {
 
     formData.append("type", type);
     formData.append("contract_id", id);
-    sendMessage(formData);
+    if (replyTo) {
+      if (replyTo) {
+        formData.append("reply_to_message_id", replyTo.id);
+      }
+    }
+    sendMessage(formData, {
+      onSuccess: (res) => {
+        setReplyTo(null);
+      },
+    });
     cancelRecording();
     reset();
     setSelectedFile(null);
@@ -299,6 +320,19 @@ export default function UserContractChat() {
                         ? user?.image
                         : chat?.sender?.image
                     }
+                    replyTo={chat.reply_to_message}
+                    onReply={() => {
+                      setReplyTo({
+                        id: chat.id,
+                        senderId: chat.sender.id,
+                        senderName: chat.sender.name,
+                        type: chat.type,
+                        text: chat.message,
+                        filePath: chat.file_path,
+                      });
+                    }}
+                    id={chat.id}
+                    onJumpToParent={(id) => setScrollTargetId(id)}
                   />
                 );
               })}
@@ -307,111 +341,119 @@ export default function UserContractChat() {
 
           {/* Footer */}
           {contractDetails?.status === "working" ? (
-            <form
-              className="chat-window__footer"
-              onSubmit={handleSubmit(onSubmit)}
-            >
-              <div className="preview-section">
-                {isRecording ? (
-                  <div className={`recording-bar ${isPaused ? "paused" : ""}`}>
-                    <button
-                      type="button"
-                      className="delete-btn"
-                      onClick={cancelRecording}
+            <>
+              <ReplyPreview
+                replyTo={replyTo}
+                onClose={() => setReplyTo(null)}
+              />
+              <form
+                className="chat-window__footer"
+                onSubmit={handleSubmit(onSubmit)}
+              >
+                <div className="preview-section">
+                  {isRecording ? (
+                    <div
+                      className={`recording-bar ${isPaused ? "paused" : ""}`}
                     >
-                      <i className="fa-solid fa-stop"></i>
-                    </button>
-
-                    {!isPaused ? (
-                      <button type="button" onClick={pauseRecording}>
-                        <i className="fa-solid fa-pause"></i>
+                      <button
+                        type="button"
+                        className="delete-btn"
+                        onClick={cancelRecording}
+                      >
+                        <i className="fa-solid fa-stop"></i>
                       </button>
-                    ) : (
-                      <button type="button" onClick={resumeRecording}>
-                        <i className="fa-solid fa-play"></i>
-                      </button>
-                    )}
 
-                    <div className="wave"></div>
-                    <span className="timer">{formatTime(recordingTime)}</span>
-                  </div>
-                ) : audioBlob ? (
-                  <div className="audio-preview d-flex align-items-center gap-2">
-                    <audio controls src={URL.createObjectURL(audioBlob)} />
-                    <button
-                      type="button"
-                      className="cancel-audio"
-                      onClick={cancelRecording}
-                    >
-                      <i className="fa-solid fa-xmark"></i>
-                    </button>
-                  </div>
-                ) : selectedFile ? (
-                  <div className="file-chat-preview">
-                    <div className="file-info">
-                      <i className="fa-solid fa-paperclip"></i>
-                      <span className="file-name">{selectedFile.name}</span>
+                      {!isPaused ? (
+                        <button type="button" onClick={pauseRecording}>
+                          <i className="fa-solid fa-pause"></i>
+                        </button>
+                      ) : (
+                        <button type="button" onClick={resumeRecording}>
+                          <i className="fa-solid fa-play"></i>
+                        </button>
+                      )}
+
+                      <div className="wave"></div>
+                      <span className="timer">{formatTime(recordingTime)}</span>
                     </div>
-                    <button
-                      type="button"
-                      className="cancel-file"
-                      onClick={() => {
-                        setSelectedFile(null);
-                        setValue("file", null);
-                      }}
-                    >
-                      <i className="fa-solid fa-xmark"></i>
-                    </button>
-                  </div>
-                ) : (
+                  ) : audioBlob ? (
+                    <div className="audio-preview d-flex align-items-center gap-2">
+                      <audio controls src={URL.createObjectURL(audioBlob)} />
+                      <button
+                        type="button"
+                        className="cancel-audio"
+                        onClick={cancelRecording}
+                      >
+                        <i className="fa-solid fa-xmark"></i>
+                      </button>
+                    </div>
+                  ) : selectedFile ? (
+                    <div className="file-chat-preview">
+                      <div className="file-info">
+                        <i className="fa-solid fa-paperclip"></i>
+                        <span className="file-name">{selectedFile.name}</span>
+                      </div>
+                      <button
+                        type="button"
+                        className="cancel-file"
+                        onClick={() => {
+                          setSelectedFile(null);
+                          setValue("file", null);
+                        }}
+                      >
+                        <i className="fa-solid fa-xmark"></i>
+                      </button>
+                    </div>
+                  ) : (
+                    <input
+                      type="text"
+                      className="text-input"
+                      placeholder={t("chat_type_message")}
+                      {...register("message")}
+                      disabled={isRecording}
+                    />
+                  )}
+                </div>
+
+                <div className="chat-actions">
+                  <label htmlFor="fileInput">
+                    <i className="fa-solid fa-paperclip"></i>
+                  </label>
                   <input
-                    type="text"
-                    className="text-input"
-                    placeholder={t("chat_type_message")}
-                    {...register("message")}
-                    disabled={isRecording}
+                    id="fileInput"
+                    type="file"
+                    accept="*/*"
+                    hidden
+                    {...register("file")}
+                    onChange={(e) => {
+                      const file = e.target.files[0];
+                      if (!file) return;
+
+                      setValue("message", "");
+                      setAudioBlob(null);
+                      cancelRecording();
+                      setSelectedFile(file);
+                      setValue("file", file);
+                    }}
                   />
-                )}
-              </div>
-
-              <div className="chat-actions">
-                <label htmlFor="fileInput">
-                  <i className="fa-solid fa-paperclip"></i>
-                </label>
-                <input
-                  id="fileInput"
-                  type="file"
-                  accept="*/*"
-                  hidden
-                  {...register("file")}
-                  onChange={(e) => {
-                    const file = e.target.files[0];
-                    if (!file) return;
-
-                    setValue("message", "");
-                    setAudioBlob(null);
-                    cancelRecording();
-                    setSelectedFile(file);
-                    setValue("file", file);
-                  }}
-                />
-                <button
-                  type="button"
-                  onClick={startRecording}
-                  disabled={selectedFile || isRecording}
-                >
-                  <i className="fa-solid fa-microphone"></i>
-                </button>
-                <CustomButton
-                  loading={isPending}
-                  color="success"
-                  type="submit"
-                  className="chat-window__footer--send"
-                >
-                  <i className="fa-solid fa-paper-plane"></i>
-                </CustomButton>
-              </div>
-            </form>
+                  <button
+                    type="button"
+                    onClick={startRecording}
+                    disabled={selectedFile || isRecording}
+                  >
+                    <i className="fa-solid fa-microphone"></i>
+                  </button>
+                  <CustomButton
+                    loading={isPending}
+                    color="success"
+                    type="submit"
+                    className="chat-window__footer--send"
+                  >
+                    <i className="fa-solid fa-paper-plane"></i>
+                  </CustomButton>
+                </div>
+              </form>
+            </>
           ) : (
             <div className="chat-window__hint">
               {t("chat_contract_ended_message")}

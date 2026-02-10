@@ -5,8 +5,10 @@ import { useLocation } from "react-router";
 import { Fancybox } from "@fancyapps/ui";
 import "@fancyapps/ui/dist/fancybox/fancybox.css";
 import { useTranslation } from "react-i18next";
+import { useSelector } from "react-redux";
 
 const Message = ({
+  id,
   sender,
   creatorId,
   time = null,
@@ -15,11 +17,15 @@ const Message = ({
   from,
   text,
   avatar,
+  onReply,
+  replyTo,
+  onJumpToParent,
 }) => {
   const [imageLoaded, setImageLoaded] = useState(false);
   const [videoLoaded, setVideoLoaded] = useState(false);
   const { pathname } = useLocation();
   const { t } = useTranslation();
+  const { lang } = useSelector((state) => state?.language);
   // --------------------------
   // Helper Functions
   // --------------------------
@@ -145,7 +151,7 @@ const Message = ({
                     // Fallback if fetch fails (e.g., severe CORS issues)
                     console.warn(
                       "Fetch failed, using direct download fallback:",
-                      err
+                      err,
                     );
                     const link = document.createElement("a");
                     link.href = imageSrc;
@@ -269,7 +275,7 @@ const Message = ({
           </div>
         );
       // --------------------------
-      // 🔥 FILE (PDF, DOC, etc.)
+      // FILE (PDF, DOC, etc.)
       // --------------------------
       case "file":
         const displayFileName = getFileName(filePath);
@@ -334,10 +340,54 @@ const Message = ({
   };
 
   // --------------------------
+  // Parent message (small / muted)
+  // --------------------------
+  const renderParent = () => {
+    if (!replyTo) return null;
+
+    switch (replyTo.type) {
+      case "text":
+        return <div className="reply-parent__text">{replyTo.message}</div>;
+
+      case "image":
+        return (
+          <div className="reply-parent__media">
+            <img src={replyTo.file_path} alt="" />
+          </div>
+        );
+
+      case "video":
+        return (
+          <div className="reply-parent__media vedio">
+            <video src={replyTo.file_path} />
+            <span className="icon-wrapper">
+              <i className="fa-regular fa-play"></i>
+            </span>
+          </div>
+        );
+
+      case "audio":
+        return (
+          <div className="reply-parent__file">🎧 {t("reply.attachment")}</div>
+        );
+
+      case "file":
+        return (
+          <div className="reply-parent__file">
+            📎 {getFileName(replyTo.file_path)}
+          </div>
+        );
+
+      default:
+        return null;
+    }
+  };
+
+  // --------------------------
   //  Component Return
   // --------------------------
   return (
-    <div className={messageClass}>
+    <div className={messageClass} data-message-id={id}>
       <img
         src={avatar}
         alt={sender?.name || "User"}
@@ -345,7 +395,33 @@ const Message = ({
       />
 
       <div className="message__content">
-        {renderMessageContent()}
+        <div className="parent-wrapper">
+          {replyTo && (
+            <div
+              className="reply-parent"
+              onClick={() => onJumpToParent?.(replyTo.id)}
+              style={
+                isSender
+                  ? { [lang === "en" ? "marginLeft" : "marginRight"]: "auto" }
+                  : null
+              }
+            >
+              {renderParent()}
+            </div>
+          )}
+
+          <div
+            style={
+              replyTo
+                ? { marginTop: "-20px", zIndex: "12", position: "relative" }
+                : null
+            }
+            className={`d-flex gap-2  ${isSender ? "flex-row-reverse" : ""} `}
+          >
+            {renderMessageContent()}
+            <i className="fa-solid fa-reply" onClick={onReply}></i>
+          </div>
+        </div>
         {time && <div className="message__time">{time}</div>}
       </div>
     </div>

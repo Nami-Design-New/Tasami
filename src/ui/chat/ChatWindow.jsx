@@ -4,16 +4,17 @@ import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
-import { useNavigate, useParams, useSearchParams } from "react-router";
+import { useSearchParams } from "react-router";
 import * as yup from "yup";
 import useGetChatsMessages from "../../hooks/dashboard/chats/useGetChatsMessages";
-import InfiniteScroll from "../loading/InfiniteScroll";
-import Message from "./Message";
 import useSendMessages from "../../hooks/dashboard/chats/useSendMessages";
 import { EmployeeChatService } from "../../utils/employeeChatService";
 import { getToken } from "../../utils/token";
-import Loading from "../loading/Loading";
 import CustomButton from "../CustomButton";
+import InfiniteScroll from "../loading/InfiniteScroll";
+import Loading from "../loading/Loading";
+import Message from "./Message";
+import ReplyPreview from "./ReplyPreview";
 
 const getMessageType = (file) => {
   if (!file) return "text";
@@ -37,7 +38,7 @@ const schema = yup.object().shape({
         const hasFile = file instanceof File;
         const hasAudio = audio instanceof Blob;
         return hasMessage || hasFile || hasAudio;
-      }
+      },
     ),
   file: yup.mixed().nullable(),
   audio: yup.mixed().nullable(),
@@ -102,7 +103,7 @@ const ChatWindow = ({ isOpen, setIsOpen, activeChat, activeUser }) => {
       queryClient.setQueryData(["chat-room-messages", chatId], (oldData) => {
         if (!oldData) return oldData;
         const updatedPages = oldData.pages.map((page, idx) =>
-          idx === 0 ? { ...page, data: [message, ...page.data] } : page
+          idx === 0 ? { ...page, data: [message, ...page.data] } : page,
         );
         return { ...oldData, pages: updatedPages };
       });
@@ -158,7 +159,7 @@ const ChatWindow = ({ isOpen, setIsOpen, activeChat, activeUser }) => {
   const formatTime = (s) =>
     `${String(Math.floor(s / 60)).padStart(2, "0")}:${String(s % 60).padStart(
       2,
-      "0"
+      "0",
     )}`;
 
   // Recording controls

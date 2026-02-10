@@ -366,7 +366,9 @@ $color-fire: #ff7a59;
       text-align: center;
       padding: 10px 15px;
       cursor: pointer;
-      transition: background-color 0.3s ease, color 0.3s ease;
+      transition:
+        background-color 0.3s ease,
+        color 0.3s ease;
       border-radius: $borderRadius;
       position: relative;
       font-weight: 600;
@@ -483,6 +485,8 @@ $color-fire: #ff7a59;
     text-align: center;
     border-radius: 1rem;
     padding: 2rem;
+
+  
   }
 
   &__message {
