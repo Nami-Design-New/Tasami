@@ -103,7 +103,7 @@ export default function WorksContractDetails() {
 
                 <Link
                   to={`/user-chat/${contractDetails?.id}`}
-                  className={`action-buttons ${
+                  className={`action-buttons position-relative ${
                     contractDetails?.status === "working" ? "" : "yellow"
                   }`}
                 >
@@ -112,6 +112,9 @@ export default function WorksContractDetails() {
                   ) : (
                     <img src={workChatYellow} alt="chat" />
                   )}
+                  <span className="notification_span notification_position">
+                    0
+                  </span>
                 </Link>
 
                 {contractDetails?.status === "working" && (

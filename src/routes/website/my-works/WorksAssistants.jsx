@@ -156,6 +156,7 @@ export default function WorksAssistants() {
           <AssistantWorkCard
             helper={workAssistants.current_helper.helper}
             contractId={workAssistants.current_helper.id}
+            unReadMessage={workAssistants?.current_helper?.unread_Messages}
           />
         </div>
       )}
@@ -169,6 +170,7 @@ export default function WorksAssistants() {
                 <AssistantWorkCard
                   helper={helper?.helper}
                   contractId={helper?.id}
+                  unReadMessage={helper?.unread_Messages}
                 />
               </div>
             ))}

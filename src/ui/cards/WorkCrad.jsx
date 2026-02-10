@@ -67,17 +67,22 @@ export default function WorkCard({ work, withoutStatus = false }) {
 
       <div className="info flex-grow-1 ">
         <div className="row">
-          <div className="col-6 p-1">
+          <div className="col-4 p-1">
             <div className="info-item">
               <img src={titleIcon} />
               <p> {work.category_title} </p>
             </div>
           </div>
-          <div className="col-6 p-1">
+          <div className="col-4 p-1">
             <div className="info-item">
               <i className="fa-light fa-calendar"></i> <p>{work.start_date}</p>
             </div>
           </div>
+          {work.status !== "completed" && (
+            <div className="col-4 p-1 d-flex justify-content-end">
+              <span className="notification_span  ">0</span>
+            </div>
+          )}
           {work.offers_count > 0 && (
             <div className="col-6 p-1 ">
               <div className="info-item">
