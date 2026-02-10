@@ -18,6 +18,7 @@ import useGetMyCommunity from "../../hooks/website/communities/useGetMyCommunity
 import Loading from "../../ui/loading/Loading";
 import CustomButton from "../../ui/CustomButton";
 import ReplyPreview from "../../ui/chat/ReplyPreview";
+import useScrollToMessage from "../../utils/useScrollToMessage";
 
 const getMessageType = (file) => {
   if (!file) return "text";
@@ -63,6 +64,7 @@ export default function CommunityChat() {
   const [audioBlob, setAudioBlob] = useState(null);
   const [micPermission, setMicPermission] = useState(false);
   const [replyTo, setReplyTo] = useState(null);
+  const [scrollTargetId, setScrollTargetId] = useState(null);
 
   const mediaRecorderRef = useRef(null);
   const audioChunksRef = useRef([]);
@@ -92,7 +94,59 @@ export default function CommunityChat() {
     }
   }, [isLoading, allChats, initialScrollDone]);
 
+  // useEffect(() => {
+  //   if (!scrollTargetId) return;
+
+  //   const exists = allChats.some(
+  //     (m) => Number(m.id) === Number(scrollTargetId),
+  //   );
+
+  //   if (exists) {
+  //     requestAnimationFrame(() => {
+  //       const el = document.querySelector(
+  //         `[data-message-id="${scrollTargetId}"]`,
+  //       );
+
+  //       if (!el) return;
+
+  //       el.scrollIntoView({
+  //         behavior: "smooth",
+  //         block: "center",
+  //       });
+
+  //       el.classList.add("highlight-message");
+
+  //       setTimeout(() => {
+  //         el.classList.remove("highlight-message");
+  //       }, 1500);
+
+  //       setScrollTargetId(null);
+  //     });
+
+  //     return;
+  //   }
+
+  //   // parent not loaded yet → load more pages
+  //   if (hasNextPage && !isFetchingNextPage) {
+  //     fetchNextPage();
+  //   }
+  // }, [
+  //   scrollTargetId,
+  //   allChats,
+  //   hasNextPage,
+  //   isFetchingNextPage,
+  //   fetchNextPage,
+  // ]);
+
   // ===== SOCKET CONNECTION =====
+
+  useScrollToMessage({
+    targetId: scrollTargetId,
+    fetchNextPage,
+    hasNextPage,
+    messages: allChats,
+    onDone: () => setScrollTargetId(null),
+  });
   useEffect(() => {
     const socket = new ChatSocketService();
     const token = getToken();
@@ -409,6 +463,8 @@ export default function CommunityChat() {
                         filePath: chat.file_path,
                       });
                     }}
+                    id={chat.id}
+                    onJumpToParent={(id) => setScrollTargetId(id)}
                   />
                 );
               })}

@@ -7810,6 +7810,7 @@ input[type=file] {
 }
 
 .reply-parent {
+  cursor: pointer;
   margin-bottom: 6px;
   padding: 6px 8px;
   border-left: 3px solid var(--main-color);
@@ -7916,6 +7917,19 @@ input[type=file] {
   font-weight: 500;
 }
 
+.highlight-message {
+  border-radius: 20px;
+  animation: jumpHighlight 2s ease;
+}
+
+@keyframes jumpHighlight {
+  0% {
+    background-color: rgba(255, 230, 150, 0.8);
+  }
+  100% {
+    background-color: transparent;
+  }
+}
 .model {
   max-width: 1400px;
   padding: 0 8px;

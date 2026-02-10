@@ -8,6 +8,7 @@ import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
 
 const Message = ({
+  id,
   sender,
   creatorId,
   time = null,
@@ -18,6 +19,7 @@ const Message = ({
   avatar,
   onReply,
   replyTo,
+  onJumpToParent,
 }) => {
   const [imageLoaded, setImageLoaded] = useState(false);
   const [videoLoaded, setVideoLoaded] = useState(false);
@@ -385,7 +387,7 @@ const Message = ({
   //  Component Return
   // --------------------------
   return (
-    <div className={messageClass}>
+    <div className={messageClass} data-message-id={id}>
       <img
         src={avatar}
         alt={sender?.name || "User"}
@@ -397,6 +399,7 @@ const Message = ({
           {replyTo && (
             <div
               className="reply-parent"
+              onClick={() => onJumpToParent?.(replyTo.id)}
               style={
                 isSender
                   ? { [lang === "en" ? "marginLeft" : "marginRight"]: "auto" }
@@ -406,6 +409,7 @@ const Message = ({
               {renderParent()}
             </div>
           )}
+
           <div
             style={
               replyTo

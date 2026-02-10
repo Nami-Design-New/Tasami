@@ -17,6 +17,7 @@ import useGetContractDetails from "../../hooks/website/MyWorks/assistants/useGet
 import Loading from "../../ui/loading/Loading";
 import CustomButton from "../../ui/CustomButton";
 import ReplyPreview from "../../ui/chat/ReplyPreview";
+import useScrollToMessage from "../../utils/useScrollToMessage";
 
 const getMessageType = (file) => {
   if (!file) return "text";
@@ -63,6 +64,7 @@ export default function UserContractChat() {
   const [micPermission, setMicPermission] = useState(false);
   const [socketStatus, setSocketStatus] = useState("connecting");
   const [replyTo, setReplyTo] = useState(null);
+  const [scrollTargetId, setScrollTargetId] = useState(null);
 
   const mediaRecorderRef = useRef(null);
   const audioChunksRef = useRef([]);
@@ -124,6 +126,14 @@ export default function UserContractChat() {
   const { register, handleSubmit, setValue, reset } = useForm({
     resolver: yupResolver(schema),
     defaultValues: { message: "", file: null, audio: null },
+  });
+
+  useScrollToMessage({
+    targetId: scrollTargetId,
+    fetchNextPage,
+    hasNextPage,
+    messages: allChats,
+    onDone: () => setScrollTargetId(null),
   });
 
   const askForMicPermission = async () => {
@@ -321,6 +331,8 @@ export default function UserContractChat() {
                         filePath: chat.file_path,
                       });
                     }}
+                    id={chat.id}
+                    onJumpToParent={(id) => setScrollTargetId(id)}
                   />
                 );
               })}

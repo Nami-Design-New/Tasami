@@ -18,6 +18,7 @@ import useGetGroupDetails from "../../../hooks/website/my-groups/useGetGroupDeta
 import Loading from "../../../ui/loading/Loading";
 import CustomButton from "../../../ui/CustomButton";
 import ReplyPreview from "../../../ui/chat/ReplyPreview";
+import useScrollToMessage from "../../../utils/useScrollToMessage";
 
 const getMessageType = (file) => {
   if (!file) return "text";
@@ -64,6 +65,7 @@ export default function GroupChat() {
   const [micPermission, setMicPermission] = useState(false);
   const [, setSocketStatus] = useState("connecting");
   const [replyTo, setReplyTo] = useState(null);
+  const [scrollTargetId, setScrollTargetId] = useState(null);
 
   const mediaRecorderRef = useRef(null);
   const audioChunksRef = useRef([]);
@@ -222,6 +224,14 @@ export default function GroupChat() {
       console.error("Failed to start recording:", err);
     }
   };
+
+  useScrollToMessage({
+    targetId: scrollTargetId,
+    fetchNextPage,
+    hasNextPage,
+    messages: allChats,
+    onDone: () => setScrollTargetId(null),
+  });
 
   const pauseRecording = () => {
     const recorder = mediaRecorderRef.current;
@@ -406,6 +416,8 @@ export default function GroupChat() {
                         filePath: chat.file_path,
                       });
                     }}
+                    id={chat.id}
+                    onJumpToParent={(id) => setScrollTargetId(id)}
                   />
                 );
               })}
