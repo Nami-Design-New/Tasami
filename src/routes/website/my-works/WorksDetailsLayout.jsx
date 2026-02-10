@@ -129,17 +129,27 @@ export default function WorksDetailsLayout() {
       if (!helper) {
         return [
           { id: 1, label: t("works.details"), end: true },
-          { id: 2, label: t("works.myGroup"), link: "group" },
+          { id: 2, label: t("works.myGroup"), link: "group", counter: true },
           { id: 3, label: t("works.offers"), link: "offers" },
           { id: 4, label: t("works.tasks"), link: "tasks" },
-          { id: 5, label: t("works.assistants"), link: "assistants" },
+          {
+            id: 5,
+            label: t("works.assistants"),
+            link: "assistants",
+            counter: true,
+          },
         ];
       }
       return [
         { id: 1, label: t("works.details"), end: true },
-        { id: 2, label: t("works.myGroup"), link: "group" },
+        { id: 2, label: t("works.myGroup"), link: "group", counter: true },
         { id: 3, label: t("works.tasks"), link: "tasks" },
-        { id: 4, label: t("works.assistants"), link: "assistants" },
+        {
+          id: 4,
+          label: t("works.assistants"),
+          link: "assistants",
+          counter: true,
+        },
       ];
     }
 
@@ -246,10 +256,10 @@ export default function WorksDetailsLayout() {
             {/* Tabs */}
             <div className="col-12 p-2">
               <div className="works-details-tabs">
-                {tabs.map(({ id, label, link, end }) => (
+                {tabs.map(({ id, label, link, end, counter }) => (
                   <NavLink
                     key={id}
-                    className="tab-link"
+                    className="tab-link gap-2"
                     to={link || ""}
                     end={end}
                   >
@@ -257,6 +267,7 @@ export default function WorksDetailsLayout() {
                     {link === "offers" && (
                       <span className="offer-count-badge">{offers_count}</span>
                     )}
+                    {counter && <span className="notification_span">0</span>}
                   </NavLink>
                 ))}
               </div>

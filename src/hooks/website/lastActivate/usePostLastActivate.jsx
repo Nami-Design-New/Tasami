@@ -28,12 +28,10 @@ export default function usePostLastActivate() {
     const lastCallTime = localStorage.getItem(LAST_CALL_KEY);
     const now = Date.now();
 
-    // لو تم استدعاؤه قبل أقل من 24 ساعة → لا تعمل طلب
     if (lastCallTime && now - Number(lastCallTime) < 24 * 60 * 60 * 1000) {
       return;
     }
 
-    // لو مر 24 ساعة → نفّذ الطلب مرة واحدة
     axiosInstance.post("last-activate").finally(() => {
       localStorage.setItem(LAST_CALL_KEY, now.toString());
     });

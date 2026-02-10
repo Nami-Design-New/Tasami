@@ -72,7 +72,7 @@ export default function AssistantWorkCard({
                     className="flag-icon "
                     loading="lazy"
                   />
-                  {unReadMessage > 0 && (
+                  {unReadMessage >= 0 && (
                     <span className="notification_span notification_position">
                       {unReadMessage}
                     </span>

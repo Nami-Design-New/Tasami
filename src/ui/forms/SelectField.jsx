@@ -16,7 +16,7 @@ const SelectField = React.forwardRef(
       children,
       ...props
     },
-    ref
+    ref,
   ) => {
     const { t } = useTranslation();
     return (
@@ -55,7 +55,7 @@ const SelectField = React.forwardRef(
         )}
       </div>
     );
-  }
+  },
 );
 
 SelectField.displayName = "SelectField";

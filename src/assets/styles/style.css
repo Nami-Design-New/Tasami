@@ -786,6 +786,17 @@ input::-ms-clear {
   color: #0d0d0d;
 }
 
+.float-text {
+  position: relative;
+  top: -34px;
+  background-color: #fff;
+  width: -moz-fit-content;
+  width: fit-content;
+  color: rgba(13, 13, 13, 0.5607843137);
+  font-size: 16px;
+  font-weight: 600;
+}
+
 .main-header {
   position: sticky;
   top: 0;
@@ -11185,9 +11196,9 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
   text-decoration: underline;
   color: #5fcafa;
 }
-.breadcrumb-section .breadcrumb:dir(ltr) .breadcrumb-item a.active,
-.breadcrumb-section .breadcrumb:dir(ltr) .breadcrumb-item span.active {
-  color: #0d0d0d;
+.breadcrumb-section .breadcrumb:dir(ltr) .breadcrumb-item.active {
+  color: #5fcafa !important;
+  font-weight: 700;
 }
 .breadcrumb-section:dir(rtl) .breadcrumb-item a,
 .breadcrumb-section:dir(rtl) .breadcrumb-item span {
@@ -11196,9 +11207,9 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
   text-decoration: underline;
   color: #5fcafa;
 }
-.breadcrumb-section:dir(rtl) .breadcrumb-item a.active,
-.breadcrumb-section:dir(rtl) .breadcrumb-item span.active {
-  color: #0d0d0d;
+.breadcrumb-section:dir(rtl) .breadcrumb-item.active {
+  color: #5fcafa !important;
+  font-weight: 700;
 }
 .breadcrumb-section:dir(rtl) .breadcrumb-item:not(:last-child)::before {
   content: "\f053";

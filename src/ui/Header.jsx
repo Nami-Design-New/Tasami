@@ -37,6 +37,7 @@ export default function Header() {
         setOpenMenu(false);
       }
     };
+
     window.addEventListener("click", handleOutsideClick);
     return () => window.removeEventListener("click", handleOutsideClick);
   }, [openMenu]);
@@ -56,8 +57,14 @@ export default function Header() {
           {user && (
             <>
               <li onClick={() => setOpenMenu(false)}>
-                <NavLink to={"/my-works"}>
+                <NavLink
+                  className={"d-flex align-items-center gap-2"}
+                  to={"/my-works"}
+                >
                   {t("website.header.myWorks")}
+                  <span className="notification_span">
+                    {counterNotify?.total_of_platform}
+                  </span>
                 </NavLink>
               </li>
               <li onClick={() => setOpenMenu(false)}>
@@ -109,7 +116,7 @@ export default function Header() {
           <Link className="communites-link" to="/reels">
             <img src={communities} />
             <span>{t("website.header.communities")}</span>
-          </Link>{" "}
+          </Link>
           <LangDropdown />
           {isAuthed && (
             <Link to="/notifications" className="notification-btn me-1">

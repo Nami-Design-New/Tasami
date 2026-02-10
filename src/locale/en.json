@@ -714,7 +714,11 @@
     "firstNameMax": "First name cannot exceed {{max}} characters",
     "firstNameAlpha": "First name can only contain letters and spaces",
     "middleNameMax": "Middle name cannot exceed {{max}} characters",
-    "middleNameAlpha": "Middle name can only contain letters and spaces"
+    "middleNameAlpha": "Middle name can only contain letters and spaces",
+    "notificationTypeRequired": "Notification type is required",
+    "notificationTitleRequired": "Notification title is required",
+    "notificationMessageRequired": "Notification message is required",
+    "regionRequired": "Please select a region"
   },
   "pageNotFound": {
     "alt": "404 Not Found",
@@ -833,7 +837,7 @@
     "myTasks": {
       "title": "Execution Tasks",
       "dragInstruction": "You can drag and drop to reorder tasks",
-      "deleteAll": "Delete all",
+      "deleteAll": "Delete all Tasks",
       "deleteAllWarning": "This action will permanently delete all your tasks. This cannot be undone.",
       "startExecution": "Start of Execution",
       "allTasks": "All Tasks",
@@ -2614,6 +2618,7 @@
       "actions": "Actions"
     },
     "public_notifications": {
+      "sendChoices": "Send Choices",
       "title": "Public Notifications",
       "notificationType": "Notification Type",
       "notificationTitle": "Notification Title",

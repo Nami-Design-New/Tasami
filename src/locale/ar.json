@@ -721,7 +721,11 @@
     "firstNameMax": "لا يمكن أن يتجاوز الاسم الأول {{max}} حرفًا",
     "firstNameAlpha": "يمكن للاسم الأول أن يحتوي على حروف ومسافات فقط",
     "middleNameMax": "لا يمكن أن يتجاوز الاسم الأوسط {{max}} حرفًا",
-    "middleNameAlpha": "يمكن للاسم الأوسط أن يحتوي على حروف ومسافات فقط"
+    "middleNameAlpha": "يمكن للاسم الأوسط أن يحتوي على حروف ومسافات فقط",
+    "notificationTypeRequired": "نوع الإشعار مطلوب",
+    "notificationTitleRequired": "عنوان الإشعار مطلوب",
+    "notificationMessageRequired": "محتوى الإشعار مطلوب",
+    "regionRequired": "الرجاء اختيار الإقليم"
   },
   "pageNotFound": {
     "alt": "لم يتم العثور على الصفحة",
@@ -841,8 +845,8 @@
     "myTasks": {
       "title": "المهام التنفيذية",
       "allTasks": "جميع المهام",
-      "deleteAll": "حذف الكل",
-      "deleteAllWarning": "سيؤدي هذا الإجراء إلى حذف جميع مهامك نهائيًا. لا يمكن التراجع عن هذا الإجراء.",
+      "deleteAll": "حذف جميع المهام",
+      "deleteAllWarning": "سيتم حذف جميع المهام لهذا الهدف , هل أنت متأكد؟",
       "dragInstruction": "يمكنك السحب والإفلات لإعادة ترتيب المهام",
       "startExecution": "بداية التنفيذ",
       "endExecution": "اكتمال التنفيذ",
@@ -2595,12 +2599,22 @@
       "actions": "الإجراءات"
     },
     "public_notifications": {
+      "sendChoices": "خيارات الإسال",
+      "accountType": "نوع الحساب",
+      "nationality": "الجنسية",
+      "gender": "هوية المستخدم",
+      "operationsSections": "مناطق التشغيل",
+      "interests": "الاهتمامات",
+      "bene": "المستفيدون",
+      "category": "المجال",
+      "subcategory": "التخصص",
       "title": "الإشعارات العامة",
       "notificationType": "نوع الإشعار",
       "notificationTitle": "عنوان الإشعار",
       "notificationMessage": "نص الإشعار",
       "send": "إرسال",
-      "all": "جميع المستخدمين",
+      "allUsers": "جميع المستخدمين",
+      "all": "الكل",
       "specific": "مستخدمين محددين"
     }
   }

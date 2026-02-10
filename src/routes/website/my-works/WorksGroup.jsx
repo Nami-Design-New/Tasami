@@ -26,12 +26,12 @@ export default function WorksGroup() {
 
   const { workGroup, isLoading: groupLoading } = useGetWorkGroup(
     workDetails?.id ?? null,
-    workDetails?.goal?.group_id ?? null
+    workDetails?.goal?.group_id ?? null,
   );
 
   const { showMyGoal, isPending } = useShowMyGoal();
   const [shareGoal, setShareGoal] = useState(
-    workGroup?.group.i_show_goal === true ? "yes" : "no"
+    workGroup?.group.i_show_goal === true ? "yes" : "no",
   );
 
   useEffect(() => {
@@ -83,9 +83,7 @@ export default function WorksGroup() {
               <div className="info-grid">
                 <div className="info-box info-box-grow-min-width">
                   <h4 className="label">{t("works.group.field")}</h4>
-                  <p className="value">
-                    {workGroup?.group?.category_title}
-                  </p>
+                  <p className="value">{workGroup?.group?.category_title}</p>
                 </div>
                 <div className="info-box info-box-grow-min-width">
                   <h4 className="label">{t("works.group.strengthIndex")}</h4>
@@ -138,6 +136,7 @@ export default function WorksGroup() {
                 type="outlined"
               >
                 {t("works.group.groupChats")}
+                <span className="notification_span">0</span>
                 {/* {workDetails?.group?.helper_unread_chats > 0 && (
                   <span className="notification_span">
                     {workDetails?.group?.helper_unread_chats}

@@ -56,11 +56,20 @@ export default function MyWorks() {
 
           <div className="col-12 p-2">
             <WorksTab activeTab={activeTab} setActiveTab={setActiveTab}>
-              <NavLink to={"/my-works"} end>
+              <NavLink
+                to={"/my-works"}
+                end
+                className="d-flex  align-content-center justify-content-center gap-2"
+              >
                 {t("works.status.pending")}
+                <span className="notification_span">0</span>
               </NavLink>
-              <NavLink to={"in-progress"}>
-                {t("works.status.inProgress")}
+              <NavLink
+                to={"in-progress"}
+                className="d-flex  align-content-center justify-content-center gap-2"
+              >
+                {t("works.status.inProgress")}{" "}
+                <span className="notification_span">0</span>
               </NavLink>
               <NavLink to={"completed"}>{t("works.status.completed")}</NavLink>
             </WorksTab>
