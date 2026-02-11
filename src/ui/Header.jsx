@@ -51,14 +51,17 @@ export default function Header() {
           <img src={logo} alt="logo" />
         </Link>
         <ul className={`nav-links container-lg ${openMenu ? "open" : ""}`}>
-          <li onClick={() => setOpenMenu(false)}>
+          <li
+            onClick={() => setOpenMenu(false)}
+            className={"d-none  d-lg-flex"}
+          >
             <NavLink to={"/"}>{t("website.header.home")}</NavLink>
-          </li>{" "}
+          </li>
           {user && (
             <>
               <li onClick={() => setOpenMenu(false)}>
                 <NavLink
-                  className={"d-flex align-items-center gap-2"}
+                  className={"d-none align-items-center gap-2 d-lg-flex"}
                   to={"/my-works"}
                 >
                   {t("website.header.myWorks")}
@@ -68,7 +71,7 @@ export default function Header() {
                 </NavLink>
               </li>
               <li onClick={() => setOpenMenu(false)}>
-                <NavLink to={"/my-profile"}>
+                <NavLink to={"/my-profile"} className={"d-none  d-lg-flex"}>
                   {t("website.header.myAccount")}
                 </NavLink>
               </li>
@@ -76,7 +79,7 @@ export default function Header() {
           )}
           <li onClick={() => setOpenMenu(false)}>
             <NavLink to={"/about"}>{t("website.header.aboutUs")}</NavLink>
-          </li>{" "}
+          </li>
           <li onClick={() => setOpenMenu(false)}>
             <NavLink to={"/how-it-works"}>
               {t("website.header.howitWorks")}
@@ -103,10 +106,15 @@ export default function Header() {
                 user.about ? navigate("my-platform") : setShowModal(true);
                 setOpenMenu(false);
               }}
-              className="mobile-only"
+              className="mobile-only d-flex gap-2 align-items-center"
             >
               <i className="fa-regular fa-robot mx-1"></i>
-              {t("profile.assistant")}
+              {t("profile.assistant")}{" "}
+              {counterNotify?.total_of_platform > 0 && (
+                <span className="notification_span">
+                  {counterNotify?.total_of_platform}
+                </span>
+              )}
             </CustomButton>
           )}
         </ul>
