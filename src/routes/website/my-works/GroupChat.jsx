@@ -393,6 +393,7 @@ export default function GroupChat() {
                 return (
                   <Message
                     key={chat.id}
+                    chatId={chat.chat_id}
                     from={form}
                     creatorId={chat?.creator_id}
                     text={chat.message}

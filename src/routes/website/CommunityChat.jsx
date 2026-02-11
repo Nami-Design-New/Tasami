@@ -19,6 +19,7 @@ import Loading from "../../ui/loading/Loading";
 import CustomButton from "../../ui/CustomButton";
 import ReplyPreview from "../../ui/chat/ReplyPreview";
 import useScrollToMessage from "../../utils/useScrollToMessage";
+import { useHeartbeat } from "../../hooks/useHeartBeat";
 
 const getMessageType = (file) => {
   if (!file) return "text";
@@ -73,7 +74,6 @@ export default function CommunityChat() {
   const { chats, isLoading, hasNextPage, fetchNextPage, isFetchingNextPage } =
     useGetCommunityChats();
   const allChats = chats?.pages?.flatMap((page) => page?.data).reverse() ?? [];
-
   const { isPending, sendMessage } = useSendMessage();
 
   // const messagesEndRef = useRef(null);
@@ -440,6 +440,7 @@ export default function CommunityChat() {
                 return (
                   <Message
                     key={chat.id}
+                    chatId={chat.chat_id}
                     from={form}
                     creatorId={chat?.creator_id}
                     text={chat.message}

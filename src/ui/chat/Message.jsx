@@ -6,9 +6,11 @@ import { Fancybox } from "@fancyapps/ui";
 import "@fancyapps/ui/dist/fancybox/fancybox.css";
 import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
+import { useHeartbeat } from "../../hooks/useHeartBeat";
 
 const Message = ({
   id,
+  chatId,
   sender,
   creatorId,
   time = null,
@@ -382,6 +384,7 @@ const Message = ({
         return null;
     }
   };
+  const { data } = useHeartbeat(chatId);
 
   // --------------------------
   //  Component Return
