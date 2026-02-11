@@ -97,7 +97,7 @@ export default function Header() {
                 <NavLink to="/register">{t("website.header.signUp")}</NavLink>
               </li>
             </>
-          )}{" "}
+          )}
           {isAuthed && (
             <CustomButton
               size="small"
@@ -106,7 +106,7 @@ export default function Header() {
                 user.about ? navigate("my-platform") : setShowModal(true);
                 setOpenMenu(false);
               }}
-              className="mobile-only d-flex gap-2 align-items-center"
+              className="mobile-only  gap-2 align-items-center"
             >
               <i className="fa-regular fa-robot mx-1"></i>
               {t("profile.assistant")}{" "}
