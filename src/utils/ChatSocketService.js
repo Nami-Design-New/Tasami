@@ -38,17 +38,20 @@ export class ChatSocketService {
       disableStats: true,
       enabledTransports: ["ws", "wss"],
       cluster: "mt1",
-      authorizer: (channel) => ({
-        authorize: (socketId, callback) => {
-          api
-            .post("/broadcasting/auth", {
-              socket_id: socketId,
-              channel_name: channel.name,
-            })
-            .then((response) => callback(false, response.data))
-            .catch((error) => callback(true, error));
-        },
-      }),
+      authorizer: (channel) => {
+        console.log(channel);
+        return {
+          authorize: (socketId, callback) => {
+            api
+              .post("/broadcasting/auth", {
+                socket_id: socketId,
+                channel_name: channel.name,
+              })
+              .then((response) => callback(false, response.data))
+              .catch((error) => callback(true, error));
+          },
+        };
+      },
     });
 
     // --- Debug connection states ---
@@ -60,22 +63,22 @@ export class ChatSocketService {
     });
 
     connection.bind("connected", () => {
-      // console.log("🟢 Socket connected successfully!");
+      console.log("🟢 Socket connected successfully!");
       this.statusCallback?.("connected");
     });
 
     connection.bind("disconnected", () => {
-      // console.log("🔴 Socket disconnected!");
+      console.log("🔴 Socket disconnected!");
       this.statusCallback?.("disconnected");
     });
 
     connection.bind("error", (error) => {
-      // console.error("⚠️ Socket connection error:", error);
+      console.log("⚠️ Socket connection error:", error);
       this.statusCallback?.("error");
     });
 
     connection.bind("state_change", (state) => {
-      // console.log("🔄 Socket state change:", state);
+      console.log("🔄 Socket state change:", state);
     });
 
     // --- Listen to channel messages ---
@@ -83,17 +86,32 @@ export class ChatSocketService {
       .private(`communitychat.${communityId}`)
       .listen("CommunityMessageSent", (event) => {
         console.log("📨 New message received via socket:", event.message);
-        // console.log("📨 Event received via socket:", event);
+        console.log("📨 Event received via socket:", event);
         this.messageCallback?.(event.message);
       });
 
-    // console.log(`✅ Subscribed to private-communitychat.${communityId}`);
+    this.echo
+      .join(`livecommunitychat.${communityId}`)
+      .here((users) => {
+        console.log("👥 Online users:", users); // فقط لعرض في UI أو analytics
+      })
+      .joining((user) => {
+        console.log("➕ User joined:", user);
+      })
+      .leaving((user) => {
+        console.log("➖ User left:", user);
+      })
+      .listen("CommunityMessageSent", (event) => {
+        this.messageCallback?.(event.message);
+      });
+
+    console.log(`✅ Subscribed to private-communitychat.${communityId}`);
   }
 
   disconnect() {
     if (this.echo) {
       this.echo.disconnect();
-      // console.log("🔌 Socket manually disconnected");
+      console.log("🔌 Socket manually disconnected");
     }
   }
 }
