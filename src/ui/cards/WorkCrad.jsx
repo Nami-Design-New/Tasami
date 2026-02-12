@@ -78,9 +78,11 @@ export default function WorkCard({ work, withoutStatus = false }) {
               <i className="fa-light fa-calendar"></i> <p>{work.start_date}</p>
             </div>
           </div>
-          {work.status !== "completed" && (
+          {work.status !== "completed" && work?.total_unread_chats > 0 && (
             <div className="col-4 p-1 d-flex justify-content-end">
-              <span className="notification_span  ">0</span>
+              <span className="notification_span  ">
+                {work?.total_unread_chats}
+              </span>
             </div>
           )}
           {work.offers_count > 0 && (

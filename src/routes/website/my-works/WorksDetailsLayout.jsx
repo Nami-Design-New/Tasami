@@ -267,7 +267,20 @@ export default function WorksDetailsLayout() {
                     {link === "offers" && (
                       <span className="offer-count-badge">{offers_count}</span>
                     )}
-                    {counter && <span className="notification_span">0</span>}
+                    {counter &&
+                      link === "group" &&
+                      workDetails?.unread_group_messages > 0 && (
+                        <span className="notification_span">
+                          {workDetails?.unread_group_messages}
+                        </span>
+                      )}
+                    {counter &&
+                      link === "assistants" &&
+                      workDetails?.unread_contract_messages > 0 && (
+                        <span className="notification_span">
+                          {workDetails?.unread_contract_messages}
+                        </span>
+                      )}
                   </NavLink>
                 ))}
               </div>

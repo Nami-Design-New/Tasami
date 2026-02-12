@@ -33,7 +33,10 @@ export default function WorksContractDetails() {
 
   const toggleMenu = () => setMenuOpen(!menuOpen);
 
-  const { contractDetails, isLoading } = useGetContractDetails(id);
+  const { contractDetails, unreadMessages, isLoading } =
+    useGetContractDetails(id);
+
+  console.log(contractDetails, unreadMessages);
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -112,9 +115,11 @@ export default function WorksContractDetails() {
                   ) : (
                     <img src={workChatYellow} alt="chat" />
                   )}
-                  <span className="notification_span notification_position">
-                    0
-                  </span>
+                  {contractDetails?.unread_Messages > 0 && (
+                    <span className="notification_span notification_position">
+                      {contractDetails?.unread_Messages}
+                    </span>
+                  )}
                 </Link>
 
                 {contractDetails?.status === "working" && (

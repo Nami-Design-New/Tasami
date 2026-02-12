@@ -21,7 +21,7 @@ export default function CommunityActions({ community, isMyCommunity = true }) {
   const { unjoinCommunity, isPending: isUnjoinPending } = useUnjoinCommunity();
   const { joinCommunity, isPending: isJoinPending } = useJoinCommunity();
   const [optimisticJoin, setOptimisticJoin] = useState(
-    community?.is_subscribed
+    community?.is_subscribed,
   );
 
   const handleUpdateStatus = (newStatus) => {
@@ -41,7 +41,7 @@ export default function CommunityActions({ community, isMyCommunity = true }) {
         onError: (error) => {
           toast.error(error.message);
         },
-      }
+      },
     );
   };
   const handleJoinCommunity = (id, price) => {
@@ -86,7 +86,7 @@ export default function CommunityActions({ community, isMyCommunity = true }) {
               setOptimisticJoin(false); // rollback
               toast.error(err.message);
             },
-          }
+          },
         );
       }
     }
@@ -133,11 +133,22 @@ export default function CommunityActions({ community, isMyCommunity = true }) {
             >
               <img src={chatIcon} />
             </Link>
-            {community?.helper_unread_chats > 0 && (
-              <span className="notification_span notification_position">
-                {community?.helper_unread_chats}
-              </span>
-            )}
+            {
+              isMyCommunity ? (
+                community?.helper_unread_chats > 0 && (
+                  <span className="notification_span notification_position">
+                    {community?.helper_unread_chats}
+                  </span>
+                )
+              ) : (
+                <div></div>
+              )
+              // community?.unread_chats_count > 0 && (
+              //     <span className="notification_span notification_position">
+              //       {community?.unread_chats_count}
+              //     </span>
+              //   )
+            }
           </li>
         )}
         <li>

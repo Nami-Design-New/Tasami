@@ -136,7 +136,11 @@ export default function WorksGroup() {
                 type="outlined"
               >
                 {t("works.group.groupChats")}
-                <span className="notification_span">0</span>
+                {workDetails?.unread_group_messages > 0 && (
+                  <span className="notification_span">
+                    {workDetails?.unread_group_messages}
+                  </span>
+                )}
                 {/* {workDetails?.group?.helper_unread_chats > 0 && (
                   <span className="notification_span">
                     {workDetails?.group?.helper_unread_chats}
