@@ -18,6 +18,7 @@ import useEditPost from "../../../../hooks/website/communities/posts/useEditPost
 import GlobalModal from "../../../GlobalModal";
 import useFormCloseHandler from "../../../../hooks/shared/useFormCloseHandler";
 import AlertModal from "../../platform/my-community/AlertModal";
+import useDeletePostImage from "../../../../hooks/website/communities/posts/useDeletePostImage";
 
 export default function AddPostModal({
   showModal,
@@ -30,6 +31,7 @@ export default function AddPostModal({
   const { categories, isLoading } = useGetcategories();
   const { addPost, isPending } = useAddPost();
   const { editPost, isPending: editPending } = useEditPost();
+  const { deletePostImage, isDeletingPostImage } = useDeletePostImage();
 
   const {
     register,
@@ -110,7 +112,7 @@ export default function AddPostModal({
         const aspectRatio = await getAspectRatio(file);
         if (aspectRatio) formData.append("aspect_ratio", aspectRatio);
       }
-    } 
+    }
 
     // Handle links
     if (data.links && data.links.length > 0) {
@@ -143,6 +145,22 @@ export default function AddPostModal({
       },
     });
   };
+
+  const handleDeletePostImage = () => {
+    if (!isEdit || !postDetails?.id || isDeletingPostImage) return;
+
+    deletePostImage(postDetails.id, {
+      onSuccess: (res) => {
+        queryClient.invalidateQueries({ queryKey: ["post-details"] });
+        reset({ ...watch(), files: [] });
+        toast.success(res.message);
+      },
+      onError: (error) => {
+        toast.error(error.message);
+      },
+    });
+  };
+
   console.log("Post Form Errors:", errors);
 
   const isSubmitting = isEdit ? editPending : isPending;
@@ -217,6 +235,7 @@ export default function AddPostModal({
                       files={field.value}
                       onFilesChange={field.onChange}
                       aspectRatio={postDetails?.aspect_ratio}
+                      onDelete={handleDeletePostImage}
                     />
                   )}
                 />

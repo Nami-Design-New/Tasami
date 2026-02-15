@@ -65,9 +65,11 @@ export default function Header() {
                   to={"/my-works"}
                 >
                   {t("website.header.myWorks")}
-                  <span className="notification_span">
-                    {counterNotify?.total_of_platform}
-                  </span>
+                  {counterNotify?.total_of_unread_work_without_finished > 0 && (
+                    <span className="notification_span">
+                      {counterNotify?.total_of_unread_work_without_finished}
+                    </span>
+                  )}
                 </NavLink>
               </li>
               <li onClick={() => setOpenMenu(false)}>

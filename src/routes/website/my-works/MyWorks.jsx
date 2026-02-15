@@ -6,10 +6,13 @@ import triangleWithHelper from "../../../assets/icons/triangle-with-helper.svg";
 import triangleWithoutHelper from "../../../assets/icons/triangle-without-helper.png";
 import RoundedBackButton from "../../../ui/website-auth/shared/RoundedBackButton";
 import WorksTab from "../../../ui/website/WorksTab";
+import useGetCountersNotify from "../../../hooks/website/useGetCountersNotify";
 
 export default function MyWorks() {
   const { t } = useTranslation();
   const [activeTab, setActiveTab] = useState("pending");
+  const { counterNotify } = useGetCountersNotify();
+
   // const navigate = useNavigate();
   // const queryClient = useQueryClient();
 
@@ -62,14 +65,22 @@ export default function MyWorks() {
                 className="d-flex  align-content-center justify-content-center gap-2"
               >
                 {t("works.status.pending")}
-                <span className="notification_span">0</span>
+                {counterNotify.work_pending_unread_messages > 0 && (
+                  <span className="notification_span">
+                    {counterNotify?.work_pending_unread_messages}
+                  </span>
+                )}
               </NavLink>
               <NavLink
                 to={"in-progress"}
                 className="d-flex  align-content-center justify-content-center gap-2"
               >
                 {t("works.status.inProgress")}{" "}
-                <span className="notification_span">0</span>
+                {counterNotify?.work_progress_unread_messages > 0 && (
+                  <span className="notification_span">
+                    {counterNotify?.work_progress_unread_messages}
+                  </span>
+                )}
               </NavLink>
               <NavLink to={"completed"}>{t("works.status.completed")}</NavLink>
             </WorksTab>

@@ -282,10 +282,9 @@ export default function FileUploader({
       setErrors([]);
       onFilesChange?.(getOriginalFiles(updated));
 
+      console.log(fileToRemove);
       // Call onDelete with the ID if it exists
-      if (fileToRemove?.type === "object" && fileToRemove.originalObject?.id) {
-        onDelete?.(fileToRemove.originalObject.id);
-      }
+      onDelete?.(fileToRemove?.originalObject?.id || null);
     },
     [normalizedFiles, onFilesChange, onDelete, getOriginalFiles],
   );
