@@ -1017,8 +1017,8 @@
       "totalWork": "إجمالي الأعمال",
       "inProgress": "قيد التنفيذ",
       "pending": "بانتظار التنفيذ",
-      "completed": "الأعمال مكتملة",
-      "progressRatio": " التفدم الإجمالي",
+      "completed": "الأعمال المكتملة",
+      "progressRatio": " التقدم الإجمالي",
       "overdueTasks": " إجمالي المهام المتأخرة  ",
       "personalGoalsTitle": "الأهداف الشخصية",
       "personalGoalsSubtitle": "أحدث طلبات المساعدة لتحقيق أهداف جديدة",
@@ -1027,7 +1027,7 @@
       "heplersTitle": "المساعدون الشخصيون",
       "heplersSubtitle": "تعرف على المساعدين الملهمين في تسامي",
       "myWroksTitle": "أعمالي",
-      "myWroksSubtitle": "مؤشرات تقدمك نحو اهدافك"
+      "myWroksSubtitle": "مؤشرات تقدمك نحو أهدافك"
     },
     "header": {
       "home": "الانطلاق",
