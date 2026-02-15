@@ -103,7 +103,14 @@
           }
         }
       }
-
+      &.en {
+        li.second-color {
+          &:not(:nth-child(3)) a {
+            border-left: none;
+            border-right: 1px solid $InputStroke !important;
+          }
+        }
+      }
       .close-btn {
         display: none;
       }
@@ -190,7 +197,7 @@
             width: 22px;
             height: 22px;
             position: absolute;
-            left: 3;
+            left: -4px;
             top: 50%;
             display: flex;
             align-items: center;
@@ -203,6 +210,16 @@
         // @media (max-width: 992px) {
         //   display: none;
         // }
+      }
+
+      &.en {
+        .notification-btn {
+          i {
+            .badge {
+              left: calc(100% + 4px) !important;
+            }
+          }
+        }
       }
       .user_dropdown {
         width: 50px;
@@ -241,6 +258,11 @@
           height: 16px;
         }
       }
+    }
+
+    @media (min-width: 1500px) {
+      max-width: 1400px;
+      margin: 0 auto;
     }
   }
 }

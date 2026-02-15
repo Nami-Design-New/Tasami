@@ -21,6 +21,7 @@ export default function Header() {
   const [showModal, setShowModal] = useState(false);
   const { isAuthed, user } = useSelector((state) => state.authRole);
   const { counterNotify } = useGetCountersNotify();
+  const { lang } = useSelector((state) => state.language);
 
   useEffect(() => {
     const handleOutsideClick = (e) => {
@@ -49,7 +50,9 @@ export default function Header() {
         <Link to="/" className="logo">
           <img src={logo} alt="logo" />
         </Link>
-        <ul className={`nav-links container-lg ${openMenu ? "open" : ""}`}>
+        <ul
+          className={`nav-links ${lang === "ar" ? "ar" : "en"} container-lg ${openMenu ? "open" : ""}`}
+        >
           <li
             onClick={() => setOpenMenu(false)}
             className={"d-none  d-lg-flex  second-color"}
@@ -121,7 +124,7 @@ export default function Header() {
           )}
         </ul>
 
-        <div className="actions">
+        <div className={`actions  ${lang === "ar" ? "ar" : "en"} `}>
           {" "}
           <Link className="communites-link" to="/reels">
             {/* <img src={communities} /> */}

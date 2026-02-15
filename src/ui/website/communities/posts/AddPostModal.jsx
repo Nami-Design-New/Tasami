@@ -88,8 +88,67 @@ export default function AddPostModal({
     }
   }, [showModal, isEdit, postDetails, isLoading, categories, reset]);
 
+  // const onSubmit = async (data) => {
+  //   const formData = new FormData();
+  //   if (isEdit) {
+  //     formData.append("_method", "put");
+  //   }
+
+  //   formData.append("category_id", data.field);
+  //   formData.append("sub_category_id", data.specialization);
+  //   formData.append("title", data.title);
+  //   formData.append("desc", data.description);
+  //   formData.append("is_private", data.postType);
+
+  //   // Handle file upload in edit mode
+  //   if (data.files && data.files.length > 0) {
+  //     const file = data.files[0];
+
+  //     // Only append if it's a new File object
+  //     if (file instanceof File) {
+  //       formData.append("file", file);
+  //       formData.append("type", file.type.split("/")[0]);
+
+  //       const aspectRatio = await getAspectRatio(file);
+  //       if (aspectRatio) formData.append("aspect_ratio", aspectRatio);
+  //     }
+  //   }
+
+  //   // Handle links
+  //   if (data.links && data.links.length > 0) {
+  //     data.links.forEach((link, index) => {
+  //       if (link && link.trim() !== "") {
+  //         formData.append(`links[${index}]`, link);
+  //       }
+  //     });
+  //   } else {
+  //     formData.append("links", []);
+  //   }
+  //   console.log(data);
+
+  //   const mutation = isEdit ? editPost : addPost;
+
+  //   const id = postDetails?.id;
+
+  //   mutation(isEdit ? { postId: id, payload: formData } : formData, {
+  //     onSuccess: (res) => {
+  //       queryClient.invalidateQueries({ queryKey: ["community-posts"] });
+  //       if (isEdit) {
+  //         queryClient.invalidateQueries({ queryKey: ["post-details"] });
+  //       }
+  //       reset();
+  //       setShowModal(false);
+  //       toast.success(res.message);
+  //     },
+  //     onError: (error) => {
+  //       toast.error(error.message);
+  //     },
+  //   });
+  // };
+
   const onSubmit = async (data) => {
     const formData = new FormData();
+
     if (isEdit) {
       formData.append("_method", "put");
     }
@@ -100,11 +159,19 @@ export default function AddPostModal({
     formData.append("desc", data.description);
     formData.append("is_private", data.postType);
 
-    // Handle file upload in edit mode
+    //  Detect image deletion in edit mode
+    const originalHadFile = !!postDetails?.file;
+    const userRemovedFile =
+      originalHadFile && (!data.files || data.files.length === 0);
+
+    if (isEdit && userRemovedFile) {
+      deletePostImage(postDetails.id);
+    }
+
+    // Handle file upload (new file only)
     if (data.files && data.files.length > 0) {
       const file = data.files[0];
 
-      // Only append if it's a new File object
       if (file instanceof File) {
         formData.append("file", file);
         formData.append("type", file.type.split("/")[0]);
@@ -114,7 +181,7 @@ export default function AddPostModal({
       }
     }
 
-    // Handle links
+    // Handle links (same as before)
     if (data.links && data.links.length > 0) {
       data.links.forEach((link, index) => {
         if (link && link.trim() !== "") {
@@ -124,10 +191,8 @@ export default function AddPostModal({
     } else {
       formData.append("links", []);
     }
-    console.log(data);
 
     const mutation = isEdit ? editPost : addPost;
-
     const id = postDetails?.id;
 
     mutation(isEdit ? { postId: id, payload: formData } : formData, {
@@ -136,6 +201,7 @@ export default function AddPostModal({
         if (isEdit) {
           queryClient.invalidateQueries({ queryKey: ["post-details"] });
         }
+
         reset();
         setShowModal(false);
         toast.success(res.message);
@@ -146,22 +212,20 @@ export default function AddPostModal({
     });
   };
 
-  const handleDeletePostImage = () => {
-    if (!isEdit || !postDetails?.id || isDeletingPostImage) return;
+  // const handleDeletePostImage = () => {
+  //   if (!isEdit || !postDetails?.id || isDeletingPostImage) return;
 
-    deletePostImage(postDetails.id, {
-      onSuccess: (res) => {
-        queryClient.invalidateQueries({ queryKey: ["post-details"] });
-        reset({ ...watch(), files: [] });
-        toast.success(res.message);
-      },
-      onError: (error) => {
-        toast.error(error.message);
-      },
-    });
-  };
-
-  console.log("Post Form Errors:", errors);
+  //   deletePostImage(postDetails.id, {
+  //     onSuccess: (res) => {
+  //       queryClient.invalidateQueries({ queryKey: ["post-details"] });
+  //       reset({ ...watch(), files: [] });
+  //       toast.success(res.message);
+  //     },
+  //     onError: (error) => {
+  //       toast.error(error.message);
+  //     },
+  //   });
+  // };
 
   const isSubmitting = isEdit ? editPending : isPending;
   return (
@@ -235,7 +299,7 @@ export default function AddPostModal({
                       files={field.value}
                       onFilesChange={field.onChange}
                       aspectRatio={postDetails?.aspect_ratio}
-                      onDelete={handleDeletePostImage}
+                      // onDelete={handleDeletePostImage}
                     />
                   )}
                 />
