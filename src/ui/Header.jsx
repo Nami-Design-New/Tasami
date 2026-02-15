@@ -1,17 +1,16 @@
 import { useEffect, useRef, useState } from "react";
+import { Badge } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
 import { Link, NavLink, useNavigate } from "react-router";
-import LangDropdown from "./website/LangDropdown";
-import UserDropDown from "./website/UserDropDown";
-import CustomButton from "./CustomButton";
-import PlatformModal from "./website/platform/PlatformModal";
-import { Badge } from "react-bootstrap";
-import useSettings from "../hooks/website/settings/useSettings";
-import CustomLink from "./CustomLink";
-import useGetCountersNotify from "../hooks/website/useGetCountersNotify";
 import logo from "../assets/images/logo.svg";
-import communities from "../assets/icons/communities.svg";
+import useSettings from "../hooks/website/settings/useSettings";
+import useGetCountersNotify from "../hooks/website/useGetCountersNotify";
+import CustomButton from "./CustomButton";
+import CustomLink from "./CustomLink";
+import LangDropdown from "./website/LangDropdown";
+import PlatformModal from "./website/platform/PlatformModal";
+import UserDropDown from "./website/UserDropDown";
 
 export default function Header() {
   const { t } = useTranslation();
@@ -46,20 +45,20 @@ export default function Header() {
 
   return (
     <header className="main-header" ref={headerRef}>
-      <nav className="container-lg p-0">
+      <nav className=" p-0">
         <Link to="/" className="logo">
           <img src={logo} alt="logo" />
         </Link>
         <ul className={`nav-links container-lg ${openMenu ? "open" : ""}`}>
           <li
             onClick={() => setOpenMenu(false)}
-            className={"d-none  d-lg-flex"}
+            className={"d-none  d-lg-flex  second-color"}
           >
             <NavLink to={"/"}>{t("website.header.home")}</NavLink>
           </li>
           {user && (
             <>
-              <li onClick={() => setOpenMenu(false)}>
+              <li onClick={() => setOpenMenu(false)} className={"second-color"}>
                 <NavLink
                   className={"d-none align-items-center gap-2 d-lg-flex"}
                   to={"/my-works"}
@@ -72,7 +71,7 @@ export default function Header() {
                   )}
                 </NavLink>
               </li>
-              <li onClick={() => setOpenMenu(false)}>
+              <li onClick={() => setOpenMenu(false)} className={"second-color"}>
                 <NavLink to={"/my-profile"} className={"d-none  d-lg-flex"}>
                   {t("website.header.myAccount")}
                 </NavLink>
@@ -104,11 +103,12 @@ export default function Header() {
             <CustomButton
               size="small"
               style={{ whiteSpace: "nowrap" }}
+              variant="outlined"
               onClick={() => {
                 user.about ? navigate("my-platform") : setShowModal(true);
                 setOpenMenu(false);
               }}
-              className="mobile-only  gap-2 align-items-center"
+              className="mobile-only  gap-2 align-items-center   rounded-pill"
             >
               <i className="fa-regular fa-robot mx-1"></i>
               {t("profile.assistant")}{" "}
@@ -124,12 +124,12 @@ export default function Header() {
         <div className="actions">
           {" "}
           <Link className="communites-link" to="/reels">
-            <img src={communities} />
+            {/* <img src={communities} /> */}
             <span>{t("website.header.communities")}</span>
           </Link>
           <LangDropdown />
           {isAuthed && (
-            <Link to="/notifications" className="notification-btn me-1">
+            <Link to="/notifications" className="notification-btn">
               <i className="fa-regular fa-bell">
                 {settings?.notification_count > 0 && (
                   <Badge>
@@ -144,7 +144,8 @@ export default function Header() {
           {isAuthed && (
             <CustomButton
               size="small"
-              className="d-none d-lg-flex "
+              className="d-none d-lg-flex rounded-pill  "
+              variant="outlined"
               style={{ fontSize: "14px", whiteSpace: "nowrap" }}
               onClick={() => {
                 if (user) {

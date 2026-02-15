@@ -802,7 +802,7 @@ input::-ms-clear {
   top: 0;
   left: 0;
   width: 100%;
-  height: 80px;
+  min-height: 80px;
   padding: 1rem 2rem;
   background: rgba(255, 255, 255, 0.8);
   -webkit-backdrop-filter: blur(10px);
@@ -824,6 +824,7 @@ input::-ms-clear {
   align-items: center;
   justify-content: space-between;
   position: relative;
+  flex-wrap: wrap;
 }
 .main-header nav .logo img {
   height: 48px;
@@ -849,21 +850,49 @@ input::-ms-clear {
 .main-header nav .nav-links {
   list-style: none;
   display: flex;
-  gap: 1.5rem;
   transition: 0.3s;
-  justify-content: center;
+  align-items: center;
+  flex: 1;
+}
+.main-header nav .nav-links li {
+  width: -moz-fit-content;
+  width: fit-content;
 }
 .main-header nav .nav-links li a {
-  color: #4ecdc4;
-  font-weight: 500;
+  white-space: nowrap;
+  color: #666b88;
+  font-weight: light;
   text-decoration: none;
   transition: color 0.3s;
+  padding: 0 12px;
+  text-align: center;
+  display: flex;
 }
 .main-header nav .nav-links li a:hover {
-  color: #0d0d0d;
+  color: #4ecdc4;
 }
 .main-header nav .nav-links li a.active {
+  color: #4ecdc4;
+  font-weight: bold;
+}
+.main-header nav .nav-links li.second-color:not(:nth-child(3)) a {
+  border-left: 1px solid rgba(13, 13, 13, 0.0941176471);
+}
+.main-header nav .nav-links li.second-color:nth-child(3) {
+  margin-inline-end: auto;
+}
+.main-header nav .nav-links li.second-color a {
   color: #0d0d0d;
+  font-weight: bold;
+  text-decoration: none;
+  transition: color 0.3s;
+  padding: 0 12px;
+}
+.main-header nav .nav-links li.second-color a:hover {
+  color: #5fcafa;
+}
+.main-header nav .nav-links li.second-color a.active {
+  color: #5fcafa;
 }
 .main-header nav .nav-links .close-btn {
   display: none;
@@ -909,7 +938,7 @@ input::-ms-clear {
     cursor: pointer;
   }
   .main-header nav .nav-links .mobile-only {
-    display: block;
+    display: flex;
   }
 }
 .main-header nav .actions {
@@ -931,6 +960,7 @@ input::-ms-clear {
   border: none !important;
   height: 24px;
   width: 24px;
+  margin-inline-end: 12px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -941,13 +971,13 @@ input::-ms-clear {
   position: relative;
 }
 .main-header nav .actions .notification-btn i .badge {
-  font-size: 9px;
+  font-size: 8px;
   font-weight: 400;
-  width: 20px;
-  height: 20px;
+  width: 22px;
+  height: 22px;
   position: absolute;
-  left: 100%;
-  top: 5px;
+  left: 3;
+  top: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -980,7 +1010,7 @@ input::-ms-clear {
   }
 }
 .main-header nav .actions .communites-link {
-  background-color: #4ecdc4;
+  background-color: #b3ebe7;
   white-space: nowrap;
   padding: 6px 16px;
   border-radius: 100px;
