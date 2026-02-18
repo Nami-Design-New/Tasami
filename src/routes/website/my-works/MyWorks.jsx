@@ -65,7 +65,7 @@ export default function MyWorks() {
                 className="d-flex  align-content-center justify-content-center gap-2"
               >
                 {t("works.status.pending")}
-                {counterNotify.work_pending_unread_messages > 0 && (
+                {counterNotify?.work_pending_unread_messages > 0 && (
                   <span className="notification_span">
                     {counterNotify?.work_pending_unread_messages}
                   </span>

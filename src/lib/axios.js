@@ -35,6 +35,9 @@ axiosInstance.interceptors.response.use(
       case 403:
         window.location.href = "/forbidden";
         break;
+      case 404:
+        window.location.href = "/not-found";
+        break;
 
       case 500:
         console.error("Server error:", error.response?.data);

@@ -2,10 +2,12 @@ import { useTranslation } from "react-i18next";
 import { NavLink } from "react-router";
 import navLogo from "../assets/icons/navlogo.svg";
 import { useSelector } from "react-redux";
+import useGetCountersNotify from "../hooks/website/useGetCountersNotify";
 
 function ResponsiveNav() {
   const { t } = useTranslation();
   const { lang } = useSelector((state) => state.language);
+  const { counterNotify } = useGetCountersNotify();
 
   return (
     <div className="small_menu">
@@ -21,16 +23,18 @@ function ResponsiveNav() {
         <div className="d-flex flex-column gap-2 justify-content-center align-items-center position-relative">
           <i className="fa-solid fa-file-lines"></i>
           <span>{t("nav.myWorks")}</span>{" "}
-          <span
-            className="notification_span position-absolute"
-            style={
-              lang === "ar"
-                ? { top: "-12px", left: "-8px" }
-                : { top: "-12px", left: "8px" }
-            }
-          >
-            0
-          </span>
+          {counterNotify?.total_of_unread_work_without_finished > 0 && (
+            <span
+              className="notification_span position-absolute"
+              style={
+                lang === "ar"
+                  ? { top: "-12px", left: "-8px" }
+                  : { top: "-12px", left: "8px" }
+              }
+            >
+              {counterNotify?.total_of_unread_work_without_finished}
+            </span>
+          )}
         </div>
       </NavLink>
       <NavLink to="/my-profile" className="menu_item">

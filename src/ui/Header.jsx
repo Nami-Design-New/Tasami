@@ -46,7 +46,7 @@ export default function Header() {
 
   return (
     <header className="main-header" ref={headerRef}>
-      <nav className=" p-0">
+      <nav className="p-0">
         <Link to="/" className="logo">
           <img src={logo} alt="logo" />
         </Link>
