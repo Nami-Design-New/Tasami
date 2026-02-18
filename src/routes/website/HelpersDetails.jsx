@@ -34,6 +34,7 @@ export default function HelpersDetails() {
       setOptimisticFollow(assistantDetails.i_follow_him);
     }
   }, [assistantDetails]);
+
   const { toggleFollow, isPending } = useFollow();
 
   const handleBack = () => {

@@ -34,65 +34,127 @@ export default function ClientsCard({ helper }) {
 
   return (
     <>
-      <Link to={`/helper/${helper.id}`} className="helper-card">
-        <figure className="image-wrapper">
-          <img
-            src={helper.image}
-            alt={helper.name}
-            className="avatar"
-            loading="lazy"
-          />
-          {helper?.is_online && (
-            <span className="status-dot" aria-hidden="true"></span>
-          )}
-        </figure>
+      {helper.blocked ? (
+        <div className="helper-card">
+          <figure className="image-wrapper">
+            <img
+              src={helper.image}
+              alt={helper.name}
+              className="avatar"
+              loading="lazy"
+            />
+            {helper?.is_online && (
+              <span className="status-dot" aria-hidden="true"></span>
+            )}
+          </figure>
 
-        <section className="info">
-          <header className="info-header">
-            <h3>{helper.name}</h3>
-            <div className="rating">
-              <img
-                src={medalIcon}
-                alt="Medal icon"
-                className="rating-icon"
-                loading="lazy"
-              />
-              <span>{helper.experience_level}</span>
-            </div>
-          </header>
-
-          <footer className="meta">
-            {helper.country && (
-              <span className="country">
+          <section className="info">
+            <header className="info-header">
+              <h3>{helper.name}</h3>
+              <div className="rating">
                 <img
-                  src={flagIcon}
-                  alt={`${helper.country.title} flag`}
-                  className="flag-icon"
+                  src={medalIcon}
+                  alt="Medal icon"
+                  className="rating-icon"
                   loading="lazy"
                 />
-                <span>{helper.country.title}</span>
-              </span>
-            )}
+                <span>{helper.experience_level}</span>
+              </div>
+            </header>
 
-            <CustomButton
-              onClick={(e) => {
-                e.preventDefault();
-                e.stopPropagation();
-                if (helper.blocked) {
-                  setShowConfirmUnblockModal(true);
-                } else {
-                  setShowConfirmBlockModal(true);
-                }
-              }}
-              variant={helper.blocked ? "outlined" : "default"}
-              color="fire"
-              loading={isPending}
-            >
-              {helper.blocked ? t("unblock") : t("block")}
-            </CustomButton>
-          </footer>
-        </section>
-      </Link>
+            <footer className="meta">
+              {helper.country && (
+                <span className="country">
+                  <img
+                    src={flagIcon}
+                    alt={`${helper.country.title} flag`}
+                    className="flag-icon"
+                    loading="lazy"
+                  />
+                  <span>{helper.country.title}</span>
+                </span>
+              )}
+
+              <CustomButton
+                onClick={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  if (helper.blocked) {
+                    setShowConfirmUnblockModal(true);
+                  } else {
+                    setShowConfirmBlockModal(true);
+                  }
+                }}
+                variant={helper.blocked ? "outlined" : "default"}
+                color="fire"
+                loading={isPending}
+              >
+                {helper.blocked ? t("unblock") : t("block")}
+              </CustomButton>
+            </footer>
+          </section>
+        </div>
+      ) : (
+        <Link to={`/helper/${helper.id}`} className="helper-card">
+          <figure className="image-wrapper">
+            <img
+              src={helper.image}
+              alt={helper.name}
+              className="avatar"
+              loading="lazy"
+            />
+            {helper?.is_online && (
+              <span className="status-dot" aria-hidden="true"></span>
+            )}
+          </figure>
+
+          <section className="info">
+            <header className="info-header">
+              <h3>{helper.name}</h3>
+              <div className="rating">
+                <img
+                  src={medalIcon}
+                  alt="Medal icon"
+                  className="rating-icon"
+                  loading="lazy"
+                />
+                <span>{helper.experience_level}</span>
+              </div>
+            </header>
+
+            <footer className="meta">
+              {helper.country && (
+                <span className="country">
+                  <img
+                    src={flagIcon}
+                    alt={`${helper.country.title} flag`}
+                    className="flag-icon"
+                    loading="lazy"
+                  />
+                  <span>{helper.country.title}</span>
+                </span>
+              )}
+
+              <CustomButton
+                onClick={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  if (helper.blocked) {
+                    setShowConfirmUnblockModal(true);
+                  } else {
+                    setShowConfirmBlockModal(true);
+                  }
+                }}
+                variant={helper.blocked ? "outlined" : "default"}
+                color="fire"
+                loading={isPending}
+              >
+                {helper.blocked ? t("unblock") : t("block")}
+              </CustomButton>
+            </footer>
+          </section>
+        </Link>
+      )}
 
       {/* Block confirmation modal */}
       <AlertModal
