@@ -108,7 +108,7 @@ export default function ReelCard({ reel }) {
       },
     });
   };
-  const isMyPost = user.id === reel?.helper?.id;
+  const isMyPost = user?.id === reel?.helper?.id;
   return (
     <div className="social-card">
       {/* Header */}
