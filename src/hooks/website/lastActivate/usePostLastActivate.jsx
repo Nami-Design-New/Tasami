@@ -22,8 +22,9 @@
 import { useEffect } from "react";
 import { axiosInstance } from "../../../lib/axios";
 
-export default function usePostLastActivate() {
+export default function usePostLastActivate(isAuthed) {
   useEffect(() => {
+    if (!isAuthed) return;
     const LAST_CALL_KEY = "lastActivateCallAt";
     const lastCallTime = localStorage.getItem(LAST_CALL_KEY);
     const now = Date.now();
@@ -35,5 +36,5 @@ export default function usePostLastActivate() {
     axiosInstance.post("last-activate").finally(() => {
       localStorage.setItem(LAST_CALL_KEY, now.toString());
     });
-  }, []);
+  }, [isAuthed]);
 }

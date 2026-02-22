@@ -15,8 +15,8 @@ import useAuth from "../hooks/auth/useAuth";
 
 const WebsiteLayout = () => {
   const queryClient = useQueryClient();
-  const { user, loading } = useAuth();
-  usePostLastActivate();
+  const { user, loading ,isAuthed } = useAuth();
+  usePostLastActivate(isAuthed);
 
   // Initialize AOS animations
   useEffect(() => {
