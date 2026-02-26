@@ -5,7 +5,6 @@ import medalIcon from "../../../../assets/icons/medal.svg";
 export default function MemberCard({ member, exePercentage }) {
   const [showGoalDetails, setShowGoalDetails] = useState();
   const location = useLocation();
-  console.log(location.pathname);
 
   const isMyGroup = location?.pathname.includes("my-group");
   const navigate = useNavigate();
@@ -50,11 +49,13 @@ export default function MemberCard({ member, exePercentage }) {
         subCategory={member.goal_sub_category_title}
         title={member.title}
       />
-      {member?.member_pending_count && isMyGroup > 0 && (
+      {member?.member_pending_count &&
+      member?.member_pending_count > 0 &&
+      isMyGroup ? (
         <span className="notification_span notification_position-bottom">
           {member?.member_pending_count}
         </span>
-      )}
+      ) : null}
     </div>
   );
 }
