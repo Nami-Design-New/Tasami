@@ -10781,7 +10781,7 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
   gap: 1.25rem;
 }
 .legend-section .legend-title {
-  font-size: clamp(1rem, 2.5vw, 1.25rem);
+  font-size: clamp(0.875rem, 2vw, 1rem);
 }
 .legend-section .legend-list {
   display: flex;
