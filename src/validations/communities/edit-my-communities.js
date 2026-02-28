@@ -8,7 +8,7 @@ const getSchema = (t) =>
     profilePicture: yup
       .mixed()
       .nullable()
-      .test("fileSize", t("validation.fileSize"), (file) => {
+      .test("fileSize", t("validation.communityFileSize"), (file) => {
         if (!file) return true;
         return file.size <= 2 * 1024 * 1024;
       })
@@ -17,13 +17,15 @@ const getSchema = (t) =>
         if (typeof file === "string") return true;
         return file.type.startsWith("image/");
       }),
-
     price: yup
       .number()
       .typeError(t("validation.number"))
       .required(t("validation.required"))
-      .min(1, t("validation.min", { min: 1 })),
-
+      .test(
+        "price-validation",
+        t("validation.priceRange"), 
+        (value) => value === 0 || value >= 5
+      ),
     about: yup
       .string()
       .required(t("validation.required"))
