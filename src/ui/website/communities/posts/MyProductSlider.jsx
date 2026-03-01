@@ -43,7 +43,6 @@ export default function PostMedia({ post }) {
               ref={videoRef}
               src={media}
               autoPlay
-              muted
               loop
               playsInline
               controls={false}

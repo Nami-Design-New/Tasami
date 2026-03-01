@@ -10,8 +10,19 @@ export default function ReelCard({ reel }) {
   const navigate = useNavigate();
   const { user } = useSelector((state) => state.authRole);
   const videoRef = useRef(null);
+  const cardRef = useRef(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const queryClient = useQueryClient();
+  const [isBuffering, setIsBuffering] = useState(false);
+
+  const handleWaiting = () => {
+    setIsBuffering(true);
+  };
+
+  const handlePlaying = () => {
+    setIsBuffering(false);
+  };
+
   const togglePlay = () => {
     const video = videoRef.current;
     if (!video) return;
@@ -108,9 +119,69 @@ export default function ReelCard({ reel }) {
       },
     });
   };
+
+  const handleShare = () => {
+    if (navigator.share) {
+      navigator
+        .share({
+          title: reel.title,
+          text: reel.desc,
+          url: window.location.href,
+        })
+        .then(() => {
+          // Optimistically update UI
+          setSharesCount((prev) => prev + 1);
+          sharePost(reel.id, {
+            onSuccess: () => {
+              queryClient.refetchQueries({ queryKey: ["community-posts"] });
+              queryClient.refetchQueries({ queryKey: ["reels"] });
+              queryClient.invalidateQueries({ queryKey: ["post-details"] });
+            },
+            onError: () => setSharesCount((prev) => prev - 1),
+          });
+        })
+        .catch((error) => console.error("Share failed:", error));
+    } else {
+      // fallback → copy link
+      navigator.clipboard.writeText(window.location.href);
+      alert("Link copied to clipboard!");
+
+      setSharesCount((prev) => prev + 1);
+      sharePost(reel.id, {
+        onError: () => setSharesCount((prev) => prev - 1),
+      });
+    }
+  };
+  useEffect(() => {
+    const video = videoRef.current;
+    const card = cardRef.current;
+    if (!video || !card) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            // Auto-play when visible
+            video.play();
+            setIsPlaying(true);
+          } else {
+            // Pause and reset when out of view
+            video.pause();
+            video.currentTime = 0; // reset to start
+            setIsPlaying(false);
+          }
+        });
+      },
+      { threshold: 0.6 }, // 60% of video should be visible to play
+    );
+
+    observer.observe(card);
+
+    return () => observer.disconnect();
+  }, []);
   const isMyPost = user?.id === reel?.helper?.id;
   return (
-    <div className="social-card">
+    <div className="social-card" ref={cardRef}>
       {/* Header */}
       <div className="social-card__header">
         {" "}
@@ -152,7 +223,6 @@ export default function ReelCard({ reel }) {
                 src={reel?.file}
                 ref={videoRef}
                 loop
-                muted
                 playsInline
                 preload="metadata"
                 onClick={togglePlay}
@@ -161,10 +231,18 @@ export default function ReelCard({ reel }) {
                 onContextMenu={(e) => e.preventDefault()}
                 className="social-card__video"
                 style={{ aspectRatio: reel?.aspect_ratio }}
+                onWaiting={handleWaiting} // ← buffering starts
+                onPlaying={handlePlaying}
               ></video>
 
+              {/* Loader overlay */}
+              {isBuffering && (
+                <div className="play-button">
+                  <i className="fa-solid fa-spinner fa-spin"></i>
+                </div>
+              )}
               {/* Custom play button overlay */}
-              {!isPlaying && (
+              {!isPlaying && !isBuffering && (
                 <button className="play-button" onClick={togglePlay}>
                   <i className="fa-solid fa-play"></i>
                 </button>
@@ -197,14 +275,17 @@ export default function ReelCard({ reel }) {
         </div>
 
         <div className="social-card__action">
-          <span className="social-card__action-btn">
+          <Link
+            to={user ? `/posts/${reel.id}` : "/login"}
+            className="social-card__action-btn"
+          >
             <i className="fa-regular fa-eye"></i>
-          </span>
+          </Link>
           <span>{reel.views_count}</span>
         </div>
 
         <div className="social-card__action">
-          <button className="social-card__action-btn">
+          <button onClick={handleShare} className="social-card__action-btn">
             <i className="fa-solid fa-share"></i>
           </button>
           <span>{reel?.shares_count}</span>
