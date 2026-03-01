@@ -23,8 +23,8 @@ const getSchema = (t) =>
       .required(t("validation.required"))
       .test(
         "price-validation",
-        t("validation.priceRange"), 
-        (value) => value === 0 || value >= 5
+        t("validation.priceRange"),
+        (value) => value === 0 || value >= 5,
       ),
     about: yup
       .string()
