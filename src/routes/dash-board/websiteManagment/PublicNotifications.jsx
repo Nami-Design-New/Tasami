@@ -242,7 +242,7 @@ import PublicNotificationsSidebarFilter from "../../../ui/dash-board/websiteMana
 ======================= */
 const getSchema = (t) =>
   yup.object({
-    type: yup.string().required(t("validation.notificationTypeRequired")),
+    // type: yup.string().required(t("validation.notificationTypeRequired")),
 
     title: yup.string().required(t("validation.notificationTitleRequired")),
 
@@ -320,6 +320,7 @@ export default function PublicNotifications() {
   } = methods;
 
   const selectedType = watch("type");
+  console.log(errors);
 
   /* =======================
      Clear users if type=all
@@ -344,6 +345,7 @@ export default function PublicNotifications() {
       subcategoryId: normalizeValue(data.subcategoryId),
       packageId: normalizeValue(data.packageId),
       nationality: normalizeValue(data.nationality),
+      // type: "all",
     };
 
     sendPublicNotification(payload, {
