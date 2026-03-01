@@ -8,7 +8,7 @@ import { useSelector } from "react-redux";
 import title from "../../assets/icons/title.svg";
 import offerIcon from "../../assets/icons/offers-icon.svg";
 import PlatformModal from "../website/platform/PlatformModal";
-
+// goal card
 const GoalCard = ({ goal }) => {
   const { user } = useSelector((state) => state.authRole);
   const navigate = useNavigate();
