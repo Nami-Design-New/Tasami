@@ -38,7 +38,7 @@ export default function Contact() {
       .min(15, t("contact_error_message_min")),
   });
 
-  const { taskSystems, isLoading } = useGetTaskSystems();
+  const { taskSystems, isLoading } = useGetTaskSystems(user);
 
   const {
     register,
@@ -66,6 +66,8 @@ export default function Contact() {
       },
       onError: (error) => {
         error.message;
+        toast.error(error?.message || t("contact_error_generic"));
+        // reset();
       },
     });
   };
@@ -123,66 +125,73 @@ export default function Contact() {
         </div>
 
         <div className="row">
-          <div className="col-12 col-md-6 p-2">
-            <div className="contact-form-wrapper">
-              <h3 className="title">{t("contact_title")}</h3>
-              <p className="desc">{t("contact_description")}</p>
+          {user ? (
+            <>
+              {" "}
+              <div className="col-12 col-md-6 p-2">
+                <div className="contact-form-wrapper">
+                  <h3 className="title">{t("contact_title")}</h3>
+                  <p className="desc">{t("contact_description")}</p>
 
-              <form className="form_ui" onSubmit={handleSubmit(onSubmit)}>
-                {/* Subject Options */}
-                {isLoading ? (
-                  <>
-                    <div className="options mb-3">
-                      {[1, 2, 3, 4].map((link, index) => (
-                        <Placeholder
-                          animation="glow"
-                          key={index}
-                          xs={2}
-                          className="icon"
-                          style={{ height: "36px", borderRadius: "10px" }}
-                        >
-                          <Placeholder
-                            xs={12}
-                            style={{ height: "100%", borderRadius: "10px" }}
-                          />
-                        </Placeholder>
-                      ))}
-                    </div>
-                  </>
-                ) : (
-                  <div className="mb-3">
-                    <label className="form-label">{t("contact_subject")}</label>
-                    <div className="options">
-                      {taskSystems?.data?.map((opt) => (
-                        <button
-                          key={opt}
-                          type="button"
-                          className={activeOption === opt?.id ? "active" : ""}
-                          onClick={() => {
-                            setActiveOption(opt?.id);
-                            setValue("subject", opt?.id);
-                          }}
-                        >
-                          {opt.title}
-                        </button>
-                      ))}
-                    </div>
-                    {errors.subject && (
-                      <p className="error-text">{errors.subject.message}</p>
+                  <form className="form_ui" onSubmit={handleSubmit(onSubmit)}>
+                    {/* Subject Options */}
+                    {isLoading ? (
+                      <>
+                        <div className="options mb-3">
+                          {[1, 2, 3, 4].map((link, index) => (
+                            <Placeholder
+                              animation="glow"
+                              key={index}
+                              xs={2}
+                              className="icon"
+                              style={{ height: "36px", borderRadius: "10px" }}
+                            >
+                              <Placeholder
+                                xs={12}
+                                style={{ height: "100%", borderRadius: "10px" }}
+                              />
+                            </Placeholder>
+                          ))}
+                        </div>
+                      </>
+                    ) : (
+                      <div className="mb-3">
+                        <label className="form-label">
+                          {t("contact_subject")}
+                        </label>
+                        <div className="options">
+                          {taskSystems?.data?.map((opt) => (
+                            <button
+                              key={opt}
+                              type="button"
+                              className={
+                                activeOption === opt?.id ? "active" : ""
+                              }
+                              onClick={() => {
+                                setActiveOption(opt?.id);
+                                setValue("subject", opt?.id);
+                              }}
+                            >
+                              {opt.title}
+                            </button>
+                          ))}
+                        </div>
+                        {errors.subject && (
+                          <p className="error-text">{errors.subject.message}</p>
+                        )}
+                      </div>
                     )}
-                  </div>
-                )}
 
-                <div className="mb-3">
-                  <InputField
-                    label={t("contact_field_title")}
-                    placeholder={t("contact_placeholder_title")}
-                    {...register("title")}
-                    error={errors.title?.message}
-                  />
-                </div>
+                    <div className="mb-3">
+                      <InputField
+                        label={t("contact_field_title")}
+                        placeholder={t("contact_placeholder_title")}
+                        {...register("title")}
+                        error={errors.title?.message}
+                      />
+                    </div>
 
-                {/* <div className="mb-3">
+                    {/* <div className="mb-3">
                   <InputField
                     label={t("contact_field_name")}
                     placeholder={t("contact_placeholder_name")}
@@ -201,41 +210,70 @@ export default function Contact() {
                   />
                 </div> */}
 
-                <div className="mb-3">
-                  <TextField
-                    label={t("contact_field_message")}
-                    placeholder={t("contact_placeholder_message")}
-                    id="commentText"
-                    rows={4}
-                    {...register("message")}
-                    error={errors.message?.message}
-                  />
+                    <div className="mb-3">
+                      <TextField
+                        label={t("contact_field_message")}
+                        placeholder={t("contact_placeholder_message")}
+                        id="commentText"
+                        rows={4}
+                        {...register("message")}
+                        error={errors.message?.message}
+                      />
+                    </div>
+
+                    <CustomButton disabled={isPending} loading={isPending}>
+                      {t("contact_submit")}
+                    </CustomButton>
+                  </form>
                 </div>
+              </div>
+              <div className="col-12 col-md-6 p-2">
+                {" "}
+                <div className="contact-info-wrapper">
+                  <h3 className="info-title">{t("contact_info_title")}</h3>
+                  <p className="info-desc">{t("contact_info_description")}</p>
 
-                <CustomButton disabled={isPending} loading={isPending}>
-                  {t("contact_submit")}
-                </CustomButton>
-              </form>
-            </div>
-          </div>
+                  <h5 className="info-subtitle">
+                    {t("contact_info_how_can_we_help")}
+                  </h5>
+                  <ul className="info-list">
+                    <li>{t("contact_info_service_inquiry")}</li>
+                    <li>{t("contact_info_suggestions")}</li>
+                    <li>{t("contact_info_report_issue")}</li>
+                    <li>{t("contact_info_collaboration")}</li>
+                  </ul>
 
-          <div className="col-12 col-md-6 p-2">
-            <div className="map-wrapper">
-              <iframe
-                title="Location"
-                width="100%"
-                height="100%"
-                style={{
-                  borderRadius: "16px",
-                  minHeight: "600px",
-                  marginTop: "2rem",
-                }}
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3151.835434509375!2d144.9537363153156!3d-37.81627974202197!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6ad642af0f11fd6b%3A0xf577e5f51dfb4c9b!2sFederation%20Square!5e0!3m2!1sen!2sus!4v1633039339142!5m2!1sen!2sus"
-                allowFullScreen=""
-                loading="lazy"
-              ></iframe>
-            </div>
-          </div>
+                  <p className="info-footer">
+                    {t("contact_info_welcome_message")}
+                  </p>
+                </div>
+              </div>
+            </>
+          ) : (
+            <>
+              <div className="col-12  p-2">
+                {" "}
+                <div className="contact-info-wrapper">
+                  <h3 className="info-title">{t("contact_info_title")}</h3>
+                  <p className="info-desc">{t("contact_info_description")}</p>
+
+                  <h5 className="info-subtitle">
+                    {t("contact_info_how_can_we_help")}
+                  </h5>
+                  <ul className="info-list">
+                    <li>{t("contact_info_service_inquiry")}</li>
+                    <li>{t("contact_info_suggestions")}</li>
+                    <li>{t("contact_info_report_issue")}</li>
+                    <li>{t("contact_info_collaboration")}</li>
+                  </ul>
+
+                  <p className="info-footer">
+                    {t("contact_info_welcome_message")}
+                  </p>
+                </div>
+              </div>
+            </>
+          )}
         </div>
       </div>
     </section>

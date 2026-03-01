@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { axiosInstance } from "../../../lib/axios";
 
-export default function useGetTaskSystems() {
+export default function useGetTaskSystems(user) {
   const { data: taskSystems, isLoading } = useQuery({
     queryKey: ["task-systems-web"],
     queryFn: async () => {
@@ -12,6 +12,7 @@ export default function useGetTaskSystems() {
 
       return res.data;
     },
+    enabled: !!user,
   });
   return { taskSystems, isLoading };
 }

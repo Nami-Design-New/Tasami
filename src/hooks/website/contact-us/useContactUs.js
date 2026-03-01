@@ -6,7 +6,7 @@ export default function useContactUs() {
     mutationFn: async (payload) => {
       const res = await axiosInstance.post("contact-us", payload);
       if (res.data.code !== 200) {
-        throw new Error(res.date.message);
+        throw new Error(res?.data?.message);
       }
       return res.data;
     },

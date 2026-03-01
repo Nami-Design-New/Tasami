@@ -1300,3 +1300,45 @@
     }
   }
 }
+.contact-info-wrapper {
+  background-color: #f9f9f9;
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  height: 100%;
+
+  .info-title {
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    color: $main;
+  }
+
+  .info-desc {
+    font-size: 1rem;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+  }
+
+  .info-subtitle {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 0.8rem;
+  }
+
+  .info-list {
+    list-style: disc inside;
+    margin-bottom: 1.5rem;
+
+    li {
+      margin-bottom: 0.5rem;
+      font-size: 1rem;
+    }
+  }
+
+  .info-footer {
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: #555;
+  }
+}

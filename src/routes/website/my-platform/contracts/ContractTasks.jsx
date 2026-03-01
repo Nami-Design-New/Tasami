@@ -40,7 +40,8 @@ export default function ContractTasks() {
         <div className="info-box flex-grow-1">
           <h4 className="label">{t("works.myTasks.executionRate")}</h4>
           <p className="value">
-            {goalTasks["additional-data"]?.execution_percentage || "---"}
+            {/* {`${goalTasks["additional-data"]?.execution_percentage || "---"}%`} */}
+            {goalTasks["additional-data"]?.execution_percentage} %
           </p>
         </div>
       </div>

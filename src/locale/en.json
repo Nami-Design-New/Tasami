@@ -28,7 +28,14 @@
   "notifyUsers": "users",
   "community_level_new": "new",
   "sendInquiryAlert": "You have already sent an inquiry to this user and it has not been answered yet. Please wait until you receive a response before sending another inquiry.",
-
+  "contact_info_title": "Get in Touch with Tasamy Team",
+  "contact_info_description": "We are happy to hear from you. Whether you have a question, suggestion, note, or idea, we are all ears.",
+  "contact_info_how_can_we_help": "How can we help?",
+  "contact_info_service_inquiry": "Inquire about platform services and features",
+  "contact_info_suggestions": "Share suggestions to improve the experience",
+  "contact_info_report_issue": "Report a note or an issue",
+  "contact_info_collaboration": "Propose ideas or collaboration opportunities",
+  "contact_info_welcome_message": "Whatever your topic, it is welcome. Feel free to contact us through any of the available channels.",
   "meta": {
     "title": "tasamii – Your Ultimate Platform for Goal Setting & Achievement",
     "description": "Transform your ambitions into AI-powered action plans and connect with personal assistants and supportive communities to achieve your goals faster",
