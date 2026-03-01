@@ -46,7 +46,7 @@ export default function CommunityPostDetails() {
     navigate(-1);
   };
   if (isLoading) return <Loading />;
-  const isMyPost = user.id === postDetails?.helper?.id;
+  const isMyPost = user?.id === postDetails?.helper?.id;
   return (
     <section className="community-post-details page">
       <div className="container" style={{ maxWidth: "800px" }}>
@@ -77,29 +77,29 @@ export default function CommunityPostDetails() {
         <div className="post-image row">
           <div className="col-12 p-2">
             {/* Title */}
-            <h1 className="post-title">{postDetails.title}</h1>
+            <h1 className="post-title">{postDetails?.title}</h1>
           </div>
           <div className="col-12 p-2">
             {/* Description */}
-            <p className="post-description ">{postDetails.desc} </p>
+            <p className="post-description ">{postDetails?.desc} </p>
           </div>
-          {postDetails.links.length > 0 && (
+          {postDetails?.links?.length > 0 && (
             <div className="col-12 p-2">
               <div className="post-links">
                 <h3 className="links-title">{t("links")}</h3>
                 {postDetails?.links.map((link) => (
                   <a
                     className="post-link"
-                    key={link.id}
-                    href={link.link}
+                    key={link?.id}
+                    href={link?.link}
                     target="_blank"
                   >
                     <img
-                      onClick={() => handleCopy(link.link)}
+                      onClick={() => handleCopy(link?.link)}
                       src={fileIcon}
                       alt="file"
                     />
-                    <span>{link.link}</span>
+                    <span>{link?.link}</span>
                   </a>
                 ))}
               </div>

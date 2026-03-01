@@ -8,10 +8,13 @@ export default function useGetWorkDetails() {
     queryKey: ["work-details", id],
     queryFn: async () => {
       const res = await axiosInstance.get(`my-works/${id}`);
-      if (res.data.code !== 200) {
-        throw new Error(res.data.message, "Erro fetching work details");
+      if (res.data.code === 200) {
+        return res.data.data;
+      } else if (res.data.code === 404) {
+        window.location.href = "/not-found";
+        return null;
+        // throw new Error("Error Get Details");
       }
-      return res?.data?.data;
     },
   });
   return { workDetails, isLoading };

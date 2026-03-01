@@ -108,7 +108,7 @@ export default function PostsActions({ post }) {
         <div className="icon-circle">
           <img src={commentsIcon} alt="comments" />
         </div>
-        <span>{post.comments_count}</span>
+        <span>{post?.comments_count}</span>
       </div>
     </div>
   );

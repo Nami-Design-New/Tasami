@@ -31,7 +31,6 @@ axiosInstance.interceptors.response.use(
         removeToken();
         window.location.href = "/login";
         break;
-
       case 403:
         window.location.href = "/forbidden";
         break;

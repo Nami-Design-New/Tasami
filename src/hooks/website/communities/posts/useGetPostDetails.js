@@ -8,11 +8,13 @@ export default function useGetPostDetails() {
     queryKey: ["post-details", id],
     queryFn: async () => {
       const res = await axiosInstance.get(`posts/${id}`);
-      if (res.data.code !== 200) {
-        throw new Error("Error Get Details");
+      if (res.data.code === 200) {
+        return res.data.data;
+      } else if (res.data.code === 404) {
+        window.location.href = "/not-found";
+        return null;
+        // throw new Error("Error Get Details");
       }
-
-      return res.data.data;
     },
   });
 
