@@ -29,6 +29,21 @@
   "community_level_new": "new",
   "sendInquiryAlert": "You have already sent an inquiry to this user and it has not been answered yet. Please wait until you receive a response before sending another inquiry.",
 
+  "meta": {
+    "title": "tasamii – Your Ultimate Platform for Goal Setting & Achievement",
+    "description": "Transform your ambitions into AI-powered action plans and connect with personal assistants and supportive communities to achieve your goals faster",
+    "og": {
+      "title": "tasamii – Your Ultimate Platform for Goal Setting & Achievement",
+      "description": "Transform your ambitions into AI-powered action plans and connect with personal assistants and supportive communities to achieve your goals faster",
+      "image": "https://tasamii.com/images/og-cover.jpg"
+    },
+    "twitter": {
+      "title": "tasamii – Your Ultimate Platform for Goal Setting & Achievement",
+      "description": "Transform your ambitions into AI-powered action plans and connect with personal assistants and supportive communities to achieve your goals faster",
+      "image": "https://tasamii.com/images/og-cover.jpg",
+      "site": "@tasamii"
+    }
+  },
   "paymentContractDetails": {
     "title": "Payments",
     "contractValue": "Contract Value",
@@ -684,7 +699,7 @@
     "minAge": "Subscription is available for those who are {{age}} years old or older",
     "invalidPhoneNumber": "Phone number must contain only numbers",
     "number": "Must be a number",
-    "min": "{{field}} must be at least {{min}}", 
+    "min": "{{field}} must be at least {{min}}",
     "priceRange": "Price must be 0 (free) or at least 5.",
     "maxLength": "Must be at most {{max}} characters",
     "offerMinAge": "Minimum age is {{min}}",

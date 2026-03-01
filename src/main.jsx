@@ -4,6 +4,7 @@ import ReactDOM from "react-dom/client";
 import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
 import { persistor, store } from "./redux/store";
+import { HelmetProvider } from "react-helmet-async";
 import App from "./App";
 
 import "aos/dist/aos.css";
@@ -14,11 +15,11 @@ import "swiper/css/autoplay";
 import "./assets/styles/all.min.css";
 import "./assets/styles/style.css";
 
-// 👉 Import font files
+//  Import font files
 import dubaiRegular from "./assets/webfonts/Dubai-Bold.ttf";
 import dubaiBold from "./assets/webfonts/Dubai-Regular.ttf";
 
-// 👉 Preload helper
+//  Preload helper
 function preloadFont(href) {
   const link = document.createElement("link");
   link.rel = "preload";
@@ -29,7 +30,7 @@ function preloadFont(href) {
   document.head.appendChild(link);
 }
 
-// 👉 Preload above-the-fold fonts
+//  Preload above-the-fold fonts
 preloadFont(dubaiRegular);
 preloadFont(dubaiBold);
 
@@ -48,12 +49,14 @@ const queryClient = new QueryClient({
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
 root.render(
-  <QueryClientProvider client={queryClient}>
-    <ReactQueryDevtools initialIsOpen={false} />
-    <Provider store={store}>
-      <PersistGate loading={null} persistor={persistor}>
-        <App />
-      </PersistGate>
-    </Provider>
-  </QueryClientProvider>
+  <HelmetProvider>
+    <QueryClientProvider client={queryClient}>
+      <ReactQueryDevtools initialIsOpen={false} />
+      <Provider store={store}>
+        <PersistGate loading={null} persistor={persistor}>
+          <App />
+        </PersistGate>
+      </Provider>
+    </QueryClientProvider>
+  </HelmetProvider>,
 );

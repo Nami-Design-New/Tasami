@@ -12,10 +12,11 @@ import Loading from "../ui/loading/Loading";
 import ScrollToTop from "../ui/ScrollToTop";
 import LevelUpModal from "../ui/LevelUpModal";
 import useAuth from "../hooks/auth/useAuth";
+import SEO from "../ui/SEO";
 
 const WebsiteLayout = () => {
   const queryClient = useQueryClient();
-  const { user, loading ,isAuthed } = useAuth();
+  const { user, loading, isAuthed } = useAuth();
   usePostLastActivate(isAuthed);
 
   // Initialize AOS animations
@@ -63,6 +64,7 @@ const WebsiteLayout = () => {
 
   return (
     <>
+      <SEO />{" "}
       {loading ? (
         <Loading />
       ) : (
