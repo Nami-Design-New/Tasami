@@ -114,7 +114,7 @@ export default function UserContractChat() {
           container.scrollHeight -
             container.scrollTop -
             container.clientHeight <
-          150;
+          20;
         if (isNearBottom) container.scrollTop = container.scrollHeight;
       });
     });

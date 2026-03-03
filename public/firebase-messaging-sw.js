@@ -1,9 +1,9 @@
 /* eslint-disable no-undef */
 importScripts(
-  "https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"
+  "https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js",
 );
 importScripts(
-  "https://www.gstatic.com/firebasejs/10.8.0/firebase-messaging-compat.js"
+  "https://www.gstatic.com/firebasejs/10.8.0/firebase-messaging-compat.js",
 );
 
 firebase.initializeApp({
@@ -50,7 +50,7 @@ self.addEventListener("notificationclick", (event) => {
   const data = event.notification.data || {};
   let url = "/";
 
-  switch (data.notification_type) {
+  switch (item.type) {
     case "wallet":
       url = `/my-profile/my-wallet`;
       break;
@@ -58,16 +58,16 @@ self.addEventListener("notificationclick", (event) => {
       url = `/my-platform`;
       break;
     case "offer_accepted":
-      url = `/my-contracts/${data?.operation_id}`;
+      url = `/my-contracts/${item?.operation_id}`;
       break;
     case "contract_request":
-      url = `/my-contracts/${data?.operation_id}`;
+      url = `/my-contracts/${item?.operation_id}`;
       break;
-    case "help_service ":
-      url = `/offers/${data?.operation_id}`;
+    case "help_service":
+      url = `/offers/${item?.operation_id}`;
       break;
     case "goal":
-      url = `/goal/${data?.operation_id}`;
+      url = `/goal/${item?.operation_id}`;
       break;
     case "follow":
       url = `/my-platform/my-audience?tab=followers`;
@@ -76,7 +76,7 @@ self.addEventListener("notificationclick", (event) => {
       url = `/my-platform/my-audience?tab=members`;
       break;
     case "consultation":
-      url = `/consultaion-details/${data.operation_id}`;
+      url = `/consultaion-details/${item.operation_id}`;
       break;
     case "inquiry":
       url = `/notifications?tab=inquries`;
@@ -85,31 +85,31 @@ self.addEventListener("notificationclick", (event) => {
       url = `/my-community/meetings`;
       break;
     case "post":
-      url = `/posts/${data.operation_id}`;
+      url = `/posts/${item.operation_id}`;
       break;
     case "comment":
-      url = `/posts/${data.operation_id}`;
+      url = `/posts/${item.operation_id}`;
       break;
     case "offer":
-      url = `/my-works/${data?.operation_id}`;
+      url = `/my-works/${item?.operation_id}`;
       break;
     case "work":
-      url = `/goal/${data?.operation_id}`;
+      url = `/goal/${item?.operation_id}`;
       break;
     case "general":
       url = `/notifications`;
       break;
     case "community_chat":
-      url = `/community/${data.operation_id}/chats/`;
+      url = `/community/${item.operation_id}/chats/`;
       break;
     case "task":
-      url = `/tasks/${data.operation_id}/`;
+      url = `/tasks/${item.operation_id}/`;
       break;
     case "group_chat":
-      url = `/chat/${data.operation_id}`;
+      url = `/chat/${item.operation_id}`;
       break;
     case "contract":
-      url = `/my-contracts/${data.operation_id}/tasks`;
+      url = `/my-contracts/${item.operation_id}/beneficiaries`;
       break;
     default:
       url = "/";
@@ -132,6 +132,6 @@ self.addEventListener("notificationclick", (event) => {
       if (clients.openWindow) {
         return clients.openWindow(url);
       }
-    })()
+    })(),
   );
 });

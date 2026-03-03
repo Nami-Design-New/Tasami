@@ -167,12 +167,16 @@ export default function CommunityChat() {
       requestAnimationFrame(() => {
         const container = chatContainerRef.current;
         if (!container) return;
+
         const isNearBottom =
           container.scrollHeight -
             container.scrollTop -
             container.clientHeight <
-          150;
-        if (isNearBottom) container.scrollTop = container.scrollHeight;
+          20;
+
+        if (isNearBottom) {
+          container.scrollTop = container.scrollHeight;
+        }
       });
     });
 
