@@ -7,6 +7,8 @@ import {
 import { useRef, useState } from "react";
 import Modal from "react-bootstrap/Modal";
 import mapPin from "../../assets/sys-icons/map-pin.svg";
+import GlobalModal from "./GlobalModal";
+
 
 const MapModal = ({
   showModal,
