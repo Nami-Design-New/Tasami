@@ -1,4 +1,3 @@
-
 import { useTranslation } from "react-i18next";
 
 const TablePagination = ({
@@ -53,7 +52,7 @@ const TablePagination = ({
   return (
     <div className="pagination-container d-flex justify-content-between align-items-center">
       {/* Buttons */}
-      <div className="pagination-buttons d-flex align-items-center gap-2">
+      <div className="pagination-buttons d-flex align-items-center flex-wrap   gap-2">
         <button
           onClick={handlePrevious}
           disabled={currentPage === 1 || isLoading}
@@ -83,7 +82,7 @@ const TablePagination = ({
               >
                 {page}
               </button>
-            )
+            ),
           )}
         </div>
 

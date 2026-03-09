@@ -1,241 +1,19 @@
-// // import { Controller, useForm } from "react-hook-form";
-// import { yupResolver } from "@hookform/resolvers/yup";
-// import * as yup from "yup";
-// import { useTranslation } from "react-i18next";
-// import { useEffect, useMemo } from "react";
-
-// import useGetUsersAccountsInfinite from "../../../hooks/dashboard/subscription/useGetUsersAccountsInfinite";
-
-// import PageHeader from "../../../ui/PageHeader";
-// import FormWrapper from "../../../ui/forms/FormWrapper";
-// import InputField from "../../../ui/forms/InputField";
-// import SelectField from "../../../ui/forms/SelectField";
-// import SelectFieldReactSelect from "../../../ui/forms/SelectFieldReactSelect";
-// import TextField from "../../../ui/forms/TextField";
-// import CustomButton from "../../../ui/CustomButton";
-// import { Controller, useForm } from "react-hook-form";
-// import useSendPublicNotification from "../../../hooks/dashboard/websiteManagment/public-notifications/useSendPublicNotification";
-// import { toast } from "sonner";
-// import PublicNotificationsSidebarFilter from "../../../ui/dash-board/websiteManagment/PublicNotificationsSidebarFilter";
-
-// /* =======================
-//    Yup Validation Schema
-// ======================= */
-// const schema = yup.object({
-//   type: yup.string().required("Notification type is required"),
-
-//   title: yup.string().required("Notification title is required"),
-
-//   description: yup.string().required("Notification message is required"),
-
-//   usersIds: yup.array().when("type", {
-//     is: "specific",
-//     then: (schema) =>
-//       schema
-//         .min(1, "Please select at least one user")
-//         .required("Users are required"),
-//     otherwise: (schema) => schema.notRequired(),
-//   }),
-// });
-
-// export default function PublicNotifications() {
-//   const { t } = useTranslation();
-
-//   /* =======================
-//      Users Infinite Query
-//   ======================= */
-//   const {
-//     usersAccounts,
-//     isLoading,
-//     fetchNextPage,
-//     hasNextPage,
-//     isFetchingNextPage,
-//   } = useGetUsersAccountsInfinite();
-
-//   /* =======================
-//      Send Public Notification
-//   ======================= */
-//   const { sendPublicNotification, isSendingPublicNotification } =
-//     useSendPublicNotification();
-
-//   // const users = useMemo(
-//   //   () =>
-//   //     usersAccounts?.map((u) => ({
-//   //       value: u.id,
-//   //       name:
-//   //         `${u?.first_name} ${u?.last_name} / ${u?.account_code}` || "Unnamed",
-//   //     })),
-//   //   [usersAccounts],
-//   // );
-
-//   /* =======================
-//      React Hook Form
-//   ======================= */
-//   const {
-//     register,
-//     handleSubmit,
-//     control,
-//     watch,
-//     setValue,
-//     reset,
-//     formState: { errors },
-//   } = useForm({
-//     resolver: yupResolver(schema),
-//     defaultValues: {
-//       type: "all",
-//       usersIds: [],
-//     },
-//   });
-
-//   const selectedType = watch("type");
-
-//   /* =======================
-//      Clear users when type = all
-//   ======================= */
-//   useEffect(() => {
-//     if (selectedType === "all") {
-//       setValue("usersIds", []);
-//     }
-//   }, [selectedType, setValue]);
-
-//   /* =======================
-//      Submit
-//   ======================= */
-//   const onSubmit = (data) => {
-//     const payload = {
-//       ...data,
-//       usersIds: data.type === "specific" ? data?.usersIds : [],
-//     };
-
-//     sendPublicNotification(payload, {
-//       onSuccess: (res) => {
-//         toast.success(res.message || "Public notification sent successfully");
-//         reset();
-//       },
-//       onError: (err) => {
-//         toast.error(err.message || "Error sending public notification");
-//       },
-//     });
-//   };
-
-//   return (
-//     <section>
-//       <div className="p-2 d-flex align-items-center justify-content-between">
-//         <PageHeader />
-//       </div>
-//       <form className="form_ui" onSubmit={handleSubmit(onSubmit)}>
-//         <div className="row">
-//           <div className="col-3 p-2">
-//             <FormWrapper
-//               title={t("dashboard.public_notifications.sendChoices")}
-//             >
-//               <PublicNotificationsSidebarFilter />
-//             </FormWrapper>
-//           </div>
-//           <div className="col-9 p-2">
-//             <FormWrapper title={t("dashboard.public_notifications.title")}>
-//               <div className="row">
-//                 {/* Notification Type */}
-//                 {/* <div className="col-12 col-md-6 col-xl-4 p-2">
-//               <SelectField
-//                 label={t("dashboard.public_notifications.notificationType")}
-//                 {...register("type")}
-//                 error={errors.type?.message}
-//                 options={[
-//                   {
-//                     value: "all",
-//                     name: t("dashboard.public_notifications.all"),
-//                   },
-//                   {
-//                     value: "specific",
-//                     name: t("dashboard.public_notifications.specific"),
-//                   },
-//                 ]}
-//               />
-//             </div> */}
-
-//                 {/* Users (only when specific) */}
-//                 {/* {selectedType === "specific" && (
-//               <div className="col-12 col-md-6 col-xl-4 p-2">
-//                 <Controller
-//                   name="usersIds"
-//                   control={control}
-//                   render={({ field }) => (
-//                     <SelectFieldReactSelect
-//                       isMulti
-//                       label={t("notifyUsers")}
-//                       loading={isLoading || isFetchingNextPage}
-//                       value={field.value}
-//                       options={users}
-//                       onChange={field.onChange}
-//                       error={errors.usersIds?.message}
-//                       onMenuScrollToBottom={() => {
-//                         if (hasNextPage) fetchNextPage();
-//                       }}
-//                     />
-//                   )}
-//                 />
-//               </div>
-//             )} */}
-
-//                 {/* Title */}
-//                 <div className="col-12 p-2">
-//                   <InputField
-//                     {...register("title")}
-//                     label={t(
-//                       "dashboard.public_notifications.notificationTitle",
-//                     )}
-//                     error={errors.title?.message}
-//                   />
-//                 </div>
-
-//                 {/* Message */}
-//                 <div className="col-12 p-2">
-//                   <TextField
-//                     {...register("description")}
-//                     label={t(
-//                       "dashboard.public_notifications.notificationMessage",
-//                     )}
-//                     error={errors.description?.message}
-//                   />
-//                 </div>
-
-//                 {/* Submit */}
-//                 <div className="col-12 p-2">
-//                   <div className="d-flex justify-content-end">
-//                     <CustomButton
-//                       type="submit"
-//                       size="large"
-//                       loading={isSendingPublicNotification}
-//                     >
-//                       {t("dashboard.public_notifications.send")}
-//                     </CustomButton>
-//                   </div>
-//                 </div>
-//               </div>
-//             </FormWrapper>
-//           </div>
-//         </div>
-//       </form>
-//     </section>
-//   );
-// }
 import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
-import { useTranslation } from "react-i18next";
-import { useEffect, useMemo } from "react";
+import { useEffect } from "react";
 import { FormProvider, useForm } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 import { toast } from "sonner";
+import * as yup from "yup";
 
 import useGetUsersAccountsInfinite from "../../../hooks/dashboard/subscription/useGetUsersAccountsInfinite";
 import useSendPublicNotification from "../../../hooks/dashboard/websiteManagment/public-notifications/useSendPublicNotification";
 
+import CustomButton from "../../../ui/CustomButton";
 import PageHeader from "../../../ui/PageHeader";
+import PublicNotificationsSidebarFilter from "../../../ui/dash-board/websiteManagment/PublicNotificationsSidebarFilter";
 import FormWrapper from "../../../ui/forms/FormWrapper";
 import InputField from "../../../ui/forms/InputField";
 import TextField from "../../../ui/forms/TextField";
-import CustomButton from "../../../ui/CustomButton";
-import PublicNotificationsSidebarFilter from "../../../ui/dash-board/websiteManagment/PublicNotificationsSidebarFilter";
 
 /* =======================
    Yup Validation Schema
@@ -244,7 +22,13 @@ const getSchema = (t) =>
   yup.object({
     // type: yup.string().required(t("validation.notificationTypeRequired")),
 
+    title_en: yup.string().required(t("validation.notificationTitleRequired")),
+
     title: yup.string().required(t("validation.notificationTitleRequired")),
+
+    description_en: yup
+      .string()
+      .required(t("validation.notificationMessageRequired")),
 
     description: yup
       .string()
@@ -337,7 +121,12 @@ export default function PublicNotifications() {
   const onSubmit = (data) => {
     console.log(data);
     const payload = {
-      ...data,
+      // ...data,
+      "title:ar": data.title,
+      "title:en": data.title_en,
+      "description:ar": data.description,
+      "description:en": data.description_en,
+
       region: normalizeValue(data.region),
       country: normalizeValue(data.country),
       city: normalizeValue(data.city),
@@ -379,19 +168,41 @@ export default function PublicNotifications() {
             <div className="col-12 col-lg-9  p-2">
               <FormWrapper title={t("dashboard.public_notifications.title")}>
                 <div className="row">
-                  {/* Title */}
-                  <div className="col-12 p-2">
+                  {/* English Title */}
+                  <div className="col-12 col-md-6 p-2">
+                    <InputField
+                      {...register("title_en")}
+                      label={t(
+                        "dashboard.public_notifications.notificationTitle",
+                      )}
+                      hint="(en)"
+                      error={errors.title_en?.message}
+                    />
+                  </div>
+                  {/* Arabic Title */}
+                  <div className="col-12 col-md-6 p-2">
                     <InputField
                       {...register("title")}
                       name="title"
                       label={t(
                         "dashboard.public_notifications.notificationTitle",
                       )}
+                      hint="(ar)"
                       error={errors.title?.message}
                     />
                   </div>
 
-                  {/* Message */}
+                  {/* English Description */}
+                  <div className="col-12  p-2">
+                    <TextField
+                      {...register("description_en")}
+                      label={t(
+                        "dashboard.public_notifications.notificationMessage",
+                      )}
+                      hint="(en)"
+                      error={errors.description_en?.message}
+                    />
+                  </div>
                   <div className="col-12 p-2">
                     <TextField
                       {...register("description")}
@@ -399,6 +210,7 @@ export default function PublicNotifications() {
                       label={t(
                         "dashboard.public_notifications.notificationMessage",
                       )}
+                      hint="(ar)"
                       error={errors.description?.message}
                     />
                   </div>

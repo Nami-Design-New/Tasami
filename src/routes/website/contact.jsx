@@ -12,26 +12,30 @@ import InputField from "../../ui/forms/InputField";
 import TextField from "../../ui/forms/TextField";
 import useSettings from "../../hooks/website/settings/useSettings";
 import { Placeholder } from "react-bootstrap";
+import ContactDesc from "../../ui/ContactDesc";
+import useContactUsAsGuest from "../../hooks/website/contact-us/useContactUsAsGuest";
 
 export default function Contact() {
   const { t } = useTranslation();
   const [activeOption, setActiveOption] = useState(null);
   const { user } = useSelector((state) => state.authRole);
   const { contactUs, isPending } = useContactUs();
+  const { contactUsAsGuest, contactUsPendingGuest } = useContactUsAsGuest();
   const { settings, isLoading: settingsLoading } = useSettings();
 
   // Validation schema
   const schema = yup.object().shape({
-    subject: yup.string().required(t("contact_error_subject")),
+    subject: user
+      ? yup.string().required(t("contact_error_subject"))
+      : yup.string().nullable(),
     title: yup.string().required(t("contact_error_title")),
-    // name: yup
-    //   .string()
-    //   .required(t("contact_error_name"))
-    //   .min(6, t("contact_error_name_min")),
-    // email: yup
-    //   .string()
-    //   .required(t("contact_error_email"))
-    //   .email(t("contact_error_email_invalid")),
+
+    email: user
+      ? yup.string().nullable()
+      : yup
+          .string()
+          .required(t("contact_error_email"))
+          .email(t("contact_error_email_invalid")),
     message: yup
       .string()
       .required(t("contact_error_message"))
@@ -52,7 +56,7 @@ export default function Contact() {
 
   const onSubmit = async (data) => {
     const payload = {
-      task_system_id: data?.subject,
+      task_system_id: data?.subject || null,
       name: user?.name,
       email: user?.email,
       title: data?.title,
@@ -71,13 +75,25 @@ export default function Contact() {
       },
     });
   };
-
-  // const socialLinks = [
-  //   { href: "#", src: "/icons/insta.svg", label: t("contact_insta") },
-  //   { href: "#", src: "/icons/watsapp.svg", label: t("contact_whatsapp") },
-  //   { href: "#", src: "/icons/tiktok.svg", label: t("contact_tiktok") },
-  //   { href: "#", src: "/icons/snap.svg", label: t("contact_snapchat") },
-  // ];
+  const submit = async (data) => {
+    const payload = {
+      email: data?.email,
+      title: data?.title,
+      description: data?.message,
+    };
+    contactUsAsGuest(payload, {
+      onSuccess: (res) => {
+        toast.success(res?.message);
+        reset();
+      },
+      onError: (error) => {
+        error.message;
+        toast.error(error?.message || t("contact_error_generic"));
+        // reset();
+      },
+    });
+  };
+  console.log(errors);
 
   return (
     <section className="contact-page page">
@@ -127,7 +143,6 @@ export default function Contact() {
         <div className="row">
           {user ? (
             <>
-              {" "}
               <div className="col-12 col-md-6 p-2">
                 <div className="contact-form-wrapper">
                   <h3 className="title">{t("contact_title")}</h3>
@@ -162,7 +177,7 @@ export default function Contact() {
                         <div className="options">
                           {taskSystems?.data?.map((opt) => (
                             <button
-                              key={opt}
+                              key={opt?.id}
                               type="button"
                               className={
                                 activeOption === opt?.id ? "active" : ""
@@ -228,49 +243,54 @@ export default function Contact() {
                 </div>
               </div>
               <div className="col-12 col-md-6 p-2">
-                {" "}
-                <div className="contact-info-wrapper">
-                  <h3 className="info-title">{t("contact_info_title")}</h3>
-                  <p className="info-desc">{t("contact_info_description")}</p>
-
-                  <h5 className="info-subtitle">
-                    {t("contact_info_how_can_we_help")}
-                  </h5>
-                  <ul className="info-list">
-                    <li>{t("contact_info_service_inquiry")}</li>
-                    <li>{t("contact_info_suggestions")}</li>
-                    <li>{t("contact_info_report_issue")}</li>
-                    <li>{t("contact_info_collaboration")}</li>
-                  </ul>
-
-                  <p className="info-footer">
-                    {t("contact_info_welcome_message")}
-                  </p>
-                </div>
+                <ContactDesc />
               </div>
             </>
           ) : (
             <>
-              <div className="col-12  p-2">
-                {" "}
-                <div className="contact-info-wrapper">
-                  <h3 className="info-title">{t("contact_info_title")}</h3>
-                  <p className="info-desc">{t("contact_info_description")}</p>
+              <div className="col-12 col-md-6 p-2">
+                <div className="contact-form-wrapper">
+                  <h3 className="title">{t("contact_title")}</h3>
+                  <p className="desc">{t("contact_description")}</p>
 
-                  <h5 className="info-subtitle">
-                    {t("contact_info_how_can_we_help")}
-                  </h5>
-                  <ul className="info-list">
-                    <li>{t("contact_info_service_inquiry")}</li>
-                    <li>{t("contact_info_suggestions")}</li>
-                    <li>{t("contact_info_report_issue")}</li>
-                    <li>{t("contact_info_collaboration")}</li>
-                  </ul>
-
-                  <p className="info-footer">
-                    {t("contact_info_welcome_message")}
-                  </p>
+                  <form className="form_ui" onSubmit={handleSubmit(submit)}>
+                    <div className="mb-3">
+                      <InputField
+                        label={t("contact_field_email")}
+                        placeholder={t("contact_placeholder_email")}
+                        {...register("email")}
+                        error={errors.email?.message}
+                      />
+                    </div>{" "}
+                    <div className="mb-3">
+                      <InputField
+                        label={t("contact_field_title")}
+                        placeholder={t("contact_placeholder_title")}
+                        {...register("title")}
+                        error={errors.title?.message}
+                      />
+                    </div>
+                    <div className="mb-3">
+                      <TextField
+                        label={t("contact_field_message")}
+                        placeholder={t("contact_placeholder_message")}
+                        id="commentText"
+                        rows={4}
+                        {...register("message")}
+                        error={errors.message?.message}
+                      />
+                    </div>
+                    <CustomButton
+                      disabled={contactUsPendingGuest}
+                      loading={contactUsPendingGuest}
+                    >
+                      {t("contact_submit")}
+                    </CustomButton>
+                  </form>
                 </div>
+              </div>
+              <div className="col-12 col-md-6 p-2">
+                <ContactDesc />
               </div>
             </>
           )}
