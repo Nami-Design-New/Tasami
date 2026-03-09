@@ -17,7 +17,7 @@ export default function ProfileMenu({ profileDropDown, setProfileDropDown }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const queryClient = useQueryClient();
-  const { adminLogout } = useAdminLogout();
+  const { adminLogout, isPending } = useAdminLogout();
 
   const variants = {
     open: { opacity: 1, height: "max-content" },
@@ -102,7 +102,11 @@ export default function ProfileMenu({ profileDropDown, setProfileDropDown }) {
       <div className="select_frame">
         <div className="manage_invite">
           <div className="link ps-2">
-            <i className="fa-regular fa-arrow-right-from-bracket"></i>
+            {isPending ? (
+              <i className="fas fa-spinner fa-spin btn__spinner" />
+            ) : (
+              <i className="fa-regular fa-arrow-right-from-bracket"></i>
+            )}
             <Link onClick={handleAdminLogout}>
               {t("dashboard.profile.logout")}
             </Link>
