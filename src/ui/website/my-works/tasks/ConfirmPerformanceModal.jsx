@@ -19,7 +19,7 @@ export default function ConfirmPerformanceModal({
 }) {
   const { t } = useTranslation();
   const queryClient = useQueryClient();
-  const { user } = useSelector((state) => state.authRole);
+  const user = useSelector((state) => state.authRole.user);
   const { confirmPerformance, isPending } = useConfirmPerformance();
   const { pathname } = useLocation();
 
@@ -193,7 +193,11 @@ export default function ConfirmPerformanceModal({
             <div className="col-12 p-2">
               {" "}
               <AssistantWorkCard
-                helper={task?.helper}
+                helper={
+                  task?.rate && task?.rate?.helper !== null
+                    ? task.rate.helper
+                    : task?.helper
+                }
                 chat={false}
                 tohelper={true}
               />

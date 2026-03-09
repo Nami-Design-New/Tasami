@@ -17,15 +17,15 @@ export default function AssistantWorkCard({
         <Link
           to={
             tohelper
-              ? `/helper/${helper.id}`
+              ? `/helper/${helper?.id}`
               : `/assisatant/contarct/${contractId}`
           }
           className={`helper-card  ${prevAssistant ? "yellow" : ""}`}
         >
           <figure className="image-wrapper">
             <img
-              src={helper.image}
-              alt={helper.name}
+              src={helper?.image}
+              alt={helper?.name}
               className="avatar"
               loading="lazy"
             />
@@ -36,7 +36,7 @@ export default function AssistantWorkCard({
 
           <section className="info">
             <header className="info-header">
-              <h3>{helper.name}</h3>
+              <h3>{helper?.name}</h3>
               <div className="rating">
                 <img
                   src={medalIcon}
@@ -44,20 +44,20 @@ export default function AssistantWorkCard({
                   className="rating-icon"
                   loading="lazy"
                 />
-                <span>{helper.experience_level}</span>
+                <span>{helper?.experience_level}</span>
               </div>
             </header>
 
             <footer className="meta">
-              {helper.country && (
+              {helper?.country && (
                 <span className="country">
                   <img
                     src={flagIcon}
-                    alt={`${helper.country.title} flag`}
+                    alt={`${helper?.country.title} flag`}
                     className="flag-icon"
                     loading="lazy"
                   />
-                  <span>{helper.country.title}</span>
+                  <span>{helper?.country.title}</span>
                 </span>
               )}
 
@@ -86,8 +86,8 @@ export default function AssistantWorkCard({
         <div className={`helper-card  ${prevAssistant ? "yellow" : ""}`}>
           <figure className="image-wrapper">
             <img
-              src={helper.image}
-              alt={helper.name}
+              src={helper?.image}
+              alt={helper?.name}
               className="avatar"
               loading="lazy"
             />
@@ -98,7 +98,7 @@ export default function AssistantWorkCard({
 
           <section className="info">
             <header className="info-header">
-              <h3>{helper.name}</h3>
+              <h3>{helper?.name}</h3>
               <div className="rating">
                 <img
                   src={flagIcon}
@@ -106,20 +106,20 @@ export default function AssistantWorkCard({
                   className="rating-icon"
                   loading="lazy"
                 />
-                <span>{helper.experience_level}</span>
+                <span>{helper?.experience_level}</span>
               </div>
             </header>
 
             <footer className="meta">
-              {helper.country && (
+              {helper?.country && (
                 <span className="country">
                   <img
                     src={flagIcon}
-                    alt={`${helper.country.title} flag`}
+                    alt={`${helper?.country.title} flag`}
                     className="flag-icon"
                     loading="lazy"
                   />
-                  <span>{helper.country.title}</span>
+                  <span>{helper?.country.title}</span>
                 </span>
               )}
 
