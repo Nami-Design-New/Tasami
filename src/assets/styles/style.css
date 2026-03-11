@@ -1316,11 +1316,15 @@ input::-ms-clear {
 .footer2 .copyright .socials {
   display: flex;
   align-items: center;
-  gap: 24px;
+  gap: 12px;
 }
 .footer2 .copyright .socials a {
   color: rgba(13, 13, 13, 0.5607843137);
   transition: 0.3s ease-in-out;
+}
+.footer2 .copyright .socials a img {
+  width: 28px;
+  height: 28px;
 }
 .footer2 .copyright .socials a:hover {
   color: #5fcafa;

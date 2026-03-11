@@ -93,7 +93,6 @@ export default function Contact() {
       },
     });
   };
-  console.log(errors);
 
   return (
     <section className="contact-page page">

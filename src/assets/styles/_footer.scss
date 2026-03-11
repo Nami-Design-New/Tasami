@@ -137,11 +137,15 @@
     .socials {
       display: flex;
       align-items: center;
-      gap: 24px;
+      gap: 12px;
 
       a {
         color: $gray;
         transition: $transition;
+        img {
+          width: 28px;
+          height: 28px;
+        }
 
         &:hover {
           color: $second;
