@@ -2,16 +2,19 @@ import { AnimatePresence, motion } from "framer-motion";
 import { useState } from "react";
 import useGetFAQs from "../../hooks/website/settings/useGetFAQs";
 import { useTranslation } from "react-i18next";
-// import PaginationCustom from "../../ui/PaginationCustom";
+import InfiniteScroll from "../../ui/loading/InfiniteScroll";
+import EmptySection from "../../ui/EmptySection";
+import AudienceCardLoader from "../../ui/loading/AudienceCardLoader";
+import { Placeholder } from "react-bootstrap";
+import InterestsLoading from "../../ui/loading/InterestsLoading";
 
 export default function FAQsSection() {
   const { t } = useTranslation();
-  const [page, setPage] = useState(1);
-  const { data, isLoading } = useGetFAQs(page);
 
-  const faqs = data?.data || [];
-  const currentPage = data?.current_page || 1;
-  const lastPage = data?.last_page || 1;
+  const { data, isLoading, fetchNextPage, hasNextPage, isFetchingNextPage } =
+    useGetFAQs();
+
+  const faqs = data?.pages?.flatMap((page) => page.data) || [];
 
   const [activeId, setActiveId] = useState(null);
 
@@ -30,14 +33,20 @@ export default function FAQsSection() {
         >
           <h2 className="main-title">
             <i className="fa-solid fa-circle-question me-2"></i>
-            {t("faqs_title_main")} <span>{t("faqs_title_span")}</span>{" "}
+            {t("faqs_title_main")} <span>{t("faqs_title_span")}</span>
           </h2>
         </motion.div>
-
+        {!isLoading && faqs?.length === 0 && (
+          <EmptySection height="300px" message={t("noFaqsAvailable")} />
+        )}
         {isLoading ? (
           <></>
         ) : (
-          <>
+          <InfiniteScroll
+            onLoadMore={fetchNextPage}
+            hasNextPage={hasNextPage}
+            isFetchingNextPage={isFetchingNextPage}
+          >
             <div className="faq-list">
               {faqs.map((faq) => (
                 <div
@@ -72,16 +81,18 @@ export default function FAQsSection() {
                     )}
                   </AnimatePresence>
                 </div>
-              ))}
+              ))}{" "}
+              {(isLoading || isFetchingNextPage) && (
+                <>
+                  {[1, 2, 3].map((i) => (
+                    <div className="col-12  p-2" key={i}>
+                      <InterestsLoading />
+                    </div>
+                  ))}
+                </>
+              )}
             </div>
-
-            {/* Reusable Pagination */}
-            {/* <PaginationCustom
-              currentPage={currentPage}
-              totalPages={lastPage}
-              onPageChange={setPage}
-            /> */}
-          </>
+          </InfiniteScroll>
         )}
       </div>
     </section>

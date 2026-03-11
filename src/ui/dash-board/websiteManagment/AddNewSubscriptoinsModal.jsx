@@ -12,17 +12,36 @@ import { useTranslation } from "react-i18next";
 import { useQueryClient } from "@tanstack/react-query";
 import GlobalModal from "../../GlobalModal";
 
-const subscriptionSchema = yup.object().shape({
-  name_ar: yup.string().required(),
-  name_en: yup.string().required(),
-  yearlyPrice: yup.number().required(),
-  halfYearlyPrice: yup.number().required(),
-  maxOffers: yup.number().required(),
-  maxGroups: yup.number().required(),
-  maxSeats: yup.number().required(),
-  commission: yup.number().required(),
-  image: yup.mixed().nullable(),
-});
+const getSubscriptionSchema = (t) =>
+  yup.object().shape({
+    name_ar: yup.string().required(t("validation.required")),
+    name_en: yup.string().required(t("validation.required")),
+    yearlyPrice: yup
+      .number()
+      .typeError(t("validation.number"))
+      .required(t("validation.required")),
+    halfYearlyPrice: yup
+      .number()
+      .typeError(t("validation.number"))
+      .required(t("validation.required")),
+    maxOffers: yup
+      .number()
+      .typeError(t("validation.number"))
+      .required(t("validation.required")),
+    maxGroups: yup
+      .number()
+      .typeError(t("validation.number"))
+      .required(t("validation.required")),
+    maxSeats: yup
+      .number()
+      .typeError(t("validation.number"))
+      .required(t("validation.required")),
+    commission: yup
+      .number()
+      .typeError(t("validation.number"))
+      .required(t("validation.required")),
+    image: yup.mixed().nullable(),
+  });
 
 export default function AddNewSubscriptionsModal({
   setShowModal,
@@ -44,7 +63,7 @@ export default function AddNewSubscriptionsModal({
     reset,
     formState: { errors },
   } = useForm({
-    resolver: yupResolver(subscriptionSchema),
+    resolver: yupResolver(getSubscriptionSchema(t)),
     defaultValues: {
       name_ar: "",
       name_en: "",
@@ -112,7 +131,7 @@ export default function AddNewSubscriptionsModal({
             setShowModal(false);
           },
           onError: (err) => toast.error(err.message),
-        }
+        },
       );
     } else {
       createPackage(payload, {
@@ -176,7 +195,7 @@ export default function AddNewSubscriptionsModal({
                     <InputField
                       {...field}
                       label={`${t(
-                        "dashboard.subscriptions.plan_name"
+                        "dashboard.subscriptions.plan_name",
                       )} (${lang.toUpperCase()})`}
                       error={errors[`name_${lang}`]?.message}
                     />
@@ -185,7 +204,7 @@ export default function AddNewSubscriptionsModal({
               </div>
             ))}
 
-            {existingData.type !== "free" && (
+            {existingData?.type !== "free" && (
               <>
                 {/* Yearly price */}
                 <div className="col-12 col-lg-6 p-2">

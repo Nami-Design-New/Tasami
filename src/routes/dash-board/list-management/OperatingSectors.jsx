@@ -202,7 +202,7 @@ const OperatingSectors = () => {
                   <InputField
                     key={`regions-${lang}`}
                     label={`${t(
-                      "dashboard.operatingRegions.regionName"
+                      "dashboard.operatingRegions.regionName",
                     )} (${lang})`}
                     placeholder={t("dashboard.operatingRegions.regionName")}
                     {...regionForm.register(`region.${lang}`)}
@@ -262,7 +262,7 @@ const OperatingSectors = () => {
                   <InputField
                     key={`country-${lang}`}
                     label={`${t(
-                      "dashboard.operatingRegions.countryName"
+                      "dashboard.operatingRegions.countryName",
                     )} (${lang})`}
                     placeholder={t("dashboard.operatingRegions.countryName")}
                     {...countryForm.register(`country.${lang}`)}
@@ -399,7 +399,7 @@ const OperatingSectors = () => {
                   <InputField
                     key={`city-${lang}`}
                     label={`${t(
-                      "dashboard.operatingRegions.cityName"
+                      "dashboard.operatingRegions.cityName",
                     )} (${lang})`}
                     placeholder={t("dashboard.operatingRegions.cityName")}
                     {...cityForm.register(`city.${lang}`)}

@@ -17,6 +17,22 @@
   "verify": "توثيق الهاتف ",
   "ok": "حسناً",
   "change": "تغيير",
+  "noFaqsAvailable": "لا توجد اسئلة متاحة",
+  "region_required": "هذا الحقل مطلوب",
+  "regionNumber_required": "رقم الإقليم مطلوب",
+  "regionNumber_numeric": "رقم الإقليم يجب أن يكون رقمًا فقط",
+
+  "countryRegion_required": "يجب اختيار الإقليم",
+  "country_required": "هذا الحقل مطلوب",
+  "countryNumber_required": "رقم القطاع مطلوب",
+  "countryNumber_numeric": "رقم القطاع يجب أن يكون رقمًا",
+  "countryCode_required": "كود الدولة مطلوب",
+  "countryFlag_required": "العلم مطلوب",
+
+  "cityCountry_required": "يجب اختيار الدولة",
+  "city_required": "هذا الحقل مطلوب",
+  "cityNumber_required": "رقم المدينة مطلوب",
+  "cityNumber_numeric": "رقم المدينة يجب أن يكون رقمًا",
 
   "canNotDelete": "لا يمكن حذف هذه المجموعة لأنها تحتوي على أعضاء.",
   "resume": "السيرة الذاتية",

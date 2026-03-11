@@ -26,12 +26,8 @@ export default function ContentModal({
 
   // Yup schema dynamically for all supported languages
   const schemaShape = SUPPORTED_LANGS.reduce((acc, lang) => {
-    acc[`question_${lang}`] = yup
-      .string()
-      .required(t("dashboard.faq.modal.question") + " " + t("required"));
-    acc[`answer_${lang}`] = yup
-      .string()
-      .required(t("dashboard.faq.modal.answer") + " " + t("required"));
+    acc[`question_${lang}`] = yup.string().required(t("validation.required"));
+    acc[`answer_${lang}`] = yup.string().required(t("validation.required"));
     return acc;
   }, {});
 
@@ -94,7 +90,7 @@ export default function ContentModal({
           onError: (error) => {
             toast.error(error.message);
           },
-        }
+        },
       );
     } else {
       addNewFaq(
@@ -114,7 +110,7 @@ export default function ContentModal({
           onError: (error) => {
             toast.error(error.message);
           },
-        }
+        },
       );
     }
   };
@@ -151,7 +147,7 @@ export default function ContentModal({
                     <InputField
                       label={`${t("dashboard.faqs.modal.question")} (${lang})`}
                       placeholder={`${t(
-                        "dashboard.faqs.modal.question"
+                        "dashboard.faqs.modal.question",
                       )} (${lang})`}
                       {...field}
                       error={errors[`question_${lang}`]?.message}
@@ -170,7 +166,7 @@ export default function ContentModal({
                     <TextField
                       label={`${t("dashboard.faqs.modal.answer")} (${lang})`}
                       placeholder={`${t(
-                        "dashboard.faqs.modal.answer"
+                        "dashboard.faqs.modal.answer",
                       )} (${lang})`}
                       {...field}
                       error={errors[`answer_${lang}`]?.message}
