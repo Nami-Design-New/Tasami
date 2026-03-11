@@ -213,6 +213,7 @@ const OperatingSectors = () => {
                   label={t("dashboard.operatingRegions.regionNumber")}
                   placeholder={t("dashboard.operatingRegions.regionNumber")}
                   {...regionForm.register("regionNumber")}
+                  error={regionForm.formState.errors?.regionNumber?.message}
                 />
                 <CustomButton
                   icon={<i className="fa-regular fa-plus"></i>}
