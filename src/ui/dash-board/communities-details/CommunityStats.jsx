@@ -13,7 +13,7 @@ export default function CommunityStats({ community }) {
       <CommunityStat
         title={t("members")}
         icon={groupSecond}
-        value={community?.members_count || community?.user_count}
+        value={community?.members_count || community?.user_count || 0}
         label={t("member")}
       />
       <CommunityStat

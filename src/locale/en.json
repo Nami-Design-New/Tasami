@@ -1,4 +1,5 @@
 {
+  "notAvailable": "Not available",
   "goalWithoutHelper": "Goal without Personal Assistant",
   "goalWithHelper": "Goal with Personal Assistant",
   "helpOffer": "Help Offer",
@@ -141,7 +142,7 @@
   "write_here": "Write here...",
   "please_enter_reason": "Please enter a reason",
   "daily": "Daily",
-  "weakly": "ًWeekly",
+  "weekly": "ًWeekly",
   "cancelContract": "Reason for terminating the contract",
   "none": "None",
   "interestAlert": "At least one selection is required to save.",

@@ -21,7 +21,7 @@ const PersonalGoals = () => {
   const { personalGoal, currentPage, lastPage, isLoading } = useGetPersonalGoal(
     searchQuery,
     page,
-    PAGE_SIZE
+    PAGE_SIZE,
   );
 
   const userGrowthSeries = [
@@ -86,7 +86,7 @@ const PersonalGoals = () => {
         header: t("dashboard.personalGoals.table.accountNumber"),
         cell: (info) => (
           <Link
-            to={`/dashboard/user-details/${info?.row?.original.user.id}`}
+            to={`/dashboard/user-details/${info?.row?.original?.user?.id}`}
             className="link-styles"
           >
             {info.getValue()}
@@ -153,7 +153,7 @@ const PersonalGoals = () => {
         header: t("dashboard.personalGoals.table.specialization"),
       }),
     ],
-    [t]
+    [t],
   );
   return (
     <section className="mt-5">

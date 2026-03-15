@@ -1,11 +1,11 @@
 import { Link } from "react-router";
 import { useTranslation } from "react-i18next";
 import logo from "../assets/images/logo.svg";
-import useSettings from "../hooks/website/settings/useSettings";
-import { Placeholder } from "react-bootstrap";
+// import useSettings from "../hooks/website/settings/useSettings";
+// import { Placeholder } from "react-bootstrap";
 export default function Footer() {
   const { t } = useTranslation();
-  const { settings, isLoading: settingsLoading } = useSettings();
+  // const { settings, isLoading: settingsLoading } = useSettings();
 
   return (
     <footer className="footer2">
@@ -66,7 +66,7 @@ export default function Footer() {
                 })}{" "}
                 <span>{t("footer.copyright.brand")}</span>
               </p>
-              <div className="socials">
+              {/* <div className="socials">
                 {settingsLoading ? (
                   <p></p>
                 ) : (
@@ -74,12 +74,11 @@ export default function Footer() {
                     {settings?.social_links.map((link, index) => (
                       <a href={link.link} key={index}>
                         <img src={link.logo} alt={link.id} />
-                        {/* <span>{link.id}</span> */}
                       </a>
                     ))}
                   </>
                 )}
-              </div>
+              </div> */}
             </div>
           </div>
         </div>

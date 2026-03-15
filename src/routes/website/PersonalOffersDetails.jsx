@@ -130,7 +130,11 @@ export default function PersonalOffersDetails() {
             {offerDetails.help_service?.notes && (
               <div className="extra-terms">
                 <h2>{t("website.offerDetails.extraTerms")}</h2>
-                <p>{offerDetails?.help_service?.notes}</p>
+                <p>
+                  {offerDetails?.help_service?.notes === "null"
+                    ? t("notAvailable")
+                    : offerDetails?.help_service?.notes}
+                </p>
               </div>
             )}
 
