@@ -727,7 +727,21 @@
     "clientsRightTitle": "Clients Rights & Responsibilities",
     "clientsRightDesc": "Understand your rights as a client and your obligations when using the platform to ensure a safe and fair experience for all users.",
     "commissionsTitle": "Commissions, Payment & Eligibility",
-    "commissionsDesc": "Learn about commission rates, how payments are calculated, and the requirements for disbursing earnings to assistants and clients."
+    "commissionsDesc": "Learn about commission rates, how payments are calculated, and the requirements for disbursing earnings to assistants and clients.",
+    "communitiesTitle": "Tasamii Communities",
+    "communitiesDesc": "Explore Tasamii communities where users connect, share interests, and collaborate to support each other and achieve common goals.",
+
+    "personalGoalsTitle": "Personal Goals",
+    "personalGoalsDesc": "Set and track your personal goals, and get support from the community or helpers to achieve them effectively.",
+
+    "helpRequestsTitle": "Help Requests",
+    "helpRequestsDesc": "Submit requests for help, describe your needs clearly, and receive support from qualified helpers within the platform.",
+
+    "personalOffersTitle": "Help Offers",
+    "personalOffersDesc": "Browse and publish offers to help others by sharing your skills, time, and expertise with those in need.",
+
+    "helpersAccountsTitle": "Helper Accounts",
+    "helpersAccountsDesc": "Manage helper profiles, showcase skills and experience, and build trust with users seeking assistance."
   },
   "validation": {
     "mustBeDate": "Please enter a valid date.",

@@ -77,23 +77,29 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <Link to="/personal-goals">
+                <Link to="/about-perosnal-goals">
                   {t("footer.services.personalGoals")}
                 </Link>
               </li>
               <li>
-                <Link to="/how-it-works">{t("footer.services.requests")}</Link>
+                <Link to="/about-help-requests">
+                  {t("footer.services.requests")}
+                </Link>
               </li>
               <li>
-                <Link to="/offers">{t("footer.services.offers")}</Link>
+                <Link to="/about-help-offers">
+                  {t("footer.services.offers")}
+                </Link>
               </li>
               <li>
-                <Link to="/personal-helpers">
+                <Link to="/about-personal-helpers">
                   {t("footer.services.assistants")}
                 </Link>
               </li>
               <li>
-                <Link to="/reels">{t("footer.services.communities")}</Link>
+                <Link to="/about-tasamii-communities">
+                  {t("footer.services.communities")}
+                </Link>
               </li>
               <li>
                 <Link to="/commissions">

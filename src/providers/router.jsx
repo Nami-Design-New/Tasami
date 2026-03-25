@@ -155,6 +155,11 @@ import RefundPolicy from "../routes/website/RefundPolicy";
 import ClientsRights from "../routes/website/ClientsRights";
 import Commissions from "../routes/website/Commissions";
 import AboutTasamiiContent from "../routes/dash-board/websiteManagment/AboutTasamiiContent";
+import AboutPersonalGoals from "../routes/website/AboutPersonalGoals";
+import AboutHelpRequests from "../routes/website/AboutHelpRequests";
+import AboutHelpOffers from "../routes/website/AboutHelpOffers";
+import AboutPersonalHelpers from "../routes/website/AboutPersonalHelpers";
+import AboutTasamiiCommunites from "../routes/website/AboutTasamiiCommunites";
 
 const getBasename = () => {
   const currentUrl = window.location.href;
@@ -250,6 +255,27 @@ export const router = createBrowserRouter(
         {
           path: "clients-rights",
           element: <ClientsRights />,
+        },
+
+        {
+          path: "about-perosnal-goals",
+          element: <AboutPersonalGoals />,
+        },
+        {
+          path: "about-help-requests",
+          element: <AboutHelpRequests />,
+        },
+        {
+          path: "about-help-offers",
+          element: <AboutHelpOffers />,
+        },
+        {
+          path: "about-personal-helpers",
+          element: <AboutPersonalHelpers />,
+        },
+        {
+          path: "about-tasamii-communities",
+          element: <AboutTasamiiCommunites />,
         },
         {
           path: "commissions",
