@@ -1,17 +1,19 @@
-import { motion } from "framer-motion";
 import { useTranslation } from "react-i18next";
-import Loading from "../../ui/loading/Loading";
 import useSettings from "../../hooks/website/settings/useSettings";
+import Loading from "../../ui/loading/Loading";
+import EmptySection from "../../ui/EmptySection";
 import DOMPurify from "dompurify";
+import { motion } from "framer-motion";
 
-export default function Privacy() {
+export default function ClientsRights() {
   const { settings, isLoading } = useSettings();
   const { t } = useTranslation();
 
   if (isLoading) return <Loading />;
 
-  const sanitizedPrivacy = DOMPurify.sanitize(settings.privacy);
-
+  const sanitizedPrivacy = DOMPurify.sanitize(settings?.clientsRights);
+  if (!sanitizedPrivacy)
+    return <EmptySection height="700px" message={t("noContent")} />;
   return (
     <section className="privacy page px-3">
       <div className="container">
@@ -23,9 +25,9 @@ export default function Privacy() {
           transition={{ duration: 0.8 }}
         >
           <h1 className="main-title mb-3">
-            <span>{t("settings.privacyTitle")}</span>
+            <span>{t("settings.clientsRightTitle")}</span>
           </h1>
-          <p className="desc">{t("settings.privacyDesc")}</p>
+          <p className="desc">{t("settings.clientsRightDesc")}</p>
         </motion.div>
 
         <div

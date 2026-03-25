@@ -1,12 +1,12 @@
 import { useTranslation } from "react-i18next";
-import { Link, useNavigate } from "react-router";
+import { useNavigate } from "react-router";
 import useGetPersonalAssistants from "../../hooks/website/personal-assistants/useGetPersonalAssistants";
 import EmptySection from "../../ui/EmptySection";
 import HelperCard from "../../ui/cards/HelperCard";
 import AudienceCardLoader from "../../ui/loading/AudienceCardLoader";
 import InfiniteScroll from "../../ui/loading/InfiniteScroll";
-import AssistantsSidebar from "../../ui/website/helpers/AssistantsSidebar";
 import RoundedBackButton from "../../ui/website-auth/shared/RoundedBackButton";
+import AssistantsSidebar from "../../ui/website/helpers/AssistantsSidebar";
 
 export default function PersonalHelper() {
   const { t } = useTranslation();
@@ -21,6 +21,7 @@ export default function PersonalHelper() {
 
   const allAssistants =
     assistantsData?.pages?.flatMap((page) => page?.data) ?? [];
+  const total = assistantsData?.pages[0]?.total ?? 0;
 
   return (
     <section className="personal-helpers page">
@@ -43,7 +44,7 @@ export default function PersonalHelper() {
             <div className="row">
               <div className="col-12 p-2 pt-md-0">
                 <div className="result-count">
-                  <strong>{allAssistants.length}</strong>{" "}
+                  <strong>{total}</strong>{" "}
                   {t("website.assistants.personalAssistant")}
                 </div>
               </div>

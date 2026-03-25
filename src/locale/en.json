@@ -1,4 +1,5 @@
 {
+  "noContent": "Content not available",
   "notAvailable": "Not available",
   "goalWithoutHelper": "Goal without Personal Assistant",
   "goalWithHelper": "Goal with Personal Assistant",
@@ -443,18 +444,39 @@
     "waiting": "Waiting for payment confirmation..."
   },
   "footer": {
-    "description": "A smart Arabic platform that helps you turn your goals into realistic, actionable plans, supported by inspiring assistants and motivating communities, enabling you to achieve your ambitions with confidence and skill, and complete your tasks with high professionalism.",
+    "description": "A smart Arabic platform that helps you turn your goals into realistic, actionable plans, supported by inspiring assistants and motivating communities",
     "quickLinks": {
       "title": "Quick Links",
       "faqs": "FAQs",
       "contact": "Contact Us",
       "terms": "Terms & Conditions",
-      "privacy": "Privacy Policy"
+      "privacy": "Privacy & Data Protection Policy",
+      "refundPolicy": "Refund Policy",
+      "clients": "Clients Rights & Responsibilities",
+      "tasamiiTeam": "tasamii Team"
     },
     "services": {
       "title": "Our Services",
-      "howItWorks": "How It Works",
-      "about": "About Tasami"
+      "about": "About Us",
+      "howItWorks": "How the Platform Works",
+      "personalGoals": "Personal Goals",
+      "requests": "Help Requests",
+      "offers": "Help Offers",
+      "assistants": "Personal Assistant Accounts",
+      "communities": "Tasami Communities",
+      "commissions": "Commissions, Payment & Eligibility"
+    },
+    "contact": {
+      "title": "Contact Us",
+      "customerCare": "Customer Care",
+      "technicalSupport": "Technical Support",
+      "haveYouGot": "Do you have",
+      "complaint": "a Complaint!",
+      "inquiry": "an Inquiry!",
+      "suggestion": "a Suggestion!"
+    },
+    "downloadApp": {
+      "title": "Download the App"
     },
     "copyright": {
       "text": "All rights reserved © {{year}} to",
@@ -699,7 +721,13 @@
     "termsDesc": "Please read these terms and conditions carefully before using our services.",
     "termsContent": "Here are the full terms and conditions in English...",
     "privacyTitle": "Privacy Policy",
-    "privacyDesc": "Please read the privacy policy carefully to understand how we handle your personal data."
+    "privacyDesc": "Please read the privacy policy carefully to understand how we handle your personal data.",
+    "refundPolicyTitle": "Refund Policy",
+    "refundPolicyDesc": "Learn about the terms and conditions for refunds, including when you are eligible to request a refund and the required procedures.",
+    "clientsRightTitle": "Clients Rights & Responsibilities",
+    "clientsRightDesc": "Understand your rights as a client and your obligations when using the platform to ensure a safe and fair experience for all users.",
+    "commissionsTitle": "Commissions, Payment & Eligibility",
+    "commissionsDesc": "Learn about commission rates, how payments are calculated, and the requirements for disbursing earnings to assistants and clients."
   },
   "validation": {
     "mustBeDate": "Please enter a valid date.",

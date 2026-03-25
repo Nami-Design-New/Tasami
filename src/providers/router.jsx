@@ -82,8 +82,8 @@ import Terms from "../routes/website/terms";
 /* ---------------- DASHBOARD ROUTES ---------------- */
 
 const DashboardLayout = lazy(() => import("../layout/MainDashboardLayout"));
-const DashboardHome = lazy(() =>
-  import("../routes/dash-board/MainDashboardHome")
+const DashboardHome = lazy(
+  () => import("../routes/dash-board/MainDashboardHome"),
 );
 
 /* ---------------- DASHBOARD AUTH ---------------- */
@@ -151,6 +151,9 @@ import CommunitiesTab from "../routes/dash-board/reports/CommunitesTab";
 import SalesTab from "../routes/dash-board/reports/SalesTab";
 import Nationalities from "../routes/dash-board/websiteManagment/Nationalities";
 import PublicNotifications from "../routes/dash-board/websiteManagment/PublicNotifications";
+import RefundPolicy from "../routes/website/RefundPolicy";
+import ClientsRights from "../routes/website/ClientsRights";
+import Commissions from "../routes/website/Commissions";
 
 const getBasename = () => {
   const currentUrl = window.location.href;
@@ -238,6 +241,18 @@ export const router = createBrowserRouter(
         {
           path: "privacy-policy",
           element: <Privacy />,
+        },
+        {
+          path: "refund-policy",
+          element: <RefundPolicy />,
+        },
+        {
+          path: "clients-rights",
+          element: <ClientsRights />,
+        },
+        {
+          path: "commissions",
+          element: <Commissions />,
         },
         {
           path: "reels",
@@ -761,5 +776,5 @@ export const router = createBrowserRouter(
       element: <Forbidden />,
     },
   ],
-  { basename: getBasename() }
+  { basename: getBasename() },
 );

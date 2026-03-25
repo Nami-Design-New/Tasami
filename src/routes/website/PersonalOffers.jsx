@@ -1,5 +1,4 @@
 import { useTranslation } from "react-i18next";
-import { useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 import useGetPersonalOffers from "../../hooks/website/personal-assistances/useGetPersonalOffers";
 import OfferCard from "../../ui/cards/OfferCard";
@@ -12,7 +11,6 @@ import PersonalOffersSidebarFilter from "../../ui/website/home/PersonalOffersSid
 export default function PersonalOffers() {
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const { lang } = useSelector((state) => state.language);
   const {
     personalOffers,
     isLoading,
@@ -24,6 +22,7 @@ export default function PersonalOffers() {
   const allPersonalOffers =
     personalOffers?.pages?.flatMap((page) => page?.data) ?? [];
 
+  const total = personalOffers?.pages[0]?.total ?? 0;
   return (
     <section className="personal-helpers page">
       <div className="container">
@@ -47,8 +46,7 @@ export default function PersonalOffers() {
               {" "}
               <div className="col-12 p-2 pt-md-0">
                 <div className="result-count">
-                  <strong>{allPersonalOffers?.length}</strong>{" "}
-                  {t("personalOffers")}
+                  <strong>{total}</strong> {t("personalOffers")}
                 </div>
               </div>
               {!isLoading && allPersonalOffers?.length === 0 && (

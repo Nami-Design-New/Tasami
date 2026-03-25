@@ -12,7 +12,13 @@ export default function PersonalGoals() {
   const navigate = useNavigate();
   const { goals, isLoading, hasNextPage, fetchNextPage, isFetchingNextPage } =
     useGetGoals();
+
+  console.log(goals);
+
   const allGoals = goals?.pages?.flatMap((page) => page?.data) ?? [];
+
+  console.log(goals?.pages[0]?.total) ?? 0;
+
   return (
     <section className="personal-helpers page">
       <div className="container">
@@ -35,7 +41,7 @@ export default function PersonalGoals() {
             <div className="row">
               <div className="col-12 p-2 pt-md-0">
                 <div className="result-count ">
-                  <strong>{allGoals.length}</strong>{" "}
+                  <strong>{goals?.pages[0]?.total}</strong>{" "}
                   {t("website.assistants.goal")}
                 </div>
               </div>{" "}

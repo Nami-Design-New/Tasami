@@ -544,6 +544,10 @@ input::-ms-clear {
   color: #214b92 !important;
 }
 
+.color-secondary {
+  color: #5fcafa !important;
+}
+
 .text-fire {
   color: #ff7a59 !important;
 }
@@ -14309,4 +14313,25 @@ select,
   .pdf-header {
     display: none;
   }
+}
+.store-buttons {
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+.store-buttons .store-btn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border-radius: 8px;
+  text-decoration: none;
+  color: #fff;
+  transition: 0.3s;
+}
+.store-buttons .store-btn img {
+  width: 100%;
+  height: 36px;
+}
+.store-buttons .store-btn:hover {
+  background: #333;
 }/*# sourceMappingURL=style.css.map */

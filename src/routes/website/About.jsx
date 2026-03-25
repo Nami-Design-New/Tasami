@@ -1,35 +1,47 @@
 import { useTranslation } from "react-i18next";
 
+import f1 from "../../assets/images/f1.jpg";
+import f2 from "../../assets/images/f2.jpg";
+import f3 from "../../assets/images/f3.jpg";
+import f4 from "../../assets/images/f4.jpg";
+import useSettings from "../../hooks/website/settings/useSettings";
+import Loading from "../../ui/loading/Loading";
+import DOMPurify from "dompurify";
+
 export default function AboutSection() {
   const { t } = useTranslation();
+  const { settings, isLoading } = useSettings();
 
+  // Sanitize the HTML
+  const sanitizedAbout = DOMPurify.sanitize(settings?.about_app);
   const whyItems = [
     {
       id: 1,
       title: t("why_item1_title"),
       description: t("why_item1_desc"),
-      image: "/images/f1.jpg",
+      image: f1,
     },
     {
       id: 2,
       title: t("why_item2_title"),
       description: t("why_item2_desc"),
-      image: "/images/f2.jpg",
+      image: f2,
     },
     {
       id: 3,
       title: t("why_item3_title"),
       description: t("why_item3_desc"),
-      image: "/images/f3.jpg",
+      image: f3,
     },
     {
       id: 4,
       title: t("why_item4_title"),
       description: t("why_item4_desc"),
-      image: "/images/f4.jpg",
+      image: f4,
     },
   ];
 
+  if (isLoading) return <Loading />;
   return (
     <>
       <section className="about-section page">
@@ -48,8 +60,10 @@ export default function AboutSection() {
         </div>
 
         <div className="main-info">
-          <p>{t("about_main_paragraph1")}</p>
-          <p>{t("about_main_paragraph2")}</p>
+          <p
+            className="desc"
+            dangerouslySetInnerHTML={{ __html: sanitizedAbout }}
+          />
         </div>
       </section>
 
