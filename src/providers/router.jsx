@@ -154,6 +154,7 @@ import PublicNotifications from "../routes/dash-board/websiteManagment/PublicNot
 import RefundPolicy from "../routes/website/RefundPolicy";
 import ClientsRights from "../routes/website/ClientsRights";
 import Commissions from "../routes/website/Commissions";
+import AboutTasamiiContent from "../routes/dash-board/websiteManagment/AboutTasamiiContent";
 
 const getBasename = () => {
   const currentUrl = window.location.href;
@@ -758,6 +759,10 @@ export const router = createBrowserRouter(
         {
           path: "nationalities-management",
           element: <Nationalities />,
+        },
+        {
+          path: "about-content",
+          element: <AboutTasamiiContent />,
         },
         {
           path: "public-notifications",

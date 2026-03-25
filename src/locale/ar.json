@@ -531,7 +531,8 @@
     "beneficiaryIdentityPreference": "تفضيل هوية المستفيد",
     "assistanceValue": "قيمة المساعدة",
     "beneficiaryAgeGroup": "الفئة العمرية للمستفيد",
-    "Withdraw Requests": "طلبات سحب الرصيد"
+    "Withdraw Requests": "طلبات سحب الرصيد",
+    "About Content": "عن تسامي"
   },
   "withdraw": {
     "customer": "العميل",
@@ -1370,6 +1371,7 @@
     "ad_banners": "لافتات اعلانية",
     "nationalities": "الجنسيات",
     "publicNotifications": "الإشعارات العامة",
+    "aboutTasamii": "عن تسامي",
     "main": "الرئيسية",
     "my_tasks": "المهام",
     "employment_data": "البيانات الوظيفية",
@@ -2068,7 +2070,13 @@
       "aboutApp": "حول التطبيق",
       "refundPolicy": "سياسة الاسترجاع",
       "clientsRights": "حقوق العملاء",
-      "commissions": "العمولات",
+      "howItWorks": "كيف تعمل المنصة؟",
+      "personalGoals": "الأهداف الشخصية",
+      "helpRequests": "طلبات المساعدة",
+      "personalOffers": "عروض المساعدة",
+      "helpersAccounts": "حسابات المساعدين الشخصيين",
+      "communities": "مجتمعات تسامي",
+      "commissions": "العمولات وآلية الدفع و الاستحقاق",
       "validation": {
         "required": "هذا الحقل مطلوب",
         "invalidEmail": "صيغة البريد الإلكتروني غير صحيحة",

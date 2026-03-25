@@ -146,6 +146,12 @@ export default function SidebarNavigation() {
                 </NavLink>
               </li>
               <li className="sub_nav_item">
+                <NavLink to="about-content">
+                  <img src={subArrow} alt="arrow" />
+                  <span>{t("dashboard.aboutTasamii")}</span>
+                </NavLink>
+              </li>
+              <li className="sub_nav_item">
                 <NavLink to="public-notifications">
                   <img src={subArrow} alt="arrow" />
                   <span>{t("dashboard.publicNotifications")}</span>
