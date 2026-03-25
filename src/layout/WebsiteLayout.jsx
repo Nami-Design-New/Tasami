@@ -13,6 +13,7 @@ import ScrollToTop from "../ui/ScrollToTop";
 import LevelUpModal from "../ui/LevelUpModal";
 import useAuth from "../hooks/auth/useAuth";
 import SEO from "../ui/SEO";
+import FloatingWhatsApp from "../ui/FloatingWhatsApp";
 
 const WebsiteLayout = () => {
   const queryClient = useQueryClient();
@@ -69,6 +70,8 @@ const WebsiteLayout = () => {
         <Loading />
       ) : (
         <>
+          {" "}
+          <FloatingWhatsApp />
           <ScrollToTop />
           <Header />
           <main className="main">

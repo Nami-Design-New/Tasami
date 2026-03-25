@@ -2,6 +2,7 @@ import { useTranslation } from "react-i18next";
 import { Link } from "react-router";
 import logo from "../assets/images/logo.svg";
 import playStore from "../assets/images/play-store.svg";
+import appleStore from "../assets/images/apple-store.svg";
 import useSettings from "../hooks/website/settings/useSettings";
 export default function Footer() {
   const { t } = useTranslation();
@@ -147,11 +148,11 @@ export default function Footer() {
           <div className="col-lg-3 col-md-6 col-12 p-2">
             <h4 className="title">{t("footer.downloadApp.title")}</h4>
             <div className="store-buttons">
-              <a href={playStoreLink} className="store-btn app-store">
-                <img src={playStore} alt="Apple" />
+              <a href={appleStoreLink} className="store-btn app-store">
+                <img src={appleStore} alt="Apple" />
               </a>
 
-              <a href={appleStoreLink} className="store-btn play-store">
+              <a href={playStoreLink} className="store-btn play-store">
                 <img src={playStore} alt="Google Play" />
               </a>
             </div>

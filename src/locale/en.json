@@ -2074,11 +2074,25 @@
     },
     "appSettings": {
       "management": "Content Management",
+      "emailsAndLinks": "Emails & App Links",
+      "customerCare": "Customer Care Email",
+      "technicalSupport": "Technical Support Email",
+      "appleLink": "Apple Store Link",
+      "playLink": "Play Store Link",
+      "preview": "Preview",
+      "saveLinks": "Save Emails & Links",
+      "saveContent": "Save",
       "terms": "Terms & Conditions",
       "privacy": "Privacy Policy",
       "aboutApp": "About the App",
-      "save": "Save",
-      "loading": "Loading"
+      "refundPolicy": "Refund Policy",
+      "clientsRights": "Clients Rights",
+      "commissions": "Commissions",
+      "validation": {
+        "required": "This field is required",
+        "invalidEmail": "Invalid email format",
+        "invalidUrl": "Invalid URL format"
+      }
     },
     "subscriptions": {
       "management": "Subscription Management",

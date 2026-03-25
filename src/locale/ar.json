@@ -2055,11 +2055,25 @@
     },
     "appSettings": {
       "management": "إدارة المحتوى",
+      "emailsAndLinks": "البريد الإلكتروني وروابط التطبيق",
+      "customerCare": "البريد الإلكتروني لخدمة العملاء",
+      "technicalSupport": "البريد الإلكتروني للدعم الفني",
+      "appleLink": "رابط متجر آبل",
+      "playLink": "رابط متجر جوجل بلاي",
+      "preview": "معاينة",
+      "saveLinks": "حفظ البريد الإلكتروني والروابط",
+      "saveContent": "حفظ ",
       "terms": "الشروط والأحكام",
       "privacy": "سياسة الخصوصية",
-      "aboutApp": "عن التطبيق",
-      "save": "حفظ",
-      "loading": "جاري التحميل"
+      "aboutApp": "حول التطبيق",
+      "refundPolicy": "سياسة الاسترجاع",
+      "clientsRights": "حقوق العملاء",
+      "commissions": "العمولات",
+      "validation": {
+        "required": "هذا الحقل مطلوب",
+        "invalidEmail": "صيغة البريد الإلكتروني غير صحيحة",
+        "invalidUrl": "رابط غير صالح"
+      }
     },
     "subscriptions": {
       "management": "إدارة الاشتراكات",
