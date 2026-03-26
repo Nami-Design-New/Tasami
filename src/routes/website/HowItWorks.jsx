@@ -114,9 +114,9 @@ export default function Steps() {
               transition={{ duration: 0.8 }}
             >
               <h2 className="main-title mb-3">
-                <span>{t("settings.termsTitle")}</span>
+                {t("steps_title")} <span>{t("brand_name")}</span>
               </h2>
-              <p className="desc">{t("settings.termsDesc")}</p>
+              <p className="desc">{t("steps_description")}</p>
             </motion.div>
 
             <div
