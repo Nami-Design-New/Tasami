@@ -134,17 +134,26 @@ export default function Footer() {
                 <p>{t("footer.contact.haveYouGot")}</p>
               </li>
               <li>
-                <Link className="text-decoration-underline" to="/how-it-works">
+                <Link
+                  className="text-decoration-underline"
+                  to="/contact?subject=PF"
+                >
                   {t("footer.contact.complaint")}
                 </Link>
               </li>
               <li>
-                <Link className="text-decoration-underline" to="/how-it-works">
+                <Link
+                  className="text-decoration-underline"
+                  to="/contact?subject=NF"
+                >
                   {t("footer.contact.inquiry")}
                 </Link>
               </li>
               <li>
-                <Link className="text-decoration-underline" to="/how-it-works">
+                <Link
+                  className="text-decoration-underline"
+                  to="/contact?subject=PF"
+                >
                   {t("footer.contact.suggestion")}
                 </Link>
               </li>

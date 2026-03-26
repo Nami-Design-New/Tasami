@@ -1,5 +1,5 @@
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
@@ -14,6 +14,7 @@ import useSettings from "../../hooks/website/settings/useSettings";
 import { Placeholder } from "react-bootstrap";
 import ContactDesc from "../../ui/ContactDesc";
 import useContactUsAsGuest from "../../hooks/website/contact-us/useContactUsAsGuest";
+import { useSearchParams } from "react-router";
 
 export default function Contact() {
   const { t } = useTranslation();
@@ -22,7 +23,8 @@ export default function Contact() {
   const { contactUs, isPending } = useContactUs();
   const { contactUsAsGuest, contactUsPendingGuest } = useContactUsAsGuest();
   const { settings, isLoading: settingsLoading } = useSettings();
-
+  const [searchParams, setSearchParams] = useSearchParams();
+  const isComplaint = (val) => String(val) === "complaint";
   // Validation schema
   const schema = yup.object().shape({
     subject: user
@@ -30,12 +32,19 @@ export default function Contact() {
       : yup.string().nullable(),
     title: yup.string().required(t("contact_error_title")),
 
-    email: user
-      ? yup.string().nullable()
-      : yup
-          .string()
+    email: yup.string().when("subject", {
+      is: isComplaint,
+      then: (schema) =>
+        schema
           .required(t("contact_error_email"))
           .email(t("contact_error_email_invalid")),
+      otherwise: (schema) =>
+        user
+          ? schema.nullable()
+          : schema
+              .required(t("contact_error_email"))
+              .email(t("contact_error_email_invalid")),
+    }),
     message: yup
       .string()
       .required(t("contact_error_message"))
@@ -43,6 +52,23 @@ export default function Contact() {
   });
 
   const { taskSystems, isLoading } = useGetTaskSystems(user);
+
+  //  Inject Complaint Subject
+  const COMPLAINT_SUBJECT = useMemo(
+    () => ({
+      id: "complaint",
+      code: "complaint",
+      title: t("contact_complaint"),
+      isComplaint: true,
+    }),
+    [t],
+  );
+
+  const mergedTaskSystems = useMemo(() => {
+    return user
+      ? [COMPLAINT_SUBJECT, ...(taskSystems?.data || [])]
+      : taskSystems?.data || [];
+  }, [user, taskSystems, COMPLAINT_SUBJECT]);
 
   const {
     register,
@@ -54,42 +80,87 @@ export default function Contact() {
     resolver: yupResolver(schema),
   });
 
+  useEffect(() => {
+    const subjectCode = searchParams.get("subject");
+
+    if (subjectCode && mergedTaskSystems.length) {
+      const matched = mergedTaskSystems.find(
+        (item) => item.code === subjectCode,
+      );
+
+      if (matched) {
+        setActiveOption(matched.id);
+        setValue("subject", matched.id);
+      } else {
+        setSearchParams({});
+      }
+    }
+  }, [searchParams, mergedTaskSystems, setValue, setSearchParams]);
+
+  //  Submit (dynamic logic)
   const onSubmit = async (data) => {
+    const selected = mergedTaskSystems.find((item) => item.id === data.subject);
+    console.log(selected);
+
+    // Complaint → send as guest
+    if (selected?.isComplaint) {
+      const payload = {
+        email: user?.email || data?.email,
+        title: data?.title,
+        description: data?.message,
+      };
+
+      contactUsAsGuest(payload, {
+        onSuccess: (res) => {
+          toast.success(res?.message);
+          reset();
+          setActiveOption(null);
+          setSearchParams({});
+        },
+        onError: (error) => {
+          toast.error(error?.message || t("contact_error_generic"));
+        },
+      });
+
+      return;
+    }
+
+    //  Normal flow
     const payload = {
-      task_system_id: data?.subject || null,
+      task_system_id: data?.subject,
       name: user?.name,
       email: user?.email,
       title: data?.title,
       description: data?.message,
     };
+
     contactUs(payload, {
       onSuccess: (res) => {
         toast.success(res?.message);
         reset();
         setActiveOption(null);
+        setSearchParams({});
       },
       onError: (error) => {
-        error.message;
         toast.error(error?.message || t("contact_error_generic"));
-        // reset();
       },
     });
   };
+
   const submit = async (data) => {
     const payload = {
       email: data?.email,
       title: data?.title,
       description: data?.message,
     };
+
     contactUsAsGuest(payload, {
       onSuccess: (res) => {
         toast.success(res?.message);
         reset();
       },
       onError: (error) => {
-        error.message;
         toast.error(error?.message || t("contact_error_generic"));
-        // reset();
       },
     });
   };
@@ -174,7 +245,7 @@ export default function Contact() {
                           {t("contact_subject")}
                         </label>
                         <div className="options">
-                          {taskSystems?.data?.map((opt) => (
+                          {mergedTaskSystems?.map((opt) => (
                             <button
                               key={opt?.id}
                               type="button"
@@ -184,6 +255,11 @@ export default function Contact() {
                               onClick={() => {
                                 setActiveOption(opt?.id);
                                 setValue("subject", opt?.id);
+
+                                //  update URL
+                                setSearchParams({
+                                  subject: opt?.code,
+                                });
                               }}
                             >
                               {opt.title}
@@ -195,7 +271,16 @@ export default function Contact() {
                         )}
                       </div>
                     )}
-
+                    {activeOption === "complaint" && (
+                      <div className="mb-3">
+                        <InputField
+                          label={t("contact_field_email")}
+                          placeholder={t("contact_placeholder_email")}
+                          {...register("email")}
+                          error={errors.email?.message}
+                        />
+                      </div>
+                    )}
                     <div className="mb-3">
                       <InputField
                         label={t("contact_field_title")}
@@ -235,7 +320,10 @@ export default function Contact() {
                       />
                     </div>
 
-                    <CustomButton disabled={isPending} loading={isPending}>
+                    <CustomButton
+                      disabled={isPending}
+                      loading={isPending || contactUsPendingGuest}
+                    >
                       {t("contact_submit")}
                     </CustomButton>
                   </form>

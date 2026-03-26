@@ -1,7 +1,12 @@
 import { useTranslation } from "react-i18next";
-import FAQsSection from "./Faqs";
 import imageOne from "../../assets/images/1.jpg";
 import imageTwo from "../../assets/images/2.jpg";
+import useSettings from "../../hooks/website/settings/useSettings";
+import Loading from "../../ui/loading/Loading";
+import DOMPurify from "dompurify";
+import { motion } from "framer-motion";
+import EmptySection from "../../ui/EmptySection";
+
 export default function Steps() {
   const { t } = useTranslation();
 
@@ -32,14 +37,19 @@ export default function Steps() {
       desc: t("steps_review_desc"),
     },
   ];
+  const { settings, isLoading } = useSettings();
 
+  if (isLoading) return <Loading />;
+
+  // Sanitize the HTML
+  const sanitizedHowItWorks = DOMPurify.sanitize(settings?.howItWorks);
   return (
     <>
       <section className="steps-section page">
         <div className="section-head text-center mb-5">
           <span className="sub-title d-block mb-2">{t("steps_subtitle")}</span>
           <h2 className="main-title mb-3">
-            {t("steps_title")} <span>{t("brand_name")}</span>؟
+            {t("steps_title")} <span>{t("brand_name")}</span>
           </h2>
           <p className="desc">{t("steps_description")}</p>
         </div>
@@ -62,7 +72,7 @@ export default function Steps() {
         <div className="section-head text-center mb-3 mb-lg-5">
           <span className="sub-title">{t("aim_subtitle")}</span>
           <h2 className="main-title mb-3">
-            {t("aim_title")} <span>{t("brand_name")}</span>؟
+            {t("aim_title")} <span>{t("brand_name")}</span>
           </h2>
           <p className="desc">{t("aim_description")}</p>
         </div>
@@ -91,8 +101,31 @@ export default function Steps() {
           </div>
         </div>
       </section>
+      {!sanitizedHowItWorks ? (
+        <EmptySection height="700px" message={t("noContent")} />
+      ) : (
+        <section className="terms page px-3">
+          <div className="container">
+            <motion.div
+              className="section-head text-center mb-5"
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+            >
+              <h2 className="main-title mb-3">
+                <span>{t("settings.termsTitle")}</span>
+              </h2>
+              <p className="desc">{t("settings.termsDesc")}</p>
+            </motion.div>
 
-      <FAQsSection />
+            <div
+              className="terms-content"
+              dangerouslySetInnerHTML={{ __html: sanitizedHowItWorks }}
+            />
+          </div>
+        </section>
+      )}
     </>
   );
 }
