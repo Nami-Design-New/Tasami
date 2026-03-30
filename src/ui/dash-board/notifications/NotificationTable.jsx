@@ -39,19 +39,19 @@ const NotificationsTable = () => {
   const [filters, setFilters] = useState({});
 
   usePersistedTableState({
-      key: "notifications-table",
-      state: {
-        search,
-        page,
-        sortConfig,
-        filters,
-      },
-      setState: (saved) => {
-        setSearch(saved.search ?? "");
-        setPage(saved.page ?? 1);
-        setSortConfig(saved.sortConfig ?? null);
-        setFilters(saved.filters ?? {});
-      },
+    key: "notifications-table",
+    state: {
+      search,
+      page,
+      sortConfig,
+      filters,
+    },
+    setState: (saved) => {
+      setSearch(saved.search ?? "");
+      setPage(saved.page ?? 1);
+      setSortConfig(saved.sortConfig ?? null);
+      setFilters(saved.filters ?? {});
+    },
   });
 
   // ----------------------------------
@@ -111,20 +111,20 @@ const NotificationsTable = () => {
     () =>
       notifications.map((notify) => ({
         id: notify?.id,
-        system_type: t(`${notify.system_type.type}`) || "-",
-        system_type_id: notify.system_type.title || "-",
-        model: notify.reference_number || "-",
-        date: notify.date || "-",
-        time: notify.time || "-",
-        service: notify.service || "-",
-        userAccount: notify.account || "-",
-        package_id: notify.account_type || "-",
-        idNumber: notify.id_number || "-",
-        group: notify.account_group || "-",
-        region_id: notify.region.title || "-",
-        country_id: notify.country.title || "-",
-        city_id: notify.city.title || "-",
-        is_added: notify.is_added,
+        system_type: t(`${notify.system_type?.type}`) || "-",
+        system_type_id: notify.system_type?.title || "-",
+        model: notify?.reference_number || "-",
+        date: notify?.date || "-",
+        time: notify?.time || "-",
+        service: notify?.service || "-",
+        userAccount: notify?.account || "-",
+        package_id: notify?.account_type || "-",
+        idNumber: notify?.id_number || "-",
+        group: notify?.account_group || "-",
+        region_id: notify?.region?.title || "-",
+        country_id: notify?.country?.title || "-",
+        city_id: notify?.city?.title || "-",
+        is_added: notify?.is_added,
       })),
     [notifications, t],
   );

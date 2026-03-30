@@ -88,23 +88,23 @@ const TasksTable = ({
     () =>
       tasks?.map((task) => ({
         id: task?.id,
-        system_type: t(`${task.system_type.type}`) || "-",
-        system_type_id: task.system_type.title || "-",
-        model: task.reference_number || "-",
-        date: task.date || "-",
-        time: task.time || "-",
+        system_type: t(`${task?.system_type?.type}`) || "-",
+        system_type_id: task?.system_type?.title || "-",
+        model: task?.reference_number || "-",
+        date: task?.date || "-",
+        time: task?.time || "-",
         userAccount: task?.account,
-        package_id: task.account_type || "-",
-        idNumber: task.id_number || "-",
-        group: task.account_group || "-",
-        region: task.region.title || "-",
-        location: task.country.title || "-",
-        city: task.city.title || "-",
+        package_id: task?.account_type || "-",
+        idNumber: task?.id_number || "-",
+        group: task?.account_group || "-",
+        region: task?.region?.title || "-",
+        location: task?.country?.title || "-",
+        city: task?.city?.title || "-",
         createrId: task?.creater_id,
-        completionDate: task.finish_date || "-",
-        status: task.status || "-",
-        actionLevel: task.procedure_level || "-",
-        rate: task.rate || "-",
+        completionDate: task?.finish_date || "-",
+        status: task?.status || "-",
+        actionLevel: task?.procedure_level || "-",
+        rate: task?.rate || "-",
         assign: false,
       })),
     [tasks, t],
@@ -129,7 +129,7 @@ const TasksTable = ({
         cell: (info) => (
           <Link
             className="link-styles"
-            to={`/dashboard/model/${info.row.original.id}`}
+            to={`/dashboard/model/${info?.row?.original?.id}`}
           >
             {info.getValue()}
           </Link>
@@ -188,7 +188,7 @@ const TasksTable = ({
         cell: (info) => (
           <Link
             className="link-styles"
-            to={`/dashboard/working-group/${info.row.original.id}`}
+            to={`/dashboard/working-group/${info?.row?.original?.id}`}
           >
             {info.getValue()}
           </Link>
@@ -268,7 +268,7 @@ const TasksTable = ({
           info.getValue() ? null : (
             <button
               onClick={() => {
-                setSelectedRow(info.row.original.id);
+                setSelectedRow(info?.row?.original?.id);
                 setShowReassignModal(true);
               }}
             >
