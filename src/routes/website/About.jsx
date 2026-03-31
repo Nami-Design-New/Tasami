@@ -113,7 +113,7 @@ export default function AboutSection() {
           <h2 className="main-title mb-3">
             <span>{t("about_subtitle")}</span>
           </h2>
-          <p className="desc">{t("about_description")}</p>
+          {/* <p className="desc">{t("about_description")}</p> */}
         </motion.div>
 
         <div
