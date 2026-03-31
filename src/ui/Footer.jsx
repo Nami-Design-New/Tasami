@@ -24,7 +24,7 @@ export default function Footer() {
             </Link>
             <p className="description ">{t("footer.description")}</p>
             <p className="description color-secondary mt-2">
-              تسامي الرقمية س .ت 47001155
+              تسامي الرقمية س .ت 4700115546
             </p>
             <p className="description color-secondary">
               المملكة العربية السعودية ص.ب. 3964 ينبع الصناعية46451
