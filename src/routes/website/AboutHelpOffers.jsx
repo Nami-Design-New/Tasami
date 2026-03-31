@@ -27,7 +27,7 @@ export default function AboutHelpOffers() {
           <h1 className="main-title mb-3">
             <span>{t("settings.personalOffersTitle")}</span>
           </h1>
-          <p className="desc">{t("settings.personalOffersDesc")}</p>
+          {/* <p className="desc">{t("settings.personalOffersDesc")}</p> */}
         </motion.div>
 
         <div

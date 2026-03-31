@@ -27,7 +27,7 @@ export default function AboutTasamiiCommunites() {
           <h1 className="main-title mb-3">
             <span>{t("settings.communitiesTitle")}</span>
           </h1>
-          <p className="desc">{t("settings.communitiesDesc")}</p>
+          {/* <p className="desc">{t("settings.communitiesDesc")}</p> */}
         </motion.div>
 
         <div

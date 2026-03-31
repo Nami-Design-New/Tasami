@@ -29,7 +29,7 @@ export default function AboutPersonalHelpers() {
           <h1 className="main-title mb-3">
             <span>{t("settings.helpersAccountsTitle")}</span>
           </h1>
-          <p className="desc">{t("settings.helpersAccountsDesc")}</p>
+          {/* <p className="desc">{t("settings.helpersAccountsDesc")}</p> */}
         </motion.div>
 
         <div
