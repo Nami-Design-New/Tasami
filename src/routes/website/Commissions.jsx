@@ -27,7 +27,7 @@ export default function Commissions() {
           <h1 className="main-title mb-3">
             <span>{t("settings.commissionsTitle")}</span>
           </h1>
-          <p className="desc">{t("settings.commissionsDesc")}</p>
+          {/* <p className="desc">{t("settings.commissionsDesc")}</p> */}
         </motion.div>
 
         <div
