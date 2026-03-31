@@ -26,7 +26,7 @@ export default function AboutPersonalGoals() {
           <h1 className="main-title mb-3">
             <span>{t("settings.personalGoalsTitle")}</span>
           </h1>
-          <p className="desc">{t("settings.personalGoalsDesc")}</p>
+          {/* <p className="desc">{t("settings.personalGoalsDesc")}</p> */}
         </motion.div>
 
         <div
