@@ -136,7 +136,7 @@ export default function Footer() {
               <li>
                 <Link
                   className="text-decoration-underline"
-                  to="/contact?subject=PF"
+                  to="/contact?subject=complaint"
                 >
                   {t("footer.contact.complaint")}
                 </Link>
