@@ -1,7 +1,7 @@
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router";
 import logo from "../assets/images/logo.svg";
-import playStore from "../assets/images/play-store.svg";
+import playStore from "../assets/images/googleplay-store.svg";
 import appleStore from "../assets/images/apple-store.svg";
 import useSettings from "../hooks/website/settings/useSettings";
 export default function Footer() {
