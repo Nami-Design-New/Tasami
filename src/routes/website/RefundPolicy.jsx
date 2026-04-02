@@ -27,7 +27,7 @@ export default function RefundPolicy() {
           <h1 className="main-title mb-3">
             <span>{t("settings.refundPolicyTitle")}</span>
           </h1>
-          <p className="desc">{t("settings.refundPolicyDesc")}</p>
+          {/* <p className="desc">{t("settings.refundPolicyDesc")}</p> */}
         </motion.div>
 
         <div

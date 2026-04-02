@@ -26,7 +26,7 @@ export default function Terms() {
           <h2 className="main-title mb-3">
             <span>{t("settings.termsTitle")}</span>
           </h2>
-          <p className="desc">{t("settings.termsDesc")}</p>
+          {/* <p className="desc">{t("settings.termsDesc")}</p> */}
         </motion.div>
 
         <div

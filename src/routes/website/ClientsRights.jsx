@@ -27,7 +27,7 @@ export default function ClientsRights() {
           <h1 className="main-title mb-3">
             <span>{t("settings.clientsRightTitle")}</span>
           </h1>
-          <p className="desc">{t("settings.clientsRightDesc")}</p>
+          {/* <p className="desc">{t("settings.clientsRightDesc")}</p> */}
         </motion.div>
 
         <div
