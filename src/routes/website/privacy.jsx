@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import { useTranslation } from "react-i18next";
 import Loading from "../../ui/loading/Loading";
 import useSettings from "../../hooks/website/settings/useSettings";
-import DOMPurify from "dompurify";
+import sanitizeRichContent from "../../utils/sanitizeRichContent";
 
 export default function Privacy() {
   const { settings, isLoading } = useSettings();
@@ -10,7 +10,7 @@ export default function Privacy() {
 
   if (isLoading) return <Loading />;
 
-  const sanitizedPrivacy = DOMPurify.sanitize(settings.privacy);
+  const sanitizedPrivacy = sanitizeRichContent(settings.privacy);
 
   return (
     <section className="privacy page px-3">

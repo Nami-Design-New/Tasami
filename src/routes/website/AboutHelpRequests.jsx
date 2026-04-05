@@ -2,16 +2,15 @@ import { useTranslation } from "react-i18next";
 import useSettings from "../../hooks/website/settings/useSettings";
 import Loading from "../../ui/loading/Loading";
 import EmptySection from "../../ui/EmptySection";
-import DOMPurify from "dompurify";
 import { motion } from "framer-motion";
+import RichContent from "../../ui/RichContent";
 export default function AboutHelpRequests() {
   const { settings, isLoading } = useSettings();
   const { t } = useTranslation();
 
   if (isLoading) return <Loading />;
 
-  const sanitizedHelpRequests = DOMPurify.sanitize(settings?.helpRequests);
-  if (!sanitizedHelpRequests)
+  if (!settings?.helpRequests)
     return <EmptySection height="700px" message={t("noContent")} />;
   return (
     <section className="privacy page px-3">
@@ -29,10 +28,7 @@ export default function AboutHelpRequests() {
           {/* <p className="desc">{t("settings.helpRequestsDesc")}</p> */}
         </motion.div>
 
-        <div
-          className="privacy-content"
-          dangerouslySetInnerHTML={{ __html: sanitizedHelpRequests }}
-        />
+        <RichContent className="privacy-content" html={settings?.helpRequests} />
       </div>
     </section>
   );

@@ -1,20 +1,15 @@
 import { useTranslation } from "react-i18next";
-
-import f1 from "../../assets/images/f1.jpg";
-import f2 from "../../assets/images/f2.jpg";
-import f3 from "../../assets/images/f3.jpg";
-import f4 from "../../assets/images/f4.jpg";
 import useSettings from "../../hooks/website/settings/useSettings";
 import Loading from "../../ui/loading/Loading";
-import DOMPurify from "dompurify";
 import { motion } from "framer-motion";
+import RichContent from "../../ui/RichContent";
 
 export default function AboutSection() {
   const { t } = useTranslation();
   const { settings, isLoading } = useSettings();
 
   // Sanitize the HTML
-  const sanitizedAbout = DOMPurify.sanitize(settings?.about_app);
+  const hasAboutContent = Boolean(settings?.about_app);
   // const whyItems = [
   //   {
   //     id: 1,
@@ -116,10 +111,9 @@ export default function AboutSection() {
           {/* <p className="desc">{t("about_description")}</p> */}
         </motion.div>
 
-        <div
-          className="terms-content"
-          dangerouslySetInnerHTML={{ __html: sanitizedAbout }}
-        />
+        {hasAboutContent && (
+          <RichContent className="terms-content" html={settings?.about_app} />
+        )}
       </div>
     </section>
   );

@@ -1,9 +1,9 @@
-import DOMPurify from "dompurify";
 import { motion } from "framer-motion";
 import { useTranslation } from "react-i18next";
 import useSettings from "../../hooks/website/settings/useSettings";
 import Loading from "../../ui/loading/Loading";
 import EmptySection from "../../ui/EmptySection";
+import RichContent from "../../ui/RichContent";
 
 export default function AboutTasamiiCommunites() {
   const { settings, isLoading } = useSettings();
@@ -11,8 +11,7 @@ export default function AboutTasamiiCommunites() {
 
   if (isLoading) return <Loading />;
 
-  const sanitizedCommunities = DOMPurify.sanitize(settings?.communities);
-  if (!sanitizedCommunities)
+  if (!settings?.communities)
     return <EmptySection height="700px" message={t("noContent")} />;
   return (
     <section className="privacy page px-3">
@@ -30,10 +29,7 @@ export default function AboutTasamiiCommunites() {
           {/* <p className="desc">{t("settings.communitiesDesc")}</p> */}
         </motion.div>
 
-        <div
-          className="privacy-content"
-          dangerouslySetInnerHTML={{ __html: sanitizedCommunities }}
-        />
+        <RichContent className="privacy-content" html={settings?.communities} />
       </div>
     </section>
   );

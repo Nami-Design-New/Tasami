@@ -2,16 +2,15 @@ import { useTranslation } from "react-i18next";
 import useSettings from "../../hooks/website/settings/useSettings";
 import Loading from "../../ui/loading/Loading";
 import EmptySection from "../../ui/EmptySection";
-import DOMPurify from "dompurify";
 import { motion } from "framer-motion";
+import RichContent from "../../ui/RichContent";
 export default function AboutPersonalGoals() {
   const { settings, isLoading } = useSettings();
   const { t } = useTranslation();
 
   if (isLoading) return <Loading />;
 
-  const sanitizedPersonalGoals = DOMPurify.sanitize(settings?.personalGoals);
-  if (!sanitizedPersonalGoals)
+  if (!settings?.personalGoals)
     return <EmptySection height="700px" message={t("noContent")} />;
   return (
     <section className="privacy page px-3">
@@ -29,10 +28,7 @@ export default function AboutPersonalGoals() {
           {/* <p className="desc">{t("settings.personalGoalsDesc")}</p> */}
         </motion.div>
 
-        <div
-          className="privacy-content"
-          dangerouslySetInnerHTML={{ __html: sanitizedPersonalGoals }}
-        />
+        <RichContent className="privacy-content" html={settings?.personalGoals} />
       </div>
     </section>
   );

@@ -1,9 +1,9 @@
 import { useTranslation } from "react-i18next";
 import useSettings from "../../hooks/website/settings/useSettings";
 import Loading from "../../ui/loading/Loading";
-import DOMPurify from "dompurify";
 import { motion } from "framer-motion";
 import EmptySection from "../../ui/EmptySection";
+import sanitizeRichContent from "../../utils/sanitizeRichContent";
 
 export default function RefundPolicy() {
   const { settings, isLoading } = useSettings();
@@ -11,7 +11,7 @@ export default function RefundPolicy() {
 
   if (isLoading) return <Loading />;
 
-  const sanitizedPrivacy = DOMPurify.sanitize(settings?.refundPolicy);
+  const sanitizedPrivacy = sanitizeRichContent(settings?.refundPolicy);
   if (!sanitizedPrivacy)
     return <EmptySection height="700px" message={t("noContent")} />;
   return (

@@ -2,8 +2,8 @@ import { useTranslation } from "react-i18next";
 import useSettings from "../../hooks/website/settings/useSettings";
 import Loading from "../../ui/loading/Loading";
 import EmptySection from "../../ui/EmptySection";
-import DOMPurify from "dompurify";
 import { motion } from "framer-motion";
+import sanitizeRichContent from "../../utils/sanitizeRichContent";
 
 export default function Commissions() {
   const { settings, isLoading } = useSettings();
@@ -11,7 +11,7 @@ export default function Commissions() {
 
   if (isLoading) return <Loading />;
 
-  const sanitizedCommissions = DOMPurify.sanitize(settings?.commissions);
+  const sanitizedCommissions = sanitizeRichContent(settings?.commissions);
   if (!sanitizedCommissions)
     return <EmptySection height="700px" message={t("noContent")} />;
   return (

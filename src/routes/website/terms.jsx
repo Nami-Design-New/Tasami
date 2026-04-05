@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import Loading from "../../ui/loading/Loading";
 import { useTranslation } from "react-i18next";
 import useSettings from "../../hooks/website/settings/useSettings";
-import DOMPurify from "dompurify";
+import sanitizeRichContent from "../../utils/sanitizeRichContent";
 
 export default function Terms() {
   const { settings, isLoading } = useSettings();
@@ -11,7 +11,7 @@ export default function Terms() {
   if (isLoading) return <Loading />;
 
   // Sanitize the HTML
-  const sanitizedTerms = DOMPurify.sanitize(settings.terms);
+  const sanitizedTerms = sanitizeRichContent(settings.terms);
 
   return (
     <section className="terms page px-3">

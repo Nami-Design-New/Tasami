@@ -5,6 +5,25 @@
 
 .terms {
   .terms-content {
+    figure.media,
+    .ck-media__wrapper {
+      width: 100%;
+      max-width: 100%;
+      margin: 1.25rem 0;
+      padding: 0 20px;
+    }
+
+    iframe,
+    video {
+      width: 100%;
+      max-width: 100%;
+      display: block;
+      border: 0;
+      border-radius: 1rem;
+      min-height: 320px;
+      background: #000;
+    }
+
     h2 {
       display: none;
     }
@@ -47,6 +66,25 @@
 }
 .privacy {
   .privacy-content {
+    figure.media,
+    .ck-media__wrapper {
+      width: 100%;
+      max-width: 100%;
+      margin: 1.25rem 0;
+      padding: 0 20px;
+    }
+
+    iframe,
+    video {
+      width: 100%;
+      max-width: 100%;
+      display: block;
+      border: 0;
+      border-radius: 1rem;
+      min-height: 320px;
+      background: #000;
+    }
+
     h2 {
       display: none;
     }

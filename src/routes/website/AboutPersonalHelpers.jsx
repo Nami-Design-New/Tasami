@@ -2,8 +2,8 @@ import { useTranslation } from "react-i18next";
 import useSettings from "../../hooks/website/settings/useSettings";
 import Loading from "../../ui/loading/Loading";
 import EmptySection from "../../ui/EmptySection";
-import DOMPurify from "dompurify";
 import { motion } from "framer-motion";
+import RichContent from "../../ui/RichContent";
 
 export default function AboutPersonalHelpers() {
   const { settings, isLoading } = useSettings();
@@ -11,10 +11,7 @@ export default function AboutPersonalHelpers() {
 
   if (isLoading) return <Loading />;
 
-  const sanitizedHelpersAccounts = DOMPurify.sanitize(
-    settings?.helpersAccounts,
-  );
-  if (!sanitizedHelpersAccounts)
+  if (!settings?.helpersAccounts)
     return <EmptySection height="700px" message={t("noContent")} />;
   return (
     <section className="privacy page px-3">
@@ -32,10 +29,7 @@ export default function AboutPersonalHelpers() {
           {/* <p className="desc">{t("settings.helpersAccountsDesc")}</p> */}
         </motion.div>
 
-        <div
-          className="privacy-content"
-          dangerouslySetInnerHTML={{ __html: sanitizedHelpersAccounts }}
-        />
+        <RichContent className="privacy-content" html={settings?.helpersAccounts} />
       </div>
     </section>
   );

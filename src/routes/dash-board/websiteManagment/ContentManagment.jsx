@@ -1,10 +1,8 @@
-import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import CustomButton from "../../../ui/CustomButton";
 import PageHeader from "../../../ui/PageHeader";
-import "ckeditor5/ckeditor5.css";
 import { SUPPORTED_LANGS } from "../../../lib/multilang/config";
 import useGetSettings from "../../../hooks/dashboard/website-managment/settings/useGetSettings";
 import useUpdateSettings from "../../../hooks/dashboard/website-managment/settings/useUpdateSettings";
@@ -14,6 +12,8 @@ import InputField from "../../../ui/forms/InputField";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Controller, useForm } from "react-hook-form";
+import { dashboardCkEditorConfig } from "../../../lib/dashboardCkEditorConfig";
+import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 
 export default function ContentManagment() {
   const { t } = useTranslation();
@@ -48,7 +48,7 @@ export default function ContentManagment() {
     control,
     handleSubmit,
     setValue,
-    formState: { errors, isSubmitting },
+    formState: { errors },
   } = useForm({
     resolver: yupResolver(schema),
     defaultValues: {
@@ -265,6 +265,7 @@ export default function ContentManagment() {
                   <CKEditor
                     editor={ClassicEditor}
                     data={formData[field] || ""}
+                    config={dashboardCkEditorConfig}
                     onChange={(_, editor) =>
                       setFormData((prev) => ({
                         ...prev,

@@ -3,9 +3,9 @@ import imageOne from "../../assets/images/1.jpg";
 import imageTwo from "../../assets/images/2.jpg";
 import useSettings from "../../hooks/website/settings/useSettings";
 import Loading from "../../ui/loading/Loading";
-import DOMPurify from "dompurify";
 import { motion } from "framer-motion";
 import EmptySection from "../../ui/EmptySection";
+import RichContent from "../../ui/RichContent";
 
 export default function Steps() {
   const { t } = useTranslation();
@@ -42,7 +42,7 @@ export default function Steps() {
   if (isLoading) return <Loading />;
 
   // Sanitize the HTML
-  const sanitizedHowItWorks = DOMPurify.sanitize(settings?.howItWorks);
+  const hasHowItWorksContent = Boolean(settings?.howItWorks);
   return (
     <>
       <section className="steps-section page">
@@ -101,7 +101,7 @@ export default function Steps() {
           </div>
         </div>
       </section>
-      {!sanitizedHowItWorks ? (
+      {!hasHowItWorksContent ? (
         <EmptySection height="700px" message={t("noContent")} />
       ) : (
         <section className="terms page px-3">
@@ -119,10 +119,7 @@ export default function Steps() {
               <p className="desc">{t("steps_description")}</p>
             </motion.div>
 
-            <div
-              className="terms-content"
-              dangerouslySetInnerHTML={{ __html: sanitizedHowItWorks }}
-            />
+            <RichContent className="terms-content" html={settings?.howItWorks} />
           </div>
         </section>
       )}

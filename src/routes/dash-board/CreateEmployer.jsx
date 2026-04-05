@@ -7,6 +7,7 @@ import CustomButton from "../../ui/CustomButton";
 import PageHeader from "../../ui/PageHeader";
 import Tabs from "../../ui/Tabs";
 import DraftedUsers from "../../ui/dash-board/create-employee/DraftedUsers";
+import EmployeePasswordTab from "../../ui/dash-board/create-employee/EmployeePasswordTab";
 import EmployerDataForm from "../../ui/dash-board/create-employee/EmployerDataForm";
 import PerformanceIndicators from "../../ui/dash-board/create-employee/PerformanceIndicators";
 import PermissionBoard from "../../ui/dash-board/create-employee/PermissionBoard";
@@ -24,44 +25,54 @@ const CreateEmployee = () => {
 
   const { t } = useTranslation();
 
-  const { createChatRoom, isPending: isCreatingChatRoom } = useCreateChatRoom();
+  const { createChatRoom } = useCreateChatRoom();
 
-  const allTabs = [
-    {
-      id: 1,
-      icon: <i className="fa-regular fa-user"></i>,
-      title: t("dashboard.createEmployee.accountData"),
-      visibleInMainMode: true,
-      visibleInEditMode: true,
-    },
-    {
-      id: 2,
-      icon: <i className="fa-regular fa-shield-halved"></i>,
-      title: t("dashboard.createEmployee.permissions"),
-      visibleInMainMode: false,
-      visibleInEditMode: true,
-    },
-    {
-      id: 3,
-      icon: <i className="fa-solid fa-chart-waterfall"></i>,
-      title: t("dashboard.createEmployee.performanceIndicators"),
-      visibleInMainMode: false,
-      visibleInEditMode: true,
-    },
-    {
-      id: 4,
-      icon: <i className="fa-regular fa-users"></i>,
-      title: t("dashboard.createEmployee.drafted"),
-      visibleInMainMode: true,
-      visibleInEditMode: false,
-    },
-  ];
+  const allTabs = useMemo(
+    () => [
+      {
+        id: 1,
+        icon: <i className="fa-regular fa-user"></i>,
+        title: t("dashboard.createEmployee.accountData"),
+        visibleInMainMode: true,
+        visibleInEditMode: true,
+      },
+      {
+        id: 2,
+        icon: <i className="fa-regular fa-shield-halved"></i>,
+        title: t("dashboard.createEmployee.permissions"),
+        visibleInMainMode: false,
+        visibleInEditMode: true,
+      },
+      {
+        id: 3,
+        icon: <i className="fa-solid fa-chart-waterfall"></i>,
+        title: t("dashboard.createEmployee.performanceIndicators"),
+        visibleInMainMode: false,
+        visibleInEditMode: true,
+      },
+      {
+        id: 4,
+        icon: <i className="fa-regular fa-users"></i>,
+        title: t("dashboard.createEmployee.drafted"),
+        visibleInMainMode: true,
+        visibleInEditMode: false,
+      },
+      {
+        id: 5,
+        icon: <i className="fa-solid fa-key"></i>,
+        title: t("dashboard.employeeProfile.quickActions.changePassword"),
+        visibleInMainMode: false,
+        visibleInEditMode: true,
+      },
+    ],
+    [t]
+  );
 
   const tabs = useMemo(() => {
     return allTabs.filter((tab) =>
       isEditMode ? tab.visibleInEditMode : tab.visibleInMainMode
     );
-  }, [isEditMode]);
+  }, [allTabs, isEditMode]);
 
   const [activeTab, setActiveTab] = useState(() => {
     const tabParam = searchParams.get("tab");
@@ -82,7 +93,7 @@ const CreateEmployee = () => {
           localStorage.setItem("chatId", res.data.id);
           navigate(`/dashboard/chats?chaterId=${id}&chatId=${res?.data?.id}`);
         },
-        onError: (error) => {},
+        onError: () => {},
       }
     );
   };
@@ -92,6 +103,7 @@ const CreateEmployee = () => {
     2: <PermissionBoard isEdit={isEditMode} />,
     3: <PerformanceIndicators />,
     4: <DraftedUsers />,
+    5: <EmployeePasswordTab />,
   };
 
   return (

@@ -9,6 +9,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import CustomButton from "../../../ui/CustomButton";
+import { dashboardCkEditorConfig } from "../../../lib/dashboardCkEditorConfig";
 
 export default function AboutTasamiiContent() {
   const { t } = useTranslation();
@@ -21,7 +22,6 @@ export default function AboutTasamiiContent() {
   useEffect(() => {
     if (!settings?.data) return;
 
-    // CKEditor Fields
     const ckData = {};
     [
       "howItWorks",
@@ -37,6 +37,7 @@ export default function AboutTasamiiContent() {
         ckData[key] = settings.data[key] || "";
       });
     });
+
     setFormData(ckData);
   }, [settings]);
 
@@ -76,11 +77,11 @@ export default function AboutTasamiiContent() {
     communities: t("dashboard.appSettings.communities"),
     commissions: t("dashboard.appSettings.commissions"),
   };
+
   return (
     <section>
       <PageHeader title={t("dashboard.appSettings.management")} />
 
-      {/* CKEditor Sections */}
       <div className="row p-0 m-0">
         {[
           "howItWorks",
@@ -101,6 +102,7 @@ export default function AboutTasamiiContent() {
                 <CKEditor
                   editor={ClassicEditor}
                   data={formData[field] || ""}
+                  config={dashboardCkEditorConfig}
                   onChange={(_, editor) =>
                     setFormData((prev) => ({
                       ...prev,
@@ -113,7 +115,6 @@ export default function AboutTasamiiContent() {
           }),
         )}
 
-        {/* Save Button for CKEditor content */}
         <div className="d-flex align-items-center mt-3 justify-content-end gap-2">
           <CustomButton
             onClick={handleSaveContent}
