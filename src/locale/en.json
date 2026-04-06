@@ -1694,6 +1694,7 @@
         "status": "Stage",
         "idNumber": "ID Number",
         "region": "Region",
+
         "location": "Sector",
         "city": "City",
         "field": "Field",

@@ -98,7 +98,7 @@ const PersonalGoals = () => {
       }),
 
       columnHelper.accessor("status", {
-        header: "المرحله ",
+        header: t("dashboard.personalGoals.table.status"),
         cell: (info) => {
           let badgeColor;
           switch (info.getValue()) {
