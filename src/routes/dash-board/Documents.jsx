@@ -57,7 +57,7 @@ const Documents = () => {
       cell: (info) => {
         let badgeColor;
         switch (info.getValue()) {
-          case t("dashboard.documents.active"):
+          case "active":
             badgeColor = "#28a745";
             break;
           case t("dashboard.documents.inactive"):

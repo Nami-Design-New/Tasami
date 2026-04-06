@@ -5,12 +5,13 @@ export default function useGetTaskSystem(
   search = "",
   page = 1,
   pageSize = 10,
+  type = null,
 ) {
   const { data, isLoading, isError, refetch } = useQuery({
-    queryKey: ["show-task", search, page, pageSize],
+    queryKey: ["show-task", search, page, pageSize, type],
     queryFn: async () => {
       const res = await adminAxiosInstance.get(`dh-task-systems`, {
-        params: { search, page, limit_per_page: pageSize },
+        params: { search, page, limit_per_page: pageSize, type },
       });
 
       if (res.data.code !== 200) {

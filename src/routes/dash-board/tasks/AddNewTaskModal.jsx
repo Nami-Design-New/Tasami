@@ -25,17 +25,15 @@ const AddNewTask = ({ showModal, setShowModal, title }) => {
   const { t } = useTranslation();
   const queryClient = useQueryClient();
 
-  const [files, setFiles] = useState(null);
   const [page] = useState(1);
 
   const { employees } = useGetSharedEmployees();
-  const { taskSystem } = useGetTaskSystem("", page, PAGE_SIZE);
+  const { taskSystem } = useGetTaskSystem("", page, PAGE_SIZE, "internal");
   const { addTask, isAddingTask } = usePostAddTask();
 
   const {
     handleSubmit,
     reset,
-    setValue,
     watch,
     control,
     formState: { errors },
@@ -52,15 +50,6 @@ const AddNewTask = ({ showModal, setShowModal, title }) => {
   ============================== */
 
   /* ==============================
-     FILE HANDLING
-  ============================== */
-
-  const handleFilesChange = (updatedFiles) => {
-    setFiles(updatedFiles);
-    setValue("files", updatedFiles, { shouldValidate: true });
-  };
-
-  /* ==============================
      SUBMIT
   ============================== */
 
@@ -73,7 +62,7 @@ const AddNewTask = ({ showModal, setShowModal, title }) => {
     formData.append("description", data.description);
 
     if (data.files?.length) {
-      files.forEach((file, index) => {
+      data.files.forEach((file, index) => {
         formData.append(`files[${index}]`, file);
       });
     }
@@ -133,7 +122,7 @@ const AddNewTask = ({ showModal, setShowModal, title }) => {
                       {...field}
                       label={t("dashboard.workModel.subjectTitle")}
                       placeholder={t(
-                        "dashboard.workModel.addSubjectPlaceholder"
+                        "dashboard.workModel.addSubjectPlaceholder",
                       )}
                       error={errors.title?.message}
                     />
@@ -170,7 +159,7 @@ const AddNewTask = ({ showModal, setShowModal, title }) => {
                       {...field}
                       label={t("dashboard.workModel.description")}
                       placeholder={t(
-                        "dashboard.workModel.addDescriptionPlaceholder"
+                        "dashboard.workModel.addDescriptionPlaceholder",
                       )}
                       error={errors.description?.message}
                     />
@@ -180,10 +169,16 @@ const AddNewTask = ({ showModal, setShowModal, title }) => {
 
               {/* Files */}
               <div className="col-12 py-2">
-                <FileUploader
-                  label={t("dashboard.workModel.addAttachments")}
-                  files={files}
-                  onFilesChange={handleFilesChange}
+                <Controller
+                  name="files"
+                  control={control}
+                  render={({ field }) => (
+                    <FileUploader
+                      label={t("dashboard.workModel.addAttachments")}
+                      files={field.value || []}
+                      onFilesChange={field.onChange}
+                    />
+                  )}
                 />
                 {errors.files && (
                   <p className="error-text">{errors.files[0]?.message}</p>

@@ -21,7 +21,7 @@ const Services = () => {
   const { helpRequests, currentPage, lastPage, isLoading } = useGetHelpRequest(
     searchQuery,
     page,
-    PAGE_SIZE
+    PAGE_SIZE,
   );
 
   const userGrowthSeries = [
@@ -107,13 +107,13 @@ const Services = () => {
             case "active":
               badgeColor = "#28a745";
               break;
-            case "بانتظار التنفيذ":
+            case "paused":
               badgeColor = "#ffc107  ";
               break;
-            case "قيد التنفيذ":
+            case "completed":
               badgeColor = "#007bff";
               break;
-            case "paused":
+            case "deleted":
               badgeColor = "#dc3545";
               break;
             default:
@@ -130,7 +130,7 @@ const Services = () => {
                 fontWeight: "400",
               }}
             >
-              {info.getValue()}
+              {info.row.original.status_text}
             </Badge>
           );
         },
@@ -154,7 +154,7 @@ const Services = () => {
         header: t("dashboard.personalGoals.table.specialization"),
       }),
     ],
-    [t]
+    [t],
   );
 
   return (

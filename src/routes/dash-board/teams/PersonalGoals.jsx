@@ -29,9 +29,9 @@ const PersonalGoals = () => {
       name: t("dashboard.personalGoals.chart.users"),
       data: [
         personalGoal?.goals_count,
-        personalGoal?.pending_count,
         personalGoal?.completed_count,
         personalGoal?.execution_count,
+        personalGoal?.pending_count,
         personalGoal?.deleted_count,
       ],
     },
@@ -39,9 +39,9 @@ const PersonalGoals = () => {
 
   const userGrowthCategories = [
     t("dashboard.personalGoals.chart.categories.personalGoals"),
-    t("dashboard.personalGoals.chart.categories.pending"),
-    t("dashboard.personalGoals.chart.categories.inProgress"),
     t("dashboard.personalGoals.chart.categories.completed"),
+    t("dashboard.personalGoals.chart.categories.inProgress"),
+    t("dashboard.personalGoals.chart.categories.pending"),
     t("dashboard.personalGoals.chart.categories.deleted"),
   ];
 
@@ -57,7 +57,7 @@ const PersonalGoals = () => {
     },
     dataLabels: { enabled: false },
     xaxis: { categories: userGrowthCategories },
-    colors: ["#8c137e", "#007BFF", "#FFC107", "#28A745", "#DC3545"],
+    colors: ["#8c137e", "#007BFF", "#28A745", "#FFC107", "#DC3545"],
     tooltip: {
       y: {
         formatter: (val) =>
@@ -98,26 +98,29 @@ const PersonalGoals = () => {
       }),
 
       columnHelper.accessor("status", {
-        header: " المرحله ",
+        header: "المرحله ",
         cell: (info) => {
           let badgeColor;
           switch (info.getValue()) {
             case "active":
               badgeColor = "#28a745";
               break;
-            case "بانتظار التنفيذ":
+            case "paused":
               badgeColor = "#ffc107  ";
               break;
-            case "قيد التنفيذ":
+            case "completed":
               badgeColor = "#007bff";
               break;
-            case "paused":
+            case "deleted":
               badgeColor = "#dc3545";
               break;
             default:
               badgeColor = "#6c757d";
               break;
           }
+
+          console.log(info.row.original.status_text);
+
           return (
             <Badge
               pill
@@ -128,7 +131,7 @@ const PersonalGoals = () => {
                 fontWeight: "400",
               }}
             >
-              {info.getValue()}
+              {info.row.original.status_text}
             </Badge>
           );
         },
