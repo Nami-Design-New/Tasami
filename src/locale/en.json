@@ -2542,13 +2542,16 @@
       "accountType": "Account Type",
       "idNumber": "ID Number",
       "field": "Field",
+
       "specialization": "Specialization",
       "activeContracts": "Active Contracts",
       "completedContracts": "Completed Contracts",
       "price": "Price",
       "beneficiaries": "Beneficiaries",
       "rate": "Rate",
-      "searchInOffers": "Search in offers"
+      "searchInOffers": "Search in offers",
+      "archived": "Archived",
+      "active": "Active"
     },
     "communities": {
       "title": "Communities",

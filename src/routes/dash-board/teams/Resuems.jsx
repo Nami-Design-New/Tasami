@@ -34,7 +34,7 @@ const Resuems = () => {
         header: t("dashboard.resume.lastName"),
         cell: (info) => info.getValue() || "-",
       }),
-      columnHelper.accessor("gender", {
+      columnHelper.accessor("gender_text", {
         header: t("dashboard.resume.gender"),
         cell: (info) => info.getValue() || "-",
       }),
@@ -71,15 +71,13 @@ const Resuems = () => {
             case "active":
               badgeColor = "#28a745";
               break;
-            case "stopped":
+            case "inactive":
               badgeColor = "#ffc107";
               break;
-            case "غير نشط":
+            case "blocked":
               badgeColor = "#007bff";
               break;
-            case "محذوف":
-              badgeColor = "#dc3545";
-              break;
+
             default:
               badgeColor = "#6c757d";
               break;
@@ -94,7 +92,7 @@ const Resuems = () => {
                 fontWeight: "400",
               }}
             >
-              {t(`userAccountsStatus.${info.getValue()}`)}
+              {info.row.original.status_text}
             </Badge>
           );
         },
@@ -143,7 +141,7 @@ const Resuems = () => {
         ),
       }),
     ],
-    [t]
+    [t],
   );
 
   const usersSeries = [
@@ -163,7 +161,7 @@ const Resuems = () => {
       name: t("dashboard.resume.members"),
       data:
         subscriptionResume?.packages?.map(
-          (item) => item.active_community_members
+          (item) => item.active_community_members,
         ) || [],
     },
     {
@@ -208,7 +206,7 @@ const Resuems = () => {
         },
       },
     },
-    colors: ["#214b92", "#22C55E", "#F97316", "#EF4444", " #3B82F6"],
+    colors: ["#214b92", "#22C55E", "#F97316", "#EF4444", "#3B82F6"],
 
     legend: {
       position: "top",

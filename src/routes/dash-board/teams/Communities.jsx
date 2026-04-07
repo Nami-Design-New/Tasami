@@ -32,42 +32,42 @@ const Communities = () => {
       name: t("dashboard.communities.communitiesCount"),
       data:
         subscriptionCommunity?.packages?.map(
-          (item) => item.communities_count
+          (item) => item.communities_count,
         ) || [],
     },
     {
       name: t("dashboard.communities.members"),
       data:
         subscriptionCommunity?.packages?.map(
-          (item) => item.communities_members
+          (item) => item.communities_members,
         ) || [],
     },
     {
       name: t("dashboard.communities.views"),
       data:
         subscriptionCommunity?.packages?.map(
-          (item) => item.communities_count
+          (item) => item.communities_count,
         ) || [],
     },
     {
       name: t("dashboard.communities.posts"),
       data:
         subscriptionCommunity?.packages?.map(
-          (item) => item.communities_posts
+          (item) => item.communities_posts,
         ) || [],
     },
     {
       name: t("dashboard.communities.consultations"),
       data:
         subscriptionCommunity?.packages?.map(
-          (item) => item.communities_consultations
+          (item) => item.communities_consultations,
         ) || [],
     },
     {
       name: t("dashboard.communities.meetings"),
       data:
         subscriptionCommunity?.packages?.map(
-          (item) => item.communities_meetings
+          (item) => item.communities_meetings,
         ) || [],
     },
   ];
@@ -120,7 +120,7 @@ const Communities = () => {
         header: t("dashboard.communities.lastName"),
         cell: (info) => info.getValue() || "-",
       }),
-      columnHelper.accessor("user.gender", {
+      columnHelper.accessor("user.gender_text", {
         header: t("dashboard.communities.gender"),
         cell: (info) => info.getValue() || "-",
       }),
@@ -144,21 +144,21 @@ const Communities = () => {
         header: t("dashboard.communities.accountType"),
         cell: (info) => info.getValue() || "-",
       }),
-      columnHelper.accessor("is_active", {
+      columnHelper.accessor("user.status", {
         header: t("dashboard.communities.accountStatus"),
         cell: (info) => {
           let badgeColor;
-          const value = info?.row?.original?.user?.status;
-          switch (value) {
+          switch (info.getValue()) {
             case "active":
               badgeColor = "#28a745";
               break;
             case "inactive":
+              badgeColor = "#ffc107";
+              break;
+            case "blocked":
               badgeColor = "#007bff";
               break;
-            case "suspended":
-              badgeColor = "#dc3545";
-              break;
+
             default:
               badgeColor = "#6c757d";
               break;
@@ -173,7 +173,7 @@ const Communities = () => {
                 fontWeight: "400",
               }}
             >
-              {t(`userAccountsStatus.${value}`)}
+              {info.row.original.user.status_text}
             </Badge>
           );
         },
@@ -255,7 +255,7 @@ const Communities = () => {
         cell: (info) => info.getValue() || "-",
       }),
     ],
-    [t]
+    [t],
   );
 
   return (

@@ -6,6 +6,7 @@ import { PAGE_SIZE } from "../../utils/constants";
 import { useState } from "react";
 import TablePagination from "../../ui/table/TablePagentaion";
 import { useTranslation } from "react-i18next";
+import { Badge } from "react-bootstrap";
 const columnHelper = createColumnHelper();
 const Experiences = () => {
   const { t } = useTranslation();
@@ -27,7 +28,7 @@ const Experiences = () => {
       header: t("dashboard.resume.lastName"),
       cell: (info) => info.getValue() || "-",
     }),
-    columnHelper.accessor("user.gender", {
+    columnHelper.accessor("user.gender_text", {
       header: t("dashboard.resume.gender"),
       cell: (info) => info.getValue() || "-",
     }),
@@ -52,7 +53,37 @@ const Experiences = () => {
     }),
     columnHelper.accessor("user.status", {
       header: t("dashboard.resume.status"),
-      cell: (info) => info.getValue() || "-",
+      cell: (info) => {
+        let badgeColor;
+        switch (info.getValue()) {
+          case "active":
+            badgeColor = "#28a745";
+            break;
+          case "inactive":
+            badgeColor = "#ffc107";
+            break;
+          case "blocked":
+            badgeColor = "#007bff";
+            break;
+
+          default:
+            badgeColor = "#6c757d";
+            break;
+        }
+        return (
+          <Badge
+            pill
+            className="custom-badge"
+            style={{
+              "--badge-color": badgeColor,
+              "--text-color": "#fff",
+              fontWeight: "400",
+            }}
+          >
+            {info.row.original.user.status_text}
+          </Badge>
+        );
+      },
     }),
     columnHelper.accessor("user.nationality.title", {
       header: t("dashboard.resume.nationality"),

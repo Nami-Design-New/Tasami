@@ -29,7 +29,7 @@ const Documents = () => {
       header: t("dashboard.documents.lastName"),
       cell: (info) => info.getValue() || "-",
     }),
-    columnHelper.accessor("user.gender", {
+    columnHelper.accessor("user.gender_text", {
       header: t("dashboard.documents.gender"),
       cell: (info) => info.getValue() || "-",
     }),
@@ -53,19 +53,20 @@ const Documents = () => {
       cell: (info) => info.getValue() || "-",
     }),
     columnHelper.accessor("user.status", {
-      header: t("dashboard.documents.status"),
+      header: t("dashboard.resume.status"),
       cell: (info) => {
         let badgeColor;
         switch (info.getValue()) {
           case "active":
             badgeColor = "#28a745";
             break;
-          case t("dashboard.documents.inactive"):
+          case "inactive":
+            badgeColor = "#ffc107";
+            break;
+          case "blocked":
             badgeColor = "#007bff";
             break;
-          case t("dashboard.documents.suspended"):
-            badgeColor = "#dc3545";
-            break;
+
           default:
             badgeColor = "#6c757d";
             break;
@@ -80,7 +81,7 @@ const Documents = () => {
               fontWeight: "400",
             }}
           >
-            {info.getValue()}
+            {info.row.original.user.status_text}
           </Badge>
         );
       },

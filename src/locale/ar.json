@@ -2531,7 +2531,9 @@
       "price": "القيمة",
       "beneficiaries": "عدد المستفيدين",
       "rate": "التقييم",
-      "searchInOffers": "البحث في عروض المساعدة"
+      "searchInOffers": "البحث في عروض المساعدة",
+      "archived": "مؤرشفة",
+      "active": "نشطة"
     },
     "communities": {
       "title": "المجتمعات",

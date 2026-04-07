@@ -105,23 +105,18 @@ const Programs = () => {
         header: t("dashboard.programs.date"),
         cell: (info) => info.getValue() || "-",
       }),
-      columnHelper.accessor("user.status", {
+      columnHelper.accessor("is_archived", {
         header: t("dashboard.programs.status"),
         cell: (info) => {
           let badgeColor;
           switch (info.getValue()) {
-            case "active":
+            case true:
               badgeColor = "#28a745";
               break;
-            case "isPending":
+            case false:
               badgeColor = "#ffc107  ";
               break;
-            case "قيد التنفيذ":
-              badgeColor = "#007bff";
-              break;
-            case "deleted":
-              badgeColor = "#dc3545";
-              break;
+
             default:
               badgeColor = "#6c757d";
               break;
@@ -136,7 +131,9 @@ const Programs = () => {
                 fontWeight: "400",
               }}
             >
-              {info.getValue() || "-"}
+              {info.getValue() === true
+                ? t("dashboard.programs.archived")
+                : t("dashboard.programs.active")}
             </Badge>
           );
         },
@@ -197,7 +194,7 @@ const Programs = () => {
         cell: (info) => info.getValue() || "-",
       }),
     ],
-    []
+    [],
   );
 
   return (
