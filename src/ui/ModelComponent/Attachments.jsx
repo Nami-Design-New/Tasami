@@ -1,16 +1,21 @@
 import { useState, useRef } from "react";
-import { Link } from "react-router";
+import { Link, useParams } from "react-router";
 import AttachmentsModal from "./AttachmentsModal";
 import usePostAddTaskFile from "../../hooks/dashboard/tasks/usePostAddTaskFile";
 import { toast } from "sonner";
 import { useTranslation } from "react-i18next";
+import { QueryClient, useQueryClient } from "@tanstack/react-query";
+import { useSelector } from "react-redux";
 
 const Attachments = ({ taskData }) => {
+  const queryQlient = useQueryClient();
   const [showModal, setShowModal] = useState(false);
   const [titleInput, setTitleInput] = useState("");
 
   const { addTaskFile } = usePostAddTaskFile();
   const { t } = useTranslation();
+  const { id } = useParams();
+  const { user } = useSelector((state) => state.adminAuth);
 
   const fileInputRef = useRef();
 
@@ -19,12 +24,13 @@ const Attachments = ({ taskData }) => {
     if (!file) return;
 
     const formData = new FormData();
-    formData.append("task_id", "1");
+    formData.append("task_id", id);
     formData.append("file", file);
 
     addTaskFile(formData, {
       onSuccess: (res) => {
         toast.success(res.message);
+        queryQlient.invalidateQueries(["show-task"]);
       },
       onError: (err) => {
         toast.error(err.message);
@@ -48,11 +54,15 @@ const Attachments = ({ taskData }) => {
                 <th>{t("dashboard.tasks.modelTask.taskDetails.time")}</th>
                 <th>{t("dashboard.tasks.modelTask.taskDetails.name")}</th>
                 <th>
-                  {t("dashboard.tasks.modelTask.taskDetails.accountNumber")}{" "}
+                  {t(
+                    "dashboard.tasks.modelTask.taskDetails.accountNumber",
+                  )}{" "}
                 </th>
 
                 <th>
-                  {t("dashboard.tasks.modelTask.taskDetails.fileAttachment")}{" "}
+                  {t(
+                    "dashboard.tasks.modelTask.taskDetails.fileAttachment",
+                  )}{" "}
                 </th>
               </tr>
             </thead>
@@ -64,10 +74,14 @@ const Attachments = ({ taskData }) => {
                   <td>{`${item.employee.first_name} ${item.employee.family_name}`}</td>
                   <td>
                     <Link
-                      to={`/dashboard/employee-details/${item.account}`}
+                      to={
+                        item.employee.id === user.id
+                          ? "/dashboard/profile"
+                          : `/dashboard/employee-details/${item.id} }`
+                      }
                       className="link-styles"
                     >
-                      {item.employee.id_number}
+                      {item.employee.code}
                     </Link>
                   </td>
 

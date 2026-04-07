@@ -36,7 +36,14 @@ const Notes = ({
       }),
       columnHelper.accessor("employee.code", {
         header: " رقم الحساب ",
-        cell: (info) => <Link className="link-styles">{info.getValue()}</Link>,
+        cell: (info) => (
+          <Link
+            className="link-styles"
+            to={`/dashboard/employee-details/${info.row.original.id}`}
+          >
+            {info.getValue()}
+          </Link>
+        ),
         enableSorting: false,
       }),
       columnHelper.accessor("type", {
@@ -79,7 +86,7 @@ const Notes = ({
         enableSorting: false,
       }),
     ],
-    []
+    [],
   );
 
   return (

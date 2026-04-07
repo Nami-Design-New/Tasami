@@ -1532,10 +1532,10 @@
         },
         "notes": {
           "title": "Benefits Log",
-          "returnBenefit": "ٌreturn",
-          "addBenefit": "ٌAdd Benefit",
+          "returnBenefit": "Return",
+          "addBenefit": "Add Benefit",
           "redirectBenefit": "Redirect ",
-          "comleteBenefit": "Complete ",
+          "completeBenefit": "Complete ",
           "date": "Date",
           "time": "Time",
           "accountNumber": "Account Number",
