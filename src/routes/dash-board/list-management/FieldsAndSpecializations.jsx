@@ -19,17 +19,21 @@ import FiledsAndSpecialzationsModal from "../../../ui/modals/FiledsAndSpecialzat
 import ReusableDataTable from "../../../ui/table/ReusableDataTable";
 import TablePagination from "../../../ui/table/TablePagentaion";
 import { PAGE_SIZE } from "../../../utils/constants";
+import { useQueryClient } from "@tanstack/react-query";
+import { toast } from "sonner";
+import useDeleteSpecialization from "../../../hooks/dashboard/FiledsAndSpecialations/useDeleteSpecialization";
+import ConfirmDeleteModal from "../../../ui/modals/ConfirmationDeleteModal";
 
 const columnHelper = createColumnHelper();
 
 const FieldsAndSpecializations = () => {
   const { t } = useTranslation();
-  // const queryClient = useQueryClient();
+  const queryClient = useQueryClient();
   const [showModal, setShowModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
   const [isEditMode, setIsEditMode] = useState(false);
-  // const [showDeleteModal, setShowDeleteModal] = useState(false);
-  // const [deletedTargedId, setDeletedTargedId] = useState(null);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [deletedTargedId, setDeletedTargedId] = useState(null);
   const [selectedTarget, setSelectedTarget] = useState(null);
   const [searchQuery, setSearchQuery] = useState("");
   const handleSearchChange = (value) => {
@@ -49,22 +53,22 @@ const FieldsAndSpecializations = () => {
     isLoading,
     lastPage,
   } = useGetSubCategories(searchQuery, page, pageSize);
-  // const { deleteSpecialization, isPending } = useDeleteSpecialization();
+  const { deleteSpecialization, isPending } = useDeleteSpecialization();
 
-  // const handleDeleteSpecialization = () => {
-  //   deleteSpecialization(deletedTargedId, {
-  //     onSuccess: (res) => {
-  //       toast.success(res?.message);
-  //       queryClient.invalidateQueries({
-  //         queryKey: ["dashboard-sub-categories"],
-  //       });
-  //       setShowDeleteModal(false);
-  //     },
-  //     onError: (err) => {
-  //       toast.error(err?.message);
-  //     },
-  //   });
-  // };
+  const handleDeleteSpecialization = () => {
+    deleteSpecialization(deletedTargedId, {
+      onSuccess: (res) => {
+        toast.success(res?.message);
+        queryClient.invalidateQueries({
+          queryKey: ["dashboard-sub-categories"],
+        });
+        setShowDeleteModal(false);
+      },
+      onError: (err) => {
+        toast.error(err?.message);
+      },
+    });
+  };
 
   // Statistics data localized
   const statsData = [
@@ -124,19 +128,19 @@ const FieldsAndSpecializations = () => {
               }}
             ></i>
 
-            {/* <i
+            <i
               className="fa-solid fa-trash table__actions--delete"
               onClick={() => {
                 setShowDeleteModal(true);
                 setDeletedTargedId(info.row.original.id);
               }}
-            ></i> */}
+            ></i>
           </div>
         ),
         enableSorting: false,
       }),
     ],
-    [t]
+    [t],
   );
 
   return (
@@ -217,13 +221,13 @@ const FieldsAndSpecializations = () => {
         setShowModal={setShowEditModal}
         selectedTarget={selectedTarget}
       />
-      {/* 
+
       <ConfirmDeleteModal
         setShowDeleteModal={setShowDeleteModal}
         showDeleteModal={showDeleteModal}
         loading={isPending}
         onConfirm={() => handleDeleteSpecialization()}
-      /> */}
+      />
     </section>
   );
 };
