@@ -60,7 +60,7 @@ export default function AvailableForAddGroups() {
       groupNumber: g.name,
       id: g.id,
       groupClassifications: g.type,
-      region: `${g.region.code}-${g.region.title}`,
+      region: `${g.region?.code}-${g.region?.title}`,
       location: g.country?.title || "-",
       city: g.city ? `${g.city.title}-${g.city.code}` : "-",
       createDate: g.created_at,
@@ -146,7 +146,7 @@ export default function AvailableForAddGroups() {
         enableSorting: false,
       }),
     ],
-    [t]
+    [t],
   );
 
   return (

@@ -24,12 +24,16 @@ export default function Contact() {
   const { contactUsAsGuest, contactUsPendingGuest } = useContactUsAsGuest();
   const { settings, isLoading: settingsLoading } = useSettings();
   const [searchParams, setSearchParams] = useSearchParams();
-  const isComplaint = (val) => String(val) === "complaint";
+  const COMPLAINT_SUBJECT_ID = -1;
+  const isComplaint = (val) => Number(val) === COMPLAINT_SUBJECT_ID;
   // Validation schema
   const schema = yup.object().shape({
     subject: user
-      ? yup.string().required(t("contact_error_subject"))
-      : yup.string().nullable(),
+      ? yup
+          .number()
+          .typeError(t("contact_error_subject"))
+          .required(t("contact_error_subject"))
+      : yup.number().nullable(),
     title: yup.string().required(t("contact_error_title")),
 
     email: yup.string().when("subject", {
@@ -56,12 +60,12 @@ export default function Contact() {
   //  Inject Complaint Subject
   const COMPLAINT_SUBJECT = useMemo(
     () => ({
-      id: "complaint",
+      id: COMPLAINT_SUBJECT_ID,
       code: "complaint",
       title: t("contact_complaint"),
       isComplaint: true,
     }),
-    [t],
+    [COMPLAINT_SUBJECT_ID, t],
   );
 
   const mergedTaskSystems = useMemo(() => {
@@ -99,7 +103,9 @@ export default function Contact() {
 
   //  Submit (dynamic logic)
   const onSubmit = async (data) => {
-    const selected = mergedTaskSystems.find((item) => item.id === data.subject);
+    const selected = mergedTaskSystems.find(
+      (item) => item.id === Number(data.subject),
+    );
     console.log(selected);
 
     // Complaint → send as guest
@@ -127,7 +133,7 @@ export default function Contact() {
 
     //  Normal flow
     const payload = {
-      task_system_id: data?.subject,
+      task_system_id: Number(data?.subject),
       name: user?.name,
       email: user?.email,
       title: data?.title,
@@ -143,6 +149,7 @@ export default function Contact() {
       },
       onError: (error) => {
         toast.error(error?.message || t("contact_error_generic"));
+        reset();
       },
     });
   };
@@ -271,7 +278,7 @@ export default function Contact() {
                         )}
                       </div>
                     )}
-                    {activeOption === "complaint" && (
+                    {activeOption === COMPLAINT_SUBJECT_ID && (
                       <div className="mb-3">
                         <InputField
                           label={t("contact_field_email")}

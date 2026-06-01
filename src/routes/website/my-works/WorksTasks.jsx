@@ -1,41 +1,40 @@
-import { useOutletContext, useParams } from "react-router";
+import { useQueryClient } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useQueryClient } from "@tanstack/react-query";
+import { useOutletContext, useParams } from "react-router";
 import { toast } from "sonner";
 
 // UI
-import NoTasks from "../../../ui/website/my-works/NoTasks";
-import TaskCard from "../../../ui/website/my-works/tasks/TaskCard";
 import CustomButton from "../../../ui/CustomButton";
+import NoTasks from "../../../ui/website/my-works/NoTasks";
 import AddTasksModal from "../../../ui/website/my-works/tasks/AddTasksModal";
+import TaskCard from "../../../ui/website/my-works/tasks/TaskCard";
 import AlertModal from "../../../ui/website/platform/my-community/AlertModal";
 
 // Hooks
 import useGetTasks from "../../../hooks/website/MyWorks/tasks/useGetTasks";
-import useGetWorkDetails from "../../../hooks/website/MyWorks/useGetWorkDetails";
 import useGetToggleGoalExe from "../../../hooks/website/MyWorks/tasks/useGetToggleGoalExe";
 import useReorderTasks from "../../../hooks/website/MyWorks/tasks/useReorderTasks";
+import useGetWorkDetails from "../../../hooks/website/MyWorks/useGetWorkDetails";
 
 // DnD Kit
 import {
-  DndContext,
   closestCenter,
+  DndContext,
   PointerSensor,
   useSensor,
   useSensors,
 } from "@dnd-kit/core";
 import {
+  arrayMove,
   SortableContext,
   useSortable,
   verticalListSortingStrategy,
-  arrayMove,
 } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
-import Loading from "../../../ui/loading/Loading";
 import useAddTaskWithAi from "../../../hooks/website/MyWorks/tasks/useAddTaskWithAi";
-import { Alert } from "react-bootstrap";
 import useDeleteAllTasks from "../../../hooks/website/MyWorks/tasks/useDeleteAllTasks";
+import Loading from "../../../ui/loading/Loading";
 
 // Sortable wrapper for TaskCard
 function SortableTask({ task, workDetails }) {
@@ -206,7 +205,7 @@ export default function WorksTasks() {
         <div className="info-box flex-grow-1">
           <h4 className="label">{t("works.myTasks.executionRate")}</h4>
           <p className="value">
-            {goalTasks["additional-data"]?.execution_percentage} % 
+            {goalTasks["additional-data"]?.execution_percentage} %
           </p>
         </div>
       </div>
@@ -218,15 +217,16 @@ export default function WorksTasks() {
             <h1>{t("works.myTasks.title")}</h1>
             <p>{t("works.myTasks.dragInstruction")}</p>
           </div>
-          {goalTasks?.data?.length > 0 && (
-            <CustomButton
-              size="large"
-              color="fire"
-              onClick={() => setShowDeleteAlertModal(true)}
-            >
-              {t("works.myTasks.deleteAll")}
-            </CustomButton>
-          )}
+          {goalTasks?.data?.length > 0 &&
+            workDetails.status !== "completed" && (
+              <CustomButton
+                size="large"
+                color="fire"
+                onClick={() => setShowDeleteAlertModal(true)}
+              >
+                {t("works.myTasks.deleteAll")}
+              </CustomButton>
+            )}
         </div>
         <DndContext
           sensors={sensors}

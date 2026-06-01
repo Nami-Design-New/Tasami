@@ -50,34 +50,34 @@ const TeamCard = ({ team }) => {
             {team?.country?.title} | {team?.city?.title}
           </p>
         </div>
-        <span className="teams__card-region">{team.region.title}</span>
+        <span className="teams__card-region">{team?.region?.title}</span>
       </div>
 
       <div className="teams__card-body">
         <div className="teams__card-body-list">
           <TeamInfoItem
             title={t("dashboard.sharedGroups.executivesCount")}
-            value={team.executive_count}
+            value={team?.executive_count}
           />
           <TeamInfoItem
             title={t("dashboard.sharedGroups.leadersCount")}
-            value={team.leader_count}
+            value={team?.leader_count}
           />
           <TeamInfoItem
             title={t("dashboard.sharedGroups.managersCount")}
-            value={team.manager_count}
+            value={team?.manager_count}
           />
           <TeamInfoItem
             title={t("dashboard.sharedGroups.supervisorsCount")}
-            value={team.CustomerService_count}
+            value={team?.CustomerService_count}
           />
           <TeamInfoItem
             title={t("dashboard.sharedGroups.employeesCount")}
-            value={team.employees_count}
+            value={team?.employees_count}
           />
           <TeamInfoItem
             title={t("dashboard.sharedGroups.creationDate")}
-            value={team.created_at}
+            value={team?.created_at}
           />
         </div>
 

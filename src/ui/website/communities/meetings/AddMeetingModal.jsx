@@ -10,7 +10,7 @@ import CustomButton from "../../../CustomButton";
 import InputField from "../../../forms/InputField";
 import SelectField from "../../../forms/SelectField";
 import TextField from "../../../forms/TextField";
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 import useEditMeeting from "../../../../hooks/website/communities/mettings/useEditMeeting";
 import GlobalModal from "../../../GlobalModal";
 import useFormCloseHandler from "../../../../hooks/shared/useFormCloseHandler";
@@ -36,11 +36,28 @@ export default function AddMeetingModal({
 
     formState: { errors },
   } = useAddMeetingForm();
+  const initialFormValues = useMemo(() => {
+    if (isEdit && meeting) {
+      return {
+        field: meeting?.category_id ?? "",
+        specialization: meeting?.sub_category_id ?? "",
+        title: meeting?.title ?? "",
+        description: meeting?.desc ?? "",
+        date: meeting?.start_date ?? "",
+        time: meeting?.start_time ?? "",
+        duration: meeting?.duration ?? "",
+        link: meeting?.link ?? "",
+        meetingType: meeting?.is_private ? "0" : "1",
+      };
+    }
+
+    return ADD_MEETING_DEFAULT_VALUES;
+  }, [isEdit, meeting]);
   const { showAlertModal, requestClose, confirmClose, cancelClose } =
     useFormCloseHandler({
       watch,
       reset,
-      defaultValues: ADD_MEETING_DEFAULT_VALUES,
+      defaultValues: initialFormValues,
       onClose: () => setShowModal(false),
     });
   const selectedFieldId = watch("field");
@@ -52,19 +69,9 @@ export default function AddMeetingModal({
 
   useEffect(() => {
     if (isEdit && meeting) {
-      reset({
-        field: meeting?.category_id,
-        specialization: meeting?.sub_category_id,
-        title: meeting?.title,
-        description: meeting?.desc,
-        date: meeting?.start_date,
-        time: meeting?.start_time,
-        duration: meeting?.duration,
-        link: meeting?.link,
-        meetingType: meeting?.is_private ? "0" : "1",
-      });
+      reset(initialFormValues);
     }
-  }, [isEdit, meeting, reset]);
+  }, [initialFormValues, isEdit, meeting, reset]);
 
   //  Handle form submit
   const onSubmit = (data) => {
@@ -77,7 +84,7 @@ export default function AddMeetingModal({
       start_time: data.time,
       duration: data.duration,
       link: data.link,
-      is_private: data.meetingType,
+      is_private: Number(data.meetingType),
     };
 
     if (isEdit && meeting?.id) {
