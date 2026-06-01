@@ -25,7 +25,7 @@ export default function AudienceCard({ data, date = false }) {
           <span>{data?.user?.name}</span>
           <span className="score">
             <img src={medalIcon} />
-            {0}
+            {data?.user?.experience_level}
           </span>
         </h2>
 
@@ -38,7 +38,8 @@ export default function AudienceCard({ data, date = false }) {
           )}
           {date && data?.created_at && (
             <p className="date">
-              {t("website.platform.audience.memberSince")} {data?.created_at}{" "}
+              {t("website.platform.audience.memberSince")}{" "}
+              {data?.created_at}{" "}
             </p>
           )}
         </div>
