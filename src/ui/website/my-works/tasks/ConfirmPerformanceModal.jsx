@@ -25,6 +25,9 @@ export default function ConfirmPerformanceModal({
 
   const isContracts = pathname.includes("my-contracts");
   const isWorks = pathname.includes("my-works");
+  const stopModalPointerEvent = (e) => {
+    e.stopPropagation();
+  };
 
   // Validation schema
   const schema = yup.object().shape({
@@ -95,12 +98,18 @@ export default function ConfirmPerformanceModal({
       centered
       size="lg"
       onClick={(e) => e.stopPropagation()}
+      onPointerDownCapture={stopModalPointerEvent}
+      onPointerMoveCapture={stopModalPointerEvent}
+      onPointerUpCapture={stopModalPointerEvent}
     >
-      <GlobalModal.Header closeButton>
+      <GlobalModal.Header
+        closeButton
+        onPointerDownCapture={stopModalPointerEvent}
+      >
         <h6>{t("performanceModal.confirmPerformance")}</h6>
       </GlobalModal.Header>
 
-      <GlobalModal.Body>
+      <GlobalModal.Body onPointerDownCapture={stopModalPointerEvent}>
         <form className="form_ui" onSubmit={handleSubmit(onSubmit)}>
           <div className="row">
             {/* Assistant card (helper) */}
