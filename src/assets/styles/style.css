@@ -1450,6 +1450,58 @@ input::-ms-clear {
 .form_ui .input-field textarea {
   height: 152px;
 }
+.form_ui .input-field .text-field-counter {
+  --counter-progress: 0%;
+  align-self: flex-end;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  width: -moz-fit-content;
+  width: fit-content;
+  padding: 4px 8px;
+  border-radius: 999px;
+  background: #fff;
+  color: rgba(119, 119, 119, 0.8);
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.2;
+}
+.form_ui .input-field .text-field-counter .text-field-counter__bar {
+  position: relative;
+  display: block;
+  width: 30px;
+  height: 4px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: rgba(13, 13, 13, 0.0941176471);
+}
+.form_ui .input-field .text-field-counter .text-field-counter__bar::after {
+  content: "";
+  position: absolute;
+  inset-inline-start: 0;
+  top: 0;
+  height: 100%;
+  width: var(--counter-progress);
+  border-radius: inherit;
+  background: #214b92;
+  transition: width 0.2s ease, background-color 0.2s ease;
+}
+.form_ui .input-field .text-field-counter.is-near-limit {
+  border-color: rgba(253, 203, 47, 0.35);
+  background: rgba(253, 203, 47, 0.08);
+  color: #fdcb2f;
+}
+.form_ui .input-field .text-field-counter.is-near-limit .text-field-counter__bar::after {
+  background: #fdcb2f;
+}
+.form_ui .input-field .text-field-counter.is-full {
+  border-color: rgba(255, 122, 89, 0.35);
+  background: rgba(255, 122, 89, 0.08);
+  color: #ff7a59;
+}
+.form_ui .input-field .text-field-counter.is-full .text-field-counter__bar::after {
+  background: #ff7a59;
+}
 .form_ui .input-field label {
   color: #0d0d0d;
   font-weight: 600;

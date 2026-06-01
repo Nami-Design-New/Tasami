@@ -3,9 +3,17 @@ import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import * as yup from "yup";
 
+const TASK_TEXT_MAX_LENGTH = 500;
+
 const getSchema = (t) =>
   yup.object({
-    taskDescription: yup.string().required(t("validation.required")),
+    taskDescription: yup
+      .string()
+      .required(t("validation.required"))
+      .max(
+        TASK_TEXT_MAX_LENGTH,
+        t("validation.maxLength", { max: TASK_TEXT_MAX_LENGTH })
+      ),
 
     taskCategory: yup.string().required(t("validation.required")),
 
@@ -18,7 +26,13 @@ const getSchema = (t) =>
         t("validation.after_or_equal_today")
       ),
 
-    notes: yup.string().nullable(),
+    notes: yup
+      .string()
+      .nullable()
+      .max(
+        TASK_TEXT_MAX_LENGTH,
+        t("validation.maxLength", { max: TASK_TEXT_MAX_LENGTH })
+      ),
 
     reminderNotifications: yup.boolean(),
 

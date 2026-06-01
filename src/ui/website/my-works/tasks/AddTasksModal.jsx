@@ -37,6 +37,8 @@ export default function AddTasksModal({
   } = useAddTasksForm();
 
   const reminderNotifications = watch("reminderNotifications");
+  const taskDescription = watch("taskDescription");
+  const notes = watch("notes");
   const notificationRepeat = watch("notification_repeat");
   const expectedEndDate = watch("expected_end_date");
 
@@ -136,6 +138,7 @@ export default function AddTasksModal({
               <TextField
                 label={t("works.task_description")}
                 {...register("taskDescription")}
+                counterValue={taskDescription}
                 error={errors.taskDescription?.message}
               />
             </div>
@@ -166,6 +169,7 @@ export default function AddTasksModal({
               <TextField
                 label={t("works.notes")}
                 {...register("notes")}
+                counterValue={notes}
                 error={errors.notes?.message}
               />
             </div>

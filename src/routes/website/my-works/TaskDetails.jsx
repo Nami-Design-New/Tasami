@@ -26,7 +26,7 @@ export default function TaskDetails() {
   const [selectedStatus, setSelectedStatus] = useState(null);
 
   const { taskDetails, isLoading } = useGetTaskDetails();
-  const { updateTaskStatus, isPending } = useUpdateTaskStatus();
+  const { updateTaskStatus } = useUpdateTaskStatus();
   const { deleteTask, isPending: isDeleting } = useDeleteTask();
 
   const handleChange = (e) => {
