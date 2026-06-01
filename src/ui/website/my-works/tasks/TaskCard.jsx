@@ -12,12 +12,14 @@ export default function TaskCard({
   user,
   isDragable = true,
   isDragging = false,
+  allowNavigation = true,
+  isReadOnly = false,
 }) {
   const navigate = useNavigate();
 
   const [showModal, setShowModal] = useState(false);
   const { pathname } = useLocation();
-  const isContracts = pathname.includes("my-contracts") || !isDragable;
+  const isContracts = pathname.includes("my-contracts");
 
   const { t } = useTranslation();
   // persistent refs across renders
@@ -48,7 +50,7 @@ export default function TaskCard({
     if (e.target.closest("button")) return;
 
     // If user didn't move pointer significantly, treat as click
-    if (!moved.current && !isContracts) {
+    if (!moved.current && allowNavigation) {
       navigate(`/tasks/${task?.id}`);
     }
   };
@@ -56,7 +58,7 @@ export default function TaskCard({
   // keyboard support (Enter / Space to activate)
   const handleKeyDown = (e) => {
     if (isDragging) return;
-    if ((e.key === "Enter" || e.key === " ") && !isContracts) {
+    if ((e.key === "Enter" || e.key === " ") && allowNavigation) {
       e.preventDefault();
       navigate(`/tasks/${task?.id}`);
     }
@@ -130,6 +132,7 @@ export default function TaskCard({
         {task?.helper === null ? (
           <></>
         ) : (
+          !isReadOnly &&
           (task.status === "completed" || task.status === "confirmed") && (
             <>
               {isContracts ? (

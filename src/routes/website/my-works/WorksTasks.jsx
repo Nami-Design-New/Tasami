@@ -56,7 +56,7 @@ function SortableTask({ task, workDetails }) {
   };
 
   return (
-    <div ref={setNodeRef} style={style} {...attributes} {...listeners}>
+                <div ref={setNodeRef} style={style} {...attributes} {...listeners}>
       <TaskCard task={task} isDragging={isDragging} />
     </div>
   );
@@ -242,7 +242,12 @@ export default function WorksTasks() {
                 <>
                   {" "}
                   {workDetails.status === "completed" ? (
-                    <TaskCard task={task} isDragable={false} />
+                    <TaskCard
+                      task={task}
+                      isDragable={false}
+                      allowNavigation
+                      isReadOnly
+                    />
                   ) : (
                     <SortableTask
                       key={task.id}
