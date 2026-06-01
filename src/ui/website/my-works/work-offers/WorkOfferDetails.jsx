@@ -84,11 +84,13 @@ export default function WorkOfferDetails({ showModal, setShowModal, offerId }) {
                 </div>
 
                 {workOfferDetails?.notes && (
-                  <div className="info-box flex-grow-1 w-100">
+                  <div className="info-box flex-grow-1 w-100 h-100">
                     <h4 className="label">
                       {t("works.myOffers.details.extraTerms")}
                     </h4>
-                    <p className="value">{workOfferDetails?.notes}</p>
+                    <p className="value " style={{ whiteSpace: "pre-wrap" }}>
+                      {workOfferDetails?.notes}
+                    </p>
                   </div>
                 )}
               </div>

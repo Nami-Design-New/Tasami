@@ -10054,6 +10054,23 @@ html[lang=en] .pdf-wrapper {
   color: #555;
 }
 
+.terms .terms-content figure.media,
+.terms .terms-content .ck-media__wrapper {
+  width: 100%;
+  max-width: 100%;
+  margin: 1.25rem 0;
+  padding: 0 20px;
+}
+.terms .terms-content iframe,
+.terms .terms-content video {
+  width: 100%;
+  max-width: 100%;
+  display: block;
+  border: 0;
+  border-radius: 1rem;
+  min-height: 320px;
+  background: #000;
+}
 .terms .terms-content h2 {
   display: none;
 }
@@ -10093,6 +10110,23 @@ html[lang=en] .pdf-wrapper {
   padding: 10px 20px;
 }
 
+.privacy .privacy-content figure.media,
+.privacy .privacy-content .ck-media__wrapper {
+  width: 100%;
+  max-width: 100%;
+  margin: 1.25rem 0;
+  padding: 0 20px;
+}
+.privacy .privacy-content iframe,
+.privacy .privacy-content video {
+  width: 100%;
+  max-width: 100%;
+  display: block;
+  border: 0;
+  border-radius: 1rem;
+  min-height: 320px;
+  background: #000;
+}
 .privacy .privacy-content h2 {
   display: none;
 }
@@ -11036,21 +11070,21 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
 .work-details-page .work-description .value {
   color: rgba(13, 13, 13, 0.5607843137);
 }
-.work-details-page .notse-box {
+.work-details-page .notes-box {
   border: 1px solid #e0e0e0;
   border-radius: 12px;
   padding: 0.5rem;
   height: -moz-min-content;
   height: min-content;
 }
-.work-details-page .notse-box .label {
+.work-details-page .notes-box .label {
   font-size: 0.9rem;
   font-weight: 600;
   color: #5fcafa;
   white-space: wrap;
   margin-bottom: 0.25rem;
 }
-.work-details-page .notse-box .value {
+.work-details-page .notes-box .value {
   font-size: 1rem;
   font-weight: 600;
   color: #0d0d0d;
@@ -11058,18 +11092,18 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
   align-items: center;
   gap: 6px;
 }
-.work-details-page .notse-box .value img {
+.work-details-page .notes-box .value img {
   width: 18px;
   height: 18px;
 }
-.work-details-page .notse-box .flex {
+.work-details-page .notes-box .flex {
   display: flex;
   justify-content: space-between;
 }
-.work-details-page .notse-box .flex .bold {
+.work-details-page .notes-box .flex .bold {
   font-weight: bold;
 }
-.work-details-page .notse-box .flex .bold img {
+.work-details-page .notes-box .flex .bold img {
   height: 20px;
   margin: 0 10px;
 }
@@ -11176,8 +11210,11 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
   transition: transform 0.2s ease;
   cursor: grab;
 }
-.tasks-list > div.not-dragabble {
+.tasks-list > div.navigable {
   cursor: pointer !important;
+}
+.tasks-list > div.static-card {
+  cursor: default !important;
 }
 .tasks-list > div:first-child .task-card .check::before {
   display: none;

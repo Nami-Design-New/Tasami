@@ -151,19 +151,13 @@ export default function ContractDetails() {
                 className="info-box  info-box-grow-min-width "
                 style={{ minWidth: "200px" }}
               >
-                <h4 className="label">
-                  {t("website.offerDetails.startDate")}
-                </h4>
-                <p className="value">
-                  {t(`${workDetails?.help_start_date}`)}
-                </p>
+                <h4 className="label">{t("website.offerDetails.startDate")}</h4>
+                <p className="value">{t(`${workDetails?.help_start_date}`)}</p>
               </div>
             </>
           )}
           <div className="info-box info-box-grow-min-width">
-            <h4 className="label">
-              {t("website.offerDetails.expectedData")}
-            </h4>
+            <h4 className="label">{t("website.offerDetails.expectedData")}</h4>
             <p className="value">
               {workDetails?.goal?.expected_duration_new_human}
             </p>
@@ -179,18 +173,14 @@ export default function ContractDetails() {
 
       {workDetails.rectangle === "help_service_from_helper"
         ? workDetails?.notes_from_helper !== "" && (
-            <div className="notse-box my-3">
-              <h4 className="label">
-                {t("website.offerDetails.extraTerms")}
-              </h4>
+            <div className="notes-box my-3">
+              <h4 className="label">{t("website.offerDetails.extraTerms")}</h4>
               <p className="value"> {workDetails?.notes_from_helper}</p>
             </div>
           )
         : workDetails?.goal.notes !== "" && (
-            <div className="notse-box my-3">
-              <h4 className="label">
-                {t("website.offerDetails.extraTerms")}
-              </h4>
+            <div className="notes-box my-3">
+              <h4 className="label">{t("website.offerDetails.extraTerms")}</h4>
               <p className="value">{workDetails?.goal.notes}</p>
             </div>
           )}
@@ -214,7 +204,7 @@ export default function ContractDetails() {
       {workDetails.rectangle === "help_service_from_helper" ? (
         workDetails?.goal?.notes && (
           <>
-            <div className="notse-box my-3">
+            <div className="notes-box my-3">
               <h4 className="label">{t("additionalBeneficiaryTerms")}</h4>
               <p className="value">{workDetails?.goal.notes}</p>
             </div>

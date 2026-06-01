@@ -14,6 +14,7 @@ export default function TaskCard({
   isDragging = false,
   allowNavigation = true,
   isReadOnly = false,
+  cursor = null,
 }) {
   const navigate = useNavigate();
 
@@ -25,6 +26,13 @@ export default function TaskCard({
   // persistent refs across renders
   const pointerStart = useRef({ x: 0, y: 0 });
   const moved = useRef(false);
+  const interactionCursor = cursor || (isDragging
+    ? "grabbing"
+    : isDragable
+    ? "grab"
+    : allowNavigation
+    ? "pointer"
+    : "default");
 
   // pointer down -> record start pos
   const handlePointerDown = (e) => {
@@ -69,28 +77,32 @@ export default function TaskCard({
 
   return (
     <div
-      className={`task-card ${isDragable ? "draggable" : "not-dragabble"} ${
-        isDragging ? "dragging" : ""
-      }`}
-      role="link"
-      tabIndex={0}
+      className={`task-card ${
+        isDragable
+          ? "draggable"
+          : allowNavigation
+            ? "navigable"
+            : "static-card"
+      } ${isDragging ? "dragging" : ""}`}
+      role={allowNavigation ? "link" : undefined}
+      tabIndex={allowNavigation ? 0 : -1}
       onPointerDown={handlePointerDown}
       onPointerMove={handlePointerMove}
       onPointerUp={handlePointerUp}
       onKeyDown={handleKeyDown}
       // prevent native drag interactions inside the card
       draggable={false}
-      style={{ userSelect: "none" }}
+      style={{ userSelect: "none", cursor: interactionCursor }}
     >
       <div
         className={`check ${
           task.status === "pending"
             ? "pending"
             : task.status === "progress"
-            ? "progress"
-            : task.status === "completed" || task.status === "confirmed"
-            ? "completed"
-            : ""
+              ? "progress"
+              : task.status === "completed" || task.status === "confirmed"
+                ? "completed"
+                : ""
         }`}
       >
         {task.status === "pending" && (

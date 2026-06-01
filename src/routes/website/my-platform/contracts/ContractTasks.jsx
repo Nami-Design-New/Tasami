@@ -57,7 +57,9 @@ export default function ContractTasks() {
               key={task.id}
               task={task}
               user={user}
+              allowNavigation={false}
               isDragable={false}
+              cursor="default"
             />
           ))}
         </div>

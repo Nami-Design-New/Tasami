@@ -51,7 +51,7 @@ function SortableTask({ task, workDetails }) {
     transform: CSS.Transform.toString(transform),
     transition,
     marginBottom: "10px",
-    cursor: `${workDetails.status === "complete" ? "pointer" : "grab"}`,
+    cursor: isDragging ? "grabbing" : "grab",
     opacity: isDragging ? 0.7 : 1,
   };
 

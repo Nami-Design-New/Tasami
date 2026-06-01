@@ -98,10 +98,7 @@ export default function WorksDetails() {
 
           {/* Notes */}
           {workDetails.goal?.notes && (
-            <div
-              className="info-box info-box-grow-min-width "
-              style={{ minWidth: "100%" }}
-            >
+            <div className="notes-box" style={{ minWidth: "100%" }}>
               <h4 className="label">{t("website.offerDetails.extraTerms")}</h4>
               <p className="value">{workDetails.goal.notes}</p>
             </div>

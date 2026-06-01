@@ -66,7 +66,7 @@ export default function EditProfile() {
   });
 
   const { nationalities, isLoading: isNationaliesLoading } =
-    useGetNationalities("", "off");
+    useGetNationalities({ search: "", pagination: "off" });
   const { cities, isCitiesLoading } = useGetCities({
     search: "",
     pagination: "off",
@@ -262,7 +262,7 @@ export default function EditProfile() {
         onError: (error) => {
           toast.error(error.message);
         },
-      }
+      },
     );
   };
 

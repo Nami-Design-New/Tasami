@@ -241,7 +241,7 @@
       color: $gray;
     }
   }
-  .notse-box {
+  .notes-box {
     border: 1px solid #e0e0e0;
     border-radius: 12px;
     padding: 0.5rem;
@@ -387,8 +387,11 @@
   & > div {
     transition: transform 0.2s ease;
     cursor: grab;
-    &.not-dragabble {
+    &.navigable {
       cursor: pointer !important;
+    }
+    &.static-card {
+      cursor: default !important;
     }
 
     // Handle the connector line visibility
