@@ -37,7 +37,7 @@ import useDeleteAllTasks from "../../../hooks/website/MyWorks/tasks/useDeleteAll
 import Loading from "../../../ui/loading/Loading";
 
 // Sortable wrapper for TaskCard
-function SortableTask({ task }) {
+function SortableTask({ task, workId }) {
   const {
     attributes,
     listeners,
@@ -57,7 +57,11 @@ function SortableTask({ task }) {
 
   return (
     <div ref={setNodeRef} style={style} {...attributes} {...listeners}>
-      <TaskCard task={task} isDragging={isDragging} />
+      <TaskCard
+        task={task}
+        isDragging={isDragging}
+        detailsPath={`/my-works/${workId}/tasks/${task.id}`}
+      />
     </div>
   );
 }
@@ -247,9 +251,10 @@ export default function WorksTasks() {
                       isDragable={false}
                       allowNavigation
                       isReadOnly
+                      detailsPath={`/my-works/${id}/tasks/${task.id}`}
                     />
                   ) : (
-                    <SortableTask key={task.id} task={task} />
+                    <SortableTask key={task.id} task={task} workId={id} />
                   )}
                 </>
               ))}

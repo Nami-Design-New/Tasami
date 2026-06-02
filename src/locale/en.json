@@ -944,6 +944,7 @@
       "delete": "Delete Task",
       "taskTitle": "Task Title",
       "notes": "Notes",
+      "noNotes": "No notes",
       "category": "Task Category",
       "reminder": "Reminder Notifications",
       "date": "Expected Completion Date",

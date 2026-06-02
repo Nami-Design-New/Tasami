@@ -15,6 +15,7 @@ export default function TaskCard({
   allowNavigation = true,
   isReadOnly = false,
   cursor = null,
+  detailsPath = null,
 }) {
   const navigate = useNavigate();
 
@@ -23,6 +24,7 @@ export default function TaskCard({
   const isContracts = pathname.includes("my-contracts");
 
   const { t } = useTranslation();
+  const taskDetailsPath = detailsPath || `/tasks/${task?.id}`;
   // persistent refs across renders
   const pointerStart = useRef({ x: 0, y: 0 });
   const moved = useRef(false);
@@ -59,7 +61,7 @@ export default function TaskCard({
 
     // If user didn't move pointer significantly, treat as click
     if (!moved.current && allowNavigation) {
-      navigate(`/tasks/${task?.id}`);
+      navigate(taskDetailsPath);
     }
   };
 
@@ -68,7 +70,7 @@ export default function TaskCard({
     if (isDragging) return;
     if ((e.key === "Enter" || e.key === " ") && allowNavigation) {
       e.preventDefault();
-      navigate(`/tasks/${task?.id}`);
+      navigate(taskDetailsPath);
     }
   };
 

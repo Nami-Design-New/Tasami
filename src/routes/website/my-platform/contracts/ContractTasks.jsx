@@ -57,9 +57,9 @@ export default function ContractTasks() {
               key={task.id}
               task={task}
               user={user}
-              allowNavigation={false}
               isDragable={false}
-              cursor="default"
+              isReadOnly
+              detailsPath={`/my-contracts/${id}/tasks/${task.id}`}
             />
           ))}
         </div>

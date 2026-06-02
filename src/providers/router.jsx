@@ -322,6 +322,14 @@ export const router = createBrowserRouter(
           ],
         },
         {
+          path: "my-works/:id/tasks/:taskId",
+          element: (
+            <ProtectedRoute>
+              <TaskDetails mode="beneficiary" />
+            </ProtectedRoute>
+          ),
+        },
+        {
           path: "assisatant/contarct/:id",
           element: <WorksContractDetails />,
         },
@@ -448,6 +456,14 @@ export const router = createBrowserRouter(
             { path: "group", element: <ContractsGroup /> },
             { path: "beneficiaries", element: <ContractsBeneficiaries /> },
           ],
+        },
+        {
+          path: "my-contracts/:id/tasks/:taskId",
+          element: (
+            <ProtectedRoute>
+              <TaskDetails mode="assistant" />
+            </ProtectedRoute>
+          ),
         },
         {
           path: "group/chat/:id",
