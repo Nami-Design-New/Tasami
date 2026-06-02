@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { axiosInstance } from "../../lib/axios";
 
-export default function useGetNationalities({ search, pagination = "on" } ) {
+export default function useGetNationalities(search, pagination = "on") {
   const { data: nationalities, isLoading } = useQuery({
     queryKey: ["nationalities", search, pagination],
     queryFn: async () => {

@@ -66,7 +66,7 @@ export default function EditProfile() {
   });
 
   const { nationalities, isLoading: isNationaliesLoading } =
-    useGetNationalities({ search: "", pagination: "off" });
+    useGetNationalities( search: "", pagination: "off" );
   const { cities, isCitiesLoading } = useGetCities({
     search: "",
     pagination: "off",

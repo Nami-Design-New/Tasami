@@ -61,12 +61,12 @@ const getSliderRange = (minValue, maxValue, range) => {
   const min = clampNumber(
     getNumberValue(minValue) ?? range.min,
     range.min,
-    range.max
+    range.max,
   );
   const max = clampNumber(
     getNumberValue(maxValue) ?? range.max,
     range.min,
-    range.max
+    range.max,
   );
 
   return [min, Math.max(min, max)];
@@ -78,12 +78,12 @@ const normalizeRangeField = (value, pairValue, range, direction) => {
   const normalizedValue = clampNumber(
     getNumberValue(value) ?? fallback,
     range.min,
-    range.max
+    range.max,
   );
   const normalizedPairValue = clampNumber(
     getNumberValue(pairValue) ?? pairFallback,
     range.min,
-    range.max
+    range.max,
   );
 
   if (direction === "min") {
@@ -97,12 +97,12 @@ const normalizeRangeData = (data, minField, maxField, range) => {
   const min = clampNumber(
     getNumberValue(data[minField]) ?? range.min,
     range.min,
-    range.max
+    range.max,
   );
   const max = clampNumber(
     getNumberValue(data[maxField]) ?? range.max,
     range.min,
-    range.max
+    range.max,
   );
 
   return {
@@ -147,12 +147,12 @@ export default function PersonalOffersSidebarFilter() {
   const [sliderPriceMin, sliderPriceMax] = getSliderRange(
     priceMin,
     priceMax,
-    PRICE_RANGE
+    PRICE_RANGE,
   );
   const [sliderAgeMin, sliderAgeMax] = getSliderRange(
     ageMin,
     ageMax,
-    AGE_RANGE
+    AGE_RANGE,
   );
 
   const handlePriceChange = ([min, max]) => {
@@ -179,7 +179,7 @@ export default function PersonalOffersSidebarFilter() {
       {
         shouldDirty: true,
         shouldValidate: true,
-      }
+      },
     );
   };
 
@@ -207,8 +207,8 @@ export default function PersonalOffersSidebarFilter() {
         normalizeRangeData(formValues, "priceMin", "priceMax", PRICE_RANGE),
         "ageMin",
         "ageMax",
-        AGE_RANGE
-      )
+        AGE_RANGE,
+      ),
     );
   }, [searchParams, reset]);
 
@@ -218,10 +218,10 @@ export default function PersonalOffersSidebarFilter() {
       normalizeRangeData(data, "priceMin", "priceMax", PRICE_RANGE),
       "ageMin",
       "ageMax",
-      AGE_RANGE
+      AGE_RANGE,
     );
     const filteredData = Object.fromEntries(
-      Object.entries(normalizedData).filter(([, v]) => v && v !== "")
+      Object.entries(normalizedData).filter(([, v]) => v && v !== ""),
     );
 
     if (normalizedData.helpMechanism?.length) {
@@ -433,7 +433,7 @@ export default function PersonalOffersSidebarFilter() {
                   "priceMin",
                   "priceMax",
                   PRICE_RANGE,
-                  "min"
+                  "min",
                 )}
                 error={errors.priceMin?.message}
               />
@@ -451,7 +451,7 @@ export default function PersonalOffersSidebarFilter() {
                   "priceMax",
                   "priceMin",
                   PRICE_RANGE,
-                  "max"
+                  "max",
                 )}
                 error={errors.priceMax?.message}
               />
@@ -496,7 +496,7 @@ export default function PersonalOffersSidebarFilter() {
                   "ageMin",
                   "ageMax",
                   AGE_RANGE,
-                  "min"
+                  "min",
                 )}
                 error={errors.ageMin?.message}
               />
@@ -513,7 +513,7 @@ export default function PersonalOffersSidebarFilter() {
                   "ageMax",
                   "ageMin",
                   AGE_RANGE,
-                  "max"
+                  "max",
                 )}
                 error={errors.ageMax?.message}
               />
