@@ -1,4 +1,6 @@
 {
+  "deleteConsultationAlert": "This action is irreversible",
+
   "goalsPreferedGender": "Assistant preferred gender",
 
   "contact_complaint": "Complaint",

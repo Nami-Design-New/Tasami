@@ -118,7 +118,7 @@ export default function ConsultaionDetails() {
         onConfirm={handleDeleteConsultation}
         loading={isDeletingConsultation}
       >
-        {t("profile.deleteAlertMessage")}
+        {t("deleteConsultationAlert")}
       </AlertModal>
     </section>
   );
