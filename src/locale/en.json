@@ -1759,6 +1759,7 @@
       "city": "City",
       "add": "Add",
       "update": "Update",
+      "deleteBlocked": "This group can’t be deleted because it has users.",
       "validation": {
         "groupType": "Group type is required",
         "region": "Region is required",

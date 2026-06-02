@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router";
 import useGetCities from "../../../hooks/dashboard/regions/useGetCities";
@@ -12,16 +12,24 @@ import { usePersistedTableState } from "../../../ui/datatable/hooks/usePersisted
 import DataTable from "../../../ui/datatable/ui/DataTable";
 import EditWorkGroupModal from "../../../ui/modals/EditWorkGroupModal";
 import { PAGE_SIZE } from "../../../utils/constants";
+import { useQueryClient } from "@tanstack/react-query";
+import useDeleteGroup from "../../../hooks/dashboard/workingGroups/useDeleteGroup";
+import { toast } from "sonner";
+import ConfirmDeleteModal from "../../../ui/modals/ConfirmationDeleteModal";
 
 const getgroupTypes = (t) => [
   { id: 1, value: "managerial", label: t("managerial") },
   { id: 2, value: "operational", label: t("operational") },
 ];
+
+const toCount = (value) => Number(value) || 0;
+
 const WorkingGroups = () => {
   const { t } = useTranslation();
-  // const queryClient = useQueryClient();
+  const queryClient = useQueryClient();
   const [workingGroupId, setWorkingGroupId] = useState();
   const [workingGroupName, setWorkingGroupName] = useState();
+  const [workingGroupUsersCount, setWorkingGroupUsersCount] = useState(0);
   // ----------------------------------
   // TABLE STATE (controlled)
   // ----------------------------------
@@ -49,7 +57,7 @@ const WorkingGroups = () => {
   // Modal state
   // -----------------------------
   const [showModal, setShowModal] = useState(false);
-  // const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
 
   // -----------------------------
   // Fetch working groups via hook
@@ -60,7 +68,7 @@ const WorkingGroups = () => {
   // -----------------------------
   // delete working group
   // -----------------------------
-  // const { deleteWorkingGroup, isDeleting } = useDeleteGroup();
+  const { deleteWorkingGroup, isDeleting } = useDeleteGroup();
 
   // ----------------------------------
   // HANDLERS
@@ -68,6 +76,42 @@ const WorkingGroups = () => {
   const handleSortChange = (sortBy, sortOrder) => {
     setSortConfig(sortBy && sortOrder ? { sortBy, sortOrder } : null);
   };
+
+  const handleOpenDeleteModal = useCallback(
+    (workingGroup) => {
+      if (workingGroup.usersCount > 0) {
+        toast.info(t("dashboard.workGroup.deleteBlocked"));
+        return;
+      }
+
+      setShowDeleteModal(true);
+      setWorkingGroupId(workingGroup.id);
+      setWorkingGroupUsersCount(workingGroup.usersCount);
+    },
+    [t],
+  );
+
+  const handleDeleteWorkingGroup = useCallback(() => {
+    if (workingGroupUsersCount > 0) {
+      toast.info(t("dashboard.workGroup.deleteBlocked"));
+      setShowDeleteModal(false);
+      return;
+    }
+
+    deleteWorkingGroup(workingGroupId, {
+      onSuccess: (res) => {
+        toast.success(res?.message);
+        queryClient.invalidateQueries({
+          queryKey: ["dashboard-working-group"],
+        });
+        setShowDeleteModal(false);
+      },
+      onError: (err) => {
+        toast.error(err?.message);
+      },
+    });
+  }, [deleteWorkingGroup, queryClient, t, workingGroupId, workingGroupUsersCount]);
+
   // -----------------------------
   // Fetch cascading filter data
   // -----------------------------
@@ -130,20 +174,31 @@ const WorkingGroups = () => {
 
   const tableData = useMemo(
     () =>
-      workingGroups.map((wg) => ({
-        id: wg?.id,
-        groupNumber: wg?.name,
-        groupClassifications: wg?.type,
-        region_id: wg?.region?.title || "-",
-        country_id: wg?.country?.title || "-",
-        city_id: wg?.city?.title || "-",
-        createDate: wg?.created_at,
-        excutives: wg?.executive_count,
-        leaders: wg?.leader_count,
-        managers: wg?.manager_count,
-        supervisorsCount: wg?.supervisor_count,
-        employeeCount: wg?.customer_service_count,
-      })),
+      workingGroups.map((wg) => {
+        const excutives = toCount(wg?.executive_count);
+        const leaders = toCount(wg?.leader_count);
+        const managers = toCount(wg?.manager_count);
+        const supervisorsCount = toCount(wg?.supervisor_count);
+        const employeeCount = toCount(wg?.customer_service_count);
+        const usersCount =
+          excutives + leaders + managers + supervisorsCount + employeeCount;
+
+        return {
+          id: wg?.id,
+          groupNumber: wg?.name,
+          groupClassifications: wg?.type,
+          region_id: wg?.region?.title || "-",
+          country_id: wg?.country?.title || "-",
+          city_id: wg?.city?.title || "-",
+          createDate: wg?.created_at,
+          excutives,
+          leaders,
+          managers,
+          supervisorsCount,
+          employeeCount,
+          usersCount,
+        };
+      }),
     [workingGroups],
   );
 
@@ -212,35 +267,42 @@ const WorkingGroups = () => {
       columnHelper.accessor("actions", {
         header: t("dashboard.workGroup.table.actions"),
         cell: (info) => {
+          const workingGroup = info.row.original;
+          const canDeleteWorkingGroup = workingGroup.usersCount === 0;
+
           return (
             <div className="table__actions">
-              <Link to={`/dashboard/shared-groups/${info?.row?.original?.id}`}>
+              <Link to={`/dashboard/shared-groups/${workingGroup.id}`}>
                 <i className="fa-solid fa-user-friends table__actions--details"></i>
               </Link>
               <i
                 className="fa-solid fa-edit table__actions--edit"
                 onClick={() => {
                   setShowModal(true);
-                  setWorkingGroupId(info?.row?.original?.id);
-                  setWorkingGroupName(info?.row?.original?.groupNumber);
+                  setWorkingGroupId(workingGroup.id);
+                  setWorkingGroupName(workingGroup.groupNumber);
                 }}
               ></i>
-              {
-                // <i
-                //   className="fa-solid fa-trash table__actions--delete"
-                //   onClick={() => {
-                //     setShowDeleteModal(true);
-                //     setWorkingGroupId(info?.row?.original?.id);
-                //   }}
-                // ></i>
-              }
+              <i
+                className="fa-solid fa-trash table__actions--delete"
+                title={
+                  !canDeleteWorkingGroup
+                    ? t("dashboard.workGroup.deleteBlocked")
+                    : undefined
+                }
+                style={{
+                  cursor: canDeleteWorkingGroup ? "pointer" : "not-allowed",
+                  opacity: canDeleteWorkingGroup ? 1 : 0.45,
+                }}
+                onClick={() => handleOpenDeleteModal(workingGroup)}
+              ></i>
             </div>
           );
         },
         enableSorting: true,
       }),
     ],
-    [t],
+    [handleOpenDeleteModal, t],
   );
   const workingGroupsFilterConfig = {
     groupClassifications: {
@@ -368,25 +430,12 @@ const WorkingGroups = () => {
         workingGroupId={workingGroupId}
         workingGroupName={workingGroupName}
       />
-      {/* <ConfirmDeleteModal
+      <ConfirmDeleteModal
         setShowDeleteModal={setShowDeleteModal}
         showDeleteModal={showDeleteModal}
-        onConfirm={() =>
-          deleteWorkingGroup(workingGroupId, {
-            onSuccess: (res) => {
-              toast.success(res?.message);
-              queryClient.invalidateQueries({
-                queryKey: ["dashboard-working-group"],
-              });
-              setShowDeleteModal(false);
-            },
-            onError: (err) => {
-              toast.error(err?.message);
-            },
-          })
-        }
+        onConfirm={handleDeleteWorkingGroup}
         loading={isDeleting}
-      /> */}
+      />
     </section>
   );
 };
