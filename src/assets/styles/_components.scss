@@ -440,6 +440,14 @@ $color-fire: #ff7a59;
     transform: scale(1.1);
   }
 
+  .half-star-icon {
+    transform: scaleX(-1);
+
+    &:hover {
+      transform: scaleX(-1) scale(1.1);
+    }
+  }
+
   .rating-number {
     font-size: 14px;
     color: $text;

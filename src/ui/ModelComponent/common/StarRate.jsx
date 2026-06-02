@@ -7,7 +7,7 @@ export default function StarRate({ rating, isRating = true }) {
       {[...Array(fullStars)].map((_, i) => (
         <i key={i} className="fas fa-star"></i>
       ))}
-      {halfStar && <i className="fas fa-star-half-alt"></i>}
+      {halfStar && <i className="fas fa-star-half-alt half-star-icon"></i>}
       {[...Array(5 - fullStars - (halfStar ? 1 : 0))].map((_, i) => (
         <i key={i} className="far fa-star"></i>
       ))}

@@ -3049,6 +3049,12 @@ body.en .show-pass {
 .star-rating .far.fa-star:hover {
   transform: scale(1.1);
 }
+.star-rating .half-star-icon {
+  transform: scaleX(-1);
+}
+.star-rating .half-star-icon:hover {
+  transform: scaleX(-1) scale(1.1);
+}
 .star-rating .rating-number {
   font-size: 14px;
   color: #666b88;
