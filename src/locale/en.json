@@ -777,6 +777,8 @@
     "toAgeGteFromAge": "To age must be greater than or equal to From age",
     "mustBeNumber": "Must be a number",
     "minPrice": "Minimum price is {{min}}",
+    "maxPrice": "Maximum price is {{max}}",
+    "maxPriceGteMin": "Max price must be greater than or equal to Min price",
     "helpMechanismRequired": "Select at least one help mechanism",
     "pattern": "{{field}} format is invalid",
     "ibanFormat": "{{field}} must start with two capital letters",

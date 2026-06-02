@@ -21,6 +21,97 @@ const genderIcons = {
   male: maleIcon,
   female: femaleIcon,
 };
+
+const PRICE_RANGE = {
+  min: 1,
+  max: 10000,
+};
+
+const AGE_RANGE = {
+  min: 15,
+  max: 65,
+};
+
+const DEFAULT_FILTER_VALUES = {
+  search: "",
+  city: "",
+  country: "",
+  nationality: "",
+  field: "",
+  specialization: "",
+  gender: "both",
+  rate: "all",
+  priceMin: PRICE_RANGE.min,
+  priceMax: PRICE_RANGE.max,
+  ageMin: AGE_RANGE.min,
+  ageMax: AGE_RANGE.max,
+  helpMechanism: [],
+};
+
+const clampNumber = (value, min, max) => Math.min(Math.max(value, min), max);
+
+const getNumberValue = (value) => {
+  if (value === "" || value == null) return null;
+
+  const numberValue = Number(value);
+  return Number.isFinite(numberValue) ? numberValue : null;
+};
+
+const getSliderRange = (minValue, maxValue, range) => {
+  const min = clampNumber(
+    getNumberValue(minValue) ?? range.min,
+    range.min,
+    range.max
+  );
+  const max = clampNumber(
+    getNumberValue(maxValue) ?? range.max,
+    range.min,
+    range.max
+  );
+
+  return [min, Math.max(min, max)];
+};
+
+const normalizeRangeField = (value, pairValue, range, direction) => {
+  const fallback = direction === "min" ? range.min : range.max;
+  const pairFallback = direction === "min" ? range.max : range.min;
+  const normalizedValue = clampNumber(
+    getNumberValue(value) ?? fallback,
+    range.min,
+    range.max
+  );
+  const normalizedPairValue = clampNumber(
+    getNumberValue(pairValue) ?? pairFallback,
+    range.min,
+    range.max
+  );
+
+  if (direction === "min") {
+    return Math.min(normalizedValue, normalizedPairValue);
+  }
+
+  return Math.max(normalizedValue, normalizedPairValue);
+};
+
+const normalizeRangeData = (data, minField, maxField, range) => {
+  const min = clampNumber(
+    getNumberValue(data[minField]) ?? range.min,
+    range.min,
+    range.max
+  );
+  const max = clampNumber(
+    getNumberValue(data[maxField]) ?? range.max,
+    range.min,
+    range.max
+  );
+
+  return {
+    ...data,
+    [minField]: min,
+    [maxField]: Math.max(min, max),
+  };
+};
+
 export default function PersonalOffersSidebarFilter() {
   const { t } = useTranslation();
   const [searchParams, setSearchParams] = useSearchParams();
@@ -49,10 +140,20 @@ export default function PersonalOffersSidebarFilter() {
     useGetNationalities("", "off");
 
   // Range slider watched values
-  const priceMin = Number(watch("priceMin"));
-  const priceMax = Number(watch("priceMax"));
-  const ageMin = Number(watch("ageMin"));
-  const ageMax = Number(watch("ageMax"));
+  const priceMin = watch("priceMin");
+  const priceMax = watch("priceMax");
+  const ageMin = watch("ageMin");
+  const ageMax = watch("ageMax");
+  const [sliderPriceMin, sliderPriceMax] = getSliderRange(
+    priceMin,
+    priceMax,
+    PRICE_RANGE
+  );
+  const [sliderAgeMin, sliderAgeMax] = getSliderRange(
+    ageMin,
+    ageMax,
+    AGE_RANGE
+  );
 
   const handlePriceChange = ([min, max]) => {
     setValue("priceMin", min, { shouldDirty: true });
@@ -62,6 +163,24 @@ export default function PersonalOffersSidebarFilter() {
   const handleAgeChange = ([min, max]) => {
     setValue("ageMin", min, { shouldDirty: true });
     setValue("ageMax", max, { shouldDirty: true });
+  };
+
+  const handleRangeInputChange = (field) => (e) => {
+    setValue(field, e.target.value, {
+      shouldDirty: true,
+      shouldValidate: false,
+    });
+  };
+
+  const handleRangeInputBlur = (field, pairField, range, direction) => (e) => {
+    setValue(
+      field,
+      normalizeRangeField(e.target.value, watch(pairField), range, direction),
+      {
+        shouldDirty: true,
+        shouldValidate: true,
+      }
+    );
   };
 
   const selectedHelpMechanism = watch("helpMechanism") || [];
@@ -77,27 +196,43 @@ export default function PersonalOffersSidebarFilter() {
     const paramsObj = Object.fromEntries([...searchParams]);
 
     const helpMechanism = searchParams.getAll("helpMechanism");
-    reset({
+    const formValues = {
+      ...DEFAULT_FILTER_VALUES,
       ...paramsObj,
       helpMechanism,
-    });
+    };
+
+    reset(
+      normalizeRangeData(
+        normalizeRangeData(formValues, "priceMin", "priceMax", PRICE_RANGE),
+        "ageMin",
+        "ageMax",
+        AGE_RANGE
+      )
+    );
   }, [searchParams, reset]);
 
   // --- Handle submit (sync with URL search params)
   const onSubmit = (data) => {
+    const normalizedData = normalizeRangeData(
+      normalizeRangeData(data, "priceMin", "priceMax", PRICE_RANGE),
+      "ageMin",
+      "ageMax",
+      AGE_RANGE
+    );
     const filteredData = Object.fromEntries(
-      Object.entries(data).filter(([_, v]) => v && v !== "")
+      Object.entries(normalizedData).filter(([, v]) => v && v !== "")
     );
 
-    if (data.helpMechanism?.length) {
-      if (!data.helpMechanism.includes("all")) {
-        filteredData.helpMechanism = data.helpMechanism;
+    if (normalizedData.helpMechanism?.length) {
+      if (!normalizedData.helpMechanism.includes("all")) {
+        filteredData.helpMechanism = normalizedData.helpMechanism;
       } else {
         delete filteredData.helpMechanism;
       }
     }
 
-    if (data.rate === "all") {
+    if (normalizedData.rate === "all") {
       delete filteredData.rate;
     }
 
@@ -110,19 +245,7 @@ export default function PersonalOffersSidebarFilter() {
 
   // --- Reset (clear params + form)
   const handleReset = () => {
-    reset({
-      search: "",
-      city: "",
-      country: "",
-      nationality: "",
-      field: "",
-      specialization: "",
-      gender: "both",
-      priceMin: 1,
-      priceMax: 10000,
-      ageMin: 15,
-      ageMax: 65,
-    });
+    reset(DEFAULT_FILTER_VALUES);
     setSearchParams({});
   };
   return (
@@ -281,8 +404,8 @@ export default function PersonalOffersSidebarFilter() {
                 className="text-danger"
                 type="button"
                 onClick={() => {
-                  setValue("priceMin", 1);
-                  setValue("priceMax", 10000);
+                  setValue("priceMin", PRICE_RANGE.min);
+                  setValue("priceMax", PRICE_RANGE.max);
                 }}
               >
                 {t("website.assistants.clear")}
@@ -292,7 +415,7 @@ export default function PersonalOffersSidebarFilter() {
               min={1}
               max={10000}
               step={1}
-              value={[priceMin, priceMax]}
+              value={[sliderPriceMin, sliderPriceMax]}
               onInput={handlePriceChange}
               className="w-100"
             />
@@ -301,58 +424,36 @@ export default function PersonalOffersSidebarFilter() {
                 type="number"
                 label={t("website.assistants.priceMinLabel")}
                 icon={ryalIcon}
-                value={priceMin}
-                min={1}
-                max={10000}
+                value={priceMin ?? ""}
+                min={PRICE_RANGE.min}
+                max={PRICE_RANGE.max}
                 step={1}
-                onChange={(e) => {
-                  let v = Number(e.target.value);
-                  if (!isNaN(v)) {
-                    // Clamp value between 1 and 10000
-                    v = Math.max(1, Math.min(10000, v));
-                    // Ensure min doesn't exceed max
-                    if (v > priceMax) {
-                      v = priceMax;
-                    }
-                    setValue("priceMin", v, { shouldDirty: true });
-                  }
-                }}
-                onBlur={(e) => {
-                  // Ensure value is set to min if empty or invalid
-                  const v = Number(e.target.value);
-                  if (isNaN(v) || v < 1) {
-                    setValue("priceMin", 1, { shouldDirty: true });
-                  }
-                }}
+                onChange={handleRangeInputChange("priceMin")}
+                onBlur={handleRangeInputBlur(
+                  "priceMin",
+                  "priceMax",
+                  PRICE_RANGE,
+                  "min"
+                )}
+                error={errors.priceMin?.message}
               />
 
               <InputField
                 type="number"
                 label={t("website.assistants.priceMaxLabel")}
                 icon={ryalIcon}
-                value={priceMax}
-                min={1}
-                max={10000}
+                value={priceMax ?? ""}
+                min={PRICE_RANGE.min}
+                max={PRICE_RANGE.max}
                 step={1}
-                onChange={(e) => {
-                  let v = Number(e.target.value);
-                  if (!isNaN(v)) {
-                    // Clamp value between 1 and 10000
-                    v = Math.max(1, Math.min(10000, v));
-                    // Ensure max doesn't go below min
-                    if (v < priceMin) {
-                      v = priceMin;
-                    }
-                    setValue("priceMax", v, { shouldDirty: true });
-                  }
-                }}
-                onBlur={(e) => {
-                  // Ensure value is set to max if empty or invalid
-                  const v = Number(e.target.value);
-                  if (isNaN(v) || v > 10000) {
-                    setValue("priceMax", 10000, { shouldDirty: true });
-                  }
-                }}
+                onChange={handleRangeInputChange("priceMax")}
+                onBlur={handleRangeInputBlur(
+                  "priceMax",
+                  "priceMin",
+                  PRICE_RANGE,
+                  "max"
+                )}
+                error={errors.priceMax?.message}
               />
             </div>
           </div>{" "}
@@ -366,8 +467,8 @@ export default function PersonalOffersSidebarFilter() {
                 type="button"
                 className="text-danger"
                 onClick={() => {
-                  setValue("ageMin", 15);
-                  setValue("ageMax", 65);
+                  setValue("ageMin", AGE_RANGE.min);
+                  setValue("ageMax", AGE_RANGE.max);
                 }}
               >
                 {t("website.assistants.clear")}
@@ -378,7 +479,7 @@ export default function PersonalOffersSidebarFilter() {
               min={15}
               max={65}
               step={1}
-              value={[ageMin, ageMax]}
+              value={[sliderAgeMin, sliderAgeMax]}
               onInput={handleAgeChange}
               className="w-100"
             />
@@ -386,59 +487,35 @@ export default function PersonalOffersSidebarFilter() {
               <InputField
                 type="number"
                 label={t("website.assistants.ageMinLabel")}
-                value={ageMin}
-                min={15}
-                max={ageMax}
+                value={ageMin ?? ""}
+                min={AGE_RANGE.min}
+                max={AGE_RANGE.max}
                 step={1}
-                onChange={(e) => {
-                  const v = Number(e.target.value);
-                  if (!isNaN(v)) {
-                    setValue("ageMin", v, { shouldDirty: true });
-                  }
-                }}
-                onBlur={(e) => {
-                  let v = Number(e.target.value);
-                  // Clamp value between 15 and 65
-                  if (isNaN(v) || v < 15) {
-                    v = 15;
-                  } else if (v > 65) {
-                    v = 65;
-                  }
-                  // Ensure min doesn't exceed max
-                  if (v > ageMax) {
-                    v = ageMax;
-                  }
-                  setValue("ageMin", v, { shouldDirty: true });
-                }}
+                onChange={handleRangeInputChange("ageMin")}
+                onBlur={handleRangeInputBlur(
+                  "ageMin",
+                  "ageMax",
+                  AGE_RANGE,
+                  "min"
+                )}
+                error={errors.ageMin?.message}
               />
 
               <InputField
                 type="number"
-                value={ageMax}
+                value={ageMax ?? ""}
                 label={t("website.assistants.ageMaxLabel")}
-                min={ageMin}
-                max={65}
+                min={AGE_RANGE.min}
+                max={AGE_RANGE.max}
                 step={1}
-                onChange={(e) => {
-                  const v = Number(e.target.value);
-                  if (!isNaN(v)) {
-                    setValue("ageMax", v, { shouldDirty: true });
-                  }
-                }}
-                onBlur={(e) => {
-                  let v = Number(e.target.value);
-                  // Clamp value between 15 and 65
-                  if (isNaN(v) || v < 15) {
-                    v = 15;
-                  } else if (v > 65) {
-                    v = 65;
-                  }
-                  // Ensure max doesn't go below min
-                  if (v < ageMin) {
-                    v = ageMin;
-                  }
-                  setValue("ageMax", v, { shouldDirty: true });
-                }}
+                onChange={handleRangeInputChange("ageMax")}
+                onBlur={handleRangeInputBlur(
+                  "ageMax",
+                  "ageMin",
+                  AGE_RANGE,
+                  "max"
+                )}
+                error={errors.ageMax?.message}
               />
             </div>
           </div>
