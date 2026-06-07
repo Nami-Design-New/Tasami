@@ -23,6 +23,7 @@ export default function useAssistantsFilterForm() {
     defaultValues: {
       search: "",
       city: "",
+      country: "",
       nationality: "",
       field: "",
       specialization: "",
