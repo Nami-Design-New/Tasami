@@ -20,10 +20,13 @@ import GlobalModal from "../GlobalModal";
 
 const defaultValues = {
   groupType: WORKING_GROPUS_CALSSIFICATIONS[0],
-  region: "",
-  country: "",
-  city: "",
+  region: null,
+  country: null,
+  city: null,
 };
+
+const normalizeLocationValue = (value) =>
+  value === "" || value === undefined ? null : value;
 
 const EditWorkGroupModal = ({
   showModal,
@@ -46,9 +49,9 @@ const EditWorkGroupModal = ({
                 .string()
                 .required(t("workGroup.validation.groupType")),
             }),
-        region: yup.mixed().required(t("workGroup.validation.region")),
-        country: yup.mixed().required(t("workGroup.validation.country")),
-        city: yup.mixed().required(t("workGroup.validation.city")),
+        region: yup.mixed().nullable(),
+        country: yup.mixed().nullable(),
+        city: yup.mixed().nullable(),
       }),
     [isEditMode, t]
   );
@@ -58,6 +61,7 @@ const EditWorkGroupModal = ({
     register,
     handleSubmit,
     reset,
+    setValue,
     watch,
     formState: { errors },
   } = useForm({
@@ -84,9 +88,9 @@ const EditWorkGroupModal = ({
   useEffect(() => {
     if (isEditMode && workingGroupData) {
       reset({
-        region: workingGroupData?.region?.id || "",
-        country: workingGroupData?.country?.id || "",
-        city: workingGroupData?.city?.id || "",
+        region: workingGroupData?.region?.id ?? null,
+        country: workingGroupData?.country?.id ?? null,
+        city: workingGroupData?.city?.id ?? null,
       });
     } else if (!isEditMode) {
       reset(defaultValues);
@@ -95,7 +99,7 @@ const EditWorkGroupModal = ({
 
   // Fetch region/country/city lists
   const { regions, isLoading, fetchNextPage, hasNextPage, isFetchingNextPage } =
-    useGetRegions(showModal);
+    useGetRegions("on", showModal);
 
   const {
     countries,
@@ -103,7 +107,7 @@ const EditWorkGroupModal = ({
     fetchCountriesNextPage,
     hasCountriesNextPage,
     isFetchingCountriesNextPage,
-  } = useGetCountries(selectedRegion, showModal && !!selectedRegion);
+  } = useGetCountries(selectedRegion, "on", showModal && !!selectedRegion);
 
   const {
     cities,
@@ -111,7 +115,48 @@ const EditWorkGroupModal = ({
     fetchCitiesNextPage,
     hasCitiesNextPage,
     isFetchingCitiesNextPage,
-  } = useGetCities(selectedCountry, showModal && !!selectedCountry);
+  } = useGetCities(selectedCountry, "on", showModal && !!selectedCountry);
+
+  const allLocationOption = useMemo(
+    () => ({
+      value: null,
+      name: t("dashboard.workGroup.all"),
+    }),
+    [t]
+  );
+
+  const regionOptions = useMemo(
+    () => [
+      allLocationOption,
+      ...(regions?.map((r) => ({
+        value: r?.id,
+        name: r?.title,
+      })) || []),
+    ],
+    [allLocationOption, regions]
+  );
+
+  const countryOptions = useMemo(
+    () => [
+      allLocationOption,
+      ...(countries?.map((r) => ({
+        value: r?.id,
+        name: r?.title,
+      })) || []),
+    ],
+    [allLocationOption, countries]
+  );
+
+  const cityOptions = useMemo(
+    () => [
+      allLocationOption,
+      ...(cities?.map((r) => ({
+        value: r?.id,
+        name: r?.title,
+      })) || []),
+    ],
+    [allLocationOption, cities]
+  );
 
   //  Mutations
   const { addNewWorkingGroup, isPending } = useAddNewGroup();
@@ -120,9 +165,9 @@ const EditWorkGroupModal = ({
   // Submit handler
   const onSubmit = (data) => {
     const locationPayload = {
-      region_id: data.region,
-      country_id: data.country,
-      city_id: data.city,
+      region_id: normalizeLocationValue(data.region),
+      country_id: normalizeLocationValue(data.country),
+      city_id: normalizeLocationValue(data.city),
     };
 
     const onSuccess = (res) => {
@@ -207,13 +252,16 @@ const EditWorkGroupModal = ({
                   render={({ field }) => (
                     <SelectFieldReactSelect
                       label={t("dashboard.workGroup.region")}
-                      options={regions?.map((r) => ({
-                        value: r?.id,
-                        name: r?.title,
-                      }))}
+                      options={regionOptions}
                       loading={isLoading || isFetchingNextPage}
                       value={field.value}
-                      onChange={field.onChange}
+                      onChange={(value) => {
+                        field.onChange(value);
+                        if (value === null || value === "") {
+                          setValue("country", null);
+                          setValue("city", null);
+                        }
+                      }}
                       onMenuScrollToBottom={() => {
                         if (hasNextPage) fetchNextPage();
                       }}
@@ -231,10 +279,7 @@ const EditWorkGroupModal = ({
                   render={({ field }) => (
                     <SelectFieldReactSelect
                       label={t("dashboard.workGroup.country")}
-                      options={countries?.map((r) => ({
-                        value: r?.id,
-                        name: r?.title,
-                      }))}
+                      options={countryOptions}
                       loading={
                         isCountriesLaoding || isFetchingCountriesNextPage
                       }
@@ -242,7 +287,12 @@ const EditWorkGroupModal = ({
                         if (hasCountriesNextPage) fetchCountriesNextPage();
                       }}
                       value={field.value}
-                      onChange={field.onChange}
+                      onChange={(value) => {
+                        field.onChange(value);
+                        if (value === null || value === "") {
+                          setValue("city", null);
+                        }
+                      }}
                       error={errors.country?.message}
                     />
                   )}
@@ -257,10 +307,7 @@ const EditWorkGroupModal = ({
                   render={({ field }) => (
                     <SelectFieldReactSelect
                       label={t("dashboard.workGroup.city")}
-                      options={cities?.map((r) => ({
-                        value: r?.id,
-                        name: r?.title,
-                      }))}
+                      options={cityOptions}
                       loading={isCitiesLaoding || isFetchingCitiesNextPage}
                       value={field.value}
                       onMenuScrollToBottom={() => {

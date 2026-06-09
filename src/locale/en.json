@@ -1757,6 +1757,7 @@
       "location": "Sector",
       "country": "Country",
       "city": "City",
+      "all": "All",
       "add": "Add",
       "update": "Update",
       "deleteBlocked": "This group can’t be deleted because it has users.",
