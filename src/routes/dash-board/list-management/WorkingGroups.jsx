@@ -110,7 +110,13 @@ const WorkingGroups = () => {
         toast.error(err?.message);
       },
     });
-  }, [deleteWorkingGroup, queryClient, t, workingGroupId, workingGroupUsersCount]);
+  }, [
+    deleteWorkingGroup,
+    queryClient,
+    t,
+    workingGroupId,
+    workingGroupUsersCount,
+  ]);
 
   // -----------------------------
   // Fetch cascading filter data
@@ -158,14 +164,14 @@ const WorkingGroups = () => {
     },
     {
       label: t("dashboard.workGroup.stats.supervisors"),
-      value: stats?.group_count,
+      value: stats?.supervisor_count,
       icon: "fa-user-check",
       color: "#fff",
       bgColor: "#6f42c1",
     },
     {
       label: t("dashboard.workGroup.stats.employees"),
-      value: stats?.group_count,
+      value: stats?.customer_service_count,
       icon: "fa-id-badge",
       color: "#fff",
       bgColor: "#dc3545",

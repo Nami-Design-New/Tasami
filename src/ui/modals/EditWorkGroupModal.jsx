@@ -14,7 +14,7 @@ import { WORKING_GROPUS_CALSSIFICATIONS } from "../../utils/constants";
 import CustomButton from "../CustomButton";
 import SelectFieldReactSelect from "../forms/SelectFieldReactSelect";
 import TabRadioGroup from "../TabRadioGroup";
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 import SpinnerLoader from "../loading/SpinnerLoader";
 import GlobalModal from "../GlobalModal";
 
@@ -36,12 +36,22 @@ const EditWorkGroupModal = ({
 
   const isEditMode = !!workingGroupId && !!workingGroupName;
 
-  const schema = yup.object().shape({
-    groupType: yup.string().required(t("workGroup.validation.groupType")),
-    region: yup.mixed().required(t("workGroup.validation.region")),
-    country: yup.mixed().required(t("workGroup.validation.country")),
-    city: yup.mixed().required(t("workGroup.validation.city")),
-  });
+  const schema = useMemo(
+    () =>
+      yup.object().shape({
+        ...(isEditMode
+          ? {}
+          : {
+              groupType: yup
+                .string()
+                .required(t("workGroup.validation.groupType")),
+            }),
+        region: yup.mixed().required(t("workGroup.validation.region")),
+        country: yup.mixed().required(t("workGroup.validation.country")),
+        city: yup.mixed().required(t("workGroup.validation.city")),
+      }),
+    [isEditMode, t]
+  );
 
   const {
     control,
@@ -60,8 +70,7 @@ const EditWorkGroupModal = ({
 
   // Fetch working group details in edit mode
   const {
-    workinGroupData,
-    workingMembers,
+    workingGroupData,
     isLoading: isGroupLoading,
   } = useGetWorkingGroupdetails(
     workingGroupId,
@@ -73,17 +82,16 @@ const EditWorkGroupModal = ({
 
   // Prefill form when editing
   useEffect(() => {
-    if (isEditMode && workinGroupData) {
+    if (isEditMode && workingGroupData) {
       reset({
-        groupType: workinGroupData?.type || WORKING_GROPUS_CALSSIFICATIONS[0],
-        region: workinGroupData?.region?.id || "",
-        country: workinGroupData?.country?.id || "",
-        city: workinGroupData?.city?.id || "",
+        region: workingGroupData?.region?.id || "",
+        country: workingGroupData?.country?.id || "",
+        city: workingGroupData?.city?.id || "",
       });
     } else if (!isEditMode) {
       reset(defaultValues);
     }
-  }, [workinGroupData, isEditMode, reset]);
+  }, [workingGroupData, isEditMode, reset]);
 
   // Fetch region/country/city lists
   const { regions, isLoading, fetchNextPage, hasNextPage, isFetchingNextPage } =
@@ -111,8 +119,7 @@ const EditWorkGroupModal = ({
 
   // Submit handler
   const onSubmit = (data) => {
-    let payload = {
-      type: data.groupType,
+    const locationPayload = {
       region_id: data.region,
       country_id: data.country,
       city_id: data.city,
@@ -132,13 +139,17 @@ const EditWorkGroupModal = ({
     };
 
     if (isEditMode) {
-      payload = {
-        ...payload,
+      const payload = {
+        ...locationPayload,
         _method: "put",
         id: workingGroupId,
       };
       editWorkingGroup(payload, { onSuccess, onError });
     } else {
+      const payload = {
+        type: data.groupType,
+        ...locationPayload,
+      };
       addNewWorkingGroup(payload, { onSuccess, onError });
     }
   };
@@ -166,26 +177,27 @@ const EditWorkGroupModal = ({
         ) : (
           <form className="form_ui" onSubmit={handleSubmit(onSubmit)}>
             <div className="row g-3">
-              {/* Group Type */}
-              <div className="col-12">
-                <h6 className="mb-1 label">
-                  {t("dashboard.workGroup.groupType")}
-                </h6>
-                <TabRadioGroup
-                  name="groupType"
-                  register={register}
-                  options={[
-                    {
-                      label: t("dashboard.workGroup.operational"),
-                      value: WORKING_GROPUS_CALSSIFICATIONS[0],
-                    },
-                    {
-                      label: t("dashboard.workGroup.managerial"),
-                      value: WORKING_GROPUS_CALSSIFICATIONS[1],
-                    },
-                  ]}
-                />
-              </div>
+              {!isEditMode && (
+                <div className="col-12">
+                  <h6 className="mb-1 label">
+                    {t("dashboard.workGroup.groupType")}
+                  </h6>
+                  <TabRadioGroup
+                    name="groupType"
+                    register={register}
+                    options={[
+                      {
+                        label: t("dashboard.workGroup.operational"),
+                        value: WORKING_GROPUS_CALSSIFICATIONS[0],
+                      },
+                      {
+                        label: t("dashboard.workGroup.managerial"),
+                        value: WORKING_GROPUS_CALSSIFICATIONS[1],
+                      },
+                    ]}
+                  />
+                </div>
+              )}
 
               {/* Region */}
               <div className="col-12 col-md-6">
