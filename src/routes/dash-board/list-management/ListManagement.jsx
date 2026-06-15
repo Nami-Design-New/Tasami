@@ -4,7 +4,6 @@ import useGetCurrentRoute from "../../../hooks/shared/useGetCurrentRoute";
 import PageHeader from "../../../ui/PageHeader";
 import EditWorkGroupModal from "../../../ui/modals/EditWorkGroupModal";
 import OperatingSectorsModal from "../../../ui/modals/OperatingSectorsModal";
-import FiledsAndSpecialzationsModal from "../../../ui/modals/FiledsAndSpecialzationsModal";
 import SubjectModal from "../../../ui/modals/SubjectModal";
 import CustomButton from "../../../ui/CustomButton";
 import { useTranslation } from "react-i18next";
@@ -15,7 +14,6 @@ const ListManagement = () => {
 
   const [showModal, setShowModal] = useState(false);
   const [showAddSectorModal, setAddSectorShowModal] = useState(false);
-  const [showAddFiledsModal, setShowAddFiledsModal] = useState(false);
   const [showSubjectModal, setShowSubjectModal] = useState(false);
 
   return (
@@ -31,16 +29,6 @@ const ListManagement = () => {
               onClick={() => setShowModal(true)}
             >
               {t("dashboard.listManagement.newGroup")}
-            </CustomButton>
-          )}
-
-          {currentLocation === "fields-and-specializations" && (
-            <CustomButton
-              icon={<i className="fa-solid fa-plus"></i>}
-              color="secondary"
-              onClick={() => setShowAddFiledsModal(true)}
-            >
-              {t("dashboard.listManagement.newField")}
             </CustomButton>
           )}
 
@@ -70,13 +58,6 @@ const ListManagement = () => {
         <OperatingSectorsModal
           setShowModal={setAddSectorShowModal}
           showModal={showAddSectorModal}
-        />
-      )}
-
-      {showAddFiledsModal && (
-        <FiledsAndSpecialzationsModal
-          setShowModal={setShowAddFiledsModal}
-          showModal={showAddFiledsModal}
         />
       )}
 

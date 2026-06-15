@@ -1974,6 +1974,11 @@
     "fieldsAndSpecialization": {
       "modalTitle": "New Field",
       "editModalTitle": "Edit Field",
+      "addFieldTitle": "New Field",
+      "editFieldTitle": "Edit Field",
+      "addSpecializationTitle": "New Specialization",
+      "addFieldButton": "Add Field",
+      "addSpecializationButton": "Add Specialization",
       "newField": "New Field",
       "existingField": "Existing Field",
       "fieldLabel": "Field",
@@ -1988,6 +1993,8 @@
         "invalidValue": "Invalid value",
         "newFieldRequired": "New field name is required",
         "newFieldShort": "Field name is too short",
+        "fieldRequired": "Field name is required",
+        "fieldShort": "Field name is too short",
         "existingFieldRequired": "Please select a field",
         "specializationRequired": "Specialization is required",
         "specializationShort": "Specialization name is too short"
@@ -2046,6 +2053,8 @@
     "fields": {
       "mainTitle": "Fields & Specializations Statistics",
       "tableTitle": "Fields & Specializations",
+      "fieldsTableTitle": "Fields",
+      "specializationsTableTitle": "Specializations",
       "search": "Search...",
       "stats": {
         "fields": "Fields",

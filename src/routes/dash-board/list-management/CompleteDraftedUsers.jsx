@@ -183,7 +183,7 @@ export default function CompleteDraftedUsers() {
       val !== "" &&
       val !== null &&
       val !== undefined &&
-      !(Array.isArray(val) && val.length === 0)
+      !(Array.isArray(val) && val.length === 0),
   );
 
   const { data: countires, isLoading: isCountriesLoading } = useGetCountries({
@@ -285,7 +285,7 @@ export default function CompleteDraftedUsers() {
           toast.error(err.message);
           console.error("Error updating employee:", err);
         },
-      }
+      },
     );
   };
 
@@ -301,7 +301,7 @@ export default function CompleteDraftedUsers() {
             <SelectField
               label={t("dashboard.createEmployee.form.jobLevel")}
               disableFiledValue={t(
-                "dashboard.createEmployee.form.selectJobLevel"
+                "dashboard.createEmployee.form.selectJobLevel",
               )}
               loading={rolesLoading}
               error={errors.jobLevel?.message}
@@ -318,7 +318,7 @@ export default function CompleteDraftedUsers() {
             <InputField
               label={t("dashboard.createEmployee.form.jobTitle")}
               placeholder={t(
-                "dashboard.createEmployee.form.jobTitle_placeholder"
+                "dashboard.createEmployee.form.jobTitle_placeholder",
               )}
               error={errors.jobTitle?.message}
               {...register("jobTitle")}
@@ -327,7 +327,7 @@ export default function CompleteDraftedUsers() {
 
           {/* Account Number */}
 
-          <div className="col-12 col-md-6 col-xxl-4 p-2">
+          {/* <div className="col-12 col-md-6 col-xxl-4 p-2">
             <InputField
               label={t("dashboard.createEmployee.form.accountNumber")}
               placeholder="EX: D-140123-00001"
@@ -335,7 +335,7 @@ export default function CompleteDraftedUsers() {
               {...register("accountNumber")}
               error={errors.accountNumber?.message}
             />
-          </div>
+          </div>*/}
           <div className="col-12 col-md-6 col-xxl-4 p-2">
             <InputField
               label={t("dashboard.createEmployee.form.date")}
@@ -437,7 +437,7 @@ export default function CompleteDraftedUsers() {
             <InputField
               label={t("dashboard.createEmployee.form.firstName")}
               placeholder={t(
-                "dashboard.createEmployee.form.firstName_placeholder"
+                "dashboard.createEmployee.form.firstName_placeholder",
               )}
               {...register("firstName")}
               error={errors.firstName?.message}
@@ -448,7 +448,7 @@ export default function CompleteDraftedUsers() {
             <InputField
               label={t("dashboard.createEmployee.form.fatherName")}
               placeholder={t(
-                "dashboard.createEmployee.form.fatherName_placeholder"
+                "dashboard.createEmployee.form.fatherName_placeholder",
               )}
               {...register("fatherName")}
               error={errors.fatherName?.message}
@@ -459,7 +459,7 @@ export default function CompleteDraftedUsers() {
             <InputField
               label={t("dashboard.createEmployee.form.familyName")}
               placeholder={t(
-                "dashboard.createEmployee.form.familyName_placeholder"
+                "dashboard.createEmployee.form.familyName_placeholder",
               )}
               {...register("familyName")}
               error={errors.familyName?.message}

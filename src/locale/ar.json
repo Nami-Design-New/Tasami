@@ -1952,6 +1952,11 @@
       "modalTitle": "مجال جديد",
       "newField": "مجال جديد",
       "editModalTitle": "تعديل المجال",
+      "addFieldTitle": "مجال جديد",
+      "editFieldTitle": "تعديل المجال",
+      "addSpecializationTitle": "تخصص جديد",
+      "addFieldButton": "إضافة مجال",
+      "addSpecializationButton": "إضافة تخصص",
       "existingField": "مجال موجود",
       "fieldLabel": "المجال",
       "fieldPlaceholder": "مثال: تكنولوجيا المعلومات",
@@ -1965,6 +1970,8 @@
         "invalidValue": "قيمة غير صالحة",
         "newFieldRequired": "اسم المجال الجديد مطلوب",
         "newFieldShort": "اسم المجال قصير جدًا",
+        "fieldRequired": "اسم المجال مطلوب",
+        "fieldShort": "اسم المجال قصير جدًا",
         "existingFieldRequired": "اختيار المجال مطلوب",
         "specializationRequired": "اسم التخصص مطلوب",
         "specializationShort": "اسم التخصص قصير جدًا"
@@ -2023,6 +2030,8 @@
     "fields": {
       "mainTitle": "احصائيات المجالات والتخصصات",
       "tableTitle": "المجالات والتخصصات",
+      "fieldsTableTitle": "المجالات",
+      "specializationsTableTitle": "التخصصات",
       "search": "بحث ...",
       "stats": {
         "fields": "المجالات",

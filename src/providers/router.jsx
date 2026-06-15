@@ -54,7 +54,7 @@ import Notifications from "../routes/dash-board/Notifications";
 import Reports from "../routes/dash-board/reports/Reports";
 import ResuemeDetails from "../routes/dash-board/resuems/ResuemeDetails";
 import Tasks from "../routes/dash-board/tasks/Tasks";
-import Communities from "../routes/dash-board/teams/Communities";
+import Communities from "../routes/dash-board/teams/Communities"; 
 import Services from "../routes/dash-board/teams/MyServices";
 import PersonalGoals from "../routes/dash-board/teams/PersonalGoals";
 import Programs from "../routes/dash-board/teams/Programs";

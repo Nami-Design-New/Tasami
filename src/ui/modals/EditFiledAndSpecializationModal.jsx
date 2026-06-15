@@ -3,8 +3,6 @@ import * as yup from "yup";
 import { SUPPORTED_LANGS } from "../../lib/multilang/config";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
-import SelectField from "../forms/SelectField";
-import useGetMainCategories from "../../hooks/dashboard/FiledsAndSpecialations/useGetMainCategories";
 import InputField from "../forms/InputField";
 import CustomButton from "../CustomButton";
 import { useEffect } from "react";
@@ -12,6 +10,7 @@ import { toast } from "sonner";
 import { useQueryClient } from "@tanstack/react-query";
 import useEditSpecialization from "../../hooks/dashboard/FiledsAndSpecialations/useEditSpecialization";
 import GlobalModal from "../GlobalModal";
+import CategorySelect from "./CategorySelect";
 
 export default function EditFiledAndSpecializationModal({
   showModal,
@@ -22,16 +21,11 @@ export default function EditFiledAndSpecializationModal({
   const queryClient = useQueryClient();
   // ----------------- Yup Schema -----------------
   const schema = yup.object().shape({
-    existingField: yup.string().when("isNewField", {
-      is: "exist",
-      then: () =>
-        yup
-          .string()
-          .required(
-            t("dashboard.fieldsAndSpecialization.errors.existingFieldRequired")
-          ),
-      otherwise: () => yup.string().nullable(),
-    }),
+    existingField: yup
+      .string()
+      .required(
+        t("dashboard.fieldsAndSpecialization.errors.existingFieldRequired"),
+      ),
     // Dynamic validation for specialization (ar + en)
     specialization: yup.object(
       SUPPORTED_LANGS.reduce((acc, lang) => {
@@ -53,16 +47,11 @@ export default function EditFiledAndSpecializationModal({
   });
 
   // ----------------- Hooks -----------------
-  const { mainCategories, isLoading: categoriesLoading } =
-    useGetMainCategories();
-
   const { editSpecialization, isPending } = useEditSpecialization();
   // ----------------- Form Setup -----------------
   const {
     register,
     handleSubmit,
-    watch,
-    setValue,
     reset,
     formState: { errors },
   } = useForm({
@@ -131,19 +120,13 @@ export default function EditFiledAndSpecializationModal({
         <form className="form_ui" onSubmit={handleSubmit(onSubmit)}>
           <div className="row">
             <div className="col-12 col-md-12 p-2">
-              <SelectField
-                label={t(
-                  "dashboard.fieldsAndSpecialization.existingFieldLabel"
-                )}
-                options={
-                  mainCategories?.data?.map((c) => ({
-                    value: c.id,
-                    name: c.title ?? "No Title",
-                  })) || []
-                }
-                loading={categoriesLoading}
-                {...register("existingField")}
+              <CategorySelect
+                register={register}
                 error={errors.existingField?.message}
+                selectedCategory={{
+                  id: selectedTarget?.categoryId,
+                  title: selectedTarget?.fields,
+                }}
               />
             </div>
             {/* Specialization Input */}

@@ -1,66 +1,27 @@
 import { yupResolver } from "@hookform/resolvers/yup";
+import { useQueryClient } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import CustomButton from "../CustomButton";
 import InputField from "../forms/InputField";
-import SelectField from "../forms/SelectField";
-import TabRadioGroup from "../TabRadioGroup";
-import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { SUPPORTED_LANGS } from "../../lib/multilang/config";
 import useAddNewSpecialization from "../../hooks/dashboard/FiledsAndSpecialations/useAddNewSpecialization";
 import { toast } from "sonner";
-import useGetMainCategories from "../../hooks/dashboard/FiledsAndSpecialations/useGetMainCategories";
 import GlobalModal from "../GlobalModal";
+import CategorySelect from "./CategorySelect";
 
 const FiledsAndSpecialzationsModal = ({ showModal, setShowModal }) => {
   const { t } = useTranslation();
+  const queryClient = useQueryClient();
 
   // ----------------- Yup Schema -----------------
   const schema = yup.object().shape({
-    isNewField: yup
+    existingField: yup
       .string()
-      .required(t("dashboard.fieldsAndSpecialization.errors.actionRequired"))
-      .oneOf(
-        ["new", "exist"],
-        t("dashboard.fieldsAndSpecialization.errors.invalidValue")
+      .required(
+        t("dashboard.fieldsAndSpecialization.errors.existingFieldRequired"),
       ),
-
-    // Dynamic validation for new fields (ar + en)
-    field: yup.object().when("isNewField", {
-      is: "new",
-      then: () =>
-        yup.object(
-          SUPPORTED_LANGS.reduce((acc, lang) => {
-            acc[lang] = yup
-              .string()
-              .required(
-                t("dashboard.fieldsAndSpecialization.errors.newFieldRequired") +
-                  ` (${lang})`
-              )
-              .min(
-                2,
-                t("dashboard.fieldsAndSpecialization.errors.newFieldShort") +
-                  ` (${lang})`
-              );
-            return acc;
-          }, {})
-        ),
-      otherwise: () => yup.object().nullable(),
-    }),
-
-    existingField: yup.string().when("isNewField", {
-      is: "exist",
-      then: () =>
-        yup
-          .string()
-          .required(
-            t("dashboard.fieldsAndSpecialization.errors.existingFieldRequired")
-          ),
-      otherwise: () => yup.string().nullable(),
-    }),
-
-    // Dynamic validation for specialization (ar + en)
     specialization: yup.object(
       SUPPORTED_LANGS.reduce((acc, lang) => {
         acc[lang] = yup
@@ -84,18 +45,11 @@ const FiledsAndSpecialzationsModal = ({ showModal, setShowModal }) => {
   const {
     register,
     handleSubmit,
-    watch,
-    setValue,
     reset,
     formState: { errors },
   } = useForm({
     resolver: yupResolver(schema),
     defaultValues: {
-      isNewField: "new",
-      field: SUPPORTED_LANGS.reduce(
-        (acc, lang) => ({ ...acc, [lang]: "" }),
-        {}
-      ),
       existingField: "",
       specialization: SUPPORTED_LANGS.reduce(
         (acc, lang) => ({ ...acc, [lang]: "" }),
@@ -106,41 +60,21 @@ const FiledsAndSpecialzationsModal = ({ showModal, setShowModal }) => {
 
   // ----------------- Add Hook -------------------
   const { addNewSpecialization, isPending } = useAddNewSpecialization();
-  const { mainCategories, isLoading: categoriesLoading } =
-    useGetMainCategories();
-
-  const isNewField = watch("isNewField");
-
-  // Clear conflicting fields on radio change
-  useEffect(() => {
-    if (isNewField === "new") {
-      setValue("existingField", "");
-    } else if (isNewField === "exist") {
-      SUPPORTED_LANGS.forEach((lang) => setValue(`field.${lang}`, ""));
-    }
-  }, [isNewField, setValue]);
 
   // ----------------- Form Submission -----------------
   const onSubmit = (data) => {
-    let payload;
-    if (data.isNewField === "new") {
-      payload = {
-        "title:ar": data.specialization.ar,
-        "title:en": data.specialization.en,
-        "category_title:ar": data.field.ar,
-        "category_title:en": data.field.en,
-      };
-    } else {
-      payload = {
-        "title:ar": data.specialization.ar,
-        "title:en": data.specialization.en,
-        category_id: data.existingField,
-      };
-    }
+    const payload = {
+      "title:ar": data.specialization.ar,
+      "title:en": data.specialization.en,
+      category_id: data.existingField,
+    };
 
     addNewSpecialization(payload, {
       onSuccess: (res) => {
         toast.success(res?.message);
+        queryClient.invalidateQueries({
+          queryKey: ["dashboard-sub-categories"],
+        });
         setShowModal(false);
         reset();
       },
@@ -164,67 +98,18 @@ const FiledsAndSpecialzationsModal = ({ showModal, setShowModal }) => {
       centered
     >
       <GlobalModal.Header closeButton>
-        <h6>{t("dashboard.fieldsAndSpecialization.modalTitle")}</h6>
+        <h6>{t("dashboard.fieldsAndSpecialization.addSpecializationTitle")}</h6>
       </GlobalModal.Header>
 
       <GlobalModal.Body>
         <form className="form_ui" onSubmit={handleSubmit(onSubmit)}>
           <div className="row">
-            {/* Radio Group: New / Existing Field */}
             <div className="col-12 p-2">
-              <TabRadioGroup
-                name="isNewField"
+              <CategorySelect
                 register={register}
-                options={[
-                  {
-                    label: t("dashboard.fieldsAndSpecialization.newField"),
-                    value: "new",
-                  },
-                  {
-                    label: t("dashboard.fieldsAndSpecialization.existingField"),
-                    value: "exist",
-                  },
-                ]}
-              />{" "}
+                error={errors.existingField?.message}
+              />
             </div>
-
-            {/* Field Input */}
-
-            {isNewField === "new" ? (
-              <>
-                {SUPPORTED_LANGS.map((lang) => (
-                  <div className="col-12 col-md-6 p-2" key={`field-${lang}`}>
-                    <InputField
-                      label={`${t(
-                        "dashboard.fieldsAndSpecialization.fieldLabel"
-                      )} (${lang})`}
-                      placeholder={t(
-                        "dashboard.fieldsAndSpecialization.fieldPlaceholder"
-                      )}
-                      {...register(`field.${lang}`)}
-                      error={errors.field?.[lang]?.message}
-                    />{" "}
-                  </div>
-                ))}
-              </>
-            ) : (
-              <div className="col-12 col-md-12 p-2">
-                <SelectField
-                  label={t(
-                    "dashboard.fieldsAndSpecialization.existingFieldLabel"
-                  )}
-                  options={
-                    mainCategories?.data?.map((c) => ({
-                      value: c.id,
-                      name: c.title ?? "No Title",
-                    })) || []
-                  }
-                  loading={categoriesLoading}
-                  {...register("existingField")}
-                  error={errors.existingField?.message}
-                />
-              </div>
-            )}
 
             {/* Specialization Input */}
 
