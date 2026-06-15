@@ -26,6 +26,27 @@ import { PAGE_SIZE } from "../../../utils/constants";
 
 const columnHelper = createColumnHelper();
 
+const getCategoryTitle = (category, lang) => {
+  const translations = category?.translations;
+  const translation = Array.isArray(translations)
+    ? translations.find(
+        (item) =>
+          item?.locale === lang || item?.lang === lang || item?.language === lang,
+      )
+    : translations?.[lang];
+
+  return (
+    category?.[`title_${lang}`] ||
+    category?.[`title:${lang}`] ||
+    category?.title?.[lang] ||
+    translation?.title ||
+    translation?.value ||
+    translation ||
+    category?.[lang]?.title ||
+    ""
+  );
+};
+
 const FieldsAndSpecializations = () => {
   const { t } = useTranslation();
   const queryClient = useQueryClient();
@@ -128,9 +149,10 @@ const FieldsAndSpecializations = () => {
     return categories?.map((category) => ({
       id: category?.id,
       title: category?.title,
-      title_ar: category?.title_ar,
-      title_en: category?.title_en,
+      title_ar: getCategoryTitle(category, "ar"),
+      title_en: getCategoryTitle(category, "en"),
       code: category?.code,
+      rawCategory: category,
       actions: "",
     }));
   }, [categories]);

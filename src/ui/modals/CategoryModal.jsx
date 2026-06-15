@@ -12,6 +12,29 @@ import CustomButton from "../CustomButton";
 import InputField from "../forms/InputField";
 import GlobalModal from "../GlobalModal";
 
+const getCategoryTitle = (category, lang) => {
+  const source = category?.rawCategory || category;
+  const translations = source?.translations;
+  const translation = Array.isArray(translations)
+    ? translations.find(
+        (item) =>
+          item?.locale === lang || item?.lang === lang || item?.language === lang,
+      )
+    : translations?.[lang];
+
+  return (
+    category?.[`title_${lang}`] ||
+    source?.[`title_${lang}`] ||
+    source?.[`title:${lang}`] ||
+    source?.title?.[lang] ||
+    translation?.title ||
+    translation?.value ||
+    translation ||
+    source?.[lang]?.title ||
+    ""
+  );
+};
+
 export default function CategoryModal({
   showModal,
   setShowModal,
@@ -59,13 +82,15 @@ export default function CategoryModal({
   const { editCategory, isPending: isEditing } = useEditCategory();
 
   useEffect(() => {
+    if (!showModal) return;
+
     reset({
       title: {
-        ar: selectedCategory?.title_ar || "",
-        en: selectedCategory?.title_en || "",
+        ar: isEdit ? getCategoryTitle(selectedCategory, "ar") : "",
+        en: isEdit ? getCategoryTitle(selectedCategory, "en") : "",
       },
     });
-  }, [reset, selectedCategory]);
+  }, [isEdit, reset, selectedCategory, showModal]);
 
   const handleClose = () => {
     setShowModal(false);
