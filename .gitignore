@@ -22,3 +22,5 @@ dist
 *.njsproj
 *.sln
 *.sw?
+
+CLIENT_UPDATE_SCOPE_ESTIMATE.md
