@@ -1923,7 +1923,8 @@
         "edit": "Edit",
         "add": "Add",
         "saveDraft": "Save as Draft",
-        "complete": "Complete"
+        "complete": "Complete",
+        "active": "Active"
       }
     },
     "team": {

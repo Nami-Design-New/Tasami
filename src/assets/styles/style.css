@@ -2709,6 +2709,10 @@ body.en .show-pass {
   opacity: 0.85;
   pointer-events: none;
 }
+.custom-btn--disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}
 .custom-btn--primary {
   background-color: #214b92;
   color: #fff;
@@ -2764,6 +2768,13 @@ body.en .show-pass {
 }
 .custom-btn--fire:hover {
   background-color: rgb(255, 81.1385542169, 38);
+}
+.custom-btn--gray {
+  background-color: #6c757d;
+  color: #fff;
+}
+.custom-btn--gray:hover {
+  background-color: rgb(84.3605150215, 91.3905579399, 97.6394849785);
 }
 .custom-btn--outlined {
   background-color: transparent;
@@ -2824,6 +2835,14 @@ body.en .show-pass {
 .custom-btn--outlined.custom-btn--fire:hover {
   color: #fff;
   background-color: #ff7a59;
+}
+.custom-btn--outlined.custom-btn--gray {
+  color: #6c757d;
+  border-color: #6c757d;
+}
+.custom-btn--outlined.custom-btn--gray:hover {
+  color: #fff;
+  background-color: #6c757d;
 }
 .custom-btn .btn__spinner, .custom-link .btn__spinner {
   font-size: 1rem;
@@ -3095,7 +3114,7 @@ body.en .show-pass {
   flex-direction: column;
   align-items: center;
   gap: 0.75rem;
-  color: rgba(13, 13, 13, 0.5607843137);
+  color: #6c757d;
   text-align: center;
   border-radius: 1rem;
   padding: 2rem;
@@ -3587,7 +3606,7 @@ body.en .show-pass {
 .auth_section .form .sub-head {
   font-size: 18px;
   font-weight: 400;
-  color: rgba(13, 13, 13, 0.5607843137);
+  color: #6c757d;
   margin-bottom: 12px;
 }
 .auth_section .form .sub-head span {
@@ -3731,12 +3750,12 @@ body.en .show-pass {
 }
 
 .subTitle {
-  color: rgba(13, 13, 13, 0.5607843137);
+  color: #6c757d;
   font-size: 1rem;
   text-align: center;
 }
 .subTitle .otp-page-des span:first-child {
-  color: rgba(13, 13, 13, 0.5607843137);
+  color: #6c757d;
   font-weight: 400;
 }
 .subTitle .otp-page-des span.phone-number {
@@ -3855,7 +3874,7 @@ body.en .show-pass {
 }
 .register .text-header {
   margin-bottom: 24px;
-  color: rgba(13, 13, 13, 0.5607843137);
+  color: #6c757d;
   font-size: 14px;
   font-family: 400;
 }
@@ -3875,7 +3894,7 @@ body.en .show-pass {
   display: flex;
   align-items: center;
   flex-direction: column;
-  color: rgba(13, 13, 13, 0.5607843137);
+  color: #6c757d;
   font-weight: 700;
 }
 .register .register-form .terms-text a {
@@ -4045,7 +4064,7 @@ button.back:hover {
 .personal-info-form .form-head {
   margin-bottom: 24px;
   font-weight: 400;
-  color: rgba(13, 13, 13, 0.5607843137);
+  color: #6c757d;
 }
 
 .image-label {
@@ -5048,7 +5067,7 @@ input[type=file] {
   text-align: center;
 }
 .settings .profile_dropdown .account_welcoming span {
-  color: rgba(13, 13, 13, 0.5607843137);
+  color: #6c757d;
   width: 100%;
   display: block;
 }
@@ -5126,7 +5145,7 @@ input[type=file] {
   font-weight: 600;
 }
 .settings .profile_dropdown .select_frame .accounts .acc .type_mail span {
-  color: rgba(13, 13, 13, 0.5607843137);
+  color: #6c757d;
 }
 .settings .modals {
   position: absolute;
@@ -5576,7 +5595,7 @@ input[type=file] {
   background: transparent;
   border: none;
   font-size: 16px;
-  color: rgba(13, 13, 13, 0.5607843137);
+  color: #6c757d;
   cursor: pointer;
 }
 
@@ -6918,7 +6937,7 @@ input[type=file] {
 .employee__data .employee__data--item {
   display: flex;
   flex-direction: column;
-  color: rgba(13, 13, 13, 0.5607843137);
+  color: #6c757d;
 }
 .employee__data .employee__data--item h6 {
   font-size: "16px";
@@ -7207,7 +7226,7 @@ input[type=file] {
   display: flex;
   align-items: center;
   gap: 0.2rem;
-  color: rgba(13, 13, 13, 0.5607843137);
+  color: #6c757d;
 }
 .chat-item__last-message {
   font-size: 0.75rem;
@@ -7338,7 +7357,7 @@ input[type=file] {
 .message i {
   margin: auto 0;
   cursor: pointer;
-  color: rgba(13, 13, 13, 0.5607843137);
+  color: #6c757d;
   padding: 4px;
   border-radius: 50%;
   width: 24px;
@@ -8431,7 +8450,7 @@ input[type=file] {
   margin: 0;
   font-size: 14px;
   margin-right: auto;
-  color: rgba(13, 13, 13, 0.5607843137);
+  color: #6c757d;
 }
 .subscriptions-details ul {
   list-style: none;
@@ -8476,7 +8495,7 @@ input[type=file] {
   border-radius: 12px;
 }
 .subscriptions-details .subscription-price span:first-child {
-  color: rgba(13, 13, 13, 0.5607843137);
+  color: #6c757d;
 }
 .subscriptions-details .subscription-price span:last-child {
   display: flex;
@@ -8694,7 +8713,7 @@ input[type=file] {
 }
 .payment-card .card-body .payment-list li.progress-payment .progress-data span:last-child {
   font-weight: 400;
-  color: rgba(13, 13, 13, 0.5607843137);
+  color: #6c757d;
 }
 
 .progress {
@@ -9360,7 +9379,7 @@ html[lang=en] .pdf-wrapper {
 }
 .offer-card .info .title {
   font-size: 14px;
-  color: rgba(13, 13, 13, 0.5607843137);
+  color: #6c757d;
 }
 .offer-card .data {
   padding: 0 0.5rem;
@@ -9547,7 +9566,7 @@ html[lang=en] .pdf-wrapper {
 }
 .slider-header .text p {
   font-size: 1rem;
-  color: rgba(13, 13, 13, 0.5607843137);
+  color: #6c757d;
 }
 .slider-header .view-all {
   color: #5fcafa;
@@ -10821,7 +10840,7 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
   margin-top: 8px;
   gap: 8px;
   font-size: 1rem;
-  color: rgba(13, 13, 13, 0.5607843137);
+  color: #6c757d;
 }
 .rates .rate-list li {
   width: 100%;
@@ -10902,7 +10921,7 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
 .rate-card__date {
   display: block;
   font-size: 0.85rem;
-  color: rgba(13, 13, 13, 0.5607843137);
+  color: #6c757d;
   margin-bottom: 0.75rem;
 }
 .rate-card__notes {
@@ -10933,7 +10952,7 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
 .legend-section .legend-list li figure figcaption {
   font-size: clamp(0.875rem, 2vw, 1rem);
   font-weight: 600;
-  color: rgba(13, 13, 13, 0.5607843137);
+  color: #6c757d;
 }
 
 .myworks .tab-nav {
@@ -11040,7 +11059,7 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
   top: -18px;
   font-size: 0.75rem;
   white-space: nowrap;
-  color: rgba(13, 13, 13, 0.5607843137);
+  color: #6c757d;
 }
 .work-card .step-label:last-child(2) {
   left: 0;
@@ -11088,7 +11107,7 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
   align-items: center;
   justify-content: center;
   padding: 8px 16px;
-  color: rgba(13, 13, 13, 0.5607843137);
+  color: #6c757d;
   text-align: center;
   font-weight: 700;
   cursor: pointer;
@@ -11126,7 +11145,7 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
   font-size: 1.25rem;
 }
 .work-details-page .work-description .value {
-  color: rgba(13, 13, 13, 0.5607843137);
+  color: #6c757d;
 }
 .work-details-page .notes-box {
   border: 1px solid #e0e0e0;
@@ -11205,7 +11224,7 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
   flex: 1;
 }
 .no-groups p {
-  color: rgba(13, 13, 13, 0.5607843137);
+  color: #6c757d;
   font-size: 1rem;
 }
 
@@ -11238,7 +11257,7 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
   margin: 2rem 0 0.25rem;
   font-size: 1.25rem;
   font-weight: 700;
-  color: rgba(13, 13, 13, 0.5607843137);
+  color: #6c757d;
 }
 
 .tasks-page .execution-tasks .tasks-header {
@@ -11457,7 +11476,7 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
 }
 .work-group-section header .group-desc {
   font-size: 1rem;
-  color: rgba(13, 13, 13, 0.5607843137);
+  color: #6c757d;
 }
 .work-group-section .share-goal {
   display: flex;
@@ -11521,7 +11540,7 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
   align-items: center;
   justify-content: space-between;
   margin-bottom: 0.25rem;
-  color: rgba(13, 13, 13, 0.5607843137);
+  color: #6c757d;
 }
 .work-contract-details .progress-bar-label span:first-child {
   color: #0d0d0d;
@@ -11577,7 +11596,7 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
 }
 .show-rate-modal .rate-summary .rate-count {
   font-size: 14px;
-  color: rgba(13, 13, 13, 0.5607843137);
+  color: #6c757d;
 }
 
 .withdraw-modal h1 {
@@ -11669,7 +11688,7 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
   flex: 1 1 100%;
 }
 .community-header .community-details p {
-  color: rgba(13, 13, 13, 0.5607843137);
+  color: #6c757d;
   margin-top: 1rem;
 }
 @media (min-width: 992px) {
@@ -11922,7 +11941,7 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
      object-fit: contain;
 }
 .consultation-comments-card h5 {
-  color: rgba(13, 13, 13, 0.5607843137);
+  color: #6c757d;
   font-weight: 500;
   font-size: 1rem;
 }
@@ -11935,7 +11954,7 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
 }
 .consultation-comments-card span {
   display: block;
-  color: rgba(13, 13, 13, 0.5607843137);
+  color: #6c757d;
   text-align: end;
   font-weight: 400;
 }
@@ -12072,7 +12091,7 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
 }
 .post-card .date {
   font-size: 16px;
-  color: rgba(13, 13, 13, 0.5607843137);
+  color: #6c757d;
   margin: 8px 12px 0;
   display: flex;
   align-items: center;
@@ -12083,7 +12102,7 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
   font-size: 14px;
 }
 .post-card .date span {
-  color: rgba(13, 13, 13, 0.5607843137);
+  color: #6c757d;
 }
 .post-card .info {
   padding: 8px 12px;
@@ -12102,7 +12121,7 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
 }
 .post-card .info p {
   font-size: 1rem;
-  color: rgba(13, 13, 13, 0.5607843137);
+  color: #6c757d;
   line-height: 1.4;
   display: -webkit-box;
   -webkit-line-clamp: 3;
@@ -12366,7 +12385,7 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
   align-items: center;
   flex-direction: column;
   gap: 0.25rem;
-  color: rgba(13, 13, 13, 0.5607843137);
+  color: #6c757d;
   font-size: 14px;
 }
 .community-post-details .post-stats .stat-item img {
@@ -12394,7 +12413,7 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
 .community-post-details .comment-card .user {
   font-size: 14px;
   font-weight: 400;
-  color: rgba(13, 13, 13, 0.5607843137);
+  color: #6c757d;
 }
 .community-post-details .comment-card .comment {
   font-size: 1rem;
@@ -12443,7 +12462,7 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
 }
 .communities-details .community-desc {
   font-size: 16px;
-  color: rgba(13, 13, 13, 0.5607843137);
+  color: #6c757d;
   line-height: 1.5;
   margin-top: 12px;
 }
@@ -12488,7 +12507,7 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
 }
 .communities-details .community-stats .community-stat .community-stat-content .community-stat-text .community-stat-label {
   font-size: 14px;
-  color: rgba(13, 13, 13, 0.5607843137);
+  color: #6c757d;
 }
 
 .community-actions .community-actions-list {
@@ -12850,7 +12869,7 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
 }
 .notification-web-card .notification-content-wrapper .notification-message {
   font-size: 1rem;
-  color: rgba(13, 13, 13, 0.5607843137);
+  color: #6c757d;
 }
 
 .inquriy-card {
@@ -12874,7 +12893,7 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
   font-size: 16px;
 }
 .inquriy-card .inquriy-data p {
-  color: rgba(13, 13, 13, 0.5607843137);
+  color: #6c757d;
   font-size: 14px;
 }
 .inquriy-card .inquriy-data small {
@@ -12895,7 +12914,7 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
 .answer-modal .message-desc {
   font-size: 16px;
   margin-top: 6px;
-  color: rgba(13, 13, 13, 0.5607843137);
+  color: #6c757d;
 }
 
 .wallet-page .wallet-balance {
@@ -12918,7 +12937,7 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
   margin: 0;
   font-size: 1rem;
   font-weight: 700;
-  color: rgba(13, 13, 13, 0.5607843137);
+  color: #6c757d;
 }
 .wallet-page .wallet-balance .balance-amount {
   display: flex;
@@ -13419,7 +13438,7 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
 }
 .platform-hint p {
   font-weight: 400;
-  color: rgba(13, 13, 13, 0.5607843137);
+  color: #6c757d;
   font-size: 1rem;
 }
 
@@ -13460,7 +13479,7 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
 .subscription-section .subscription-current-plan .plan-header .plan-duration {
   font-size: 0.875rem;
   font-weight: 400;
-  color: rgba(13, 13, 13, 0.5607843137);
+  color: #6c757d;
 }
 .subscription-section .subscription-current-plan .features-list {
   display: flex;
@@ -13601,7 +13620,7 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
   font-weight: 700;
 }
 .plan-card .plan-card-foot .price .monthly {
-  color: rgba(13, 13, 13, 0.5607843137);
+  color: #6c757d;
   font-size: 12px;
   font-weight: 400;
 }
@@ -13878,7 +13897,7 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
 .audience-card .info .country-date .date {
   font-size: 14px;
   font-weight: 400;
-  color: rgba(13, 13, 13, 0.5607843137);
+  color: #6c757d;
   white-space: nowrap;
 }
 
@@ -13943,7 +13962,7 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
 .group-details .description p {
   font-size: 16px;
   font-weight: 500;
-  color: rgba(13, 13, 13, 0.5607843137);
+  color: #6c757d;
 }
 .group-details .info {
   display: flex;
@@ -14037,7 +14056,7 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
 }
 .helper-details-section .goal-details-card .about p {
   font-size: 14px;
-  color: rgba(13, 13, 13, 0.5607843137);
+  color: #6c757d;
 }
 
 .exp-info-tabs {

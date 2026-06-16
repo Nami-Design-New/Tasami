@@ -73,14 +73,14 @@ export default function CompleteDraftedUsers() {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
   const [image, setImage] = useState(avatarPlaceholder);
+  const [updateAction, setUpdateAction] = useState(null);
   const { t } = useTranslation();
 
   const { updateDraftedUser, isPending } = useUpdateDraftedUser();
   const { roles, rolesLoading } = useGetRoles();
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading } =
     useInfiniteWorkingGroups();
-  const { deleteDraftedUserFiles, isPending: isDeleting } =
-    useDeleteDraftedUserFiles();
+  const { deleteDraftedUserFiles } = useDeleteDraftedUserFiles();
 
   const { draftedUser, isLoading: employeeLoading } = useGetDraftedUser();
 
@@ -227,7 +227,7 @@ export default function CompleteDraftedUsers() {
     });
   };
 
-  const onSubmit = (formData) => {
+  const onSubmit = (formData, shouldActivate = false) => {
     const payload = new FormData();
 
     // Call mutation
@@ -247,6 +247,7 @@ export default function CompleteDraftedUsers() {
     payload.append("country_id", formData.residentCountry || "");
     payload.append("city_id", formData.residentCity || "");
     payload.append("nationality_id", formData.nationality || "");
+    payload.append("active", shouldActivate ? 1 : 0);
 
     // Profile image
     if (formData.profileImage instanceof File) {
@@ -260,6 +261,8 @@ export default function CompleteDraftedUsers() {
       payload.append(`files[${index}]`, file);
     });
 
+    setUpdateAction(shouldActivate ? "active" : "save");
+
     // Call update mutation
     updateDraftedUser(
       { id, payload },
@@ -272,18 +275,22 @@ export default function CompleteDraftedUsers() {
           queryClient.refetchQueries({
             queryKey: ["dashboard-team"],
           });
+          queryClient.invalidateQueries({
+            queryKey: ["drafted-user-details"],
+          });
 
-          if (!allFieldsFilled) {
-            queryClient.invalidateQueries({
-              queryKey: ["drafted-user-details"],
-            });
-          } else {
-            navigate("/dashboard/teams");
-          }
+          navigate(
+            shouldActivate
+              ? "/dashboard/teams"
+              : "/dashboard/create-employee?tab=4",
+          );
         },
         onError: (err) => {
           toast.error(err.message);
           console.error("Error updating employee:", err);
+        },
+        onSettled: () => {
+          setUpdateAction(null);
         },
       },
     );
@@ -292,7 +299,10 @@ export default function CompleteDraftedUsers() {
   if (employeeLoading) return <Loading />;
 
   return (
-    <form className="form_ui" onSubmit={handleSubmit(onSubmit)}>
+    <form
+      className="form_ui"
+      onSubmit={handleSubmit((formData) => onSubmit(formData, false))}
+    >
       {/* Employment Data */}
       <FormWrapper title={t("dashboard.createEmployee.form.employmentData")}>
         <div className="row">
@@ -578,14 +588,24 @@ export default function CompleteDraftedUsers() {
           <div className="col-12 p-2">
             <div className="buttons w-full justify-content-end">
               <CustomButton
-                loading={isPending}
-                color={allFieldsFilled ? "success" : "primary"}
+                loading={updateAction === "active" && isPending}
+                color={allFieldsFilled ? "success" : "gray"}
+                type="button"
+                disabled={!allFieldsFilled || isPending}
+                className={allFieldsFilled ? "" : "custom-btn--disabled"}
+                size="large"
+                onClick={handleSubmit((formData) => onSubmit(formData, true))}
+              >
+                {t("dashboard.createEmployee.form.active")}
+              </CustomButton>
+              <CustomButton
+                loading={updateAction === "save" && isPending}
+                color="primary"
                 type="submit"
+                disabled={isPending}
                 size="large"
               >
-                {allFieldsFilled
-                  ? t("dashboard.createEmployee.form.complete")
-                  : t("dashboard.createEmployee.form.edit")}
+                {t("dashboard.createEmployee.form.save")}
               </CustomButton>
             </div>
           </div>

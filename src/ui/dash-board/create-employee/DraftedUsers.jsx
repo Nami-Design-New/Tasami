@@ -26,7 +26,7 @@ export default function DraftedUsers() {
   const { currentPage, lastPage, draftedUsers, isLoading } = useGetDraftedUsers(
     "",
     page,
-    pageSize
+    pageSize,
   );
 
   // -----------------------------------
@@ -102,14 +102,14 @@ export default function DraftedUsers() {
               <CustomLink
                 to={`/dashboard/complete-employee-data/${info?.row?.original?.id}`}
               >
-                {t("complete")}
+                {t("dashboard.createEmployee.form.complete")}
               </CustomLink>
             </div>
           );
         },
       }),
     ],
-    [t]
+    [t],
   );
   return (
     <div>

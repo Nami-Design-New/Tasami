@@ -4,7 +4,7 @@ import { useTranslation } from "react-i18next";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useQueryClient } from "@tanstack/react-query";
 import { Controller, useForm } from "react-hook-form";
-import { useNavigate, useParams } from "react-router";
+import { useNavigate } from "react-router";
 import { toast } from "sonner";
 import * as yup from "yup";
 import useGetCities from "../../../hooks/countries/useGetCities";
@@ -88,19 +88,18 @@ const EmployerDataForm = ({ isEdit }) => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const queryClient = useQueryClient();
-  const { id } = useParams();
 
   // Updated files state - now handles mixed formats
   const [files, setFiles] = useState([]);
   const [image, setImage] = useState(avatarPlaceholder);
+  const [createAction, setCreateAction] = useState(null);
 
   const { roles, rolesLoading } = useGetRoles();
   const { createEmployee, isCreatingEmployee } = useCreateEmployee();
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading } =
     useInfiniteWorkingGroups();
   const { updateEmployee, isPending } = useUpdateEmployee();
-  const { deleteEmployeeFiles, isPending: isDeleting } =
-    useDeleteEmployeeAttachment();
+  const { deleteEmployeeFiles } = useDeleteEmployeeAttachment();
   const { employee, isLoading: employeeLoading } = useGetEmployee();
 
   const {
@@ -213,7 +212,7 @@ const EmployerDataForm = ({ isEdit }) => {
       val !== "" &&
       val !== null &&
       val !== undefined &&
-      !(Array.isArray(val) && val.length === 0)
+      !(Array.isArray(val) && val.length === 0),
   );
 
   const { data: countires, isLoading: isCountriesLoading } = useGetCountries({
@@ -272,7 +271,7 @@ const EmployerDataForm = ({ isEdit }) => {
   // ============================================
   // UPDATED: Handle form submission
   // ============================================
-  const onSubmit = (formData) => {
+  const onSubmit = (formData, shouldActivate = false) => {
     const payload = new FormData();
 
     if (isEdit) {
@@ -340,7 +339,7 @@ const EmployerDataForm = ({ isEdit }) => {
             toast.error(err.message);
             console.error("Error updating employee:", err);
           },
-        }
+        },
       );
     } else {
       // CREATE MODE
@@ -356,6 +355,7 @@ const EmployerDataForm = ({ isEdit }) => {
       payload.append("country_id", formData.residentCountry || "");
       payload.append("city_id", formData.residentCity || "");
       payload.append("nationality_id", formData.nationality || "");
+      payload.append("active", shouldActivate ? 1 : 0);
 
       // Profile image
       if (formData?.profileImage && formData?.profileImage instanceof File) {
@@ -368,15 +368,25 @@ const EmployerDataForm = ({ isEdit }) => {
         payload.append(`files[${index}]`, file);
       });
 
+      setCreateAction(shouldActivate ? "active" : "draft");
+
       createEmployee(payload, {
         onSuccess: (res) => {
           toast.success(res?.message);
-          navigate("/dashboard/teams");
+          navigate(
+            shouldActivate ? "/dashboard/teams" : "/dashboard/create-employee?tab=4",
+          );
           queryClient.refetchQueries({ queryKey: ["dashboard-team"] });
+          queryClient.invalidateQueries({
+            queryKey: ["dashboard-drafted-users"],
+          });
         },
         onError: (error) => {
           toast.error(error.message);
           console.error("Error creating employee:", error);
+        },
+        onSettled: () => {
+          setCreateAction(null);
         },
       });
     }
@@ -385,7 +395,10 @@ const EmployerDataForm = ({ isEdit }) => {
   if (employeeLoading) return <Loading height={"300px"} />;
   return (
     <>
-      <form className="form_ui" onSubmit={handleSubmit(onSubmit)}>
+      <form
+        className="form_ui"
+        onSubmit={handleSubmit((formData) => onSubmit(formData, false))}
+      >
         {/* Employment Data */}
         <FormWrapper title={t("dashboard.createEmployee.form.employmentData")}>
           <div className="row">
@@ -394,7 +407,7 @@ const EmployerDataForm = ({ isEdit }) => {
               <SelectField
                 label={t("dashboard.createEmployee.form.jobLevel")}
                 disableFiledValue={t(
-                  "dashboard.createEmployee.form.selectJobLevel"
+                  "dashboard.createEmployee.form.selectJobLevel",
                 )}
                 loading={rolesLoading}
                 error={errors.jobLevel?.message}
@@ -411,7 +424,7 @@ const EmployerDataForm = ({ isEdit }) => {
               <InputField
                 label={t("dashboard.createEmployee.form.jobTitle")}
                 placeholder={t(
-                  "dashboard.createEmployee.form.jobTitle_placeholder"
+                  "dashboard.createEmployee.form.jobTitle_placeholder",
                 )}
                 error={errors.jobTitle?.message}
                 {...register("jobTitle")}
@@ -536,7 +549,7 @@ const EmployerDataForm = ({ isEdit }) => {
               <InputField
                 label={t("dashboard.createEmployee.form.firstName")}
                 placeholder={t(
-                  "dashboard.createEmployee.form.firstName_placeholder"
+                  "dashboard.createEmployee.form.firstName_placeholder",
                 )}
                 {...register("firstName")}
                 error={errors.firstName?.message}
@@ -547,7 +560,7 @@ const EmployerDataForm = ({ isEdit }) => {
               <InputField
                 label={t("dashboard.createEmployee.form.fatherName")}
                 placeholder={t(
-                  "dashboard.createEmployee.form.fatherName_placeholder"
+                  "dashboard.createEmployee.form.fatherName_placeholder",
                 )}
                 {...register("fatherName")}
                 error={errors.fatherName?.message}
@@ -558,7 +571,7 @@ const EmployerDataForm = ({ isEdit }) => {
               <InputField
                 label={t("dashboard.createEmployee.form.familyName")}
                 placeholder={t(
-                  "dashboard.createEmployee.form.familyName_placeholder"
+                  "dashboard.createEmployee.form.familyName_placeholder",
                 )}
                 {...register("familyName")}
                 error={errors.familyName?.message}
@@ -579,7 +592,7 @@ const EmployerDataForm = ({ isEdit }) => {
                 label={t("dashboard.createEmployee.form.email")}
                 type="email"
                 placeholder={t(
-                  "dashboard.createEmployee.form.email_placeholder"
+                  "dashboard.createEmployee.form.email_placeholder",
                 )}
                 error={errors.email?.message}
                 {...register("email")}
@@ -713,16 +726,27 @@ const EmployerDataForm = ({ isEdit }) => {
                   >
                     {t("dashboard.createEmployee.form.cancel")}
                   </CustomButton>
+                  <CustomButton
+                    type="button"
+                    color={allFieldsFilled ? "success" : "gray"}
+                    disabled={!allFieldsFilled || isCreatingEmployee}
+                    className={allFieldsFilled ? "" : "custom-btn--disabled"}
+                    size="large"
+                    loading={createAction === "active" && isCreatingEmployee}
+                    onClick={handleSubmit((formData) =>
+                      onSubmit(formData, true),
+                    )}
+                  >
+                    {t("dashboard.createEmployee.form.active")}
+                  </CustomButton>
 
                   <CustomButton
                     type="submit"
-                    color={allFieldsFilled ? "success" : "primary"}
+                    color="primary"
                     size="large"
-                    loading={isCreatingEmployee}
+                    loading={createAction === "draft" && isCreatingEmployee}
                   >
-                    {allFieldsFilled
-                      ? t("dashboard.createEmployee.form.add")
-                      : t("dashboard.createEmployee.form.saveDraft")}
+                    {t("dashboard.createEmployee.form.saveDraft")}
                   </CustomButton>
                 </>
               )}

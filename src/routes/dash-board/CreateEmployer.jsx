@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate, useParams, useSearchParams } from "react-router";
 
@@ -78,6 +78,15 @@ const CreateEmployee = () => {
     const tabParam = searchParams.get("tab");
     return tabParam ? parseInt(tabParam) : tabs[0]?.id;
   });
+
+  useEffect(() => {
+    const tabParam = searchParams.get("tab");
+    const nextTab = tabParam ? parseInt(tabParam) : tabs[0]?.id;
+
+    if (tabs.some((tab) => tab.id === nextTab)) {
+      setActiveTab(nextTab);
+    }
+  }, [searchParams, tabs]);
 
   const handleTabClick = (tabId) => {
     setActiveTab(tabId);

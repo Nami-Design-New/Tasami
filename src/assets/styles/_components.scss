@@ -11,6 +11,7 @@ $color-danger: #ff3a29;
 $color-success: #4ecdc4;
 $color-warning: #ffc107;
 $color-fire: #ff7a59;
+$gray: #6c757d;
 
 .custom-btn {
   display: inline-flex;
@@ -47,6 +48,11 @@ $color-fire: #ff7a59;
 
   &--loading {
     opacity: 0.85;
+    pointer-events: none;
+  }
+
+  &--disabled {
+    opacity: 0.5;
     pointer-events: none;
   }
 
@@ -110,6 +116,14 @@ $color-fire: #ff7a59;
     color: $white;
     &:hover {
       background-color: color.adjust($color-fire, $lightness: -10%);
+    }
+  }
+
+  &--gray {
+    background-color: $gray;
+    color: $white;
+    &:hover {
+      background-color: color.adjust($gray, $lightness: -10%);
     }
   }
 
@@ -177,6 +191,14 @@ $color-fire: #ff7a59;
       &:hover {
         color: $white;
         background-color: $color-fire;
+      }
+    }
+    &.custom-btn--gray {
+      color: $gray;
+      border-color: $gray;
+      &:hover {
+        color: $white;
+        background-color: $gray;
       }
     }
   }
@@ -493,8 +515,6 @@ $color-fire: #ff7a59;
     text-align: center;
     border-radius: 1rem;
     padding: 2rem;
-
-  
   }
 
   &__message {

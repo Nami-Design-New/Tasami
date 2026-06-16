@@ -1900,7 +1900,8 @@
         "add": "إضافة",
         "saveDraft": "حفظ كمسودة",
         "edit": "تعديل",
-        "complete": "اكمال"
+        "complete": "اكمال",
+        "active": "تفعيل"
       }
     },
     "team": {
