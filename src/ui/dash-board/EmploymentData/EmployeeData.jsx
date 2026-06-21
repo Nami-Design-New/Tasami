@@ -35,25 +35,25 @@ const EmployeeData = () => {
               <h6>
                 {t("dashboard.employeeProfile.employeeData.groupNumber")}:
               </h6>
-              <p>{user?.id_number}</p>
+              <p>{user?.group?.name}</p>
             </div>
           </div>
           <div className="col-12 col-md-6 col-xxl-4 p-2">
             <div className="employee__data--item">
               <h6>{t("dashboard.employeeProfile.employeeData.region")}:</h6>
-              <p>{user?.region_id?.title}</p>
+              <p>{user?.group?.region || t("all")}</p>
             </div>
           </div>
           <div className="col-12 col-md-6 col-xxl-4 p-2">
             <div className="employee__data--item">
               <h6>{t("dashboard.employeeProfile.employeeData.location")}:</h6>
-              <p>{user?.country_id?.title}</p>
+              <p>{user?.group?.country || t("all")}</p>
             </div>
           </div>
           <div className="col-12 col-md-6 col-xxl-4 p-2">
             <div className="employee__data--item">
               <h6>{t("dashboard.employeeProfile.employeeData.city")}:</h6>
-              <p>{user?.city_id?.title}</p>
+              <p>{user?.group?.city || t("all")}</p>
             </div>
           </div>
           <div className="col-12 col-md-6 col-xxl-4 p-2">

@@ -1,8 +1,7 @@
 {
+  "all": "All",
   "deleteConsultationAlert": "This action is irreversible",
-
   "goalsPreferedGender": "Assistant preferred gender",
-
   "contact_complaint": "Complaint",
   "noContent": "Content not available",
   "notAvailable": "Not available",
