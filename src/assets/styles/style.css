@@ -9432,6 +9432,7 @@ html[lang=en] .pdf-wrapper {
 }
 .helper-card .image-wrapper .avatar {
   width: 80px;
+  height: 80px;
   border-radius: 50%;
   border: 5px solid #c1e5f5;
   -o-object-fit: cover;
