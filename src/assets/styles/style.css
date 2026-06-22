@@ -13119,10 +13119,15 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
   justify-content: space-between;
   gap: 8px;
   padding: 4px;
-  padding-left: 16px;
   margin-bottom: 16px;
   background: #dff5fd;
   border-radius: 10px;
+}
+.user-profile .name-rating {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 4px;
 }
 .user-profile .avatar {
   width: 80px;
@@ -13139,7 +13144,6 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
 .user-profile .content h6 {
   font-size: 16px;
   color: #0d0d0d;
-  margin-bottom: 4px;
   font-weight: bold;
 }
 .user-profile .content span {
@@ -13150,15 +13154,16 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
   display: flex;
   align-items: center;
   gap: 6px;
-  margin-top: 8px;
 }
 .user-profile .content .rating img {
-  width: 18px;
+  width: 16px;
 }
 .user-profile .content .rating span {
-  font-size: 13px;
+  font-size: 16px;
+  line-height: 16px;
   color: #003399;
-  font-weight: 500;
+  margin: 0;
+  font-weight: bold;
 }
 .user-profile .rating {
   display: flex;
@@ -13168,7 +13173,6 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
   color: #0d0d0d;
   margin-inline-start: 6px;
   font-weight: 600;
-  margin-top: 4px;
 }
 
 .profile_section .profile_sidebar {

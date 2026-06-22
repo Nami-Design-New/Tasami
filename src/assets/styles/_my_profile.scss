@@ -348,11 +348,16 @@
   @include space-between;
   gap: 8px;
   padding: 4px;
-  padding-left: 16px;
+  // padding-left: 16px;
   margin-bottom: 16px;
   background: $secondColor12;
   border-radius: 10px;
-
+  .name-rating {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 4px;
+  }
   .avatar {
     width: 80px;
     height: 80px;
@@ -368,7 +373,6 @@
     h6 {
       font-size: 16px;
       color: $dark;
-      margin-bottom: 4px;
       font-weight: bold;
     }
 
@@ -381,16 +385,17 @@
       display: flex;
       align-items: center;
       gap: 6px;
-      margin-top: 8px;
 
       img {
-        width: 18px;
+        width: 16px;
       }
 
       span {
-        font-size: 13px;
+        font-size: 16px;
+        line-height: 16px;
         color: #003399;
-        font-weight: 500;
+        margin: 0;
+        font-weight: bold;
       }
     }
   }
@@ -401,7 +406,7 @@
       color: $dark;
       margin-inline-start: 6px;
       font-weight: 600;
-      margin-top: 4px;
+      // margin-top: 4px;
     }
   }
 }
