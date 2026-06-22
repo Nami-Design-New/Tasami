@@ -66,7 +66,7 @@ export default function ClientsCard({ helper }) {
               {helper.country && (
                 <span className="country">
                   <img
-                    src={flagIcon}
+                    src={helper.country.image}
                     alt={`${helper.country.title} flag`}
                     className="flag-icon"
                     loading="lazy"
@@ -126,7 +126,7 @@ export default function ClientsCard({ helper }) {
               {helper.country && (
                 <span className="country">
                   <img
-                    src={flagIcon}
+                    src={helper.country.image}
                     alt={`${helper.country.title} flag`}
                     className="flag-icon"
                     loading="lazy"

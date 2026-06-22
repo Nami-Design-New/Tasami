@@ -10408,6 +10408,57 @@ html[lang=en] .pdf-wrapper {
   color: white;
   border-color: #5fcafa;
 }
+.goal-details-section .goal-details-card .content,
+.offer-details-section .goal-details-card .content,
+.helper-details-section .goal-details-card .content {
+  display: flex;
+  flex-direction: column;
+}
+.goal-details-section .goal-details-card .content .name-rating,
+.offer-details-section .goal-details-card .content .name-rating,
+.helper-details-section .goal-details-card .content .name-rating {
+  display: flex;
+  align-items: center;
+}
+.goal-details-section .goal-details-card .content .name-rating .rating,
+.offer-details-section .goal-details-card .content .name-rating .rating,
+.helper-details-section .goal-details-card .content .name-rating .rating {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+.goal-details-section .goal-details-card .content .name-rating .rating img,
+.offer-details-section .goal-details-card .content .name-rating .rating img,
+.helper-details-section .goal-details-card .content .name-rating .rating img {
+  width: 16px;
+  height: 16px;
+}
+.goal-details-section .goal-details-card .content .name-rating .rating span,
+.offer-details-section .goal-details-card .content .name-rating .rating span,
+.helper-details-section .goal-details-card .content .name-rating .rating span {
+  line-height: 16px;
+  font-size: 16px;
+  font-weight: 600;
+}
+.goal-details-section .goal-details-card .content .country,
+.offer-details-section .goal-details-card .content .country,
+.helper-details-section .goal-details-card .content .country {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.goal-details-section .goal-details-card .content .country img,
+.offer-details-section .goal-details-card .content .country img,
+.helper-details-section .goal-details-card .content .country img {
+  width: 16px;
+  height: 16px;
+}
+.goal-details-section .goal-details-card .content .country span,
+.offer-details-section .goal-details-card .content .country span,
+.helper-details-section .goal-details-card .content .country span {
+  font-size: 14px;
+  font-weight: bold;
+}
 .goal-details-section .goal-details-card .add-offer-wrapper,
 .offer-details-section .goal-details-card .add-offer-wrapper,
 .helper-details-section .goal-details-card .add-offer-wrapper {
@@ -13834,6 +13885,8 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
   align-items: center;
   background-color: #dff5fd;
   border-radius: 10px;
+  padding: 4px;
+  gap: 8px;
   overflow: hidden;
 }
 .audience-card .user-image-wrapper {
@@ -13860,14 +13913,13 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
 }
 .audience-card .info {
   flex: 1;
-  padding: 8px 12px;
   display: flex;
   flex-direction: column;
   gap: 4px;
 }
 .audience-card .info h2 {
   font-size: 16px;
-  font-weight: 500;
+  font-weight: bold;
   color: #0d0d0d;
   display: flex;
   align-items: center;
@@ -13893,13 +13945,13 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
   gap: 4px;
 }
 .audience-card .info .country-date .country span {
-  font-size: 12px;
-  font-weight: 400;
+  font-size: 14px;
+  font-weight: bold;
   color: #0d0d0d;
 }
 .audience-card .info .country-date .country img {
-  width: 14px;
-  height: 14px;
+  aspect-ratio: 1/1;
+  height: 16px;
 }
 .audience-card .info .country-date .date {
   font-size: 14px;

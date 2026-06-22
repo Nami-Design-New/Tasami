@@ -98,8 +98,8 @@ export default function HelperCard({
               {helper.country && (
                 <span className="country">
                   <img
-                    src={flagIcon}
-                    alt={`${helper.country.title} flag`}
+                    src={helper?.country?.image}
+                    alt={`${helper?.country?.title} flag`}
                     className="flag-icon"
                     loading="lazy"
                   />

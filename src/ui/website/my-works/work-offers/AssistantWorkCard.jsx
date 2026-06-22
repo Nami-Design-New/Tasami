@@ -52,7 +52,7 @@ export default function AssistantWorkCard({
               {helper?.country && (
                 <span className="country">
                   <img
-                    src={flagIcon}
+                    src={helper?.country?.image}
                     alt={`${helper?.country.title} flag`}
                     className="flag-icon"
                     loading="lazy"
@@ -101,7 +101,7 @@ export default function AssistantWorkCard({
               <h3>{helper?.name}</h3>
               <div className="rating">
                 <img
-                  src={flagIcon}
+                  src={medalIcon}
                   alt="Medal icon"
                   className="rating-icon"
                   loading="lazy"
@@ -114,8 +114,8 @@ export default function AssistantWorkCard({
               {helper?.country && (
                 <span className="country">
                   <img
-                    src={flagIcon}
-                    alt={`${helper?.country.title} flag`}
+                    src={helper?.country?.image}
+                    alt={`${helper?.country?.title} flag`}
                     className="flag-icon"
                     loading="lazy"
                   />

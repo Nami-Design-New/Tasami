@@ -32,7 +32,7 @@ export default function AudienceCard({ data, date = false }) {
         <div className="country-date">
           {data?.user?.country && (
             <p className="country">
-              <img src={flagIcon} />
+              <img src={data?.user?.country?.image} />
               <span>{data?.user?.country?.title}</span>
             </p>
           )}
