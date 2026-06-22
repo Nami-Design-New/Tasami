@@ -26,10 +26,10 @@ export default function HelpersSlider({ helpers }) {
           992: { slidesPerView: 3, spaceBetween: 20 },
           1200: { slidesPerView: 4, spaceBetween: 24 },
         }}
-        loop={true}
-        autoplay={{ delay: 3000, disableOnInteraction: false }}
-        modules={[Autoplay]}
-        // ⚡ performance tweaks
+        // loop={true}
+        // autoplay={{ delay: 3000, disableOnInteraction: false }}
+        // modules={[Autoplay]}
+        // performance tweaks
         observer={false}
         observeParents={false}
         watchOverflow={true}

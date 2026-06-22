@@ -508,31 +508,38 @@
 }
 .helper-card {
   display: block;
-  background-color: $secondColor08;
-  border-radius: 1rem;
-  padding: 16px 40px 16px 16px;
+  background-color: $secondColor12;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border-radius: 16px 100px 100px 16px;
+  padding: 4px;
   position: relative;
-  min-height: 80px;
-  margin: 0 40px 0 0;
+  // min-height: 80px;
+  // margin: 0 40px 0 0;
   &.yellow {
-    background-color: #fdcb2f14;
+    background-color: #ffe38b;
   }
 
   // --- Avatar + status
   .image-wrapper {
-    position: absolute;
-    top: 50%;
-    right: -40px;
-    transform: translateY(-50%);
+    // position: absolute;
+    // top: 50%;
+    // right: -40px;
+    // transform: translateY(-50%);
+    margin: 0;
     z-index: 1;
 
     .avatar {
       width: 80px;
-      height: 80px;
+      // height: 80px;
       border-radius: 50%;
-      border: 5px solid $white;
+      border: 5px solid $secondColorBorder;
       object-fit: cover;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      &.yellow {
+        border-color: #ffe38b;
+      }
+      // box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     }
   }
   &.en {
@@ -548,8 +555,9 @@
   .info {
     display: flex;
     flex-direction: column;
-    margin: 0 8px;
-    gap: 10px;
+    // margin: 0 8px;
+    gap: 8px;
+    flex-grow: 1;
 
     // Header with name + rating
     .info-header {
@@ -566,13 +574,13 @@
         display: flex;
         align-items: center;
         gap: 0.25rem;
-
         .rating-icon {
           width: 16px;
           height: 16px;
         }
 
         span {
+          line-height: 16px;
           font-size: 16px;
           font-weight: 600;
         }
@@ -585,6 +593,9 @@
       align-items: center;
       justify-content: space-between;
       gap: 0.25rem;
+      .country {
+        padding: 0;
+      }
       .chat {
         @include centerFlex();
         background-color: $second;
@@ -605,18 +616,7 @@
     }
   }
 }
-// html[lang="en"] {
-//   .helper-card {
-//     margin: 0 0 0 40px;
-//     padding: 16px 16px 16px 40px;
 
-//     .image-wrapper {
-//       right: auto;
-//       left: -40px;
-//       transform: translateY(-50%) rotateY(180deg);
-//     }
-//   }
-// }
 .contracts-status {
   .content {
     display: flex;

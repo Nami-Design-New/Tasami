@@ -9415,31 +9415,30 @@ html[lang=en] .pdf-wrapper {
 
 .helper-card {
   display: block;
-  background-color: rgba(95, 202, 250, 0.0784313725);
-  border-radius: 1rem;
-  padding: 16px 40px 16px 16px;
+  background-color: #dff5fd;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border-radius: 16px 100px 100px 16px;
+  padding: 4px;
   position: relative;
-  min-height: 80px;
-  margin: 0 40px 0 0;
 }
 .helper-card.yellow {
-  background-color: rgba(253, 203, 47, 0.0784313725);
+  background-color: #ffe38b;
 }
 .helper-card .image-wrapper {
-  position: absolute;
-  top: 50%;
-  right: -40px;
-  transform: translateY(-50%);
+  margin: 0;
   z-index: 1;
 }
 .helper-card .image-wrapper .avatar {
   width: 80px;
-  height: 80px;
   border-radius: 50%;
-  border: 5px solid #fff;
+  border: 5px solid #c1e5f5;
   -o-object-fit: cover;
      object-fit: cover;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+.helper-card .image-wrapper .avatar.yellow {
+  border-color: #ffe38b;
 }
 .helper-card.en {
   padding: 16px 16px 16px 40px;
@@ -9452,8 +9451,8 @@ html[lang=en] .pdf-wrapper {
 .helper-card .info {
   display: flex;
   flex-direction: column;
-  margin: 0 8px;
-  gap: 10px;
+  gap: 8px;
+  flex-grow: 1;
 }
 .helper-card .info .info-header {
   display: flex;
@@ -9474,6 +9473,7 @@ html[lang=en] .pdf-wrapper {
   height: 16px;
 }
 .helper-card .info .info-header .rating span {
+  line-height: 16px;
   font-size: 16px;
   font-weight: 600;
 }
@@ -9482,6 +9482,9 @@ html[lang=en] .pdf-wrapper {
   align-items: center;
   justify-content: space-between;
   gap: 0.25rem;
+}
+.helper-card .info .meta .country {
+  padding: 0;
 }
 .helper-card .info .meta .chat {
   display: flex;
