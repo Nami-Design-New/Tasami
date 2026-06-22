@@ -9249,22 +9249,21 @@ html[lang=en] .pdf-wrapper {
 }
 
 .goal-card {
-  border: 1px solid rgba(13, 13, 13, 0.0941176471);
   padding: 4px;
   border-radius: 12px;
   display: flex;
-  flex-direction: column;
+  align-items: center;
   gap: 12px;
-  background-color: rgba(95, 202, 250, 0.1215686275);
+  background-color: #dff5fd;
 }
 .goal-card .image-wrapper {
   position: relative;
-  width: 60px;
-  height: 60px;
+  width: 100%;
+  height: 100%;
 }
 .goal-card .image-wrapper .avatar {
-  width: 60px;
-  height: 60px;
+  width: 80px;
+  height: 80px;
   border-radius: 10px;
   -o-object-fit: cover;
      object-fit: cover;
@@ -9322,7 +9321,7 @@ html[lang=en] .pdf-wrapper {
 }
 
 .offer-card {
-  background-color: rgba(95, 202, 250, 0.1215686275);
+  background-color: #dff5fd;
   padding: 4px 4px 8px;
   border-radius: 12px;
   display: flex;
@@ -10266,7 +10265,7 @@ html[lang=en] .pdf-wrapper {
   background: #fff;
   border-radius: 12px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
-  background-color: rgba(95, 202, 250, 0.1215686275);
+  background-color: #dff5fd;
 }
 .goal-details-section .goal-details-card .top-info .avatar,
 .offer-details-section .goal-details-card .top-info .avatar,
@@ -12826,7 +12825,7 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
   padding: 12px 4px;
   gap: 12px;
   border-radius: 12px;
-  background-color: rgba(95, 202, 250, 0.1215686275);
+  background-color: #dff5fd;
 }
 .notification-web-card.read {
   background-color: rgba(13, 13, 13, 0.0196078431);
@@ -13119,7 +13118,7 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
   padding: 4px;
   padding-left: 16px;
   margin-bottom: 16px;
-  background: rgba(95, 202, 250, 0.1215686275);
+  background: #dff5fd;
   border-radius: 10px;
 }
 .user-profile .avatar {
@@ -13212,7 +13211,7 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
   height: 24px;
 }
 .profile_section .profile_sidebar .nav_links .nav_link:hover {
-  background-color: rgba(119.7272727273, 210.1909090909, 250.7727272727, 0.1215686275);
+  background-color: rgb(247, 252.5, 254.5);
 }
 .profile_section .profile_sidebar .nav_links .nav_link.active {
   background-color: #5fcafa;
@@ -13676,7 +13675,7 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
           appearance: none;
 }
 .payment-modal-body .payment-methods .payment-method.active {
-  background-color: rgba(95, 202, 250, 0.1215686275);
+  background-color: #dff5fd;
 }
 .payment-modal-body .payment-methods .payment-method .payment-methd-image-wrapper {
   width: 40px;
@@ -13825,7 +13824,7 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
 .audience-card {
   display: flex;
   align-items: center;
-  background-color: rgba(95, 202, 250, 0.1215686275);
+  background-color: #dff5fd;
   border-radius: 10px;
   overflow: hidden;
 }
@@ -14096,7 +14095,7 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
   background: #fff;
   border-radius: 12px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
-  background-color: rgba(95, 202, 250, 0.1215686275);
+  background-color: #dff5fd;
 }
 .personal-assiatant-details-card .top-info .avatar {
   width: 120px;
