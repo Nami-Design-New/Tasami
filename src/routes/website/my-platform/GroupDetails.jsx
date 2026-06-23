@@ -30,6 +30,7 @@ export default function GroupDetails() {
         onSuccess: (res) => {
           navigate("/my-platform/my-groups");
           queryClient.refetchQueries({ queryKey: ["my-groups"] });
+          queryClient.invalidateQueries({ queryKey: ["authedUser"] });
           toast.success(res?.message);
         },
         onError: (error) => {

@@ -7,11 +7,17 @@ import { useEffect, useState } from "react";
 import AddGroupModal from "../../../ui/website/platform/groups/AddGroupModal";
 import useGetMyGroups from "../../../hooks/website/my-groups/useGetMyGroups";
 import { useLocation, useNavigate } from "react-router";
+import { useSelector } from "react-redux";
+import GroupLimitReachedModal from "../../../ui/website/platform/groups/GroupLimitReachedModal";
+import { hasReachedGroupLimit as checkGroupLimit } from "../../../utils/groupLimits";
 
 export default function MyGroups() {
   const { t } = useTranslation();
   const location = useLocation();
   const navigate = useNavigate();
+  const hasReachedGroupLimit = useSelector((state) =>
+    checkGroupLimit(state.authRole.user),
+  );
   const {
     myGroups,
     isLoading,
@@ -22,8 +28,21 @@ export default function MyGroups() {
 
   const allGroups = myGroups?.pages?.flatMap((page) => page?.data) ?? [];
   const [showAddGroupModal, setShowAddGroupModal] = useState(
-    () => location.state?.openCreateGroup === true,
+    () =>
+      location.state?.openCreateGroup === true && !hasReachedGroupLimit,
   );
+  const [showGroupLimitModal, setShowGroupLimitModal] = useState(
+    () => location.state?.openCreateGroup === true && hasReachedGroupLimit,
+  );
+
+  const handleCreateGroup = () => {
+    if (hasReachedGroupLimit) {
+      setShowGroupLimitModal(true);
+      return;
+    }
+
+    setShowAddGroupModal(true);
+  };
 
   useEffect(() => {
     if (!location.state?.openCreateGroup) return;
@@ -38,7 +57,7 @@ export default function MyGroups() {
         aria-labelledby="experience-title"
       >
         <div className="position-sticky top-0 z-3 d-flex justify-content-end">
-          <CustomButton onClick={() => setShowAddGroupModal(true)} size="large">
+          <CustomButton onClick={handleCreateGroup} size="large">
             {t("website.platform.groups.addNew")}{" "}
           </CustomButton>
         </div>
@@ -65,6 +84,10 @@ export default function MyGroups() {
       <AddGroupModal
         setShowModal={setShowAddGroupModal}
         showModal={showAddGroupModal}
+      />
+      <GroupLimitReachedModal
+        showModal={showGroupLimitModal}
+        onClose={() => setShowGroupLimitModal(false)}
       />
     </>
   );

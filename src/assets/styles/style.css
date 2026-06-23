@@ -13968,6 +13968,21 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
   transform: rotate(180deg);
 }
 
+.group-limit-reached.first-group-required {
+  gap: 24px;
+}
+.group-limit-reached .first-group-required__description {
+  max-width: 380px;
+  font-size: 1.125rem;
+}
+.group-limit-reached .first-group-required__actions {
+  justify-content: center;
+}
+.group-limit-reached .first-group-required__actions .custom-btn:first-child {
+  flex: 0 0 auto;
+  min-width: 186px;
+}
+
 .cv__list {
   display: flex;
   flex-direction: column;

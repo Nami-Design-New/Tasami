@@ -566,6 +566,26 @@
 [dir="ltr"] .first-group-required__steps i {
   transform: rotate(180deg);
 }
+
+.group-limit-reached {
+  &.first-group-required {
+    gap: 24px;
+  }
+
+  .first-group-required__description {
+    max-width: 380px;
+    font-size: 1.125rem;
+  }
+
+  .first-group-required__actions {
+    justify-content: center;
+
+    .custom-btn:first-child {
+      flex: 0 0 auto;
+      min-width: 186px;
+    }
+  }
+}
 .cv__list {
   display: flex;
   flex-direction: column;
