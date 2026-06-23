@@ -1,23 +1,31 @@
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router";
 import * as yup from "yup";
 
 import { useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 import useEditCV from "../../../hooks/cv/useEditCV";
 import useGetCV from "../../../hooks/cv/useGetCV";
+import { setUser } from "../../../redux/slices/authRole";
 import CustomButton from "../../../ui/CustomButton";
 import TextField from "../../../ui/forms/TextField";
+import CvActivationSuccessModal from "../../../ui/website/platform/CvActivationSuccessModal";
 import DocumentsSection from "../../../ui/website/platform/DocumentsSection";
 import ExperienceSection from "../../../ui/website/platform/ExperienceSection";
 
 export default function Cv() {
   const { t } = useTranslation();
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const queryClient = useQueryClient();
-  const { cv, isLoading } = useGetCV();
+  const { user } = useSelector((state) => state.authRole);
+  const { cv } = useGetCV();
   const { editCV, isPending } = useEditCV();
+  const [showActivationSuccess, setShowActivationSuccess] = useState(false);
   const CVSchema = yup.object().shape({
     about: yup
       .string()
@@ -44,15 +52,32 @@ export default function Cv() {
 
   const onSubmit = async (data) => {
     const payload = { about: data.about };
+    const existingAbout = cv?.about ?? user?.about;
+    const isFirstActivation = !existingAbout?.trim();
+
     editCV(payload, {
       onSuccess: (res) => {
-        toast.success(res?.message || t("website.platform.cv.updateSuccess"));
+        if (isFirstActivation) {
+          setShowActivationSuccess(true);
+        } else {
+          toast.success(res?.message || t("website.platform.cv.updateSuccess"));
+        }
+
+        const updatedAbout = res?.data?.about ?? data.about;
+        dispatch(
+          setUser({
+            ...user,
+            ...res?.data,
+            about: updatedAbout,
+          }),
+        );
         queryClient.invalidateQueries({ queryKey: ["cv"] });
         queryClient.setQueryData(["authedUser"], (oldData) => {
           if (!oldData) return oldData;
           return {
             ...oldData,
-            about: res?.data?.about,
+            ...res?.data,
+            about: updatedAbout,
           };
         });
       },
@@ -100,6 +125,16 @@ export default function Cv() {
           <DocumentsSection />
         </div>
       </div>
+
+      <CvActivationSuccessModal
+        showModal={showActivationSuccess}
+        onClose={() => setShowActivationSuccess(false)}
+        onCreateGroup={() =>
+          navigate("/my-platform/my-groups", {
+            state: { openCreateGroup: true },
+          })
+        }
+      />
     </section>
   );
 }

@@ -1214,7 +1214,14 @@
         "phd": "Advanced Global Degree (PhD)",
         "specializationHint1": "If you can't find the required field or specialization, contact ",
         "specializationHintLink": "Customer Support ",
-        "specializationHint2": "to add a new category"
+        "specializationHint2": "to add a new category",
+        "activationSuccess": {
+          "title": "Your personal assistant account has been activated successfully",
+          "guide": "Create your first group through",
+          "description": "So you can send quotations and accept contract requests",
+          "createGroup": "Create a new work group",
+          "close": "Close"
+        }
       },
       "groups": {
         "groupName": "Group Name",
@@ -1230,7 +1237,14 @@
         "field": "Field",
         "strength": "Strength",
         "groupMembers": "Group Members",
-        "deleteAlertMessage": "The Group Will be deleted"
+        "deleteAlertMessage": "The Group Will be deleted",
+        "firstGroupWarning": {
+          "title": "Before you start!",
+          "guide": "Create your first group through",
+          "description": "So you can send quotations and accept contract requests",
+          "createGroup": "Create a new work group",
+          "close": "Close"
+        }
       },
       "myCommunity": {
         "editCommunity": "Edit Community Details",

@@ -3,12 +3,15 @@ import ExpDocItemLoader from "../../../ui/loading/ExpDocItemLoader";
 import InfiniteScroll from "../../../ui/loading/InfiniteScroll";
 import GroupList from "../../../ui/website/platform/groups/GroupList";
 import CustomButton from "../../../ui/CustomButton";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import AddGroupModal from "../../../ui/website/platform/groups/AddGroupModal";
 import useGetMyGroups from "../../../hooks/website/my-groups/useGetMyGroups";
+import { useLocation, useNavigate } from "react-router";
 
 export default function MyGroups() {
   const { t } = useTranslation();
+  const location = useLocation();
+  const navigate = useNavigate();
   const {
     myGroups,
     isLoading,
@@ -18,7 +21,15 @@ export default function MyGroups() {
   } = useGetMyGroups("on");
 
   const allGroups = myGroups?.pages?.flatMap((page) => page?.data) ?? [];
-  const [showAddGroupModal, setShowAddGroupModal] = useState(false);
+  const [showAddGroupModal, setShowAddGroupModal] = useState(
+    () => location.state?.openCreateGroup === true,
+  );
+
+  useEffect(() => {
+    if (!location.state?.openCreateGroup) return;
+
+    navigate(location.pathname, { replace: true, state: null });
+  }, [location.pathname, location.state, navigate]);
 
   return (
     <>

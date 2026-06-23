@@ -91,6 +91,7 @@ export default function AddGroupModal({
         onSuccess: (res) => {
           setShowModal(false);
           queryClient.invalidateQueries({ queryKey: ["my-groups"] });
+          queryClient.invalidateQueries({ queryKey: ["authedUser"] });
           reset();
           toast.success(res.message);
         },
