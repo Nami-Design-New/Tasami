@@ -1244,6 +1244,11 @@
           "description": "So you can send quotations and accept contract requests",
           "createGroup": "Create a new work group",
           "close": "Close"
+        },
+        "limitReached": {
+          "title": "You have created the maximum number of work groups!",
+          "description": "Edit an existing group or delete an inactive group, then try again",
+          "confirm": "OK"
         }
       },
       "myCommunity": {

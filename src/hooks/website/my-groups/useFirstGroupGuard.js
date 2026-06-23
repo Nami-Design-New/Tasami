@@ -1,15 +1,12 @@
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router";
+import { getActiveGroupsCount } from "../../../utils/groupLimits";
 
 export default function useFirstGroupGuard(onAllowed) {
   const navigate = useNavigate();
   const hasActiveGroups = useSelector((state) => {
-    const activeGroups = state.authRole.user?.active_groups;
-
-    return Array.isArray(activeGroups)
-      ? activeGroups.length > 0
-      : Number(activeGroups) > 0;
+    return getActiveGroupsCount(state.authRole.user) > 0;
   });
   const [showFirstGroupWarning, setShowFirstGroupWarning] = useState(false);
 
