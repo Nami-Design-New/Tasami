@@ -1245,7 +1245,14 @@
         "field": "المجال",
         "strength": "مؤشرات القوة",
         "groupMembers": "أعضاء المجموعة",
-        "deleteAlertMessage": "سيتم حذف المجموعة! "
+        "deleteAlertMessage": "سيتم حذف المجموعة! ",
+        "firstGroupWarning": {
+          "title": "قبل أن تبدأ!",
+          "guide": "قم بإنشاء مجموعتك الأولى عبر",
+          "description": "لتتمكن من إرسال عروض الأسعار وقبول طلبات التعاقد",
+          "createGroup": "إنشاء مجموعة عمل جديدة",
+          "close": "إغلاق"
+        }
       },
       "myCommunity": {
         "editCommunity": "تعديل بيانات المجتمع المساعد",

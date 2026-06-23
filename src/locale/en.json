@@ -1237,7 +1237,14 @@
         "field": "Field",
         "strength": "Strength",
         "groupMembers": "Group Members",
-        "deleteAlertMessage": "The Group Will be deleted"
+        "deleteAlertMessage": "The Group Will be deleted",
+        "firstGroupWarning": {
+          "title": "Before you start!",
+          "guide": "Create your first group through",
+          "description": "So you can send quotations and accept contract requests",
+          "createGroup": "Create a new work group",
+          "close": "Close"
+        }
       },
       "myCommunity": {
         "editCommunity": "Edit Community Details",

@@ -5,11 +5,19 @@ import { useTranslation } from "react-i18next";
 import ActiveOffersList from "../../../ui/website/platform/my-assistances/ActiveOffersList";
 import ArchivedOffersList from "../../../ui/website/platform/my-assistances/ArchivedOffersList";
 import AddAssistanceModal from "../../../ui/website/offers/AddAssistanceModal";
+import FirstGroupRequiredModal from "../../../ui/website/platform/FirstGroupRequiredModal";
+import useFirstGroupGuard from "../../../hooks/website/my-groups/useFirstGroupGuard";
 
 export default function MyAssistance() {
   const { t } = useTranslation();
   const [searchParams, setSearchParams] = useSearchParams();
   const [showModal, setShowModal] = useState(false);
+  const {
+    requestAssistanceCreation,
+    showFirstGroupWarning,
+    closeFirstGroupWarning,
+    createFirstGroup,
+  } = useFirstGroupGuard(() => setShowModal(true));
 
   const initialTab = searchParams.get("tab") || "active";
   const [selectedTab, setSelectedTab] = useState(initialTab);
@@ -44,11 +52,19 @@ export default function MyAssistance() {
         {selectedTab === "archived" && <ArchivedOffersList />}{" "}
       </section>
       <div className="float-button-wrapper px-2">
-        <button className="float-button" onClick={() => setShowModal(true)}>
+        <button
+          className="float-button"
+          onClick={requestAssistanceCreation}
+        >
           {t("website.platform.myAssistance.addNewOffer")}
         </button>
       </div>
       <AddAssistanceModal showModal={showModal} setShowModal={setShowModal} />
+      <FirstGroupRequiredModal
+        showModal={showFirstGroupWarning}
+        onClose={closeFirstGroupWarning}
+        onCreateGroup={createFirstGroup}
+      />
     </>
   );
 }
