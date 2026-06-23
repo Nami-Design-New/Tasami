@@ -28,13 +28,15 @@ export default function TaskCard({
   // persistent refs across renders
   const pointerStart = useRef({ x: 0, y: 0 });
   const moved = useRef(false);
-  const interactionCursor = cursor || (isDragging
-    ? "grabbing"
-    : isDragable
-    ? "grab"
-    : allowNavigation
-    ? "pointer"
-    : "default");
+  const interactionCursor =
+    cursor ||
+    (isDragging
+      ? "grabbing"
+      : isDragable
+        ? "grab"
+        : allowNavigation
+          ? "pointer"
+          : "default");
 
   // pointer down -> record start pos
   const handlePointerDown = (e) => {
@@ -76,15 +78,12 @@ export default function TaskCard({
 
   const taskDate = new Date(task?.expected_end_date);
   const isPast = taskDate < new Date();
+  console.log("is contract: ", isContracts);
 
   return (
     <div
       className={`task-card ${
-        isDragable
-          ? "draggable"
-          : allowNavigation
-            ? "navigable"
-            : "static-card"
+        isDragable ? "draggable" : allowNavigation ? "navigable" : "static-card"
       } ${isDragging ? "dragging" : ""}`}
       role={allowNavigation ? "link" : undefined}
       tabIndex={allowNavigation ? 0 : -1}
@@ -146,7 +145,7 @@ export default function TaskCard({
         {task?.helper === null ? (
           <></>
         ) : (
-          !isReadOnly &&
+          // !isReadOnly &&
           (task.status === "completed" || task.status === "confirmed") && (
             <>
               {isContracts ? (

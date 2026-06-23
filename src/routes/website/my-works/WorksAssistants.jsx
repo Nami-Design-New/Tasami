@@ -171,6 +171,7 @@ export default function WorksAssistants() {
                   helper={helper?.helper}
                   contractId={helper?.id}
                   unReadMessage={helper?.unread_Messages}
+                  prevAssistant={true}
                 />
               </div>
             ))}

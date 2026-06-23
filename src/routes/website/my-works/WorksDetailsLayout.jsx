@@ -1,13 +1,14 @@
 import { useQueryClient } from "@tanstack/react-query";
 import { useCallback, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { NavLink, Outlet, useNavigate } from "react-router";
+import { NavLink, Outlet, useNavigate, useParams } from "react-router";
 import { toast } from "sonner";
 
 import useCancelRequestOffer from "../../../hooks/website/MyWorks/useCancelRequestOffer";
 import useCompleteGoal from "../../../hooks/website/MyWorks/useCompleteGoal";
 import useDeleteWork from "../../../hooks/website/MyWorks/useDeleteWork";
 import useGetWorkDetails from "../../../hooks/website/MyWorks/useGetWorkDetails";
+import useGetTasks from "../../../hooks/website/MyWorks/tasks/useGetTasks";
 
 import Loading from "../../../ui/loading/Loading";
 import RoundedBackButton from "../../../ui/website-auth/shared/RoundedBackButton";
@@ -23,9 +24,14 @@ export default function WorksDetailsLayout() {
   // const [showAlertWithdrawOfferModal, setShowAlertWithdrawOfferModal] =
   //   useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
-  const [tasksSummary, setTasksSummary] = useState(null);
 
+  const { id: workId } = useParams();
   const { workDetails, isLoading } = useGetWorkDetails();
+  // Read execution percentage straight from the tasks query (shared cache,
+  // key ["work-tasks", workId]) so it's available on every tab, not just the
+  // tasks tab.
+  const { goalTasks } = useGetTasks(workId);
+  const exePercentage = goalTasks?.["additional-data"]?.execution_percentage;
   const { completeGoal, isPending: isCompleting } = useCompleteGoal();
   const { deleteWork, isPending: isDeleting } = useDeleteWork();
   const { cancelRequestOffer, isPending: isCanceling } =
@@ -201,14 +207,22 @@ export default function WorksDetailsLayout() {
     onClick: () => setShowAlertModal(true),
     props: { disabled: isCompleting },
   };
-
   // === Conditional Menu Rendering ===
   const renderOptionsMenu = () => {
+    console.log("[renderOptionsMenu] inputs:", {
+      status,
+      helper,
+      rectangle,
+      exePercentage,
+    });
+
     if (status !== "completed" && !helper) {
       const options =
-        tasksSummary?.exePercentage === 100
-          ? [completeOption, deleteOption]
-          : [deleteOption];
+        exePercentage === 100 ? [completeOption, deleteOption] : [deleteOption];
+      console.log(
+        "[renderOptionsMenu] -> Branch 1 (work options), options:",
+        options.map((o) => o.label),
+      );
       return (
         <OptionsMenu
           toggleButton="fa-regular fa-shield-exclamation color-main"
@@ -222,6 +236,7 @@ export default function WorksDetailsLayout() {
       rectangle === "help_service_from_helper" &&
       (status === "wait_helper_to_accept" || status === "wait_for_user_payment")
     ) {
+      console.log("[renderOptionsMenu] -> Branch 2 (cancel offer)");
       return (
         <OptionsMenu
           toggleButton="fa-regular fa-flag"
@@ -231,6 +246,7 @@ export default function WorksDetailsLayout() {
       );
     }
 
+    console.log("[renderOptionsMenu] -> returned null (no menu rendered)");
     return null;
   };
 
@@ -288,7 +304,7 @@ export default function WorksDetailsLayout() {
 
             {/* Outlet */}
             <div className="col-12 p-2">
-              <Outlet context={{ setTasksSummary }} />
+              <Outlet />
             </div>
           </div>
         )}

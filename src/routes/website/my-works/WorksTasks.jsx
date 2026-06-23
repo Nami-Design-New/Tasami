@@ -1,7 +1,7 @@
 import { useQueryClient } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useOutletContext, useParams } from "react-router";
+import { useParams } from "react-router";
 import { toast } from "sonner";
 
 // UI
@@ -71,7 +71,6 @@ export default function WorksTasks() {
   const { t } = useTranslation();
   const [showTaskAlertModal, setShowTaskAlertModal] = useState(false);
   const queryClient = useQueryClient();
-  const { setTasksSummary } = useOutletContext();
 
   const [tasks, setTasks] = useState([]);
   const [showModal, setShowModal] = useState(false);
@@ -99,14 +98,6 @@ export default function WorksTasks() {
       },
     });
   };
-
-  useEffect(() => {
-    if (goalTasks?.data) {
-      setTasksSummary({
-        exePercentage: goalTasks["additional-data"]?.execution_percentage,
-      });
-    }
-  }, [goalTasks, setTasksSummary]);
 
   // Load tasks from API
   useEffect(() => {

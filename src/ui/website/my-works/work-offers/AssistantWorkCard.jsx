@@ -1,7 +1,7 @@
 import { Link } from "react-router";
-import flagIcon from "../../../../assets/icons/flag.svg";
-import medalIcon from "../../../../assets/icons/medal.svg";
 import chatWhiteIcon from "../../../../assets/icons/chat-white-icon.svg";
+import medalIconYellow from "../../../../assets/icons/medal-yellow.svg";
+import medalIcon from "../../../../assets/icons/medal.svg";
 export default function AssistantWorkCard({
   helper,
   contractId,
@@ -26,7 +26,7 @@ export default function AssistantWorkCard({
             <img
               src={helper?.image}
               alt={helper?.name}
-              className="avatar"
+              className={`avatar ${prevAssistant ? "yellow" : ""}`}
               loading="lazy"
             />
             {helper?.is_online && (
@@ -39,7 +39,7 @@ export default function AssistantWorkCard({
               <h3>{helper?.name}</h3>
               <div className="rating">
                 <img
-                  src={medalIcon}
+                  src={`${prevAssistant ? medalIconYellow : medalIcon}`}
                   alt="Medal icon"
                   className="rating-icon"
                   loading="lazy"
@@ -88,7 +88,7 @@ export default function AssistantWorkCard({
             <img
               src={helper?.image}
               alt={helper?.name}
-              className="avatar"
+              className={`avatar ${prevAssistant ? "yellow" : ""}`}
               loading="lazy"
             />
             {helper?.is_online && (
@@ -101,7 +101,7 @@ export default function AssistantWorkCard({
               <h3>{helper?.name}</h3>
               <div className="rating">
                 <img
-                  src={medalIcon}
+                  src={`${prevAssistant ? medalIconYellow : medalIcon}`}
                   alt="Medal icon"
                   className="rating-icon"
                   loading="lazy"
