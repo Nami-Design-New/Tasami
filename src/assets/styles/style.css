@@ -9249,22 +9249,21 @@ html[lang=en] .pdf-wrapper {
 }
 
 .goal-card {
-  border: 1px solid rgba(13, 13, 13, 0.0941176471);
   padding: 4px;
   border-radius: 12px;
   display: flex;
-  flex-direction: column;
+  align-items: center;
   gap: 12px;
-  background-color: rgba(95, 202, 250, 0.1215686275);
+  background-color: #dff5fd;
 }
 .goal-card .image-wrapper {
   position: relative;
-  width: 60px;
-  height: 60px;
+  width: 100%;
+  height: 100%;
 }
 .goal-card .image-wrapper .avatar {
-  width: 60px;
-  height: 60px;
+  width: 80px;
+  height: 80px;
   border-radius: 10px;
   -o-object-fit: cover;
      object-fit: cover;
@@ -9322,7 +9321,7 @@ html[lang=en] .pdf-wrapper {
 }
 
 .offer-card {
-  background-color: rgba(95, 202, 250, 0.1215686275);
+  background-color: #dff5fd;
   padding: 4px 4px 8px;
   border-radius: 12px;
   display: flex;
@@ -9416,31 +9415,31 @@ html[lang=en] .pdf-wrapper {
 
 .helper-card {
   display: block;
-  background-color: rgba(95, 202, 250, 0.0784313725);
-  border-radius: 1rem;
-  padding: 16px 40px 16px 16px;
+  background-color: #dff5fd;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border-radius: 16px 100px 100px 16px;
+  padding: 4px;
   position: relative;
-  min-height: 80px;
-  margin: 0 40px 0 0;
 }
 .helper-card.yellow {
-  background-color: rgba(253, 203, 47, 0.0784313725);
+  background-color: #fff8e1;
 }
 .helper-card .image-wrapper {
-  position: absolute;
-  top: 50%;
-  right: -40px;
-  transform: translateY(-50%);
+  margin: 0;
   z-index: 1;
 }
 .helper-card .image-wrapper .avatar {
   width: 80px;
   height: 80px;
   border-radius: 50%;
-  border: 5px solid #fff;
+  border: 5px solid #c1e5f5;
   -o-object-fit: cover;
      object-fit: cover;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+.helper-card .image-wrapper .avatar.yellow {
+  border-color: #ffe38b;
 }
 .helper-card.en {
   padding: 16px 16px 16px 40px;
@@ -9453,8 +9452,8 @@ html[lang=en] .pdf-wrapper {
 .helper-card .info {
   display: flex;
   flex-direction: column;
-  margin: 0 8px;
-  gap: 10px;
+  gap: 8px;
+  flex-grow: 1;
 }
 .helper-card .info .info-header {
   display: flex;
@@ -9475,6 +9474,7 @@ html[lang=en] .pdf-wrapper {
   height: 16px;
 }
 .helper-card .info .info-header .rating span {
+  line-height: 16px;
   font-size: 16px;
   font-weight: 600;
 }
@@ -9483,6 +9483,9 @@ html[lang=en] .pdf-wrapper {
   align-items: center;
   justify-content: space-between;
   gap: 0.25rem;
+}
+.helper-card .info .meta .country {
+  padding: 0;
 }
 .helper-card .info .meta .chat {
   display: flex;
@@ -10266,7 +10269,7 @@ html[lang=en] .pdf-wrapper {
   background: #fff;
   border-radius: 12px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
-  background-color: rgba(95, 202, 250, 0.1215686275);
+  background-color: #dff5fd;
 }
 .goal-details-section .goal-details-card .top-info .avatar,
 .offer-details-section .goal-details-card .top-info .avatar,
@@ -10404,6 +10407,57 @@ html[lang=en] .pdf-wrapper {
   background-color: #5fcafa;
   color: white;
   border-color: #5fcafa;
+}
+.goal-details-section .goal-details-card .content,
+.offer-details-section .goal-details-card .content,
+.helper-details-section .goal-details-card .content {
+  display: flex;
+  flex-direction: column;
+}
+.goal-details-section .goal-details-card .content .name-rating,
+.offer-details-section .goal-details-card .content .name-rating,
+.helper-details-section .goal-details-card .content .name-rating {
+  display: flex;
+  align-items: center;
+}
+.goal-details-section .goal-details-card .content .name-rating .rating,
+.offer-details-section .goal-details-card .content .name-rating .rating,
+.helper-details-section .goal-details-card .content .name-rating .rating {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+.goal-details-section .goal-details-card .content .name-rating .rating img,
+.offer-details-section .goal-details-card .content .name-rating .rating img,
+.helper-details-section .goal-details-card .content .name-rating .rating img {
+  width: 16px;
+  height: 16px;
+}
+.goal-details-section .goal-details-card .content .name-rating .rating span,
+.offer-details-section .goal-details-card .content .name-rating .rating span,
+.helper-details-section .goal-details-card .content .name-rating .rating span {
+  line-height: 16px;
+  font-size: 16px;
+  font-weight: 600;
+}
+.goal-details-section .goal-details-card .content .country,
+.offer-details-section .goal-details-card .content .country,
+.helper-details-section .goal-details-card .content .country {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.goal-details-section .goal-details-card .content .country img,
+.offer-details-section .goal-details-card .content .country img,
+.helper-details-section .goal-details-card .content .country img {
+  width: 16px;
+  height: 16px;
+}
+.goal-details-section .goal-details-card .content .country span,
+.offer-details-section .goal-details-card .content .country span,
+.helper-details-section .goal-details-card .content .country span {
+  font-size: 14px;
+  font-weight: bold;
 }
 .goal-details-section .goal-details-card .add-offer-wrapper,
 .offer-details-section .goal-details-card .add-offer-wrapper,
@@ -12826,7 +12880,7 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
   padding: 12px 4px;
   gap: 12px;
   border-radius: 12px;
-  background-color: rgba(95, 202, 250, 0.1215686275);
+  background-color: #dff5fd;
 }
 .notification-web-card.read {
   background-color: rgba(13, 13, 13, 0.0196078431);
@@ -13117,10 +13171,15 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
   justify-content: space-between;
   gap: 8px;
   padding: 4px;
-  padding-left: 16px;
   margin-bottom: 16px;
-  background: rgba(95, 202, 250, 0.1215686275);
+  background: #dff5fd;
   border-radius: 10px;
+}
+.user-profile .name-rating {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 4px;
 }
 .user-profile .avatar {
   width: 80px;
@@ -13137,7 +13196,6 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
 .user-profile .content h6 {
   font-size: 16px;
   color: #0d0d0d;
-  margin-bottom: 4px;
   font-weight: bold;
 }
 .user-profile .content span {
@@ -13148,15 +13206,16 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
   display: flex;
   align-items: center;
   gap: 6px;
-  margin-top: 8px;
 }
 .user-profile .content .rating img {
-  width: 18px;
+  width: 16px;
 }
 .user-profile .content .rating span {
-  font-size: 13px;
+  font-size: 16px;
+  line-height: 16px;
   color: #003399;
-  font-weight: 500;
+  margin: 0;
+  font-weight: bold;
 }
 .user-profile .rating {
   display: flex;
@@ -13166,7 +13225,6 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
   color: #0d0d0d;
   margin-inline-start: 6px;
   font-weight: 600;
-  margin-top: 4px;
 }
 
 .profile_section .profile_sidebar {
@@ -13212,7 +13270,7 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
   height: 24px;
 }
 .profile_section .profile_sidebar .nav_links .nav_link:hover {
-  background-color: rgba(119.7272727273, 210.1909090909, 250.7727272727, 0.1215686275);
+  background-color: rgb(247, 252.5, 254.5);
 }
 .profile_section .profile_sidebar .nav_links .nav_link.active {
   background-color: #5fcafa;
@@ -13676,7 +13734,7 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
           appearance: none;
 }
 .payment-modal-body .payment-methods .payment-method.active {
-  background-color: rgba(95, 202, 250, 0.1215686275);
+  background-color: #dff5fd;
 }
 .payment-modal-body .payment-methods .payment-method .payment-methd-image-wrapper {
   width: 40px;
@@ -13825,8 +13883,10 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
 .audience-card {
   display: flex;
   align-items: center;
-  background-color: rgba(95, 202, 250, 0.1215686275);
+  background-color: #dff5fd;
   border-radius: 10px;
+  padding: 4px;
+  gap: 8px;
   overflow: hidden;
 }
 .audience-card .user-image-wrapper {
@@ -13853,14 +13913,13 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
 }
 .audience-card .info {
   flex: 1;
-  padding: 8px 12px;
   display: flex;
   flex-direction: column;
   gap: 4px;
 }
 .audience-card .info h2 {
   font-size: 16px;
-  font-weight: 500;
+  font-weight: bold;
   color: #0d0d0d;
   display: flex;
   align-items: center;
@@ -13886,13 +13945,13 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
   gap: 4px;
 }
 .audience-card .info .country-date .country span {
-  font-size: 12px;
-  font-weight: 400;
+  font-size: 14px;
+  font-weight: bold;
   color: #0d0d0d;
 }
 .audience-card .info .country-date .country img {
-  width: 14px;
-  height: 14px;
+  aspect-ratio: 1/1;
+  height: 16px;
 }
 .audience-card .info .country-date .date {
   font-size: 14px;
@@ -14096,7 +14155,7 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
   background: #fff;
   border-radius: 12px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
-  background-color: rgba(95, 202, 250, 0.1215686275);
+  background-color: #dff5fd;
 }
 .personal-assiatant-details-card .top-info .avatar {
   width: 120px;

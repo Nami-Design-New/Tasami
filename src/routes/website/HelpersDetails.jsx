@@ -17,7 +17,6 @@ import PersonalHelperDoc from "../../ui/website/helpers/PersonalHelperDoc";
 import PersonalHelperExperiences from "../../ui/website/helpers/PersonalHelperExperiences";
 
 import medal from "../../assets/icons/medal.svg";
-import flag from "../../assets/icons/flag.svg";
 
 export default function HelpersDetails() {
   const navigate = useNavigate();
@@ -119,20 +118,21 @@ export default function HelpersDetails() {
                   className="avatar"
                 />
                 <div className="content">
-                  <h6>{assistantDetails.name}</h6>
+                  <div className="name-rating">
+                    <h6>{assistantDetails.name}</h6>
+                    <div className="rating">
+                      <img src={medal} />
+                      <span>{assistantDetails?.experience_level}</span>
+                    </div>
+                  </div>
                   <div className="d-flex gap-2 align-items-center">
                     {assistantDetails?.country?.title && (
-                      <>
-                        {" "}
-                        <img src={flag} />
+                      <div className="country">
+                        <img src={assistantDetails?.country?.image} />
                         <span>{assistantDetails?.country?.title}</span>
-                      </>
+                      </div>
                     )}
                   </div>
-                </div>
-                <div className="rating">
-                  <img src={medal} />
-                  <span>{assistantDetails.experience_level}</span>
                 </div>
               </div>
 
