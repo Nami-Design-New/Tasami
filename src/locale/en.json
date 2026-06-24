@@ -800,6 +800,7 @@
     "descriptionMax": "Description cannot exceed 500 characters",
     "futureDateNotAllowed": "Birth date cannot be in the future",
     "after_or_equal_today": "Date must be today or later",
+    "taskEndAfterStart": "The expected end date must be on or after the start date",
     "invalidUrl": "The URL is invalid",
     "firstNameMax": "First name cannot exceed {{max}} characters",
     "firstNameAlpha": "First name can only contain letters and spaces",
@@ -893,12 +894,13 @@
     "required": "Image or video is required"
   },
   "works": {
-    "newTask": "New Task",
+    "newTask": "New Execution Task",
     "updateTask": "Update Task",
     "beneficiary": "Beneficiary",
     "update": "Update",
     "task_description": "Task Description",
     "task_category": "Task Category",
+    "started_at": "Start Date",
     "expected_end_date": "Expected End Date",
     "notes": "Notes",
     "reminder_notifications": "Reminder Notifications",
@@ -941,7 +943,7 @@
       "executionRate": "Execution Progress",
       "startExecutionBtn": "Start Execution",
       "pauseExecutionBtn": "Pause Execution",
-      "addNew": "Add New Task",
+      "addNew": "Add New Execution Task",
       "pauseExecutionWarning": "Execution will be paused temporarily, and all related notifications will be disabled. You can resume later from the 'Start Execution' button on the Tasks page.",
       "earlyStart": {
         "title": "Before you start!",

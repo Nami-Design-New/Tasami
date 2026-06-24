@@ -17,13 +17,28 @@ const getSchema = (t) =>
 
     taskCategory: yup.string().required(t("validation.required")),
 
+    started_at: yup
+      .date()
+      .typeError(t("validation.invalid_date"))
+      .required(t("validation.required")),
+
     expected_end_date: yup
       .date()
       .typeError(t("validation.invalid_date"))
       .required(t("validation.required"))
       .min(
         new Date(new Date().setHours(0, 0, 0, 0)),
-        t("validation.after_or_equal_today")
+        t("validation.after_or_equal_today"),
+      )
+      .test(
+        "task-end-after-start",
+        t("validation.taskEndAfterStart"),
+        function validateTaskDates(value) {
+          const startedAt = this.parent.started_at;
+
+          if (!value || !startedAt) return true;
+          return new Date(value) >= new Date(startedAt);
+        },
       ),
 
     notes: yup
@@ -83,6 +98,8 @@ export default function useAddTasksForm() {
   const methods = useForm({
     resolver: yupResolver(getSchema(t)),
     defaultValues: {
+      started_at: "",
+      expected_end_date: "",
       reminderNotifications: false,
       notification_repeat: "",
       notification_day: "",

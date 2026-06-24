@@ -257,6 +257,15 @@ export default function TaskDetails({ mode = null }) {
           <div className="col p-2">
             <div className="info-grid">
               <div className="info-box info-box-grow-min-width">
+                <h4 className="label">{t("works.started_at")}</h4>
+                <p className="value">{taskDetails?.started_at || "---"}</p>
+              </div>
+            </div>
+          </div>
+
+          <div className="col p-2">
+            <div className="info-grid">
+              <div className="info-box info-box-grow-min-width">
                 <h4 className="label">{t("works.myTasks.date")}</h4>
                 <p
                   className={`value ${
