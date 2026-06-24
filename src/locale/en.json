@@ -1011,7 +1011,12 @@
       "days": "days",
       "day": "day",
       "receivedAmount": "Received Amount",
-      "remainingBalance": "Remaining Guarantee Balance"
+      "remainingBalance": "Remaining Guarantee Balance",
+      "goalStillActive": {
+        "title": "The contract ended successfully, but the goal is still active",
+        "description": "You can continue working on it independently or request help from another service provider to continue your journey",
+        "confirm": "OK"
+      }
     },
     "status": {
       "pending": "Pending",
