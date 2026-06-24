@@ -11439,7 +11439,11 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
 .task-card .card-body .meta-info {
   display: flex;
   align-items: center;
-  gap: 6px;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  -moz-column-gap: 2rem;
+       column-gap: 2rem;
+  row-gap: 0.5rem;
 }
 .task-card .card-body .meta-info .item {
   display: flex;
@@ -11592,119 +11596,6 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
   align-items: center;
   justify-content: space-between;
 }
-.contract-ended-goal-active-modal .modal-dialog {
-  max-width: 510px;
-}
-.contract-ended-goal-active-modal .modal-content {
-  border: 2px solid rgba(13, 13, 13, 0.0941176471);
-  border-radius: 32px;
-}
-.contract-ended-goal-active {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 20px;
-  padding: 12px 20px 4px;
-  text-align: center;
-}
-.contract-ended-goal-active img {
-  width: 100px;
-  height: 100px;
-}
-.contract-ended-goal-active h2 {
-  max-width: 400px;
-  color: #0d0d0d;
-  font-size: 1.5rem;
-  font-weight: 700;
-  margin: 0;
-}
-.contract-ended-goal-active p {
-  max-width: 430px;
-  color: #0d0d0d;
-  font-size: 1.125rem;
-  font-weight: 500;
-  margin: 0;
-}
-.contract-ended-goal-active .custom-btn {
-  width: min(100%, 185px);
-}
-.early-execution-warning-modal .modal-dialog {
-  max-width: 600px;
-}
-.early-execution-warning-modal .modal-content {
-  border: 2px solid rgba(13, 13, 13, 0.0941176471);
-  border-radius: 32px;
-}
-.early-execution-warning {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 20px;
-  padding: 12px 20px 4px;
-  text-align: center;
-}
-.early-execution-warning > img {
-  width: 100px;
-  height: 100px;
-}
-.early-execution-warning h2 {
-  color: #0d0d0d;
-  font-size: 1.75rem;
-  font-weight: 700;
-  margin: 0;
-}
-.early-execution-warning__message {
-  max-width: 520px;
-}
-.early-execution-warning__message p {
-  color: #0d0d0d;
-  font-size: 1.125rem;
-  font-weight: 500;
-  margin: 0;
-}
-.early-execution-warning__message strong {
-  color: #ff7a59;
-  font-weight: 700;
-}
-.early-execution-warning__actions {
-  display: flex;
-  width: 100%;
-  gap: 12px;
-}
-.early-execution-warning__actions .custom-btn:first-child {
-  flex: 1;
-}
-.early-execution-warning__actions .custom-btn:last-child {
-  min-width: 120px;
-}
-@media (max-width: 575px) {
-  .early-execution-warning {
-    padding-inline: 0;
-  }
-  .early-execution-warning h2 {
-    font-size: 1.35rem;
-  }
-  .early-execution-warning__message p {
-    font-size: 1rem;
-  }
-  .early-execution-warning__actions {
-    flex-direction: column;
-  }
-  .early-execution-warning__actions .custom-btn {
-    width: 100%;
-  }
-}
-@media (max-width: 575px) {
-  .contract-ended-goal-active {
-    padding-inline: 0;
-  }
-  .contract-ended-goal-active h2 {
-    font-size: 1.25rem;
-  }
-  .contract-ended-goal-active p {
-    font-size: 1rem;
-  }
-}
 .work-contract-details header .work-actions {
   display: flex;
   align-items: center;
@@ -11767,6 +11658,123 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
 .work-contract-details .renew-details .renew-date span:last-child {
   color: #0d0d0d;
   font-weight: 700;
+}
+
+.contract-ended-goal-active-modal .modal-dialog {
+  max-width: 510px;
+}
+.contract-ended-goal-active-modal .modal-content {
+  border: 2px solid rgba(13, 13, 13, 0.0941176471);
+  border-radius: 32px;
+}
+
+.contract-ended-goal-active {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  padding: 12px 20px 4px;
+  text-align: center;
+}
+.contract-ended-goal-active img {
+  width: 100px;
+  height: 100px;
+}
+.contract-ended-goal-active h2 {
+  max-width: 400px;
+  color: #0d0d0d;
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin: 0;
+}
+.contract-ended-goal-active p {
+  max-width: 430px;
+  color: #0d0d0d;
+  font-size: 1.125rem;
+  font-weight: 500;
+  margin: 0;
+}
+.contract-ended-goal-active .custom-btn {
+  width: min(100%, 185px);
+}
+@media (max-width: 575px) {
+  .contract-ended-goal-active {
+    padding-inline: 0;
+  }
+  .contract-ended-goal-active h2 {
+    font-size: 1.25rem;
+  }
+  .contract-ended-goal-active p {
+    font-size: 1rem;
+  }
+}
+
+.early-execution-warning-modal .modal-dialog {
+  max-width: 600px;
+}
+.early-execution-warning-modal .modal-content {
+  border: 2px solid rgba(13, 13, 13, 0.0941176471);
+  border-radius: 32px;
+}
+
+.early-execution-warning {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  padding: 12px 20px 4px;
+  text-align: center;
+}
+.early-execution-warning > img {
+  width: 100px;
+  height: 100px;
+}
+.early-execution-warning h2 {
+  color: #0d0d0d;
+  font-size: 1.75rem;
+  font-weight: 700;
+  margin: 0;
+}
+.early-execution-warning__message {
+  max-width: 520px;
+}
+.early-execution-warning__message p {
+  color: #0d0d0d;
+  font-size: 1.125rem;
+  font-weight: 500;
+  margin: 0;
+}
+.early-execution-warning__message strong {
+  color: #ff7a59;
+  font-weight: 700;
+}
+.early-execution-warning__actions {
+  display: flex;
+  width: 100%;
+  gap: 12px;
+}
+.early-execution-warning__actions .custom-btn:first-child {
+  flex: 1;
+}
+.early-execution-warning__actions .custom-btn:last-child {
+  min-width: 120px;
+}
+@media (max-width: 575px) {
+  .early-execution-warning {
+    padding-inline: 0;
+  }
+  .early-execution-warning h2 {
+    font-size: 1.35rem;
+  }
+  .early-execution-warning__message p {
+    font-size: 1rem;
+  }
+  .early-execution-warning__actions {
+    flex-direction: column;
+  }
+  .early-execution-warning__actions .custom-btn {
+    width: 100%;
+  }
 }
 
 .show-rate-modal .notes {
@@ -13912,11 +13920,13 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
   color: #fdcb2f;
   font-size: 12px;
 }
+
 .community-fee-controls {
   display: flex;
   align-items: flex-start;
   gap: 8px;
 }
+
 .community-fee-selector {
   display: flex;
   flex: 1;
@@ -13939,17 +13949,20 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
   background: #0f9ed5;
   color: #fff;
 }
+
 .community-fee-amount {
   flex: 1;
 }
 .community-fee-amount .input-field input {
   min-height: 54px;
 }
+
 .community-fee-minimum {
   color: #ff7a59;
   font-size: 12px;
   margin-top: 6px;
 }
+
 @media (max-width: 575px) {
   .community-fee-controls {
     flex-direction: column;
@@ -13959,7 +13972,6 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
     width: 100%;
   }
 }
-
 .cv {
   display: flex;
   flex-direction: column;
@@ -14162,6 +14174,7 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
     width: 100%;
   }
 }
+
 [dir=ltr] .first-group-required__steps i {
   transform: rotate(180deg);
 }

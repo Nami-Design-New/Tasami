@@ -468,7 +468,10 @@
     .meta-info {
       display: flex;
       align-items: center;
-      gap: 6px;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      column-gap: 2rem;
+      row-gap: 0.5rem;
       .item {
         display: flex;
         align-items: center;

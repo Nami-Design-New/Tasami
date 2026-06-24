@@ -13,7 +13,6 @@ export default function TaskCard({
   isDragable = true,
   isDragging = false,
   allowNavigation = true,
-  isReadOnly = false,
   cursor = null,
   detailsPath = null,
 }) {
@@ -78,7 +77,6 @@ export default function TaskCard({
 
   const taskDate = new Date(task?.expected_end_date);
   const isPast = taskDate < new Date();
-  console.log("is contract: ", isContracts);
 
   return (
     <div
@@ -123,18 +121,22 @@ export default function TaskCard({
         <div className="card__title">{task?.title}</div>
         <div className="meta-info">
           <div className="item">
+            <i className="fa-light fa-bullseye-arrow" aria-hidden />
+            <span>{task?.task_category?.title}</span>
+          </div>
+          <div className="item date-item">
+            <i className="fa-regular fa-calendar-day" aria-hidden />
+            <span>{task?.started_at || "---"}</span>
+          </div>
+          <div className="item date-item">
             <i className="fa-regular fa-calendar" aria-hidden />
             <span
               className={`${
                 isPast && task?.status !== "completed" ? "text-fire" : ""
               }`}
             >
-              {task?.expected_end_date}
+              {task?.expected_end_date || "---"}
             </span>
-          </div>
-          <div className="item">
-            <i className="fa-light fa-bullseye-arrow" aria-hidden />
-            <span>{task?.task_category?.title}</span>
           </div>
           <div className="item">
             <i className="fa-regular fa-bell" aria-hidden />

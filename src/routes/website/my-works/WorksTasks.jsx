@@ -270,22 +270,20 @@ export default function WorksTasks() {
             strategy={verticalListSortingStrategy}
           >
             <div className="tasks-list">
-              {tasks.map((task) => (
-                <>
-                  {" "}
-                  {workDetails.status === "completed" ? (
-                    <TaskCard
-                      task={task}
-                      isDragable={false}
-                      allowNavigation
-                      isReadOnly
-                      detailsPath={`/my-works/${id}/tasks/${task.id}`}
-                    />
-                  ) : (
-                    <SortableTask key={task.id} task={task} workId={id} />
-                  )}
-                </>
-              ))}
+              {tasks.map((task) =>
+                workDetails.status === "completed" ? (
+                  <TaskCard
+                    key={task.id}
+                    task={task}
+                    isDragable={false}
+                    allowNavigation
+                    isReadOnly
+                    detailsPath={`/my-works/${id}/tasks/${task.id}`}
+                  />
+                ) : (
+                  <SortableTask key={task.id} task={task} workId={id} />
+                ),
+              )}
             </div>
           </SortableContext>
         </DndContext>
