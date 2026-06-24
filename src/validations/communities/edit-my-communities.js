@@ -22,9 +22,9 @@ const getSchema = (t) =>
       .typeError(t("validation.number"))
       .required(t("validation.required"))
       .test(
-        "price-validation",
-        t("validation.priceRange"),
-        (value) => value === 0 || value >= 5,
+        "community-price",
+        t("website.platform.myCommunity.minimumMonthlyFee"),
+        (value) => value === 0 || value >= 8,
       ),
     about: yup
       .string()
@@ -37,6 +37,11 @@ export default function useEditMyCommunityForm() {
   const methods = useForm({
     mode: "onBlur",
     resolver: yupResolver(getSchema(t)),
+    defaultValues: {
+      price: 8,
+      about: "",
+      profilePicture: null,
+    },
   });
   return methods;
 }

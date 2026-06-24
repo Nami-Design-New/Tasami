@@ -830,6 +830,12 @@
   },
   "community": {
     "channels": "Channels",
+    "unjoinConfirmation": {
+      "title": "Your membership will be canceled in the community",
+      "question": "Are you sure?",
+      "continue": "Continue",
+      "back": "Go back"
+    },
     "consultant": "Consultations",
     "meetings": "Encounters",
     "posts": "Posts",
@@ -1256,6 +1262,9 @@
         "coverPicture": "Cover Picture",
         "price": "Subscription Fee",
         "priceHint": "Monthly",
+        "monthlyFee": "Monthly fee",
+        "freeFee": "Free",
+        "minimumMonthlyFee": "The minimum monthly membership fee is 8 SAR",
         "about": "About Your Community",
         "areYouSure": "Are You Sure",
         "message": "The monthly deduction from members' accounts will be stopped while keeping the community active until all memberships expire, after which the deactivation will take effect."

@@ -326,6 +326,77 @@
   }
 }
 
+.community-fee-label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: $dark;
+  font-size: 14px;
+  font-weight: 700;
+  margin-bottom: 8px;
+
+  span {
+    color: $clientYellow;
+    font-size: 12px;
+  }
+}
+
+.community-fee-controls {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.community-fee-selector {
+  display: flex;
+  flex: 1;
+  min-height: 54px;
+  padding: 3px;
+  border: 1px solid $InputStroke;
+  border-radius: 12px;
+  background: $InputBG;
+
+  button {
+    flex: 1;
+    border: 0;
+    border-radius: 9px;
+    background: transparent;
+    color: $second;
+    font-size: 14px;
+    transition: $transition;
+
+    &.active {
+      background: $secondHeader;
+      color: $white;
+    }
+  }
+}
+
+.community-fee-amount {
+  flex: 1;
+
+  .input-field input {
+    min-height: 54px;
+  }
+}
+
+.community-fee-minimum {
+  color: $fire;
+  font-size: 12px;
+  margin-top: 6px;
+}
+
+@media (max-width: 575px) {
+  .community-fee-controls {
+    flex-direction: column;
+  }
+
+  .community-fee-selector,
+  .community-fee-amount {
+    width: 100%;
+  }
+}
+
 // CV section
 
 .cv {
