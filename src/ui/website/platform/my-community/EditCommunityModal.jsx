@@ -27,6 +27,8 @@ export default function EditCommunityModal({
   } = useEditMyCommunityForm();
 
   const profilePicture = watch("profilePicture");
+  const price = watch("price");
+  const isFreeCommunity = Number(price) === 0;
   const inputFileRef = useRef();
   const handleFileChange = (event) => {
     const file = event.target.files[0];
@@ -36,8 +38,12 @@ export default function EditCommunityModal({
   //  Fill the form with community data when modal opens
   useEffect(() => {
     if (community) {
+      const hasStoredPrice =
+        community.price !== null && community.price !== undefined;
+      const currentPrice = hasStoredPrice ? Number(community.price) || 0 : 8;
+
       reset({
-        price: community.price,
+        price: currentPrice,
         about: community.helper.about || "",
         profilePicture: null,
       });
@@ -46,9 +52,10 @@ export default function EditCommunityModal({
 
   const onSubmit = async (data) => {
     const formData = new FormData();
+
     formData.append("_method", "put");
     formData.append("desc", data.about || "");
-    formData.append("price", data.price || 0);
+    formData.append("price", data.price);
     formData.append("is_active", community.is_active === "true" ? "1" : "0");
 
     if (data.profilePicture instanceof File) {
@@ -63,7 +70,7 @@ export default function EditCommunityModal({
       {
         onSuccess: (res) => {
           setShowModal(false);
-          queryClient.invalidateQueries(["my-community"]);
+          queryClient.invalidateQueries({ queryKey: ["my-community"] });
           toast.success(res.message);
         },
         onError: (error) => {
@@ -72,7 +79,7 @@ export default function EditCommunityModal({
         onSettled: () => {
           reset();
         },
-      }
+      },
     );
   };
 
@@ -124,13 +131,60 @@ export default function EditCommunityModal({
             </div>
 
             <div className="col-12 p-2">
-              <InputField
-                label={t("website.platform.myCommunity.price")}
-                {...register("price")}
-                icon={"/icons/ryal.svg"}
-                error={errors.price?.message}
-                hint={t("website.platform.myCommunity.priceHint")}
-              />
+              <label className="community-fee-label">
+                {t("website.platform.myCommunity.price")}
+                <span>{t("website.platform.myCommunity.priceHint")}</span>
+              </label>
+
+              <div className="community-fee-controls">
+                <div
+                  className="community-fee-selector"
+                  role="radiogroup"
+                  aria-label={t("website.platform.myCommunity.price")}
+                >
+                  <button
+                    type="button"
+                    role="radio"
+                    aria-checked={!isFreeCommunity}
+                    className={!isFreeCommunity ? "active" : ""}
+                    onClick={() => {
+                      if (Number(price) < 8) {
+                        setValue("price", 8, { shouldValidate: true });
+                      }
+                    }}
+                  >
+                    {t("website.platform.myCommunity.monthlyFee")}
+                  </button>
+                  <button
+                    type="button"
+                    role="radio"
+                    aria-checked={isFreeCommunity}
+                    className={isFreeCommunity ? "active" : ""}
+                    onClick={() => {
+                      setValue("price", 0, { shouldValidate: true });
+                    }}
+                  >
+                    {t("website.platform.myCommunity.freeFee")}
+                  </button>
+                </div>
+
+                <div className="community-fee-amount">
+                  <InputField
+                    type="number"
+                    min={isFreeCommunity ? 0 : 8}
+                    disabled={isFreeCommunity}
+                    {...register("price")}
+                    icon={"/icons/ryal.svg"}
+                    error={errors.price?.message}
+                  />
+                </div>
+              </div>
+
+              {!isFreeCommunity && !errors.price && (
+                <p className="community-fee-minimum">
+                  {t("website.platform.myCommunity.minimumMonthlyFee")}
+                </p>
+              )}
             </div>
 
             <div className="col-12 p-2">
