@@ -14635,6 +14635,65 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
   height: 24px;
 }
 
+.follow-success-modal .modal-dialog {
+  max-width: 540px;
+}
+.follow-success-modal .modal-content {
+  border: 2px solid rgba(13, 13, 13, 0.0941176471);
+  border-radius: 32px;
+}
+
+.follow-success {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  padding: 12px 20px 4px;
+  text-align: center;
+}
+.follow-success__icon {
+  width: 100px;
+  height: 100px;
+}
+.follow-success h2 {
+  color: #0d0d0d;
+  font-size: 1.75rem;
+  font-weight: 700;
+  margin: 4px 0 0;
+}
+.follow-success__description {
+  max-width: 430px;
+  color: #0d0d0d;
+  font-size: 1.125rem;
+  font-weight: 500;
+  margin: 0;
+}
+.follow-success .custom-btn {
+  width: min(100%, 305px);
+}
+.follow-success__dismiss {
+  border: 0;
+  background: transparent;
+  color: #0d0d0d;
+  font-size: 0.875rem;
+  text-decoration: underline;
+}
+.follow-success__dismiss:disabled {
+  cursor: wait;
+  opacity: 0.6;
+}
+@media (max-width: 575px) {
+  .follow-success {
+    padding-inline: 0;
+  }
+  .follow-success h2 {
+    font-size: 1.35rem;
+  }
+  .follow-success__description {
+    font-size: 1rem;
+  }
+}
+
 body {
   direction: rtl;
   font-family: "Dubai";

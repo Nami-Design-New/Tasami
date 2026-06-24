@@ -1330,6 +1330,12 @@
       "offers": "Support Offers from",
       "follow": "Follow",
       "unFollow": "Unfollow",
+      "followSuccess": {
+        "title": "Followed successfully",
+        "description": "Following lets you receive notifications about the assistant's offers and public activities in their community",
+        "confirm": "OK",
+        "dismissPermanently": "Close and don't show this message again"
+      },
       "qualification": "Qualification",
       "years_of_experience": "Years of Experience",
       "type": "Document Type",
