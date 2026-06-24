@@ -3102,6 +3102,30 @@ body.en .show-pass {
   gap: 1rem;
 }
 
+.unjoin-community-confirmation {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  text-align: center;
+}
+.unjoin-community-confirmation h4 {
+  color: #0d0d0d;
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin: 0;
+}
+.unjoin-community-confirmation strong {
+  color: #ff7a59;
+  font-size: 1rem;
+  font-weight: 700;
+}
+.unjoin-community-confirmation p {
+  color: #0d0d0d;
+  font-size: 1rem;
+  margin: 14px 0 0;
+}
+
 .empty-section {
   width: 100%;
   height: 100%;

@@ -842,6 +842,12 @@
   },
   "community": {
     "channels": "القنوات",
+    "unjoinConfirmation": {
+      "title": "سيتم إلغاء عضويتك في مجتمع",
+      "question": "هل أنت متأكد؟",
+      "continue": "استمرار",
+      "back": "تراجع"
+    },
     "consultant": "الاستشارات",
     "meetings": "اللقاءات",
     "posts": "المنشورات",

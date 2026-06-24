@@ -830,6 +830,12 @@
   },
   "community": {
     "channels": "Channels",
+    "unjoinConfirmation": {
+      "title": "Your membership will be canceled in the community",
+      "question": "Are you sure?",
+      "continue": "Continue",
+      "back": "Go back"
+    },
     "consultant": "Consultations",
     "meetings": "Encounters",
     "posts": "Posts",
