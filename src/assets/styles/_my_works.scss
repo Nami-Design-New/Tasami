@@ -718,6 +718,63 @@
   }
 }
 
+.contract-ended-goal-active-modal {
+  .modal-dialog {
+    max-width: 510px;
+  }
+
+  .modal-content {
+    border: 2px solid $InputStroke;
+    border-radius: 32px;
+  }
+}
+
+.contract-ended-goal-active {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  padding: 12px 20px 4px;
+  text-align: center;
+
+  img {
+    width: 100px;
+    height: 100px;
+  }
+
+  h2 {
+    max-width: 400px;
+    color: $dark;
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin: 0;
+  }
+
+  p {
+    max-width: 430px;
+    color: $dark;
+    font-size: 1.125rem;
+    font-weight: 500;
+    margin: 0;
+  }
+
+  .custom-btn {
+    width: min(100%, 185px);
+  }
+
+  @media (max-width: 575px) {
+    padding-inline: 0;
+
+    h2 {
+      font-size: 1.25rem;
+    }
+
+    p {
+      font-size: 1rem;
+    }
+  }
+}
+
 .show-rate-modal {
   .notes {
     padding: 16px;
