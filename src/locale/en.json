@@ -944,6 +944,15 @@
       "startExecutionBtn": "Start Execution",
       "pauseExecutionBtn": "Pause Execution",
       "addNew": "Add New Execution Task",
+      "distribution": {
+        "currentTitle": "Current Execution Task Distribution",
+        "optimalTitle": "Optimal Task Distribution Based on Goal Type and Nature",
+        "recommendation": "Personal assistant recommendations for a balanced execution plan (optional)",
+        "update": "Update",
+        "loading": "Loading distribution data",
+        "noData": "No distribution data is available",
+        "uncategorized": "Uncategorized"
+      },
       "pauseExecutionWarning": "Execution will be paused temporarily, and all related notifications will be disabled. You can resume later from the 'Start Execution' button on the Tasks page.",
       "earlyStart": {
         "title": "Before you start!",

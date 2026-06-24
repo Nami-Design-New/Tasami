@@ -493,6 +493,73 @@
   }
 }
 
+.task-distribution-section {
+  margin-top: 2rem;
+
+  .task-distribution-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+  }
+
+  .task-distribution-card {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    padding: 1rem;
+    border: 1px solid $InputStroke;
+    border-radius: 12px;
+    background-color: $white;
+
+    h2 {
+      margin-bottom: 0.5rem;
+      color: $dark;
+      font-size: 1.1rem;
+      font-weight: 700;
+      text-align: center;
+    }
+
+    .task-distribution-state {
+      min-height: 390px;
+      @include centerFlex();
+      color: $grayLight;
+
+      .spinner-border {
+        color: $main;
+      }
+    }
+
+    .task-distribution-actions {
+      display: flex;
+      justify-content: flex-start;
+      margin-top: auto;
+      padding-top: 0.5rem;
+    }
+  }
+
+  .task-distribution-recommendation {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    width: 100%;
+    margin-top: 1rem;
+    padding: 0.75rem 1rem;
+    border-radius: 8px;
+    background-color: $clientYellow;
+    color: $dark;
+    font-size: 1rem;
+    font-weight: 700;
+    text-align: center;
+  }
+
+  @media (max-width: 991px) {
+    .task-distribution-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+}
+
 .task_details {
   .task-details__header {
     display: flex;

@@ -1,14 +1,29 @@
 import { useOutletContext, useParams } from "react-router";
 import useGetTasks from "../../../../hooks/website/MyWorks/tasks/useGetTasks";
+import useGetCurrentTaskDistribution from "../../../../hooks/website/MyWorks/tasks/useGetCurrentTaskDistribution";
+import useGetTaskDistribution from "../../../../hooks/website/MyWorks/tasks/useGetTaskDistribution";
 import TaskCard from "../../../../ui/website/my-works/tasks/TaskCard";
 import Loading from "../../../../ui/loading/Loading";
 import { useTranslation } from "react-i18next";
 import NoTasks from "../../../../ui/website/my-works/NoTasks";
+import TaskDistributionCharts from "../../../../ui/website/my-works/tasks/TaskDistributionCharts";
 
 export default function ContractTasks() {
   const { id } = useParams();
   const { t } = useTranslation();
   const { goalTasks, isLoading } = useGetTasks(id);
+  const {
+    taskDistribution,
+    isLoading: isDistributionLoading,
+    isError: isDistributionError,
+  } = useGetTaskDistribution(id);
+  const {
+    currentTaskDistribution,
+    isLoading: isCurrentDistributionLoading,
+    isFetching: isCurrentDistributionFetching,
+    isError: isCurrentDistributionError,
+    refetch: refreshCurrentDistribution,
+  } = useGetCurrentTaskDistribution(id);
   const { user } = useOutletContext();
 
   // Handle loading state
@@ -64,6 +79,17 @@ export default function ContractTasks() {
           ))}
         </div>
       </div>
+
+      <TaskDistributionCharts
+        currentDistribution={currentTaskDistribution}
+        optimalDistribution={taskDistribution}
+        isCurrentLoading={isCurrentDistributionLoading}
+        isCurrentRefreshing={isCurrentDistributionFetching}
+        isCurrentError={isCurrentDistributionError}
+        onRefreshCurrent={refreshCurrentDistribution}
+        isOptimalLoading={isDistributionLoading}
+        isOptimalError={isDistributionError}
+      />
     </section>
   );
 }

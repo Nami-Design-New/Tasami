@@ -11465,6 +11465,67 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
   font-size: 14px;
 }
 
+.task-distribution-section {
+  margin-top: 2rem;
+}
+.task-distribution-section .task-distribution-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+.task-distribution-section .task-distribution-card {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  padding: 1rem;
+  border: 1px solid rgba(13, 13, 13, 0.0941176471);
+  border-radius: 12px;
+  background-color: #fff;
+}
+.task-distribution-section .task-distribution-card h2 {
+  margin-bottom: 0.5rem;
+  color: #0d0d0d;
+  font-size: 1.1rem;
+  font-weight: 700;
+  text-align: center;
+}
+.task-distribution-section .task-distribution-card .task-distribution-state {
+  min-height: 390px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(119, 119, 119, 0.8);
+}
+.task-distribution-section .task-distribution-card .task-distribution-state .spinner-border {
+  color: #214b92;
+}
+.task-distribution-section .task-distribution-card .task-distribution-actions {
+  display: flex;
+  justify-content: flex-start;
+  margin-top: auto;
+  padding-top: 0.5rem;
+}
+.task-distribution-section .task-distribution-recommendation {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  width: 100%;
+  margin-top: 1rem;
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  background-color: #fdcb2f;
+  color: #0d0d0d;
+  font-size: 1rem;
+  font-weight: 700;
+  text-align: center;
+}
+@media (max-width: 991px) {
+  .task-distribution-section .task-distribution-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
 .task_details .task-details__header {
   display: flex;
   align-items: center;
