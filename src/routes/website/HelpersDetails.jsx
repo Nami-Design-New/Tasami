@@ -1,12 +1,14 @@
 import { useQueryClient } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
+import { toast } from "sonner";
 import { Autoplay } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import useFollow from "../../hooks/website/personal-assistants/useFollow";
 import useGetAssistantDetails from "../../hooks/website/personal-assistants/useGetAssistantDetails";
+import useDismissFollowSuccessNotice from "../../hooks/website/personal-assistants/useDismissFollowSuccessNotice";
 import OfferCard from "../../ui/cards/OfferCard";
 
 import CustomLink from "../../ui/CustomLink";
@@ -15,11 +17,14 @@ import Loading from "../../ui/loading/Loading";
 import RoundedBackButton from "../../ui/website-auth/shared/RoundedBackButton";
 import PersonalHelperDoc from "../../ui/website/helpers/PersonalHelperDoc";
 import PersonalHelperExperiences from "../../ui/website/helpers/PersonalHelperExperiences";
+import FollowSuccessModal from "../../ui/website/helpers/FollowSuccessModal";
+import { setUser } from "../../redux/slices/authRole";
 
 import medal from "../../assets/icons/medal.svg";
 
 export default function HelpersDetails() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const { t } = useTranslation();
   const { user } = useSelector((state) => state.authRole);
   const { assistantDetails, isLoading } = useGetAssistantDetails();
@@ -27,6 +32,7 @@ export default function HelpersDetails() {
   const [optimisticFollow, setOptimisticFollow] = useState(
     assistantDetails?.i_follow_him,
   );
+  const [showFollowSuccess, setShowFollowSuccess] = useState(false);
 
   useEffect(() => {
     if (assistantDetails) {
@@ -35,6 +41,10 @@ export default function HelpersDetails() {
   }, [assistantDetails]);
 
   const { toggleFollow, isPending } = useFollow();
+  const {
+    dismissFollowSuccessNotice,
+    isPending: isSavingFollowPreference,
+  } = useDismissFollowSuccessNotice();
 
   const handleBack = () => {
     navigate(-1);
@@ -53,8 +63,19 @@ export default function HelpersDetails() {
 
     toggleFollow(id, {
       onSuccess: (res) => {
-        if (res?.data?.i_follow_him !== undefined) {
-          setOptimisticFollow(res.data.i_follow_him);
+        const isNowFollowing =
+          res?.data?.i_follow_him !== undefined
+            ? res.data.i_follow_him
+            : !previousValue;
+
+        setOptimisticFollow(isNowFollowing);
+
+        const followNoticeIsHidden =
+          user?.hide_follow_success_notice === true ||
+          Number(user?.hide_follow_success_notice) === 1;
+
+        if (!previousValue && isNowFollowing && !followNoticeIsHidden) {
+          setShowFollowSuccess(true);
         }
 
         // if (res?.data?.i_follow_him === false) {
@@ -248,6 +269,28 @@ export default function HelpersDetails() {
           </div>
         </div>
       </div>
+      <FollowSuccessModal
+        showModal={showFollowSuccess}
+        onClose={() => setShowFollowSuccess(false)}
+        isSavingPreference={isSavingFollowPreference}
+        onDismissPermanently={() =>
+          dismissFollowSuccessNotice(undefined, {
+            onSuccess: () => {
+              const updatedUser = {
+                ...user,
+                hide_follow_success_notice: true,
+              };
+
+              dispatch(setUser(updatedUser));
+              queryClient.setQueryData(["authedUser"], updatedUser);
+              setShowFollowSuccess(false);
+            },
+            onError: (error) => {
+              toast.error(error.message);
+            },
+          })
+        }
+      />
     </section>
   );
 }
