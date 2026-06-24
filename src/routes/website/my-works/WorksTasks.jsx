@@ -35,6 +35,29 @@ import { CSS } from "@dnd-kit/utilities";
 import useAddTaskWithAi from "../../../hooks/website/MyWorks/tasks/useAddTaskWithAi";
 import useDeleteAllTasks from "../../../hooks/website/MyWorks/tasks/useDeleteAllTasks";
 import Loading from "../../../ui/loading/Loading";
+import EarlyExecutionWarningModal from "../../../ui/website/my-works/EarlyExecutionWarningModal";
+
+const DAY_IN_MS = 24 * 60 * 60 * 1000;
+
+const getEarlyExecutionDetails = (scheduledDate) => {
+  if (!scheduledDate) return null;
+
+  const normalizedDate = String(scheduledDate).split("T")[0];
+  const startDate = new Date(`${normalizedDate}T00:00:00`);
+  const millisecondsUntilStart = startDate.getTime() - Date.now();
+
+  if (
+    Number.isNaN(startDate.getTime()) ||
+    millisecondsUntilStart <= DAY_IN_MS
+  ) {
+    return null;
+  }
+
+  return {
+    scheduledDate: normalizedDate,
+    daysUntilStart: Math.ceil(millisecondsUntilStart / DAY_IN_MS),
+  };
+};
 
 // Sortable wrapper for TaskCard
 function SortableTask({ task, workId }) {
@@ -76,6 +99,7 @@ export default function WorksTasks() {
   const [showModal, setShowModal] = useState(false);
   const [showAlertModal, setShowAlertModal] = useState(false);
   const [showDeleteAlertModal, setShowDeleteAlertModal] = useState(false);
+  const [earlyExecutionDetails, setEarlyExecutionDetails] = useState(null);
 
   // API hooks
   const { goalTasks, isLoading } = useGetTasks(id);
@@ -126,11 +150,24 @@ export default function WorksTasks() {
         queryClient.refetchQueries({ queryKey: ["my-works"] });
         queryClient.refetchQueries({ queryKey: ["task-details"] });
         setShowAlertModal(false);
+        setEarlyExecutionDetails(null);
       },
       onError: (err) => {
         toast.error(err.message || t("common.error"));
       },
     });
+  };
+
+  const handleStartExecution = () => {
+    const scheduledDate = workDetails?.goal?.start_date;
+    const earlyStartDetails = getEarlyExecutionDetails(scheduledDate);
+
+    if (earlyStartDetails) {
+      setEarlyExecutionDetails(earlyStartDetails);
+      return;
+    }
+
+    handleToggleTaskExe(workDetails?.goal?.id);
   };
 
   // Handle DnD reorder
@@ -264,7 +301,7 @@ export default function WorksTasks() {
                   loading={isPending}
                   onClick={() => {
                     if (!workDetails?.goal?.is_paused) setShowAlertModal(true);
-                    else handleToggleTaskExe(workDetails?.goal?.id);
+                    else handleStartExecution();
                   }}
                 >
                   {workDetails?.goal?.is_paused
@@ -280,9 +317,7 @@ export default function WorksTasks() {
                     size="large"
                     variant="outlined"
                     loading={isPending}
-                    onClick={() => {
-                      handleToggleTaskExe(workDetails?.goal?.id);
-                    }}
+                    onClick={handleStartExecution}
                   >
                     {t("works.myTasks.startExecutionBtn")}
                   </CustomButton>
@@ -351,6 +386,14 @@ export default function WorksTasks() {
             {t("works.myTasks.deleteAllWarning")}
           </AlertModal>
         )}
+        <EarlyExecutionWarningModal
+          showModal={!!earlyExecutionDetails}
+          scheduledDate={earlyExecutionDetails?.scheduledDate}
+          daysUntilStart={earlyExecutionDetails?.daysUntilStart}
+          loading={isPending}
+          onCancel={() => setEarlyExecutionDetails(null)}
+          onContinue={() => handleToggleTaskExe(workDetails?.goal?.id)}
+        />
       </div>
     </section>
   );

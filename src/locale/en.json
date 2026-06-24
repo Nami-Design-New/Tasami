@@ -943,6 +943,14 @@
       "pauseExecutionBtn": "Pause Execution",
       "addNew": "Add New Task",
       "pauseExecutionWarning": "Execution will be paused temporarily, and all related notifications will be disabled. You can resume later from the 'Start Execution' button on the Tasks page.",
+      "earlyStart": {
+        "title": "Before you start!",
+        "scheduledFor": "The start date is scheduled for",
+        "daysRemaining": "({{count}} days from now).",
+        "description": "You can start now, but execution task dates will remain set to the original start date and must be adjusted manually to match the new start date",
+        "continue": "Continue",
+        "cancel": "Cancel"
+      },
       "reorderSuccess": "Tasks order saved successfully",
       "reorderError": "An error occurred while saving task order",
       "noTasks": "No tasks added yet",
