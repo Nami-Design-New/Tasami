@@ -834,6 +834,9 @@
   },
   "community": {
     "channels": "Channels",
+    "membersList": "Members List",
+    "membersCountLabel": "Members",
+    "noMembers": "There are no members in this community yet.",
     "unjoinConfirmation": {
       "title": "Your membership will be canceled in the community",
       "question": "Are you sure?",

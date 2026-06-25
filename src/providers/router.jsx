@@ -101,6 +101,7 @@ import Forbidden from "../routes/Forbidden";
 import CustomizeServicesPage from "../routes/website-auth/CustomizeServicesPage";
 import CommunityChat from "../routes/website/CommunityChat";
 import CommunityDetails from "../routes/website/CommunityDetails";
+import CommunityMembers from "../routes/website/CommunityMembers";
 import Followings from "../routes/website/Followings";
 import Meetings from "../routes/website/Meetings";
 import ConsultaionDetails from "../routes/website/my-platform/ConsultaionDetails";
@@ -534,6 +535,14 @@ export const router = createBrowserRouter(
           element: (
             <ProtectedRoute>
               <CommunityChat />
+            </ProtectedRoute>
+          ),
+        },
+        {
+          path: "community/:id/members",
+          element: (
+            <ProtectedRoute>
+              <CommunityMembers />
             </ProtectedRoute>
           ),
         },

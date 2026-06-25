@@ -3102,21 +3102,6 @@ body.en .show-pass {
   gap: 1rem;
 }
 
-.inquiry-alert-message {
-  color: #233347;
-  text-align: center;
-}
-.inquiry-alert-message h4 {
-  font-size: 1.3rem;
-  font-weight: 700;
-  margin: 0 0 0.25rem;
-}
-.inquiry-alert-message p {
-  font-size: 1rem;
-  font-weight: 600;
-  margin: 0;
-}
-
 .unjoin-community-confirmation {
   display: flex;
   flex-direction: column;
@@ -12694,11 +12679,33 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
   flex-direction: column;
   gap: 12px;
 }
+.communities-details .community-stats .community-stat .community-stat-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  min-height: 36px;
+}
 .communities-details .community-stats .community-stat .community-stat-title {
   font-size: 18px;
   font-weight: 500;
   margin: 0;
   color: #5fcafa;
+}
+.communities-details .community-stats .community-stat .community-stat-action {
+  min-width: 50px;
+  min-height: 36px;
+  border-radius: 8px;
+  background-color: #5fcafa;
+  color: #fff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px 10px;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1.25;
+  text-align: center;
 }
 .communities-details .community-stats .community-stat .community-stat-content {
   display: flex;
@@ -12722,6 +12729,79 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
 .communities-details .community-stats .community-stat .community-stat-content .community-stat-text .community-stat-label {
   font-size: 14px;
   color: #6c757d;
+}
+
+.community-members-page .container {
+  max-width: 520px;
+}
+.community-members-page .community-members-header {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+  margin-bottom: 16px;
+}
+.community-members-page .community-members-header .community-members-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.community-members-page .community-members-header .community-members-title h1 {
+  color: #5fcafa;
+  font-size: 1.35rem;
+  font-weight: 700;
+  margin: 0;
+}
+.community-members-page .community-members-header span {
+  color: #6c757d;
+  font-size: 0.9rem;
+  font-weight: 600;
+  padding-inline-start: 42px;
+}
+.community-members-page .community-members-list {
+  display: grid;
+  gap: 10px;
+}
+.community-members-page .audience-card {
+  min-height: 55px;
+  border: 0;
+  border-radius: 3px;
+  background-color: #dff5fd;
+  padding: 4px 8px;
+  gap: 10px;
+  overflow: visible;
+}
+.community-members-page .audience-card .user-image-wrapper::before {
+  display: none;
+}
+.community-members-page .audience-card .user-image-wrapper .user-image {
+  height: 58px;
+  border-radius: 50%;
+  border: 3px solid #c9f1fb;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+.community-members-page .audience-card .info {
+  gap: 2px;
+}
+.community-members-page .audience-card .info h2 {
+  font-size: 13px;
+  margin: 0;
+}
+.community-members-page .audience-card .info h2 .score {
+  font-size: 13px;
+}
+.community-members-page .audience-card .info h2 .score img {
+  height: 14px;
+}
+.community-members-page .audience-card .info .country-date {
+  justify-content: flex-start;
+}
+.community-members-page .audience-card .info .country-date .country span {
+  font-size: 12px;
+}
+.community-members-page .audience-card .info .country-date .country img {
+  height: 14px;
 }
 
 .community-actions .community-actions-list {

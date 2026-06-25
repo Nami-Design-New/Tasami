@@ -846,6 +846,9 @@
   },
   "community": {
     "channels": "القنوات",
+    "membersList": "قائمة الأعضاء",
+    "membersCountLabel": "أعضاء",
+    "noMembers": "لا يوجد أعضاء في هذا المجتمع بعد.",
     "unjoinConfirmation": {
       "title": "سيتم إلغاء عضويتك في مجتمع",
       "question": "هل أنت متأكد؟",
