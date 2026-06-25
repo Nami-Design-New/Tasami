@@ -1,7 +1,10 @@
-export function CommunityStat({ title, icon, value, label }) {
+export function CommunityStat({ title, icon, value, label, action }) {
   return (
     <div className="community-stat">
-      <h2 className="community-stat-title">{title}</h2>
+      <div className="community-stat-header">
+        <h2 className="community-stat-title">{title}</h2>
+        {action}
+      </div>
       <div className="community-stat-content">
         <img className="community-stat-icon" src={icon} alt={title} />
         <div className="community-stat-text">
