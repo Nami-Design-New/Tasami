@@ -952,6 +952,7 @@
     "errorOccurred": "حدث خطأ أثناء تنفيذ العملية",
     "withdrawWarning": "سيؤدي هذا الإجراء إلى فقدان تفاصيل العرض ولن تتمكن من استعادته لاحقًا.",
     "completePayment": "إتمام الدفع",
+    "overdueTasksCount": "مهام متأخرة",
     "myTasks": {
       "title": "المهام التنفيذية",
       "allTasks": "جميع المهام",

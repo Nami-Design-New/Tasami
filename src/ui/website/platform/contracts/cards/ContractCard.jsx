@@ -50,6 +50,11 @@ export default function ContractCard({ contract, withoutStatus = true }) {
 
   return (
     <Link to={`/my-contracts/${contract.id}`} className="work-card">
+      {contract.code && (
+        <div className={`work-reference-code ${contract.rectangle ?? ""}`}>
+          {contract.code}
+        </div>
+      )}
       <HelperCard helper={contract?.user} canNavigate={false} />
       <div className="work-title">
         {" "}

@@ -71,6 +71,33 @@
   border-radius: 1rem;
   background: $white;
   min-height: 100%;
+  .work-reference-code {
+    width: 100%;
+    min-height: 22px;
+    padding: 4px 8px;
+    border-radius: 4px;
+    color: $white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    font-weight: 700;
+    line-height: 1;
+    text-align: center;
+    word-break: break-word;
+
+    &.personal_goal {
+      background-color: #b8b8b8;
+    }
+
+    &.personal_goal_with_helper {
+      background-color: $second;
+    }
+
+    &.help_service_from_helper {
+      background-color: $main;
+    }
+  }
   .work-title {
     display: flex;
     align-items: center;
@@ -101,6 +128,30 @@
     img {
       width: 12px;
       height: 12px;
+    }
+    .work-card-alerts {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+    .overdue-tasks-indicator {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: $fire;
+      font-size: 12px;
+      font-weight: 600;
+      white-space: nowrap;
+
+      i {
+        width: auto;
+        height: auto;
+        color: $fire;
+        font-size: 13px;
+      }
     }
   }
 

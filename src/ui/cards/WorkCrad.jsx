@@ -7,7 +7,11 @@ import offersIcon from "../../assets/icons/offers-icon.svg";
 import triangleWithHelper from "../../assets/icons/triangle-with-helper.svg";
 import triangleWithoutHelper from "../../assets/icons/triangle-without-helper.png";
 import helpServiceFromHelper from "../../assets/icons/help_service_from_helper.svg";
-export default function WorkCard({ work, withoutStatus = false }) {
+export default function WorkCard({
+  work,
+  withoutStatus = false,
+  showOverdueTasks = false,
+}) {
   let steps;
   const { t } = useTranslation();
   if (work.rectangle === "personal_goal") {
@@ -46,9 +50,18 @@ export default function WorkCard({ work, withoutStatus = false }) {
     completed: index <= currentIndex && work.status !== "canceled",
     current: index === currentIndex && work.status !== "canceled",
   }));
+  const overdueTasksCount = Number(work?.overdue_tasks_count) || 0;
+  const hasOverdueTasks = showOverdueTasks && overdueTasksCount > 0;
+  const hasUnreadChats =
+    work.status !== "completed" && Number(work?.total_unread_chats) > 0;
 
   return (
     <Link to={`/my-works/${work.id}`} className="work-card">
+      {work.code && (
+        <div className={`work-reference-code ${work.rectangle ?? ""}`}>
+          {work.code}
+        </div>
+      )}
       {work.status === "execution" && work.helper !== null && (
         <HelperCard helper={work.helper} />
       )}
@@ -78,11 +91,23 @@ export default function WorkCard({ work, withoutStatus = false }) {
               <i className="fa-light fa-calendar"></i> <p>{work.start_date}</p>
             </div>
           </div>
-          {work.status !== "completed" && work?.total_unread_chats > 0 && (
+          {(hasUnreadChats || hasOverdueTasks) && (
             <div className="col-4 p-1 d-flex justify-content-end">
-              <span className="notification_span  ">
-                {work?.total_unread_chats}
-              </span>
+              <div className="work-card-alerts">
+                {hasUnreadChats && (
+                  <span className="notification_span">
+                    {work?.total_unread_chats}
+                  </span>
+                )}
+                {hasOverdueTasks && (
+                  <span className="overdue-tasks-indicator">
+                    <i className="fa-solid fa-triangle-exclamation"></i>
+                    <span>
+                      {overdueTasksCount} {t("works.overdueTasksCount")}
+                    </span>
+                  </span>
+                )}
+              </div>
             </div>
           )}
           {work.offers_count > 0 && (

@@ -11072,6 +11072,30 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
   background: #fff;
   min-height: 100%;
 }
+.work-card .work-reference-code {
+  width: 100%;
+  min-height: 22px;
+  padding: 4px 8px;
+  border-radius: 4px;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1;
+  text-align: center;
+  word-break: break-word;
+}
+.work-card .work-reference-code.personal_goal {
+  background-color: #b8b8b8;
+}
+.work-card .work-reference-code.personal_goal_with_helper {
+  background-color: #5fcafa;
+}
+.work-card .work-reference-code.help_service_from_helper {
+  background-color: #214b92;
+}
 .work-card .work-title {
   display: flex;
   align-items: center;
@@ -11101,6 +11125,29 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
 .work-card .info img {
   width: 12px;
   height: 12px;
+}
+.work-card .info .work-card-alerts {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+.work-card .info .overdue-tasks-indicator {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: #ff7a59;
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+.work-card .info .overdue-tasks-indicator i {
+  width: auto;
+  height: auto;
+  color: #ff7a59;
+  font-size: 13px;
 }
 .work-card .work-progress {
   margin-top: 24px;

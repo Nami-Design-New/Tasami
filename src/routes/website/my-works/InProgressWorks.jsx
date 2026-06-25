@@ -30,7 +30,11 @@ export default function InProgressWorks() {
         >
           {allMyWorks.map((work) => (
             <div className="col-12 col-md-6  p-2" key={work.id}>
-              <WorkCard work={work} withoutStatus={true} />
+              <WorkCard
+                work={work}
+                withoutStatus={true}
+                showOverdueTasks={true}
+              />
             </div>
           ))}
           {!isLoading && allMyWorks.length === 0 && (
