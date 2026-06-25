@@ -69,10 +69,6 @@ export default function Profile() {
                 {t("website.platform.profile")}
               </h2>
             </div>
-            <div className="platform-hint">
-              <i className="fa-regular fa-circle-info"></i>
-              <p>{t("profile.hint")}</p>
-            </div>
           </div>
           <div className={`col-lg-3 col-md-4 col-12 p-2`}>
             <div className="profile_sidebar">
