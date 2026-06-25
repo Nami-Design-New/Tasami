@@ -12,7 +12,7 @@ const getDocSchema = () => {
     specialization: yup.string().optional(),
     gender: yup.string().oneOf(["both", "male", "female"]).optional(),
     dateOptions: yup.string().oneOf(["specified", "unspecified"]).optional(),
-    startDateFrom: yup.string().optional(),
+    startDate: yup.string().optional(),
     startDateTo: yup.string().optional(),
     helpMechanism: yup.array().of(yup.string()).optional(),
   });
@@ -31,7 +31,7 @@ export default function useAssistantsFilterForm() {
       specialization: "",
       gender: "both",
       dateOptions: "unspecified",
-      startDateFrom: "",
+      startDate: "",
       startDateTo: "",
     },
   });

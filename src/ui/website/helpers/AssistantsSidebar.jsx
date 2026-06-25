@@ -74,13 +74,11 @@ export default function AssistantsSidebar({ isGoal = false }) {
       shouldUpdateSearchParams = true;
     }
 
-    if (paramsObj.startDate) {
-      paramsObj.startDateFrom = paramsObj.startDateFrom || paramsObj.startDate;
-      paramsObj.startDateTo = paramsObj.startDateTo || paramsObj.startDate;
-      delete paramsObj.startDate;
-      nextSearchParams.delete("startDate");
-      nextSearchParams.set("startDateFrom", paramsObj.startDateFrom);
-      nextSearchParams.set("startDateTo", paramsObj.startDateTo);
+    if (paramsObj.startDateFrom) {
+      paramsObj.startDate = paramsObj.startDate || paramsObj.startDateFrom;
+      delete paramsObj.startDateFrom;
+      nextSearchParams.delete("startDateFrom");
+      nextSearchParams.set("startDate", paramsObj.startDate);
       nextSearchParams.set("dateOptions", "specified");
       shouldUpdateSearchParams = true;
     }
@@ -112,17 +110,17 @@ export default function AssistantsSidebar({ isGoal = false }) {
 
     // handle start date range
     if (data.dateOptions === "specified") {
-      if (data.startDateFrom) {
-        filteredData.startDateFrom = data.startDateFrom;
+      if (data.startDate) {
+        filteredData.startDate = data.startDate;
       }
       if (data.startDateTo) {
         filteredData.startDateTo = data.startDateTo;
       }
     } else {
-      delete filteredData.startDateFrom;
+      delete filteredData.startDate;
       delete filteredData.startDateTo;
     }
-    delete filteredData.startDate;
+    delete filteredData.startDateFrom;
 
     setSearchParams(filteredData);
     window.scrollTo({
@@ -142,7 +140,7 @@ export default function AssistantsSidebar({ isGoal = false }) {
       specialization: "",
       gender: "both",
       dateOptions: "unspecified",
-      startDateFrom: "",
+      startDate: "",
       startDateTo: "",
     };
     reset(resetValues);
@@ -330,8 +328,8 @@ export default function AssistantsSidebar({ isGoal = false }) {
                       <InputField
                         type="date"
                         label={t("from")}
-                        {...register("startDateFrom")}
-                        error={errors.startDateFrom?.message}
+                        {...register("startDate")}
+                        error={errors.startDate?.message}
                       />
                     </div>
                     <div className="col-12 col-sm-6">

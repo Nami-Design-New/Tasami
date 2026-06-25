@@ -13,9 +13,7 @@ export default function useGetGoals() {
     sub_category_id: searchParams.get("specialization"),
     preferred_gender: searchParams.get("gender"),
     search_word: searchParams.get("search"),
-    help_start_date_from: isStartDateSpecified
-      ? searchParams.get("startDateFrom")
-      : null,
+    help_start_date: isStartDateSpecified ? searchParams.get("startDate") : null,
     help_start_date_to: isStartDateSpecified
       ? searchParams.get("startDateTo")
       : null,
