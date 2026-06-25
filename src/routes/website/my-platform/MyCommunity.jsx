@@ -21,14 +21,20 @@ export default function MyCommunity() {
 
   return (
     <div className="container page">
-      {" "}
-      <div className="my-2">
+      <div className="platform-header p-2">
         <RoundedBackButton
           onClick={() => {
             navigate(-1);
             queryClient.invalidateQueries({ queryKey: ["counters-notify"] });
           }}
         ></RoundedBackButton>
+        <h2 className="platform-header__title">
+          {t("website.platform.menu.myCommunity")}
+        </h2>
+      </div>
+      <div className="platform-hint p-2">
+        <i className="fa-regular fa-circle-info"></i>
+        <p>{t("website.platform.communityHint")}</p>
       </div>
       <section className="communities-details">
         <div className="communities-image-wrapper">
