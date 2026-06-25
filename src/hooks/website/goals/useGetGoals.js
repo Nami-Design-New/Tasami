@@ -4,6 +4,7 @@ import { useSearchParams } from "react-router";
 
 export default function useGetGoals() {
   const [searchParams] = useSearchParams();
+  const isStartDateSpecified = searchParams.get("dateOptions") === "specified";
   const params = {
     city_id: searchParams.get("city"),
     country_id: searchParams.get("country"),
@@ -12,7 +13,10 @@ export default function useGetGoals() {
     sub_category_id: searchParams.get("specialization"),
     preferred_gender: searchParams.get("gender"),
     search_word: searchParams.get("search"),
-    help_start_date: searchParams.get("startDate"),
+    help_start_date: isStartDateSpecified ? searchParams.get("startDate") : null,
+    help_start_date_to: isStartDateSpecified
+      ? searchParams.get("startDateTo")
+      : null,
     help_mechanism_ids: searchParams.getAll("helpMechanism"),
   };
   const {
