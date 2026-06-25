@@ -9,7 +9,7 @@ import CustomButton from "../../CustomButton";
 import TextField from "../../forms/TextField";
 import GlobalModal from "../../GlobalModal";
 
-const InquiryModal = ({ showModal, setShowModal, workid }) => {
+const InquiryModal = ({ showModal, setShowModal, workid, detailsQueryKey }) => {
   const { t } = useTranslation();
 
   const queryClient = useQueryClient();
@@ -33,22 +33,21 @@ const InquiryModal = ({ showModal, setShowModal, workid }) => {
   });
 
   const onSubmit = (data) => {
+    const queryKey = detailsQueryKey || ["offer-details", String(workid)];
+
     inquiry(
       { work_id: workid, message: data.comment },
       {
         onSuccess: (res) => {
           reset();
           setShowModal(false);
-          queryClient.setQueryData(
-            ["offer-details", String(workid)],
-            (oldData) => {
-              if (!oldData) return oldData;
-              return {
-                ...oldData,
-                can_send_inquiry: !oldData.can_send_inquiry,
-              };
-            }
-          );
+          queryClient.setQueryData(queryKey, (oldData) => {
+            if (!oldData) return oldData;
+            return {
+              ...oldData,
+              can_send_inquiry: false,
+            };
+          });
           queryClient.refetchQueries({ queryKey: ["inquries"] });
           toast.success(res.message);
         },

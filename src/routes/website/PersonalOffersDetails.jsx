@@ -11,12 +11,12 @@ import ContractReq from "../../ui/modals/ContractReqModal";
 import ReportModal from "../../ui/modals/ReportModal";
 import OptionsMenu from "../../ui/website/OptionsMenu";
 import SectionHeader from "../../ui/website/SectionHeader";
+import InquiryUnavailableAlert from "../../ui/website/my-notifications/InquiryUnavailableAlert";
 import InquiryModal from "../../ui/website/my-notifications/inquiryModal";
 import OfferInfoGrid from "../../ui/website/offers/OfferInfoGrid";
 import TopInfo from "../../ui/website/offers/TopInfo";
 import { shareContent } from "../../utils/shared";
 import helpTriangle from "../../assets/icons/help-triangle.svg";
-import AlertModal from "../../ui/website/platform/my-community/AlertModal";
 
 export default function PersonalOffersDetails() {
   const { t } = useTranslation();
@@ -29,7 +29,7 @@ export default function PersonalOffersDetails() {
   const [showHelpModal, setShowHelpModal] = useState(false);
   const [showReportModal, setShowReportModal] = useState(false);
   const [showInquiryModal, setShowInquiryModal] = useState(false);
-  const [showAlertModal, setShowAlertModal] = useState();
+  const [showAlertModal, setShowAlertModal] = useState(false);
 
   useEffect(() => {
     setBookmarked(offerDetails?.is_saved || false);
@@ -51,11 +51,12 @@ export default function PersonalOffersDetails() {
     });
   };
   const handleInquiryModal = () => {
-    if (offerDetails?.can_send_inquiry) {
-      setShowInquiryModal(true);
-    } else {
+    if (offerDetails?.can_send_inquiry === false) {
       setShowAlertModal(true);
+      return;
     }
+
+    setShowInquiryModal(true);
   };
 
   if (isLoading) return <Loading />;
@@ -243,18 +244,10 @@ export default function PersonalOffersDetails() {
               />
             )}
             {showAlertModal && (
-              <AlertModal
+              <InquiryUnavailableAlert
                 showModal={showAlertModal}
                 setShowModal={setShowAlertModal}
-                confirmButtonText={t("ok")}
-                showCancel={false}
-                withoutMessage={false}
-                onConfirm={() => setShowAlertModal(false)}
-              >
-                <p className="text-dark fw-bold text-center">
-                  {t("sendInquiryAlert")}
-                </p>
-              </AlertModal>
+              />
             )}
           </>
         )}

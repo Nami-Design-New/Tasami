@@ -12,6 +12,7 @@ import ReportModal from "../../ui/modals/ReportModal";
 import OptionsMenu from "../../ui/website/OptionsMenu";
 import SectionHeader from "../../ui/website/SectionHeader";
 import GoalInfoGrid from "../../ui/website/gaols/GoalInfoGrid";
+import InquiryUnavailableAlert from "../../ui/website/my-notifications/InquiryUnavailableAlert";
 import InquiryModal from "../../ui/website/my-notifications/inquiryModal";
 import TopInfo from "../../ui/website/offers/TopInfo";
 import { shareContent } from "../../utils/shared";
@@ -29,11 +30,11 @@ export default function GoalDetails() {
   const [showAgreeModal, setShowAgreeModal] = useState();
   const [showReportModal, setShowReportModal] = useState(false);
   const [showInquiryModal, setShowInquiryModal] = useState(false);
+  const [showInquiryAlertModal, setShowInquiryAlertModal] = useState(false);
   const [showAlertModal, setShowAlertModal] = useState(false);
   const { user } = useSelector((state) => state.authRole);
   const { lang } = useSelector((state) => state.language);
-  const { currentPackage, isLoading: isLoadingPackage } =
-    useGetCurrentPackage(!!user);
+  const { currentPackage } = useGetCurrentPackage(!!user);
 
   const { goalDetails, isLoading } = useGetGoalDetails();
 
@@ -74,6 +75,15 @@ export default function GoalDetails() {
   useEffect(() => {
     setIsActive(goalDetails?.is_saved);
   }, [goalDetails]);
+
+  const handleInquiryModal = () => {
+    if (goalDetails?.can_send_inquiry === false) {
+      setShowInquiryAlertModal(true);
+      return;
+    }
+
+    setShowInquiryModal(true);
+  };
 
   if (isLoading) return <Loading />;
   const isMyGoal = user?.id === goalDetails?.user?.id;
@@ -126,7 +136,7 @@ export default function GoalDetails() {
                       options={[
                         {
                           label: t("website.offerDetails.inquiry"),
-                          onClick: () => setShowInquiryModal(true),
+                          onClick: handleInquiryModal,
                         },
                         {
                           label: t("website.offerDetails.report"),
@@ -244,6 +254,14 @@ export default function GoalDetails() {
             showModal={showInquiryModal}
             setShowModal={setShowInquiryModal}
             workid={goalDetails?.id}
+            detailsQueryKey={["goal-details", String(goalDetails?.id)]}
+          />
+        )}
+
+        {showInquiryAlertModal && (
+          <InquiryUnavailableAlert
+            showModal={showInquiryAlertModal}
+            setShowModal={setShowInquiryAlertModal}
           />
         )}
 
