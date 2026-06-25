@@ -11,21 +11,23 @@ import useGetCountersNotify from "../../../hooks/website/useGetCountersNotify";
 export default function MyWorks() {
   const { t } = useTranslation();
   const [activeTab, setActiveTab] = useState("pending");
+  const navigate = useNavigate();
   const { counterNotify } = useGetCountersNotify();
-
-  // const navigate = useNavigate();
-  // const queryClient = useQueryClient();
 
   return (
     <div className="myworks page">
       <div className="container">
         <div className="row g-0">
-          {/* <RoundedBackButton
-            onClick={() => {
-              navigate("/");
-              // queryClient.invalidateQueries({ queryKey: ["counters-notify"] });
-            }}
-          ></RoundedBackButton> */}
+          <div className="col-12 p-2 platform-header">
+            <RoundedBackButton onClick={() => navigate("/")}></RoundedBackButton>
+            <h2 className="platform-header__title">
+              {t("website.header.myWorks")}
+            </h2>
+          </div>
+          <div className="col-12 p-2 platform-hint">
+            <i className="fa-regular fa-circle-info"></i>
+            <p>{t("works.hint")}</p>
+          </div>
           <section
             className="col-12 p-2 legend-section"
             aria-labelledby="legend-title"
