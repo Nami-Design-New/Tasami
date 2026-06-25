@@ -35,6 +35,8 @@
   "notifyUsers": "users",
   "community_level_new": "new",
   "sendInquiryAlert": "You have already sent an inquiry to this user and it has not been answered yet. Please wait until you receive a response before sending another inquiry.",
+  "sendInquiryAlertTitle": "You already have a sent inquiry!",
+  "sendInquiryAlertDescription": "Please wait until it is answered before sending another inquiry.",
   "contact_info_title": "Get in Touch with Tasamy Team",
   "contact_info_description": "We are happy to hear from you. Whether you have a question, suggestion, note, or idea, we are all ears.",
   "contact_info_how_can_we_help": "How can we help?",

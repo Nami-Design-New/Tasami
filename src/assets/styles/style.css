@@ -3102,6 +3102,21 @@ body.en .show-pass {
   gap: 1rem;
 }
 
+.inquiry-alert-message {
+  color: #233347;
+  text-align: center;
+}
+.inquiry-alert-message h4 {
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin: 0 0 0.25rem;
+}
+.inquiry-alert-message p {
+  font-size: 1rem;
+  font-weight: 600;
+  margin: 0;
+}
+
 .unjoin-community-confirmation {
   display: flex;
   flex-direction: column;
