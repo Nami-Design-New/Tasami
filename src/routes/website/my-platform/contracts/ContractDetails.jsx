@@ -2,7 +2,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
-import { useNavigate } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { toast } from "sonner";
 import useAcceptOrRefuseContract from "../../../../hooks/website/contracts/useAcceptOrRefuseContract";
 import useWithdrawOfferHelp from "../../../../hooks/website/contracts/useWithdrawOfferHelp";
@@ -11,10 +11,13 @@ import Currency from "../../../../ui/Currency";
 import CustomButton from "../../../../ui/CustomButton";
 import Loading from "../../../../ui/loading/Loading";
 import AssistantWorkCard from "../../../../ui/website/my-works/work-offers/AssistantWorkCard";
+import RateShowModal from "../../../../ui/website/my-works/work-offers/RateShowModal";
 import AcceptModal from "../../../../ui/website/platform/contracts/AcceptModal";
 import AlertModal from "../../../../ui/website/platform/my-community/AlertModal";
 import triangleWithHelper from "../../../../assets/icons/triangle-with-helper.svg";
 import helpServiceFromHelper from "../../../../assets/icons/help_service_from_helper.svg";
+import workChatYellow from "../../../../assets/icons/work-chat-yellow.svg";
+import workStarYellow from "../../../../assets/icons/work-star-yellow.svg";
 import {
   formatStartDateTimestamp,
   getStartExecutionDeadlineState,
@@ -27,6 +30,7 @@ export default function ContractDetails() {
   const [showAlertModal, setShowAlertModal] = useState(false);
   const [showAlertWithdrawOfferModal, setShowAlertWithdrawOfferModal] =
     useState(false);
+  const [showRateReadOnlyModal, setShowRateReadOnlyModal] = useState(false);
   const queryClient = useQueryClient();
   const navigate = useNavigate();
 
@@ -85,25 +89,61 @@ export default function ContractDetails() {
     workDetails?.start_date_timestamp,
     i18n.language,
   );
+  const isCompletedContract = workDetails?.status === "completed";
+  const hasBeneficiaryRate = Boolean(workDetails?.rate);
+  const contractChatId =
+    workDetails?.helper_last_contract_id ||
+    workDetails?.last_contract_id ||
+    workDetails?.contract_id;
 
   return (
-    <section className="work-details-page">
-      <div
-        className={`status-info ${
-          isAutoCanceled
-            ? "canceled"
-            : workDetails?.status !== "completed"
-              ? "not-completed"
-              : "completed"
-        }`}
-      >
-        <span>
-          {isAutoCanceled
-            ? t("works.startExecutionDeadline.autoCanceledContract")
-            : workDetails.status_text}
-        </span>
-        <span>{workDetails?.status_date}</span>
-      </div>
+    <section className="work-details-page work-contract-details">
+      <header className="mb-3 gap-2 flex-wrap">
+        <div
+          className={`status-info m-0 flex-grow-1 ${
+            isAutoCanceled
+              ? "canceled"
+              : workDetails?.status !== "completed"
+                ? "not-completed"
+                : "completed"
+          }`}
+        >
+          <span>
+            {isAutoCanceled
+              ? t("works.startExecutionDeadline.autoCanceledContract")
+              : workDetails.status_text}
+          </span>
+          <span>{workDetails?.status_date}</span>
+        </div>
+
+        {isCompletedContract && (
+          <div className="work-actions">
+            {hasBeneficiaryRate && (
+              <button
+                type="button"
+                className="action-buttons yellow"
+                onClick={() => setShowRateReadOnlyModal(true)}
+              >
+                <img src={workStarYellow} alt={t("rate_view_title")} />
+              </button>
+            )}
+
+            {contractChatId && (
+              <Link
+                to={`/user-chat/${contractChatId}`}
+                className="action-buttons yellow position-relative"
+              >
+                <img src={workChatYellow} alt={t("chats")} />
+                {workDetails?.unread_messages > 0 && (
+                  <span className="notification_span notification_position">
+                    {workDetails?.unread_messages}
+                  </span>
+                )}
+              </Link>
+            )}
+          </div>
+        )}
+      </header>
       <StartExecutionDeadlineAlert item={workDetails} scope="contract" />
 
       <div className="mb-3">
@@ -297,6 +337,14 @@ export default function ContractDetails() {
       >
         {t("withdraw_offer_warning")}
       </AlertModal>
+
+      {hasBeneficiaryRate && (
+        <RateShowModal
+          showModal={showRateReadOnlyModal}
+          setShowModal={setShowRateReadOnlyModal}
+          contract={workDetails}
+        />
+      )}
     </section>
   );
 }
