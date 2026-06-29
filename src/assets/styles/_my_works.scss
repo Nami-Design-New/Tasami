@@ -541,6 +541,62 @@
   }
 }
 
+.goal-completion-modal {
+  .modal-content {
+    border: 1px solid $InputStroke;
+    border-radius: 24px;
+    overflow: hidden;
+  }
+
+  .modal-body {
+    padding: 0;
+  }
+
+  &__content {
+    position: relative;
+    min-height: 300px;
+    padding: 2rem 1.5rem 1.5rem;
+    overflow: hidden;
+    text-align: center;
+    background-color: $white;
+
+    h2 {
+      position: relative;
+      z-index: 1;
+      margin-bottom: 1.75rem;
+      color: $green;
+      font-size: clamp(2rem, 7vw, 3.75rem);
+      font-weight: 800;
+      line-height: 1;
+    }
+
+    p {
+      position: relative;
+      z-index: 1;
+      max-width: 430px;
+      margin: 0 auto 1rem;
+      color: $dark;
+      font-size: clamp(1rem, 3vw, 1.3rem);
+      font-weight: 700;
+      line-height: 1.45;
+    }
+
+    .custom-btn {
+      position: relative;
+      z-index: 1;
+      min-width: 145px;
+      margin-inline: auto;
+    }
+  }
+
+  &__lottie {
+    position: absolute;
+    inset: -18%;
+    opacity: 0.85;
+    pointer-events: none;
+  }
+}
+
 .tasks-list {
   display: flex;
   flex-direction: column;

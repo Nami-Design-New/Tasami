@@ -960,7 +960,13 @@
       "executionRate": "Execution Progress",
       "startExecutionBtn": "Start Execution",
       "pauseExecutionBtn": "Pause Execution",
+      "completeGoalBtn": "Complete Goal",
       "addNew": "Add New Execution Task",
+      "completionCongrats": {
+        "title": "Congratulations",
+        "description": "You have completed all tasks successfully. You can now complete the goal to save it in your completed work record, or add new tasks to continue your journey if you wish.",
+        "confirm": "OK"
+      },
       "pauseExecutionWarning": "Execution will be paused temporarily, and all related notifications will be disabled. You can resume later from the 'Start Execution' button on the Tasks page.",
       "earlyStart": {
         "title": "Before you start!",
