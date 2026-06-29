@@ -9,26 +9,47 @@ import OfferRequestPaymentModal from "../../../ui/website/platform/contracts/Off
 import AssistantWorkCard from "../../../ui/website/my-works/work-offers/AssistantWorkCard";
 import triangleWithHelper from "../../../assets/icons/triangle-with-helper.svg";
 import helpServiceFromHelper from "../../../assets/icons/help_service_from_helper.svg";
+import {
+  formatStartDateTimestamp,
+  getStartExecutionDeadlineState,
+} from "../../../utils/startExecutionDeadline";
+import StartExecutionDeadlineAlert from "../../../ui/website/my-works/StartExecutionDeadlineAlert";
 
 export default function WorksDetails() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const [showPaymentModal, setShowPaymentModal] = useState(false);
   const { workDetails, isLoading } = useGetWorkDetails();
   const { lang } = useSelector((state) => state.language);
 
   if (isLoading) return <Loading />;
 
+  const deadlineState = getStartExecutionDeadlineState(workDetails);
+  const isAutoCanceled = Boolean(deadlineState?.isAutoCanceled);
+  const helpStartDate = formatStartDateTimestamp(
+    workDetails?.start_date_timestamp,
+    i18n.language,
+  );
+
   return (
     <section className="work-details-page">
       {/* ---- Status Section ---- */}
       <div
         className={`status-info ${
-          workDetails.status !== "completed" ? "not-completed" : "completed"
+          isAutoCanceled
+            ? "canceled"
+            : workDetails.status !== "completed"
+              ? "not-completed"
+              : "completed"
         }`}
       >
-        <span>{workDetails.status_text}</span>
+        <span>
+          {isAutoCanceled
+            ? t("works.startExecutionDeadline.autoCanceledWork")
+            : workDetails.status_text}
+        </span>
         <span>{workDetails.status_date}</span>
       </div>
+      <StartExecutionDeadlineAlert item={workDetails} />
       {/* ---- Description Section ---- */}{" "}
       {workDetails.rectangle === "help_service_from_helper" &&
         workDetails.helper && (
@@ -81,7 +102,7 @@ export default function WorksDetails() {
           {workDetails.rectangle !== "help_service_from_helper" && (
             <div className="info-box info-box-grow-min-width ">
               <h4 className="label">{t("website.offerDetails.startDate")}</h4>
-              <p className="value">{workDetails?.goal?.start_date}</p>
+              <p className="value">{helpStartDate}</p>
             </div>
           )}
 

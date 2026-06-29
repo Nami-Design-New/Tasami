@@ -935,11 +935,20 @@
     "assistants": "Assistants",
     "cancelRequest": "Cancel Request",
     "delete": "Delete",
+    "deleteWork": "Delete work",
     "complete": "Mark as Complete",
     "errorOccurred": "An error occurred during the operation",
     "withdrawWarning": "This action will permanently delete the offer details and you will not be able to recover them later.",
     "completePayment": "Complete Payment",
     "overdueTasksCount": "overdue tasks",
+    "startExecutionDeadline": {
+      "remainingLabel": "Time remaining",
+      "workWarning": "This work was not started on time. It will be canceled automatically if execution does not start within {{remaining}}.",
+      "contractWarning": "This contract was not started on time. It will be canceled automatically if execution does not start within {{remaining}}.",
+      "autoCanceledWork": "Canceled because it exceeded the selected start date without execution",
+      "autoCanceledContract": "Canceled because it exceeded the selected start date without execution",
+      "deleteAction": "Delete this work because it exceeded the selected start date without execution"
+    },
     "myTasks": {
       "title": "Execution Tasks",
       "dragInstruction": "You can drag and drop to reorder tasks",

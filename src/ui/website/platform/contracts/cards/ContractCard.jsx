@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router";
 import HelperCard from "../../../../cards/HelperCard";
@@ -6,10 +7,16 @@ import triangleWithHelper from "../../../../../assets/icons/triangle-with-helper
 import triangleWithoutHelper from "../../../../../assets/icons/triangle-without-helper.png";
 import helpServiceFromHelper from "../../../../../assets/icons/help_service_from_helper.svg";
 import titleIcon from "../../../../../assets/icons/title.svg";
+import {
+  formatStartDateTimestamp,
+  getStartExecutionDeadlineDebugSnapshot,
+  getStartExecutionDeadlineState,
+} from "../../../../../utils/startExecutionDeadline";
+import StartExecutionDeadlineAlert from "../../../my-works/StartExecutionDeadlineAlert";
 
 export default function ContractCard({ contract, withoutStatus = true }) {
   let steps;
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   if (contract.rectangle === "personal_goal") {
     steps = [
       { key: "planning", label: t("works.status.plan") },
@@ -41,12 +48,26 @@ export default function ContractCard({ contract, withoutStatus = true }) {
       },
     ];
   }
+  const deadlineState = getStartExecutionDeadlineState(contract);
+  const isAutoCanceled = Boolean(deadlineState?.isAutoCanceled);
+  const isCanceled = contract.status === "canceled" || isAutoCanceled;
+  const startDate = formatStartDateTimestamp(
+    contract?.start_date_timestamp,
+    i18n.language,
+  );
   const currentIndex = steps.findIndex((s) => s.key === contract.status);
   const progressSteps = steps.map((step, index) => ({
     ...step,
-    completed: index <= currentIndex && contract.status !== "canceled",
-    current: index === currentIndex && contract.status !== "canceled",
+    completed: index <= currentIndex && !isCanceled,
+    current: index === currentIndex && !isCanceled,
   }));
+
+  useEffect(() => {
+    console.log(
+      "[StartExecutionDeadline][ContractCard]",
+      getStartExecutionDeadlineDebugSnapshot(contract),
+    );
+  }, [contract]);
 
   return (
     <Link to={`/my-contracts/${contract.id}`} className="work-card">
@@ -81,12 +102,13 @@ export default function ContractCard({ contract, withoutStatus = true }) {
           <div className="col-6 p-1">
             <div className="info-item">
               <i className="fa-light fa-calendar"></i>{" "}
-              <p>{contract.help_start_date}</p>
+              <p>{startDate}</p>
             </div>
           </div>
         </div>
       </div>
       {withoutStatus && <WorkProgress steps={progressSteps} />}
+      <StartExecutionDeadlineAlert item={contract} scope="contract" />
     </Link>
   );
 }

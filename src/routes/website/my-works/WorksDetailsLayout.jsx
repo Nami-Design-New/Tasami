@@ -14,6 +14,7 @@ import Loading from "../../../ui/loading/Loading";
 import RoundedBackButton from "../../../ui/website-auth/shared/RoundedBackButton";
 import OptionsMenu from "../../../ui/website/OptionsMenu";
 import AlertModal from "../../../ui/website/platform/my-community/AlertModal";
+import { getStartExecutionDeadlineState } from "../../../utils/startExecutionDeadline";
 
 export default function WorksDetailsLayout() {
   const { t } = useTranslation();
@@ -37,6 +38,11 @@ export default function WorksDetailsLayout() {
   const { cancelRequestOffer, isPending: isCanceling } =
     useCancelRequestOffer();
   // const { withdrawOffer, isPending: isWithdrawing } = useWithdrawOfferHelp();
+  const deadlineState = useMemo(
+    () => getStartExecutionDeadlineState(workDetails),
+    [workDetails],
+  );
+  const isAutoCanceled = Boolean(deadlineState?.isAutoCanceled);
 
   // Destructure safely
   const {
@@ -46,7 +52,6 @@ export default function WorksDetailsLayout() {
     helper,
     rectangle,
     offers_count,
-    has_working_contract,
     had_helpers,
   } = workDetails || {};
 
@@ -116,6 +121,10 @@ export default function WorksDetailsLayout() {
   const tabs = useMemo(() => {
     if (!workDetails) return [];
 
+    if (isAutoCanceled) {
+      return [{ id: 1, label: t("works.details"), end: true }];
+    }
+
     if (status === "completed") {
       if (had_helpers > 0) {
         return [
@@ -184,14 +193,14 @@ export default function WorksDetailsLayout() {
       { id: 3, label: t("works.tasks"), link: "tasks" },
       { id: 4, label: t("works.assistants"), link: "assistants" },
     ];
-  }, [rectangle, helper, status, t, workDetails]);
+  }, [had_helpers, isAutoCanceled, rectangle, helper, status, t, workDetails]);
 
   // === Option menu configs ===
   const deleteOption = {
-    label: t("works.delete"),
+    label: isAutoCanceled ? t("works.deleteWork") : t("works.delete"),
     className: "text-danger",
     onClick: () => setShowDeleteModal(true),
-    props: { disabled: isCompleting },
+    props: { disabled: isDeleting },
   };
 
   const completeOption = {
@@ -209,20 +218,19 @@ export default function WorksDetailsLayout() {
   };
   // === Conditional Menu Rendering ===
   const renderOptionsMenu = () => {
-    console.log("[renderOptionsMenu] inputs:", {
-      status,
-      helper,
-      rectangle,
-      exePercentage,
-    });
+    if (isAutoCanceled) {
+      return (
+        <OptionsMenu
+          toggleButton="fa-regular fa-trash-can text-danger"
+          options={[deleteOption]}
+          aria-label="delete auto canceled work"
+        />
+      );
+    }
 
     if (status !== "completed" && !helper) {
       const options =
         exePercentage === 100 ? [completeOption, deleteOption] : [deleteOption];
-      console.log(
-        "[renderOptionsMenu] -> Branch 1 (work options), options:",
-        options.map((o) => o.label),
-      );
       return (
         <OptionsMenu
           toggleButton="fa-regular fa-shield-exclamation color-main"
@@ -236,7 +244,6 @@ export default function WorksDetailsLayout() {
       rectangle === "help_service_from_helper" &&
       (status === "wait_helper_to_accept" || status === "wait_for_user_payment")
     ) {
-      console.log("[renderOptionsMenu] -> Branch 2 (cancel offer)");
       return (
         <OptionsMenu
           toggleButton="fa-regular fa-flag"
@@ -246,7 +253,6 @@ export default function WorksDetailsLayout() {
       );
     }
 
-    console.log("[renderOptionsMenu] -> returned null (no menu rendered)");
     return null;
   };
 
