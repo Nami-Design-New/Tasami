@@ -3,6 +3,7 @@ import { NavLink, Outlet, useNavigate } from "react-router";
 import useGetWorkDetails from "../../../../hooks/website/MyWorks/useGetWorkDetails";
 import Loading from "../../../../ui/loading/Loading";
 import RoundedBackButton from "../../../../ui/website-auth/shared/RoundedBackButton";
+import { getStartExecutionDeadlineState } from "../../../../utils/startExecutionDeadline";
 
 export default function ContractDetailsLayout() {
   const navigate = useNavigate();
@@ -15,8 +16,20 @@ export default function ContractDetailsLayout() {
 
   if (isLoading) return <Loading />;
 
+  const isAutoCanceled = Boolean(
+    getStartExecutionDeadlineState(workDetails)?.isAutoCanceled,
+  );
+
   // Tabs Logic
-  if (
+  if (isAutoCanceled) {
+    tabs = [
+      {
+        id: 1,
+        label: t("works.details"),
+        end: true,
+      },
+    ];
+  } else if (
     workDetails?.status === "wait_for_user_payment" ||
     workDetails?.status === "wait_helper_to_accept" ||
     workDetails?.status === "offer_sent"

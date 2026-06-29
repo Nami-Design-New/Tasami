@@ -1,19 +1,36 @@
+import { useQueryClient } from "@tanstack/react-query";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import WorkProgress from "../website/my-works/WorkProgress";
 import { Link } from "react-router";
-import HelperCard from "./HelperCard";
+import { toast } from "sonner";
+
+import useDeleteWork from "../../hooks/website/MyWorks/useDeleteWork";
 import titleIcon from "../../assets/icons/title.svg";
 import offersIcon from "../../assets/icons/offers-icon.svg";
 import triangleWithHelper from "../../assets/icons/triangle-with-helper.svg";
 import triangleWithoutHelper from "../../assets/icons/triangle-without-helper.png";
 import helpServiceFromHelper from "../../assets/icons/help_service_from_helper.svg";
+import {
+  formatStartDateTimestamp,
+  getStartExecutionDeadlineDebugSnapshot,
+  getStartExecutionDeadlineState,
+} from "../../utils/startExecutionDeadline";
+import AlertModal from "../website/platform/my-community/AlertModal";
+import HelperCard from "./HelperCard";
+import StartExecutionDeadlineAlert from "../website/my-works/StartExecutionDeadlineAlert";
+import WorkProgress from "../website/my-works/WorkProgress";
+
 export default function WorkCard({
   work,
   withoutStatus = false,
   showOverdueTasks = false,
 }) {
   let steps;
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const queryClient = useQueryClient();
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const { deleteWork, isPending: isDeleting } = useDeleteWork();
+
   if (work.rectangle === "personal_goal") {
     steps = [
       { key: "planning", label: t("works.status.plan") },
@@ -44,19 +61,46 @@ export default function WorkCard({
       },
     ];
   }
+
+  const deadlineState = getStartExecutionDeadlineState(work);
+  const isAutoCanceled = Boolean(deadlineState?.isAutoCanceled);
+  const isCanceled = work.status === "canceled" || isAutoCanceled;
   const currentIndex = steps.findIndex((s) => s.key === work.status);
   const progressSteps = steps.map((step, index) => ({
     ...step,
-    completed: index <= currentIndex && work.status !== "canceled",
-    current: index === currentIndex && work.status !== "canceled",
+    completed: index <= currentIndex && !isCanceled,
+    current: index === currentIndex && !isCanceled,
   }));
   const overdueTasksCount = Number(work?.overdue_tasks_count) || 0;
   const hasOverdueTasks = showOverdueTasks && overdueTasksCount > 0;
   const hasUnreadChats =
     work.status !== "completed" && Number(work?.total_unread_chats) > 0;
+  const offersCount = isAutoCanceled ? 0 : Number(work?.offers_count) || 0;
+  const startDate = formatStartDateTimestamp(
+    work?.start_date_timestamp,
+    i18n.language,
+  );
 
-  return (
-    <Link to={`/my-works/${work.id}`} className="work-card">
+  useEffect(() => {
+    console.log(
+      "[StartExecutionDeadline][WorkCard]",
+      getStartExecutionDeadlineDebugSnapshot(work),
+    );
+  }, [work]);
+
+  const handleDeleteWork = () => {
+    deleteWork(work.id, {
+      onSuccess: (res) => {
+        toast.success(res?.message);
+        setShowDeleteModal(false);
+        queryClient.refetchQueries({ queryKey: ["my-works"] });
+      },
+      onError: (err) => toast.error(err.message),
+    });
+  };
+
+  const cardContent = (
+    <>
       {work.code && (
         <div className={`work-reference-code ${work.rectangle ?? ""}`}>
           {work.code}
@@ -88,7 +132,7 @@ export default function WorkCard({
           </div>
           <div className="col-4 p-1">
             <div className="info-item">
-              <i className="fa-light fa-calendar"></i> <p>{work.start_date}</p>
+              <i className="fa-light fa-calendar"></i> <p>{startDate}</p>
             </div>
           </div>
           {(hasUnreadChats || hasOverdueTasks) && (
@@ -110,17 +154,29 @@ export default function WorkCard({
               </div>
             </div>
           )}
-          {work.offers_count > 0 && (
+          {offersCount > 0 && (
             <div className="col-6 p-1 ">
               <div className="info-item">
                 <img src={offersIcon} />
-                <p>{work.offers_count} عروض مقدمة</p>
+                <p>{offersCount} عروض مقدمة</p>
               </div>
             </div>
           )}
         </div>
       </div>
       {!withoutStatus && <WorkProgress steps={progressSteps} />}
+      {!isAutoCanceled && <StartExecutionDeadlineAlert item={work} />}
+      {isAutoCanceled && (
+        <button
+          type="button"
+          className="start-execution-delete-action"
+          disabled={isDeleting}
+          onClick={() => setShowDeleteModal(true)}
+        >
+          {isDeleting && <i className="fas fa-spinner fa-spin"></i>}
+          {t("works.startExecutionDeadline.deleteAction")}
+        </button>
+      )}
       {work.status === "completed" && (
         <div
           className={`status-info m-0  ${
@@ -137,6 +193,30 @@ export default function WorkCard({
           <span>{work.status_date}</span>
         </div>
       )}
-    </Link>
+    </>
+  );
+
+  return (
+    <>
+      {isAutoCanceled ? (
+        <article className="work-card work-card--auto-canceled">
+          {cardContent}
+        </article>
+      ) : (
+        <Link to={`/my-works/${work.id}`} className="work-card">
+          {cardContent}
+        </Link>
+      )}
+
+      <AlertModal
+        confirmButtonText={t("confirm")}
+        showModal={showDeleteModal}
+        setShowModal={setShowDeleteModal}
+        onConfirm={handleDeleteWork}
+        loading={isDeleting}
+      >
+        {t("goalDeleteWarning")}
+      </AlertModal>
+    </>
   );
 }
