@@ -1,14 +1,12 @@
 import { useQueryClient } from "@tanstack/react-query";
 import { useCallback, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { NavLink, Outlet, useNavigate, useParams } from "react-router";
+import { NavLink, Outlet, useNavigate } from "react-router";
 import { toast } from "sonner";
 
 import useCancelRequestOffer from "../../../hooks/website/MyWorks/useCancelRequestOffer";
-import useCompleteGoal from "../../../hooks/website/MyWorks/useCompleteGoal";
 import useDeleteWork from "../../../hooks/website/MyWorks/useDeleteWork";
 import useGetWorkDetails from "../../../hooks/website/MyWorks/useGetWorkDetails";
-import useGetTasks from "../../../hooks/website/MyWorks/tasks/useGetTasks";
 
 import Loading from "../../../ui/loading/Loading";
 import RoundedBackButton from "../../../ui/website-auth/shared/RoundedBackButton";
@@ -26,14 +24,7 @@ export default function WorksDetailsLayout() {
   //   useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
 
-  const { id: workId } = useParams();
   const { workDetails, isLoading } = useGetWorkDetails();
-  // Read execution percentage straight from the tasks query (shared cache,
-  // key ["work-tasks", workId]) so it's available on every tab, not just the
-  // tasks tab.
-  const { goalTasks } = useGetTasks(workId);
-  const exePercentage = goalTasks?.["additional-data"]?.execution_percentage;
-  const { completeGoal, isPending: isCompleting } = useCompleteGoal();
   const { deleteWork, isPending: isDeleting } = useDeleteWork();
   const { cancelRequestOffer, isPending: isCanceling } =
     useCancelRequestOffer();
@@ -56,23 +47,6 @@ export default function WorksDetailsLayout() {
   } = workDetails || {};
 
   // === Handlers (must be declared before conditional returns) ===
-  const handleCompleteGoal = useCallback(
-    (goalId) => {
-      completeGoal(goalId, {
-        onSuccess: (res) => {
-          toast.success(res?.message);
-          queryClient.refetchQueries("work-details");
-          queryClient.refetchQueries("work-tasks");
-          queryClient.refetchQueries("my-works");
-        },
-        onError: (err) => {
-          toast.error(err?.message);
-        },
-      });
-    },
-    [completeGoal, queryClient],
-  );
-
   const handleDeleteGoal = useCallback(
     (goalId) => {
       deleteWork(goalId, {
@@ -203,18 +177,11 @@ export default function WorksDetailsLayout() {
     props: { disabled: isDeleting },
   };
 
-  const completeOption = {
-    label: t("works.complete"),
-    className: "text-green",
-    onClick: () => handleCompleteGoal(id),
-    props: { disabled: isCompleting },
-  };
-
   const cancelOption = {
     label: t("works.cancelRequest"),
     className: "text-fire",
     onClick: () => setShowAlertModal(true),
-    props: { disabled: isCompleting },
+    props: { disabled: isCanceling },
   };
   // === Conditional Menu Rendering ===
   const renderOptionsMenu = () => {
@@ -229,12 +196,10 @@ export default function WorksDetailsLayout() {
     }
 
     if (status !== "completed" && !helper) {
-      const options =
-        exePercentage === 100 ? [completeOption, deleteOption] : [deleteOption];
       return (
         <OptionsMenu
           toggleButton="fa-regular fa-shield-exclamation color-main"
-          options={options}
+          options={[deleteOption]}
           aria-label="work options"
         />
       );

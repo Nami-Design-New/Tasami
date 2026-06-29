@@ -1,10 +1,12 @@
 import { useQueryClient } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
+import Lottie from "react-lottie";
 import { useParams } from "react-router";
 import { toast } from "sonner";
 
 // UI
+import celebrationAnimation from "../../../assets/lotties/celebrate.json";
 import CustomButton from "../../../ui/CustomButton";
 import NoTasks from "../../../ui/website/my-works/NoTasks";
 import AddTasksModal from "../../../ui/website/my-works/tasks/AddTasksModal";
@@ -15,6 +17,7 @@ import AlertModal from "../../../ui/website/platform/my-community/AlertModal";
 import useGetTasks from "../../../hooks/website/MyWorks/tasks/useGetTasks";
 import useGetToggleGoalExe from "../../../hooks/website/MyWorks/tasks/useGetToggleGoalExe";
 import useReorderTasks from "../../../hooks/website/MyWorks/tasks/useReorderTasks";
+import useCompleteGoal from "../../../hooks/website/MyWorks/useCompleteGoal";
 import useGetWorkDetails from "../../../hooks/website/MyWorks/useGetWorkDetails";
 
 // DnD Kit
@@ -35,6 +38,7 @@ import { CSS } from "@dnd-kit/utilities";
 import useAddTaskWithAi from "../../../hooks/website/MyWorks/tasks/useAddTaskWithAi";
 import useDeleteAllTasks from "../../../hooks/website/MyWorks/tasks/useDeleteAllTasks";
 import Loading from "../../../ui/loading/Loading";
+import GlobalModal from "../../../ui/GlobalModal";
 import EarlyExecutionWarningModal from "../../../ui/website/my-works/EarlyExecutionWarningModal";
 
 const DAY_IN_MS = 24 * 60 * 60 * 1000;
@@ -89,6 +93,41 @@ function SortableTask({ task, workId }) {
   );
 }
 
+function GoalCompletionCongratsModal({ show, onClose }) {
+  const { t } = useTranslation();
+  const lottieOptions = {
+    loop: true,
+    autoplay: true,
+    animationData: celebrationAnimation,
+    rendererSettings: {
+      preserveAspectRatio: "xMidYMid slice",
+    },
+  };
+
+  return (
+    <GlobalModal
+      show={show}
+      onHide={onClose}
+      centered
+      size="md"
+      dialogClassName="goal-completion-modal"
+    >
+      <GlobalModal.Body>
+        <div className="goal-completion-modal__content">
+          <div className="goal-completion-modal__lottie" aria-hidden="true">
+            <Lottie options={lottieOptions} />
+          </div>
+          <h2>{t("works.myTasks.completionCongrats.title")}</h2>
+          <p>{t("works.myTasks.completionCongrats.description")}</p>
+          <CustomButton color="success" size="large" onClick={onClose}>
+            {t("works.myTasks.completionCongrats.confirm")}
+          </CustomButton>
+        </div>
+      </GlobalModal.Body>
+    </GlobalModal>
+  );
+}
+
 export default function WorksTasks() {
   const { id } = useParams();
   const { t } = useTranslation();
@@ -99,15 +138,24 @@ export default function WorksTasks() {
   const [showModal, setShowModal] = useState(false);
   const [showAlertModal, setShowAlertModal] = useState(false);
   const [showDeleteAlertModal, setShowDeleteAlertModal] = useState(false);
+  const [showCompletionCongrats, setShowCompletionCongrats] = useState(false);
+  const [hasSeenCompletionCongrats, setHasSeenCompletionCongrats] =
+    useState(false);
   const [earlyExecutionDetails, setEarlyExecutionDetails] = useState(null);
 
   // API hooks
   const { goalTasks, isLoading } = useGetTasks(id);
   const { workDetails } = useGetWorkDetails(id);
   const { toggleGoalExe, isPending } = useGetToggleGoalExe();
+  const { completeGoal, isPending: isCompleting } = useCompleteGoal();
   const { reorderTasks } = useReorderTasks();
   const { addTaskWithAi, isAdding } = useAddTaskWithAi();
   const { isDeleting, deleteAllTasks } = useDeleteAllTasks();
+  const executionPercentage = Number(
+    goalTasks?.["additional-data"]?.execution_percentage ?? 0,
+  );
+  const isCompletionReady =
+    executionPercentage >= 100 && workDetails?.status !== "completed";
 
   const handleAddTaskWithAi = (id) => {
     addTaskWithAi(id, {
@@ -169,6 +217,33 @@ export default function WorksTasks() {
 
     handleToggleTaskExe(workDetails?.goal?.id);
   };
+
+  const handleCompleteGoal = () => {
+    completeGoal(workDetails?.id, {
+      onSuccess: (res) => {
+        toast.success(res?.message);
+        queryClient.refetchQueries({ queryKey: ["work-details"] });
+        queryClient.refetchQueries({ queryKey: ["work-tasks"] });
+        queryClient.refetchQueries({ queryKey: ["my-works"] });
+      },
+      onError: (err) => {
+        toast.error(err?.message);
+      },
+    });
+  };
+
+  useEffect(() => {
+    if (!isCompletionReady) {
+      setHasSeenCompletionCongrats(false);
+      setShowCompletionCongrats(false);
+      return;
+    }
+
+    if (!hasSeenCompletionCongrats) {
+      setShowCompletionCongrats(true);
+      setHasSeenCompletionCongrats(true);
+    }
+  }, [hasSeenCompletionCongrats, isCompletionReady]);
 
   // Handle DnD reorder
   const handleDragEnd = (event) => {
@@ -290,7 +365,17 @@ export default function WorksTasks() {
         {/* Buttons */}
         {workDetails.status !== "completed" && (
           <div className="buttons mt-3 flex-wrap justify-content-end">
-            {workDetails?.rectangle === "personal_goal" ? (
+            {isCompletionReady ? (
+              <CustomButton
+                style={{ whiteSpace: "nowrap" }}
+                color="success"
+                size="large"
+                loading={isCompleting}
+                onClick={handleCompleteGoal}
+              >
+                {t("works.myTasks.completeGoalBtn")}
+              </CustomButton>
+            ) : workDetails?.rectangle === "personal_goal" ? (
               <>
                 <CustomButton
                   style={{ whiteSpace: "nowrap" }}
@@ -391,6 +476,10 @@ export default function WorksTasks() {
           loading={isPending}
           onCancel={() => setEarlyExecutionDetails(null)}
           onContinue={() => handleToggleTaskExe(workDetails?.goal?.id)}
+        />
+        <GoalCompletionCongratsModal
+          show={showCompletionCongrats}
+          onClose={() => setShowCompletionCongrats(false)}
         />
       </div>
     </section>
