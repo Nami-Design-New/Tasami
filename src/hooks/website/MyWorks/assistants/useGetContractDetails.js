@@ -1,7 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
 import { axiosInstance } from "../../../../lib/axios";
 
-export default function useGetContractDetails(id) {
+export default function useGetContractDetails(id, options = {}) {
+  const { enabled = true } = options;
   const { data, isLoading } = useQuery({
     queryKey: ["contract-details", id],
     queryFn: async () => {
@@ -13,7 +14,7 @@ export default function useGetContractDetails(id) {
 
       return res.data;
     },
-    enabled: !!id,
+    enabled: enabled && !!id,
   });
   return {
     contractDetails: data?.data,

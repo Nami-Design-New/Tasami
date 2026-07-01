@@ -336,6 +336,19 @@
     align-items: center;
     justify-content: space-between;
     // margin-bottom: 20px;
+
+    .action-buttons {
+      @include centerFlex();
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background-color: $main4;
+
+      &.yellow {
+        background-color: #fdcb2f0a;
+      }
+    }
+
     h1 {
       font-size: 1.5rem;
       color: $second;

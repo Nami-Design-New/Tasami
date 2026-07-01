@@ -1,6 +1,5 @@
 import { ProgressBar } from "react-bootstrap";
 import { useOutletContext } from "react-router";
-import useGetContractDetails from "../../../../hooks/website/MyWorks/assistants/useGetContractDetails";
 import Currency from "../../../../ui/Currency";
 import CustomButton from "../../../../ui/CustomButton";
 import Loading from "../../../../ui/loading/Loading";
@@ -12,8 +11,7 @@ import { useQueryClient } from "@tanstack/react-query";
 
 export default function ContractsBeneficiaries() {
   const { t } = useTranslation();
-  const { contractId } = useOutletContext();
-  const { contractDetails, isLoading } = useGetContractDetails(contractId);
+  const { contractDetails, isContractDetailsLoading } = useOutletContext();
   const queryClient = useQueryClient();
   const { acceptMutation, isAccepting, refuseMutation, isRefusing } =
     useAcceptOrRefuseRenewRequest();
@@ -42,9 +40,9 @@ export default function ContractsBeneficiaries() {
     });
   };
 
-  if (isLoading) return <Loading />;
+  if (isContractDetailsLoading) return <Loading />;
   return (
-    <section className="work-contract-details ">
+    <section className="work-contract-details">
       <div className="container">
         <div className="row">
           <div className="col-lg-4 col-12 p-2">
