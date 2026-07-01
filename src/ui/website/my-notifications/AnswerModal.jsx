@@ -39,7 +39,7 @@ export default function AnswerModal({ shwModal, setShowModal, item }) {
       {
         onSuccess: (res) => {
           toast.success(res.message);
-          querClient.invalidateQueries([{ queryKey: "inquries" }]);
+          querClient.invalidateQueries({ queryKey: ["inquries"] });
           reset();
           setShowModal(false);
         },
