@@ -19,6 +19,32 @@
       color: $dark;
       font-weight: 700;
     }
+    .inquries-toolbar {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      gap: 16px;
+      .form_ui {
+        margin: 0;
+      }
+      h2 {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin: 0;
+        white-space: nowrap;
+        span {
+          color: $dark;
+        }
+      }
+      @media (max-width: 576px) {
+        grid-template-columns: 1fr;
+        gap: 10px;
+        h2 {
+          justify-content: flex-start;
+        }
+      }
+    }
   }
 }
 .notification-web-card {
@@ -90,6 +116,13 @@
         color: $second;
         font-size: 16px;
       }
+      a {
+        color: $second;
+        font-size: 16px;
+        font-weight: 700;
+        text-decoration: underline;
+        text-underline-offset: 3px;
+      }
     }
     p {
       color: $gray;
@@ -99,6 +132,32 @@
       display: block;
       width: 100%;
       text-align: end;
+    }
+  }
+  .inquriy-card__footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    direction: ltr;
+    gap: 12px;
+  }
+  .inquriy-card__delete {
+    width: 32px;
+    height: 32px;
+    border: 0;
+    border-radius: 8px;
+    background: transparent;
+    color: $fire;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: 0.2s ease;
+    &:hover:not(:disabled) {
+      background: rgba($fire, 0.08);
+    }
+    &:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
     }
   }
 }
