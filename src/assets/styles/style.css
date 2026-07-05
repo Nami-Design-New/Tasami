@@ -11307,6 +11307,18 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
   align-items: center;
   justify-content: space-between;
 }
+.work-details-layout .header .action-buttons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background-color: rgba(2, 72, 150, 0.0392156863);
+}
+.work-details-layout .header .action-buttons.yellow {
+  background-color: rgba(253, 203, 47, 0.0392156863);
+}
 .work-details-layout .header h1 {
   font-size: 1.5rem;
   color: #5fcafa;
