@@ -34,7 +34,6 @@ export default function MyClients() {
     myClients?.pages?.flatMap((page) => page?.data?.clients) ?? [];
   const firstPage = myClients?.pages?.[0] ?? {};
   const clientsData = firstPage?.data ?? {};
-  console.log(clientsData);
 
   const totalRate = clientsData.total_rate;
 
