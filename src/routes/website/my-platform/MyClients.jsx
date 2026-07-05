@@ -34,44 +34,21 @@ export default function MyClients() {
     myClients?.pages?.flatMap((page) => page?.data?.clients) ?? [];
   const firstPage = myClients?.pages?.[0] ?? {};
   const clientsData = firstPage?.data ?? {};
-  const totalRate = firstDefined(
-    clientsData.total_rate,
-    clientsData.avg_rate,
-    clientsData.total_average,
-  );
+  console.log(clientsData);
+
+  const totalRate = clientsData.total_rate;
+
   const totalCount = clientsData.count_of_clients;
-  const totalRatesCount = firstDefined(
-    clientsData.count_of_rates,
-    clientsData.rates_count,
-    clientsData.rate_count,
-    clientsData.ratings_count,
-    clientsData.reviews_count,
-    firstPage.count_of_rates,
-    firstPage.rates_count,
-    firstPage.total,
-  );
-  const experienceRate = firstDefined(
-    clientsData.total_experience_and_knowledge,
-    clientsData.experience_and_knowledge,
-    clientsData.experience,
-  );
-  const commitmentRate = firstDefined(
-    clientsData.total_commitment_to_time,
-    clientsData.commitment_to_time,
-    clientsData.commitment,
-    clientsData.time,
-  );
-  const qualityRate = firstDefined(
-    clientsData.total_quality_of_performance,
-    clientsData.quality_of_performance,
-    clientsData.quality,
-  );
-  const respectRate = firstDefined(
-    clientsData.total_respect_and_treatment,
-    clientsData.respect_and_treatment,
-    clientsData.respect,
-    clientsData.treatment,
-  );
+  const totalRatesCount = clientsData.count_of_ratings;
+
+  const experienceRate = clientsData.total_experience_and_knowledge;
+
+  const commitmentRate = clientsData.total_commitment_to_time;
+
+  const qualityRate = clientsData.total_quality_of_performance;
+
+  const respectRate = clientsData.total_respect_and_treatment;
+
   const shouldShowStats = [
     totalCount,
     totalRate,
