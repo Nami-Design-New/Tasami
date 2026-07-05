@@ -26,6 +26,7 @@ import MyPlatform from "../routes/website/my-platform/MyPlatform";
 import SupscriptionManagment from "../routes/website/my-platform/SupscriptionManagment";
 import MyWorks from "../routes/website/my-works/MyWorks";
 import MyNotifications from "../routes/website/MyNotifications";
+import NewChatAlerts from "../routes/website/NewChatAlerts";
 import OfferDetails from "../routes/website/OfferDetails";
 import PersonalHelper from "../routes/website/PersonalHelper";
 import Posts from "../routes/website/Posts";
@@ -347,6 +348,14 @@ export const router = createBrowserRouter(
           element: (
             <ProtectedRoute>
               <MyNotifications />
+            </ProtectedRoute>
+          ),
+        },
+        {
+          path: "new-chats",
+          element: (
+            <ProtectedRoute>
+              <NewChatAlerts />
             </ProtectedRoute>
           ),
         },

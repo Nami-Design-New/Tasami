@@ -4,7 +4,7 @@ import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
-import { useNavigate, useParams } from "react-router";
+import { useLocation, useNavigate, useParams } from "react-router";
 import * as yup from "yup";
 import useGetGroupChats from "../../../hooks/website/MyWorks/groups/chat/useGetGroupChat";
 import useSendGroupMessage from "../../../hooks/website/MyWorks/groups/chat/useSendGroupMessage";
@@ -19,6 +19,7 @@ import Loading from "../../../ui/loading/Loading";
 import CustomButton from "../../../ui/CustomButton";
 import ReplyPreview from "../../../ui/chat/ReplyPreview";
 import useScrollToMessage from "../../../utils/useScrollToMessage";
+import QuickChatBreadcrumb from "../../../ui/chat/QuickChatBreadcrumb";
 
 const getMessageType = (file) => {
   if (!file) return "text";
@@ -50,6 +51,7 @@ export default function GroupChat() {
     audio: yup.mixed().nullable(),
   });
   const navigate = useNavigate();
+  const location = useLocation();
   const { id } = useParams();
   const queryClient = useQueryClient();
   //   const { lang } = useSelector((state) => state.language);
@@ -66,6 +68,10 @@ export default function GroupChat() {
   const [, setSocketStatus] = useState("connecting");
   const [replyTo, setReplyTo] = useState(null);
   const [scrollTargetId, setScrollTargetId] = useState(null);
+  const quickChatBreadcrumb = location.state?.quickChatBreadcrumb || [];
+  const isFromQuickAccess =
+    location.state?.fromQuickAccess ||
+    new URLSearchParams(location.search).get("source") === "quick-access";
 
   const mediaRecorderRef = useRef(null);
   const audioChunksRef = useRef([]);
@@ -314,6 +320,18 @@ export default function GroupChat() {
 
   const isLogedUser = user?.id === groupDetails?.helper_id;
 
+  useEffect(() => {
+    if (!isFromQuickAccess || updated) return;
+
+    updateCounter(undefined, {
+      onSettled: () => {
+        queryClient.invalidateQueries({ queryKey: ["counters-notify"] });
+        queryClient.invalidateQueries({ queryKey: ["quick-chat-alerts"] });
+      },
+    });
+    setUpdated(true);
+  }, [isFromQuickAccess, queryClient, updateCounter, updated]);
+
   const handleScroll = (e) => {
     const target = e.target;
 
@@ -333,6 +351,7 @@ export default function GroupChat() {
     <div className="container">
       <div className="community-chat-window">
         <div className="chat-window">
+          <QuickChatBreadcrumb items={quickChatBreadcrumb} />
           {/* ===== Header ===== */}
           <div className="chat-window__info d-flex align-items-center justify-content-between">
             <div className="d-flex align-items-center gap-2">

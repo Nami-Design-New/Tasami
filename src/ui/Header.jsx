@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
 import { Link, NavLink, useNavigate } from "react-router";
 import logo from "../assets/images/logo.svg";
+import useGetNewChatAlerts from "../hooks/website/chats/useGetNewChatAlerts";
 import useSettings from "../hooks/website/settings/useSettings";
 import useGetCountersNotify from "../hooks/website/useGetCountersNotify";
 import CustomButton from "./CustomButton";
@@ -22,6 +23,11 @@ export default function Header() {
   const { isAuthed, user } = useSelector((state) => state.authRole);
   const { counterNotify } = useGetCountersNotify();
   const { lang } = useSelector((state) => state.language);
+  const { newChatAlerts } = useGetNewChatAlerts();
+  const newChatAlertsCount = newChatAlerts.reduce(
+    (total, item) => total + Number(item.unread_count || 0),
+    0,
+  );
 
   useEffect(() => {
     const handleOutsideClick = (e) => {
@@ -130,7 +136,6 @@ export default function Header() {
             {/* <img src={communities} /> */}
             <span>{t("website.header.communities")}</span>
           </Link>
-          <LangDropdown />
           {isAuthed && (
             <Link to="/notifications" className="notification-btn">
               <i className="fa-regular fa-bell">
@@ -144,6 +149,22 @@ export default function Header() {
               </i>
             </Link>
           )}
+          {isAuthed && (
+            <Link
+              to="/new-chats"
+              className="notification-btn quick-chat-alert-btn"
+              aria-label={t("quickChats.title", "المحادثات الجديدة")}
+            >
+              <i className="fa-regular fa-comments">
+                {newChatAlertsCount > 0 && (
+                  <Badge>
+                    {newChatAlertsCount > 99 ? "99+" : newChatAlertsCount}
+                  </Badge>
+                )}
+              </i>
+            </Link>
+          )}
+          <LangDropdown />
           {isAuthed && (
             <CustomButton
               size="small"

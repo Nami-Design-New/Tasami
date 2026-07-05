@@ -4,7 +4,7 @@ import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
-import { useNavigate, useParams } from "react-router";
+import { useLocation, useNavigate, useParams } from "react-router";
 import * as yup from "yup";
 import useGetAssistantChats from "../../hooks/website/MyWorks/assistants/chats/useGetAssistantChats";
 import useSendAssistantMessage from "../../hooks/website/MyWorks/assistants/chats/useSendAssistantMessage";
@@ -18,6 +18,7 @@ import Loading from "../../ui/loading/Loading";
 import CustomButton from "../../ui/CustomButton";
 import ReplyPreview from "../../ui/chat/ReplyPreview";
 import useScrollToMessage from "../../utils/useScrollToMessage";
+import QuickChatBreadcrumb from "../../ui/chat/QuickChatBreadcrumb";
 
 const getMessageType = (file) => {
   if (!file) return "text";
@@ -50,6 +51,7 @@ const schema = yup.object().shape({
 export default function UserContractChat() {
   const { t } = useTranslation();
   const navigate = useNavigate();
+  const location = useLocation();
   const { id } = useParams();
   const queryClient = useQueryClient();
   const { user } = useSelector((state) => state.authRole);
@@ -65,6 +67,7 @@ export default function UserContractChat() {
   const [socketStatus, setSocketStatus] = useState("connecting");
   const [replyTo, setReplyTo] = useState(null);
   const [scrollTargetId, setScrollTargetId] = useState(null);
+  const quickChatBreadcrumb = location.state?.quickChatBreadcrumb || [];
 
   const mediaRecorderRef = useRef(null);
   const audioChunksRef = useRef([]);
@@ -274,6 +277,7 @@ export default function UserContractChat() {
     <div className="container">
       <div className="community-chat-window page">
         <div className="chat-window">
+          <QuickChatBreadcrumb items={quickChatBreadcrumb} />
           {/* Header */}
           <div className="chat-window__info d-flex align-items-center justify-content-between">
             <div className="d-flex align-items-center gap-2">
