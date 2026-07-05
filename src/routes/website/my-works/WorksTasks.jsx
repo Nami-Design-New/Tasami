@@ -375,7 +375,7 @@ export default function WorksTasks() {
               >
                 {t("works.myTasks.completeGoalBtn")}
               </CustomButton>
-            ) : workDetails?.rectangle === "personal_goal" ? (
+            ) : workDetails?.rectangle !== "personal_goal" ? (
               <>
                 <CustomButton
                   style={{ whiteSpace: "nowrap" }}
