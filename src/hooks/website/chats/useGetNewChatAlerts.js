@@ -1,4 +1,4 @@
-import { useQuery } from "@tanstack/react-query";
+import { useInfiniteQuery } from "@tanstack/react-query";
 import { axiosInstance } from "../../../lib/axios";
 import { getToken } from "../../../utils/token";
 
@@ -8,11 +8,18 @@ export default function useGetNewChatAlerts() {
     data,
     isLoading,
     isFetching,
+    isFetchingNextPage,
+    hasNextPage,
+    fetchNextPage,
     error,
-  } = useQuery({
+  } = useInfiniteQuery({
     queryKey: ["quick-chat-alerts"],
-    queryFn: async () => {
-      const res = await axiosInstance.get("my-conversations");
+    queryFn: async ({ pageParam = 1 }) => {
+      const res = await axiosInstance.get("my-conversations", {
+        params: {
+          page: pageParam,
+        },
+      });
 
       if (res.data.code !== 200) {
         throw new Error(res.data.message || "Error fetching conversations");
@@ -20,13 +27,21 @@ export default function useGetNewChatAlerts() {
 
       return res.data;
     },
+    getNextPageParam: (lastPage) => {
+      return lastPage?.next_page_url
+        ? new URL(lastPage.next_page_url).searchParams.get("page")
+        : undefined;
+    },
     enabled: !!token,
   });
 
   return {
-    newChatAlerts: data?.data || [],
+    newChatAlerts: data?.pages?.flatMap((page) => page?.data) ?? [],
     isLoading,
     isFetching,
+    isFetchingNextPage,
+    hasNextPage,
+    fetchNextPage,
     error,
   };
 }
