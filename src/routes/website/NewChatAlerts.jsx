@@ -136,11 +136,11 @@ export default function NewChatAlerts() {
                   >
                     <img
                       src={item.image || avatarPlaceholder}
-                      alt={item.name}
+                      alt={item.sender_name}
                       className="new-chat-alerts__avatar"
                     />
                     <div className="new-chat-alerts__content">
-                      <strong>{item.name}</strong>
+                      <strong>{item.sender_name}</strong>
                       {(item.type === "conversation_of_group" ||
                         item.type === "conversation_of_community") && (
                         <div className="group_community--sec">

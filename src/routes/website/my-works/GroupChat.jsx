@@ -351,20 +351,22 @@ export default function GroupChat() {
     <div className="container">
       <div className="community-chat-window">
         <div className="chat-window">
-          <QuickChatBreadcrumb items={quickChatBreadcrumb} />
           {/* ===== Header ===== */}
           <div className="chat-window__info d-flex align-items-center justify-content-between">
-            <div className="d-flex align-items-center gap-2">
-              <RoundedBackButton
-                onClick={() => {
-                  navigate(-1);
-                  queryClient.invalidateQueries({
-                    queryKey: ["group-details"],
-                    refetchType: "active",
-                  });
-                }}
-              />
-              <h4 className="chat-window__name mb-0">{t("chats")}</h4>
+            <div className="d-flex flex-column">
+              <div className="d-flex align-items-center gap-2">
+                <RoundedBackButton
+                  onClick={() => {
+                    navigate(-1);
+                    queryClient.invalidateQueries({
+                      queryKey: ["group-details"],
+                      refetchType: "active",
+                    });
+                  }}
+                />
+                <h4 className="chat-window__name mb-0">{t("chats")}</h4>
+              </div>
+              <QuickChatBreadcrumb items={quickChatBreadcrumb} />
             </div>
             {/* Live socket status indicator */}
             {/* <div className="socket-status d-flex align-items-center gap-2">
