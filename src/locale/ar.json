@@ -88,7 +88,8 @@
   },
 
   "common": {
-    "days": "يوم"
+    "days": "يوم",
+    "error": "خطأ"
   },
   "reply": {
     "replying_to": "الرد على",
@@ -652,7 +653,8 @@
       "success": "تمت عملية الدفع بنجاح",
       "failed": "فشلت عملية الدفع",
       "waiting": "في انتظار تأكيد الدفع..."
-    }
+    },
+    "loginErorr": "فشل تسجيل الدخول"
   },
   "profile": {
     "myInfo": "معلوماتي",
@@ -825,7 +827,19 @@
     "notificationTypeRequired": "نوع الإشعار مطلوب",
     "notificationTitleRequired": "عنوان الإشعار مطلوب",
     "notificationMessageRequired": "محتوى الإشعار مطلوب",
-    "regionRequired": "الرجاء اختيار الإقليم"
+    "regionRequired": "الرجاء اختيار الإقليم",
+    "imageType": "يسمح بملفات الصور فقط",
+    "invalidEmail": "يرجى إدخال بريد إلكتروني صالح",
+    "invalid_date": "يرجى إدخال تاريخ صالح",
+    "invalid_option": "يرجى اختيار خيار صالح",
+    "invalid_time_format": "يرجى إدخال وقت صالح",
+    "max": "يجب ألا يزيد عن {{max}}",
+    "mustBeInteger": "يجب أن يكون عددا صحيحا",
+    "otpLength": "يجب أن يتكون رمز التحقق من 6 أرقام",
+    "otpRequired": "رمز التحقق مطلوب",
+    "passwordsMustMatch": "يجب أن تتطابق كلمتا المرور",
+    "please_enter_reason": "يرجى كتابة السبب",
+    "typeRequired": "النوع مطلوب"
   },
   "pageNotFound": {
     "alt": "لم يتم العثور على الصفحة",
@@ -843,7 +857,11 @@
     "appTitle": "خطأ في التطبيق",
     "appMessage": "حدث خطأ غير متوقع في التطبيق. يرجى المحاولة مرة أخرى لاحقاً.",
     "unexpectedTitle": "خطأ غير متوقع",
-    "unexpectedMessage": "حدث خطأ غير متوقع. يرجى المحاولة مرة أخرى لاحقاً."
+    "unexpectedMessage": "حدث خطأ غير متوقع. يرجى المحاولة مرة أخرى لاحقاً.",
+    "invalidDate": "يرجى إدخال تاريخ صالح",
+    "invalidEmail": "يرجى إدخال بريد إلكتروني صالح",
+    "required": "هذا الحقل مطلوب",
+    "somethingWentWrong": "حدث خطأ. يرجى المحاولة مرة أخرى."
   },
   "community": {
     "channels": "القنوات",
@@ -1079,7 +1097,9 @@
       "waitAccept": "طلب تعاقد",
       "offerSent": " تقديم العرض",
       "requestOffer": "طلب تعاقد"
-    }
+    },
+    "task_added": "تمت إضافة المهمة بنجاح",
+    "task_updated": "تم تحديث المهمة بنجاح"
   },
   "contract": {
     "acceptedSuccessfully": "تم قبول العقد بنجاح",
@@ -1277,7 +1297,14 @@
           "description": "لتتمكن من إرسال عروض الأسعار وقبول طلبات التعاقد",
           "createGroup": "إنشاء مجموعة عمل جديدة",
           "close": "إغلاق"
-        }
+        },
+        "addError": "حدث خطأ أثناء الإضافة",
+        "addSuccess": "تمت الإضافة بنجاح",
+        "deleteError": "حدث خطأ أثناء الحذف",
+        "deleteSuccess": "تم الحذف بنجاح",
+        "specializationHint": "اختر المجال ثم التخصص",
+        "updateError": "حدث خطأ أثناء التحديث",
+        "updateSuccess": "تم التحديث بنجاح"
       },
       "groups": {
         "groupName": "اسم المجموعة",
@@ -1894,7 +1921,10 @@
       "leadersCount": "عدد القادة",
       "managersCount": "عدد المدراء",
       "tasksProgress": "إنجاز المهام",
-      "creationDate": "تاريخ الإنشاء"
+      "creationDate": "تاريخ الإنشاء",
+      "loadMore": "تحميل المزيد",
+      "loading": "جارٍ التحميل...",
+      "noData": "لا توجد مجموعات مشتركة"
     },
     "availableGroups": {
       "title": "المجموعات المتاحة للإضافة",
@@ -1978,7 +2008,8 @@
         "saveDraft": "حفظ كمسودة",
         "edit": "تعديل",
         "complete": "اكمال",
-        "active": "تفعيل"
+        "active": "تفعيل",
+        "attachFilesHint": "يمكنك إرفاق ملفات داعمة عند الحاجة"
       }
     },
     "team": {
@@ -2584,7 +2615,9 @@
       "name": "الاسم",
       "accountNumber": "رقم الحساب",
       "date": "التاريخ",
-      "price": "قيمة العضوية"
+      "price": "قيمة العضوية",
+      "free_forever": "مجانا مدى الحياة",
+      "no_data": "لا توجد بيانات"
     },
     "footer": {
       "rights": "جميع الحقوق محفوظة ل",
@@ -2683,7 +2716,8 @@
       "experienceField": "مجال الخبرة",
       "experienceSpecialization": "تخصص الخبرة",
       "qualification": "المؤهل",
-      "years": "السنوات"
+      "years": "السنوات",
+      "generating": "جارٍ توليد السيرة الذاتية..."
     },
     "documents": {
       "title": "الوثائق",
@@ -2764,7 +2798,8 @@
       "successAdd": "تم إضافة الرابط بنجاح",
       "successEdit": "تم تعديل الرابط بنجاح",
       "errorAdd": "حدث خطأ في الإضافة",
-      "errorEdit": "حدث خطأ في التعديل"
+      "errorEdit": "حدث خطأ في التعديل",
+      "invalidImage": "يرجى اختيار صورة صالحة"
     },
     "taskCategories": {
       "taskCategory": "تصنيف مهمة",
@@ -2823,6 +2858,35 @@
       "allUsers": "جميع المستخدمين",
       "all": "الكل",
       "specific": "مستخدمين محددين"
+    }
+  },
+  "Failed to accept renew request": "فشل قبول طلب التمديد",
+  "Renew request accepted successfully": "تم قبول طلب التمديد بنجاح",
+  "contact_error_generic": "حدث خطأ. يرجى المحاولة مرة أخرى.",
+  "failedToGenerate": "فشل التوليد. يرجى المحاولة مرة أخرى.",
+  "noChangesDetected": "لم يتم اكتشاف أي تغييرات",
+  "noOptionsAvailable": "لا توجد خيارات متاحة",
+  "payMessage": "يرجى إتمام الدفع للمتابعة",
+  "pleaseFillRequiredFields": "يرجى تعبئة جميع الحقول المطلوبة",
+  "selectFilter": "اختر فلتر",
+  "submit": "إرسال",
+  "الاحدث": "الأحدث",
+  "المساعدون السابقون": "المساعدون السابقون",
+  "error": {
+    "general": "حدث خطأ. يرجى المحاولة مرة أخرى."
+  },
+  "payment": {
+    "success": "تمت عملية الدفع بنجاح",
+    "failed": "فشلت عملية الدفع"
+  },
+  "user": {
+    "block": {
+      "blockSuccess": "تم حظر المستخدم بنجاح"
+    }
+  },
+  "workGroup": {
+    "validation": {
+      "groupType": "نوع المجموعة مطلوب"
     }
   }
 }
