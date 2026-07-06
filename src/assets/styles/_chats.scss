@@ -497,6 +497,9 @@
       gap: 1rem;
       padding-bottom: 1rem;
       border-bottom: 1px solid $InputStroke;
+      .quick-chat-breadcrumb {
+        margin-bottom: 0;
+      }
       .chat-window__name {
         font-size: 1.75rem;
         font-weight: bold;

@@ -952,7 +952,7 @@ input::-ms-clear {
 }
 .main-header nav .actions {
   display: flex;
-  gap: 0.25rem;
+  gap: 1rem;
   justify-content: center;
   align-items: center;
 }
@@ -7577,6 +7577,9 @@ input[type=file] {
   gap: 1rem;
   padding-bottom: 1rem;
   border-bottom: 1px solid rgba(13, 13, 13, 0.0941176471);
+}
+.community-chat-window .chat-window .chat-window__info .quick-chat-breadcrumb {
+  margin-bottom: 0;
 }
 .community-chat-window .chat-window .chat-window__info .chat-window__name {
   font-size: 1.75rem;

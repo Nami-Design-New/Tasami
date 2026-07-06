@@ -55,8 +55,7 @@ export default function UserContractChat() {
   const { id } = useParams();
   const queryClient = useQueryClient();
   const { user } = useSelector((state) => state.authRole);
-  const { contractDetails, isLoading: contractDetailsLoading } =
-    useGetContractDetails(id);
+  const { contractDetails } = useGetContractDetails(id);
 
   const [selectedFile, setSelectedFile] = useState(null);
   const [isRecording, setIsRecording] = useState(false);
@@ -64,10 +63,13 @@ export default function UserContractChat() {
   const [recordingTime, setRecordingTime] = useState(0);
   const [audioBlob, setAudioBlob] = useState(null);
   const [micPermission, setMicPermission] = useState(false);
-  const [socketStatus, setSocketStatus] = useState("connecting");
+  const [, setSocketStatus] = useState("connecting");
   const [replyTo, setReplyTo] = useState(null);
   const [scrollTargetId, setScrollTargetId] = useState(null);
   const quickChatBreadcrumb = location.state?.quickChatBreadcrumb || [];
+  const isFromQuickAccess =
+    location.state?.fromQuickAccess ||
+    new URLSearchParams(location.search).get("source") === "quick-access";
 
   const mediaRecorderRef = useRef(null);
   const audioChunksRef = useRef([]);
@@ -264,7 +266,7 @@ export default function UserContractChat() {
       }
     }
     sendMessage(formData, {
-      onSuccess: (res) => {
+      onSuccess: () => {
         setReplyTo(null);
       },
     });
@@ -277,17 +279,23 @@ export default function UserContractChat() {
     <div className="container">
       <div className="community-chat-window page">
         <div className="chat-window">
-          <QuickChatBreadcrumb items={quickChatBreadcrumb} />
           {/* Header */}
           <div className="chat-window__info d-flex align-items-center justify-content-between">
-            <div className="d-flex align-items-center gap-2">
-              <RoundedBackButton onClick={() => navigate(-1)} />
-              <h4 className="chat-window__name mb-0">
-                {user?.id === contractDetails?.helper?.id
-                  ? contractDetails?.user?.name
-                  : contractDetails?.helper?.name}
-              </h4>
-            </div>
+            {isFromQuickAccess ? (
+              <div className="d-flex align-items-center gap-2">
+                <RoundedBackButton onClick={() => navigate(-1)} />
+                <QuickChatBreadcrumb items={quickChatBreadcrumb} />
+              </div>
+            ) : (
+              <div className="d-flex align-items-center gap-2">
+                <RoundedBackButton onClick={() => navigate(-1)} />
+                <h4 className="chat-window__name mb-0">
+                  {user?.id === contractDetails?.helper?.id
+                    ? contractDetails?.user?.name
+                    : contractDetails?.helper?.name}
+                </h4>
+              </div>
+            )}
           </div>
 
           {/* Messages */}

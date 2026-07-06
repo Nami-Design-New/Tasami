@@ -13,6 +13,48 @@ import chatIcon from "../../assets/icons/chat.svg";
 
 const formatCount = (count) => (count > 99 ? "99+" : count);
 
+const getConversationDetailsPath = (conversation) => {
+  let detailsId;
+  if (conversation.type === "conversation_of_community") {
+    detailsId = conversation?.community_id;
+  } else if (
+    conversation.type === "help_service_from_helper" ||
+    conversation.type === "personal_goal_with_helper"
+  ) {
+    detailsId = conversation?.work_id;
+  } else {
+    detailsId = conversation?.group_id;
+  }
+
+  if (conversation.type === "conversation_of_community") {
+    return `/community/${detailsId}`;
+  }
+
+  if (conversation.type === "conversation_of_group") {
+    return `/my-group/${detailsId}`;
+  }
+
+  if (conversation.type === "help_service_from_helper") {
+    return `/my-contracts/${detailsId}`;
+  }
+
+  return `/my-works/${detailsId}`;
+};
+
+const getConversationSectionPath = (conversation) => {
+  const detailsPath = getConversationDetailsPath(conversation);
+
+  if (conversation.type === "help_service_from_helper") {
+    return `${detailsPath}/beneficiaries`;
+  }
+
+  if (conversation.type === "personal_goal_with_helper") {
+    return `${detailsPath}/assistants`;
+  }
+
+  return detailsPath;
+};
+
 const getConversationPath = (conversation) => {
   if (conversation.type === "conversation_of_community") {
     return `/community/${conversation.redirect_id}/chats`;
@@ -22,7 +64,7 @@ const getConversationPath = (conversation) => {
     return `/group/chat/${conversation?.id}`;
   }
 
-  return `/user-chat/${conversation?.id}`;
+  return `/user-chat/${conversation?.redirect_id}`;
 };
 
 const getConversationIcon = (type) => {
@@ -66,12 +108,17 @@ export default function NewChatAlerts() {
 
   const getConversationBreadcrumb = (conversation) => {
     const chatPath = getConversationPath(conversation);
+    const codeLabel =
+      conversation.code || conversation.name || conversation.sender_name;
+    const detailsPath = getConversationDetailsPath(conversation);
+    console.log(chatPath, detailsPath);
 
     if (conversation.type === "conversation_of_community") {
       return [
+        { label: codeLabel, to: detailsPath },
         {
-          label: conversation.name,
-          to: `/community/${conversation.redirect_id}`,
+          label: t("website.assistants.community", "المجتمع"),
+          to: detailsPath,
         },
         { label: t("chats"), to: chatPath },
       ];
@@ -79,22 +126,30 @@ export default function NewChatAlerts() {
 
     if (conversation.type === "conversation_of_group") {
       return [
-        {
-          label: conversation.name,
-          to: `/my-group/${conversation.redirect_id}`,
-        },
+        { label: codeLabel, to: detailsPath },
+        { label: t("works.myGroup", "المجموعة"), to: detailsPath },
         { label: t("chats"), to: chatPath },
       ];
     }
 
-    return [{ label: conversation.name, to: chatPath }];
+    return [
+      { label: codeLabel, to: detailsPath },
+      {
+        label: t("works.assistants", "المساعدون"),
+        to: getConversationSectionPath(conversation),
+      },
+      {
+        label: conversation.name || conversation.sender_name,
+        to: chatPath,
+      },
+    ];
   };
 
   const getReactangleIcon = (type) => {
     if (type === "help_service_from_helper") {
-      return triangleWithHelper;
+      return <img src={helpServiceFromHelper} />;
     } else if (type === "personal_goal_with_helper") {
-      return helpServiceFromHelper;
+      return <img src={triangleWithHelper} />;
     }
     return;
   };
@@ -147,16 +202,16 @@ export default function NewChatAlerts() {
                           <i className={getConversationIcon(item.type)}></i>{" "}
                           <p>
                             <span className="label">
-                              {" "}
                               {getConversationLabel(item.type)}
-                            </span>{" "}
+                            </span>
+                            {"  "}
                             <span className="name">{item.name}</span>
                           </p>
                         </div>
                       )}
                       {(item?.type === "personal_goal_with_helper" ||
                         item?.type === "help_service_from_helper") && (
-                        <div>
+                        <div className="d-flex gap-2">
                           <span> {getReactangleIcon(item.type)} </span>{" "}
                           <span> {item?.description}</span>
                         </div>
