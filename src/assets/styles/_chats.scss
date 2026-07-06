@@ -1156,8 +1156,8 @@
     }
   }
 
-  &__badge,
   &__icon {
+    position: relative;
     width: 32px;
     height: 32px;
     border-radius: 50%;
@@ -1165,13 +1165,25 @@
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
+    margin-inline-end: 12px;
   }
 
   &__badge {
-    background: $fire;
+    position: absolute;
+    inset-block-end: 4px;
+    inset-inline-start: 12px;
+    font-size: 8px;
+    font-weight: 400;
+    width: 22px;
+    height: 22px;
+    position: absolute;
     color: $white;
-    font-size: 0.8rem;
-    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background-color: #ff7a59 !important;
+    transform: translate(-50%, -50%);
   }
 
   &__icon {

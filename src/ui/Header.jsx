@@ -4,6 +4,8 @@ import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
 import { Link, NavLink, useNavigate } from "react-router";
 import logo from "../assets/images/logo.svg";
+import chatIcon from "../assets/icons/work-chat.svg";
+
 import useGetNewChatAlerts from "../hooks/website/chats/useGetNewChatAlerts";
 import useSettings from "../hooks/website/settings/useSettings";
 import useGetCountersNotify from "../hooks/website/useGetCountersNotify";
@@ -152,16 +154,17 @@ export default function Header() {
           {isAuthed && (
             <Link
               to="/new-chats"
-              className="notification-btn quick-chat-alert-btn"
+              className="notification-btn"
               aria-label={t("quickChats.title", "المحادثات الجديدة")}
             >
-              <i className="fa-regular fa-comments">
+              <span className="notification-img-icon">
+                <img src={chatIcon} alt="" />
                 {newChatAlertsCount > 0 && (
                   <Badge>
                     {newChatAlertsCount > 99 ? "99+" : newChatAlertsCount}
                   </Badge>
                 )}
-              </i>
+              </span>
             </Link>
           )}
           <LangDropdown />

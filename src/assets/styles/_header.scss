@@ -167,7 +167,7 @@
 
     .actions {
       display: flex;
-      gap: 0.25rem;
+      gap: 1rem;
       justify-content: center;
       align-items: center;
 
@@ -184,28 +184,38 @@
         height: 24px;
         width: 24px;
         margin-inline-end: 12px;
+        position: relative;
+        flex-shrink: 0;
+        text-decoration: none;
         // padding: 16px;
         @include centerFlex();
+
+        img {
+          width: 24px;
+          height: 24px;
+          display: block;
+          object-fit: contain;
+        }
+
+        .badge {
+          font-size: 8px;
+          font-weight: 400;
+          width: 22px;
+          height: 22px;
+          position: absolute;
+          left: -4px;
+          top: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          border-radius: 50%;
+          background-color: $fire !important;
+          transform: translate(-50%, -50%);
+        }
 
         i {
           color: $main;
           font-size: 24px;
-          position: relative;
-          .badge {
-            font-size: 8px;
-            font-weight: 400;
-            width: 22px;
-            height: 22px;
-            position: absolute;
-            left: -4px;
-            top: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 50%;
-            background-color: $fire !important;
-            transform: translate(-50%, -50%);
-          }
         }
         // @media (max-width: 992px) {
         //   display: none;
@@ -220,10 +230,8 @@
 
       &.en {
         .notification-btn {
-          i {
-            .badge {
-              left: calc(100% + 4px) !important;
-            }
+          .badge {
+            left: calc(100% + 4px) !important;
           }
         }
       }

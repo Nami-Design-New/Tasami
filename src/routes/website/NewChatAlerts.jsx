@@ -8,19 +8,20 @@ import Loading from "../../ui/loading/Loading";
 import RoundedBackButton from "../../ui/website-auth/shared/RoundedBackButton";
 import triangleWithHelper from "../../assets/icons/triangle-with-helper.svg";
 import helpServiceFromHelper from "../../assets/icons/help_service_from_helper.svg";
+import chatIcon from "../../assets/icons/chat.svg";
 
 const formatCount = (count) => (count > 99 ? "99+" : count);
 
 const getConversationPath = (conversation) => {
   if (conversation.type === "conversation_of_community") {
-    return `/community/${conversation.id}/chats`;
+    return `/community/${conversation.redirect_id}/chats`;
   }
 
   if (conversation.type === "conversation_of_group") {
-    return `/group/chat/${conversation.id}`;
+    return `/group/chat/${conversation?.id}`;
   }
 
-  return `/user-chat/${conversation.id}`;
+  return `/user-chat/${conversation?.id}`;
 };
 
 const getConversationIcon = (type) => {
@@ -149,12 +150,12 @@ export default function NewChatAlerts() {
                       </div>
                     )}
                   </div>
-                  <span className="new-chat-alerts__icon">
-                    <i className="fa-regular fa-chat"></i>
-                  </span>
-                  <span className="new-chat-alerts__badge">
-                    {formatCount(item?.unread_count)}
-                  </span>
+                  <div className="new-chat-alerts__icon">
+                    <img src={chatIcon} />
+                    <span className="new-chat-alerts__badge">
+                      {formatCount(item?.unread_count)}
+                    </span>
+                  </div>
                 </Link>
               </li>
             ))}
