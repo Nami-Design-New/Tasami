@@ -15,7 +15,7 @@ const EmployeeData = () => {
               <h6>
                 {t("dashboard.employeeProfile.employeeData.description")}:
               </h6>
-              <p>{user?.role?.title}</p>
+              <p>{user?.job_title}</p>
             </div>
           </div>
           <div className="col-12 col-md-6 col-xxl-4 p-2">

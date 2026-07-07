@@ -1530,7 +1530,7 @@
         "jobData": "البيانات الوظيفية",
         "personalData": "البيانات الشخصية",
         "permissions": "الصلاحيات",
-        "sharedGroups": "المجموعات المشتركه"
+        "sharedGroups": "المجموعات المشتركة"
       },
       "quickActions": {
         "title": "إجراءات سريعة",
@@ -1545,7 +1545,7 @@
       },
       "employeeData": {
         "title": "البيانات الوظيفية",
-        "description": "الوصف",
+        "description": "المسمى الوظيفي",
         "account": "الحساب",
         "idNumber": "رقم التعريف",
         "groupNumber": "رقم المجموعة",
@@ -1566,6 +1566,7 @@
         "gender": "الجنس",
         "nationality": "الجنسية",
         "residenceCountry": "بلد الإقامة",
+        "residenceCity": "مدينة الإقامة",
         "city": "المدينة",
         "idNumber": "رقم الهوية أو الجواز",
         "personalEmail": "البريد الإلكتروني الشخصي",

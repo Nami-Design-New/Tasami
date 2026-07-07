@@ -1577,7 +1577,7 @@
       },
       "employeeData": {
         "title": "Employee Data",
-        "description": "Description",
+        "description": "Job Title",
         "account": "Account",
         "idNumber": "ID Number",
         "groupNumber": "Group Number",
@@ -1598,6 +1598,7 @@
         "gender": "Gender",
         "nationality": "Nationality",
         "residenceCountry": "Residence Country",
+        "residenceCity": "Residence City",
         "city": "City",
         "idNumber": "ID / Passport Number",
         "personalEmail": "Personal Email",
