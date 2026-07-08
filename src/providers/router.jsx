@@ -43,6 +43,7 @@ import CommunityPostDetails from "../routes/dash-board/CommunityPostDetails";
 import CreateEmployee from "../routes/dash-board/CreateEmployer";
 import Documents from "../routes/dash-board/Documents";
 import EmployeeProfile from "../routes/dash-board/EmployeeProfile";
+import EmployeeSummary from "../routes/dash-board/EmployeeSummary";
 import Experiences from "../routes/dash-board/Experiences";
 import AdministrativeSystems from "../routes/dash-board/list-management/AdministrativeSystems";
 import FieldsAndSpecializations from "../routes/dash-board/list-management/FieldsAndSpecializations";
@@ -690,6 +691,10 @@ export const router = createBrowserRouter(
         {
           path: "create-employee",
           element: <CreateEmployee />,
+        },
+        {
+          path: "employee-summary/:id",
+          element: <EmployeeSummary />,
         },
         {
           path: "employee-details/:id",

@@ -506,6 +506,7 @@
     "Fields And Specializations": "المجالات و التخصصات",
     "Profile": "البيانات الوظيفية",
     "Employee Details": "تفاصيل الموظف",
+    "Employee Summary": "ملخص الموظف",
     "User Details": "بيانات المستخدم",
     "Requests": "الطلبات",
     "Reports": "التقارير",
@@ -1592,6 +1593,12 @@
         "cancel": "إلغاء",
         "send": "إرسال"
       }
+    },
+    "employeeSummary": {
+      "title": "ملخص الموظف",
+      "contact": "تواصل مع الموظف",
+      "fullDetails": "تفاصيل حساب الموظف",
+      "unavailable": "ملخص الموظف غير متاح"
     },
     "subscribersTeams": {
       "employeeDetails": "تفاصيل الموظف",

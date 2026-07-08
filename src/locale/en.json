@@ -509,6 +509,7 @@
     "Fields And Specializations": "Fields And Specializations",
     "Profile": "Employment data",
     "Employee Details": "Employee Details",
+    "Employee Summary": "Employee Summary",
     "User Details": "User Details",
     "Requests": "Requests",
     "Reports": "Reports",
@@ -1612,6 +1613,12 @@
         "mapTitle": "Address on Map",
         "updateDataTitle": "Request Data Update"
       }
+    },
+    "employeeSummary": {
+      "title": "Employee Summary",
+      "contact": "Contact Employee",
+      "fullDetails": "Employee Account Details",
+      "unavailable": "Employee summary is not available"
     },
     "subscribersTeams": {
       "employeeDetails": "Employee Details",

@@ -160,7 +160,7 @@ const TasksTable = ({
                   to={
                     isAppUser
                       ? `/dashboard/user-details/${userId}`
-                      : `/dashboard/employee-details/${userId}`
+                      : `/dashboard/employee-summary/${userId}`
                   }
                 >
                   {info.getValue()}
