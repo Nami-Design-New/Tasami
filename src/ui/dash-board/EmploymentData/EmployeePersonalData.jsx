@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import AddNewTask from "../../../routes/dash-board/tasks/AddNewTaskModal";
+import { TASK_SYSTEM_CODES } from "../../../routes/dash-board/tasks/taskSystemCodes";
 import CustomButton from "../../CustomButton";
 import FormWrapper from "../../forms/FormWrapper";
 import MapModal from "../../modals/MapModal";
@@ -238,6 +239,7 @@ const EmployeePersonalData = () => {
           title={t(
             "dashboard.employeeProfile.employeePersonalData.updateDataTitle",
           )}
+          fixedTaskSystemCode={TASK_SYSTEM_CODES.UPDATE_DATA}
         />
       </FormWrapper>
     </>

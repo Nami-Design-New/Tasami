@@ -13,6 +13,7 @@ import PerformanceIndicators from "../../ui/dash-board/create-employee/Performan
 import PermissionBoard from "../../ui/dash-board/create-employee/PermissionBoard";
 import SuspensionModel from "../../ui/modals/SuspensionModel";
 import AddNewTask from "./tasks/AddNewTaskModal";
+import { TASK_SYSTEM_CODES } from "./tasks/taskSystemCodes";
 import { setChat } from "../../redux/slices/chatSlice";
 
 const CreateEmployee = () => {
@@ -207,6 +208,7 @@ const CreateEmployee = () => {
         showModal={showTaskModal}
         setShowModal={setShowTaskModal}
         title={t("dashboard.createEmployee.requestSuspendAccountModalTitle")}
+        fixedTaskSystemCode={TASK_SYSTEM_CODES.STOP_ACCOUNT}
       />
 
       <SuspensionModel

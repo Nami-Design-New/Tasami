@@ -6,6 +6,7 @@ import AssistantPresenter from "../../ui/dash-board/userprofile/AssistantPresent
 import Beneficiary from "../../ui/dash-board/userprofile/Beneficiary";
 import SuspensionModel from "../../ui/modals/SuspensionModel";
 import AddNewTask from "./tasks/AddNewTaskModal";
+import { TASK_SYSTEM_CODES } from "./tasks/taskSystemCodes";
 import { useParams, useSearchParams } from "react-router";
 import useGetUserDetails from "../../hooks/dashboard/subscription/useGetUserDetails";
 import Loading from "../../ui/loading/Loading";
@@ -137,6 +138,7 @@ const UserProfile = () => {
             showModal={showTaskModal}
             setShowModal={setShowTaskModal}
             title={t("dashboard.userProfile.actions.requestStopAccount")}
+            fixedTaskSystemCode={TASK_SYSTEM_CODES.STOP_ACCOUNT}
           />
         </div>
       )}

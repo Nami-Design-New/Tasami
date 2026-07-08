@@ -101,11 +101,11 @@ const getSchema = (t) =>
       ),
   });
 
-export default function useAddTaskForm() {
+export default function useAddTaskForm(defaultValues = ADD_NEW_TASK_MODAL) {
   const { t } = useTranslation();
   return useForm({
     resolver: yupResolver(getSchema(t)),
-    defaultValues: ADD_NEW_TASK_MODAL,
+    defaultValues,
     mode: "onBlur",
   });
 }
