@@ -12,6 +12,8 @@ import CustomLink from "../../ui/CustomLink";
 import EmptySection from "../../ui/EmptySection";
 import Loading from "../../ui/loading/Loading";
 import PageHeader from "../../ui/PageHeader";
+import useAdminPermissions from "../../hooks/auth/dashboard/useAdminPermissions";
+import { DASHBOARD_PERMISSIONS } from "../../utils/dashboardPermissions";
 
 const getValue = (...values) => values.find((value) => value) || "-";
 
@@ -50,6 +52,8 @@ const EmployeeSummary = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const { hasPermission } = useAdminPermissions();
+  const canEditEmployee = hasPermission(DASHBOARD_PERMISSIONS.EMPLOYEES_EDIT);
   const { createChatRoom, isPending } = useCreateChatRoom();
   const { employeeSummary, isError, isLoading } = useGetEmployeeSummary();
 
@@ -179,7 +183,7 @@ const EmployeeSummary = () => {
                 {t("dashboard.employeeSummary.contact")}
               </CustomButton>
 
-              {canOpenFullDetails ? (
+              {canOpenFullDetails && canEditEmployee ? (
                 <CustomLink
                   color="secondary"
                   fullWidth

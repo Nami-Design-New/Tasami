@@ -14,6 +14,8 @@ import { getSystemTypes } from "../../../ui/dash-board/notifications/Notificatio
 import { columnHelper } from "../../../ui/datatable/adapters/tanstackAdapter";
 import { usePersistedTableState } from "../../../ui/datatable/hooks/usePersistedTableState";
 import DataTable from "../../../ui/datatable/ui/DataTable";
+import useAdminPermissions from "../../../hooks/auth/dashboard/useAdminPermissions";
+import { DASHBOARD_PERMISSIONS } from "../../../utils/dashboardPermissions";
 
 export const getTasksStatus = (t) => [
   { id: 1, value: "not_assigned", label: t("tasksStatus.not_assigned") },
@@ -38,6 +40,8 @@ const TasksTable = ({
   setFilters,
 }) => {
   const { t } = useTranslation();
+  const { hasPermission } = useAdminPermissions();
+  const canReassignTasks = hasPermission(DASHBOARD_PERMISSIONS.TASKS_REASSIGN);
 
   const [showReassignModal, setShowReassignModal] = useState(false);
   const [selectedRow, setSelectedRow] = useState();
@@ -262,23 +266,27 @@ const TasksTable = ({
           info.getValue() ?? t("dashboard.tasks.statusLabels.noRate"),
         enableSorting: true,
       }),
-      columnHelper.accessor("assign", {
-        header: t("dashboard.tasks.table.assign"),
-        cell: (info) =>
-          info.getValue() ? null : (
-            <button
-              onClick={() => {
-                setSelectedRow(info?.row?.original?.id);
-                setShowReassignModal(true);
-              }}
-            >
-              <i className="fa-solid fa-repeat"></i>
-            </button>
-          ),
-        enableSorting: true,
-      }),
+      ...(canReassignTasks
+        ? [
+            columnHelper.accessor("assign", {
+              header: t("dashboard.tasks.table.assign"),
+              cell: (info) =>
+                info.getValue() ? null : (
+                  <button
+                    onClick={() => {
+                      setSelectedRow(info?.row?.original?.id);
+                      setShowReassignModal(true);
+                    }}
+                  >
+                    <i className="fa-solid fa-repeat"></i>
+                  </button>
+                ),
+              enableSorting: true,
+            }),
+          ]
+        : []),
     ],
-    [t],
+    [canReassignTasks, t],
   );
 
   const tasksFilterConfig = {
@@ -389,11 +397,13 @@ const TasksTable = ({
           debounceMs: 500,
         }}
       />
-      <ReassignTaskModal
-        showModal={showReassignModal}
-        setShowModal={setShowReassignModal}
-        selectedRow={selectedRow}
-      />
+      {canReassignTasks && (
+        <ReassignTaskModal
+          showModal={showReassignModal}
+          setShowModal={setShowReassignModal}
+          selectedRow={selectedRow}
+        />
+      )}
     </>
   );
 };

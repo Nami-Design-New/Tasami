@@ -12,9 +12,14 @@ import useGetUserDetails from "../../hooks/dashboard/subscription/useGetUserDeta
 import Loading from "../../ui/loading/Loading";
 import { useTranslation } from "react-i18next";
 import profilePlaceholder from "../../assets/images/dashboard/avatar-placeholder.jpg";
+import useAdminPermissions from "../../hooks/auth/dashboard/useAdminPermissions";
+import { DASHBOARD_PERMISSIONS } from "../../utils/dashboardPermissions";
 
 const UserProfile = () => {
   const { t } = useTranslation();
+  const { hasPermission } = useAdminPermissions();
+  const canCreateTask = hasPermission(DASHBOARD_PERMISSIONS.TASKS_CREATE);
+  const canStopUser = hasPermission(DASHBOARD_PERMISSIONS.STOP_USERS);
   const [openSuspensionModel, setOpenSuspensionModel] = useState(false);
   const [showTaskModal, setShowTaskModal] = useState(false);
   const [searchParams, setSearchParams] = useSearchParams();
@@ -98,26 +103,30 @@ const UserProfile = () => {
                 {/* <Link className="user-dashboard__resume "> السيره الذاتية </Link> */}
               </div>
               <div className="d-flex flex-column gap-2 mt-3">
-                <CustomButton
-                  size="large"
-                  color="secondary"
-                  fullWidth
-                  onClick={() => setShowTaskModal(true)}
-                >
-                  {t("dashboard.userProfile.actions.requestStopAccount")}
-                </CustomButton>
-                <CustomButton
-                  size="large"
-                  color={
-                    userDetails?.status === "stopped" ? "primary" : "secondary"
-                  }
-                  fullWidth
-                  onClick={() => setOpenSuspensionModel(true)}
-                >
-                  {userDetails?.status === "stopped"
-                    ? t("dashboard.userProfile.actions.activateAccount")
-                    : t("dashboard.userProfile.actions.stopAccount")}
-                </CustomButton>{" "}
+                {canCreateTask && (
+                  <CustomButton
+                    size="large"
+                    color="secondary"
+                    fullWidth
+                    onClick={() => setShowTaskModal(true)}
+                  >
+                    {t("dashboard.userProfile.actions.requestStopAccount")}
+                  </CustomButton>
+                )}
+                {canStopUser && (
+                  <CustomButton
+                    size="large"
+                    color={
+                      userDetails?.status === "stopped" ? "primary" : "secondary"
+                    }
+                    fullWidth
+                    onClick={() => setOpenSuspensionModel(true)}
+                  >
+                    {userDetails?.status === "stopped"
+                      ? t("dashboard.userProfile.actions.activateAccount")
+                      : t("dashboard.userProfile.actions.stopAccount")}
+                  </CustomButton>
+                )}
               </div>
             </div>
             <div className="col-12 col-lg-9 p-1 ">
@@ -128,18 +137,22 @@ const UserProfile = () => {
               )}
             </div>
           </div>
-          <SuspensionModel
-            showModal={openSuspensionModel}
-            setShowModal={setOpenSuspensionModel}
-            isUser={true}
-            id={userDetails?.id}
-          />{" "}
-          <AddNewTask
-            showModal={showTaskModal}
-            setShowModal={setShowTaskModal}
-            title={t("dashboard.userProfile.actions.requestStopAccount")}
-            fixedTaskSystemCode={TASK_SYSTEM_CODES.STOP_ACCOUNT}
-          />
+          {canStopUser && (
+            <SuspensionModel
+              showModal={openSuspensionModel}
+              setShowModal={setOpenSuspensionModel}
+              isUser={true}
+              id={userDetails?.id}
+            />
+          )}
+          {canCreateTask && (
+            <AddNewTask
+              showModal={showTaskModal}
+              setShowModal={setShowTaskModal}
+              title={t("dashboard.userProfile.actions.requestStopAccount")}
+              fixedTaskSystemCode={TASK_SYSTEM_CODES.STOP_ACCOUNT}
+            />
+          )}
         </div>
       )}
     </>

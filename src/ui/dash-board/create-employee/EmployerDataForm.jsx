@@ -27,6 +27,8 @@ import ProfileImageUploader from "../../ProfileImageUploader";
 import dayjs from "dayjs";
 import Loading from "../../loading/Loading";
 import avatarPlaceholder from "../../../assets/images/dashboard/avatar-placeholder.jpg";
+import useAdminPermissions from "../../../hooks/auth/dashboard/useAdminPermissions";
+import { DASHBOARD_PERMISSIONS } from "../../../utils/dashboardPermissions";
 
 const ALL_LOCATION_VALUE = "";
 
@@ -111,6 +113,14 @@ const EmployerDataForm = ({ isEdit }) => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const queryClient = useQueryClient();
+  const { hasPermission } = useAdminPermissions();
+  const canEditEmployee = hasPermission(DASHBOARD_PERMISSIONS.EMPLOYEES_EDIT);
+  const canCreateActiveEmployee = hasPermission(
+    DASHBOARD_PERMISSIONS.EMPLOYEES_CREATE,
+  );
+  const canCreateDraftEmployee = hasPermission(
+    DASHBOARD_PERMISSIONS.EMPLOYEES_CREATE_DRAFT,
+  );
 
   // Updated files state - now handles mixed formats
   const [files, setFiles] = useState([]);
@@ -338,6 +348,10 @@ const EmployerDataForm = ({ isEdit }) => {
   // UPDATED: Handle form submission
   // ============================================
   const onSubmit = (formData, shouldActivate = false) => {
+    if (isEdit && !canEditEmployee) return;
+    if (!isEdit && shouldActivate && !canCreateActiveEmployee) return;
+    if (!isEdit && !shouldActivate && !canCreateDraftEmployee) return;
+
     const payload = new FormData();
 
     if (isEdit) {
@@ -764,14 +778,16 @@ const EmployerDataForm = ({ isEdit }) => {
           <div className="col-12 p-2">
             <div className="buttons w-full justify-content-end">
               {isEdit ? (
-                <CustomButton
-                  loading={isPending}
-                  type="submit"
-                  color={allFieldsFilled ? "success" : "primary"}
-                  size="large"
-                >
-                  {t("dashboard.createEmployee.form.edit")}
-                </CustomButton>
+                canEditEmployee && (
+                  <CustomButton
+                    loading={isPending}
+                    type="submit"
+                    color={allFieldsFilled ? "success" : "primary"}
+                    size="large"
+                  >
+                    {t("dashboard.createEmployee.form.edit")}
+                  </CustomButton>
+                )
               ) : (
                 <>
                   <CustomButton
@@ -786,28 +802,32 @@ const EmployerDataForm = ({ isEdit }) => {
                   >
                     {t("dashboard.createEmployee.form.cancel")}
                   </CustomButton>
-                  <CustomButton
-                    type="button"
-                    color={allFieldsFilled ? "success" : "gray"}
-                    disabled={!allFieldsFilled || isCreatingEmployee}
-                    className={allFieldsFilled ? "" : "custom-btn--disabled"}
-                    size="large"
-                    loading={createAction === "active" && isCreatingEmployee}
-                    onClick={handleSubmit((formData) =>
-                      onSubmit(formData, true),
-                    )}
-                  >
-                    {t("dashboard.createEmployee.form.active")}
-                  </CustomButton>
+                  {canCreateActiveEmployee && (
+                    <CustomButton
+                      type="button"
+                      color={allFieldsFilled ? "success" : "gray"}
+                      disabled={!allFieldsFilled || isCreatingEmployee}
+                      className={allFieldsFilled ? "" : "custom-btn--disabled"}
+                      size="large"
+                      loading={createAction === "active" && isCreatingEmployee}
+                      onClick={handleSubmit((formData) =>
+                        onSubmit(formData, true),
+                      )}
+                    >
+                      {t("dashboard.createEmployee.form.active")}
+                    </CustomButton>
+                  )}
 
-                  <CustomButton
-                    type="submit"
-                    color="primary"
-                    size="large"
-                    loading={createAction === "draft" && isCreatingEmployee}
-                  >
-                    {t("dashboard.createEmployee.form.saveDraft")}
-                  </CustomButton>
+                  {canCreateDraftEmployee && (
+                    <CustomButton
+                      type="submit"
+                      color="primary"
+                      size="large"
+                      loading={createAction === "draft" && isCreatingEmployee}
+                    >
+                      {t("dashboard.createEmployee.form.saveDraft")}
+                    </CustomButton>
+                  )}
                 </>
               )}
             </div>

@@ -6,10 +6,14 @@ import CustomButton from "../../CustomButton";
 import FormWrapper from "../../forms/FormWrapper";
 import MapModal from "../../modals/MapModal";
 import { useSelector } from "react-redux";
+import useAdminPermissions from "../../../hooks/auth/dashboard/useAdminPermissions";
+import { DASHBOARD_PERMISSIONS } from "../../../utils/dashboardPermissions";
 
 const EmployeePersonalData = () => {
   const { t } = useTranslation();
   const { user } = useSelector((state) => state.adminAuth);
+  const { hasPermission } = useAdminPermissions();
+  const canCreateTask = hasPermission(DASHBOARD_PERMISSIONS.TASKS_CREATE);
 
   const [attachments] = useState([
     {
@@ -203,17 +207,19 @@ const EmployeePersonalData = () => {
               </div>
             )}
             {/* Update Data Button */}
-            <div className="col-12 p-2">
-              <CustomButton
-                type="button"
-                size="large"
-                onClick={() => setShowUpdateDataModal(true)}
-              >
-                {t(
-                  "dashboard.employeeProfile.employeePersonalData.updateDataRequest",
-                )}
-              </CustomButton>
-            </div>
+            {canCreateTask && (
+              <div className="col-12 p-2">
+                <CustomButton
+                  type="button"
+                  size="large"
+                  onClick={() => setShowUpdateDataModal(true)}
+                >
+                  {t(
+                    "dashboard.employeeProfile.employeePersonalData.updateDataRequest",
+                  )}
+                </CustomButton>
+              </div>
+            )}
           </div>
         </div>
 
@@ -233,14 +239,16 @@ const EmployeePersonalData = () => {
           showModal={showUpdateDataModal}
         /> */}
 
-        <AddNewTask
-          setShowModal={setShowUpdateDataModal}
-          showModal={showUpdateDataModal}
-          title={t(
-            "dashboard.employeeProfile.employeePersonalData.updateDataTitle",
-          )}
-          fixedTaskSystemCode={TASK_SYSTEM_CODES.UPDATE_DATA}
-        />
+        {canCreateTask && (
+          <AddNewTask
+            setShowModal={setShowUpdateDataModal}
+            showModal={showUpdateDataModal}
+            title={t(
+              "dashboard.employeeProfile.employeePersonalData.updateDataTitle",
+            )}
+            fixedTaskSystemCode={TASK_SYSTEM_CODES.UPDATE_DATA}
+          />
+        )}
       </FormWrapper>
     </>
   );

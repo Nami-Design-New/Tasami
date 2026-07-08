@@ -137,6 +137,13 @@ import UserContractChat from "../routes/website/userContractChat";
 import ErrorFallback from "../ui/ErrorFallback";
 import ProtectedAdminRoutes from "./ProtectedAdminRoutes";
 import ProtectedRoute from "./ProtectedRoute";
+import RequireAdminPermission from "./RequireAdminPermission";
+import {
+  DASHBOARD_PERMISSIONS,
+  EMPLOYEE_CREATE_PERMISSIONS,
+  LIST_MANAGEMENT_PERMISSIONS,
+  SUBSCRIBERS_AND_TEAM_PERMISSIONS,
+} from "../utils/dashboardPermissions";
 import SharedGroups from "../routes/dash-board/teams/SharedGroups";
 import CompleteDraftedUsers from "../routes/dash-board/list-management/CompleteDraftedUsers";
 import ConsultaionDashDetails from "../routes/dash-board/community-dashboard/ConsultaionDashDetails";
@@ -166,6 +173,10 @@ const getBasename = () => {
   const currentUrl = window.location.href;
   return currentUrl.includes("designforge") ? "/Tasami" : "";
 };
+
+const withAdminPermission = (element, permission) => (
+  <RequireAdminPermission permission={permission}>{element}</RequireAdminPermission>
+);
 
 export const router = createBrowserRouter(
   [
@@ -578,7 +589,10 @@ export const router = createBrowserRouter(
       children: [
         {
           index: true,
-          element: <DashboardHome />,
+          element: withAdminPermission(
+            <DashboardHome />,
+            DASHBOARD_PERMISSIONS.HOME,
+          ),
         },
         {
           path: "notifications",
@@ -586,7 +600,10 @@ export const router = createBrowserRouter(
         },
         {
           path: "tasks",
-          element: <Tasks />,
+          element: withAdminPermission(
+            <Tasks />,
+            DASHBOARD_PERMISSIONS.TASKS,
+          ),
         },
         {
           path: "profile",
@@ -594,25 +611,46 @@ export const router = createBrowserRouter(
         },
         {
           path: "model/:id",
-          element: <ModelComponent />,
+          element: withAdminPermission(
+            <ModelComponent />,
+            DASHBOARD_PERMISSIONS.TASKS,
+          ),
         },
-        { path: "withdraw-requests", element: <WithdrawRequests /> },
+        {
+          path: "withdraw-requests",
+          element: withAdminPermission(
+            <WithdrawRequests />,
+            DASHBOARD_PERMISSIONS.WITHDRAW_REQUESTS,
+          ),
+        },
 
         {
           path: "working-group/:id",
-          element: <WokingGroupDetails />,
+          element: withAdminPermission(
+            <WokingGroupDetails />,
+            DASHBOARD_PERMISSIONS.WORKING_GROUPS,
+          ),
         },
         {
           path: "user-details/:id",
-          element: <UserProfile />,
+          element: withAdminPermission(
+            <UserProfile />,
+            DASHBOARD_PERMISSIONS.USERS_DETAILS,
+          ),
         },
         {
           path: "consultaion-dash-details/:id",
-          element: <ConsultaionDashDetails />,
+          element: withAdminPermission(
+            <ConsultaionDashDetails />,
+            DASHBOARD_PERMISSIONS.COMMUNITIES,
+          ),
         },
         {
           path: "post-dash-details/:id",
-          element: <PostDashDetails />,
+          element: withAdminPermission(
+            <PostDashDetails />,
+            DASHBOARD_PERMISSIONS.COMMUNITIES,
+          ),
         },
         {
           path: "chats",
@@ -621,7 +659,10 @@ export const router = createBrowserRouter(
 
         {
           path: "communities-details/:id",
-          element: <CommunitiesDetails />,
+          element: withAdminPermission(
+            <CommunitiesDetails />,
+            DASHBOARD_PERMISSIONS.COMMUNITIES,
+          ),
           children: [
             {
               index: true,
@@ -639,114 +680,213 @@ export const router = createBrowserRouter(
         },
 
         {
-          element: <SubscribersAndTeams />,
+          element: withAdminPermission(
+            <SubscribersAndTeams />,
+            SUBSCRIBERS_AND_TEAM_PERMISSIONS,
+          ),
           children: [
             {
               path: "user-accounts",
-              element: <UserAccounts />,
+              element: withAdminPermission(
+                <UserAccounts />,
+                DASHBOARD_PERMISSIONS.USERS,
+              ),
             },
             {
               path: "programs",
-              element: <Programs />,
+              element: withAdminPermission(
+                <Programs />,
+                DASHBOARD_PERMISSIONS.PROGRAMS,
+              ),
             },
             {
               path: "services",
-              element: <Services />,
+              element: withAdminPermission(
+                <Services />,
+                DASHBOARD_PERMISSIONS.HELP_REQUESTS,
+              ),
             },
             {
               path: "personal-goals",
-              element: <PersonalGoals />,
+              element: withAdminPermission(
+                <PersonalGoals />,
+                DASHBOARD_PERMISSIONS.GOALS,
+              ),
             },
             {
               path: "communities",
-              element: <Communities />,
+              element: withAdminPermission(
+                <Communities />,
+                DASHBOARD_PERMISSIONS.COMMUNITIES,
+              ),
             },
             {
               path: "resuems",
               children: [
-                { index: true, element: <Resuems /> },
-                { path: "experiences", element: <Experiences /> },
-                { path: "documents", element: <Documents /> },
+                {
+                  index: true,
+                  element: withAdminPermission(
+                    <Resuems />,
+                    DASHBOARD_PERMISSIONS.RESUMES,
+                  ),
+                },
+                {
+                  path: "experiences",
+                  element: withAdminPermission(
+                    <Experiences />,
+                    DASHBOARD_PERMISSIONS.RESUMES,
+                  ),
+                },
+                {
+                  path: "documents",
+                  element: withAdminPermission(
+                    <Documents />,
+                    DASHBOARD_PERMISSIONS.RESUMES,
+                  ),
+                },
               ],
             },
             {
               path: "teams",
-              element: <Teams />,
+              element: withAdminPermission(
+                <Teams />,
+                DASHBOARD_PERMISSIONS.EMPLOYEES,
+              ),
             },
           ],
         },
         {
           path: "personal-goal/:id",
-          element: <PersonalGoalDetails />,
+          element: withAdminPermission(
+            <PersonalGoalDetails />,
+            DASHBOARD_PERMISSIONS.GOALS,
+          ),
         },
         {
           path: "services/:id",
-          element: <MyServicesDetails />,
+          element: withAdminPermission(
+            <MyServicesDetails />,
+            DASHBOARD_PERMISSIONS.HELP_REQUESTS,
+          ),
         },
         {
           path: "programs/:id",
-          element: <ProgramsDetails />,
+          element: withAdminPermission(
+            <ProgramsDetails />,
+            DASHBOARD_PERMISSIONS.PROGRAMS,
+          ),
         },
 
         {
           path: "create-employee",
-          element: <CreateEmployee />,
+          element: withAdminPermission(
+            <CreateEmployee />,
+            EMPLOYEE_CREATE_PERMISSIONS,
+          ),
         },
         {
           path: "employee-summary/:id",
-          element: <EmployeeSummary />,
+          element: withAdminPermission(
+            <EmployeeSummary />,
+            DASHBOARD_PERMISSIONS.EMPLOYEES_DETAILS,
+          ),
         },
         {
           path: "employee-details/:id",
-          element: <CreateEmployee />,
+          element: withAdminPermission(
+            <CreateEmployee />,
+            DASHBOARD_PERMISSIONS.EMPLOYEES_EDIT,
+          ),
         },
         {
           path: "complete-employee-data/:id",
-          element: <CompleteDraftedUsers />,
+          element: withAdminPermission(
+            <CompleteDraftedUsers />,
+            EMPLOYEE_CREATE_PERMISSIONS,
+          ),
         },
         {
           path: "shared-groups/:id",
-          element: <SharedGroups />,
+          element: withAdminPermission(
+            <SharedGroups />,
+            DASHBOARD_PERMISSIONS.EMPLOYEES_DETAILS,
+          ),
         },
-        { path: "resuems/:id", element: <ResuemeDetails /> },
+        {
+          path: "resuems/:id",
+          element: withAdminPermission(
+            <ResuemeDetails />,
+            DASHBOARD_PERMISSIONS.RESUMES,
+          ),
+        },
         {
           path: "contracts/:userId/:id",
-          element: <DashboardContractDetails />,
+          element: withAdminPermission(
+            <DashboardContractDetails />,
+            DASHBOARD_PERMISSIONS.USERS_DETAILS,
+          ),
         },
         {
           path: "community-post-details/:id",
-          element: <CommunityPostDetails />,
+          element: withAdminPermission(
+            <CommunityPostDetails />,
+            DASHBOARD_PERMISSIONS.COMMUNITIES,
+          ),
         },
 
         {
           path: "list-management",
-          element: <ListManagement />,
+          element: withAdminPermission(
+            <ListManagement />,
+            LIST_MANAGEMENT_PERMISSIONS,
+          ),
           children: [
             {
               index: true,
-              element: <WorkingGroups />,
+              element: withAdminPermission(
+                <WorkingGroups />,
+                DASHBOARD_PERMISSIONS.WORKING_GROUPS,
+              ),
             },
             {
               path: "working-groups",
-              element: <WorkingGroups />,
+              element: withAdminPermission(
+                <WorkingGroups />,
+                DASHBOARD_PERMISSIONS.WORKING_GROUPS,
+              ),
             },
             {
               path: "operating-sectors",
-              element: <OperatingSectors />,
+              element: withAdminPermission(
+                <OperatingSectors />,
+                DASHBOARD_PERMISSIONS.REGIONS,
+              ),
             },
             {
               path: "fields-and-specializations",
-              element: <FieldsAndSpecializations />,
+              element: withAdminPermission(
+                <FieldsAndSpecializations />,
+                [
+                  DASHBOARD_PERMISSIONS.CATEGORIES,
+                  DASHBOARD_PERMISSIONS.SUBCATEGORIES,
+                ],
+              ),
             },
             {
               path: "administrative-systems",
-              element: <AdministrativeSystems />,
+              element: withAdminPermission(
+                <AdministrativeSystems />,
+                DASHBOARD_PERMISSIONS.TASK_SYSTEMS,
+              ),
             },
           ],
         },
         {
           path: "reports",
-          element: <Reports />,
+          element: withAdminPermission(
+            <Reports />,
+            DASHBOARD_PERMISSIONS.REPORTS,
+          ),
           children: [
             {
               index: true,
@@ -777,43 +917,73 @@ export const router = createBrowserRouter(
 
         {
           path: "violations-management",
-          element: <ViolationsManagment />,
+          element: withAdminPermission(
+            <ViolationsManagment />,
+            DASHBOARD_PERMISSIONS.SETTINGS,
+          ),
         },
         {
           path: "social-links-management",
-          element: <SocialLinksManage />,
+          element: withAdminPermission(
+            <SocialLinksManage />,
+            DASHBOARD_PERMISSIONS.SOCIAL_LINKS,
+          ),
         },
         {
           path: "content-management",
-          element: <ContentManagment />,
+          element: withAdminPermission(
+            <ContentManagment />,
+            DASHBOARD_PERMISSIONS.SETTINGS,
+          ),
         },
         {
           path: "faq-management",
-          element: <FaqManagment />,
+          element: withAdminPermission(
+            <FaqManagment />,
+            DASHBOARD_PERMISSIONS.FAQS,
+          ),
         },
         {
           path: "tasks-management",
-          element: <TasksManagment />,
+          element: withAdminPermission(
+            <TasksManagment />,
+            DASHBOARD_PERMISSIONS.SETTINGS,
+          ),
         },
         {
           path: "subscription-management",
-          element: <SubscriptionManagement />,
+          element: withAdminPermission(
+            <SubscriptionManagement />,
+            DASHBOARD_PERMISSIONS.SETTINGS,
+          ),
         },
         {
           path: "banners",
-          element: <Banners />,
+          element: withAdminPermission(
+            <Banners />,
+            DASHBOARD_PERMISSIONS.BANNERS,
+          ),
         },
         {
           path: "nationalities-management",
-          element: <Nationalities />,
+          element: withAdminPermission(
+            <Nationalities />,
+            DASHBOARD_PERMISSIONS.SETTINGS,
+          ),
         },
         {
           path: "about-content",
-          element: <AboutTasamiiContent />,
+          element: withAdminPermission(
+            <AboutTasamiiContent />,
+            DASHBOARD_PERMISSIONS.SETTINGS,
+          ),
         },
         {
           path: "public-notifications",
-          element: <PublicNotifications />,
+          element: withAdminPermission(
+            <PublicNotifications />,
+            DASHBOARD_PERMISSIONS.GENERAL_NOTIFICATIONS,
+          ),
         },
       ],
     },
