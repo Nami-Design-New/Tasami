@@ -10,10 +10,13 @@ import employmentDataIcon from "../../assets/dashboard-icons/employment-data.svg
 import performanceReportsIcon from "../../assets/dashboard-icons/performance-reports.svg";
 import balanceWithdrawalIcon from "../../assets/dashboard-icons/balance-withdrawal.svg";
 import favIcon from "../../assets/images/my-fav.svg";
+import useAdminPermissions from "../../hooks/auth/dashboard/useAdminPermissions";
+import { DASHBOARD_PERMISSIONS } from "../../utils/dashboardPermissions";
 export default function SideBar({ hoverExpand, setHoverExpand, collapsed }) {
   const [sideClass, setSideClass] = useState("");
   const { t } = useTranslation();
   const lang = useSelector((state) => state.language.lang);
+  const { hasAnyPermission } = useAdminPermissions();
 
   const isLargeScreen = () => window.matchMedia("(min-width: 992px)").matches;
 
@@ -26,6 +29,59 @@ export default function SideBar({ hoverExpand, setHoverExpand, collapsed }) {
       setSideClass("");
     }
   }, [hoverExpand, collapsed]);
+
+  const mainNavigationItems = [
+    {
+      to: "/dashboard",
+      end: true,
+      icon: homeIcon,
+      iconAlt: "dashboard",
+      label: t("dashboard.main"),
+      permission: DASHBOARD_PERMISSIONS.HOME,
+    },
+    {
+      to: "notifications",
+      end: true,
+      icon: notificationsIcon,
+      iconAlt: "notifications",
+      label: t("dashboard.notifications.title"),
+    },
+    {
+      to: "tasks",
+      end: true,
+      icon: tasksIcon,
+      iconAlt: "Manage-Listings-icon",
+      label: t("dashboard.my_tasks"),
+      permission: DASHBOARD_PERMISSIONS.TASKS,
+    },
+    {
+      to: "profile",
+      end: true,
+      icon: employmentDataIcon,
+      iconAlt: "employment-data",
+      label: t("dashboard.employment_data"),
+    },
+    {
+      to: "reports/users",
+      end: true,
+      icon: performanceReportsIcon,
+      iconAlt: "reports",
+      label: t("dashboard.performance_reports"),
+      permission: DASHBOARD_PERMISSIONS.REPORTS,
+    },
+    {
+      to: "withdraw-requests",
+      end: true,
+      icon: balanceWithdrawalIcon,
+      iconAlt: "withdraw requests",
+      label: t("dashboard.withdraw_requests"),
+      permission: DASHBOARD_PERMISSIONS.WITHDRAW_REQUESTS,
+    },
+  ];
+
+  const visibleMainNavigationItems = mainNavigationItems.filter((item) =>
+    hasAnyPermission(item.permission),
+  );
 
   return (
     <aside
@@ -55,58 +111,16 @@ export default function SideBar({ hoverExpand, setHoverExpand, collapsed }) {
 
       {/* Main Navigation */}
       <ul className="navigation_menu">
-        <li className="nav_item mb-2">
-          <NavLink to="/dashboard" end>
-            <div className="icon">
-              <img src={homeIcon} alt="dashboard" />
-            </div>
-            <h6>{t("dashboard.main")}</h6>
-          </NavLink>
-        </li>
-        <li className="nav_item mb-2">
-          <NavLink to="notifications" end>
-            <div className="icon">
-              <img src={notificationsIcon} alt="notifications" />
-            </div>
-            <h6>{t("dashboard.notifications.title")}</h6>
-          </NavLink>
-        </li>
-
-        <li className="nav_item mb-2">
-          <NavLink to="tasks" end>
-            <div className="icon">
-              <img src={tasksIcon} alt="Manage-Listings-icon" />
-            </div>
-            <h6>{t("dashboard.my_tasks")}</h6>
-          </NavLink>
-        </li>
-
-        <li className="nav_item mb-2">
-          <NavLink to="profile" end>
-            <div className="icon">
-              <img src={employmentDataIcon} alt="employment-data" />
-            </div>
-            <h6>{t("dashboard.employment_data")}</h6>
-          </NavLink>
-        </li>
-
-        <li className="nav_item mb-2">
-          <NavLink to="reports/users" end>
-            <div className="icon">
-              <img src={performanceReportsIcon} alt="reports" />
-            </div>
-            <h6>{t("dashboard.performance_reports")}</h6>
-          </NavLink>
-        </li>
-
-        <li className="nav_item mb-2">
-          <NavLink to="withdraw-requests" end>
-            <div className="icon">
-              <img src={balanceWithdrawalIcon} alt="withdraw requests" />
-            </div>
-            <h6>{t("dashboard.withdraw_requests")}</h6>
-          </NavLink>
-        </li>
+        {visibleMainNavigationItems.map((item) => (
+          <li className="nav_item mb-2" key={item.to}>
+            <NavLink to={item.to} end={item.end}>
+              <div className="icon">
+                <img src={item.icon} alt={item.iconAlt} />
+              </div>
+              <h6>{item.label}</h6>
+            </NavLink>
+          </li>
+        ))}
 
         {/* Sub Navigation Accordion */}
         <SidebarNavigation />

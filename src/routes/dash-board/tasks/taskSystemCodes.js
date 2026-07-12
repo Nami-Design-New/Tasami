@@ -1,0 +1,5 @@
+export const TASK_SYSTEM_CODES = {
+  EXECUTIVE_TASK: "TF",
+  UPDATE_DATA: "UF",
+  STOP_ACCOUNT: "SF",
+};

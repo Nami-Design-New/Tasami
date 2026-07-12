@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import PermissionItem from "./PermissionItem";
 
-const PermissionGroup = ({ title, permissions, groupId, register }) => {
+const PermissionGroup = ({ title, permissions, register }) => {
   const [isOpen, setIsOpen] = useState(false);
   const { t } = useTranslation();
 

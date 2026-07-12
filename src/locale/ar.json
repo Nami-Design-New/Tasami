@@ -509,6 +509,7 @@
     "Fields And Specializations": "المجالات و التخصصات",
     "Profile": "البيانات الوظيفية",
     "Employee Details": "تفاصيل الموظف",
+    "Employee Summary": "ملخص الموظف",
     "User Details": "بيانات المستخدم",
     "Requests": "الطلبات",
     "Reports": "التقارير",
@@ -1633,7 +1634,7 @@
         "jobData": "البيانات الوظيفية",
         "personalData": "البيانات الشخصية",
         "permissions": "الصلاحيات",
-        "sharedGroups": "المجموعات المشتركه"
+        "sharedGroups": "المجموعات المشتركة"
       },
       "quickActions": {
         "title": "إجراءات سريعة",
@@ -1648,7 +1649,7 @@
       },
       "employeeData": {
         "title": "البيانات الوظيفية",
-        "description": "الوصف",
+        "description": "المسمى الوظيفي",
         "account": "الحساب",
         "idNumber": "رقم التعريف",
         "groupNumber": "رقم المجموعة",
@@ -1669,6 +1670,7 @@
         "gender": "الجنس",
         "nationality": "الجنسية",
         "residenceCountry": "بلد الإقامة",
+        "residenceCity": "مدينة الإقامة",
         "city": "المدينة",
         "idNumber": "رقم الهوية أو الجواز",
         "personalEmail": "البريد الإلكتروني الشخصي",
@@ -1694,6 +1696,12 @@
         "cancel": "إلغاء",
         "send": "إرسال"
       }
+    },
+    "employeeSummary": {
+      "title": "ملخص الموظف",
+      "contact": "تواصل مع الموظف",
+      "fullDetails": "تفاصيل حساب الموظف",
+      "unavailable": "ملخص الموظف غير متاح"
     },
     "subscribersTeams": {
       "employeeDetails": "تفاصيل الموظف",
@@ -2514,8 +2522,45 @@
       },
       "actions": {
         "requestStopAccount": "طلب إيقاف الحساب",
+        "accountStatus": "حالة الحساب",
         "activateAccount": "تنشيط الحساب",
         "stopAccount": "إيقاف الحساب"
+      },
+      "accountStatusModal": {
+        "title": "حالة الحساب",
+        "status": "الحالة",
+        "currentStatus": "الحالة الحالية",
+        "active": "نشط",
+        "suspended": "موقوف",
+        "fromDate": "موقوف من",
+        "toDate": "موقوف إلى",
+        "noEndDate": "بدون تاريخ انتهاء",
+        "activateConfirmation": "هل أنت متأكد من رغبتك في تنشيط هذا الحساب؟",
+        "confirmActivation": "تأكيد التنشيط",
+        "cancel": "إلغاء",
+        "close": "إغلاق",
+        "hasEndDate": "تحديد تاريخ انتهاء",
+        "duration": "مدة الإيقاف",
+        "indefinite": "يستمر إيقاف الحساب حتى يتم تغييره يدوياً.",
+        "reason": "سبب الإيقاف",
+        "reasonLabel": "السبب",
+        "attachments": "المرفقات",
+        "attachment": "مرفق",
+        "addFiles": "إضافة ملفات",
+        "fileLimit": "حتى 5 ملفات",
+        "noAttachments": "لا توجد مرفقات",
+        "activeTitle": "الحساب نشط",
+        "activeMessage": "هذا الحساب لديه صلاحية وصول كاملة حالياً.",
+        "saveChanges": "حفظ التغييرات",
+        "suspendAccount": "إيقاف الحساب",
+        "startRequired": "تاريخ بدء الإيقاف مطلوب",
+        "endRequired": "تاريخ انتهاء الإيقاف مطلوب",
+        "endAfterStart": "يجب أن يكون تاريخ الانتهاء في تاريخ البدء أو بعده",
+        "reasonMax": "يجب ألا يتجاوز السبب 500 حرف",
+        "filesMin": "يجب إضافة مرفق واحد على الأقل",
+        "filesMax": "الحد الأقصى للمرفقات هو 5",
+        "staleConflict": "تم تغيير حالة الحساب بواسطة مسؤول آخر. تم تحميل أحدث البيانات.",
+        "updateFailed": "تعذر تحديث حالة الحساب"
       }
     },
     "beneficiary": {

@@ -11,6 +11,8 @@
 @use "./fonts";
 @use "./components";
 @use "./modals";
+// Dashboard account-status editor
+@use "./account_status_modal";
 @use "./auth";
 
 // main dashboard

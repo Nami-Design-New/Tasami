@@ -5,8 +5,9 @@ import { adminAxiosInstance } from "../../../lib/adminAxios";
 export default function useGetEmployee() {
   const { id } = useParams();
 
-  const { data: employee, isLoading } = useQuery({
+  const { data: employee, isLoading, refetch } = useQuery({
     queryKey: ["dashboard-employee-details", id],
+    enabled: Boolean(id),
     queryFn: async () => {
       const res = await adminAxiosInstance.get(`dh-employees/${id}`);
       if (res.data.code !== 200) {
@@ -17,5 +18,5 @@ export default function useGetEmployee() {
     staleTime: undefined,
     gcTime: undefined,
   });
-  return { employee, isLoading };
+  return { employee, isLoading, refetch };
 }

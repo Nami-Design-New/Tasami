@@ -9,9 +9,13 @@ import AddNewTask from "./AddNewTaskModal";
 import { PAGE_SIZE } from "../../../utils/constants";
 import useGetTasksDashboard from "../../../hooks/dashboard/tasks/useGetTasksDashboard";
 import StatisticsCardSkeleton from "../../../ui/loading/StatisticsCardSkeleton";
+import useAdminPermissions from "../../../hooks/auth/dashboard/useAdminPermissions";
+import { DASHBOARD_PERMISSIONS } from "../../../utils/dashboardPermissions";
 
 const Tasks = () => {
   const { t } = useTranslation();
+  const { hasPermission } = useAdminPermissions();
+  const canCreateTask = hasPermission(DASHBOARD_PERMISSIONS.TASKS_CREATE);
   const [showModal, setShowModal] = useState(false);
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(PAGE_SIZE);
@@ -80,14 +84,16 @@ const Tasks = () => {
       <section>
         <div className="p-2 d-flex align-items-center justify-content-between">
           <PageHeader />
-          <CustomButton
-            size="large"
-            color="secondary"
-            icon={<i className="fa-solid fa-plus"></i>}
-            onClick={() => setShowModal(true)}
-          >
-            {t("dashboard.tasks.newTaskForm")}
-          </CustomButton>
+          {canCreateTask && (
+            <CustomButton
+              size="large"
+              color="secondary"
+              icon={<i className="fa-solid fa-plus"></i>}
+              onClick={() => setShowModal(true)}
+            >
+              {t("dashboard.tasks.newTaskForm")}
+            </CustomButton>
+          )}
         </div>
         <div className="row">
           <ChartCard title={t("dashboard.tasks.generalTaskStats")}>
@@ -132,11 +138,13 @@ const Tasks = () => {
           </div>
         </div>
       </section>
-      <AddNewTask
-        showModal={showModal}
-        setShowModal={setShowModal}
-        title={t("dashboard.tasks.executiveTask")}
-      />
+      {canCreateTask && (
+        <AddNewTask
+          showModal={showModal}
+          setShowModal={setShowModal}
+          title={t("dashboard.tasks.executiveTask")}
+        />
+      )}
     </>
   );
 };

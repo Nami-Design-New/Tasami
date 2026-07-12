@@ -62,7 +62,7 @@ export default function ReassignTaskModal({
                 onChange={(e) => setSelectedEmployee(e.target.value)}
                 options={employees.map((emp) => ({
                   value: emp.id,
-                  name: `${emp.first_name} ${emp.family_name}`,
+                  name: `${emp.first_name} ${emp.family_name} (${emp.job_title})`,
                 }))}
               />
             </div>
