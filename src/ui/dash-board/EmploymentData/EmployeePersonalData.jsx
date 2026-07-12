@@ -1,14 +1,19 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import AddNewTask from "../../../routes/dash-board/tasks/AddNewTaskModal";
+import { TASK_SYSTEM_CODES } from "../../../routes/dash-board/tasks/taskSystemCodes";
 import CustomButton from "../../CustomButton";
 import FormWrapper from "../../forms/FormWrapper";
 import MapModal from "../../modals/MapModal";
 import { useSelector } from "react-redux";
+import useAdminPermissions from "../../../hooks/auth/dashboard/useAdminPermissions";
+import { DASHBOARD_PERMISSIONS } from "../../../utils/dashboardPermissions";
 
 const EmployeePersonalData = () => {
   const { t } = useTranslation();
   const { user } = useSelector((state) => state.adminAuth);
+  const { hasPermission } = useAdminPermissions();
+  const canCreateTask = hasPermission(DASHBOARD_PERMISSIONS.TASKS_CREATE);
 
   const [attachments] = useState([
     {
@@ -35,7 +40,7 @@ const EmployeePersonalData = () => {
               <div className="employee__data--item">
                 <h6>
                   {t(
-                    "dashboard.employeeProfile.employeePersonalData.firstName"
+                    "dashboard.employeeProfile.employeePersonalData.firstName",
                   )}
                   :
                 </h6>
@@ -46,7 +51,7 @@ const EmployeePersonalData = () => {
               <div className="employee__data--item">
                 <h6>
                   {t(
-                    "dashboard.employeeProfile.employeePersonalData.fatherName"
+                    "dashboard.employeeProfile.employeePersonalData.fatherName",
                   )}
                   :
                 </h6>
@@ -57,7 +62,7 @@ const EmployeePersonalData = () => {
               <div className="employee__data--item">
                 <h6>
                   {t(
-                    "dashboard.employeeProfile.employeePersonalData.familyName"
+                    "dashboard.employeeProfile.employeePersonalData.familyName",
                   )}
                   :
                 </h6>
@@ -68,7 +73,7 @@ const EmployeePersonalData = () => {
               <div className="employee__data--item">
                 <h6>
                   {t(
-                    "dashboard.employeeProfile.employeePersonalData.birthDate"
+                    "dashboard.employeeProfile.employeePersonalData.birthDate",
                   )}
                   :
                 </h6>
@@ -80,14 +85,14 @@ const EmployeePersonalData = () => {
                 <h6>
                   {t("dashboard.employeeProfile.employeePersonalData.gender")}:
                 </h6>
-                <p>{user?.birthdate}</p>
+                <p>{t(`${user?.gender}`)}</p>
               </div>
             </div>
             <div className="col-12 col-md-6 col-xxl-4  p-2">
               <div className="employee__data--item">
                 <h6>
                   {t(
-                    "dashboard.employeeProfile.employeePersonalData.nationality"
+                    "dashboard.employeeProfile.employeePersonalData.nationality",
                   )}
                   :
                 </h6>
@@ -98,7 +103,7 @@ const EmployeePersonalData = () => {
               <div className="employee__data--item">
                 <h6>
                   {t(
-                    "dashboard.employeeProfile.employeePersonalData.residenceCountry"
+                    "dashboard.employeeProfile.employeePersonalData.residenceCountry",
                   )}
                   :
                 </h6>
@@ -108,7 +113,10 @@ const EmployeePersonalData = () => {
             <div className="col-12 col-md-6 col-xxl-4  p-2">
               <div className="employee__data--item">
                 <h6>
-                  {t("dashboard.employeeProfile.employeePersonalData.city")}:
+                  {t(
+                    "dashboard.employeeProfile.employeePersonalData.residenceCity",
+                  )}
+                  :
                 </h6>
                 <p>{user?.city_id?.title}</p>
               </div>
@@ -126,7 +134,7 @@ const EmployeePersonalData = () => {
               <div className="employee__data--item">
                 <h6>
                   {t(
-                    "dashboard.employeeProfile.employeePersonalData.personalEmail"
+                    "dashboard.employeeProfile.employeePersonalData.personalEmail",
                   )}
                   :
                 </h6>
@@ -159,7 +167,7 @@ const EmployeePersonalData = () => {
                 <div className="employee__data--item w-full">
                   <h4 className="attachments-title fs-6 mb-1">
                     {t(
-                      "dashboard.employeeProfile.employeePersonalData.attachments"
+                      "dashboard.employeeProfile.employeePersonalData.attachments",
                     )}
                     :
                   </h4>
@@ -169,17 +177,17 @@ const EmployeePersonalData = () => {
                         <tr>
                           <th>
                             {t(
-                              "dashboard.employeeProfile.employeePersonalData.attachmentDate"
+                              "dashboard.employeeProfile.employeePersonalData.attachmentDate",
                             )}
                           </th>
                           <th>
                             {t(
-                              "dashboard.employeeProfile.employeePersonalData.attachmentTime"
+                              "dashboard.employeeProfile.employeePersonalData.attachmentTime",
                             )}
                           </th>
                           <th>
                             {t(
-                              "dashboard.employeeProfile.employeePersonalData.attachmentFile"
+                              "dashboard.employeeProfile.employeePersonalData.attachmentFile",
                             )}
                           </th>
                         </tr>
@@ -199,17 +207,19 @@ const EmployeePersonalData = () => {
               </div>
             )}
             {/* Update Data Button */}
-            <div className="col-12 p-2">
-              <CustomButton
-                type="button"
-                size="large"
-                onClick={() => setShowUpdateDataModal(true)}
-              >
-                {t(
-                  "dashboard.employeeProfile.employeePersonalData.updateDataRequest"
-                )}
-              </CustomButton>
-            </div>
+            {canCreateTask && (
+              <div className="col-12 p-2">
+                <CustomButton
+                  type="button"
+                  size="large"
+                  onClick={() => setShowUpdateDataModal(true)}
+                >
+                  {t(
+                    "dashboard.employeeProfile.employeePersonalData.updateDataRequest",
+                  )}
+                </CustomButton>
+              </div>
+            )}
           </div>
         </div>
 
@@ -229,13 +239,16 @@ const EmployeePersonalData = () => {
           showModal={showUpdateDataModal}
         /> */}
 
-        <AddNewTask
-          setShowModal={setShowUpdateDataModal}
-          showModal={showUpdateDataModal}
-          title={t(
-            "dashboard.employeeProfile.employeePersonalData.updateDataTitle"
-          )}
-        />
+        {canCreateTask && (
+          <AddNewTask
+            setShowModal={setShowUpdateDataModal}
+            showModal={showUpdateDataModal}
+            title={t(
+              "dashboard.employeeProfile.employeePersonalData.updateDataTitle",
+            )}
+            fixedTaskSystemCode={TASK_SYSTEM_CODES.UPDATE_DATA}
+          />
+        )}
       </FormWrapper>
     </>
   );

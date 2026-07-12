@@ -509,6 +509,7 @@
     "Fields And Specializations": "Fields And Specializations",
     "Profile": "Employment data",
     "Employee Details": "Employee Details",
+    "Employee Summary": "Employee Summary",
     "User Details": "User Details",
     "Requests": "Requests",
     "Reports": "Reports",
@@ -1577,7 +1578,7 @@
       },
       "employeeData": {
         "title": "Employee Data",
-        "description": "Description",
+        "description": "Job Title",
         "account": "Account",
         "idNumber": "ID Number",
         "groupNumber": "Group Number",
@@ -1598,6 +1599,7 @@
         "gender": "Gender",
         "nationality": "Nationality",
         "residenceCountry": "Residence Country",
+        "residenceCity": "Residence City",
         "city": "City",
         "idNumber": "ID / Passport Number",
         "personalEmail": "Personal Email",
@@ -1611,6 +1613,12 @@
         "mapTitle": "Address on Map",
         "updateDataTitle": "Request Data Update"
       }
+    },
+    "employeeSummary": {
+      "title": "Employee Summary",
+      "contact": "Contact Employee",
+      "fullDetails": "Employee Account Details",
+      "unavailable": "Employee summary is not available"
     },
     "subscribersTeams": {
       "employeeDetails": "Employee Details",
@@ -2425,8 +2433,45 @@
       },
       "actions": {
         "requestStopAccount": "Request Account Suspension",
+        "accountStatus": "Account Status",
         "activateAccount": "Activate Account",
         "stopAccount": "Suspend Account"
+      },
+      "accountStatusModal": {
+        "title": "Account Status",
+        "status": "Status",
+        "currentStatus": "Current status",
+        "active": "Active",
+        "suspended": "Suspended",
+        "fromDate": "Suspended From",
+        "toDate": "Suspended To",
+        "noEndDate": "No end date",
+        "activateConfirmation": "Are you sure you want to activate this account?",
+        "confirmActivation": "Confirm Activation",
+        "cancel": "Cancel",
+        "close": "Close",
+        "hasEndDate": "Set an end date",
+        "duration": "Suspension Duration",
+        "indefinite": "The suspension remains active until manually changed.",
+        "reason": "Suspension reason",
+        "reasonLabel": "Reason",
+        "attachments": "Attachments",
+        "attachment": "Attachment",
+        "addFiles": "Add files",
+        "fileLimit": "Up to 5 files",
+        "noAttachments": "No attachments",
+        "activeTitle": "Account Active",
+        "activeMessage": "This account currently has full access.",
+        "saveChanges": "Save Changes",
+        "suspendAccount": "Suspend Account",
+        "startRequired": "Suspension start date is required",
+        "endRequired": "Suspension end date is required",
+        "endAfterStart": "End date must be on or after the start date",
+        "reasonMax": "Reason cannot exceed 500 characters",
+        "filesMin": "At least one attachment is required",
+        "filesMax": "A maximum of 5 attachments is allowed",
+        "staleConflict": "This account status was changed by another administrator. The latest data has been loaded.",
+        "updateFailed": "Failed to update account status"
       }
     },
     "beneficiary": {

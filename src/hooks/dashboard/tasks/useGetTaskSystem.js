@@ -6,6 +6,7 @@ export default function useGetTaskSystem(
   page = 1,
   pageSize = 10,
   type = null,
+  enabled = true,
 ) {
   const { data, isLoading, isError, refetch } = useQuery({
     queryKey: ["show-task", search, page, pageSize, type],
@@ -21,6 +22,7 @@ export default function useGetTaskSystem(
       return res.data;
     },
     keepPreviousData: true,
+    enabled,
   });
 
   return {
