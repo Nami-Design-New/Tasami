@@ -47,15 +47,15 @@ export default function HelperCard({
             </header>
 
             <footer className="meta">
-              {helper.country && (
+              {helper?.country && (
                 <span className="country">
                   <img
-                    src={flagIcon}
-                    alt={`${helper.country.title} flag`}
+                    src={helper?.country?.image}
+                    alt={`${helper?.country?.title} flag`}
                     className="flag-icon"
                     loading="lazy"
                   />
-                  <span>{helper.country.title}</span>
+                  <span>{helper?.country?.title}</span>
                 </span>
               )}{" "}
               {toResume && (
@@ -98,8 +98,8 @@ export default function HelperCard({
               {helper.country && (
                 <span className="country">
                   <img
-                    src={flagIcon}
-                    alt={`${helper.country.title} flag`}
+                    src={helper?.country?.image}
+                    alt={`${helper?.country?.title} flag`}
                     className="flag-icon"
                     loading="lazy"
                   />

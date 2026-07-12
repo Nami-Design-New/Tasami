@@ -1,22 +1,48 @@
+import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { NavLink, Outlet, useNavigate } from "react-router";
+import { NavLink, Outlet, useLocation, useNavigate } from "react-router";
 import useGetWorkDetails from "../../../../hooks/website/MyWorks/useGetWorkDetails";
+import useGetContractDetails from "../../../../hooks/website/MyWorks/assistants/useGetContractDetails";
 import Loading from "../../../../ui/loading/Loading";
 import RoundedBackButton from "../../../../ui/website-auth/shared/RoundedBackButton";
+import { getStartExecutionDeadlineState } from "../../../../utils/startExecutionDeadline";
+import RateShowModal from "../../../../ui/website/my-works/work-offers/RateShowModal";
+import workStarYellow from "../../../../assets/icons/work-star-yellow.svg";
 
 export default function ContractDetailsLayout() {
   const navigate = useNavigate();
+  const { pathname } = useLocation();
   const { t } = useTranslation();
+  const [showRateReadOnlyModal, setShowRateReadOnlyModal] = useState(false);
 
   const { workDetails, isLoading } = useGetWorkDetails();
+  const isBeneficiariesRoute = pathname.endsWith("/beneficiaries");
+  const { contractDetails, isLoading: isContractDetailsLoading } =
+    useGetContractDetails(workDetails?.helper_last_contract_id, {
+      enabled: isBeneficiariesRoute,
+    });
 
   // let options;
   let tabs = [];
 
   if (isLoading) return <Loading />;
 
+  const isAutoCanceled = Boolean(
+    getStartExecutionDeadlineState(workDetails)?.isAutoCanceled,
+  );
+  const showBeneficiaryRateAction =
+    isBeneficiariesRoute && Boolean(contractDetails?.rate);
+
   // Tabs Logic
-  if (
+  if (isAutoCanceled) {
+    tabs = [
+      {
+        id: 1,
+        label: t("works.details"),
+        end: true,
+      },
+    ];
+  } else if (
     workDetails?.status === "wait_for_user_payment" ||
     workDetails?.status === "wait_helper_to_accept" ||
     workDetails?.status === "offer_sent"
@@ -75,6 +101,16 @@ export default function ContractDetailsLayout() {
                 ></RoundedBackButton>
                 <h1>{workDetails?.code}</h1>
               </div>
+              {showBeneficiaryRateAction && (
+                <button
+                  type="button"
+                  className="action-buttons yellow"
+                  onClick={() => setShowRateReadOnlyModal(true)}
+                  aria-label={t("rate_view_title")}
+                >
+                  <img src={workStarYellow} alt={t("rate_view_title")} />
+                </button>
+              )}
             </div>
           </div>
           <div className="col-12 p-2">
@@ -113,6 +149,8 @@ export default function ContractDetailsLayout() {
               context={{
                 contractId: workDetails?.helper_last_contract_id,
                 user: workDetails?.user,
+                contractDetails,
+                isContractDetailsLoading,
               }}
             />
           </div>
@@ -124,6 +162,13 @@ export default function ContractDetailsLayout() {
         workId={workDetails?.id}
         contractId={workDetails?.helper_last_contract_id}
       /> */}
+      {showBeneficiaryRateAction && (
+        <RateShowModal
+          showModal={showRateReadOnlyModal}
+          setShowModal={setShowRateReadOnlyModal}
+          contract={contractDetails}
+        />
+      )}
     </section>
   );
 }

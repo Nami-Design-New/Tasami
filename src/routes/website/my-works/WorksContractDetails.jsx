@@ -3,12 +3,14 @@ import { ProgressBar } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
 import { Link, useNavigate, useParams } from "react-router";
+import { toast } from "sonner";
 import useGetContractDetails from "../../../hooks/website/MyWorks/assistants/useGetContractDetails";
 import Currency from "../../../ui/Currency";
 import CustomLink from "../../../ui/CustomLink";
 import Loading from "../../../ui/loading/Loading";
 import RoundedBackButton from "../../../ui/website-auth/shared/RoundedBackButton";
 import CancelContractModal from "../../../ui/website/my-works/CancelContractModal";
+import ContractEndedGoalActiveModal from "../../../ui/website/my-works/ContractEndedGoalActiveModal";
 import ContractRateModal from "../../../ui/website/my-works/ContractRateModal";
 import AssistantWorkCard from "../../../ui/website/my-works/work-offers/AssistantWorkCard";
 import RateShowModal from "../../../ui/website/my-works/work-offers/RateShowModal";
@@ -23,6 +25,8 @@ export default function WorksContractDetails() {
   const { id } = useParams();
   const navigate = useNavigate();
   const [showCancelModal, setShowCancelModal] = useState(false);
+  const [showGoalStillActiveModal, setShowGoalStillActiveModal] =
+    useState(false);
   const [showRenewModal, setShowRenewModal] = useState(false);
   const [showRenewDetailsModal, setShowRenewDetailsModal] = useState(false);
   const [showRateReadOnlyModal, setShowRateReadOnlyModal] = useState(false);
@@ -33,10 +37,7 @@ export default function WorksContractDetails() {
 
   const toggleMenu = () => setMenuOpen(!menuOpen);
 
-  const { contractDetails, unreadMessages, isLoading } =
-    useGetContractDetails(id);
-
-  console.log(contractDetails, unreadMessages);
+  const { contractDetails, isLoading } = useGetContractDetails(id);
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -262,8 +263,24 @@ export default function WorksContractDetails() {
       <CancelContractModal
         showModal={showCancelModal}
         setShowModal={setShowCancelModal}
-        workId={contractDetails?.work_id}
         contractId={contractDetails?.id}
+        onSuccess={(response) => {
+          const progressPercent = Number(
+            contractDetails?.progress_percent ?? 0,
+          );
+
+          if (progressPercent < 100) {
+            setShowGoalStillActiveModal(true);
+            return;
+          }
+
+          toast.success(response?.message);
+        }}
+      />
+
+      <ContractEndedGoalActiveModal
+        showModal={showGoalStillActiveModal}
+        onClose={() => setShowGoalStillActiveModal(false)}
       />
 
       <ContractRateModal

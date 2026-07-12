@@ -17,7 +17,8 @@ export default function CommunityActions({ community, isMyCommunity = true }) {
   const [showPaymentModal, setShowPaymentModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
   const [showAlertModal, setShowAlertModal] = useState(false);
-  const { editCommunity, isPending } = useEditMyCommunity();
+  const [showUnjoinConfirmation, setShowUnjoinConfirmation] = useState(false);
+  const { editCommunity } = useEditMyCommunity();
   const { unjoinCommunity, isPending: isUnjoinPending } = useUnjoinCommunity();
   const { joinCommunity, isPending: isJoinPending } = useJoinCommunity();
   const [optimisticJoin, setOptimisticJoin] = useState(
@@ -46,21 +47,8 @@ export default function CommunityActions({ community, isMyCommunity = true }) {
   };
   const handleJoinCommunity = (id, price) => {
     if (optimisticJoin) {
-      // ---- Optimistic Unjoin ----
-      setOptimisticJoin(false);
-      unjoinCommunity(id, {
-        onSuccess: (res) => {
-          toast.success(res.message);
-          queryClient.invalidateQueries({ queryKey: ["community-details"] });
-          queryClient.invalidateQueries({ queryKey: ["consultaions"] });
-          queryClient.invalidateQueries({ queryKey: ["community-posts"] });
-          queryClient.invalidateQueries({ queryKey: ["meetings"] });
-        },
-        onError: (err) => {
-          setOptimisticJoin(true);
-          toast.error(err.message);
-        },
-      });
+      setShowUnjoinConfirmation(true);
+      return;
     } else {
       if (price > 0) {
         // ---- Show payment modal ----
@@ -90,6 +78,25 @@ export default function CommunityActions({ community, isMyCommunity = true }) {
         );
       }
     }
+  };
+
+  const handleConfirmUnjoin = () => {
+    setOptimisticJoin(false);
+    unjoinCommunity(community.id, {
+      onSuccess: (res) => {
+        setShowUnjoinConfirmation(false);
+        toast.success(res.message);
+        queryClient.invalidateQueries({ queryKey: ["community-details"] });
+        queryClient.invalidateQueries({ queryKey: ["consultaions"] });
+        queryClient.invalidateQueries({ queryKey: ["community-posts"] });
+        queryClient.invalidateQueries({ queryKey: ["meetings"] });
+      },
+      onError: (err) => {
+        setOptimisticJoin(true);
+        setShowUnjoinConfirmation(false);
+        toast.error(err.message);
+      },
+    });
   };
   const onConfirmDeactivate = () => {
     handleUpdateStatus(false);
@@ -203,6 +210,25 @@ export default function CommunityActions({ community, isMyCommunity = true }) {
           </p>
         </AlertModal>
       )}{" "}
+      {!isMyCommunity && (
+        <AlertModal
+          setShowModal={setShowUnjoinConfirmation}
+          confirmButtonText={t("community.unjoinConfirmation.continue")}
+          cancelButtonText={t("community.unjoinConfirmation.back")}
+          showModal={showUnjoinConfirmation}
+          onConfirm={handleConfirmUnjoin}
+          loading={isUnjoinPending}
+          withoutMessage={false}
+        >
+          <div className="unjoin-community-confirmation">
+            <h4>{t("community.unjoinConfirmation.title")}</h4>
+            <strong>
+              {community?.helper?.name || community?.title || ""}
+            </strong>
+            <p>{t("community.unjoinConfirmation.question")}</p>
+          </div>
+        </AlertModal>
+      )}
       <CommunityPaymentModal
         showModal={showPaymentModal}
         setShowModal={setShowPaymentModal}

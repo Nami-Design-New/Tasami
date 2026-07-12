@@ -82,7 +82,6 @@ export default function EditProfile() {
     inputFileRef.current.click();
   };
 
-  const isFirstNameDisabled = !!user?.first_name;
   const isDateDisabled = !!user?.birthdate;
   const isGenderDisabled = !!user?.gender;
   const isPhoneDisabled = !!user?.phone && !!user?.phone_code;
@@ -100,10 +99,7 @@ export default function EditProfile() {
     };
 
     // Check and append only changed fields
-    if (
-      !isFirstNameDisabled &&
-      hasChanged("firstName", data.firstName, initialValues.firstName)
-    ) {
+    if (hasChanged("firstName", data.firstName, initialValues.firstName)) {
       formData.append("first_name", data.firstName);
       hasChanges = true;
     }
@@ -313,7 +309,6 @@ export default function EditProfile() {
             <InputField
               label={t("profile.firstName")}
               id="firstName"
-              disabled={isFirstNameDisabled ? true : false}
               {...register("firstName", {
                 required: t("validation.required"),
               })}

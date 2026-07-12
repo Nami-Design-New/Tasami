@@ -19,6 +19,7 @@ export default function AlertModal({
   withoutMessage = true,
   showCancel = true,
   confirmAlign = "center",
+  cancelButtonText,
 }) {
   const { t } = useTranslation();
   const handleCancel = () => {
@@ -58,9 +59,10 @@ export default function AlertModal({
                   color="fire"
                   variant="outlined"
                   onClick={handleCancel}
+                  disabled={loading}
                   style={{ width: "70%" }}
                 >
-                  {t("cancel")}
+                  {cancelButtonText || t("cancel")}
                 </CustomButton>
               )}
               <CustomButton

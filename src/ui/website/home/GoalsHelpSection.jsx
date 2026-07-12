@@ -7,6 +7,9 @@ import AddGoalModal from "../gaols/AddGoalModal";
 import AddAssistanceModal from "../offers/AddAssistanceModal";
 import PlatformModal from "../platform/PlatformModal";
 import addIcon from "../../../assets/icons/add.svg";
+import useFirstGroupGuard from "../../../hooks/website/my-groups/useFirstGroupGuard";
+import FirstGroupRequiredModal from "../platform/FirstGroupRequiredModal";
+
 export default function GoalsHelpSection() {
   const { t } = useTranslation();
   const navigate = useNavigate();
@@ -16,6 +19,12 @@ export default function GoalsHelpSection() {
   const [showModal, setShowModal] = useState(false);
   const [showGoalModal, setShowGoalModal] = useState(false);
   const [showPlatformModal, setShowPlatformModal] = useState(false);
+  const {
+    requestAssistanceCreation,
+    showFirstGroupWarning,
+    closeFirstGroupWarning,
+    createFirstGroup,
+  } = useFirstGroupGuard(() => setShowModal(true));
   return (
     <section className={`goals-help-section ${lang === "en" && "en"}  `}>
       <CustomButton
@@ -50,7 +59,7 @@ export default function GoalsHelpSection() {
               if (user?.about === "") {
                 setShowPlatformModal(true);
               } else {
-                setShowModal(true);
+                requestAssistanceCreation();
               }
             } else {
               navigate("/customize-services");
@@ -72,6 +81,11 @@ export default function GoalsHelpSection() {
       <PlatformModal
         showModal={showPlatformModal}
         setShowModal={setShowPlatformModal}
+      />
+      <FirstGroupRequiredModal
+        showModal={showFirstGroupWarning}
+        onClose={closeFirstGroupWarning}
+        onCreateGroup={createFirstGroup}
       />
     </section>
   );

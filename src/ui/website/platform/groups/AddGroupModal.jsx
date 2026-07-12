@@ -11,6 +11,12 @@ import { useEffect } from "react";
 import useEditGroup from "../../../../hooks/website/my-groups/useEditGroup";
 import { Link } from "react-router";
 import GlobalModal from "../../../GlobalModal";
+import { useDispatch, useSelector } from "react-redux";
+import { setUser } from "../../../../redux/slices/authRole";
+import {
+  getActiveGroupsCount,
+  hasReachedGroupLimit,
+} from "../../../../utils/groupLimits";
 
 export default function AddGroupModal({
   showModal,
@@ -20,6 +26,8 @@ export default function AddGroupModal({
   const { categories, isLoading } = useGetcategories();
   const { t } = useTranslation();
   const queryClient = useQueryClient();
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.authRole.user);
 
   const { addGroup, isPending: isAdding } = useAddGroup();
   const { editGroup, isPending: isEditing } = useEditGroup();
@@ -39,6 +47,12 @@ export default function AddGroupModal({
       ?.sub_categories || [];
 
   const onSubmit = async (data) => {
+    if (!group && hasReachedGroupLimit(user)) {
+      setShowModal(false);
+      toast.error(t("website.platform.groups.limitReached.title"));
+      return;
+    }
+
     if (group) {
       // Build payload with only changed fields
       const payload = {};
@@ -76,7 +90,7 @@ export default function AddGroupModal({
             toast.success(res.message);
           },
           onError: (err) => toast.error(err.message),
-        }
+        },
       );
     } else {
       // For adding new group, include all fields
@@ -90,7 +104,21 @@ export default function AddGroupModal({
       addGroup(payload, {
         onSuccess: (res) => {
           setShowModal(false);
+          dispatch(
+            setUser({
+              ...user,
+              active_groups: getActiveGroupsCount(user) + 1,
+            }),
+          );
           queryClient.invalidateQueries({ queryKey: ["my-groups"] });
+          queryClient.setQueryData(["authedUser"], (oldData) => {
+            if (!oldData) return oldData;
+
+            return {
+              ...oldData,
+              active_groups: getActiveGroupsCount(user) + 1,
+            };
+          });
           reset();
           toast.success(res.message);
         },
