@@ -48,6 +48,7 @@ export default function AddTasksModal({
       reset({
         taskDescription: taskData.title || "",
         taskCategory: taskData.task_category.id || "",
+        started_at: taskData.started_at ? formatYMD(taskData.started_at) : "",
         expected_end_date: taskData.expected_end_date
           ? formatYMD(taskData.expected_end_date)
           : "",
@@ -69,6 +70,7 @@ export default function AddTasksModal({
     const payload = {
       task_category_id: data.taskCategory,
       title: data.taskDescription,
+      started_at: formatYMD(data.started_at),
       expected_end_date: formatYMD(data.expected_end_date),
       notes: data.notes,
     };
@@ -143,7 +145,7 @@ export default function AddTasksModal({
               />
             </div>
 
-            <div className="col-6 p-2">
+            <div className="col-12 col-md-4 p-2">
               <SelectField
                 label={t("works.task_category")}
                 {...register("taskCategory")}
@@ -156,7 +158,16 @@ export default function AddTasksModal({
               />
             </div>
 
-            <div className="col-6 p-2">
+            <div className="col-12 col-md-4 p-2">
+              <InputField
+                type="date"
+                label={t("works.started_at")}
+                {...register("started_at")}
+                error={errors.started_at?.message}
+              />
+            </div>
+
+            <div className="col-12 col-md-4 p-2">
               <InputField
                 type="date"
                 label={t("works.expected_end_date")}

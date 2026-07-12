@@ -1,7 +1,6 @@
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router";
 import medalIcon from "../../../../assets/icons/medal.svg";
-import flagIcon from "../../../../assets/icons/flag.svg";
 export default function AudienceCard({ data, date = false }) {
   const { t } = useTranslation();
 
@@ -32,7 +31,7 @@ export default function AudienceCard({ data, date = false }) {
         <div className="country-date">
           {data?.user?.country && (
             <p className="country">
-              <img src={flagIcon} />
+              <img src={data?.user?.country?.image} />
               <span>{data?.user?.country?.title}</span>
             </p>
           )}

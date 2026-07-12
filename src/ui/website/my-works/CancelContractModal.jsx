@@ -7,7 +7,6 @@ import { useTranslation } from "react-i18next";
 import TextField from "../../forms/TextField";
 import CustomButton from "../../CustomButton";
 import { useEffect } from "react";
-import { useLocation, useNavigate } from "react-router";
 import { toast } from "sonner";
 import { useQueryClient } from "@tanstack/react-query";
 import GlobalModal from "../../GlobalModal";
@@ -25,13 +24,10 @@ const schema = yup.object().shape({
 export default function CancelContractModal({
   showModal,
   setShowModal,
-  workId,
   contractId,
+  onSuccess,
 }) {
   const { t } = useTranslation();
-  const { pathname } = useLocation();
-  const isMyWorksTab = pathname.includes("my-works");
-  const navigate = useNavigate();
   const queryClient = useQueryClient();
   const { cancelReasons } = useGetCancelReasons();
   const { cancelContract, isPending } = useCancelContract();
@@ -63,8 +59,11 @@ export default function CancelContractModal({
       onSuccess: (res) => {
         reset();
         setShowModal(false);
-        toast.success(res?.message);
-        // navigate(`/my-works/${workId}/assistants`);
+        if (onSuccess) {
+          onSuccess(res);
+        } else {
+          toast.success(res?.message);
+        }
         queryClient.refetchQueries({ queryKey: ["assistants"] });
         queryClient.refetchQueries({ queryKey: ["work-group"] });
         queryClient.refetchQueries({ queryKey: ["work-details"] });

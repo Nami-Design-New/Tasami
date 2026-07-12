@@ -13,7 +13,6 @@ export default function TaskCard({
   isDragable = true,
   isDragging = false,
   allowNavigation = true,
-  isReadOnly = false,
   cursor = null,
   detailsPath = null,
 }) {
@@ -28,13 +27,15 @@ export default function TaskCard({
   // persistent refs across renders
   const pointerStart = useRef({ x: 0, y: 0 });
   const moved = useRef(false);
-  const interactionCursor = cursor || (isDragging
-    ? "grabbing"
-    : isDragable
-    ? "grab"
-    : allowNavigation
-    ? "pointer"
-    : "default");
+  const interactionCursor =
+    cursor ||
+    (isDragging
+      ? "grabbing"
+      : isDragable
+        ? "grab"
+        : allowNavigation
+          ? "pointer"
+          : "default");
 
   // pointer down -> record start pos
   const handlePointerDown = (e) => {
@@ -80,11 +81,7 @@ export default function TaskCard({
   return (
     <div
       className={`task-card ${
-        isDragable
-          ? "draggable"
-          : allowNavigation
-            ? "navigable"
-            : "static-card"
+        isDragable ? "draggable" : allowNavigation ? "navigable" : "static-card"
       } ${isDragging ? "dragging" : ""}`}
       role={allowNavigation ? "link" : undefined}
       tabIndex={allowNavigation ? 0 : -1}
@@ -124,18 +121,22 @@ export default function TaskCard({
         <div className="card__title">{task?.title}</div>
         <div className="meta-info">
           <div className="item">
+            <i className="fa-light fa-bullseye-arrow" aria-hidden />
+            <span>{task?.task_category?.title}</span>
+          </div>
+          <div className="item date-item">
+            <i className="fa-regular fa-calendar-day" aria-hidden />
+            <span>{task?.started_at || "---"}</span>
+          </div>
+          <div className="item date-item">
             <i className="fa-regular fa-calendar" aria-hidden />
             <span
               className={`${
                 isPast && task?.status !== "completed" ? "text-fire" : ""
               }`}
             >
-              {task?.expected_end_date}
+              {task?.expected_end_date || "---"}
             </span>
-          </div>
-          <div className="item">
-            <i className="fa-light fa-bullseye-arrow" aria-hidden />
-            <span>{task?.task_category?.title}</span>
           </div>
           <div className="item">
             <i className="fa-regular fa-bell" aria-hidden />
@@ -146,7 +147,7 @@ export default function TaskCard({
         {task?.helper === null ? (
           <></>
         ) : (
-          !isReadOnly &&
+          // !isReadOnly &&
           (task.status === "completed" || task.status === "confirmed") && (
             <>
               {isContracts ? (

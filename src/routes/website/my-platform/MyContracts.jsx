@@ -17,12 +17,23 @@ export default function MyContracts() {
     <div className="myworks page">
       <div className="container">
         <div className="row g-0">
-          <RoundedBackButton
-            onClick={() => {
-              navigate("/my-platform");
-              queryClient.invalidateQueries({ queryKey: ["counters-notify"] });
-            }}
-          ></RoundedBackButton>
+          <div className="col-12 p-2 platform-header">
+            <RoundedBackButton
+              onClick={() => {
+                navigate("/my-platform");
+                queryClient.invalidateQueries({
+                  queryKey: ["counters-notify"],
+                });
+              }}
+            ></RoundedBackButton>
+            <h2 className="platform-header__title">
+              {t("website.platform.menu.myContracts")}
+            </h2>
+          </div>
+          <div className="col-12 p-2 platform-hint">
+            <i className="fa-regular fa-circle-info"></i>
+            <p>{t("website.platform.contractsHint")}</p>
+          </div>
           <section
             className="col-12 p-2 legend-section"
             aria-labelledby="legend-title"

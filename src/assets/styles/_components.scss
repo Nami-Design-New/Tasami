@@ -498,6 +498,33 @@ $gray: #6c757d;
   gap: 1rem;
 }
 
+.unjoin-community-confirmation {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  text-align: center;
+
+  h4 {
+    color: $dark;
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin: 0;
+  }
+
+  strong {
+    color: $fire;
+    font-size: 1rem;
+    font-weight: 700;
+  }
+
+  p {
+    color: $dark;
+    font-size: 1rem;
+    margin: 14px 0 0;
+  }
+}
+
 // Empty object
 .empty-section {
   width: 100%;

@@ -58,7 +58,7 @@ export default function ContractTasks() {
               task={task}
               user={user}
               isDragable={false}
-              isReadOnly
+              // isReadOnly
               detailsPath={`/my-contracts/${id}/tasks/${task.id}`}
             />
           ))}

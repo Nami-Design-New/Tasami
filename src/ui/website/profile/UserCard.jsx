@@ -5,12 +5,14 @@ export default function UserCard({ user }) {
     <div className="user-profile">
       <img src={user.image} alt={user.name} className="avatar" />
       <div className="content">
-        <h6>{user.name}</h6>
-        <span>{user.account_code}</span>
-      </div>
-      <div className="rating">
-        <img src={medalIcon} />
-        <span>{user.experience_level}</span>
+        <div className="name-rating">
+          <h6>{user.name}</h6>{" "}
+          <div className="rating">
+            <img src={medalIcon} />
+            <span>{user.experience_level}</span>
+          </div>
+        </div>
+        <div>{user.account_code}</div>
       </div>
     </div>
   );

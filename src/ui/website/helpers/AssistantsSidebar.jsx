@@ -56,15 +56,31 @@ export default function AssistantsSidebar({ isGoal = false }) {
   // --- Sync form with URL on mount
   useEffect(() => {
     const paramsObj = Object.fromEntries([...searchParams]);
+    const nextSearchParams = new URLSearchParams(searchParams);
+    let shouldUpdateSearchParams = false;
 
     // ensure gender=both by default if not provided
     if (!paramsObj.gender) {
       paramsObj.gender = "both";
-      setSearchParams(paramsObj);
+      nextSearchParams.set("gender", "both");
+      shouldUpdateSearchParams = true;
     }
     if (!paramsObj.dateOptions) {
-      paramsObj.dateOptions = "unspecified";
-      setSearchParams(paramsObj);
+      paramsObj.dateOptions =
+        paramsObj.startDate || paramsObj.startDateFrom || paramsObj.startDateTo
+          ? "specified"
+          : "unspecified";
+      nextSearchParams.set("dateOptions", paramsObj.dateOptions);
+      shouldUpdateSearchParams = true;
+    }
+
+    if (paramsObj.startDateFrom) {
+      paramsObj.startDate = paramsObj.startDate || paramsObj.startDateFrom;
+      delete paramsObj.startDateFrom;
+      nextSearchParams.delete("startDateFrom");
+      nextSearchParams.set("startDate", paramsObj.startDate);
+      nextSearchParams.set("dateOptions", "specified");
+      shouldUpdateSearchParams = true;
     }
 
     // handle helpMechanism array
@@ -73,12 +89,16 @@ export default function AssistantsSidebar({ isGoal = false }) {
       ...paramsObj,
       helpMechanism,
     });
+
+    if (shouldUpdateSearchParams) {
+      setSearchParams(nextSearchParams);
+    }
   }, [searchParams, reset, setSearchParams]);
 
   // --- Handle submit (sync with URL search params)
   const onSubmit = (data) => {
     const filteredData = Object.fromEntries(
-      Object.entries(data).filter(([_, v]) => v && v !== ""),
+      Object.entries(data).filter(([, v]) => v && v !== ""),
     );
 
     // handle helpMechanism as array
@@ -88,12 +108,19 @@ export default function AssistantsSidebar({ isGoal = false }) {
       delete filteredData.helpMechanism;
     }
 
-    // handle startDate
-    if (data.dateOptions === "defined" && data.startDate) {
-      filteredData.startDate = data.startDate;
+    // handle start date range
+    if (data.dateOptions === "specified") {
+      if (data.startDate) {
+        filteredData.startDate = data.startDate;
+      }
+      if (data.startDateTo) {
+        filteredData.startDateTo = data.startDateTo;
+      }
     } else {
       delete filteredData.startDate;
+      delete filteredData.startDateTo;
     }
+    delete filteredData.startDateFrom;
 
     setSearchParams(filteredData);
     window.scrollTo({
@@ -113,6 +140,8 @@ export default function AssistantsSidebar({ isGoal = false }) {
       specialization: "",
       gender: "both",
       dateOptions: "unspecified",
+      startDate: "",
+      startDateTo: "",
     };
     reset(resetValues);
     setSearchParams(resetValues);
@@ -289,16 +318,29 @@ export default function AssistantsSidebar({ isGoal = false }) {
                       </label>
                     ))}
                   </div>
-                  <p className="error-text">{errors.gender?.message}</p>
+                  <p className="error-text">{errors.dateOptions?.message}</p>
                 </div>
               </div>
               {selectedDateOptions === "specified" && (
                 <div className="col-12 py-2 px-0">
-                  <InputField
-                    type="date"
-                    lable={t("sartDate")}
-                    {...register("startDate")}
-                  />
+                  <div className="row g-2">
+                    <div className="col-12 col-sm-6">
+                      <InputField
+                        type="date"
+                        label={t("from")}
+                        {...register("startDate")}
+                        error={errors.startDate?.message}
+                      />
+                    </div>
+                    <div className="col-12 col-sm-6">
+                      <InputField
+                        type="date"
+                        label={t("to")}
+                        {...register("startDateTo")}
+                        error={errors.startDateTo?.message}
+                      />
+                    </div>
+                  </div>
                 </div>
               )}
               {/* helpMechanism */}

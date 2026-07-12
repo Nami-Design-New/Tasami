@@ -940,12 +940,37 @@
       flex-direction: column;
       gap: 12px;
 
+      .community-stat-header {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 12px;
+        min-height: 36px;
+      }
+
       .community-stat-title {
         font-size: 18px;
         font-weight: 500;
         margin: 0;
         color: $second;
       }
+
+      .community-stat-action {
+        min-width: 50px;
+        min-height: 36px;
+        border-radius: 8px;
+        background-color: $second;
+        color: $white;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 6px 10px;
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 1.25;
+        text-align: center;
+      }
+
       .community-stat-content {
         display: flex;
         align-items: center;
@@ -968,6 +993,99 @@
           .community-stat-label {
             font-size: 14px;
             color: $gray;
+          }
+        }
+      }
+    }
+  }
+}
+
+.community-members-page {
+  .container {
+    max-width: 520px;
+  }
+
+  .community-members-header {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+    margin-bottom: 16px;
+
+    .community-members-title {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+
+      h1 {
+        color: $second;
+        font-size: 1.35rem;
+        font-weight: 700;
+        margin: 0;
+      }
+    }
+
+    span {
+      color: $gray;
+      font-size: 0.9rem;
+      font-weight: 600;
+      padding-inline-start: 42px;
+    }
+  }
+
+  .community-members-list {
+    display: grid;
+    gap: 10px;
+  }
+
+  .audience-card {
+    min-height: 55px;
+    border: 0;
+    border-radius: 3px;
+    background-color: #dff5fd;
+    padding: 4px 8px;
+    gap: 10px;
+    overflow: visible;
+
+    .user-image-wrapper {
+      &::before {
+        display: none;
+      }
+
+      .user-image {
+        height: 58px;
+        border-radius: 50%;
+        border: 3px solid #c9f1fb;
+        object-fit: cover;
+      }
+    }
+
+    .info {
+      gap: 2px;
+
+      h2 {
+        font-size: 13px;
+        margin: 0;
+
+        .score {
+          font-size: 13px;
+
+          img {
+            height: 14px;
+          }
+        }
+      }
+
+      .country-date {
+        justify-content: flex-start;
+
+        .country {
+          span {
+            font-size: 12px;
+          }
+
+          img {
+            height: 14px;
           }
         }
       }

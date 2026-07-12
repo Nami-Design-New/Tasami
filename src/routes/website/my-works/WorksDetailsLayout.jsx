@@ -5,7 +5,6 @@ import { NavLink, Outlet, useNavigate } from "react-router";
 import { toast } from "sonner";
 
 import useCancelRequestOffer from "../../../hooks/website/MyWorks/useCancelRequestOffer";
-import useCompleteGoal from "../../../hooks/website/MyWorks/useCompleteGoal";
 import useDeleteWork from "../../../hooks/website/MyWorks/useDeleteWork";
 import useGetWorkDetails from "../../../hooks/website/MyWorks/useGetWorkDetails";
 
@@ -13,6 +12,7 @@ import Loading from "../../../ui/loading/Loading";
 import RoundedBackButton from "../../../ui/website-auth/shared/RoundedBackButton";
 import OptionsMenu from "../../../ui/website/OptionsMenu";
 import AlertModal from "../../../ui/website/platform/my-community/AlertModal";
+import { getStartExecutionDeadlineState } from "../../../utils/startExecutionDeadline";
 
 export default function WorksDetailsLayout() {
   const { t } = useTranslation();
@@ -23,14 +23,17 @@ export default function WorksDetailsLayout() {
   // const [showAlertWithdrawOfferModal, setShowAlertWithdrawOfferModal] =
   //   useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
-  const [tasksSummary, setTasksSummary] = useState(null);
 
   const { workDetails, isLoading } = useGetWorkDetails();
-  const { completeGoal, isPending: isCompleting } = useCompleteGoal();
   const { deleteWork, isPending: isDeleting } = useDeleteWork();
   const { cancelRequestOffer, isPending: isCanceling } =
     useCancelRequestOffer();
   // const { withdrawOffer, isPending: isWithdrawing } = useWithdrawOfferHelp();
+  const deadlineState = useMemo(
+    () => getStartExecutionDeadlineState(workDetails),
+    [workDetails],
+  );
+  const isAutoCanceled = Boolean(deadlineState?.isAutoCanceled);
 
   // Destructure safely
   const {
@@ -40,28 +43,10 @@ export default function WorksDetailsLayout() {
     helper,
     rectangle,
     offers_count,
-    has_working_contract,
     had_helpers,
   } = workDetails || {};
 
   // === Handlers (must be declared before conditional returns) ===
-  const handleCompleteGoal = useCallback(
-    (goalId) => {
-      completeGoal(goalId, {
-        onSuccess: (res) => {
-          toast.success(res?.message);
-          queryClient.refetchQueries("work-details");
-          queryClient.refetchQueries("work-tasks");
-          queryClient.refetchQueries("my-works");
-        },
-        onError: (err) => {
-          toast.error(err?.message);
-        },
-      });
-    },
-    [completeGoal, queryClient],
-  );
-
   const handleDeleteGoal = useCallback(
     (goalId) => {
       deleteWork(goalId, {
@@ -109,6 +94,10 @@ export default function WorksDetailsLayout() {
   // === Tabs Computation (memoized) ===
   const tabs = useMemo(() => {
     if (!workDetails) return [];
+
+    if (isAutoCanceled) {
+      return [{ id: 1, label: t("works.details"), end: true }];
+    }
 
     if (status === "completed") {
       if (had_helpers > 0) {
@@ -178,41 +167,39 @@ export default function WorksDetailsLayout() {
       { id: 3, label: t("works.tasks"), link: "tasks" },
       { id: 4, label: t("works.assistants"), link: "assistants" },
     ];
-  }, [rectangle, helper, status, t, workDetails]);
+  }, [had_helpers, isAutoCanceled, rectangle, helper, status, t, workDetails]);
 
   // === Option menu configs ===
   const deleteOption = {
-    label: t("works.delete"),
+    label: isAutoCanceled ? t("works.deleteWork") : t("works.delete"),
     className: "text-danger",
     onClick: () => setShowDeleteModal(true),
-    props: { disabled: isCompleting },
-  };
-
-  const completeOption = {
-    label: t("works.complete"),
-    className: "text-green",
-    onClick: () => handleCompleteGoal(id),
-    props: { disabled: isCompleting },
+    props: { disabled: isDeleting },
   };
 
   const cancelOption = {
     label: t("works.cancelRequest"),
     className: "text-fire",
     onClick: () => setShowAlertModal(true),
-    props: { disabled: isCompleting },
+    props: { disabled: isCanceling },
   };
-
   // === Conditional Menu Rendering ===
   const renderOptionsMenu = () => {
+    if (isAutoCanceled) {
+      return (
+        <OptionsMenu
+          toggleButton="fa-regular fa-trash-can text-danger"
+          options={[deleteOption]}
+          aria-label="delete auto canceled work"
+        />
+      );
+    }
+
     if (status !== "completed" && !helper) {
-      const options =
-        tasksSummary?.exePercentage === 100
-          ? [completeOption, deleteOption]
-          : [deleteOption];
       return (
         <OptionsMenu
           toggleButton="fa-regular fa-shield-exclamation color-main"
-          options={options}
+          options={[deleteOption]}
           aria-label="work options"
         />
       );
@@ -288,7 +275,7 @@ export default function WorksDetailsLayout() {
 
             {/* Outlet */}
             <div className="col-12 p-2">
-              <Outlet context={{ setTasksSummary }} />
+              <Outlet />
             </div>
           </div>
         )}
