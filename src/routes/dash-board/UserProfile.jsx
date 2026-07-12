@@ -4,13 +4,14 @@ import PageHeader from "../../ui/PageHeader";
 import TabsHorizontal from "../../ui/TabsHorizontal";
 import AssistantPresenter from "../../ui/dash-board/userprofile/AssistantPresenter";
 import Beneficiary from "../../ui/dash-board/userprofile/Beneficiary";
-import SuspensionModel from "../../ui/modals/SuspensionModel";
+import AccountStatusModal from "../../ui/modals/AccountStatusModal";
 import AddNewTask from "./tasks/AddNewTaskModal";
 import { TASK_SYSTEM_CODES } from "./tasks/taskSystemCodes";
 import { useParams, useSearchParams } from "react-router";
 import useGetUserDetails from "../../hooks/dashboard/subscription/useGetUserDetails";
 import Loading from "../../ui/loading/Loading";
 import { useTranslation } from "react-i18next";
+import { toast } from "sonner";
 import profilePlaceholder from "../../assets/images/dashboard/avatar-placeholder.jpg";
 import useAdminPermissions from "../../hooks/auth/dashboard/useAdminPermissions";
 import { DASHBOARD_PERMISSIONS } from "../../utils/dashboardPermissions";
@@ -20,12 +21,35 @@ const UserProfile = () => {
   const { hasPermission } = useAdminPermissions();
   const canCreateTask = hasPermission(DASHBOARD_PERMISSIONS.TASKS_CREATE);
   const canStopUser = hasPermission(DASHBOARD_PERMISSIONS.STOP_USERS);
-  const [openSuspensionModel, setOpenSuspensionModel] = useState(false);
+  const [openAccountStatusModal, setOpenAccountStatusModal] = useState(false);
+  const [accountStatusDetails, setAccountStatusDetails] = useState(null);
+  const [isOpeningAccountStatus, setIsOpeningAccountStatus] = useState(false);
   const [showTaskModal, setShowTaskModal] = useState(false);
   const [searchParams, setSearchParams] = useSearchParams();
   const activeTab = searchParams.get("tab");
   const { id } = useParams();
-  const { userDetails, isLoading } = useGetUserDetails(id);
+  const { userDetails, isLoading, refetch } = useGetUserDetails(id);
+
+  const handleOpenAccountStatus = async () => {
+    setIsOpeningAccountStatus(true);
+    try {
+      const result = await refetch({ throwOnError: true });
+      const freshDetails = result.data?.data;
+      if (!freshDetails) throw new Error("Unable to load account status");
+
+      setAccountStatusDetails(freshDetails);
+      setOpenAccountStatusModal(true);
+    } catch (error) {
+      toast.error(error.message);
+    } finally {
+      setIsOpeningAccountStatus(false);
+    }
+  };
+
+  const handleCloseAccountStatus = () => {
+    setOpenAccountStatusModal(false);
+    setAccountStatusDetails(null);
+  };
 
   const tabs = [
     {
@@ -113,20 +137,15 @@ const UserProfile = () => {
                     {t("dashboard.userProfile.actions.requestStopAccount")}
                   </CustomButton>
                 )}
-                {canStopUser && (
-                  <CustomButton
-                    size="large"
-                    color={
-                      userDetails?.status === "stopped" ? "primary" : "secondary"
-                    }
-                    fullWidth
-                    onClick={() => setOpenSuspensionModel(true)}
-                  >
-                    {userDetails?.status === "stopped"
-                      ? t("dashboard.userProfile.actions.activateAccount")
-                      : t("dashboard.userProfile.actions.stopAccount")}
-                  </CustomButton>
-                )}
+                <CustomButton
+                  size="large"
+                  color="primary"
+                  fullWidth
+                  loading={isOpeningAccountStatus}
+                  onClick={handleOpenAccountStatus}
+                >
+                  {t("dashboard.userProfile.actions.accountStatus")}
+                </CustomButton>
               </div>
             </div>
             <div className="col-12 col-lg-9 p-1 ">
@@ -137,14 +156,14 @@ const UserProfile = () => {
               )}
             </div>
           </div>
-          {canStopUser && (
-            <SuspensionModel
-              showModal={openSuspensionModel}
-              setShowModal={setOpenSuspensionModel}
-              isUser={true}
-              id={userDetails?.id}
+          {openAccountStatusModal ? (
+            <AccountStatusModal
+              show
+              onHide={handleCloseAccountStatus}
+              userDetails={accountStatusDetails}
+              canChangeStatus={canStopUser}
             />
-          )}
+          ) : null}
           {canCreateTask && (
             <AddNewTask
               showModal={showTaskModal}

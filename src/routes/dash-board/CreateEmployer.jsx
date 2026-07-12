@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate, useParams, useSearchParams } from "react-router";
+import { toast } from "sonner";
 
 import useCreateChatRoom from "../../hooks/dashboard/chats/useCreateChatRoom";
 import CustomButton from "../../ui/CustomButton";
@@ -11,18 +12,21 @@ import EmployeePasswordTab from "../../ui/dash-board/create-employee/EmployeePas
 import EmployerDataForm from "../../ui/dash-board/create-employee/EmployerDataForm";
 import PerformanceIndicators from "../../ui/dash-board/create-employee/PerformanceIndicators";
 import PermissionBoard from "../../ui/dash-board/create-employee/PermissionBoard";
-import SuspensionModel from "../../ui/modals/SuspensionModel";
+import AccountStatusModal from "../../ui/modals/AccountStatusModal";
 import AddNewTask from "./tasks/AddNewTaskModal";
 import { TASK_SYSTEM_CODES } from "./tasks/taskSystemCodes";
 import { setChat } from "../../redux/slices/chatSlice";
 import useAdminPermissions from "../../hooks/auth/dashboard/useAdminPermissions";
+import useGetEmployee from "../../hooks/dashboard/employee/useGetEmployee";
 import { DASHBOARD_PERMISSIONS } from "../../utils/dashboardPermissions";
 
 const CreateEmployee = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
-  const [openSuspensionModel, setOpenSuspensionModel] = useState(false);
+  const [openAccountStatusModal, setOpenAccountStatusModal] = useState(false);
+  const [accountStatusDetails, setAccountStatusDetails] = useState(null);
+  const [isOpeningAccountStatus, setIsOpeningAccountStatus] = useState(false);
   const [showTaskModal, setShowTaskModal] = useState(false);
   const isEditMode = !!id;
 
@@ -31,6 +35,28 @@ const CreateEmployee = () => {
   const canCreateTask = hasPermission(DASHBOARD_PERMISSIONS.TASKS_CREATE);
   const canStopEmployee = hasPermission(DASHBOARD_PERMISSIONS.STOP_EMPLOYEE);
   const canViewPermissions = hasPermission(DASHBOARD_PERMISSIONS.PERMISSIONS);
+  const { employee, refetch } = useGetEmployee();
+
+  const handleOpenAccountStatus = async () => {
+    setIsOpeningAccountStatus(true);
+    try {
+      const result = await refetch({ throwOnError: true });
+      const freshDetails = result.data?.data;
+      if (!freshDetails) throw new Error("Unable to load account status");
+
+      setAccountStatusDetails(freshDetails);
+      setOpenAccountStatusModal(true);
+    } catch (error) {
+      toast.error(error.message);
+    } finally {
+      setIsOpeningAccountStatus(false);
+    }
+  };
+
+  const handleCloseAccountStatus = () => {
+    setOpenAccountStatusModal(false);
+    setAccountStatusDetails(null);
+  };
 
   const { createChatRoom } = useCreateChatRoom();
 
@@ -183,16 +209,16 @@ const CreateEmployee = () => {
                         {t("dashboard.createEmployee.requestSuspendAccount")}
                       </CustomButton>
                     )}
-                    {canStopEmployee && (
-                      <CustomButton
-                        color="secondary"
-                        size="large"
-                        fullWidth
-                        onClick={() => setOpenSuspensionModel(true)}
-                      >
-                        {t("dashboard.createEmployee.suspendAccount")}
-                      </CustomButton>
-                    )}
+                    <CustomButton
+                      color="secondary"
+                      size="large"
+                      fullWidth
+                      disabled={!employee?.data || isOpeningAccountStatus}
+                      loading={isOpeningAccountStatus}
+                      onClick={handleOpenAccountStatus}
+                    >
+                      {t("dashboard.userProfile.actions.accountStatus")}
+                    </CustomButton>
                   </>
                 ) : (
                   <CustomButton color="secondary" size="large" fullWidth>
@@ -231,13 +257,15 @@ const CreateEmployee = () => {
         />
       )}
 
-      {canStopEmployee && (
-        <SuspensionModel
-          showModal={openSuspensionModel}
-          setShowModal={setOpenSuspensionModel}
-          id={id}
+      {isEditMode && openAccountStatusModal ? (
+        <AccountStatusModal
+          show
+          onHide={handleCloseAccountStatus}
+          userDetails={accountStatusDetails}
+          canChangeStatus={canStopEmployee}
+          isUser={false}
         />
-      )}
+      ) : null}
     </section>
   );
 };

@@ -1,9 +1,7 @@
-import { useState } from "react";
 import { Outlet } from "react-router";
 import { useTranslation } from "react-i18next";
 import useGetCurrentRoute from "../../../hooks/shared/useGetCurrentRoute";
 import CustomLink from "../../../ui/CustomLink";
-import SuspensionModel from "../../../ui/modals/SuspensionModel";
 import NavigationTabs from "../../../ui/NavigationTabs";
 import PageHeader from "../../../ui/PageHeader";
 import { SUB_TABS } from "../../../utils/constants";
@@ -25,7 +23,6 @@ const SUB_TABS_PERMISSIONS = {
 const SubscribersAndTeams = () => {
   const { t } = useTranslation();
   const { currentLocation, locations } = useGetCurrentRoute();
-  const [openSuspensionModel, setOpenSuspensionModel] = useState(false);
   const { hasAnyPermission } = useAdminPermissions();
   const canCreateEmployee = hasAnyPermission(EMPLOYEE_CREATE_PERMISSIONS);
   const visibleSubTabs = SUB_TABS.filter((tab) =>
@@ -65,11 +62,6 @@ const SubscribersAndTeams = () => {
       <div>
         <Outlet />
       </div>
-
-      <SuspensionModel
-        showModal={openSuspensionModel}
-        setShowModal={setOpenSuspensionModel}
-      />
     </section>
   );
 };
