@@ -59,7 +59,7 @@ const EmployeeData = () => {
           <div className="col-12 col-md-6 col-xxl-4 p-2">
             <div className="employee__data--item">
               <h6>{t("dashboard.employeeProfile.employeeData.hireDate")}:</h6>
-              <p>12-Jan-22</p>
+              <p>{user?.hire_date}</p>
             </div>
           </div>
           <div className="col-12 col-md-6 col-xxl-4 p-2">
