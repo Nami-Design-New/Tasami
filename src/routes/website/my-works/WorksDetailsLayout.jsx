@@ -1,7 +1,7 @@
 import { useQueryClient } from "@tanstack/react-query";
 import { useCallback, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { NavLink, Outlet, useNavigate, useParams } from "react-router";
+import { Navigate, NavLink, Outlet, useNavigate, useParams } from "react-router";
 import { toast } from "sonner";
 
 import useCancelRequestOffer from "../../../hooks/website/MyWorks/useCancelRequestOffer";
@@ -42,6 +42,7 @@ export default function WorksDetailsLayout() {
     () => getStartExecutionDeadlineState(workDetails),
     [workDetails],
   );
+  const isDeadlineRestricted = Boolean(deadlineState?.shouldShow);
   const isAutoCanceled = Boolean(deadlineState?.isAutoCanceled);
 
   // Destructure safely
@@ -262,6 +263,8 @@ export default function WorksDetailsLayout() {
       <div className="container">
         {isLoading ? (
           <Loading />
+        ) : isDeadlineRestricted ? (
+          <Navigate to="/my-works" replace />
         ) : (
           <div className="row">
             {/* Header */}

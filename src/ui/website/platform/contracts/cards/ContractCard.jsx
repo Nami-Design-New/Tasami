@@ -49,6 +49,7 @@ export default function ContractCard({ contract, withoutStatus = true }) {
     ];
   }
   const deadlineState = getStartExecutionDeadlineState(contract);
+  const isDeadlineRestricted = Boolean(deadlineState?.shouldShow);
   const isAutoCanceled = Boolean(deadlineState?.isAutoCanceled);
   const isCanceled = contract.status === "canceled" || isAutoCanceled;
   const startDate = formatStartDateTimestamp(
@@ -69,8 +70,8 @@ export default function ContractCard({ contract, withoutStatus = true }) {
     );
   }, [contract]);
 
-  return (
-    <Link to={`/my-contracts/${contract.id}`} className="work-card">
+  const cardContent = (
+    <>
       {contract.code && (
         <div className={`work-reference-code ${contract.rectangle ?? ""}`}>
           {contract.code}
@@ -109,6 +110,18 @@ export default function ContractCard({ contract, withoutStatus = true }) {
       </div>
       {withoutStatus && <WorkProgress steps={progressSteps} />}
       <StartExecutionDeadlineAlert item={contract} scope="contract" />
+    </>
+  );
+
+  return isDeadlineRestricted ? (
+    <article
+      className={`work-card ${isAutoCanceled ? "work-card--auto-canceled" : ""}`}
+    >
+      {cardContent}
+    </article>
+  ) : (
+    <Link to={`/my-contracts/${contract.id}`} className="work-card">
+      {cardContent}
     </Link>
   );
 }

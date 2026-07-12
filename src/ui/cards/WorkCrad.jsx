@@ -63,6 +63,7 @@ export default function WorkCard({
   }
 
   const deadlineState = getStartExecutionDeadlineState(work);
+  const isDeadlineRestricted = Boolean(deadlineState?.shouldShow);
   const isAutoCanceled = Boolean(deadlineState?.isAutoCanceled);
   const isCanceled = work.status === "canceled" || isAutoCanceled;
   const currentIndex = steps.findIndex((s) => s.key === work.status);
@@ -198,8 +199,10 @@ export default function WorkCard({
 
   return (
     <>
-      {isAutoCanceled ? (
-        <article className="work-card work-card--auto-canceled">
+      {isDeadlineRestricted ? (
+        <article
+          className={`work-card ${isAutoCanceled ? "work-card--auto-canceled" : ""}`}
+        >
           {cardContent}
         </article>
       ) : (

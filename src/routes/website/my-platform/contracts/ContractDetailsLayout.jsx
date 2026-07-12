@@ -1,5 +1,5 @@
 import { useTranslation } from "react-i18next";
-import { NavLink, Outlet, useNavigate } from "react-router";
+import { Navigate, NavLink, Outlet, useNavigate } from "react-router";
 import useGetWorkDetails from "../../../../hooks/website/MyWorks/useGetWorkDetails";
 import Loading from "../../../../ui/loading/Loading";
 import RoundedBackButton from "../../../../ui/website-auth/shared/RoundedBackButton";
@@ -16,20 +16,14 @@ export default function ContractDetailsLayout() {
 
   if (isLoading) return <Loading />;
 
-  const isAutoCanceled = Boolean(
-    getStartExecutionDeadlineState(workDetails)?.isAutoCanceled,
+  const isDeadlineRestricted = Boolean(
+    getStartExecutionDeadlineState(workDetails)?.shouldShow,
   );
 
+  if (isDeadlineRestricted) return <Navigate to="/my-contracts" replace />;
+
   // Tabs Logic
-  if (isAutoCanceled) {
-    tabs = [
-      {
-        id: 1,
-        label: t("works.details"),
-        end: true,
-      },
-    ];
-  } else if (
+  if (
     workDetails?.status === "wait_for_user_payment" ||
     workDetails?.status === "wait_helper_to_accept" ||
     workDetails?.status === "offer_sent"

@@ -19,7 +19,6 @@ import {
   formatStartDateTimestamp,
   getStartExecutionDeadlineState,
 } from "../../../../utils/startExecutionDeadline";
-import StartExecutionDeadlineAlert from "../../../../ui/website/my-works/StartExecutionDeadlineAlert";
 
 export default function ContractDetails() {
   const { t, i18n } = useTranslation();
@@ -104,8 +103,6 @@ export default function ContractDetails() {
         </span>
         <span>{workDetails?.status_date}</span>
       </div>
-      <StartExecutionDeadlineAlert item={workDetails} scope="contract" />
-
       <div className="mb-3">
         <AssistantWorkCard
           helper={workDetails?.user}
