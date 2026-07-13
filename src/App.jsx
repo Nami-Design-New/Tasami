@@ -20,21 +20,14 @@ export default function App() {
 
   return (
     <>
-      {" "}
-      {!isOnline ? (
-        <OfflineBanner onRetry={() => window.location.reload()} />
-      ) : (
-        <>
-          {" "}
-          <Toaster
-            expand={false}
-            duration={2000}
-            richColors
-            position="bottom-right"
-          />
-          <RouterProvider router={router} />
-        </>
-      )}
+      {!isOnline && <OfflineBanner onRetry={() => window.location.reload()} />}
+      <Toaster
+        expand={false}
+        duration={2000}
+        richColors
+        position="bottom-right"
+      />
+      <RouterProvider router={router} />
     </>
   );
 }

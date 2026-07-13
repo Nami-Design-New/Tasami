@@ -9,6 +9,9 @@ import { useDispatch, useSelector } from "react-redux";
 import useSendOtpCode from "../../hooks/auth/dashboard/useSendOtpCode";
 import { toast } from "sonner";
 import { setEmail } from "../../redux/slices/phoneSlice";
+import useFormApiError from "../../hooks/shared/useFormApiError";
+import { getErrorMessage } from "../../lib/apiError";
+import ApiErrorAlert from "../common/ApiErrorAlert";
 
 const resetPasswordSchema = (t) =>
   yup.object().shape({
@@ -26,14 +29,18 @@ export default function ResetForm({ setResetPasswordStep }) {
   const {
     handleSubmit,
     register,
+    watch,
     formState: { errors },
   } = useForm({
     resolver: yupResolver(resetPasswordSchema(t)),
     defaultValues: { email: "" },
   });
+  const { apiErrorMessage, clearApiError, handleApiError } =
+    useFormApiError(watch);
   const { sendCode, isPending } = useSendOtpCode();
   // Submit
   const onSubmit = ({ email }) => {
+    clearApiError();
     sendCode(
       { email },
       {
@@ -43,7 +50,9 @@ export default function ResetForm({ setResetPasswordStep }) {
           setResetPasswordStep("s2");
         },
         onError: (error) => {
-          toast.error(error.message);
+          if (!handleApiError(error)) {
+            toast.error(getErrorMessage(error, t));
+          }
         },
       },
     );
@@ -51,6 +60,7 @@ export default function ResetForm({ setResetPasswordStep }) {
   return (
     <div className="reset-form">
       <form className="form_ui " onSubmit={handleSubmit(onSubmit)}>
+        <ApiErrorAlert message={apiErrorMessage} />
         <div className="row">
           <div className="col-12 p-2">
             <InputField

@@ -6,6 +6,7 @@ import { PersistGate } from "redux-persist/integration/react";
 import { persistor, store } from "./redux/store";
 import { HelmetProvider } from "react-helmet-async";
 import App from "./App";
+import { shouldRetryQuery } from "./lib/queryPolicy";
 
 import "aos/dist/aos.css";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -37,12 +38,15 @@ preloadFont(dubaiBold);
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      retry: false,
+      retry: shouldRetryQuery,
       refetchOnWindowFocus: false,
       refetchOnMount: false,
       refetchOnReconnect: false,
       staleTime: 0,
       gcTime: 0,
+    },
+    mutations: {
+      retry: false,
     },
   },
 });

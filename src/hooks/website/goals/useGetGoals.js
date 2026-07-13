@@ -22,7 +22,9 @@ export default function useGetGoals() {
   const {
     data: goals,
     isLoading,
+    isError,
     error,
+    refetch,
     hasNextPage,
     fetchNextPage,
     isFetchingNextPage,
@@ -36,9 +38,6 @@ export default function useGetGoals() {
         },
       });
 
-      if (res.data.code !== 200) {
-        throw new Error(res.data.message || "error fetching assistants");
-      }
       return res.data;
     },
     getNextPageParam: (lastPage) => {
@@ -51,7 +50,9 @@ export default function useGetGoals() {
   return {
     goals,
     isLoading,
+    isError,
     error,
+    refetch,
     hasNextPage,
     fetchNextPage,
     isFetchingNextPage,

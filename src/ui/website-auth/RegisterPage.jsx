@@ -15,6 +15,9 @@ import CustomPhoneInput from "../forms/CustomPhoneInput";
 import appleIcon from "../../assets/icons/apple-icon.svg";
 import googleIcon from "../../assets/icons/google-icon.svg";
 import useGoogleAuth from "../../hooks/auth/useGoogleAuth";
+import useFormApiError from "../../hooks/shared/useFormApiError";
+import { getErrorMessage } from "../../lib/apiError";
+import ApiErrorAlert from "../common/ApiErrorAlert";
 
 const registerSchema = (t) =>
   yup.object().shape({
@@ -50,10 +53,13 @@ const RegisterPage = ({ setRegisterStep }) => {
     resolver: yupResolver(registerSchema(t)),
     defaultValues: { phone: "", code: "", fullPhone: "" },
   });
+  const { apiErrorMessage, clearApiError, handleApiError } =
+    useFormApiError(watch);
   const watchPhone = watch("phone");
   const watchCode = watch("code");
 
   const onSubmit = ({ phone, code, fullPhone }) => {
+    clearApiError();
     sendCode(
       { phone, code, type: "register" },
       {
@@ -63,7 +69,9 @@ const RegisterPage = ({ setRegisterStep }) => {
           setRegisterStep(2);
         },
         onError: (error) => {
-          toast.error(error.message);
+          if (!handleApiError(error)) {
+            toast.error(getErrorMessage(error, t));
+          }
         },
       },
     );
@@ -74,6 +82,7 @@ const RegisterPage = ({ setRegisterStep }) => {
       <p className="text-header">{t("auth.registerHeader")}</p>
 
       <form className="form_ui register-form" onSubmit={handleSubmit(onSubmit)}>
+        <ApiErrorAlert message={apiErrorMessage} />
         <label>{t("auth.phoneLabel")}</label>
 
         <Controller
@@ -139,7 +148,7 @@ const RegisterPage = ({ setRegisterStep }) => {
 
       {/* Social Login */}
       <div className="social-login-buttons">
-        <button onClick={handleGoogleLogin}>
+        <button onClick={handleGoogleLogin} disabled={loading}>
           <img src={googleIcon} alt="Google" />
           <span>{t("auth.continueWithGoogle")}</span>
         </button>

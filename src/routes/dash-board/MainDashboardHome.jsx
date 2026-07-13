@@ -13,6 +13,7 @@ import LineAnalyticsChart from "../../ui/dash-board/charts/LineAnalyticsChart";
 import TaskStatus from "../../ui/dash-board/home/TaskStatus";
 import Loading from "../../ui/loading/Loading";
 import useAdminPermissions from "../../hooks/auth/dashboard/useAdminPermissions";
+import QueryErrorState from "../../ui/common/QueryErrorState";
 import {
   DASHBOARD_PERMISSIONS,
   EMPLOYEE_CREATE_PERMISSIONS,
@@ -31,7 +32,8 @@ export default function DashboardHome() {
   const { t } = useTranslation();
   const { user } = useSelector((state) => state.adminAuth);
   const { hasAnyPermission } = useAdminPermissions();
-  const { homeStatistics, isLoading } = useGetHomeStatistics();
+  const { homeStatistics, isLoading, isError, error, refetch } =
+    useGetHomeStatistics();
   const quickActions = [
     {
       to: "/dashboard/create-employee",
@@ -57,6 +59,7 @@ export default function DashboardHome() {
   ].filter((item) => hasAnyPermission(item.permission));
 
   if (isLoading) return <Loading />;
+  if (isError) return <QueryErrorState error={error} onRetry={refetch} />;
 
   // ===== Revenue Line Chart =====
   const revenueSeries = [

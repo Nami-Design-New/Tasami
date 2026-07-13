@@ -6,10 +6,13 @@ import { Link } from "react-router";
 import { toast } from "sonner";
 import * as yup from "yup";
 import usePhoneRegister from "../../hooks/auth/useSendOtpCode";
+import useFormApiError from "../../hooks/shared/useFormApiError";
+import { getErrorMessage } from "../../lib/apiError";
 import useGetCountries from "../../hooks/countries/useGetCountries";
 import { setPhoneData } from "../../redux/slices/phoneSlice";
 import CustomButton from "../CustomButton";
 import CustomPhoneInput from "../forms/CustomPhoneInput";
+import ApiErrorAlert from "../common/ApiErrorAlert";
 
 const resetPasswordSchema = (t) =>
   yup.object().shape({
@@ -33,6 +36,8 @@ const ResetForm = ({ setResetPasswordStep }) => {
     resolver: yupResolver(resetPasswordSchema(t)),
     defaultValues: { phone: "", code: "", fullPhone: "" },
   });
+  const { apiErrorMessage, clearApiError, handleApiError } =
+    useFormApiError(watch);
 
   const watchPhone = watch("phone");
   const watchCode = watch("code");
@@ -44,6 +49,7 @@ const ResetForm = ({ setResetPasswordStep }) => {
 
   // Submit
   const onSubmit = ({ phone, code, fullPhone }) => {
+    clearApiError();
     sendCode(
       { phone, code, type: "reset_password" },
       {
@@ -53,7 +59,9 @@ const ResetForm = ({ setResetPasswordStep }) => {
           setResetPasswordStep("s2");
         },
         onError: (error) => {
-          toast.error(error.message);
+          if (!handleApiError(error)) {
+            toast.error(getErrorMessage(error, t));
+          }
         },
       },
     );
@@ -62,6 +70,7 @@ const ResetForm = ({ setResetPasswordStep }) => {
   return (
     <div className="reset-form">
       <form className="form_ui " onSubmit={handleSubmit(onSubmit)}>
+        <ApiErrorAlert message={apiErrorMessage} />
         <div className="row">
           <div className="col-12 p-2">
             <label>{t("auth.phoneLabel")}</label>

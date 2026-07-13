@@ -11,6 +11,9 @@ import { setToken } from "../../utils/token";
 import { useDispatch } from "react-redux";
 import { toast } from "sonner";
 import { setAuthed, setRole } from "../../redux/slices/authAdmin";
+import useFormApiError from "../../hooks/shared/useFormApiError";
+import { getErrorMessage } from "../../lib/apiError";
+import ApiErrorAlert from "../common/ApiErrorAlert";
 
 export const getLoginSchema = (t) =>
   yup.object().shape({
@@ -28,6 +31,7 @@ export default function EmailLoginForm() {
   const {
     register,
     handleSubmit,
+    watch,
     formState: { errors },
   } = useForm({
     resolver: yupResolver(getLoginSchema(t)),
@@ -38,7 +42,10 @@ export default function EmailLoginForm() {
     mode: "onBlur",
   });
   const { adminLogin, isPending } = useAdminLogin();
+  const { apiErrorMessage, clearApiError, handleApiError } =
+    useFormApiError(watch);
   const onSubmit = async (data) => {
+    clearApiError();
     adminLogin(
       { email: data.email, password: data.password },
       {
@@ -50,7 +57,9 @@ export default function EmailLoginForm() {
           navigate("/dashboard", { replace: true });
         },
         onError: (error) => {
-          toast.error(error.message);
+          if (!handleApiError(error)) {
+            toast.error(getErrorMessage(error, t));
+          }
         },
       }
     );
@@ -58,6 +67,7 @@ export default function EmailLoginForm() {
 
   return (
     <form className="form_ui" onSubmit={handleSubmit(onSubmit)}>
+      <ApiErrorAlert message={apiErrorMessage} />
       <InputField
         label={t("auth.email")}
         id="email"

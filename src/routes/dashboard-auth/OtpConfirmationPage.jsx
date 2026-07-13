@@ -11,6 +11,9 @@ import useOtpConfirmation from "../../hooks/auth/dashboard/useOtpConfirmation";
 import { useSelector } from "react-redux";
 import useSendOtpCode from "../../hooks/auth/dashboard/useSendOtpCode";
 import { toast } from "sonner";
+import useFormApiError from "../../hooks/shared/useFormApiError";
+import { getErrorMessage } from "../../lib/apiError";
+import ApiErrorAlert from "../../ui/common/ApiErrorAlert";
 
 const otpSchema = (t) =>
   yup.object().shape({
@@ -27,15 +30,19 @@ export default function OtpConfirmationPage({ setRegisterStep }) {
   const {
     handleSubmit,
     control,
+    watch,
     formState: { errors },
   } = useForm({
     resolver: yupResolver(otpSchema(t)),
     defaultValues: { code: "" },
   });
+  const { apiErrorMessage, clearApiError, handleApiError } =
+    useFormApiError(watch);
   const { confirmOtp, isPending } = useOtpConfirmation();
   const { sendCode, isPending: isSendingCode } = useSendOtpCode();
 
   const onSubmit = async ({ code }) => {
+    clearApiError();
     confirmOtp(
       {
         email,
@@ -47,13 +54,16 @@ export default function OtpConfirmationPage({ setRegisterStep }) {
           setRegisterStep("s3");
         },
         onError: (err) => {
-          toast.error(err.message);
+          if (!handleApiError(err)) {
+            toast.error(getErrorMessage(err, t));
+          }
         },
       },
     );
   };
 
   const handleResend = () => {
+    clearApiError();
     return new Promise((resolve, reject) => {
       sendCode(
         {
@@ -65,7 +75,9 @@ export default function OtpConfirmationPage({ setRegisterStep }) {
             resolve(true);
           },
           onError: (err) => {
-            toast.error(err.message);
+            if (!handleApiError(err)) {
+              toast.error(getErrorMessage(err, t));
+            }
             reject(err);
           },
         },
@@ -83,6 +95,7 @@ export default function OtpConfirmationPage({ setRegisterStep }) {
       </div>
       <div className="col-12 p-2">
         <form onSubmit={handleSubmit(onSubmit)} className="reset-form">
+          <ApiErrorAlert message={apiErrorMessage} />
           <Controller
             name="code"
             control={control}

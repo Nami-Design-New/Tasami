@@ -10,6 +10,9 @@ import { useSelector } from "react-redux";
 import useResetPassord from "../../hooks/auth/dashboard/useResetPassord";
 import { toast } from "sonner";
 import { persistor } from "../../redux/store";
+import useFormApiError from "../../hooks/shared/useFormApiError";
+import { getErrorMessage } from "../../lib/apiError";
+import ApiErrorAlert from "../../ui/common/ApiErrorAlert";
 
 // Password validation schema
 const newPasswordSchema = (t) =>
@@ -31,11 +34,14 @@ export default function NewPassword({ setResetPasswordStep }) {
   const {
     register,
     handleSubmit,
+    watch,
     formState: { errors },
   } = useForm({
     resolver: yupResolver(newPasswordSchema(t)),
     mode: "onChange",
   });
+  const { apiErrorMessage, clearApiError, handleApiError } =
+    useFormApiError(watch);
   const { resetPassword, isPending } = useResetPassord();
   const handleBackButtonClick = (e) => {
     e.preventDefault();
@@ -43,6 +49,7 @@ export default function NewPassword({ setResetPasswordStep }) {
   };
 
   const onSubmit = async (data) => {
+    clearApiError();
     const payload = {
       password: data.password,
       password_confirmation: data.confirmPassword,
@@ -56,7 +63,9 @@ export default function NewPassword({ setResetPasswordStep }) {
         navigate("/dashboard/login");
       },
       onError: (error) => {
-        toast.error(error.message);
+        if (!handleApiError(error)) {
+          toast.error(getErrorMessage(error, t));
+        }
       },
     });
   };
@@ -64,6 +73,7 @@ export default function NewPassword({ setResetPasswordStep }) {
   return (
     <div className="reset-form">
       <form className="form_ui" onSubmit={handleSubmit(onSubmit)}>
+        <ApiErrorAlert message={apiErrorMessage} />
         <PasswordField
           label={t("auth.password")}
           name="password"
@@ -82,7 +92,7 @@ export default function NewPassword({ setResetPasswordStep }) {
         />
         <div className="buttons">
           <BackButton onClick={handleBackButtonClick} />
-          <CustomButton fullWidth size="large">
+          <CustomButton fullWidth size="large" loading={isPending}>
             {t("auth.confirm")}
           </CustomButton>
         </div>

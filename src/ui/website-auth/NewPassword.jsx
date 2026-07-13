@@ -1,5 +1,4 @@
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
@@ -7,10 +6,13 @@ import { useNavigate } from "react-router";
 import { toast } from "sonner";
 import * as yup from "yup";
 import useResetPassword from "../../hooks/auth/useResetPassword";
+import useFormApiError from "../../hooks/shared/useFormApiError";
+import { getErrorMessage } from "../../lib/apiError";
 import { persistor } from "../../redux/store";
 import CustomButton from "../CustomButton";
 import BackButton from "../forms/BackButton";
 import PasswordField from "../forms/PasswordField";
+import ApiErrorAlert from "../common/ApiErrorAlert";
 
 // Password validation schema
 const newPasswordSchema = (t) =>
@@ -32,7 +34,6 @@ const newPasswordSchema = (t) =>
 const NewPassword = ({ setResetPasswordStep }) => {
   const { phone, phoneCode } = useSelector((state) => state.phone);
   const { t } = useTranslation();
-  const [resetSuccess, setResetSuccess] = useState(false);
   const { resetPassword, isPending } = useResetPassword();
   const navigate = useNavigate();
 
@@ -40,11 +41,14 @@ const NewPassword = ({ setResetPasswordStep }) => {
   const {
     register,
     handleSubmit,
+    watch,
     formState: { errors },
   } = useForm({
     resolver: yupResolver(newPasswordSchema(t)),
     mode: "onChange",
   });
+  const { apiErrorMessage, clearApiError, handleApiError } =
+    useFormApiError(watch);
 
   const handleBackButtonClick = (e) => {
     e.preventDefault();
@@ -52,6 +56,7 @@ const NewPassword = ({ setResetPasswordStep }) => {
   };
 
   const onSubmit = async (data) => {
+    clearApiError();
     const payload = {
       password: data.password,
       password_confirmation: data.confirmPassword,
@@ -61,13 +66,14 @@ const NewPassword = ({ setResetPasswordStep }) => {
 
     resetPassword(payload, {
       onSuccess: (data) => {
-        setResetSuccess(true);
         toast.success(data.message);
         persistor.purge();
         navigate("/login");
       },
       onError: (error) => {
-        toast.error(error.message);
+        if (!handleApiError(error)) {
+          toast.error(getErrorMessage(error, t));
+        }
       },
     });
   };
@@ -75,6 +81,7 @@ const NewPassword = ({ setResetPasswordStep }) => {
   return (
     <div className="reset-form">
       <form className="form_ui" onSubmit={handleSubmit(onSubmit)}>
+        <ApiErrorAlert message={apiErrorMessage} />
         <PasswordField
           label={t("auth.password")}
           name="password"

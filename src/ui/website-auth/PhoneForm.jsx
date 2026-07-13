@@ -6,7 +6,10 @@ import useLogin from "../../hooks/auth/useLogin";
 import { setAuthed, setUser } from "../../redux/slices/authRole";
 import { setToken } from "../../utils/token";
 import { useLoginPhone } from "../../validations/auth/login-phone-schema";
+import useFormApiError from "../../hooks/shared/useFormApiError";
+import { getErrorMessage } from "../../lib/apiError";
 import CustomButton from "../CustomButton";
+import ApiErrorAlert from "../common/ApiErrorAlert";
 import InputField from "../forms/InputField";
 import PasswordField from "../forms/PasswordField";
 
@@ -17,11 +20,15 @@ const PhoneForm = () => {
   const {
     register,
     handleSubmit,
+    watch,
     formState: { errors },
   } = useLoginPhone();
   const { login, isPending } = useLogin();
+  const { apiErrorMessage, clearApiError, handleApiError } =
+    useFormApiError(watch);
 
   const onSubmit = async (data) => {
+    clearApiError();
     login(
       { email_or_phone: data.phone, password: data.password },
       {
@@ -35,7 +42,9 @@ const PhoneForm = () => {
           navigate("/", { replace: true });
         },
         onError: (error) => {
-          toast.error(error.message);
+          if (!handleApiError(error)) {
+            toast.error(getErrorMessage(error, t));
+          }
         },
       }
     );
@@ -43,6 +52,7 @@ const PhoneForm = () => {
 
   return (
     <form className="form_ui" onSubmit={handleSubmit(onSubmit)}>
+      <ApiErrorAlert message={apiErrorMessage} />
       <InputField
         type="text"
         placeholder={t("auth.phonePlaceholder")}

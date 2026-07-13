@@ -5,6 +5,8 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 import { toast } from "sonner";
 import useRegister from "../../hooks/auth/useRegister";
+import useFormApiError from "../../hooks/shared/useFormApiError";
+import { getErrorMessage } from "../../lib/apiError";
 import { persistor } from "../../redux/store";
 import { formatYMD } from "../../utils/helper";
 import { setToken } from "../../utils/token";
@@ -12,6 +14,7 @@ import CustomButton from "../CustomButton";
 import BackButton from "../forms/BackButton";
 import InputField from "../forms/InputField";
 import PasswordField from "../forms/PasswordField";
+import ApiErrorAlert from "../common/ApiErrorAlert";
 
 export default function AccountInfoForm({ setFormType }) {
   const { t } = useTranslation();
@@ -22,8 +25,11 @@ export default function AccountInfoForm({ setFormType }) {
   const {
     register,
     handleSubmit,
+    watch,
     formState: { errors },
   } = useFormContext();
+  const { apiErrorMessage, clearApiError, handleApiError } =
+    useFormApiError(watch);
 
   function handleBack(e) {
     e.preventDefault();
@@ -31,6 +37,7 @@ export default function AccountInfoForm({ setFormType }) {
   }
 
   async function onSubmit(data) {
+    clearApiError();
     const payload = {
       phone,
       phone_code: phoneCode,
@@ -52,13 +59,18 @@ export default function AccountInfoForm({ setFormType }) {
         persistor.purge();
       },
       onError: (error) => {
-        toast.error(error.message);
+        if (!handleApiError(error)) {
+          toast.error(getErrorMessage(error, t));
+        }
       },
     });
   }
 
   return (
     <div className="row">
+      <div className="col-12">
+        <ApiErrorAlert message={apiErrorMessage} />
+      </div>
       <div className="col-12 p-2">
         <label className="phone-label">{t("auth.phoneLabel")}</label>
         <PhoneInput

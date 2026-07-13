@@ -6,7 +6,10 @@ import useLogin from "../../hooks/auth/useLogin";
 import { setAuthed, setUser } from "../../redux/slices/authRole";
 import { setToken } from "../../utils/token";
 import { useLoginEmail } from "../../validations/auth/login-email-schema";
+import useFormApiError from "../../hooks/shared/useFormApiError";
+import { getErrorMessage } from "../../lib/apiError";
 import CustomButton from "../CustomButton";
+import ApiErrorAlert from "../common/ApiErrorAlert";
 import InputField from "../forms/InputField";
 import PasswordField from "../forms/PasswordField";
 
@@ -17,11 +20,15 @@ const EmailForm = () => {
   const {
     register,
     handleSubmit,
+    watch,
     formState: { errors },
   } = useLoginEmail();
   const { login, isPending } = useLogin();
+  const { apiErrorMessage, clearApiError, handleApiError } =
+    useFormApiError(watch);
 
   const onSubmit = async (data) => {
+    clearApiError();
     login(
       { email_or_phone: data.email, password: data.password },
       {
@@ -34,7 +41,9 @@ const EmailForm = () => {
           navigate("/", { replace: true });
         },
         onError: (error) => {
-          toast.error(error.message);
+          if (!handleApiError(error)) {
+            toast.error(getErrorMessage(error, t));
+          }
         },
       }
     );
@@ -42,6 +51,7 @@ const EmailForm = () => {
 
   return (
     <form className="form_ui" onSubmit={handleSubmit(onSubmit)}>
+      <ApiErrorAlert message={apiErrorMessage} />
       <InputField
         id="email"
         placeholder={t("auth.emailPlaceholder")}

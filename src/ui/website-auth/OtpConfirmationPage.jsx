@@ -6,6 +6,9 @@ import { toast } from "sonner";
 import * as yup from "yup";
 import useOtpConfirmation from "../../hooks/auth/useOtpConfirmation";
 import usePhoneRegister from "../../hooks/auth/useSendOtpCode";
+import useFormApiError from "../../hooks/shared/useFormApiError";
+import { getErrorMessage } from "../../lib/apiError";
+import ApiErrorAlert from "../../ui/common/ApiErrorAlert";
 import CustomButton from "../../ui/CustomButton";
 import BackButton from "../../ui/forms/BackButton";
 import OtpContainer from "../../ui/forms/OtpContainer";
@@ -27,13 +30,17 @@ export default function OtpConfirmationPage({ setRegisterStep }) {
   const {
     handleSubmit,
     control,
+    watch,
     formState: { errors },
   } = useForm({
     resolver: yupResolver(otpSchema(t)),
     defaultValues: { code: "" },
   });
+  const { apiErrorMessage, clearApiError, handleApiError } =
+    useFormApiError(watch);
 
   const onSubmit = async ({ code }) => {
+    clearApiError();
     confirmOtp(
       {
         phone: phone,
@@ -50,13 +57,16 @@ export default function OtpConfirmationPage({ setRegisterStep }) {
           }
         },
         onError: (err) => {
-          toast.error(err.message);
+          if (!handleApiError(err)) {
+            toast.error(getErrorMessage(err, t));
+          }
         },
       }
     );
   };
 
   const handleResend = () => {
+    clearApiError();
     return new Promise((resolve, reject) => {
       sendCode(
         {
@@ -71,7 +81,9 @@ export default function OtpConfirmationPage({ setRegisterStep }) {
             resolve(true); // success
           },
           onError: (err) => {
-            toast.error(err.message);
+            if (!handleApiError(err)) {
+              toast.error(getErrorMessage(err, t));
+            }
             reject(err); // fail
           },
         }
@@ -103,6 +115,7 @@ export default function OtpConfirmationPage({ setRegisterStep }) {
         </p>
       </div>
       <form onSubmit={handleSubmit(onSubmit)} className="reset-form">
+        <ApiErrorAlert message={apiErrorMessage} />
         <Controller
           name="code"
           control={control}
