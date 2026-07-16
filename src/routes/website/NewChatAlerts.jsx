@@ -1,5 +1,6 @@
 import { useQueryClient } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
+import { useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router";
 import avatarPlaceholder from "../../assets/images/dashboard/avatar-placeholder.jpg";
 import useGetNewChatAlerts from "../../hooks/website/chats/useGetNewChatAlerts";
@@ -10,62 +11,12 @@ import RoundedBackButton from "../../ui/website-auth/shared/RoundedBackButton";
 import triangleWithHelper from "../../assets/icons/triangle-with-helper.svg";
 import helpServiceFromHelper from "../../assets/icons/help_service_from_helper.svg";
 import chatIcon from "../../assets/icons/chat.svg";
+import {
+  getConversationBreadcrumb,
+  getConversationPath,
+} from "../../utils/newChatBreadcrumb";
 
 const formatCount = (count) => (count > 99 ? "99+" : count);
-
-const getConversationDetailsPath = (conversation) => {
-  let detailsId;
-  if (conversation.type === "conversation_of_community") {
-    detailsId = conversation?.community_id;
-  } else if (
-    conversation.type === "help_service_from_helper" ||
-    conversation.type === "personal_goal_with_helper"
-  ) {
-    detailsId = conversation?.work_id;
-  } else {
-    detailsId = conversation?.group_id;
-  }
-
-  if (conversation.type === "conversation_of_community") {
-    return `/community/${detailsId}`;
-  }
-
-  if (conversation.type === "conversation_of_group") {
-    return `/my-group/${detailsId}`;
-  }
-
-  if (conversation.type === "help_service_from_helper") {
-    return `/my-contracts/${detailsId}`;
-  }
-
-  return `/my-works/${detailsId}`;
-};
-
-const getConversationSectionPath = (conversation) => {
-  const detailsPath = getConversationDetailsPath(conversation);
-
-  if (conversation.type === "help_service_from_helper") {
-    return `${detailsPath}/beneficiaries`;
-  }
-
-  if (conversation.type === "personal_goal_with_helper") {
-    return `${detailsPath}/assistants`;
-  }
-
-  return detailsPath;
-};
-
-const getConversationPath = (conversation) => {
-  if (conversation.type === "conversation_of_community") {
-    return `/community/${conversation.redirect_id}/chats`;
-  }
-
-  if (conversation.type === "conversation_of_group") {
-    return `/group/chat/${conversation?.id}`;
-  }
-
-  return `/user-chat/${conversation?.redirect_id}`;
-};
 
 const getConversationIcon = (type) => {
   if (
@@ -81,6 +32,7 @@ export default function NewChatAlerts() {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const queryClient = useQueryClient();
+  const currentUserId = useSelector((state) => state.authRole.user?.id);
   const {
     newChatAlerts,
     isLoading,
@@ -104,45 +56,6 @@ export default function NewChatAlerts() {
     }
 
     return t("chats");
-  };
-
-  const getConversationBreadcrumb = (conversation) => {
-    const chatPath = getConversationPath(conversation);
-    const codeLabel =
-      conversation.code || conversation.name || conversation.sender_name;
-    const detailsPath = getConversationDetailsPath(conversation);
-    console.log(chatPath, detailsPath);
-
-    if (conversation.type === "conversation_of_community") {
-      return [
-        { label: codeLabel, to: detailsPath },
-        {
-          label: t("website.assistants.community", "المجتمع"),
-          to: detailsPath,
-        },
-        { label: t("chats"), to: chatPath },
-      ];
-    }
-
-    if (conversation.type === "conversation_of_group") {
-      return [
-        { label: codeLabel, to: detailsPath },
-        { label: t("works.myGroup", "المجموعة"), to: detailsPath },
-        { label: t("chats"), to: chatPath },
-      ];
-    }
-
-    return [
-      { label: codeLabel, to: detailsPath },
-      {
-        label: t("works.assistants", "المساعدون"),
-        to: getConversationSectionPath(conversation),
-      },
-      {
-        label: conversation.name || conversation.sender_name,
-        to: chatPath,
-      },
-    ];
   };
 
   const getReactangleIcon = (type) => {
@@ -184,7 +97,11 @@ export default function NewChatAlerts() {
                     }}
                     state={{
                       fromQuickAccess: true,
-                      quickChatBreadcrumb: getConversationBreadcrumb(item),
+                      quickChatBreadcrumb: getConversationBreadcrumb({
+                        conversation: item,
+                        currentUserId,
+                        t,
+                      }),
                     }}
                     className="new-chat-alerts__item"
                     onClick={handleOpenChat}
