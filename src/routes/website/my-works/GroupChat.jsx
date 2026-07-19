@@ -1,10 +1,10 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useQueryClient } from "@tanstack/react-query";
-import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
-import { useNavigate, useParams } from "react-router";
+import { useLocation, useNavigate, useParams } from "react-router";
 import * as yup from "yup";
 import useGetGroupChats from "../../../hooks/website/MyWorks/groups/chat/useGetGroupChat";
 import useSendGroupMessage from "../../../hooks/website/MyWorks/groups/chat/useSendGroupMessage";
@@ -14,11 +14,11 @@ import RoundedBackButton from "../../../ui/website-auth/shared/RoundedBackButton
 import { GroupChatSocketService } from "../../../utils/GroupChatService";
 import { getToken } from "../../../utils/token";
 import useUpdateGroupChatCounter from "../../../hooks/website/my-groups/useUpdateGroupChatCounter";
-import useGetGroupDetails from "../../../hooks/website/my-groups/useGetGroupDetails";
 import Loading from "../../../ui/loading/Loading";
 import CustomButton from "../../../ui/CustomButton";
 import ReplyPreview from "../../../ui/chat/ReplyPreview";
 import useScrollToMessage from "../../../utils/useScrollToMessage";
+import QuickChatBreadcrumb from "../../../ui/chat/QuickChatBreadcrumb";
 
 const getMessageType = (file) => {
   if (!file) return "text";
@@ -50,11 +50,11 @@ export default function GroupChat() {
     audio: yup.mixed().nullable(),
   });
   const navigate = useNavigate();
+  const location = useLocation();
   const { id } = useParams();
   const queryClient = useQueryClient();
   //   const { lang } = useSelector((state) => state.language);
   const { user } = useSelector((state) => state.authRole);
-  const { groupDetails } = useGetGroupDetails();
 
   // ===== States =====
   const [selectedFile, setSelectedFile] = useState(null);
@@ -66,6 +66,10 @@ export default function GroupChat() {
   const [, setSocketStatus] = useState("connecting");
   const [replyTo, setReplyTo] = useState(null);
   const [scrollTargetId, setScrollTargetId] = useState(null);
+  const quickChatBreadcrumb = location.state?.quickChatBreadcrumb || [];
+  const isFromQuickAccess =
+    location.state?.fromQuickAccess ||
+    new URLSearchParams(location.search).get("source") === "quick-access";
 
   const mediaRecorderRef = useRef(null);
   const audioChunksRef = useRef([]);
@@ -73,7 +77,10 @@ export default function GroupChat() {
 
   const { chats, isLoading, hasNextPage, fetchNextPage, isFetchingNextPage } =
     useGetGroupChats();
-  const allChats = chats?.pages?.flatMap((page) => page?.data).reverse() ?? [];
+  const allChats = useMemo(
+    () => chats?.pages?.flatMap((page) => page?.data).reverse() ?? [],
+    [chats?.pages],
+  );
 
   const { sendMessage, isPending } = useSendGroupMessage();
 
@@ -298,7 +305,7 @@ export default function GroupChat() {
     }
 
     sendMessage(formData, {
-      onSuccess: (res) => {
+      onSuccess: () => {
         setReplyTo(null);
       },
     });
@@ -312,7 +319,17 @@ export default function GroupChat() {
   const { mutate: updateCounter } = useUpdateGroupChatCounter();
   const [updated, setUpdated] = useState(false);
 
-  const isLogedUser = user?.id === groupDetails?.helper_id;
+  useEffect(() => {
+    if (!isFromQuickAccess || updated) return;
+
+    updateCounter(undefined, {
+      onSettled: () => {
+        queryClient.invalidateQueries({ queryKey: ["counters-notify"] });
+        queryClient.invalidateQueries({ queryKey: ["quick-chat-alerts"] });
+      },
+    });
+    setUpdated(true);
+  }, [isFromQuickAccess, queryClient, updateCounter, updated]);
 
   const handleScroll = (e) => {
     const target = e.target;
@@ -321,7 +338,7 @@ export default function GroupChat() {
       Math.abs(target.scrollHeight - target.clientHeight - target.scrollTop) <
       3;
 
-    if (isAtBottom && !updated && isLogedUser) {
+    if (isAtBottom && !updated) {
       updateCounter();
       setUpdated(true);
     }
@@ -335,18 +352,33 @@ export default function GroupChat() {
         <div className="chat-window">
           {/* ===== Header ===== */}
           <div className="chat-window__info d-flex align-items-center justify-content-between">
-            <div className="d-flex align-items-center gap-2">
-              <RoundedBackButton
-                onClick={() => {
-                  navigate(-1);
-                  queryClient.invalidateQueries({
-                    queryKey: ["group-details"],
-                    refetchType: "active",
-                  });
-                }}
-              />
-              <h4 className="chat-window__name mb-0">{t("chats")}</h4>
-            </div>
+            {isFromQuickAccess ? (
+              <div className="d-flex align-items-center gap-2">
+                <RoundedBackButton
+                  onClick={() => {
+                    navigate(-1);
+                    queryClient.invalidateQueries({
+                      queryKey: ["group-details"],
+                      refetchType: "active",
+                    });
+                  }}
+                />
+                <QuickChatBreadcrumb items={quickChatBreadcrumb} />
+              </div>
+            ) : (
+              <div className="d-flex align-items-center gap-2">
+                <RoundedBackButton
+                  onClick={() => {
+                    navigate(-1);
+                    queryClient.invalidateQueries({
+                      queryKey: ["group-details"],
+                      refetchType: "active",
+                    });
+                  }}
+                />
+                <h4 className="chat-window__name mb-0">{t("chats")}</h4>
+              </div>
+            )}
             {/* Live socket status indicator */}
             {/* <div className="socket-status d-flex align-items-center gap-2">
               {socketStatus === "connected" && (
