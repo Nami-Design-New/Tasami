@@ -56,8 +56,8 @@ const AddActionModal = ({ showModal, setShowModal, taskData }) => {
         data.actionType === "complete"
           ? "finish"
           : data.actionType === "redirect"
-          ? "send"
-          : "return",
+            ? "send"
+            : "return",
       ...(data.actionType === "redirect" && {
         employee_id: Number(data.employee),
       }),
@@ -98,7 +98,7 @@ const AddActionModal = ({ showModal, setShowModal, taskData }) => {
                     ? [
                         {
                           label: t(
-                            "dashboard.tasks.modelTask.notes.completeBenefit"
+                            "dashboard.tasks.modelTask.notes.completeBenefit",
                           ),
                           value: "complete",
                         },
@@ -129,14 +129,14 @@ const AddActionModal = ({ showModal, setShowModal, taskData }) => {
                     <SelectField
                       {...field}
                       label={t(
-                        "dashboard.tasks.modelTask.notes.chooseRequestEmployee"
+                        "dashboard.tasks.modelTask.notes.chooseRequestEmployee",
                       )}
                       disableFiledValue={t(
-                        "dashboard.tasks.modelTask.notes.chooseEmployee"
+                        "dashboard.tasks.modelTask.notes.chooseEmployee",
                       )}
                       options={employees.map((emp) => ({
                         value: emp.id,
-                        name: `${emp.first_name} ${emp.family_name}`,
+                        name: `${emp.first_name} ${emp.family_name} (${emp.job_title})`,
                       }))}
                       error={errors.employee?.message}
                     />

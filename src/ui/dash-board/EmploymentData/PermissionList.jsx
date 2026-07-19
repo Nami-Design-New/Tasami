@@ -2,7 +2,7 @@ const PermissionList = ({ permissions }) => {
 
   return (
     <ul className="permission-list">
-      {permissions.map((permission, index) => (
+      {permissions.map((permission) => (
         <li className="permission-list__item" key={permission?.id}>
           <i className="fa-solid fa-badge-check permission-list__icon"></i>
           <span className="permission-list__label">{permission?.title}</span>

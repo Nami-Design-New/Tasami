@@ -39,7 +39,7 @@ const Notes = ({
         cell: (info) => (
           <Link
             className="link-styles"
-            to={`/dashboard/employee-details/${info.row.original.id}`}
+            to={`/dashboard/employee-summary/${info.row.original.employee?.id}`}
           >
             {info.getValue()}
           </Link>

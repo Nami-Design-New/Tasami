@@ -8,7 +8,6 @@ import Header from "../../ui/ModelComponent/Header";
 import ReusableDataTable from "../../ui/table/ReusableDataTable";
 import TablePagination from "../../ui/table/TablePagentaion";
 import useGetWorkingGroupdetails from "../../hooks/dashboard/workingGroups/useGetWorkingGroupDetails";
-import Loading from "../../ui/loading/Loading";
 import { PAGE_SIZE } from "../../utils/constants";
 
 const columnHelper = createColumnHelper();
@@ -91,7 +90,7 @@ const WokingGroupDetails = () => {
         header: t("dashboard.workGroupDetails.columns.code"),
         cell: (info) => (
           <Link
-            to={`/dashboard/employee-details/${info?.row?.original?.id}`}
+            to={`/dashboard/employee-summary/${info?.row?.original?.id}`}
             className="link-styles"
           >
             {info.getValue()}
