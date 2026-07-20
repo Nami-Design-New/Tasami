@@ -772,6 +772,38 @@
   }
 }
 
+.task-reminder-time-picker {
+  position: relative;
+
+  .input-field input[type="time"] {
+    padding-inline-end: 56px !important;
+
+    &::-webkit-calendar-picker-indicator {
+      opacity: 0;
+      pointer-events: none;
+    }
+  }
+
+  &__button {
+    @include centerFlex();
+    position: absolute;
+    inset-inline-end: 10px;
+    top: 37px;
+    width: 36px;
+    height: 36px;
+    border: 0;
+    border-radius: 50%;
+    background: transparent;
+    color: $secondColorDark;
+    cursor: pointer;
+
+    &:focus-visible {
+      outline: 2px solid $main;
+      outline-offset: 2px;
+    }
+  }
+}
+
 .task-repetition-settings {
   display: flex;
   flex-direction: column;

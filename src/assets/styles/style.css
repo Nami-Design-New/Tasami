@@ -11711,6 +11711,36 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
   transition: 0.3s ease-in-out;
 }
 
+.task-reminder-time-picker {
+  position: relative;
+}
+.task-reminder-time-picker .input-field input[type=time] {
+  padding-inline-end: 56px !important;
+}
+.task-reminder-time-picker .input-field input[type=time]::-webkit-calendar-picker-indicator {
+  opacity: 0;
+  pointer-events: none;
+}
+.task-reminder-time-picker__button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  inset-inline-end: 10px;
+  top: 37px;
+  width: 36px;
+  height: 36px;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: #13aef3;
+  cursor: pointer;
+}
+.task-reminder-time-picker__button:focus-visible {
+  outline: 2px solid #214b92;
+  outline-offset: 2px;
+}
+
 .task-repetition-settings {
   display: flex;
   flex-direction: column;

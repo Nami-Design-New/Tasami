@@ -1,5 +1,5 @@
 import { useQueryClient } from "@tanstack/react-query";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Form } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
 import { useParams } from "react-router";
@@ -12,7 +12,10 @@ import useAddTasksForm, {
   getAvailableTaskRepetitions,
   TASK_NOTE_MAX_LENGTH,
 } from "../../../../validations/works/add-tasks-form";
-import { normalizeTaskScheduleDate } from "../../../../validations/works/task-schedule";
+import {
+  hasTaskStartDatePassed,
+  normalizeTaskScheduleDate,
+} from "../../../../validations/works/task-schedule";
 import CustomButton from "../../../CustomButton";
 import InputField from "../../../forms/InputField";
 import SelectField from "../../../forms/SelectField";
@@ -124,6 +127,7 @@ export default function AddTasksModal({
   const { taskaCategories, isLoading } = useGetTasksCategories();
   const { addNewTask, isPending } = useAddTasks();
   const { updateTask, isPending: updatingTask } = useUpdateTask();
+  const notificationTimeInputRef = useRef(null);
   const [editingNoteId, setEditingNoteId] = useState(null);
   const [pendingUpdatePayload, setPendingUpdatePayload] = useState(null);
 
@@ -151,6 +155,10 @@ export default function AddTasksModal({
     startedAt,
     expectedEndDate,
   );
+  const isStartDateLocked = Boolean(
+    taskData && hasTaskStartDatePassed(taskData.started_at),
+  );
+  const notificationTimeRegistration = register("notification_time");
 
   //  Populate form when editing an existing task
   useEffect(() => {
@@ -179,7 +187,9 @@ export default function AddTasksModal({
         )
           ? taskData.notification_repeat
           : "weekly",
-        notification_day: taskData.notification_day || "",
+        notification_day: Array.isArray(taskData.notification_day)
+          ? taskData.notification_day.map(String)
+          : [],
         notification_time: taskData.notification_time || "",
         repeatTask: !hasReminderNotifications && isRepeated,
         repeat_count:
@@ -344,8 +354,7 @@ export default function AddTasksModal({
 
     if (data.reminderNotifications) {
       payload.notification_repeat = data.notification_repeat;
-      payload.notification_day =
-        data.notification_day === "" ? undefined : data.notification_day;
+      payload.notification_day = data.notification_day;
       payload.notification_time = data.notification_time;
     } else {
       payload.notification_repeat = "none";
@@ -473,6 +482,8 @@ export default function AddTasksModal({
                 type="date"
                 label={t("works.started_at")}
                 {...register("started_at")}
+                readOnly={isStartDateLocked}
+                aria-readonly={isStartDateLocked}
                 error={errors.started_at?.message}
               />
             </div>
@@ -613,7 +624,7 @@ export default function AddTasksModal({
                             value={option.value}
                             {...register("notification_repeat", {
                               onChange: () =>
-                                setValue("notification_day", "", {
+                                setValue("notification_day", [], {
                                   shouldValidate: true,
                                 }),
                             })}
@@ -640,7 +651,7 @@ export default function AddTasksModal({
                           ).map((day) => (
                             <label key={day}>
                               <input
-                                type="radio"
+                                type="checkbox"
                                 value={day}
                                 {...register("notification_day")}
                               />
@@ -661,12 +672,31 @@ export default function AddTasksModal({
                     ) : null}
 
                     {notificationRepeat ? (
-                      <InputField
-                        type="time"
-                        label={t("works.select_time")}
-                        {...register("notification_time")}
-                        error={errors.notification_time?.message}
-                      />
+                      <div className="task-reminder-time-picker">
+                        <InputField
+                          id="notification_time"
+                          type="time"
+                          label={t("works.select_time")}
+                          {...notificationTimeRegistration}
+                          ref={(element) => {
+                            notificationTimeInputRef.current = element;
+                            notificationTimeRegistration.ref(element);
+                          }}
+                          error={errors.notification_time?.message}
+                        />
+                        <button
+                          type="button"
+                          className="task-reminder-time-picker__button"
+                          aria-label={t("works.select_time")}
+                          onClick={() => {
+                            const input = notificationTimeInputRef.current;
+                            input?.focus();
+                            input?.showPicker?.();
+                          }}
+                        >
+                          <i className="fa-regular fa-clock" aria-hidden />
+                        </button>
+                      </div>
                     ) : null}
                   </div>
                 ) : null}

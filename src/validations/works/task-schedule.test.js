@@ -2,6 +2,7 @@ import { describe, expect, it } from "vitest";
 import {
   canEnableTaskScheduleReminder,
   getAllowedTaskScheduleStatuses,
+  hasTaskStartDatePassed,
   normalizeTaskScheduleDate,
   validateTaskScheduleDate,
 } from "./task-schedule";
@@ -9,6 +10,14 @@ import {
 describe("task schedule rules", () => {
   it("normalizes API schedule dates", () => {
     expect(normalizeTaskScheduleDate("2026 Jul 14")).toBe("2026-07-14");
+  });
+
+  it("locks only start dates before the current calendar day", () => {
+    const today = new Date("2026-07-20T15:00:00");
+
+    expect(hasTaskStartDatePassed("2026-07-19", today)).toBe(true);
+    expect(hasTaskStartDatePassed("2026-07-20", today)).toBe(false);
+    expect(hasTaskStartDatePassed("2026-07-21", today)).toBe(false);
   });
 
   it("allows only forward status transitions", () => {

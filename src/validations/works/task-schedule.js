@@ -30,6 +30,13 @@ export const normalizeTaskScheduleDate = (value) => {
   ].join("-");
 };
 
+export const hasTaskStartDatePassed = (value, today = new Date()) => {
+  const startDate = normalizeTaskScheduleDate(value);
+  const currentDate = normalizeTaskScheduleDate(today);
+
+  return Boolean(startDate && currentDate && startDate < currentDate);
+};
+
 export const getAllowedTaskScheduleStatuses = (status) => {
   if (status === "pending") return TASK_SCHEDULE_STATUSES;
   if (status === "progress") return ["progress", "completed"];

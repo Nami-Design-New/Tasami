@@ -19,7 +19,7 @@ const validTask = {
   notes: [],
   reminderNotifications: true,
   notification_repeat: "monthly",
-  notification_day: "31",
+  notification_day: ["1", "15", "31"],
   notification_time: "09:00",
   repeatTask: false,
   repeat_count: "",
@@ -78,8 +78,32 @@ describe("execution task scheduling validation", () => {
 
   it("rejects month dates outside 1 through 31", async () => {
     await expect(
-      schema.validate({ ...validTask, notification_day: "32" }),
+      schema.validate({ ...validTask, notification_day: ["32"] }),
     ).rejects.toThrow("validation.invalid_option");
+  });
+
+  it("accepts multiple weekly reminder days", async () => {
+    await expect(
+      schema.validate({
+        ...validTask,
+        notification_repeat: "weekly",
+        notification_day: ["sunday", "tuesday", "thursday"],
+      }),
+    ).resolves.toMatchObject({
+      notification_day: ["sunday", "tuesday", "thursday"],
+    });
+  });
+
+  it("requires at least one reminder day or date", async () => {
+    await expect(
+      schema.validate({ ...validTask, notification_day: [] }),
+    ).rejects.toThrow("validation.required");
+  });
+
+  it("rejects the legacy scalar reminder day format", async () => {
+    await expect(
+      schema.validate({ ...validTask, notification_day: "31" }),
+    ).rejects.toThrow("notification_day must be a `array` type");
   });
 
   it("rejects repetition counts above the available limit", async () => {

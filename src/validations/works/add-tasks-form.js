@@ -124,28 +124,38 @@ export const getAddTasksSchema = (t) =>
     }),
 
     notification_day: yup
-      .string()
+      .array()
       .when(
         ["reminderNotifications", "notification_repeat"],
         ([reminderNotifications, notificationRepeat], schema) => {
-          if (!reminderNotifications) return schema.optional();
+          if (!reminderNotifications) return yup.mixed().optional();
 
           if (notificationRepeat === "weekly") {
             return schema
-              .oneOf(WEEK_DAYS, t("validation.invalid_option"))
+              .of(
+                yup
+                  .string()
+                  .oneOf(WEEK_DAYS, t("validation.invalid_option")),
+              )
+              .min(1, t("validation.required"))
               .required(t("validation.required"));
           }
 
           if (notificationRepeat === "monthly") {
             return schema
-              .matches(
-                /^(?:[1-9]|[12]\d|3[01])$/,
-                t("validation.invalid_option"),
+              .of(
+                yup
+                  .string()
+                  .matches(
+                    /^(?:[1-9]|[12]\d|3[01])$/,
+                    t("validation.invalid_option"),
+                  ),
               )
+              .min(1, t("validation.required"))
               .required(t("validation.required"));
           }
 
-          return schema.optional();
+          return yup.mixed().optional();
         },
       ),
 
@@ -236,7 +246,7 @@ export default function useAddTasksForm() {
       notes: [],
       reminderNotifications: false,
       notification_repeat: "weekly",
-      notification_day: "",
+      notification_day: [],
       notification_time: "",
       repeatTask: false,
       repeat_count: "",
