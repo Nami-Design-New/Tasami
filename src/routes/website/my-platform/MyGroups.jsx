@@ -1,9 +1,10 @@
+
 import { useTranslation } from "react-i18next";
 import ExpDocItemLoader from "../../../ui/loading/ExpDocItemLoader";
 import InfiniteScroll from "../../../ui/loading/InfiniteScroll";
 import GroupList from "../../../ui/website/platform/groups/GroupList";
 import CustomButton from "../../../ui/CustomButton";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import AddGroupModal from "../../../ui/website/platform/groups/AddGroupModal";
 import useGetMyGroups from "../../../hooks/website/my-groups/useGetMyGroups";
 import { useLocation, useNavigate } from "react-router";
@@ -15,9 +16,10 @@ export default function MyGroups() {
   const { t } = useTranslation();
   const location = useLocation();
   const navigate = useNavigate();
-  const hasReachedGroupLimit = useSelector((state) =>
-    checkGroupLimit(state.authRole.user),
-  );
+
+  const user = useSelector((state) => state.authRole.user);
+  const hasReachedGroupLimit = checkGroupLimit(user);
+
   const {
     myGroups,
     isLoading,
@@ -27,13 +29,11 @@ export default function MyGroups() {
   } = useGetMyGroups("on");
 
   const allGroups = myGroups?.pages?.flatMap((page) => page?.data) ?? [];
-  const [showAddGroupModal, setShowAddGroupModal] = useState(
-    () =>
-      location.state?.openCreateGroup === true && !hasReachedGroupLimit,
-  );
-  const [showGroupLimitModal, setShowGroupLimitModal] = useState(
-    () => location.state?.openCreateGroup === true && hasReachedGroupLimit,
-  );
+
+  const [showAddGroupModal, setShowAddGroupModal] = useState(false);
+  const [showGroupLimitModal, setShowGroupLimitModal] = useState(false);
+
+  const handledOpenCreateGroupRef = useRef(false);
 
   const handleCreateGroup = () => {
     if (hasReachedGroupLimit) {
@@ -45,30 +45,50 @@ export default function MyGroups() {
   };
 
   useEffect(() => {
-    if (!location.state?.openCreateGroup) return;
+    const shouldOpenCreateGroup = location.state?.openCreateGroup === true;
 
-    navigate(location.pathname, { replace: true, state: null });
-  }, [location.pathname, location.state, navigate]);
+    if (!user || !shouldOpenCreateGroup || handledOpenCreateGroupRef.current) {
+      return;
+    }
+
+    handledOpenCreateGroupRef.current = true;
+
+    if (hasReachedGroupLimit) {
+      setShowGroupLimitModal(true);
+    } else {
+      setShowAddGroupModal(true);
+    }
+
+    navigate(location.pathname, {
+      replace: true,
+      state: null,
+    });
+  }, [
+    user,
+    hasReachedGroupLimit,
+    location.state?.openCreateGroup,
+    location.pathname,
+    navigate,
+  ]);
 
   return (
     <>
       <section
-        className="groups__section position-relative  "
+        className="groups__section position-relative"
         aria-labelledby="experience-title"
       >
         <div className="position-sticky top-0 z-3 d-flex justify-content-end">
           <CustomButton onClick={handleCreateGroup} size="large">
-            {t("website.platform.groups.addNew")}{" "}
+            {t("website.platform.groups.addNew")}
           </CustomButton>
         </div>
-        {/* Empty state */}
+
         {!isLoading && allGroups.length === 0 && (
           <div className="empty-data h-100">
             <p>{t("website.platform.groups.noGroups")}</p>
           </div>
         )}
 
-        {/* Data list */}
         <InfiniteScroll
           onLoadMore={fetchNextPage}
           hasNextPage={hasNextPage}
@@ -77,14 +97,14 @@ export default function MyGroups() {
           <GroupList allGroups={allGroups} />
         </InfiniteScroll>
 
-        {/* Fetching next page indicator */}
         {(isLoading || isFetchingNextPage) && <ExpDocItemLoader />}
       </section>
 
       <AddGroupModal
-        setShowModal={setShowAddGroupModal}
         showModal={showAddGroupModal}
+        setShowModal={setShowAddGroupModal}
       />
+
       <GroupLimitReachedModal
         showModal={showGroupLimitModal}
         onClose={() => setShowGroupLimitModal(false)}

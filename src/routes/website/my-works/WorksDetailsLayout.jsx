@@ -1,19 +1,18 @@
 import { useQueryClient } from "@tanstack/react-query";
 import { useCallback, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { NavLink, Outlet, useNavigate, useParams } from "react-router";
+import { Navigate, NavLink, Outlet, useNavigate, useParams } from "react-router";
 import { toast } from "sonner";
 
 import useCancelRequestOffer from "../../../hooks/website/MyWorks/useCancelRequestOffer";
-import useCompleteGoal from "../../../hooks/website/MyWorks/useCompleteGoal";
 import useDeleteWork from "../../../hooks/website/MyWorks/useDeleteWork";
 import useGetWorkDetails from "../../../hooks/website/MyWorks/useGetWorkDetails";
-import useGetTasks from "../../../hooks/website/MyWorks/tasks/useGetTasks";
 
 import Loading from "../../../ui/loading/Loading";
 import RoundedBackButton from "../../../ui/website-auth/shared/RoundedBackButton";
 import OptionsMenu from "../../../ui/website/OptionsMenu";
 import AlertModal from "../../../ui/website/platform/my-community/AlertModal";
+import { isStartExecutionAccessRestricted } from "../../../utils/startExecutionDeadline";
 
 export default function WorksDetailsLayout() {
   const { t } = useTranslation();
@@ -25,18 +24,12 @@ export default function WorksDetailsLayout() {
   //   useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
 
-  const { id: workId } = useParams();
   const { workDetails, isLoading } = useGetWorkDetails();
-  // Read execution percentage straight from the tasks query (shared cache,
-  // key ["work-tasks", workId]) so it's available on every tab, not just the
-  // tasks tab.
-  const { goalTasks } = useGetTasks(workId);
-  const exePercentage = goalTasks?.["additional-data"]?.execution_percentage;
-  const { completeGoal, isPending: isCompleting } = useCompleteGoal();
   const { deleteWork, isPending: isDeleting } = useDeleteWork();
   const { cancelRequestOffer, isPending: isCanceling } =
     useCancelRequestOffer();
   // const { withdrawOffer, isPending: isWithdrawing } = useWithdrawOfferHelp();
+  const isAutoCanceled = isStartExecutionAccessRestricted(workDetails);
 
   // Destructure safely
   const {
@@ -46,28 +39,10 @@ export default function WorksDetailsLayout() {
     helper,
     rectangle,
     offers_count,
-    has_working_contract,
     had_helpers,
   } = workDetails || {};
 
   // === Handlers (must be declared before conditional returns) ===
-  const handleCompleteGoal = useCallback(
-    (goalId) => {
-      completeGoal(goalId, {
-        onSuccess: (res) => {
-          toast.success(res?.message);
-          queryClient.refetchQueries("work-details");
-          queryClient.refetchQueries("work-tasks");
-          queryClient.refetchQueries("my-works");
-        },
-        onError: (err) => {
-          toast.error(err?.message);
-        },
-      });
-    },
-    [completeGoal, queryClient],
-  );
-
   const handleDeleteGoal = useCallback(
     (goalId) => {
       deleteWork(goalId, {
@@ -115,6 +90,10 @@ export default function WorksDetailsLayout() {
   // === Tabs Computation (memoized) ===
   const tabs = useMemo(() => {
     if (!workDetails) return [];
+
+    if (isAutoCanceled) {
+      return [{ id: 1, label: t("works.details"), end: true }];
+    }
 
     if (status === "completed") {
       if (had_helpers > 0) {
@@ -184,49 +163,39 @@ export default function WorksDetailsLayout() {
       { id: 3, label: t("works.tasks"), link: "tasks" },
       { id: 4, label: t("works.assistants"), link: "assistants" },
     ];
-  }, [rectangle, helper, status, t, workDetails]);
+  }, [had_helpers, isAutoCanceled, rectangle, helper, status, t, workDetails]);
 
   // === Option menu configs ===
   const deleteOption = {
-    label: t("works.delete"),
+    label: isAutoCanceled ? t("works.deleteWork") : t("works.delete"),
     className: "text-danger",
     onClick: () => setShowDeleteModal(true),
-    props: { disabled: isCompleting },
-  };
-
-  const completeOption = {
-    label: t("works.complete"),
-    className: "text-green",
-    onClick: () => handleCompleteGoal(id),
-    props: { disabled: isCompleting },
+    props: { disabled: isDeleting },
   };
 
   const cancelOption = {
     label: t("works.cancelRequest"),
     className: "text-fire",
     onClick: () => setShowAlertModal(true),
-    props: { disabled: isCompleting },
+    props: { disabled: isCanceling },
   };
   // === Conditional Menu Rendering ===
   const renderOptionsMenu = () => {
-    console.log("[renderOptionsMenu] inputs:", {
-      status,
-      helper,
-      rectangle,
-      exePercentage,
-    });
+    if (isAutoCanceled) {
+      return (
+        <OptionsMenu
+          toggleButton="fa-regular fa-trash-can text-danger"
+          options={[deleteOption]}
+          aria-label="delete auto canceled work"
+        />
+      );
+    }
 
     if (status !== "completed" && !helper) {
-      const options =
-        exePercentage === 100 ? [completeOption, deleteOption] : [deleteOption];
-      console.log(
-        "[renderOptionsMenu] -> Branch 1 (work options), options:",
-        options.map((o) => o.label),
-      );
       return (
         <OptionsMenu
           toggleButton="fa-regular fa-shield-exclamation color-main"
-          options={options}
+          options={[deleteOption]}
           aria-label="work options"
         />
       );
@@ -236,7 +205,6 @@ export default function WorksDetailsLayout() {
       rectangle === "help_service_from_helper" &&
       (status === "wait_helper_to_accept" || status === "wait_for_user_payment")
     ) {
-      console.log("[renderOptionsMenu] -> Branch 2 (cancel offer)");
       return (
         <OptionsMenu
           toggleButton="fa-regular fa-flag"
@@ -246,7 +214,6 @@ export default function WorksDetailsLayout() {
       );
     }
 
-    console.log("[renderOptionsMenu] -> returned null (no menu rendered)");
     return null;
   };
 
@@ -256,6 +223,8 @@ export default function WorksDetailsLayout() {
       <div className="container">
         {isLoading ? (
           <Loading />
+        ) : isAutoCanceled ? (
+          <Navigate to="/my-works" replace />
         ) : (
           <div className="row">
             {/* Header */}

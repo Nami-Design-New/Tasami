@@ -10,7 +10,7 @@ import useAdminLogin from "../../hooks/auth/dashboard/profile/useAdminLogin";
 import { setToken } from "../../utils/token";
 import { useDispatch } from "react-redux";
 import { toast } from "sonner";
-import { setAuthed, setRole, setUser } from "../../redux/slices/authAdmin";
+import { setAuthed, setRole } from "../../redux/slices/authAdmin";
 
 export const getLoginSchema = (t) =>
   yup.object().shape({
@@ -46,7 +46,6 @@ export default function EmailLoginForm() {
           setToken(res.data.token, "admin_token");
           dispatch(setAuthed(true));
           dispatch(setRole(res.data.role.title));
-          dispatch(setUser({ user: res.data }));
           toast.success(res.message);
           navigate("/dashboard", { replace: true });
         },

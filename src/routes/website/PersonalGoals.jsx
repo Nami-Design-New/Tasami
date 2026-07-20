@@ -12,13 +12,7 @@ export default function PersonalGoals() {
   const navigate = useNavigate();
   const { goals, isLoading, hasNextPage, fetchNextPage, isFetchingNextPage } =
     useGetGoals();
-
-  console.log(goals);
-
   const allGoals = goals?.pages?.flatMap((page) => page?.data) ?? [];
-
-  console.log(goals?.pages[0]?.total) ?? 0;
-
   return (
     <section className="personal-helpers page">
       <div className="container">

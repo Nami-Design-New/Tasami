@@ -24,7 +24,9 @@ export default function RateShowModal({ showModal, setShowModal, contract }) {
                 rating={contract?.rate?.total_average}
                 isRating={false}
               />
-              <span className="rate-count">({contract.rate.rates_count})</span>
+              <span className="rate-count">
+                ({contract?.rate?.rates_count ?? 0})
+              </span>
             </div>
           </div>
           <div className="col-12 p-2">

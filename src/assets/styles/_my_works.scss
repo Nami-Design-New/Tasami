@@ -71,6 +71,33 @@
   border-radius: 1rem;
   background: $white;
   min-height: 100%;
+  .work-reference-code {
+    width: 100%;
+    min-height: 22px;
+    padding: 4px 8px;
+    border-radius: 4px;
+    color: $white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    font-weight: 700;
+    line-height: 1;
+    text-align: center;
+    word-break: break-word;
+
+    &.personal_goal {
+      background-color: #b8b8b8;
+    }
+
+    &.personal_goal_with_helper {
+      background-color: $second;
+    }
+
+    &.help_service_from_helper {
+      background-color: $main;
+    }
+  }
   .work-title {
     display: flex;
     align-items: center;
@@ -101,6 +128,30 @@
     img {
       width: 12px;
       height: 12px;
+    }
+    .work-card-alerts {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+    .overdue-tasks-indicator {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: $fire;
+      font-size: 12px;
+      font-weight: 600;
+      white-space: nowrap;
+
+      i {
+        width: auto;
+        height: auto;
+        color: $fire;
+        font-size: 13px;
+      }
     }
   }
 
@@ -168,12 +219,136 @@
   }
 }
 
+.work-card--auto-canceled {
+  border-color: rgba($fire, 0.45);
+}
+
+.start-execution-deadline-alert {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  width: 100%;
+  padding: 0.65rem 0.75rem;
+  border-radius: 6px;
+  background-color: rgba($fire, 0.14);
+  color: $fire;
+  font-size: 0.85rem;
+  font-weight: 700;
+
+  > i {
+    flex: 0 0 auto;
+    margin-top: 0.125rem;
+  }
+
+  &__content {
+    flex: 1;
+    min-width: 0;
+  }
+
+  p {
+    margin: 0;
+    line-height: 1.6;
+    text-align: center;
+  }
+
+  &--warning {
+    display: block;
+    padding: 0;
+    border-radius: 0;
+    background-color: transparent;
+
+    p {
+      width: 100%;
+      padding: 0.45rem 0.75rem;
+      border-radius: 0;
+      background-color: rgba($fire, 0.18);
+      color: $fire;
+
+      + p {
+        margin-top: 0.35rem;
+      }
+    }
+  }
+
+  &__meta {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+    margin-top: 0.25rem;
+    font-size: 0.8rem;
+
+    strong {
+      color: $dark;
+    }
+  }
+
+  &__track {
+    height: 4px;
+    margin-top: 0.45rem;
+    overflow: hidden;
+    border-radius: 999px;
+    background-color: rgba($fire, 0.18);
+
+    span {
+      display: block;
+      height: 100%;
+      border-radius: inherit;
+      background-color: $fire;
+      transition: width 0.3s ease;
+    }
+  }
+
+  &--canceled {
+    align-items: center;
+    background-color: $fire;
+    color: $white;
+
+    p {
+      color: $white;
+    }
+  }
+}
+
+.start-execution-delete-action {
+  width: 100%;
+  border: none;
+  border-radius: 8px;
+  padding: 0.65rem 0.75rem;
+  background-color: $fire;
+  color: $white;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.7;
+  }
+}
+
 .work-details-layout {
   .header {
     display: flex;
     align-items: center;
     justify-content: space-between;
     // margin-bottom: 20px;
+
+    .action-buttons {
+      @include centerFlex();
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background-color: $main4;
+
+      &.yellow {
+        background-color: #fdcb2f0a;
+      }
+    }
+
     h1 {
       font-size: 1.5rem;
       color: $second;
@@ -376,6 +551,62 @@
         font-size: 1rem;
       }
     }
+  }
+}
+
+.goal-completion-modal {
+  .modal-content {
+    border: 1px solid $InputStroke;
+    border-radius: 24px;
+    overflow: hidden;
+  }
+
+  .modal-body {
+    padding: 0;
+  }
+
+  &__content {
+    position: relative;
+    min-height: 300px;
+    padding: 2rem 1.5rem 1.5rem;
+    overflow: hidden;
+    text-align: center;
+    background-color: $white;
+
+    h2 {
+      position: relative;
+      z-index: 1;
+      margin-bottom: 1.75rem;
+      color: $green;
+      font-size: clamp(2rem, 7vw, 3.75rem);
+      font-weight: 800;
+      line-height: 1;
+    }
+
+    p {
+      position: relative;
+      z-index: 1;
+      max-width: 430px;
+      margin: 0 auto 1rem;
+      color: $dark;
+      font-size: clamp(1rem, 3vw, 1.3rem);
+      font-weight: 700;
+      line-height: 1.45;
+    }
+
+    .custom-btn {
+      position: relative;
+      z-index: 1;
+      min-width: 145px;
+      margin-inline: auto;
+    }
+  }
+
+  &__lottie {
+    position: absolute;
+    inset: -18%;
+    opacity: 0.85;
+    pointer-events: none;
   }
 }
 

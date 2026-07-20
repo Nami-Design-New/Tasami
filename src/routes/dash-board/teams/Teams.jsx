@@ -192,7 +192,7 @@ const Teams = () => {
         header: t("dashboard.team.columns.employee_code"),
         cell: (info) => (
           <Link
-            to={`/dashboard/employee-details/${info?.row?.original?.id}`}
+            to={`/dashboard/employee-summary/${info?.row?.original?.id}`}
             className="link-styles"
           >
             {info.getValue()}

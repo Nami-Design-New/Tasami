@@ -7,14 +7,23 @@ import OperatingSectorsModal from "../../../ui/modals/OperatingSectorsModal";
 import SubjectModal from "../../../ui/modals/SubjectModal";
 import CustomButton from "../../../ui/CustomButton";
 import { useTranslation } from "react-i18next";
+import useAdminPermissions from "../../../hooks/auth/dashboard/useAdminPermissions";
+import { DASHBOARD_PERMISSIONS } from "../../../utils/dashboardPermissions";
 
 const ListManagement = () => {
   const { t } = useTranslation();
   const { currentLocation } = useGetCurrentRoute();
+  const { hasPermission } = useAdminPermissions();
 
   const [showModal, setShowModal] = useState(false);
   const [showAddSectorModal, setAddSectorShowModal] = useState(false);
   const [showSubjectModal, setShowSubjectModal] = useState(false);
+  const canManageWorkingGroups = hasPermission(
+    DASHBOARD_PERMISSIONS.WORKING_GROUPS,
+  );
+  const canManageAdministrativeSystems = hasPermission(
+    DASHBOARD_PERMISSIONS.TASK_SYSTEMS,
+  );
 
   return (
     <>
@@ -22,7 +31,7 @@ const ListManagement = () => {
         <div className="p-2 d-flex align-items-center justify-content-between">
           <PageHeader />
 
-          {currentLocation === "working-groups" && (
+          {currentLocation === "working-groups" && canManageWorkingGroups && (
             <CustomButton
               icon={<i className="fa-solid fa-plus"></i>}
               color="secondary"
@@ -32,7 +41,8 @@ const ListManagement = () => {
             </CustomButton>
           )}
 
-          {currentLocation === "administrative-systems" && (
+          {currentLocation === "administrative-systems" &&
+            canManageAdministrativeSystems && (
             <CustomButton
               icon={<i className="fa-solid fa-plus"></i>}
               color="secondary"
@@ -50,7 +60,7 @@ const ListManagement = () => {
         </div>
       </section>
 
-      {showModal && (
+      {showModal && canManageWorkingGroups && (
         <EditWorkGroupModal setShowModal={setShowModal} showModal={showModal} />
       )}
 
@@ -61,7 +71,7 @@ const ListManagement = () => {
         />
       )}
 
-      {showSubjectModal && (
+      {showSubjectModal && canManageAdministrativeSystems && (
         <SubjectModal
           showModal={showSubjectModal}
           setShowModal={setShowSubjectModal}
