@@ -14,7 +14,7 @@ import Loading from "../../../ui/loading/Loading";
 import RoundedBackButton from "../../../ui/website-auth/shared/RoundedBackButton";
 import OptionsMenu from "../../../ui/website/OptionsMenu";
 import AlertModal from "../../../ui/website/platform/my-community/AlertModal";
-import { getStartExecutionDeadlineState } from "../../../utils/startExecutionDeadline";
+import { isStartExecutionAccessRestricted } from "../../../utils/startExecutionDeadline";
 
 export default function WorksDetailsLayout() {
   const { t } = useTranslation();
@@ -38,12 +38,7 @@ export default function WorksDetailsLayout() {
   const { cancelRequestOffer, isPending: isCanceling } =
     useCancelRequestOffer();
   // const { withdrawOffer, isPending: isWithdrawing } = useWithdrawOfferHelp();
-  const deadlineState = useMemo(
-    () => getStartExecutionDeadlineState(workDetails),
-    [workDetails],
-  );
-  const isDeadlineRestricted = Boolean(deadlineState?.shouldShow);
-  const isAutoCanceled = Boolean(deadlineState?.isAutoCanceled);
+  const isAutoCanceled = isStartExecutionAccessRestricted(workDetails);
 
   // Destructure safely
   const {
@@ -263,7 +258,7 @@ export default function WorksDetailsLayout() {
       <div className="container">
         {isLoading ? (
           <Loading />
-        ) : isDeadlineRestricted ? (
+        ) : isAutoCanceled ? (
           <Navigate to="/my-works" replace />
         ) : (
           <div className="row">

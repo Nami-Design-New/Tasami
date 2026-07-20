@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router";
 import HelperCard from "../../../../cards/HelperCard";
@@ -9,8 +8,7 @@ import helpServiceFromHelper from "../../../../../assets/icons/help_service_from
 import titleIcon from "../../../../../assets/icons/title.svg";
 import {
   formatStartDateTimestamp,
-  getStartExecutionDeadlineDebugSnapshot,
-  getStartExecutionDeadlineState,
+  isStartExecutionAccessRestricted,
 } from "../../../../../utils/startExecutionDeadline";
 import StartExecutionDeadlineAlert from "../../../my-works/StartExecutionDeadlineAlert";
 
@@ -48,9 +46,7 @@ export default function ContractCard({ contract, withoutStatus = true }) {
       },
     ];
   }
-  const deadlineState = getStartExecutionDeadlineState(contract);
-  const isDeadlineRestricted = Boolean(deadlineState?.shouldShow);
-  const isAutoCanceled = Boolean(deadlineState?.isAutoCanceled);
+  const isAutoCanceled = isStartExecutionAccessRestricted(contract);
   const isCanceled = contract.status === "canceled" || isAutoCanceled;
   const startDate = formatStartDateTimestamp(
     contract?.start_date_timestamp,
@@ -62,13 +58,6 @@ export default function ContractCard({ contract, withoutStatus = true }) {
     completed: index <= currentIndex && !isCanceled,
     current: index === currentIndex && !isCanceled,
   }));
-
-  useEffect(() => {
-    console.log(
-      "[StartExecutionDeadline][ContractCard]",
-      getStartExecutionDeadlineDebugSnapshot(contract),
-    );
-  }, [contract]);
 
   const cardContent = (
     <>
@@ -113,7 +102,7 @@ export default function ContractCard({ contract, withoutStatus = true }) {
     </>
   );
 
-  return isDeadlineRestricted ? (
+  return isAutoCanceled ? (
     <article
       className={`work-card ${isAutoCanceled ? "work-card--auto-canceled" : ""}`}
     >

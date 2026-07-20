@@ -1,5 +1,5 @@
 import { useQueryClient } from "@tanstack/react-query";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router";
 import { toast } from "sonner";
@@ -12,8 +12,7 @@ import triangleWithoutHelper from "../../assets/icons/triangle-without-helper.pn
 import helpServiceFromHelper from "../../assets/icons/help_service_from_helper.svg";
 import {
   formatStartDateTimestamp,
-  getStartExecutionDeadlineDebugSnapshot,
-  getStartExecutionDeadlineState,
+  isStartExecutionAccessRestricted,
 } from "../../utils/startExecutionDeadline";
 import AlertModal from "../website/platform/my-community/AlertModal";
 import HelperCard from "./HelperCard";
@@ -62,9 +61,7 @@ export default function WorkCard({
     ];
   }
 
-  const deadlineState = getStartExecutionDeadlineState(work);
-  const isDeadlineRestricted = Boolean(deadlineState?.shouldShow);
-  const isAutoCanceled = Boolean(deadlineState?.isAutoCanceled);
+  const isAutoCanceled = isStartExecutionAccessRestricted(work);
   const isCanceled = work.status === "canceled" || isAutoCanceled;
   const currentIndex = steps.findIndex((s) => s.key === work.status);
   const progressSteps = steps.map((step, index) => ({
@@ -81,13 +78,6 @@ export default function WorkCard({
     work?.start_date_timestamp,
     i18n.language,
   );
-
-  useEffect(() => {
-    console.log(
-      "[StartExecutionDeadline][WorkCard]",
-      getStartExecutionDeadlineDebugSnapshot(work),
-    );
-  }, [work]);
 
   const handleDeleteWork = () => {
     deleteWork(work.id, {
@@ -199,7 +189,7 @@ export default function WorkCard({
 
   return (
     <>
-      {isDeadlineRestricted ? (
+      {isAutoCanceled ? (
         <article
           className={`work-card ${isAutoCanceled ? "work-card--auto-canceled" : ""}`}
         >

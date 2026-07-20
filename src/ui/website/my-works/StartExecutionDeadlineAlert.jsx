@@ -5,7 +5,6 @@ import {
   formatDeadlineRemaining,
   formatDeadlineRemainingDays,
   formatDeadlineRemainingHours,
-  getStartExecutionDeadlineDebugSnapshot,
   getStartExecutionDeadlineState,
 } from "../../../utils/startExecutionDeadline";
 
@@ -28,13 +27,6 @@ export default function StartExecutionDeadlineAlert({
 
     return () => window.clearInterval(intervalId);
   }, []);
-
-  useEffect(() => {
-    console.log(
-      `[StartExecutionDeadline][Alert:${scope}]`,
-      getStartExecutionDeadlineDebugSnapshot(item, { now }),
-    );
-  }, [item, now, scope]);
 
   if (!deadlineState?.shouldShow) return null;
 
@@ -85,7 +77,7 @@ export default function StartExecutionDeadlineAlert({
     >
       <i className="fa-solid fa-triangle-exclamation"></i>
       <div className="start-execution-deadline-alert__content">
-        <p>{message}</p>
+        {/* <p>{message}</p> */}
         {!deadlineState.isAutoCanceled && (
           <>
             <div className="start-execution-deadline-alert__meta">

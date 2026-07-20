@@ -3,7 +3,7 @@ import { Navigate, NavLink, Outlet, useNavigate } from "react-router";
 import useGetWorkDetails from "../../../../hooks/website/MyWorks/useGetWorkDetails";
 import Loading from "../../../../ui/loading/Loading";
 import RoundedBackButton from "../../../../ui/website-auth/shared/RoundedBackButton";
-import { getStartExecutionDeadlineState } from "../../../../utils/startExecutionDeadline";
+import { isStartExecutionAccessRestricted } from "../../../../utils/startExecutionDeadline";
 
 export default function ContractDetailsLayout() {
   const navigate = useNavigate();
@@ -16,9 +16,7 @@ export default function ContractDetailsLayout() {
 
   if (isLoading) return <Loading />;
 
-  const isDeadlineRestricted = Boolean(
-    getStartExecutionDeadlineState(workDetails)?.shouldShow,
-  );
+  const isDeadlineRestricted = isStartExecutionAccessRestricted(workDetails);
 
   if (isDeadlineRestricted) return <Navigate to="/my-contracts" replace />;
 
