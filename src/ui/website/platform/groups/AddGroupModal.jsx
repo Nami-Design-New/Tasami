@@ -90,7 +90,7 @@ export default function AddGroupModal({
             toast.success(res.message);
           },
           onError: (err) => toast.error(err.message),
-        }
+        },
       );
     } else {
       // For adding new group, include all fields
@@ -111,7 +111,14 @@ export default function AddGroupModal({
             }),
           );
           queryClient.invalidateQueries({ queryKey: ["my-groups"] });
-          queryClient.invalidateQueries({ queryKey: ["authedUser"] });
+          queryClient.setQueryData(["authedUser"], (oldData) => {
+            if (!oldData) return oldData;
+
+            return {
+              ...oldData,
+              active_groups: getActiveGroupsCount(user) + 1,
+            };
+          });
           reset();
           toast.success(res.message);
         },

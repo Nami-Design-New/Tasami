@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate, useParams, useSearchParams } from "react-router";
+import { toast } from "sonner";
 
 import useCreateChatRoom from "../../hooks/dashboard/chats/useCreateChatRoom";
 import CustomButton from "../../ui/CustomButton";
@@ -11,19 +12,51 @@ import EmployeePasswordTab from "../../ui/dash-board/create-employee/EmployeePas
 import EmployerDataForm from "../../ui/dash-board/create-employee/EmployerDataForm";
 import PerformanceIndicators from "../../ui/dash-board/create-employee/PerformanceIndicators";
 import PermissionBoard from "../../ui/dash-board/create-employee/PermissionBoard";
-import SuspensionModel from "../../ui/modals/SuspensionModel";
+import AccountStatusModal from "../../ui/modals/AccountStatusModal";
 import AddNewTask from "./tasks/AddNewTaskModal";
+import { TASK_SYSTEM_CODES } from "./tasks/taskSystemCodes";
 import { setChat } from "../../redux/slices/chatSlice";
+import useAdminPermissions from "../../hooks/auth/dashboard/useAdminPermissions";
+import useGetEmployee from "../../hooks/dashboard/employee/useGetEmployee";
+import { DASHBOARD_PERMISSIONS } from "../../utils/dashboardPermissions";
 
 const CreateEmployee = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
-  const [openSuspensionModel, setOpenSuspensionModel] = useState(false);
+  const [openAccountStatusModal, setOpenAccountStatusModal] = useState(false);
+  const [accountStatusDetails, setAccountStatusDetails] = useState(null);
+  const [isOpeningAccountStatus, setIsOpeningAccountStatus] = useState(false);
   const [showTaskModal, setShowTaskModal] = useState(false);
   const isEditMode = !!id;
 
   const { t } = useTranslation();
+  const { hasPermission } = useAdminPermissions();
+  const canCreateTask = hasPermission(DASHBOARD_PERMISSIONS.TASKS_CREATE);
+  const canStopEmployee = hasPermission(DASHBOARD_PERMISSIONS.STOP_EMPLOYEE);
+  const canViewPermissions = hasPermission(DASHBOARD_PERMISSIONS.PERMISSIONS);
+  const { employee, refetch } = useGetEmployee();
+
+  const handleOpenAccountStatus = async () => {
+    setIsOpeningAccountStatus(true);
+    try {
+      const result = await refetch({ throwOnError: true });
+      const freshDetails = result.data?.data;
+      if (!freshDetails) throw new Error("Unable to load account status");
+
+      setAccountStatusDetails(freshDetails);
+      setOpenAccountStatusModal(true);
+    } catch (error) {
+      toast.error(error.message);
+    } finally {
+      setIsOpeningAccountStatus(false);
+    }
+  };
+
+  const handleCloseAccountStatus = () => {
+    setOpenAccountStatusModal(false);
+    setAccountStatusDetails(null);
+  };
 
   const { createChatRoom } = useCreateChatRoom();
 
@@ -42,6 +75,7 @@ const CreateEmployee = () => {
         title: t("dashboard.createEmployee.permissions"),
         visibleInMainMode: false,
         visibleInEditMode: true,
+        permission: DASHBOARD_PERMISSIONS.PERMISSIONS,
       },
       {
         id: 3,
@@ -69,10 +103,14 @@ const CreateEmployee = () => {
   );
 
   const tabs = useMemo(() => {
-    return allTabs.filter((tab) =>
-      isEditMode ? tab.visibleInEditMode : tab.visibleInMainMode
-    );
-  }, [allTabs, isEditMode]);
+    return allTabs.filter((tab) => {
+      const isVisibleInMode = isEditMode
+        ? tab.visibleInEditMode
+        : tab.visibleInMainMode;
+
+      return isVisibleInMode && (!tab.permission || canViewPermissions);
+    });
+  }, [allTabs, canViewPermissions, isEditMode]);
 
   const [activeTab, setActiveTab] = useState(() => {
     const tabParam = searchParams.get("tab");
@@ -85,8 +123,11 @@ const CreateEmployee = () => {
 
     if (tabs.some((tab) => tab.id === nextTab)) {
       setActiveTab(nextTab);
+    } else if (tabs[0]?.id) {
+      setActiveTab(tabs[0].id);
+      setSearchParams({ tab: tabs[0].id.toString() }, { replace: true });
     }
-  }, [searchParams, tabs]);
+  }, [searchParams, setSearchParams, tabs]);
 
   const handleTabClick = (tabId) => {
     setActiveTab(tabId);
@@ -109,7 +150,7 @@ const CreateEmployee = () => {
 
   const tabComponents = {
     1: <EmployerDataForm isEdit={isEditMode} />,
-    2: <PermissionBoard isEdit={isEditMode} />,
+    2: <PermissionBoard />,
     3: <PerformanceIndicators />,
     4: <DraftedUsers />,
     5: <EmployeePasswordTab />,
@@ -158,21 +199,25 @@ const CreateEmployee = () => {
                     >
                       {t("dashboard.createEmployee.contact")}
                     </CustomButton>
-                    <CustomButton
-                      color="primary"
-                      size="large"
-                      fullWidth
-                      onClick={() => setShowTaskModal(true)}
-                    >
-                      {t("dashboard.createEmployee.requestSuspendAccount")}
-                    </CustomButton>
+                    {canCreateTask && (
+                      <CustomButton
+                        color="primary"
+                        size="large"
+                        fullWidth
+                        onClick={() => setShowTaskModal(true)}
+                      >
+                        {t("dashboard.createEmployee.requestSuspendAccount")}
+                      </CustomButton>
+                    )}
                     <CustomButton
                       color="secondary"
                       size="large"
                       fullWidth
-                      onClick={() => setOpenSuspensionModel(true)}
+                      disabled={!employee?.data || isOpeningAccountStatus}
+                      loading={isOpeningAccountStatus}
+                      onClick={handleOpenAccountStatus}
                     >
-                      {t("dashboard.createEmployee.suspendAccount")}
+                      {t("dashboard.userProfile.actions.accountStatus")}
                     </CustomButton>
                   </>
                 ) : (
@@ -203,17 +248,24 @@ const CreateEmployee = () => {
       </div>
 
       {/* Modals */}
-      <AddNewTask
-        showModal={showTaskModal}
-        setShowModal={setShowTaskModal}
-        title={t("dashboard.createEmployee.requestSuspendAccountModalTitle")}
-      />
+      {canCreateTask && (
+        <AddNewTask
+          showModal={showTaskModal}
+          setShowModal={setShowTaskModal}
+          title={t("dashboard.createEmployee.requestSuspendAccountModalTitle")}
+          fixedTaskSystemCode={TASK_SYSTEM_CODES.STOP_ACCOUNT}
+        />
+      )}
 
-      <SuspensionModel
-        showModal={openSuspensionModel}
-        setShowModal={setOpenSuspensionModel}
-        id={id}
-      />
+      {isEditMode && openAccountStatusModal ? (
+        <AccountStatusModal
+          show
+          onHide={handleCloseAccountStatus}
+          userDetails={accountStatusDetails}
+          canChangeStatus={canStopEmployee}
+          isUser={false}
+        />
+      ) : null}
     </section>
   );
 };

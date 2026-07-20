@@ -85,7 +85,8 @@
     "progress": "Progress"
   },
   "common": {
-    "days": "days"
+    "days": "days",
+    "error": "Error"
   },
   "reply": {
     "replying_to": "Replying to",
@@ -511,6 +512,7 @@
     "Fields And Specializations": "Fields And Specializations",
     "Profile": "Employment data",
     "Employee Details": "Employee Details",
+    "Employee Summary": "Employee Summary",
     "User Details": "User Details",
     "Requests": "Requests",
     "Reports": "Reports",
@@ -640,7 +642,8 @@
     "email": "Email",
     "both": "both",
     "all": "All",
-    "loginSuccess": "Login successful"
+    "loginSuccess": "Login successful",
+    "loginErorr": "Login failed"
   },
   "profile": {
     "myInfo": "My Info",
@@ -704,7 +707,8 @@
     "price": "Enter the withdrawal amount",
     "noTransactions": "There are no balance transactions yet.",
     "noBookmarkedOffers": "You have no bookmarked assistant offers.",
-    "noChanges": "No changes to save"
+    "noChanges": "No changes to save",
+    "bankAccount": "Bank Account"
   },
   "notification": {
     "title": "Notifications",
@@ -712,6 +716,7 @@
     "tab_notifications": "Notifications",
     "tab_inquiries": "Inquiries",
     "search": "Search",
+    "inquriesSearch": "Search in all inquiries",
     "latest": "Latest notifications",
     "previous": "Previous notifications",
     "system": "System",
@@ -812,7 +817,19 @@
     "notificationTypeRequired": "Notification type is required",
     "notificationTitleRequired": "Notification title is required",
     "notificationMessageRequired": "Notification message is required",
-    "regionRequired": "Please select a region"
+    "regionRequired": "Please select a region",
+    "imageType": "Only image files are allowed",
+    "invalidEmail": "Please enter a valid email",
+    "invalid_date": "Please enter a valid date",
+    "invalid_option": "Please select a valid option",
+    "invalid_time_format": "Please enter a valid time",
+    "max": "Must be at most {{max}}",
+    "mustBeInteger": "Must be an integer",
+    "otpLength": "OTP must be 6 digits",
+    "otpRequired": "OTP is required",
+    "passwordsMustMatch": "Passwords must match",
+    "please_enter_reason": "Please enter a reason",
+    "typeRequired": "Type is required"
   },
   "pageNotFound": {
     "alt": "404 Not Found",
@@ -830,7 +847,11 @@
     "appTitle": "Application Error",
     "appMessage": "An unexpected application error occurred. Please try again later.",
     "unexpectedTitle": "Unexpected Error",
-    "unexpectedMessage": "An unexpected error occurred. Please try again later."
+    "unexpectedMessage": "An unexpected error occurred. Please try again later.",
+    "invalidDate": "Please enter a valid date",
+    "invalidEmail": "Please enter a valid email",
+    "required": "This field is required",
+    "somethingWentWrong": "Something went wrong. Please try again."
   },
   "community": {
     "channels": "Channels",
@@ -960,7 +981,13 @@
       "executionRate": "Execution Progress",
       "startExecutionBtn": "Start Execution",
       "pauseExecutionBtn": "Pause Execution",
+      "completeGoalBtn": "Complete Goal",
       "addNew": "Add New Execution Task",
+      "completionCongrats": {
+        "title": "Congratulations",
+        "description": "You have completed all tasks successfully. You can now complete the goal to save it in your completed work record, or add new tasks to continue your journey if you wish.",
+        "confirm": "OK"
+      },
       "pauseExecutionWarning": "Execution will be paused temporarily, and all related notifications will be disabled. You can resume later from the 'Start Execution' button on the Tasks page.",
       "earlyStart": {
         "title": "Before you start!",
@@ -1058,7 +1085,9 @@
       "waitAccept": "offer request",
       "offerSent": "Offer Sent",
       "requestOffer": "Request Offer"
-    }
+    },
+    "task_added": "Task added successfully",
+    "task_updated": "Task updated successfully"
   },
   "contract": {
     "acceptedSuccessfully": "Contract accepted successfully",
@@ -1087,6 +1116,7 @@
       "goalHeader": "Goal Details",
       "beneficiaries": "Beneficiaries",
       "totalRate": "Total Rate",
+      "ratingsCount": "Ratings Count",
       "edit": "Edit",
       "archive": "Archive",
       "youSendOffer": "You submitted an offer already",
@@ -1261,7 +1291,13 @@
           "description": "So you can send quotations and accept contract requests",
           "createGroup": "Create a new work group",
           "close": "Close"
-        }
+        },
+        "addError": "An error occurred while adding",
+        "addSuccess": "Added successfully",
+        "deleteError": "An error occurred while deleting",
+        "deleteSuccess": "Deleted successfully",
+        "updateError": "An error occurred while updating",
+        "updateSuccess": "Updated successfully"
       },
       "groups": {
         "groupName": "Group Name",
@@ -1645,7 +1681,7 @@
       },
       "employeeData": {
         "title": "Employee Data",
-        "description": "Description",
+        "description": "Job Title",
         "account": "Account",
         "idNumber": "ID Number",
         "groupNumber": "Group Number",
@@ -1666,6 +1702,7 @@
         "gender": "Gender",
         "nationality": "Nationality",
         "residenceCountry": "Residence Country",
+        "residenceCity": "Residence City",
         "city": "City",
         "idNumber": "ID / Passport Number",
         "personalEmail": "Personal Email",
@@ -1679,6 +1716,12 @@
         "mapTitle": "Address on Map",
         "updateDataTitle": "Request Data Update"
       }
+    },
+    "employeeSummary": {
+      "title": "Employee Summary",
+      "contact": "Contact Employee",
+      "fullDetails": "Employee Account Details",
+      "unavailable": "Employee summary is not available"
     },
     "subscribersTeams": {
       "employeeDetails": "Employee Details",
@@ -1907,7 +1950,10 @@
       "leadersCount": "Leaders",
       "managersCount": "Managers",
       "tasksProgress": "Task Progress",
-      "creationDate": "Creation Date"
+      "creationDate": "Creation Date",
+      "loadMore": "Load more",
+      "loading": "Loading...",
+      "noData": "No shared groups found"
     },
     "availableGroups": {
       "title": "Available Groups for Addition",
@@ -1991,7 +2037,8 @@
         "add": "Add",
         "saveDraft": "Save as Draft",
         "complete": "Complete",
-        "active": "Active"
+        "active": "Active",
+        "attachFilesHint": "Attach supporting files if needed"
       }
     },
     "team": {
@@ -2235,7 +2282,8 @@
       "upload_image": "Upload Image",
       "save": "Save",
       "update": "Update",
-      "cancel": "Cancel"
+      "cancel": "Cancel",
+      "add_new": "Add new subscription"
     },
     "reports": {
       "filterOptions": "Filter Options",
@@ -2493,8 +2541,45 @@
       },
       "actions": {
         "requestStopAccount": "Request Account Suspension",
+        "accountStatus": "Account Status",
         "activateAccount": "Activate Account",
         "stopAccount": "Suspend Account"
+      },
+      "accountStatusModal": {
+        "title": "Account Status",
+        "status": "Status",
+        "currentStatus": "Current status",
+        "active": "Active",
+        "suspended": "Suspended",
+        "fromDate": "Suspended From",
+        "toDate": "Suspended To",
+        "noEndDate": "No end date",
+        "activateConfirmation": "Are you sure you want to activate this account?",
+        "confirmActivation": "Confirm Activation",
+        "cancel": "Cancel",
+        "close": "Close",
+        "hasEndDate": "Set an end date",
+        "duration": "Suspension Duration",
+        "indefinite": "The suspension remains active until manually changed.",
+        "reason": "Suspension reason",
+        "reasonLabel": "Reason",
+        "attachments": "Attachments",
+        "attachment": "Attachment",
+        "addFiles": "Add files",
+        "fileLimit": "Up to 5 files",
+        "noAttachments": "No attachments",
+        "activeTitle": "Account Active",
+        "activeMessage": "This account currently has full access.",
+        "saveChanges": "Save Changes",
+        "suspendAccount": "Suspend Account",
+        "startRequired": "Suspension start date is required",
+        "endRequired": "Suspension end date is required",
+        "endAfterStart": "End date must be on or after the start date",
+        "reasonMax": "Reason cannot exceed 500 characters",
+        "filesMin": "At least one attachment is required",
+        "filesMax": "A maximum of 5 attachments is allowed",
+        "staleConflict": "This account status was changed by another administrator. The latest data has been loaded.",
+        "updateFailed": "Failed to update account status"
       }
     },
     "beneficiary": {
@@ -2523,7 +2608,8 @@
         "communitySubscriptions": "Community Subscriptions",
         "suggestions": "Suggestions",
         "newClassifications": "New Classifications",
-        "violationReports": "Violation Reports"
+        "violationReports": "Violation Reports",
+        "inquires": "Inquiries"
       }
     },
     "assistant": {
@@ -2593,7 +2679,9 @@
       "name": "Name",
       "accountNumber": "Account Number",
       "date": "Date",
-      "price": "Subscription Price"
+      "price": "Subscription Price",
+      "free_forever": "Free forever",
+      "no_data": "No data available"
     },
     "footer": {
       "rights": "All rights reserved to",
@@ -2693,7 +2781,8 @@
       "experienceField": "Experience Field",
       "experienceSpecialization": "Experience Specialization",
       "qualification": "Qualification",
-      "years": "Years"
+      "years": "Years",
+      "generating": "Generating resume..."
     },
     "documents": {
       "title": "Documents",
@@ -2774,7 +2863,8 @@
       "successAdd": "Link added successfully",
       "successEdit": "Link updated successfully",
       "errorAdd": "An error occurred while adding",
-      "errorEdit": "An error occurred while updating"
+      "errorEdit": "An error occurred while updating",
+      "invalidImage": "Please select a valid image"
     },
     "taskCategories": {
       "taskCategory": "Task Category",
@@ -2822,7 +2912,40 @@
       "notificationMessage": "Notification Message",
       "send": "Send",
       "all": "All Users",
-      "specific": "Specific Users"
+      "specific": "Specific Users",
+      "accountType": "Account type",
+      "bene": "Beneficiaries",
+      "category": "Category",
+      "gender": "Gender",
+      "interests": "Interests",
+      "nationality": "Nationality",
+      "operationsSections": "Operating sectors",
+      "subcategory": "Subcategory"
+    }
+  },
+  "Failed to accept renew request": "Failed to accept renew request",
+  "Renew request accepted successfully": "Renew request accepted successfully",
+  "contact_error_generic": "An error occurred. Please try again.",
+  "failedToGenerate": "Failed to generate. Please try again.",
+  "noChangesDetected": "No changes detected",
+  "noOptionsAvailable": "No options available",
+  "payMessage": "Please complete the payment to continue",
+  "pleaseFillRequiredFields": "Please fill in all required fields",
+  "selectFilter": "Select filter",
+  "submit": "Submit",
+  "الاحدث": "Latest",
+  "المساعدون السابقون": "Previous assistants",
+  "error": {
+    "general": "Something went wrong. Please try again."
+  },
+  "user": {
+    "block": {
+      "blockSuccess": "User blocked successfully"
+    }
+  },
+  "workGroup": {
+    "validation": {
+      "groupType": "Group type is required"
     }
   }
 }

@@ -13,7 +13,7 @@ export default function InquiryUnavailableAlert({ showModal, setShowModal }) {
       withoutMessage={false}
       onConfirm={() => setShowModal(false)}
     >
-      <div className="inquiry-alert-message">
+      <div className="inquiry-alert-message text-center">
         <h4>{t("sendInquiryAlertTitle")}</h4>
         <p>{t("sendInquiryAlertDescription")}</p>
       </div>

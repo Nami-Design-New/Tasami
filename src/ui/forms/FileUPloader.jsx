@@ -685,8 +685,6 @@ export default function FileUploader({
   onError,
 }) {
   const { t } = useTranslation();
-  console.log("Files:", initialFiles);
-
   // Normalize files state
   const [normalizedFiles, setNormalizedFiles] = useState([]);
   const [previews, setPreviews] = useState([]);
@@ -704,7 +702,7 @@ export default function FileUploader({
       setNormalizedFiles(normalized);
       setErrors([]);
     }
-  }, [initialFiles]); // Removed normalizedFiles from deps to prevent loops
+  }, [initialFiles, normalizedFiles]);
 
   /**
    * Generate previews whenever files change
@@ -816,7 +814,6 @@ export default function FileUploader({
       setErrors([]);
       onFilesChange?.(getOriginalFiles(updated));
 
-      console.log(fileToRemove);
       // Call onDelete with the ID if it exists
       onDelete?.(fileToRemove?.originalObject?.id || null);
     },
@@ -830,10 +827,6 @@ export default function FileUploader({
    */
   const renderPreview = useCallback(
     (preview, normalizedFile, index) => {
-      console.log(preview, normalizedFile, index);
-      console.log(!preview || !normalizedFile);
-      console.log(FileUtils.isImage(normalizedFile));
-
       if (!preview || !normalizedFile) {
         return (
           <img

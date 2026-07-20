@@ -6,13 +6,20 @@ export default function useGetWorkingGroupdetails(
   search = "",
   page = 1,
   pageSize = 10,
-  enabled = true
+  enabled = true,
 ) {
   const { data, isLoading, isError, refetch } = useQuery({
     queryKey: ["working-group-detais", workingGroupId, search, page, pageSize],
     queryFn: async () => {
       const res = await adminAxiosInstance.get(
-        `dh-working-groups/${workingGroupId}`
+        `dh-working-groups/${workingGroupId}`,
+        {
+          params: {
+            search,
+            page,
+            limit_per_page: pageSize,
+          },
+        },
       );
       if (res.data.code !== 200) {
         throw new Error(res.data.error || "Error fetching Group Details");

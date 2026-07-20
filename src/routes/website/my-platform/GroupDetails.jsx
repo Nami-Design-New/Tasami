@@ -13,11 +13,18 @@ import RoundedBackButton from "../../../ui/website-auth/shared/RoundedBackButton
 import AddGroupModal from "../../../ui/website/platform/groups/AddGroupModal";
 import GroupMembersList from "../../../ui/website/platform/groups/GroupMembersList";
 import AlertModal from "../../../ui/website/platform/my-community/AlertModal";
+import { getActiveGroupsCount } from "../../../utils/groupLimits";
+import { useDispatch, useSelector } from "react-redux";
+import { setUser } from "../../../redux/slices/authRole";
 
 export default function GroupDetails() {
   const navigate = useNavigate();
   const { t } = useTranslation();
+  const dispatch = useDispatch();
+
   const { groupDetails, isLoading } = useGetGroupDetails();
+  const user = useSelector((state) => state.authRole.user);
+
   const [showAddGroupModal, setShowAddGroupModal] = useState(false);
   const [showAlertModal, setShowAlertModal] = useState(false);
   const queryClient = useQueryClient();
@@ -29,8 +36,21 @@ export default function GroupDetails() {
       deleteGroup(id, {
         onSuccess: (res) => {
           navigate("/my-platform/my-groups");
+          dispatch(
+            setUser({
+              ...user,
+              active_groups: getActiveGroupsCount(user) - 1,
+            }),
+          );
           queryClient.refetchQueries({ queryKey: ["my-groups"] });
-          queryClient.invalidateQueries({ queryKey: ["authedUser"] });
+          queryClient.setQueryData(["authedUser"], (oldData) => {
+            if (!oldData) return oldData;
+
+            return {
+              ...oldData,
+              active_groups: getActiveGroupsCount(user) - 1,
+            };
+          });
           toast.success(res?.message);
         },
         onError: (error) => {
