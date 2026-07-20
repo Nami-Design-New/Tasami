@@ -1,7 +1,7 @@
 import { useQueryClient } from "@tanstack/react-query";
 import { useCallback, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { NavLink, Outlet, useNavigate } from "react-router";
+import { Navigate, NavLink, Outlet, useNavigate, useParams } from "react-router";
 import { toast } from "sonner";
 
 import useCancelRequestOffer from "../../../hooks/website/MyWorks/useCancelRequestOffer";
@@ -12,7 +12,7 @@ import Loading from "../../../ui/loading/Loading";
 import RoundedBackButton from "../../../ui/website-auth/shared/RoundedBackButton";
 import OptionsMenu from "../../../ui/website/OptionsMenu";
 import AlertModal from "../../../ui/website/platform/my-community/AlertModal";
-import { getStartExecutionDeadlineState } from "../../../utils/startExecutionDeadline";
+import { isStartExecutionAccessRestricted } from "../../../utils/startExecutionDeadline";
 
 export default function WorksDetailsLayout() {
   const { t } = useTranslation();
@@ -29,11 +29,7 @@ export default function WorksDetailsLayout() {
   const { cancelRequestOffer, isPending: isCanceling } =
     useCancelRequestOffer();
   // const { withdrawOffer, isPending: isWithdrawing } = useWithdrawOfferHelp();
-  const deadlineState = useMemo(
-    () => getStartExecutionDeadlineState(workDetails),
-    [workDetails],
-  );
-  const isAutoCanceled = Boolean(deadlineState?.isAutoCanceled);
+  const isAutoCanceled = isStartExecutionAccessRestricted(workDetails);
 
   // Destructure safely
   const {
@@ -227,6 +223,8 @@ export default function WorksDetailsLayout() {
       <div className="container">
         {isLoading ? (
           <Loading />
+        ) : isAutoCanceled ? (
+          <Navigate to="/my-works" replace />
         ) : (
           <div className="row">
             {/* Header */}

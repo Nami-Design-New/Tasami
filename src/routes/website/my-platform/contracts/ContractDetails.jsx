@@ -22,7 +22,6 @@ import {
   formatStartDateTimestamp,
   getStartExecutionDeadlineState,
 } from "../../../../utils/startExecutionDeadline";
-import StartExecutionDeadlineAlert from "../../../../ui/website/my-works/StartExecutionDeadlineAlert";
 
 export default function ContractDetails() {
   const { t, i18n } = useTranslation();
@@ -97,55 +96,23 @@ export default function ContractDetails() {
     workDetails?.contract_id;
 
   return (
-    <section className="work-details-page work-contract-details">
-      <header className="mb-3 gap-2 flex-wrap">
-        <div
-          className={`status-info m-0 flex-grow-1 ${
-            isAutoCanceled
-              ? "canceled"
-              : workDetails?.status !== "completed"
-                ? "not-completed"
-                : "completed"
-          }`}
-        >
-          <span>
-            {isAutoCanceled
-              ? t("works.startExecutionDeadline.autoCanceledContract")
-              : workDetails.status_text}
-          </span>
-          <span>{workDetails?.status_date}</span>
-        </div>
-
-        {isCompletedContract && (
-          <div className="work-actions">
-            {hasBeneficiaryRate && (
-              <button
-                type="button"
-                className="action-buttons yellow"
-                onClick={() => setShowRateReadOnlyModal(true)}
-              >
-                <img src={workStarYellow} alt={t("rate_view_title")} />
-              </button>
-            )}
-
-            {contractChatId && (
-              <Link
-                to={`/user-chat/${contractChatId}`}
-                className="action-buttons yellow position-relative"
-              >
-                <img src={workChatYellow} alt={t("chats")} />
-                {workDetails?.unread_messages > 0 && (
-                  <span className="notification_span notification_position">
-                    {workDetails?.unread_messages}
-                  </span>
-                )}
-              </Link>
-            )}
-          </div>
-        )}
-      </header>
-      <StartExecutionDeadlineAlert item={workDetails} scope="contract" />
-
+    <section className="work-details-page">
+      <div
+        className={`status-info ${
+          isAutoCanceled
+            ? "canceled"
+            : workDetails?.status !== "completed"
+              ? "not-completed"
+              : "completed"
+        }`}
+      >
+        <span>
+          {isAutoCanceled
+            ? t("works.startExecutionDeadline.autoCanceledContract")
+            : workDetails.status_text}
+        </span>
+        <span>{workDetails?.status_date}</span>
+      </div>
       <div className="mb-3">
         <AssistantWorkCard
           helper={workDetails?.user}
