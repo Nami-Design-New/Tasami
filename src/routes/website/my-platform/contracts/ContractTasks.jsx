@@ -2,6 +2,7 @@ import { useOutletContext, useParams } from "react-router";
 import useGetTasks from "../../../../hooks/website/MyWorks/tasks/useGetTasks";
 import useGetCurrentTaskDistribution from "../../../../hooks/website/MyWorks/tasks/useGetCurrentTaskDistribution";
 import useGetTaskDistribution from "../../../../hooks/website/MyWorks/tasks/useGetTaskDistribution";
+import useGetTaskImprovement from "../../../../hooks/website/MyWorks/tasks/useGetTaskImprovement";
 import TaskCard from "../../../../ui/website/my-works/tasks/TaskCard";
 import Loading from "../../../../ui/loading/Loading";
 import { useTranslation } from "react-i18next";
@@ -24,6 +25,12 @@ export default function ContractTasks() {
     isError: isCurrentDistributionError,
     refetch: refreshCurrentDistribution,
   } = useGetCurrentTaskDistribution(id);
+  const {
+    taskImprovement,
+    isFetching: isImprovementFetching,
+    isError: isImprovementError,
+    refetch: generateTaskImprovement,
+  } = useGetTaskImprovement(id);
   const { user } = useOutletContext();
 
   // Handle loading state
@@ -89,6 +96,10 @@ export default function ContractTasks() {
         onRefreshCurrent={refreshCurrentDistribution}
         isOptimalLoading={isDistributionLoading}
         isOptimalError={isDistributionError}
+        improvement={taskImprovement}
+        isImprovementLoading={isImprovementFetching}
+        isImprovementError={isImprovementError}
+        onGenerateImprovement={generateTaskImprovement}
       />
     </section>
   );

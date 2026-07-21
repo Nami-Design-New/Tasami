@@ -118,6 +118,115 @@ function DistributionChart({
   );
 }
 
+function ImprovementRecommendations({ data, hasError }) {
+  const { t } = useTranslation();
+  const comparison = Array.isArray(data?.comparison) ? data.comparison : [];
+  const hasAssessment = Boolean(data?.overall_assessment);
+
+  if (hasError && comparison.length === 0 && !hasAssessment) {
+    return (
+      <div className="task-improvement-state">
+        {t("works.myTasks.distribution.improvingNoData")}
+      </div>
+    );
+  }
+
+  if (comparison.length === 0 && !hasAssessment) return null;
+
+  return (
+    <div className="task-improvement-content">
+      {data?.overall_assessment ? (
+        <div className="task-improvement-assessment">
+          <h3>{t("works.myTasks.distribution.assessmentTitle")}</h3>
+          <p>{data.overall_assessment}</p>
+        </div>
+      ) : null}
+
+      {comparison.length > 0 ? (
+        <div className="task-improvement-table-wrapper">
+          <table className="task-improvement-table">
+            <thead>
+              <tr>
+                <th>{t("works.myTasks.distribution.category")}</th>
+                <th>{t("works.myTasks.distribution.ideal")}</th>
+                <th>{t("works.myTasks.distribution.actual")}</th>
+                <th>{t("works.myTasks.distribution.gap")}</th>
+                <th>{t("works.myTasks.distribution.status")}</th>
+                <th>{t("works.myTasks.distribution.impact")}</th>
+                <th>{t("works.myTasks.distribution.guidelines")}</th>
+                <th>{t("works.myTasks.distribution.examples")}</th>
+              </tr>
+            </thead>
+            <tbody>
+              {comparison.map((item, index) => {
+                const gap = Number(item?.gap) || 0;
+                const gapType = ["shortfall", "excess", "balanced"].includes(
+                  item?.gap_type,
+                )
+                  ? item.gap_type
+                  : "balanced";
+                const guidelines = Array.isArray(item?.guidelines)
+                  ? item.guidelines
+                  : [];
+                const examples = Array.isArray(item?.concrete_examples)
+                  ? item.concrete_examples
+                  : [];
+
+                return (
+                  <tr
+                    key={`${item?.task_category_title || "category"}-${index}`}
+                  >
+                    <th scope="row">
+                      {item?.task_category_title ||
+                        t("works.myTasks.distribution.uncategorized")}
+                    </th>
+                    <td>{item?.ideal_percentage ?? 0}%</td>
+                    <td>{item?.actual_percentage ?? 0}%</td>
+                    <td>
+                      <span className={`task-improvement-gap ${gapType}`}>
+                        {gap > 0 ? "+" : ""}
+                        {gap}%
+                      </span>
+                    </td>
+                    <td>{t(`works.myTasks.distribution.${gapType}`)}</td>
+                    <td>{item?.impact || "---"}</td>
+                    <td>
+                      {guidelines.length > 0 ? (
+                        <ul>
+                          {guidelines.map((guideline, guidelineIndex) => (
+                            <li key={`${guideline}-${guidelineIndex}`}>
+                              {guideline}
+                            </li>
+                          ))}
+                        </ul>
+                      ) : (
+                        "---"
+                      )}
+                    </td>
+                    <td>
+                      {examples.length > 0 ? (
+                        <ul>
+                          {examples.map((example, exampleIndex) => (
+                            <li key={`${example}-${exampleIndex}`}>
+                              {example}
+                            </li>
+                          ))}
+                        </ul>
+                      ) : (
+                        "---"
+                      )}
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
+      ) : null}
+    </div>
+  );
+}
+
 export default function TaskDistributionCharts({
   currentDistribution,
   optimalDistribution,
@@ -127,6 +236,10 @@ export default function TaskDistributionCharts({
   onRefreshCurrent,
   isOptimalLoading,
   isOptimalError,
+  improvement,
+  isImprovementLoading,
+  isImprovementError,
+  onGenerateImprovement,
 }) {
   const { t } = useTranslation();
 
@@ -149,6 +262,10 @@ export default function TaskDistributionCharts({
       })),
     [optimalDistribution, t],
   );
+  const hasImprovementData =
+    Boolean(improvement?.overall_assessment) ||
+    (Array.isArray(improvement?.comparison) &&
+      improvement.comparison.length > 0);
 
   return (
     <section className="task-distribution-section">
@@ -169,10 +286,30 @@ export default function TaskDistributionCharts({
         />
       </div>
 
-      <div className="task-distribution-recommendation">
-        <i className="fa-solid fa-sparkles" aria-hidden />
-        <span>{t("works.myTasks.distribution.recommendation")}</span>
-      </div>
+      {!hasImprovementData ? (
+        <button
+          type="button"
+          className="task-distribution-recommendation"
+          disabled={isImprovementLoading}
+          onClick={() => onGenerateImprovement()}
+        >
+          {isImprovementLoading ? (
+            <i className="fas fa-spinner fa-spin" aria-hidden />
+          ) : (
+            <i className="fa-solid fa-sparkles" aria-hidden />
+          )}
+          <span>
+            {isImprovementLoading
+              ? t("works.myTasks.distribution.improvingLoading")
+              : t("works.myTasks.distribution.recommendation")}
+          </span>
+        </button>
+      ) : null}
+
+      <ImprovementRecommendations
+        data={improvement}
+        hasError={isImprovementError}
+      />
     </section>
   );
 }

@@ -11513,12 +11513,127 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
   width: 100%;
   margin-top: 1rem;
   padding: 0.75rem 1rem;
+  border: 0;
   border-radius: 8px;
   background-color: #fdcb2f;
   color: #0d0d0d;
   font-size: 1rem;
   font-weight: 700;
   text-align: center;
+  cursor: pointer;
+}
+.task-distribution-section .task-distribution-recommendation:disabled {
+  cursor: wait;
+  opacity: 0.75;
+}
+.task-distribution-section .task-improvement-state {
+  min-height: 180px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-top: 1rem;
+  padding: 1rem;
+  border: 1px solid rgba(13, 13, 13, 0.0941176471);
+  border-radius: 12px;
+  background-color: #fff;
+  color: rgba(119, 119, 119, 0.8);
+}
+.task-distribution-section .task-improvement-state .spinner-border {
+  color: #214b92;
+}
+.task-distribution-section .task-improvement-content {
+  margin-top: 1rem;
+}
+.task-distribution-section .task-improvement-assessment {
+  padding: 1rem;
+  border: 1px solid rgba(33, 75, 146, 0.2);
+  border-radius: 12px;
+  background-color: rgba(33, 75, 146, 0.04);
+}
+.task-distribution-section .task-improvement-assessment h3 {
+  margin-bottom: 0.35rem;
+  color: #214b92;
+  font-size: 1rem;
+  font-weight: 700;
+}
+.task-distribution-section .task-improvement-assessment p {
+  margin: 0;
+  color: #0d0d0d;
+  line-height: 1.7;
+}
+.task-distribution-section .task-improvement-table-wrapper {
+  width: 100%;
+  margin-top: 1rem;
+  overflow-x: auto;
+  border: 1px solid rgba(13, 13, 13, 0.0941176471);
+  border-radius: 12px;
+  background-color: #fff;
+}
+.task-distribution-section .task-improvement-table {
+  width: 100%;
+  min-width: 1400px;
+  border-collapse: collapse;
+}
+.task-distribution-section .task-improvement-table th,
+.task-distribution-section .task-improvement-table td {
+  padding: 0.85rem;
+  border-bottom: 1px solid rgba(13, 13, 13, 0.0941176471);
+  border-inline-end: 1px solid rgba(13, 13, 13, 0.0941176471);
+  color: rgba(119, 119, 119, 0.8);
+  font-size: 0.85rem;
+  line-height: 1.6;
+  text-align: start;
+  vertical-align: top;
+}
+.task-distribution-section .task-improvement-table th:last-child,
+.task-distribution-section .task-improvement-table td:last-child {
+  border-inline-end: 0;
+}
+.task-distribution-section .task-improvement-table thead th {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background-color: rgba(33, 75, 146, 0.06);
+  color: #0d0d0d;
+  font-weight: 700;
+  white-space: nowrap;
+}
+.task-distribution-section .task-improvement-table tbody tr:last-child th,
+.task-distribution-section .task-improvement-table tbody tr:last-child td {
+  border-bottom: 0;
+}
+.task-distribution-section .task-improvement-table tbody th {
+  min-width: 160px;
+  color: #0d0d0d;
+  font-weight: 700;
+}
+.task-distribution-section .task-improvement-table td:nth-child(6),
+.task-distribution-section .task-improvement-table td:nth-child(7),
+.task-distribution-section .task-improvement-table td:nth-child(8) {
+  min-width: 260px;
+}
+.task-distribution-section .task-improvement-table ul {
+  margin: 0;
+  padding-inline-start: 1.1rem;
+}
+.task-distribution-section .task-improvement-gap {
+  flex: 0 0 auto;
+  padding: 0.2rem 0.55rem;
+  border-radius: 999px;
+  background-color: rgba(253, 203, 47, 0.16);
+  color: #fdcb2f;
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+.task-distribution-section .task-improvement-gap.shortfall {
+  background-color: rgba(255, 122, 89, 0.12);
+  color: #ff7a59;
+}
+.task-distribution-section .task-improvement-gap.excess {
+  background-color: rgba(33, 75, 146, 0.1);
+  color: #214b92;
 }
 @media (max-width: 991px) {
   .task-distribution-section .task-distribution-grid {

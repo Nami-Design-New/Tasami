@@ -545,12 +545,147 @@
     width: 100%;
     margin-top: 1rem;
     padding: 0.75rem 1rem;
+    border: 0;
     border-radius: 8px;
     background-color: $clientYellow;
     color: $dark;
     font-size: 1rem;
     font-weight: 700;
     text-align: center;
+    cursor: pointer;
+
+    &:disabled {
+      cursor: wait;
+      opacity: 0.75;
+    }
+  }
+
+  .task-improvement-state {
+    min-height: 180px;
+    @include centerFlex();
+    flex-direction: column;
+    gap: 0.75rem;
+    margin-top: 1rem;
+    padding: 1rem;
+    border: 1px solid $InputStroke;
+    border-radius: 12px;
+    background-color: $white;
+    color: $grayLight;
+
+    .spinner-border {
+      color: $main;
+    }
+  }
+
+  .task-improvement-content {
+    margin-top: 1rem;
+  }
+
+  .task-improvement-assessment {
+    padding: 1rem;
+    border: 1px solid rgba($main, 0.2);
+    border-radius: 12px;
+    background-color: rgba($main, 0.04);
+
+    h3 {
+      margin-bottom: 0.35rem;
+      color: $main;
+      font-size: 1rem;
+      font-weight: 700;
+    }
+
+    p {
+      margin: 0;
+      color: $dark;
+      line-height: 1.7;
+    }
+  }
+
+  .task-improvement-table-wrapper {
+    width: 100%;
+    margin-top: 1rem;
+    overflow-x: auto;
+    border: 1px solid $InputStroke;
+    border-radius: 12px;
+    background-color: $white;
+  }
+
+  .task-improvement-table {
+    width: 100%;
+    min-width: 1400px;
+    border-collapse: collapse;
+
+    th,
+    td {
+      padding: 0.85rem;
+      border-bottom: 1px solid $InputStroke;
+      border-inline-end: 1px solid $InputStroke;
+      color: $grayLight;
+      font-size: 0.85rem;
+      line-height: 1.6;
+      text-align: start;
+      vertical-align: top;
+
+      &:last-child {
+        border-inline-end: 0;
+      }
+    }
+
+    thead th {
+      position: sticky;
+      top: 0;
+      z-index: 1;
+      background-color: rgba($main, 0.06);
+      color: $dark;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    tbody {
+      tr:last-child {
+        th,
+        td {
+          border-bottom: 0;
+        }
+      }
+
+      th {
+        min-width: 160px;
+        color: $dark;
+        font-weight: 700;
+      }
+    }
+
+    td:nth-child(6),
+    td:nth-child(7),
+    td:nth-child(8) {
+      min-width: 260px;
+    }
+
+    ul {
+      margin: 0;
+      padding-inline-start: 1.1rem;
+    }
+  }
+
+  .task-improvement-gap {
+    flex: 0 0 auto;
+    padding: 0.2rem 0.55rem;
+    border-radius: 999px;
+    background-color: rgba($clientYellow, 0.16);
+    color: $clientYellow;
+    font-size: 0.8rem;
+    font-weight: 700;
+
+    &.shortfall {
+      background-color: rgba($fire, 0.12);
+      color: $fire;
+    }
+
+    &.excess {
+      background-color: rgba($main, 0.1);
+      color: $main;
+    }
   }
 
   @media (max-width: 991px) {
