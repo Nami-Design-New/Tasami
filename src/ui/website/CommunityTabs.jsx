@@ -1,6 +1,7 @@
-import { Badge } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
 import { NavLink } from "react-router";
+import { getCommunityCount } from "../../utils/communityCounts";
+import CommunityCountBadge from "./CommunityCountBadge";
 
 export default function CommunityTabs({
   isMyCommunity = true,
@@ -12,53 +13,44 @@ export default function CommunityTabs({
   const basePath = isMyCommunity
     ? "/my-community"
     : `/community/${communityId}`;
+  const consultationsCount = getCommunityCount(
+    community?.unseen_consultations_count,
+  );
+  const meetingsCount = getCommunityCount(community?.unseen_meetings_count);
+  const postsCount = getCommunityCount(community?.unseen_posts_count);
 
   return (
     <div className="community-tabs">
       <div className="tabs d-flex gap-3">
-        {/* CONSULTATIONS */}
-        <NavLink to={`${basePath}`} end>
+        <NavLink to={basePath} end>
           {({ isActive }) => (
             <span className={`tab-item ${isActive ? "active" : ""}`}>
-              <span> {t("community.consultant")}</span>
-              {!isMyCommunity && isActive && (
-                <Badge bg="primary" className="conts mx-2">
-                  {community?.consultations_count}
-                </Badge>
-              )}
-              {isMyCommunity && community?.unanswered_consultations > 0 && (
-                <span className="notification_span">
-                  {community?.unanswered_consultations}
-                </span>
-              )}
+              <span className="community-counter-label">
+                <span>{t("community.consultant")}</span>
+                <CommunityCountBadge count={consultationsCount} />
+              </span>
             </span>
           )}
         </NavLink>
 
-        {/* MEETINGS */}
         <NavLink to={`${basePath}/meetings`}>
           {({ isActive }) => (
             <span className={`tab-item ${isActive ? "active" : ""}`}>
-              {t("community.meetings")}
-              {!isMyCommunity && isActive && (
-                <Badge bg="primary" className="conts mx-2">
-                  {community?.meetings_count}
-                </Badge>
-              )}
+              <span className="community-counter-label">
+                <span>{t("community.meetings")}</span>
+                <CommunityCountBadge count={meetingsCount} />
+              </span>
             </span>
           )}
         </NavLink>
 
-        {/* POSTS */}
         <NavLink to={`${basePath}/posts`}>
           {({ isActive }) => (
             <span className={`tab-item ${isActive ? "active" : ""}`}>
-              {t("community.posts")}
-              {!isMyCommunity && isActive && (
-                <Badge bg="primary" className="conts mx-2">
-                  {community?.posts_count}
-                </Badge>
-              )}
+              <span className="community-counter-label">
+                <span>{t("community.posts")}</span>
+                <CommunityCountBadge count={postsCount} />
+              </span>
             </span>
           )}
         </NavLink>

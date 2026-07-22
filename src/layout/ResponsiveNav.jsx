@@ -3,6 +3,7 @@ import { NavLink } from "react-router";
 import navLogo from "../assets/icons/navlogo.svg";
 import { useSelector } from "react-redux";
 import useGetCountersNotify from "../hooks/website/useGetCountersNotify";
+import CommunityCountBadge from "../ui/website/CommunityCountBadge";
 
 function ResponsiveNav() {
   const { t } = useTranslation();
@@ -38,8 +39,14 @@ function ResponsiveNav() {
         </div>
       </NavLink>
       <NavLink to="/my-profile" className="menu_item">
-        <i className="fa-regular fa-user"></i>
-        <span>{t("nav.myProfile")}</span>
+        <div className="d-flex flex-column gap-2 justify-content-center align-items-center position-relative">
+          <i className="fa-regular fa-user"></i>
+          <span>{t("nav.myProfile")}</span>
+          <CommunityCountBadge
+            count={counterNotify?.total_unseen_community_counters}
+            className="responsive-nav-counter"
+          />
+        </div>
       </NavLink>
     </div>
   );

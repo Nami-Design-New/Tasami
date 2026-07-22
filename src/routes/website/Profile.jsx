@@ -4,10 +4,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { NavLink, Outlet, useLocation, useNavigate } from "react-router";
 import { toast } from "sonner";
 import useLogout from "../../hooks/auth/useLogout";
+import useGetCountersNotify from "../../hooks/website/useGetCountersNotify";
 import { clearAuth } from "../../redux/slices/authRole";
 import CustomButton from "../../ui/CustomButton";
 import Loading from "../../ui/loading/Loading";
 import RoundedBackButton from "../../ui/website-auth/shared/RoundedBackButton";
+import CommunityCountBadge from "../../ui/website/CommunityCountBadge";
 import UserCard from "../../ui/website/profile/UserCard";
 import { removeToken } from "../../utils/token";
 import myAccount from "../../assets/icons/my-profile/my-account.svg";
@@ -29,6 +31,7 @@ export default function Profile() {
   const isFollowings = pathname.split("/").includes("followings");
 
   const { user } = useSelector((state) => state.authRole);
+  const { counterNotify } = useGetCountersNotify();
 
   const { logout, isPending } = useLogout();
 
@@ -96,7 +99,14 @@ export default function Profile() {
                 </NavLink>
                 <NavLink to="my-communities" className="nav_link">
                   <img src={communities} />
-                  {t("profile.community")}
+                  <span className="community-counter-label">
+                    <span>{t("profile.community")}</span>
+                    <CommunityCountBadge
+                      count={
+                        counterNotify?.total_unseen_community_counters
+                      }
+                    />
+                  </span>
                 </NavLink>
                 <NavLink to="followings" className="nav_link">
                   <img src={followers} />
