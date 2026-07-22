@@ -5,6 +5,7 @@ import {
   formatDeadlineRemainingDays,
   formatDeadlineRemainingHours,
   getStartExecutionDeadlineState,
+  isStartExecutionAccessRestricted,
   parseDateValue,
 } from "./startExecutionDeadline";
 
@@ -48,11 +49,13 @@ describe("startExecutionDeadline", () => {
     );
   });
 
-  it("formats the warning as separate day and hour messages", () => {
+  it("counts down the full grace period without resetting the hour counter daily", () => {
     const remainingMs = 2 * 24 * 60 * 60 * 1000 + 21 * 60 * 60 * 1000;
 
     expect(formatDeadlineRemainingDays(remainingMs, "ar")).toBe("3 أيام");
-    expect(formatDeadlineRemainingHours(remainingMs, "ar")).toBe("21:00 ساعة");
+    expect(formatDeadlineRemainingHours(remainingMs, "ar")).toBe("69:00 ساعة");
+    expect(formatDeadlineRemainingDays(0, "ar")).toBe("0 أيام");
+    expect(formatDeadlineRemainingHours(0, "ar")).toBe("00:00 ساعة");
   });
 
   it("accepts backend Unix timestamps in seconds", () => {
@@ -63,7 +66,7 @@ describe("startExecutionDeadline", () => {
         status: "planning",
         start_date_timestamp: backendTimestamp,
       },
-      { now: new Date(2026, 5, 25, 1).getTime() },
+      { now: backendTimestamp * 1000 + 25 * 60 * 60 * 1000 },
     );
 
     expect(state.warningAt).toBe(backendTimestamp * 1000 + 24 * 60 * 60 * 1000);
@@ -101,6 +104,32 @@ describe("startExecutionDeadline", () => {
     expect(state.isServerAutoCanceled).toBe(true);
   });
 
+  it("keeps work accessible during the grace period", () => {
+    const work = {
+      rectangle: "personal_goal",
+      status: "planning",
+      start_date_timestamp: startDateTimestamp,
+    };
+
+    expect(
+      getStartExecutionDeadlineState(work, {
+        now: new Date(2026, 5, 2, 1).getTime(),
+      })?.shouldShow,
+    ).toBe(true);
+    expect(isStartExecutionAccessRestricted(work)).toBe(false);
+  });
+
+  it("restricts access only after the backend auto cancels the work", () => {
+    expect(
+      isStartExecutionAccessRestricted({
+        rectangle: "personal_goal_with_helper",
+        status: "planning",
+        disabled_by_system: true,
+        start_date_timestamp: startDateTimestamp,
+      }),
+    ).toBe(true);
+  });
+
   it("still shows the delete-only state when disabled_by_system has no timestamp", () => {
     const state = getStartExecutionDeadlineState({
       rectangle: "personal_goal",
@@ -113,7 +142,7 @@ describe("startExecutionDeadline", () => {
     expect(state.progressPercent).toBe(100);
   });
 
-  it("does not show deadlines for execution or completed work", () => {
+  it("does not show deadlines for resolved work", () => {
     expect(
       getStartExecutionDeadlineState({
         rectangle: "personal_goal",
@@ -126,6 +155,14 @@ describe("startExecutionDeadline", () => {
       getStartExecutionDeadlineState({
         rectangle: "personal_goal",
         status: "completed",
+        start_date_timestamp: startDateTimestamp,
+      }),
+    ).toBeNull();
+
+    expect(
+      getStartExecutionDeadlineState({
+        rectangle: "personal_goal",
+        status: "canceled",
         start_date_timestamp: startDateTimestamp,
       }),
     ).toBeNull();

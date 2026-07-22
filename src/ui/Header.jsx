@@ -4,10 +4,14 @@ import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
 import { Link, NavLink, useNavigate } from "react-router";
 import logo from "../assets/images/logo.svg";
+import chatIcon from "../assets/icons/work-chat.svg";
+
+import useGetNewChatAlerts from "../hooks/website/chats/useGetNewChatAlerts";
 import useSettings from "../hooks/website/settings/useSettings";
 import useGetCountersNotify from "../hooks/website/useGetCountersNotify";
 import CustomButton from "./CustomButton";
 import CustomLink from "./CustomLink";
+import CommunityCountBadge from "./website/CommunityCountBadge";
 import LangDropdown from "./website/LangDropdown";
 import PlatformModal from "./website/platform/PlatformModal";
 import UserDropDown from "./website/UserDropDown";
@@ -22,6 +26,11 @@ export default function Header() {
   const { isAuthed, user } = useSelector((state) => state.authRole);
   const { counterNotify } = useGetCountersNotify();
   const { lang } = useSelector((state) => state.language);
+  const { newChatAlerts } = useGetNewChatAlerts();
+  const newChatAlertsCount = newChatAlerts.reduce(
+    (total, item) => total + Number(item.unread_count || 0),
+    0,
+  );
 
   useEffect(() => {
     const handleOutsideClick = (e) => {
@@ -75,8 +84,16 @@ export default function Header() {
                 </NavLink>
               </li>
               <li onClick={() => setOpenMenu(false)} className={"second-color"}>
-                <NavLink to={"/my-profile"} className={"d-none  d-lg-flex"}>
+                <NavLink
+                  to={"/my-profile"}
+                  className={"d-none align-items-center gap-2 d-lg-flex"}
+                >
                   {t("website.header.myAccount")}
+                  <CommunityCountBadge
+                    count={
+                      counterNotify?.total_unseen_community_counters
+                    }
+                  />
                 </NavLink>
               </li>
             </>
@@ -130,7 +147,6 @@ export default function Header() {
             {/* <img src={communities} /> */}
             <span>{t("website.header.communities")}</span>
           </Link>
-          <LangDropdown />
           {isAuthed && (
             <Link to="/notifications" className="notification-btn">
               <i className="fa-regular fa-bell">
@@ -144,6 +160,23 @@ export default function Header() {
               </i>
             </Link>
           )}
+          {isAuthed && (
+            <Link
+              to="/new-chats"
+              className="notification-btn"
+              aria-label={t("quickChats.title", "المحادثات الجديدة")}
+            >
+              <span className="notification-img-icon">
+                <img src={chatIcon} alt="" />
+                {newChatAlertsCount > 0 && (
+                  <Badge>
+                    {newChatAlertsCount > 99 ? "99+" : newChatAlertsCount}
+                  </Badge>
+                )}
+              </span>
+            </Link>
+          )}
+          <LangDropdown />
           {isAuthed && (
             <CustomButton
               size="small"

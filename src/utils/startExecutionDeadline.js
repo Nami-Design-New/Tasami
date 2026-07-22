@@ -12,8 +12,15 @@ const isPersonalGoal = (item) =>
   item?.rectangle === "personal_goal" ||
   item?.rectangle === "personal_goal_with_helper";
 
-const hasStartedExecution = (item) =>
-  item?.status === "execution" || item?.status === "completed";
+const DEADLINE_RESOLVED_STATUSES = new Set([
+  "execution",
+  "completed",
+  "canceled",
+  "cancelled",
+]);
+
+const isExecutionDeadlineResolved = (item) =>
+  DEADLINE_RESOLVED_STATUSES.has(item?.status);
 
 const isDisabledBySystem = (item) => item?.disabled_by_system === true;
 
@@ -34,7 +41,7 @@ const isEligibleItem = (item) => {
 
   return (
     isPersonalGoal(item) &&
-    (isDisabledBySystem(item) || !hasStartedExecution(item))
+    (isDisabledBySystem(item) || !isExecutionDeadlineResolved(item))
   );
 };
 
@@ -132,37 +139,8 @@ export function getStartExecutionDeadlineState(item, options = {}) {
   };
 }
 
-export function getStartExecutionDeadlineDebugSnapshot(item, options = {}) {
-  const now = getNowTimestamp(options.now);
-  const state = getStartExecutionDeadlineState(item, { now });
-  const startAt = getStartTimestamp(item);
-  const warningAt =
-    state?.warningAt ??
-    (startAt ? startAt + START_EXECUTION_WARNING_DELAY_MS : null);
-  const cancelAt =
-    state?.cancelAt ??
-    (startAt ? startAt + START_EXECUTION_TOTAL_DEADLINE_MS : null);
-
-  return {
-    id: item?.id,
-    code: item?.code,
-    rectangle: item?.rectangle,
-    status: item?.status,
-    statusDate: item?.status_date,
-    isPersonalGoal: isPersonalGoal(item),
-    hasStartedExecution: hasStartedExecution(item),
-    disabledBySystem: item?.disabled_by_system,
-    startDateTimestamp: item?.[START_DATE_TIMESTAMP_KEY],
-    selectedStartAt: startAt ? new Date(startAt).toISOString() : null,
-    calculatedWarningAt: warningAt ? new Date(warningAt).toISOString() : null,
-    calculatedCancelAt: cancelAt ? new Date(cancelAt).toISOString() : null,
-    now: new Date(now).toISOString(),
-    shouldShow: Boolean(state?.shouldShow),
-    isAutoCanceled: Boolean(state?.isAutoCanceled),
-    isServerAutoCanceled: Boolean(state?.isServerAutoCanceled),
-    remainingMs: state?.remainingMs ?? null,
-    progressPercent: state?.progressPercent ?? null,
-  };
+export function isStartExecutionAccessRestricted(item) {
+  return Boolean(getStartExecutionDeadlineState(item)?.isAutoCanceled);
 }
 
 export function formatDeadlineRemaining(remainingMs, language = "ar") {
@@ -192,7 +170,7 @@ export function formatDeadlineRemaining(remainingMs, language = "ar") {
 export function formatDeadlineRemainingDays(remainingMs, language = "ar") {
   const isArabic = String(language).startsWith("ar");
   const safeRemainingMs = Math.max(Number(remainingMs) || 0, 0);
-  const days = Math.max(Math.ceil(safeRemainingMs / DAY_IN_MS), 1);
+  const days = Math.ceil(safeRemainingMs / DAY_IN_MS);
 
   return isArabic ? `${days} أيام` : `${days} days`;
 }
@@ -201,10 +179,12 @@ export function formatDeadlineRemainingHours(remainingMs, language = "ar") {
   const isArabic = String(language).startsWith("ar");
   const safeRemainingMs = Math.max(Number(remainingMs) || 0, 0);
   const totalMinutes = Math.ceil(safeRemainingMs / (60 * 1000));
-  const hoursAfterDays = Math.floor((totalMinutes % (24 * 60)) / 60);
-  const minutesAfterHours = totalMinutes % 60;
-  const hours = String(hoursAfterDays).padStart(2, "0");
-  const minutes = String(minutesAfterHours).padStart(2, "0");
+  const totalHours = Math.floor(totalMinutes / 60);
+  const minutes = totalMinutes % 60;
+  const hours = String(totalHours).padStart(2, "0");
+  const formattedMinutes = String(minutes).padStart(2, "0");
 
-  return isArabic ? `${hours}:${minutes} ساعة` : `${hours}:${minutes} hours`;
+  return isArabic
+    ? `${hours}:${formattedMinutes} ساعة`
+    : `${hours}:${formattedMinutes} hours`;
 }

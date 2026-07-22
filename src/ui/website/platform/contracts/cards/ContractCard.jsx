@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router";
 import HelperCard from "../../../../cards/HelperCard";
@@ -9,8 +8,7 @@ import helpServiceFromHelper from "../../../../../assets/icons/help_service_from
 import titleIcon from "../../../../../assets/icons/title.svg";
 import {
   formatStartDateTimestamp,
-  getStartExecutionDeadlineDebugSnapshot,
-  getStartExecutionDeadlineState,
+  isStartExecutionAccessRestricted,
 } from "../../../../../utils/startExecutionDeadline";
 import StartExecutionDeadlineAlert from "../../../my-works/StartExecutionDeadlineAlert";
 
@@ -48,8 +46,7 @@ export default function ContractCard({ contract, withoutStatus = true }) {
       },
     ];
   }
-  const deadlineState = getStartExecutionDeadlineState(contract);
-  const isAutoCanceled = Boolean(deadlineState?.isAutoCanceled);
+  const isAutoCanceled = isStartExecutionAccessRestricted(contract);
   const isCanceled = contract.status === "canceled" || isAutoCanceled;
   const startDate = formatStartDateTimestamp(
     contract?.start_date_timestamp,
@@ -62,15 +59,8 @@ export default function ContractCard({ contract, withoutStatus = true }) {
     current: index === currentIndex && !isCanceled,
   }));
 
-  useEffect(() => {
-    console.log(
-      "[StartExecutionDeadline][ContractCard]",
-      getStartExecutionDeadlineDebugSnapshot(contract),
-    );
-  }, [contract]);
-
-  return (
-    <Link to={`/my-contracts/${contract.id}`} className="work-card">
+  const cardContent = (
+    <>
       {contract.code && (
         <div className={`work-reference-code ${contract.rectangle ?? ""}`}>
           {contract.code}
@@ -109,6 +99,18 @@ export default function ContractCard({ contract, withoutStatus = true }) {
       </div>
       {withoutStatus && <WorkProgress steps={progressSteps} />}
       <StartExecutionDeadlineAlert item={contract} scope="contract" />
+    </>
+  );
+
+  return isAutoCanceled ? (
+    <article
+      className={`work-card ${isAutoCanceled ? "work-card--auto-canceled" : ""}`}
+    >
+      {cardContent}
+    </article>
+  ) : (
+    <Link to={`/my-contracts/${contract.id}`} className="work-card">
+      {cardContent}
     </Link>
   );
 }

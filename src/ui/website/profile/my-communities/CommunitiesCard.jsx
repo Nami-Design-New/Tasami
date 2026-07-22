@@ -1,14 +1,17 @@
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router";
+import CommunityCountBadge from "../../CommunityCountBadge";
 
 export default function CommunitiesCard({ community }) {
   const { t } = useTranslation();
+
   return (
     <Link className="communities-card" to={`/community/${community.id}`}>
-      <img src={community.helper_image} className="" />
+      <img src={community.helper_image} alt={community.helper_name} />
       <h2>
         {t("website.assistants.community")} {community.helper_name}
       </h2>
+      <CommunityCountBadge count={community?.total_unseen_count} />
       <span className="arrow-icon">
         <i className="fa-solid fa-angle-left"></i>
       </span>
