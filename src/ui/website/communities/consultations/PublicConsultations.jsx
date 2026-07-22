@@ -1,33 +1,18 @@
 import { useTranslation } from "react-i18next";
-import useGetPublicConsultations from "../../../../hooks/website/communities/useGetPublicConsultaion";
 import CustomButton from "../../../CustomButton";
 import AudienceCardLoader from "../../../loading/AudienceCardLoader";
 import ConsultationCard from "./ConsultationCard";
-import EmptySection from "../../../EmptySection";
 
-export default function PublicConsultations() {
+export default function PublicConsultations({
+  consultations = [],
+  isLoading,
+  hasNextPage,
+  fetchNextPage,
+  isFetchingNextPage,
+}) {
   const { t } = useTranslation();
 
-  const {
-    publicConsultaions,
-    isLoading,
-    hasNextPage,
-    fetchNextPage,
-    isFetchingNextPage,
-  } = useGetPublicConsultations();
-
-  const allPublicConsultaions =
-    publicConsultaions?.pages?.flatMap((page) => page?.data) ?? [];
-
-  if (!isLoading && allPublicConsultaions.length === 0) {
-    return null;
-  }
-
-  if (!isLoading && allPublicConsultaions.length === 0) {
-    return (
-      <EmptySection height="500px" message={t("community.noConsultaion")} />
-    );
-  }
+  if (!isLoading && consultations.length === 0) return null;
 
   return (
     <div className="row">
@@ -37,8 +22,8 @@ export default function PublicConsultations() {
         </div>
       </div>
 
-      {allPublicConsultaions.map((item, idx) => (
-        <div className="col-12  p-2" key={idx}>
+      {consultations.map((item) => (
+        <div className="col-12  p-2" key={item.id}>
           <ConsultationCard item={item} />
         </div>
       ))}

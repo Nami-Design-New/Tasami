@@ -12905,6 +12905,41 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
   min-width: 16px;
 }
 
+.community-count-badge {
+  min-width: 22px;
+  height: 22px;
+  padding: 0 4px;
+  border-radius: 999px;
+  background-color: #ff7a59;
+  color: #fff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.community-counter-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  direction: inherit;
+}
+
+.community-tabs .tabs a.active .community-count-badge,
+.community-tabs .tabs a:hover .community-count-badge {
+  background-color: #fff;
+  color: #5fcafa;
+}
+
+.responsive-nav-counter {
+  position: absolute;
+  top: -12px;
+  inset-inline-start: -8px;
+}
+
 .consultations-section .consultations-header {
   display: flex;
   align-items: center;

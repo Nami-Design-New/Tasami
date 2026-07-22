@@ -11,6 +11,7 @@ import useSettings from "../hooks/website/settings/useSettings";
 import useGetCountersNotify from "../hooks/website/useGetCountersNotify";
 import CustomButton from "./CustomButton";
 import CustomLink from "./CustomLink";
+import CommunityCountBadge from "./website/CommunityCountBadge";
 import LangDropdown from "./website/LangDropdown";
 import PlatformModal from "./website/platform/PlatformModal";
 import UserDropDown from "./website/UserDropDown";
@@ -83,8 +84,16 @@ export default function Header() {
                 </NavLink>
               </li>
               <li onClick={() => setOpenMenu(false)} className={"second-color"}>
-                <NavLink to={"/my-profile"} className={"d-none  d-lg-flex"}>
+                <NavLink
+                  to={"/my-profile"}
+                  className={"d-none align-items-center gap-2 d-lg-flex"}
+                >
                   {t("website.header.myAccount")}
+                  <CommunityCountBadge
+                    count={
+                      counterNotify?.total_unseen_community_counters
+                    }
+                  />
                 </NavLink>
               </li>
             </>

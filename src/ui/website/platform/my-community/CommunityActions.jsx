@@ -8,6 +8,7 @@ import useEditMyCommunity from "../../../../hooks/website/communities/useEditMyC
 import useJoinCommunity from "../../../../hooks/website/communities/useJoinCommunity";
 import useUnjoinCommunity from "../../../../hooks/website/communities/useUnjoinCommunity";
 import CommunityPaymentModal from "../../communities/CommunityPaymentModal";
+import CommunityCountBadge from "../../CommunityCountBadge";
 import AlertModal from "./AlertModal";
 import EditCommunityModal from "./EditCommunityModal";
 import chatIcon from "../../../../assets/icons/chat.svg";
@@ -138,24 +139,12 @@ export default function CommunityActions({ community, isMyCommunity = true }) {
               to={`/community/${community?.id}/chats`}
               className="chat-link"
             >
-              <img src={chatIcon} />
+              <img src={chatIcon} alt={t("chats")} />
             </Link>
-            {
-              isMyCommunity ? (
-                community?.helper_unread_chats > 0 && (
-                  <span className="notification_span notification_position">
-                    {community?.helper_unread_chats}
-                  </span>
-                )
-              ) : (
-                <div></div>
-              )
-              // community?.unread_chats_count > 0 && (
-              //     <span className="notification_span notification_position">
-              //       {community?.unread_chats_count}
-              //     </span>
-              //   )
-            }
+            <CommunityCountBadge
+              count={community?.unread_chats_count}
+              className="notification_position"
+            />
           </li>
         )}
         <li>

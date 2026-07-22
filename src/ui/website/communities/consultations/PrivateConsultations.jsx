@@ -1,29 +1,18 @@
 import { useTranslation } from "react-i18next";
-import useGetPrivateConsultaions from "../../../../hooks/website/communities/useGetPrivateConsultaions";
 import CustomButton from "../../../CustomButton";
 import AudienceCardLoader from "../../../loading/AudienceCardLoader";
 import ConsultationCard from "./ConsultationCard";
-import EmptySection from "../../../EmptySection";
 
-export default function PrivateConsultations() {
+export default function PrivateConsultations({
+  consultations = [],
+  isLoading,
+  hasNextPage,
+  fetchNextPage,
+  isFetchingNextPage,
+}) {
   const { t } = useTranslation();
 
-  const {
-    privateConsultaions,
-    isLoading,
-    hasNextPage,
-    fetchNextPage,
-    isFetchingNextPage,
-  } = useGetPrivateConsultaions();
-
-  const allPrivateConsultations =
-    privateConsultaions?.pages?.flatMap((page) => page?.data) ?? [];
-
-  if (!isLoading && allPrivateConsultations.length === 0) {
-    return (
-      <EmptySection height="500px" message={t("community.noConsultaion")} />
-    );
-  }
+  if (!isLoading && consultations.length === 0) return null;
 
   return (
     <div className="row">
@@ -36,8 +25,8 @@ export default function PrivateConsultations() {
         </div>
       </div>
 
-      {allPrivateConsultations.map((item, idx) => (
-        <div className="col-12  p-2" key={idx}>
+      {consultations.map((item) => (
+        <div className="col-12  p-2" key={item.id}>
           <ConsultationCard item={item} />
         </div>
       ))}

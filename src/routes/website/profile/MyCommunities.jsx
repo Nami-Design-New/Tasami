@@ -10,7 +10,6 @@ export default function MyCommunities() {
   const {
     myCommunities,
     isLoading,
-    error,
     hasNextPage,
     fetchNextPage,
     isFetchingNextPage,
