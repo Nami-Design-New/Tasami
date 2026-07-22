@@ -36,8 +36,6 @@ export default function TaskDetails({ mode = null }) {
       taskError?.response?.status ??
       taskError?.response?.data?.code,
   );
-  const isTaskNotFound = taskErrorStatus === 404;
-
   const currentUserId = user?.id;
   const taskOwnerId =
     taskDetails?.user?.id ??
@@ -122,12 +120,6 @@ export default function TaskDetails({ mode = null }) {
   }, [taskDetails?.status]);
 
   useEffect(() => {
-    if (isTaskNotFound) {
-      navigate("/not-found", { replace: true });
-    }
-  }, [isTaskNotFound, navigate]);
-
-  useEffect(() => {
     if (isLoading || !taskDetails) return;
 
     if (
@@ -167,7 +159,21 @@ export default function TaskDetails({ mode = null }) {
     taskOwnerId,
   ]);
 
-  if (isLoading || isTaskNotFound) return <Loading />;
+  if (isLoading) return <Loading />;
+  if (taskError) {
+    return (
+      <section className="task_details page">
+        <div className="container">
+          <div className="alert alert-danger" role="alert">
+            <strong>
+              {taskErrorStatus ? `${taskErrorStatus}: ` : ""}
+            </strong>
+            {taskError.message || t("messages_error")}
+          </div>
+        </div>
+      </section>
+    );
+  }
   const taskDate = new Date(taskDetails?.expected_end_date);
   const isPast = taskDate < new Date();
   const taskNotes = taskDetails?.notes;

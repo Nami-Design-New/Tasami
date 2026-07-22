@@ -9,6 +9,12 @@ import PlatformModal from "../platform/PlatformModal";
 import addIcon from "../../../assets/icons/add.svg";
 import useFirstGroupGuard from "../../../hooks/website/my-groups/useFirstGroupGuard";
 import FirstGroupRequiredModal from "../platform/FirstGroupRequiredModal";
+import useGetCountersNotify from "../../../hooks/website/useGetCountersNotify";
+import {
+  ACTIVITY_LIMIT_TYPES,
+  getActivityLimitState,
+} from "../../../utils/activityLimits";
+import ActivityLimitAlert from "../ActivityLimitAlert";
 
 export default function GoalsHelpSection() {
   const { t } = useTranslation();
@@ -19,6 +25,23 @@ export default function GoalsHelpSection() {
   const [showModal, setShowModal] = useState(false);
   const [showGoalModal, setShowGoalModal] = useState(false);
   const [showPlatformModal, setShowPlatformModal] = useState(false);
+  const [beneficiaryLimitAlert, setBeneficiaryLimitAlert] = useState({
+    show: false,
+    limit: undefined,
+  });
+  const { counterNotify, isLoading: isCountersLoading } =
+    useGetCountersNotify();
+  const beneficiaryLimit = getActivityLimitState(
+    counterNotify,
+    ACTIVITY_LIMIT_TYPES.BENEFICIARY,
+  );
+
+  const showBeneficiaryLimitAlert = (limit = beneficiaryLimit.limit) => {
+    setBeneficiaryLimitAlert({
+      show: true,
+      limit: limit ?? beneficiaryLimit.activeCount,
+    });
+  };
   const {
     requestAssistanceCreation,
     showFirstGroupWarning,
@@ -35,7 +58,11 @@ export default function GoalsHelpSection() {
               user?.city !== null &&
               user?.nationality !== null
             ) {
-              setShowGoalModal(true);
+              if (beneficiaryLimit.isBlocked) {
+                showBeneficiaryLimitAlert();
+              } else {
+                setShowGoalModal(true);
+              }
             } else {
               navigate("/customize-services");
             }
@@ -43,6 +70,7 @@ export default function GoalsHelpSection() {
             navigate("/login");
           }
         }}
+        loading={Boolean(user) && isCountersLoading}
         className="goal-btn personal-goal"
       >
         <img src={addIcon} alt="icon" />
@@ -77,6 +105,7 @@ export default function GoalsHelpSection() {
       <AddGoalModal
         showModal={showGoalModal}
         setShowModal={setShowGoalModal}
+        onLimitReached={showBeneficiaryLimitAlert}
       />{" "}
       <PlatformModal
         showModal={showPlatformModal}
@@ -86,6 +115,14 @@ export default function GoalsHelpSection() {
         showModal={showFirstGroupWarning}
         onClose={closeFirstGroupWarning}
         onCreateGroup={createFirstGroup}
+      />
+      <ActivityLimitAlert
+        showModal={beneficiaryLimitAlert.show}
+        setShowModal={(show) =>
+          setBeneficiaryLimitAlert((current) => ({ ...current, show }))
+        }
+        type={ACTIVITY_LIMIT_TYPES.BENEFICIARY}
+        limit={beneficiaryLimitAlert.limit}
       />
     </section>
   );

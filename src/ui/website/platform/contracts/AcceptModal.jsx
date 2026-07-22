@@ -36,8 +36,11 @@ export default function AcceptModal({ workId, showModal, setShowModal }) {
     acceptOrRefuse(payload, {
       onSuccess: () => {
         toast.success(t("contract_accept_success"));
-        queryClient.invalidateQueries(["workDetails"]);
-        queryClient.refetchQueries(["my-contracts"]);
+        queryClient.invalidateQueries({
+          queryKey: ["work-details"],
+          refetchType: "none",
+        });
+        queryClient.invalidateQueries({ queryKey: ["my-contracts"] });
         reset();
       },
       onError: (error) => {

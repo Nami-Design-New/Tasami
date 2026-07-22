@@ -21,6 +21,16 @@
   "download": "Download",
   "maxOfferAlert1": "You have reached the maximum number of offers!",
   "maxOfferAlert2": "Please withdraw one of your existing offers or wait until it is accepted or rejected, then try again.",
+  "activityLimits": {
+    "beneficiary": {
+      "title": "You have reached the maximum number of works in your record ({{limit}} works)",
+      "description": "Complete them or delete the ones you no longer need to add new works."
+    },
+    "assistant": {
+      "title": "You have reached the maximum number of personal assistant contracts ({{limit}} contracts)",
+      "description": "Complete them or withdraw unnecessary price offers to make room for new contracts."
+    }
+  },
   "otpTitle": "OTP Verification",
   "verify": "Verify Phone Number",
   "ok": "Proceed",

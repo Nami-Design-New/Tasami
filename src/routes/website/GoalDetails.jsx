@@ -19,8 +19,12 @@ import { shareContent } from "../../utils/shared";
 import { Link, useNavigate } from "react-router";
 import PlatformModal from "../../ui/website/platform/PlatformModal";
 import triangleWithHelper from "../../assets/icons/triangle-with-helper.svg";
-import useGetCurrentPackage from "../../hooks/website/subscribe/useGetCurrentPackage";
-import AlertModal from "../../ui/website/platform/my-community/AlertModal";
+import useGetCountersNotify from "../../hooks/website/useGetCountersNotify";
+import ActivityLimitAlert from "../../ui/website/ActivityLimitAlert";
+import {
+  ACTIVITY_LIMIT_TYPES,
+  getActivityLimitState,
+} from "../../utils/activityLimits";
 
 export default function GoalDetails() {
   const { t } = useTranslation();
@@ -31,10 +35,25 @@ export default function GoalDetails() {
   const [showReportModal, setShowReportModal] = useState(false);
   const [showInquiryModal, setShowInquiryModal] = useState(false);
   const [showInquiryAlertModal, setShowInquiryAlertModal] = useState(false);
-  const [showAlertModal, setShowAlertModal] = useState(false);
+  const [assistantLimitAlert, setAssistantLimitAlert] = useState({
+    show: false,
+    limit: undefined,
+  });
   const { user } = useSelector((state) => state.authRole);
   const { lang } = useSelector((state) => state.language);
-  const { currentPackage } = useGetCurrentPackage(!!user);
+  const { counterNotify, isLoading: isCountersLoading } =
+    useGetCountersNotify();
+  const assistantLimit = getActivityLimitState(
+    counterNotify,
+    ACTIVITY_LIMIT_TYPES.ASSISTANT,
+  );
+
+  const showAssistantLimitAlert = (limit = assistantLimit.limit) => {
+    setAssistantLimitAlert({
+      show: true,
+      limit: limit ?? assistantLimit.activeCount,
+    });
+  };
 
   const { goalDetails, isLoading } = useGetGoalDetails();
 
@@ -204,6 +223,7 @@ export default function GoalDetails() {
                       </div>
                     </div>
                     <CustomButton
+                      loading={isCountersLoading}
                       onClick={() => {
                         if (
                           user?.country === null &&
@@ -212,8 +232,8 @@ export default function GoalDetails() {
                         ) {
                           navigate("/customize-services");
                         } else if (user.about) {
-                          if (currentPackage?.reminder_offers === 0) {
-                            setShowAlertModal(true);
+                          if (assistantLimit.isBlocked) {
+                            showAssistantLimitAlert();
                           } else {
                             setShowHelpModal(true);
                           }
@@ -239,6 +259,7 @@ export default function GoalDetails() {
             goal={goalDetails}
             showModal={showHelpModal}
             setShowModal={setShowHelpModal}
+            onLimitReached={showAssistantLimitAlert}
           />
         )}
         {user && (
@@ -271,21 +292,14 @@ export default function GoalDetails() {
             setShowModal={setShowAgreeModal}
           />
         )}
-        {showAlertModal && (
-          <AlertModal
-            showModal={showAlertModal}
-            setShowModal={setShowAlertModal}
-            withoutMessage={false}
-            confirmButtonText={t("ok")}
-            showCancel={false}
-            onConfirm={() => setShowAlertModal(false)}
-          >
-            <p className="text-center text-dark fw-bold ">
-              {t("maxOfferAlert1")} <br />
-              {t("maxOfferAlert2")}
-            </p>
-          </AlertModal>
-        )}
+        <ActivityLimitAlert
+          showModal={assistantLimitAlert.show}
+          setShowModal={(show) =>
+            setAssistantLimitAlert((current) => ({ ...current, show }))
+          }
+          type={ACTIVITY_LIMIT_TYPES.ASSISTANT}
+          limit={assistantLimitAlert.limit}
+        />
       </div>
     </section>
   );

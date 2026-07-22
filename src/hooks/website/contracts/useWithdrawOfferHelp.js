@@ -1,7 +1,8 @@
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { axiosInstance } from "../../../lib/axios";
 
 export default function useWithdrawOfferHelp() {
+  const queryClient = useQueryClient();
   const { mutate: withdrawOffer, isPending } = useMutation({
     mutationFn: async (id) => {
       const res = await axiosInstance.put(`my-contracts/${id}`);
@@ -10,6 +11,9 @@ export default function useWithdrawOfferHelp() {
         throw new Error(res.data.message || "Failed to withdraw offer");
       }
       return res.data;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["counters-notify"] });
     },
   });
   return { withdrawOffer, isPending };

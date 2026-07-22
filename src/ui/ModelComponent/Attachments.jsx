@@ -30,7 +30,7 @@ const Attachments = ({ taskData }) => {
     addTaskFile(formData, {
       onSuccess: (res) => {
         toast.success(res.message);
-        queryQlient.invalidateQueries(["show-task"]);
+        queryQlient.invalidateQueries({ queryKey: ["show-task"] });
       },
       onError: (err) => {
         toast.error(err.message);

@@ -10,6 +10,7 @@ import { useEffect } from "react";
 import { toast } from "sonner";
 import { useQueryClient } from "@tanstack/react-query";
 import GlobalModal from "../../GlobalModal";
+import { refreshAfterContractCancellation } from "../../../utils/contractCancellationCache";
 
 //  Validation schema
 const schema = yup.object().shape({
@@ -56,19 +57,15 @@ export default function CancelContractModal({
     };
 
     cancelContract(payload, {
-      onSuccess: (res) => {
+      onSuccess: async (res) => {
         reset();
         setShowModal(false);
+        await refreshAfterContractCancellation(queryClient);
         if (onSuccess) {
           onSuccess(res);
         } else {
           toast.success(res?.message);
         }
-        queryClient.refetchQueries({ queryKey: ["assistants"] });
-        queryClient.refetchQueries({ queryKey: ["work-group"] });
-        queryClient.refetchQueries({ queryKey: ["work-details"] });
-        queryClient.refetchQueries({ queryKey: ["my-contracts"] });
-        queryClient.refetchQueries({ queryKey: ["contract-details"] });
       },
     });
   };
