@@ -1,7 +1,8 @@
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { axiosInstance } from "../../../lib/axios";
 
 export default function useCancelContract() {
+  const queryClient = useQueryClient();
   const { mutate: cancelContract, isPending } = useMutation({
     mutationFn: async (payload) => {
       const res = await axiosInstance.delete(`helpers-of-goal/${payload.id}`, {
@@ -15,6 +16,9 @@ export default function useCancelContract() {
       }
 
       return res.data;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["counters-notify"] });
     },
   });
   return { cancelContract, isPending };

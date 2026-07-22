@@ -3114,6 +3114,26 @@ body.en .show-pass {
   gap: 1rem;
 }
 
+.activity-limit-alert {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  color: #214b92;
+}
+.activity-limit-alert h4,
+.activity-limit-alert p {
+  margin: 0;
+}
+.activity-limit-alert h4 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  line-height: 1.5;
+}
+.activity-limit-alert p {
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
 .unjoin-community-confirmation {
   display: flex;
   flex-direction: column;

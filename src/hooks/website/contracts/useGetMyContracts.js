@@ -1,5 +1,6 @@
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { axiosInstance } from "../../../lib/axios";
+import { getNextPageParam } from "../../../utils/pagination";
 
 export default function useGetMyContracts(status) {
   const {
@@ -11,8 +12,9 @@ export default function useGetMyContracts(status) {
     isFetchingNextPage,
   } = useInfiniteQuery({
     queryKey: ["my-contracts", status],
-    queryFn: async ({ pageParam }) => {
+    queryFn: async ({ pageParam = 1 }) => {
       const res = await axiosInstance.get("my-contracts", {
+        skipNotFoundRedirect: true,
         params: {
           status,
           page: pageParam,
@@ -23,11 +25,7 @@ export default function useGetMyContracts(status) {
       }
       return res.data;
     },
-    getNextPageParam: (lastPage) => {
-      lastPage?.next_page_url
-        ? new URL(lastPage.next_page_url).searchParams.get("page")
-        : undefined;
-    },
+    getNextPageParam,
   });
   return {
     myContracts,

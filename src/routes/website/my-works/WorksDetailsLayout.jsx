@@ -1,7 +1,7 @@
 import { useQueryClient } from "@tanstack/react-query";
 import { useCallback, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Navigate, NavLink, Outlet, useNavigate, useParams } from "react-router";
+import { Navigate, NavLink, Outlet, useNavigate } from "react-router";
 import { toast } from "sonner";
 
 import useCancelRequestOffer from "../../../hooks/website/MyWorks/useCancelRequestOffer";
@@ -24,7 +24,8 @@ export default function WorksDetailsLayout() {
   //   useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
 
-  const { workDetails, isLoading } = useGetWorkDetails();
+  const { workDetails, error: workDetailsError, isLoading } =
+    useGetWorkDetails();
   const { deleteWork, isPending: isDeleting } = useDeleteWork();
   const { cancelRequestOffer, isPending: isCanceling } =
     useCancelRequestOffer();
@@ -48,7 +49,7 @@ export default function WorksDetailsLayout() {
       deleteWork(goalId, {
         onSuccess: (res) => {
           toast.success(res?.message);
-          queryClient.refetchQueries({ queryKey: ["my-works"] });
+          queryClient.invalidateQueries({ queryKey: ["my-works"] });
           navigate("/my-works");
         },
         onError: (err) => toast.error(err.message),
@@ -63,7 +64,7 @@ export default function WorksDetailsLayout() {
         onSuccess: (res) => {
           toast.success(res?.message);
           navigate("/my-works");
-          queryClient.refetchQueries("my-works");
+          queryClient.invalidateQueries({ queryKey: ["my-works"] });
         },
         onError: (error) =>
           toast.error(error.message || t("works.errorOccurred")),
@@ -223,6 +224,15 @@ export default function WorksDetailsLayout() {
       <div className="container">
         {isLoading ? (
           <Loading />
+        ) : workDetailsError ? (
+          <div className="alert alert-danger" role="alert">
+            <strong>
+              {workDetailsError.status
+                ? `${workDetailsError.status}: `
+                : ""}
+            </strong>
+            {workDetailsError.message || t("messages_error")}
+          </div>
         ) : isAutoCanceled ? (
           <Navigate to="/my-works" replace />
         ) : (

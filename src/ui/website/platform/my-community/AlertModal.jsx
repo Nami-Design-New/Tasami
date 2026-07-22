@@ -20,6 +20,7 @@ export default function AlertModal({
   showCancel = true,
   confirmAlign = "center",
   cancelButtonText,
+  animation = true,
 }) {
   const { t } = useTranslation();
   const handleCancel = () => {
@@ -32,7 +33,13 @@ export default function AlertModal({
     // setShowModal(false);
   };
   return (
-    <GlobalModal show={showModal} onHide={handleCancel} centered size="md">
+    <GlobalModal
+      show={showModal}
+      onHide={handleCancel}
+      centered
+      size="md"
+      animation={animation}
+    >
       <GlobalModal.Body>
         <div className="alert-modal">
           <img src={alertIcon} alt="alert" />
