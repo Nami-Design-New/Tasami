@@ -4,10 +4,13 @@ import { useTranslation } from "react-i18next";
 import { useLocation, useNavigate, useParams } from "react-router";
 import { useSelector } from "react-redux";
 import { toast } from "sonner";
+import useDeleteTaskSchedule from "../../../hooks/website/MyWorks/tasks/useDeleteTaskSchedule";
 import useDeleteTask from "../../../hooks/website/MyWorks/tasks/useDeleteTask";
 import useGetTaskDetails from "../../../hooks/website/MyWorks/tasks/useGetTaskDetails";
+import useUpdateTaskSchedule from "../../../hooks/website/MyWorks/tasks/useUpdateTaskSchedule";
 import useUpdateTaskStatus from "../../../hooks/website/MyWorks/tasks/useUpdateTaskStatus";
 import Loading from "../../../ui/loading/Loading";
+import ConfirmDeleteModal from "../../../ui/modals/ConfirmationDeleteModal";
 import RoundedBackButton from "../../../ui/website-auth/shared/RoundedBackButton";
 import AddTasksModal from "../../../ui/website/my-works/tasks/AddTasksModal";
 import OptionsMenu from "../../../ui/website/OptionsMenu";
@@ -16,6 +19,44 @@ import { TASKS_STATUS } from "../../../utils/constants";
 import bellIcon from "../../../assets/icons/bell.svg";
 import missionClassIcon from "../../../assets/icons/mission-class.svg";
 import TaskBreadcrumb from "../../../ui/website/my-works/tasks/TaskBreadcrumb";
+import TaskScheduleRowContainer from "../../../ui/website/my-works/tasks/TaskScheduleRowContainer";
+
+const getTaskRepetitions = (task) =>
+  Array.isArray(task?.schedules) ? task.schedules : [];
+
+const getTaskNotes = (task) => {
+  const source = task?.task_notes ?? task?.notes;
+  const notes = Array.isArray(source?.data) ? source.data : source;
+
+  if (!Array.isArray(notes)) {
+    if (notes == null || String(notes).trim() === "") return [];
+    return String(notes)
+      .split(/\r?\n/)
+      .filter(Boolean)
+      .map((note, index) => ({
+        id: `legacy-${index}`,
+        text: note,
+        created_at: null,
+      }));
+  }
+
+  return notes
+    .map((note, index) => ({
+      id: note?.id ?? `note-${index}`,
+      text: String(
+        note?.text ?? note?.note ?? note?.content ?? note ?? "",
+      ).trim(),
+      created_at: note?.created_at ?? note?.date ?? null,
+    }))
+    .filter((note) => note.text);
+};
+
+const formatTaskNoteDate = (value) => {
+  if (!value) return null;
+
+  const [date = "", time = ""] = String(value).trim().split(/[ T]/);
+  return time ? `${date} | ${time.slice(0, 5)}` : date;
+};
 
 export default function TaskDetails({ mode = null }) {
   const navigate = useNavigate();
@@ -27,17 +68,21 @@ export default function TaskDetails({ mode = null }) {
 
   const [showAddModal, setShowAddModal] = useState(false);
   const [selectedStatus, setSelectedStatus] = useState(null);
+  const [activeScheduleId, setActiveScheduleId] = useState(null);
+  const [scheduleToDelete, setScheduleToDelete] = useState(null);
 
   const { taskDetails, isLoading, error: taskError } = useGetTaskDetails();
   const { updateTaskStatus } = useUpdateTaskStatus();
   const { deleteTask, isPending: isDeleting } = useDeleteTask();
+  const { updateTaskSchedule, isPending: isUpdatingSchedule } =
+    useUpdateTaskSchedule();
+  const { deleteTaskSchedule, isPending: isDeletingSchedule } =
+    useDeleteTaskSchedule();
   const taskErrorStatus = Number(
     taskError?.status ??
       taskError?.response?.status ??
       taskError?.response?.data?.code,
   );
-  const isTaskNotFound = taskErrorStatus === 404;
-
   const currentUserId = user?.id;
   const taskOwnerId =
     taskDetails?.user?.id ??
@@ -81,11 +126,25 @@ export default function TaskDetails({ mode = null }) {
     taskDetails?.work_status !== "completed" &&
     (!canVerifyBeneficiary || isCurrentUserBeneficiary);
   const canViewTaskStatus = !!taskDetails && (canManageTask || isAssistantMode);
+  const repetitions = getTaskRepetitions(taskDetails);
+  const taskNotes = getTaskNotes(taskDetails);
+  const hasIncompleteRepetitions =
+    repetitions.length > 0 &&
+    repetitions.some(
+      (repetition) =>
+        repetition?.status !== "completed" &&
+        repetition?.status !== "confirmed",
+    );
 
   const handleChange = (e) => {
     if (!canManageTask) return;
 
     const newStatus = e.target.value;
+    if (newStatus === "completed" && hasIncompleteRepetitions) {
+      toast.error(t("works.myTasks.completeRepetitionsHint"));
+      return;
+    }
+
     setSelectedStatus(newStatus);
 
     updateTaskStatus(
@@ -115,17 +174,54 @@ export default function TaskDetails({ mode = null }) {
     });
   };
 
+  const refreshTaskQueries = () =>
+    Promise.all([
+      queryClient.invalidateQueries({ queryKey: ["task-details"] }),
+      queryClient.invalidateQueries({ queryKey: ["work-tasks"] }),
+    ]);
+
+  const handleUpdateSchedule = async (scheduleId, payload) => {
+    if (!canManageTask) return null;
+
+    setActiveScheduleId(scheduleId);
+    try {
+      const response = await updateTaskSchedule({
+        taskId: taskDetails?.id,
+        scheduleId,
+        ...payload,
+      });
+      toast.success(response?.message || t("works.schedule_update_success"));
+      await refreshTaskQueries();
+      return response;
+    } finally {
+      setActiveScheduleId(null);
+    }
+  };
+
+  const handleDeleteSchedule = async () => {
+    if (!canManageTask || !scheduleToDelete?.id) return;
+
+    setActiveScheduleId(scheduleToDelete.id);
+    try {
+      const response = await deleteTaskSchedule({
+        taskId: taskDetails?.id,
+        scheduleId: scheduleToDelete.id,
+      });
+      toast.success(response?.message || t("works.repetition_delete_success"));
+      setScheduleToDelete(null);
+      await refreshTaskQueries();
+    } catch (error) {
+      toast.error(error?.message || t("works.repetition_delete_error"));
+    } finally {
+      setActiveScheduleId(null);
+    }
+  };
+
   useEffect(() => {
     if (taskDetails?.status) {
       setSelectedStatus(taskDetails.status);
     }
   }, [taskDetails?.status]);
-
-  useEffect(() => {
-    if (isTaskNotFound) {
-      navigate("/not-found", { replace: true });
-    }
-  }, [isTaskNotFound, navigate]);
 
   useEffect(() => {
     if (isLoading || !taskDetails) return;
@@ -167,23 +263,31 @@ export default function TaskDetails({ mode = null }) {
     taskOwnerId,
   ]);
 
-  if (isLoading || isTaskNotFound) return <Loading />;
+  if (isLoading) return <Loading />;
+  if (taskError) {
+    return (
+      <section className="task_details page">
+        <div className="container">
+          <div className="alert alert-danger" role="alert">
+            <strong>
+              {taskErrorStatus ? `${taskErrorStatus}: ` : ""}
+            </strong>
+            {taskError.message || t("messages_error")}
+          </div>
+        </div>
+      </section>
+    );
+  }
   const taskDate = new Date(taskDetails?.expected_end_date);
   const isPast = taskDate < new Date();
-  const taskNotes = taskDetails?.notes;
-  const hasTaskNotes =
-    taskNotes != null &&
-    String(taskNotes).trim() !== "" &&
-    String(taskNotes).toLowerCase() !== "null";
+  const hasTaskNotes = taskNotes.length > 0;
 
   return (
     <section className="task_details page">
       <div className="container">
         <header className="task-details__header">
           <div className="d-flex align-items-center gap-3">
-            <RoundedBackButton
-              onClick={() => navigate(tasksPath)}
-            />
+            <RoundedBackButton onClick={() => navigate(tasksPath)} />
             <TaskBreadcrumb taskDetails={taskDetails} tasksPath={tasksPath} />
             {/* <h1>{t("works.myTasks.taskDetails")}</h1> */}
           </div>
@@ -219,13 +323,26 @@ export default function TaskDetails({ mode = null }) {
           </div>
 
           <div className="col-12 p-2">
-            <div className="info-grid w-100">
-              <div className="info-box info-box-grow-min-width">
-                <h4 className="label">{t("works.myTasks.notes")}</h4>
-                <p className="value white-space-wrap">
-                  {hasTaskNotes ? taskNotes : t("works.myTasks.noNotes")}
-                </p>
-              </div>
+            <div className="info-box info-box-grow-min-width w-100">
+              <h4 className="label">{t("works.myTasks.notes")}</h4>
+              {hasTaskNotes ? (
+                <div className="task-notes-editor__list">
+                  {taskNotes.map((note) => (
+                    <article className="task-note-item" key={note.id}>
+                      {note.created_at ? (
+                        <div className="task-note-item__meta">
+                          <time dateTime={note.created_at}>
+                            {formatTaskNoteDate(note.created_at)}
+                          </time>
+                        </div>
+                      ) : null}
+                      <p>{note.text}</p>
+                    </article>
+                  ))}
+                </div>
+              ) : (
+                <p className="value">{t("works.myTasks.noNotes")}</p>
+              )}
             </div>
           </div>
 
@@ -311,16 +428,51 @@ export default function TaskDetails({ mode = null }) {
                           !canManageTask ||
                           taskDetails?.is_paused ||
                           taskDetails?.status === "completed" ||
-                          taskDetails?.status === "confirmed"
+                          taskDetails?.status === "confirmed" ||
+                          (status === "completed" && hasIncompleteRepetitions)
                         }
                       />
                     </label>
                   ))}
                 </div>
+
+                <p className="task-status-repetitions-hint">
+                  <i className="fa-solid fa-circle-minus" aria-hidden="true" />
+                  <span>{t("works.myTasks.completeRepetitionsHint")}</span>
+                </p>
               </div>
             </div>
           )}
         </div>
+
+        {repetitions.length > 0 ? (
+          <section
+            className="task-repetitions form_ui"
+            aria-labelledby="repetitions-title"
+          >
+            <h2 id="repetitions-title">{t("works.repetition")}</h2>
+            <div className="task-repetitions__list">
+              {repetitions.map((repetition, index) => {
+                return (
+                  <TaskScheduleRowContainer
+                    key={repetition?.id ?? index}
+                    schedule={repetition}
+                    index={index}
+                    task={taskDetails}
+                    schedules={repetitions}
+                    canManage={canManageTask}
+                    busy={
+                      activeScheduleId === repetition?.id &&
+                      (isUpdatingSchedule || isDeletingSchedule)
+                    }
+                    onUpdate={handleUpdateSchedule}
+                    onRequestDelete={setScheduleToDelete}
+                  />
+                );
+              })}
+            </div>
+          </section>
+        ) : null}
       </div>
 
       {canManageTask && (
@@ -331,6 +483,16 @@ export default function TaskDetails({ mode = null }) {
           taskId={taskId}
         />
       )}
+
+      <ConfirmDeleteModal
+        showDeleteModal={Boolean(scheduleToDelete)}
+        setShowDeleteModal={(show) => {
+          if (!show) setScheduleToDelete(null);
+        }}
+        message={t("works.schedule_delete_confirmation")}
+        loading={isDeletingSchedule}
+        onConfirm={handleDeleteSchedule}
+      />
     </section>
   );
 }

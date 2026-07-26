@@ -19,7 +19,7 @@ export default function Consultations() {
     hasNextPage,
     fetchNextPage,
     isFetchingNextPage,
-  } = useGetConsultations();
+  } = useGetConsultations("public");
   const allConsultaions =
     consultaions?.pages?.flatMap((page) => page?.data) ?? [];
 

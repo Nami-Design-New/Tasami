@@ -10,10 +10,16 @@ import useGetEmployee from "../../../hooks/dashboard/employee/useGetEmployee";
 import useEditPermissions from "../../../hooks/dashboard/employee/useEditPermissions";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
-import { QueryClient, useQueryClient } from "@tanstack/react-query";
+import { useQueryClient } from "@tanstack/react-query";
+import useAdminPermissions from "../../../hooks/auth/dashboard/useAdminPermissions";
+import { DASHBOARD_PERMISSIONS } from "../../../utils/dashboardPermissions";
 
-const PermissionBoard = ({ isEdit }) => {
+const PermissionBoard = () => {
   const { t } = useTranslation();
+  const { hasPermission } = useAdminPermissions();
+  const canEditPermissions = hasPermission(
+    DASHBOARD_PERMISSIONS.PERMISSIONS_EDIT,
+  );
   const { permissions, isLoading } = useGetPermissions();
   const { employee, isLoading: isEmployeeLoading } = useGetEmployee();
   const { editPermissions, isPending } = useEditPermissions();
@@ -69,7 +75,7 @@ const PermissionBoard = ({ isEdit }) => {
 
     // convert object {1: true, 2:false,...} → only active IDs
     const activePermissions = Object.entries(values.permissions)
-      .filter(([_, isChecked]) => isChecked === true)
+      .filter(([, isChecked]) => isChecked === true)
       .map(([id]) => Number(id));
 
     const payload = {
@@ -116,13 +122,15 @@ const PermissionBoard = ({ isEdit }) => {
                 />
               ))}
         </div>
-        <div className="col-12 p-2 ">
-          <div className="buttons w-full justify-content-end ">
-            <CustomButton loading={isPending} color="primary" size="large">
-              {t("dashboard.permissions.update")}
-            </CustomButton>
+        {canEditPermissions && (
+          <div className="col-12 p-2 ">
+            <div className="buttons w-full justify-content-end ">
+              <CustomButton loading={isPending} color="primary" size="large">
+                {t("dashboard.permissions.update")}
+              </CustomButton>
+            </div>
           </div>
-        </div>
+        )}
       </form>
     </div>
   );

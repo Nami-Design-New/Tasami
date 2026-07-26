@@ -11,12 +11,18 @@ import ContractReq from "../../ui/modals/ContractReqModal";
 import ReportModal from "../../ui/modals/ReportModal";
 import OptionsMenu from "../../ui/website/OptionsMenu";
 import SectionHeader from "../../ui/website/SectionHeader";
+import InquiryUnavailableAlert from "../../ui/website/my-notifications/InquiryUnavailableAlert";
 import InquiryModal from "../../ui/website/my-notifications/inquiryModal";
 import OfferInfoGrid from "../../ui/website/offers/OfferInfoGrid";
 import TopInfo from "../../ui/website/offers/TopInfo";
 import { shareContent } from "../../utils/shared";
 import helpTriangle from "../../assets/icons/help-triangle.svg";
-import AlertModal from "../../ui/website/platform/my-community/AlertModal";
+import useGetCountersNotify from "../../hooks/website/useGetCountersNotify";
+import ActivityLimitAlert from "../../ui/website/ActivityLimitAlert";
+import {
+  ACTIVITY_LIMIT_TYPES,
+  getActivityLimitState,
+} from "../../utils/activityLimits";
 
 export default function PersonalOffersDetails() {
   const { t } = useTranslation();
@@ -29,7 +35,24 @@ export default function PersonalOffersDetails() {
   const [showHelpModal, setShowHelpModal] = useState(false);
   const [showReportModal, setShowReportModal] = useState(false);
   const [showInquiryModal, setShowInquiryModal] = useState(false);
-  const [showAlertModal, setShowAlertModal] = useState();
+  const [showAlertModal, setShowAlertModal] = useState(false);
+  const [beneficiaryLimitAlert, setBeneficiaryLimitAlert] = useState({
+    show: false,
+    limit: undefined,
+  });
+  const { counterNotify, isLoading: isCountersLoading } =
+    useGetCountersNotify();
+  const beneficiaryLimit = getActivityLimitState(
+    counterNotify,
+    ACTIVITY_LIMIT_TYPES.BENEFICIARY,
+  );
+
+  const showBeneficiaryLimitAlert = (limit = beneficiaryLimit.limit) => {
+    setBeneficiaryLimitAlert({
+      show: true,
+      limit: limit ?? beneficiaryLimit.activeCount,
+    });
+  };
 
   useEffect(() => {
     setBookmarked(offerDetails?.is_saved || false);
@@ -51,11 +74,12 @@ export default function PersonalOffersDetails() {
     });
   };
   const handleInquiryModal = () => {
-    if (offerDetails?.can_send_inquiry) {
-      setShowInquiryModal(true);
-    } else {
+    if (offerDetails?.can_send_inquiry === false) {
       setShowAlertModal(true);
+      return;
     }
+
+    setShowInquiryModal(true);
   };
 
   if (isLoading) return <Loading />;
@@ -208,8 +232,19 @@ export default function PersonalOffersDetails() {
                   {t("website.offerDetails.showReviews")}
                 </CustomLink>
               )}
-              {user && offerDetails.can_send_request && !isMyOffer && (
-                <CustomButton onClick={() => setShowHelpModal(true)}>
+              {user &&
+                !isMyOffer &&
+                offerDetails.can_send_request && (
+                <CustomButton
+                  loading={isCountersLoading}
+                  onClick={() => {
+                    if (beneficiaryLimit.isBlocked) {
+                      showBeneficiaryLimitAlert();
+                    } else {
+                      setShowHelpModal(true);
+                    }
+                  }}
+                >
                   {t("website.offerDetails.sendContract")}
                 </CustomButton>
               )}
@@ -223,6 +258,7 @@ export default function PersonalOffersDetails() {
               <ContractReq
                 showModal={showHelpModal}
                 setShowModal={setShowHelpModal}
+                onLimitReached={showBeneficiaryLimitAlert}
               />
             )}
 
@@ -243,19 +279,19 @@ export default function PersonalOffersDetails() {
               />
             )}
             {showAlertModal && (
-              <AlertModal
+              <InquiryUnavailableAlert
                 showModal={showAlertModal}
                 setShowModal={setShowAlertModal}
-                confirmButtonText={t("ok")}
-                showCancel={false}
-                withoutMessage={false}
-                onConfirm={() => setShowAlertModal(false)}
-              >
-                <p className="text-dark fw-bold text-center">
-                  {t("sendInquiryAlert")}
-                </p>
-              </AlertModal>
+              />
             )}
+            <ActivityLimitAlert
+              showModal={beneficiaryLimitAlert.show}
+              setShowModal={(show) =>
+                setBeneficiaryLimitAlert((current) => ({ ...current, show }))
+              }
+              type={ACTIVITY_LIMIT_TYPES.BENEFICIARY}
+              limit={beneficiaryLimitAlert.limit}
+            />
           </>
         )}
       </div>

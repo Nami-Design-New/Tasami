@@ -11,17 +11,23 @@ import Currency from "../../../../ui/Currency";
 import CustomButton from "../../../../ui/CustomButton";
 import Loading from "../../../../ui/loading/Loading";
 import AssistantWorkCard from "../../../../ui/website/my-works/work-offers/AssistantWorkCard";
+import RateShowModal from "../../../../ui/website/my-works/work-offers/RateShowModal";
 import AcceptModal from "../../../../ui/website/platform/contracts/AcceptModal";
 import AlertModal from "../../../../ui/website/platform/my-community/AlertModal";
 import triangleWithHelper from "../../../../assets/icons/triangle-with-helper.svg";
 import helpServiceFromHelper from "../../../../assets/icons/help_service_from_helper.svg";
+import {
+  formatStartDateTimestamp,
+  getStartExecutionDeadlineState,
+} from "../../../../utils/startExecutionDeadline";
 
 export default function ContractDetails() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const [showAcceptModal, setShowAcceptModal] = useState(false);
   const [showAlertModal, setShowAlertModal] = useState(false);
   const [showAlertWithdrawOfferModal, setShowAlertWithdrawOfferModal] =
     useState(false);
+  const [showRateReadOnlyModal, setShowRateReadOnlyModal] = useState(false);
   const queryClient = useQueryClient();
   const navigate = useNavigate();
 
@@ -42,8 +48,11 @@ export default function ContractDetails() {
         onSuccess: () => {
           toast.success(t("contract.acceptedSuccessfully"));
           navigate("/my-contracts");
-          queryClient.invalidateQueries(["workDetails"]);
-          queryClient.refetchQueries(["my-contracts"]);
+          queryClient.invalidateQueries({
+            queryKey: ["work-details"],
+            refetchType: "none",
+          });
+          queryClient.invalidateQueries({ queryKey: ["my-contracts"] });
         },
         onError: (error) => {
           toast.error(error.message || t("contract.errorOccurred"));
@@ -56,7 +65,7 @@ export default function ContractDetails() {
       onSuccess: (res) => {
         toast.success(res?.message);
         navigate("/my-contracts");
-        queryClient.refetchQueries("my-contracts");
+        queryClient.invalidateQueries({ queryKey: ["my-contracts"] });
       },
       onError: (error) =>
         toast.error(error.message || t("works.errorOccurred")),
@@ -74,17 +83,32 @@ export default function ContractDetails() {
   //   completed: t("contract.status.completed"),
   // }[workDetails?.status];
 
+  const deadlineState = getStartExecutionDeadlineState(workDetails);
+  const isAutoCanceled = Boolean(deadlineState?.isAutoCanceled);
+  const startDate = formatStartDateTimestamp(
+    workDetails?.start_date_timestamp,
+    i18n.language,
+  );
+  const hasBeneficiaryRate = Boolean(workDetails?.rate);
+
   return (
     <section className="work-details-page">
       <div
         className={`status-info ${
-          workDetails?.status !== "completed" ? "not-completed" : "completed"
+          isAutoCanceled
+            ? "canceled"
+            : workDetails?.status !== "completed"
+              ? "not-completed"
+              : "completed"
         }`}
       >
-        <span>{workDetails.status_text}</span>
+        <span>
+          {isAutoCanceled
+            ? t("works.startExecutionDeadline.autoCanceledContract")
+            : workDetails.status_text}
+        </span>
         <span>{workDetails?.status_date}</span>
       </div>
-
       <div className="mb-3">
         <AssistantWorkCard
           helper={workDetails?.user}
@@ -152,7 +176,7 @@ export default function ContractDetails() {
                 style={{ minWidth: "200px" }}
               >
                 <h4 className="label">{t("website.offerDetails.startDate")}</h4>
-                <p className="value">{t(`${workDetails?.help_start_date}`)}</p>
+                <p className="value">{startDate}</p>
               </div>
             </>
           )}
@@ -165,7 +189,7 @@ export default function ContractDetails() {
           {workDetails.rectangle === "personal_goal_with_helper" && (
             <div className="info-box info-box-grow-min-width">
               <h4 className="label">{t("website.offerDetails.startDate")}</h4>
-              <p className="value">{workDetails?.help_start_date}</p>
+              <p className="value">{startDate}</p>
             </div>
           )}
         </div>
@@ -276,6 +300,14 @@ export default function ContractDetails() {
       >
         {t("withdraw_offer_warning")}
       </AlertModal>
+
+      {hasBeneficiaryRate && (
+        <RateShowModal
+          showModal={showRateReadOnlyModal}
+          setShowModal={setShowRateReadOnlyModal}
+          contract={workDetails}
+        />
+      )}
     </section>
   );
 }

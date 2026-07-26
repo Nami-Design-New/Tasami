@@ -12,20 +12,49 @@ import DounutCharts from "../../ui/dash-board/charts/DounutCharts";
 import LineAnalyticsChart from "../../ui/dash-board/charts/LineAnalyticsChart";
 import TaskStatus from "../../ui/dash-board/home/TaskStatus";
 import Loading from "../../ui/loading/Loading";
+import useAdminPermissions from "../../hooks/auth/dashboard/useAdminPermissions";
+import {
+  DASHBOARD_PERMISSIONS,
+  EMPLOYEE_CREATE_PERMISSIONS,
+} from "../../utils/dashboardPermissions";
 
 const packageColors = ["#F5B849", "#26BF94", "#4A90E2", "#9B59B6", "#E74C3C"];
 const packageIcons = [
-  <i className="fa-solid fa-users"></i>,
-  <i className="fa-solid fa-user-group"></i>,
-  <i className="fa-solid fa-user-check"></i>,
-  <i className="fa-solid fa-user-plus"></i>,
-  <i className="fa-solid fa-user-tie"></i>,
+  <i className="fa-solid fa-users" key="users"></i>,
+  <i className="fa-solid fa-user-group" key="user-group"></i>,
+  <i className="fa-solid fa-user-check" key="user-check"></i>,
+  <i className="fa-solid fa-user-plus" key="user-plus"></i>,
+  <i className="fa-solid fa-user-tie" key="user-tie"></i>,
 ];
 
 export default function DashboardHome() {
   const { t } = useTranslation();
   const { user } = useSelector((state) => state.adminAuth);
+  const { hasAnyPermission } = useAdminPermissions();
   const { homeStatistics, isLoading } = useGetHomeStatistics();
+  const quickActions = [
+    {
+      to: "/dashboard/create-employee",
+      icon: addUser,
+      label: t("dashboard.create_employee"),
+      permission: EMPLOYEE_CREATE_PERMISSIONS,
+    },
+    {
+      to: "/dashboard/list-management/working-groups",
+      icon: permissonIcon,
+      label: t("dashboard.create_group"),
+      permission: DASHBOARD_PERMISSIONS.WORKING_GROUPS,
+    },
+    {
+      to: "/dashboard/list-management/fields-and-specializations",
+      icon: addFileds,
+      label: t("dashboard.add_field"),
+      permission: [
+        DASHBOARD_PERMISSIONS.CATEGORIES,
+        DASHBOARD_PERMISSIONS.SUBCATEGORIES,
+      ],
+    },
+  ].filter((item) => hasAnyPermission(item.permission));
 
   if (isLoading) return <Loading />;
 
@@ -200,31 +229,20 @@ export default function DashboardHome() {
         <div className="col-12 p-2">
           <ChartCard title={t("dashboard.urgent_actions")}>
             <div className="quick__actions--list">
-              <Link
-                to="/dashboard/create-employee"
-                className="quick--action__button"
-              >
-                <img src={addUser} alt="" />
-                <span>{t("dashboard.create_employee")}</span>
-              </Link>
-              <Link
-                to="/dashboard/list-management/working-groups"
-                className="quick--action__button"
-              >
-                <img src={permissonIcon} alt="" />
-                <span>{t("dashboard.create_group")}</span>
-              </Link>
+              {quickActions.map((action) => (
+                <Link
+                  to={action.to}
+                  className="quick--action__button"
+                  key={action.to}
+                >
+                  <img src={action.icon} alt="" />
+                  <span>{action.label}</span>
+                </Link>
+              ))}
               {/* <Link className="quick--action__button">
                 <img src={deleteUser} alt="" />
                 <span>{t("dashboard.suspend_employee")}</span>
               </Link> */}
-              <Link
-                to="/dashboard/list-management/fields-and-specializations"
-                className="quick--action__button"
-              >
-                <img src={addFileds} alt="" />
-                <span>{t("dashboard.add_field")}</span>
-              </Link>
             </div>
           </ChartCard>
         </div>

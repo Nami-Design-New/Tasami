@@ -4,7 +4,7 @@ import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
-import { useNavigate, useParams } from "react-router";
+import { useLocation, useNavigate, useParams } from "react-router";
 import * as yup from "yup";
 import useGetCommunityChats from "../../hooks/website/communities/chat/useGetCommunityChats";
 import useSendMessage from "../../hooks/website/communities/chat/useSendMessage";
@@ -19,7 +19,7 @@ import Loading from "../../ui/loading/Loading";
 import CustomButton from "../../ui/CustomButton";
 import ReplyPreview from "../../ui/chat/ReplyPreview";
 import useScrollToMessage from "../../utils/useScrollToMessage";
-import { useHeartbeat } from "../../hooks/useHeartBeat";
+import QuickChatBreadcrumb from "../../ui/chat/QuickChatBreadcrumb";
 
 const getMessageType = (file) => {
   if (!file) return "text";
@@ -50,6 +50,7 @@ export default function CommunityChat() {
     audio: yup.mixed().nullable(),
   });
   const navigate = useNavigate();
+  const location = useLocation();
   const { id } = useParams();
   const queryClient = useQueryClient();
   // const { lang } = useSelector((state) => state.language);
@@ -66,6 +67,10 @@ export default function CommunityChat() {
   const [micPermission, setMicPermission] = useState(false);
   const [replyTo, setReplyTo] = useState(null);
   const [scrollTargetId, setScrollTargetId] = useState(null);
+  const quickChatBreadcrumb = location.state?.quickChatBreadcrumb || [];
+  const isFromQuickAccess =
+    location.state?.fromQuickAccess ||
+    new URLSearchParams(location.search).get("source") === "quick-access";
 
   const mediaRecorderRef = useRef(null);
   const audioChunksRef = useRef([]);
@@ -345,7 +350,7 @@ export default function CommunityChat() {
       }
     }
     sendMessage(formData, {
-      onSuccess: (res) => {
+      onSuccess: () => {
         setReplyTo(null);
       },
     });
@@ -359,6 +364,18 @@ export default function CommunityChat() {
   const { mutate: updateCounter } = useUpdateCommunityChatCounter();
   const [updated, setUpdated] = useState(false);
   const isLogedUser = user?.id === myCommunity?.helper?.id;
+
+  useEffect(() => {
+    if (!isFromQuickAccess || updated) return;
+
+    updateCounter(undefined, {
+      onSettled: () => {
+        queryClient.invalidateQueries({ queryKey: ["counters-notify"] });
+        queryClient.invalidateQueries({ queryKey: ["quick-chat-alerts"] });
+      },
+    });
+    setUpdated(true);
+  }, [isFromQuickAccess, queryClient, updateCounter, updated]);
 
   const handleScroll = (e) => {
     const target = e.target;
@@ -381,21 +398,39 @@ export default function CommunityChat() {
         <div className="chat-window">
           {/* ===== Header ===== */}
           <div className="chat-window__info d-flex align-items-center justify-content-between">
-            <div className="d-flex align-items-center gap-2">
-              <RoundedBackButton
-                onClick={() => {
-                  queryClient.invalidateQueries({
-                    queryKey: ["my-community"],
-                    refetchType: "active",
-                  });
-                  queryClient.invalidateQueries({
-                    queryKey: ["counters-notify"],
-                  });
-                  navigate(-1);
-                }}
-              />
-              <h4 className="chat-window__name mb-0">{t("chats")}</h4>
-            </div>
+            {isFromQuickAccess ? (
+              <div className="d-flex align-items-center gap-2">
+                <RoundedBackButton
+                  onClick={() => {
+                    queryClient.invalidateQueries({
+                      queryKey: ["my-community"],
+                      refetchType: "active",
+                    });
+                    queryClient.invalidateQueries({
+                      queryKey: ["counters-notify"],
+                    });
+                    navigate(-1);
+                  }}
+                />
+                <QuickChatBreadcrumb items={quickChatBreadcrumb} />
+              </div>
+            ) : (
+              <div className="d-flex align-items-center gap-2">
+                <RoundedBackButton
+                  onClick={() => {
+                    queryClient.invalidateQueries({
+                      queryKey: ["my-community"],
+                      refetchType: "active",
+                    });
+                    queryClient.invalidateQueries({
+                      queryKey: ["counters-notify"],
+                    });
+                    navigate(-1);
+                  }}
+                />
+                <h4 className="chat-window__name mb-0">{t("chats")}</h4>
+              </div>
+            )}
             {/* ✅ Live socket status indicator */}
             {/* <div className="socket-status d-flex align-items-center gap-2">
               {socketStatus === "connected" && (

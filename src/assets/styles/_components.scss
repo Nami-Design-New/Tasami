@@ -498,6 +498,29 @@ $gray: #6c757d;
   gap: 1rem;
 }
 
+.activity-limit-alert {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  color: $main;
+
+  h4,
+  p {
+    margin: 0;
+  }
+
+  h4 {
+    font-size: 1.25rem;
+    font-weight: 700;
+    line-height: 1.5;
+  }
+
+  p {
+    font-size: 0.95rem;
+    line-height: 1.6;
+  }
+}
+
 .unjoin-community-confirmation {
   display: flex;
   flex-direction: column;

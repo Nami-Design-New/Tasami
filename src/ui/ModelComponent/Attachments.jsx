@@ -4,7 +4,7 @@ import AttachmentsModal from "./AttachmentsModal";
 import usePostAddTaskFile from "../../hooks/dashboard/tasks/usePostAddTaskFile";
 import { toast } from "sonner";
 import { useTranslation } from "react-i18next";
-import { QueryClient, useQueryClient } from "@tanstack/react-query";
+import { useQueryClient } from "@tanstack/react-query";
 import { useSelector } from "react-redux";
 
 const Attachments = ({ taskData }) => {
@@ -30,7 +30,7 @@ const Attachments = ({ taskData }) => {
     addTaskFile(formData, {
       onSuccess: (res) => {
         toast.success(res.message);
-        queryQlient.invalidateQueries(["show-task"]);
+        queryQlient.invalidateQueries({ queryKey: ["show-task"] });
       },
       onError: (err) => {
         toast.error(err.message);
@@ -77,7 +77,7 @@ const Attachments = ({ taskData }) => {
                       to={
                         item.employee.id === user.id
                           ? "/dashboard/profile"
-                          : `/dashboard/employee-details/${item.id} }`
+                          : `/dashboard/employee-summary/${item.employee.id}`
                       }
                       className="link-styles"
                     >

@@ -27,6 +27,31 @@ import ProfileImageUploader from "../../ProfileImageUploader";
 import dayjs from "dayjs";
 import Loading from "../../loading/Loading";
 import avatarPlaceholder from "../../../assets/images/dashboard/avatar-placeholder.jpg";
+import useAdminPermissions from "../../../hooks/auth/dashboard/useAdminPermissions";
+import { DASHBOARD_PERMISSIONS } from "../../../utils/dashboardPermissions";
+
+const ALL_LOCATION_VALUE = "";
+
+const getLocationValue = (location) => location?.id ?? ALL_LOCATION_VALUE;
+
+const getLocationTitle = (location, fallback) =>
+  location?.title || location?.name || fallback;
+
+const getGroupCountry = (group) => group?.country || group?.sector;
+
+const getGroupById = (groups, groupId) =>
+  groups.find((group) => String(group.id) === String(groupId));
+
+const getLocationOptions = (location, fallback) => {
+  if (!location?.id) return [];
+
+  return [
+    {
+      value: location.id,
+      name: getLocationTitle(location, fallback),
+    },
+  ];
+};
 
 const createEmployeeSchema = (t) =>
   yup.object().shape({
@@ -88,6 +113,14 @@ const EmployerDataForm = ({ isEdit }) => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const queryClient = useQueryClient();
+  const { hasPermission } = useAdminPermissions();
+  const canEditEmployee = hasPermission(DASHBOARD_PERMISSIONS.EMPLOYEES_EDIT);
+  const canCreateActiveEmployee = hasPermission(
+    DASHBOARD_PERMISSIONS.EMPLOYEES_CREATE,
+  );
+  const canCreateDraftEmployee = hasPermission(
+    DASHBOARD_PERMISSIONS.EMPLOYEES_CREATE_DRAFT,
+  );
 
   // Updated files state - now handles mixed formats
   const [files, setFiles] = useState([]);
@@ -142,7 +175,7 @@ const EmployerDataForm = ({ isEdit }) => {
   ]);
   // Flatten pages → items array
 
-  const flattened = flattenPages(data);
+  const flattened = useMemo(() => flattenPages(data), [data]);
 
   const groups = useMemo(() => {
     return flattened.map((g) => ({
@@ -151,18 +184,61 @@ const EmployerDataForm = ({ isEdit }) => {
     }));
   }, [flattened]);
 
+  const selectedGroup = useMemo(() => {
+    if (!selectedGroupId) return null;
+
+    const employeeGroup = employee?.data?.group;
+    return (
+      getGroupById(flattened, selectedGroupId) ||
+      (String(employeeGroup?.id) === String(selectedGroupId)
+        ? employeeGroup
+        : null)
+    );
+  }, [employee?.data?.group, flattened, selectedGroupId]);
+
+  const allLocationLabel = t("dashboard.workGroup.all");
+
+  const selectedRegionOptions = useMemo(
+    () =>
+      getLocationOptions(
+        selectedGroup?.region,
+        t("dashboard.createEmployee.form.region"),
+      ),
+    [selectedGroup?.region, t],
+  );
+
+  const selectedCountryOptions = useMemo(
+    () =>
+      getLocationOptions(
+        getGroupCountry(selectedGroup),
+        t("dashboard.createEmployee.form.country"),
+      ),
+    [selectedGroup, t],
+  );
+
+  const selectedCityOptions = useMemo(
+    () =>
+      getLocationOptions(
+        selectedGroup?.city,
+        t("dashboard.createEmployee.form.city"),
+      ),
+    [selectedGroup?.city, t],
+  );
+
   useEffect(() => {
-    if (!selectedGroupId) return;
+    if (!selectedGroupId) {
+      setValue("region", ALL_LOCATION_VALUE);
+      setValue("sector", ALL_LOCATION_VALUE);
+      setValue("city", ALL_LOCATION_VALUE);
+      return;
+    }
 
-    const selected = flattened.find((g) => g.id === selectedGroupId);
+    if (!selectedGroup) return;
 
-    if (!selected) return;
-
-    // Auto-fill region, country, and city from selected group
-    setValue("region", selected.region?.id);
-    setValue("sector", selected.country?.id);
-    setValue("city", selected.city?.id);
-  }, [selectedGroupId, flattened, setValue]);
+    setValue("region", getLocationValue(selectedGroup.region));
+    setValue("sector", getLocationValue(getGroupCountry(selectedGroup)));
+    setValue("city", getLocationValue(selectedGroup.city));
+  }, [selectedGroupId, selectedGroup, setValue]);
 
   // ============================================
   // UPDATED: Load files in edit mode
@@ -180,9 +256,9 @@ const EmployerDataForm = ({ isEdit }) => {
         birthdate: employee?.data?.birthdate,
         email: employee?.data?.email,
         gender: employee?.data?.gender,
-        region: employee?.data?.group?.region?.id,
-        city: employee?.data?.group.city?.id,
-        sector: employee?.data?.group?.sector?.id,
+        region: getLocationValue(employee?.data?.group?.region),
+        city: getLocationValue(employee?.data?.group?.city),
+        sector: getLocationValue(getGroupCountry(employee?.data?.group)),
         residentCountry: employee?.data.country_id?.id,
         residentCity: employee?.data?.city_id?.id,
         nationality: employee?.data?.nationality?.id,
@@ -272,6 +348,10 @@ const EmployerDataForm = ({ isEdit }) => {
   // UPDATED: Handle form submission
   // ============================================
   const onSubmit = (formData, shouldActivate = false) => {
+    if (isEdit && !canEditEmployee) return;
+    if (!isEdit && shouldActivate && !canCreateActiveEmployee) return;
+    if (!isEdit && !shouldActivate && !canCreateDraftEmployee) return;
+
     const payload = new FormData();
 
     if (isEdit) {
@@ -485,12 +565,10 @@ const EmployerDataForm = ({ isEdit }) => {
                 render={({ field }) => (
                   <SelectField
                     label={t("dashboard.createEmployee.form.region")}
-                    options={flattened.map((g) => ({
-                      value: g.region?.id,
-                      name: g.region?.title,
-                    }))}
+                    disableFiledValue={allLocationLabel}
+                    options={selectedRegionOptions}
                     disabled={true}
-                    value={field.value}
+                    value={field.value ?? ALL_LOCATION_VALUE}
                   />
                 )}
               />
@@ -502,12 +580,10 @@ const EmployerDataForm = ({ isEdit }) => {
                 render={({ field }) => (
                   <SelectField
                     label={t("dashboard.createEmployee.form.country")}
-                    options={flattened.map((g) => ({
-                      value: g.country?.id,
-                      name: g.country?.title,
-                    }))}
+                    disableFiledValue={allLocationLabel}
+                    options={selectedCountryOptions}
                     disabled={true}
-                    value={field.value}
+                    value={field.value ?? ALL_LOCATION_VALUE}
                   />
                 )}
               />
@@ -519,12 +595,10 @@ const EmployerDataForm = ({ isEdit }) => {
                 render={({ field }) => (
                   <SelectField
                     label={t("dashboard.createEmployee.form.city")}
-                    options={flattened.map((g) => ({
-                      value: g.city?.id,
-                      name: g.city?.title,
-                    }))}
+                    disableFiledValue={allLocationLabel}
+                    options={selectedCityOptions}
                     disabled={true}
-                    value={field.value}
+                    value={field.value ?? ALL_LOCATION_VALUE}
                   />
                 )}
               />
@@ -704,14 +778,16 @@ const EmployerDataForm = ({ isEdit }) => {
           <div className="col-12 p-2">
             <div className="buttons w-full justify-content-end">
               {isEdit ? (
-                <CustomButton
-                  loading={isPending}
-                  type="submit"
-                  color={allFieldsFilled ? "success" : "primary"}
-                  size="large"
-                >
-                  {t("dashboard.createEmployee.form.edit")}
-                </CustomButton>
+                canEditEmployee && (
+                  <CustomButton
+                    loading={isPending}
+                    type="submit"
+                    color={allFieldsFilled ? "success" : "primary"}
+                    size="large"
+                  >
+                    {t("dashboard.createEmployee.form.edit")}
+                  </CustomButton>
+                )
               ) : (
                 <>
                   <CustomButton
@@ -726,28 +802,32 @@ const EmployerDataForm = ({ isEdit }) => {
                   >
                     {t("dashboard.createEmployee.form.cancel")}
                   </CustomButton>
-                  <CustomButton
-                    type="button"
-                    color={allFieldsFilled ? "success" : "gray"}
-                    disabled={!allFieldsFilled || isCreatingEmployee}
-                    className={allFieldsFilled ? "" : "custom-btn--disabled"}
-                    size="large"
-                    loading={createAction === "active" && isCreatingEmployee}
-                    onClick={handleSubmit((formData) =>
-                      onSubmit(formData, true),
-                    )}
-                  >
-                    {t("dashboard.createEmployee.form.active")}
-                  </CustomButton>
+                  {canCreateActiveEmployee && (
+                    <CustomButton
+                      type="button"
+                      color={allFieldsFilled ? "success" : "gray"}
+                      disabled={!allFieldsFilled || isCreatingEmployee}
+                      className={allFieldsFilled ? "" : "custom-btn--disabled"}
+                      size="large"
+                      loading={createAction === "active" && isCreatingEmployee}
+                      onClick={handleSubmit((formData) =>
+                        onSubmit(formData, true),
+                      )}
+                    >
+                      {t("dashboard.createEmployee.form.active")}
+                    </CustomButton>
+                  )}
 
-                  <CustomButton
-                    type="submit"
-                    color="primary"
-                    size="large"
-                    loading={createAction === "draft" && isCreatingEmployee}
-                  >
-                    {t("dashboard.createEmployee.form.saveDraft")}
-                  </CustomButton>
+                  {canCreateDraftEmployee && (
+                    <CustomButton
+                      type="submit"
+                      color="primary"
+                      size="large"
+                      loading={createAction === "draft" && isCreatingEmployee}
+                    >
+                      {t("dashboard.createEmployee.form.saveDraft")}
+                    </CustomButton>
+                  )}
                 </>
               )}
             </div>

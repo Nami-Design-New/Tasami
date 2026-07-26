@@ -23,11 +23,19 @@ import dayIcon from "../../../assets/icons/day.svg";
 import GlobalModal from "../../GlobalModal";
 import AlertModal from "../platform/my-community/AlertModal";
 import useFormCloseHandler from "../../../hooks/shared/useFormCloseHandler";
+import {
+  ACTIVITY_LIMIT_TYPES,
+  getActivityLimitError,
+} from "../../../utils/activityLimits";
 const genderIcons = {
   male: maleIcon,
   female: femaleIcon,
 };
-export default function AddGoalModal({ showModal, setShowModal }) {
+export default function AddGoalModal({
+  showModal,
+  setShowModal,
+  onLimitReached,
+}) {
   const { t } = useTranslation();
 
   const queryClient = useQueryClient();
@@ -98,10 +106,19 @@ export default function AddGoalModal({ showModal, setShowModal }) {
         });
         queryClient.refetchQueries({ queryKey: ["homeData"] });
         queryClient.refetchQueries({ queryKey: ["my-works"] });
+        queryClient.invalidateQueries({ queryKey: ["counters-notify"] });
         setShowSuccessModal(true);
       },
       onError: (error) => {
-        toast.error(error?.message);
+        const limitError = getActivityLimitError(error);
+        if (limitError?.type === ACTIVITY_LIMIT_TYPES.BENEFICIARY) {
+          setShowModal(false);
+          queryClient.invalidateQueries({ queryKey: ["counters-notify"] });
+          onLimitReached?.(limitError.limit);
+          return;
+        }
+
+        toast.error(error?.response?.data?.message || error?.message);
       },
     });
   };

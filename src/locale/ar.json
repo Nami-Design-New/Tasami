@@ -19,6 +19,16 @@
   "download": "انقر للتحميل",
   "maxOfferAlert1": "لقد وصلت إلى الحد الأقصى لتقديم العروض!",
   "maxOfferAlert2": " قم بسحب أحد العروض القائمة أو انتظر حتى يتم قبولها أو استبعادها ثم حاول مرة أخرى.",
+  "activityLimits": {
+    "beneficiary": {
+      "title": "لقد وصلت إلى الحد الأقصى في سجل أعمالك ({{limit}} أعمال)",
+      "description": "سارع بإنجازها أو قم بحذف ما لا تحتاجه لإضافة أعمال جديدة"
+    },
+    "assistant": {
+      "title": "لقد وصلت إلى الحد الأقصى في سجل عقود المساعد الشخصي ({{limit}} عقد)",
+      "description": "انتظر إتمام إنجازها أو قم بسحب عروض الأسعار غير الضرورية لإتاحة عقود جديدة"
+    }
+  },
   "otpTitle": "توثيق رمز التحقق ",
   "verify": "توثيق الهاتف ",
   "ok": "حسناً",
@@ -50,6 +60,8 @@
   "confirmDeleteAlert": "سيتم محو البيانات التي تم ادخالها!",
   "community_level_new": "جديد",
   "sendInquiryAlert": "لديك استفسار مرسل لهذا المستخدم ولم يتم الرد عليه بعد. المرجو الانتظار الي ان يتم الرد لتتمكن من ارسال استفسار آخر ",
+  "sendInquiryAlertTitle": "لديك استفسار مُرسل بالفعل!",
+  "sendInquiryAlertDescription": "المرجو الانتظار إلى أن يتم الرد لتتمكن من إرسال استفسار آخر",
 
   "contact_info_title": "تواصل مع فريق تسامي",
   "contact_info_description": "يسعدنا أن نسمع منك. إذا كان لديك استفسار، اقتراح، ملاحظة، أو فكرة تود مشاركتها، فنحن هنا للإصغاء.",
@@ -86,7 +98,8 @@
   },
 
   "common": {
-    "days": "يوم"
+    "days": "يوم",
+    "error": "خطأ"
   },
   "reply": {
     "replying_to": "الرد على",
@@ -335,7 +348,7 @@
   "enable_mic_permission": "من فضلك فعّل إذن الميكروفون للتسجيل الصوتي",
   "chat_type_message": "اكتب رسالتك هنا...",
   "chat_contract_ended_message": "لا يمكنك المشاركة في هذه المحادثة لانتهاء التعاقد",
-  "community_chat": "محادثة المجتمع",
+  "community_chat": "محادثات مجتمع",
   "group_chat_hint": "هذه محادثة جماعية، رسائلك مرئية للجميع",
   "type_message_here": "اكتب رسالتك هنا...",
   "attach_file": "إرفاق ملف",
@@ -357,7 +370,7 @@
   "groupStrengthIndex": "مؤشر قوة المجموعة",
   "changeGroup": "تغيير المجموعة",
   "group": "المجموعة",
-  "groupChats": "محادثات المجموعة",
+  "groupChats": "محادثات مجموعة",
   "renewContractRequest": "طلب تمديد تعاقد",
   "renewDate": "تاريخ التمديد",
   "renewPrice": "سعر التمديد",
@@ -506,6 +519,7 @@
     "Fields And Specializations": "المجالات و التخصصات",
     "Profile": "البيانات الوظيفية",
     "Employee Details": "تفاصيل الموظف",
+    "Employee Summary": "ملخص الموظف",
     "User Details": "بيانات المستخدم",
     "Requests": "الطلبات",
     "Reports": "التقارير",
@@ -650,12 +664,14 @@
       "success": "تمت عملية الدفع بنجاح",
       "failed": "فشلت عملية الدفع",
       "waiting": "في انتظار تأكيد الدفع..."
-    }
+    },
+    "loginErorr": "فشل تسجيل الدخول"
   },
   "profile": {
     "myInfo": "معلوماتي",
     "notificationsSys": "إشعارات النظام",
-    "wallet": "محفظتي",
+    "wallet": "رصيدي",
+    "hint": "تتيح لك هذه الصفحة إدارة هويتك الرقمية من خلال تحديث معلوماتك وتخصيص اهتماماتك، بالإضافة إلى متابعة محفوظاتك وتنظيم مجموعات العمل، وضبط الإشعارات بما يدعم تجربة أكثر تنظيماً وخصوصية.",
     "interests": "اهتماماتي",
     "savings": "محفوظاتي",
     "community": "مجتمعاتي",
@@ -722,6 +738,7 @@
     "tab_notifications": "الإشعارات",
     "tab_inquiries": "الاستفسارات",
     "search": "بحث",
+    "inquriesSearch": "البحث في جميع الاستفسارات",
     "latest": "أحدث التنبيهات",
     "previous": "التنبيهات السابقة",
     "system": "النظام",
@@ -821,7 +838,19 @@
     "notificationTypeRequired": "نوع الإشعار مطلوب",
     "notificationTitleRequired": "عنوان الإشعار مطلوب",
     "notificationMessageRequired": "محتوى الإشعار مطلوب",
-    "regionRequired": "الرجاء اختيار الإقليم"
+    "regionRequired": "الرجاء اختيار الإقليم",
+    "imageType": "يسمح بملفات الصور فقط",
+    "invalidEmail": "يرجى إدخال بريد إلكتروني صالح",
+    "invalid_date": "يرجى إدخال تاريخ صالح",
+    "invalid_option": "يرجى اختيار خيار صالح",
+    "invalid_time_format": "يرجى إدخال وقت صالح",
+    "max": "يجب ألا يزيد عن {{max}}",
+    "mustBeInteger": "يجب أن يكون عددا صحيحا",
+    "otpLength": "يجب أن يتكون رمز التحقق من 6 أرقام",
+    "otpRequired": "رمز التحقق مطلوب",
+    "passwordsMustMatch": "يجب أن تتطابق كلمتا المرور",
+    "please_enter_reason": "يرجى كتابة السبب",
+    "typeRequired": "النوع مطلوب"
   },
   "pageNotFound": {
     "alt": "لم يتم العثور على الصفحة",
@@ -839,10 +868,17 @@
     "appTitle": "خطأ في التطبيق",
     "appMessage": "حدث خطأ غير متوقع في التطبيق. يرجى المحاولة مرة أخرى لاحقاً.",
     "unexpectedTitle": "خطأ غير متوقع",
-    "unexpectedMessage": "حدث خطأ غير متوقع. يرجى المحاولة مرة أخرى لاحقاً."
+    "unexpectedMessage": "حدث خطأ غير متوقع. يرجى المحاولة مرة أخرى لاحقاً.",
+    "invalidDate": "يرجى إدخال تاريخ صالح",
+    "invalidEmail": "يرجى إدخال بريد إلكتروني صالح",
+    "required": "هذا الحقل مطلوب",
+    "somethingWentWrong": "حدث خطأ. يرجى المحاولة مرة أخرى."
   },
   "community": {
     "channels": "القنوات",
+    "membersList": "قائمة الأعضاء",
+    "membersCountLabel": "أعضاء",
+    "noMembers": "لا يوجد أعضاء في هذا المجتمع بعد.",
     "unjoinConfirmation": {
       "title": "سيتم إلغاء عضويتك في مجتمع",
       "question": "هل أنت متأكد؟",
@@ -907,10 +943,12 @@
     "required": "الصورة أو الفيديو مطلوب"
   },
   "works": {
+    "hint": "تتيح لك هذه الصفحة إدارة جميع أعمالك ومتابعة تقدمها ونشاطها لتحقيق أكبر قيمة من تجربتك في تسامي.",
     "complete": "اكمال الهدف",
     "cancelRequest": "الغاء طلب التعاقد",
     "beneficiary": "المستفيد",
     "delete": "حذف الهدف",
+    "deleteWork": "حذف العمل",
     "details": "التفاصيل",
     "myGroup": "المجموعة",
     "tasks": "المهام",
@@ -924,10 +962,57 @@
     "started_at": "تاريخ البدء",
     "expected_end_date": "تاريخ الإنجاز",
     "notes": "ملاحظات",
+    "note_placeholder": "تسجيل الملاحظة",
+    "add_note": "+ إضافة ملاحظة",
+    "save_note": "حفظ الملاحظة",
+    "edit_note": "تعديل الملاحظة",
+    "delete_note": "حذف الملاحظة",
     "reminder_notifications": "إشعارات التذكير",
+    "reminders": "التذكيرات",
+    "reminder_short": "التذكير",
     "repeat": "التكرار",
     "daily": "يومي",
     "weekly": "إسبوعي",
+    "monthly": "شهري",
+    "by_days": "حسب الأيام",
+    "by_date": "حسب التاريخ",
+    "repetition_days": "أيام التكرار",
+    "select_time": "حدد الوقت",
+    "repetitions": "التكرارات",
+    "required_repetitions_count": "عدد التكرارات المطلوبة",
+    "available_repetitions": "التكرارات المتاحة",
+    "repetitions_exceed_available": "لا يمكن أن يتجاوز عدد التكرارات {{count}} يومًا متاحًا",
+    "repetitions_disabled_with_reminders": "لا يمكن تفعيل التكرارات أثناء تشغيل التذكيرات",
+    "repetition": "التكرار",
+    "delete_repetition": "حذف",
+    "repetition_delete_success": "تم حذف التكرار بنجاح",
+    "repetition_delete_error": "تعذر حذف التكرار",
+    "no_repetitions": "لا توجد تكرارات مضافة",
+    "schedule_date": "تاريخ التكرار",
+    "schedule_status": "حالة التكرار",
+    "complete_repetition": "إكمال",
+    "repetition_not_available": "بإنتظار تاريخ البدء",
+    "repetition_completed": "مكتمل",
+    "schedule_update_success": "تم تحديث التكرار بنجاح",
+    "schedule_update_error": "تعذر تحديث التكرار",
+    "schedule_completion_error": "تعذر إكمال التكرار",
+    "schedule_delete_confirmation": "هل أنت متأكد من حذف هذا التكرار؟ سيتم أيضًا إلغاء التذكير الخاص به.",
+    "schedule_errors": {
+      "invalid_date": "أدخل تاريخًا صحيحًا للتكرار",
+      "past_date": "لا يمكن أن يكون تاريخ التكرار في الماضي",
+      "outside_task_range": "يجب أن يكون تاريخ التكرار داخل نطاق تواريخ المهمة",
+      "duplicate_date": "يوجد تكرار آخر في هذا التاريخ",
+      "reminder_not_available": "يمكن تفعيل التذكير فقط لتكرار غير مكتمل في تاريخ حالي أو مستقبلي",
+      "cannot_disable_repetitions": "لا يمكن إيقاف التكرارات بعد بدء أو إكمال أحدها",
+      "count_below_preserved": "لا يمكن أن يقل عدد التكرارات عن {{count}} من التكرارات التي بدأت أو اكتملت",
+      "range_excludes_preserved": "لا يمكن أن يستبعد نطاق التاريخ الجديد تكرارًا بدأ أو اكتمل"
+    },
+    "schedule_regeneration": {
+      "title": "تحديث جدول التكرارات؟",
+      "message": "سيتم حذف التكرارات المنتظرة وإعادة إنشائها حسب التواريخ والعدد الجديد، مع الاحتفاظ بالتكرارات قيد التنفيذ والمكتملة.",
+      "confirm": "تحديث وإعادة إنشاء",
+      "cancel": "إلغاء"
+    },
     "day": "اليوم",
     "time": "الساعة",
     "add": "إضافة",
@@ -945,6 +1030,15 @@
     "errorOccurred": "حدث خطأ أثناء تنفيذ العملية",
     "withdrawWarning": "سيؤدي هذا الإجراء إلى فقدان تفاصيل العرض ولن تتمكن من استعادته لاحقًا.",
     "completePayment": "إتمام الدفع",
+    "overdueTasksCount": "مهام متأخرة",
+    "startExecutionDeadline": {
+      "remainingLabel": "المهلة المتبقية",
+      "workWarning": "لم يتم بدء هذا العمل في الوقت المحدد، وسيتم إلغاؤه تلقائيًا إذا لم يبدأ تنفيذه بعد {{remaining}}",
+      "contractWarning": "لم يبدأ تنفيذ هذا العقد في الوقت المحدد، وسيتم إلغاؤه تلقائيًا إذا لم يبدأ تنفيذه بعد {{remaining}}",
+      "autoCanceledWork": "تم إلغاؤه لتجاوزه تاريخ البدء المحدد دون تنفيذ",
+      "autoCanceledContract": "تم إلغاؤه لتجاوزه تاريخ البدء المحدد دون تنفيذ",
+      "deleteAction": "اضغط لحذف العمل نظرًا لتجاوزه تاريخ البدء المحدد دون تنفيذ"
+    },
     "myTasks": {
       "title": "المهام التنفيذية",
       "allTasks": "جميع المهام",
@@ -956,6 +1050,7 @@
       "executionRate": "نسبة الإنجاز",
       "startExecutionBtn": "بدء التنفيذ",
       "pauseExecutionBtn": "إيقاف التنفيذ",
+      "completeGoalBtn": "إكمال الهدف",
       "addNew": "إضافة مهمة تنفيذية جديدة",
       "distribution": {
         "currentTitle": "التوزيع الحالي للمهام التنفيذية",
@@ -985,6 +1080,10 @@
         "shortfall": "نقص",
         "excess": "زيادة",
         "balanced": "متوازن"
+      "completionCongrats": {
+        "title": "تهانينا",
+        "description": "لقد أنجزت جميع المهام بنجاح. بإمكانك الآن إكمال الهدف لحفظه ضمن سجل أعمالك المكتملة، أو إضافة مهام جديدة لمواصلة رحلتك إذا رغبت",
+        "confirm": "حسنًا"
       },
       "pauseExecutionWarning": "سيتم إيقاف تنفيذ المهام مؤقتًا وتعطيل جميع التنبيهات المرتبطة بها. يمكنك استئناف التنفيذ لاحقًا من خلال زر \"بدء التنفيذ\" في صفحة المهام.",
       "earlyStart": {
@@ -1009,6 +1108,7 @@
       "date": "تاريخ الإنجاز",
       "status": "حالة المهمة",
       "pausedHint": "(يجب بدء التنفيذ لتغيير الحالة)",
+      "completeRepetitionsHint": "لا يمكن تغيير الحالة إلى مكتملة حتى يتم إكمال جميع التكرارات",
       "error": "حدث خطأ أثناء تحديث المهمة",
       "generateTasksConfirmBtn": "تأكيد",
       "generateTasksWarning": "سيؤدي هذا الإجراء إلى حذف جميع المهام الحالية و إنشاء مهام جديدة",
@@ -1084,7 +1184,9 @@
       "waitAccept": "طلب تعاقد",
       "offerSent": " تقديم العرض",
       "requestOffer": "طلب تعاقد"
-    }
+    },
+    "task_added": "تمت إضافة المهمة بنجاح",
+    "task_updated": "تم تحديث المهمة بنجاح"
   },
   "contract": {
     "acceptedSuccessfully": "تم قبول العقد بنجاح",
@@ -1112,6 +1214,7 @@
       "goalHeader": "تفاصيل الهدف",
       "beneficiaries": "المستفيدون",
       "totalRate": "التقييم الإجمالي",
+      "ratingsCount": "عدد التقييمات",
       "title": "تفاصيل العرض",
       "edit": "تعديل",
       "archive": "أرشفة",
@@ -1198,6 +1301,8 @@
       "platform": "منصتي",
       "profile": "حسابي",
       "hint": " تقدم هذه المنصة مجموعة من الأدوات لإدارة أعمالك وأنشطتك كمساعد شخصي باحترافية وتحقيق أفضل تجربة لعملائك",
+      "contractsHint": "تتيح لك هذه الصفحة معاينة جميع عقودك الحالية والسابقة، ومتابعة حالتها ومدتها والتزاماتها المالية وتفاصيلها في مكان واحد.",
+      "communityHint": "تتيح لك هذه الصفحة إدارة مجتمعك ونشر المحتوى الحصري للأعضاء، ومتابعة الاشتراكات وتعزيز التفاعل لبناء مجتمع نشط ومستدام حول اهتمامات مشتركة.",
       "header": "إنشاء حساب مساعد شخصي أساسي - (مجاني)",
       "title": "أهلاً بك ضمن مجتمع الملهمين في \"تسامي\"",
       "description1": "يتيح لك حساب المساعد الشخصي نشر برامج المساعدة وتقديم العروض للآخرين. كما يمكنك إنشاء مجموعات العمل كمساحات افتراضية للتعلم الاجتماعي، بالإضافة إلى تفعيل قنواتك الخاصة لنشر المحتوى الحصري واستقبال اشتراكات العضوية ضمن \"مجتمع المساعد الشخصي\"!",
@@ -1279,7 +1384,14 @@
           "description": "لتتمكن من إرسال عروض الأسعار وقبول طلبات التعاقد",
           "createGroup": "إنشاء مجموعة عمل جديدة",
           "close": "إغلاق"
-        }
+        },
+        "addError": "حدث خطأ أثناء الإضافة",
+        "addSuccess": "تمت الإضافة بنجاح",
+        "deleteError": "حدث خطأ أثناء الحذف",
+        "deleteSuccess": "تم الحذف بنجاح",
+        "specializationHint": "اختر المجال ثم التخصص",
+        "updateError": "حدث خطأ أثناء التحديث",
+        "updateSuccess": "تم التحديث بنجاح"
       },
       "groups": {
         "groupName": "اسم المجموعة",
@@ -1608,7 +1720,7 @@
         "jobData": "البيانات الوظيفية",
         "personalData": "البيانات الشخصية",
         "permissions": "الصلاحيات",
-        "sharedGroups": "المجموعات المشتركه"
+        "sharedGroups": "المجموعات المشتركة"
       },
       "quickActions": {
         "title": "إجراءات سريعة",
@@ -1623,7 +1735,7 @@
       },
       "employeeData": {
         "title": "البيانات الوظيفية",
-        "description": "الوصف",
+        "description": "المسمى الوظيفي",
         "account": "الحساب",
         "idNumber": "رقم التعريف",
         "groupNumber": "رقم المجموعة",
@@ -1644,6 +1756,7 @@
         "gender": "الجنس",
         "nationality": "الجنسية",
         "residenceCountry": "بلد الإقامة",
+        "residenceCity": "مدينة الإقامة",
         "city": "المدينة",
         "idNumber": "رقم الهوية أو الجواز",
         "personalEmail": "البريد الإلكتروني الشخصي",
@@ -1669,6 +1782,12 @@
         "cancel": "إلغاء",
         "send": "إرسال"
       }
+    },
+    "employeeSummary": {
+      "title": "ملخص الموظف",
+      "contact": "تواصل مع الموظف",
+      "fullDetails": "تفاصيل حساب الموظف",
+      "unavailable": "ملخص الموظف غير متاح"
     },
     "subscribersTeams": {
       "employeeDetails": "تفاصيل الموظف",
@@ -1896,7 +2015,10 @@
       "leadersCount": "عدد القادة",
       "managersCount": "عدد المدراء",
       "tasksProgress": "إنجاز المهام",
-      "creationDate": "تاريخ الإنشاء"
+      "creationDate": "تاريخ الإنشاء",
+      "loadMore": "تحميل المزيد",
+      "loading": "جارٍ التحميل...",
+      "noData": "لا توجد مجموعات مشتركة"
     },
     "availableGroups": {
       "title": "المجموعات المتاحة للإضافة",
@@ -1980,7 +2102,8 @@
         "saveDraft": "حفظ كمسودة",
         "edit": "تعديل",
         "complete": "اكمال",
-        "active": "تفعيل"
+        "active": "تفعيل",
+        "attachFilesHint": "يمكنك إرفاق ملفات داعمة عند الحاجة"
       }
     },
     "team": {
@@ -2485,8 +2608,45 @@
       },
       "actions": {
         "requestStopAccount": "طلب إيقاف الحساب",
+        "accountStatus": "حالة الحساب",
         "activateAccount": "تنشيط الحساب",
         "stopAccount": "إيقاف الحساب"
+      },
+      "accountStatusModal": {
+        "title": "حالة الحساب",
+        "status": "الحالة",
+        "currentStatus": "الحالة الحالية",
+        "active": "نشط",
+        "suspended": "موقوف",
+        "fromDate": "موقوف من",
+        "toDate": "موقوف إلى",
+        "noEndDate": "بدون تاريخ انتهاء",
+        "activateConfirmation": "هل أنت متأكد من رغبتك في تنشيط هذا الحساب؟",
+        "confirmActivation": "تأكيد التنشيط",
+        "cancel": "إلغاء",
+        "close": "إغلاق",
+        "hasEndDate": "تحديد تاريخ انتهاء",
+        "duration": "مدة الإيقاف",
+        "indefinite": "يستمر إيقاف الحساب حتى يتم تغييره يدوياً.",
+        "reason": "سبب الإيقاف",
+        "reasonLabel": "السبب",
+        "attachments": "المرفقات",
+        "attachment": "مرفق",
+        "addFiles": "إضافة ملفات",
+        "fileLimit": "حتى 5 ملفات",
+        "noAttachments": "لا توجد مرفقات",
+        "activeTitle": "الحساب نشط",
+        "activeMessage": "هذا الحساب لديه صلاحية وصول كاملة حالياً.",
+        "saveChanges": "حفظ التغييرات",
+        "suspendAccount": "إيقاف الحساب",
+        "startRequired": "تاريخ بدء الإيقاف مطلوب",
+        "endRequired": "تاريخ انتهاء الإيقاف مطلوب",
+        "endAfterStart": "يجب أن يكون تاريخ الانتهاء في تاريخ البدء أو بعده",
+        "reasonMax": "يجب ألا يتجاوز السبب 500 حرف",
+        "filesMin": "يجب إضافة مرفق واحد على الأقل",
+        "filesMax": "الحد الأقصى للمرفقات هو 5",
+        "staleConflict": "تم تغيير حالة الحساب بواسطة مسؤول آخر. تم تحميل أحدث البيانات.",
+        "updateFailed": "تعذر تحديث حالة الحساب"
       }
     },
     "beneficiary": {
@@ -2586,7 +2746,9 @@
       "name": "الاسم",
       "accountNumber": "رقم الحساب",
       "date": "التاريخ",
-      "price": "قيمة العضوية"
+      "price": "قيمة العضوية",
+      "free_forever": "مجانا مدى الحياة",
+      "no_data": "لا توجد بيانات"
     },
     "footer": {
       "rights": "جميع الحقوق محفوظة ل",
@@ -2685,7 +2847,8 @@
       "experienceField": "مجال الخبرة",
       "experienceSpecialization": "تخصص الخبرة",
       "qualification": "المؤهل",
-      "years": "السنوات"
+      "years": "السنوات",
+      "generating": "جارٍ توليد السيرة الذاتية..."
     },
     "documents": {
       "title": "الوثائق",
@@ -2766,7 +2929,8 @@
       "successAdd": "تم إضافة الرابط بنجاح",
       "successEdit": "تم تعديل الرابط بنجاح",
       "errorAdd": "حدث خطأ في الإضافة",
-      "errorEdit": "حدث خطأ في التعديل"
+      "errorEdit": "حدث خطأ في التعديل",
+      "invalidImage": "يرجى اختيار صورة صالحة"
     },
     "taskCategories": {
       "taskCategory": "تصنيف مهمة",
@@ -2825,6 +2989,35 @@
       "allUsers": "جميع المستخدمين",
       "all": "الكل",
       "specific": "مستخدمين محددين"
+    }
+  },
+  "Failed to accept renew request": "فشل قبول طلب التمديد",
+  "Renew request accepted successfully": "تم قبول طلب التمديد بنجاح",
+  "contact_error_generic": "حدث خطأ. يرجى المحاولة مرة أخرى.",
+  "failedToGenerate": "فشل التوليد. يرجى المحاولة مرة أخرى.",
+  "noChangesDetected": "لم يتم اكتشاف أي تغييرات",
+  "noOptionsAvailable": "لا توجد خيارات متاحة",
+  "payMessage": "يرجى إتمام الدفع للمتابعة",
+  "pleaseFillRequiredFields": "يرجى تعبئة جميع الحقول المطلوبة",
+  "selectFilter": "اختر فلتر",
+  "submit": "إرسال",
+  "الاحدث": "الأحدث",
+  "المساعدون السابقون": "المساعدون السابقون",
+  "error": {
+    "general": "حدث خطأ. يرجى المحاولة مرة أخرى."
+  },
+  "payment": {
+    "success": "تمت عملية الدفع بنجاح",
+    "failed": "فشلت عملية الدفع"
+  },
+  "user": {
+    "block": {
+      "blockSuccess": "تم حظر المستخدم بنجاح"
+    }
+  },
+  "workGroup": {
+    "validation": {
+      "groupType": "نوع المجموعة مطلوب"
     }
   }
 }

@@ -1,8 +1,9 @@
 // useAcceptOrRefuseContract.js
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { axiosInstance } from "../../../lib/axios";
 
 export default function useAcceptOrRefuseContract() {
+  const queryClient = useQueryClient();
   const { mutate: acceptOrRefuse, isPending } = useMutation({
     mutationFn: async (data) => {
       const res = await axiosInstance.put(`contract-request/${data.id}`, {
@@ -14,6 +15,9 @@ export default function useAcceptOrRefuseContract() {
         throw new Error(res.data.message || "Failed to update contract status");
       }
       return res.data;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["counters-notify"] });
     },
   });
 

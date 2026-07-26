@@ -1,12 +1,15 @@
 import { useInfiniteQuery, useQueryClient } from "@tanstack/react-query";
-import { useNavigate, useParams } from "react-router";
+import { useLocation, useNavigate, useParams } from "react-router";
 import { axiosInstance } from "../../../../../lib/axios";
 import { useEffect } from "react";
 
 export default function useGetAssistantChats() {
   const { id } = useParams();
+  const location = useLocation();
   const navigate = useNavigate();
   const queryClient = useQueryClient();
+  const isFromQuickAccess =
+    new URLSearchParams(location.search).get("source") === "quick-access";
   const {
     data: chats,
     isLoading,
@@ -22,6 +25,7 @@ export default function useGetAssistantChats() {
           contract_id: id,
           pagination: "on",
           page: pageParam,
+          ...(isFromQuickAccess ? { source: "quick-access" } : {}),
         },
       });
       if (res?.data?.code !== 200) {

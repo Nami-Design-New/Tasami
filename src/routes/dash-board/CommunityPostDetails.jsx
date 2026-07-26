@@ -1,5 +1,5 @@
 import { useTranslation } from "react-i18next";
-import { Link, useNavigate, useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import useGetPostDetails from "../../hooks/website/communities/posts/useGetPostDetails";
 import Loading from "../../ui/loading/Loading";
 import RoundedBackButton from "../../ui/website-auth/shared/RoundedBackButton";
@@ -26,7 +26,8 @@ export default function CommunityPostDetails() {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
 
   const { user } = useSelector((state) => state.authRole);
-  const { postDetails, isLoading } = useGetPostDetails();
+  const { postDetails, error: postDetailsError, isLoading } =
+    useGetPostDetails();
   const { deletePost, isDeletingPost } = useDeletePost();
   const handleDeletePost = () => {
     deletePost(id, {
@@ -46,6 +47,20 @@ export default function CommunityPostDetails() {
     navigate(-1);
   };
   if (isLoading) return <Loading />;
+  if (postDetailsError) {
+    return (
+      <section className="community-post-details page">
+        <div className="container">
+          <div className="alert alert-danger" role="alert">
+            <strong>
+              {postDetailsError.status ? `${postDetailsError.status}: ` : ""}
+            </strong>
+            {postDetailsError.message || t("messages_error")}
+          </div>
+        </div>
+      </section>
+    );
+  }
   const isMyPost = user?.id === postDetails?.helper?.id;
   return (
     <section className="community-post-details page">

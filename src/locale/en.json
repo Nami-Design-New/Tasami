@@ -21,6 +21,16 @@
   "download": "Download",
   "maxOfferAlert1": "You have reached the maximum number of offers!",
   "maxOfferAlert2": "Please withdraw one of your existing offers or wait until it is accepted or rejected, then try again.",
+  "activityLimits": {
+    "beneficiary": {
+      "title": "You have reached the maximum number of works in your record ({{limit}} works)",
+      "description": "Complete them or delete the ones you no longer need to add new works."
+    },
+    "assistant": {
+      "title": "You have reached the maximum number of personal assistant contracts ({{limit}} contracts)",
+      "description": "Complete them or withdraw unnecessary price offers to make room for new contracts."
+    }
+  },
   "otpTitle": "OTP Verification",
   "verify": "Verify Phone Number",
   "ok": "Proceed",
@@ -35,6 +45,8 @@
   "notifyUsers": "users",
   "community_level_new": "new",
   "sendInquiryAlert": "You have already sent an inquiry to this user and it has not been answered yet. Please wait until you receive a response before sending another inquiry.",
+  "sendInquiryAlertTitle": "You already have a sent inquiry!",
+  "sendInquiryAlertDescription": "Please wait until it is answered before sending another inquiry.",
   "contact_info_title": "Get in Touch with Tasamy Team",
   "contact_info_description": "We are happy to hear from you. Whether you have a question, suggestion, note, or idea, we are all ears.",
   "contact_info_how_can_we_help": "How can we help?",
@@ -83,7 +95,8 @@
     "progress": "Progress"
   },
   "common": {
-    "days": "days"
+    "days": "days",
+    "error": "Error"
   },
   "reply": {
     "replying_to": "Replying to",
@@ -509,6 +522,7 @@
     "Fields And Specializations": "Fields And Specializations",
     "Profile": "Employment data",
     "Employee Details": "Employee Details",
+    "Employee Summary": "Employee Summary",
     "User Details": "User Details",
     "Requests": "Requests",
     "Reports": "Reports",
@@ -638,12 +652,14 @@
     "email": "Email",
     "both": "both",
     "all": "All",
-    "loginSuccess": "Login successful"
+    "loginSuccess": "Login successful",
+    "loginErorr": "Login failed"
   },
   "profile": {
     "myInfo": "My Info",
     "notificationsSys": "System Notifications",
     "wallet": "My Wallet",
+    "hint": "This page lets you manage your digital identity by updating your information, customizing your interests, reviewing your saved items, organizing work groups, and adjusting notifications for a more organized and private experience.",
     "interests": "My Interests",
     "savings": "My Savings",
     "community": "My Communities",
@@ -701,7 +717,8 @@
     "price": "Enter the withdrawal amount",
     "noTransactions": "There are no balance transactions yet.",
     "noBookmarkedOffers": "You have no bookmarked assistant offers.",
-    "noChanges": "No changes to save"
+    "noChanges": "No changes to save",
+    "bankAccount": "Bank Account"
   },
   "notification": {
     "title": "Notifications",
@@ -709,6 +726,7 @@
     "tab_notifications": "Notifications",
     "tab_inquiries": "Inquiries",
     "search": "Search",
+    "inquriesSearch": "Search in all inquiries",
     "latest": "Latest notifications",
     "previous": "Previous notifications",
     "system": "System",
@@ -809,7 +827,19 @@
     "notificationTypeRequired": "Notification type is required",
     "notificationTitleRequired": "Notification title is required",
     "notificationMessageRequired": "Notification message is required",
-    "regionRequired": "Please select a region"
+    "regionRequired": "Please select a region",
+    "imageType": "Only image files are allowed",
+    "invalidEmail": "Please enter a valid email",
+    "invalid_date": "Please enter a valid date",
+    "invalid_option": "Please select a valid option",
+    "invalid_time_format": "Please enter a valid time",
+    "max": "Must be at most {{max}}",
+    "mustBeInteger": "Must be an integer",
+    "otpLength": "OTP must be 6 digits",
+    "otpRequired": "OTP is required",
+    "passwordsMustMatch": "Passwords must match",
+    "please_enter_reason": "Please enter a reason",
+    "typeRequired": "Type is required"
   },
   "pageNotFound": {
     "alt": "404 Not Found",
@@ -827,10 +857,17 @@
     "appTitle": "Application Error",
     "appMessage": "An unexpected application error occurred. Please try again later.",
     "unexpectedTitle": "Unexpected Error",
-    "unexpectedMessage": "An unexpected error occurred. Please try again later."
+    "unexpectedMessage": "An unexpected error occurred. Please try again later.",
+    "invalidDate": "Please enter a valid date",
+    "invalidEmail": "Please enter a valid email",
+    "required": "This field is required",
+    "somethingWentWrong": "Something went wrong. Please try again."
   },
   "community": {
     "channels": "Channels",
+    "membersList": "Members List",
+    "membersCountLabel": "Members",
+    "noMembers": "There are no members in this community yet.",
     "unjoinConfirmation": {
       "title": "Your membership will be canceled in the community",
       "question": "Are you sure?",
@@ -894,6 +931,7 @@
     "required": "Image or video is required"
   },
   "works": {
+    "hint": "This page lets you manage all your work and track its progress and activity to get the most value from your Tasami experience.",
     "newTask": "New Execution Task",
     "updateTask": "Update Task",
     "beneficiary": "Beneficiary",
@@ -903,10 +941,57 @@
     "started_at": "Start Date",
     "expected_end_date": "Expected End Date",
     "notes": "Notes",
+    "note_placeholder": "Write a note",
+    "add_note": "+ Add note",
+    "save_note": "Save note",
+    "edit_note": "Edit note",
+    "delete_note": "Delete note",
     "reminder_notifications": "Reminder Notifications",
+    "reminders": "Reminders",
+    "reminder_short": "Reminder",
     "repeat": "Repeat",
     "daily": "Daily",
     "weekly": "Weekly",
+    "monthly": "Monthly",
+    "by_days": "By days",
+    "by_date": "By date",
+    "repetition_days": "Repetition days",
+    "select_time": "Select time",
+    "repetitions": "Repetitions",
+    "required_repetitions_count": "Required number of repetitions",
+    "available_repetitions": "Available repetitions",
+    "repetitions_exceed_available": "Repetitions cannot exceed the {{count}} available days",
+    "repetitions_disabled_with_reminders": "Repetitions cannot be enabled while reminders are on",
+    "repetition": "Repetition",
+    "delete_repetition": "Delete",
+    "repetition_delete_success": "Repetition deleted successfully",
+    "repetition_delete_error": "Could not delete the repetition",
+    "no_repetitions": "No repetitions have been created",
+    "schedule_date": "Repetition date",
+    "schedule_status": "Repetition status",
+    "complete_repetition": "Complete",
+    "repetition_not_available": "Not available yet",
+    "repetition_completed": "Completed",
+    "schedule_update_success": "Repetition updated successfully",
+    "schedule_update_error": "Could not update the repetition",
+    "schedule_completion_error": "Could not complete the repetition",
+    "schedule_delete_confirmation": "Are you sure you want to delete this repetition? Its reminder will also be cancelled.",
+    "schedule_errors": {
+      "invalid_date": "Enter a valid repetition date",
+      "past_date": "The repetition date cannot be in the past",
+      "outside_task_range": "The repetition date must be within the task date range",
+      "duplicate_date": "Another repetition already uses this date",
+      "reminder_not_available": "A reminder can only be enabled for a non-completed repetition on a current or future date",
+      "cannot_disable_repetitions": "Repetitions cannot be disabled after one has started or been completed",
+      "count_below_preserved": "The repetition count cannot be less than the {{count}} started or completed repetitions",
+      "range_excludes_preserved": "The new date range cannot exclude a started or completed repetition"
+    },
+    "schedule_regeneration": {
+      "title": "Update repetition schedule?",
+      "message": "Pending repetitions will be deleted and regenerated using the new dates and count. In-progress and completed repetitions will be preserved.",
+      "confirm": "Update and regenerate",
+      "cancel": "Cancel"
+    },
     "day": "Day",
     "time": "Time",
     "add": "Add",
@@ -928,10 +1013,20 @@
     "assistants": "Assistants",
     "cancelRequest": "Cancel Request",
     "delete": "Delete",
+    "deleteWork": "Delete work",
     "complete": "Mark as Complete",
     "errorOccurred": "An error occurred during the operation",
     "withdrawWarning": "This action will permanently delete the offer details and you will not be able to recover them later.",
     "completePayment": "Complete Payment",
+    "overdueTasksCount": "overdue tasks",
+    "startExecutionDeadline": {
+      "remainingLabel": "Time remaining",
+      "workWarning": "This work was not started on time. It will be canceled automatically if execution does not start within {{remaining}}.",
+      "contractWarning": "This contract was not started on time. It will be canceled automatically if execution does not start within {{remaining}}.",
+      "autoCanceledWork": "Canceled because it exceeded the selected start date without execution",
+      "autoCanceledContract": "Canceled because it exceeded the selected start date without execution",
+      "deleteAction": "Delete this work because it exceeded the selected start date without execution"
+    },
     "myTasks": {
       "title": "Execution Tasks",
       "dragInstruction": "You can drag and drop to reorder tasks",
@@ -943,6 +1038,7 @@
       "executionRate": "Execution Progress",
       "startExecutionBtn": "Start Execution",
       "pauseExecutionBtn": "Pause Execution",
+      "completeGoalBtn": "Complete Goal",
       "addNew": "Add New Execution Task",
       "distribution": {
         "currentTitle": "Current Execution Task Distribution",
@@ -972,6 +1068,10 @@
         "shortfall": "Shortfall",
         "excess": "Excess",
         "balanced": "Balanced"
+      "completionCongrats": {
+        "title": "Congratulations",
+        "description": "You have completed all tasks successfully. You can now complete the goal to save it in your completed work record, or add new tasks to continue your journey if you wish.",
+        "confirm": "OK"
       },
       "pauseExecutionWarning": "Execution will be paused temporarily, and all related notifications will be disabled. You can resume later from the 'Start Execution' button on the Tasks page.",
       "earlyStart": {
@@ -996,6 +1096,7 @@
       "date": "Expected Completion Date",
       "status": "Task Status",
       "pausedHint": "(Execution must be started to change the status)",
+      "completeRepetitionsHint": "The status cannot be changed to completed until all repetitions are completed",
       "error": "An error occurred while updating the task",
       "generateTasksConfirmBtn": "Confirm",
       "generateTasksWarning": "This is action will delete all existing tasks and generate new ones ",
@@ -1070,7 +1171,9 @@
       "waitAccept": "offer request",
       "offerSent": "Offer Sent",
       "requestOffer": "Request Offer"
-    }
+    },
+    "task_added": "Task added successfully",
+    "task_updated": "Task updated successfully"
   },
   "contract": {
     "acceptedSuccessfully": "Contract accepted successfully",
@@ -1099,6 +1202,7 @@
       "goalHeader": "Goal Details",
       "beneficiaries": "Beneficiaries",
       "totalRate": "Total Rate",
+      "ratingsCount": "Ratings Count",
       "edit": "Edit",
       "archive": "Archive",
       "youSendOffer": "You submitted an offer already",
@@ -1184,6 +1288,8 @@
       "platform": "platform",
       "profile": "My Profile",
       "hint": "This platform provides a set of tools to manage your business and activities as a personal assistant professionally, and to deliver the best experience for your clients.",
+      "contractsHint": "This page lets you review all your current and previous contracts, and track their status, duration, financial obligations, and details in one place.",
+      "communityHint": "This page lets you manage your community, publish exclusive content for members, track subscriptions, and strengthen engagement to build an active, sustainable community around shared interests.",
       "header": "Create a Basic Personal Assistant Account - (Free)",
       "title": "Welcome to the Community of Inspirers at 'Tasami'",
       "description1": "Your personal assistant account allows you to publish assistance programs and offer services to others. You can also create workgroups as virtual spaces for social learning, as well as activate your own channels to publish exclusive content and receive membership subscriptions within the 'Personal Assistant Community'!",
@@ -1271,7 +1377,13 @@
           "description": "So you can send quotations and accept contract requests",
           "createGroup": "Create a new work group",
           "close": "Close"
-        }
+        },
+        "addError": "An error occurred while adding",
+        "addSuccess": "Added successfully",
+        "deleteError": "An error occurred while deleting",
+        "deleteSuccess": "Deleted successfully",
+        "updateError": "An error occurred while updating",
+        "updateSuccess": "Updated successfully"
       },
       "groups": {
         "groupName": "Group Name",
@@ -1655,7 +1767,7 @@
       },
       "employeeData": {
         "title": "Employee Data",
-        "description": "Description",
+        "description": "Job Title",
         "account": "Account",
         "idNumber": "ID Number",
         "groupNumber": "Group Number",
@@ -1676,6 +1788,7 @@
         "gender": "Gender",
         "nationality": "Nationality",
         "residenceCountry": "Residence Country",
+        "residenceCity": "Residence City",
         "city": "City",
         "idNumber": "ID / Passport Number",
         "personalEmail": "Personal Email",
@@ -1689,6 +1802,12 @@
         "mapTitle": "Address on Map",
         "updateDataTitle": "Request Data Update"
       }
+    },
+    "employeeSummary": {
+      "title": "Employee Summary",
+      "contact": "Contact Employee",
+      "fullDetails": "Employee Account Details",
+      "unavailable": "Employee summary is not available"
     },
     "subscribersTeams": {
       "employeeDetails": "Employee Details",
@@ -1917,7 +2036,10 @@
       "leadersCount": "Leaders",
       "managersCount": "Managers",
       "tasksProgress": "Task Progress",
-      "creationDate": "Creation Date"
+      "creationDate": "Creation Date",
+      "loadMore": "Load more",
+      "loading": "Loading...",
+      "noData": "No shared groups found"
     },
     "availableGroups": {
       "title": "Available Groups for Addition",
@@ -2001,7 +2123,8 @@
         "add": "Add",
         "saveDraft": "Save as Draft",
         "complete": "Complete",
-        "active": "Active"
+        "active": "Active",
+        "attachFilesHint": "Attach supporting files if needed"
       }
     },
     "team": {
@@ -2245,7 +2368,8 @@
       "upload_image": "Upload Image",
       "save": "Save",
       "update": "Update",
-      "cancel": "Cancel"
+      "cancel": "Cancel",
+      "add_new": "Add new subscription"
     },
     "reports": {
       "filterOptions": "Filter Options",
@@ -2503,8 +2627,45 @@
       },
       "actions": {
         "requestStopAccount": "Request Account Suspension",
+        "accountStatus": "Account Status",
         "activateAccount": "Activate Account",
         "stopAccount": "Suspend Account"
+      },
+      "accountStatusModal": {
+        "title": "Account Status",
+        "status": "Status",
+        "currentStatus": "Current status",
+        "active": "Active",
+        "suspended": "Suspended",
+        "fromDate": "Suspended From",
+        "toDate": "Suspended To",
+        "noEndDate": "No end date",
+        "activateConfirmation": "Are you sure you want to activate this account?",
+        "confirmActivation": "Confirm Activation",
+        "cancel": "Cancel",
+        "close": "Close",
+        "hasEndDate": "Set an end date",
+        "duration": "Suspension Duration",
+        "indefinite": "The suspension remains active until manually changed.",
+        "reason": "Suspension reason",
+        "reasonLabel": "Reason",
+        "attachments": "Attachments",
+        "attachment": "Attachment",
+        "addFiles": "Add files",
+        "fileLimit": "Up to 5 files",
+        "noAttachments": "No attachments",
+        "activeTitle": "Account Active",
+        "activeMessage": "This account currently has full access.",
+        "saveChanges": "Save Changes",
+        "suspendAccount": "Suspend Account",
+        "startRequired": "Suspension start date is required",
+        "endRequired": "Suspension end date is required",
+        "endAfterStart": "End date must be on or after the start date",
+        "reasonMax": "Reason cannot exceed 500 characters",
+        "filesMin": "At least one attachment is required",
+        "filesMax": "A maximum of 5 attachments is allowed",
+        "staleConflict": "This account status was changed by another administrator. The latest data has been loaded.",
+        "updateFailed": "Failed to update account status"
       }
     },
     "beneficiary": {
@@ -2533,7 +2694,8 @@
         "communitySubscriptions": "Community Subscriptions",
         "suggestions": "Suggestions",
         "newClassifications": "New Classifications",
-        "violationReports": "Violation Reports"
+        "violationReports": "Violation Reports",
+        "inquires": "Inquiries"
       }
     },
     "assistant": {
@@ -2603,7 +2765,9 @@
       "name": "Name",
       "accountNumber": "Account Number",
       "date": "Date",
-      "price": "Subscription Price"
+      "price": "Subscription Price",
+      "free_forever": "Free forever",
+      "no_data": "No data available"
     },
     "footer": {
       "rights": "All rights reserved to",
@@ -2703,7 +2867,8 @@
       "experienceField": "Experience Field",
       "experienceSpecialization": "Experience Specialization",
       "qualification": "Qualification",
-      "years": "Years"
+      "years": "Years",
+      "generating": "Generating resume..."
     },
     "documents": {
       "title": "Documents",
@@ -2784,7 +2949,8 @@
       "successAdd": "Link added successfully",
       "successEdit": "Link updated successfully",
       "errorAdd": "An error occurred while adding",
-      "errorEdit": "An error occurred while updating"
+      "errorEdit": "An error occurred while updating",
+      "invalidImage": "Please select a valid image"
     },
     "taskCategories": {
       "taskCategory": "Task Category",
@@ -2832,7 +2998,40 @@
       "notificationMessage": "Notification Message",
       "send": "Send",
       "all": "All Users",
-      "specific": "Specific Users"
+      "specific": "Specific Users",
+      "accountType": "Account type",
+      "bene": "Beneficiaries",
+      "category": "Category",
+      "gender": "Gender",
+      "interests": "Interests",
+      "nationality": "Nationality",
+      "operationsSections": "Operating sectors",
+      "subcategory": "Subcategory"
+    }
+  },
+  "Failed to accept renew request": "Failed to accept renew request",
+  "Renew request accepted successfully": "Renew request accepted successfully",
+  "contact_error_generic": "An error occurred. Please try again.",
+  "failedToGenerate": "Failed to generate. Please try again.",
+  "noChangesDetected": "No changes detected",
+  "noOptionsAvailable": "No options available",
+  "payMessage": "Please complete the payment to continue",
+  "pleaseFillRequiredFields": "Please fill in all required fields",
+  "selectFilter": "Select filter",
+  "submit": "Submit",
+  "الاحدث": "Latest",
+  "المساعدون السابقون": "Previous assistants",
+  "error": {
+    "general": "Something went wrong. Please try again."
+  },
+  "user": {
+    "block": {
+      "blockSuccess": "User blocked successfully"
+    }
+  },
+  "workGroup": {
+    "validation": {
+      "groupType": "Group type is required"
     }
   }
 }
