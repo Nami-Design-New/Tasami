@@ -6,7 +6,29 @@ import { axiosInstance } from "../../../../lib/axios";
 const EMPTY_IMPROVEMENT = {
   comparison: [],
   overall_assessment: "",
+  analysis: {
+    strengths: [],
+    conclusion: "",
+    improvement_points: [],
+  },
 };
+
+function normalizeImprovement(data) {
+  const source = data?.improvement || data || {};
+  const analysis = data?.analysis || source?.analysis || {};
+
+  return {
+    comparison: Array.isArray(source.comparison) ? source.comparison : [],
+    overall_assessment: source.overall_assessment || "",
+    analysis: {
+      strengths: Array.isArray(analysis.strengths) ? analysis.strengths : [],
+      conclusion: analysis.conclusion || "",
+      improvement_points: Array.isArray(analysis.improvement_points)
+        ? analysis.improvement_points
+        : [],
+    },
+  };
+}
 
 export default function useGetTaskImprovement(workId) {
   const {
@@ -29,7 +51,7 @@ export default function useGetTaskImprovement(workId) {
         throw new Error(message);
       }
 
-      return response.data.data || EMPTY_IMPROVEMENT;
+      return normalizeImprovement(response.data.data);
     },
     enabled: false,
   });

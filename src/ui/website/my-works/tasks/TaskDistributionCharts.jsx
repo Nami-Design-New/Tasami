@@ -121,12 +121,60 @@ function DistributionChart({
   );
 }
 
-function ImprovementRecommendations({ data, hasError }) {
+function PlanAnalysis({ data }) {
+  const { t } = useTranslation();
+  const strengths = Array.isArray(data?.strengths) ? data.strengths : [];
+  const improvementPoints = Array.isArray(data?.improvement_points)
+    ? data.improvement_points
+    : [];
+
+  if (
+    !data?.conclusion &&
+    strengths.length === 0 &&
+    improvementPoints.length === 0
+  ) {
+    return null;
+  }
+
+  return (
+    <article className="task-improvement-assessment">
+      <h3>{t("works.myTasks.distribution.analysisTitle")}</h3>
+      {data?.conclusion ? <p>{data.conclusion}</p> : null}
+      {strengths.length > 0 ? (
+        <>
+          <h4>{t("works.myTasks.distribution.strengths")}</h4>
+          <ul>
+            {strengths.map((strength, index) => (
+              <li key={`${strength}-${index}`}>{strength}</li>
+            ))}
+          </ul>
+        </>
+      ) : null}
+      {improvementPoints.length > 0 ? (
+        <>
+          <h4>{t("works.myTasks.distribution.improvementPoints")}</h4>
+          <ul>
+            {improvementPoints.map((point, index) => (
+              <li key={`${point}-${index}`}>{point}</li>
+            ))}
+          </ul>
+        </>
+      ) : null}
+    </article>
+  );
+}
+
+function ImprovementRecommendations({ data, analysis, hasError }) {
   const { t } = useTranslation();
   const comparison = Array.isArray(data?.comparison) ? data.comparison : [];
   const hasAssessment = Boolean(data?.overall_assessment);
+  const hasAnalysis =
+    Boolean(analysis?.conclusion) ||
+    (Array.isArray(analysis?.strengths) && analysis.strengths.length > 0) ||
+    (Array.isArray(analysis?.improvement_points) &&
+      analysis.improvement_points.length > 0);
 
-  if (hasError && comparison.length === 0 && !hasAssessment) {
+  if (hasError && comparison.length === 0 && !hasAssessment && !hasAnalysis) {
     return (
       <div className="task-improvement-state">
         {t("works.myTasks.distribution.improvingNoData")}
@@ -134,13 +182,14 @@ function ImprovementRecommendations({ data, hasError }) {
     );
   }
 
-  if (comparison.length === 0 && !hasAssessment) return null;
+  if (comparison.length === 0 && !hasAssessment && !hasAnalysis) return null;
 
   return (
     <div className="task-improvement-content">
+      <PlanAnalysis data={analysis} />
       {data?.overall_assessment ? (
         <div className="task-improvement-assessment">
-          <h3>{t("works.myTasks.distribution.analysisTitle")}</h3>
+          <h3>{t("works.myTasks.distribution.assessmentTitle")}</h3>
           <p>{data.overall_assessment}</p>
         </div>
       ) : null}
@@ -247,6 +296,7 @@ export default function TaskDistributionCharts({
   isGenerationStatusLoading,
   isOptimalGenerated,
   improvement,
+  analysis,
   isImprovementLoading,
   isImprovementError,
   onGenerateImprovement,
@@ -339,6 +389,7 @@ export default function TaskDistributionCharts({
 
       <ImprovementRecommendations
         data={improvement}
+        analysis={analysis}
         hasError={isImprovementError}
       />
     </section>

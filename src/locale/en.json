@@ -950,6 +950,8 @@
         "generateOptimal": "Generate recommended distribution",
         "generateAnalysis": "Analyze the current execution plan",
         "analysisTitle": "Current execution plan analysis",
+        "strengths": "Strengths",
+        "improvementPoints": "Improvement opportunities",
         "guidanceTitle": "Execution plan improvement guidance",
         "recommendation": "Personal assistant recommendations for a balanced execution plan (optional)",
         "update": "Update",

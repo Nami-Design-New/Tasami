@@ -9,6 +9,11 @@ const EMPTY_STATUS = {
     comparison: [],
     overall_assessment: "",
   },
+  analysis: {
+    strengths: [],
+    conclusion: "",
+    improvement_points: [],
+  },
   optimal_distribution_generated: false,
   improvement_generated: false,
 };
@@ -32,13 +37,38 @@ export default function useGetTaskDistributionStatus(workId) {
         );
       }
 
+      const data = response.data.data || {};
+      const improvement = data.improvement || {};
+      const analysis = data.analysis || {};
+
       return {
         ...EMPTY_STATUS,
-        ...response.data.data,
+        ...data,
+        current_distribution: Array.isArray(data.current_distribution)
+          ? data.current_distribution
+          : [],
+        optimal_distribution: Array.isArray(data.optimal_distribution)
+          ? data.optimal_distribution
+          : [],
         improvement: {
-          ...EMPTY_STATUS.improvement,
-          ...response.data.data?.improvement,
+          comparison: Array.isArray(improvement.comparison)
+            ? improvement.comparison
+            : [],
+          overall_assessment: improvement.overall_assessment || "",
         },
+        analysis: {
+          strengths: Array.isArray(analysis.strengths)
+            ? analysis.strengths
+            : [],
+          conclusion: analysis.conclusion || "",
+          improvement_points: Array.isArray(analysis.improvement_points)
+            ? analysis.improvement_points
+            : [],
+        },
+        optimal_distribution_generated: Boolean(
+          data.optimal_distribution_generated,
+        ),
+        improvement_generated: Boolean(data.improvement_generated),
       };
     },
     enabled: Boolean(workId),

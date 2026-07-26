@@ -25,6 +25,7 @@ const baseProps = {
   isGenerationStatusLoading: false,
   isOptimalGenerated: false,
   improvement: { comparison: [], overall_assessment: "" },
+  analysis: { strengths: [], conclusion: "", improvement_points: [] },
   isImprovementLoading: false,
   isImprovementError: false,
   onGenerateImprovement: vi.fn(),
@@ -97,6 +98,11 @@ describe("TaskDistributionCharts", () => {
         optimalDistribution={[{ task_title: "Preparation", percentage: 100 }]}
         isOptimalGenerated
         isImprovementGenerated
+        analysis={{
+          conclusion: "The plan is usable.",
+          strengths: ["All categories are represented."],
+          improvement_points: ["Validate actual effort."],
+        }}
         improvement={{
           overall_assessment: "Overall assessment",
           comparison: [
@@ -123,5 +129,9 @@ describe("TaskDistributionCharts", () => {
     expect(screen.getByRole("table")).toBeInTheDocument();
     expect(screen.getByText("Preparation")).toBeInTheDocument();
     expect(screen.getByText("Overall assessment")).toBeInTheDocument();
+    expect(screen.getByText("The plan is usable.")).toBeInTheDocument();
+    expect(
+      screen.getByText("All categories are represented."),
+    ).toBeInTheDocument();
   });
 });

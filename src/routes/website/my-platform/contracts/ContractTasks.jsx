@@ -49,10 +49,19 @@ export default function ContractTasks() {
       ? taskDistribution
       : taskDistributionStatus.optimal_distribution;
   const improvement =
-    taskImprovement.comparison.length > 0 ||
-    Boolean(taskImprovement.overall_assessment)
+    (Array.isArray(taskImprovement?.comparison) &&
+      taskImprovement.comparison.length > 0) ||
+    Boolean(taskImprovement?.overall_assessment)
       ? taskImprovement
       : taskDistributionStatus.improvement;
+  const analysis =
+    (Array.isArray(taskImprovement?.analysis?.strengths) &&
+      taskImprovement.analysis.strengths.length > 0) ||
+    Boolean(taskImprovement?.analysis?.conclusion) ||
+    (Array.isArray(taskImprovement?.analysis?.improvement_points) &&
+      taskImprovement.analysis.improvement_points.length > 0)
+      ? taskImprovement.analysis
+      : taskDistributionStatus.analysis;
 
   const handleGenerateOptimal = async () => {
     const result = await generateTaskDistribution();
@@ -149,13 +158,15 @@ export default function ContractTasks() {
           taskDistribution.length > 0
         }
         improvement={improvement}
+        analysis={analysis}
         isImprovementLoading={isImprovementFetching}
         isImprovementError={isImprovementError}
         onGenerateImprovement={handleGenerateImprovement}
         isImprovementGenerated={
           taskDistributionStatus.improvement_generated ||
-          taskImprovement.comparison.length > 0 ||
-          Boolean(taskImprovement.overall_assessment)
+          (Array.isArray(taskImprovement?.comparison) &&
+            taskImprovement.comparison.length > 0) ||
+          Boolean(taskImprovement?.overall_assessment)
         }
       />
     </section>
