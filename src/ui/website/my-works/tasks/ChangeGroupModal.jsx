@@ -36,7 +36,7 @@ export default function ChangeGroupModal({ showModal, setShowModal }) {
         setShowModal(false);
         toast.success(res.message);
         reset();
-        queryClient.invalidateQueries(["work-group"]);
+        queryClient.invalidateQueries({ queryKey: ["work-group"] });
       },
       onError: (error) => {
         toast.error(error.message);

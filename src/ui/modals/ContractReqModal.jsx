@@ -1,33 +1,31 @@
 import { useQueryClient } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import { toast } from "sonner";
-import * as yup from "yup";
 import useContractOffer from "../../hooks/website/personal-assistances/useContractOffer";
 import CheckField from "../../ui/forms/CheckField";
 import SubmitButton from "../../ui/forms/SubmitButton";
 import TextField from "../../ui/forms/TextField";
 import DatePicker from "../forms/DatePicker";
 import GlobalModal from "../GlobalModal";
+import {
+  ACTIVITY_LIMIT_TYPES,
+  getActivityLimitError,
+} from "../../utils/activityLimits";
 
-const ContractReq = ({ showModal, setShowModal }) => {
+const ContractReq = ({ showModal, setShowModal, onLimitReached }) => {
   const { t } = useTranslation();
   const { id } = useParams();
+  const navigate = useNavigate();
   const queryClient = useQueryClient();
   const { contractOffer, isPending } = useContractOffer();
-  const schema = yup.object().shape({
-    work_id: yup.number().required(t("validation.required")),
-    help_start_date: yup.date().required(t("validation.required")),
-    notes: yup.string().optional(),
-  });
   const {
     register,
     handleSubmit,
     watch,
     setValue,
     reset,
-    formState: { errors },
   } = useForm({ mode: "onChange", defaultValues: { Date: false } });
 
   const Date = watch("Date");
@@ -44,11 +42,22 @@ const ContractReq = ({ showModal, setShowModal }) => {
         toast.success(res.message || t("messages_success"));
         reset();
         setShowModal(false);
-        queryClient.invalidateQueries({ queryKey: ["offer-details"] });
+        queryClient.invalidateQueries({ queryKey: ["counters-notify"] });
+        queryClient.invalidateQueries({ queryKey: ["my-works"] });
+        navigate("/my-works");
       },
       onError: (error) => {
-        toast.error(error.message || t("messages_error"));
+        const limitError = getActivityLimitError(error);
         setShowModal(false);
+        if (limitError?.type === ACTIVITY_LIMIT_TYPES.BENEFICIARY) {
+          queryClient.invalidateQueries({ queryKey: ["counters-notify"] });
+          onLimitReached?.(limitError.limit);
+          return;
+        }
+
+        toast.error(
+          error?.response?.data?.message || error.message || t("messages_error"),
+        );
       },
     });
   };

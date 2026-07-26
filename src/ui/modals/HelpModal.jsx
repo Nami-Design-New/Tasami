@@ -13,8 +13,12 @@ import TextField from "../../ui/forms/TextField";
 import CustomButton from "../CustomButton";
 import AddGroupModal from "../website/platform/groups/AddGroupModal";
 import GlobalModal from "../GlobalModal";
+import {
+  ACTIVITY_LIMIT_TYPES,
+  getActivityLimitError,
+} from "../../utils/activityLimits";
 
-const HelpModal = ({ showModal, setShowModal, goal }) => {
+const HelpModal = ({ showModal, setShowModal, goal, onLimitReached }) => {
   const { t } = useTranslation();
   const queryClient = useQueryClient();
   const [showAddGroupModal, setShowAddGroupModal] = useState(false);
@@ -56,9 +60,19 @@ const HelpModal = ({ showModal, setShowModal, goal }) => {
         setShowModal(false);
         queryClient.invalidateQueries({ queryKey: ["goal-details"] });
         queryClient.refetchQueries({ queryKey: ["homeData"] });
+        queryClient.invalidateQueries({ queryKey: ["counters-notify"] });
+        queryClient.invalidateQueries({ queryKey: ["my-contracts"] });
       },
       onError: (error) => {
-        toast.error(error.message);
+        const limitError = getActivityLimitError(error);
+        if (limitError?.type === ACTIVITY_LIMIT_TYPES.ASSISTANT) {
+          setShowModal(false);
+          queryClient.invalidateQueries({ queryKey: ["counters-notify"] });
+          onLimitReached?.(limitError.limit);
+          return;
+        }
+
+        toast.error(error?.response?.data?.message || error.message);
       },
     });
   };

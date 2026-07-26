@@ -21,6 +21,16 @@
   "download": "Download",
   "maxOfferAlert1": "You have reached the maximum number of offers!",
   "maxOfferAlert2": "Please withdraw one of your existing offers or wait until it is accepted or rejected, then try again.",
+  "activityLimits": {
+    "beneficiary": {
+      "title": "You have reached the maximum number of works in your record ({{limit}} works)",
+      "description": "Complete them or delete the ones you no longer need to add new works."
+    },
+    "assistant": {
+      "title": "You have reached the maximum number of personal assistant contracts ({{limit}} contracts)",
+      "description": "Complete them or withdraw unnecessary price offers to make room for new contracts."
+    }
+  },
   "otpTitle": "OTP Verification",
   "verify": "Verify Phone Number",
   "ok": "Proceed",
@@ -1030,6 +1040,34 @@
       "pauseExecutionBtn": "Pause Execution",
       "completeGoalBtn": "Complete Goal",
       "addNew": "Add New Execution Task",
+      "distribution": {
+        "currentTitle": "Current Execution Task Distribution",
+        "optimalTitle": "Optimal Task Distribution Based on Goal Type and Nature",
+        "generateOptimal": "Generate recommended distribution",
+        "generateAnalysis": "Analyze the current execution plan",
+        "analysisTitle": "Current execution plan analysis",
+        "strengths": "Strengths",
+        "improvementPoints": "Improvement opportunities",
+        "guidanceTitle": "Execution plan improvement guidance",
+        "recommendation": "Personal assistant recommendations for a balanced execution plan (optional)",
+        "update": "Update",
+        "loading": "Loading distribution data",
+        "noData": "No distribution data is available",
+        "uncategorized": "Uncategorized",
+        "improvingLoading": "Loading task improvement recommendations",
+        "improvingNoData": "No task improvement recommendations are available",
+        "assessmentTitle": "Overall assessment",
+        "category": "Category",
+        "ideal": "Ideal",
+        "actual": "Actual",
+        "gap": "Gap",
+        "status": "Status",
+        "impact": "Impact",
+        "guidelines": "Guidelines",
+        "examples": "Practical examples",
+        "shortfall": "Shortfall",
+        "excess": "Excess",
+        "balanced": "Balanced"
       "completionCongrats": {
         "title": "Congratulations",
         "description": "You have completed all tasks successfully. You can now complete the goal to save it in your completed work record, or add new tasks to continue your journey if you wish.",

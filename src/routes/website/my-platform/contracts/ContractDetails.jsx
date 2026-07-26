@@ -2,7 +2,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router";
+import { useNavigate } from "react-router";
 import { toast } from "sonner";
 import useAcceptOrRefuseContract from "../../../../hooks/website/contracts/useAcceptOrRefuseContract";
 import useWithdrawOfferHelp from "../../../../hooks/website/contracts/useWithdrawOfferHelp";
@@ -16,8 +16,6 @@ import AcceptModal from "../../../../ui/website/platform/contracts/AcceptModal";
 import AlertModal from "../../../../ui/website/platform/my-community/AlertModal";
 import triangleWithHelper from "../../../../assets/icons/triangle-with-helper.svg";
 import helpServiceFromHelper from "../../../../assets/icons/help_service_from_helper.svg";
-import workChatYellow from "../../../../assets/icons/work-chat-yellow.svg";
-import workStarYellow from "../../../../assets/icons/work-star-yellow.svg";
 import {
   formatStartDateTimestamp,
   getStartExecutionDeadlineState,
@@ -50,8 +48,11 @@ export default function ContractDetails() {
         onSuccess: () => {
           toast.success(t("contract.acceptedSuccessfully"));
           navigate("/my-contracts");
-          queryClient.invalidateQueries(["workDetails"]);
-          queryClient.refetchQueries(["my-contracts"]);
+          queryClient.invalidateQueries({
+            queryKey: ["work-details"],
+            refetchType: "none",
+          });
+          queryClient.invalidateQueries({ queryKey: ["my-contracts"] });
         },
         onError: (error) => {
           toast.error(error.message || t("contract.errorOccurred"));
@@ -64,7 +65,7 @@ export default function ContractDetails() {
       onSuccess: (res) => {
         toast.success(res?.message);
         navigate("/my-contracts");
-        queryClient.refetchQueries("my-contracts");
+        queryClient.invalidateQueries({ queryKey: ["my-contracts"] });
       },
       onError: (error) =>
         toast.error(error.message || t("works.errorOccurred")),
@@ -88,12 +89,7 @@ export default function ContractDetails() {
     workDetails?.start_date_timestamp,
     i18n.language,
   );
-  const isCompletedContract = workDetails?.status === "completed";
   const hasBeneficiaryRate = Boolean(workDetails?.rate);
-  const contractChatId =
-    workDetails?.helper_last_contract_id ||
-    workDetails?.last_contract_id ||
-    workDetails?.contract_id;
 
   return (
     <section className="work-details-page">

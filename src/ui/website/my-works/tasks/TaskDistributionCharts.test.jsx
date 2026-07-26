@@ -1,0 +1,137 @@
+import { fireEvent, render, screen } from "@testing-library/react";
+import { describe, expect, it, vi } from "vitest";
+
+import TaskDistributionCharts from "./TaskDistributionCharts";
+
+vi.mock("react-apexcharts", () => ({
+  default: () => <div data-testid="distribution-chart" />,
+}));
+
+vi.mock("react-i18next", () => ({
+  useTranslation: () => ({ t: (key) => key }),
+}));
+
+const baseProps = {
+  currentDistribution: [],
+  optimalDistribution: [],
+  isCurrentLoading: false,
+  isCurrentRefreshing: false,
+  isCurrentError: false,
+  onRefreshCurrent: vi.fn(),
+  isOptimalLoading: false,
+  isOptimalGenerating: false,
+  isOptimalError: false,
+  onGenerateOptimal: vi.fn(),
+  isGenerationStatusLoading: false,
+  isOptimalGenerated: false,
+  improvement: { comparison: [], overall_assessment: "" },
+  analysis: { strengths: [], conclusion: "", improvement_points: [] },
+  isImprovementLoading: false,
+  isImprovementError: false,
+  onGenerateImprovement: vi.fn(),
+  isImprovementGenerated: false,
+};
+
+describe("TaskDistributionCharts", () => {
+  it("restores the persisted generation state even when saved chart data is empty", () => {
+    render(
+      <TaskDistributionCharts
+        {...baseProps}
+        isOptimalGenerated
+      />,
+    );
+
+    expect(
+      screen.queryByRole("button", {
+        name: "works.myTasks.distribution.generateOptimal",
+      }),
+    ).not.toBeInTheDocument();
+    expect(
+      screen.getByRole("button", {
+        name: "works.myTasks.distribution.generateAnalysis",
+      }),
+    ).toBeInTheDocument();
+  });
+
+  it("only enables analysis after the recommended distribution is generated", () => {
+    const onGenerateImprovement = vi.fn();
+
+    render(
+      <TaskDistributionCharts
+        {...baseProps}
+        onGenerateImprovement={onGenerateImprovement}
+      />,
+    );
+
+    expect(
+      screen.queryByRole("button", {
+        name: "works.myTasks.distribution.generateAnalysis",
+      }),
+    ).not.toBeInTheDocument();
+  });
+
+  it("shows the analysis action after the recommended distribution is generated", () => {
+    const onGenerateImprovement = vi.fn();
+
+    render(
+      <TaskDistributionCharts
+        {...baseProps}
+        optimalDistribution={[{ task_title: "Preparation", percentage: 100 }]}
+        isOptimalGenerated
+        onGenerateImprovement={onGenerateImprovement}
+      />,
+    );
+
+    fireEvent.click(
+      screen.getByRole("button", {
+        name: "works.myTasks.distribution.generateAnalysis",
+      }),
+    );
+
+    expect(onGenerateImprovement).toHaveBeenCalledOnce();
+  });
+
+  it("replaces the generation button with a table after data is generated", () => {
+    render(
+      <TaskDistributionCharts
+        {...baseProps}
+        optimalDistribution={[{ task_title: "Preparation", percentage: 100 }]}
+        isOptimalGenerated
+        isImprovementGenerated
+        analysis={{
+          conclusion: "The plan is usable.",
+          strengths: ["All categories are represented."],
+          improvement_points: ["Validate actual effort."],
+        }}
+        improvement={{
+          overall_assessment: "Overall assessment",
+          comparison: [
+            {
+              task_category_title: "Preparation",
+              ideal_percentage: 40,
+              actual_percentage: 25,
+              gap: -15,
+              gap_type: "shortfall",
+              impact: "Progress may slow.",
+              guidelines: ["Add focused tasks."],
+              concrete_examples: ["Reserve one hour."],
+            },
+          ],
+        }}
+      />,
+    );
+
+    expect(
+      screen.queryByRole("button", {
+        name: "works.myTasks.distribution.generateAnalysis",
+      }),
+    ).not.toBeInTheDocument();
+    expect(screen.getByRole("table")).toBeInTheDocument();
+    expect(screen.getByText("Preparation")).toBeInTheDocument();
+    expect(screen.getByText("Overall assessment")).toBeInTheDocument();
+    expect(screen.getByText("The plan is usable.")).toBeInTheDocument();
+    expect(
+      screen.getByText("All categories are represented."),
+    ).toBeInTheDocument();
+  });
+});
