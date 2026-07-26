@@ -22,6 +22,7 @@ function DistributionChart({
   hasError = false,
   onRefresh,
   isRefreshing = false,
+  action,
 }) {
   const { t } = useTranslation();
   const chartConfig = useMemo(() => {
@@ -102,16 +103,18 @@ function DistributionChart({
           series={chartConfig.series}
         />
       )}
-      {onRefresh ? (
+      {action || onRefresh ? (
         <div className="task-distribution-actions">
-          <CustomButton
-            type="button"
-            size="small"
-            loading={isRefreshing && !isLoading}
-            onClick={() => onRefresh()}
-          >
-            {t("works.myTasks.distribution.update")}
-          </CustomButton>
+          {action || (
+            <CustomButton
+              type="button"
+              size="small"
+              loading={isRefreshing && !isLoading}
+              onClick={() => onRefresh()}
+            >
+              {t("works.myTasks.distribution.update")}
+            </CustomButton>
+          )}
         </div>
       ) : null}
     </article>
@@ -137,13 +140,15 @@ function ImprovementRecommendations({ data, hasError }) {
     <div className="task-improvement-content">
       {data?.overall_assessment ? (
         <div className="task-improvement-assessment">
-          <h3>{t("works.myTasks.distribution.assessmentTitle")}</h3>
+          <h3>{t("works.myTasks.distribution.analysisTitle")}</h3>
           <p>{data.overall_assessment}</p>
         </div>
       ) : null}
 
       {comparison.length > 0 ? (
-        <div className="task-improvement-table-wrapper">
+        <div className="task-improvement-guidance">
+          <h3>{t("works.myTasks.distribution.guidanceTitle")}</h3>
+          <div className="task-improvement-table-wrapper">
           <table className="task-improvement-table">
             <thead>
               <tr>
@@ -221,6 +226,7 @@ function ImprovementRecommendations({ data, hasError }) {
               })}
             </tbody>
           </table>
+          </div>
         </div>
       ) : null}
     </div>
@@ -235,11 +241,16 @@ export default function TaskDistributionCharts({
   isCurrentError,
   onRefreshCurrent,
   isOptimalLoading,
+  isOptimalGenerating,
   isOptimalError,
+  onGenerateOptimal,
+  isGenerationStatusLoading,
+  isOptimalGenerated,
   improvement,
   isImprovementLoading,
   isImprovementError,
   onGenerateImprovement,
+  isImprovementGenerated,
 }) {
   const { t } = useTranslation();
 
@@ -266,6 +277,11 @@ export default function TaskDistributionCharts({
     Boolean(improvement?.overall_assessment) ||
     (Array.isArray(improvement?.comparison) &&
       improvement.comparison.length > 0);
+  const hasOptimalDistribution = formattedOptimalDistribution.length > 0;
+  const hasOptimalBeenGenerated =
+    isOptimalGenerated ?? hasOptimalDistribution;
+  const hasImprovementBeenGenerated =
+    isImprovementGenerated ?? hasImprovementData;
 
   return (
     <section className="task-distribution-section">
@@ -283,10 +299,25 @@ export default function TaskDistributionCharts({
           data={formattedOptimalDistribution}
           isLoading={isOptimalLoading}
           hasError={isOptimalError}
+          action={
+            !isGenerationStatusLoading && !hasOptimalBeenGenerated ? (
+              <CustomButton
+                type="button"
+                color="warning"
+                size="small"
+                loading={isOptimalGenerating}
+                onClick={() => onGenerateOptimal()}
+              >
+                {t("works.myTasks.distribution.generateOptimal")}
+              </CustomButton>
+            ) : null
+          }
         />
       </div>
 
-      {!hasImprovementData ? (
+      {hasOptimalBeenGenerated &&
+      !isGenerationStatusLoading &&
+      !hasImprovementBeenGenerated ? (
         <button
           type="button"
           className="task-distribution-recommendation"
@@ -301,7 +332,7 @@ export default function TaskDistributionCharts({
           <span>
             {isImprovementLoading
               ? t("works.myTasks.distribution.improvingLoading")
-              : t("works.myTasks.distribution.recommendation")}
+              : t("works.myTasks.distribution.generateAnalysis")}
           </span>
         </button>
       ) : null}

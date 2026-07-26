@@ -25,7 +25,9 @@ export default function useGetCurrentTaskDistribution(workId) {
 
       return response.data.data || [];
     },
-    enabled: Boolean(workId),
+    // This endpoint recalculates the current distribution and should only run
+    // when the user explicitly clicks the update button.
+    enabled: false,
   });
 
   return {

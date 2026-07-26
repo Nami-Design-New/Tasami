@@ -19,15 +19,40 @@ const baseProps = {
   isCurrentError: false,
   onRefreshCurrent: vi.fn(),
   isOptimalLoading: false,
+  isOptimalGenerating: false,
   isOptimalError: false,
+  onGenerateOptimal: vi.fn(),
+  isGenerationStatusLoading: false,
+  isOptimalGenerated: false,
   improvement: { comparison: [], overall_assessment: "" },
   isImprovementLoading: false,
   isImprovementError: false,
   onGenerateImprovement: vi.fn(),
+  isImprovementGenerated: false,
 };
 
 describe("TaskDistributionCharts", () => {
-  it("shows the generation button before improvement data exists", () => {
+  it("restores the persisted generation state even when saved chart data is empty", () => {
+    render(
+      <TaskDistributionCharts
+        {...baseProps}
+        isOptimalGenerated
+      />,
+    );
+
+    expect(
+      screen.queryByRole("button", {
+        name: "works.myTasks.distribution.generateOptimal",
+      }),
+    ).not.toBeInTheDocument();
+    expect(
+      screen.getByRole("button", {
+        name: "works.myTasks.distribution.generateAnalysis",
+      }),
+    ).toBeInTheDocument();
+  });
+
+  it("only enables analysis after the recommended distribution is generated", () => {
     const onGenerateImprovement = vi.fn();
 
     render(
@@ -37,9 +62,28 @@ describe("TaskDistributionCharts", () => {
       />,
     );
 
+    expect(
+      screen.queryByRole("button", {
+        name: "works.myTasks.distribution.generateAnalysis",
+      }),
+    ).not.toBeInTheDocument();
+  });
+
+  it("shows the analysis action after the recommended distribution is generated", () => {
+    const onGenerateImprovement = vi.fn();
+
+    render(
+      <TaskDistributionCharts
+        {...baseProps}
+        optimalDistribution={[{ task_title: "Preparation", percentage: 100 }]}
+        isOptimalGenerated
+        onGenerateImprovement={onGenerateImprovement}
+      />,
+    );
+
     fireEvent.click(
       screen.getByRole("button", {
-        name: "works.myTasks.distribution.recommendation",
+        name: "works.myTasks.distribution.generateAnalysis",
       }),
     );
 
@@ -50,6 +94,9 @@ describe("TaskDistributionCharts", () => {
     render(
       <TaskDistributionCharts
         {...baseProps}
+        optimalDistribution={[{ task_title: "Preparation", percentage: 100 }]}
+        isOptimalGenerated
+        isImprovementGenerated
         improvement={{
           overall_assessment: "Overall assessment",
           comparison: [
@@ -70,7 +117,7 @@ describe("TaskDistributionCharts", () => {
 
     expect(
       screen.queryByRole("button", {
-        name: "works.myTasks.distribution.recommendation",
+        name: "works.myTasks.distribution.generateAnalysis",
       }),
     ).not.toBeInTheDocument();
     expect(screen.getByRole("table")).toBeInTheDocument();

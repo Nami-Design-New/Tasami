@@ -3,6 +3,7 @@ import useGetTasks from "../../../../hooks/website/MyWorks/tasks/useGetTasks";
 import useGetCurrentTaskDistribution from "../../../../hooks/website/MyWorks/tasks/useGetCurrentTaskDistribution";
 import useGetTaskDistribution from "../../../../hooks/website/MyWorks/tasks/useGetTaskDistribution";
 import useGetTaskImprovement from "../../../../hooks/website/MyWorks/tasks/useGetTaskImprovement";
+import useGetTaskDistributionStatus from "../../../../hooks/website/MyWorks/tasks/useGetTaskDistributionStatus";
 import TaskCard from "../../../../ui/website/my-works/tasks/TaskCard";
 import Loading from "../../../../ui/loading/Loading";
 import { useTranslation } from "react-i18next";
@@ -16,11 +17,12 @@ export default function ContractTasks() {
   const {
     taskDistribution,
     isLoading: isDistributionLoading,
+    isFetching: isDistributionFetching,
     isError: isDistributionError,
+    refetch: generateTaskDistribution,
   } = useGetTaskDistribution(id);
   const {
     currentTaskDistribution,
-    isLoading: isCurrentDistributionLoading,
     isFetching: isCurrentDistributionFetching,
     isError: isCurrentDistributionError,
     refetch: refreshCurrentDistribution,
@@ -31,7 +33,50 @@ export default function ContractTasks() {
     isError: isImprovementError,
     refetch: generateTaskImprovement,
   } = useGetTaskImprovement(id);
+  const {
+    taskDistributionStatus,
+    isLoading: isDistributionStatusLoading,
+    refetch: refreshTaskDistributionStatus,
+  } = useGetTaskDistributionStatus(id);
   const { user } = useOutletContext();
+
+  const currentDistribution =
+    currentTaskDistribution.length > 0
+      ? currentTaskDistribution
+      : taskDistributionStatus.current_distribution;
+  const optimalDistribution =
+    taskDistribution.length > 0
+      ? taskDistribution
+      : taskDistributionStatus.optimal_distribution;
+  const improvement =
+    taskImprovement.comparison.length > 0 ||
+    Boolean(taskImprovement.overall_assessment)
+      ? taskImprovement
+      : taskDistributionStatus.improvement;
+
+  const handleGenerateOptimal = async () => {
+    const result = await generateTaskDistribution();
+
+    if (!result.error) {
+      await refreshTaskDistributionStatus();
+    }
+  };
+
+  const handleRefreshCurrent = async () => {
+    const result = await refreshCurrentDistribution();
+
+    if (!result.error) {
+      await refreshTaskDistributionStatus();
+    }
+  };
+
+  const handleGenerateImprovement = async () => {
+    const result = await generateTaskImprovement();
+
+    if (!result.error) {
+      await refreshTaskDistributionStatus();
+    }
+  };
 
   // Handle loading state
   if (isLoading || !goalTasks) {
@@ -88,18 +133,30 @@ export default function ContractTasks() {
       </div>
 
       <TaskDistributionCharts
-        currentDistribution={currentTaskDistribution}
-        optimalDistribution={taskDistribution}
-        isCurrentLoading={isCurrentDistributionLoading}
+        currentDistribution={currentDistribution}
+        optimalDistribution={optimalDistribution}
+        isCurrentLoading={isDistributionStatusLoading}
         isCurrentRefreshing={isCurrentDistributionFetching}
         isCurrentError={isCurrentDistributionError}
-        onRefreshCurrent={refreshCurrentDistribution}
+        onRefreshCurrent={handleRefreshCurrent}
         isOptimalLoading={isDistributionLoading}
+        isOptimalGenerating={isDistributionFetching}
         isOptimalError={isDistributionError}
-        improvement={taskImprovement}
+        onGenerateOptimal={handleGenerateOptimal}
+        isGenerationStatusLoading={isDistributionStatusLoading}
+        isOptimalGenerated={
+          taskDistributionStatus.optimal_distribution_generated ||
+          taskDistribution.length > 0
+        }
+        improvement={improvement}
         isImprovementLoading={isImprovementFetching}
         isImprovementError={isImprovementError}
-        onGenerateImprovement={generateTaskImprovement}
+        onGenerateImprovement={handleGenerateImprovement}
+        isImprovementGenerated={
+          taskDistributionStatus.improvement_generated ||
+          taskImprovement.comparison.length > 0 ||
+          Boolean(taskImprovement.overall_assessment)
+        }
       />
     </section>
   );

@@ -11546,6 +11546,16 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
 .task-distribution-section .task-improvement-content {
   margin-top: 1rem;
 }
+.task-distribution-section .task-improvement-guidance {
+  margin-top: 1rem;
+}
+.task-distribution-section .task-improvement-guidance > h3 {
+  margin-bottom: 0.75rem;
+  color: #0f9ed5;
+  font-size: 1.05rem;
+  font-weight: 700;
+  text-align: start;
+}
 .task-distribution-section .task-improvement-assessment {
   padding: 1rem;
   border: 1px solid rgba(33, 75, 146, 0.2);

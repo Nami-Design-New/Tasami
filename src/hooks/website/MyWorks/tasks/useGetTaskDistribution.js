@@ -6,7 +6,9 @@ export default function useGetTaskDistribution(workId) {
   const {
     data: taskDistribution = [],
     isLoading,
+    isFetching,
     isError,
+    refetch,
   } = useQuery({
     queryKey: ["task-distribution", workId],
     queryFn: async () => {
@@ -23,8 +25,10 @@ export default function useGetTaskDistribution(workId) {
 
       return response.data.data || [];
     },
-    enabled: Boolean(workId),
+    // The recommendation is generated deliberately from the page, rather than
+    // every time a user opens the task list.
+    enabled: false,
   });
 
-  return { taskDistribution, isLoading, isError };
+  return { taskDistribution, isLoading, isFetching, isError, refetch };
 }
