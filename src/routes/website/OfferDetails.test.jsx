@@ -4,6 +4,22 @@ import { MemoryRouter } from "react-router";
 import { describe, expect, it, vi } from "vitest";
 import OfferDetails from "./OfferDetails";
 
+const mocks = vi.hoisted(() => ({
+  offerResult: {
+    offerDetails: undefined,
+    isLoading: false,
+    error: {
+      response: {
+        status: 422,
+        data: {
+          code: 422,
+          message: "الصفحة او المسار غير موجود او تم حذفه",
+        },
+      },
+    },
+  },
+}));
+
 vi.mock("react-i18next", () => ({
   useTranslation: () => ({
     t: (key) =>
@@ -18,7 +34,7 @@ vi.mock("react-redux", () => ({
 }));
 
 vi.mock("../../hooks/website/my-assistances/useGetOfferDetials", () => ({
-  default: () => ({ offerDetails: undefined, isLoading: false }),
+  default: () => mocks.offerResult,
 }));
 
 vi.mock("../../hooks/website/my-assistances/useDeleteAssistance", () => ({
@@ -34,7 +50,7 @@ vi.mock("../../ui/loading/Loading", () => ({
 }));
 
 describe("OfferDetails", () => {
-  it("shows an unavailable state when a referenced offer was deleted", () => {
+  it("shows the backend message for a deleted offer response", () => {
     const queryClient = new QueryClient({
       defaultOptions: { queries: { retry: false } },
     });
@@ -48,7 +64,7 @@ describe("OfferDetails", () => {
     );
 
     expect(
-      screen.getByText("This offer is no longer available"),
+      screen.getByText("الصفحة او المسار غير موجود او تم حذفه"),
     ).toBeInTheDocument();
   });
 });

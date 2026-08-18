@@ -26,7 +26,7 @@ export default function OfferDetails() {
   const { lang } = useSelector((state) => state.language);
   const [showEditModal, setShowEditModal] = useState(false);
   const [showAlertModal, setShowAlertModal] = useState(false);
-  const { offerDetails, isLoading } = useGetOfferDetials();
+  const { offerDetails, isLoading, error } = useGetOfferDetials();
   const { deleteAssistance, isPending: isDeleting } = useDeleteAssistance();
   const { archiveYourAssistance, isPending: isArchiving } =
     useArchiveAssistance();
@@ -74,12 +74,25 @@ export default function OfferDetails() {
 
   if (isLoading) return <Loading />;
   if (!offerDetails) {
+    const errorCode = Number(
+      error?.response?.data?.code ?? error?.response?.status ?? error?.status,
+    );
+    const isDeletedOffer = errorCode === 422 || errorCode === 404;
+    const unavailableMessage = isDeletedOffer
+      ? error?.response?.data?.message ||
+        error?.responseData?.message ||
+        error?.message ||
+        t("website.offerDetails.unavailable")
+      : error
+        ? t("messages_error")
+        : t("website.offerDetails.unavailable");
+
     return (
       <section className="page offer-details-section">
         <div className="container">
           <EmptySection
             height="450px"
-            message={t("website.offerDetails.unavailable")}
+            message={unavailableMessage}
           />
         </div>
       </section>
