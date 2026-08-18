@@ -1202,6 +1202,7 @@
     },
     "offerDetails": {
       "title": "Offer Details",
+      "unavailable": "This offer is no longer available",
       "goalHeader": "Goal Details",
       "beneficiaries": "Beneficiaries",
       "totalRate": "Total Rate",

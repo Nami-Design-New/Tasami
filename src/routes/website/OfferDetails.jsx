@@ -8,6 +8,7 @@ import useArchiveAssistance from "../../hooks/website/my-assistances/useArchiveA
 import useDeleteAssistance from "../../hooks/website/my-assistances/useDeleteAssistance";
 import useGetOfferDetials from "../../hooks/website/my-assistances/useGetOfferDetials";
 import CustomLink from "../../ui/CustomLink";
+import EmptySection from "../../ui/EmptySection";
 import Loading from "../../ui/loading/Loading";
 import OptionsMenu from "../../ui/website/OptionsMenu";
 import SectionHeader from "../../ui/website/SectionHeader";
@@ -72,6 +73,18 @@ export default function OfferDetails() {
   };
 
   if (isLoading) return <Loading />;
+  if (!offerDetails) {
+    return (
+      <section className="page offer-details-section">
+        <div className="container">
+          <EmptySection
+            height="450px"
+            message={t("website.offerDetails.unavailable")}
+          />
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section className="page offer-details-section ">
