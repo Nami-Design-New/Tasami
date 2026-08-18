@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { useParams } from "react-router";
 import { axiosInstance } from "../../../lib/axios";
+import { createApiResponseError } from "../../../utils/apiErrors";
 
 export default function useGetOfferDetials() {
   const { id } = useParams();
@@ -9,10 +10,7 @@ export default function useGetOfferDetials() {
     queryFn: async () => {
       const res = await axiosInstance.get(`/my-help-service/${id}`);
       if (res.data.code !== 200) {
-        const responseError = new Error(res.data.message);
-        responseError.status = res.data.code;
-        responseError.responseData = res.data;
-        throw responseError;
+        throw createApiResponseError(res.data, "Error Fetch data");
       }
 
       return res.data.data;

@@ -748,6 +748,7 @@
     "one_day_ago": "منذ يوم",
     "empty": "لا توجد إشعارات",
     "noInquriy": "لا توجد استفسارات",
+    "referenceUnavailable": "المرجع لم يعد متاحاً",
     "fetch_error": "فشل في تحميل الإشعارات. حاول مرة أخرى."
   },
   "settings": {
@@ -1220,6 +1221,7 @@
       "ratingsCount": "عدد التقييمات",
       "title": "تفاصيل العرض",
       "unavailable": "هذا العرض لم يعد متاحاً",
+      "goalUnavailable": "هذا الهدف لم يعد متاحاً",
       "edit": "تعديل",
       "archive": "أرشفة",
       "delete": "حذف",

@@ -19,11 +19,18 @@ export default function InQuriyCard({ item }) {
   const [showModal, setShowModal] = useState(false);
   const { user } = useSelector((state) => state.authRole);
   const isMyInquriy = item?.from_user_id === user?.id;
-  const workCode = item.work?.goal?.code || item.work?.help_service?.code;
+  const isGoalReference = item?.work?.type === "goal";
+  const referencedResource = isGoalReference
+    ? item?.work?.goal
+    : item?.work?.help_service;
+  const workCode =
+    referencedResource?.code || item?.work_code || item?.reference_number;
   const workLink =
-    item.work?.type === "goal"
-      ? `/goal/${item.work.id}`
-      : `/my-assistances/${item.work.id}`;
+    item?.work?.id && referencedResource
+      ? isGoalReference
+        ? `/goal/${item.work.id}`
+        : `/my-assistances/${item.work.id}`
+      : null;
 
   const handleDeleteInquriy = () => {
     deleteInquriy(item.id, {
@@ -47,7 +54,12 @@ export default function InQuriyCard({ item }) {
           {workLink ? (
             <Link to={workLink}>{workCode}</Link>
           ) : (
-            <h2>{workCode}</h2>
+            <h2
+              aria-disabled="true"
+              title={t("notification.referenceUnavailable")}
+            >
+              {workCode || t("notification.referenceUnavailable")}
+            </h2>
           )}
         </div>
         <p>{item.message} </p>

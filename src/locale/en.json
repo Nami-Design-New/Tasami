@@ -736,6 +736,7 @@
     "one_day_ago": "1 day ago",
     "empty": "No notifications found",
     "noInquriy": "No Inquries found",
+    "referenceUnavailable": "Reference is no longer available",
     "fetch_error": "Failed to load notifications. Please try again."
   },
   "settings": {
@@ -1203,6 +1204,7 @@
     "offerDetails": {
       "title": "Offer Details",
       "unavailable": "This offer is no longer available",
+      "goalUnavailable": "This goal is no longer available",
       "goalHeader": "Goal Details",
       "beneficiaries": "Beneficiaries",
       "totalRate": "Total Rate",

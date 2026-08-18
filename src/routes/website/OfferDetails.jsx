@@ -8,8 +8,8 @@ import useArchiveAssistance from "../../hooks/website/my-assistances/useArchiveA
 import useDeleteAssistance from "../../hooks/website/my-assistances/useDeleteAssistance";
 import useGetOfferDetials from "../../hooks/website/my-assistances/useGetOfferDetials";
 import CustomLink from "../../ui/CustomLink";
-import EmptySection from "../../ui/EmptySection";
 import Loading from "../../ui/loading/Loading";
+import UnavailableResource from "../../ui/website/UnavailableResource";
 import OptionsMenu from "../../ui/website/OptionsMenu";
 import SectionHeader from "../../ui/website/SectionHeader";
 import AddAssistanceModal from "../../ui/website/offers/AddAssistanceModal";
@@ -74,25 +74,12 @@ export default function OfferDetails() {
 
   if (isLoading) return <Loading />;
   if (!offerDetails) {
-    const errorCode = Number(
-      error?.response?.data?.code ?? error?.response?.status ?? error?.status,
-    );
-    const isDeletedOffer = errorCode === 422 || errorCode === 404;
-    const unavailableMessage = isDeletedOffer
-      ? error?.response?.data?.message ||
-        error?.responseData?.message ||
-        error?.message ||
-        t("website.offerDetails.unavailable")
-      : error
-        ? t("messages_error")
-        : t("website.offerDetails.unavailable");
-
     return (
       <section className="page offer-details-section">
         <div className="container">
-          <EmptySection
-            height="450px"
-            message={unavailableMessage}
+          <UnavailableResource
+            error={error}
+            fallbackMessage={t("website.offerDetails.unavailable")}
           />
         </div>
       </section>
