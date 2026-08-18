@@ -1,11 +1,19 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Navigate, NavLink, Outlet, useNavigate } from "react-router";
+import {
+  Navigate,
+  NavLink,
+  Outlet,
+  useLocation,
+  useNavigate,
+} from "react-router";
 import useGetWorkDetails from "../../../../hooks/website/MyWorks/useGetWorkDetails";
 import useGetContractDetails from "../../../../hooks/website/MyWorks/assistants/useGetContractDetails";
 import Loading from "../../../../ui/loading/Loading";
 import RoundedBackButton from "../../../../ui/website-auth/shared/RoundedBackButton";
+import RateShowModal from "../../../../ui/website/my-works/work-offers/RateShowModal";
 import { isStartExecutionAccessRestricted } from "../../../../utils/startExecutionDeadline";
+import workStarYellow from "../../../../assets/icons/work-star-yellow.svg";
 
 export default function ContractDetailsLayout() {
   const navigate = useNavigate();
@@ -28,6 +36,9 @@ export default function ContractDetailsLayout() {
   const isDeadlineRestricted = isStartExecutionAccessRestricted(workDetails);
 
   if (isDeadlineRestricted) return <Navigate to="/my-contracts" replace />;
+
+  const showBeneficiaryRateAction =
+    isBeneficiariesRoute && Boolean(contractDetails?.rate);
 
   // Tabs Logic
   if (
