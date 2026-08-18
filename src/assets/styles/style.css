@@ -12641,6 +12641,20 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
   color: #5fcafa;
   font-weight: 700;
 }
+.task_details .identity-container {
+  align-items: flex-start;
+}
+.task_details .identity-container .task-status-option {
+  display: flex;
+  flex: 1 1 180px;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 0;
+}
+.task_details .identity-container .task-status-option > .identity-option {
+  width: 100%;
+  flex: 0 0 auto;
+}
 .task_details .identity-container .identity-option:has(input:disabled) {
   opacity: 0.5;
   cursor: not-allowed;
@@ -12653,7 +12667,7 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
   display: flex;
   align-items: center;
   gap: 6px;
-  margin: 8px 0 0;
+  margin: 0;
   color: #ff7a59;
   font-size: 0.8rem;
   font-weight: 500;

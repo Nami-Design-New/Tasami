@@ -411,35 +411,45 @@ export default function TaskDetails({ mode = null }) {
 
                 <div className="identity-container gap-2">
                   {TASKS_STATUS.map((status) => (
-                    <label
-                      key={status}
-                      className={`identity-option ${
-                        selectedStatus === status ? "active" : ""
-                      }`}
-                    >
-                      <span>{t(`works.myTasks.statuses.${status}`)}</span>
-                      <input
-                        type="radio"
-                        name="taskStatus"
-                        value={status}
-                        checked={selectedStatus === status}
-                        onChange={canManageTask ? handleChange : undefined}
-                        disabled={
-                          !canManageTask ||
-                          taskDetails?.is_paused ||
-                          taskDetails?.status === "completed" ||
-                          taskDetails?.status === "confirmed" ||
-                          (status === "completed" && hasIncompleteRepetitions)
-                        }
-                      />
-                    </label>
+                    <div className="task-status-option" key={status}>
+                      <label
+                        className={`identity-option ${
+                          selectedStatus === status ? "active" : ""
+                        }`}
+                      >
+                        <span>{t(`works.myTasks.statuses.${status}`)}</span>
+                        <input
+                          type="radio"
+                          name="taskStatus"
+                          value={status}
+                          checked={selectedStatus === status}
+                          onChange={canManageTask ? handleChange : undefined}
+                          disabled={
+                            !canManageTask ||
+                            taskDetails?.is_paused ||
+                            taskDetails?.status === "completed" ||
+                            taskDetails?.status === "confirmed" ||
+                            (status === "completed" &&
+                              hasIncompleteRepetitions)
+                          }
+                        />
+                      </label>
+
+                      {status === "completed" &&
+                      hasIncompleteRepetitions ? (
+                        <p className="task-status-repetitions-hint">
+                          <i
+                            className="fa-solid fa-circle-minus"
+                            aria-hidden="true"
+                          />
+                          <span>
+                            {t("works.myTasks.completeRepetitionsHint")}
+                          </span>
+                        </p>
+                      ) : null}
+                    </div>
                   ))}
                 </div>
-
-                <p className="task-status-repetitions-hint">
-                  <i className="fa-solid fa-circle-minus" aria-hidden="true" />
-                  <span>{t("works.myTasks.completeRepetitionsHint")}</span>
-                </p>
               </div>
             </div>
           )}

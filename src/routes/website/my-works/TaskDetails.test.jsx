@@ -3,13 +3,21 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { render, screen } from "@testing-library/react";
 import { Provider } from "react-redux";
 import { MemoryRouter, Route, Routes } from "react-router";
-import { describe, expect, it, vi } from "vitest";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 
 import TaskDetails from "./TaskDetails";
 
+const mocks = vi.hoisted(() => ({ taskDetails: null }));
+
 vi.mock("react-i18next", () => ({
   useTranslation: () => ({
-    t: (key) => (key === "works.repetition" ? "التكرار" : key),
+    t: (key) =>
+      ({
+        "works.repetition": "التكرار",
+        "works.myTasks.statuses.completed": "Completed",
+        "works.myTasks.completeRepetitionsHint":
+          "Complete all repetitions first",
+      })[key] || key,
     i18n: { dir: () => "rtl", language: "ar" },
   }),
 }));
@@ -20,22 +28,7 @@ vi.mock("../../../ui/loading/Loading", () => ({
 
 vi.mock("../../../hooks/website/MyWorks/tasks/useGetTaskDetails", () => ({
   default: () => ({
-    taskDetails: {
-      id: 12,
-      work_id: 785,
-      code: "TASK-12",
-      title: "Repeated task",
-      status: "pending",
-      work_status: "execution",
-      user_id: 1,
-      helper_id: 2,
-      expected_end_date: "2099-01-31",
-      schedules: [
-        { id: 1, date: "2099-01-01", status: "pending" },
-        { id: 2, date: "2099-01-02", status: "pending" },
-        { id: 3, date: "2099-01-03", status: "pending" },
-      ],
-    },
+    taskDetails: mocks.taskDetails,
     isLoading: false,
     error: null,
   }),
@@ -85,11 +78,54 @@ const renderTaskDetails = () => {
 };
 
 describe("TaskDetails repetitions", () => {
+  beforeEach(() => {
+    mocks.taskDetails = {
+      id: 12,
+      work_id: 785,
+      code: "TASK-12",
+      title: "Repeated task",
+      status: "pending",
+      work_status: "execution",
+      user_id: 1,
+      helper_id: 2,
+      expected_end_date: "2099-01-31",
+      schedules: [
+        { id: 1, date: "2099-01-01", status: "pending" },
+        { id: 2, date: "2099-01-02", status: "pending" },
+        { id: 3, date: "2099-01-03", status: "pending" },
+      ],
+    };
+  });
+
   it("shows the total repeat count beside the repetition label", () => {
     renderTaskDetails();
 
     expect(
       screen.getByRole("heading", { name: /التكرار.*3/ }),
     ).toBeInTheDocument();
+  });
+
+  it("places the repetition hint with the completed status option", () => {
+    renderTaskDetails();
+
+    const completedStatus = screen.getByRole("radio", { name: "Completed" });
+    const completedOption = completedStatus.closest(".task-status-option");
+
+    expect(completedOption).not.toBeNull();
+    expect(completedOption).toContainElement(
+      screen.getByText("Complete all repetitions first"),
+    );
+  });
+
+  it("hides the repetition hint after every repetition is completed", () => {
+    mocks.taskDetails.schedules = mocks.taskDetails.schedules.map(
+      (schedule) => ({ ...schedule, status: "completed" }),
+    );
+
+    renderTaskDetails();
+
+    expect(
+      screen.queryByText("Complete all repetitions first"),
+    ).not.toBeInTheDocument();
   });
 });
