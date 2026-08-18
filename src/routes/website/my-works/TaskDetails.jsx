@@ -450,7 +450,9 @@ export default function TaskDetails({ mode = null }) {
             className="task-repetitions form_ui"
             aria-labelledby="repetitions-title"
           >
-            <h2 id="repetitions-title">{t("works.repetition")}</h2>
+            <h2 id="repetitions-title">
+              {t("works.repetition")} ({repetitions.length})
+            </h2>
             <div className="task-repetitions__list">
               {repetitions.map((repetition, index) => {
                 return (
