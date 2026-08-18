@@ -925,6 +925,8 @@
     "noMeetings": "No Meetings Yet",
     "noPosts": "No Posts Yet",
     "addPost": "Add Post",
+    "searchPosts": "Search all posts",
+    "postsCountLabel": "Posts",
     "editPost": "Edit Post",
     "linkLabel": "Add New Link",
     "add_label": "Add image / video",

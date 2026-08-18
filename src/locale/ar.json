@@ -937,6 +937,8 @@
     "noMeetings": "لا توجد لقاءات بعد",
     "noPosts": "لا توجد منشورات بعد",
     "addPost": "إضافة منشور",
+    "searchPosts": "البحث في جميع المنشورات",
+    "postsCountLabel": "منشور",
     "editPost": "تعديل منشور",
     "linkLabel": "اضف رابط",
     "add_label": "اضف صورة / فيديو",
