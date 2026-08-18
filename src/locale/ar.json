@@ -1048,6 +1048,8 @@
       "startExecution": "بداية التنفيذ",
       "endExecution": "اكتمال التنفيذ",
       "executionRate": "نسبة الإنجاز",
+      "notesCount": "عدد الملاحظات",
+      "repetitionsCount": "عدد التكرارات",
       "startExecutionBtn": "بدء التنفيذ",
       "pauseExecutionBtn": "إيقاف التنفيذ",
       "completeGoalBtn": "إكمال الهدف",

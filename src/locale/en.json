@@ -1036,6 +1036,8 @@
       "allTasks": "All Tasks",
       "endExecution": "End of Execution",
       "executionRate": "Execution Progress",
+      "notesCount": "Notes count",
+      "repetitionsCount": "Repetitions count",
       "startExecutionBtn": "Start Execution",
       "pauseExecutionBtn": "Pause Execution",
       "completeGoalBtn": "Complete Goal",
