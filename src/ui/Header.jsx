@@ -4,7 +4,6 @@ import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
 import { Link, NavLink, useNavigate } from "react-router";
 import logo from "../assets/images/logo.svg";
-import chatIcon from "../assets/icons/work-chat.svg";
 
 import useGetNewChatAlerts from "../hooks/website/chats/useGetNewChatAlerts";
 import useSettings from "../hooks/website/settings/useSettings";
@@ -167,7 +166,7 @@ export default function Header() {
               aria-label={t("quickChats.title", "المحادثات الجديدة")}
             >
               <span className="notification-img-icon">
-                <img src={chatIcon} alt="" />
+                <i className="fa-regular fa-messages" aria-hidden="true"></i>
                 {newChatAlertsCount > 0 && (
                   <Badge>
                     {newChatAlertsCount > 99 ? "99+" : newChatAlertsCount}
