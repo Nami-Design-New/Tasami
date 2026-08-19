@@ -9,6 +9,7 @@ import TextField from "../../../forms/TextField";
 import useEditMyCommunity from "../../../../hooks/website/communities/useEditMyCommunity";
 import addPhoto from "../../../../assets/icons/add-photo.svg";
 import GlobalModal from "../../../GlobalModal";
+import { getCommunityDescription } from "../../../../utils/communityDescription";
 export default function EditCommunityModal({
   showModal,
   setShowModal,
@@ -44,7 +45,7 @@ export default function EditCommunityModal({
 
       reset({
         price: currentPrice,
-        about: community.helper.about || "",
+        about: getCommunityDescription(community),
         profilePicture: null,
       });
     }
