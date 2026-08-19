@@ -62,7 +62,7 @@ export default function MyCommunity() {
                 <CommunityTabs isMyCommunity={true} community={myCommunity} />
               </div>
               <div className="col-12 col-md-8 p-0">
-                <Outlet />
+                <Outlet context={{ myCommunity }} />
               </div>
             </div>
           </div>

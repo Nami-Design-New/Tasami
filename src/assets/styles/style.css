@@ -13711,6 +13711,43 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
     order: 3;
   }
 }
+.consultations-section .consultations-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.consultations-section .consultations-toolbar__counts {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+.consultations-section .consultations-toolbar__count {
+  margin: 0;
+  color: #0d0d0d;
+  font-size: 1rem;
+}
+.consultations-section .consultations-toolbar__count strong {
+  font-size: 1.125rem;
+}
+.consultations-section .consultations-toolbar__search {
+  flex: 1;
+}
+.consultations-section .consultations-toolbar__search input {
+  height: 44px;
+}
+.consultations-section .consultations-toolbar .custom-btn {
+  flex-shrink: 0;
+}
+@media (max-width: 576px) {
+  .consultations-section .consultations-toolbar {
+    flex-wrap: wrap;
+  }
+  .consultations-section .consultations-toolbar__search {
+    flex-basis: 100%;
+    order: 3;
+  }
+}
 .consultations-section .consultations-header {
   display: flex;
   align-items: center;

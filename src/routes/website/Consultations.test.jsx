@@ -5,7 +5,10 @@ import useGetConsultations from "../../hooks/website/communities/useGetConsultat
 import Consultations from "./Consultations";
 
 vi.mock("react-i18next", () => ({
-  useTranslation: () => ({ t: (key) => key }),
+  useTranslation: () => ({
+    t: (key) => key,
+    i18n: { dir: () => "rtl" },
+  }),
 }));
 
 vi.mock("../../hooks/website/communities/useGetConsultations", () => ({
@@ -17,11 +20,15 @@ vi.mock("../../ui/website/communities/consultations/ConsultationCard", () => ({
 }));
 
 vi.mock("../../ui/website/communities/consultations/AddConsultationModal", () => ({
-  default: () => null,
+  default: ({ communityId }) => (
+    <div data-testid="consultation-modal" data-community-id={communityId} />
+  ),
 }));
 
 function CommunityDetailsOutlet() {
-  return <Outlet context={{ communityDetails: { is_subscribed: false } }} />;
+  return (
+    <Outlet context={{ communityDetails: { id: 13, is_subscribed: true } }} />
+  );
 }
 
 beforeEach(() => {
@@ -32,7 +39,8 @@ beforeEach(() => {
           data:
             type === "public"
               ? [{ id: 167, title: "Visible public consultation" }]
-              : [],
+              : [{ id: 168, title: "Visible private consultation" }],
+          total: type === "public" ? 2 : 1,
         },
       ],
     },
@@ -43,7 +51,7 @@ beforeEach(() => {
   }));
 });
 
-test("requests and displays public consultations on community details", () => {
+test("shows both consultation lists and the toolbar on community details", () => {
   render(
     <MemoryRouter initialEntries={["/community/13"]}>
       <Routes>
@@ -54,6 +62,22 @@ test("requests and displays public consultations on community details", () => {
     </MemoryRouter>,
   );
 
+  expect(useGetConsultations).toHaveBeenCalledWith("private", {
+    enabled: true,
+  });
   expect(useGetConsultations).toHaveBeenCalledWith("public");
+  expect(screen.getByText("Visible private consultation")).toBeInTheDocument();
   expect(screen.getByText("Visible public consultation")).toBeInTheDocument();
+  expect(screen.getByText("1")).toBeInTheDocument();
+  expect(screen.getByText("2")).toBeInTheDocument();
+  expect(
+    screen.getByPlaceholderText("community.searchConsultations"),
+  ).toBeInTheDocument();
+  expect(
+    screen.getByRole("button", { name: "community.addConsultation" }),
+  ).toBeInTheDocument();
+  expect(screen.getByTestId("consultation-modal")).toHaveAttribute(
+    "data-community-id",
+    "13",
+  );
 });

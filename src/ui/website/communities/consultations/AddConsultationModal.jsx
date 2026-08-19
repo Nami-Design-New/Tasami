@@ -11,9 +11,14 @@ import { useParams } from "react-router";
 import { toast } from "sonner";
 import GlobalModal from "../../../GlobalModal";
 
-export default function AddConsultationModal({ showModal, setShowModal }) {
+export default function AddConsultationModal({
+  communityId,
+  showModal,
+  setShowModal,
+}) {
   const { t } = useTranslation();
-  const { id } = useParams();
+  const { id: routeCommunityId } = useParams();
+  const resolvedCommunityId = communityId ?? routeCommunityId;
   // Schema with radio validation
   const schema = yup.object().shape({
     title: yup
@@ -47,7 +52,7 @@ export default function AddConsultationModal({ showModal, setShowModal }) {
   const selectedConsultationType = watch("consultationType");
   const onSubmit = (data) => {
     const payload = {
-      community_id: id,
+      community_id: resolvedCommunityId,
       title: data.title,
       desc: data.description,
       is_private: data.consultationType,

@@ -1,73 +1,63 @@
-import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useOutletContext } from "react-router";
 import useGetConsultations from "../../hooks/website/communities/useGetConsultations";
-import CustomButton from "../../ui/CustomButton";
 import EmptySection from "../../ui/EmptySection";
-import AudienceCardLoader from "../../ui/loading/AudienceCardLoader";
-import InfiniteScroll from "../../ui/loading/InfiniteScroll";
-import AddConsultationModal from "../../ui/website/communities/consultations/AddConsultationModal";
-import ConsultationCard from "../../ui/website/communities/consultations/ConsultationCard";
+import ConsultationsToolbar from "../../ui/website/communities/consultations/ConsultationsToolbar";
+import PrivateConsultations from "../../ui/website/communities/consultations/PrivateConsultations";
+import PublicConsultations from "../../ui/website/communities/consultations/PublicConsultations";
 
 export default function Consultations() {
   const { t } = useTranslation();
-  const [showModal, setShowModal] = useState();
   const { communityDetails } = useOutletContext();
-  const {
-    consultaions,
-    isLoading,
-    hasNextPage,
-    fetchNextPage,
-    isFetchingNextPage,
-  } = useGetConsultations("public");
-  const allConsultaions =
-    consultaions?.pages?.flatMap((page) => page?.data) ?? [];
+  const isSubscribed = Boolean(communityDetails?.is_subscribed);
+  const privateQuery = useGetConsultations("private", {
+    enabled: isSubscribed,
+  });
+  const publicQuery = useGetConsultations("public");
 
-  const handleAddConsultaionModal = () => {
-    setShowModal(true);
-  };
+  const privateConsultations =
+    privateQuery.consultaions?.pages?.flatMap((page) => page?.data) ?? [];
+  const publicConsultations =
+    publicQuery.consultaions?.pages?.flatMap((page) => page?.data) ?? [];
+  const isLoading = privateQuery.isLoading || publicQuery.isLoading;
+  const hasNoConsultations =
+    privateConsultations.length === 0 && publicConsultations.length === 0;
+  const privateFirstPage = privateQuery.consultaions?.pages?.[0];
+  const publicFirstPage = publicQuery.consultaions?.pages?.[0];
+  const privateCount =
+    privateFirstPage?.total ??
+    privateFirstPage?.data?.total ??
+    privateConsultations.length;
+  const publicCount =
+    publicFirstPage?.total ??
+    publicFirstPage?.data?.total ??
+    publicConsultations.length;
+
   return (
-    <>
-      <div className="consultations-section">
-        <div className="row">
-          <div className="col-12 p-2">
-            <div className="consultations-header justify-content-end">
-              {communityDetails.is_subscribed && (
-                <CustomButton className="" onClick={handleAddConsultaionModal}>
-                  {t("community.addConsultation")}
-                </CustomButton>
-              )}
-            </div>
-          </div>{" "}
-          {!isLoading && allConsultaions.length === 0 && (
-            <EmptySection
-              height="450px"
-              message={t("community.noConsultaion")}
-            />
-          )}{" "}
-          <InfiniteScroll
-            onLoadMore={fetchNextPage}
-            hasNextPage={hasNextPage}
-            isFetchingNextPage={isFetchingNextPage}
-          >
-            {allConsultaions.map((item, idx) => (
-              <div className="col-12 p-2" key={idx}>
-                <ConsultationCard item={item} />
-              </div>
-            ))}
-          </InfiniteScroll>{" "}
-          {(isLoading || isFetchingNextPage) && (
-            <div className="row">
-              {[1, 2, 3].map((i) => (
-                <div className="col-12  p-2" key={i}>
-                  <AudienceCardLoader />
-                </div>
-              ))}
-            </div>
-          )}
-        </div>
-      </div>
-      <AddConsultationModal showModal={showModal} setShowModal={setShowModal} />
-    </>
+    <div className="consultations-section">
+      <ConsultationsToolbar
+        communityId={communityDetails?.id}
+        privateCount={privateCount}
+        publicCount={publicCount}
+        showRequestButton={isSubscribed}
+      />
+      {!isLoading && hasNoConsultations && (
+        <EmptySection height="450px" message={t("community.noConsultaion")} />
+      )}
+      <PrivateConsultations
+        consultations={privateConsultations}
+        isLoading={privateQuery.isLoading}
+        hasNextPage={privateQuery.hasNextPage}
+        fetchNextPage={privateQuery.fetchNextPage}
+        isFetchingNextPage={privateQuery.isFetchingNextPage}
+      />
+      <PublicConsultations
+        consultations={publicConsultations}
+        isLoading={publicQuery.isLoading}
+        hasNextPage={publicQuery.hasNextPage}
+        fetchNextPage={publicQuery.fetchNextPage}
+        isFetchingNextPage={publicQuery.isFetchingNextPage}
+      />
+    </div>
   );
 }
