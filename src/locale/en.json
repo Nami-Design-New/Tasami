@@ -1059,6 +1059,7 @@
         "guidanceTitle": "Execution plan improvement guidance",
         "recommendation": "Personal assistant recommendations for a balanced execution plan (optional)",
         "update": "Update",
+        "refreshSuccess": "Task distribution updated successfully",
         "loading": "Loading distribution data",
         "noData": "No distribution data is available",
         "uncategorized": "Uncategorized",

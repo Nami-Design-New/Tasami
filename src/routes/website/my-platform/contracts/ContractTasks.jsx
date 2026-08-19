@@ -9,10 +9,23 @@ import Loading from "../../../../ui/loading/Loading";
 import { useTranslation } from "react-i18next";
 import NoTasks from "../../../../ui/website/my-works/NoTasks";
 import TaskDistributionCharts from "../../../../ui/website/my-works/tasks/TaskDistributionCharts";
+import { useState } from "react";
+import { toast } from "sonner";
+
+function normalizeCurrentDistribution(data) {
+  if (Array.isArray(data)) return data;
+  if (Array.isArray(data?.current_distribution)) {
+    return data.current_distribution;
+  }
+
+  return null;
+}
 
 export default function ContractTasks() {
   const { id } = useParams();
   const { t } = useTranslation();
+  const [refreshedCurrentDistribution, setRefreshedCurrentDistribution] =
+    useState(null);
   const { goalTasks, isLoading } = useGetTasks(id);
   const {
     taskDistribution,
@@ -41,9 +54,11 @@ export default function ContractTasks() {
   const { user } = useOutletContext();
 
   const currentDistribution =
-    currentTaskDistribution.length > 0
-      ? currentTaskDistribution
-      : taskDistributionStatus.current_distribution;
+    refreshedCurrentDistribution?.workId === id
+      ? refreshedCurrentDistribution.data
+      : currentTaskDistribution.length > 0
+        ? currentTaskDistribution
+        : taskDistributionStatus.current_distribution;
   const optimalDistribution =
     taskDistribution.length > 0
       ? taskDistribution
@@ -75,7 +90,14 @@ export default function ContractTasks() {
     const result = await refreshCurrentDistribution();
 
     if (!result.error) {
+      const distribution = normalizeCurrentDistribution(result.data);
+
+      if (distribution) {
+        setRefreshedCurrentDistribution({ workId: id, data: distribution });
+      }
+
       await refreshTaskDistributionStatus();
+      toast.success(t("works.myTasks.distribution.refreshSuccess"));
     }
   };
 
