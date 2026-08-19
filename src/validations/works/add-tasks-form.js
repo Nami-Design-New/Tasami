@@ -42,7 +42,10 @@ const WEEK_DAYS = [
   "sunday",
 ];
 
-export const getAddTasksSchema = (t) =>
+export const getAddTasksSchema = (
+  t,
+  { originalExpectedEndDate = null } = {},
+) =>
   yup.object({
     taskDescription: yup
       .string()
@@ -63,9 +66,21 @@ export const getAddTasksSchema = (t) =>
       .date()
       .typeError(t("validation.invalid_date"))
       .required(t("validation.required"))
-      .min(
-        new Date(new Date().setHours(0, 0, 0, 0)),
+      .test(
+        "task-end-not-past",
         t("validation.after_or_equal_today"),
+        function validateTaskEndDate(value) {
+          if (!value) return true;
+
+          const endDay = toUtcCalendarDay(value);
+          const today = toUtcCalendarDay(new Date());
+          const originalEndDay = toUtcCalendarDay(originalExpectedEndDate);
+
+          return (
+            (endDay !== null && today !== null && endDay >= today) ||
+            (originalEndDay !== null && endDay === originalEndDay)
+          );
+        },
       )
       .test(
         "task-end-after-start",
@@ -235,10 +250,12 @@ export const getAddTasksSchema = (t) =>
 
   });
 
-export default function useAddTasksForm() {
+export default function useAddTasksForm({ originalExpectedEndDate } = {}) {
   const { t } = useTranslation();
   const methods = useForm({
-    resolver: yupResolver(getAddTasksSchema(t)),
+    resolver: yupResolver(
+      getAddTasksSchema(t, { originalExpectedEndDate }),
+    ),
     defaultValues: {
       started_at: "",
       expected_end_date: "",

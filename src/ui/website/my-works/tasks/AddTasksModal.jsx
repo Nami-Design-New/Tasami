@@ -140,7 +140,9 @@ export default function AddTasksModal({
     setError,
     clearErrors,
     formState: { errors },
-  } = useAddTasksForm();
+  } = useAddTasksForm({
+    originalExpectedEndDate: taskData?.expected_end_date,
+  });
 
   const reminderNotifications = watch("reminderNotifications");
   const taskDescription = watch("taskDescription");

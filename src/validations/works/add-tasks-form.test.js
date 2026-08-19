@@ -114,4 +114,42 @@ describe("execution task scheduling validation", () => {
       }),
     ).rejects.toThrow("works.repetitions_exceed_available");
   });
+
+  it("rejects a past end date when creating a task", async () => {
+    await expect(
+      schema.validate({
+        ...validTask,
+        started_at: "2025-01-01",
+        expected_end_date: "2025-01-10",
+      }),
+    ).rejects.toThrow("validation.after_or_equal_today");
+  });
+
+  it("allows the unchanged past end date when editing a task", async () => {
+    const editingSchema = getAddTasksSchema(t, {
+      originalExpectedEndDate: "2025-01-10",
+    });
+
+    await expect(
+      editingSchema.validate({
+        ...validTask,
+        started_at: "2025-01-01",
+        expected_end_date: "2025-01-10",
+      }),
+    ).resolves.toBeDefined();
+  });
+
+  it("rejects a different past end date when editing a task", async () => {
+    const editingSchema = getAddTasksSchema(t, {
+      originalExpectedEndDate: "2025-01-10",
+    });
+
+    await expect(
+      editingSchema.validate({
+        ...validTask,
+        started_at: "2025-01-01",
+        expected_end_date: "2025-01-11",
+      }),
+    ).rejects.toThrow("validation.after_or_equal_today");
+  });
 });
