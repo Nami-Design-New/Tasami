@@ -10236,6 +10236,7 @@ html[lang=en] .pdf-wrapper {
 .helper-card .info {
   display: flex;
   flex-direction: column;
+  padding-inline-end: 12px;
   gap: 8px;
   flex-grow: 1;
 }
