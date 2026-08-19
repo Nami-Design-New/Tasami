@@ -4,7 +4,9 @@ import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import * as yup from "yup";
 
-const registerSchema = (t) => {
+const NAME_PATTERN = /^[\p{L}\p{M}\s]+$/u;
+
+export const registerSchema = (t) => {
   return yup.object().shape({
     profilePicture: yup
       .mixed()
@@ -24,7 +26,7 @@ const registerSchema = (t) => {
       .min(2, t("validation.firstNameMin", { min: 2 }))
       .max(50, t("validation.firstNameMax", { max: 50 })) // max limit
       .matches(
-        /^[A-Za-z\s]+$/,
+        NAME_PATTERN,
         t("validation.firstNameAlpha"), // only letters and spaces
       ),
 
@@ -34,7 +36,7 @@ const registerSchema = (t) => {
       .min(1, t("validation.middleNameMin", { min: 1 }))
       .max(50, t("validation.middleNameMax", { max: 50 })) // max limit
       .matches(
-        /^[A-Za-z\s]+$/,
+        NAME_PATTERN,
         t("validation.middleNameAlpha"), // only letters and spaces
       ),
     dateOfBirth: yup
