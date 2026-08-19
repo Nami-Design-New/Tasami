@@ -6,6 +6,15 @@ export const START_EXECUTION_CANCEL_WINDOW_MS = 3 * DAY_IN_MS;
 export const START_EXECUTION_TOTAL_DEADLINE_MS =
   START_EXECUTION_WARNING_DELAY_MS + START_EXECUTION_CANCEL_WINDOW_MS;
 
+export function getDeadlineRemainingPhase(remainingMs) {
+  const safeRemainingMs = Math.max(Number(remainingMs) || 0, 0);
+
+  if (safeRemainingMs === 0) return "expired";
+  if (safeRemainingMs <= START_EXECUTION_WARNING_DELAY_MS) return "hours";
+
+  return "days";
+}
+
 const START_DATE_TIMESTAMP_KEY = "start_date_timestamp";
 
 const isPersonalGoal = (item) =>

@@ -4,6 +4,7 @@ import {
   formatDeadlineRemaining,
   formatDeadlineRemainingDays,
   formatDeadlineRemainingHours,
+  getDeadlineRemainingPhase,
   getStartExecutionDeadlineState,
   isStartExecutionAccessRestricted,
   parseDateValue,
@@ -56,6 +57,21 @@ describe("startExecutionDeadline", () => {
     expect(formatDeadlineRemainingHours(remainingMs, "ar")).toBe("69:00 ساعة");
     expect(formatDeadlineRemainingDays(0, "ar")).toBe("0 أيام");
     expect(formatDeadlineRemainingHours(0, "ar")).toBe("00:00 ساعة");
+  });
+
+  it("switches from days to hours at the 24-hour boundary", () => {
+    const hourInMs = 60 * 60 * 1000;
+
+    expect(getDeadlineRemainingPhase(25 * hourInMs)).toBe("days");
+    expect(getDeadlineRemainingPhase(24 * hourInMs)).toBe("hours");
+    expect(getDeadlineRemainingPhase(23 * hourInMs + 59 * 60 * 1000)).toBe(
+      "hours",
+    );
+  });
+
+  it("marks a deadline with no remaining time as expired", () => {
+    expect(getDeadlineRemainingPhase(0)).toBe("expired");
+    expect(getDeadlineRemainingPhase(-1)).toBe("expired");
   });
 
   it("accepts backend Unix timestamps in seconds", () => {
