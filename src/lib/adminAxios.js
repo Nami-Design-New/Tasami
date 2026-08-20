@@ -1,5 +1,6 @@
 import axios from "axios";
 import { getToken, removeToken } from "../utils/token";
+import { DASHBOARD_FORBIDDEN_PATH } from "../utils/constants";
 
 export const adminAxiosInstance = axios.create({
   baseURL: import.meta.env.VITE_API_URL,
@@ -33,7 +34,7 @@ adminAxiosInstance.interceptors.response.use(
         break;
 
       case 403:
-        window.location.href = "/forbidden";
+        window.location.href = DASHBOARD_FORBIDDEN_PATH;
         break;
 
       case 500:

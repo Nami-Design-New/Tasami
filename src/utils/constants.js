@@ -66,6 +66,9 @@ export const STATUS_EN = ["Completed", "Pending", "Not Added"];
 export const ROLE_REDIRECTS = {
   dashboard: "/dashboard",
 };
+
+export const DASHBOARD_FORBIDDEN_PATH = "/forbidden?context=dashboard";
+export const DASHBOARD_NOTIFICATIONS_PATH = "/dashboard/notifications";
 export const USERS_CATEGORIES = [
   "متسفيد",
   " (اساسي) مقدم برامج",

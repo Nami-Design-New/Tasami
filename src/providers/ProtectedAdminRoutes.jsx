@@ -19,7 +19,7 @@ export default function ProtectedAdminRoutes({ children, allowedRoles }) {
   }
 
   if (allowedRoles && !allowedRoles.includes(role)) {
-    return <Navigate to="/forbidden" replace />;
+    return <Navigate to="/forbidden" replace state={{ from: location }} />;
   }
 
   return children;
