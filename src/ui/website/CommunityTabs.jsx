@@ -22,7 +22,7 @@ export default function CommunityTabs({
   return (
     <div className="community-tabs">
       <div className="tabs d-flex gap-3">
-        <NavLink to={basePath} end>
+        <NavLink to={`${basePath}/consultations`}>
           {({ isActive }) => (
             <span className={`tab-item ${isActive ? "active" : ""}`}>
               <span className="community-counter-label">
