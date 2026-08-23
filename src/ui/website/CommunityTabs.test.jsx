@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+import { render, screen, within } from "@testing-library/react";
 import { MemoryRouter } from "react-router";
 import { describe, expect, it, vi } from "vitest";
 import CommunityTabs from "./CommunityTabs";
@@ -38,4 +38,33 @@ describe("CommunityTabs", () => {
       screen.getByText("community.consultant").closest(".tab-item"),
     ).toHaveClass("active");
   });
+
+  it.each([
+    [
+      "consultations",
+      "/community/13/consultations",
+      "community.consultant",
+      "11",
+    ],
+    ["meetings", "/community/13/meetings", "community.meetings", "22"],
+    ["posts", "/community/13/posts", "community.posts", "33"],
+  ])(
+    "hides the %s indicator when its tab is active",
+    (_, path, label, count) => {
+      renderTabs(path, {
+        isMyCommunity: false,
+        communityId: 13,
+        community: {
+          unseen_consultations_count: 11,
+          unseen_meetings_count: 22,
+          unseen_posts_count: 33,
+        },
+      });
+
+      const activeTabLabel = screen
+        .getByText(label)
+        .closest(".community-counter-label");
+      expect(within(activeTabLabel).queryByText(count)).not.toBeInTheDocument();
+    },
+  );
 });
