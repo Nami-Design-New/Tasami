@@ -54,7 +54,7 @@ export default function MyCommunity() {
               </div>
             </div>
             <div className="col-12 p-2">
-              <CommunityStats community={myCommunity} />
+              <CommunityStats community={myCommunity} isMyCommunity />
             </div>
             <div className="row p-0">
               <h4 className="chanels">{t("community.channels")}</h4>
