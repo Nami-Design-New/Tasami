@@ -7,14 +7,28 @@ import InfiniteScroll from "../../ui/loading/InfiniteScroll";
 import EmptySection from "../../ui/EmptySection";
 import AudienceCardLoader from "../../ui/loading/AudienceCardLoader";
 import useGetMeetings from "../../hooks/website/communities/mettings/useGetMeetings";
+import { useSearchParams } from "react-router";
+import EncounterDetailsModal from "../../ui/website/communities/meetings/EncounterDetailsModal";
 
 export default function Meetings({ isMyCommuntiy = true }) {
   const { t } = useTranslation();
   const [showModal, setShowModal] = useState(false);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const selectedMeetingId = searchParams.get("meeting_id");
   const { isLoading, data, hasNextPage, fetchNextPage, isFetchingNextPage } =
     useGetMeetings();
 
   const allMeetings = data?.pages?.flatMap((page) => page?.data) ?? [];
+
+  const handleDetailsVisibilityChange = (show) => {
+    if (!show) {
+      setSearchParams((currentParams) => {
+        const nextParams = new URLSearchParams(currentParams);
+        nextParams.delete("meeting_id");
+        return nextParams;
+      });
+    }
+  };
 
   return (
     <section className="meeting-section">
@@ -59,6 +73,14 @@ export default function Meetings({ isMyCommuntiy = true }) {
 
       {isMyCommuntiy && (
         <AddMeetingModal showModal={showModal} setShowModal={setShowModal} />
+      )}
+      {selectedMeetingId && (
+        <EncounterDetailsModal
+          show={true}
+          setShow={handleDetailsVisibilityChange}
+          meetingId={selectedMeetingId}
+          isMyCommuntiy={isMyCommuntiy}
+        />
       )}
     </section>
   );

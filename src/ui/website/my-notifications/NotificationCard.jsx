@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router";
 import useDeleteNotification from "../../../hooks/website/notification/useDeleteNotification";
 import useMarkAsRead from "../../../hooks/website/notification/useMarkAsRead";
+import { getMeetingNotificationUrl } from "../../../utils/meetingNotification";
 
 export default function NotificationCard({ item }) {
   const { t } = useTranslation();
@@ -45,7 +46,7 @@ export default function NotificationCard({ item }) {
       url = `/notifications?tab=inquries`;
       break;
     case "meeting":
-      url = `/my-community/meetings`;
+      url = getMeetingNotificationUrl(item);
       break;
     case "post":
       url = `/posts/${item.operation_id}`;
@@ -135,7 +136,7 @@ export default function NotificationCard({ item }) {
                   className="edit-item"
                   eventKey="read"
                   disabled={isPending}
-                  onClick={(e) => {
+                  onClick={() => {
                     handleMarkAsRead(item.id);
                   }}
                 >
@@ -147,7 +148,7 @@ export default function NotificationCard({ item }) {
                 className="deactive-item"
                 eventKey="deactive"
                 disabled={isDeleting}
-                onClick={(e) => {
+                onClick={() => {
                   handleDeleteNotification(item.id);
                 }}
               >

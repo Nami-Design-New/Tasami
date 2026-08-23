@@ -39,7 +39,7 @@ messaging.onBackgroundMessage(function (payload) {
   };
 
   self.registration
-    .showNotification(title, options)
+    .showNotification(title, notificationOptions)
     .then(() => console.log("[SW] showNotification SUCCESS"))
     .catch((err) => console.error("[SW] showNotification FAILED:", err));
 });
@@ -48,9 +48,12 @@ self.addEventListener("notificationclick", (event) => {
   event.notification.close();
 
   const data = event.notification.data || {};
+  const notificationType = data.notification_type || data.type;
+  const operationId = data.operation_id;
+  const communityId = data.community_id;
   let url = "/";
 
-  switch (item.type) {
+  switch (notificationType) {
     case "wallet":
       url = `/my-profile/my-wallet`;
       break;
@@ -58,16 +61,16 @@ self.addEventListener("notificationclick", (event) => {
       url = `/my-platform`;
       break;
     case "offer_accepted":
-      url = `/my-contracts/${item?.operation_id}`;
+      url = `/my-contracts/${operationId}`;
       break;
     case "contract_request":
-      url = `/my-contracts/${item?.operation_id}`;
+      url = `/my-contracts/${operationId}`;
       break;
     case "help_service":
-      url = `/offers/${item?.operation_id}`;
+      url = `/offers/${operationId}`;
       break;
     case "goal":
-      url = `/goal/${item?.operation_id}`;
+      url = `/goal/${operationId}`;
       break;
     case "follow":
       url = `/my-platform/my-audience?tab=followers`;
@@ -76,40 +79,43 @@ self.addEventListener("notificationclick", (event) => {
       url = `/my-platform/my-audience?tab=members`;
       break;
     case "consultation":
-      url = `/consultaion-details/${item.operation_id}`;
+      url = `/consultaion-details/${operationId}`;
       break;
     case "inquiry":
       url = `/notifications?tab=inquries`;
       break;
     case "meeting":
-      url = `/my-community/meetings`;
+      url =
+        operationId && communityId
+          ? `/community/${communityId}/meetings?meeting_id=${operationId}`
+          : "/notifications";
       break;
     case "post":
-      url = `/posts/${item.operation_id}`;
+      url = `/posts/${operationId}`;
       break;
     case "comment":
-      url = `/posts/${item.operation_id}`;
+      url = `/posts/${operationId}`;
       break;
     case "offer":
-      url = `/my-works/${item?.operation_id}`;
+      url = `/my-works/${operationId}`;
       break;
     case "work":
-      url = `/goal/${item?.operation_id}`;
+      url = `/goal/${operationId}`;
       break;
     case "general":
       url = `/notifications`;
       break;
     case "community_chat":
-      url = `/community/${item.operation_id}/chats/`;
+      url = `/community/${operationId}/chats/`;
       break;
     case "task":
-      url = `/tasks/${item.operation_id}/`;
+      url = `/tasks/${operationId}/`;
       break;
     case "group_chat":
-      url = `/chat/${item.operation_id}`;
+      url = `/chat/${operationId}`;
       break;
     case "contract":
-      url = `/my-contracts/${item.operation_id}/beneficiaries`;
+      url = `/my-contracts/${operationId}/beneficiaries`;
       break;
     default:
       url = "/";
