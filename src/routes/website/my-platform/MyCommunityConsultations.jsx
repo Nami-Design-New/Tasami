@@ -38,6 +38,7 @@ export default function MyCommunityConsultations() {
         communityId={myCommunity?.id}
         privateCount={privateCount}
         publicCount={publicCount}
+        showRequestButton={false}
       />
       {!isLoading && hasNoConsultations && (
         <EmptySection height="500px" message={t("community.noConsultaion")} />
