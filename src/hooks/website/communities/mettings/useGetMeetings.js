@@ -1,9 +1,11 @@
-import { useInfiniteQuery } from "@tanstack/react-query";
+import { useInfiniteQuery, useQueryClient } from "@tanstack/react-query";
 import { axiosInstance } from "../../../../lib/axios";
 import { useParams } from "react-router";
+import { refreshCommunityIndicatorQueries } from "../../../../utils/communityIndicatorQueries";
 
 export default function useGetMeetings() {
   const { id } = useParams();
+  const queryClient = useQueryClient();
   const {
     data,
     isLoading,
@@ -23,6 +25,10 @@ export default function useGetMeetings() {
 
       if (res.data.code !== 200) {
         throw new Error("Error fetching meetings");
+      }
+
+      if (pageParam === 1) {
+        refreshCommunityIndicatorQueries(queryClient, id);
       }
 
       return res.data;
