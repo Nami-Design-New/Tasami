@@ -1,10 +1,12 @@
 import { useInfiniteQuery, useQueryClient } from "@tanstack/react-query";
 import { axiosInstance } from "../../../../lib/axios";
-import { useParams } from "react-router";
+import { useParams, useSearchParams } from "react-router";
 import { refreshCommunityIndicatorQueries } from "../../../../utils/communityIndicatorQueries";
 
 export default function useGetMeetings() {
   const { id } = useParams();
+  const [searchParams] = useSearchParams();
+  const searchWord = searchParams.get("search") || "";
   const queryClient = useQueryClient();
   const {
     data,
@@ -14,12 +16,13 @@ export default function useGetMeetings() {
     fetchNextPage,
     isFetchingNextPage,
   } = useInfiniteQuery({
-    queryKey: ["meetings", id],
+    queryKey: ["meetings", id, searchWord],
     queryFn: async ({ pageParam = 1 }) => {
       const res = await axiosInstance.get("meeting", {
         params: {
           page: pageParam,
           community_id: id,
+          ...(searchWord ? { search: searchWord } : {}),
         },
       });
 
