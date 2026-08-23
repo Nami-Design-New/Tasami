@@ -24,6 +24,8 @@ export default function TaskCard({
 
   const { t } = useTranslation();
   const taskDetailsPath = detailsPath || `/tasks/${task?.id}`;
+  const notesCount = task?.task_notes_count ?? task?.task_notes?.length ?? 0;
+  const repetitionsCount = task?.repeat_count ?? 0;
   // persistent refs across renders
   const pointerStart = useRef({ x: 0, y: 0 });
   const moved = useRef(false);
@@ -141,6 +143,22 @@ export default function TaskCard({
           <div className="item">
             <i className="fa-regular fa-bell" aria-hidden />
             <span>{t(`${task?.notification_repeat}`)}</span>
+          </div>
+          <div
+            className="item"
+            aria-label={`${t("works.myTasks.repetitionsCount")}: ${repetitionsCount}`}
+            title={t("works.myTasks.repetitionsCount")}
+          >
+            <i className="fa-light fa-arrows-repeat" aria-hidden />
+            <span>{repetitionsCount}</span>
+          </div>
+          <div
+            className="item"
+            aria-label={`${t("works.myTasks.notesCount")}: ${notesCount}`}
+            title={t("works.myTasks.notesCount")}
+          >
+            <i className="fa-light fa-file-lines" aria-hidden />
+            <span>{notesCount}</span>
           </div>
         </div>
 

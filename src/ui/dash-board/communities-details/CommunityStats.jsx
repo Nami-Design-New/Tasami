@@ -6,7 +6,7 @@ import groupSecond from "../../../assets/icons/group-second.svg";
 import heartFill from "../../../assets/icons/heart-fill.svg";
 import walletSecond from "../../../assets/icons/wallet-second.svg";
 import activeIndex from "../../../assets/icons/active-index.svg";
-export default function CommunityStats({ community }) {
+export default function CommunityStats({ community, isMyCommunity = false }) {
   const { t } = useTranslation();
   const communityOwnerId =
     community?.helper?.id ||
@@ -22,7 +22,7 @@ export default function CommunityStats({ community }) {
         value={community?.members_count || community?.user_count || 0}
         label={t("member")}
         action={
-          community?.is_subscribed === true &&
+          (community?.is_subscribed === true || isMyCommunity) &&
           communityOwnerId && (
             <Link
               to={`/community/${community?.id}/members?user_id=${communityOwnerId}`}

@@ -1,7 +1,10 @@
 import { useInfiniteQuery } from "@tanstack/react-query";
+import { useSearchParams } from "react-router";
 import { axiosInstance } from "../../../lib/axios";
 
 export default function useGetPrivateConsultaions() {
+  const [searchParams] = useSearchParams();
+  const searchWord = searchParams.get("search") || "";
   const {
     data: privateConsultaions,
     isLoading,
@@ -10,10 +13,14 @@ export default function useGetPrivateConsultaions() {
     fetchNextPage,
     isFetchingNextPage,
   } = useInfiniteQuery({
-    queryKey: ["private-consultaions"],
+    queryKey: ["private-consultaions", searchWord],
     queryFn: async ({ pageParam = 1 }) => {
       const res = await axiosInstance.get("consultations", {
-        params: { page: pageParam, type: "private" },
+        params: {
+          page: pageParam,
+          type: "private",
+          ...(searchWord ? { search: searchWord } : {}),
+        },
       });
 
       if (res.data.code !== 200) {

@@ -10236,6 +10236,7 @@ html[lang=en] .pdf-wrapper {
 .helper-card .info {
   display: flex;
   flex-direction: column;
+  padding-inline-end: 12px;
   gap: 8px;
   flex-grow: 1;
 }
@@ -12641,6 +12642,20 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
   color: #5fcafa;
   font-weight: 700;
 }
+.task_details .identity-container {
+  align-items: flex-start;
+}
+.task_details .identity-container .task-status-option {
+  display: flex;
+  flex: 1 1 180px;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 0;
+}
+.task_details .identity-container .task-status-option > .identity-option {
+  width: 100%;
+  flex: 0 0 auto;
+}
 .task_details .identity-container .identity-option:has(input:disabled) {
   opacity: 0.5;
   cursor: not-allowed;
@@ -12653,7 +12668,7 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
   display: flex;
   align-items: center;
   gap: 6px;
-  margin: 8px 0 0;
+  margin: 0;
   color: #ff7a59;
   font-size: 0.8rem;
   font-weight: 500;
@@ -12767,11 +12782,13 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
   padding: 0;
 }
 .task-schedule-settings .task-setting-toggle .form-switch .form-check-input {
+  --bs-form-switch-bg: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='%23fff'/%3e%3c/svg%3e");
   width: 42px;
   height: 22px;
   margin: 0;
   cursor: pointer;
   border: 0;
+  background-color: #d9d9d9;
   box-shadow: none;
 }
 .task-schedule-settings .task-setting-toggle .form-switch .form-check-input:checked {
@@ -12779,6 +12796,7 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
 }
 .task-schedule-settings .task-setting-toggle .form-switch .form-check-input:disabled {
   cursor: not-allowed;
+  opacity: 1;
 }
 
 .task-reminder-options {
@@ -13058,14 +13076,19 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
   padding: 0;
 }
 .task-repetition-row__reminder .form-check-input {
+  --bs-form-switch-bg: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='%23fff'/%3e%3c/svg%3e");
   width: 40px;
   height: 21px;
   margin: 0;
   border: 0;
+  background-color: #d9d9d9;
   box-shadow: none;
 }
 .task-repetition-row__reminder .form-check-input:checked {
   background-color: #13aef3;
+}
+.task-repetition-row__reminder .form-check-input:disabled {
+  opacity: 1;
 }
 .task-repetition-row__reminder-control {
   padding-top: 16px;
@@ -13646,8 +13669,7 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
   direction: inherit;
 }
 
-.community-tabs .tabs a.active .community-count-badge,
-.community-tabs .tabs a:hover .community-count-badge {
+.community-tabs .tabs a.active .community-count-badge, .community-tabs .tabs a:hover .community-count-badge {
   background-color: #fff;
   color: #5fcafa;
 }
@@ -13658,6 +13680,75 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
   inset-inline-start: -8px;
 }
 
+.consultations-section .posts-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.consultations-section .posts-toolbar__count {
+  flex-shrink: 0;
+  margin: 0;
+  color: #0d0d0d;
+  font-size: 1rem;
+}
+.consultations-section .posts-toolbar__count strong {
+  font-size: 1.125rem;
+}
+.consultations-section .posts-toolbar__search {
+  flex: 1;
+}
+.consultations-section .posts-toolbar__search input {
+  height: 44px;
+}
+.consultations-section .posts-toolbar .custom-btn {
+  flex-shrink: 0;
+}
+@media (max-width: 576px) {
+  .consultations-section .posts-toolbar {
+    flex-wrap: wrap;
+  }
+  .consultations-section .posts-toolbar__search {
+    flex-basis: 100%;
+    order: 3;
+  }
+}
+.consultations-section .consultations-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.consultations-section .consultations-toolbar__counts {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+.consultations-section .consultations-toolbar__count {
+  margin: 0;
+  color: #0d0d0d;
+  font-size: 1rem;
+}
+.consultations-section .consultations-toolbar__count strong {
+  font-size: 1.125rem;
+}
+.consultations-section .consultations-toolbar__search {
+  flex: 1;
+}
+.consultations-section .consultations-toolbar__search input {
+  height: 44px;
+}
+.consultations-section .consultations-toolbar .custom-btn {
+  flex-shrink: 0;
+}
+@media (max-width: 576px) {
+  .consultations-section .consultations-toolbar {
+    flex-wrap: wrap;
+  }
+  .consultations-section .consultations-toolbar__search {
+    flex-basis: 100%;
+    order: 3;
+  }
+}
 .consultations-section .consultations-header {
   display: flex;
   align-items: center;

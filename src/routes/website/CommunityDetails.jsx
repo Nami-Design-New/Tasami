@@ -9,6 +9,7 @@ import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
 import RoundedBackButton from "../../ui/website-auth/shared/RoundedBackButton";
 import communityPlaceholder from "../../assets/images/dashboard/communities-image.png";
+import { getCommunityDescription } from "../../utils/communityDescription";
 
 export default function CommunityDetails() {
   const { communityDetails, isLoading } = useGetCommunityDetails();
@@ -42,7 +43,7 @@ export default function CommunityDetails() {
                 )}
               </div>
               <p className="community-desc">
-                {communityDetails?.helper?.about}
+                {getCommunityDescription(communityDetails)}
               </p>
             </div>
             <div className="col-12 p-2">

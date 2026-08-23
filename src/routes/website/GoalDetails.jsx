@@ -7,6 +7,7 @@ import useGetGoalDetails from "../../hooks/website/goals/useGetGoalDetails";
 import useToggleSavedGoals from "../../hooks/website/goals/useToggleSavedGoals";
 import CustomButton from "../../ui/CustomButton";
 import Loading from "../../ui/loading/Loading";
+import UnavailableResource from "../../ui/website/UnavailableResource";
 import HelpModal from "../../ui/modals/HelpModal";
 import ReportModal from "../../ui/modals/ReportModal";
 import OptionsMenu from "../../ui/website/OptionsMenu";
@@ -55,7 +56,7 @@ export default function GoalDetails() {
     });
   };
 
-  const { goalDetails, isLoading } = useGetGoalDetails();
+  const { goalDetails, isLoading, error } = useGetGoalDetails();
 
   const { toggleSaveGoal, isPending: isSavingToggle } = useToggleSavedGoals();
   const [isActive, setIsActive] = useState(goalDetails?.is_saved);
@@ -105,6 +106,19 @@ export default function GoalDetails() {
   };
 
   if (isLoading) return <Loading />;
+  if (!goalDetails) {
+    return (
+      <section className="page goal-details-section">
+        <div className="container">
+          <UnavailableResource
+            error={error}
+            fallbackMessage={t("website.offerDetails.goalUnavailable")}
+          />
+        </div>
+      </section>
+    );
+  }
+
   const isMyGoal = user?.id === goalDetails?.user?.id;
   return (
     <section className="page goal-details-section">

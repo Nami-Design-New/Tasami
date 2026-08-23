@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
 import ContractTasks from "./ContractTasks";
@@ -9,6 +9,13 @@ const mocks = vi.hoisted(() => ({
   getOptimalDistribution: vi.fn(),
   getImprovement: vi.fn(),
   getStatus: vi.fn(),
+  toastSuccess: vi.fn(),
+}));
+
+vi.mock("sonner", () => ({
+  toast: {
+    success: mocks.toastSuccess,
+  },
 }));
 
 vi.mock("react-router", () => ({
@@ -50,9 +57,19 @@ vi.mock("../../../../ui/website/my-works/NoTasks", () => ({
   default: () => <div data-testid="no-tasks" />,
 }));
 vi.mock("../../../../ui/website/my-works/tasks/TaskDistributionCharts", () => ({
-  default: ({ improvement }) => (
-    <div data-testid="improvement">
-      {improvement?.overall_assessment || "empty"}
+  default: ({ currentDistribution, improvement, onRefreshCurrent }) => (
+    <div>
+      <div data-testid="current-distribution">
+        {currentDistribution
+          .map((item) => `${item.task_title}:${item.percentage}`)
+          .join(",") || "empty"}
+      </div>
+      <div data-testid="improvement">
+        {improvement?.overall_assessment || "empty"}
+      </div>
+      <button type="button" onClick={onRefreshCurrent}>
+        Refresh current distribution
+      </button>
     </div>
   ),
 }));
@@ -111,6 +128,77 @@ describe("ContractTasks", () => {
 
     expect(screen.getByTestId("improvement")).toHaveTextContent(
       "Saved assessment",
+    );
+  });
+
+  it("renders the recalculated current distribution after refresh", async () => {
+    const refreshCurrentDistribution = vi.fn().mockResolvedValue({
+      data: {
+        current_distribution: [
+          { task_title: "Execution", percentage: 75 },
+          { task_title: "Review", percentage: 25 },
+        ],
+      },
+      error: null,
+    });
+    const refreshTaskDistributionStatus = vi.fn().mockResolvedValue({
+      data: {
+        current_distribution: [
+          { task_title: "Execution", percentage: 50 },
+          { task_title: "Review", percentage: 50 },
+        ],
+      },
+      error: null,
+    });
+
+    mocks.getCurrentDistribution.mockReturnValue({
+      currentTaskDistribution: [],
+      isFetching: false,
+      isError: false,
+      refetch: refreshCurrentDistribution,
+    });
+    mocks.getStatus.mockReturnValue({
+      taskDistributionStatus: {
+        current_distribution: [
+          { task_title: "Execution", percentage: 50 },
+          { task_title: "Review", percentage: 50 },
+        ],
+        optimal_distribution: [],
+        analysis: {
+          strengths: [],
+          conclusion: "",
+          improvement_points: [],
+        },
+        improvement: {
+          comparison: [],
+          overall_assessment: "",
+        },
+        optimal_distribution_generated: false,
+        improvement_generated: false,
+      },
+      isLoading: false,
+      refetch: refreshTaskDistributionStatus,
+    });
+
+    render(<ContractTasks />);
+
+    expect(screen.getByTestId("current-distribution")).toHaveTextContent(
+      "Execution:50,Review:50",
+    );
+
+    fireEvent.click(
+      screen.getByRole("button", { name: "Refresh current distribution" }),
+    );
+
+    await waitFor(() =>
+      expect(screen.getByTestId("current-distribution")).toHaveTextContent(
+        "Execution:75,Review:25",
+      ),
+    );
+    expect(refreshCurrentDistribution).toHaveBeenCalledOnce();
+    expect(refreshTaskDistributionStatus).toHaveBeenCalledOnce();
+    expect(mocks.toastSuccess).toHaveBeenCalledWith(
+      "works.myTasks.distribution.refreshSuccess",
     );
   });
 });

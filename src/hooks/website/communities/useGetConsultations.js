@@ -1,9 +1,11 @@
 import { useInfiniteQuery } from "@tanstack/react-query";
-import { useParams } from "react-router";
+import { useParams, useSearchParams } from "react-router";
 import { axiosInstance } from "../../../lib/axios";
 
-export default function useGetConsultations(type) {
+export default function useGetConsultations(type, { enabled = true } = {}) {
   const { id } = useParams();
+  const [searchParams] = useSearchParams();
+  const searchWord = searchParams.get("search") || "";
   const {
     data: consultaions,
     isLoading,
@@ -12,10 +14,16 @@ export default function useGetConsultations(type) {
     fetchNextPage,
     isFetchingNextPage,
   } = useInfiniteQuery({
-    queryKey: ["consultaions", id, type],
+    queryKey: ["consultaions", id, type, searchWord],
+    enabled,
     queryFn: async ({ pageParam = 1 }) => {
       const res = await axiosInstance.get("consultations", {
-        params: { community_id: id, page: pageParam, type },
+        params: {
+          community_id: id,
+          page: pageParam,
+          type,
+          ...(searchWord ? { search: searchWord } : {}),
+        },
       });
 
       if (res.data.code !== 200) {

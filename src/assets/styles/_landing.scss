@@ -555,6 +555,7 @@
   .info {
     display: flex;
     flex-direction: column;
+    padding-inline-end: 12px;
     // margin: 0 8px;
     gap: 8px;
     flex-grow: 1;

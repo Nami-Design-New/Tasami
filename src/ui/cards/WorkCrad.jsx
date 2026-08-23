@@ -5,15 +5,13 @@ import { Link } from "react-router";
 import { toast } from "sonner";
 
 import useDeleteWork from "../../hooks/website/MyWorks/useDeleteWork";
+import useStartExecutionDeadlineState from "../../hooks/website/MyWorks/useStartExecutionDeadlineState";
 import titleIcon from "../../assets/icons/title.svg";
 import offersIcon from "../../assets/icons/offers-icon.svg";
 import triangleWithHelper from "../../assets/icons/triangle-with-helper.svg";
 import triangleWithoutHelper from "../../assets/icons/triangle-without-helper.png";
 import helpServiceFromHelper from "../../assets/icons/help_service_from_helper.svg";
-import {
-  formatStartDateTimestamp,
-  isStartExecutionAccessRestricted,
-} from "../../utils/startExecutionDeadline";
+import { formatStartDateTimestamp } from "../../utils/startExecutionDeadline";
 import AlertModal from "../website/platform/my-community/AlertModal";
 import HelperCard from "./HelperCard";
 import StartExecutionDeadlineAlert from "../website/my-works/StartExecutionDeadlineAlert";
@@ -29,6 +27,7 @@ export default function WorkCard({
   const queryClient = useQueryClient();
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const { deleteWork, isPending: isDeleting } = useDeleteWork();
+  const deadlineState = useStartExecutionDeadlineState(work);
 
   if (work.rectangle === "personal_goal") {
     steps = [
@@ -61,7 +60,7 @@ export default function WorkCard({
     ];
   }
 
-  const isAutoCanceled = isStartExecutionAccessRestricted(work);
+  const isAutoCanceled = Boolean(deadlineState?.isAutoCanceled);
   const isCanceled = work.status === "canceled" || isAutoCanceled;
   const currentIndex = steps.findIndex((s) => s.key === work.status);
   const progressSteps = steps.map((step, index) => ({
@@ -156,13 +155,19 @@ export default function WorkCard({
         </div>
       </div>
       {!withoutStatus && <WorkProgress steps={progressSteps} />}
-      {!isAutoCanceled && <StartExecutionDeadlineAlert item={work} />}
+      {!isAutoCanceled && (
+        <StartExecutionDeadlineAlert deadlineState={deadlineState} />
+      )}
       {isAutoCanceled && (
         <button
           type="button"
           className="start-execution-delete-action"
           disabled={isDeleting}
-          onClick={() => setShowDeleteModal(true)}
+          onClick={(event) => {
+            event.preventDefault();
+            event.stopPropagation();
+            setShowDeleteModal(true);
+          }}
         >
           {isDeleting && <i className="fas fa-spinner fa-spin"></i>}
           {t("works.startExecutionDeadline.deleteAction")}
@@ -191,7 +196,7 @@ export default function WorkCard({
     <>
       {isAutoCanceled ? (
         <article
-          className={`work-card ${isAutoCanceled ? "work-card--auto-canceled" : ""}`}
+          className="work-card work-card--auto-canceled"
         >
           {cardContent}
         </article>

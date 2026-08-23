@@ -6,15 +6,14 @@ import triangleWithHelper from "../../../../../assets/icons/triangle-with-helper
 import triangleWithoutHelper from "../../../../../assets/icons/triangle-without-helper.png";
 import helpServiceFromHelper from "../../../../../assets/icons/help_service_from_helper.svg";
 import titleIcon from "../../../../../assets/icons/title.svg";
-import {
-  formatStartDateTimestamp,
-  isStartExecutionAccessRestricted,
-} from "../../../../../utils/startExecutionDeadline";
+import useStartExecutionDeadlineState from "../../../../../hooks/website/MyWorks/useStartExecutionDeadlineState";
+import { formatStartDateTimestamp } from "../../../../../utils/startExecutionDeadline";
 import StartExecutionDeadlineAlert from "../../../my-works/StartExecutionDeadlineAlert";
 
 export default function ContractCard({ contract, withoutStatus = true }) {
   let steps;
   const { t, i18n } = useTranslation();
+  const deadlineState = useStartExecutionDeadlineState(contract);
   if (contract.rectangle === "personal_goal") {
     steps = [
       { key: "planning", label: t("works.status.plan") },
@@ -46,7 +45,7 @@ export default function ContractCard({ contract, withoutStatus = true }) {
       },
     ];
   }
-  const isAutoCanceled = isStartExecutionAccessRestricted(contract);
+  const isAutoCanceled = Boolean(deadlineState?.isAutoCanceled);
   const isCanceled = contract.status === "canceled" || isAutoCanceled;
   const startDate = formatStartDateTimestamp(
     contract?.start_date_timestamp,
@@ -98,7 +97,10 @@ export default function ContractCard({ contract, withoutStatus = true }) {
         </div>
       </div>
       {withoutStatus && <WorkProgress steps={progressSteps} />}
-      <StartExecutionDeadlineAlert item={contract} scope="contract" />
+      <StartExecutionDeadlineAlert
+        deadlineState={deadlineState}
+        scope="contract"
+      />
     </>
   );
 

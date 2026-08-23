@@ -9,6 +9,7 @@ import useDeleteAssistance from "../../hooks/website/my-assistances/useDeleteAss
 import useGetOfferDetials from "../../hooks/website/my-assistances/useGetOfferDetials";
 import CustomLink from "../../ui/CustomLink";
 import Loading from "../../ui/loading/Loading";
+import UnavailableResource from "../../ui/website/UnavailableResource";
 import OptionsMenu from "../../ui/website/OptionsMenu";
 import SectionHeader from "../../ui/website/SectionHeader";
 import AddAssistanceModal from "../../ui/website/offers/AddAssistanceModal";
@@ -25,7 +26,7 @@ export default function OfferDetails() {
   const { lang } = useSelector((state) => state.language);
   const [showEditModal, setShowEditModal] = useState(false);
   const [showAlertModal, setShowAlertModal] = useState(false);
-  const { offerDetails, isLoading } = useGetOfferDetials();
+  const { offerDetails, isLoading, error } = useGetOfferDetials();
   const { deleteAssistance, isPending: isDeleting } = useDeleteAssistance();
   const { archiveYourAssistance, isPending: isArchiving } =
     useArchiveAssistance();
@@ -72,6 +73,18 @@ export default function OfferDetails() {
   };
 
   if (isLoading) return <Loading />;
+  if (!offerDetails) {
+    return (
+      <section className="page offer-details-section">
+        <div className="container">
+          <UnavailableResource
+            error={error}
+            fallbackMessage={t("website.offerDetails.unavailable")}
+          />
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section className="page offer-details-section ">

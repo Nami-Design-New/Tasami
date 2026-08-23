@@ -1,9 +1,11 @@
 import { useInfiniteQuery } from "@tanstack/react-query";
-import { useParams } from "react-router";
+import { useParams, useSearchParams } from "react-router";
 import { axiosInstance } from "../../../../lib/axios";
 
 export default function useGetPosts() {
   const { id } = useParams();
+  const [searchParams] = useSearchParams();
+  const searchWord = searchParams.get("search") || "";
   const {
     data: posts,
     isLoading,
@@ -11,12 +13,13 @@ export default function useGetPosts() {
     fetchNextPage,
     isFetchingNextPage,
   } = useInfiniteQuery({
-    queryKey: ["community-posts", id],
+    queryKey: ["community-posts", id, searchWord],
     queryFn: async ({ pageParam = 1 }) => {
       const res = await axiosInstance.get("posts", {
         params: {
           page: pageParam,
           community_id: id,
+          ...(searchWord ? { search: searchWord } : {}),
         },
       });
 
