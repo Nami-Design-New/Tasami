@@ -1,6 +1,7 @@
 import { axiosInstance } from "../axios";
 import { getToken, messaging, onMessage } from "./config";
 import { toast } from "sonner";
+import { getMeetingNotificationUrl } from "../../utils/meetingNotification";
 
 const sendTokenToServer = async (token) => {
   const prevToken = localStorage.getItem("firebase_token");
@@ -69,8 +70,7 @@ const listenToMessages = (
       updateQueries(
         refetchSettings,
         refetchNotifications,
-        refetchUpdateCounter,
-        payload
+        refetchUpdateCounter
       );
       // if (document.visibilityState === "visible") {
       // }
@@ -125,7 +125,7 @@ const listenToMessages = (
             url = `/notifications?tab=inquries`;
             break;
           case "meeting":
-            url = `/my-community/meetings`;
+            url = getMeetingNotificationUrl(data);
             break;
           case "post":
             url = `/posts/${data.operation_id}`;
@@ -168,8 +168,7 @@ const listenToMessages = (
       updateQueries(
         refetchSettings,
         refetchNotifications,
-        refetchUpdateCounter,
-        payload
+        refetchUpdateCounter
       );
     } catch (error) {
       console.error("[FCM] Error handling incoming message:", error);
@@ -182,8 +181,7 @@ const listenToMessages = (
 const updateQueries = (
   refetchSettings,
   refetchNotifications,
-  refetchUpdateCounter,
-  payload
+  refetchUpdateCounter
 ) => {
   refetchNotifications();
   refetchSettings();
