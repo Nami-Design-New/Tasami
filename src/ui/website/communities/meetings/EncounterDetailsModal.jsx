@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Modal, Spinner } from "react-bootstrap";
+import { Spinner } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
 import useCheckDashboard from "../../../../hooks/dashboard/checkDashboard/useCheckDashboard";
 import useGetMeetingDetails from "../../../../hooks/website/communities/mettings/useGetMeetingDetails";
@@ -12,6 +12,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 import useDeletDhMeeting from "../../../../hooks/dashboard/subscription/community/useDeleteDhMeeting";
 import GlobalModal from "../../../GlobalModal";
+import UnavailableResource from "../../UnavailableResource";
 
 export default function EncounterDetailsModal({
   show,
@@ -32,6 +33,7 @@ export default function EncounterDetailsModal({
     ? dash.meetingDashDetails
     : normal.meetingDetails;
   const isLoadingData = isDashboard ? dash.isLoading : normal.isLoading;
+  const meetingError = isDashboard ? null : normal.error;
   const [showAlertModal, setShowAlertModal] = useState(false);
   const { deleteMeeting, isMeetingDelete } = useDeleteMeeting();
   const { deleteDhMeeting, isDhMeetingDelete } = useDeletDhMeeting();
@@ -113,6 +115,12 @@ export default function EncounterDetailsModal({
               <span className="visually-hidden">Loading...</span>
             </Spinner>
           </div>
+        ) : !meetingData ? (
+          <UnavailableResource
+            error={meetingError}
+            fallbackMessage={t("notification.referenceUnavailable")}
+            height="200px"
+          />
         ) : (
           <>
             {" "}

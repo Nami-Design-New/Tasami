@@ -53,10 +53,10 @@ beforeEach(() => {
 
 test("shows both consultation lists and the toolbar on community details", () => {
   render(
-    <MemoryRouter initialEntries={["/community/13"]}>
+    <MemoryRouter initialEntries={["/community/13/consultations"]}>
       <Routes>
         <Route path="/community/:id" element={<CommunityDetailsOutlet />}>
-          <Route index element={<Consultations />} />
+          <Route path="consultations" element={<Consultations />} />
         </Route>
       </Routes>
     </MemoryRouter>,

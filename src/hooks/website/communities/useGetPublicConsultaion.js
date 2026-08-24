@@ -1,8 +1,10 @@
-import { useInfiniteQuery } from "@tanstack/react-query";
+import { useInfiniteQuery, useQueryClient } from "@tanstack/react-query";
 import { useSearchParams } from "react-router";
 import { axiosInstance } from "../../../lib/axios";
+import { refreshCommunityIndicatorQueries } from "../../../utils/communityIndicatorQueries";
 
 export default function useGetPublicConsultations() {
+  const queryClient = useQueryClient();
   const [searchParams] = useSearchParams();
   const searchWord = searchParams.get("search") || "";
   const {
@@ -25,6 +27,9 @@ export default function useGetPublicConsultations() {
 
       if (res.data.code !== 200) {
         throw new Error(res.data.message);
+      }
+      if (pageParam === 1) {
+        refreshCommunityIndicatorQueries(queryClient);
       }
       return res.data;
     },

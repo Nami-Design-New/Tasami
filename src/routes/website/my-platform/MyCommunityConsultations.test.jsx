@@ -76,7 +76,7 @@ afterEach(() => {
   vi.useRealTimers();
 });
 
-test("shows consultation totals, search, and request action", () => {
+test("hides the consultation request action from the community owner", () => {
   render(<MyCommunityConsultations />);
 
   expect(screen.getByText("0")).toBeInTheDocument();
@@ -87,12 +87,9 @@ test("shows consultation totals, search, and request action", () => {
     screen.getByPlaceholderText("community.searchConsultations"),
   ).toBeInTheDocument();
   expect(
-    screen.getByRole("button", { name: "community.addConsultation" }),
-  ).toBeInTheDocument();
-  expect(screen.getByTestId("consultation-modal")).toHaveAttribute(
-    "data-community-id",
-    "42",
-  );
+    screen.queryByRole("button", { name: "community.addConsultation" }),
+  ).not.toBeInTheDocument();
+  expect(screen.queryByTestId("consultation-modal")).not.toBeInTheDocument();
 });
 
 test("updates the consultation search after the debounce delay", () => {
@@ -132,6 +129,6 @@ test("shows one empty state when private and public consultations are empty", ()
     screen.getByPlaceholderText("community.searchConsultations"),
   ).toBeInTheDocument();
   expect(
-    screen.getByRole("button", { name: "community.addConsultation" }),
-  ).toBeInTheDocument();
+    screen.queryByRole("button", { name: "community.addConsultation" }),
+  ).not.toBeInTheDocument();
 });

@@ -1,9 +1,11 @@
-import { useInfiniteQuery } from "@tanstack/react-query";
+import { useInfiniteQuery, useQueryClient } from "@tanstack/react-query";
 import { useParams, useSearchParams } from "react-router";
 import { axiosInstance } from "../../../../lib/axios";
+import { refreshCommunityIndicatorQueries } from "../../../../utils/communityIndicatorQueries";
 
 export default function useGetPosts() {
   const { id } = useParams();
+  const queryClient = useQueryClient();
   const [searchParams] = useSearchParams();
   const searchWord = searchParams.get("search") || "";
   const {
@@ -25,6 +27,10 @@ export default function useGetPosts() {
 
       if (res.data.code !== 200) {
         throw new Error(res.data.message || "Error Fetching Posts");
+      }
+
+      if (pageParam === 1) {
+        refreshCommunityIndicatorQueries(queryClient, id);
       }
 
       return res.data;
