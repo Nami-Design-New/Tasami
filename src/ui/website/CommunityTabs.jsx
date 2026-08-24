@@ -22,12 +22,14 @@ export default function CommunityTabs({
   return (
     <div className="community-tabs">
       <div className="tabs d-flex gap-3">
-        <NavLink to={basePath} end>
+        <NavLink to={`${basePath}/consultations`}>
           {({ isActive }) => (
             <span className={`tab-item ${isActive ? "active" : ""}`}>
               <span className="community-counter-label">
                 <span>{t("community.consultant")}</span>
-                <CommunityCountBadge count={consultationsCount} />
+                <CommunityCountBadge
+                  count={isActive ? 0 : consultationsCount}
+                />
               </span>
             </span>
           )}
@@ -38,7 +40,7 @@ export default function CommunityTabs({
             <span className={`tab-item ${isActive ? "active" : ""}`}>
               <span className="community-counter-label">
                 <span>{t("community.meetings")}</span>
-                <CommunityCountBadge count={meetingsCount} />
+                <CommunityCountBadge count={isActive ? 0 : meetingsCount} />
               </span>
             </span>
           )}
@@ -49,7 +51,7 @@ export default function CommunityTabs({
             <span className={`tab-item ${isActive ? "active" : ""}`}>
               <span className="community-counter-label">
                 <span>{t("community.posts")}</span>
-                <CommunityCountBadge count={postsCount} />
+                <CommunityCountBadge count={isActive ? 0 : postsCount} />
               </span>
             </span>
           )}

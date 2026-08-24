@@ -938,6 +938,8 @@
     "add": "إضافة",
     "update": "تعديل",
     "noMeetings": "لا توجد لقاءات بعد",
+    "searchMeetings": "البحث في جميع اللقاءات",
+    "meetingsCountLabel": "لقاء",
     "noPosts": "لا توجد منشورات بعد",
     "addPost": "إضافة منشور",
     "searchPosts": "البحث في جميع المنشورات",

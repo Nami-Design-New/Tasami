@@ -516,7 +516,7 @@ export const router = createBrowserRouter(
           ),
           children: [
             {
-              index: true,
+              path: "consultations",
               element: <MyCommunityConsultations />,
             },
             {
@@ -538,7 +538,7 @@ export const router = createBrowserRouter(
           element: <CommunityDetails />,
           children: [
             {
-              index: true,
+              path: "consultations",
               element: <Consultations />,
             },
             {

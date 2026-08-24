@@ -926,6 +926,8 @@
     "add": "Add",
     "update": "Update",
     "noMeetings": "No Meetings Yet",
+    "searchMeetings": "Search all meetings",
+    "meetingsCountLabel": "Meetings",
     "noPosts": "No Posts Yet",
     "addPost": "Add Post",
     "searchPosts": "Search all posts",
