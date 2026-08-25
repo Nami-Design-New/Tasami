@@ -3,9 +3,13 @@ import { Form } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
 
 const InputField = React.forwardRef(
-  ({ label, hint, error, className, icon = null, ...props }, ref) => {
+  (
+    { label, hint, error, className, icon = null, type, role, ...props },
+    ref,
+  ) => {
     const { i18n } = useTranslation();
     const isRTL = i18n.dir() === "rtl";
+    const hasCustomSearchIcon = type === "search" && Boolean(icon);
 
     return (
       <div className={`input-field ${className ? className : ""}`}>
@@ -18,6 +22,8 @@ const InputField = React.forwardRef(
         <Form.Control
           ref={ref}
           isInvalid={!!error}
+          type={hasCustomSearchIcon ? "text" : type}
+          role={hasCustomSearchIcon ? role || "searchbox" : role}
           {...props}
           style={{
             backgroundImage: icon ? `url("${icon}")` : undefined,
