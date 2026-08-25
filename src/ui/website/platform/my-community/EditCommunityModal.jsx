@@ -57,7 +57,6 @@ export default function EditCommunityModal({
     formData.append("_method", "put");
     formData.append("desc", data.about || "");
     formData.append("price", data.price);
-    formData.append("is_active", community.is_active === "true" ? "1" : "0");
 
     if (data.profilePicture instanceof File) {
       formData.append("image", data.profilePicture);
