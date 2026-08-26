@@ -1,4 +1,5 @@
 import { useTranslation } from "react-i18next";
+import { useSelector } from "react-redux";
 import { useOutletContext } from "react-router";
 import useGetConsultations from "../../hooks/website/communities/useGetConsultations";
 import EmptySection from "../../ui/EmptySection";
@@ -9,11 +10,12 @@ import PublicConsultations from "../../ui/website/communities/consultations/Publ
 export default function Consultations() {
   const { t } = useTranslation();
   const { communityDetails } = useOutletContext();
+  const currentUserId = useSelector((state) => state.authRole.user?.id);
   const isSubscribed = Boolean(communityDetails?.is_subscribed);
-  const privateQuery = useGetConsultations("private", {
+  const privateQuery = useGetConsultations(currentUserId, {
     enabled: isSubscribed,
   });
-  const publicQuery = useGetConsultations("public");
+  const publicQuery = useGetConsultations();
 
   const privateConsultations =
     privateQuery.consultaions?.pages?.flatMap((page) => page?.data) ?? [];

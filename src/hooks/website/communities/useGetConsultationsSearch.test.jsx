@@ -40,24 +40,27 @@ describe("consultation search hooks", () => {
   });
 
   it.each([
-    ["private", useGetPrivateConsultaions],
-    ["public", useGetPublicConsultations],
-  ])("sends search when fetching %s consultations", async (type, useHook) => {
-    renderHook(() => useHook(), { wrapper: createWrapper() });
+    { type: "private", useHook: useGetPrivateConsultaions },
+    { type: "public", useHook: useGetPublicConsultations },
+  ])(
+    "sends the $type type when fetching owner consultations",
+    async ({ type, useHook }) => {
+      renderHook(() => useHook(), { wrapper: createWrapper() });
 
-    await waitFor(() => expect(axiosInstance.get).toHaveBeenCalledOnce());
+      await waitFor(() => expect(axiosInstance.get).toHaveBeenCalledOnce());
 
-    expect(axiosInstance.get).toHaveBeenCalledWith("consultations", {
-      params: {
-        page: 1,
-        type,
-        search: "planning",
-      },
-    });
-  });
+      expect(axiosInstance.get).toHaveBeenCalledWith("consultations", {
+        params: {
+          page: 1,
+          type,
+          search: "planning",
+        },
+      });
+    },
+  );
 
-  it("sends community, type, and search when fetching a subscribed community", async () => {
-    renderHook(() => useGetConsultations("private"), {
+  it("sends the logged-in user when fetching private consultations from another community", async () => {
+    renderHook(() => useGetConsultations(73), {
       wrapper: createWrapper(),
     });
 
@@ -67,9 +70,32 @@ describe("consultation search hooks", () => {
       params: {
         community_id: "13",
         page: 1,
-        type: "private",
+        search: "planning",
+        user_id: 73,
+      },
+    });
+    const requestParams = axiosInstance.get.mock.calls[0][1].params;
+    expect(requestParams).not.toHaveProperty("type");
+    expect(requestParams).not.toHaveProperty("is_private");
+  });
+
+  it("omits user and type when fetching public consultations from another community", async () => {
+    renderHook(() => useGetConsultations(), {
+      wrapper: createWrapper(),
+    });
+
+    await waitFor(() => expect(axiosInstance.get).toHaveBeenCalledOnce());
+
+    expect(axiosInstance.get).toHaveBeenCalledWith("consultations", {
+      params: {
+        community_id: "13",
+        page: 1,
         search: "planning",
       },
     });
+    const requestParams = axiosInstance.get.mock.calls[0][1].params;
+    expect(requestParams).not.toHaveProperty("user_id");
+    expect(requestParams).not.toHaveProperty("type");
+    expect(requestParams).not.toHaveProperty("is_private");
   });
 });
