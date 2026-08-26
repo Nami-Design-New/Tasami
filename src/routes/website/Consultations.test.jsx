@@ -1,5 +1,5 @@
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { configureStore } from "@reduxjs/toolkit";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { render, screen, waitFor, within } from "@testing-library/react";
 import { Provider } from "react-redux";
 import { MemoryRouter, Outlet, Route, Routes } from "react-router";
@@ -23,52 +23,24 @@ vi.mock("../../lib/axios", () => ({
 
 function CommunityDetailsOutlet() {
   return (
-    <Outlet context={{ communityDetails: { id: 13, is_subscribed: true } }} />
+    <Outlet context={{ communityDetails: { id: 33, is_subscribed: true } }} />
   );
 }
 
-beforeEach(() => {
-  vi.clearAllMocks();
-  axiosInstance.get.mockImplementation((_, { params }) =>
-    Promise.resolve({
-      data: {
-        code: 200,
-        data: params.user_id
-          ? [
-              {
-                id: 168,
-                title: "Visible private consultation",
-                desc: "Private consultation description",
-              },
-            ]
-          : [
-              {
-                id: 167,
-                title: "Visible public consultation",
-                desc: "Public consultation description",
-              },
-            ],
-        total: 1,
-        next_page_url: null,
-      },
-    }),
-  );
-});
-
-test("shows public and private consultations only in their matching categories", async () => {
+function renderConsultations() {
   const queryClient = new QueryClient({
     defaultOptions: { queries: { retry: false } },
   });
   const store = configureStore({
     reducer: {
-      authRole: () => ({ user: { id: 73 } }),
+      authRole: () => ({ user: { id: 93 } }),
     },
   });
 
-  render(
+  return render(
     <Provider store={store}>
       <QueryClientProvider client={queryClient}>
-        <MemoryRouter initialEntries={["/community/13/consultations"]}>
+        <MemoryRouter initialEntries={["/community/33/consultations"]}>
           <Routes>
             <Route path="/community/:id" element={<CommunityDetailsOutlet />}>
               <Route path="consultations" element={<Consultations />} />
@@ -78,11 +50,48 @@ test("shows public and private consultations only in their matching categories",
       </QueryClientProvider>
     </Provider>,
   );
+}
 
-  const privateConsultation = await screen.findByText(
-    "Visible private consultation",
-  );
-  const publicConsultation = screen.getByText("Visible public consultation");
+beforeEach(() => {
+  vi.clearAllMocks();
+  axiosInstance.get.mockResolvedValue({
+    data: {
+      message: "success",
+      code: 200,
+      data: [
+        {
+          id: 228,
+          is_private: true,
+          title: "استشارة خاصة من محمود",
+          desc: "وصف الاستشارة الخاصة",
+          answer: "رد علي استشارة خاصة من محمود",
+          from_user_id: 93,
+          to_user_id: 131,
+        },
+        {
+          id: 222,
+          is_private: false,
+          title: "استشارة عامة",
+          desc: "استشارة عامة استشارة عامة",
+          answer: "test tes ttest",
+          from_user_id: 93,
+          to_user_id: 131,
+        },
+      ],
+      current_page: 1,
+      last_page: 1,
+      next_page_url: null,
+      per_page: 10,
+      total: 2,
+    },
+  });
+});
+
+test("splits one response into the private and public categories by is_private", async () => {
+  renderConsultations();
+
+  const privateConsultation = await screen.findByText("استشارة خاصة من محمود");
+  const publicConsultation = screen.getByText("استشارة عامة");
   const privateCategory = screen
     .getByText("community.privateConsultations")
     .closest(".row");
@@ -90,9 +99,9 @@ test("shows public and private consultations only in their matching categories",
     .getByText("community.publicConsultations")
     .closest(".row");
 
-  expect(within(privateCategory).getByText(privateConsultation.textContent)).toBe(
-    privateConsultation,
-  );
+  expect(
+    within(privateCategory).getByText(privateConsultation.textContent),
+  ).toBe(privateConsultation);
   expect(
     within(privateCategory).queryByText(publicConsultation.textContent),
   ).not.toBeInTheDocument();
@@ -102,22 +111,17 @@ test("shows public and private consultations only in their matching categories",
   expect(
     within(publicCategory).queryByText(privateConsultation.textContent),
   ).not.toBeInTheDocument();
+
   await waitFor(() =>
     expect(axiosInstance.get).toHaveBeenCalledWith("consultations", {
       params: {
-        community_id: "13",
+        community_id: "33",
         page: 1,
-        user_id: 73,
+        user_id: 93,
       },
     }),
   );
-  expect(axiosInstance.get).toHaveBeenCalledWith("consultations", {
-    params: {
-      community_id: "13",
-      page: 1,
-    },
-  });
-  expect(axiosInstance.get).toHaveBeenCalledTimes(2);
+  expect(axiosInstance.get).toHaveBeenCalledTimes(1);
   expect(screen.getAllByText("1")).toHaveLength(2);
   expect(
     screen.getByPlaceholderText("community.searchConsultations"),
@@ -125,4 +129,39 @@ test("shows public and private consultations only in their matching categories",
   expect(
     screen.getByRole("button", { name: "community.addConsultation" }),
   ).toBeInTheDocument();
+});
+
+test("treats numeric is_private flags the same way as booleans", async () => {
+  axiosInstance.get.mockResolvedValue({
+    data: {
+      code: 200,
+      data: [
+        { id: 170, is_private: 1, title: "Numeric private", desc: "private" },
+        { id: 171, is_private: 0, title: "Numeric public", desc: "public" },
+      ],
+      total: 2,
+      next_page_url: null,
+    },
+  });
+
+  renderConsultations();
+
+  const privateConsultation = await screen.findByText("Numeric private");
+  const publicConsultation = screen.getByText("Numeric public");
+  const privateCategory = screen
+    .getByText("community.privateConsultations")
+    .closest(".row");
+  const publicCategory = screen
+    .getByText("community.publicConsultations")
+    .closest(".row");
+
+  expect(
+    within(privateCategory).getByText(privateConsultation.textContent),
+  ).toBe(privateConsultation);
+  expect(within(publicCategory).getByText(publicConsultation.textContent)).toBe(
+    publicConsultation,
+  );
+  expect(
+    within(publicCategory).queryByText(privateConsultation.textContent),
+  ).not.toBeInTheDocument();
 });

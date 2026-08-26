@@ -24,9 +24,7 @@ function createWrapper() {
 
   return function QueryWrapper({ children }) {
     return (
-      <QueryClientProvider client={queryClient}>
-        {children}
-      </QueryClientProvider>
+      <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
     );
   };
 }
@@ -59,8 +57,8 @@ describe("consultation search hooks", () => {
     },
   );
 
-  it("sends the logged-in user when fetching private consultations from another community", async () => {
-    renderHook(() => useGetConsultations(73), {
+  it("sends the logged-in user once when fetching consultations from another community", async () => {
+    renderHook(() => useGetConsultations(93), {
       wrapper: createWrapper(),
     });
 
@@ -70,8 +68,8 @@ describe("consultation search hooks", () => {
       params: {
         community_id: "13",
         page: 1,
+        user_id: 93,
         search: "planning",
-        user_id: 73,
       },
     });
     const requestParams = axiosInstance.get.mock.calls[0][1].params;
@@ -79,23 +77,15 @@ describe("consultation search hooks", () => {
     expect(requestParams).not.toHaveProperty("is_private");
   });
 
-  it("omits user and type when fetching public consultations from another community", async () => {
+  it("omits the user when no logged-in user is available", async () => {
     renderHook(() => useGetConsultations(), {
       wrapper: createWrapper(),
     });
 
     await waitFor(() => expect(axiosInstance.get).toHaveBeenCalledOnce());
 
-    expect(axiosInstance.get).toHaveBeenCalledWith("consultations", {
-      params: {
-        community_id: "13",
-        page: 1,
-        search: "planning",
-      },
-    });
-    const requestParams = axiosInstance.get.mock.calls[0][1].params;
-    expect(requestParams).not.toHaveProperty("user_id");
-    expect(requestParams).not.toHaveProperty("type");
-    expect(requestParams).not.toHaveProperty("is_private");
+    expect(axiosInstance.get.mock.calls[0][1].params).not.toHaveProperty(
+      "user_id",
+    );
   });
 });

@@ -31,7 +31,7 @@ export default function useGetConsultations(userId, { enabled = true } = {}) {
       if (res.data.code !== 200) {
         throw new Error(res.data.message);
       }
-      if (pageParam === 1 && !userId) {
+      if (pageParam === 1) {
         refreshCommunityIndicatorQueries(queryClient, id);
       }
       return res.data;
