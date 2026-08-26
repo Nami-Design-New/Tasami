@@ -11,7 +11,7 @@ export const ADD_MEETING_DEFAULT_VALUES = {
   time: "",
   duration: "",
   link: "",
-  meetingType: "1",
+  meetingType: "0",
 };
 
 const getSchema = (t) =>

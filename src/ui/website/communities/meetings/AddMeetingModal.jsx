@@ -47,7 +47,7 @@ export default function AddMeetingModal({
         time: meeting?.start_time ?? "",
         duration: meeting?.duration ?? "",
         link: meeting?.link ?? "",
-        meetingType: meeting?.is_private ? "0" : "1",
+        meetingType: meeting?.is_private ? "1" : "0",
       };
     }
 
@@ -225,12 +225,12 @@ export default function AddMeetingModal({
                 <div className="identity-container">
                   <label
                     className={`identity-option ${
-                      selectedMeetingType === "0" ? "active" : ""
+                      selectedMeetingType === "1" ? "active" : ""
                     }`}
                   >
                     <input
                       type="radio"
-                      value="0"
+                      value="1"
                       {...register("meetingType")}
                     />
                     <span>{t("membersOnly")}</span>
@@ -238,12 +238,12 @@ export default function AddMeetingModal({
 
                   <label
                     className={`identity-option ${
-                      selectedMeetingType === "1" ? "active" : ""
+                      selectedMeetingType === "0" ? "active" : ""
                     }`}
                   >
                     <input
                       type="radio"
-                      value="1"
+                      value="0"
                       {...register("meetingType")}
                     />
                     <span>{t("public")}</span>
