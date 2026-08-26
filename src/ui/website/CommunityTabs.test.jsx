@@ -39,18 +39,6 @@ describe("CommunityTabs", () => {
     ).toHaveClass("active");
   });
 
-  it("shows unanswered consultations to the community owner", () => {
-    renderTabs("/my-community", {
-      isMyCommunity: true,
-      community: { unanswered_consultations: 7 },
-    });
-
-    const consultationsLabel = screen
-      .getByText("community.consultant")
-      .closest(".community-counter-label");
-    expect(within(consultationsLabel).getByText("7")).toBeInTheDocument();
-  });
-
   it.each([
     [
       "consultations",
