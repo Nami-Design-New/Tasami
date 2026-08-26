@@ -1,44 +1,46 @@
 import { useTranslation } from "react-i18next";
+import { useSelector } from "react-redux";
 import { useOutletContext } from "react-router";
 import useGetConsultations from "../../hooks/website/communities/useGetConsultations";
+import CustomButton from "../../ui/CustomButton";
 import EmptySection from "../../ui/EmptySection";
 import ConsultationsToolbar from "../../ui/website/communities/consultations/ConsultationsToolbar";
 import PrivateConsultations from "../../ui/website/communities/consultations/PrivateConsultations";
 import PublicConsultations from "../../ui/website/communities/consultations/PublicConsultations";
 
+function isPrivateConsultation(consultation) {
+  return (
+    consultation?.is_private === true || Number(consultation?.is_private) === 1
+  );
+}
+
 export default function Consultations() {
   const { t } = useTranslation();
   const { communityDetails } = useOutletContext();
+  const currentUserId = useSelector((state) => state.authRole.user?.id);
   const isSubscribed = Boolean(communityDetails?.is_subscribed);
-  const privateQuery = useGetConsultations("private", {
-    enabled: isSubscribed,
-  });
-  const publicQuery = useGetConsultations("public");
+  const {
+    consultaions,
+    isLoading,
+    hasNextPage,
+    fetchNextPage,
+    isFetchingNextPage,
+  } = useGetConsultations(currentUserId);
 
-  const privateConsultations =
-    privateQuery.consultaions?.pages?.flatMap((page) => page?.data) ?? [];
-  const publicConsultations =
-    publicQuery.consultaions?.pages?.flatMap((page) => page?.data) ?? [];
-  const isLoading = privateQuery.isLoading || publicQuery.isLoading;
-  const hasNoConsultations =
-    privateConsultations.length === 0 && publicConsultations.length === 0;
-  const privateFirstPage = privateQuery.consultaions?.pages?.[0];
-  const publicFirstPage = publicQuery.consultaions?.pages?.[0];
-  const privateCount =
-    privateFirstPage?.total ??
-    privateFirstPage?.data?.total ??
-    privateConsultations.length;
-  const publicCount =
-    publicFirstPage?.total ??
-    publicFirstPage?.data?.total ??
-    publicConsultations.length;
+  const consultations =
+    consultaions?.pages?.flatMap((page) => page?.data ?? []) ?? [];
+  const privateConsultations = consultations.filter(isPrivateConsultation);
+  const publicConsultations = consultations.filter(
+    (consultation) => !isPrivateConsultation(consultation),
+  );
+  const hasNoConsultations = consultations.length === 0;
 
   return (
     <div className="consultations-section">
       <ConsultationsToolbar
         communityId={communityDetails?.id}
-        privateCount={privateCount}
-        publicCount={publicCount}
+        privateCount={privateConsultations.length}
+        publicCount={publicConsultations.length}
         showRequestButton={isSubscribed}
       />
       {!isLoading && hasNoConsultations && (
@@ -46,18 +48,25 @@ export default function Consultations() {
       )}
       <PrivateConsultations
         consultations={privateConsultations}
-        isLoading={privateQuery.isLoading}
-        hasNextPage={privateQuery.hasNextPage}
-        fetchNextPage={privateQuery.fetchNextPage}
-        isFetchingNextPage={privateQuery.isFetchingNextPage}
+        isLoading={isLoading}
       />
       <PublicConsultations
         consultations={publicConsultations}
-        isLoading={publicQuery.isLoading}
-        hasNextPage={publicQuery.hasNextPage}
-        fetchNextPage={publicQuery.fetchNextPage}
-        isFetchingNextPage={publicQuery.isFetchingNextPage}
+        isLoading={isLoading}
       />
+      {hasNextPage && (
+        <div className="row">
+          <div className="col-12 text-center mb-2">
+            <CustomButton
+              variant="outlined"
+              onClick={fetchNextPage}
+              disabled={isFetchingNextPage}
+            >
+              {isFetchingNextPage ? t("loading") : t("loadMore")}
+            </CustomButton>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

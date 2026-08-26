@@ -24,9 +24,7 @@ function createWrapper() {
 
   return function QueryWrapper({ children }) {
     return (
-      <QueryClientProvider client={queryClient}>
-        {children}
-      </QueryClientProvider>
+      <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
     );
   };
 }
@@ -40,24 +38,27 @@ describe("consultation search hooks", () => {
   });
 
   it.each([
-    ["private", useGetPrivateConsultaions],
-    ["public", useGetPublicConsultations],
-  ])("sends search when fetching %s consultations", async (type, useHook) => {
-    renderHook(() => useHook(), { wrapper: createWrapper() });
+    { type: "private", useHook: useGetPrivateConsultaions },
+    { type: "public", useHook: useGetPublicConsultations },
+  ])(
+    "sends the $type type when fetching owner consultations",
+    async ({ type, useHook }) => {
+      renderHook(() => useHook(), { wrapper: createWrapper() });
 
-    await waitFor(() => expect(axiosInstance.get).toHaveBeenCalledOnce());
+      await waitFor(() => expect(axiosInstance.get).toHaveBeenCalledOnce());
 
-    expect(axiosInstance.get).toHaveBeenCalledWith("consultations", {
-      params: {
-        page: 1,
-        type,
-        search: "planning",
-      },
-    });
-  });
+      expect(axiosInstance.get).toHaveBeenCalledWith("consultations", {
+        params: {
+          page: 1,
+          type,
+          search: "planning",
+        },
+      });
+    },
+  );
 
-  it("sends community, type, and search when fetching a subscribed community", async () => {
-    renderHook(() => useGetConsultations("private"), {
+  it("sends the logged-in user once when fetching consultations from another community", async () => {
+    renderHook(() => useGetConsultations(93), {
       wrapper: createWrapper(),
     });
 
@@ -67,9 +68,24 @@ describe("consultation search hooks", () => {
       params: {
         community_id: "13",
         page: 1,
-        type: "private",
+        user_id: 93,
         search: "planning",
       },
     });
+    const requestParams = axiosInstance.get.mock.calls[0][1].params;
+    expect(requestParams).not.toHaveProperty("type");
+    expect(requestParams).not.toHaveProperty("is_private");
+  });
+
+  it("omits the user when no logged-in user is available", async () => {
+    renderHook(() => useGetConsultations(), {
+      wrapper: createWrapper(),
+    });
+
+    await waitFor(() => expect(axiosInstance.get).toHaveBeenCalledOnce());
+
+    expect(axiosInstance.get.mock.calls[0][1].params).not.toHaveProperty(
+      "user_id",
+    );
   });
 });

@@ -3,7 +3,7 @@ import { useParams, useSearchParams } from "react-router";
 import { axiosInstance } from "../../../lib/axios";
 import { refreshCommunityIndicatorQueries } from "../../../utils/communityIndicatorQueries";
 
-export default function useGetConsultations(type, { enabled = true } = {}) {
+export default function useGetConsultations(userId, { enabled = true } = {}) {
   const { id } = useParams();
   const queryClient = useQueryClient();
   const [searchParams] = useSearchParams();
@@ -16,14 +16,14 @@ export default function useGetConsultations(type, { enabled = true } = {}) {
     fetchNextPage,
     isFetchingNextPage,
   } = useInfiniteQuery({
-    queryKey: ["consultaions", id, type, searchWord],
+    queryKey: ["consultaions", id, userId, searchWord],
     enabled,
     queryFn: async ({ pageParam = 1 }) => {
       const res = await axiosInstance.get("consultations", {
         params: {
           community_id: id,
           page: pageParam,
-          type,
+          ...(userId ? { user_id: userId } : {}),
           ...(searchWord ? { search: searchWord } : {}),
         },
       });
@@ -31,7 +31,7 @@ export default function useGetConsultations(type, { enabled = true } = {}) {
       if (res.data.code !== 200) {
         throw new Error(res.data.message);
       }
-      if (pageParam === 1 && type === "public") {
+      if (pageParam === 1) {
         refreshCommunityIndicatorQueries(queryClient, id);
       }
       return res.data;
