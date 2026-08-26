@@ -23,13 +23,28 @@ export default function ConsultaionDetails() {
   const { user } = useSelector((state) => state.authRole);
   const { id } = useParams();
   const queryClient = useQueryClient();
-  const { consultaionDetails, isLoading } = useGetConsultaionDetails();
+  const { consultaionDetails, error, isError, isLoading } =
+    useGetConsultaionDetails();
   const { deleteConsultation, isDeletingConsultation } =
     useDeleteConsultation();
 
   if (isLoading) return <Loading />;
+  if (isError || !consultaionDetails) {
+    const errorStatus = error?.status ?? error?.response?.status;
 
-  const isOwner = user.id === consultaionDetails.to_user_id;
+    return (
+      <section className="consultaion-details page">
+        <div className="container">
+          <div className="alert alert-danger" role="alert">
+            {errorStatus ? <strong>{errorStatus}: </strong> : null}
+            {error?.message || t("errors.somethingWentWrong")}
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  const isOwner = user?.id === consultaionDetails.to_user_id;
   const hasAnswer = Boolean(consultaionDetails.answer);
 
   const handleDeleteConsultation = () => {
