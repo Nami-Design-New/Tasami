@@ -1,6 +1,7 @@
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { beforeEach, describe, expect, it, vi } from "vitest";
+import { renderToStaticMarkup } from "react-dom/server";
 
 import AddMeetingModal from "./AddMeetingModal";
 
@@ -85,6 +86,19 @@ async function fillRequiredFields(user, container) {
   await user.type(getField(container, "link"), "https://example.com/meeting");
 }
 
+const PRIVATE_MEETING = {
+  id: 55,
+  category_id: 10,
+  sub_category_id: 20,
+  title: "Private planning meeting",
+  desc: "A meeting available to community members.",
+  start_date: "2026-09-10",
+  start_time: "10:30",
+  duration: 30,
+  link: "https://example.com/meeting",
+  is_private: 1,
+};
+
 describe("AddMeetingModal visibility", () => {
   beforeEach(() => {
     vi.clearAllMocks();
@@ -112,18 +126,7 @@ describe("AddMeetingModal visibility", () => {
         setShowModal={vi.fn()}
         setShowDetailsModal={vi.fn()}
         isEdit
-        meeting={{
-          id: 55,
-          category_id: 10,
-          sub_category_id: 20,
-          title: "Private planning meeting",
-          desc: "A meeting available to community members.",
-          start_date: "2026-09-10",
-          start_time: "10:30",
-          duration: 30,
-          link: "https://example.com/meeting",
-          is_private: 1,
-        }}
+        meeting={PRIVATE_MEETING}
       />,
     );
 
@@ -134,5 +137,31 @@ describe("AddMeetingModal visibility", () => {
       id: 55,
       params: { is_private: 1 },
     });
+  });
+
+  it("selects the private option on the first render when editing a private meeting", () => {
+    // renderToStaticMarkup runs the render phase only, so this asserts the
+    // frame the user sees before the reset effect can correct the form.
+    const container = document.createElement("div");
+    container.innerHTML = renderToStaticMarkup(
+      <AddMeetingModal
+        showModal
+        setShowModal={() => {}}
+        setShowDetailsModal={() => {}}
+        isEdit
+        meeting={PRIVATE_MEETING}
+      />,
+    );
+
+    const options = Array.from(container.querySelectorAll(".identity-option"));
+    const membersOnlyOption = options.find(
+      (option) => option.textContent === "membersOnly",
+    );
+    const publicOption = options.find(
+      (option) => option.textContent === "public",
+    );
+
+    expect(membersOnlyOption).toHaveClass("active");
+    expect(publicOption).not.toHaveClass("active");
   });
 });
