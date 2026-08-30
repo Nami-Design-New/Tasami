@@ -20,6 +20,8 @@ export default function TaskScheduleRow({ viewModel, actions }) {
         disabled={date.disabled}
         error={date.error}
         onChange={actions.changeDate}
+        onBlur={actions.blurDate}
+        onFocus={actions.focusDate}
       />
 
       <div className="task-repetition-row__completion-control">

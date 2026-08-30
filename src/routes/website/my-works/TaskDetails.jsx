@@ -1,5 +1,5 @@
 import { useQueryClient } from "@tanstack/react-query";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useLocation, useNavigate, useParams } from "react-router";
 import { useSelector } from "react-redux";
@@ -70,6 +70,7 @@ export default function TaskDetails({ mode = null }) {
   const [selectedStatus, setSelectedStatus] = useState(null);
   const [activeScheduleId, setActiveScheduleId] = useState(null);
   const [scheduleToDelete, setScheduleToDelete] = useState(null);
+  const [scheduleDateConflicts, setScheduleDateConflicts] = useState({});
 
   const { taskDetails, isLoading, error: taskError } = useGetTaskDetails();
   const { updateTaskStatus } = useUpdateTaskStatus();
@@ -136,8 +137,25 @@ export default function TaskDetails({ mode = null }) {
         repetition?.status !== "confirmed",
     );
 
+  const handleScheduleDateValidity = useCallback((scheduleId, isValid) => {
+    setScheduleDateConflicts((current) => {
+      if (Boolean(current[scheduleId]) === !isValid) return current;
+      return { ...current, [scheduleId]: !isValid };
+    });
+  }, []);
+
+  // Only conflicts on repetitions the task still has should block the owner.
+  const hasScheduleDateConflict = repetitions.some(
+    (repetition) => scheduleDateConflicts[repetition?.id],
+  );
+
   const handleChange = (e) => {
     if (!canManageTask) return;
+
+    if (hasScheduleDateConflict) {
+      toast.error(t("works.schedule_errors.resolve_date_conflicts"));
+      return;
+    }
 
     const newStatus = e.target.value;
     if (newStatus === "completed" && hasIncompleteRepetitions) {
@@ -479,6 +497,7 @@ export default function TaskDetails({ mode = null }) {
                     }
                     onUpdate={handleUpdateSchedule}
                     onRequestDelete={setScheduleToDelete}
+                    onDateValidityChange={handleScheduleDateValidity}
                   />
                 );
               })}
