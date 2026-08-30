@@ -38,11 +38,11 @@ const getSchema = (t) =>
     meetingType: yup.string().required(t("validation.typeRequired")),
   });
 
-export default function useAddMeetingForm() {
+export default function useAddMeetingForm(initialValues) {
   const { t } = useTranslation();
   return useForm({
     resolver: yupResolver(getSchema(t)),
-    defaultValues: ADD_MEETING_DEFAULT_VALUES,
+    defaultValues: { ...ADD_MEETING_DEFAULT_VALUES, ...initialValues },
     mode: "onBlur",
   });
 }

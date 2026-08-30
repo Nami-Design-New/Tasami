@@ -28,14 +28,6 @@ export default function AddMeetingModal({
   const { categories, isLoading } = useGetcategories();
   const { addMeeting, isPending } = useAddMeeting();
   const { editMeeting, isPending: isEditing } = useEditMeeting();
-  const {
-    register,
-    handleSubmit,
-    watch,
-    reset,
-
-    formState: { errors },
-  } = useAddMeetingForm();
   const initialFormValues = useMemo(() => {
     if (isEdit && meeting) {
       return {
@@ -53,6 +45,16 @@ export default function AddMeetingModal({
 
     return ADD_MEETING_DEFAULT_VALUES;
   }, [isEdit, meeting]);
+  // Seed the form on its first render so edit mode never paints the "public"
+  // default before the reset effect below can correct it.
+  const {
+    register,
+    handleSubmit,
+    watch,
+    reset,
+
+    formState: { errors },
+  } = useAddMeetingForm(initialFormValues);
   const { showAlertModal, requestClose, confirmClose, cancelClose } =
     useFormCloseHandler({
       watch,

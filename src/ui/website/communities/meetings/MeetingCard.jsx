@@ -30,7 +30,7 @@ export default function MeetingCard({ item, isMyCommuntiy }) {
         </div>
       </div>
 
-      {setShowDetails && (
+      {showDetails && (
         <EncounterDetailsModal
           show={showDetails}
           setShow={setShowDetails}
