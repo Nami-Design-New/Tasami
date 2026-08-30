@@ -8,6 +8,7 @@ import useAddTasks from "../../../../hooks/website/MyWorks/tasks/useAddTasks";
 import useGetTasksCategories from "../../../../hooks/website/MyWorks/tasks/useGetTasksCategories";
 import useUpdateTask from "../../../../hooks/website/MyWorks/tasks/useUpdateTask";
 import { formatYMD } from "../../../../utils/helper";
+import { getChangedTaskFields } from "../../../../utils/taskUpdatePayload";
 import useAddTasksForm, {
   getAvailableTaskRepetitions,
   TASK_NOTE_MAX_LENGTH,
@@ -307,8 +308,25 @@ export default function AddTasksModal({
   };
 
   const submitTaskUpdate = (payload) => {
+    const { schedule_update_mode: scheduleUpdateMode, ...taskFields } = payload;
+    const changedFields = getChangedTaskFields(taskData, taskFields);
+    const hasChanges = Object.keys(changedFields).length > 0;
+
+    // Nothing to send: close instead of claiming an update that never happened.
+    if (!hasChanges && !scheduleUpdateMode) {
+      setPendingUpdatePayload(null);
+      setShowModal(false);
+      return;
+    }
+
     updateTask(
-      { id: taskId, ...payload },
+      {
+        id: taskId,
+        ...changedFields,
+        ...(scheduleUpdateMode
+          ? { schedule_update_mode: scheduleUpdateMode }
+          : {}),
+      },
       {
         onSuccess: (res) => {
           toast.success(res?.message || t("works.task_updated"));
