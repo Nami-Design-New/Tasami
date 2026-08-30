@@ -14,26 +14,19 @@ import useDeletDhMeeting from "../../../../hooks/dashboard/subscription/communit
 import GlobalModal from "../../../GlobalModal";
 import UnavailableResource from "../../UnavailableResource";
 
-export default function EncounterDetailsModal({
+function EncounterDetailsModalView({
   show,
   setShow,
   meetingId,
   isMyCommuntiy,
+  isDashboard,
+  meetingData,
+  isLoadingData,
+  meetingError,
 }) {
-  const isDashboard = useCheckDashboard();
-
   const { t } = useTranslation();
   const queryClient = useQueryClient();
   const [showModal, setShowModal] = useState(false);
-
-  const dash = useGetMeetingDashDetails(meetingId, show && isDashboard);
-  const normal = useGetMeetingDetails(meetingId, show && !isDashboard);
-
-  const meetingData = isDashboard
-    ? dash.meetingDashDetails
-    : normal.meetingDetails;
-  const isLoadingData = isDashboard ? dash.isLoading : normal.isLoading;
-  const meetingError = isDashboard ? null : normal.error;
   const [showAlertModal, setShowAlertModal] = useState(false);
   const { deleteMeeting, isMeetingDelete } = useDeleteMeeting();
   const { deleteDhMeeting, isDhMeetingDelete } = useDeletDhMeeting();
@@ -170,7 +163,7 @@ export default function EncounterDetailsModal({
                 showModal={showModal}
                 setShowModal={setShowModal}
                 isEdit={true}
-                meeting={normal?.meetingDetails}
+                meeting={meetingData}
                 setShowDetailsModal={setShow}
               />
             )}{" "}
@@ -189,5 +182,51 @@ export default function EncounterDetailsModal({
         )}
       </GlobalModal.Body>
     </GlobalModal>
+  );
+}
+
+// Each context loads from its own source, so the dashboard query is never
+// registered in the cache while browsing the website meetings list.
+function DashboardEncounterDetails(props) {
+  const { meetingDashDetails, isLoading } = useGetMeetingDashDetails(
+    props.meetingId,
+    props.show,
+  );
+
+  return (
+    <EncounterDetailsModalView
+      {...props}
+      isDashboard
+      meetingData={meetingDashDetails}
+      isLoadingData={isLoading}
+      meetingError={null}
+    />
+  );
+}
+
+function WebsiteEncounterDetails(props) {
+  const { meetingDetails, isLoading, error } = useGetMeetingDetails(
+    props.meetingId,
+    props.show,
+  );
+
+  return (
+    <EncounterDetailsModalView
+      {...props}
+      isDashboard={false}
+      meetingData={meetingDetails}
+      isLoadingData={isLoading}
+      meetingError={error}
+    />
+  );
+}
+
+export default function EncounterDetailsModal(props) {
+  const isDashboard = useCheckDashboard();
+
+  return isDashboard ? (
+    <DashboardEncounterDetails {...props} />
+  ) : (
+    <WebsiteEncounterDetails {...props} />
   );
 }
