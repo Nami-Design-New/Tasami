@@ -9,6 +9,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import useFollow from "../../hooks/website/personal-assistants/useFollow";
 import useGetAssistantDetails from "../../hooks/website/personal-assistants/useGetAssistantDetails";
 import useDismissFollowSuccessNotice from "../../hooks/website/personal-assistants/useDismissFollowSuccessNotice";
+import HelperCard from "../../ui/cards/HelperCard";
 import OfferCard from "../../ui/cards/OfferCard";
 
 import CustomLink from "../../ui/CustomLink";
@@ -19,8 +20,6 @@ import PersonalHelperDoc from "../../ui/website/helpers/PersonalHelperDoc";
 import PersonalHelperExperiences from "../../ui/website/helpers/PersonalHelperExperiences";
 import FollowSuccessModal from "../../ui/website/helpers/FollowSuccessModal";
 import { setUser } from "../../redux/slices/authRole";
-
-import medal from "../../assets/icons/medal.svg";
 
 export default function HelpersDetails() {
   const navigate = useNavigate();
@@ -132,29 +131,8 @@ export default function HelpersDetails() {
 
           <div className="col-lg-4 col-12 p-2">
             <div className="goal-details-card">
-              <div className="user-profile">
-                <img
-                  src={assistantDetails.image}
-                  alt={assistantDetails.name}
-                  className="avatar"
-                />
-                <div className="content">
-                  <div className="name-rating">
-                    <h6>{assistantDetails.name}</h6>
-                    <div className="rating">
-                      <img src={medal} />
-                      <span>{assistantDetails?.experience_level}</span>
-                    </div>
-                  </div>
-                  <div className="d-flex gap-2 align-items-center">
-                    {assistantDetails?.country?.title && (
-                      <div className="country">
-                        <img src={assistantDetails?.country?.image} />
-                        <span>{assistantDetails?.country?.title}</span>
-                      </div>
-                    )}
-                  </div>
-                </div>
+              <div className="mb-3">
+                <HelperCard helper={assistantDetails} canNavigate={false} />
               </div>
 
               {isHelper && (

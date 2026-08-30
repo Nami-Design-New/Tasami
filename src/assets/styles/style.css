@@ -13025,6 +13025,12 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
   min-height: 54px;
   margin: 0;
 }
+.task-repetition-row__date-field .invalid-feedback {
+  min-height: 18px;
+  margin: 4px 0 0;
+  font-size: 12px;
+  line-height: 1.4;
+}
 .task-repetition-row__completion-control {
   min-width: 0;
 }
@@ -13036,6 +13042,10 @@ input[type=radio]:checked + .gender-goal-filter label, .gender-goal-filter label
   min-height: 54px;
   gap: 6px;
   white-space: nowrap;
+}
+.task-repetition-row__complete:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 .task-repetition-row__completed-status {
   display: flex;

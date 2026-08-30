@@ -992,7 +992,9 @@
       "reminder_not_available": "A reminder can only be enabled for a non-completed repetition on a current or future date",
       "cannot_disable_repetitions": "Repetitions cannot be disabled after one has started or been completed",
       "count_below_preserved": "The repetition count cannot be less than the {{count}} started or completed repetitions",
-      "range_excludes_preserved": "The new date range cannot exclude a started or completed repetition"
+      "range_excludes_preserved": "The new date range cannot exclude a started or completed repetition",
+      "resolve_date_conflicts": "Select an available repetition date before continuing with the task",
+      "date_reverted": "{{reason}} - the previous date was restored"
     },
     "schedule_regeneration": {
       "title": "Update repetition schedule?",
