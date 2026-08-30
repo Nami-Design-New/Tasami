@@ -1,5 +1,6 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { toast } from "sonner";
 import {
   canEnableTaskScheduleReminder,
   normalizeTaskScheduleDate,
@@ -21,12 +22,14 @@ export default function useTaskScheduleRow({
   busy,
   onUpdate,
   onRequestDelete,
+  onDateValidityChange,
 }) {
   const { t } = useTranslation();
   const [date, setDate] = useState(() =>
     normalizeTaskScheduleDate(schedule?.date),
   );
   const [dateError, setDateError] = useState(null);
+  const [hasDateConflict, setHasDateConflict] = useState(false);
   const [completedLocally, setCompletedLocally] = useState(false);
   const [completionError, setCompletionError] = useState(null);
   const [reminderError, setReminderError] = useState(null);
@@ -44,14 +47,32 @@ export default function useTaskScheduleRow({
     (!taskStartDate || taskStartDate <= today) &&
     date <= today;
 
+  const dateValidityRef = useRef(onDateValidityChange);
+  dateValidityRef.current = onDateValidityChange;
+
+  // Clicking a blocked control still blurs the date field, and the revert
+  // that follows would unblock the row before the click is dispatched. The
+  // guard swallows that one click so the interaction only ever reverts.
+  const revertGuardRef = useRef(false);
+
+  const consumeRevertGuard = () => {
+    if (!revertGuardRef.current) return false;
+
+    revertGuardRef.current = false;
+    return true;
+  };
+
   useEffect(() => {
     setDate(normalizeTaskScheduleDate(schedule?.date));
   }, [schedule?.date]);
 
+  useEffect(() => {
+    dateValidityRef.current?.(schedule?.id, !hasDateConflict);
+  }, [schedule?.id, hasDateConflict]);
+
   const handleDateChange = async (event) => {
     const nextDate = event.target.value;
     setDate(nextDate);
-    setDateError(null);
 
     const validationError = validateTaskScheduleDate({
       date: nextDate,
@@ -63,8 +84,12 @@ export default function useTaskScheduleRow({
 
     if (validationError) {
       setDateError(t(validationError));
+      setHasDateConflict(true);
       return;
     }
+
+    setDateError(null);
+    setHasDateConflict(false);
 
     try {
       await onUpdate(schedule.id, { date: nextDate });
@@ -78,7 +103,27 @@ export default function useTaskScheduleRow({
     }
   };
 
+  const handleDateBlur = () => {
+    if (!hasDateConflict) return;
+
+    // The field snaps back, so the reason has to survive somewhere the row
+    // does not keep showing once the value is valid again.
+    toast.error(
+      t("works.schedule_errors.date_reverted", { reason: dateError }),
+    );
+    revertGuardRef.current = true;
+    setDate(normalizeTaskScheduleDate(schedule?.date));
+    setHasDateConflict(false);
+    setDateError(null);
+  };
+
+  const handleDateFocus = () => {
+    revertGuardRef.current = false;
+  };
+
   const handleReminderChange = async (event) => {
+    if (consumeRevertGuard()) return;
+
     const enabled = event.target.checked;
     setReminderError(null);
 
@@ -105,7 +150,9 @@ export default function useTaskScheduleRow({
   };
 
   const handleComplete = async () => {
+    if (consumeRevertGuard()) return;
     if (!completionAvailable || completed || busy || !canManage) return;
+    if (hasDateConflict) return;
     setCompletionError(null);
 
     try {
@@ -135,7 +182,8 @@ export default function useTaskScheduleRow({
       },
       completion: {
         completed,
-        disabled: !canManage || busy || !completionAvailable,
+        disabled:
+          !canManage || busy || !completionAvailable || hasDateConflict,
         title: completionAvailable
           ? undefined
           : t("works.repetition_not_available"),
@@ -153,7 +201,7 @@ export default function useTaskScheduleRow({
       },
       reminder: {
         enabled: reminderEnabled,
-        disabled: !canManage || busy || completed,
+        disabled: !canManage || busy || completed || hasDateConflict,
         label: t("works.reminders"),
         shortLabel: t("works.reminder_short"),
         error: reminderError,
@@ -165,6 +213,8 @@ export default function useTaskScheduleRow({
     },
     actions: {
       changeDate: handleDateChange,
+      blurDate: handleDateBlur,
+      focusDate: handleDateFocus,
       complete: handleComplete,
       changeReminder: handleReminderChange,
       requestDelete: () => onRequestDelete(schedule),

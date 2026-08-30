@@ -1,13 +1,16 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { render, screen } from "@testing-library/react";
+import { fireEvent, render, screen } from "@testing-library/react";
 import { Provider } from "react-redux";
 import { MemoryRouter, Route, Routes } from "react-router";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
 import TaskDetails from "./TaskDetails";
 
-const mocks = vi.hoisted(() => ({ taskDetails: null }));
+const mocks = vi.hoisted(() => ({
+  taskDetails: null,
+  updateTaskStatus: vi.fn(),
+}));
 
 vi.mock("react-i18next", () => ({
   useTranslation: () => ({
@@ -17,6 +20,7 @@ vi.mock("react-i18next", () => ({
         "works.myTasks.statuses.completed": "Completed",
         "works.myTasks.completeRepetitionsHint":
           "Complete all repetitions first",
+        "works.myTasks.statuses.progress": "In progress",
       })[key] || key,
     i18n: { dir: () => "rtl", language: "ar" },
   }),
@@ -24,6 +28,10 @@ vi.mock("react-i18next", () => ({
 
 vi.mock("../../../ui/loading/Loading", () => ({
   default: () => <div>Loading</div>,
+}));
+
+vi.mock("../../../ui/website/my-works/tasks/AddTasksModal", () => ({
+  default: () => null,
 }));
 
 vi.mock("../../../hooks/website/MyWorks/tasks/useGetTaskDetails", () => ({
@@ -35,7 +43,7 @@ vi.mock("../../../hooks/website/MyWorks/tasks/useGetTaskDetails", () => ({
 }));
 
 vi.mock("../../../hooks/website/MyWorks/tasks/useUpdateTaskStatus", () => ({
-  default: () => ({ updateTaskStatus: vi.fn() }),
+  default: () => ({ updateTaskStatus: mocks.updateTaskStatus }),
 }));
 
 vi.mock("../../../hooks/website/MyWorks/tasks/useDeleteTask", () => ({
@@ -50,7 +58,7 @@ vi.mock("../../../hooks/website/MyWorks/tasks/useDeleteTaskSchedule", () => ({
   default: () => ({ deleteTaskSchedule: vi.fn(), isPending: false }),
 }));
 
-const renderTaskDetails = () => {
+const renderTaskDetails = (route = "/my-contracts/785/tasks/12") => {
   const store = configureStore({
     reducer: {
       authRole: () => ({ user: { id: 2 } }),
@@ -64,10 +72,14 @@ const renderTaskDetails = () => {
   return render(
     <Provider store={store}>
       <QueryClientProvider client={queryClient}>
-        <MemoryRouter initialEntries={["/my-contracts/785/tasks/12"]}>
+        <MemoryRouter initialEntries={[route]}>
           <Routes>
             <Route
               path="/my-contracts/:id/tasks/:taskId"
+              element={<TaskDetails />}
+            />
+            <Route
+              path="/my-works/:id/tasks/:taskId"
               element={<TaskDetails />}
             />
           </Routes>
@@ -79,6 +91,7 @@ const renderTaskDetails = () => {
 
 describe("TaskDetails repetitions", () => {
   beforeEach(() => {
+    mocks.updateTaskStatus.mockClear();
     mocks.taskDetails = {
       id: 12,
       work_id: 785,
@@ -115,6 +128,34 @@ describe("TaskDetails repetitions", () => {
     expect(completedOption).toContainElement(
       screen.getByText("Complete all repetitions first"),
     );
+  });
+
+  it("blocks a task status change while a repetition date conflict is unresolved", () => {
+    // The owning beneficiary is the only role that can edit repetition dates.
+    mocks.taskDetails.user_id = 2;
+    mocks.taskDetails.helper_id = 1;
+
+    renderTaskDetails("/my-works/785/tasks/12");
+
+    const [firstDate] = screen.getAllByLabelText("works.schedule_date");
+    // fireEvent dispatches change without a blur, mirroring the date pickers
+    // that commit a value without ever firing one.
+    fireEvent.change(firstDate, { target: { value: "2099-01-02" } });
+
+    fireEvent.click(screen.getByRole("radio", { name: "In progress" }));
+
+    expect(mocks.updateTaskStatus).not.toHaveBeenCalled();
+  });
+
+  it("allows a task status change once no repetition date conflicts remain", () => {
+    mocks.taskDetails.user_id = 2;
+    mocks.taskDetails.helper_id = 1;
+
+    renderTaskDetails("/my-works/785/tasks/12");
+
+    fireEvent.click(screen.getByRole("radio", { name: "In progress" }));
+
+    expect(mocks.updateTaskStatus).toHaveBeenCalled();
   });
 
   it("hides the repetition hint after every repetition is completed", () => {
