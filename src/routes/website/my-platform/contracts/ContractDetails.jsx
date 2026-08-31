@@ -11,7 +11,6 @@ import Currency from "../../../../ui/Currency";
 import CustomButton from "../../../../ui/CustomButton";
 import Loading from "../../../../ui/loading/Loading";
 import AssistantWorkCard from "../../../../ui/website/my-works/work-offers/AssistantWorkCard";
-import RateShowModal from "../../../../ui/website/my-works/work-offers/RateShowModal";
 import AcceptModal from "../../../../ui/website/platform/contracts/AcceptModal";
 import AlertModal from "../../../../ui/website/platform/my-community/AlertModal";
 import triangleWithHelper from "../../../../assets/icons/triangle-with-helper.svg";
@@ -27,7 +26,6 @@ export default function ContractDetails() {
   const [showAlertModal, setShowAlertModal] = useState(false);
   const [showAlertWithdrawOfferModal, setShowAlertWithdrawOfferModal] =
     useState(false);
-  const [showRateReadOnlyModal, setShowRateReadOnlyModal] = useState(false);
   const queryClient = useQueryClient();
   const navigate = useNavigate();
 
@@ -89,7 +87,6 @@ export default function ContractDetails() {
     workDetails?.start_date_timestamp,
     i18n.language,
   );
-  const hasBeneficiaryRate = Boolean(workDetails?.rate);
 
   return (
     <section className="work-details-page">
@@ -301,13 +298,6 @@ export default function ContractDetails() {
         {t("withdraw_offer_warning")}
       </AlertModal>
 
-      {hasBeneficiaryRate && (
-        <RateShowModal
-          showModal={showRateReadOnlyModal}
-          setShowModal={setShowRateReadOnlyModal}
-          contract={workDetails}
-        />
-      )}
     </section>
   );
 }
