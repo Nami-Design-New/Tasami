@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 import {
   Navigate,
   NavLink,
+  Link,
   Outlet,
   useLocation,
   useNavigate,
@@ -13,6 +14,7 @@ import Loading from "../../../../ui/loading/Loading";
 import RoundedBackButton from "../../../../ui/website-auth/shared/RoundedBackButton";
 import RateShowModal from "../../../../ui/website/my-works/work-offers/RateShowModal";
 import { isStartExecutionAccessRestricted } from "../../../../utils/startExecutionDeadline";
+import workChatYellow from "../../../../assets/icons/work-chat-yellow.svg";
 import workStarYellow from "../../../../assets/icons/work-star-yellow.svg";
 
 export default function ContractDetailsLayout() {
@@ -37,8 +39,21 @@ export default function ContractDetailsLayout() {
 
   if (isDeadlineRestricted) return <Navigate to="/my-contracts" replace />;
 
-  const showBeneficiaryRateAction =
-    isBeneficiariesRoute && Boolean(contractDetails?.rate);
+  const isCompletedContract = isBeneficiariesRoute
+    ? Boolean(contractDetails && contractDetails.status !== "working")
+    : workDetails?.status === "completed";
+  const ratingContract =
+    isBeneficiariesRoute && contractDetails ? contractDetails : workDetails;
+  const showBeneficiaryRateAction = Boolean(ratingContract?.rate);
+  const contractChatId =
+    contractDetails?.id ||
+    workDetails?.helper_last_contract_id ||
+    workDetails?.last_contract_id ||
+    workDetails?.contract_id;
+  const unreadMessages =
+    contractDetails?.unread_Messages ?? workDetails?.unread_messages ?? 0;
+  const showCompletedActions =
+    isCompletedContract && (showBeneficiaryRateAction || contractChatId);
 
   // Tabs Logic
   if (
@@ -100,16 +115,35 @@ export default function ContractDetailsLayout() {
                 ></RoundedBackButton>
                 <h1>{workDetails?.code}</h1>
               </div>
-              {showBeneficiaryRateAction && (
-                <button
-                  type="button"
-                  className="action-buttons yellow"
-                  onClick={() => setShowRateReadOnlyModal(true)}
-                  aria-label={t("rate_view_title")}
-                >
-                  <img src={workStarYellow} alt={t("rate_view_title")} />
-                </button>
-              )}
+              {showCompletedActions ? (
+                <div className="d-flex align-items-center gap-2">
+                  {showBeneficiaryRateAction ? (
+                    <button
+                      type="button"
+                      className="action-buttons yellow"
+                      onClick={() => setShowRateReadOnlyModal(true)}
+                      aria-label={t("rate_view_title")}
+                    >
+                      <img src={workStarYellow} alt="" />
+                    </button>
+                  ) : null}
+
+                  {contractChatId ? (
+                    <Link
+                      to={`/user-chat/${contractChatId}`}
+                      className="action-buttons yellow position-relative"
+                      aria-label={t("chats")}
+                    >
+                      <img src={workChatYellow} alt="" />
+                      {unreadMessages > 0 ? (
+                        <span className="notification_span notification_position">
+                          {unreadMessages}
+                        </span>
+                      ) : null}
+                    </Link>
+                  ) : null}
+                </div>
+              ) : null}
             </div>
           </div>
           <div className="col-12 p-2">
@@ -161,13 +195,13 @@ export default function ContractDetailsLayout() {
         workId={workDetails?.id}
         contractId={workDetails?.helper_last_contract_id}
       /> */}
-      {showBeneficiaryRateAction && (
+      {isCompletedContract && showBeneficiaryRateAction ? (
         <RateShowModal
           showModal={showRateReadOnlyModal}
           setShowModal={setShowRateReadOnlyModal}
-          contract={contractDetails}
+          contract={ratingContract}
         />
-      )}
+      ) : null}
     </section>
   );
 }
