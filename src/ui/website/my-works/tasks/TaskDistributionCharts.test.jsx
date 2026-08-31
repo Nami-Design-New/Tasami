@@ -91,6 +91,22 @@ describe("TaskDistributionCharts", () => {
     expect(onGenerateImprovement).toHaveBeenCalledOnce();
   });
 
+  it("shows and disables the update loader while refreshing", () => {
+    render(
+      <TaskDistributionCharts
+        {...baseProps}
+        isCurrentRefreshing
+      />,
+    );
+
+    const updateButton = screen.getByRole("button", {
+      name: "works.myTasks.distribution.update",
+    });
+
+    expect(updateButton).toBeDisabled();
+    expect(updateButton.querySelector(".btn__spinner")).toBeInTheDocument();
+  });
+
   it("replaces the generation button with a table after data is generated", () => {
     render(
       <TaskDistributionCharts

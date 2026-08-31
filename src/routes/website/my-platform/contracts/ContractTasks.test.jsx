@@ -57,12 +57,20 @@ vi.mock("../../../../ui/website/my-works/NoTasks", () => ({
   default: () => <div data-testid="no-tasks" />,
 }));
 vi.mock("../../../../ui/website/my-works/tasks/TaskDistributionCharts", () => ({
-  default: ({ currentDistribution, improvement, onRefreshCurrent }) => (
+  default: ({
+    currentDistribution,
+    improvement,
+    isCurrentRefreshing,
+    onRefreshCurrent,
+  }) => (
     <div>
       <div data-testid="current-distribution">
         {currentDistribution
           .map((item) => `${item.task_title}:${item.percentage}`)
           .join(",") || "empty"}
+      </div>
+      <div data-testid="current-distribution-refreshing">
+        {String(isCurrentRefreshing)}
       </div>
       <div data-testid="improvement">
         {improvement?.overall_assessment || "empty"}
@@ -199,6 +207,73 @@ describe("ContractTasks", () => {
     expect(refreshTaskDistributionStatus).toHaveBeenCalledOnce();
     expect(mocks.toastSuccess).toHaveBeenCalledWith(
       "works.myTasks.distribution.refreshSuccess",
+    );
+  });
+
+  it("keeps the current distribution loader active through the status refresh", async () => {
+    let resolveStatusRefresh;
+    const refreshCurrentDistribution = vi.fn().mockResolvedValue({
+      data: {
+        current_distribution: [
+          { task_title: "Execution", percentage: 100 },
+        ],
+      },
+      error: null,
+    });
+    const refreshTaskDistributionStatus = vi.fn().mockImplementation(
+      () =>
+        new Promise((resolve) => {
+          resolveStatusRefresh = resolve;
+        }),
+    );
+
+    mocks.getCurrentDistribution.mockReturnValue({
+      currentTaskDistribution: [],
+      isFetching: false,
+      isError: false,
+      refetch: refreshCurrentDistribution,
+    });
+    mocks.getStatus.mockReturnValue({
+      taskDistributionStatus: {
+        current_distribution: [],
+        optimal_distribution: [],
+        analysis: {
+          strengths: [],
+          conclusion: "",
+          improvement_points: [],
+        },
+        improvement: {
+          comparison: [],
+          overall_assessment: "",
+        },
+        optimal_distribution_generated: false,
+        improvement_generated: false,
+      },
+      isLoading: false,
+      refetch: refreshTaskDistributionStatus,
+    });
+
+    render(<ContractTasks />);
+
+    fireEvent.click(
+      screen.getByRole("button", { name: "Refresh current distribution" }),
+    );
+
+    await waitFor(() =>
+      expect(
+        screen.getByTestId("current-distribution-refreshing"),
+      ).toHaveTextContent("true"),
+    );
+    await waitFor(() =>
+      expect(refreshTaskDistributionStatus).toHaveBeenCalledOnce(),
+    );
+
+    resolveStatusRefresh({ data: {}, error: null });
+
+    await waitFor(() =>
+      expect(
+        screen.getByTestId("current-distribution-refreshing"),
+      ).toHaveTextContent("false"),
     );
   });
 });
