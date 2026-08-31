@@ -26,6 +26,8 @@ export default function ContractTasks() {
   const { t } = useTranslation();
   const [refreshedCurrentDistribution, setRefreshedCurrentDistribution] =
     useState(null);
+  const [isRefreshingCurrentDistribution, setIsRefreshingCurrentDistribution] =
+    useState(false);
   const { goalTasks, isLoading } = useGetTasks(id);
   const {
     taskDistribution,
@@ -36,7 +38,6 @@ export default function ContractTasks() {
   } = useGetTaskDistribution(id);
   const {
     currentTaskDistribution,
-    isFetching: isCurrentDistributionFetching,
     isError: isCurrentDistributionError,
     refetch: refreshCurrentDistribution,
   } = useGetCurrentTaskDistribution(id);
@@ -87,17 +88,23 @@ export default function ContractTasks() {
   };
 
   const handleRefreshCurrent = async () => {
-    const result = await refreshCurrentDistribution();
+    setIsRefreshingCurrentDistribution(true);
 
-    if (!result.error) {
-      const distribution = normalizeCurrentDistribution(result.data);
+    try {
+      const result = await refreshCurrentDistribution();
 
-      if (distribution) {
-        setRefreshedCurrentDistribution({ workId: id, data: distribution });
+      if (!result.error) {
+        const distribution = normalizeCurrentDistribution(result.data);
+
+        if (distribution) {
+          setRefreshedCurrentDistribution({ workId: id, data: distribution });
+        }
+
+        await refreshTaskDistributionStatus();
+        toast.success(t("works.myTasks.distribution.refreshSuccess"));
       }
-
-      await refreshTaskDistributionStatus();
-      toast.success(t("works.myTasks.distribution.refreshSuccess"));
+    } finally {
+      setIsRefreshingCurrentDistribution(false);
     }
   };
 
@@ -167,7 +174,7 @@ export default function ContractTasks() {
         currentDistribution={currentDistribution}
         optimalDistribution={optimalDistribution}
         isCurrentLoading={isDistributionStatusLoading}
-        isCurrentRefreshing={isCurrentDistributionFetching}
+        isCurrentRefreshing={isRefreshingCurrentDistribution}
         isCurrentError={isCurrentDistributionError}
         onRefreshCurrent={handleRefreshCurrent}
         isOptimalLoading={isDistributionLoading}
