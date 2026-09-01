@@ -10,6 +10,7 @@ import { useSelector } from "react-redux";
 import RoundedBackButton from "../../ui/website-auth/shared/RoundedBackButton";
 import communityPlaceholder from "../../assets/images/dashboard/communities-image.png";
 import { getCommunityDescription } from "../../utils/communityDescription";
+import { CommunityProvider } from "../../ui/website/CommunityContext";
 
 export default function CommunityDetails() {
   const { communityDetails, isLoading } = useGetCommunityDetails();
@@ -18,7 +19,8 @@ export default function CommunityDetails() {
   const { user } = useSelector((state) => state.authRole);
   if (isLoading) return <Loading />;
   return (
-    <div className="container page">
+    <CommunityProvider communityDetails={communityDetails}>
+      <div className="container page">
       <div className="my-2">
         <RoundedBackButton onClick={() => navigate(-1)}></RoundedBackButton>
       </div>
@@ -46,9 +48,11 @@ export default function CommunityDetails() {
                 {getCommunityDescription(communityDetails)}
               </p>
             </div>
-            <div className="col-12 p-2">
-              <CommunityStats community={communityDetails} />
-            </div>
+            {communityDetails?.is_subscribed === true && (
+              <div className="col-12 p-2">
+                <CommunityStats community={communityDetails} />
+              </div>
+            )}
           </div>
         </div>
         <div className="row p-0">
@@ -65,6 +69,7 @@ export default function CommunityDetails() {
           </div>
         </div>
       </section>
-    </div>
+      </div>
+    </CommunityProvider>
   );
 }

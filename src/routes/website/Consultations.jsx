@@ -7,6 +7,9 @@ import EmptySection from "../../ui/EmptySection";
 import ConsultationsToolbar from "../../ui/website/communities/consultations/ConsultationsToolbar";
 import PrivateConsultations from "../../ui/website/communities/consultations/PrivateConsultations";
 import PublicConsultations from "../../ui/website/communities/consultations/PublicConsultations";
+import {
+  getCommunityPreviewItems,
+} from "../../utils/communityPreview";
 
 function isPrivateConsultation(consultation) {
   return (
@@ -29,11 +32,15 @@ export default function Consultations() {
 
   const consultations =
     consultaions?.pages?.flatMap((page) => page?.data ?? []) ?? [];
-  const privateConsultations = consultations.filter(isPrivateConsultation);
-  const publicConsultations = consultations.filter(
+  const visibleConsultations = getCommunityPreviewItems(
+    consultations,
+    isSubscribed,
+  );
+  const privateConsultations = visibleConsultations.filter(isPrivateConsultation);
+  const publicConsultations = visibleConsultations.filter(
     (consultation) => !isPrivateConsultation(consultation),
   );
-  const hasNoConsultations = consultations.length === 0;
+  const hasNoConsultations = visibleConsultations.length === 0;
 
   return (
     <div className="consultations-section">
@@ -49,12 +56,22 @@ export default function Consultations() {
       <PrivateConsultations
         consultations={privateConsultations}
         isLoading={isLoading}
+        blurredItemIds={
+          isSubscribed
+            ? []
+            : [visibleConsultations[2]?.id]
+        }
       />
       <PublicConsultations
         consultations={publicConsultations}
         isLoading={isLoading}
+        blurredItemIds={
+          isSubscribed
+            ? []
+            : [visibleConsultations[2]?.id]
+        }
       />
-      {hasNextPage && (
+      {isSubscribed && hasNextPage && (
         <div className="row">
           <div className="col-12 text-center mb-2">
             <CustomButton

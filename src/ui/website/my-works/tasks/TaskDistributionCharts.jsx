@@ -18,6 +18,7 @@ const CHART_COLORS = [
 function DistributionChart({
   title,
   data,
+  categoryColors,
   isLoading = false,
   hasError = false,
   onRefresh,
@@ -36,7 +37,7 @@ function DistributionChart({
           toolbar: { show: false },
         },
         labels,
-        colors: CHART_COLORS,
+        colors: data.map((item) => categoryColors.get(item.label)),
         stroke: {
           colors: ["#ffffff"],
           width: 2,
@@ -79,7 +80,7 @@ function DistributionChart({
         ],
       },
     };
-  }, [data]);
+  }, [categoryColors, data]);
 
   return (
     <article className="task-distribution-card">
@@ -323,6 +324,25 @@ export default function TaskDistributionCharts({
       })),
     [optimalDistribution, t],
   );
+
+  const categoryColors = useMemo(() => {
+    const colorsByCategory = new Map();
+    const categories = [
+      ...formattedCurrentDistribution,
+      ...formattedOptimalDistribution,
+    ];
+
+    categories.forEach(({ label }) => {
+      if (!colorsByCategory.has(label)) {
+        colorsByCategory.set(
+          label,
+          CHART_COLORS[colorsByCategory.size % CHART_COLORS.length],
+        );
+      }
+    });
+
+    return colorsByCategory;
+  }, [formattedCurrentDistribution, formattedOptimalDistribution]);
   const hasImprovementData =
     Boolean(improvement?.overall_assessment) ||
     (Array.isArray(improvement?.comparison) &&
@@ -339,6 +359,7 @@ export default function TaskDistributionCharts({
         <DistributionChart
           title={t("works.myTasks.distribution.currentTitle")}
           data={formattedCurrentDistribution}
+          categoryColors={categoryColors}
           isLoading={isCurrentLoading}
           isRefreshing={isCurrentRefreshing}
           hasError={isCurrentError}
@@ -347,6 +368,7 @@ export default function TaskDistributionCharts({
         <DistributionChart
           title={t("works.myTasks.distribution.optimalTitle")}
           data={formattedOptimalDistribution}
+          categoryColors={categoryColors}
           isLoading={isOptimalLoading}
           hasError={isOptimalError}
           action={
