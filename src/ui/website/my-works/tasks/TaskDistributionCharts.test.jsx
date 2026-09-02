@@ -4,7 +4,9 @@ import { describe, expect, it, vi } from "vitest";
 import TaskDistributionCharts from "./TaskDistributionCharts";
 
 vi.mock("react-apexcharts", () => ({
-  default: () => <div data-testid="distribution-chart" />,
+  default: ({ series }) => (
+    <div data-testid="distribution-chart">{series.join(",")}</div>
+  ),
 }));
 
 vi.mock("react-i18next", () => ({
@@ -33,6 +35,33 @@ const baseProps = {
 };
 
 describe("TaskDistributionCharts", () => {
+  it("recreates the chart with the latest values when distribution data changes", () => {
+    const { rerender } = render(
+      <TaskDistributionCharts
+        {...baseProps}
+        currentDistribution={[
+          { task_title: "Preparation", percentage: 25 },
+          { task_title: "Execution", percentage: 75 },
+        ]}
+      />,
+    );
+    const initialChart = screen.getByTestId("distribution-chart");
+
+    rerender(
+      <TaskDistributionCharts
+        {...baseProps}
+        currentDistribution={[
+          { task_title: "Preparation", percentage: 60 },
+          { task_title: "Execution", percentage: 40 },
+        ]}
+      />,
+    );
+
+    const updatedChart = screen.getByTestId("distribution-chart");
+    expect(updatedChart).toHaveTextContent("60,40");
+    expect(updatedChart).not.toBe(initialChart);
+  });
+
   it("restores the persisted generation state even when saved chart data is empty", () => {
     render(
       <TaskDistributionCharts

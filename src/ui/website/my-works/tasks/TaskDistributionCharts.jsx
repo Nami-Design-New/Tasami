@@ -1,4 +1,3 @@
-import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import ReactApexChart from "react-apexcharts";
 import CustomButton from "../../../CustomButton";
@@ -26,61 +25,58 @@ function DistributionChart({
   action,
 }) {
   const { t } = useTranslation();
-  const chartConfig = useMemo(() => {
-    const labels = data.map((item) => item.label);
-
-    return {
-      series: data.map((item) => item.value),
-      options: {
-        chart: {
-          fontFamily: "Dubai, sans-serif",
-          toolbar: { show: false },
-        },
-        labels,
-        colors: data.map((item) => categoryColors.get(item.label)),
-        stroke: {
-          colors: ["#ffffff"],
-          width: 2,
-        },
-        dataLabels: {
-          enabled: true,
-          formatter: (percentage) => `${Math.round(percentage)}%`,
-          style: {
-            fontSize: "12px",
-            fontWeight: 700,
-          },
-          dropShadow: { enabled: false },
-        },
-        legend: {
-          position: "bottom",
-          horizontalAlign: "center",
-          fontSize: "13px",
-          itemMargin: {
-            horizontal: 10,
-            vertical: 5,
-          },
-          markers: {
-            size: 6,
-            shape: "circle",
-          },
-        },
-        tooltip: {
-          y: {
-            formatter: (value) => value,
-          },
-        },
-        responsive: [
-          {
-            breakpoint: 576,
-            options: {
-              chart: { height: 360 },
-              legend: { fontSize: "12px" },
-            },
-          },
-        ],
+  const labels = data.map((item) => item.label);
+  const series = data.map((item) => item.value);
+  const colors = data.map((item) => categoryColors.get(item.label));
+  const chartKey = JSON.stringify({ labels, series, colors });
+  const options = {
+    chart: {
+      fontFamily: "Dubai, sans-serif",
+      toolbar: { show: false },
+    },
+    labels,
+    colors,
+    stroke: {
+      colors: ["#ffffff"],
+      width: 2,
+    },
+    dataLabels: {
+      enabled: true,
+      formatter: (percentage) => `${Math.round(percentage)}%`,
+      style: {
+        fontSize: "12px",
+        fontWeight: 700,
       },
-    };
-  }, [categoryColors, data]);
+      dropShadow: { enabled: false },
+    },
+    legend: {
+      position: "bottom",
+      horizontalAlign: "center",
+      fontSize: "13px",
+      itemMargin: {
+        horizontal: 10,
+        vertical: 5,
+      },
+      markers: {
+        size: 6,
+        shape: "circle",
+      },
+    },
+    tooltip: {
+      y: {
+        formatter: (value) => value,
+      },
+    },
+    responsive: [
+      {
+        breakpoint: 576,
+        options: {
+          chart: { height: 360 },
+          legend: { fontSize: "12px" },
+        },
+      },
+    ],
+  };
 
   return (
     <article className="task-distribution-card">
@@ -98,10 +94,11 @@ function DistributionChart({
         </div>
       ) : (
         <ReactApexChart
+          key={chartKey}
           type="pie"
           height={390}
-          options={chartConfig.options}
-          series={chartConfig.series}
+          options={options}
+          series={series}
         />
       )}
       {action || onRefresh ? (
@@ -284,8 +281,8 @@ function ImprovementRecommendations({ data, analysis, hasError }) {
 }
 
 export default function TaskDistributionCharts({
-  currentDistribution,
-  optimalDistribution,
+  currentDistribution = [],
+  optimalDistribution = [],
   isCurrentLoading,
   isCurrentRefreshing,
   isCurrentError,
@@ -305,45 +302,30 @@ export default function TaskDistributionCharts({
 }) {
   const { t } = useTranslation();
 
-  const formattedCurrentDistribution = useMemo(
-    () =>
-      currentDistribution.map((item) => ({
-        label:
-          item.task_title || t("works.myTasks.distribution.uncategorized"),
-        value: Number(item.percentage) || 0,
-      })),
-    [currentDistribution, t],
-  );
-  
+  const formattedCurrentDistribution = currentDistribution.map((item) => ({
+    label: item.task_title || t("works.myTasks.distribution.uncategorized"),
+    value: Number(item.percentage) || 0,
+  }));
 
-  const formattedOptimalDistribution = useMemo(
-    () =>
-      optimalDistribution.map((item) => ({
-        label:
-          item.task_title || t("works.myTasks.distribution.uncategorized"),
-        value: Number(item.percentage) || 0,
-      })),
-    [optimalDistribution, t],
-  );
+  const formattedOptimalDistribution = optimalDistribution.map((item) => ({
+    label: item.task_title || t("works.myTasks.distribution.uncategorized"),
+    value: Number(item.percentage) || 0,
+  }));
 
-  const categoryColors = useMemo(() => {
-    const colorsByCategory = new Map();
-    const categories = [
-      ...formattedCurrentDistribution,
-      ...formattedOptimalDistribution,
-    ];
+  const categoryColors = new Map();
+  const categories = [
+    ...formattedCurrentDistribution,
+    ...formattedOptimalDistribution,
+  ];
 
-    categories.forEach(({ label }) => {
-      if (!colorsByCategory.has(label)) {
-        colorsByCategory.set(
-          label,
-          CHART_COLORS[colorsByCategory.size % CHART_COLORS.length],
-        );
-      }
-    });
-
-    return colorsByCategory;
-  }, [formattedCurrentDistribution, formattedOptimalDistribution]);
+  categories.forEach(({ label }) => {
+    if (!categoryColors.has(label)) {
+      categoryColors.set(
+        label,
+        CHART_COLORS[categoryColors.size % CHART_COLORS.length],
+      );
+    }
+  });
   const hasImprovementData =
     Boolean(improvement?.overall_assessment) ||
     (Array.isArray(improvement?.comparison) &&
