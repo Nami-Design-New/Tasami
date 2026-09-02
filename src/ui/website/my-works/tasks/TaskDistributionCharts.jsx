@@ -101,6 +101,7 @@ function DistributionChart({
           series={series}
         />
       )}
+      
       {action || onRefresh ? (
         <div className="task-distribution-actions">
           {action || (
