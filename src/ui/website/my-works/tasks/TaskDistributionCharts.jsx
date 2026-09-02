@@ -314,6 +314,7 @@ export default function TaskDistributionCharts({
       })),
     [currentDistribution, t],
   );
+  
 
   const formattedOptimalDistribution = useMemo(
     () =>
