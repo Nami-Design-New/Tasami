@@ -15,6 +15,56 @@ const CHART_COLORS = [
   "#6f42c1",
 ];
 
+function ControlledApexPieChart({ options, series, chartKey }) {
+  const chartRef = useRef(null);
+  const initialOptionsRef = useRef(options);
+  const initialSeriesRef = useRef(series);
+  const lastChartKeyRef = useRef(chartKey);
+  const updateQueueRef = useRef(Promise.resolve());
+
+  useEffect(() => {
+    if (lastChartKeyRef.current === chartKey) return undefined;
+
+    lastChartKeyRef.current = chartKey;
+    const nextChartData = JSON.parse(chartKey);
+    let isCancelled = false;
+
+    const updateTask = updateQueueRef.current.then(async () => {
+      if (isCancelled) return;
+
+      const chart = chartRef.current;
+      if (!chart?.updateOptions || !chart?.updateSeries) return;
+
+      const { series: nextSeries, ...nextOptions } = nextChartData;
+      await chart.updateOptions(nextOptions, true, false, false);
+
+      if (!isCancelled) {
+        await chart.updateSeries(nextSeries, false, true);
+      }
+    });
+
+    updateQueueRef.current = updateTask.catch((error) => {
+      if (!isCancelled && import.meta.env.DEV) {
+        console.error("Failed to update distribution chart", error);
+      }
+    });
+
+    return () => {
+      isCancelled = true;
+    };
+  }, [chartKey]);
+
+  return (
+    <ReactApexChart
+      chartRef={chartRef}
+      type="pie"
+      height={390}
+      options={initialOptionsRef.current}
+      series={initialSeriesRef.current}
+    />
+  );
+}
+
 function DistributionChart({
   title,
   data,
@@ -26,25 +76,10 @@ function DistributionChart({
   action,
 }) {
   const { t } = useTranslation();
-  const chartRef = useRef(null);
   const labels = data.map((item) => item.label);
   const series = data.map((item) => item.value);
   const colors = data.map((item) => categoryColors.get(item.label));
   const chartKey = JSON.stringify({ labels, series, colors });
-
-  useEffect(() => {
-    const nextChartData = JSON.parse(chartKey);
-    const animationFrame = window.requestAnimationFrame(() => {
-      chartRef.current?.updateOptions(
-        nextChartData,
-        true,
-        false,
-        false,
-      );
-    });
-
-    return () => window.cancelAnimationFrame(animationFrame);
-  }, [chartKey]);
 
   const options = {
     chart: {
@@ -113,11 +148,8 @@ function DistributionChart({
           {t("works.myTasks.distribution.noData")}
         </div>
       ) : (
-        <ReactApexChart
-          key={chartKey}
-          chartRef={chartRef}
-          type="pie"
-          height={390}
+        <ControlledApexPieChart
+          chartKey={chartKey}
           options={options}
           series={series}
         />
