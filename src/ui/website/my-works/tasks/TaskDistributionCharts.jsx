@@ -1,3 +1,4 @@
+import { useEffect, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import ReactApexChart from "react-apexcharts";
 import CustomButton from "../../../CustomButton";
@@ -25,14 +26,33 @@ function DistributionChart({
   action,
 }) {
   const { t } = useTranslation();
+  const chartRef = useRef(null);
   const labels = data.map((item) => item.label);
   const series = data.map((item) => item.value);
   const colors = data.map((item) => categoryColors.get(item.label));
   const chartKey = JSON.stringify({ labels, series, colors });
+
+  useEffect(() => {
+    const nextChartData = JSON.parse(chartKey);
+    const animationFrame = window.requestAnimationFrame(() => {
+      chartRef.current?.updateOptions(
+        nextChartData,
+        true,
+        false,
+        false,
+      );
+    });
+
+    return () => window.cancelAnimationFrame(animationFrame);
+  }, [chartKey]);
+
   const options = {
     chart: {
       fontFamily: "Dubai, sans-serif",
       toolbar: { show: false },
+      animations: { enabled: false },
+      redrawOnParentResize: true,
+      redrawOnWindowResize: true,
     },
     labels,
     colors,
@@ -95,6 +115,7 @@ function DistributionChart({
       ) : (
         <ReactApexChart
           key={chartKey}
+          chartRef={chartRef}
           type="pie"
           height={390}
           options={options}
