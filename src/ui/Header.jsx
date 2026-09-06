@@ -89,9 +89,7 @@ export default function Header() {
                 >
                   {t("website.header.myAccount")}
                   <CommunityCountBadge
-                    count={
-                      counterNotify?.total_unseen_community_counters
-                    }
+                    count={counterNotify?.total_unseen_community_counters}
                   />
                 </NavLink>
               </li>
@@ -147,32 +145,32 @@ export default function Header() {
             <span>{t("website.header.communities")}</span>
           </Link>
           {isAuthed && (
-            <Link to="/notifications" className="notification-btn">
-              <i className="fa-regular fa-bell">
-                {settings?.notification_count > 0 && (
-                  <Badge>
-                    {settings?.notification_count > 99
-                      ? "99+"
-                      : settings?.notification_count}
-                  </Badge>
-                )}
-              </i>
+            <Link
+              to="/notifications"
+              className={`notification-btn ${settings?.notification_count == 0 ? "m-0" : ""}`}
+            >
+              <i className="fa-regular fa-bell"></i>
+              {settings?.notification_count > 0 && (
+                <Badge>
+                  {settings?.notification_count > 99
+                    ? "99+"
+                    : settings?.notification_count}
+                </Badge>
+              )}
             </Link>
           )}
           {isAuthed && (
             <Link
               to="/new-chats"
-              className="notification-btn"
+              className="notification-btn mx-2"
               aria-label={t("quickChats.title", "المحادثات الجديدة")}
             >
-              <span className="notification-img-icon">
-                <i className="fa-regular fa-messages" aria-hidden="true"></i>
-                {newChatAlertsCount > 0 && (
-                  <Badge>
-                    {newChatAlertsCount > 99 ? "99+" : newChatAlertsCount}
-                  </Badge>
-                )}
-              </span>
+              <i className="fa-regular fa-messages" aria-hidden="true"></i>
+              {newChatAlertsCount > 0 && (
+                <Badge>
+                  {newChatAlertsCount > 99 ? "99+" : newChatAlertsCount}
+                </Badge>
+              )}
             </Link>
           )}
           <LangDropdown />

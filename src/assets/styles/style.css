@@ -976,6 +976,7 @@ input::-ms-clear {
   display: flex;
   align-items: center;
   justify-content: center;
+  gap: 1px;
 }
 .main-header nav .actions .notification-btn img {
   width: 24px;
@@ -989,19 +990,22 @@ input::-ms-clear {
   font-weight: 400;
   width: 22px;
   height: 22px;
-  position: absolute;
-  left: -4px;
-  top: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   border-radius: 50%;
   background-color: #ff7a59 !important;
-  transform: translate(-50%, -50%);
 }
 .main-header nav .actions .notification-btn i {
   color: #214b92;
   font-size: 24px;
+}
+.main-header nav .actions .notification-img-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  margin-top: 1px;
 }
 .main-header nav .actions .quick-chat-alert-btn i {
   color: #0d0d0d;
