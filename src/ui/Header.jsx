@@ -174,6 +174,7 @@ export default function Header() {
             </Link>
           )}
           <LangDropdown />
+          
           {isAuthed && (
             <CustomButton
               size="small"
