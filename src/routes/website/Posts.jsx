@@ -10,6 +10,11 @@ import AudienceCardLoader from "../../ui/loading/AudienceCardLoader";
 import InfiniteScroll from "../../ui/loading/InfiniteScroll";
 import AddPostModal from "../../ui/website/communities/posts/AddPostModal";
 import PostCard from "../../ui/website/communities/posts/PostCard";
+import {
+  getCommunityPreviewItems,
+  isCommunityPreviewItemBlurred,
+} from "../../utils/communityPreview";
+import { useCommunityContext } from "../../ui/website/CommunityContext";
 
 export default function Posts({ isMyCommuntiy = true }) {
   const { t } = useTranslation();
@@ -18,12 +23,21 @@ export default function Posts({ isMyCommuntiy = true }) {
     searchParams.get("search") || "",
   );
   const [showModal, setShowModal] = useState(false);
+  const communityContext = useCommunityContext();
+  const isCommunityMember =
+    isMyCommuntiy ||
+    (communityContext === undefined
+      ? true
+      : communityContext?.communityDetails?.is_subscribed === true);
   const { posts, isLoading, hasNextPage, fetchNextPage, isFetchingNextPage } =
     useGetPosts();
   const allPosts = posts?.pages?.flatMap((page) => page?.data) ?? [];
+  const visiblePosts = getCommunityPreviewItems(allPosts, isCommunityMember);
   const firstPage = posts?.pages?.[0];
   const postsCount =
-    firstPage?.total ?? firstPage?.data?.total ?? allPosts.length;
+    isCommunityMember
+      ? firstPage?.total ?? firstPage?.data?.total ?? allPosts.length
+      : visiblePosts.length;
 
   useEffect(() => {
     const handler = setTimeout(() => {
@@ -68,16 +82,23 @@ export default function Posts({ isMyCommuntiy = true }) {
             )}
           </div>
         </div>
-        {!isLoading && allPosts.length === 0 && (
+        {!isLoading && visiblePosts.length === 0 && (
           <EmptySection height="500px" message={t("community.noPosts")} />
         )}
         <InfiniteScroll
           onLoadMore={fetchNextPage}
-          hasNextPage={hasNextPage}
+          hasNextPage={isCommunityMember && hasNextPage}
           isFetchingNextPage={isFetchingNextPage}
         >
-          {allPosts.map((post) => (
-            <div className="col-12 p-2" key={post.id}>
+          {visiblePosts.map((post, index) => (
+            <div
+              className={`col-12 p-2 ${
+                isCommunityPreviewItemBlurred(index, isCommunityMember)
+                  ? "community-preview-item--blurred"
+                  : ""
+              }`}
+              key={post.id}
+            >
               <PostCard post={post} />
             </div>
           ))}

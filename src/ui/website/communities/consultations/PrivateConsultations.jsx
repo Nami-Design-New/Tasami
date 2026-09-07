@@ -9,6 +9,7 @@ export default function PrivateConsultations({
   hasNextPage,
   fetchNextPage,
   isFetchingNextPage,
+  blurredItemIds = [],
 }) {
   const { t } = useTranslation();
 
@@ -26,7 +27,14 @@ export default function PrivateConsultations({
       </div>
 
       {consultations.map((item) => (
-        <div className="col-12  p-2" key={item.id}>
+        <div
+          className={`col-12 p-2 ${
+            blurredItemIds.includes(item.id)
+              ? "community-preview-item--blurred"
+              : ""
+          }`}
+          key={item.id}
+        >
           <ConsultationCard item={item} />
         </div>
       ))}

@@ -1161,6 +1161,12 @@
   }
 }
 
+.community-preview-item--blurred {
+  filter: blur(7px);
+  pointer-events: none;
+  user-select: none;
+}
+
 .community-members-page {
   .container {
     max-width: 520px;

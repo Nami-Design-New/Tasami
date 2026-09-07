@@ -11,6 +11,11 @@ import EmptySection from "../../ui/EmptySection";
 import AudienceCardLoader from "../../ui/loading/AudienceCardLoader";
 import useGetMeetings from "../../hooks/website/communities/mettings/useGetMeetings";
 import EncounterDetailsModal from "../../ui/website/communities/meetings/EncounterDetailsModal";
+import {
+  getCommunityPreviewItems,
+  isCommunityPreviewItemBlurred,
+} from "../../utils/communityPreview";
+import { useCommunityContext } from "../../ui/website/CommunityContext";
 
 export default function Meetings({ isMyCommuntiy = true }) {
   const { t } = useTranslation();
@@ -19,14 +24,26 @@ export default function Meetings({ isMyCommuntiy = true }) {
     searchParams.get("search") || "",
   );
   const [showModal, setShowModal] = useState(false);
+  const communityContext = useCommunityContext();
+  const isCommunityMember =
+    isMyCommuntiy ||
+    (communityContext === undefined
+      ? true
+      : communityContext?.communityDetails?.is_subscribed === true);
   const selectedMeetingId = searchParams.get("meeting_id");
   const { isLoading, data, hasNextPage, fetchNextPage, isFetchingNextPage } =
     useGetMeetings();
 
   const allMeetings = data?.pages?.flatMap((page) => page?.data) ?? [];
+  const visibleMeetings = getCommunityPreviewItems(
+    allMeetings,
+    isCommunityMember,
+  );
   const firstPage = data?.pages?.[0];
   const meetingsCount =
-    firstPage?.total ?? firstPage?.data?.total ?? allMeetings.length;
+    isCommunityMember
+      ? firstPage?.total ?? firstPage?.data?.total ?? allMeetings.length
+      : visibleMeetings.length;
 
   useEffect(() => {
     const handler = setTimeout(() => {
@@ -85,16 +102,23 @@ export default function Meetings({ isMyCommuntiy = true }) {
       </div>
       <div className="mettings-list">
         <div className="row">
-          {!isLoading && allMeetings.length === 0 && (
+          {!isLoading && visibleMeetings.length === 0 && (
             <EmptySection height="500px" message={t("community.noMeetings")} />
           )}
           <InfiniteScroll
             onLoadMore={fetchNextPage}
-            hasNextPage={hasNextPage}
+            hasNextPage={isCommunityMember && hasNextPage}
             isFetchingNextPage={isFetchingNextPage}
           >
-            {allMeetings.map((item) => (
-              <div className="col-12 p-2" key={item.id}>
+            {visibleMeetings.map((item, index) => (
+              <div
+                className={`col-12 p-2 ${
+                  isCommunityPreviewItemBlurred(index, isCommunityMember)
+                    ? "community-preview-item--blurred"
+                    : ""
+                }`}
+                key={item.id}
+              >
                 <MeetingCard item={item} isMyCommuntiy={isMyCommuntiy} />
               </div>
             ))}
