@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import { MemoryRouter } from "react-router";
-import { describe, expect, it, vi } from "vitest";
+import { afterEach, describe, expect, it, vi } from "vitest";
 import TaskCard from "./TaskCard";
 
 vi.mock("react-i18next", () => ({
@@ -34,6 +34,10 @@ const task = {
 };
 
 describe("TaskCard", () => {
+  afterEach(() => {
+    vi.useRealTimers();
+  });
+
   it("renders every task summary field returned by the tasks endpoint", () => {
     render(
       <MemoryRouter initialEntries={["/my-contracts/793/tasks"]}>
@@ -48,5 +52,31 @@ describe("TaskCard", () => {
     expect(screen.getByLabelText("Notes count: 1")).toBeInTheDocument();
     expect(screen.getByLabelText("Repetitions count: 50")).toBeInTheDocument();
     expect(screen.getByAltText("pending")).toBeInTheDocument();
+  });
+
+  it("does not mark a task overdue on its target date", () => {
+    vi.useFakeTimers();
+    vi.setSystemTime(new Date(2026, 8, 25, 15, 30));
+
+    render(
+      <MemoryRouter>
+        <TaskCard task={task} user={{ id: 93 }} isDragable={false} />
+      </MemoryRouter>,
+    );
+
+    expect(screen.getByText("2026-09-25")).not.toHaveClass("text-fire");
+  });
+
+  it("marks a task overdue starting the day after its target date", () => {
+    vi.useFakeTimers();
+    vi.setSystemTime(new Date(2026, 8, 26, 0, 0));
+
+    render(
+      <MemoryRouter>
+        <TaskCard task={task} user={{ id: 93 }} isDragable={false} />
+      </MemoryRouter>,
+    );
+
+    expect(screen.getByText("2026-09-25")).toHaveClass("text-fire");
   });
 });
