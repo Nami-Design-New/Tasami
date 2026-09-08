@@ -15,6 +15,7 @@ import RoundedBackButton from "../../../ui/website-auth/shared/RoundedBackButton
 import AddTasksModal from "../../../ui/website/my-works/tasks/AddTasksModal";
 import OptionsMenu from "../../../ui/website/OptionsMenu";
 import { TASKS_STATUS } from "../../../utils/constants";
+import { isDateBeforeToday } from "../../../utils/taskDates";
 
 import bellIcon from "../../../assets/icons/bell.svg";
 import missionClassIcon from "../../../assets/icons/mission-class.svg";
@@ -296,8 +297,7 @@ export default function TaskDetails({ mode = null }) {
       </section>
     );
   }
-  const taskDate = new Date(taskDetails?.expected_end_date);
-  const isPast = taskDate < new Date();
+  const isPast = isDateBeforeToday(taskDetails?.expected_end_date);
   const hasTaskNotes = taskNotes.length > 0;
 
   return (

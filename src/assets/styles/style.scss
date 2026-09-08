@@ -62,7 +62,10 @@ select,
 ::picker(select) {
   appearance: base-select;
 }
-
+.fs-12 {
+  font-size: 11px !important;
+  font-weight: 400 !important;
+}
 /* PDF only header */
 .pdf-header {
   display: flex;

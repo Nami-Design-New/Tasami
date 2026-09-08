@@ -151,7 +151,7 @@ export default function Header() {
             >
               <i className="fa-regular fa-bell"></i>
               {settings?.notification_count > 0 && (
-                <Badge>
+                <Badge className="fs-12">
                   {settings?.notification_count > 99
                     ? "99+"
                     : settings?.notification_count}
@@ -167,7 +167,7 @@ export default function Header() {
             >
               <i className="fa-regular fa-messages" aria-hidden="true"></i>
               {newChatAlertsCount > 0 && (
-                <Badge>
+                <Badge className="fs-12">
                   {newChatAlertsCount > 99 ? "99+" : newChatAlertsCount}
                 </Badge>
               )}
