@@ -125,7 +125,6 @@ function DistributionChart({
   );
 }
 
-
 function PlanAnalysis({ data }) {
   const { t } = useTranslation();
   const strengths = Array.isArray(data?.strengths) ? data.strengths : [];
