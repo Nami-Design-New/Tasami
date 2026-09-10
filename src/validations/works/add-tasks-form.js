@@ -6,6 +6,12 @@ import * as yup from "yup";
 const TASK_TEXT_MAX_LENGTH = 500;
 export const TASK_NOTE_MAX_LENGTH = 500;
 const MILLISECONDS_PER_DAY = 24 * 60 * 60 * 1000;
+const TASK_REPEAT_TYPES = ["daily", "weekly", "monthly"];
+const TASK_REPEAT_INTERVAL_DAYS = {
+  daily: 1,
+  weekly: 7,
+  monthly: 30,
+};
 
 const toUtcCalendarDay = (value) => {
   if (!value) return null;
@@ -23,13 +29,33 @@ const toUtcCalendarDay = (value) => {
   return Date.UTC(date.getFullYear(), date.getMonth(), date.getDate());
 };
 
-export const getAvailableTaskRepetitions = (startedAt, expectedEndDate) => {
+export const getAvailableTaskRepetitions = (
+  startedAt,
+  expectedEndDate,
+  repeatType = "daily",
+) => {
   const startDay = toUtcCalendarDay(startedAt);
   const endDay = toUtcCalendarDay(expectedEndDate);
 
   if (startDay === null || endDay === null || endDay < startDay) return 0;
 
-  return Math.floor((endDay - startDay) / MILLISECONDS_PER_DAY) + 1;
+  const intervalDays = TASK_REPEAT_INTERVAL_DAYS[repeatType] || 1;
+  return (
+    Math.floor(
+      (endDay - startDay) / (MILLISECONDS_PER_DAY * intervalDays),
+    ) + 1
+  );
+};
+
+export const getAvailableTaskRepeatTypes = (startedAt, expectedEndDate) => {
+  const taskDuration = getAvailableTaskRepetitions(
+    startedAt,
+    expectedEndDate,
+  );
+
+  if (taskDuration >= 30) return TASK_REPEAT_TYPES;
+  if (taskDuration >= 7) return ["daily", "weekly"];
+  return ["daily"];
 };
 
 const WEEK_DAYS = [
@@ -202,6 +228,27 @@ export const getAddTasksSchema = (
         },
       ),
 
+    repeat_type: yup.string().when("repeatTask", {
+      is: true,
+      then: (schema) =>
+        schema
+          .oneOf(TASK_REPEAT_TYPES, t("validation.invalid_option"))
+          .required(t("validation.required"))
+          .test(
+            "repeat-type-within-task-duration",
+            t("works.repeat_type_not_available"),
+            function validateRepeatType(value) {
+              if (!value) return true;
+
+              return getAvailableTaskRepeatTypes(
+                this.parent.started_at,
+                this.parent.expected_end_date,
+              ).includes(value);
+            },
+          ),
+      otherwise: (schema) => schema.optional(),
+    }),
+
     repeat_count: yup.mixed().when(
       ["repeatTask", "reminderNotifications"],
       ([repeatTask, reminderNotifications]) => {
@@ -232,6 +279,7 @@ export const getAddTasksSchema = (
               const availableRepetitions = getAvailableTaskRepetitions(
                 this.parent.started_at,
                 this.parent.expected_end_date,
+                this.parent.repeat_type,
               );
 
               return (
@@ -266,6 +314,7 @@ export default function useAddTasksForm({ originalExpectedEndDate } = {}) {
       notification_day: [],
       notification_time: "",
       repeatTask: false,
+      repeat_type: "daily",
       repeat_count: "",
     },
     mode: "onChange",

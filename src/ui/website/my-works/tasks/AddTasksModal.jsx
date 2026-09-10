@@ -8,8 +8,12 @@ import useAddTasks from "../../../../hooks/website/MyWorks/tasks/useAddTasks";
 import useGetTasksCategories from "../../../../hooks/website/MyWorks/tasks/useGetTasksCategories";
 import useUpdateTask from "../../../../hooks/website/MyWorks/tasks/useUpdateTask";
 import { formatYMD } from "../../../../utils/helper";
-import { getChangedTaskFields } from "../../../../utils/taskUpdatePayload";
+import {
+  getChangedTaskFields,
+  TASK_REPEAT_TYPE,
+} from "../../../../utils/taskUpdatePayload";
 import useAddTasksForm, {
+  getAvailableTaskRepeatTypes,
   getAvailableTaskRepetitions,
   TASK_NOTE_MAX_LENGTH,
 } from "../../../../validations/works/add-tasks-form";
@@ -35,7 +39,7 @@ const WEEK_DAYS = [
 ];
 
 const MONTH_DAYS = Array.from({ length: 31 }, (_, index) => index + 1);
-const TASK_REPEAT_TYPE = "daily";
+const TASK_REPEAT_OPTIONS = ["daily", "weekly", "monthly"];
 
 const getTaskSchedules = (task) =>
   Array.isArray(task?.schedules?.data)
@@ -151,10 +155,16 @@ export default function AddTasksModal({
   const notes = watch("notes") || [];
   const notificationRepeat = watch("notification_repeat");
   const repeatTask = watch("repeatTask");
+  const repeatType = watch("repeat_type");
   const repeatCount = watch("repeat_count");
   const startedAt = watch("started_at");
   const expectedEndDate = watch("expected_end_date");
   const availableRepetitions = getAvailableTaskRepetitions(
+    startedAt,
+    expectedEndDate,
+    repeatType,
+  );
+  const availableRepeatTypes = getAvailableTaskRepeatTypes(
     startedAt,
     expectedEndDate,
   );
@@ -195,6 +205,11 @@ export default function AddTasksModal({
           : [],
         notification_time: taskData.notification_time || "",
         repeatTask: !hasReminderNotifications && isRepeated,
+        repeat_type:
+          !hasReminderNotifications &&
+          TASK_REPEAT_OPTIONS.includes(taskData.repeat_type)
+            ? taskData.repeat_type
+            : TASK_REPEAT_TYPE,
         repeat_count:
           !hasReminderNotifications && isRepeated
             ? taskData.repeat_count || ""
@@ -222,6 +237,28 @@ export default function AddTasksModal({
       });
     }
   }, [availableRepetitions, repeatCount, repeatTask, setValue]);
+
+  useEffect(() => {
+    if (
+      !repeatTask ||
+      getAvailableTaskRepeatTypes(startedAt, expectedEndDate).includes(
+        repeatType,
+      )
+    ) {
+      return;
+    }
+
+    setValue("repeat_type", TASK_REPEAT_TYPE, {
+      shouldDirty: true,
+      shouldValidate: true,
+    });
+  }, [
+    expectedEndDate,
+    repeatTask,
+    repeatType,
+    setValue,
+    startedAt,
+  ]);
 
   const handleSaveNote = () => {
     const text = noteDraft.trim();
@@ -382,7 +419,7 @@ export default function AddTasksModal({
 
     const isRepeated = data.repeatTask && !data.reminderNotifications;
     payload.repeat_count = isRepeated ? Number(data.repeat_count) : 0;
-    payload.repeat_type = TASK_REPEAT_TYPE;
+    payload.repeat_type = data.repeat_type || TASK_REPEAT_TYPE;
     payload.is_repeated = isRepeated ? 1 : 0;
 
     // ADD MODE → include work_id
@@ -751,6 +788,42 @@ export default function AddTasksModal({
 
                   {repeatTask ? (
                     <div className="task-repetition-count">
+                      <fieldset className="task-repetition-type">
+                        <legend>{t("works.repeat")}</legend>
+                        <div className="task-repetition-type__options">
+                          {TASK_REPEAT_OPTIONS.map((option) => (
+                            <label
+                              key={option}
+                              className={[
+                                repeatType === option ? "active" : "",
+                                !availableRepeatTypes.includes(option)
+                                  ? "unavailable"
+                                  : "",
+                              ]
+                                .filter(Boolean)
+                                .join(" ")}
+                              title={
+                                !availableRepeatTypes.includes(option)
+                                  ? t("works.repeat_type_not_available")
+                                  : undefined
+                              }
+                            >
+                              <input
+                                type="radio"
+                                value={option}
+                                disabled={!availableRepeatTypes.includes(option)}
+                                {...register("repeat_type")}
+                              />
+                              <span>{t(`works.${option}`)}</span>
+                            </label>
+                          ))}
+                        </div>
+                        {errors.repeat_type ? (
+                          <span className="error-text">
+                            {errors.repeat_type.message}
+                          </span>
+                        ) : null}
+                      </fieldset>
                       <div className="task-repetition-count__control">
                         <InputField
                           id="repeat_count"

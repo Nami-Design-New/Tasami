@@ -990,6 +990,7 @@
     "required_repetitions_count": "عدد التكرارات المطلوبة",
     "available_repetitions": "التكرارات المتاحة",
     "repetitions_exceed_available": "لا يمكن أن يتجاوز عدد التكرارات {{count}} يومًا متاحًا",
+    "repeat_type_not_available": "نوع التكرار غير متاح لمدة المهمة المحددة",
     "repetitions_disabled_with_reminders": "لا يمكن تفعيل التكرارات أثناء تشغيل التذكيرات",
     "repetition": "التكرار",
     "delete_repetition": "حذف",

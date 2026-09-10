@@ -969,6 +969,7 @@
     "required_repetitions_count": "Required number of repetitions",
     "available_repetitions": "Available repetitions",
     "repetitions_exceed_available": "Repetitions cannot exceed the {{count}} available days",
+    "repeat_type_not_available": "This repeat type is not available for the selected task duration",
     "repetitions_disabled_with_reminders": "Repetitions cannot be enabled while reminders are on",
     "repetition": "Repetition",
     "delete_repetition": "Delete",

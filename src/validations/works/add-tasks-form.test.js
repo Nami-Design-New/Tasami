@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import {
+  getAvailableTaskRepeatTypes,
   getAvailableTaskRepetitions,
   getAddTasksSchema,
 } from "./add-tasks-form";
@@ -22,6 +23,7 @@ const validTask = {
   notification_day: ["1", "15", "31"],
   notification_time: "09:00",
   repeatTask: false,
+  repeat_type: "daily",
   repeat_count: "",
 };
 
@@ -38,10 +40,101 @@ describe("execution task scheduling validation", () => {
     expect(getAvailableTaskRepetitions("2026-07-01", "2026-07-01")).toBe(1);
   });
 
+  it("calculates available repetitions using the selected repeat type", () => {
+    expect(
+      getAvailableTaskRepetitions("2026-07-01", "2026-07-07", "weekly"),
+    ).toBe(1);
+    expect(
+      getAvailableTaskRepetitions("2026-07-01", "2026-07-08", "weekly"),
+    ).toBe(2);
+    expect(
+      getAvailableTaskRepetitions("2026-07-01", "2026-07-30", "monthly"),
+    ).toBe(1);
+    expect(
+      getAvailableTaskRepetitions("2026-07-01", "2026-07-31", "monthly"),
+    ).toBe(2);
+  });
+
   it("accepts the maximum repetitions available in the date range", async () => {
     await expect(schema.validate(validRepeatedTask)).resolves.toMatchObject({
       repeat_count: 51,
     });
+  });
+
+  it("limits repetition types according to the task duration", () => {
+    expect(
+      getAvailableTaskRepeatTypes("2026-07-01", "2026-07-06"),
+    ).toEqual(["daily"]);
+    expect(
+      getAvailableTaskRepeatTypes("2026-07-01", "2026-07-07"),
+    ).toEqual(["daily", "weekly"]);
+    expect(
+      getAvailableTaskRepeatTypes("2026-07-01", "2026-07-30"),
+    ).toEqual(["daily", "weekly", "monthly"]);
+  });
+
+  it("accepts daily, weekly, and monthly task repetition types", async () => {
+    const repeatCounts = { daily: 51, weekly: 8, monthly: 2 };
+
+    for (const repeatType of ["daily", "weekly", "monthly"]) {
+      await expect(
+        schema.validate({
+          ...validRepeatedTask,
+          repeat_type: repeatType,
+          repeat_count: repeatCounts[repeatType],
+        }),
+      ).resolves.toMatchObject({ repeat_type: repeatType });
+    }
+  });
+
+  it("rejects an unsupported task repetition type", async () => {
+    await expect(
+      schema.validate({ ...validRepeatedTask, repeat_type: "yearly" }),
+    ).rejects.toThrow("validation.invalid_option");
+  });
+
+  it("rejects weekly and monthly repetitions when the task duration is too short", async () => {
+    await expect(
+      schema.validate({
+        ...validRepeatedTask,
+        started_at: "2099-01-01",
+        expected_end_date: "2099-01-06",
+        repeat_type: "weekly",
+        repeat_count: 1,
+      }),
+    ).rejects.toThrow("works.repeat_type_not_available");
+
+    await expect(
+      schema.validate({
+        ...validRepeatedTask,
+        started_at: "2099-01-01",
+        expected_end_date: "2099-01-29",
+        repeat_type: "monthly",
+        repeat_count: 1,
+      }),
+    ).rejects.toThrow("works.repeat_type_not_available");
+  });
+
+  it("limits the repetition count using the selected repeat type", async () => {
+    await expect(
+      schema.validate({
+        ...validRepeatedTask,
+        started_at: "2099-01-01",
+        expected_end_date: "2099-01-08",
+        repeat_type: "weekly",
+        repeat_count: 3,
+      }),
+    ).rejects.toThrow("works.repetitions_exceed_available");
+
+    await expect(
+      schema.validate({
+        ...validRepeatedTask,
+        started_at: "2099-01-01",
+        expected_end_date: "2099-01-30",
+        repeat_type: "monthly",
+        repeat_count: 2,
+      }),
+    ).rejects.toThrow("works.repetitions_exceed_available");
   });
 
   it("does not validate notification fields when reminders are off", async () => {

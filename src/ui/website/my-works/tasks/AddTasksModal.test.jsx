@@ -104,4 +104,45 @@ describe("AddTasksModal update payload", () => {
 
     await waitFor(() => expect(mocks.updateTask).not.toHaveBeenCalled());
   });
+
+  it("sends the selected task repetition type with the repetition fields", async () => {
+    const user = userEvent.setup();
+    renderModal({
+      taskData: {
+        ...taskData,
+        is_repeated: 1,
+        repeat_type: "daily",
+        repeat_count: 3,
+      },
+    });
+
+    await user.click(await screen.findByRole("radio", { name: "works.weekly" }));
+    await save(user);
+
+    await waitFor(() => expect(mocks.updateTask).toHaveBeenCalled());
+
+    expect(mocks.updateTask.mock.calls[0][0]).toEqual({
+      id: 12,
+      is_repeated: 1,
+      repeat_type: "weekly",
+      repeat_count: 3,
+    });
+  });
+
+  it("disables weekly and monthly repetitions for tasks shorter than a week", async () => {
+    renderModal({
+      taskData: {
+        ...taskData,
+        started_at: "2099-01-01",
+        expected_end_date: "2099-01-06",
+        is_repeated: 1,
+        repeat_type: "daily",
+        repeat_count: 3,
+      },
+    });
+
+    expect(await screen.findByRole("radio", { name: "works.daily" })).toBeEnabled();
+    expect(screen.getByRole("radio", { name: "works.weekly" })).toBeDisabled();
+    expect(screen.getByRole("radio", { name: "works.monthly" })).toBeDisabled();
+  });
 });

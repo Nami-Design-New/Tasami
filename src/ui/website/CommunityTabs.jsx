@@ -14,9 +14,7 @@ export default function CommunityTabs({
     ? "/my-community"
     : `/community/${communityId}`;
   const consultationsCount = getCommunityCount(
-    isMyCommunity
-      ? community?.unanswered_consultations
-      : community?.unseen_consultations_count,
+    community?.unseen_consultations_count,
   );
   const meetingsCount = getCommunityCount(community?.unseen_meetings_count);
   const postsCount = getCommunityCount(community?.unseen_posts_count);
