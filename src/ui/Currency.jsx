@@ -4,4 +4,5 @@ const Currency = ({ ...props }) => {
   return <img src={ryal} {...props} />;
 };
 
+
 export default Currency;

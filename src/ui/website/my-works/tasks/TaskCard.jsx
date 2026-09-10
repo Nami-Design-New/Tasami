@@ -7,6 +7,7 @@ import ConfirmPerformanceModal from "./ConfirmPerformanceModal";
 import pendingTaskCheck from "../../../../assets/icons/pending-task-check.svg";
 import progressTaskCheck from "../../../../assets/icons/progress-task-check.svg";
 import taskCheck from "../../../../assets/icons/task-check.svg";
+import { isDateBeforeToday } from "../../../../utils/taskDates";
 export default function TaskCard({
   task,
   user,
@@ -77,8 +78,7 @@ export default function TaskCard({
     }
   };
 
-  const taskDate = new Date(task?.expected_end_date);
-  const isPast = taskDate < new Date();
+  const isPast = isDateBeforeToday(task?.expected_end_date);
 
   return (
     <div

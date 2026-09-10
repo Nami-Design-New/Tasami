@@ -1,6 +1,7 @@
 import { useTranslation } from "react-i18next";
 import ReactApexChart from "react-apexcharts";
 import CustomButton from "../../../CustomButton";
+import { useQueryClient } from "@tanstack/react-query";
 
 const CHART_COLORS = [
   "#1385a5",
@@ -29,6 +30,7 @@ function DistributionChart({
   const series = data.map((item) => item.value);
   const colors = data.map((item) => categoryColors.get(item.label));
   const chartKey = JSON.stringify({ labels, series, colors });
+  const queryClient = useQueryClient();
   const options = {
     chart: {
       fontFamily: "Dubai, sans-serif",
@@ -109,7 +111,10 @@ function DistributionChart({
               type="button"
               size="small"
               loading={isRefreshing && !isLoading}
-              onClick={() => onRefresh()}
+              onClick={() => {
+                onRefresh()
+                queryClient.invalidateQueries({ queryKey: ["work-tasks"] });
+              }}
             >
               {t("works.myTasks.distribution.update")}
             </CustomButton>
@@ -119,6 +124,7 @@ function DistributionChart({
     </article>
   );
 }
+
 
 function PlanAnalysis({ data }) {
   const { t } = useTranslation();
