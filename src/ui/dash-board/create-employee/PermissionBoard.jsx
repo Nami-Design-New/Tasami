@@ -1,18 +1,123 @@
+import { useQueryClient } from "@tanstack/react-query";
 import { debounce } from "lodash";
-import { useCallback, useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useSearchParams } from "react-router";
+import { toast } from "sonner";
+import useAdminPermissions from "../../../hooks/auth/dashboard/useAdminPermissions";
+import useEditPermissions from "../../../hooks/dashboard/employee/useEditPermissions";
+import useGetEmployee from "../../../hooks/dashboard/employee/useGetEmployee";
 import useGetPermissions from "../../../hooks/dashboard/shared/useGetPermissions";
+import { DASHBOARD_PERMISSIONS } from "../../../utils/dashboardPermissions";
 import CustomButton from "../../CustomButton";
 import InterestsLoading from "../../loading/InterestsLoading";
 import PermissionGroup from "./PermissionGroup";
-import useGetEmployee from "../../../hooks/dashboard/employee/useGetEmployee";
-import useEditPermissions from "../../../hooks/dashboard/employee/useEditPermissions";
-import { useForm } from "react-hook-form";
-import { toast } from "sonner";
-import { useQueryClient } from "@tanstack/react-query";
-import useAdminPermissions from "../../../hooks/auth/dashboard/useAdminPermissions";
-import { DASHBOARD_PERMISSIONS } from "../../../utils/dashboardPermissions";
+
+const getSelectedPermissionIds = (permissionGroups = []) =>
+  new Set(
+    permissionGroups.flatMap((group) =>
+      (group.permissions || [])
+        .filter((permission) => permission.is_taken)
+        .map((permission) => permission.id),
+    ),
+  );
+
+const PermissionEditor = ({
+  groups,
+  employeeId,
+  employeePermissions,
+  canEditPermissions,
+  editPermissions,
+  isPending,
+  queryClient,
+  t,
+}) => {
+  const [selectedPermissionIds, setSelectedPermissionIds] = useState(() =>
+    getSelectedPermissionIds(employeePermissions),
+  );
+
+  const togglePermission = (permissionId) => {
+    setSelectedPermissionIds((current) => {
+      const next = new Set(current);
+
+      if (next.has(permissionId)) {
+        next.delete(permissionId);
+      } else {
+        next.add(permissionId);
+      }
+
+      return next;
+    });
+  };
+
+  const toggleGroupPermissions = (permissionIds, shouldSelect) => {
+    setSelectedPermissionIds((current) => {
+      const next = new Set(current);
+
+      permissionIds.forEach((permissionId) => {
+        if (shouldSelect) {
+          next.add(permissionId);
+        } else {
+          next.delete(permissionId);
+        }
+      });
+
+      return next;
+    });
+  };
+
+  const onSubmit = (event) => {
+    event.preventDefault();
+
+    editPermissions(
+      {
+        employee_id: employeeId,
+        permissions: Array.from(selectedPermissionIds),
+      },
+      {
+        onSuccess: (res) => {
+          toast.success(res?.message);
+          queryClient.invalidateQueries({
+            queryKey: ["dashboard-employee-details", employeeId],
+          });
+          queryClient.invalidateQueries({
+            queryKey: ["dashboard-permissions"],
+          });
+        },
+        onError: (err) => {
+          toast.error(err.message);
+        },
+      },
+    );
+  };
+
+  return (
+    <form onSubmit={onSubmit}>
+      <div className="permission__board">
+        {groups.map((group) => (
+          <PermissionGroup
+            key={group.id}
+            title={group.title}
+            permissions={group.permissions}
+            selectedPermissionIds={selectedPermissionIds}
+            onTogglePermission={togglePermission}
+            onToggleAll={toggleGroupPermissions}
+          />
+        ))}
+      </div>
+
+      {canEditPermissions && (
+        <div className="col-12 p-2 ">
+          <div className="buttons w-full justify-content-end ">
+            <CustomButton loading={isPending} color="primary" size="large">
+              {t("dashboard.permissions.update")}
+            </CustomButton>
+          </div>
+        </div>
+      )}
+    </form>
+  );
+};
 
 const PermissionBoard = () => {
   const { t } = useTranslation();
@@ -23,76 +128,33 @@ const PermissionBoard = () => {
   const { permissions, isLoading } = useGetPermissions();
   const { employee, isLoading: isEmployeeLoading } = useGetEmployee();
   const { editPermissions, isPending } = useEditPermissions();
-  const { handleSubmit, register } = useForm();
   const [searchParams, setSearchParams] = useSearchParams();
   const search = searchParams.get("search") || "";
   const queryClient = useQueryClient();
 
-  // --- Debounced search updater ---
-  const updateSearchParam = useCallback(
-    debounce((value) => {
-      const params = {};
+  const updateSearchParam = useMemo(
+    () =>
+      debounce((value) => {
+        const params = {};
 
-      if (value.trim() !== "") {
-        params.search = value;
-      }
+        if (value.trim() !== "") {
+          params.search = value;
+        }
 
-      setSearchParams(params);
-    }, 600),
-    []
+        setSearchParams(params);
+      }, 600),
+    [setSearchParams],
   );
 
-  const onSearchInput = (e) => {
-    updateSearchParam(e.target.value);
-  };
+  useEffect(
+    () => () => {
+      updateSearchParam.cancel();
+    },
+    [updateSearchParam],
+  );
 
-  const groupsWithActivePermissions = useMemo(() => {
-    if (!permissions?.data || !employee?.data?.permissions) return [];
-
-    return permissions.data.map((group) => {
-      // Find matching employee group
-
-      const empGroup = employee.data.permissions.find(
-        (eg) => eg.id === group.id
-      );
-
-      return {
-        ...group,
-        permissions: group.permissions.map((perm) => {
-          // Find matching employee permission
-          const empPerm = empGroup?.permissions?.find((p) => p.id === perm.id);
-
-          return {
-            ...perm,
-            active: empPerm?.is_taken ?? false,
-          };
-        }),
-      };
-    });
-  }, [permissions, employee]);
-
-  const onSubmit = (values) => {
-
-    // convert object {1: true, 2:false,...} → only active IDs
-    const activePermissions = Object.entries(values.permissions)
-      .filter(([, isChecked]) => isChecked === true)
-      .map(([id]) => Number(id));
-
-    const payload = {
-      employee_id: employee.data.id,
-      permissions: activePermissions,
-    };
-
-    editPermissions(payload, {
-      onSuccess: (res) => {
-        toast.success(res?.message);
-        queryClient.invalidateQueries({ queryKey: ["dashboard-permissions"] });
-        queryClient.refetchQueries({ queryKey: ["dashboard-permissions"] });
-      },
-      onError: (err) => {
-        toast.error(err.message);
-      },
-    });
+  const onSearchInput = (event) => {
+    updateSearchParam(event.target.value);
   };
 
   if (isLoading || isEmployeeLoading) return <InterestsLoading />;
@@ -108,30 +170,18 @@ const PermissionBoard = () => {
           placeholder={t("dashboard.permissions.searchPlaceholder")}
         />
       </div>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="permission__board">
-          {isLoading
-            ? [1, 2, 3].map((i) => <InterestsLoading key={i} />)
-            : groupsWithActivePermissions?.map((group) => (
-                <PermissionGroup
-                  key={group.id}
-                  title={group.title}
-                  permissions={group.permissions}
-                  groupId={`group-${group.id}`}
-                  register={register}
-                />
-              ))}
-        </div>
-        {canEditPermissions && (
-          <div className="col-12 p-2 ">
-            <div className="buttons w-full justify-content-end ">
-              <CustomButton loading={isPending} color="primary" size="large">
-                {t("dashboard.permissions.update")}
-              </CustomButton>
-            </div>
-          </div>
-        )}
-      </form>
+
+      <PermissionEditor
+        key={employee.data.id}
+        groups={permissions?.data || []}
+        employeeId={employee.data.id}
+        employeePermissions={employee.data.permissions}
+        canEditPermissions={canEditPermissions}
+        editPermissions={editPermissions}
+        isPending={isPending}
+        queryClient={queryClient}
+        t={t}
+      />
     </div>
   );
 };

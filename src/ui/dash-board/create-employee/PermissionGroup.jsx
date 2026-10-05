@@ -3,27 +3,24 @@ import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import PermissionItem from "./PermissionItem";
 
-const PermissionGroup = ({ title, permissions, register }) => {
+const PermissionGroup = ({
+  title,
+  permissions,
+  selectedPermissionIds,
+  onTogglePermission,
+  onToggleAll,
+}) => {
   const [isOpen, setIsOpen] = useState(false);
   const { t } = useTranslation();
-
-  const [checkedItems, setCheckedItems] = useState(
-    permissions.map((p) => p.active)
-  );
+  const permissionIds = permissions.map((permission) => permission.id);
+  const allSelected =
+    permissionIds.length > 0 &&
+    permissionIds.every((permissionId) =>
+      selectedPermissionIds.has(permissionId),
+    );
 
   const toggleAccordion = () => {
-    setIsOpen(!isOpen);
-  };
-
-  const toggleItem = (index) => {
-    const updated = [...checkedItems];
-    updated[index] = !updated[index];
-    setCheckedItems(updated);
-  };
-
-  const toggleAll = () => {
-    const allSelected = checkedItems.every(Boolean);
-    setCheckedItems(permissions.map(() => !allSelected));
+    setIsOpen((current) => !current);
   };
 
   const panelVariants = {
@@ -48,22 +45,14 @@ const PermissionGroup = ({ title, permissions, register }) => {
 
   return (
     <div className={`permission__group ${isOpen ? "open" : ""}`}>
-      <div
-        className="permission__header"
-        onClick={() => {
-          toggleAccordion();
-        }}
-      >
+      <div className="permission__header" onClick={toggleAccordion}>
         <h3 className="permission__title">{title}</h3>
         <label className="permission__switch">
           <input
             type="checkbox"
             checked={isOpen}
             onChange={toggleAccordion}
-            onClick={(e) => {
-              e.stopPropagation();
-              toggleAccordion();
-            }}
+            onClick={(event) => event.stopPropagation()}
           />
           <span className="slider"></span>
         </label>
@@ -88,28 +77,27 @@ const PermissionGroup = ({ title, permissions, register }) => {
               <label className="d-flex align-items-center gap-2">
                 <input
                   type="checkbox"
-                  checked={checkedItems.every(Boolean)}
-                  onChange={toggleAll}
+                  checked={allSelected}
+                  onChange={() => onToggleAll(permissionIds, !allSelected)}
                 />
 
                 {t("dashboard.permissions.selectAll")}
               </label>
             </motion.div>
 
-            {permissions?.map((perm, index) => (
+            {permissions.map((permission) => (
               <motion.div
-                key={index}
+                key={permission.id}
                 variants={itemVariants}
                 initial="hidden"
                 animate="visible"
                 exit="hidden"
               >
                 <PermissionItem
-                  label={perm?.title.trim()}
-                  id={perm.id}
-                  checked={checkedItems[index]}
-                  onChange={() => toggleItem(index)}
-                  register={register}
+                  label={permission.title.trim()}
+                  id={permission.id}
+                  checked={selectedPermissionIds.has(permission.id)}
+                  onChange={() => onTogglePermission(permission.id)}
                 />
               </motion.div>
             ))}
