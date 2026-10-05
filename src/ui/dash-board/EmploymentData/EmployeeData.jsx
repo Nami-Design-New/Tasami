@@ -15,13 +15,13 @@ const EmployeeData = () => {
               <h6>
                 {t("dashboard.employeeProfile.employeeData.description")}:
               </h6>
-              <p>{user?.job_title}</p>
+              <p>{user?.job_title || "-"}</p>
             </div>
           </div>
           <div className="col-12 col-md-6 col-xxl-4 p-2">
             <div className="employee__data--item">
               <h6>{t("dashboard.employeeProfile.employeeData.account")}:</h6>
-              <p>{user?.code}</p>
+              <p>{user?.code || "-"}</p>
             </div>
           </div>
           <div className="col-12 col-md-6 col-xxl-4 p-2">
@@ -41,19 +41,19 @@ const EmployeeData = () => {
           <div className="col-12 col-md-6 col-xxl-4 p-2">
             <div className="employee__data--item">
               <h6>{t("dashboard.employeeProfile.employeeData.region")}:</h6>
-              <p>{user?.group?.region || t("all")}</p>
+              <p>{user?.group?.region?.title || t("all")}</p>
             </div>
           </div>
           <div className="col-12 col-md-6 col-xxl-4 p-2">
             <div className="employee__data--item">
               <h6>{t("dashboard.employeeProfile.employeeData.location")}:</h6>
-              <p>{user?.group?.country || t("all")}</p>
+              <p>{user?.group?.country?.title || t("all")}</p>
             </div>
           </div>
           <div className="col-12 col-md-6 col-xxl-4 p-2">
             <div className="employee__data--item">
               <h6>{t("dashboard.employeeProfile.employeeData.city")}:</h6>
-              <p>{user?.group?.city || t("all")}</p>
+              <p>{user?.group?.city?.title || t("all")}</p>
             </div>
           </div>
           <div className="col-12 col-md-6 col-xxl-4 p-2">
