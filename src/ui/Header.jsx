@@ -14,6 +14,8 @@ import CommunityCountBadge from "./website/CommunityCountBadge";
 import LangDropdown from "./website/LangDropdown";
 import PlatformModal from "./website/platform/PlatformModal";
 import UserDropDown from "./website/UserDropDown";
+import platformIcon from "../assets/icons/platform-icon.svg";
+import platformIconOutlined from "../assets/icons/platform-icon-outlined.svg";
 
 export default function Header() {
   const { t } = useTranslation();
@@ -22,6 +24,7 @@ export default function Header() {
   const headerRef = useRef(null);
   const [openMenu, setOpenMenu] = useState(false);
   const [showModal, setShowModal] = useState(false);
+  const [isPlatformButtonHovered, setIsPlatformButtonHovered] = useState(false);
   const { isAuthed, user } = useSelector((state) => state.authRole);
   const { counterNotify } = useGetCountersNotify();
   const { lang } = useSelector((state) => state.language);
@@ -121,13 +124,20 @@ export default function Header() {
               size="small"
               style={{ whiteSpace: "nowrap" }}
               variant="outlined"
+              onMouseEnter={() => setIsPlatformButtonHovered(true)}
+              onMouseLeave={() => setIsPlatformButtonHovered(false)}
               onClick={() => {
                 user.about ? navigate("my-platform") : setShowModal(true);
                 setOpenMenu(false);
               }}
               className="mobile-only  gap-2 align-items-center   rounded-pill"
             >
-              <i className="fa-regular fa-robot mx-1"></i>
+              <img
+                width={28}
+                height={28}
+                src={isPlatformButtonHovered ? platformIconOutlined : platformIcon}
+                alt="platform icon"
+              />
               {t("profile.assistant")}{" "}
               {counterNotify?.total_of_platform > 0 && (
                 <span className="notification_span">
@@ -174,13 +184,14 @@ export default function Header() {
             </Link>
           )}
           <LangDropdown />
-          
           {isAuthed && (
             <CustomButton
               size="small"
               className="d-none d-lg-flex rounded-pill  "
               variant="outlined"
               style={{ fontSize: "14px", whiteSpace: "nowrap" }}
+              onMouseEnter={() => setIsPlatformButtonHovered(true)}
+              onMouseLeave={() => setIsPlatformButtonHovered(false)}
               onClick={() => {
                 if (user) {
                   if (
@@ -195,7 +206,12 @@ export default function Header() {
                 }
               }}
             >
-              <i className="fa-regular fa-robot"></i>
+              <img
+                width={28}
+                height={28}
+                src={isPlatformButtonHovered ? platformIconOutlined : platformIcon}
+                alt="platform icon"
+              />
               {t("profile.assistant")}
               {counterNotify?.total_of_platform > 0 && (
                 <span className="notification_span">
